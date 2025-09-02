@@ -14,7 +14,7 @@ export default function HomePage() {
             We transform concepts into market-ready realities with strategic business planning, custom software development, and data-driven marketing.
           </p>
           <Link href="/contact" className="bg-secondary text-white font-bold py-3 px-8 rounded-md text-lg hover:bg-primary transition-colors">
-            Let's Build Your Vision
+            Let&apos;s Build Your Vision
           </Link>
         </div>
       </section>

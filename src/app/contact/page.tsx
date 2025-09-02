@@ -14,10 +14,10 @@ export default function ContactPage() { // <-- This export is the key
       <div className="container mx-auto px-6">
         <div className="text-center mb-12">
           <h1 className="text-4xl md:text-5xl font-heading font-bold text-primary">
-            Let's Start a Conversation.
+            Let&apos;s Start a Conversation.
           </h1>
           <p className="mt-4 text-lg text-darkText max-w-2xl mx-auto">
-            Whether you have a fully-formed project or just the seed of an idea, we're here to help. Fill out the form below, and our team will get back to you within 24 hours.
+            Whether you have a fully-formed project or just the seed of an idea, we&apos;re here to help. Fill out the form below, and our team will get back to you within 24 hours.
           </p>
         </div>
         <div className="max-w-5xl mx-auto grid md:grid-cols-2 gap-12 items-start">
@@ -41,7 +41,7 @@ export default function ContactPage() { // <-- This export is the key
               </p>
               <p>
                 <strong className="block text-primary">Location:</strong>
-                <span>[Your Office Address], Lagos, Nigeria.</span>
+                <span>Plot 30/31 Effangha Mkpa Residential Layout, Off Parliamentary Extension, Calabar, Cross River, Nigeria.</span>
               </p>
             </div>
           </div>
