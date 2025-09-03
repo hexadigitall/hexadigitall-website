@@ -5,10 +5,24 @@ import { PortableText } from '@portabletext/react';
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation'; // This is now used
 
-// Define the type for our service data
+// Define a more specific type for a Sanity Portable Text block
+interface PortableTextBlock {
+  _key: string;
+  _type: "block";
+  children: {
+    _key: string;
+    _type: "span";
+    marks: string[];
+    text: string;
+  }[];
+  markDefs: any[];
+  style: "normal" | "h1" | "h2" | "h3" | "h4" | "blockquote";
+}
+
+// Update the Service interface to use the new type
 interface Service {
   title: string;
-  mainContent: any[]; // Portable Text content
+  mainContent: PortableTextBlock[]; // Replaced 'any[]' with our specific type
 }
 
 // A clear type alias for the page's props
