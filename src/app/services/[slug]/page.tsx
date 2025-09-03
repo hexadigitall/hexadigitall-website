@@ -3,18 +3,25 @@ import { client } from '@/sanity/client';
 import { groq } from 'next-sanity';
 import { PortableText } from '@portabletext/react';
 import type { Metadata } from 'next';
-import { notFound } from 'next/navigation';
-import type { PortableTextBlock } from 'sanity';
+import { notFound } from 'next/navigation'; // This is now used
 
-
+// Define the type for our service data
 interface Service {
   title: string;
-  mainContent: PortableTextBlock[];
+  mainContent: any[]; // Portable Text content
 }
 
-// This function generates dynamic metadata for each service page (great for SEO)
-export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
+// A clear type alias for the page's props
+type Props = {
+  params: { slug: string };
+};
+
+// This function generates dynamic metadata (great for SEO)
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const service: Service = await client.fetch(groq`*[_type == "service" && slug.current == $slug][0]{ title }`, { slug: params.slug });
+  if (!service) {
+    return { title: "Service Not Found" };
+  }
   return {
     title: `${service.title} | Hexadigitall`,
   };
@@ -25,8 +32,14 @@ const serviceQuery = groq`*[_type == "service" && slug.current == $slug][0]{
   mainContent
 }`;
 
-export default async function IndividualServicePage({ params }: { params: { slug: string } }) {
+// The main page component using the 'Props' type
+export default async function IndividualServicePage({ params }: Props) {
   const service: Service = await client.fetch(serviceQuery, { slug: params.slug });
+
+  // This check now uses the 'notFound' function, fixing the warning
+  if (!service) {
+    notFound();
+  }
 
   return (
     <article className="py-12 md:py-20">
