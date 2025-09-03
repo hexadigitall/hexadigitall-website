@@ -11,9 +11,13 @@ interface Service {
   mainContent: PortableTextBlock[];
 }
 
-// ✅ 1. Simplified the props for generateMetadata
-export async function generateMetadata({ params }): Promise<Metadata> {
-  const service: Service = await client.fetch(groq`*[_type == "service" && slug.current == $slug][0]{ title }`, { slug: params.slug });
+export async function generateMetadata(
+  { params }: { params: { slug: string } }
+): Promise<Metadata> {
+  const service: Service = await client.fetch(
+    groq`*[_type == "service" && slug.current == $slug]{ title }`,
+    { slug: params.slug }
+  );
   if (!service) {
     return { title: "Service Not Found" };
   }
@@ -22,19 +26,19 @@ export async function generateMetadata({ params }): Promise<Metadata> {
   };
 }
 
+
 const serviceQuery = groq`*[_type == "service" && slug.current == $slug][0]{
   title,
   mainContent
 }`;
 
-// ✅ 2. Simplified the props for the Page Component
-export default async function IndividualServicePage({ params }) {
+export default async function IndividualServicePage(
+  { params }: { params: { slug: string } }
+) {
   const service: Service = await client.fetch(serviceQuery, { slug: params.slug });
-
   if (!service) {
     notFound();
   }
-
   return (
     <article className="py-12 md:py-20">
       <div className="container mx-auto px-6">
@@ -48,6 +52,7 @@ export default async function IndividualServicePage({ params }) {
     </article>
   );
 }
+
 
 // This function remains the same
 export async function generateStaticParams() {
