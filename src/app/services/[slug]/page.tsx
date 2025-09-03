@@ -3,10 +3,13 @@ import { client } from '@/sanity/client';
 import { groq } from 'next-sanity';
 import { PortableText } from '@portabletext/react';
 import type { Metadata } from 'next';
+import { notFound } from 'next/navigation';
+import type { PortableTextBlock } from 'sanity';
+
 
 interface Service {
   title: string;
-  mainContent: any[]; // Portable Text content
+  mainContent: PortableTextBlock[];
 }
 
 // This function generates dynamic metadata for each service page (great for SEO)
