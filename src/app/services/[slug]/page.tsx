@@ -12,13 +12,10 @@ interface Service {
   mainContent: PortableTextBlock[];
 }
 
-// A clear type alias for the page's props
-type Props = {
-  params: { slug: string };
-};
+
 
 // This function generates dynamic metadata (great for SEO)
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
+export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
   const service: Service = await client.fetch(groq`*[_type == "service" && slug.current == $slug][0]{ title }`, { slug: params.slug });
   if (!service) {
     return { title: "Service Not Found" };
@@ -34,7 +31,7 @@ const serviceQuery = groq`*[_type == "service" && slug.current == $slug][0]{
 }`;
 
 // The main page component
-export default async function IndividualServicePage({ params }: Props) {
+export default async function IndividualServicePage({ params }: { params: { slug: string } }) {
   const service: Service = await client.fetch(serviceQuery, { slug: params.slug });
 
   if (!service) {
