@@ -4,17 +4,21 @@ import { groq } from 'next-sanity';
 import { PortableText } from '@portabletext/react';
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
-import type { PortableTextBlock } from 'sanity'; // 👈 Import the official type here
+import type { PortableTextBlock } from 'sanity';
 
-// The Service interface now uses the imported type
 interface Service {
   title: string;
   mainContent: PortableTextBlock[];
 }
 
+// ✅ 1. Define a precise Props type that Next.js expects for pages.
+type Props = {
+  params: { slug: string };
+  searchParams: { [key: string]: string | string[] | undefined };
+};
 
 
-// This function generates dynamic metadata (great for SEO)
+// The generateMetadata function can keep its simpler, inline type definition.
 export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
   const service: Service = await client.fetch(groq`*[_type == "service" && slug.current == $slug][0]{ title }`, { slug: params.slug });
   if (!service) {
@@ -30,8 +34,8 @@ const serviceQuery = groq`*[_type == "service" && slug.current == $slug][0]{
   mainContent
 }`;
 
-// The main page component
-export default async function IndividualServicePage({ params }: { params: { slug: string } }) {
+// ✅ 2. Apply the new, robust 'Props' type to the page component.
+export default async function IndividualServicePage({ params }: Props) {
   const service: Service = await client.fetch(serviceQuery, { slug: params.slug });
 
   if (!service) {
@@ -52,7 +56,7 @@ export default async function IndividualServicePage({ params }: { params: { slug
   );
 }
 
-// This function tells Next.js what possible pages to pre-build
+// This function remains the same
 export async function generateStaticParams() {
   const slugs: { slug: { current:string } }[] = await client.fetch(groq`*[_type == "service"]{ slug }`);
   return slugs.map(({ slug }) => ({
