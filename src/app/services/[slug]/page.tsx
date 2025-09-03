@@ -3,26 +3,13 @@ import { client } from '@/sanity/client';
 import { groq } from 'next-sanity';
 import { PortableText } from '@portabletext/react';
 import type { Metadata } from 'next';
-import { notFound } from 'next/navigation'; // This is now used
+import { notFound } from 'next/navigation';
+import type { PortableTextBlock } from 'sanity'; // 👈 Import the official type here
 
-// Define a more specific type for a Sanity Portable Text block
-interface PortableTextBlock {
-  _key: string;
-  _type: "block";
-  children: {
-    _key: string;
-    _type: "span";
-    marks: string[];
-    text: string;
-  }[];
-  markDefs: any[];
-  style: "normal" | "h1" | "h2" | "h3" | "h4" | "blockquote";
-}
-
-// Update the Service interface to use the new type
+// The Service interface now uses the imported type
 interface Service {
   title: string;
-  mainContent: PortableTextBlock[]; // Replaced 'any[]' with our specific type
+  mainContent: PortableTextBlock[];
 }
 
 // A clear type alias for the page's props
@@ -46,11 +33,10 @@ const serviceQuery = groq`*[_type == "service" && slug.current == $slug][0]{
   mainContent
 }`;
 
-// The main page component using the 'Props' type
+// The main page component
 export default async function IndividualServicePage({ params }: Props) {
   const service: Service = await client.fetch(serviceQuery, { slug: params.slug });
 
-  // This check now uses the 'notFound' function, fixing the warning
   if (!service) {
     notFound();
   }
@@ -71,7 +57,7 @@ export default async function IndividualServicePage({ params }: Props) {
 
 // This function tells Next.js what possible pages to pre-build
 export async function generateStaticParams() {
-  const slugs: { slug: { current: string } }[] = await client.fetch(groq`*[_type == "service"]{ slug }`);
+  const slugs: { slug: { current:string } }[] = await client.fetch(groq`*[_type == "service"]{ slug }`);
   return slugs.map(({ slug }) => ({
     slug: slug.current,
   }));
