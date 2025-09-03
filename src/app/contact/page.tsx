@@ -37,7 +37,7 @@ export default function ContactPage() { // <-- This export is the key
               </p>
               <p>
                 <strong className="block text-primary">Phone:</strong>
-                <span>+234 [Your Phone Number]</span>
+                <span>+234 8125802140</span>
               </p>
               <p>
                 <strong className="block text-primary">Location:</strong>
