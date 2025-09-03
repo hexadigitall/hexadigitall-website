@@ -27,13 +27,13 @@ const Testimonials = async () => {
       <div className="container mx-auto px-6">
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-bold font-heading">What Our Clients Say</h2>
-          <p className="mt-4 text-lg text-darkText max-w-2xl mx-auto">Real feedback from partners we've helped succeed.</p>
+          <p className="mt-4 text-lg text-darkText max-w-2xl mx-auto">Real feedback from partners we&apos;ve helped succeed.</p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {testimonials.map((testimonial) => (
             <div key={testimonial._id} className="bg-lightGray p-8 rounded-lg shadow-sm">
-              <p className="text-darkText italic mb-6">"{testimonial.quote}"</p>
+              <p className="text-darkText italic mb-6">&quot;{testimonial.quote}&quot;</p>
               <div className="text-right">
                 <p className="font-bold text-primary font-heading">{testimonial.authorName}</p>
                 <p className="text-sm text-gray-600">{testimonial.authorCompany}</p>

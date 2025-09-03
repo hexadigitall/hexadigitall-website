@@ -15,7 +15,7 @@ const Hero = () => {
             We transform concepts into market-ready realities with strategic business planning, custom software development, and data-driven marketing.
           </p>
           <Link href="/contact" className="btn-primary">
-            Let's Build Your Vision
+            Let&apos;s Build Your Vision
           </Link>
         </div>
       </div>

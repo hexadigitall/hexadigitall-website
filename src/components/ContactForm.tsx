@@ -28,7 +28,7 @@ export default function ContactForm() {
       setStatus('success');
       setMessage('Thank you! Your message has been sent.');
       (event.target as HTMLFormElement).reset();
-    } catch (_error) {
+    } catch {
       setStatus('error');
       setMessage('Something went wrong. Please try again later.');
     }

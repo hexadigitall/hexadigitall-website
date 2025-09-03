@@ -39,7 +39,7 @@ const WhyChooseUs = () => {
             <h2 className="text-3xl md:text-4xl font-bold font-heading mb-6">Why Partner With Hexadigitall?</h2>
             <div className="space-y-8">
               <FeatureItem icon={<FaSyncAlt size={24} />} title="Holistic Approach">
-                We don't just build software; we build businesses. Our services are integrated to provide a seamless journey from concept to market launch.
+                We don&apos;t just build software; we build businesses. Our services are integrated to provide a seamless journey from concept to market launch.
               </FeatureItem>
               <FeatureItem icon={<FaChartLine size={24} />} title="Data-Driven Strategies">
                 Every decision is backed by data. We leverage analytics to optimize your marketing, development, and overall business strategy for maximum impact.
