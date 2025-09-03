@@ -11,15 +11,8 @@ interface Service {
   mainContent: PortableTextBlock[];
 }
 
-// ✅ 1. Define a precise Props type that Next.js expects for pages.
-type Props = {
-  params: { slug: string };
-  searchParams: { [key: string]: string | string[] | undefined };
-};
-
-
-// The generateMetadata function can keep its simpler, inline type definition.
-export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
+// ✅ 1. Simplified the props for generateMetadata
+export async function generateMetadata({ params }): Promise<Metadata> {
   const service: Service = await client.fetch(groq`*[_type == "service" && slug.current == $slug][0]{ title }`, { slug: params.slug });
   if (!service) {
     return { title: "Service Not Found" };
@@ -34,8 +27,8 @@ const serviceQuery = groq`*[_type == "service" && slug.current == $slug][0]{
   mainContent
 }`;
 
-// ✅ 2. Apply the new, robust 'Props' type to the page component.
-export default async function IndividualServicePage({ params }: Props) {
+// ✅ 2. Simplified the props for the Page Component
+export default async function IndividualServicePage({ params }) {
   const service: Service = await client.fetch(serviceQuery, { slug: params.slug });
 
   if (!service) {
