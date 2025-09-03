@@ -2,6 +2,8 @@
 import type { Config } from "tailwindcss";
 
 const config: Config = {
+  // ✅ CRITICAL: This 'content' array must be correct.
+  // It tells Tailwind to scan all .ts, .tsx, etc., files inside the 'src' folder.
   content: [
     "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
@@ -17,8 +19,9 @@ const config: Config = {
         darkText: '#333333',
       },
       fontFamily: {
-        heading: ['Montserrat', 'sans-serif'],
-        body: ['Lato', 'sans-serif'],
+        // ✅ Ensure these match the variables in layout.tsx
+        heading: ['var(--font-montserrat)', 'sans-serif'],
+        body: ['var(--font-lato)', 'sans-serif'],
       },
     },
   },
