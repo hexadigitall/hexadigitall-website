@@ -1,0 +1,58 @@
+// src/components/layout/Footer.tsx
+import Link from 'next/link';
+
+const Footer = () => {
+  return (
+    <footer className="bg-primary text-white">
+      <div className="container mx-auto px-6 py-12">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+          
+          {/* Column 1: Hexadigitall */}
+          <div className="col-span-1">
+            <h3 className="text-xl font-bold font-heading mb-4">Hexadigitall</h3>
+            <p className="text-sm text-gray-300">From Idea to Impact. Your All-in-One Digital Partner.</p>
+          </div>
+
+          {/* Column 2: Quick Links */}
+          <div>
+            <h4 className="font-bold mb-4">Quick Links</h4>
+            <ul className="space-y-2 text-sm">
+              <li><Link href="/about" className="text-gray-300 hover:text-white">About</Link></li>
+              <li><Link href="/portfolio" className="text-gray-300 hover:text-white">Portfolio</Link></li>
+              <li><Link href="/blog" className="text-gray-300 hover:text-white">Blog</Link></li>
+              <li><Link href="/faq" className="text-gray-300 hover:text-white">FAQs</Link></li>
+            </ul>
+          </div>
+          
+          {/* Column 3: Services */}
+          <div>
+            <h4 className="font-bold mb-4">Services</h4>
+            <ul className="space-y-2 text-sm">
+              <li><Link href="/services/business-plan-logo" className="text-gray-300 hover:text-white">Business Plan & Logo</Link></li>
+              <li><Link href="/services/web-mobile-development" className="text-gray-300 hover:text-white">Web & Mobile Dev</Link></li>
+              <li><Link href="/services/social-media-marketing" className="text-gray-300 hover:text-white">Social Media Marketing</Link></li>
+              {/* Add other service links here */}
+            </ul>
+          </div>
+
+          {/* Column 4: Connect */}
+          <div>
+            <h4 className="font-bold mb-4">Connect</h4>
+            <ul className="space-y-2 text-sm">
+              <li><Link href="/contact" className="text-gray-300 hover:text-white">Contact Us</Link></li>
+              <li><Link href="/privacy-policy" className="text-gray-300 hover:text-white">Privacy Policy</Link></li>
+              <li><Link href="/terms-of-service" className="text-gray-300 hover:text-white">Terms of Service</Link></li>
+            </ul>
+            {/* Add Social Media Icons here */}
+          </div>
+        </div>
+
+        <div className="mt-12 border-t border-gray-700 pt-6 text-center text-sm text-gray-400">
+          <p>© {new Date().getFullYear()} Hexadigitall. All Rights Reserved.</p>
+        </div>
+      </div>
+    </footer>
+  );
+};
+
+export default Footer;
