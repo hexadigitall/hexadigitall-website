@@ -12,9 +12,9 @@ interface Service {
 }
 
 export async function generateMetadata(
-  props: { params: { slug: string } }
+  props: { params: Promise<{ slug: string }> }
 ): Promise<Metadata> {
-  const { params } = props;
+  const params = await props.params;
   const service: Service = await client.fetch(
     groq`*[_type == "service" && slug.current == $slug][0]{ title }`,
     { slug: params.slug }
@@ -33,9 +33,9 @@ const serviceQuery = groq`*[_type == "service" && slug.current == $slug][0]{
   mainContent
 }`;
 export default async function IndividualServicePage(
-  props: { params: { slug: string } }
+  props: { params: Promise<{ slug: string }> }
 ) {
-  const { params } = props;
+  const params = await props.params;
   const service: Service = await client.fetch(serviceQuery, { slug: params.slug });
   if (!service) {
     notFound();
