@@ -37,25 +37,31 @@ export default async function BlogPage() {
         </div>
         
         <div className="space-y-8">
-          {posts.map((post) => (
-            <Link 
-              key={post._id} 
-              href={`/blog/${post.slug.current}`}
-              className="block p-8 bg-lightGray rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300"
-            >
-              <p className="text-sm text-gray-600 mb-2">
-                {new Date(post.publishedAt).toLocaleDateString('en-US', {
-                  year: 'numeric', month: 'long', day: 'numeric'
-                })}
-              </p>
-              <h2 className="text-2xl font-bold font-heading mb-3">{post.title}</h2>
-              <div className="flex flex-wrap gap-2">
-                {post.categories?.map(category => (
-                  <span key={category} className="bg-secondary/20 text-secondary text-xs font-bold px-2 py-1 rounded-full">{category}</span>
-                ))}
-              </div>
-            </Link>
-          ))}
+          {posts.length > 0 ? (
+            posts.map((post) => (
+              <Link 
+                key={post._id} 
+                href={`/blog/${post.slug.current}`}
+                className="block p-8 bg-lightGray rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300"
+              >
+                <p className="text-sm text-gray-600 mb-2">
+                  {new Date(post.publishedAt).toLocaleDateString('en-US', {
+                    year: 'numeric', month: 'long', day: 'numeric'
+                  })}
+                </p>
+                <h2 className="text-2xl font-bold font-heading mb-3">{post.title}</h2>
+                <div className="flex flex-wrap gap-2">
+                  {post.categories?.map(category => (
+                    <span key={category} className="bg-secondary/20 text-secondary text-xs font-bold px-2 py-1 rounded-full">{category}</span>
+                  ))}
+                </div>
+              </Link>
+            ))
+          ) : (
+            <div className="text-center py-12">
+              <p className="text-lg text-darkText">No blog posts found. Check back soon for new content!</p>
+            </div>
+          )}
         </div>
       </div>
     </section>

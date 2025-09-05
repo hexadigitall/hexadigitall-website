@@ -36,25 +36,31 @@ export default async function FaqPage() {
         </div>
         
         <div className="max-w-4xl mx-auto">
-          {Object.entries(groupedFaqs).map(([category, items]) => (
-            <div key={category} className="mb-12">
-              <h2 className="text-2xl md:text-3xl font-bold font-heading capitalize mb-6 border-b-2 border-primary pb-2">
-                {category}
-              </h2>
-              <div className="space-y-4">
-                {items.map((faq) => (
-                  <details key={faq._id} className="p-4 border rounded-lg">
-                    <summary className="font-bold cursor-pointer text-lg">
-                      {faq.question}
-                    </summary>
-                    <div className="mt-4 prose">
-                      <PortableText value={faq.answer} />
-                    </div>
-                  </details>
-                ))}
+          {Object.keys(groupedFaqs).length > 0 ? (
+            Object.entries(groupedFaqs).map(([category, items]) => (
+              <div key={category} className="mb-12">
+                <h2 className="text-2xl md:text-3xl font-bold font-heading capitalize mb-6 border-b-2 border-primary pb-2">
+                  {category}
+                </h2>
+                <div className="space-y-4">
+                  {items.map((faq) => (
+                    <details key={faq._id} className="p-4 border rounded-lg">
+                      <summary className="font-bold cursor-pointer text-lg">
+                        {faq.question}
+                      </summary>
+                      <div className="mt-4 prose">
+                        <PortableText value={faq.answer} />
+                      </div>
+                    </details>
+                  ))}
+                </div>
               </div>
+            ))
+          ) : (
+            <div className="text-center py-12">
+              <p className="text-lg text-darkText">No FAQs available at the moment. Please check back later!</p>
             </div>
-          ))}
+          )}
         </div>
       </div>
     </section>

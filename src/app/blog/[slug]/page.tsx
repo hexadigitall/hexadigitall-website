@@ -13,8 +13,8 @@ interface Post {
 }
 
 export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
-  const post: { title: string } = await client.fetch(groq`*[_type == "post" && slug.current == $slug][0]{ title }`, { slug: params.slug });
-  return { title: `${post.title} | Hexadigitall Blog` };
+  const post: { title?: string } = await client.fetch(groq`*[_type == "post" && slug.current == $slug][0]{ title }`, { slug: params.slug });
+  return { title: `${post?.title || 'Blog Post'} | Hexadigitall Blog` };
 }
 
 const postQuery = groq`*[_type == "post" && slug.current == $slug][0]{

@@ -14,8 +14,8 @@ interface Project {
   _id: string;
   title: string;
   slug: { current: string };
-  mainImage: { asset: { url: string; metadata: { lqip: string } } };
-  industry: string;
+  mainImage?: { asset: { url: string; metadata?: { lqip?: string } } };
+  industry?: string;
 }
 
 const projectsQuery = groq`*[_type == "project"]{
@@ -46,19 +46,22 @@ export default async function PortfolioPage() {
               href={`/portfolio/${project.slug.current}`}
               className="group block bg-lightGray rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300"
             >
-              <div className="relative h-56 w-full">
-                <Image 
-                  src={project.mainImage.asset.url}
-                  alt={`Cover image for ${project.title}`}
-                  layout="fill"
-                  objectFit="cover"
-                  placeholder="blur"
-                  blurDataURL={project.mainImage.asset.metadata.lqip}
-                  className="group-hover:scale-105 transition-transform duration-300"
-                />
-              </div>
+              {project.mainImage?.asset?.url && (
+                <div className="relative h-56 w-full">
+                  <Image 
+                    src={project.mainImage.asset.url}
+                    alt={`Cover image for ${project.title}`}
+                    fill
+                    className="object-cover group-hover:scale-105 transition-transform duration-300"
+                    placeholder="blur"
+                    blurDataURL={project.mainImage.asset.metadata?.lqip}
+                  />
+                </div>
+              )}
               <div className="p-6">
-                <p className="text-sm text-secondary font-bold uppercase">{project.industry}</p>
+                {project.industry && (
+                  <p className="text-sm text-secondary font-bold uppercase">{project.industry}</p>
+                )}
                 <h2 className="text-xl font-bold font-heading mt-2">{project.title}</h2>
               </div>
             </Link>
