@@ -1,0 +1,71 @@
+// src/app/portfolio/[slug]/page.tsx
+import { client } from '@/sanity/client';
+import { groq } from 'next-sanity';
+import { PortableText } from '@portabletext/react';
+import type { Metadata } from 'next';
+import { notFound } from 'next/navigation';
+import type { PortableTextBlock } from 'sanity';
+import Image from 'next/image';
+
+interface Project {
+  title: string;
+  mainImage: { asset: { url: string } };
+  projectGoal: string;
+  solution: PortableTextBlock[];
+  results: PortableTextBlock[];
+  testimonial: string;
+}
+
+export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
+  const project: { title: string } = await client.fetch(groq`*[_type == "project" && slug.current == $slug][0]{ title }`, { slug: params.slug });
+  return { title: `${project.title} | Hexadigitall Portfolio` };
+}
+
+const projectQuery = groq`*[_type == "project" && slug.current == $slug][0]{
+  title,
+  "mainImage": mainImage{ asset->{url} },
+  projectGoal,
+  solution,
+  results,
+  testimonial
+}`;
+
+export default async function ProjectPage({ params }: { params: { slug: string } }) {
+  const project: Project = await client.fetch(projectQuery, { slug: params.slug });
+
+  if (!project) notFound();
+
+  return (
+    <article className="py-12 md:py-20">
+      <div className="container mx-auto px-6 max-w-4xl">
+        <header className="mb-8 text-center">
+          <h1 className="text-4xl md:text-5xl font-bold font-heading">{project.title}</h1>
+        </header>
+        <div className="relative h-96 w-full rounded-lg shadow-lg overflow-hidden mb-12">
+          <Image src={project.mainImage.asset.url} alt={`Main image for ${project.title}`} layout="fill" objectFit="cover" />
+        </div>
+        <div className="prose lg:prose-xl max-w-none">
+          <h2>The Challenge</h2>
+          <p>{project.projectGoal}</p>
+          
+          <h2>Our Solution</h2>
+          <PortableText value={project.solution} />
+          
+          <h2>Results & Impact</h2>
+          <PortableText value={project.results} />
+          
+          {project.testimonial && (
+            <blockquote className="border-l-4 border-secondary pl-4 italic">
+              <p>{project.testimonial}</p>
+            </blockquote>
+          )}
+        </div>
+      </div>
+    </article>
+  );
+}
+
+export async function generateStaticParams() {
+  const slugs: { slug: { current: string } }[] = await client.fetch(groq`*[_type == "project"]{ slug }`);
+  return slugs.map(({ slug }) => ({ slug: slug.current }));
+}
