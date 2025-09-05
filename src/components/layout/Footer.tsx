@@ -1,5 +1,6 @@
 // src/components/layout/Footer.tsx
 import Link from 'next/link';
+import Image from 'next/image';
 
 const Footer = () => {
   return (
@@ -9,7 +10,15 @@ const Footer = () => {
           
           {/* Column 1: Hexadigitall */}
           <div className="col-span-1">
-            <h3 className="text-xl font-bold font-heading mb-4">Hexadigitall</h3>
+            <div className="mb-4">
+              <Image
+                src="/hexadigitall-logo.png"
+                alt="Hexadigitall Logo"
+                width={150}
+                height={50}
+                className="h-10 w-auto brightness-0 invert"
+              />
+            </div>
             <p className="text-sm text-gray-300">From Idea to Impact. Your All-in-One Digital Partner.</p>
           </div>
 

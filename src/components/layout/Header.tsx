@@ -2,6 +2,7 @@
 "use client";
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { useState } from 'react';
 
 const Header = () => {
@@ -19,8 +20,15 @@ const Header = () => {
     <header className="bg-white shadow-md sticky top-0 z-50">
       <nav className="container mx-auto px-6 py-4 flex justify-between items-center">
         {/* Logo */}
-        <Link href="/" className="text-2xl font-bold font-heading text-primary">
-          Hexadigitall
+        <Link href="/" className="flex items-center space-x-2">
+          <Image
+            src="/hexadigitall-logo.png"
+            alt="Hexadigitall Logo"
+            width={180}
+            height={60}
+            className="h-12 w-auto"
+            priority
+          />
         </Link>
 
         {/* Desktop Navigation */}
