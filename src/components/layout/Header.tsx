@@ -12,7 +12,7 @@ const Header = () => {
   const [isMobileServicesOpen, setMobileServicesOpen] = useState(false);
   
   // Fetch services dynamically from Sanity
-  const { services: serviceLinks, loading: servicesLoading } = useServices();
+  const { services: serviceLinks } = useServices();
 
   // Close dropdowns when clicking outside or pressing escape
   useEffect(() => {

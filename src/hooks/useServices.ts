@@ -25,7 +25,7 @@ export function useServices() {
         
         const sanityServices = await client.fetch(query);
         
-        const serviceLinks: ServiceLink[] = sanityServices.map((service: any) => ({
+        const serviceLinks: ServiceLink[] = sanityServices.map((service: { title: string; slug: string }) => ({
           href: `/services/${service.slug}`,
           label: service.title,
           slug: service.slug
