@@ -4,6 +4,7 @@ import { groq } from 'next-sanity';
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import Image from 'next/image';
+import { urlFor } from '@/sanity/imageUrlBuilder';
 
 export const metadata: Metadata = {
   title: 'Our Portfolio | Hexadigitall',
@@ -14,7 +15,7 @@ interface Project {
   _id: string;
   title: string;
   slug: { current: string };
-  mainImage?: { asset: { url: string; metadata?: { lqip?: string } } };
+  mainImage?: any; // Sanity image object
   industry?: string;
 }
 
@@ -22,7 +23,7 @@ const projectsQuery = groq`*[_type == "project"]{
   _id,
   title,
   slug,
-  "mainImage": mainImage{ asset->{url, metadata{lqip}} },
+  mainImage,
   industry
 }`;
 
@@ -46,15 +47,15 @@ export default async function PortfolioPage() {
               href={`/portfolio/${project.slug.current}`}
               className="group block bg-lightGray rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300"
             >
-              {project.mainImage?.asset?.url && (
+              {project.mainImage && (
                 <div className="relative h-56 w-full">
                   <Image 
-                    src={project.mainImage.asset.url}
+                    src={urlFor(project.mainImage).width(400).height(224).url()}
                     alt={`Cover image for ${project.title}`}
                     fill
                     className="object-cover group-hover:scale-105 transition-transform duration-300"
                     placeholder="blur"
-                    blurDataURL={project.mainImage.asset.metadata?.lqip}
+                    blurDataURL={urlFor(project.mainImage).width(20).blur(50).url()}
                   />
                 </div>
               )}

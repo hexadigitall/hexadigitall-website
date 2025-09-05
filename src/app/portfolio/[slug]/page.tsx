@@ -6,10 +6,11 @@ import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import type { PortableTextBlock } from 'sanity';
 import Image from 'next/image';
+import { urlFor } from '@/sanity/imageUrlBuilder';
 
 interface Project {
   title: string;
-  mainImage?: { asset: { url: string } };
+  mainImage?: any; // Sanity image object
   projectGoal?: string;
   solution?: PortableTextBlock[];
   results?: PortableTextBlock[];
@@ -24,7 +25,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 
 const projectQuery = groq`*[_type == "project" && slug.current == $slug][0]{
   title,
-  "mainImage": mainImage{ asset->{url} },
+  mainImage,
   projectGoal,
   solution,
   results,
@@ -43,9 +44,16 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
         <header className="mb-8 text-center">
           <h1 className="text-4xl md:text-5xl font-bold font-heading">{project.title}</h1>
         </header>
-        {project.mainImage?.asset?.url && (
+        {project.mainImage && (
           <div className="relative h-96 w-full rounded-lg shadow-lg overflow-hidden mb-12">
-            <Image src={project.mainImage.asset.url} alt={`Main image for ${project.title}`} fill className="object-cover" />
+            <Image 
+              src={urlFor(project.mainImage).width(800).height(384).url()} 
+              alt={`Main image for ${project.title}`} 
+              fill 
+              className="object-cover" 
+              placeholder="blur"
+              blurDataURL={urlFor(project.mainImage).width(20).blur(50).url()}
+            />
           </div>
         )}
         <div className="prose lg:prose-xl max-w-none">
