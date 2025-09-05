@@ -1,8 +1,12 @@
 // src/components/layout/Footer.tsx
+"use client";
+
 import Link from 'next/link';
 import Image from 'next/image';
+import { useServices } from '@/hooks/useServices';
 
 const Footer = () => {
+  const { services: serviceLinks } = useServices();
   return (
     <footer className="bg-primary text-white">
       <div className="container mx-auto px-6 py-12">
@@ -37,10 +41,14 @@ const Footer = () => {
           <div>
             <h4 className="font-bold mb-4">Services</h4>
             <ul className="space-y-2 text-sm">
-              <li><Link href="/services/business-plan-logo" className="text-gray-300 hover:text-white">Business Plan & Logo</Link></li>
-              <li><Link href="/services/web-mobile-development" className="text-gray-300 hover:text-white">Web & Mobile Dev</Link></li>
-              <li><Link href="/services/social-media-marketing" className="text-gray-300 hover:text-white">Social Media Marketing</Link></li>
-              {/* Add other service links here */}
+              <li><Link href="/services" className="text-gray-300 hover:text-white font-medium">All Services</Link></li>
+              {serviceLinks.slice(0, 4).map((service) => (
+                <li key={service.href}>
+                  <Link href={service.href} className="text-gray-300 hover:text-white">
+                    {service.label}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
 

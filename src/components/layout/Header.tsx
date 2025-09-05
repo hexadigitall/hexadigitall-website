@@ -4,19 +4,15 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { useState, useEffect } from 'react';
+import { useServices } from '@/hooks/useServices';
 
 const Header = () => {
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isServicesOpen, setServicesOpen] = useState(false);
   const [isMobileServicesOpen, setMobileServicesOpen] = useState(false);
-
-  const serviceLinks = [
-    { href: "/services/business-plan-logo", label: "Business Plan & Logo" },
-    { href: "/services/web-mobile-development", label: "Web & Mobile Dev" },
-    { href: "/services/social-media-marketing", label: "Social Media Marketing" },
-    { href: "/services/portfolio-building", label: "Portfolio Building" },
-    { href: "/services/mentoring-consulting", label: "Mentoring & Consulting" },
-  ];
+  
+  // Fetch services dynamically from Sanity
+  const { services: serviceLinks, loading: servicesLoading } = useServices();
 
   // Close dropdowns when clicking outside or pressing escape
   useEffect(() => {
