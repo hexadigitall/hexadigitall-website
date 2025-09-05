@@ -12,8 +12,9 @@ interface Post {
   body: PortableTextBlock[];
 }
 
-export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
-  const post: { title?: string } = await client.fetch(groq`*[_type == "post" && slug.current == $slug][0]{ title }`, { slug: params.slug });
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  const { slug } = await params;
+  const post: { title?: string } = await client.fetch(groq`*[_type == "post" && slug.current == $slug][0]{ title }`, { slug });
   return { title: `${post?.title || 'Blog Post'} | Hexadigitall Blog` };
 }
 
@@ -23,8 +24,9 @@ const postQuery = groq`*[_type == "post" && slug.current == $slug][0]{
   body
 }`;
 
-export default async function PostPage({ params }: { params: { slug: string } }) {
-  const post: Post = await client.fetch(postQuery, { slug: params.slug });
+export default async function PostPage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+  const post: Post = await client.fetch(postQuery, { slug });
 
   if (!post) notFound();
 

@@ -16,8 +16,9 @@ interface Project {
   testimonial?: string;
 }
 
-export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
-  const project: { title?: string } = await client.fetch(groq`*[_type == "project" && slug.current == $slug][0]{ title }`, { slug: params.slug });
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  const { slug } = await params;
+  const project: { title?: string } = await client.fetch(groq`*[_type == "project" && slug.current == $slug][0]{ title }`, { slug });
   return { title: `${project?.title || 'Portfolio Project'} | Hexadigitall Portfolio` };
 }
 
@@ -30,8 +31,9 @@ const projectQuery = groq`*[_type == "project" && slug.current == $slug][0]{
   testimonial
 }`;
 
-export default async function ProjectPage({ params }: { params: { slug: string } }) {
-  const project: Project = await client.fetch(projectQuery, { slug: params.slug });
+export default async function ProjectPage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+  const project: Project = await client.fetch(projectQuery, { slug });
 
   if (!project) notFound();
 
