@@ -25,12 +25,12 @@ const WhyChooseUs = () => {
         <div className="grid md:grid-cols-2 gap-12 items-center">
           
           {/* Column 1: Image */}
-          <div className="relative h-80 md:h-full w-full rounded-lg shadow-lg overflow-hidden">
+          <div className="relative h-80 md:h-96 w-full rounded-lg shadow-lg overflow-hidden">
              <Image
               src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=2070"
               alt="Diverse team collaborating on a project"
-              layout="fill"
-              objectFit="cover"
+              fill
+              className="object-cover"
             />
           </div>
           

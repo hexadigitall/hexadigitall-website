@@ -5,11 +5,15 @@ import { PortableText } from '@portabletext/react';
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import type { PortableTextBlock } from 'sanity';
+import Image from 'next/image';
+import { urlFor } from '@/sanity/imageUrlBuilder';
+import type { SanityImageSource } from '@sanity/image-url/lib/types/types';
 
 interface Post {
   title: string;
   publishedAt: string;
   body: PortableTextBlock[];
+  mainImage?: SanityImageSource;
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
@@ -21,7 +25,8 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 const postQuery = groq`*[_type == "post" && slug.current == $slug][0]{
   title,
   publishedAt,
-  body
+  body,
+  mainImage
 }`;
 
 export default async function PostPage({ params }: { params: Promise<{ slug: string }> }) {
@@ -41,6 +46,18 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
             })}
           </p>
         </header>
+        {post.mainImage && (
+          <div className="relative h-64 md:h-96 w-full rounded-lg shadow-lg overflow-hidden mb-12">
+            <Image 
+              src={urlFor(post.mainImage).width(800).height(384).url()} 
+              alt={`Featured image for ${post.title}`} 
+              fill 
+              className="object-cover" 
+              placeholder="blur"
+              blurDataURL={urlFor(post.mainImage).width(20).blur(50).url()}
+            />
+          </div>
+        )}
         <div className="prose lg:prose-xl max-w-none">
           <PortableText value={post.body} />
         </div>
