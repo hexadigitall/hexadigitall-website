@@ -12,7 +12,7 @@ const Footer = () => {
           <div className="col-span-1">
             <div className="mb-4">
               <Image
-                src="/hexadigitall-logo.png"
+                src="/hexadigitall-logo.svg"
                 alt="Hexadigitall Logo"
                 width={150}
                 height={50}

@@ -50,7 +50,7 @@ const Header = () => {
         {/* Logo */}
         <Link href="/" className="flex items-center space-x-2">
           <Image
-            src="/hexadigitall-logo.png"
+            src="/hexadigitall-logo.svg"
             alt="Hexadigitall Logo"
             width={180}
             height={60}
