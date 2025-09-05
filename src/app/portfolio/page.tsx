@@ -5,6 +5,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import Image from 'next/image';
 import { urlFor } from '@/sanity/imageUrlBuilder';
+import type { SanityImageSource } from '@sanity/image-url/lib/types/types';
 
 export const metadata: Metadata = {
   title: 'Our Portfolio | Hexadigitall',
@@ -15,7 +16,7 @@ interface Project {
   _id: string;
   title: string;
   slug: { current: string };
-  mainImage?: any; // Sanity image object
+  mainImage?: SanityImageSource;
   industry?: string;
 }
 

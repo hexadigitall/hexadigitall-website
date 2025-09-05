@@ -7,10 +7,11 @@ import { notFound } from 'next/navigation';
 import type { PortableTextBlock } from 'sanity';
 import Image from 'next/image';
 import { urlFor } from '@/sanity/imageUrlBuilder';
+import type { SanityImageSource } from '@sanity/image-url/lib/types/types';
 
 interface Project {
   title: string;
-  mainImage?: any; // Sanity image object
+  mainImage?: SanityImageSource;
   projectGoal?: string;
   solution?: PortableTextBlock[];
   results?: PortableTextBlock[];
