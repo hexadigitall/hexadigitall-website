@@ -18,6 +18,12 @@ export function useServices() {
   useEffect(() => {
     async function fetchServices() {
       try {
+        // Check if Sanity is properly configured
+        if (!process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || !process.env.NEXT_PUBLIC_SANITY_DATASET) {
+          console.warn('Sanity not configured, using fallback services');
+          throw new Error('Sanity configuration missing');
+        }
+
         const query = groq`*[_type == "service"] | order(title asc) {
           title,
           "slug": slug.current
@@ -25,13 +31,17 @@ export function useServices() {
         
         const sanityServices = await client.fetch(query);
         
-        const serviceLinks: ServiceLink[] = sanityServices.map((service: { title: string; slug: string }) => ({
-          href: `/services/${service.slug}`,
-          label: service.title,
-          slug: service.slug
-        }));
-        
-        setServices(serviceLinks);
+        if (Array.isArray(sanityServices) && sanityServices.length > 0) {
+          const serviceLinks: ServiceLink[] = sanityServices.map((service: { title: string; slug: string }) => ({
+            href: `/services/${service.slug}`,
+            label: service.title,
+            slug: service.slug
+          }));
+          
+          setServices(serviceLinks);
+        } else {
+          throw new Error('No services found in Sanity');
+        }
       } catch (error) {
         console.error('Error fetching services:', error);
         // Fallback to hardcoded services if fetch fails
