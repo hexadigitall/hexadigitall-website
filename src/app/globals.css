@@ -15,6 +15,12 @@
     @apply font-heading text-primary;
   }
   
+  /* Allow explicit text color overrides */
+  .text-white h1, .text-white h2, .text-white h3, .text-white h4, .text-white h5, .text-white h6,
+  h1.text-white, h2.text-white, h3.text-white, h4.text-white, h5.text-white, h6.text-white {
+    color: white !important;
+  }
+  
   a {
     @apply text-secondary hover:underline transition-colors duration-300;
   }
@@ -27,5 +33,13 @@
 
   .btn-secondary {
     @apply bg-transparent border-2 border-primary text-primary font-bold py-3 px-6 rounded-md hover:bg-primary hover:text-white transition-colors duration-300;
+  }
+
+  .btn-secondary-dark {
+    @apply bg-transparent border-2 border-white text-white font-bold py-3 px-6 rounded-md hover:bg-white hover:text-primary transition-colors duration-300;
+  }
+
+  .btn-white {
+    @apply bg-white text-primary font-bold py-3 px-6 rounded-md hover:bg-lightGray transition-colors duration-300;
   }
 }

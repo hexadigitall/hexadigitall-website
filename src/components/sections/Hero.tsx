@@ -8,7 +8,7 @@ const Hero = () => {
       {/* Overlay for text readability over a potential background image */}
       <div className="bg-primary/80 py-24 md:py-32">
         <div className="container mx-auto px-6 text-center">
-          <h1 className="text-4xl md:text-6xl font-bold font-heading mb-4 leading-tight">
+          <h1 className="text-4xl md:text-6xl font-bold font-heading mb-4 leading-tight !text-white">
             From Idea to Impact. Your All-in-One Digital Partner.
           </h1>
           <p className="text-lg md:text-xl text-gray-200 max-w-3xl mx-auto mb-8">
