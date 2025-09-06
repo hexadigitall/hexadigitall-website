@@ -49,7 +49,7 @@ export default async function CoursePage({ params }: { params: Promise<{ slug: s
     const courseCartItem: CourseCartItem = {
         name: course.title,
         id: course._id,
-        price: course.price,
+        price: course.price * 100,
         currency: 'NGN',
         image: urlFor(course.mainImage).width(200).height(200).url(),
     };
