@@ -3,6 +3,7 @@
 
 import { useShoppingCart } from 'use-shopping-cart';
 import { useEffect, useState } from 'react';
+import { CartDetails } from "@/types/shopping-cart"; // Import CartDetails type extension
 
 // Safe wrapper for useShoppingCart that handles SSR and missing provider
 export const useSafeShoppingCart = () => {
@@ -11,7 +12,7 @@ export const useSafeShoppingCart = () => {
   // Default fallback functions and data
   const defaultCartData = {
     cartCount: 0,
-    cartDetails: {},
+    cartDetails: {} as CartDetails,
     formattedTotalPrice: '$0.00',
     addItem: () => {},
     removeItem: () => {},

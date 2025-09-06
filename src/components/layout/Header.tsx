@@ -5,6 +5,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useState, useEffect } from 'react';
 import { useSafeShoppingCart } from '@/hooks/useSafeShoppingCart';
+import "@/types/shopping-cart"; // Import CartDetails type extension
 
 type CartItem = {
   id: string;
@@ -95,7 +96,7 @@ const Header = () => {
           const errorData = JSON.parse(errorText);
           errorMessage = errorData.error || errorMessage;
           console.error('❌ Parsed error data:', errorData);
-        } catch (parseError) {
+        } catch {
           console.error('❌ Could not parse error response as JSON');
         }
         

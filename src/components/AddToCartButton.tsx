@@ -1,9 +1,9 @@
 // src/components/AddToCartButton.tsx
 "use client";
-
 import { useSafeShoppingCart } from "@/hooks/useSafeShoppingCart";
+import { toast } from "react-hot-toast"; // We'll install this for notifications
+import "@/types/shopping-cart"; // Import CartDetails type extension
 
-// Define a more specific type for the course data needed by the cart
 export interface CourseCartItem {
   name: string;
   id: string; // This should be the Sanity document _id
@@ -13,19 +13,15 @@ export interface CourseCartItem {
 }
 
 export default function AddToCartButton({ course }: { course: CourseCartItem }) {
-  const { addItem, isAvailable } = useSafeShoppingCart();
+  const { addItem, isAvailable, cartDetails } = useSafeShoppingCart();
+  // Check if the course ID already exists in the cart
+  const isInCart = isAvailable && !!cartDetails?.[course.id];
 
   const handleAddItem = () => {
-    console.log('🛍️ Add to Cart clicked');
-    console.log('Course:', course);
-    console.log('Cart available:', isAvailable);
-    
     if (isAvailable) {
-      console.log('➕ Adding item to cart');
       addItem(course);
-      console.log('✅ Item added to cart');
+      toast.success(`${course.name} has been added to your cart!`);
     } else {
-      console.log('❌ Cart not available, redirecting to contact');
       // If cart is not available, show alert and redirect to contact
       alert('Cart functionality is temporarily unavailable. You will be redirected to our contact form to complete your enrollment.');
       window.location.href = '/contact';
@@ -33,8 +29,12 @@ export default function AddToCartButton({ course }: { course: CourseCartItem }) 
   };
 
   return (
-    <button onClick={handleAddItem} className="btn-primary w-full text-center block">
-      {isAvailable ? 'Add to Cart' : 'Enroll Now'}
+    <button 
+      onClick={handleAddItem} 
+      disabled={isInCart}
+      className="btn-primary w-full text-center block disabled:bg-gray-400 disabled:cursor-not-allowed"
+    >
+      {isInCart ? "Added to Cart" : (isAvailable ? 'Add to Cart' : 'Enroll Now')}
     </button>
   );
 }

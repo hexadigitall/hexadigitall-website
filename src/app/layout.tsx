@@ -2,6 +2,7 @@
 import type { Metadata } from 'next';
 import { Montserrat, Lato } from 'next/font/google'; // <-- Swapped to correct fonts
 import './globals.css';
+import { Toaster } from 'react-hot-toast';
 
 // Import Header and Footer
 import Header from '@/components/layout/Header';
@@ -38,6 +39,16 @@ export default function RootLayout({
           <Header />
           <main>{children}</main>
           <Footer />
+          <Toaster 
+            position="top-right"
+            toastOptions={{
+              duration: 3000,
+              style: {
+                background: '#10B981',
+                color: '#fff',
+              },
+            }}
+          />
         </AppCartProvider>
       </body>
     </html>
