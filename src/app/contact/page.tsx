@@ -41,7 +41,7 @@ export default function ContactPage() { // <-- This export is the key
               </p>
               <p>
                 <strong className="block text-primary">Location:</strong>
-                <span>Plot 30/31 Effangha Mkpa Residential Layout, Off Parliamentary Extension, Calabar, Cross River, Nigeria.</span>
+                <span>Calabar, Cross River, Nigeria.</span>
               </p>
             </div>
           </div>

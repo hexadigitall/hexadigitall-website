@@ -41,7 +41,9 @@ const Hero = () => {
   const [selectedIndex, setSelectedIndex] = useState(0);
 
   const scrollTo = useCallback((index: number) => {
-    emblaApi && emblaApi.scrollTo(index);
+    if (emblaApi) {
+      emblaApi.scrollTo(index);
+    }
   }, [emblaApi]);
 
   useEffect(() => {

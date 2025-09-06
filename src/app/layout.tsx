@@ -6,6 +6,7 @@ import './globals.css';
 // Import Header and Footer
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
+import AppCartProvider from '@/components/CartProvider';
 
 // Define the fonts from your style guide
 const montserrat = Montserrat({
@@ -33,13 +34,11 @@ export default function RootLayout({
     <html lang="en">
       {/* Apply font variables to the body */}
       <body className={`${montserrat.variable} ${lato.variable} font-body bg-white text-darkText`}>
-
-        <Header /> {/* <-- Added the Header component */}
-        
-        <main>{children}</main>
-        
-        <Footer /> {/* <-- Added the Footer component */}
-
+        <AppCartProvider>
+          <Header />
+          <main>{children}</main>
+          <Footer />
+        </AppCartProvider>
       </body>
     </html>
   );

@@ -7,31 +7,31 @@ const services = [
     icon: <FaPaintBrush size={40} />,
     title: 'Business Plan & Logo',
     description: 'Crafting strategic business plans and memorable logos to launch your brand successfully.',
-    href: '/services/business-plan-logo',
+    href: '/services/business-plan-and-logo-design', // ✅ Corrected
   },
   {
     icon: <FaCode size={40} />,
     title: 'Web & Mobile Development',
     description: 'Building bespoke, scalable software solutions that bring your digital ideas to life.',
-    href: '/services/web-mobile-development',
+    href: '/services/web-and-mobile-software-development', // ✅ Corrected
   },
   {
     icon: <FaBullhorn size={40} />,
     title: 'Social Media Marketing',
     description: 'Boosting your online presence with data-driven advertising and marketing strategies.',
-    href: '/services/social-media-marketing',
+    href: '/services/social-media-advertising-and-marketing', // ✅ Corrected
   },
   {
     icon: <FaUserTie size={40} />,
     title: 'Profile & Portfolio Building',
     description: 'Developing compelling professional profiles and portfolios to showcase your expertise.',
-    href: '/services/portfolio-building',
+    href: '/services/profile-and-portfolio-building', // ✅ Corrected
   },
   {
     icon: <FaChalkboardTeacher size={40} />,
     title: 'Mentoring & Consulting',
     description: 'Providing expert guidance and mentorship to navigate your business challenges.',
-    href: '/services/mentoring-consulting',
+    href: '/services/mentoring-and-consulting', // ✅ Corrected
   },
 ];
 
