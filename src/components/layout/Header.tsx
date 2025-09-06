@@ -6,6 +6,13 @@ import Image from 'next/image';
 import { useState, useEffect } from 'react';
 import { useSafeShoppingCart } from '@/hooks/useSafeShoppingCart';
 
+type CartItem = {
+  id: string;
+  name: string;
+  image?: string;
+  formattedValue?: string;
+};
+
 const Header = () => {
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isServicesOpen, setServicesOpen] = useState(false);
@@ -119,7 +126,7 @@ const Header = () => {
             {isAvailable && (
               <button onClick={() => setCartOpen(true)} className="relative">
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" /></svg>
-                {cartCount! > 0 && (
+                {cartCount && cartCount > 0 && (
                   <span className="absolute -top-2 -right-2 bg-accent text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">{cartCount}</span>
                 )}
               </button>
@@ -134,7 +141,7 @@ const Header = () => {
             {isAvailable && (
               <button onClick={() => setCartOpen(true)} className="relative">
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" /></svg>
-                {cartCount! > 0 && (
+                {cartCount && cartCount > 0 && (
                   <span className="absolute -top-2 -right-2 bg-accent text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">{cartCount}</span>
                 )}
               </button>
@@ -183,44 +190,55 @@ const Header = () => {
       </header>
 
       {/* Cart Side Panel */}
-      <div className={`fixed top-0 right-0 h-full w-full max-w-md bg-white shadow-lg transform transition-transform duration-300 ease-in-out z-50 ${isCartOpen ? 'translate-x-0' : 'translate-x-full'}`}>
-        <div className="flex flex-col h-full">
-          <div className="flex justify-between items-center p-6 border-b">
-            <h2 className="text-2xl font-bold font-heading">Your Cart</h2>
-            <button onClick={() => setCartOpen(false)} className="text-2xl">&times;</button>
-          </div>
-          <div className="flex-grow p-6 overflow-y-auto">
-            {cartCount === 0 ? (
-              <p>Your cart is empty.</p>
-            ) : (
-              Object.values(cartDetails ?? {}).map(item => (
-                <div key={item.id} className="flex items-center justify-between border-b pb-4 mb-4">
-                  <div className="flex items-center">
-                    <Image src={item.image!} alt={item.name} width={64} height={64} className="rounded-md mr-4 object-cover" />
-                    <div>
-                      <p className="font-bold">{item.name}</p>
-                      <p className="text-sm text-gray-600">{item.formattedValue}</p>
-                    </div>
-                  </div>
-                  <button onClick={() => removeItem(item.id)} className="text-red-500 hover:text-red-700 text-xl">&times;</button>
-                </div>
-              ))
-            )}
-          </div>
-          {cartCount! > 0 && (
-            <div className="p-6 border-t">
-              <div className="flex justify-between items-center font-bold text-lg mb-4">
-                <span>Total</span>
-                <span>{formattedTotalPrice}</span>
+      {isAvailable && (
+        <>
+          <div className={`fixed top-0 right-0 h-full w-full max-w-md bg-white shadow-lg transform transition-transform duration-300 ease-in-out z-50 ${isCartOpen ? 'translate-x-0' : 'translate-x-full'}`}>
+            <div className="flex flex-col h-full">
+              <div className="flex justify-between items-center p-6 border-b">
+                <h2 className="text-2xl font-bold font-heading">Your Cart</h2>
+                <button onClick={() => setCartOpen(false)} className="text-2xl">&times;</button>
               </div>
-              <button onClick={handleCheckout} className="btn-primary w-full text-center">
-                Proceed to Checkout
-              </button>
+              <div className="flex-1 overflow-y-auto p-6">
+                {(!cartCount || cartCount === 0) ? (
+                  <p className="text-center text-gray-500">Your cart is empty.</p>
+                ) : (
+                  Object.values(cartDetails ?? {}).map((item) => {
+                    const cartItem = item as CartItem;
+                    return (
+                      <div key={cartItem.id} className="flex items-center justify-between border-b pb-4 mb-4">
+                        <div className="flex items-center">
+                          {cartItem.image ? (
+                            <Image src={cartItem.image} alt={cartItem.name} width={64} height={64} className="rounded-md mr-4 object-cover" />
+                          ) : (
+                            <div className="w-16 h-16 bg-gray-200 rounded-md mr-4 flex items-center justify-center text-gray-400">No Image</div>
+                          )}
+                          <div>
+                            <p className="font-bold">{cartItem.name}</p>
+                            <p className="text-sm text-gray-600">{cartItem.formattedValue}</p>
+                          </div>
+                        </div>
+                        <button onClick={() => removeItem(cartItem.id)} className="text-red-500 hover:text-red-700 text-xl">&times;</button>
+                      </div>
+                    );
+                  })
+                )}
+              </div>
+              {cartCount && cartCount > 0 && (
+                <div className="p-6 border-t">
+                  <div className="flex justify-between items-center font-bold text-lg mb-4">
+                    <span>Total</span>
+                    <span>{formattedTotalPrice}</span>
+                  </div>
+                  <button onClick={handleCheckout} className="btn-primary w-full text-center">
+                    Proceed to Checkout
+                  </button>
+                </div>
+              )}
             </div>
-          )}
-        </div>
-      </div>
-      {isCartOpen && <div onClick={() => setCartOpen(false)} className="fixed inset-0 bg-black/50 z-40"></div>}
+          </div>
+          {isCartOpen && <div onClick={() => setCartOpen(false)} className="fixed inset-0 bg-black/50 z-40"></div>}
+        </>
+      )}
     </>
   );
 };
