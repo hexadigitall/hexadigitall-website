@@ -18,15 +18,21 @@ interface Course {
   mainImage: SanityImageSource;
 }
 
-export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
-  const course: { title: string } = await client.fetch(groq`*[_type == "course" && slug.current == $slug][0]{ title }`, { slug: params.slug });
+// Next.js 15 async params API: params is a Promise in server components & metadata funcs
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  const { slug } = await params;
+  const course: { title: string } = await client.fetch(
+    groq`*[_type == "course" && slug.current == $slug][0]{ title }`,
+    { slug }
+  );
   return { title: `${course?.title || 'Course'} | Hexadigitall` };
 }
 
 const courseQuery = groq`*[_type == "course" && slug.current == $slug][0]`;
 
-export default async function CoursePage({ params }: { params: { slug: string } }) {
-  const course: Course = await client.fetch(courseQuery, { slug: params.slug });
+export default async function CoursePage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+  const course: Course = await client.fetch(courseQuery, { slug });
 
   if (!course) notFound();
 
