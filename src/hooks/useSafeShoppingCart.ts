@@ -7,13 +7,17 @@ import { useEffect, useState } from 'react';
 // Safe wrapper for useShoppingCart that handles SSR and missing provider
 export const useSafeShoppingCart = () => {
   const [isClient, setIsClient] = useState(false);
-  const [cartData, setCartData] = useState({
+  
+  // Default fallback functions and data
+  const defaultCartData = {
     cartCount: 0,
     cartDetails: {},
     formattedTotalPrice: '$0.00',
+    addItem: () => {},
     removeItem: () => {},
     redirectToCheckout: () => Promise.resolve(),
-  });
+    isAvailable: false,
+  };
 
   useEffect(() => {
     setIsClient(true);
@@ -33,8 +37,5 @@ export const useSafeShoppingCart = () => {
     console.warn('Shopping cart not available:', error);
   }
 
-  return {
-    ...cartData,
-    isAvailable: false,
-  };
+  return defaultCartData;
 };
