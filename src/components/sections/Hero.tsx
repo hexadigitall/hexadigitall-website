@@ -5,13 +5,12 @@ import Link from 'next/link';
 import useEmblaCarousel from 'embla-carousel-react';
 import { useEffect, useState, useCallback } from 'react';
 
-// Define the content for each slide
+// Define the content for each slide. The first slide has no bgImage.
 const slides = [
   {
-    bgImage: "url('https://images.unsplash.com/photo-1497032628192-86f99d791b7e?q=80&w=2070')",
     headline: "From Idea to Impact. Your All-in-One Digital Partner.",
     subheadline: "We transform concepts into market-ready realities with strategic business planning, custom software development, and data-driven marketing.",
-    ctaText: "Let&apos;s Build Your Vision",
+    ctaText: "Let's Build Your Vision",
     ctaLink: "/contact"
   },
   {
@@ -47,18 +46,10 @@ const Hero = () => {
 
   useEffect(() => {
     if (!emblaApi) return;
-
-    const onSelect = () => {
-      setSelectedIndex(emblaApi.selectedScrollSnap());
-    };
-
+    const onSelect = () => setSelectedIndex(emblaApi.selectedScrollSnap());
     emblaApi.on('select', onSelect);
-    onSelect(); // Set initial selected index
-
-    const interval = setInterval(() => {
-      emblaApi.scrollNext();
-    }, 5000); // Change slide every 5 seconds
-
+    onSelect();
+    const interval = setInterval(() => emblaApi.scrollNext(), 5000);
     return () => {
       clearInterval(interval);
       emblaApi.off('select', onSelect);
@@ -71,24 +62,45 @@ const Hero = () => {
         {slides.map((slide, index) => (
           <div 
             key={index}
-            className="flex-shrink-0 w-full min-w-0 bg-cover bg-center"
-            style={{ backgroundImage: slide.bgImage }}
+            className="flex-shrink-0 w-full min-w-0"
           >
-            {/* Dark Overlay for Readability */}
-            <div className="bg-black/60 py-24 md:py-32">
-              <div className="container mx-auto px-6 text-center text-white">
-                <h1 className="text-4xl md:text-6xl font-bold font-heading mb-4 leading-tight !text-white">
-                  {slide.headline}
-                </h1>
-                <p className="text-lg md:text-xl text-gray-200 max-w-3xl mx-auto mb-8">
-                  {slide.subheadline}
-                </p>
-                {/* ✅ This is the corrected line */}
-                <Link href={slide.ctaLink} className="btn-white">
-                  {slide.ctaText === "Let's Build Your Vision" ? "Let's Build Your Vision" : slide.ctaText}
-                </Link>
+            {/* Conditional Rendering for the first slide */}
+            {index === 0 ? (
+              // First Slide: Original solid color design
+              <div className="bg-primary py-24 md:py-32">
+                <div className="container mx-auto px-6 text-center text-white">
+                  <h1 className="text-4xl md:text-6xl font-bold font-heading mb-4 leading-tight !text-white">
+                    {slide.headline}
+                  </h1>
+                  <p className="text-lg md:text-xl text-gray-200 max-w-3xl mx-auto mb-8">
+                    {slide.subheadline}
+                  </p>
+                  <Link href={slide.ctaLink} className="btn-primary">
+                    Let&apos;s Build Your Vision
+                  </Link>
+                </div>
               </div>
-            </div>
+            ) : (
+              // Other Slides: Background image with overlay
+              <div 
+                className="bg-cover bg-center"
+                style={{ backgroundImage: slide.bgImage }}
+              >
+                <div className="bg-black/60 py-24 md:py-32">
+                  <div className="container mx-auto px-6 text-center text-white">
+                    <h1 className="text-4xl md:text-6xl font-bold font-heading mb-4 leading-tight !text-white">
+                      {slide.headline}
+                    </h1>
+                    <p className="text-lg md:text-xl text-gray-200 max-w-3xl mx-auto mb-8">
+                      {slide.subheadline}
+                    </p>
+                    <Link href={slide.ctaLink} className="btn-white">
+                      {slide.ctaText}
+                    </Link>
+                  </div>
+                </div>
+              </div>
+            )}
           </div>
         ))}
       </div>
