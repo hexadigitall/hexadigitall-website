@@ -65,13 +65,16 @@ export async function POST(request: Request) {
       }
 
       // Verify price matches (security check)
+      // Note: cart price is in kobo, Sanity price is in NGN
+      const expectedPriceInKobo = course.price * 100;
       console.log(`🔎 Price check for ${course.title}:`);
-      console.log(`  - Sanity price: ${course.price}`);
-      console.log(`  - Cart price: ${item.price}`);
-      console.log(`  - Difference: ${Math.abs(course.price - item.price)}`);
+      console.log(`  - Sanity price (NGN): ${course.price}`);
+      console.log(`  - Sanity price (kobo): ${expectedPriceInKobo}`);
+      console.log(`  - Cart price (kobo): ${item.price}`);
+      console.log(`  - Difference: ${Math.abs(expectedPriceInKobo - item.price)}`);
       
-      if (Math.abs(course.price - item.price) > 1) { // Allow 1 NGN difference for rounding
-        throw new Error(`Price mismatch for course ${course.title}. Expected: ₦${course.price}, Got: ₦${item.price}`);
+      if (Math.abs(expectedPriceInKobo - item.price) > 100) { // Allow 100 kobo (1 NGN) difference
+        throw new Error(`Price mismatch for course ${course.title}. Expected: ₦${course.price} (${expectedPriceInKobo} kobo), Got: ${item.price} kobo`);
       }
 
       return {
@@ -81,7 +84,7 @@ export async function POST(request: Request) {
             name: course.title,
             description: `Access to ${course.title} course`,
           },
-          unit_amount: Math.round(course.price * 100), // Convert to kobo (NGN smallest unit)
+          unit_amount: Math.round(item.price), // Price already in kobo from cart
         },
         quantity: item.quantity || 1,
       };
