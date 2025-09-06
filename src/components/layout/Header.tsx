@@ -58,17 +58,37 @@ const Header = () => {
 
   const handleCheckout = async () => {
     try {
+      if (!isAvailable) {
+        // If cart is not available, redirect to contact form
+        alert('Checkout is temporarily unavailable. Please contact us to complete your purchase.');
+        window.location.href = '/contact';
+        return;
+      }
+
       const response = await fetch('/api/checkout', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(cartDetails),
       });
+      
+      if (!response.ok) {
+        throw new Error(`Checkout failed: ${response.statusText}`);
+      }
+      
       const session = await response.json();
+      
+      if (session.error) {
+        throw new Error(session.error);
+      }
+      
       if (session.id) {
         redirectToCheckout(session.id);
+      } else {
+        throw new Error('No session ID received from checkout');
       }
     } catch (error) {
       console.error('Checkout failed:', error);
+      alert(`Checkout failed: ${error instanceof Error ? error.message : 'Unknown error'}. Please try again or contact support.`);
     }
   };
 
@@ -123,14 +143,12 @@ const Header = () => {
           </div>
           
           <div className="hidden md:flex items-center space-x-6">
-            {isAvailable && (
-              <button onClick={() => setCartOpen(true)} className="relative">
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" /></svg>
-                {cartCount && cartCount > 0 && (
-                  <span className="absolute -top-2 -right-2 bg-accent text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">{cartCount}</span>
-                )}
-              </button>
-            )}
+            <button onClick={() => setCartOpen(true)} className="relative">
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" /></svg>
+              {cartCount && cartCount > 0 && (
+                <span className="absolute -top-2 -right-2 bg-accent text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">{cartCount}</span>
+              )}
+            </button>
             <Link href="/contact" className="btn-primary">
               Contact
             </Link>
@@ -138,14 +156,12 @@ const Header = () => {
 
           {/* Mobile Menu Button */}
           <div className="md:hidden flex items-center space-x-4">
-            {isAvailable && (
-              <button onClick={() => setCartOpen(true)} className="relative">
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" /></svg>
-                {cartCount && cartCount > 0 && (
-                  <span className="absolute -top-2 -right-2 bg-accent text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">{cartCount}</span>
-                )}
-              </button>
-            )}
+            <button onClick={() => setCartOpen(true)} className="relative">
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" /></svg>
+              {cartCount && cartCount > 0 && (
+                <span className="absolute -top-2 -right-2 bg-accent text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">{cartCount}</span>
+              )}
+            </button>
             <button onClick={() => setMobileMenuOpen(!isMobileMenuOpen)}>
               <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16m-7 6h7"></path></svg>
             </button>
@@ -190,9 +206,7 @@ const Header = () => {
       </header>
 
       {/* Cart Side Panel */}
-      {isAvailable && (
-        <>
-          <div className={`fixed top-0 right-0 h-full w-full max-w-md bg-white shadow-lg transform transition-transform duration-300 ease-in-out z-50 ${isCartOpen ? 'translate-x-0' : 'translate-x-full'}`}>
+      <div className={`fixed top-0 right-0 h-full w-full max-w-md bg-white shadow-lg transform transition-transform duration-300 ease-in-out z-50 ${isCartOpen ? 'translate-x-0' : 'translate-x-full'}`}>
             <div className="flex flex-col h-full">
               <div className="flex justify-between items-center p-6 border-b">
                 <h2 className="text-2xl font-bold font-heading">Your Cart</h2>
@@ -234,11 +248,9 @@ const Header = () => {
                   </button>
                 </div>
               )}
-            </div>
-          </div>
-          {isCartOpen && <div onClick={() => setCartOpen(false)} className="fixed inset-0 bg-black/50 z-40"></div>}
-        </>
-      )}
+        </div>
+      </div>
+      {isCartOpen && <div onClick={() => setCartOpen(false)} className="fixed inset-0 bg-black/50 z-40"></div>}
     </>
   );
 };

@@ -2,7 +2,6 @@
 "use client";
 
 import { useSafeShoppingCart } from "@/hooks/useSafeShoppingCart";
-import Link from 'next/link';
 
 // Define a more specific type for the course data needed by the cart
 export interface CourseCartItem {
@@ -19,21 +18,16 @@ export default function AddToCartButton({ course }: { course: CourseCartItem }) 
   const handleAddItem = () => {
     if (isAvailable) {
       addItem(course);
+    } else {
+      // If cart is not available, show alert and redirect to contact
+      alert('Cart functionality is temporarily unavailable. You will be redirected to our contact form to complete your enrollment.');
+      window.location.href = '/contact';
     }
   };
 
-  // If cart is not available, show a contact link instead
-  if (!isAvailable) {
-    return (
-      <Link href="/contact" className="btn-primary w-full text-center block">
-        Enroll Now
-      </Link>
-    );
-  }
-
   return (
     <button onClick={handleAddItem} className="btn-primary w-full text-center block">
-      Add to Cart
+      {isAvailable ? 'Add to Cart' : 'Enroll Now'}
     </button>
   );
 }
