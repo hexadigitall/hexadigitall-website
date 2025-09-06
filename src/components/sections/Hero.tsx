@@ -18,21 +18,21 @@ const slides = [
     headline: "Build on a Solid Foundation.",
     subheadline: "We craft investor-ready business plans and create powerful brand identities that turn great ideas into viable businesses.",
     ctaText: "Plan Your Strategy",
-    ctaLink: "/services/business-plan-logo"
+    ctaLink: "/services/business-plan-and-logo-design"
   },
   {
     bgImage: "url('https://images.unsplash.com/photo-1542744095-291d1f67b221?q=80&w=2070')",
     headline: "From Concept to Code.",
     subheadline: "Our expert developers build fast, scalable, and secure web and mobile applications that deliver an exceptional user experience.",
     ctaText: "Build Your Application",
-    ctaLink: "/services/web-mobile-development"
+    ctaLink: "/services/web-and-mobile-software-development"
   },
   {
     bgImage: "url('https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=2070')",
     headline: "Your Partner in Growth.",
     subheadline: "Beyond services, we offer dedicated mentorship and data-driven marketing to ensure your digital presence thrives and achieves its goals.",
     ctaText: "Grow Your Business",
-    ctaLink: "/services/mentoring-consulting"
+    ctaLink: "/services/mentoring-and-consulting"
   }
 ];
 
