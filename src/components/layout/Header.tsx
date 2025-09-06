@@ -103,6 +103,7 @@ const Header = () => {
           </div>
 
           <Link href="/portfolio">Portfolio</Link>
+          <Link href="/courses">Courses</Link>
           <Link href="/blog">Blog</Link>
           <Link href="/faq">FAQs</Link>
         </div>
@@ -174,6 +175,7 @@ const Header = () => {
             </div>
             
             <Link href="/portfolio" onClick={() => setMobileMenuOpen(false)}>Portfolio</Link>
+            <Link href="/courses" onClick={() => setMobileMenuOpen(false)}>Courses</Link>
             <Link href="/blog" onClick={() => setMobileMenuOpen(false)}>Blog</Link>
             <Link href="/faq" onClick={() => setMobileMenuOpen(false)}>FAQs</Link>
             <Link 
