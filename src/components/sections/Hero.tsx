@@ -57,56 +57,41 @@ const Hero = () => {
   }, [emblaApi]);
 
   return (
-    <section className="relative overflow-hidden" ref={emblaRef}>
+    <section className="relative overflow-hidden bg-primary" ref={emblaRef}>
       <div className="flex">
         {slides.map((slide, index) => (
           <div 
             key={index}
-            className="flex-shrink-0 w-full min-w-0"
+            className="relative flex-shrink-0 w-full min-w-0 flex items-center justify-center bg-cover bg-center"
+            // Apply background image only for slides that have one
+            style={{ backgroundImage: slide.bgImage || 'none' }}
           >
-            {/* Conditional Rendering for the first slide */}
-            {index === 0 ? (
-              // First Slide: Original solid color design
-              <div className="bg-primary py-24 md:py-32">
-                <div className="container mx-auto px-6 text-center text-white">
-                  <h1 className="text-4xl md:text-6xl font-bold font-heading mb-4 leading-tight !text-white">
-                    {slide.headline}
-                  </h1>
-                  <p className="text-lg md:text-xl text-gray-200 max-w-3xl mx-auto mb-8">
-                    {slide.subheadline}
-                  </p>
-                  <Link href={slide.ctaLink} className="btn-primary">
-                    Let&apos;s Build Your Vision
-                  </Link>
-                </div>
-              </div>
-            ) : (
-              // Other Slides: Background image with overlay
-              <div 
-                className="bg-cover bg-center"
-                style={{ backgroundImage: slide.bgImage }}
+            {/* Dark Overlay for slides with images */}
+            {slide.bgImage && <div className="absolute inset-0 bg-black/60 z-0"></div>}
+            
+            {/* Consistent Content Wrapper */}
+            <div className="relative container mx-auto px-6 py-24 md:py-32 text-center text-white z-10">
+              <h1 className="text-4xl md:text-6xl font-bold font-heading mb-4 leading-tight !text-white">
+                {slide.headline}
+              </h1>
+              <p className="text-lg md:text-xl text-gray-200 max-w-3xl mx-auto mb-8">
+                {slide.subheadline}
+              </p>
+              
+              {/* Conditional Button Style */}
+              <Link 
+                href={slide.ctaLink} 
+                className={index === 0 ? 'btn-primary' : 'btn-white'}
               >
-                <div className="bg-black/60 py-24 md:py-32">
-                  <div className="container mx-auto px-6 text-center text-white">
-                    <h1 className="text-4xl md:text-6xl font-bold font-heading mb-4 leading-tight !text-white">
-                      {slide.headline}
-                    </h1>
-                    <p className="text-lg md:text-xl text-gray-200 max-w-3xl mx-auto mb-8">
-                      {slide.subheadline}
-                    </p>
-                    <Link href={slide.ctaLink} className="btn-white">
-                      {slide.ctaText}
-                    </Link>
-                  </div>
-                </div>
-              </div>
-            )}
+                {slide.ctaText === "Let's Build Your Vision" ? "Let's Build Your Vision" : slide.ctaText}
+              </Link>
+            </div>
           </div>
         ))}
       </div>
 
       {/* Navigation Dots */}
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex space-x-3">
+      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex space-x-3 z-20">
         {slides.map((_, index) => (
           <button
             key={index}
