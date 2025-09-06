@@ -13,6 +13,7 @@ export default async function DebugCoursesPage() {
       _id,
       title,
       slug,
+      price,
       summary,
       mainImage
     }`;

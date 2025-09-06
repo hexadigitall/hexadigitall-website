@@ -32,7 +32,16 @@ export async function POST(request: Request) {
 
     // Extract cart items
     const cartItems = Object.values(cartDetails) as CartItem[];
-    console.log('🛍️ Cart items:', cartItems);
+    console.log('🛍️ Cart items count:', cartItems.length);
+    cartItems.forEach((item, index) => {
+      console.log(`  Item ${index + 1}:`, {
+        id: item.id,
+        name: item.name,
+        price: item.price,
+        currency: item.currency,
+        quantity: item.quantity || 1
+      });
+    });
 
     // Fetch course data from Sanity to validate prices
     const courseIds = cartItems.map(item => item.id);
@@ -56,8 +65,13 @@ export async function POST(request: Request) {
       }
 
       // Verify price matches (security check)
-      if (Math.abs(course.price - item.price) > 0.01) {
-        throw new Error(`Price mismatch for course ${course.title}`);
+      console.log(`🔎 Price check for ${course.title}:`);
+      console.log(`  - Sanity price: ${course.price}`);
+      console.log(`  - Cart price: ${item.price}`);
+      console.log(`  - Difference: ${Math.abs(course.price - item.price)}`);
+      
+      if (Math.abs(course.price - item.price) > 1) { // Allow 1 NGN difference for rounding
+        throw new Error(`Price mismatch for course ${course.title}. Expected: ₦${course.price}, Got: ₦${item.price}`);
       }
 
       return {
@@ -91,8 +105,25 @@ export async function POST(request: Request) {
     return NextResponse.json({ id: session.id, url: session.url });
   } catch (error) {
     console.error('💥 Checkout error:', error);
+    
+    // Log more details about the error
+    if (error instanceof Error) {
+      console.error('Error name:', error.name);
+      console.error('Error message:', error.message);
+      console.error('Error stack:', error.stack);
+    }
+    
+    const errorMessage = error instanceof Error ? error.message : 'Unknown error occurred during checkout';
+    
     return NextResponse.json(
-      { error: error instanceof Error ? error.message : 'An error occurred during checkout' },
+      { 
+        error: errorMessage,
+        details: error instanceof Error ? {
+          name: error.name,
+          message: error.message,
+          stack: process.env.NODE_ENV === 'development' ? error.stack : undefined
+        } : null
+      },
       { status: 500 }
     );
   }

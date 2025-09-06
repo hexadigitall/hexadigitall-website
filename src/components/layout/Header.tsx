@@ -87,8 +87,19 @@ const Header = () => {
       
       if (!response.ok) {
         const errorText = await response.text();
-        console.error('❌ Checkout response error:', errorText);
-        throw new Error(`Checkout failed: ${response.statusText}`);
+        console.error('❌ Checkout response error (status:', response.status, '):', errorText);
+        
+        // Try to parse the error response
+        let errorMessage = `HTTP ${response.status}: ${response.statusText}`;
+        try {
+          const errorData = JSON.parse(errorText);
+          errorMessage = errorData.error || errorMessage;
+          console.error('❌ Parsed error data:', errorData);
+        } catch (parseError) {
+          console.error('❌ Could not parse error response as JSON');
+        }
+        
+        throw new Error(errorMessage);
       }
       
       const session = await response.json();
@@ -96,6 +107,9 @@ const Header = () => {
       
       if (session.error) {
         console.error('❌ Session error:', session.error);
+        if (session.details) {
+          console.error('❌ Error details:', session.details);
+        }
         throw new Error(session.error);
       }
       
