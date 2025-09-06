@@ -16,9 +16,16 @@ export default function AddToCartButton({ course }: { course: CourseCartItem }) 
   const { addItem, isAvailable } = useSafeShoppingCart();
 
   const handleAddItem = () => {
+    console.log('🛍️ Add to Cart clicked');
+    console.log('Course:', course);
+    console.log('Cart available:', isAvailable);
+    
     if (isAvailable) {
+      console.log('➕ Adding item to cart');
       addItem(course);
+      console.log('✅ Item added to cart');
     } else {
+      console.log('❌ Cart not available, redirecting to contact');
       // If cart is not available, show alert and redirect to contact
       alert('Cart functionality is temporarily unavailable. You will be redirected to our contact form to complete your enrollment.');
       window.location.href = '/contact';

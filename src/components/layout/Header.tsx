@@ -57,37 +57,58 @@ const Header = () => {
   }, []);
 
   const handleCheckout = async () => {
+    console.log('🛒 Checkout button clicked');
+    console.log('Cart available:', isAvailable);
+    console.log('Cart details:', cartDetails);
+    console.log('Cart count:', cartCount);
+    
     try {
       if (!isAvailable) {
-        // If cart is not available, redirect to contact form
+        console.log('❌ Cart not available, redirecting to contact');
         alert('Checkout is temporarily unavailable. Please contact us to complete your purchase.');
         window.location.href = '/contact';
         return;
       }
 
+      if (!cartDetails || Object.keys(cartDetails).length === 0) {
+        console.log('❌ Cart is empty');
+        alert('Your cart is empty. Please add items before checkout.');
+        return;
+      }
+
+      console.log('📤 Sending checkout request...');
       const response = await fetch('/api/checkout', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(cartDetails),
       });
       
+      console.log('📥 Checkout response status:', response.status);
+      
       if (!response.ok) {
+        const errorText = await response.text();
+        console.error('❌ Checkout response error:', errorText);
         throw new Error(`Checkout failed: ${response.statusText}`);
       }
       
       const session = await response.json();
+      console.log('✅ Session received:', session);
       
       if (session.error) {
+        console.error('❌ Session error:', session.error);
         throw new Error(session.error);
       }
       
       if (session.id) {
-        redirectToCheckout(session.id);
+        console.log('🚀 Redirecting to Stripe checkout:', session.id);
+        const result = await redirectToCheckout(session.id);
+        console.log('Redirect result:', result);
       } else {
+        console.error('❌ No session ID received');
         throw new Error('No session ID received from checkout');
       }
     } catch (error) {
-      console.error('Checkout failed:', error);
+      console.error('💥 Checkout failed:', error);
       alert(`Checkout failed: ${error instanceof Error ? error.message : 'Unknown error'}. Please try again or contact support.`);
     }
   };
