@@ -118,7 +118,7 @@ export default async function CoursesPage() {
           </div>
           
           <div className="text-center py-16">
-            <p className="text-xl text-red-600 mb-4">Sorry, we're having trouble loading courses right now.</p>
+            <p className="text-xl text-red-600 mb-4">Sorry, we&apos;re having trouble loading courses right now.</p>
             <p className="text-sm text-gray-500">Please try again later or contact us for assistance.</p>
           </div>
         </div>
