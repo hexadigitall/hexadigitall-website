@@ -18,7 +18,7 @@ const Header = () => {
   const [isServicesOpen, setServicesOpen] = useState(false);
   const [isMobileServicesOpen, setMobileServicesOpen] = useState(false);
 
-  const { cartCount, cartDetails, removeItem, formattedTotalPrice, redirectToCheckout, isAvailable } = useSafeShoppingCart();
+  const { cartCount, cartDetails, removeItem, formattedTotalPrice, isAvailable } = useSafeShoppingCart();
   const [isCartOpen, setCartOpen] = useState(false);
 
   // ✅ Corrected and completed service links array
@@ -113,13 +113,14 @@ const Header = () => {
         throw new Error(session.error);
       }
       
-      if (session.id) {
+      if (session.id && session.url) {
         console.log('🚀 Redirecting to Stripe checkout:', session.id);
-        const result = await redirectToCheckout(session.id);
-        console.log('Redirect result:', result);
+        console.log('🔗 Checkout URL:', session.url);
+        // Redirect directly to Stripe's checkout URL
+        window.location.href = session.url;
       } else {
-        console.error('❌ No session ID received');
-        throw new Error('No session ID received from checkout');
+        console.error('❌ No session ID or URL received:', session);
+        throw new Error('No session ID or checkout URL received from server');
       }
     } catch (error) {
       console.error('💥 Checkout failed:', error);
