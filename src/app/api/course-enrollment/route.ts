@@ -1,7 +1,7 @@
 // src/app/api/course-enrollment/route.ts
 import { NextResponse } from 'next/server';
 import { getStripe } from '@/lib/stripe';
-import { client } from '@/sanity/client';
+import { client, writeClient } from '@/sanity/client';
 import { groq } from 'next-sanity';
 
 interface StudentDetails {
@@ -125,7 +125,7 @@ export async function POST(request: Request) {
     });
 
     // Store pending enrollment (will be confirmed on successful payment)
-    await client.create({
+    await writeClient.create({
       _type: 'pendingEnrollment',
       courseId: {
         _type: 'reference',
@@ -152,12 +152,27 @@ export async function POST(request: Request) {
     
     const errorMessage = error instanceof Error ? error.message : 'Unknown error occurred';
     
+    // Check for common Sanity permission errors
+    if (errorMessage.includes('Insufficient permissions') || errorMessage.includes('permission "create" required')) {
+      return NextResponse.json(
+        { 
+          error: 'System configuration error. Please contact support to complete your enrollment.',
+          details: 'The enrollment system needs to be configured with proper permissions.'
+        },
+        { status: 500 }
+      );
+    }
+    
+    // Check for Stripe errors
+    if (errorMessage.includes('StripeInvalidRequestError')) {
+      return NextResponse.json(
+        { error: 'Payment processing error. Please try again.' },
+        { status: 500 }
+      );
+    }
+    
     return NextResponse.json(
-      { 
-        error: errorMessage.includes('StripeInvalidRequestError') 
-          ? 'Payment processing error. Please try again.' 
-          : errorMessage 
-      },
+      { error: errorMessage },
       { status: 500 }
     );
   }
@@ -194,7 +209,7 @@ export async function PUT(request: Request) {
     }
 
     // Create confirmed enrollment
-    const enrollment = await client.create({
+    const enrollment = await writeClient.create({
       _type: 'enrollment',
       courseId: {
         _type: 'reference',
@@ -212,7 +227,7 @@ export async function PUT(request: Request) {
     });
 
     // Delete pending enrollment
-    await client.delete(pendingEnrollment._id);
+    await writeClient.delete(pendingEnrollment._id);
 
     // TODO: Send welcome email with course access details
     // TODO: Add student to course learning platform
