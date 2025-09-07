@@ -1,10 +1,12 @@
 // sanity/schemas/index.ts
-import service from './service';
-import project from './project';
-import post from './post';
-import faq from './faq';
-import testimonial from './testimonial';
-import courseCategory from './courseCategory';
-import course from './course';
+import course from './course'
+import courseCategory from './courseCategory'
+import enrollment from './enrollment'
+import pendingEnrollment from './pendingEnrollment'
+import faq from './faq'
+import post from './post'
+import project from './project'
+import service from './service'
+import testimonial from './testimonial'
 
-export const schemaTypes = [service, project, post, faq, testimonial, courseCategory, course];
+export const schemaTypes = [course, courseCategory, enrollment, pendingEnrollment, faq, post, project, service, testimonial]

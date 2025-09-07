@@ -5,19 +5,32 @@ import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { PortableText } from '@portabletext/react';
 import type { PortableTextBlock } from 'sanity';
-import Image from 'next/image';
 import { urlFor } from '@/sanity/imageUrlBuilder';
 import type { SanityImageSource } from '@sanity/image-url/lib/types/types';
-// 👇 1. Import the new AddToCartButton and its type
-import AddToCartButton, { type CourseCartItem } from '@/components/AddToCartButton';
+import CourseEnrollment, { type CourseEnrollmentData } from '@/components/CourseEnrollment';
 
 // Interface for the full course data fetched from Sanity
 interface Course {
     _id: string;
     title: string;
+    slug: { current: string };
     price: number;
+    duration: string;
+    level: string;
+    instructor: string;
+    description: string;
+    prerequisites?: string[];
+    maxStudents?: number;
+    currentEnrollments?: number;
     body: PortableTextBlock[];
     mainImage: SanityImageSource;
+    curriculum: {
+        modules: number;
+        lessons: number;
+        duration: string;
+    };
+    includes: string[];
+    certificate: boolean;
 }
 
 // Metadata function remains the same
@@ -30,13 +43,28 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     return { title: `${course?.title || 'Course'} | Hexadigitall` };
 }
 
-// 👇 2. Make the query more specific to ensure all fields are fetched
+// Enhanced query to fetch all enrollment data
 const courseQuery = groq`*[_type == "course" && slug.current == $slug][0]{
     _id,
     title,
+    slug,
     price,
+    duration,
+    level,
+    instructor,
+    description,
+    prerequisites,
+    maxStudents,
+    "currentEnrollments": count(*[_type == "enrollment" && courseId._ref == ^._id]),
     body,
-    mainImage
+    mainImage,
+    curriculum {
+        modules,
+        lessons,
+        duration
+    },
+    includes,
+    certificate
 }`;
 
 export default async function CoursePage({ params }: { params: Promise<{ slug: string }> }) {
@@ -45,13 +73,32 @@ export default async function CoursePage({ params }: { params: Promise<{ slug: s
 
     if (!course) notFound();
 
-    // 👇 3. Prepare the data in the exact format the AddToCartButton needs
-    const courseCartItem: CourseCartItem = {
-        name: course.title,
-        id: course._id,
-        price: course.price * 100, // Convert to kobo for use-shopping-cart
-        currency: 'NGN',
-        image: urlFor(course.mainImage).width(200).height(200).url(),
+    // Prepare course data for enrollment component with fallbacks
+    const courseEnrollmentData: CourseEnrollmentData = {
+        _id: course._id,
+        title: course.title,
+        price: course.price,
+        duration: course.duration || '8 weeks',
+        level: course.level || 'Intermediate',
+        prerequisites: course.prerequisites,
+        maxStudents: course.maxStudents,
+        currentEnrollments: course.currentEnrollments || 0,
+        instructor: course.instructor || 'Expert Instructor',
+        description: course.description || 'Transform your skills with this comprehensive course.',
+        mainImage: urlFor(course.mainImage).width(400).height(300).url(),
+        curriculum: course.curriculum || {
+            modules: 8,
+            lessons: 24,
+            duration: '8 weeks'
+        },
+        includes: course.includes || [
+            'Lifetime access to course materials',
+            'Certificate of completion',
+            'Direct access to instructor',
+            'Downloadable resources',
+            'Mobile and desktop access'
+        ],
+        certificate: course.certificate !== false // Default to true
     };
 
     return (
@@ -73,17 +120,8 @@ export default async function CoursePage({ params }: { params: Promise<{ slug: s
 
                     {/* Right Column: Enrollment Card */}
                     <div className="lg:col-span-1">
-                        <div className="sticky top-28 bg-lightGray p-8 rounded-lg shadow-md">
-                            <div className="relative h-48 w-full mb-4 rounded-md overflow-hidden">
-                                <Image src={urlFor(course.mainImage).url()} alt={`Image for ${course.title}`} fill className="object-cover" />
-                            </div>
-                            <p className="text-3xl font-bold font-heading mb-4">
-                                ₦{course.price.toLocaleString()}
-                            </p>
-                            
-                            {/* 👇 4. Replace the old Link with the new AddToCartButton component */}
-                            <AddToCartButton course={courseCartItem} />
-
+                        <div className="sticky top-28">
+                            <CourseEnrollment course={courseEnrollmentData} />
                         </div>
                     </div>
                 </div>
