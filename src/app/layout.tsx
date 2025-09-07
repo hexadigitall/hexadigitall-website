@@ -1,6 +1,6 @@
 // src/app/layout.tsx
-import type { Metadata } from 'next';
-import { Montserrat, Lato } from 'next/font/google'; // <-- Swapped to correct fonts
+import type { Metadata, Viewport } from 'next'; // 👈 1. Import Viewport
+import { Montserrat, Lato } from 'next/font/google';
 import './globals.css';
 import { Toaster } from 'react-hot-toast';
 
@@ -21,22 +21,19 @@ const lato = Lato({
   weight: ['400', '700'],
 });
 
+// ✅ The metadata object is now cleaner
 export const metadata: Metadata = {
   title: 'Hexadigitall | Business Planning, Web Dev & Digital Marketing',
   description: 'Your all-in-one digital partner in Nigeria, turning ideas into reality.',
-  icons: {
-    icon: [
-      { url: '/favicon-16x16.png', sizes: '16x16', type: 'image/png' },
-      { url: '/favicon-32x32.png', sizes: '32x32', type: 'image/png' },
-      { url: '/favicon.ico', sizes: 'any' }
-    ],
-    apple: [
-      { url: '/apple-touch-icon.png', sizes: '180x180', type: 'image/png' }
-    ]
-  },
-  manifest: '/manifest.json',
-  themeColor: '#1F2937'
 };
+
+// 👇 2. Add the new viewport export
+export const viewport: Viewport = {
+  themeColor: '#0A4D68', // Moved from metadata
+  initialScale: 1,
+  width: 'device-width',
+};
+
 
 export default function RootLayout({
   children,
@@ -45,7 +42,6 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      {/* Apply font variables to the body */}
       <body className={`${montserrat.variable} ${lato.variable} font-body bg-white text-darkText`}>
         <AppCartProvider>
           <Header />
