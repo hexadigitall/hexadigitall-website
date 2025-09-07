@@ -7,6 +7,8 @@ import faq from './faq'
 import post from './post'
 import project from './project'
 import service from './service'
+import serviceCategory from './serviceCategory'
+import serviceRequest from './serviceRequest'
 import testimonial from './testimonial'
 
-export const schemaTypes = [course, courseCategory, enrollment, pendingEnrollment, faq, post, project, service, testimonial]
+export const schemaTypes = [course, courseCategory, enrollment, pendingEnrollment, faq, post, project, service, serviceCategory, serviceRequest, testimonial]

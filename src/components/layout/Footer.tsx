@@ -34,12 +34,9 @@ const Footer = () => {
                 priority
               />
               <div className="text-center sm:text-left">
-                <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white font-heading mb-2">
+                <h2 className="text-4xl sm:text-5xl lg:text-6xl text-white mb-2 brand-cursive">
                   Hexadigitall
                 </h2>
-                <p className="text-base sm:text-lg text-accent font-medium">
-                  Technologies
-                </p>
               </div>
             </div>
             
@@ -189,10 +186,6 @@ const Footer = () => {
             </p>
             <div className="flex items-center space-x-6 text-sm">
               <span className="text-gray-400">Made with ❤️ in Nigeria</span>
-              <div className="flex items-center space-x-2 text-gray-400">
-                <span>Built with</span>
-                <span className="text-accent font-medium">Next.js</span>
-              </div>
             </div>
           </div>
         </div>

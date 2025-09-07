@@ -1,5 +1,5 @@
 /* src/app/globals.css */
-@import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Montserrat:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Montserrat:wght@700&family=Dancing+Script:wght@600;700&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -41,5 +41,11 @@
 
   .btn-white {
     @apply bg-white text-primary font-bold py-3 px-6 rounded-md hover:bg-lightGray transition-colors duration-300;
+  }
+
+  .brand-cursive {
+    font-family: 'Dancing Script', 'Brush Script MT', cursive;
+    font-weight: 700;
+    letter-spacing: 0.025em;
   }
 }

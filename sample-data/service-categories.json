@@ -1,0 +1,426 @@
+[
+  {
+    "_type": "serviceCategory",
+    "title": "Web Development",
+    "slug": { "_type": "slug", "current": "web-development" },
+    "description": "Professional web applications built with modern technologies. From simple websites to complex web platforms.",
+    "icon": "code",
+    "featured": true,
+    "order": 1,
+    "packages": [
+      {
+        "_key": "basic-web",
+        "name": "Basic Website",
+        "tier": "basic",
+        "price": 800000,
+        "currency": "NGN",
+        "billing": "one_time",
+        "deliveryTime": "7-10 business days",
+        "popular": false,
+        "features": [
+          "Up to 5 responsive pages",
+          "Mobile-first design",
+          "Basic SEO optimization",
+          "Contact form integration",
+          "Google Analytics setup",
+          "30 days support",
+          "SSL certificate setup"
+        ],
+        "addOns": [
+          {
+            "_key": "cms-addon",
+            "name": "Content Management System",
+            "price": 300000,
+            "description": "Easy-to-use CMS for updating content"
+          },
+          {
+            "_key": "ecommerce-basic",
+            "name": "Basic E-commerce",
+            "price": 500000,
+            "description": "Add shopping cart and payment processing"
+          }
+        ]
+      },
+      {
+        "_key": "standard-web",
+        "name": "Business Website",
+        "tier": "standard",
+        "price": 1800000,
+        "currency": "NGN",
+        "billing": "one_time",
+        "deliveryTime": "2-3 weeks",
+        "popular": true,
+        "features": [
+          "Up to 15 responsive pages",
+          "Custom design & branding",
+          "Advanced SEO optimization",
+          "Blog/News system",
+          "Social media integration",
+          "Advanced forms & automation",
+          "Performance optimization",
+          "60 days support",
+          "Training included"
+        ],
+        "addOns": [
+          {
+            "_key": "multi-lang",
+            "name": "Multi-language Support",
+            "price": 600000,
+            "description": "Support for multiple languages"
+          },
+          {
+            "_key": "advanced-seo",
+            "name": "Advanced SEO Package",
+            "price": 400000,
+            "description": "Comprehensive SEO audit and optimization"
+          }
+        ]
+      },
+      {
+        "_key": "premium-web",
+        "name": "Enterprise Web Platform",
+        "tier": "premium",
+        "price": 4500000,
+        "currency": "NGN",
+        "billing": "one_time",
+        "deliveryTime": "4-6 weeks",
+        "popular": false,
+        "features": [
+          "Unlimited pages",
+          "Custom web application",
+          "User authentication system",
+          "Admin dashboard",
+          "API development",
+          "Database design & optimization",
+          "Advanced security features",
+          "Performance monitoring",
+          "90 days support",
+          "Documentation & training"
+        ],
+        "addOns": [
+          {
+            "_key": "mobile-app",
+            "name": "Companion Mobile App",
+            "price": 2500000,
+            "description": "iOS/Android app with API integration"
+          },
+          {
+            "_key": "maintenance",
+            "name": "Monthly Maintenance",
+            "price": 250000,
+            "description": "Ongoing updates and support"
+          }
+        ]
+      }
+    ],
+    "requirements": [
+      "Detailed project brief and goals",
+      "Brand guidelines or style preferences",
+      "Content and images for the website",
+      "Domain name and hosting preferences",
+      "List of required integrations"
+    ],
+    "faq": [
+      {
+        "_key": "faq1",
+        "question": "What technologies do you use for web development?",
+        "answer": "We use modern technologies like React, Next.js, Node.js, and cloud platforms like Vercel and AWS for scalable, fast websites."
+      },
+      {
+        "_key": "faq2",
+        "question": "Do you provide hosting services?",
+        "answer": "We can recommend and help set up hosting, or work with your preferred hosting provider. We also offer managed hosting solutions."
+      },
+      {
+        "_key": "faq3",
+        "question": "Will my website be mobile-friendly?",
+        "answer": "Absolutely! All our websites are built with a mobile-first approach and are fully responsive across all devices."
+      }
+    ]
+  },
+
+  {
+    "_type": "serviceCategory",
+    "title": "Mobile App Development",
+    "slug": { "_type": "slug", "current": "mobile-app-development" },
+    "description": "Native and cross-platform mobile applications for iOS and Android. From concept to App Store deployment.",
+    "icon": "mobile",
+    "featured": false,
+    "order": 2,
+    "packages": [
+      {
+        "_key": "basic-mobile",
+        "name": "Simple Mobile App",
+        "tier": "basic",
+        "price": 2500000,
+        "currency": "NGN",
+        "billing": "one_time",
+        "deliveryTime": "4-6 weeks",
+        "popular": false,
+        "features": [
+          "Cross-platform development (iOS & Android)",
+          "Up to 8 screens",
+          "Basic user interface",
+          "Local data storage",
+          "Push notifications",
+          "App store submission",
+          "30 days support"
+        ],
+        "addOns": [
+          {
+            "_key": "backend-api",
+            "name": "Backend API",
+            "price": 1200000,
+            "description": "Custom backend with user management"
+          },
+          {
+            "_key": "app-analytics",
+            "name": "Analytics Integration",
+            "price": 300000,
+            "description": "User behavior tracking and analytics"
+          }
+        ]
+      },
+      {
+        "_key": "standard-mobile",
+        "name": "Business Mobile App",
+        "tier": "standard",
+        "price": 6000000,
+        "currency": "NGN",
+        "billing": "one_time",
+        "deliveryTime": "8-10 weeks",
+        "popular": true,
+        "features": [
+          "Native development for both platforms",
+          "Unlimited screens",
+          "Custom UI/UX design",
+          "User authentication",
+          "Cloud backend integration",
+          "Payment processing",
+          "Offline functionality",
+          "Push notifications & in-app messaging",
+          "60 days support",
+          "App store optimization"
+        ]
+      }
+    ],
+    "requirements": [
+      "Detailed app requirements and user stories",
+      "Target audience and platform preferences",
+      "Design mockups or wireframes (if available)",
+      "App store developer accounts",
+      "Integration requirements with existing systems"
+    ]
+  },
+
+  {
+    "_type": "serviceCategory",
+    "title": "Cloud Infrastructure & DevOps",
+    "slug": { "_type": "slug", "current": "cloud-devops" },
+    "description": "Scalable cloud infrastructure, automated deployments, and DevOps best practices. AWS, Azure, and Google Cloud expertise.",
+    "icon": "server",
+    "featured": false,
+    "order": 3,
+    "packages": [
+      {
+        "_key": "basic-cloud",
+        "name": "Cloud Migration",
+        "tier": "basic",
+        "price": 2500,
+        "currency": "USD",
+        "billing": "one_time",
+        "deliveryTime": "1-2 weeks",
+        "popular": false,
+        "features": [
+          "Application assessment",
+          "Cloud platform recommendation",
+          "Basic migration strategy",
+          "Single application migration",
+          "Basic monitoring setup",
+          "Documentation",
+          "30 days support"
+        ]
+      },
+      {
+        "_key": "standard-cloud",
+        "name": "DevOps Pipeline",
+        "tier": "standard",
+        "price": 6000,
+        "currency": "USD",
+        "billing": "one_time",
+        "deliveryTime": "3-4 weeks",
+        "popular": true,
+        "features": [
+          "Multi-environment setup (dev, staging, prod)",
+          "CI/CD pipeline configuration",
+          "Automated testing integration",
+          "Container orchestration (Docker/Kubernetes)",
+          "Infrastructure as Code",
+          "Monitoring and alerting",
+          "Security best practices",
+          "60 days support"
+        ]
+      }
+    ],
+    "requirements": [
+      "Current infrastructure documentation",
+      "Application architecture overview",
+      "Performance and scalability requirements",
+      "Security and compliance requirements",
+      "Budget and timeline constraints"
+    ]
+  },
+
+  {
+    "_type": "serviceCategory",
+    "title": "IT Support & System Administration",
+    "slug": { "_type": "slug", "current": "it-support" },
+    "description": "Comprehensive IT support, system administration, and maintenance services. Keep your systems running smoothly.",
+    "icon": "settings",
+    "featured": false,
+    "order": 4,
+    "packages": [
+      {
+        "_key": "basic-support",
+        "name": "Basic IT Support",
+        "tier": "basic",
+        "price": 150,
+        "currency": "USD",
+        "billing": "hourly",
+        "deliveryTime": "24-48 hours response",
+        "popular": false,
+        "features": [
+          "Remote technical support",
+          "Software troubleshooting",
+          "Basic system maintenance",
+          "Email and productivity support",
+          "Documentation of issues",
+          "Business hours support (9-5 EST)",
+          "Monthly system health reports"
+        ]
+      },
+      {
+        "_key": "managed-it",
+        "name": "Managed IT Services",
+        "tier": "standard",
+        "price": 2500,
+        "currency": "USD",
+        "billing": "monthly",
+        "deliveryTime": "Ongoing service",
+        "popular": true,
+        "features": [
+          "Proactive system monitoring",
+          "Automated patch management",
+          "Security monitoring and updates",
+          "Backup management and testing",
+          "Network administration",
+          "User account management",
+          "Priority support (4-hour response)",
+          "Monthly strategy consultations"
+        ]
+      }
+    ]
+  },
+
+  {
+    "_type": "serviceCategory",
+    "title": "Network Setup & Security",
+    "slug": { "_type": "slug", "current": "network-security" },
+    "description": "Professional network design, implementation, and security solutions. Secure and reliable network infrastructure.",
+    "icon": "network",
+    "featured": true,
+    "order": 5,
+    "packages": [
+      {
+        "_key": "basic-network",
+        "name": "Small Office Network",
+        "tier": "basic",
+        "price": 1200,
+        "currency": "USD",
+        "billing": "one_time",
+        "deliveryTime": "3-5 business days",
+        "popular": false,
+        "features": [
+          "Network design for up to 20 devices",
+          "Router and switch configuration",
+          "WiFi setup with guest network",
+          "Basic firewall configuration",
+          "Network documentation",
+          "Staff training on network basics",
+          "30 days support"
+        ]
+      },
+      {
+        "_key": "business-network",
+        "name": "Business Network Solution",
+        "tier": "standard",
+        "price": 3500,
+        "currency": "USD",
+        "billing": "one_time",
+        "deliveryTime": "1-2 weeks",
+        "popular": true,
+        "features": [
+          "Scalable network design (up to 100 devices)",
+          "Advanced firewall with intrusion detection",
+          "Managed switches and access points",
+          "VLAN segmentation",
+          "Network access control",
+          "Backup internet connection setup",
+          "Network monitoring and management",
+          "60 days support"
+        ]
+      }
+    ]
+  },
+
+  {
+    "_type": "serviceCategory",
+    "title": "Data Analytics & Business Intelligence",
+    "slug": { "_type": "slug", "current": "data-analytics" },
+    "description": "Transform your data into actionable insights. Custom dashboards, reporting, and data visualization solutions.",
+    "icon": "chart",
+    "featured": false,
+    "order": 6,
+    "packages": [
+      {
+        "_key": "basic-analytics",
+        "name": "Basic Analytics Setup",
+        "tier": "basic",
+        "price": 2000,
+        "currency": "USD",
+        "billing": "one_time",
+        "deliveryTime": "2-3 weeks",
+        "popular": false,
+        "features": [
+          "Data source integration (up to 3 sources)",
+          "Basic dashboard creation",
+          "Standard KPI tracking",
+          "Automated reporting setup",
+          "Data visualization training",
+          "Documentation and guides",
+          "30 days support"
+        ]
+      },
+      {
+        "_key": "business-intelligence",
+        "name": "Business Intelligence Platform",
+        "tier": "standard",
+        "price": 6000,
+        "currency": "USD",
+        "billing": "one_time",
+        "deliveryTime": "4-6 weeks",
+        "popular": true,
+        "features": [
+          "Multi-source data integration",
+          "Custom dashboard development",
+          "Advanced analytics and insights",
+          "Automated alert system",
+          "Data warehouse setup",
+          "User role management",
+          "Training for key stakeholders",
+          "60 days support"
+        ]
+      }
+    ]
+  }
+]
