@@ -1,0 +1,21 @@
+{
+  "name": "Hexadigitall - Digital Solutions",
+  "short_name": "Hexadigitall",
+  "description": "Your all-in-one digital partner in Nigeria, turning ideas into reality.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#1F2937",
+  "icons": [
+    {
+      "src": "/android-chrome-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/android-chrome-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

@@ -14,14 +14,15 @@ const Footer = () => {
           
           {/* Column 1: Hexadigitall */}
           <div className="col-span-1">
-            <div className="mb-4">
-              {/* ✅ Updated Logo Source */}
+            <div className="mb-6">
+              {/* ✅ Updated Logo Source - Much Bigger */}
               <Image
                 src="/hexadigitall-logo-transparent.png"
                 alt="Hexadigitall Logo"
-                width={150}
-                height={38}
-                className="h-8 w-auto"
+                width={300}
+                height={100}
+                className="h-20 w-auto mb-4"
+                priority
               />
             </div>
             <p className="text-sm text-gray-300">From Idea to Impact. Your All-in-One Digital Partner.</p>
