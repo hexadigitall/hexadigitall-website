@@ -38,7 +38,7 @@ const Footer = () => {
                   Hexadigitall
                 </h2>
                 <p className="text-base sm:text-lg text-accent font-medium">
-                  Digital Solutions
+                  Technologies
                 </p>
               </div>
             </div>
