@@ -1,6 +1,7 @@
+//src/components/services/ServicePackageSelection.tsx
 "use client"
 
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { ServiceCategory, Package, AddOn } from './ServiceRequestFlow'
 
 interface ServicePackageSelectionProps {
@@ -10,8 +11,8 @@ interface ServicePackageSelectionProps {
 
 export const ServicePackageSelection: React.FC<ServicePackageSelectionProps> = ({
   serviceCategory,
-  onPackageSelect
-}) => {
+  onPackageSelect,
+}: ServicePackageSelectionProps) => {
   const [selectedPackage, setSelectedPackage] = useState<Package | null>(null)
   const [selectedAddOns, setSelectedAddOns] = useState<AddOn[]>([])
 

@@ -10,6 +10,28 @@ interface Testimonial {
   authorCompany: string;
 }
 
+// Fallback testimonials data
+const fallbackTestimonials: Testimonial[] = [
+  {
+    _id: "1",
+    quote: "Hexadigitall transformed our business idea into a thriving digital platform. Their comprehensive approach saved us months of trial and error.",
+    authorName: "Sarah Johnson",
+    authorCompany: "TechStart Nigeria"
+  },
+  {
+    _id: "2",
+    quote: "The mentorship and technical expertise provided by the Hexadigitall team was invaluable. They didn't just deliver a product, they built our capacity.",
+    authorName: "Adebayo Okafor",
+    authorCompany: "Green Energy Solutions"
+  },
+  {
+    _id: "3",
+    quote: "Professional, reliable, and results-driven. Hexadigitall helped us establish a strong digital presence and grow our customer base significantly.",
+    authorName: "Fatima Al-Hassan",
+    authorCompany: "Lagos Fashion Hub"
+  }
+];
+
 // The GROQ query to fetch all testimonials
 const testimonialQuery = groq`*[_type == "testimonial"]{
   _id,
@@ -19,8 +41,20 @@ const testimonialQuery = groq`*[_type == "testimonial"]{
 }`;
 
 const Testimonials = async () => {
-  // Fetch the data on the server
-  const testimonials: Testimonial[] = await client.fetch(testimonialQuery);
+  let testimonials: Testimonial[] = fallbackTestimonials;
+  
+  try {
+    // Only attempt to fetch if Sanity is properly configured
+    if (process.env.NEXT_PUBLIC_SANITY_PROJECT_ID && process.env.NEXT_PUBLIC_SANITY_DATASET) {
+      const sanityTestimonials = await client.fetch(testimonialQuery);
+      if (Array.isArray(sanityTestimonials) && sanityTestimonials.length > 0) {
+        testimonials = sanityTestimonials;
+      }
+    }
+  } catch (error) {
+    console.warn('Failed to fetch testimonials from Sanity, using fallback data:', error);
+    // testimonials already set to fallback
+  }
 
   return (
     <section className="bg-white py-16 md:py-24">

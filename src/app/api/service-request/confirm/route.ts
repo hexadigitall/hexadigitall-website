@@ -1,11 +1,7 @@
-// src/app/api/service-request/route.ts
+// src/app/api/service-request/confirm/route.ts
 import { NextRequest, NextResponse } from 'next/server'
-import Stripe from 'stripe'
+import { getStripe } from '@/lib/stripe'
 import { client } from '@/sanity/client'
-
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
-  apiVersion: '2025-08-27.basil',
-})
 
 export async function POST(request: NextRequest) {
   try {
@@ -20,6 +16,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Retrieve the checkout session from Stripe
+    const stripe = getStripe()
     const session = await stripe.checkout.sessions.retrieve(sessionId)
 
     if (session.payment_status !== 'paid') {
@@ -91,14 +88,15 @@ function getEstimatedStartDate(): string {
   return startDate.toISOString().split('T')[0] // Return just the date part
 }
 
-function getEstimatedCompletionDate(selectedPackage: any): string {
+interface SelectedPackage {
+  tier: string;
+}
+
+function getEstimatedCompletionDate(selectedPackage: SelectedPackage): string {
   const completionDate = new Date()
-  // Define a type for selectedPackage
-  type SelectedPackage = { tier: string }
-  const pkg: SelectedPackage = selectedPackage
   // Estimate completion time based on package tier
   let daysToAdd = 14 // Default 2 weeks
-  switch (pkg.tier) {
+  switch (selectedPackage.tier) {
     case 'basic':
       daysToAdd = 7 // 1 week
       break

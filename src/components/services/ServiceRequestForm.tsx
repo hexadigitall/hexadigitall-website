@@ -1,6 +1,8 @@
+//src/components/services/ServiceRequestForm.tsx
 "use client"
 
-import React, { useState } from 'react'
+import * as React from 'react'
+import { useState } from 'react'
 import { ServiceCategory, Package, ClientInfo, ProjectDetails } from './ServiceRequestFlow'
 
 interface ServiceRequestFormProps {
@@ -57,14 +59,14 @@ export const ServiceRequestForm: React.FC<ServiceRequestFormProps> = ({
   const handleClientInfoChange = (field: keyof ClientInfo, value: string) => {
     setClientInfo(prev => ({ ...prev, [field]: value }))
     if (errors[field]) {
-      setErrors(prev => ({ ...prev, [field]: '' }))
+          setErrors((prev: Record<string, string>) => ({ ...prev, [field]: '' }))
     }
   }
 
   const handleProjectDetailsChange = (field: keyof ProjectDetails, value: string) => {
-    setProjectDetails(prev => ({ ...prev, [field]: value }))
+    setProjectDetails((prev: ProjectDetails) => ({ ...prev, [field]: value }))
     if (errors[`project${field.charAt(0).toUpperCase() + field.slice(1)}`]) {
-      setErrors(prev => ({ ...prev, [`project${field.charAt(0).toUpperCase() + field.slice(1)}`]: '' }))
+      setErrors((prev: Record<string, string>) => ({ ...prev, [`project${field.charAt(0).toUpperCase() + field.slice(1)}`]: '' }))
     }
   }
 
@@ -111,7 +113,7 @@ export const ServiceRequestForm: React.FC<ServiceRequestFormProps> = ({
                 type="text"
                 id="projectTitle"
                 value={projectDetails.title}
-                onChange={(e) => handleProjectDetailsChange('title', e.target.value)}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleProjectDetailsChange('title', e.target.value)}
                 className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent ${
                   errors.projectTitle ? 'border-red-300' : 'border-gray-300'
                 }`}
@@ -127,7 +129,7 @@ export const ServiceRequestForm: React.FC<ServiceRequestFormProps> = ({
               <textarea
                 id="projectDescription"
                 value={projectDetails.description}
-                onChange={(e) => handleProjectDetailsChange('description', e.target.value)}
+                onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => handleProjectDetailsChange('description', e.target.value)}
                 rows={4}
                 className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent ${
                   errors.projectDescription ? 'border-red-300' : 'border-gray-300'

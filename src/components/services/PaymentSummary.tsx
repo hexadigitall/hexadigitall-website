@@ -1,6 +1,8 @@
+//src/components/services/PaymentSummary.tsx
 "use client"
 
-import React, { useState } from 'react'
+import * as React from 'react'
+import { useState } from 'react'
 import { ServiceCategory, Package, AddOn, ClientInfo, ProjectDetails } from './ServiceRequestFlow'
 
 interface PaymentSummaryProps {
@@ -21,7 +23,7 @@ export const PaymentSummary: React.FC<PaymentSummaryProps> = ({
   projectDetails,
   totalAmount,
   onBack
-}) => {
+}: PaymentSummaryProps) => {
   const [isProcessing, setIsProcessing] = useState(false)
   const [error, setError] = useState<string | null>(null)
 

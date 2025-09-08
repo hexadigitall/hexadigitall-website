@@ -1,11 +1,45 @@
 // src/app/api/service-request/route.ts
 import { NextRequest, NextResponse } from 'next/server'
-import Stripe from 'stripe'
+import { getStripe } from '@/lib/stripe'
 import { client } from '@/sanity/client'
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
-  apiVersion: '2025-08-27.basil',
-})
+// Type definitions
+interface AddOn {
+  _key: string;
+  name: string;
+  price: number;
+  description?: string;
+}
+
+interface ServiceCategory {
+  _id: string;
+  title: string;
+  slug?: { current: string };
+}
+
+interface Package {
+  name: string;
+  price: number;
+  currency?: string;
+  tier: string;
+}
+
+interface ClientInfo {
+  firstName: string;
+  lastName: string;
+  email: string;
+  phone?: string;
+  company?: string;
+  address?: string;
+}
+
+interface ProjectDetails {
+  title: string;
+  description: string;
+  requirements?: string;
+  timeline?: string;
+  budget?: string;
+}
 
 export async function POST(request: NextRequest) {
   try {
@@ -28,8 +62,7 @@ export async function POST(request: NextRequest) {
 
     // Calculate total amount
     const packagePrice = selectedPackage.price || 0
-  type AddOn = { price?: number }
-  const addOnTotal = selectedAddOns.reduce((sum: number, addOn: AddOn) => sum + (addOn.price || 0), 0)
+    const addOnTotal = selectedAddOns.reduce((sum: number, addOn: AddOn) => sum + (addOn.price || 0), 0)
     const totalAmount = packagePrice + addOnTotal
 
     // Generate unique request ID
@@ -58,6 +91,7 @@ export async function POST(request: NextRequest) {
     const createdRequest = await client.create(serviceRequestDoc)
 
     // Create Stripe checkout session
+    const stripe = getStripe()
     const checkoutSession = await stripe.checkout.sessions.create({
       payment_method_types: ['card'],
       mode: 'payment',
@@ -80,7 +114,7 @@ export async function POST(request: NextRequest) {
           quantity: 1,
         },
         // Add line items for add-ons
-  ...selectedAddOns.map((addOn: AddOn & { name: string; description?: string }) => ({
+        ...selectedAddOns.map((addOn: AddOn) => ({
           price_data: {
             currency: selectedPackage.currency?.toLowerCase() || 'usd',
             product_data: {
@@ -92,7 +126,7 @@ export async function POST(request: NextRequest) {
                 addonName: addOn.name
               }
             },
-            unit_amount: Math.round((addOn.price || 0) * 100),
+            unit_amount: Math.round(addOn.price * 100),
           },
           quantity: 1,
         }))

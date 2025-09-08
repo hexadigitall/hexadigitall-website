@@ -1,19 +1,20 @@
 "use client"
 
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useSearchParams } from 'next/navigation'
 import Link from 'next/link'
+
+interface ServiceRequest {
+  requestId?: string;
+  selectedPackage?: { name?: string };
+  totalAmount?: number;
+  projectDetails?: { title?: string };
+  clientInfo?: { firstName?: string; lastName?: string; email?: string };
+}
 
 export default function ServiceRequestSuccessPage() {
   const searchParams = useSearchParams()
   const [isConfirming, setIsConfirming] = useState(true)
-  interface ServiceRequest {
-    requestId?: string;
-    selectedPackage?: { name?: string };
-    totalAmount?: number;
-    projectDetails?: { title?: string };
-    clientInfo?: { firstName?: string; lastName?: string; email?: string };
-  }
   const [serviceRequest, setServiceRequest] = useState<ServiceRequest | null>(null)
   const [error, setError] = useState<string | null>(null)
 
