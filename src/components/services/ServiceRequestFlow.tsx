@@ -11,6 +11,7 @@ export interface ServiceCategory {
   slug: { current: string }
   description: string
   icon: string
+  featured?: boolean
   packages: Package[]
   requirements?: string[]
   faq?: FAQ[]
