@@ -1,7 +1,8 @@
 // src/app/services/page.tsx
 "use client"
 
-import React, { useState, useEffect } from 'react'
+import * as React from 'react'
+import { useState, useEffect } from 'react'
 import { client } from '@/sanity/client'
 import { groq } from 'next-sanity'
 import Link from 'next/link'
@@ -60,8 +61,8 @@ export default function ServicesPage() {
     fetchData()
   }, [])
 
-  const getServiceIcon = (iconName: string) => {
-    const icons: Record<string, JSX.Element> = {
+  const getServiceIcon = (iconName: string): React.ReactElement => {
+    const icons: Record<string, React.ReactElement> = {
       'code': (
         <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
@@ -105,13 +106,14 @@ export default function ServicesPage() {
       )
     }
     
-    return icons[iconName] || icons['default']
+  return icons[iconName] || icons['default']
   }
 
   const getLowestPrice = (packages: any[]) => {
-    if (!packages || packages.length === 0) return null
-    const prices = packages.map(pkg => pkg.price).filter(price => price != null)
-    return prices.length > 0 ? Math.min(...prices) : null
+  type Package = { price?: number }
+  if (!packages || packages.length === 0) return null
+  const prices = (packages as Package[]).map(pkg => pkg.price).filter(price => price != null)
+  return prices.length > 0 ? Math.min(...prices as number[]) : null
   }
 
   if (loading) {
@@ -219,23 +221,26 @@ export default function ServicesPage() {
             </>
           )}
 
-          {/* Call to Action */}
-          <div className="mt-20 bg-primary rounded-2xl p-8 md:p-12 text-center">
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-              Need Custom Solutions?
-            </h2>
-            <p className="text-primary-100 text-lg mb-8 max-w-2xl mx-auto">
-              Don't see exactly what you need? We specialize in creating custom IT solutions 
-              tailored to your unique business requirements.
+          {/* Call to Action - Improved Design */}
+          <div className="mt-20 bg-gradient-to-r from-primary/10 via-white to-primary/10 border border-primary/20 shadow-lg rounded-2xl p-8 md:p-12 flex flex-col items-center text-center">
+            <div className="flex items-center justify-center mb-4">
+              <svg className="w-10 h-10 text-primary mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3" />
+                <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="2" />
+              </svg>
+              <h2 className="text-3xl md:text-4xl font-extrabold text-primary mb-0">Need Custom Solutions?</h2>
+            </div>
+            <p className="text-gray-700 text-lg mb-8 max-w-2xl mx-auto">
+              Don&apos;t see exactly what you need? <span className="font-semibold text-primary">We specialize in creating custom IT solutions</span> tailored to your unique business requirements.
             </p>
             <Link
               href="/contact"
-              className="inline-flex items-center bg-white text-primary hover:bg-gray-50 font-semibold px-8 py-3 rounded-lg transition-colors"
+              className="inline-flex items-center bg-primary text-white hover:bg-primary/90 font-semibold px-8 py-3 rounded-lg shadow transition-colors"
             >
-              Contact Us for Custom Quote
-              <svg className="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
               </svg>
+              Contact Us for Custom Quote
             </Link>
           </div>
         </div>

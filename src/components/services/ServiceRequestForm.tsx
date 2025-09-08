@@ -302,7 +302,7 @@ export const ServiceRequestForm: React.FC<ServiceRequestFormProps> = ({
         {serviceCategory.requirements && serviceCategory.requirements.length > 0 && (
           <div className="bg-blue-50 rounded-lg p-6">
             <h4 className="text-lg font-semibold text-gray-900 mb-4">
-              What You'll Need to Provide
+              What You&apos;ll Need to Provide
             </h4>
             <ul className="space-y-2">
               {serviceCategory.requirements.map((requirement, index) => (

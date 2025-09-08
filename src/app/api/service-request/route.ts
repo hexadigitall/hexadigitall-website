@@ -27,7 +27,8 @@ export async function POST(request: NextRequest) {
 
     // Calculate total amount
     const packagePrice = selectedPackage.price || 0
-    const addOnTotal = selectedAddOns.reduce((sum: number, addOn: any) => sum + (addOn.price || 0), 0)
+  type AddOn = { price?: number }
+  const addOnTotal = selectedAddOns.reduce((sum: number, addOn: AddOn) => sum + (addOn.price || 0), 0)
     const totalAmount = packagePrice + addOnTotal
 
     // Generate unique request ID
@@ -78,7 +79,7 @@ export async function POST(request: NextRequest) {
           quantity: 1,
         },
         // Add line items for add-ons
-        ...selectedAddOns.map((addOn: any) => ({
+  ...selectedAddOns.map((addOn: AddOn & { name: string; description?: string }) => ({
           price_data: {
             currency: selectedPackage.currency?.toLowerCase() || 'usd',
             product_data: {

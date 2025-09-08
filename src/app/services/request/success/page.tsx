@@ -7,7 +7,14 @@ import Link from 'next/link'
 export default function ServiceRequestSuccessPage() {
   const searchParams = useSearchParams()
   const [isConfirming, setIsConfirming] = useState(true)
-  const [serviceRequest, setServiceRequest] = useState<any>(null)
+  interface ServiceRequest {
+    requestId?: string;
+    selectedPackage?: { name?: string };
+    totalAmount?: number;
+    projectDetails?: { title?: string };
+    clientInfo?: { firstName?: string; lastName?: string; email?: string };
+  }
+  const [serviceRequest, setServiceRequest] = useState<ServiceRequest | null>(null)
   const [error, setError] = useState<string | null>(null)
 
   const sessionId = searchParams.get('session_id')
@@ -208,7 +215,7 @@ export default function ServiceRequestSuccessPage() {
               <h3 className="text-lg font-semibold text-blue-900 mb-2">Need to Get in Touch?</h3>
               <p className="text-blue-800 mb-4">
                 If you have any questions about your project or need to provide additional information, 
-                don't hesitate to contact us.
+                don&apos;t hesitate to contact us.
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
                 <Link

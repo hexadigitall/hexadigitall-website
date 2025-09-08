@@ -92,11 +92,12 @@ function getEstimatedStartDate(): string {
 
 function getEstimatedCompletionDate(selectedPackage: any): string {
   const completionDate = new Date()
-  
+  // Define a type for selectedPackage
+  type SelectedPackage = { tier: string }
+  const pkg: SelectedPackage = selectedPackage
   // Estimate completion time based on package tier
   let daysToAdd = 14 // Default 2 weeks
-  
-  switch (selectedPackage.tier) {
+  switch (pkg.tier) {
     case 'basic':
       daysToAdd = 7 // 1 week
       break
@@ -110,7 +111,6 @@ function getEstimatedCompletionDate(selectedPackage: any): string {
       daysToAdd = 30 // 1 month
       break
   }
-  
   completionDate.setDate(completionDate.getDate() + daysToAdd)
   return completionDate.toISOString().split('T')[0]
 }
