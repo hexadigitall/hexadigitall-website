@@ -39,6 +39,7 @@
     "resend": "^6.0.2",
     "sanity": "^4.6.0",
     "stripe": "^18.5.0",
+    "styled-components": "^6.1.19",
     "use-shopping-cart": "^3.2.0"
   },
   "devDependencies": {
