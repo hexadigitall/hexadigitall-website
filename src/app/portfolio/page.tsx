@@ -9,7 +9,7 @@ import type { SanityImageSource } from '@sanity/image-url/lib/types/types';
 
 export const metadata: Metadata = {
   title: 'Our Portfolio | Hexadigitall',
-  description: 'View a selection of our successful projects and case studies.',
+  description: 'Explore case studies that showcase our commitment to delivering tangible results and building lasting client partnerships.',
 };
 
 interface Project {
@@ -34,10 +34,11 @@ export default async function PortfolioPage() {
   return (
     <section className="bg-white py-12 md:py-20">
       <div className="container mx-auto px-6">
-        <div className="text-center mb-12">
-          <h1 className="text-4xl md:text-5xl font-bold font-heading">Our Work</h1>
-          <p className="mt-4 text-lg text-darkText max-w-2xl mx-auto">
-            We are proud of the partnerships we build and the results we deliver.
+        <div className="text-center mb-16">
+          {/* ✅ Rewritten Content */}
+          <h1 className="text-4xl md:text-5xl font-bold font-heading">Proven Results, Powerful Partnerships</h1>
+          <p className="mt-4 text-lg text-darkText max-w-3xl mx-auto">
+            We don&apos;t just build websites; we build growth engines. Explore a selection of our case studies that showcase our commitment to delivering tangible results and building lasting relationships with our clients.
           </p>
         </div>
         

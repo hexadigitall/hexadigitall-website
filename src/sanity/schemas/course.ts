@@ -139,5 +139,12 @@ export default defineType({
       description: 'Whether students receive a certificate upon completion',
       initialValue: true,
     }),
+    defineField({
+      name: 'featured',
+      title: 'Featured Course',
+      type: 'boolean',
+      description: 'Whether this course should be featured on the homepage',
+      initialValue: false,
+    }),
   ],
 })

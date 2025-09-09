@@ -1,5 +1,5 @@
 // src/app/enrollment-success/page.tsx
-import { client } from '@/sanity/client';
+import { client } from '@/sanity/client'
 import { groq } from 'next-sanity';
 import Link from 'next/link';
 import Image from 'next/image';

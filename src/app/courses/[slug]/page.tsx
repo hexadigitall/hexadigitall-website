@@ -1,5 +1,5 @@
 // src/app/courses/[slug]/page.tsx
-import { client } from '@/sanity/client';
+import { client } from '@/sanity/client'
 import { groq } from 'next-sanity';
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
@@ -57,7 +57,9 @@ const courseQuery = groq`*[_type == "course" && slug.current == $slug][0]{
     maxStudents,
     "currentEnrollments": count(*[_type == "enrollment" && courseId._ref == ^._id]),
     body,
-    mainImage,
+    mainImage{
+      asset->
+    },
     curriculum {
         modules,
         lessons,
@@ -85,7 +87,7 @@ export default async function CoursePage({ params }: { params: Promise<{ slug: s
         currentEnrollments: course.currentEnrollments || 0,
         instructor: course.instructor || 'Expert Instructor',
         description: course.description || 'Transform your skills with this comprehensive course.',
-        mainImage: urlFor(course.mainImage).width(400).height(300).url(),
+        mainImage: course.mainImage ? urlFor(course.mainImage).width(400).height(300).url() : '/digitall_partner.png',
         curriculum: course.curriculum || {
             modules: 8,
             lessons: 24,

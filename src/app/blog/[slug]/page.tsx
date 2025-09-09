@@ -1,5 +1,5 @@
 // src/app/blog/[slug]/page.tsx
-import { client } from '@/sanity/client';
+import { client } from '@/sanity/client'
 import { groq } from 'next-sanity';
 import { PortableText } from '@portabletext/react';
 import type { Metadata } from 'next';

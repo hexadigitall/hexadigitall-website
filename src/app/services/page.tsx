@@ -171,7 +171,7 @@ export default function ServicesPage() {
                               </h3>
                               {lowestPrice && (
                                 <p className="text-primary font-semibold">
-                                  Starting from ${lowestPrice}
+                                  Starting from ₦{lowestPrice.toLocaleString()}
                                 </p>
                               )}
                             </div>

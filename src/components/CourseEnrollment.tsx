@@ -19,7 +19,7 @@ export interface CourseEnrollmentData {
   startDate?: string;
   instructor: string;
   description: string;
-  mainImage: string;
+  mainImage?: string | null;
   curriculum: {
     modules: number;
     lessons: number;
@@ -112,10 +112,14 @@ export default function CourseEnrollment({ course }: { course: CourseEnrollmentD
         {/* Course Image */}
         <div className="relative h-48 w-full">
           <Image 
-            src={course.mainImage} 
+            src={course.mainImage || '/digitall_partner.png'} 
             alt={course.title}
             fill
             className="object-cover"
+            onError={(e) => {
+              const target = e.target as HTMLImageElement;
+              target.src = '/digitall_partner.png';
+            }}
           />
           {!isAvailable && (
             <div className="absolute inset-0 bg-black/50 flex items-center justify-center">

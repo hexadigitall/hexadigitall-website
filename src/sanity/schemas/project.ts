@@ -28,6 +28,12 @@ export default defineType({
       type: 'string',
     }),
     defineField({
+      name: 'description',
+      title: 'Project Description',
+      type: 'text',
+      description: 'Brief description of the project',
+    }),
+    defineField({
       name: 'projectGoal',
       title: 'Project Goal / The Challenge',
       type: 'text',
