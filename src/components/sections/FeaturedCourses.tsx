@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
-import { client } from '@/sanity/lib/client'
+import { client } from '@/sanity/client'
 
 interface Course {
   _id: string

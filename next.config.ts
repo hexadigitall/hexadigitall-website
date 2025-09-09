@@ -5,9 +5,6 @@ const nextConfig: NextConfig = {
     ignoreDuringBuilds: true,
   },
   
-  // Performance optimizations
-  swcMinify: true,
-  
   // Image optimization
   images: {
     remotePatterns: [
@@ -73,7 +70,7 @@ const nextConfig: NextConfig = {
   
   // Experimental features for performance
   experimental: {
-    optimizeCss: true,
+    // optimizeCss: true, // Temporarily disabled due to critters dependency issue
   },
 };
 
