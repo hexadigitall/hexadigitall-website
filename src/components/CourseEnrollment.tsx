@@ -340,7 +340,7 @@ export default function CourseEnrollment({ course }: { course: CourseEnrollmentD
         <div className="bg-gray-50 rounded-lg p-4 mb-6">
           <div className="flex items-start gap-4">
             <div className="relative w-16 h-16 rounded-lg overflow-hidden">
-              <Image src={course.mainImage} alt={course.title} fill className="object-cover" />
+              <Image src={course.mainImage || '/digitall_partner.png'} alt={course.title} fill className="object-cover" />
             </div>
             <div className="flex-1">
               <h4 className="font-semibold text-gray-900">{course.title}</h4>
