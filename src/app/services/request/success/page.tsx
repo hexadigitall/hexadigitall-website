@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useState } from 'react'
+import { useEffect, useState, Suspense } from 'react'
 import { useSearchParams } from 'next/navigation'
 import Link from 'next/link'
 
@@ -12,7 +12,7 @@ interface ServiceRequest {
   clientInfo?: { firstName?: string; lastName?: string; email?: string };
 }
 
-export default function ServiceRequestSuccessPage() {
+function ServiceRequestSuccessContent() {
   const searchParams = useSearchParams()
   const [isConfirming, setIsConfirming] = useState(true)
   const [serviceRequest, setServiceRequest] = useState<ServiceRequest | null>(null)
@@ -265,5 +265,25 @@ export default function ServiceRequestSuccessPage() {
         </div>
       </div>
     </div>
+  )
+}
+
+function LoadingFallback() {
+  return (
+    <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
+      <div className="bg-white rounded-lg shadow-lg p-8 max-w-md w-full text-center">
+        <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-primary mx-auto mb-4"></div>
+        <h2 className="text-xl font-semibold text-gray-900 mb-2">Loading</h2>
+        <p className="text-gray-600">Please wait...</p>
+      </div>
+    </div>
+  )
+}
+
+export default function ServiceRequestSuccessPage() {
+  return (
+    <Suspense fallback={<LoadingFallback />}>
+      <ServiceRequestSuccessContent />
+    </Suspense>
   )
 }
