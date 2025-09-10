@@ -8,6 +8,7 @@ const { PortableText } = PortableTextReact
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
+import ServicePricingClient from '@/components/services/ServicePricingClient'
 
 interface Service {
   title: string
@@ -133,10 +134,14 @@ export default async function IndividualServicePage(
             </div>
           </div>
         </div>
+      </article>
+
+      {/* Pricing Section */}
+      <ServicePricingClient serviceSlug={params.slug} serviceName={service.title} />
 
         {/* Related Services */}
         {relatedServices && relatedServices.length > 0 && (
-          <div className="bg-gray-50 py-16">
+          <div className="bg-white py-16">
             <div className="container mx-auto px-6">
               <div className="max-w-4xl mx-auto">
                 <h2 className="text-3xl font-bold text-center mb-2">Related Services</h2>
@@ -149,7 +154,7 @@ export default async function IndividualServicePage(
                     <Link
                       key={relatedService.slug.current}
                       href={`/services/${relatedService.slug.current}`}
-                      className="bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 p-6 group"
+                      className="bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 p-6 group border border-gray-100"
                     >
                       <h3 className="text-xl font-bold text-gray-900 group-hover:text-primary transition-colors mb-3">
                         {relatedService.title}
@@ -170,11 +175,9 @@ export default async function IndividualServicePage(
             </div>
           </div>
         )}
-      </article>
     </>
   );
 }
-
 
 // This function remains the same
 export async function generateStaticParams() {
