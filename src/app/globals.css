@@ -6,9 +6,11 @@
 @tailwind utilities;
 
 @layer base {
-  /* Performance: Enable hardware acceleration */
+  /* Performance: Enable hardware acceleration for smooth animations */
   * {
     transform: translateZ(0);
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
   }
   
   /* Accessibility: Better focus management */
@@ -107,12 +109,56 @@
     @apply border border-gray-300 rounded-md p-2 focus:ring-2 focus:ring-primary focus:border-transparent;
   }
   
-  /* Animation preferences */
+  /* Accessibility: Animation preferences */
   @media (prefers-reduced-motion: reduce) {
     * {
       animation-duration: 0.01ms !important;
       animation-iteration-count: 1 !important;
       transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+  
+  /* Accessibility: High contrast mode support */
+  @media (prefers-contrast: high) {
+    * {
+      border-color: currentColor;
+    }
+    
+    .btn-primary {
+      border: 2px solid currentColor;
+    }
+    
+    .btn-secondary, .btn-secondary-dark, .btn-white {
+      border-width: 3px;
+    }
+  }
+  
+  /* Accessibility: Forced colors mode */
+  @media (forced-colors: active) {
+    .btn-primary, .btn-secondary, .btn-secondary-dark, .btn-white {
+      forced-color-adjust: none;
+      border: 2px solid ButtonText;
+    }
+  }
+  
+  /* Performance: Optimize for printing */
+  @media print {
+    * {
+      background: white !important;
+      color: black !important;
+      box-shadow: none !important;
+      text-shadow: none !important;
+    }
+    
+    a, a:visited {
+      text-decoration: underline;
+    }
+    
+    .btn-primary, .btn-secondary, .btn-secondary-dark, .btn-white {
+      border: 2px solid black;
+      background: white;
+      color: black;
     }
   }
 }

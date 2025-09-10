@@ -27,6 +27,7 @@ const lato = Lato({
 
 // ✅ Enhanced metadata for SEO and accessibility
 export const metadata: Metadata = {
+  metadataBase: new URL('https://hexadigitall.com'),
   title: {
     default: 'Hexadigitall | Business Planning, Web Dev & Digital Marketing',
     template: '%s | Hexadigitall'
@@ -92,6 +93,11 @@ export default function RootLayout({
         
         {/* DNS prefetch for external domains */}
         <link rel="dns-prefetch" href="//images.unsplash.com" />
+        <link rel="dns-prefetch" href="//puzezel0.apicdn.sanity.io" />
+        
+        {/* Resource hints for performance */}
+        <link rel="prefetch" href="/contact" />
+        <link rel="prefetch" href="/services" />
         
         {/* Favicon */}
         <link rel="icon" href="/favicon.ico" sizes="any" />

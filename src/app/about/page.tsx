@@ -1,19 +1,57 @@
 // src/app/about/page.tsx
 import type { Metadata } from 'next';
 import Image from 'next/image';
+import { generateMetadata, generateBreadcrumbSchema } from '@/lib/seo';
+import { generateStructuredData } from '@/lib/structured-data';
 
-export const metadata: Metadata = {
-  title: 'About Us | Hexadigitall',
-  description: 'Learn about the story, mission, and vision of Hexadigitall.',
-};
+export const metadata: Metadata = generateMetadata({
+  title: 'About Us - The People Behind the Process',
+  description: 'Discover the story, mission, and vision of Hexadigitall - your trusted digital partner in Nigeria. Learn how we transform business ideas into reality with expert web development, digital marketing, and consulting services.',
+  keywords: [
+    'about Hexadigitall',
+    'digital agency Nigeria',
+    'web development company',
+    'business consulting Nigeria',
+    'digital transformation',
+    'startup support Nigeria',
+    'tech company Calabar'
+  ],
+  path: '/about',
+  type: 'website'
+});
 
 export default function AboutPage() {
+  const breadcrumbItems = [
+    { name: 'Home', url: 'https://hexadigitall.com' },
+    { name: 'About Us', url: 'https://hexadigitall.com/about' }
+  ];
+
   return (
     <>
+      {/* Breadcrumb Structured Data */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: generateStructuredData(generateBreadcrumbSchema(breadcrumbItems)),
+        }}
+      />
+      
       {/* Hero Section for About Page */}
       <section className="bg-primary text-white py-20">
         <div className="container mx-auto px-6 text-center">
+          {/* Breadcrumb Navigation */}
+          <nav className="mb-8" aria-label="Breadcrumb">
+            <ol className="flex justify-center items-center space-x-2 text-sm text-gray-300">
+              <li><a href="/" className="hover:text-accent transition-colors">Home</a></li>
+              <li className="text-gray-500">/</li>
+              <li className="text-white" aria-current="page">About Us</li>
+            </ol>
+          </nav>
+          
           <h1 className="text-4xl md:text-5xl font-bold font-heading !text-white">The People Behind the Process.</h1>
+          <p className="mt-4 text-xl text-gray-200 max-w-2xl mx-auto">
+            Meet the team transforming business ideas into digital realities across Nigeria.
+          </p>
         </div>
       </section>
       

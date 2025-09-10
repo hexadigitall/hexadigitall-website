@@ -59,49 +59,61 @@ const Hero = () => {
   }, [emblaApi]);
 
   return (
-    <section className="relative overflow-hidden bg-primary" ref={emblaRef}>
+    <section className="relative overflow-hidden bg-primary" ref={emblaRef} aria-label="Hero carousel">
       <div className="flex">
         {slides.map((slide, index) => (
-          <div 
+          <article 
             key={index}
             className="relative flex-shrink-0 w-full min-w-0 flex items-center justify-center bg-cover bg-center"
             // Apply background image only for slides that have one
             style={{ backgroundImage: slide.bgImage || 'none' }}
+            aria-hidden={selectedIndex !== index}
           >
             {/* Dark Overlay for slides with images */}
-            {slide.bgImage && <div className="absolute inset-0 bg-black/60 z-0"></div>}
+            {slide.bgImage && <div className="absolute inset-0 bg-black/60 z-0" aria-hidden="true"></div>}
             
             {/* Consistent Content Wrapper */}
             <div className="relative container mx-auto px-6 py-24 md:py-32 text-center text-white z-10">
               <h1 className="text-4xl md:text-6xl font-bold font-heading mb-4 leading-tight !text-white">
                 {slide.headline}
               </h1>
-              <p className="text-lg md:text-xl text-gray-200 max-w-3xl mx-auto mb-8">
+              <p className="text-lg md:text-xl text-gray-200 max-w-3xl mx-auto mb-8 leading-relaxed">
                 {slide.subheadline}
               </p>
               
-              {/* Conditional Button Style */}
+              {/* Enhanced CTA Button */}
               <Link 
                 href={slide.ctaLink} 
-                className={index === 0 ? 'btn-primary' : 'btn-white'}
+                className={`inline-flex items-center justify-center transition-transform hover:scale-105 focus:scale-105 ${index === 0 ? 'btn-primary' : 'btn-white'}`}
+                aria-describedby={`slide-${index}-description`}
               >
                 {slide.ctaText === "Let's Build Your Vision" ? "Let's Build Your Vision" : slide.ctaText}
+                <svg className="ml-2 -mr-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                  <path fillRule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clipRule="evenodd"></path>
+                </svg>
               </Link>
+              
+              {/* Hidden description for screen readers */}
+              <p id={`slide-${index}-description`} className="sr-only">
+                {slide.subheadline}
+              </p>
             </div>
-          </div>
+          </article>
         ))}
       </div>
 
       {/* Navigation Dots */}
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex space-x-3 z-20">
-        {slides.map((_, index) => (
+      <nav className="absolute bottom-8 left-1/2 -translate-x-1/2 flex space-x-3 z-20" aria-label="Carousel navigation">
+        {slides.map((slide, index) => (
           <button
             key={index}
             onClick={() => scrollTo(index)}
-            className={`h-3 w-3 rounded-full transition-colors ${selectedIndex === index ? 'bg-white' : 'bg-white/50'}`}
+            className={`h-3 w-3 rounded-full transition-all duration-200 focus:ring-2 focus:ring-accent focus:ring-offset-2 ${selectedIndex === index ? 'bg-white scale-125' : 'bg-white/50 hover:bg-white/75'}`}
+            aria-label={`Go to slide ${index + 1}: ${slide.headline}`}
+            aria-current={selectedIndex === index ? 'true' : 'false'}
           />
         ))}
-      </div>
+      </nav>
     </section>
   );
 };
