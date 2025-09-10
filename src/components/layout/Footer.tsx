@@ -4,6 +4,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { useServices } from '@/hooks/useServices';
+import NewsletterSubscription from '@/components/NewsletterSubscription';
 
 const Footer = () => {
   const { services: serviceLinks } = useServices();
@@ -141,16 +142,10 @@ const Footer = () => {
             <p className="text-gray-300 text-sm mb-4">
               Get the latest updates on digital trends and our services.
             </p>
-            <div className="flex flex-col space-y-3">
-              <input 
-                type="email" 
-                placeholder="Enter your email" 
-                className="px-4 py-2 bg-white/10 border border-white/20 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent transition-colors duration-300"
-              />
-              <button className="bg-accent hover:bg-accent/80 text-white font-medium py-2 px-4 rounded-lg transition-colors duration-300">
-                Subscribe
-              </button>
-            </div>
+            <NewsletterSubscription 
+              source="Footer Newsletter" 
+              placeholder="Enter your email"
+            />
             
             {/* Social Media Icons */}
             <div className="flex space-x-4 pt-4">

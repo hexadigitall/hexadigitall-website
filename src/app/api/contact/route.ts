@@ -1,5 +1,6 @@
 // src/app/api/contact/route.ts
 import { NextResponse } from 'next/server';
+import { emailService } from '@/lib/email';
 
 export async function POST(request: Request) {
   try {
@@ -11,22 +12,37 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });
     }
 
-    // In a real application, you would integrate an email service here
-    // like SendGrid, Resend, or Nodemailer.
-    console.log('--- New Contact Form Submission ---');
-    console.log('Name:', name);
-    console.log('Email:', email);
-    console.log('Service:', service);
-    console.log('Message:', message);
-    console.log('Recipient Email:', process.env.CONTACT_FORM_RECIPIENT_EMAIL);
-    console.log('------------------------------------');
+    // Validate email format
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      return NextResponse.json({ error: 'Invalid email format' }, { status: 400 });
+    }
 
-    // await sendEmail({ to: process.env.CONTACT_FORM_RECIPIENT_EMAIL, from: 'noreply@hexadigitall.com', subject: 'New Contact Form', ... });
+    // Send email using the email service
+    const result = await emailService.sendContactForm({
+      name,
+      email,
+      message,
+      service
+    });
 
-    return NextResponse.json({ message: 'Form submitted successfully!' }, { status: 200 });
+    if (!result.success) {
+      console.error('Email sending failed:', result.error);
+      return NextResponse.json(
+        { error: 'Failed to send message. Please try again or contact us directly.' }, 
+        { status: 500 }
+      );
+    }
 
-  } catch (_error) {
-    console.error(_error);
-    return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
+    console.log('Contact form email sent successfully:', result.message);
+    return NextResponse.json({ 
+      message: 'Thank you! Your message has been sent successfully. We\'ll get back to you within 24 hours.' 
+    }, { status: 200 });
+
+  } catch (error) {
+    console.error('Contact form error:', error);
+    return NextResponse.json({ 
+      error: 'Internal server error. Please try again or contact us directly at hexadigitztech@gmail.com' 
+    }, { status: 500 });
   }
 }
