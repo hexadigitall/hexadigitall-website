@@ -27,7 +27,7 @@ const FEATURED_COURSES_QUERY = `*[_type == "course" && featured == true] | order
   _id,
   title,
   slug,
-  mainImage,
+  "mainImage": mainImage.asset->url,
   description,
   duration,
   level,
@@ -169,11 +169,37 @@ export default function FeaturedCourses({ className = "" }: FeaturedCoursesProps
         setLoading(true)
         setError(null)
         
+        console.log('🔍 Fetching featured courses...', FEATURED_COURSES_QUERY)
         const data = await client.fetch(FEATURED_COURSES_QUERY)
-        setCourses(data || [])
+        console.log('🎆 Featured courses data:', data)
+        
+        if (!data) {
+          console.warn('⚠️ No data returned from Sanity')
+          setError('No featured courses found. Check Sanity configuration.')
+          return
+        }
+        
+        setCourses(data)
       } catch (err) {
-        console.error('Error fetching featured courses:', err)
-        setError('Failed to load featured courses. Please try again later.')
+        console.error('💥 Error fetching featured courses:', err)
+        
+        let errorMessage = 'Failed to load featured courses. Please try again later.'
+        
+        if (err instanceof Error) {
+          console.error('Error details:', {
+            name: err.name,
+            message: err.message,
+            stack: err.stack,
+          })
+          
+          if (err.message.includes('projectId')) {
+            errorMessage = 'Sanity configuration error. Please check environment variables.'
+          } else if (err.message.includes('fetch')) {
+            errorMessage = 'Network error. Please check your connection and try again.'
+          }
+        }
+        
+        setError(errorMessage)
       } finally {
         setLoading(false)
       }

@@ -41,18 +41,48 @@ export default function ServicesPage() {
   const [serviceCategories, setServiceCategories] = useState<ServiceCategory[]>([])
   const [selectedService, setSelectedService] = useState<ServiceCategory | null>(null)
   const [loading, setLoading] = useState(true)
+  const [error, setError] = useState<string | null>(null)
 
   useEffect(() => {
     const fetchData = async () => {
       try {
+        setError(null)
+        console.log('🔍 Fetching services and categories...')
+        
         const [servicesData, categoriesData] = await Promise.all([
           client.fetch(servicesQuery),
           client.fetch(serviceCategoriesQuery)
         ])
-        setServices(servicesData)
-        setServiceCategories(categoriesData)
+        
+        console.log('🛠️ Services data:', servicesData)
+        console.log('📊 Categories data:', categoriesData)
+        
+        setServices(servicesData || [])
+        setServiceCategories(categoriesData || [])
+        
+        if (!servicesData && !categoriesData) {
+          setError('No services found. Please check Sanity configuration.')
+        }
       } catch (error) {
-        console.error('Error fetching data:', error)
+        console.error('💥 Error fetching services data:', error)
+        
+        let errorMessage = 'Failed to load services. Please try again later.'
+        
+        if (error instanceof Error) {
+          console.error('Error details:', {
+            name: error.name,
+            message: error.message,
+            stack: error.stack,
+          })
+          
+          if (error.message.includes('projectId')) {
+            errorMessage = 'Sanity configuration error. Please check environment variables.'
+          } else if (error.message.includes('fetch')) {
+            errorMessage = 'Network error. Please check your connection and try again.'
+          }
+        }
+        
+        setError(errorMessage)
       } finally {
         setLoading(false)
       }
@@ -119,7 +149,32 @@ export default function ServicesPage() {
   if (loading) {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-primary"></div>
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-primary mx-auto mb-4"></div>
+          <p className="text-gray-600">Loading services...</p>
+        </div>
+      </div>
+    )
+  }
+
+  if (error) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center px-4">
+        <div className="max-w-md w-full bg-white rounded-lg shadow-lg p-8 text-center">
+          <div className="mb-6">
+            <svg className="mx-auto h-16 w-16 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z" />
+            </svg>
+          </div>
+          <h2 className="text-2xl font-bold text-gray-900 mb-4">Unable to Load Services</h2>
+          <p className="text-gray-600 mb-6">{error}</p>
+          <button
+            onClick={() => window.location.reload()}
+            className="btn-primary"
+          >
+            Try Again
+          </button>
+        </div>
       </div>
     )
   }
