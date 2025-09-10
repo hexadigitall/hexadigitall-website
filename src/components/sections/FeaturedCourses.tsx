@@ -188,16 +188,24 @@ export default function FeaturedCourses({ className = "" }: FeaturedCoursesProps
         setLoading(true)
         setError(null)
         
-        console.log('🔍 [DEBUG] Fetching featured courses...', FEATURED_COURSES_QUERY)
-        console.log('🔍 [DEBUG] Client config:', {
-          projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID,
-          dataset: process.env.NEXT_PUBLIC_SANITY_DATASET,
-          timestamp: new Date().toISOString()
-        })
+        console.log('🔍 [API] Fetching featured courses via API route...')
         
-        const data = await client.fetch(FEATURED_COURSES_QUERY)
-        console.log('🎆 [DEBUG] Featured courses data:', data)
-        console.log('🎆 [DEBUG] Data length:', data?.length || 0)
+        const response = await fetch('/api/featured-courses')
+        
+        if (!response.ok) {
+          throw new Error(`API request failed: ${response.status} ${response.statusText}`)
+        }
+        
+        const apiData = await response.json()
+        console.log('🎆 [API] Featured courses response:', apiData)
+        
+        if (!apiData.success) {
+          throw new Error(apiData.error || 'API returned error status')
+        }
+        
+        const data = apiData.courses
+        console.log('🎆 [API] Featured courses data:', data)
+        console.log('🎆 [API] Data length:', data?.length || 0)
         
         if (!data) {
           console.warn('⚠️ No data returned from Sanity')

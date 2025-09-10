@@ -47,21 +47,29 @@ export default function ServicesPage() {
     const fetchData = async () => {
       try {
         setError(null)
-        console.log('🔍 Fetching services and categories...')
+        console.log('🔍 [API] Fetching services and categories via API route...')
         
-        const [servicesData, categoriesData] = await Promise.all([
-          client.fetch(servicesQuery),
-          client.fetch(serviceCategoriesQuery)
-        ])
+        const response = await fetch('/api/service-categories')
         
-        console.log('🛠️ Services data:', servicesData)
-        console.log('📊 Categories data:', categoriesData)
+        if (!response.ok) {
+          throw new Error(`API request failed: ${response.status} ${response.statusText}`)
+        }
         
-        setServices(servicesData || [])
-        setServiceCategories(categoriesData || [])
+        const apiData = await response.json()
+        console.log('🎆 [API] Service data response:', apiData)
         
-        if (!servicesData && !categoriesData) {
-          setError('No services found. Please check Sanity configuration.')
+        if (!apiData.success) {
+          throw new Error(apiData.error || 'API returned error status')
+        }
+        
+        console.log('🛠️ [API] Services data:', apiData.services)
+        console.log('📊 [API] Categories data:', apiData.serviceCategories)
+        
+        setServices(apiData.services || [])
+        setServiceCategories(apiData.serviceCategories || [])
+        
+        if (!apiData.services?.length && !apiData.serviceCategories?.length) {
+          setError('No services found. Please check API configuration.')
         }
       } catch (error) {
         console.error('💥 Error fetching services data:', error)
