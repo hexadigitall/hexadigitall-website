@@ -68,6 +68,25 @@ export const metadata: Metadata = {
     description: 'Expert web development, digital marketing, and business planning services in Nigeria.',
     images: ['/digitall_partner.png'],
   },
+  icons: {
+    icon: [
+      { url: '/favicon-16x16.png', sizes: '16x16', type: 'image/png' },
+      { url: '/favicon-32x32.png', sizes: '32x32', type: 'image/png' },
+      { url: '/android-chrome-192x192.png', sizes: '192x192', type: 'image/png' },
+      { url: '/android-chrome-512x512.png', sizes: '512x512', type: 'image/png' },
+    ],
+    apple: [
+      { url: '/apple-touch-icon.png', sizes: '180x180', type: 'image/png' },
+    ],
+    other: [
+      {
+        rel: 'mask-icon',
+        url: '/hexadigitall-logo.svg',
+        color: '#0A4D68',
+      },
+    ],
+  },
+  manifest: '/manifest.json',
 };
 
 // 👇 2. Add the new viewport export
@@ -99,9 +118,30 @@ export default function RootLayout({
         <link rel="prefetch" href="/contact" />
         <link rel="prefetch" href="/services" />
         
-        {/* Favicon */}
-        <link rel="icon" href="/favicon.ico" sizes="any" />
-        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+        {/* Comprehensive Favicon Configuration */}
+        {/* Modern browsers - Next.js will auto-generate these */}
+        <link rel="icon" href="/favicon.ico" sizes="32x32" />
+        <link rel="icon" type="image/png" href="/favicon-16x16.png" sizes="16x16" />
+        <link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32" />
+        
+        {/* Apple devices */}
+        <link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180" />
+        <link rel="apple-touch-icon" href="/android-chrome-192x192.png" sizes="192x192" />
+        
+        {/* Android devices */}
+        <link rel="icon" type="image/png" href="/android-chrome-192x192.png" sizes="192x192" />
+        <link rel="icon" type="image/png" href="/android-chrome-512x512.png" sizes="512x512" />
+        
+        {/* Web App Manifest */}
+        <link rel="manifest" href="/manifest.json" />
+        
+        {/* Safari Pinned Tab */}
+        <link rel="mask-icon" href="/hexadigitall-logo.svg" color="#0A4D68" />
+        
+        {/* Windows Tiles */}
+        <meta name="msapplication-TileColor" content="#0A4D68" />
+        <meta name="msapplication-TileImage" content="/android-chrome-192x192.png" />
+        <meta name="msapplication-config" content="/browserconfig.xml" />
         
         {/* Theme color for mobile browsers */}
         <meta name="theme-color" content="#0A4D68" />
