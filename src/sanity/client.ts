@@ -22,13 +22,22 @@ if (!token) {
 
 // Validate we have the required configuration
 if (!projectId || !dataset) {
-  throw new Error(
-    `Sanity configuration is incomplete. Missing: ${
+  console.error(
+    `❌ Sanity configuration is incomplete. Missing: ${
       !projectId ? 'NEXT_PUBLIC_SANITY_PROJECT_ID ' : ''
     }${
       !dataset ? 'NEXT_PUBLIC_SANITY_DATASET ' : ''
     }`
   );
+  
+  // Use known fallback values if environment variables are missing
+  // This helps with deployment issues where env vars might not be set
+  if (!projectId) {
+    console.warn('🔁 Using fallback project ID');
+  }
+  if (!dataset) {
+    console.warn('🔁 Using fallback dataset');
+  }
 }
 
 console.log('🔧 Sanity Config:', {
@@ -41,8 +50,8 @@ console.log('🔧 Sanity Config:', {
 
 // Read-only client for public operations
 export const client = createClient({
-  projectId,
-  dataset,
+  projectId: projectId || 'puzezel0', // Fallback to known project ID
+  dataset: dataset || 'production', // Fallback to production dataset
   apiVersion,
   useCdn: process.env.NODE_ENV === 'production', // Use CDN in production for better performance
   perspective: 'published', // Only fetch published documents
@@ -51,8 +60,8 @@ export const client = createClient({
 
 // Write client for server-side operations (enrollments, etc.)
 export const writeClient = createClient({
-  projectId,
-  dataset,
+  projectId: projectId || 'puzezel0', // Fallback to known project ID
+  dataset: dataset || 'production', // Fallback to production dataset
   apiVersion,
   useCdn: false, // Never use CDN for write operations
   token: token, // This enables write permissions

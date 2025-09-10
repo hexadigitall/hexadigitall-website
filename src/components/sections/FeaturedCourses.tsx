@@ -120,30 +120,36 @@ function CourseCard({ course }: { course: Course }) {
           )}
         </div>
         
-        <div className="flex items-center justify-between">
-          <div className="text-2xl font-bold text-primary" aria-label={`Course price: ${course.nairaPrice || 'Free'} Naira or ${course.dollarPrice || 'Free'} dollars`}>
+        {/* Price Section */}
+        <div className="mb-4">
+          <div className="text-left" aria-label={`Course price: ${course.nairaPrice || 'Free'} Naira or ${course.dollarPrice || 'Free'} dollars`}>
             {course.nairaPrice ? (
-              <>
-                <span className="text-lg">₦</span>{course.nairaPrice.toLocaleString()}
+              <div className="flex flex-col sm:flex-row sm:items-center sm:space-x-2">
+                <span className="text-2xl font-bold text-primary">
+                  <span className="text-lg">₦</span>{course.nairaPrice.toLocaleString()}
+                </span>
                 {course.dollarPrice && (
-                  <span className="text-sm text-gray-500 ml-2">${course.dollarPrice}</span>
+                  <span className="text-sm text-gray-500">${course.dollarPrice}</span>
                 )}
-              </>
+              </div>
             ) : course.dollarPrice ? (
-              <span className="text-lg">${course.dollarPrice}</span>
+              <span className="text-2xl font-bold text-primary">${course.dollarPrice}</span>
             ) : (
-              <span className="text-lg text-green-600">Free</span>
+              <span className="text-2xl font-bold text-green-600">Free</span>
             )}
           </div>
-          
+        </div>
+        
+        {/* Action Button */}
+        <div className="text-center">
           <Link
             href={`/courses/${course.slug.current}`}
-            className="inline-flex items-center px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+            className="inline-flex items-center justify-center w-full px-4 py-3 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
             aria-label={`Learn more about ${course.title}`}
           >
             <span>Learn More</span>
             <svg 
-              className="w-4 h-4 ml-1" 
+              className="w-4 h-4 ml-2" 
               fill="none" 
               stroke="currentColor" 
               viewBox="0 0 24 24"
