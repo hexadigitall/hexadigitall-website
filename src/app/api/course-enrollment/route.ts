@@ -93,7 +93,7 @@ export async function POST(request: Request) {
     const stripe = getStripe();
     const session = await stripe.checkout.sessions.create({
       mode: 'payment',
-      payment_method_types: ['card'],
+      payment_method_types: ['card', 'link'], // Enable Stripe Link
       line_items: [{
         price_data: {
           currency: 'ngn',
@@ -118,9 +118,28 @@ export async function POST(request: Request) {
         goals: studentDetails.goals || '',
       },
       customer_email: studentDetails.email,
+      // Enhanced checkout options for better UX
       billing_address_collection: 'auto',
       shipping_address_collection: {
-        allowed_countries: ['NG'],
+        allowed_countries: ['NG', 'US', 'GB', 'CA'], // Support multiple countries
+      },
+      customer_creation: 'always', // Create customer for future enrollments
+      invoice_creation: {
+        enabled: true,
+      },
+      // Save payment method for future course purchases
+      payment_intent_data: {
+        setup_future_usage: 'off_session',
+      },
+      // Phone number collection for course communications
+      phone_number_collection: {
+        enabled: true,
+      },
+      // Custom checkout appearance
+      ui_mode: 'hosted', // Use Stripe's optimized checkout page
+      // Automatic tax calculation (if enabled in Stripe dashboard)
+      automatic_tax: {
+        enabled: false, // Enable this if you have tax settings configured
       },
     });
 

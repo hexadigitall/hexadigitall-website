@@ -95,12 +95,42 @@ export async function POST(request: Request) {
     const stripe = getStripe();
     const session = await stripe.checkout.sessions.create({
       mode: 'payment',
-      payment_method_types: ['card'],
+      payment_method_types: ['card', 'link'], // Enable Stripe Link
       line_items,
       success_url: `${process.env.NEXT_PUBLIC_SITE_URL}/success?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${process.env.NEXT_PUBLIC_SITE_URL}/cancel`,
       metadata: {
         course_ids: courseIds.join(','),
+        order_type: 'course_purchase',
+      },
+      // Enhanced checkout options
+      billing_address_collection: 'auto',
+      shipping_address_collection: {
+        allowed_countries: ['NG', 'US', 'GB', 'CA'], // Support multiple countries
+      },
+      customer_creation: 'always', // Create customer for future purchases
+      invoice_creation: {
+        enabled: true,
+      },
+      // Optimize for mobile and international cards
+      payment_intent_data: {
+        setup_future_usage: 'off_session', // Enable saving cards for future use
+      },
+      // Custom fields for better checkout experience
+      custom_fields: [
+        {
+          key: 'student_id',
+          label: {
+            type: 'custom',
+            custom: 'Student ID (Optional)',
+          },
+          type: 'text',
+          optional: true,
+        },
+      ],
+      // Phone number collection for course communications
+      phone_number_collection: {
+        enabled: true,
       },
     });
 

@@ -14,8 +14,16 @@ export const getStripe = () => {
     }
 
     stripeInstance = new Stripe(secretKey, {
-      apiVersion: '2025-08-27.basil',
+      apiVersion: '2025-08-27.basil', // Latest supported version
       typescript: true,
+      // Enhanced configuration for better performance
+      maxNetworkRetries: 3,
+      timeout: 30000, // 30 seconds timeout
+      appInfo: {
+        name: 'Hexadigitall Learning Platform',
+        version: '1.0.0',
+        url: process.env.NEXT_PUBLIC_SITE_URL,
+      },
     });
   }
   

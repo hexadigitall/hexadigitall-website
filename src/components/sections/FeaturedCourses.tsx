@@ -121,9 +121,19 @@ function CourseCard({ course }: { course: Course }) {
         </div>
         
         <div className="flex items-center justify-between">
-          <div className="text-2xl font-bold text-primary" aria-label={`Course price: ${course.nairaPrice} Naira or ${course.dollarPrice} dollars`}>
-            <span className="text-lg">₦</span>{course.nairaPrice?.toLocaleString()} 
-            <span className="text-sm text-gray-500 ml-2">${course.dollarPrice}</span>
+          <div className="text-2xl font-bold text-primary" aria-label={`Course price: ${course.nairaPrice || 'Free'} Naira or ${course.dollarPrice || 'Free'} dollars`}>
+            {course.nairaPrice ? (
+              <>
+                <span className="text-lg">₦</span>{course.nairaPrice.toLocaleString()}
+                {course.dollarPrice && (
+                  <span className="text-sm text-gray-500 ml-2">${course.dollarPrice}</span>
+                )}
+              </>
+            ) : course.dollarPrice ? (
+              <span className="text-lg">${course.dollarPrice}</span>
+            ) : (
+              <span className="text-lg text-green-600">Free</span>
+            )}
           </div>
           
           <Link
