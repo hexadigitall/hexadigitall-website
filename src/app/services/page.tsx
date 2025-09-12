@@ -7,6 +7,9 @@ import { client } from '@/sanity/client'
 import { groq } from 'next-sanity'
 import Link from 'next/link'
 import { ServiceRequestFlow, ServiceCategory } from '@/components/services/ServiceRequestFlow'
+import { useCurrency } from '@/contexts/CurrencyContext'
+import PricingTiers from '@/components/ui/PricingTiers'
+import { SparklesIcon } from '@heroicons/react/24/outline'
 
 interface Service {
   _id: string
@@ -42,6 +45,9 @@ export default function ServicesPage() {
   const [selectedService, setSelectedService] = useState<ServiceCategory | null>(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
+  const { formatPrice, currentCurrency, isLocalCurrency, getLocalDiscountMessage } = useCurrency()
+  
+  const discountMessage = getLocalDiscountMessage()
 
   useEffect(() => {
     const fetchData = async () => {
@@ -148,10 +154,10 @@ export default function ServicesPage() {
   }
 
   const getLowestPrice = (packages: any[]) => {
-  type Package = { price?: number }
-  if (!packages || packages.length === 0) return null
-  const prices = (packages as Package[]).map(pkg => pkg.price).filter(price => price != null)
-  return prices.length > 0 ? Math.min(...prices as number[]) : null
+    type Package = { price?: number }
+    if (!packages || packages.length === 0) return null
+    const prices = (packages as Package[]).map(pkg => pkg.price).filter(price => price != null)
+    return prices.length > 0 ? Math.min(...prices as number[]) : null
   }
 
   if (loading) {
@@ -196,6 +202,21 @@ export default function ServicesPage() {
             <p className="mt-4 text-lg text-darkText max-w-2xl mx-auto">
               We offer a complete suite of services to transform your ideas into successful digital realities.
             </p>
+            
+            {/* Currency and Discount Message */}
+            <div className="mt-6 flex flex-col sm:flex-row items-center justify-center gap-4">
+              <div className="flex items-center space-x-2 text-sm text-gray-600">
+                <span>Prices shown in:</span>
+                <span className="font-semibold text-primary">{currentCurrency.flag} {currentCurrency.code}</span>
+              </div>
+              
+              {discountMessage && (
+                <div className="inline-flex items-center space-x-2 bg-green-100 text-green-800 px-4 py-2 rounded-full text-sm font-medium">
+                  <SparklesIcon className="h-4 w-4" />
+                  <span>{discountMessage}</span>
+                </div>
+              )}
+            </div>
           </div>
 
           {/* Service Request Packages */}
@@ -234,7 +255,7 @@ export default function ServicesPage() {
                               </h3>
                               {lowestPrice && (
                                 <p className="text-primary font-semibold">
-                                  Starting from ₦{lowestPrice.toLocaleString()}
+                                  Starting from {formatPrice(lowestPrice / 1650)} {/* Convert from NGN to USD base */}
                                 </p>
                               )}
                             </div>

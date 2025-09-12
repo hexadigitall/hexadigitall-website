@@ -8,6 +8,7 @@ import { Toaster } from 'react-hot-toast';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 import AppCartProvider from '@/components/CartProvider';
+import { CurrencyProvider } from '@/contexts/CurrencyContext';
 
 // Define the fonts from your style guide with performance optimizations
 const montserrat = Montserrat({
@@ -159,12 +160,13 @@ export default function RootLayout({
           Skip to main content
         </a>
         
-        <AppCartProvider>
-          <Header />
-          <main id="main-content" role="main" tabIndex={-1}>
-            {children}
-          </main>
-          <Footer />
+        <CurrencyProvider>
+          <AppCartProvider>
+            <Header />
+            <main id="main-content" role="main" tabIndex={-1}>
+              {children}
+            </main>
+            <Footer />
           
           {/* Toast notifications with better accessibility */}
           <Toaster 
@@ -195,7 +197,8 @@ export default function RootLayout({
               top: '80px', // Account for header height
             }}
           />
-        </AppCartProvider>
+          </AppCartProvider>
+        </CurrencyProvider>
       </body>
     </html>
   );
