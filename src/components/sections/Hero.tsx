@@ -39,6 +39,17 @@ const slides = [
 const Hero = () => {
   const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true });
   const [selectedIndex, setSelectedIndex] = useState(0);
+  
+  // Preload background images for better performance
+  useEffect(() => {
+    slides.forEach((slide) => {
+      if (slide.bgImage && slide.bgImage.includes('http')) {
+        const img = new Image();
+        const url = slide.bgImage.match(/url\('(.+?)'\)/)?.[1];
+        if (url) img.src = url;
+      }
+    });
+  }, []);
 
   const scrollTo = useCallback((index: number) => {
     if (emblaApi) {
@@ -73,11 +84,11 @@ const Hero = () => {
             {slide.bgImage && <div className="absolute inset-0 bg-black/60 z-0" aria-hidden="true"></div>}
             
             {/* Consistent Content Wrapper */}
-            <div className="relative container mx-auto px-6 py-24 md:py-32 text-center text-white z-10">
-              <h1 className="text-4xl md:text-6xl font-bold font-heading mb-4 leading-tight !text-white">
+            <div className="relative container mx-auto px-4 sm:px-6 py-16 sm:py-24 md:py-32 text-center text-white z-10">
+              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold font-heading mb-4 leading-tight !text-white">
                 {slide.headline}
               </h1>
-              <p className="text-lg md:text-xl text-gray-200 max-w-3xl mx-auto mb-8 leading-relaxed">
+              <p className="text-base sm:text-lg md:text-xl text-gray-200 max-w-3xl mx-auto mb-6 sm:mb-8 leading-relaxed">
                 {slide.subheadline}
               </p>
               

@@ -1,5 +1,4 @@
 /* src/app/globals.css */
-@import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Montserrat:wght@700&family=Dancing+Script:wght@600;700&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -102,6 +101,20 @@
   img {
     max-width: 100%;
     height: auto;
+  }
+  
+  /* Responsive image containers */
+  .image-container {
+    position: relative;
+    overflow: hidden;
+  }
+  
+  /* Better mobile touch targets */
+  @media (max-width: 768px) {
+    button, a {
+      min-height: 44px;
+      min-width: 44px;
+    }
   }
   
   /* Accessibility: Better form elements */
@@ -258,5 +271,35 @@
   .focus-visible:focus {
     outline: 2px solid #0A4D68;
     outline-offset: 2px;
+  }
+  
+  /* Prevent horizontal scroll */
+  .no-horizontal-scroll {
+    overflow-x: hidden;
+    max-width: 100vw;
+  }
+  
+  /* Touch action for better mobile performance */
+  .touch-pan-y {
+    touch-action: pan-y;
+  }
+  
+  .touch-manipulation {
+    touch-action: manipulation;
+  }
+  
+  /* Responsive image utilities */
+  .responsive-image {
+    width: 100%;
+    height: auto;
+    max-width: 100%;
+    display: block;
+  }
+  
+  /* Container queries for better responsiveness */
+  @container (max-width: 480px) {
+    .responsive-text {
+      font-size: 0.875rem;
+    }
   }
 }

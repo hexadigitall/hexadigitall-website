@@ -19,9 +19,9 @@ const config: Config = {
         darkText: '#333333',
       },
       fontFamily: {
-        // ✅ Ensure these match the variables in layout.tsx
-        heading: ['var(--font-montserrat)', 'sans-serif'],
-        body: ['var(--font-lato)', 'sans-serif'],
+        // ✅ Ensure these match the variables in layout.tsx with robust fallbacks
+        heading: ['var(--font-montserrat)', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', 'sans-serif'],
+        body: ['var(--font-lato)', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', 'sans-serif'],
       },
     },
   },

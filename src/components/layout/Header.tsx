@@ -44,7 +44,7 @@ const Header = () => {
         setServicesOpen(false);
         setMobileServicesOpen(false);
         setMobileMenuOpen(false);
-        setCartOpen(false); // Also close cart on escape
+        setCartOpen(false);
       }
     };
 
@@ -133,7 +133,7 @@ const Header = () => {
   return (
     <>
       <header className="bg-white shadow-md sticky top-0 z-50">
-        <nav className="container mx-auto px-6 py-4 flex justify-between items-center">
+        <nav className="container mx-auto px-4 sm:px-6 py-4 flex justify-between items-center">
           {/* Logo */}
           <Link href="/" className="flex items-center space-x-2">
             <Image
@@ -141,8 +141,9 @@ const Header = () => {
               alt="Hexadigitall Logo"
               width={180}
               height={60}
-              className="h-12 w-auto"
+              className="h-10 sm:h-12 w-auto"
               priority
+              sizes="(max-width: 640px) 120px, 180px"
             />
           </Link>
 
@@ -161,7 +162,7 @@ const Header = () => {
                   <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
                 </svg>
               </button>
-              <div className={`absolute left-0 bg-white shadow-lg rounded-md mt-2 w-60 z-50 transition-all duration-200 ${isServicesOpen ? 'opacity-100 visible translate-y-0' : 'opacity-0 invisible -translate-y-2'}`}>
+              <div className={`absolute left-0 lg:left-auto lg:right-0 bg-white shadow-lg rounded-md mt-2 w-60 z-50 transition-all duration-200 ${isServicesOpen ? 'opacity-100 visible translate-y-0' : 'opacity-0 invisible -translate-y-2'}`}>
                 <Link href="/services" className="block px-4 py-3 text-sm font-medium text-primary border-b border-gray-100 hover:bg-lightGray" onClick={() => setServicesOpen(false)}>
                   All Services
                 </Link>
@@ -207,7 +208,7 @@ const Header = () => {
 
         {/* Mobile Menu */}
         {isMobileMenuOpen && (
-          <div className="md:hidden bg-white px-6 pb-4 border-t border-gray-100">
+          <div className="md:hidden bg-white px-4 sm:px-6 pb-4 border-t border-gray-100">
             <div className="flex flex-col space-y-4 pt-4">
               <Link href="/about" onClick={() => setMobileMenuOpen(false)}>About</Link>
               <div>
@@ -243,7 +244,7 @@ const Header = () => {
       </header>
 
       {/* Cart Side Panel */}
-      <div className={`fixed top-0 right-0 h-full w-full max-w-md bg-white shadow-lg transform transition-transform duration-300 ease-in-out z-50 ${isCartOpen ? 'translate-x-0' : 'translate-x-full'}`}>
+      <div className={`fixed top-0 right-0 h-full w-full sm:max-w-md bg-white shadow-lg transform transition-transform duration-300 ease-in-out z-50 ${isCartOpen ? 'translate-x-0' : 'translate-x-full'}`}>
             <div className="flex flex-col h-full">
               <div className="flex justify-between items-center p-6 border-b">
                 <h2 className="text-2xl font-bold font-heading">Your Cart</h2>
@@ -259,7 +260,7 @@ const Header = () => {
                       <div key={cartItem.id} className="flex items-center justify-between border-b pb-4 mb-4">
                         <div className="flex items-center">
                           {cartItem.image ? (
-                            <Image src={cartItem.image} alt={cartItem.name} width={64} height={64} className="rounded-md mr-4 object-cover" />
+                            <Image src={cartItem.image} alt={cartItem.name} width={64} height={64} className="rounded-md mr-4 object-cover" sizes="64px" />
                           ) : (
                             <div className="w-16 h-16 bg-gray-200 rounded-md mr-4 flex items-center justify-center text-gray-400">No Image</div>
                           )}

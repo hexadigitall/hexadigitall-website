@@ -16,6 +16,7 @@ const montserrat = Montserrat({
   weight: ['700'],
   display: 'swap', // Improve font loading performance
   preload: true,
+  fallback: ['system-ui', 'Arial', 'sans-serif'],
 });
 const lato = Lato({
   subsets: ['latin'],
@@ -23,6 +24,7 @@ const lato = Lato({
   weight: ['400', '700'],
   display: 'swap', // Improve font loading performance
   preload: true,
+  fallback: ['system-ui', 'Arial', 'sans-serif'],
 });
 
 // ✅ Enhanced metadata for SEO and accessibility

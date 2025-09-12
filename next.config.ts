@@ -1,35 +1,25 @@
-import type { NextConfig } from "next";
+import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
-  eslint: {
-    ignoreDuringBuilds: true,
-  },
-  
+  // eslint: {
+  //   ignoreDuringBuilds: true,
+  // },
+
   // Image optimization
   images: {
     remotePatterns: [
       {
         protocol: 'https',
         hostname: 'cdn.sanity.io',
-        port: '',
-        pathname: '/**',
       },
       {
         protocol: 'https',
         hostname: 'images.unsplash.com',
-        port: '',
-        pathname: '/**',
       },
     ],
     formats: ['image/avif', 'image/webp'],
-    deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
-    imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
-    minimumCacheTTL: 86400, // 24 hours
   },
-  
-  // Compression
-  compress: true,
-  
+
   // Security headers
   headers: async () => [
     {
@@ -54,23 +44,17 @@ const nextConfig: NextConfig = {
       ],
     },
   ],
-  
-  // Bundle analyzer (for debugging)
-  webpack: (config, { isServer }) => {
-    // Bundle optimization
-    if (!isServer) {
-      config.resolve.fallback = {
-        ...config.resolve.fallback,
-        fs: false,
-      };
-    }
-    
-    return config;
-  },
-  
-  // Experimental features for performance
+
+  // Turbopack configuration for experimental features
   experimental: {
-    // optimizeCss: true, // Temporarily disabled due to critters dependency issue
+    // This is the correct way to enable Turbopack
+    // Use turbopack: true if you want to use it for all builds.
+    // Otherwise, use the 'next dev --turbopack' command.
+    // turbopack: true,
+    
+    // Enabling a feature that was previously handled by Webpack
+    // This removes the "fs" dependency from the client-side bundle
+    serverComponentsExternalPackages: ['fs'], 
   },
 };
 
