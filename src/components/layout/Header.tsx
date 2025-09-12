@@ -251,52 +251,93 @@ const Header = () => {
         )}
       </header>
 
-      {/* Cart Side Panel */}
-      <div className={`fixed top-0 right-0 h-full w-full sm:max-w-md bg-white shadow-lg transform transition-transform duration-300 ease-in-out z-50 ${isCartOpen ? 'translate-x-0' : 'translate-x-full'}`}>
+      {/* Cart Side Panel - Fixed implementation to prevent dual behavior */}
+      {isCartOpen && (
+        <>
+          {/* Background Overlay */}
+          <div 
+            onClick={() => setCartOpen(false)} 
+            className="fixed inset-0 bg-black/50 z-40 transition-opacity duration-300 ease-in-out"
+          />
+          
+          {/* Cart Panel */}
+          <div className="fixed top-0 right-0 h-full w-full max-w-md bg-white shadow-2xl z-50 transform transition-transform duration-300 ease-in-out">
             <div className="flex flex-col h-full">
-              <div className="flex justify-between items-center p-6 border-b">
-                <h2 className="text-2xl font-bold font-heading">Your Cart</h2>
-                <button onClick={() => setCartOpen(false)} className="text-2xl">&times;</button>
+              <div className="flex justify-between items-center p-6 border-b bg-gray-50">
+                <h2 className="text-2xl font-bold font-heading text-primary">Your Cart</h2>
+                <button 
+                  onClick={() => setCartOpen(false)} 
+                  className="text-gray-400 hover:text-gray-600 text-2xl font-bold p-2 hover:bg-gray-100 rounded-full transition-colors duration-200"
+                  aria-label="Close cart"
+                >
+                  &times;
+                </button>
               </div>
+              
               <div className="flex-1 overflow-y-auto p-6">
                 {(!cartCount || cartCount === 0) ? (
-                  <p className="text-center text-gray-500">Your cart is empty.</p>
+                  <div className="text-center py-12">
+                    <svg className="mx-auto h-12 w-12 text-gray-400 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+                    </svg>
+                    <p className="text-gray-500 text-lg">Your cart is empty</p>
+                    <p className="text-gray-400 text-sm mt-2">Add some services to get started</p>
+                  </div>
                 ) : (
-                  Object.values(cartDetails ?? {}).map((item) => {
-                    const cartItem = item as CartItem;
-                    return (
-                      <div key={cartItem.id} className="flex items-center justify-between border-b pb-4 mb-4">
-                        <div className="flex items-center">
-                          {cartItem.image ? (
-                            <Image src={cartItem.image} alt={cartItem.name} width={64} height={64} className="rounded-md mr-4 object-cover" sizes="64px" />
-                          ) : (
-                            <div className="w-16 h-16 bg-gray-200 rounded-md mr-4 flex items-center justify-center text-gray-400">No Image</div>
-                          )}
-                          <div>
-                            <p className="font-bold">{cartItem.name}</p>
-                            <p className="text-sm text-gray-600">{cartItem.formattedValue}</p>
+                  <div className="space-y-4">
+                    {Object.values(cartDetails ?? {}).map((item) => {
+                      const cartItem = item as CartItem;
+                      return (
+                        <div key={cartItem.id} className="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
+                          <div className="flex items-center flex-1">
+                            {cartItem.image ? (
+                              <Image src={cartItem.image} alt={cartItem.name} width={64} height={64} className="rounded-md mr-4 object-cover" sizes="64px" />
+                            ) : (
+                              <div className="w-16 h-16 bg-gray-200 rounded-md mr-4 flex items-center justify-center text-gray-400">
+                                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                                </svg>
+                              </div>
+                            )}
+                            <div className="flex-1 min-w-0">
+                              <p className="font-semibold text-primary truncate">{cartItem.name}</p>
+                              <p className="text-sm text-green-600 font-medium">{cartItem.formattedValue}</p>
+                            </div>
                           </div>
+                          <button 
+                            onClick={() => removeItem(cartItem.id)} 
+                            className="text-red-400 hover:text-red-600 p-2 hover:bg-red-50 rounded-full transition-colors duration-200 ml-4"
+                            aria-label={`Remove ${cartItem.name} from cart`}
+                          >
+                            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                            </svg>
+                          </button>
                         </div>
-                        <button onClick={() => removeItem(cartItem.id)} className="text-red-500 hover:text-red-700 text-xl">&times;</button>
-                      </div>
-                    );
-                  })
+                      );
+                    })}
+                  </div>
                 )}
               </div>
+              
               {cartCount && cartCount > 0 && (
-                <div className="p-6 border-t">
-                  <div className="flex justify-between items-center font-bold text-lg mb-4">
+                <div className="p-6 border-t bg-gray-50">
+                  <div className="flex justify-between items-center font-bold text-xl mb-4 text-primary">
                     <span>Total</span>
-                    <span>{formattedTotalPrice}</span>
+                    <span className="text-green-600">{formattedTotalPrice}</span>
                   </div>
-                  <button onClick={handleCheckout} className="btn-primary w-full text-center">
+                  <button 
+                    onClick={handleCheckout} 
+                    className="btn-primary w-full text-center py-4 text-lg font-semibold"
+                  >
                     Proceed to Checkout
                   </button>
                 </div>
               )}
-        </div>
-      </div>
-      {isCartOpen && <div onClick={() => setCartOpen(false)} className="fixed inset-0 bg-black/50 z-40"></div>}
+            </div>
+          </div>
+        </>
+      )}
     </>
   );
 };

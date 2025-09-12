@@ -153,7 +153,7 @@ export default function ServicesPage() {
   return icons[iconName] || icons['default']
   }
 
-  const getLowestPrice = (packages: any[]) => {
+  const getLowestPrice = (packages: { price?: number }[]) => {
     type Package = { price?: number }
     if (!packages || packages.length === 0) return null
     const prices = (packages as Package[]).map(pkg => pkg.price).filter(price => price != null)

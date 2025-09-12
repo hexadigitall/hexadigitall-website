@@ -1,6 +1,7 @@
 // src/app/privacy-policy/page.tsx
 
 import type { Metadata } from 'next';
+import Link from 'next/link';
 import { generateMetadata, generateBreadcrumbSchema } from '@/lib/seo';
 import { generateStructuredData } from '@/lib/structured-data';
 
@@ -44,7 +45,7 @@ export default function PrivacyPolicyPage() {
           {/* Breadcrumb Navigation */}
           <nav className="mb-8" aria-label="Breadcrumb">
             <ol className="flex items-center space-x-2 text-sm text-gray-600">
-              <li><a href="/" className="hover:text-primary transition-colors">Home</a></li>
+              <li><Link href="/" className="hover:text-primary transition-colors">Home</Link></li>
               <li className="text-gray-400">/</li>
               <li className="text-primary font-medium" aria-current="page">Privacy Policy</li>
             </ol>
@@ -70,7 +71,7 @@ export default function PrivacyPolicyPage() {
             <section className="mb-8">
               <h2 className="text-2xl font-bold font-heading text-primary mb-4">1. Introduction</h2>
               <p className="text-gray-700 leading-relaxed mb-4">
-                Welcome to Hexadigitall ("we," "our," or "us"). We are committed to protecting your privacy and ensuring the security of your personal information. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our website, use our services, or interact with us.
+                Welcome to Hexadigitall (Welcome to Hexadigitall (("we," "our," or "us")quot;we,("we," "our," or "us")quot; ("we," "our," or "us")quot;our,("we," "our," or "us")quot; or ("we," "our," or "us")quot;us("we," "our," or "us")quot;). We are committed to protecting your privacy and ensuring the security of your personal information. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our website, use our services, or interact with us.quot;we,Welcome to Hexadigitall (("we," "our," or "us")quot;we,("we," "our," or "us")quot; ("we," "our," or "us")quot;our,("we," "our," or "us")quot; or ("we," "our," or "us")quot;us("we," "our," or "us")quot;). We are committed to protecting your privacy and ensuring the security of your personal information. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our website, use our services, or interact with us.quot; Welcome to Hexadigitall (("we," "our," or "us")quot;we,("we," "our," or "us")quot; ("we," "our," or "us")quot;our,("we," "our," or "us")quot; or ("we," "our," or "us")quot;us("we," "our," or "us")quot;). We are committed to protecting your privacy and ensuring the security of your personal information. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our website, use our services, or interact with us.quot;our,Welcome to Hexadigitall (("we," "our," or "us")quot;we,("we," "our," or "us")quot; ("we," "our," or "us")quot;our,("we," "our," or "us")quot; or ("we," "our," or "us")quot;us("we," "our," or "us")quot;). We are committed to protecting your privacy and ensuring the security of your personal information. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our website, use our services, or interact with us.quot; or Welcome to Hexadigitall (("we," "our," or "us")quot;we,("we," "our," or "us")quot; ("we," "our," or "us")quot;our,("we," "our," or "us")quot; or ("we," "our," or "us")quot;us("we," "our," or "us")quot;). We are committed to protecting your privacy and ensuring the security of your personal information. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our website, use our services, or interact with us.quot;usWelcome to Hexadigitall (("we," "our," or "us")quot;we,("we," "our," or "us")quot; ("we," "our," or "us")quot;our,("we," "our," or "us")quot; or ("we," "our," or "us")quot;us("we," "our," or "us")quot;). We are committed to protecting your privacy and ensuring the security of your personal information. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our website, use our services, or interact with us.quot;). We are committed to protecting your privacy and ensuring the security of your personal information. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our website, use our services, or interact with us.
               </p>
               <p className="text-gray-700 leading-relaxed">
                 By using our services, you agree to the collection and use of information in accordance with this policy. We will not use or share your information except as described in this Privacy Policy.
@@ -240,9 +241,9 @@ export default function PrivacyPolicyPage() {
               </p>
             </section>
 
-            {/* Children's Privacy */}
+            {/* ChildrenChildrenChildren's Privacyapos;s Privacyapos;s Privacy */}
             <section className="mb-8">
-              <h2 className="text-2xl font-bold font-heading text-primary mb-4">10. Children's Privacy</h2>
+              <h2 className="text-2xl font-bold font-heading text-primary mb-4">10. ChildrenChildrenChildren's Privacyapos;s Privacyapos;s Privacy</h2>
               <p className="text-gray-700 leading-relaxed mb-4">
                 Our services are not directed to children under 13 years of age. We do not knowingly collect personal information from children under 13. If you are a parent or guardian and believe your child has provided us with personal information, please contact us immediately.
               </p>

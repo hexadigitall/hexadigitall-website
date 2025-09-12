@@ -1,9 +1,20 @@
 import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
-  // eslint: {
-  //   ignoreDuringBuilds: true,
-  // },
+  // Enable strict mode for better development experience
+  reactStrictMode: true,
+  
+  // Enable SWC minification for better performance
+  swcMinify: true,
+
+  // Optimize compilation performance
+  webpack: (config, { dev, isServer }) => {
+    if (!dev && !isServer) {
+      // Enable tree shaking for better bundle size
+      config.optimization.usedExports = true;
+    }
+    return config;
+  },
 
   // Image optimization
   images: {
@@ -16,15 +27,31 @@ const nextConfig: NextConfig = {
         protocol: 'https',
         hostname: 'images.unsplash.com',
       },
+      {
+        protocol: 'https',
+        hostname: 'puzezel0.apicdn.sanity.io',
+      },
     ],
     formats: ['image/avif', 'image/webp'],
+    deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
+    imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
+    minimumCacheTTL: 60,
   },
+
+  // Performance optimizations
+  compress: true,
+  poweredByHeader: false,
+  generateEtags: true,
 
   // Security headers
   headers: async () => [
     {
       source: '/(.*)',
       headers: [
+        {
+          key: 'X-DNS-Prefetch-Control',
+          value: 'on',
+        },
         {
           key: 'X-Content-Type-Options',
           value: 'nosniff',
@@ -41,20 +68,36 @@ const nextConfig: NextConfig = {
           key: 'Referrer-Policy',
           value: 'strict-origin-when-cross-origin',
         },
+        {
+          key: 'Permissions-Policy',
+          value: 'camera=(), microphone=(), geolocation=()',
+        },
       ],
     },
   ],
 
-  // Turbopack configuration for experimental features
+  // Server external packages (moved from experimental)
+  serverExternalPackages: ['fs'],
+
+  // Experimental features
   experimental: {
-    // This is the correct way to enable Turbopack
-    // Use turbopack: true if you want to use it for all builds.
-    // Otherwise, use the 'next dev --turbopack' command.
-    // turbopack: true,
-    
-    // Enabling a feature that was previously handled by Webpack
-    // This removes the "fs" dependency from the client-side bundle
-    serverComponentsExternalPackages: ['fs'], 
+    // Enable optimized CSS
+    optimizeCss: true,
+    // Enable static worker optimization
+    staticWorkerRequestDeduping: true,
+  },
+
+  // TypeScript configuration
+  typescript: {
+    // Type checking is handled by your IDE and CI
+    ignoreBuildErrors: false,
+  },
+
+  // ESLint configuration
+  eslint: {
+    // Lint on build
+    ignoreDuringBuilds: false,
+    dirs: ['src'],
   },
 };
 

@@ -37,7 +37,7 @@ export async function GET() {
       featuredCoursesTest = {
         success: true,
         count: featured.length,
-        courses: featured.map((c: any) => ({
+        courses: featured.map((c: { title: string; nairaPrice?: number; dollarPrice?: number }) => ({
           title: c.title,
           hasPrice: !!(c.nairaPrice || c.dollarPrice)
         }))

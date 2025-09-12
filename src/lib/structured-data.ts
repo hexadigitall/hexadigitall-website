@@ -173,6 +173,6 @@ export const courseStructuredData = (course: {
   })
 });
 
-export function generateStructuredData(data: any) {
+export function generateStructuredData(data: Record<string, unknown>) {
   return JSON.stringify(data, null, 2);
 }

@@ -1,6 +1,7 @@
 // src/app/about/page.tsx
 import type { Metadata } from 'next';
 import Image from 'next/image';
+import Link from 'next/link';
 import { generateMetadata, generateBreadcrumbSchema } from '@/lib/seo';
 import { generateStructuredData } from '@/lib/structured-data';
 
@@ -42,7 +43,7 @@ export default function AboutPage() {
           {/* Breadcrumb Navigation */}
           <nav className="mb-8" aria-label="Breadcrumb">
             <ol className="flex justify-center items-center space-x-2 text-sm text-gray-300">
-              <li><a href="/" className="hover:text-accent transition-colors">Home</a></li>
+              <li><Link href="/" className="hover:text-accent transition-colors">Home</Link></li>
               <li className="text-gray-500">/</li>
               <li className="text-white" aria-current="page">About Us</li>
             </ol>

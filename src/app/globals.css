@@ -5,9 +5,13 @@
 @tailwind utilities;
 
 @layer base {
+  /* Root element overflow control */
+  html, body {
+    overflow-x: hidden;
+  }
+  
   /* Performance: Enable hardware acceleration for smooth animations */
   * {
-    transform: translateZ(0);
     backface-visibility: hidden;
     -webkit-backface-visibility: hidden;
   }

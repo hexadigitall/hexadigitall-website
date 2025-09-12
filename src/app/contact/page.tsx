@@ -1,6 +1,7 @@
 // src/app/contact/page.tsx
 
 import type { Metadata } from 'next';
+import Link from 'next/link';
 import ContactForm from '@/components/ContactForm';
 import { generateMetadata, generateBreadcrumbSchema } from '@/lib/seo';
 import { generateStructuredData } from '@/lib/structured-data';
@@ -76,7 +77,7 @@ export default function ContactPage() {
           {/* Breadcrumb Navigation */}
           <nav className="mb-8" aria-label="Breadcrumb">
             <ol className="flex items-center space-x-2 text-sm text-gray-600">
-              <li><a href="/" className="hover:text-primary transition-colors">Home</a></li>
+              <li><Link href="/" className="hover:text-primary transition-colors">Home</Link></li>
               <li className="text-gray-400">/</li>
               <li className="text-primary font-medium" aria-current="page">Contact Us</li>
             </ol>

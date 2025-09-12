@@ -1,6 +1,6 @@
 // Module declarations for external packages
 declare module 'next-sanity' {
-  export function groq(strings: TemplateStringsArray, ...values: any[]): string
+  export function groq(strings: TemplateStringsArray, ...values: unknown[]): string
   export * from '@sanity/client'
 }
 
@@ -8,8 +8,8 @@ declare module '@portabletext/react' {
   import { ReactNode } from 'react'
   
   export interface PortableTextProps {
-    value: any[]
-    components?: any
+    value: Array<Record<string, unknown>>
+    components?: Record<string, unknown>
   }
   
   export function PortableText(props: PortableTextProps): ReactNode

@@ -13,7 +13,7 @@ import ServicePricingClient from '@/components/services/ServicePricingClient'
 interface Service {
   title: string
   overview: string
-  mainContent: any[]
+  mainContent: Array<Record<string, unknown>>
 }
 
 interface RelatedService {
