@@ -4,8 +4,6 @@ const nextConfig: NextConfig = {
   // Enable strict mode for better development experience
   reactStrictMode: true,
   
-  // Enable SWC minification for better performance
-  swcMinify: true,
 
   // Optimize compilation performance
   webpack: (config, { dev, isServer }) => {
@@ -83,8 +81,6 @@ const nextConfig: NextConfig = {
   experimental: {
     // Enable optimized CSS
     optimizeCss: true,
-    // Enable static worker optimization
-    staticWorkerRequestDeduping: true,
   },
 
   // TypeScript configuration
