@@ -59,7 +59,7 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
           </div>
         )}
         <div className="prose lg:prose-xl max-w-none">
-          <PortableText value={post.body} />
+          <PortableText value={post.body as Record<string, unknown>[]} />
         </div>
       </div>
     </article>

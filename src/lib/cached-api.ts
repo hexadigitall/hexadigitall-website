@@ -8,20 +8,20 @@ interface CacheEntry<T> {
 }
 
 class APICache {
-  private cache: Map<string, CacheEntry<any>> = new Map()
+  private cache: Map<string, CacheEntry<unknown>> = new Map()
   private readonly DEFAULT_TTL = 5 * 60 * 1000 // 5 minutes in milliseconds
 
-  private generateKey(query: string, params?: Record<string, any>): string {
+  private generateKey(query: string, params?: Record<string, unknown>): string {
     return `${query}-${JSON.stringify(params || {})}`
   }
 
-  private isExpired(entry: CacheEntry<any>): boolean {
+  private isExpired(entry: CacheEntry<unknown>): boolean {
     return Date.now() - entry.timestamp > entry.ttl
   }
 
   async get<T>(
     query: string, 
-    params?: Record<string, any>, 
+    params?: Record<string, unknown>,
     ttl: number = this.DEFAULT_TTL
   ): Promise<T> {
     const key = this.generateKey(query, params)
@@ -30,13 +30,13 @@ class APICache {
     // Return cached data if it exists and hasn't expired
     if (cached && !this.isExpired(cached)) {
       console.log(`📦 [CACHE HIT] Using cached data for query: ${query.substring(0, 50)}...`)
-      return cached.data
+      return cached.data as T
     }
 
     // Fetch fresh data
     console.log(`🔄 [CACHE MISS] Fetching fresh data for query: ${query.substring(0, 50)}...`)
     try {
-      const data = await client.fetch<T>(query, params)
+      const data = await client.fetch<T>(query, params as Record<string, unknown>)
       
       // Cache the result
       this.cache.set(key, {
@@ -55,7 +55,7 @@ class APICache {
       // Return stale data if available as fallback
       if (cached) {
         console.log('🔄 [STALE FALLBACK] Using expired cached data')
-        return cached.data
+        return cached.data as T
       }
       
       throw error
@@ -98,7 +98,7 @@ export const apiCache = new APICache()
 // Export convenience functions
 export const cachedFetch = <T>(
   query: string, 
-  params?: Record<string, any>, 
+  params?: Record<string, unknown>,
   ttlMinutes: number = 5
 ): Promise<T> => {
   return apiCache.get<T>(query, params, ttlMinutes * 60 * 1000)

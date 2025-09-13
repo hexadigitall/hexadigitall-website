@@ -73,7 +73,7 @@ export default function TermsOfServicePage() {
             <section className="mb-8">
               <h2 className="text-2xl font-bold font-heading text-primary mb-4">1. Agreement to Terms</h2>
               <p className="text-gray-700 leading-relaxed mb-4">
-                These Terms of Service ("Terms") constitute a legally binding agreement between you ("User," "you," or "your") and Hexadigitall ("Company," "we," "our," or "us") regarding your use of our website, services, and products.
+                These Terms of Service (&quot;Terms&quot;) constitute a legally binding agreement between you (&quot;User,&quot; &quot;you,&quot; or &quot;your&quot;) and Hexadigitall (&quot;Company,&quot; &quot;we,&quot; &quot;our,&quot; or &quot;us&quot;) regarding your use of our website, services, and products.
               </p>
               <p className="text-gray-700 leading-relaxed mb-4">
                 By accessing, browsing, or using our services, you acknowledge that you have read, understood, and agree to be bound by these Terms and our Privacy Policy. If you do not agree to these Terms, please do not use our services.
@@ -252,7 +252,7 @@ export default function TermsOfServicePage() {
               
               <h3 className="text-xl font-semibold text-gray-800 mb-3">9.1 Service Disclaimer</h3>
               <p className="text-gray-700 leading-relaxed mb-4">
-                Our services are provided "as is" without warranties of any kind, either express or implied. While we strive for excellence, we cannot guarantee specific outcomes or results from our services.
+                Our services are provided &quot;as is&quot; without warranties of any kind, either express or implied. While we strive for excellence, we cannot guarantee specific outcomes or results from our services.
               </p>
 
               <h3 className="text-xl font-semibold text-gray-800 mb-3">9.2 Third-Party Services</h3>

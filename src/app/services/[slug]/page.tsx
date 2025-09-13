@@ -106,7 +106,7 @@ export default async function IndividualServicePage(
         <div className="container mx-auto px-6 py-12">
           <div className="max-w-4xl mx-auto">
             <div className="prose lg:prose-xl max-w-none">
-              <PortableText value={service.mainContent} />
+              <PortableText value={service.mainContent as Record<string, unknown>[]} />
             </div>
             
             {/* Call to Action */}
@@ -115,7 +115,7 @@ export default async function IndividualServicePage(
                 Ready to Get Started?
               </h3>
               <p className="text-gray-600 mb-6 max-w-2xl mx-auto">
-                Let's discuss your project and create a tailored solution that meets your specific needs and budget.
+                Let&apos;s discuss your project and create a tailored solution that meets your specific needs and budget.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Link 

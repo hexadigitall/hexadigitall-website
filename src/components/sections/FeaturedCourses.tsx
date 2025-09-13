@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
-import { client } from '@/sanity/client'
+// import { client } from '@/sanity/client'
 
 interface Course {
   _id: string
@@ -23,19 +23,20 @@ interface FeaturedCoursesProps {
   className?: string
 }
 
-const FEATURED_COURSES_QUERY = `*[_type == "course" && featured == true] | order(_createdAt desc)[0...4] {
-  _id,
-  title,
-  slug,
-  "mainImage": mainImage.asset->url,
-  description,
-  duration,
-  level,
-  instructor,
-  nairaPrice,
-  dollarPrice,
-  featured
-}`
+// Commented out unused query - courses are now fetched via API
+// const FEATURED_COURSES_QUERY = `*[_type == "course" && featured == true] | order(_createdAt desc)[0...4] {
+//   _id,
+//   title,
+//   slug,
+//   "mainImage": mainImage.asset->url,
+//   description,
+//   duration,
+//   level,
+//   instructor,
+//   nairaPrice,
+//   dollarPrice,
+//   featured
+// }`
 
 function CourseCardSkeleton() {
   return (

@@ -8,7 +8,7 @@ export async function GET() {
     const [serviceCategories, services] = await Promise.all([
       getCachedServiceCategories(),
       getCachedServices()
-    ])
+    ]) as [unknown[], unknown[]]
     
     console.log('✅ [API] Service data fetched:', {
       categories: serviceCategories?.length || 0,

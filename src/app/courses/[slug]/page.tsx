@@ -117,7 +117,7 @@ export default async function CoursePage({ params }: { params: Promise<{ slug: s
                 <div className="grid lg:grid-cols-3 gap-12">
                     {/* Left Column: Course Details */}
                     <div className="lg:col-span-2 prose lg:prose-xl max-w-none">
-                        <PortableText value={course.body} />
+                        <PortableText value={course.body as Record<string, unknown>[]} />
                     </div>
 
                     {/* Right Column: Enrollment Card */}

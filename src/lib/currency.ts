@@ -86,7 +86,7 @@ class CurrencyService {
       const detected = await this.detectCurrencyFromGeo();
       this.currentCurrency = detected;
       this.saveCurrencyPreference(detected);
-    } catch (error) {
+    } catch {
       console.log('Could not detect currency, using USD default');
       this.currentCurrency = 'USD';
     }
@@ -110,7 +110,7 @@ class CurrencyService {
           if (countryCode && COUNTRY_CURRENCY_MAP[countryCode]) {
             return COUNTRY_CURRENCY_MAP[countryCode];
           }
-        } catch (err) {
+        } catch {
           console.log(`Service ${service} failed, trying next...`);
           continue;
         }

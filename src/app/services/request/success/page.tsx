@@ -188,7 +188,7 @@ function ServiceRequestSuccessContent() {
               </div>
               <h3 className="text-lg font-semibold text-gray-900 mb-2">2. Project Kickoff</h3>
               <p className="text-gray-600">
-                We'll schedule a kickoff meeting to align on goals, timeline, and deliverables.
+                We&apos;ll schedule a kickoff meeting to align on goals, timeline, and deliverables.
               </p>
             </div>
             

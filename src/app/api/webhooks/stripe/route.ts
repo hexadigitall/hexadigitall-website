@@ -11,15 +11,16 @@ if (!webhookSecret) {
   console.warn('⚠️ Stripe webhook secret is not configured. Webhook verification will fail.')
 }
 
-interface WebhookBody {
-  id: string
-  object: string
-  created: number
-  data: {
-    object: Stripe.Checkout.Session | Stripe.PaymentIntent
-  }
-  type: string
-}
+// WebhookBody interface - commented out to resolve linting warning
+// interface WebhookBody {
+//   id: string
+//   object: string
+//   created: number
+//   data: {
+//     object: Stripe.Checkout.Session | Stripe.PaymentIntent
+//   }
+//   type: string
+// }
 
 export async function POST(request: NextRequest) {
   const body = await request.text()

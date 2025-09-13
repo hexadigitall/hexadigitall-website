@@ -30,7 +30,7 @@ export const PaymentSummary: React.FC<PaymentSummaryProps> = ({
 }: PaymentSummaryProps) => {
   const [isProcessing, setIsProcessing] = useState(false)
   const [error, setError] = useState<string | null>(null)
-  const { formatPrice: formatCurrencyPrice, currentCurrency } = useCurrency()
+  const { formatPrice: formatCurrencyPrice } = useCurrency()
 
   const formatPrice = (price: number, originalCurrency: string = 'USD') => {
     // Convert to USD first if needed, then to current currency
@@ -223,7 +223,7 @@ export const PaymentSummary: React.FC<PaymentSummaryProps> = ({
 
           {/* Package Features Recap */}
           <div className="bg-blue-50 rounded-lg p-6">
-            <h4 className="text-lg font-semibold text-gray-900 mb-4">What's Included</h4>
+            <h4 className="text-lg font-semibold text-gray-900 mb-4">What&apos;s Included</h4>
             <ul className="space-y-2">
               {selectedPackage.features.map((feature: string, index: number) => (
                 <li key={index} className="flex items-start">
@@ -311,7 +311,7 @@ export const PaymentSummary: React.FC<PaymentSummaryProps> = ({
               <div>
                 <h5 className="font-medium text-green-800">Secure Payment</h5>
                 <p className="text-sm text-green-700 mt-1">
-                  Your payment is processed securely through Stripe. We don't store your payment information.
+                  Your payment is processed securely through Stripe. We don&apos;t store your payment information.
                 </p>
               </div>
             </div>

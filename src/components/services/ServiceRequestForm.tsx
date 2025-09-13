@@ -162,7 +162,7 @@ export const ServiceRequestForm: React.FC<ServiceRequestFormProps> = ({
                 <option value="1-2-weeks">1-2 weeks</option>
                 <option value="1-month">Within 1 month</option>
                 <option value="2-3-months">2-3 months</option>
-                <option value="flexible">I'm flexible</option>
+                <option value="flexible">I&apos;m flexible</option>
               </select>
             </div>
 

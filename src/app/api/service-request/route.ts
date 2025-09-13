@@ -11,35 +11,36 @@ interface AddOn {
   description?: string;
 }
 
-interface ServiceCategory {
-  _id: string;
-  title: string;
-  slug?: { current: string };
-}
+// Type definitions - commented out unused interfaces to resolve linting warnings
+// interface ServiceCategory {
+//   _id: string;
+//   title: string;
+//   slug?: { current: string };
+// }
 
-interface Package {
-  name: string;
-  price: number;
-  currency?: string;
-  tier: string;
-}
+// interface Package {
+//   name: string;
+//   price: number;
+//   currency?: string;
+//   tier: string;
+// }
 
-interface ClientInfo {
-  firstName: string;
-  lastName: string;
-  email: string;
-  phone?: string;
-  company?: string;
-  address?: string;
-}
+// interface ClientInfo {
+//   firstName: string;
+//   lastName: string;
+//   email: string;
+//   phone?: string;
+//   company?: string;
+//   address?: string;
+// }
 
-interface ProjectDetails {
-  title: string;
-  description: string;
-  requirements?: string;
-  timeline?: string;
-  budget?: string;
-}
+// interface ProjectDetails {
+//   title: string;
+//   description: string;
+//   requirements?: string;
+//   timeline?: string;
+//   budget?: string;
+// }
 
 export async function POST(request: NextRequest) {
   try {

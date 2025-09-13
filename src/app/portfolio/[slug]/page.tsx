@@ -68,14 +68,14 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
           {project.solution && (
             <>
               <h2>Our Solution</h2>
-              <PortableText value={project.solution} />
+              <PortableText value={project.solution as Record<string, unknown>[]} />
             </>
           )}
           
           {project.results && (
             <>
               <h2>Results & Impact</h2>
-              <PortableText value={project.results} />
+              <PortableText value={project.results as Record<string, unknown>[]} />
             </>
           )}
           

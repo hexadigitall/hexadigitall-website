@@ -1,6 +1,6 @@
 'use client';
 
-import { useCurrency } from '@/contexts/CurrencyContext';
+// import { useCurrency } from '@/contexts/CurrencyContext';
 import PricingTiers from '@/components/ui/PricingTiers';
 import { SERVICE_PRICING } from '@/lib/currency';
 
@@ -10,7 +10,7 @@ interface ServicePricingClientProps {
 }
 
 export default function ServicePricingClient({ serviceSlug, serviceName }: ServicePricingClientProps) {
-  const { currentCurrency, isLocalCurrency, getLocalDiscountMessage } = useCurrency();
+  // const { currentCurrency, isLocalCurrency, getLocalDiscountMessage } = useCurrency();
   
   // Map service slugs to pricing service types
   const servicePricingMap: Record<string, keyof typeof SERVICE_PRICING> = {

@@ -62,7 +62,7 @@ export const ServicePackageSelection: React.FC<ServicePackageSelectionProps> = (
   const [selectedPackage, setSelectedPackage] = useState<Package | null>(null)
   const [selectedAddOns, setSelectedAddOns] = useState<AddOn[]>([])
   const [selectedPaymentPlan, setSelectedPaymentPlan] = useState<PaymentPlan>(PAYMENT_PLANS[0])
-  const { formatPrice: formatCurrencyPrice, currentCurrency } = useCurrency()
+  const { formatPrice: formatCurrencyPrice } = useCurrency()
 
   const getTierColor = (tier: string) => {
     switch (tier) {

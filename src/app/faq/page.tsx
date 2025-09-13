@@ -49,7 +49,7 @@ export default async function FaqPage() {
                         {faq.question}
                       </summary>
                       <div className="mt-4 prose">
-                        <PortableText value={faq.answer} />
+                        <PortableText value={faq.answer as Record<string, unknown>[]} />
                       </div>
                     </details>
                   ))}

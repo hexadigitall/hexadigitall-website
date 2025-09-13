@@ -5,7 +5,7 @@ export async function GET() {
   try {
     console.log('🎓 [API] Fetching featured courses via server-side...')
     
-    const courses = await getCachedFeaturedCourses()
+    const courses = await getCachedFeaturedCourses() as unknown[]
     
     console.log('✅ [API] Featured courses fetched:', courses?.length || 0, 'courses')
     
