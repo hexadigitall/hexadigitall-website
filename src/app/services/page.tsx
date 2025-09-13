@@ -9,6 +9,7 @@ import { useCurrency } from '@/contexts/CurrencyContext'
 import { CountdownTimer, SpotsRemaining } from '@/components/ui/CountdownTimer'
 import { CompactPriceDisplay } from '@/components/ui/PriceDisplay'
 import { SparklesIcon } from '@heroicons/react/24/outline'
+import { useSearchParams } from 'next/navigation'
 
 interface Service {
   _id: string
@@ -27,9 +28,26 @@ export default function ServicesPage() {
   const [selectedService, setSelectedService] = useState<ServiceCategory | null>(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
+  const [focusService, setFocusService] = useState<string | null>(null)
   const { getLocalDiscountMessage, currentCurrency } = useCurrency()
+  const searchParams = useSearchParams()
   
   const discountMessage = getLocalDiscountMessage()
+
+  // Handle focus parameter for sub-service navigation
+  useEffect(() => {
+    const focus = searchParams.get('focus')
+    if (focus) {
+      setFocusService(focus)
+      // Auto-scroll to service categories section after data loads
+      setTimeout(() => {
+        const element = document.getElementById('service-packages')
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth' })
+        }
+      }, 500)
+    }
+  }, [searchParams])
 
   useEffect(() => {
     const fetchData = async () => {
@@ -234,9 +252,36 @@ export default function ServicesPage() {
           {/* Service Request Packages */}
           {serviceCategories.length > 0 && (
             <>
-              <div className="mb-16">
-                <h2 className="text-3xl font-bold text-center mb-2">Service Packages</h2>
-                <p className="text-center text-gray-600 mb-8">Professional IT services with transparent pricing and guaranteed delivery</p>
+              <div className="mb-16" id="service-packages">
+                <h2 className="text-3xl font-bold text-center mb-2">
+                  {focusService ? (
+                    focusService === 'web-development' ? 'Web Development Services' :
+                    focusService === 'mobile-development' ? 'Mobile App Development Services' :
+                    'Service Packages'
+                  ) : 'Service Packages'}
+                </h2>
+                <p className="text-center text-gray-600 mb-8">
+                  {focusService ? (
+                    focusService === 'web-development' ? 'Build modern, responsive websites and web applications' :
+                    focusService === 'mobile-development' ? 'Create powerful mobile apps for iOS and Android' :
+                    'Professional IT services with transparent pricing and guaranteed delivery'
+                  ) : 'Professional IT services with transparent pricing and guaranteed delivery'}
+                </p>
+                
+                {focusService && (
+                  <div className="text-center mb-8">
+                    <div className="inline-flex items-center space-x-2 bg-blue-100 text-blue-800 px-4 py-2 rounded-full text-sm font-medium">
+                      <SparklesIcon className="h-4 w-4" />
+                      <span>Specialized {focusService === 'web-development' ? 'Web Development' : 'Mobile App'} packages below</span>
+                    </div>
+                    <button 
+                      onClick={() => setFocusService(null)}
+                      className="ml-4 text-sm text-gray-500 hover:text-gray-700 underline"
+                    >
+                      View all services
+                    </button>
+                  </div>
+                )}
                 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                   {serviceCategories.map((service) => {

@@ -44,13 +44,13 @@ export function useServices() {
         }
       } catch (error) {
         console.error('Error fetching services:', error);
-        // Fallback to hardcoded services if fetch fails
+        // Fallback to services that actually exist with correct slugs
         setServices([
-          { href: "/services/business-plan-logo", label: "Business Plan & Logo", slug: "business-plan-logo" },
-          { href: "/services/web-mobile-development", label: "Web & Mobile Dev", slug: "web-mobile-development" },
-          { href: "/services/social-media-marketing", label: "Social Media Marketing", slug: "social-media-marketing" },
-          { href: "/services/portfolio-building", label: "Portfolio Building", slug: "portfolio-building" },
-          { href: "/services/mentoring-consulting", label: "Mentoring & Consulting", slug: "mentoring-consulting" },
+          { href: "/services/business-plan-and-logo-design", label: "Business Plan & Logo", slug: "business-plan-and-logo-design" },
+          { href: "/services/web-and-mobile-software-development", label: "Web & Mobile Dev", slug: "web-and-mobile-software-development" },
+          { href: "/services/social-media-advertising-and-marketing", label: "Social Media Marketing", slug: "social-media-advertising-and-marketing" },
+          { href: "/services/profile-and-portfolio-building", label: "Portfolio Building", slug: "profile-and-portfolio-building" },
+          { href: "/services/mentoring-and-consulting", label: "Mentoring & Consulting", slug: "mentoring-and-consulting" },
         ]);
       } finally {
         setLoading(false);
