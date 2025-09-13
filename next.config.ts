@@ -80,7 +80,7 @@ const nextConfig: NextConfig = {
   // Experimental features
   experimental: {
     // Enable optimized CSS
-    optimizeCss: true,
+    // optimizeCss: true, // Disabled due to critters dependency issue
   },
 
   // TypeScript configuration
