@@ -70,11 +70,14 @@ class CurrencyService {
   }
 
   private async initializeCurrency() {
-    // Check for saved preference
-    const saved = localStorage.getItem('hexadigitall_currency');
-    if (saved && SUPPORTED_CURRENCIES[saved]) {
-      this.currentCurrency = saved;
-      return;
+    // Only access localStorage on the client side
+    if (typeof window !== 'undefined') {
+      // Check for saved preference
+      const saved = localStorage.getItem('hexadigitall_currency');
+      if (saved && SUPPORTED_CURRENCIES[saved]) {
+        this.currentCurrency = saved;
+        return;
+      }
     }
 
     // Detect from geo-location
@@ -150,10 +153,13 @@ class CurrencyService {
   }
 
   private saveCurrencyPreference(currency: string) {
-    try {
-      localStorage.setItem('hexadigitall_currency', currency);
-    } catch (error) {
-      console.error('Could not save currency preference:', error);
+    // Only save to localStorage on the client side
+    if (typeof window !== 'undefined') {
+      try {
+        localStorage.setItem('hexadigitall_currency', currency);
+      } catch (error) {
+        console.error('Could not save currency preference:', error);
+      }
     }
   }
 
@@ -167,10 +173,18 @@ class CurrencyService {
     currency?: string;
     showCurrency?: boolean;
     showOriginal?: boolean;
+    applyNigerianDiscount?: boolean;
   }): string {
     const targetCurrency = options?.currency || this.currentCurrency;
     const currency = SUPPORTED_CURRENCIES[targetCurrency];
-    const convertedPrice = this.convertPrice(usdPrice, targetCurrency);
+    
+    // Apply Nigerian launch special discount (30% off for NGN users)
+    let finalPrice = usdPrice;
+    if (options?.applyNigerianDiscount !== false && this.isLocalCurrency() && targetCurrency === 'NGN' && this.isLaunchSpecialActive()) {
+      finalPrice = usdPrice * 0.7; // 30% discount
+    }
+    
+    const convertedPrice = this.convertPrice(finalPrice, targetCurrency);
     
     // Format based on currency
     let formatted: string;
@@ -217,8 +231,16 @@ class CurrencyService {
     return this.currentCurrency === 'NGN';
   }
 
+  isLaunchSpecialActive(): boolean {
+    // Launch special runs until January 31, 2025
+    const endDate = new Date('2025-01-31T23:59:59Z');
+    return new Date() < endDate;
+  }
+
   getLocalDiscountMessage(): string | null {
-    if (this.isLocalCurrency()) {
+    if (this.isLocalCurrency() && this.isLaunchSpecialActive()) {
+      return "🇳🇬 30% OFF Launch Special - Limited Time for Nigerian clients!";
+    } else if (this.isLocalCurrency()) {
       return "🇳🇬 Special rates for Nigerian clients - Pay in Naira!";
     }
     return null;
@@ -227,14 +249,14 @@ class CurrencyService {
 
 export const currencyService = new CurrencyService();
 
-// Pricing tiers for different services
+// Pricing tiers for different services - OPTIMIZED FOR NIGERIAN MARKET
 export const SERVICE_PRICING: Record<string, PricingTier[]> = {
   'business-plan': [
     {
       id: 'basic-plan',
       name: 'Essential Plan',
       description: 'Perfect for startups and small businesses',
-      basePrice: 297,
+      basePrice: 149,
       features: [
         'Executive Summary',
         'Market Analysis',
@@ -250,7 +272,7 @@ export const SERVICE_PRICING: Record<string, PricingTier[]> = {
       id: 'professional-plan',
       name: 'Professional Plan',
       description: 'Comprehensive plan for serious entrepreneurs',
-      basePrice: 497,
+      basePrice: 297,
       popular: true,
       features: [
         'Complete Business Plan (25+ pages)',
@@ -268,7 +290,7 @@ export const SERVICE_PRICING: Record<string, PricingTier[]> = {
       id: 'premium-plan',
       name: 'Investor-Ready Plan',
       description: 'For businesses seeking investment',
-      basePrice: 897,
+      basePrice: 497,
       features: [
         'Investor-Grade Business Plan (40+ pages)',
         'Detailed Market Research',
@@ -288,7 +310,7 @@ export const SERVICE_PRICING: Record<string, PricingTier[]> = {
       id: 'landing-page',
       name: 'Landing Page',
       description: 'High-converting single page website',
-      basePrice: 497,
+      basePrice: 297,
       features: [
         'Responsive Design',
         'Mobile Optimized',
@@ -304,7 +326,7 @@ export const SERVICE_PRICING: Record<string, PricingTier[]> = {
       id: 'business-website',
       name: 'Business Website',
       description: 'Complete website for your business',
-      basePrice: 997,
+      basePrice: 597,
       popular: true,
       features: [
         'Up to 8 Pages',
@@ -324,7 +346,7 @@ export const SERVICE_PRICING: Record<string, PricingTier[]> = {
       id: 'ecommerce-website',
       name: 'E-commerce Website',
       description: 'Full online store with payment integration',
-      basePrice: 1997,
+      basePrice: 997,
       features: [
         'Up to 50 Products',
         'Payment Gateway Integration',
@@ -346,7 +368,7 @@ export const SERVICE_PRICING: Record<string, PricingTier[]> = {
       id: 'social-media-starter',
       name: 'Social Media Starter',
       description: 'Get started with social media marketing',
-      basePrice: 297,
+      basePrice: 197,
       features: [
         'Social Media Strategy',
         '20 Custom Posts/month',
@@ -361,7 +383,7 @@ export const SERVICE_PRICING: Record<string, PricingTier[]> = {
       id: 'digital-marketing-pro',
       name: 'Digital Marketing Pro',
       description: 'Comprehensive digital marketing solution',
-      basePrice: 597,
+      basePrice: 397,
       popular: true,
       features: [
         'Multi-Platform Strategy',
@@ -379,7 +401,7 @@ export const SERVICE_PRICING: Record<string, PricingTier[]> = {
       id: 'growth-marketing',
       name: 'Growth Marketing',
       description: 'Full-service marketing for rapid growth',
-      basePrice: 997,
+      basePrice: 697,
       features: [
         'Complete Marketing Strategy',
         '60+ Custom Posts/month',

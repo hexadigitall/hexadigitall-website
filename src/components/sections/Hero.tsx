@@ -113,11 +113,18 @@ const Hero = () => {
                     {slide.subheadline}
                   </p>
                   
-                  {/* Local Currency Discount Message */}
-                  {index === 0 && discountMessage && (
-                    <div className="mb-6 inline-flex items-center space-x-2 bg-green-500/20 backdrop-blur-sm border border-green-400/30 text-green-100 px-4 py-2 rounded-full text-sm font-medium">
-                      <SparklesIcon className="h-4 w-4" />
-                      <span>{discountMessage}</span>
+                  {/* Launch Special Banner */}
+                  {index === 0 && (
+                    <div className="mb-6 flex flex-col sm:flex-row items-center justify-center gap-3">
+                      <div className="inline-flex items-center space-x-2 bg-red-500/20 backdrop-blur-sm border border-red-400/30 text-red-100 px-4 py-2 rounded-full text-sm font-bold animate-pulse">
+                        <span>🔥 LAUNCH SPECIAL</span>
+                      </div>
+                      {discountMessage && (
+                        <div className="inline-flex items-center space-x-2 bg-green-500/20 backdrop-blur-sm border border-green-400/30 text-green-100 px-4 py-2 rounded-full text-sm font-medium">
+                          <SparklesIcon className="h-4 w-4" />
+                          <span>{discountMessage}</span>
+                        </div>
+                      )}
                     </div>
                   )}
                 </div>
@@ -153,7 +160,7 @@ const Hero = () => {
                                  'Digital Marketing'}
                               </span>
                               <span className="text-white font-semibold">
-                                {formatPrice(popularTier.basePrice)}
+                                {formatPrice(popularTier.basePrice, { applyNigerianDiscount: true })}
                               </span>
                             </div>
                           );
@@ -171,7 +178,7 @@ const Hero = () => {
                           {(() => {
                             const serviceTiers = SERVICE_PRICING[slide.serviceType as keyof typeof SERVICE_PRICING] || [];
                             const startingPrice = Math.min(...serviceTiers.map(t => t.basePrice));
-                            return formatPrice(startingPrice);
+                            return formatPrice(startingPrice, { applyNigerianDiscount: true });
                           })()}
                         </div>
                       </div>

@@ -48,7 +48,7 @@ console.log('🔧 Sanity Config:', {
   environment: process.env.NODE_ENV,
 });
 
-// Read-only client for public operations
+// Read-only client for public operations with optimized caching
 export const client = createClient({
   projectId: projectId || 'puzezel0', // Fallback to known project ID
   dataset: dataset || 'production', // Fallback to production dataset
@@ -56,6 +56,10 @@ export const client = createClient({
   useCdn: process.env.NODE_ENV === 'production', // Use CDN in production for better performance
   perspective: 'published', // Only fetch published documents
   stega: false, // Disable stega for production
+  // Performance optimizations
+  requestTagPrefix: 'hexadigitall',
+  ignoreBrowserTokenWarning: true,
+  allowReconfigure: false, // Prevent client reconfiguration for better performance
 });
 
 // Write client for server-side operations (enrollments, etc.)

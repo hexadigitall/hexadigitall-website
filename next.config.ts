@@ -1,18 +1,16 @@
 import type { NextConfig } from 'next';
+import bundleAnalyzer from '@next/bundle-analyzer';
+
+const withBundleAnalyzer = bundleAnalyzer({
+  enabled: process.env.ANALYZE === 'true',
+});
 
 const nextConfig: NextConfig = {
   // Enable strict mode for better development experience
   reactStrictMode: true,
   
-
-  // Optimize compilation performance
-  webpack: (config, { dev, isServer }) => {
-    if (!dev && !isServer) {
-      // Enable tree shaking for better bundle size
-      config.optimization.usedExports = true;
-    }
-    return config;
-  },
+  // Turbopack configuration (webpack config removed for Turbopack compatibility)
+  // Note: SWC is now the default minifier in Next.js 13+
 
   // Image optimization
   images: {
@@ -80,8 +78,13 @@ const nextConfig: NextConfig = {
   // Experimental features
   experimental: {
     // Enable optimized CSS
-    // optimizeCss: true, // Disabled due to critters dependency issue
+    optimizeCss: true,
+    // Performance optimizations
+    webpackBuildWorker: true,
   },
+
+  // Turbopack is enabled via CLI flag --turbopack
+  // No additional configuration needed for basic usage
 
   // TypeScript configuration
   typescript: {
@@ -95,6 +98,17 @@ const nextConfig: NextConfig = {
     ignoreDuringBuilds: false,
     dirs: ['src'],
   },
+
+  // Performance optimizations
+  onDemandEntries: {
+    // Period (in ms) where the server will keep pages in the buffer
+    maxInactiveAge: 25 * 1000, // 25 seconds
+    // Number of pages that should be kept simultaneously without being disposed
+    pagesBufferLength: 2,
+  },
+
+  // Note: Webpack config removed for Turbopack compatibility
+  // Turbopack handles optimization automatically
 };
 
-export default nextConfig;
+export default withBundleAnalyzer(nextConfig);

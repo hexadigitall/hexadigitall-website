@@ -4,11 +4,14 @@
 import * as React from 'react'
 import { useState } from 'react'
 import { ServiceCategory, Package, AddOn, ClientInfo, ProjectDetails } from './ServiceRequestFlow'
+import { PaymentPlan } from './ServicePackageSelection'
+import { useCurrency } from '@/contexts/CurrencyContext'
 
 interface PaymentSummaryProps {
   serviceCategory: ServiceCategory
   selectedPackage: Package
   selectedAddOns: AddOn[]
+  selectedPaymentPlan: PaymentPlan
   clientInfo: ClientInfo
   projectDetails: ProjectDetails
   totalAmount: number
@@ -19,6 +22,7 @@ export const PaymentSummary: React.FC<PaymentSummaryProps> = ({
   serviceCategory,
   selectedPackage,
   selectedAddOns,
+  selectedPaymentPlan,
   clientInfo,
   projectDetails,
   totalAmount,
@@ -26,14 +30,41 @@ export const PaymentSummary: React.FC<PaymentSummaryProps> = ({
 }: PaymentSummaryProps) => {
   const [isProcessing, setIsProcessing] = useState(false)
   const [error, setError] = useState<string | null>(null)
+  const { formatPrice: formatCurrencyPrice, currentCurrency } = useCurrency()
 
-  const formatPrice = (price: number, currency: string = 'USD') => {
-    return new Intl.NumberFormat('en-US', {
-      style: 'currency',
-      currency: currency,
-      minimumFractionDigits: 0,
-      maximumFractionDigits: 0
-    }).format(price)
+  const formatPrice = (price: number, originalCurrency: string = 'USD') => {
+    // Convert to USD first if needed, then to current currency
+    const priceInUSD = originalCurrency === 'NGN' ? price / 1650 : price;
+    return formatCurrencyPrice(priceInUSD, { applyNigerianDiscount: true });
+  }
+
+  const calculatePaymentBreakdown = () => {
+    // Convert service pricing to USD for calculation consistency
+    const subtotalInUSD = selectedPackage.currency === 'NGN' 
+      ? totalAmount / 1650  // Convert NGN to USD
+      : totalAmount // Already in USD
+    
+    const processingFeeUSD = selectedPaymentPlan.processingFee
+    const totalWithFeeInUSD = subtotalInUSD + processingFeeUSD
+    
+    // Calculate down payment as percentage of the SUBTOTAL, then add processing fee to down payment
+    const downPaymentFromSubtotalUSD = (subtotalInUSD * selectedPaymentPlan.downPayment) / 100
+    const downPaymentAmountUSD = downPaymentFromSubtotalUSD + processingFeeUSD
+    
+    // Remaining amount is what's left from the subtotal (not including processing fee)
+    const remainingAmountUSD = subtotalInUSD - downPaymentFromSubtotalUSD
+    const monthlyPaymentUSD = selectedPaymentPlan.installments > 1 
+      ? remainingAmountUSD / (selectedPaymentPlan.installments - 1)
+      : 0
+
+    return {
+      subtotalUSD: subtotalInUSD,
+      processingFeeUSD,
+      totalWithFeeUSD,
+      downPaymentAmountUSD,
+      monthlyPaymentUSD,
+      remainingAmountUSD,
+    }
   }
 
   const handlePayment = async () => {
@@ -50,6 +81,7 @@ export const PaymentSummary: React.FC<PaymentSummaryProps> = ({
           serviceCategory,
           selectedPackage,
           selectedAddOns,
+          selectedPaymentPlan,
           clientInfo,
           projectDetails
         }),
@@ -127,20 +159,65 @@ export const PaymentSummary: React.FC<PaymentSummaryProps> = ({
               </div>
             )}
 
-            {/* Total */}
+            {/* Payment Plan & Total */}
             <div className="border-t pt-4">
-              <div className="flex justify-between items-center">
-                <span className="text-lg font-semibold text-gray-900">Total</span>
-                <span className="text-xl font-bold text-primary">
-                  {formatPrice(totalAmount, selectedPackage.currency)}
+              <div className="flex justify-between items-center mb-2">
+                <span className="text-sm text-gray-600">Subtotal:</span>
+                <span className="text-sm font-medium">
+                  {formatPrice(calculatePaymentBreakdown().subtotalUSD)}
                 </span>
               </div>
-              <p className="text-sm text-gray-600 mt-1">
-                {selectedPackage.billing === 'one_time' && 'One-time payment'}
-                {selectedPackage.billing === 'monthly' && 'Monthly billing'}
-                {selectedPackage.billing === 'hourly' && 'Hourly rate'}
-                {selectedPackage.billing === 'project' && 'Per project'}
-              </p>
+              
+              {selectedPaymentPlan.processingFee > 0 && (
+                <div className="flex justify-between items-center mb-2">
+                  <span className="text-sm text-gray-600">Processing Fee:</span>
+                  <span className="text-sm font-medium">
+                    {formatPrice(selectedPaymentPlan.processingFee)}
+                  </span>
+                </div>
+              )}
+              
+              <div className="flex justify-between items-center border-t pt-2 mb-3">
+                <span className="text-lg font-semibold text-gray-900">Total:</span>
+                <span className="text-xl font-bold text-primary">
+                  {formatPrice(calculatePaymentBreakdown().totalWithFeeUSD)}
+                </span>
+              </div>
+              
+              <div className="bg-blue-50 rounded-lg p-3">
+                <div className="flex items-center justify-between mb-1">
+                  <span className="text-sm font-medium text-blue-900">Payment Plan:</span>
+                  <span className="text-sm text-blue-700">{selectedPaymentPlan.name}</span>
+                </div>
+                
+                {selectedPaymentPlan.installments === 1 ? (
+                  <p className="text-sm text-blue-600">Full payment required upfront</p>
+                ) : (
+                  <div className="space-y-2">
+                    <div className="bg-blue-100 rounded p-2">
+                      <div className="flex justify-between items-center">
+                        <span className="text-sm text-blue-700 font-medium">1st Payment (Today):</span>
+                        <span className="text-sm font-bold text-green-600">
+                          {formatPrice(calculatePaymentBreakdown().downPaymentAmountUSD)}
+                        </span>
+                      </div>
+                      <div className="text-xs text-blue-600 mt-1">
+                        Includes {selectedPaymentPlan.downPayment}% of service + {formatPrice(selectedPaymentPlan.processingFee)} processing fee
+                      </div>
+                    </div>
+                    {calculatePaymentBreakdown().monthlyPaymentUSD > 0 && (
+                      <div className="flex justify-between">
+                        <span className="text-sm text-blue-700">
+                          Remaining {selectedPaymentPlan.installments - 1} payments:
+                        </span>
+                        <span className="text-sm font-medium text-blue-600">
+                          {formatPrice(calculatePaymentBreakdown().monthlyPaymentUSD)} each
+                        </span>
+                      </div>
+                    )}
+                  </div>
+                )}
+              </div>
             </div>
           </div>
 

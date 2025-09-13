@@ -11,6 +11,7 @@ interface CurrencyContextType {
     currency?: string;
     showCurrency?: boolean;
     showOriginal?: boolean;
+    applyNigerianDiscount?: boolean;
   }) => string;
   formatPriceRange: (minUsd: number, maxUsd: number, options?: {
     currency?: string;
@@ -93,6 +94,7 @@ export function CurrencyProvider({ children }: CurrencyProviderProps) {
     currency?: string;
     showCurrency?: boolean;
     showOriginal?: boolean;
+    applyNigerianDiscount?: boolean;
   }) => {
     return currencyService.formatPrice(usdPrice, options);
   };

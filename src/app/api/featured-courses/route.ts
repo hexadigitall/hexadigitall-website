@@ -1,25 +1,11 @@
 import { NextResponse } from 'next/server'
-import { client } from '@/sanity/client'
-
-const FEATURED_COURSES_QUERY = `*[_type == "course" && featured == true] | order(_createdAt desc)[0...4] {
-  _id,
-  title,
-  slug,
-  "mainImage": mainImage.asset->url,
-  description,
-  duration,
-  level,
-  instructor,
-  nairaPrice,
-  dollarPrice,
-  featured
-}`
+import { getCachedFeaturedCourses } from '@/lib/cached-api'
 
 export async function GET() {
   try {
     console.log('🎓 [API] Fetching featured courses via server-side...')
     
-    const courses = await client.fetch(FEATURED_COURSES_QUERY)
+    const courses = await getCachedFeaturedCourses()
     
     console.log('✅ [API] Featured courses fetched:', courses?.length || 0, 'courses')
     

@@ -134,22 +134,22 @@ const Header = () => {
   return (
     <>
       <header className="bg-white shadow-md sticky top-0 z-50">
-        <nav className="container mx-auto px-4 sm:px-6 py-4 flex justify-between items-center">
+        <nav className="container mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center min-h-[72px]">
           {/* Logo */}
-          <Link href="/" className="flex items-center space-x-2">
+          <Link href="/" className="flex items-center space-x-2 flex-shrink-0">
             <Image
               src="/hexadigitall-logo-transparent.png"
               alt="Hexadigitall Logo"
               width={180}
               height={60}
-              className="h-10 sm:h-12 w-auto"
+              className="h-8 sm:h-10 lg:h-12 w-auto"
               priority
-              sizes="(max-width: 640px) 120px, 180px"
+              sizes="(max-width: 640px) 120px, (max-width: 1024px) 140px, 180px"
             />
           </Link>
 
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-6">
+          {/* Desktop Navigation - Adjusted breakpoints */}
+          <div className="hidden lg:flex items-center space-x-6">
             <Link href="/about">About</Link>
             
             {/* Services Dropdown */}
@@ -181,7 +181,7 @@ const Header = () => {
             <Link href="/faq">FAQs</Link>
           </div>
           
-          <div className="hidden md:flex items-center space-x-6">
+          <div className="hidden lg:flex items-center space-x-6">
             <CurrencySwitcher />
             <button onClick={() => setCartOpen(true)} className="relative">
               <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" /></svg>
@@ -194,7 +194,67 @@ const Header = () => {
             </Link>
           </div>
 
-          {/* Mobile Menu Button */}
+          {/* Tablet Navigation - Optimized for medium screens (768px - 1023px) */}
+          <div className="hidden md:flex lg:hidden items-center justify-between flex-1 ml-4">
+            {/* Left navigation links */}
+            <div className="flex items-center space-x-3 xl:space-x-4">
+              <Link href="/about" className="text-sm font-medium hover:text-secondary transition-colors whitespace-nowrap">About</Link>
+              
+              {/* Services Dropdown for Tablet */}
+              <div className="relative services-dropdown">
+                <button 
+                  id="services-button"
+                  onClick={() => setServicesOpen(!isServicesOpen)}
+                  className="inline-flex items-center text-sm font-medium hover:text-secondary transition-colors whitespace-nowrap"
+                  aria-expanded={isServicesOpen}
+                  aria-haspopup="true"
+                  aria-label="Services menu"
+                >
+                  Services
+                  <svg className={`ml-1 h-3 w-3 transition-transform duration-200 ${isServicesOpen ? 'rotate-180' : ''}`} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                    <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
+                  </svg>
+                </button>
+                <div 
+                  className={`absolute left-0 xl:left-auto xl:right-0 bg-white shadow-lg rounded-md mt-2 w-72 z-50 transition-all duration-200 ${isServicesOpen ? 'opacity-100 visible translate-y-0' : 'opacity-0 invisible -translate-y-2'}`}
+                  role="menu"
+                  aria-labelledby="services-button"
+                >
+                  <Link href="/services" className="block px-4 py-3 text-sm font-medium text-primary border-b border-gray-100 hover:bg-lightGray whitespace-nowrap" onClick={() => setServicesOpen(false)} role="menuitem">
+                    All Services
+                  </Link>
+                  {serviceLinks.map((link) => (
+                    <Link key={link.href} href={link.href} className="block px-4 py-2.5 text-sm text-darkText hover:bg-lightGray transition-colors whitespace-nowrap" onClick={() => setServicesOpen(false)} role="menuitem">
+                      {link.label}
+                    </Link>
+                  ))}
+                </div>
+              </div>
+              
+              <Link href="/portfolio" className="text-sm font-medium hover:text-secondary transition-colors whitespace-nowrap">Portfolio</Link>
+              <Link href="/courses" className="text-sm font-medium hover:text-secondary transition-colors whitespace-nowrap">Courses</Link>
+              <Link href="/blog" className="text-sm font-medium hover:text-secondary transition-colors whitespace-nowrap">Blog</Link>
+              <Link href="/faq" className="text-sm font-medium hover:text-secondary transition-colors whitespace-nowrap">FAQs</Link>
+            </div>
+            
+            {/* Right actions - Currency, Cart, Contact */}
+            <div className="flex items-center space-x-1.5 xl:space-x-2">
+              <div className="scale-90">
+                <CurrencySwitcher />
+              </div>
+              <button onClick={() => setCartOpen(true)} className="relative p-1">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" /></svg>
+                {cartCount && cartCount > 0 && (
+                  <span className="absolute -top-1 -right-1 bg-accent text-white text-xs rounded-full h-3.5 w-3.5 flex items-center justify-center">{cartCount}</span>
+                )}
+              </button>
+              <Link href="/contact" className="bg-primary text-white px-2 py-1 rounded text-xs font-medium hover:bg-primary/90 transition-colors whitespace-nowrap">
+                Contact
+              </Link>
+            </div>
+          </div>
+
+          {/* Mobile Menu Button - Only show on small screens */}
           <div className="md:hidden flex items-center space-x-4">
             <button onClick={() => setCartOpen(true)} className="relative">
               <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" /></svg>
@@ -208,7 +268,7 @@ const Header = () => {
           </div>
         </nav>
 
-        {/* Mobile Menu */}
+        {/* Mobile Menu - Only show on small screens since tablet has its own nav */}
         {isMobileMenuOpen && (
           <div className="md:hidden bg-white px-4 sm:px-6 pb-4 border-t border-gray-100">
             <div className="flex flex-col space-y-4 pt-4">

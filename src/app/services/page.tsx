@@ -203,6 +203,24 @@ export default function ServicesPage() {
               We offer a complete suite of services to transform your ideas into successful digital realities.
             </p>
             
+            {/* Launch Special Banner */}
+            <div className="mt-6 mb-8 bg-gradient-to-r from-accent/10 via-accent/5 to-accent/10 border-2 border-accent/20 rounded-2xl p-6 text-center">
+              <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+                <div className="flex items-center space-x-2">
+                  <span className="bg-accent text-white px-3 py-1 rounded-full text-sm font-bold animate-pulse">
+                    🔥 LIMITED TIME
+                  </span>
+                  <span className="text-2xl font-bold text-accent">LAUNCH SPECIAL - 30% OFF!</span>
+                </div>
+                <div className="text-sm text-gray-600">
+                  For Nigerian clients • Ends Jan 31, 2025 • Payment plans available
+                </div>
+              </div>
+              <p className="text-sm text-gray-700 mt-2">
+                <span className="font-semibold text-accent">🇳🇬 Supporting Nigerian businesses</span> with world-class solutions at accessible prices
+              </p>
+            </div>
+
             {/* Currency and Discount Message */}
             <div className="mt-6 flex flex-col sm:flex-row items-center justify-center gap-4">
               <div className="flex items-center space-x-2 text-sm text-gray-600">
@@ -255,7 +273,7 @@ export default function ServicesPage() {
                               </h3>
                               {lowestPrice && (
                                 <p className="text-primary font-semibold">
-                                  Starting from {formatPrice(lowestPrice / 1650)} {/* Convert from NGN to USD base */}
+                                  Starting from {formatPrice(lowestPrice / 1650, { applyNigerianDiscount: true })}
                                 </p>
                               )}
                             </div>
@@ -265,13 +283,15 @@ export default function ServicesPage() {
                             {service.description}
                           </p>
                           
-                          <div className="flex items-center justify-between">
-                            <div className="text-sm text-gray-500">
+                          <div className="space-y-4">
+                            <div className="text-sm text-gray-500 text-center">
                               {service.packages?.length || 0} package{service.packages?.length !== 1 ? 's' : ''} available
                             </div>
-                            <button className="bg-primary hover:bg-primary/90 text-white px-6 py-2 rounded-lg transition-colors font-medium">
-                              Request Service
-                            </button>
+                            <div className="flex justify-center">
+                              <button className="bg-primary hover:bg-primary/90 text-white px-6 py-2 rounded-lg transition-colors font-medium w-full max-w-[200px]">
+                                Request Service
+                              </button>
+                            </div>
                           </div>
                         </div>
                       </div>

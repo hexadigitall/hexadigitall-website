@@ -117,7 +117,7 @@ export default function PricingTiers({
                   <div className="mb-6">
                     <div className="flex items-baseline justify-center">
                       <span className="text-5xl font-bold text-gray-900">
-                        {formatPrice(tier.basePrice, { showCurrency: false })}
+                        {formatPrice(tier.basePrice, { showCurrency: false, applyNigerianDiscount: true })}
                       </span>
                       <span className="text-xl text-gray-600 ml-1">
                         {currentCurrency.symbol}
