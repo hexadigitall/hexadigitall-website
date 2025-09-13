@@ -60,7 +60,7 @@ export const PaymentSummary: React.FC<PaymentSummaryProps> = ({
     return {
       subtotalUSD: subtotalInUSD,
       processingFeeUSD,
-      totalWithFeeUSD,
+      totalWithFeeUSD: totalWithFeeInUSD,
       downPaymentAmountUSD,
       monthlyPaymentUSD,
       remainingAmountUSD,

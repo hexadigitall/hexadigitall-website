@@ -4,15 +4,21 @@ import React, { createContext, useContext, useState, useEffect, ReactNode } from
 import { currencyService, type Currency, type PricingTier } from '@/lib/currency';
 
 interface CurrencyContextType {
-  currentCurrency: Currency;
-  currencies: Currency[];
-  setCurrency: (currencyCode: string) => void;
+  currentCurrency: Currency
+  currencies: Currency[]
+  setCurrency: (currencyCode: string) => void
   formatPrice: (usdPrice: number, options?: {
     currency?: string;
     showCurrency?: boolean;
     showOriginal?: boolean;
     applyNigerianDiscount?: boolean;
   }) => string;
+  formatPriceWithDiscount: (usdPrice: number, options?: {
+    currency?: string;
+    showCurrency?: boolean;
+    showOriginal?: boolean;
+    applyNigerianDiscount?: boolean;
+  }) => { originalPrice: string; discountedPrice: string; discountPercentage: number; hasDiscount: boolean };
   formatPriceRange: (minUsd: number, maxUsd: number, options?: {
     currency?: string;
     showCurrency?: boolean;
@@ -99,6 +105,15 @@ export function CurrencyProvider({ children }: CurrencyProviderProps) {
     return currencyService.formatPrice(usdPrice, options);
   };
 
+  const formatPriceWithDiscount = (usdPrice: number, options?: {
+    currency?: string;
+    showCurrency?: boolean;
+    showOriginal?: boolean;
+    applyNigerianDiscount?: boolean;
+  }) => {
+    return currencyService.formatPriceWithDiscount(usdPrice, options);
+  };
+
   const formatPriceRange = (minUsd: number, maxUsd: number, options?: {
     currency?: string;
     showCurrency?: boolean;
@@ -123,6 +138,7 @@ export function CurrencyProvider({ children }: CurrencyProviderProps) {
     currencies,
     setCurrency,
     formatPrice,
+    formatPriceWithDiscount,
     formatPriceRange,
     convertPrice,
     isLocalCurrency,

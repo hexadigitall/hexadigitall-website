@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { CheckIcon, SparklesIcon, ArrowRightIcon } from '@heroicons/react/24/outline';
 import { type PricingTier, SERVICE_PRICING } from '@/lib/currency';
 import { useCurrency } from '@/contexts/CurrencyContext';
+import { PriceDisplay } from './PriceDisplay';
 
 interface PricingTiersProps {
   service: string;
@@ -25,7 +26,7 @@ export default function PricingTiers({
   showLocalDiscount = true
 }: PricingTiersProps) {
   const [tiers, setTiers] = useState<PricingTier[]>([]);
-  const { currentCurrency, formatPrice, getLocalDiscountMessage } = useCurrency();
+  const { getLocalDiscountMessage } = useCurrency();
   const localDiscountMessage = showLocalDiscount ? getLocalDiscountMessage() : null;
 
   useEffect(() => {
@@ -84,7 +85,7 @@ export default function PricingTiers({
 
         {/* Pricing Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
-          {tiers.map((tier, index) => (
+          {tiers.map((tier) => (
             <div
               key={tier.id}
               className={`relative bg-white rounded-2xl shadow-lg border-2 transition-all duration-300 hover:shadow-xl ${
@@ -115,20 +116,14 @@ export default function PricingTiers({
                   
                   {/* Price */}
                   <div className="mb-6">
-                    <div className="flex items-baseline justify-center">
-                      <span className="text-5xl font-bold text-gray-900">
-                        {formatPrice(tier.basePrice, { showCurrency: false, applyNigerianDiscount: true })}
-                      </span>
-                      <span className="text-xl text-gray-600 ml-1">
-                        {currentCurrency.symbol}
-                      </span>
-                    </div>
-                    {currentCurrency.code !== 'USD' && (
-                      <p className="text-sm text-gray-500 mt-1">
-                        Starting from ${tier.basePrice} USD
-                      </p>
-                    )}
-                    <p className="text-sm text-gray-600 mt-2">One-time payment</p>
+                    <PriceDisplay 
+                      price={tier.basePrice}
+                      size="lg"
+                      showDiscount={true}
+                      showUrgency={true}
+                      className=""
+                    />
+                    <p className="text-sm text-gray-600 mt-2">{tier.billing || 'One-time payment'}</p>
                   </div>
                 </div>
 

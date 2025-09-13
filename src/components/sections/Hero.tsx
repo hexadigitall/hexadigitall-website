@@ -7,6 +7,8 @@ import { useEffect, useState, useCallback } from 'react';
 import { useCurrency } from '@/contexts/CurrencyContext';
 import { SERVICE_PRICING } from '@/lib/currency';
 import { SparklesIcon, CheckIcon } from '@heroicons/react/24/outline';
+// Price display components available for future use
+// import { HeroPriceDisplay, CompactPriceDisplay } from '@/components/ui/PriceDisplay';
 
 // Define the content for each slide with pricing information
 const slides = [
@@ -55,7 +57,7 @@ const slides = [
 const Hero = () => {
   const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true });
   const [selectedIndex, setSelectedIndex] = useState(0);
-  const { formatPrice, currentCurrency, isLocalCurrency, getLocalDiscountMessage } = useCurrency();
+  const { formatPrice, getLocalDiscountMessage } = useCurrency();
   
   const discountMessage = getLocalDiscountMessage();
   
@@ -116,13 +118,13 @@ const Hero = () => {
                   {/* Launch Special Banner */}
                   {index === 0 && (
                     <div className="mb-6 flex flex-col sm:flex-row items-center justify-center gap-3">
-                      <div className="inline-flex items-center space-x-2 bg-red-500/20 backdrop-blur-sm border border-red-400/30 text-red-100 px-4 py-2 rounded-full text-sm font-bold animate-pulse">
-                        <span>🔥 LAUNCH SPECIAL</span>
+                      <div className="inline-flex items-center space-x-2 bg-red-500/30 backdrop-blur-sm border border-red-400/50 text-red-100 px-4 py-2 rounded-full text-sm font-bold animate-bounce shadow-lg">
+                        <span>🔥 MEGA LAUNCH SPECIAL - 50% OFF!</span>
                       </div>
                       {discountMessage && (
                         <div className="inline-flex items-center space-x-2 bg-green-500/20 backdrop-blur-sm border border-green-400/30 text-green-100 px-4 py-2 rounded-full text-sm font-medium">
                           <SparklesIcon className="h-4 w-4" />
-                          <span>{discountMessage}</span>
+                          <span>{discountMessage.replace('30%', '50%')}</span>
                         </div>
                       )}
                     </div>

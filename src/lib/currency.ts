@@ -11,10 +11,11 @@ export interface PricingTier {
   id: string;
   name: string;
   description: string;
-  features: string[];
-  basePrice: number; // in USD
+  basePrice: number;
   popular?: boolean;
+  features: string[];
   cta: string;
+  billing?: string;
 }
 
 export const SUPPORTED_CURRENCIES: Record<string, Currency> = {
@@ -178,10 +179,10 @@ class CurrencyService {
     const targetCurrency = options?.currency || this.currentCurrency;
     const currency = SUPPORTED_CURRENCIES[targetCurrency];
     
-    // Apply Nigerian launch special discount (30% off for NGN users)
+    // Apply Nigerian launch special discount (50% off for NGN users)
     let finalPrice = usdPrice;
     if (options?.applyNigerianDiscount !== false && this.isLocalCurrency() && targetCurrency === 'NGN' && this.isLaunchSpecialActive()) {
-      finalPrice = usdPrice * 0.7; // 30% discount
+      finalPrice = usdPrice * 0.5; // 50% discount
     }
     
     const convertedPrice = this.convertPrice(finalPrice, targetCurrency);
@@ -239,70 +240,97 @@ class CurrencyService {
 
   getLocalDiscountMessage(): string | null {
     if (this.isLocalCurrency() && this.isLaunchSpecialActive()) {
-      return "🇳🇬 30% OFF Launch Special - Limited Time for Nigerian clients!";
+      return "🇳🇬 50% OFF Launch Special - Limited Time for Nigerian clients!";
     } else if (this.isLocalCurrency()) {
       return "🇳🇬 Special rates for Nigerian clients - Pay in Naira!";
     }
     return null;
   }
+
+  formatPriceWithDiscount(usdPrice: number, options?: {
+    currency?: string;
+    showCurrency?: boolean;
+    showOriginal?: boolean;
+    applyNigerianDiscount?: boolean;
+  }): { originalPrice: string; discountedPrice: string; discountPercentage: number; hasDiscount: boolean } {
+    const targetCurrency = options?.currency || this.currentCurrency;
+    const hasDiscount = options?.applyNigerianDiscount !== false && 
+                       this.isLocalCurrency() && 
+                       targetCurrency === 'NGN' && 
+                       this.isLaunchSpecialActive();
+    
+    const originalPrice = this.formatPrice(usdPrice, {
+      ...options,
+      applyNigerianDiscount: false // Don't apply discount for original price
+    });
+    
+    const discountedPrice = this.formatPrice(usdPrice, options);
+    
+    return {
+      originalPrice,
+      discountedPrice,
+      discountPercentage: hasDiscount ? 50 : 0,
+      hasDiscount
+    };
+  }
 }
 
 export const currencyService = new CurrencyService();
 
-// Pricing tiers for different services - OPTIMIZED FOR NIGERIAN MARKET
+// Pricing tiers for different services - AGGRESSIVE MARKET PENETRATION PRICING
 export const SERVICE_PRICING: Record<string, PricingTier[]> = {
   'business-plan': [
     {
-      id: 'basic-plan',
-      name: 'Essential Plan',
-      description: 'Perfect for startups and small businesses',
-      basePrice: 149,
+      id: 'starter-plan',
+      name: 'Starter Plan',
+      description: 'Perfect for new entrepreneurs and startups',
+      basePrice: 79,
       features: [
         'Executive Summary',
-        'Market Analysis',
-        'Financial Projections (3 years)',
-        'Business Model Canvas',
+        'Basic Market Analysis',
+        '1-Year Financial Projection',
+        'Business Model Outline',
         'Basic Logo Design',
-        '2 Revision Rounds',
-        '7-day delivery'
+        '1 Revision Round',
+        '5-day delivery'
       ],
-      cta: 'Get Essential Plan'
+      cta: 'Get Started Now'
     },
     {
-      id: 'professional-plan',
-      name: 'Professional Plan',
-      description: 'Comprehensive plan for serious entrepreneurs',
-      basePrice: 297,
+      id: 'growth-plan',
+      name: 'Growth Plan',
+      description: 'Complete plan for serious entrepreneurs',
+      basePrice: 149,
       popular: true,
       features: [
-        'Complete Business Plan (25+ pages)',
+        'Complete Business Plan (15+ pages)',
         'Market Research & Analysis',
-        'Financial Projections (5 years)',
-        'Investor Pitch Deck (10 slides)',
-        'Premium Logo + Brand Guidelines',
-        'Unlimited Revisions',
-        '10-day delivery',
-        'FREE 1-hour consultation call'
+        '3-Year Financial Projections',
+        'Basic Pitch Deck (5 slides)',
+        'Professional Logo Design',
+        '3 Revision Rounds',
+        '7-day delivery',
+        'FREE consultation call'
       ],
-      cta: 'Get Professional Plan'
+      cta: 'Choose Growth Plan'
     },
     {
-      id: 'premium-plan',
-      name: 'Investor-Ready Plan',
-      description: 'For businesses seeking investment',
-      basePrice: 497,
+      id: 'investor-plan',
+      name: 'Investor Plan',
+      description: 'Investment-ready business plan',
+      basePrice: 249,
       features: [
-        'Investor-Grade Business Plan (40+ pages)',
+        'Professional Business Plan (25+ pages)',
         'Detailed Market Research',
-        'Financial Modeling & Analysis',
-        'Professional Pitch Deck (15+ slides)',
+        '5-Year Financial Modeling',
+        'Professional Pitch Deck (12 slides)',
         'Complete Brand Identity Package',
         'Unlimited Revisions',
-        '14-day delivery',
+        '10-day delivery',
         'FREE 2-hour strategy session',
         'Investor Introduction (if qualified)'
       ],
-      cta: 'Get Investor-Ready Plan'
+      cta: 'Get Investor-Ready'
     }
   ],
   'web-development': [
@@ -310,110 +338,176 @@ export const SERVICE_PRICING: Record<string, PricingTier[]> = {
       id: 'landing-page',
       name: 'Landing Page',
       description: 'High-converting single page website',
-      basePrice: 297,
+      basePrice: 149,
       features: [
-        'Responsive Design',
-        'Mobile Optimized',
-        'Contact Form Integration',
-        'SEO Optimized',
-        'Social Media Integration',
-        '3 Revision Rounds',
-        '7-day delivery'
+        'Single Page Design',
+        'Mobile Responsive',
+        'Contact Form',
+        'Basic SEO Setup',
+        'Social Media Links',
+        '2 Revision Rounds',
+        '5-day delivery',
+        'FREE Stock Images'
       ],
       cta: 'Get Landing Page'
     },
     {
       id: 'business-website',
       name: 'Business Website',
-      description: 'Complete website for your business',
-      basePrice: 597,
+      description: 'Complete professional website',
+      basePrice: 349,
       popular: true,
       features: [
-        'Up to 8 Pages',
-        'Responsive Design',
-        'CMS Integration',
+        'Up to 6 Pages',
+        'Mobile Responsive Design',
+        'Basic CMS (Content Management)',
         'Contact Forms',
         'SEO Optimization',
-        'Google Analytics',
+        'Google Analytics Setup',
         'Social Media Integration',
         'SSL Certificate',
-        'Unlimited Revisions',
-        '14-day delivery'
+        '3 Revision Rounds',
+        '10-day delivery',
+        'FREE Logo Design'
       ],
-      cta: 'Get Business Website'
+      cta: 'Build My Website'
     },
     {
       id: 'ecommerce-website',
-      name: 'E-commerce Website',
-      description: 'Full online store with payment integration',
-      basePrice: 997,
+      name: 'E-commerce Store',
+      description: 'Complete online store solution',
+      basePrice: 649,
       features: [
-        'Up to 50 Products',
+        'Up to 25 Products',
         'Payment Gateway Integration',
-        'Inventory Management',
+        'Basic Inventory Management',
         'Order Management System',
-        'Customer Accounts',
+        'Customer Account System',
         'Mobile Responsive',
         'SEO Optimized',
-        'Analytics & Reporting',
-        'Unlimited Revisions',
-        '21-day delivery',
-        'FREE 1-hour training session'
+        'Basic Analytics',
+        '3 Revision Rounds',
+        '14-day delivery',
+        'FREE 2-hour training session'
       ],
-      cta: 'Get E-commerce Website'
+      cta: 'Launch My Store'
     }
   ],
   'digital-marketing': [
     {
-      id: 'social-media-starter',
-      name: 'Social Media Starter',
-      description: 'Get started with social media marketing',
-      basePrice: 197,
+      id: 'social-starter',
+      name: 'Social Starter',
+      description: 'Perfect entry into social media marketing',
+      basePrice: 99,
       features: [
-        'Social Media Strategy',
-        '20 Custom Posts/month',
-        '2 Platform Management',
-        'Basic Analytics Report',
+        '2 Platforms (Instagram, Facebook)',
+        '15 Custom Posts/month',
+        'Basic Content Strategy',
         'Community Management',
-        'Monthly Performance Review'
+        'Monthly Performance Report',
+        'Stock Images Included',
+        'Basic Hashtag Research'
       ],
-      cta: 'Start Social Media Marketing'
+      cta: 'Start Social Media'
     },
     {
-      id: 'digital-marketing-pro',
-      name: 'Digital Marketing Pro',
-      description: 'Comprehensive digital marketing solution',
-      basePrice: 397,
+      id: 'marketing-pro',
+      name: 'Marketing Pro',
+      description: 'Complete social media & marketing solution',
+      basePrice: 249,
       popular: true,
       features: [
-        'Multi-Platform Strategy',
-        '40 Custom Posts/month',
         '4 Platform Management',
-        'Paid Ad Campaigns',
-        'Advanced Analytics',
+        '30 Custom Posts/month',
+        'Content Strategy & Planning',
+        'Basic Paid Ads Setup',
+        'Community Management',
         'Weekly Performance Reports',
         'Email Marketing Setup',
-        'SEO Optimization'
+        'Basic SEO Optimization',
+        'FREE Brand Guidelines'
       ],
       cta: 'Get Pro Marketing'
     },
     {
-      id: 'growth-marketing',
-      name: 'Growth Marketing',
-      description: 'Full-service marketing for rapid growth',
-      basePrice: 697,
+      id: 'growth-accelerator',
+      name: 'Growth Accelerator',
+      description: 'Full-service marketing for business growth',
+      basePrice: 449,
       features: [
-        'Complete Marketing Strategy',
-        '60+ Custom Posts/month',
-        'All Major Platforms',
-        'Advanced Paid Campaigns',
-        'Conversion Optimization',
-        'Real-time Analytics Dashboard',
+        'All Major Social Platforms',
+        '50+ Custom Posts/month',
+        'Advanced Content Strategy',
+        'Paid Ad Campaign Management',
+        'Advanced Analytics & Reporting',
         'Weekly Strategy Calls',
-        'Growth Hacking Tactics',
-        'Influencer Outreach'
+        'Email Marketing Automation',
+        'Advanced SEO Optimization',
+        'Influencer Outreach',
+        'Growth Hacking Strategies'
       ],
-      cta: 'Accelerate Growth'
+      cta: 'Accelerate My Growth'
     }
   ]
+};
+
+// Bundle packages for volume discounts and higher AOV
+export const BUNDLE_PACKAGES = {
+  'startup-combo': {
+    name: 'Startup Combo',
+    description: 'Business Plan + Landing Page - Everything to launch your business',
+    services: ['business-plan', 'web-development'],
+    packages: ['growth-plan', 'landing-page'],
+    originalPrice: 298, // $149 + $149
+    bundlePrice: 249,
+    savings: 49,
+    popular: false,
+    features: [
+      'Complete Business Plan (15+ pages)',
+      'Professional Landing Page',
+      'Logo Design Included',
+      'FREE Business Consultation',
+      '10-day delivery'
+    ]
+  },
+  'business-builder': {
+    name: 'Business Builder',
+    description: 'Complete business setup package',
+    services: ['business-plan', 'web-development', 'digital-marketing'],
+    packages: ['growth-plan', 'business-website', 'social-starter'],
+    originalPrice: 597, // $149 + $349 + $99
+    bundlePrice: 449,
+    savings: 148,
+    popular: true,
+    features: [
+      'Complete Business Plan',
+      'Professional Website (6 pages)',
+      '1 Month Social Media Management',
+      'Complete Brand Package',
+      'FREE Strategy Session',
+      'Priority Support',
+      '14-day delivery'
+    ]
+  },
+  'growth-master': {
+    name: 'Growth Master',
+    description: 'Launch to scale - Complete business package',
+    services: ['business-plan', 'web-development', 'digital-marketing'],
+    packages: ['investor-plan', 'ecommerce-website', 'marketing-pro'],
+    originalPrice: 1147, // $249 + $649 + $249
+    bundlePrice: 799,
+    savings: 348,
+    popular: false,
+    features: [
+      'Investor-Ready Business Plan',
+      'Complete E-commerce Store',
+      '3 Months Professional Marketing',
+      'Complete Brand Identity',
+      'Investor Pitch Deck',
+      'Advanced Analytics Setup',
+      'Weekly Strategy Calls',
+      'Priority Support & Training',
+      '21-day delivery'
+    ]
+  }
 };

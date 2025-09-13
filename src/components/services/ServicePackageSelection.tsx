@@ -19,7 +19,7 @@ interface ServicePackageSelectionProps {
   onPackageSelect: (pkg: Package, addOns: AddOn[], paymentPlan: PaymentPlan) => void
 }
 
-// Available payment plans
+// Available payment plans - Nigerian-friendly options
 const PAYMENT_PLANS: PaymentPlan[] = [
   {
     id: 'full',
@@ -31,27 +31,27 @@ const PAYMENT_PLANS: PaymentPlan[] = [
   },
   {
     id: 'split_2',
-    name: '2-Part Payment',
-    description: '50% down, 50% on delivery',
+    name: 'Split Payment',
+    description: '40% down, 60% on delivery',
     installments: 2,
-    downPayment: 50,
-    processingFee: 25,
+    downPayment: 40,
+    processingFee: 15,
   },
   {
     id: 'monthly_3',
     name: '3-Month Plan',
-    description: '30% down, then 2 monthly payments',
+    description: '25% down, then 2 easy payments',
     installments: 3,
-    downPayment: 30,
-    processingFee: 50,
+    downPayment: 25,
+    processingFee: 30,
   },
   {
     id: 'monthly_6',
     name: '6-Month Plan',
-    description: '20% down, then 5 monthly payments',
+    description: 'Just 15% down, then 5 monthly payments',
     installments: 6,
-    downPayment: 20,
-    processingFee: 75,
+    downPayment: 15,
+    processingFee: 50,
   },
 ]
 
@@ -145,7 +145,7 @@ export const ServicePackageSelection: React.FC<ServicePackageSelectionProps> = (
     return {
       subtotalUSD: subtotalInUSD,
       processingFeeUSD,
-      totalWithFeeUSD,
+      totalWithFeeUSD: totalWithFeeInUSD,
       downPaymentAmountUSD,
       monthlyPaymentUSD,
       remainingAmountUSD,

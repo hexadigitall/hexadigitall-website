@@ -3,12 +3,11 @@
 
 import * as React from 'react'
 import { useState, useEffect } from 'react'
-import { client } from '@/sanity/client'
-import { groq } from 'next-sanity'
 import Link from 'next/link'
 import { ServiceRequestFlow, ServiceCategory } from '@/components/services/ServiceRequestFlow'
 import { useCurrency } from '@/contexts/CurrencyContext'
-import PricingTiers from '@/components/ui/PricingTiers'
+import { CountdownTimer, SpotsRemaining } from '@/components/ui/CountdownTimer'
+import { CompactPriceDisplay } from '@/components/ui/PriceDisplay'
 import { SparklesIcon } from '@heroicons/react/24/outline'
 
 interface Service {
@@ -20,24 +19,7 @@ interface Service {
   overview: string
 }
 
-const servicesQuery = groq`*[_type == "service"]{
-  _id,
-  title,
-  slug,
-  overview
-}`
-
-const serviceCategoriesQuery = groq`*[_type == "serviceCategory"] | order(order asc, _createdAt desc) {
-  _id,
-  title,
-  slug,
-  description,
-  icon,
-  featured,
-  packages,
-  requirements,
-  faq
-}`
+// Queries moved to API routes for better performance
 
 export default function ServicesPage() {
   const [services, setServices] = useState<Service[]>([])
@@ -45,7 +27,7 @@ export default function ServicesPage() {
   const [selectedService, setSelectedService] = useState<ServiceCategory | null>(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
-  const { formatPrice, currentCurrency, isLocalCurrency, getLocalDiscountMessage } = useCurrency()
+  const { getLocalDiscountMessage, currentCurrency } = useCurrency()
   
   const discountMessage = getLocalDiscountMessage()
 
@@ -204,21 +186,33 @@ export default function ServicesPage() {
             </p>
             
             {/* Launch Special Banner */}
-            <div className="mt-6 mb-8 bg-gradient-to-r from-accent/10 via-accent/5 to-accent/10 border-2 border-accent/20 rounded-2xl p-6 text-center">
-              <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-                <div className="flex items-center space-x-2">
-                  <span className="bg-accent text-white px-3 py-1 rounded-full text-sm font-bold animate-pulse">
-                    🔥 LIMITED TIME
+            <div className="mt-6 mb-8 bg-gradient-to-r from-red-500/10 via-red-400/5 to-red-500/10 border-2 border-red-400/30 rounded-2xl p-4 sm:p-6 text-center shadow-lg">
+              <div className="flex flex-col items-center justify-center gap-3 sm:gap-4">
+                <div className="flex flex-col sm:flex-row items-center gap-2 sm:gap-4">
+                  <span className="bg-red-500 text-white px-3 sm:px-4 py-2 rounded-full text-xs sm:text-sm font-bold animate-bounce whitespace-nowrap">
+                    🔥 MEGA LAUNCH SPECIAL
                   </span>
-                  <span className="text-2xl font-bold text-accent">LAUNCH SPECIAL - 30% OFF!</span>
+                  <span className="text-2xl sm:text-3xl font-bold text-red-600 animate-pulse">50% OFF!</span>
                 </div>
-                <div className="text-sm text-gray-600">
-                  For Nigerian clients • Ends Jan 31, 2025 • Payment plans available
+                <div className="text-xs sm:text-sm text-gray-700 font-medium text-center">
+                  🇳🇬 Nigerian clients only • Limited spots remaining • Ends Jan 31, 2025
                 </div>
               </div>
-              <p className="text-sm text-gray-700 mt-2">
-                <span className="font-semibold text-accent">🇳🇬 Supporting Nigerian businesses</span> with world-class solutions at accessible prices
-              </p>
+              <div className="mt-4 flex flex-col items-center justify-center gap-3">
+                <p className="text-xs sm:text-sm text-gray-700 text-center">
+                  <span className="font-semibold text-red-600">💯 Supporting Nigerian businesses</span> with world-class solutions at ultra-affordable prices
+                </p>
+                <div className="flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-4 text-xs sm:text-sm">
+                  <SpotsRemaining className="" />
+                  <span className="hidden sm:inline text-gray-500">•</span>
+                  <CountdownTimer 
+                    endDate={new Date('2025-01-31T23:59:59Z')} 
+                    className=""
+                  />
+                  <span className="hidden sm:inline text-gray-500">•</span>
+                  <span className="text-green-600 font-medium whitespace-nowrap">💳 Payment plans available</span>
+                </div>
+              </div>
             </div>
 
             {/* Currency and Discount Message */}
@@ -272,9 +266,13 @@ export default function ServicesPage() {
                                 {service.title}
                               </h3>
                               {lowestPrice && (
-                                <p className="text-primary font-semibold">
-                                  Starting from {formatPrice(lowestPrice / 1650, { applyNigerianDiscount: true })}
-                                </p>
+                                <div className="mt-2">
+                                  <CompactPriceDisplay 
+                                    price={lowestPrice / 1650} 
+                                    showDiscount={true} 
+                                    className="justify-center"
+                                  />
+                                </div>
                               )}
                             </div>
                           </div>
