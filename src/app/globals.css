@@ -241,6 +241,18 @@
     @apply px-4 sm:px-6 lg:px-8;
   }
   
+  /* Hero-specific utilities */
+  .hero-height {
+    min-height: 100vh;
+    min-height: 100svh; /* For newer browsers with small viewport height */
+  }
+  
+  @media (max-height: 600px) {
+    .hero-height {
+      min-height: 600px;
+    }
+  }
+  
   /* Animation utilities */
   .animate-fade-in {
     animation: fadeIn 0.5s ease-in-out;
