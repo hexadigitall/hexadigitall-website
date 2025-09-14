@@ -12,6 +12,9 @@ import Link from 'next/link'
 import ServicePricingClient from '@/components/services/ServicePricingClient'
 import FocusHandler from '@/components/services/FocusHandler'
 import WebMobilePricingSections from '@/components/services/WebMobilePricingSections'
+import CustomizationWizard from '@/components/services/CustomizationWizard'
+import CustomizeHandler from '@/components/services/CustomizeHandler'
+import ConditionalSections from '@/components/services/ConditionalSections'
 
 interface Service {
   title: string
@@ -119,7 +122,9 @@ export default async function IndividualServicePage(
                   <FocusHandler serviceSlug={params.slug} />
                 </Suspense>
                 
-                {/* Nigerian Launch Special Banner */}
+                {/* Conditional content - hide detailed sections when customizing */}
+                <ConditionalSections>
+                  {/* Nigerian Launch Special Banner */}
                 <div className="text-center mb-12">
                   <div className="inline-flex items-center space-x-2 bg-gradient-to-r from-green-500 to-green-600 text-white px-6 py-3 rounded-full text-sm font-bold mb-6 animate-pulse shadow-lg">
                     <span>🇳🇬</span>
@@ -349,6 +354,7 @@ export default async function IndividualServicePage(
                     <WebMobilePricingSections />
                   </Suspense>
                 </div>
+                </ConditionalSections>
               </div>
             )}
 
