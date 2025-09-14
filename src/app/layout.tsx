@@ -2,7 +2,8 @@
 import type { Metadata, Viewport } from 'next'; // 👈 1. Import Viewport
 import { Montserrat, Lato } from 'next/font/google';
 import './globals.css';
-import { Toaster } from 'react-hot-toast';
+import { Toaster } from 'react-hot-toast'
+import { PerformanceMonitor } from '@/components/ui/PerformanceMonitor'
 
 // Import Header and Footer
 import Header from '@/components/layout/Header';
@@ -162,6 +163,9 @@ export default function RootLayout({
         
         <CurrencyProvider>
           <AppCartProvider>
+            {/* Performance monitoring in development */}
+            <PerformanceMonitor />
+            
             <Header />
             <main id="main-content" role="main" tabIndex={-1}>
               {children}

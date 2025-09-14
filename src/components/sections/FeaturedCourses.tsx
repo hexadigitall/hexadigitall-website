@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
+import { fetchWithTimeout } from '@/lib/timeout-utils'
 // import { client } from '@/sanity/client'
 
 interface Course {
@@ -191,7 +192,10 @@ export default function FeaturedCourses({ className = "" }: FeaturedCoursesProps
         
         console.log('🔍 [API] Fetching featured courses via API route...')
         
-        const response = await fetch('/api/featured-courses')
+        const response = await fetchWithTimeout('/api/featured-courses', {
+          timeout: 15000, // 15 second timeout
+          retries: 2 // Retry twice on failure
+        })
         
         if (!response.ok) {
           throw new Error(`API request failed: ${response.status} ${response.statusText}`)

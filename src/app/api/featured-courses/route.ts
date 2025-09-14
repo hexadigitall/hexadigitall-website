@@ -1,11 +1,16 @@
 import { NextResponse } from 'next/server'
 import { getCachedFeaturedCourses } from '@/lib/cached-api'
+import { withTimeout } from '@/lib/timeout-utils'
 
 export async function GET() {
   try {
     console.log('🎓 [API] Fetching featured courses via server-side...')
     
-    const courses = await getCachedFeaturedCourses() as unknown[]
+    const courses = await withTimeout(
+      getCachedFeaturedCourses(),
+      15000, // 15 second timeout
+      'Featured courses fetch timed out after 15 seconds'
+    ) as unknown[]
     
     console.log('✅ [API] Featured courses fetched:', courses?.length || 0, 'courses')
     

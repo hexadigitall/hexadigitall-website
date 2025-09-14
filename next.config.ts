@@ -12,26 +12,37 @@ const nextConfig: NextConfig = {
   // Turbopack configuration (webpack config removed for Turbopack compatibility)
   // Note: SWC is now the default minifier in Next.js 13+
 
-  // Image optimization
+  // Image optimization - Enhanced for better performance
   images: {
     remotePatterns: [
       {
         protocol: 'https',
         hostname: 'cdn.sanity.io',
+        port: '',
+        pathname: '/images/**',
       },
       {
         protocol: 'https',
         hostname: 'images.unsplash.com',
+        port: '',
+        pathname: '/**',
       },
       {
         protocol: 'https',
         hostname: 'puzezel0.apicdn.sanity.io',
+        port: '',
+        pathname: '/**',
       },
     ],
     formats: ['image/avif', 'image/webp'],
     deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
-    minimumCacheTTL: 60,
+    minimumCacheTTL: 300, // 5 minutes cache
+    dangerouslyAllowSVG: false,
+    contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
+    // Limit image dimensions to prevent large image processing
+    domains: [],
+    unoptimized: false,
   },
 
   // Performance optimizations
@@ -75,12 +86,25 @@ const nextConfig: NextConfig = {
   // Server external packages (moved from experimental)
   serverExternalPackages: ['fs'],
 
-  // Experimental features
+  // Experimental features and performance optimizations
   experimental: {
     // Enable optimized CSS
     optimizeCss: true,
     // Performance optimizations
     webpackBuildWorker: true,
+    // Enable PPR (Partial Prerendering) for better performance
+    ppr: false, // Keep false for now as it's experimental
+    // Optimize package imports
+    optimizePackageImports: ['@heroicons/react', '@portabletext/react'],
+    // Enable turbo mode for faster builds
+    turbo: {
+      rules: {
+        '*.svg': {
+          loaders: ['@svgr/webpack'],
+          as: '*.js',
+        },
+      },
+    },
   },
 
   // Turbopack is enabled via CLI flag --turbopack

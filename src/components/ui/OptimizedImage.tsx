@@ -21,7 +21,32 @@ export default function OptimizedImage({
   priority = false,
   ...props
 }: OptimizedImageProps) {
-  const [imgSrc, setImgSrc] = useState(src)
+  // Optimize Sanity URLs for better performance
+  const optimizeSanityUrl = (url: string) => {
+    if (!url || !url.includes('cdn.sanity.io')) return url
+    
+    // Remove existing query params and add optimizations
+    const baseUrl = url.split('?')[0]
+    const params = new URLSearchParams()
+    
+    // Add Sanity-specific optimizations
+    params.set('auto', 'format') // Auto WebP/AVIF
+    params.set('fit', 'max') // Fit within bounds
+    params.set('q', '85') // Good quality, smaller size
+    
+    // Limit max dimensions to prevent huge image processing
+    if (props.width && typeof props.width === 'number') {
+      params.set('w', Math.min(props.width * 2, 1920).toString())
+    }
+    if (props.height && typeof props.height === 'number') {
+      params.set('h', Math.min(props.height * 2, 1080).toString())
+    }
+    
+    return `${baseUrl}?${params.toString()}`
+  }
+
+  const optimizedSrc = optimizeSanityUrl(src as string)
+  const [imgSrc, setImgSrc] = useState(optimizedSrc)
   const [hasError, setHasError] = useState(false)
 
   // Auto-generate appropriate sizes if not provided
