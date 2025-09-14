@@ -13,6 +13,7 @@ import ServicePricingClient from '@/components/services/ServicePricingClient'
 import FocusHandler from '@/components/services/FocusHandler'
 import WebMobilePricingSections from '@/components/services/WebMobilePricingSections'
 import ConditionalSections from '@/components/services/ConditionalSections'
+import ServicePaymentSection from '@/components/services/ServicePaymentSection'
 
 interface Service {
   title: string
@@ -356,29 +357,12 @@ export default async function IndividualServicePage(
               </div>
             )}
 
-            {/* Call to Action */}
-            <div className="mt-12 bg-gradient-to-r from-primary/5 to-accent/5 border border-primary/10 rounded-2xl p-8 text-center">
-              <h3 className="text-2xl font-bold text-gray-900 mb-4">
-                Ready to Get Started?
-              </h3>
-              <p className="text-gray-600 mb-6 max-w-2xl mx-auto">
-                Let&apos;s discuss your project and create a tailored solution that meets your specific needs and budget.
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Link 
-                  href="/contact" 
-                  className="inline-flex items-center justify-center px-8 py-3 bg-primary text-white font-semibold rounded-lg hover:bg-primary/90 transition-colors"
-                >
-                  Get Free Consultation
-                </Link>
-                <Link 
-                  href="/services" 
-                  className="inline-flex items-center justify-center px-8 py-3 border border-primary text-primary font-semibold rounded-lg hover:bg-primary/5 transition-colors"
-                >
-                  View All Services
-                </Link>
-              </div>
-            </div>
+            {/* Service Payment Section */}
+            <ServicePaymentSection 
+              serviceTitle={service.title}
+              serviceSlug={params.slug}
+              serviceDescription={service.overview}
+            />
           </div>
         </div>
       </article>

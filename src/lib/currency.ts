@@ -191,12 +191,12 @@ class CurrencyService {
     let formatted: string;
     
     if (targetCurrency === 'NGN' || targetCurrency === 'KES' || targetCurrency === 'ZAR') {
-      // No decimals for these currencies
+      // No decimals for these currencies (whole numbers only)
       formatted = Math.round(convertedPrice).toLocaleString();
     } else {
-      // Two decimals for others
+      // Always show exactly 2 decimal places for professional currencies
       formatted = convertedPrice.toLocaleString(undefined, {
-        minimumFractionDigits: 0,
+        minimumFractionDigits: 2,
         maximumFractionDigits: 2
       });
     }

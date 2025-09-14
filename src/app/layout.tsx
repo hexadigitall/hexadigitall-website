@@ -10,6 +10,8 @@ import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 import AppCartProvider from '@/components/CartProvider';
 import { CurrencyProvider } from '@/contexts/CurrencyContext';
+import GoogleAnalytics from '@/components/GoogleAnalytics';
+import SEOStructuredData from '@/components/SEOStructuredData';
 
 // Define the fonts from your style guide with performance optimizations
 const montserrat = Montserrat({
@@ -163,6 +165,12 @@ export default function RootLayout({
         
         <CurrencyProvider>
           <AppCartProvider>
+            {/* Google Analytics */}
+            <GoogleAnalytics />
+            
+            {/* SEO Structured Data */}
+            <SEOStructuredData />
+            
             {/* Performance monitoring in development */}
             <PerformanceMonitor />
             

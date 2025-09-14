@@ -2,6 +2,8 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { getStripe } from '@/lib/stripe'
 import { client } from '@/sanity/client'
+import { emailService } from '@/lib/email'
+import { ServiceInquiryData } from '@/lib/email-types'
 
 export async function POST(request: NextRequest) {
   try {
@@ -66,10 +68,34 @@ export async function POST(request: NextRequest) {
       ])
       .commit()
 
+    // Send service inquiry confirmation emails
+    try {
+      const serviceData: ServiceInquiryData = {
+        clientName: `${serviceRequest.clientInfo.firstName} ${serviceRequest.clientInfo.lastName}`,
+        clientEmail: serviceRequest.clientInfo.email,
+        serviceName: session.metadata?.serviceCategory || 'Service',
+        packageName: serviceRequest.selectedPackage?.name || 'Package',
+        packagePrice: serviceRequest.selectedPackage?.price || 0,
+        paymentPlan: 'Full Payment', // For now, assuming full payment
+        inquiryId: requestId
+      };
+
+      const emailResult = await emailService.sendServiceInquiryEmails(serviceData);
+      if (!emailResult.success) {
+        console.error('Failed to send service inquiry emails:', emailResult.error);
+        // Don't fail the confirmation, just log the error
+      } else {
+        console.log('Service inquiry emails sent successfully:', emailResult.message);
+      }
+    } catch (emailError) {
+      console.error('Email service error:', emailError);
+      // Continue with confirmation success even if email fails
+    }
+
     return NextResponse.json({
       success: true,
       serviceRequest: updatedRequest,
-      message: 'Payment confirmed and project initiated'
+      message: 'Payment confirmed and project initiated. Confirmation emails have been sent.'
     })
 
   } catch (error) {

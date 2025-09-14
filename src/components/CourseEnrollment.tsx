@@ -5,12 +5,15 @@ import { useState } from 'react';
 import { toast } from 'react-hot-toast';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useCurrency } from '@/contexts/CurrencyContext';
 
 // Enhanced course interface
 export interface CourseEnrollmentData {
   _id: string;
   title: string;
   price: number;
+  nairaPrice?: number;
+  dollarPrice?: number;
   duration: string;
   level: string;
   prerequisites?: string[];
@@ -35,6 +38,43 @@ interface EnrollmentState {
   error?: string;
 }
 
+// Payment plan options for courses
+type PaymentPlan = {
+  id: string
+  name: string
+  description: string
+  installments: number
+  downPayment: number // percentage (0-100)
+  processingFee: number // flat fee in USD
+}
+
+const COURSE_PAYMENT_PLANS: PaymentPlan[] = [
+  {
+    id: 'full',
+    name: 'Full Payment',
+    description: 'Pay the full amount upfront',
+    installments: 1,
+    downPayment: 100,
+    processingFee: 0,
+  },
+  {
+    id: 'split_2',
+    name: 'Split Payment',
+    description: '50% now, 50% before course starts',
+    installments: 2,
+    downPayment: 50,
+    processingFee: 10,
+  },
+  {
+    id: 'monthly_3',
+    name: '3-Month Plan',
+    description: '35% down, then 2 monthly payments',
+    installments: 3,
+    downPayment: 35,
+    processingFee: 20,
+  },
+]
+
 interface StudentDetails {
   fullName: string;
   email: string;
@@ -44,6 +84,7 @@ interface StudentDetails {
 }
 
 export default function CourseEnrollment({ course }: { course: CourseEnrollmentData }) {
+  const { formatPrice, formatPriceWithDiscount, currentCurrency } = useCurrency();
   const [state, setState] = useState<EnrollmentState>({ step: 'preview', loading: false });
   const [studentDetails, setStudentDetails] = useState<StudentDetails>({
     fullName: '',
@@ -52,6 +93,7 @@ export default function CourseEnrollment({ course }: { course: CourseEnrollmentD
     experience: '',
     goals: ''
   });
+  const [selectedPaymentPlan, setSelectedPaymentPlan] = useState<PaymentPlan>(COURSE_PAYMENT_PLANS[0]);
 
   // Check course availability
   const isAvailable = !course.maxStudents || 
@@ -73,6 +115,10 @@ export default function CourseEnrollment({ course }: { course: CourseEnrollmentD
     setState({ ...state, step: 'payment' });
   };
 
+  // Check if course qualifies for installments (above $200 threshold)
+  const coursePrice = course.dollarPrice || course.price;
+  const qualifiesForInstallments = coursePrice >= 200;
+
   const handlePayment = async () => {
     setState({ ...state, loading: true });
     
@@ -83,7 +129,9 @@ export default function CourseEnrollment({ course }: { course: CourseEnrollmentD
         body: JSON.stringify({
           courseId: course._id,
           studentDetails,
-          amount: course.price * 100, // Convert to kobo
+          // Use the appropriate price based on currency
+          amount: (course.dollarPrice || course.price) * 100,
+          currency: currentCurrency.code,
         }),
       });
 
@@ -133,8 +181,50 @@ export default function CourseEnrollment({ course }: { course: CourseEnrollmentD
         <div className="p-6">
           {/* Price & Availability */}
           <div className="flex items-center justify-between mb-4">
-            <div className="text-3xl font-bold text-gray-900">
-              ₦{course.price.toLocaleString()}
+            <div className="text-left">
+              {course.dollarPrice ? (
+                <div>
+                  {(() => {
+                    const priceInfo = formatPriceWithDiscount(course.dollarPrice, { applyNigerianDiscount: true })
+                    
+                    if (priceInfo.hasDiscount) {
+                      return (
+                        <div className="space-y-1">
+                          <span className="text-lg text-gray-500 line-through block">
+                            {priceInfo.originalPrice}
+                          </span>
+                          <span className="text-3xl font-bold text-green-600">
+                            {priceInfo.discountedPrice}
+                          </span>
+                          {currentCurrency.code !== 'NGN' && course.nairaPrice && (
+                            <div className="text-sm text-gray-500">
+                              ≈ ₦{course.nairaPrice.toLocaleString()}
+                            </div>
+                          )}
+                        </div>
+                      )
+                    } else {
+                      return (
+                        <div>
+                          <span className="text-3xl font-bold text-gray-900">
+                            {priceInfo.discountedPrice}
+                          </span>
+                          {currentCurrency.code !== 'NGN' && course.nairaPrice && (
+                            <div className="text-sm text-gray-500">
+                              ≈ ₦{course.nairaPrice.toLocaleString()}
+                            </div>
+                          )}
+                        </div>
+                      )
+                    }
+                  })()
+                  }
+                </div>
+              ) : (
+                <div className="text-3xl font-bold text-gray-900">
+                  {course.nairaPrice ? `₦${course.nairaPrice.toLocaleString()}` : `₦${course.price.toLocaleString()}`}
+                </div>
+              )}
             </div>
             {spotsLeft && spotsLeft <= 5 && (
               <div className="bg-orange-100 text-orange-800 px-3 py-1 rounded-full text-sm font-medium">
@@ -363,6 +453,102 @@ export default function CourseEnrollment({ course }: { course: CourseEnrollmentD
           </div>
         </div>
 
+        {/* Payment Plan Selection - Only for courses above $200 */}
+        {qualifiesForInstallments && (
+          <div className="mb-6">
+            <h4 className="font-semibold text-gray-900 mb-3">Choose Payment Plan</h4>
+            <div className="space-y-3">
+              {COURSE_PAYMENT_PLANS.map((plan) => {
+                const basePrice = course.dollarPrice || course.price;
+                const downPaymentAmount = (basePrice * plan.downPayment / 100) + plan.processingFee;
+                const remainingPayments = plan.installments > 1 ? (basePrice * (100 - plan.downPayment) / 100) / (plan.installments - 1) : 0;
+                
+                return (
+                  <div
+                    key={plan.id}
+                    className={`border rounded-lg p-4 cursor-pointer transition-all duration-200 ${
+                      selectedPaymentPlan.id === plan.id
+                        ? 'border-primary ring-2 ring-primary/20 bg-primary/5'
+                        : 'border-gray-200 hover:border-gray-300'
+                    }`}
+                    onClick={() => setSelectedPaymentPlan(plan)}
+                  >
+                    <div className="flex items-start justify-between mb-2">
+                      <h5 className="font-semibold text-gray-900">{plan.name}</h5>
+                      {plan.id === 'split_2' && (
+                        <span className="bg-green-100 text-green-800 text-xs font-medium px-2 py-1 rounded">
+                          Popular
+                        </span>
+                      )}
+                    </div>
+                    <p className="text-sm text-gray-600 mb-2">{plan.description}</p>
+                    
+                    {plan.installments > 1 && (
+                      <div className="text-xs text-gray-500">
+                        <div>Today: {formatPrice(downPaymentAmount, { applyNigerianDiscount: true })}</div>
+                        {remainingPayments > 0 && (
+                          <div>Then: {plan.installments - 1} × {formatPrice(remainingPayments, { applyNigerianDiscount: true })}</div>
+                        )}
+                      </div>
+                    )}
+                  </div>
+                )
+              })}
+            </div>
+          </div>
+        )}
+
+        {/* Payment Summary */}
+        <div className="bg-blue-50 rounded-lg p-4 mb-6">
+          <h4 className="font-semibold text-blue-900 mb-2">Payment Summary</h4>
+          {qualifiesForInstallments && selectedPaymentPlan.installments > 1 ? (
+            (() => {
+              const downPaymentAmount = (coursePrice * selectedPaymentPlan.downPayment / 100) + selectedPaymentPlan.processingFee;
+              const remainingPayments = (coursePrice * (100 - selectedPaymentPlan.downPayment) / 100) / (selectedPaymentPlan.installments - 1);
+              
+              return (
+                <div className="space-y-2">
+                  <div className="flex justify-between text-sm">
+                    <span>Course Price:</span>
+                    <span>{formatPrice(coursePrice, { applyNigerianDiscount: true })}</span>
+                  </div>
+                  {selectedPaymentPlan.processingFee > 0 && (
+                    <div className="flex justify-between text-sm">
+                      <span>Processing Fee:</span>
+                      <span>{formatPrice(selectedPaymentPlan.processingFee, { applyNigerianDiscount: true })}</span>
+                    </div>
+                  )}
+                  <div className="flex justify-between font-semibold pt-2 border-t">
+                    <span>Total:</span>
+                    <span>{formatPrice(coursePrice + selectedPaymentPlan.processingFee, { applyNigerianDiscount: true })}</span>
+                  </div>
+                  <div className="bg-blue-100 rounded p-2 mt-3">
+                    <div className="text-sm">
+                      <div className="font-medium text-blue-800">Today&apos;s Payment:</div>
+                      <div className="text-blue-700">
+                        {formatPrice(downPaymentAmount, { applyNigerianDiscount: true })}
+                      </div>
+                      {selectedPaymentPlan.installments > 1 && (
+                        <div className="text-xs text-blue-600 mt-1">
+                          Remaining: {selectedPaymentPlan.installments - 1} payments of {formatPrice(remainingPayments, { applyNigerianDiscount: true })} each
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              );
+            })()
+          ) : (
+            <div className="text-lg font-bold text-blue-900">
+              Total: {course.dollarPrice ? (
+                formatPrice(coursePrice, { applyNigerianDiscount: true })
+              ) : (
+                `₦${course.price.toLocaleString()}`
+              )}
+            </div>
+          )}
+        </div>
+
         {/* Payment Button */}
         <button
           onClick={handlePayment}
@@ -378,7 +564,16 @@ export default function CourseEnrollment({ course }: { course: CourseEnrollmentD
               Processing...
             </>
           ) : (
-            `Pay ₦${course.price.toLocaleString()} & Enroll`
+            (() => {
+              if (qualifiesForInstallments && selectedPaymentPlan.installments > 1) {
+                const downPaymentAmount = (coursePrice * selectedPaymentPlan.downPayment / 100) + selectedPaymentPlan.processingFee;
+                return `Pay ${formatPrice(downPaymentAmount, { applyNigerianDiscount: true })} & Enroll`;
+              } else if (course.dollarPrice) {
+                return `Pay ${formatPrice(coursePrice, { applyNigerianDiscount: true })} & Enroll`;
+              } else {
+                return `Pay ₦${course.price.toLocaleString()} & Enroll`;
+              }
+            })()
           )}
         </button>
 

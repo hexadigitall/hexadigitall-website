@@ -1,5 +1,19 @@
 // src/lib/email.ts
 import { Resend } from 'resend';
+import { 
+  EMAIL_CONFIGS, 
+  EMAIL_ADDRESSES, 
+  CourseEnrollmentData, 
+  ServiceInquiryData 
+} from './email-types';
+import {
+  createContactFormEmailTemplate,
+  createCourseEnrollmentConfirmationTemplate,
+  createCourseEnrollmentAdminTemplate,
+  createServiceInquiryConfirmationTemplate,
+  createServiceInquiryAdminTemplate,
+  createNewsletterWelcomeTemplate
+} from './email-templates';
 
 interface EmailOptions {
   to: string;
@@ -14,7 +28,7 @@ interface NewsletterSubscription {
   source?: string;
 }
 
-interface ContactFormData {
+export interface ContactFormData {
   name: string;
   email: string;
   message: string;
@@ -71,7 +85,8 @@ class EmailService {
         to: options.to,
         subject: options.subject,
         html: options.html,
-        replyTo: options.replyTo
+        // Always ensure replies go to a working email address
+        replyTo: options.replyTo || process.env.CONTACT_FORM_RECIPIENT_EMAIL || 'hexadigitztech@gmail.com'
       });
 
       if (result.error) {
@@ -163,49 +178,24 @@ class EmailService {
   }
 
   async sendContactForm(data: ContactFormData): Promise<{ success: boolean; message?: string; error?: string }> {
+    const config = EMAIL_CONFIGS.CONTACT_FORM;
     const recipientEmail = process.env.CONTACT_FORM_RECIPIENT_EMAIL || 'hexadigitztech@gmail.com';
     
-    const html = `
-      <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
-        <div style="background: #0A4D68; color: white; padding: 20px; text-align: center;">
-          <h1 style="margin: 0;">New Contact Form Submission</h1>
-          <p style="margin: 5px 0;">Hexadigitall Website</p>
-        </div>
-        
-        <div style="padding: 30px; background: #f9f9f9;">
-          <h2 style="color: #0A4D68; margin-bottom: 20px;">Contact Details</h2>
-          
-          <div style="background: white; padding: 20px; border-radius: 8px; margin-bottom: 20px;">
-            <p><strong>Name:</strong> ${data.name}</p>
-            <p><strong>Email:</strong> <a href="mailto:${data.email}">${data.email}</a></p>
-            ${data.service ? `<p><strong>Service Interest:</strong> ${data.service}</p>` : ''}
-          </div>
-
-          <div style="background: white; padding: 20px; border-radius: 8px;">
-            <h3 style="color: #0A4D68; margin-top: 0;">Message:</h3>
-            <p style="line-height: 1.6; white-space: pre-wrap;">${data.message}</p>
-          </div>
-        </div>
-        
-        <div style="background: #088395; color: white; padding: 15px; text-align: center; font-size: 12px;">
-          <p style="margin: 0;">This message was sent from the Hexadigitall contact form.</p>
-          <p style="margin: 5px 0;">Please respond within 24 hours for the best customer experience.</p>
-        </div>
-      </div>
-    `;
-
     return await this.sendEmail({
       to: recipientEmail,
-      subject: `New Contact Form: ${data.name} - ${data.service || 'General Inquiry'}`,
-      html,
+      from: config.from,
+      subject: `${config.subject}: ${data.name} - ${data.service || 'General Inquiry'}`,
+      html: createContactFormEmailTemplate(data),
       replyTo: data.email
     });
   }
 
   async subscribeToNewsletter(data: NewsletterSubscription): Promise<{ success: boolean; message?: string; error?: string }> {
     const adminEmail = process.env.CONTACT_FORM_RECIPIENT_EMAIL || 'hexadigitztech@gmail.com';
+    const adminConfig = EMAIL_CONFIGS.NEWSLETTER_ADMIN;
+    const welcomeConfig = EMAIL_CONFIGS.NEWSLETTER_WELCOME;
     
-    // Send notification to admin
+    // Create admin notification HTML
     const adminHtml = `
       <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
         <div style="background: #F5A623; color: white; padding: 20px; text-align: center;">
@@ -227,63 +217,103 @@ class EmailService {
       </div>
     `;
 
-    // Send welcome email to subscriber
-    const welcomeHtml = `
-      <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
-        <div style="background: linear-gradient(135deg, #0A4D68 0%, #088395 100%); color: white; padding: 30px; text-align: center;">
-          <h1 style="margin: 0; font-size: 28px;">Welcome to Hexadigitall!</h1>
-          <p style="margin: 10px 0; font-size: 16px; opacity: 0.9;">Thank you for subscribing to our newsletter</p>
-        </div>
-        
-        <div style="padding: 40px 30px; background: #f9f9f9;">
-          <h2 style="color: #0A4D68; margin-bottom: 20px;">You're now part of our digital community!</h2>
-          
-          <p style="line-height: 1.6; margin-bottom: 20px;">
-            Get ready to receive exclusive updates on:
-          </p>
-          
-          <ul style="line-height: 1.8; color: #333;">
-            <li>Latest digital trends and insights</li>
-            <li>New course launches and special offers</li>
-            <li>Business tips and success stories</li>
-            <li>Behind-the-scenes updates from our team</li>
-          </ul>
-          
-          <div style="background: white; padding: 20px; border-radius: 8px; margin: 30px 0; border-left: 4px solid #F5A623;">
-            <h3 style="margin: 0 0 10px 0; color: #0A4D68;">Need immediate help?</h3>
-            <p style="margin: 0; line-height: 1.6;">
-              Don't wait for our newsletter! Contact us anytime at 
-              <a href="mailto:hexadigitztech@gmail.com" style="color: #088395;">hexadigitztech@gmail.com</a> 
-              or call <a href="tel:+2348125802140" style="color: #088395;">+234 812 580 2140</a>
-            </p>
-          </div>
-        </div>
-        
-        <div style="background: #0A4D68; color: white; padding: 25px; text-align: center;">
-          <p style="margin: 0 0 15px 0; font-size: 16px;">Ready to transform your business idea?</p>
-          <a href="https://hexadigitall.com/contact" style="display: inline-block; background: #F5A623; color: white; padding: 12px 24px; text-decoration: none; border-radius: 6px; font-weight: bold;">Get Started Today</a>
-        </div>
-        
-        <div style="padding: 15px; text-align: center; font-size: 12px; color: #666;">
-          <p style="margin: 0;">© ${new Date().getFullYear()} Hexadigitall. All rights reserved.</p>
-          <p style="margin: 5px 0;">You can unsubscribe at any time by replying to this email.</p>
-        </div>
-      </div>
-    `;
-
     // Send admin notification
     await this.sendEmail({
       to: adminEmail,
-      subject: 'New Newsletter Subscription - Hexadigitall',
-      html: adminHtml
+      from: adminConfig.from,
+      subject: adminConfig.subject,
+      html: adminHtml,
+      replyTo: adminConfig.replyTo
     });
 
     // Send welcome email to subscriber
     return await this.sendEmail({
       to: data.email,
-      subject: 'Welcome to Hexadigitall Newsletter! 🚀',
-      html: welcomeHtml
+      from: welcomeConfig.from,
+      subject: welcomeConfig.subject,
+      html: createNewsletterWelcomeTemplate(data.email),
+      replyTo: welcomeConfig.replyTo
     });
+  }
+
+  async sendCourseEnrollmentEmails(data: CourseEnrollmentData): Promise<{ success: boolean; message?: string; error?: string }> {
+    const adminEmail = process.env.CONTACT_FORM_RECIPIENT_EMAIL || 'hexadigitztech@gmail.com';
+    const confirmationConfig = EMAIL_CONFIGS.COURSE_ENROLLMENT_CONFIRMATION;
+    const adminConfig = EMAIL_CONFIGS.COURSE_ENROLLMENT_ADMIN;
+
+    try {
+      // Send confirmation email to student
+      const studentResult = await this.sendEmail({
+        to: data.studentEmail,
+        from: confirmationConfig.from,
+        subject: `${confirmationConfig.subject} - ${data.courseName}`,
+        html: createCourseEnrollmentConfirmationTemplate(data),
+        replyTo: confirmationConfig.replyTo
+      });
+
+      if (!studentResult.success) {
+        throw new Error(`Failed to send confirmation email: ${studentResult.error}`);
+      }
+
+      // Send notification to admin
+      const adminResult = await this.sendEmail({
+        to: adminEmail,
+        from: adminConfig.from,
+        subject: `${adminConfig.subject} - ${data.courseName}`,
+        html: createCourseEnrollmentAdminTemplate(data),
+        replyTo: adminConfig.replyTo
+      });
+
+      return {
+        success: true,
+        message: `Course enrollment emails sent successfully. Student: ${studentResult.success}, Admin: ${adminResult.success}`
+      };
+    } catch (error) {
+      return {
+        success: false,
+        error: error instanceof Error ? error.message : 'Unknown error sending course enrollment emails'
+      };
+    }
+  }
+
+  async sendServiceInquiryEmails(data: ServiceInquiryData): Promise<{ success: boolean; message?: string; error?: string }> {
+    const adminEmail = process.env.CONTACT_FORM_RECIPIENT_EMAIL || 'hexadigitztech@gmail.com';
+    const confirmationConfig = EMAIL_CONFIGS.SERVICE_INQUIRY_CONFIRMATION;
+    const adminConfig = EMAIL_CONFIGS.SERVICE_INQUIRY_ADMIN;
+
+    try {
+      // Send confirmation email to client
+      const clientResult = await this.sendEmail({
+        to: data.clientEmail,
+        from: confirmationConfig.from,
+        subject: `${confirmationConfig.subject} - ${data.serviceName}`,
+        html: createServiceInquiryConfirmationTemplate(data),
+        replyTo: confirmationConfig.replyTo
+      });
+
+      if (!clientResult.success) {
+        throw new Error(`Failed to send confirmation email: ${clientResult.error}`);
+      }
+
+      // Send notification to admin
+      const adminResult = await this.sendEmail({
+        to: adminEmail,
+        from: adminConfig.from,
+        subject: `${adminConfig.subject} - ${data.serviceName}`,
+        html: createServiceInquiryAdminTemplate(data),
+        replyTo: adminConfig.replyTo
+      });
+
+      return {
+        success: true,
+        message: `Service inquiry emails sent successfully. Client: ${clientResult.success}, Admin: ${adminResult.success}`
+      };
+    } catch (error) {
+      return {
+        success: false,
+        error: error instanceof Error ? error.message : 'Unknown error sending service inquiry emails'
+      };
+    }
   }
 }
 

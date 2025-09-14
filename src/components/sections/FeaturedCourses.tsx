@@ -4,6 +4,8 @@ import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { fetchWithTimeout } from '@/lib/timeout-utils'
+import { useCurrency } from '@/contexts/CurrencyContext'
+import CoursePaymentModal from '@/components/courses/CoursePaymentModal'
 // import { client } from '@/sanity/client'
 
 interface Course {
@@ -15,8 +17,9 @@ interface Course {
   duration: string
   level: string
   instructor: string
-  nairaPrice: number
-  dollarPrice: number
+  nairaPrice?: number
+  dollarPrice?: number
+  price?: number // Legacy field for backward compatibility
   featured: boolean
 }
 
@@ -56,8 +59,9 @@ function CourseCardSkeleton() {
   )
 }
 
-function CourseCard({ course }: { course: Course }) {
+function CourseCard({ course, onEnrollClick }: { course: Course; onEnrollClick: (course: Course) => void }) {
   const fallbackImage = '/digitall_partner.png'
+  const { formatPriceWithDiscount, currentCurrency, isLocalCurrency } = useCurrency()
   
   // Emergency fallback for invalid course data
   if (!course) {
@@ -135,31 +139,121 @@ function CourseCard({ course }: { course: Course }) {
           )}
         </div>
         
-        {/* Price Section */}
+        {/* Price Section - Now with currency conversion */}
         <div className="mb-4">
-          <div className="text-left" aria-label={`Course price: ${course.nairaPrice || 'Free'} Naira or ${course.dollarPrice || 'Free'} dollars`}>
-            {course.nairaPrice ? (
-              <div className="flex flex-col sm:flex-row sm:items-center sm:space-x-2">
-                <span className="text-2xl font-bold text-primary">
-                  <span className="text-lg">₦</span>{course.nairaPrice.toLocaleString()}
-                </span>
-                {course.dollarPrice && (
-                  <span className="text-sm text-gray-500">${course.dollarPrice}</span>
-                )}
-              </div>
-            ) : course.dollarPrice ? (
-              <span className="text-2xl font-bold text-primary">${course.dollarPrice}</span>
-            ) : (
-              <span className="text-2xl font-bold text-green-600">Free</span>
-            )}
-          </div>
+          {course.dollarPrice ? (
+            <div className="text-left">
+              {(() => {
+                const priceInfo = formatPriceWithDiscount(course.dollarPrice, { applyNigerianDiscount: true })
+                
+                if (priceInfo.hasDiscount) {
+                  return (
+                    <div className="space-y-2">
+                      {/* Discount badge for local currency */}
+                      {isLocalCurrency() && (
+                        <span className="inline-block bg-red-500 text-white px-2 py-1 rounded-full text-xs font-bold animate-pulse">
+                          🔥 {priceInfo.discountPercentage}% OFF
+                        </span>
+                      )}
+                      <div className="flex flex-col sm:flex-row sm:items-center sm:space-x-2">
+                        {/* Original price (crossed out) */}
+                        <span className="text-lg text-gray-500 line-through">
+                          {priceInfo.originalPrice}
+                        </span>
+                        {/* Discounted price */}
+                        <span className="text-2xl font-bold text-green-600">
+                          {priceInfo.discountedPrice}
+                        </span>
+                      </div>
+                      {/* Show Naira equivalent for non-NGN currencies */}
+                      {currentCurrency.code !== 'NGN' && course.nairaPrice && (
+                        <span className="text-sm text-gray-500">
+                          ≈ ₦{course.nairaPrice.toLocaleString()}
+                        </span>
+                      )}
+                    </div>
+                  )
+                } else {
+                  return (
+                    <div className="flex flex-col sm:flex-row sm:items-center sm:space-x-2">
+                      <span className="text-2xl font-bold text-primary">
+                        {priceInfo.discountedPrice}
+                      </span>
+                      {/* Show Naira equivalent for non-NGN currencies */}
+                      {currentCurrency.code !== 'NGN' && course.nairaPrice && (
+                        <span className="text-sm text-gray-500">
+                          ≈ ₦{course.nairaPrice.toLocaleString()}
+                        </span>
+                      )}
+                    </div>
+                  )
+                }
+              })()
+              }
+            </div>
+          ) : (course.nairaPrice || course.price) ? (
+            <div className="text-left">
+              {(() => {
+                // Convert NGN to USD first (1650 NGN = 1 USD), then format in selected currency
+                const nairaAmount = course.nairaPrice || course.price || 0;
+                const usdEquivalent = nairaAmount / 1650;
+                const priceInfo = formatPriceWithDiscount(usdEquivalent, { applyNigerianDiscount: true })
+                
+                if (priceInfo.hasDiscount) {
+                  return (
+                    <div className="space-y-2">
+                      {isLocalCurrency() && (
+                        <span className="inline-block bg-red-500 text-white px-2 py-1 rounded-full text-xs font-bold animate-pulse">
+                          🔥 {priceInfo.discountPercentage}% OFF
+                        </span>
+                      )}
+                      <div className="flex flex-col sm:flex-row sm:items-center sm:space-x-2">
+                        <span className="text-lg text-gray-500 line-through">
+                          {priceInfo.originalPrice}
+                        </span>
+                        <span className="text-2xl font-bold text-green-600">
+                          {priceInfo.discountedPrice}
+                        </span>
+                      </div>
+                    </div>
+                  )
+                } else {
+                  return (
+                    <span className="text-2xl font-bold text-primary">
+                      {priceInfo.discountedPrice}
+                    </span>
+                  )
+                }
+              })()
+              }
+            </div>
+          ) : (
+            <span className="text-2xl font-bold text-green-600">Free</span>
+          )}
         </div>
         
-        {/* Action Button */}
-        <div className="text-center">
+        {/* Action Buttons */}
+        <div className="text-center space-y-2">
+          <button
+            onClick={() => onEnrollClick(course)}
+            className="inline-flex items-center justify-center w-full px-4 py-3 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+            aria-label={`Enroll in ${safeTitle}`}
+          >
+            <svg 
+              className="w-4 h-4 mr-2" 
+              fill="none" 
+              stroke="currentColor" 
+              viewBox="0 0 24 24"
+              aria-hidden="true"
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+            </svg>
+            <span>Enroll Now</span>
+          </button>
+          
           <Link
             href={`/courses/${safeSlug}`}
-            className="inline-flex items-center justify-center w-full px-4 py-3 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+            className="inline-flex items-center justify-center w-full px-4 py-2 text-primary border border-primary rounded-lg hover:bg-primary/5 transition-colors focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
             aria-label={`Learn more about ${safeTitle}`}
           >
             <span>Learn More</span>
@@ -183,6 +277,8 @@ export default function FeaturedCourses({ className = "" }: FeaturedCoursesProps
   const [courses, setCourses] = useState<Course[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
+  const [selectedCourse, setSelectedCourse] = useState<Course | null>(null)
+  const [showPaymentModal, setShowPaymentModal] = useState(false)
 
   useEffect(() => {
     async function fetchFeaturedCourses() {
@@ -355,7 +451,16 @@ export default function FeaturedCourses({ className = "" }: FeaturedCoursesProps
           ) : courses && courses.length > 0 ? (
             courses.map((course) => {
               try {
-                return <CourseCard key={course._id || `course-${Math.random()}`} course={course} />
+                return (
+                  <CourseCard 
+                    key={course._id || `course-${Math.random()}`} 
+                    course={course} 
+                    onEnrollClick={(course) => {
+                      setSelectedCourse(course)
+                      setShowPaymentModal(true)
+                    }}
+                  />
+                )
               } catch (cardError) {
                 console.error('Error rendering course card:', cardError, course)
                 return (
@@ -415,6 +520,18 @@ export default function FeaturedCourses({ className = "" }: FeaturedCoursesProps
           </div>
         )}
       </div>
+      
+      {/* Course Payment Modal */}
+      {selectedCourse && (
+        <CoursePaymentModal
+          isOpen={showPaymentModal}
+          onClose={() => {
+            setShowPaymentModal(false)
+            setSelectedCourse(null)
+          }}
+          course={selectedCourse}
+        />
+      )}
     </section>
   )
 }

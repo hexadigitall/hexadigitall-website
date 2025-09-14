@@ -3,6 +3,8 @@ import { NextResponse } from 'next/server';
 import { getStripe } from '@/lib/stripe';
 import { client, writeClient } from '@/sanity/client';
 import { groq } from 'next-sanity';
+import { emailService } from '@/lib/email';
+import { CourseEnrollmentData } from '@/lib/email-types';
 
 interface StudentDetails {
   fullName: string;
@@ -248,9 +250,37 @@ export async function PUT(request: Request) {
     // Delete pending enrollment
     await writeClient.delete(pendingEnrollment._id);
 
-    // TODO: Send welcome email with course access details
-    // TODO: Add student to course learning platform
-    // TODO: Send enrollment confirmation
+    // Send enrollment confirmation emails
+    try {
+      const courseInfo = await client.fetch(
+        groq`*[_type == "course" && _id == $courseId][0]{
+          title,
+          dollarPrice,
+          nairaPrice
+        }`,
+        { courseId }
+      );
+
+      const enrollmentData: CourseEnrollmentData = {
+        studentName,
+        studentEmail,
+        courseName: courseInfo?.title || 'Course',
+        coursePrice: courseInfo?.dollarPrice || (session.amount_total || 0) / 100,
+        enrollmentId: enrollment._id,
+        paymentPlan: session.amount_total && session.amount_total < (courseInfo?.dollarPrice || 0) * 100 ? 'Installment Plan' : 'Full Payment'
+      };
+
+      const emailResult = await emailService.sendCourseEnrollmentEmails(enrollmentData);
+      if (!emailResult.success) {
+        console.error('Failed to send enrollment emails:', emailResult.error);
+        // Don't fail the enrollment, just log the error
+      } else {
+        console.log('Enrollment emails sent successfully:', emailResult.message);
+      }
+    } catch (emailError) {
+      console.error('Email service error:', emailError);
+      // Continue with enrollment success even if email fails
+    }
 
     return NextResponse.json({ 
       success: true,

@@ -117,6 +117,7 @@ export const getCachedFeaturedCourses = () =>
     instructor,
     nairaPrice,
     dollarPrice,
+    price,
     featured
   }`, {}, 10) // 10 minutes cache
 
@@ -140,3 +141,25 @@ export const getCachedServices = () =>
     slug,
     overview
   }`, {}, 15) // 15 minutes cache
+
+export const getCachedCourseCategories = () =>
+  cachedFetch(`*[_type == "courseCategory"] | order(title asc) {
+    _id,
+    title,
+    description,
+    "courses": *[_type == "course" && references(^._id)] | order(title asc) {
+      _id,
+      title,
+      slug,
+      summary,
+      "mainImage": mainImage.asset->url,
+      description,
+      duration,
+      level,
+      instructor,
+      nairaPrice,
+      dollarPrice,
+      price,
+      featured
+    }
+  }`, {}, 10) // 10 minutes cache

@@ -11,6 +11,7 @@ import { CompactPriceDisplay } from '@/components/ui/PriceDisplay'
 import { RequestServiceCTA, ContactCTA } from '@/components/ui/CTAButton'
 import { SparklesIcon } from '@heroicons/react/24/outline'
 import { SearchParamsHandler } from '@/components/services/SearchParamsHandler'
+import ServicePaymentModal from '@/components/services/ServicePaymentModal'
 
 interface Service {
   _id: string
@@ -30,7 +31,8 @@ export default function ServicesPage() {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
   const [focusService, setFocusService] = useState<string | null>(null)
-  const { getLocalDiscountMessage, currentCurrency } = useCurrency()
+  const [showIndividualServiceModal, setShowIndividualServiceModal] = useState<{show: boolean, service: Service | null}>({show: false, service: null})
+  const { getLocalDiscountMessage, currentCurrency, formatPrice } = useCurrency()
   
   const discountMessage = getLocalDiscountMessage()
 
@@ -368,24 +370,50 @@ export default function ServicesPage() {
                 <p className="text-center text-gray-600 mb-8">Explore our comprehensive range of digital transformation services</p>
                 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
-                  {services.map((service) => (
-                    <Link 
-                      key={service._id} 
-                      href={`/services/${service.slug.current}`}
-                      className="block bg-lightGray p-6 sm:p-8 rounded-xl shadow-md hover:shadow-xl hover:-translate-y-1 transition-all duration-300 min-h-[200px] flex flex-col justify-between"
-                    >
-                      <div>
-                        <h2 className="text-xl sm:text-2xl font-bold font-heading mb-3 leading-tight">{service.title}</h2>
-                        <p className="text-darkText text-sm sm:text-base leading-relaxed">{service.overview}</p>
+                  {services.map((service) => {
+                    const startingPrice = service.slug.current.includes('mobile') || service.slug.current.includes('app') ? 499 : 199
+                    return (
+                      <div 
+                        key={service._id} 
+                        className="bg-lightGray p-6 sm:p-8 rounded-xl shadow-md hover:shadow-xl hover:-translate-y-1 transition-all duration-300 min-h-[280px] flex flex-col justify-between"
+                      >
+                        <div>
+                          <h2 className="text-xl sm:text-2xl font-bold font-heading mb-3 leading-tight">{service.title}</h2>
+                          <p className="text-darkText text-sm sm:text-base leading-relaxed mb-4">{service.overview}</p>
+                          
+                          {/* Starting price preview */}
+                          <div className="mb-4">
+                            <p className="text-gray-600 text-sm mb-1">Starting from</p>
+                            <div className="text-2xl font-bold text-primary">
+                              {formatPrice(startingPrice, { applyNigerianDiscount: true })}
+                            </div>
+                          </div>
+                        </div>
+                        
+                        <div className="space-y-3">
+                          <button
+                            onClick={() => setShowIndividualServiceModal({show: true, service})}
+                            className="w-full inline-flex items-center justify-center px-6 py-3 bg-primary text-white font-semibold rounded-lg hover:bg-primary/90 transition-colors"
+                          >
+                            <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-1.5 6M7 13l-1.5-6m0 0h15M17 21a2 2 0 100-4 2 2 0 000 4zM9 21a2 2 0 100-4 2 2 0 000 4z" />
+                            </svg>
+                            Purchase Service
+                          </button>
+                          
+                          <Link 
+                            href={`/services/${service.slug.current}`}
+                            className="w-full inline-flex items-center justify-center px-6 py-3 border border-primary text-primary font-semibold rounded-lg hover:bg-primary/5 transition-colors text-sm"
+                          >
+                            Learn More
+                            <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                            </svg>
+                          </Link>
+                        </div>
                       </div>
-                      <div className="mt-4 flex items-center text-primary text-sm font-medium">
-                        Learn More 
-                        <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                        </svg>
-                      </div>
-                    </Link>
-                  ))}
+                    )
+                  })}
                 </div>
               </div>
             </>
@@ -415,6 +443,17 @@ export default function ServicesPage() {
         <ServiceRequestFlow
           serviceCategory={selectedService}
           onClose={() => setSelectedService(null)}
+        />
+      )}
+      
+      {/* Individual Service Payment Modal */}
+      {showIndividualServiceModal.show && showIndividualServiceModal.service && (
+        <ServicePaymentModal
+          isOpen={showIndividualServiceModal.show}
+          onClose={() => setShowIndividualServiceModal({show: false, service: null})}
+          serviceTitle={showIndividualServiceModal.service.title}
+          serviceSlug={showIndividualServiceModal.service.slug.current}
+          packages={[]}
         />
       )}
     </>

@@ -5,8 +5,6 @@ import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { PortableText } from '@portabletext/react';
 import type { PortableTextBlock } from 'sanity';
-import { urlFor } from '@/sanity/imageUrlBuilder';
-import type { SanityImageSource } from '@sanity/image-url/lib/types/types';
 import CourseEnrollment, { type CourseEnrollmentData } from '@/components/CourseEnrollment';
 
 // Interface for the full course data fetched from Sanity
@@ -14,7 +12,9 @@ interface Course {
     _id: string;
     title: string;
     slug: { current: string };
-    price: number;
+    price?: number;
+    nairaPrice?: number;
+    dollarPrice?: number;
     duration: string;
     level: string;
     instructor: string;
@@ -23,7 +23,7 @@ interface Course {
     maxStudents?: number;
     currentEnrollments?: number;
     body: PortableTextBlock[];
-    mainImage: SanityImageSource;
+    mainImage: string;
     curriculum: {
         modules: number;
         lessons: number;
@@ -49,6 +49,8 @@ const courseQuery = groq`*[_type == "course" && slug.current == $slug][0]{
     title,
     slug,
     price,
+    nairaPrice,
+    dollarPrice,
     duration,
     level,
     instructor,
@@ -57,9 +59,7 @@ const courseQuery = groq`*[_type == "course" && slug.current == $slug][0]{
     maxStudents,
     "currentEnrollments": count(*[_type == "enrollment" && courseId._ref == ^._id]),
     body,
-    mainImage{
-      asset->
-    },
+    "mainImage": mainImage.asset->url,
     curriculum {
         modules,
         lessons,
@@ -79,7 +79,9 @@ export default async function CoursePage({ params }: { params: Promise<{ slug: s
     const courseEnrollmentData: CourseEnrollmentData = {
         _id: course._id,
         title: course.title,
-        price: course.price,
+        price: course.price || course.nairaPrice || 0,
+        nairaPrice: course.nairaPrice,
+        dollarPrice: course.dollarPrice,
         duration: course.duration || '8 weeks',
         level: course.level || 'Intermediate',
         prerequisites: course.prerequisites,
@@ -87,7 +89,7 @@ export default async function CoursePage({ params }: { params: Promise<{ slug: s
         currentEnrollments: course.currentEnrollments || 0,
         instructor: course.instructor || 'Expert Instructor',
         description: course.description || 'Transform your skills with this comprehensive course.',
-        mainImage: course.mainImage ? urlFor(course.mainImage).width(400).height(300).url() : '/digitall_partner.png',
+        mainImage: course.mainImage || '/digitall_partner.png',
         curriculum: course.curriculum || {
             modules: 8,
             lessons: 24,
