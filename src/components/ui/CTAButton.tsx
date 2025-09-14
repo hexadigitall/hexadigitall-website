@@ -60,8 +60,7 @@ export function CTAButton(props: CTAProps) {
     fullWidth = false,
     className = '',
     icon,
-    iconPosition = 'right',
-    ...restProps
+    iconPosition = 'right'
   } = props
 
   const baseClasses = `

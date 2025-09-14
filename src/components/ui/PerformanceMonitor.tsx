@@ -29,7 +29,8 @@ export function PerformanceMonitor({ enabled = process.env.NODE_ENV === 'develop
           const fidObserver = new PerformanceObserver((list) => {
             for (const entry of list.getEntries()) {
               if (entry.entryType === 'first-input') {
-                const fid = Math.round(entry.processingStart - entry.startTime)
+                const fidEntry = entry as PerformanceEventTiming
+                const fid = Math.round(fidEntry.processingStart - fidEntry.startTime)
                 console.log(`⚡ FID: ${fid}ms ${fid > 100 ? '❌ Poor' : fid > 25 ? '⚠️ Needs Improvement' : '✅ Good'}`)
               }
             }

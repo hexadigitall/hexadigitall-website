@@ -407,12 +407,14 @@ export default function CustomizationWizard() {
                       <h4 className="text-lg font-bold text-gray-900 mb-2">{option.name}</h4>
                       <p className="text-gray-600 text-sm mb-3">{option.description}</p>
                       {option.additionalCost > 0 ? (
-                        <PriceDisplay 
-                          price={option.additionalCost} 
-                          showDiscount={true}
-                          size="sm"
-                          prefix="+"
-                        />
+                        <div className="text-sm">
+                          <span className="text-green-600 font-medium">+</span>
+                          <PriceDisplay 
+                            price={option.additionalCost} 
+                            showDiscount={true}
+                            size="sm"
+                          />
+                        </div>
                       ) : (
                         <span className="text-green-600 font-medium text-sm">Included at no extra cost</span>
                       )}
