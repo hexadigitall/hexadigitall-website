@@ -1,5 +1,6 @@
 // src/app/services/[slug]/page.tsx
 import { client } from '@/sanity/client'
+import { Suspense } from 'react'
 import * as NextSanity from 'next-sanity'
 import * as PortableTextReact from '@portabletext/react'
 
@@ -70,26 +71,9 @@ export default async function IndividualServicePage(
 
   return (
     <>
-      {/* Breadcrumb Navigation */}
-      <div className="bg-gray-50 border-b">
-        <div className="container mx-auto px-6 py-4">
-          <nav className="flex items-center space-x-2 text-sm text-gray-600">
-            <Link href="/" className="hover:text-primary transition-colors">
-              Home
-            </Link>
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-            </svg>
-            <Link href="/services" className="hover:text-primary transition-colors">
-              Services
-            </Link>
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-            </svg>
-            <span className="text-gray-900 font-medium">{service.title}</span>
-          </nav>
-        </div>
-      </div>
+      <Suspense fallback={null}>
+        <FocusHandler serviceSlug={params.slug} />
+      </Suspense>
 
       <article className="bg-white">
         {/* Hero Section */}
