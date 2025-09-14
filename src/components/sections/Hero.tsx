@@ -57,6 +57,9 @@ const slides = [
 const Hero = () => {
   const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true });
   const [selectedIndex, setSelectedIndex] = useState(0);
+  const [isPlaying, setIsPlaying] = useState(true);
+  const [canScrollPrev, setCanScrollPrev] = useState(false);
+  const [canScrollNext, setCanScrollNext] = useState(false);
   const { formatPrice, getLocalDiscountMessage } = useCurrency();
   
   const discountMessage = getLocalDiscountMessage();
@@ -78,25 +81,71 @@ const Hero = () => {
     }
   }, [emblaApi]);
 
+  const scrollPrev = useCallback(() => {
+    if (emblaApi) {
+      emblaApi.scrollPrev();
+      setIsPlaying(false); // Pause autoplay when user manually navigates
+      setTimeout(() => setIsPlaying(true), 10000); // Resume after 10 seconds
+    }
+  }, [emblaApi]);
+
+  const scrollNext = useCallback(() => {
+    if (emblaApi) {
+      emblaApi.scrollNext();
+      setIsPlaying(false); // Pause autoplay when user manually navigates
+      setTimeout(() => setIsPlaying(true), 10000); // Resume after 10 seconds
+    }
+  }, [emblaApi]);
+
+  const handleMouseEnter = useCallback(() => {
+    setIsPlaying(false);
+  }, []);
+
+  const handleMouseLeave = useCallback(() => {
+    setIsPlaying(true);
+  }, []);
+
   useEffect(() => {
     if (!emblaApi) return;
-    const onSelect = () => setSelectedIndex(emblaApi.selectedScrollSnap());
+    
+    const onSelect = () => {
+      setSelectedIndex(emblaApi.selectedScrollSnap());
+      setCanScrollPrev(emblaApi.canScrollPrev());
+      setCanScrollNext(emblaApi.canScrollNext());
+    };
+    
     emblaApi.on('select', onSelect);
     onSelect();
-    const interval = setInterval(() => emblaApi.scrollNext(), 5000);
+    
     return () => {
-      clearInterval(interval);
       emblaApi.off('select', onSelect);
     };
   }, [emblaApi]);
 
+  // Autoplay with pause functionality
+  useEffect(() => {
+    if (!emblaApi || !isPlaying) return;
+    
+    const interval = setInterval(() => {
+      emblaApi.scrollNext();
+    }, 6000); // Slightly longer interval for better readability
+    
+    return () => clearInterval(interval);
+  }, [emblaApi, isPlaying]);
+
   return (
-    <section className="relative overflow-hidden bg-primary" ref={emblaRef} aria-label="Hero carousel">
-      <div className="flex">
+    <section 
+      className="relative overflow-hidden bg-primary h-[85vh] sm:h-[90vh] md:h-screen max-h-[800px]" 
+      ref={emblaRef} 
+      aria-label="Hero carousel"
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+    >
+      <div className="flex h-full">
         {slides.map((slide, index) => (
           <article 
             key={index}
-            className="relative flex-shrink-0 w-full min-w-0 flex items-center justify-center bg-cover bg-center"
+            className="relative flex-shrink-0 w-full min-w-0 flex items-center justify-center bg-cover bg-center h-full"
             // Apply background image only for slides that have one
             style={{ backgroundImage: slide.bgImage || 'none' }}
             aria-hidden={selectedIndex !== index}
@@ -105,13 +154,13 @@ const Hero = () => {
             {slide.bgImage && <div className="absolute inset-0 bg-black/60 z-0" aria-hidden="true"></div>}
             
             {/* Consistent Content Wrapper */}
-            <div className="relative container mx-auto px-4 sm:px-6 py-16 sm:py-24 md:py-32 z-10">
-              <div className="max-w-6xl mx-auto">
-                <div className="text-center mb-8">
-                  <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold font-heading mb-4 leading-tight !text-white">
+            <div className="relative container mx-auto px-4 sm:px-6 py-8 sm:py-12 z-10 flex items-center min-h-full">
+              <div className="max-w-6xl mx-auto w-full">
+                <div className="text-center mb-6 sm:mb-8">
+                  <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold font-heading mb-3 sm:mb-4 leading-tight !text-white">
                     {slide.headline}
                   </h1>
-                  <p className="text-base sm:text-lg md:text-xl text-gray-200 max-w-3xl mx-auto mb-6 sm:mb-8 leading-relaxed">
+                  <p className="text-sm sm:text-base md:text-lg lg:text-xl text-gray-200 max-w-3xl mx-auto mb-4 sm:mb-6 leading-relaxed">
                     {slide.subheadline}
                   </p>
                   
@@ -234,18 +283,56 @@ const Hero = () => {
         ))}
       </div>
 
-      {/* Navigation Dots */}
-      <nav className="absolute bottom-8 left-1/2 -translate-x-1/2 flex space-x-3 z-20" aria-label="Carousel navigation">
+      {/* Navigation Arrows */}
+      <button
+        onClick={scrollPrev}
+        disabled={!canScrollPrev}
+        className="absolute left-4 top-1/2 -translate-y-1/2 z-20 w-10 h-10 sm:w-12 sm:h-12 bg-white/20 hover:bg-white/30 backdrop-blur-sm rounded-full flex items-center justify-center transition-all duration-200 focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-transparent disabled:opacity-50 disabled:cursor-not-allowed"
+        aria-label="Previous slide"
+      >
+        <svg className="w-5 h-5 sm:w-6 sm:h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+        </svg>
+      </button>
+      
+      <button
+        onClick={scrollNext}
+        disabled={!canScrollNext}
+        className="absolute right-4 top-1/2 -translate-y-1/2 z-20 w-10 h-10 sm:w-12 sm:h-12 bg-white/20 hover:bg-white/30 backdrop-blur-sm rounded-full flex items-center justify-center transition-all duration-200 focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-transparent disabled:opacity-50 disabled:cursor-not-allowed"
+        aria-label="Next slide"
+      >
+        <svg className="w-5 h-5 sm:w-6 sm:h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+        </svg>
+      </button>
+
+      {/* Navigation Dots - Smaller on Mobile */}
+      <nav className="absolute bottom-4 sm:bottom-6 left-1/2 -translate-x-1/2 flex space-x-2 sm:space-x-3 z-20" aria-label="Carousel navigation">
         {slides.map((slide, index) => (
           <button
             key={index}
             onClick={() => scrollTo(index)}
-            className={`h-3 w-3 rounded-full transition-all duration-200 focus:ring-2 focus:ring-accent focus:ring-offset-2 ${selectedIndex === index ? 'bg-white scale-125' : 'bg-white/50 hover:bg-white/75'}`}
+            className={`h-2 w-2 sm:h-3 sm:w-3 rounded-full transition-all duration-200 focus:ring-2 focus:ring-accent focus:ring-offset-2 ${selectedIndex === index ? 'bg-white scale-125' : 'bg-white/50 hover:bg-white/75'}`}
             aria-label={`Go to slide ${index + 1}: ${slide.headline}`}
             aria-current={selectedIndex === index ? 'true' : 'false'}
           />
         ))}
       </nav>
+      
+      {/* Play/Pause Indicator (visible on hover) */}
+      <div className="absolute top-4 right-4 z-20 opacity-0 hover:opacity-100 transition-opacity duration-200">
+        <div className={`w-8 h-8 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center ${isPlaying ? 'text-green-400' : 'text-yellow-400'}`}>
+          {isPlaying ? (
+            <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M8 5v14l11-7z"/>
+            </svg>
+          ) : (
+            <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>
+            </svg>
+          )}
+        </div>
+      </div>
     </section>
   );
 };

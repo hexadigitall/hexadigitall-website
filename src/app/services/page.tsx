@@ -275,24 +275,24 @@ export default function ServicesPage() {
                     return (
                       <div
                         key={service._id}
-                        className={`bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden group cursor-pointer border ${
+                        className={`bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden group cursor-pointer border min-h-[400px] flex flex-col ${
                           service.featured ? 'border-primary ring-2 ring-primary ring-opacity-20' : 'border-gray-200'
                         }`}
                         onClick={() => setSelectedService(service)}
                       >
                         {service.featured && (
-                          <div className="bg-primary text-white text-center py-2 text-sm font-medium">
+                          <div className="bg-primary text-white text-center py-3 text-sm font-medium">
                             ⭐ Featured Service
                           </div>
                         )}
                         
-                        <div className="p-8">
-                          <div className="flex items-center mb-6">
-                            <div className="w-16 h-16 bg-primary/10 rounded-xl flex items-center justify-center text-primary mr-4 group-hover:bg-primary group-hover:text-white transition-colors">
+                        <div className="p-6 sm:p-8 flex flex-col flex-grow">
+                          <div className="flex items-start mb-6">
+                            <div className="w-14 h-14 sm:w-16 sm:h-16 bg-primary/10 rounded-xl flex items-center justify-center text-primary mr-4 flex-shrink-0 group-hover:bg-primary group-hover:text-white transition-colors">
                               {getServiceIcon(service.icon)}
                             </div>
-                            <div>
-                              <h3 className="text-xl font-bold text-gray-900 group-hover:text-primary transition-colors">
+                            <div className="flex-grow">
+                              <h3 className="text-lg sm:text-xl font-bold text-gray-900 group-hover:text-primary transition-colors leading-tight mb-2">
                                 {service.title}
                               </h3>
                               {lowestPrice && (
@@ -300,23 +300,29 @@ export default function ServicesPage() {
                                   <CompactPriceDisplay 
                                     price={lowestPrice} 
                                     showDiscount={true} 
-                                    className="justify-center"
+                                    className="justify-start"
                                   />
                                 </div>
                               )}
                             </div>
                           </div>
                           
-                          <p className="text-gray-600 mb-6 leading-relaxed">
+                          <p className="text-gray-600 mb-6 leading-relaxed text-sm sm:text-base flex-grow">
                             {service.description}
                           </p>
                           
-                          <div className="space-y-4">
-                            <div className="text-sm text-gray-500 text-center">
+                          <div className="space-y-4 mt-auto">
+                            <div className="text-xs sm:text-sm text-gray-500 text-center">
                               {service.packages?.length || 0} package{service.packages?.length !== 1 ? 's' : ''} available
                             </div>
                             <div className="flex justify-center">
-                              <RequestServiceCTA size="md" className="max-w-[200px]">Request Service</RequestServiceCTA>
+                              <RequestServiceCTA 
+                                size="md" 
+                                className="w-full max-w-[200px] text-sm sm:text-base"
+                                onClick={() => setSelectedService(service)}
+                              >
+                                Request Service
+                              </RequestServiceCTA>
                             </div>
                           </div>
                         </div>
@@ -350,23 +356,25 @@ export default function ServicesPage() {
                       </p>
                     </div>
                     
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6 mb-8">
                       {/* Web Development Only */}
                       <Link 
                         href="/services/web-and-mobile-software-development?focus=web"
-                        className="bg-gradient-to-br from-blue-50 to-blue-100 rounded-2xl p-8 border-2 border-blue-200 hover:border-blue-400 transition-all duration-300 hover:shadow-xl group transform hover:-translate-y-1 cursor-pointer"
+                        className="bg-gradient-to-br from-blue-50 to-blue-100 rounded-2xl p-6 sm:p-8 border-2 border-blue-200 hover:border-blue-400 transition-all duration-300 hover:shadow-xl group transform hover:-translate-y-1 cursor-pointer min-h-[280px] flex flex-col"
                       >
-                        <div className="text-center">
-                          <div className="w-16 h-16 bg-blue-500 rounded-2xl flex items-center justify-center text-white mx-auto mb-4 group-hover:bg-blue-600 transition-colors duration-300 shadow-lg">
-                            <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                            </svg>
+                        <div className="text-center flex-grow flex flex-col justify-between">
+                          <div>
+                            <div className="w-14 h-14 sm:w-16 sm:h-16 bg-blue-500 rounded-2xl flex items-center justify-center text-white mx-auto mb-4 group-hover:bg-blue-600 transition-colors duration-300 shadow-lg">
+                              <svg className="w-6 h-6 sm:w-8 sm:h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                              </svg>
+                            </div>
+                            <h4 className="text-lg sm:text-xl font-bold text-blue-900 mb-3 group-hover:text-blue-700 transition-colors leading-tight">Web Development Only</h4>
+                            <p className="text-blue-700 text-sm sm:text-base mb-4 leading-relaxed">
+                              I need a website, web application, or online store
+                            </p>
                           </div>
-                          <h4 className="text-xl font-bold text-blue-900 mb-2 group-hover:text-blue-700 transition-colors">Web Development Only</h4>
-                          <p className="text-blue-700 text-sm mb-4 leading-relaxed">
-                            I need a website, web application, or online store
-                          </p>
-                          <div className="inline-flex items-center text-blue-600 font-medium text-sm">
+                          <div className="inline-flex items-center text-blue-600 font-medium text-sm sm:text-base">
                             <span>Starting from ₦122,925</span>
                             <svg className="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
@@ -378,19 +386,21 @@ export default function ServicesPage() {
                       {/* Mobile App Development Only */}
                       <Link 
                         href="/services/web-and-mobile-software-development?focus=mobile"
-                        className="bg-gradient-to-br from-purple-50 to-purple-100 rounded-2xl p-8 border-2 border-purple-200 hover:border-purple-400 transition-all duration-300 hover:shadow-xl group transform hover:-translate-y-1 cursor-pointer"
+                        className="bg-gradient-to-br from-purple-50 to-purple-100 rounded-2xl p-6 sm:p-8 border-2 border-purple-200 hover:border-purple-400 transition-all duration-300 hover:shadow-xl group transform hover:-translate-y-1 cursor-pointer min-h-[280px] flex flex-col"
                       >
-                        <div className="text-center">
-                          <div className="w-16 h-16 bg-purple-500 rounded-2xl flex items-center justify-center text-white mx-auto mb-4 group-hover:bg-purple-600 transition-colors duration-300 shadow-lg">
-                            <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 18h.01M8 21h8a1 1 0 001-1V4a1 1 0 00-1-1H8a1 1 0 00-1 1v16a1 1 0 001 1z" />
-                            </svg>
+                        <div className="text-center flex-grow flex flex-col justify-between">
+                          <div>
+                            <div className="w-14 h-14 sm:w-16 sm:h-16 bg-purple-500 rounded-2xl flex items-center justify-center text-white mx-auto mb-4 group-hover:bg-purple-600 transition-colors duration-300 shadow-lg">
+                              <svg className="w-6 h-6 sm:w-8 sm:h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 18h.01M8 21h8a1 1 0 001-1V4a1 1 0 00-1-1H8a1 1 0 00-1 1v16a1 1 0 001 1z" />
+                              </svg>
+                            </div>
+                            <h4 className="text-lg sm:text-xl font-bold text-purple-900 mb-3 group-hover:text-purple-700 transition-colors leading-tight">Mobile App Only</h4>
+                            <p className="text-purple-700 text-sm sm:text-base mb-4 leading-relaxed">
+                              I need a mobile app for iOS, Android, or both
+                            </p>
                           </div>
-                          <h4 className="text-xl font-bold text-purple-900 mb-2 group-hover:text-purple-700 transition-colors">Mobile App Only</h4>
-                          <p className="text-purple-700 text-sm mb-4 leading-relaxed">
-                            I need a mobile app for iOS, Android, or both
-                          </p>
-                          <div className="inline-flex items-center text-purple-600 font-medium text-sm">
+                          <div className="inline-flex items-center text-purple-600 font-medium text-sm sm:text-base">
                             <span>Starting from ₦246,675</span>
                             <svg className="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
@@ -402,24 +412,26 @@ export default function ServicesPage() {
                       {/* Custom Solution - Both */}
                       <Link 
                         href="/services/web-and-mobile-software-development?customize=true"
-                        className="bg-gradient-to-br from-green-50 to-emerald-100 rounded-2xl p-8 border-2 border-green-300 hover:border-green-400 transition-all duration-300 hover:shadow-xl group transform hover:-translate-y-1 cursor-pointer relative overflow-hidden"
+                        className="bg-gradient-to-br from-green-50 to-emerald-100 rounded-2xl p-6 sm:p-8 border-2 border-green-300 hover:border-green-400 transition-all duration-300 hover:shadow-xl group transform hover:-translate-y-1 cursor-pointer relative overflow-hidden min-h-[280px] flex flex-col"
                       >
                         <div className="absolute top-2 right-2">
                           <div className="bg-green-500 text-white px-2 py-1 rounded-full text-xs font-bold">
                             💡 Popular
                           </div>
                         </div>
-                        <div className="text-center">
-                          <div className="w-16 h-16 bg-gradient-to-br from-green-500 to-emerald-600 rounded-2xl flex items-center justify-center text-white mx-auto mb-4 group-hover:from-green-600 group-hover:to-emerald-700 transition-all duration-300 shadow-lg">
-                            <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
-                            </svg>
+                        <div className="text-center flex-grow flex flex-col justify-between">
+                          <div>
+                            <div className="w-14 h-14 sm:w-16 sm:h-16 bg-gradient-to-br from-green-500 to-emerald-600 rounded-2xl flex items-center justify-center text-white mx-auto mb-4 group-hover:from-green-600 group-hover:to-emerald-700 transition-all duration-300 shadow-lg">
+                              <svg className="w-6 h-6 sm:w-8 sm:h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
+                              </svg>
+                            </div>
+                            <h4 className="text-lg sm:text-xl font-bold text-green-900 mb-3 group-hover:text-green-800 transition-colors leading-tight">I Want Both</h4>
+                            <p className="text-green-800 text-sm sm:text-base mb-4 leading-relaxed">
+                              Custom solution builder for web + mobile integration
+                            </p>
                           </div>
-                          <h4 className="text-xl font-bold text-green-900 mb-2 group-hover:text-green-800 transition-colors">I Want Both</h4>
-                          <p className="text-green-800 text-sm mb-4 leading-relaxed">
-                            Custom solution builder for web + mobile integration
-                          </p>
-                          <div className="inline-flex items-center text-green-700 font-medium text-sm">
+                          <div className="inline-flex items-center text-green-700 font-medium text-sm sm:text-base">
                             <span>Save up to 30%</span>
                             <svg className="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
@@ -461,15 +473,23 @@ export default function ServicesPage() {
                 <h2 className="text-3xl font-bold text-center mb-2">Additional Services</h2>
                 <p className="text-center text-gray-600 mb-8">Explore our comprehensive range of digital transformation services</p>
                 
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
                   {services.map((service) => (
                     <Link 
                       key={service._id} 
                       href={`/services/${service.slug.current}`}
-                      className="block bg-lightGray p-8 rounded-lg shadow-md hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
+                      className="block bg-lightGray p-6 sm:p-8 rounded-xl shadow-md hover:shadow-xl hover:-translate-y-1 transition-all duration-300 min-h-[200px] flex flex-col justify-between"
                     >
-                      <h2 className="text-2xl font-bold font-heading mb-3">{service.title}</h2>
-                      <p className="text-darkText">{service.overview}</p>
+                      <div>
+                        <h2 className="text-xl sm:text-2xl font-bold font-heading mb-3 leading-tight">{service.title}</h2>
+                        <p className="text-darkText text-sm sm:text-base leading-relaxed">{service.overview}</p>
+                      </div>
+                      <div className="mt-4 flex items-center text-primary text-sm font-medium">
+                        Learn More 
+                        <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                        </svg>
+                      </div>
                     </Link>
                   ))}
                 </div>
