@@ -332,135 +332,29 @@ export default function ServicesPage() {
                 </div>
               </div>
               
-              {/* Simplified Web & Mobile Development Options */}
-              <div className="mt-16 mb-8" id="web-mobile-integration">
-                <div className="bg-gradient-to-br from-blue-50 via-white to-purple-50 border-2 border-transparent bg-clip-border rounded-3xl p-8 relative overflow-hidden">
-                  {/* Background pattern */}
-                  <div className="absolute inset-0 opacity-5">
-                    <div className="absolute inset-0" style={{
-                      backgroundImage: `url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23666' fill-opacity='0.1'%3E%3Ccircle cx='20' cy='20' r='2'/%3E%3C/g%3E%3C/svg%3E")`
-                    }} />
+              {/* Simple CTA to Web & Mobile Development */}
+              <div className="mt-16 mb-8 text-center">
+                <div className="bg-gradient-to-br from-blue-50 via-white to-purple-50 border-2 border-primary/20 rounded-2xl p-8">
+                  <div className="inline-flex items-center space-x-2 bg-gradient-to-r from-blue-500 to-purple-500 text-white px-4 py-2 rounded-full text-sm font-semibold mb-4">
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
+                    </svg>
+                    <span>Need Web or Mobile Development?</span>
                   </div>
-                  
-                  <div className="relative z-10">
-                    <div className="text-center mb-8">
-                      <div className="inline-flex items-center space-x-2 bg-gradient-to-r from-blue-500 to-purple-500 text-white px-4 py-2 rounded-full text-sm font-semibold mb-4">
-                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
-                        </svg>
-                        <span>Web & Mobile Development</span>
-                      </div>
-                      <h3 className="text-3xl font-bold text-gray-900 mb-4">Choose Your Development Path</h3>
-                      <p className="text-gray-600 max-w-3xl mx-auto text-lg leading-relaxed">
-                        Whether you need web development, mobile apps, or both, we&apos;ve designed a simple path to get you exactly what you need.
-                      </p>
-                    </div>
-                    
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6 mb-8">
-                      {/* Web Development Only */}
-                      <Link 
-                        href="/services/web-and-mobile-software-development?focus=web"
-                        className="bg-gradient-to-br from-blue-50 to-blue-100 rounded-2xl p-6 sm:p-8 border-2 border-blue-200 hover:border-blue-400 transition-all duration-300 hover:shadow-xl group transform hover:-translate-y-1 cursor-pointer min-h-[280px] flex flex-col"
-                      >
-                        <div className="text-center flex-grow flex flex-col justify-between">
-                          <div>
-                            <div className="w-14 h-14 sm:w-16 sm:h-16 bg-blue-500 rounded-2xl flex items-center justify-center text-white mx-auto mb-4 group-hover:bg-blue-600 transition-colors duration-300 shadow-lg">
-                              <svg className="w-6 h-6 sm:w-8 sm:h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                              </svg>
-                            </div>
-                            <h4 className="text-lg sm:text-xl font-bold text-blue-900 mb-3 group-hover:text-blue-700 transition-colors leading-tight">Web Development Only</h4>
-                            <p className="text-blue-700 text-sm sm:text-base mb-4 leading-relaxed">
-                              I need a website, web application, or online store
-                            </p>
-                          </div>
-                          <div className="inline-flex items-center text-blue-600 font-medium text-sm sm:text-base">
-                            <span>Starting from ₦122,925</span>
-                            <svg className="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                            </svg>
-                          </div>
-                        </div>
-                      </Link>
-
-                      {/* Mobile App Development Only */}
-                      <Link 
-                        href="/services/web-and-mobile-software-development?focus=mobile"
-                        className="bg-gradient-to-br from-purple-50 to-purple-100 rounded-2xl p-6 sm:p-8 border-2 border-purple-200 hover:border-purple-400 transition-all duration-300 hover:shadow-xl group transform hover:-translate-y-1 cursor-pointer min-h-[280px] flex flex-col"
-                      >
-                        <div className="text-center flex-grow flex flex-col justify-between">
-                          <div>
-                            <div className="w-14 h-14 sm:w-16 sm:h-16 bg-purple-500 rounded-2xl flex items-center justify-center text-white mx-auto mb-4 group-hover:bg-purple-600 transition-colors duration-300 shadow-lg">
-                              <svg className="w-6 h-6 sm:w-8 sm:h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 18h.01M8 21h8a1 1 0 001-1V4a1 1 0 00-1-1H8a1 1 0 00-1 1v16a1 1 0 001 1z" />
-                              </svg>
-                            </div>
-                            <h4 className="text-lg sm:text-xl font-bold text-purple-900 mb-3 group-hover:text-purple-700 transition-colors leading-tight">Mobile App Only</h4>
-                            <p className="text-purple-700 text-sm sm:text-base mb-4 leading-relaxed">
-                              I need a mobile app for iOS, Android, or both
-                            </p>
-                          </div>
-                          <div className="inline-flex items-center text-purple-600 font-medium text-sm sm:text-base">
-                            <span>Starting from ₦246,675</span>
-                            <svg className="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                            </svg>
-                          </div>
-                        </div>
-                      </Link>
-
-                      {/* Custom Solution - Both */}
-                      <Link 
-                        href="/services/web-and-mobile-software-development?customize=true"
-                        className="bg-gradient-to-br from-green-50 to-emerald-100 rounded-2xl p-6 sm:p-8 border-2 border-green-300 hover:border-green-400 transition-all duration-300 hover:shadow-xl group transform hover:-translate-y-1 cursor-pointer relative overflow-hidden min-h-[280px] flex flex-col"
-                      >
-                        <div className="absolute top-2 right-2">
-                          <div className="bg-green-500 text-white px-2 py-1 rounded-full text-xs font-bold">
-                            💡 Popular
-                          </div>
-                        </div>
-                        <div className="text-center flex-grow flex flex-col justify-between">
-                          <div>
-                            <div className="w-14 h-14 sm:w-16 sm:h-16 bg-gradient-to-br from-green-500 to-emerald-600 rounded-2xl flex items-center justify-center text-white mx-auto mb-4 group-hover:from-green-600 group-hover:to-emerald-700 transition-all duration-300 shadow-lg">
-                              <svg className="w-6 h-6 sm:w-8 sm:h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
-                              </svg>
-                            </div>
-                            <h4 className="text-lg sm:text-xl font-bold text-green-900 mb-3 group-hover:text-green-800 transition-colors leading-tight">I Want Both</h4>
-                            <p className="text-green-800 text-sm sm:text-base mb-4 leading-relaxed">
-                              Custom solution builder for web + mobile integration
-                            </p>
-                          </div>
-                          <div className="inline-flex items-center text-green-700 font-medium text-sm sm:text-base">
-                            <span>Save up to 30%</span>
-                            <svg className="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                            </svg>
-                          </div>
-                        </div>
-                      </Link>
-                    </div>
-                    
-                    {/* Additional Context */}
-                    <div className="text-center">
-                      <div className="inline-flex items-center space-x-4 text-sm text-gray-600">
-                        <div className="flex items-center space-x-1">
-                          <span className="text-green-600">🇳🇬</span>
-                          <span>50% OFF for Nigerians</span>
-                        </div>
-                        <span>•</span>
-                        <div className="flex items-center space-x-1">
-                          <span>⚡</span>
-                          <span>Free consultation included</span>
-                        </div>
-                        <span>•</span>
-                        <div className="flex items-center space-x-1">
-                          <span>✅</span>
-                          <span>No hidden fees</span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+                  <h3 className="text-2xl font-bold text-gray-900 mb-4">Specialized Development Solutions</h3>
+                  <p className="text-gray-600 max-w-2xl mx-auto text-base leading-relaxed mb-6">
+                    Our Web & Mobile Development service offers comprehensive solutions for both platforms, 
+                    with customizable packages and integrated approaches.
+                  </p>
+                  <Link 
+                    href="/services/web-and-mobile-software-development"
+                    className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white font-bold rounded-2xl transition-all duration-300 shadow-lg hover:shadow-xl"
+                  >
+                    Explore Web & Mobile Solutions
+                    <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                    </svg>
+                  </Link>
                 </div>
               </div>
             </>
