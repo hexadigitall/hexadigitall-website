@@ -2,7 +2,7 @@
 "use client"
 
 import * as React from 'react'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, Suspense } from 'react'
 import Link from 'next/link'
 import { ServiceRequestFlow, ServiceCategory } from '@/components/services/ServiceRequestFlow'
 import { useCurrency } from '@/contexts/CurrencyContext'
@@ -10,7 +10,7 @@ import { DiscountBanner } from '@/components/ui/DiscountBanner'
 import { CompactPriceDisplay } from '@/components/ui/PriceDisplay'
 import { RequestServiceCTA, ContactCTA } from '@/components/ui/CTAButton'
 import { SparklesIcon } from '@heroicons/react/24/outline'
-import { useSearchParams } from 'next/navigation'
+import { SearchParamsHandler } from '@/components/services/SearchParamsHandler'
 
 interface Service {
   _id: string
@@ -31,30 +31,13 @@ export default function ServicesPage() {
   const [error, setError] = useState<string | null>(null)
   const [focusService, setFocusService] = useState<string | null>(null)
   const { getLocalDiscountMessage, currentCurrency } = useCurrency()
-  const searchParams = useSearchParams()
   
   const discountMessage = getLocalDiscountMessage()
 
-  // Handle focus parameter for sub-service navigation
-  useEffect(() => {
-    const focus = searchParams.get('focus')
-    if (focus) {
-      setFocusService(focus)
-      // Auto-scroll to service categories section after data loads
-      setTimeout(() => {
-        const element = document.getElementById('service-packages')
-        if (element) {
-          element.scrollIntoView({ behavior: 'smooth' })
-        }
-        // Update page title for focused services
-        if (focus === 'web-development') {
-          document.title = 'Web Development Services | Hexadigitall'
-        } else if (focus === 'mobile-development') {
-          document.title = 'Mobile App Development Services | Hexadigitall'
-        }
-      }, 500)
-    }
-  }, [searchParams])
+  // Handle focus parameter changes from SearchParamsHandler
+  const handleFocusChange = (focus: string | null) => {
+    setFocusService(focus)
+  }
 
   useEffect(() => {
     const fetchData = async () => {
@@ -202,6 +185,11 @@ export default function ServicesPage() {
 
   return (
     <>
+      {/* Search params handler wrapped in Suspense to prevent SSR issues */}
+      <Suspense fallback={null}>
+        <SearchParamsHandler onFocusChange={handleFocusChange} />
+      </Suspense>
+      
       <section className="bg-white py-12 md:py-20">
         <div className="container mx-auto px-6">
           <div className="text-center mb-12">
