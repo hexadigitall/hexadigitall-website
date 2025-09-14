@@ -71,9 +71,26 @@ export default async function IndividualServicePage(
 
   return (
     <>
-      <Suspense fallback={null}>
-        <FocusHandler serviceSlug={params.slug} />
-      </Suspense>
+      {/* Breadcrumb Navigation */}
+      <div className="bg-gray-50 border-b">
+        <div className="container mx-auto px-6 py-4">
+          <nav className="flex items-center space-x-2 text-sm text-gray-600">
+            <Link href="/" className="hover:text-primary transition-colors">
+              Home
+            </Link>
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+            </svg>
+            <Link href="/services" className="hover:text-primary transition-colors">
+              Services
+            </Link>
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+            </svg>
+            <span className="text-gray-900 font-medium">{service.title}</span>
+          </nav>
+        </div>
+      </div>
 
       <article className="bg-white">
         {/* Hero Section */}
@@ -98,7 +115,9 @@ export default async function IndividualServicePage(
             {/* Sub-Services Section for Web & Mobile Software Development */}
             {params.slug === 'web-and-mobile-software-development' && (
               <div className="mt-12 mb-12">
-                <FocusHandler serviceSlug={params.slug} />
+                <Suspense fallback={null}>
+                  <FocusHandler serviceSlug={params.slug} />
+                </Suspense>
                 
                 {/* Nigerian Launch Special Banner */}
                 <div className="text-center mb-12">
@@ -326,7 +345,9 @@ export default async function IndividualServicePage(
                 
                 {/* Dedicated Pricing Sections Based on Focus */}
                 <div className="mt-16">
-                  <WebMobilePricingSections />
+                  <Suspense fallback={null}>
+                    <WebMobilePricingSections />
+                  </Suspense>
                 </div>
               </div>
             )}
