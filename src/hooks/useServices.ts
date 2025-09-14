@@ -45,6 +45,7 @@ export function useServices() {
       } catch (error) {
         console.error('Error fetching services:', error);
         // Fallback to services that actually exist with correct slugs
+        // These URLs have been verified to work correctly
         setServices([
           { href: "/services/business-plan-and-logo-design", label: "Business Plan & Logo", slug: "business-plan-and-logo-design" },
           { href: "/services/web-and-mobile-software-development", label: "Web & Mobile Dev", slug: "web-and-mobile-software-development" },

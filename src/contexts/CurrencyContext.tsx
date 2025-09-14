@@ -78,10 +78,14 @@ export function CurrencyProvider({ children }: CurrencyProviderProps) {
       setCurrentCurrency(currency);
     };
 
-    window.addEventListener('currencyChanged', handleCurrencyChange as EventListener);
+    if (typeof window !== 'undefined') {
+      window.addEventListener('currencyChanged', handleCurrencyChange as EventListener);
+    }
     
     return () => {
-      window.removeEventListener('currencyChanged', handleCurrencyChange as EventListener);
+      if (typeof window !== 'undefined') {
+        window.removeEventListener('currencyChanged', handleCurrencyChange as EventListener);
+      }
     };
   }, []);
 

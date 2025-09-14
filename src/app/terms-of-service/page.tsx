@@ -28,8 +28,8 @@ export default function TermsOfServicePage() {
     { name: 'Terms of Service', url: 'https://hexadigitall.com/terms-of-service' }
   ];
 
-  const lastUpdated = new Date('2025-01-01');
-  const effectiveDate = new Date('2025-01-01');
+  const lastUpdated = new Date('2025-01-14');
+  const effectiveDate = new Date('2025-01-14');
 
   return (
     <>

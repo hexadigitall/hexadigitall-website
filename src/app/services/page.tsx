@@ -6,8 +6,9 @@ import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { ServiceRequestFlow, ServiceCategory } from '@/components/services/ServiceRequestFlow'
 import { useCurrency } from '@/contexts/CurrencyContext'
-import { CountdownTimer, SpotsRemaining } from '@/components/ui/CountdownTimer'
+import { DiscountBanner } from '@/components/ui/DiscountBanner'
 import { CompactPriceDisplay } from '@/components/ui/PriceDisplay'
+import { RequestServiceCTA, ContactCTA } from '@/components/ui/CTAButton'
 import { SparklesIcon } from '@heroicons/react/24/outline'
 import { useSearchParams } from 'next/navigation'
 
@@ -44,6 +45,12 @@ export default function ServicesPage() {
         const element = document.getElementById('service-packages')
         if (element) {
           element.scrollIntoView({ behavior: 'smooth' })
+        }
+        // Update page title for focused services
+        if (focus === 'web-development') {
+          document.title = 'Web Development Services | Hexadigitall'
+        } else if (focus === 'mobile-development') {
+          document.title = 'Mobile App Development Services | Hexadigitall'
         }
       }, 500)
     }
@@ -204,34 +211,12 @@ export default function ServicesPage() {
             </p>
             
             {/* Launch Special Banner */}
-            <div className="mt-6 mb-8 bg-gradient-to-r from-red-500/10 via-red-400/5 to-red-500/10 border-2 border-red-400/30 rounded-2xl p-4 sm:p-6 text-center shadow-lg">
-              <div className="flex flex-col items-center justify-center gap-3 sm:gap-4">
-                <div className="flex flex-col sm:flex-row items-center gap-2 sm:gap-4">
-                  <span className="bg-red-500 text-white px-3 sm:px-4 py-2 rounded-full text-xs sm:text-sm font-bold animate-bounce whitespace-nowrap">
-                    🔥 MEGA LAUNCH SPECIAL
-                  </span>
-                  <span className="text-2xl sm:text-3xl font-bold text-red-600 animate-pulse">50% OFF!</span>
-                </div>
-                <div className="text-xs sm:text-sm text-gray-700 font-medium text-center">
-                  🇳🇬 Nigerian clients only • Limited spots remaining • Ends Jan 31, 2025
-                </div>
-              </div>
-              <div className="mt-4 flex flex-col items-center justify-center gap-3">
-                <p className="text-xs sm:text-sm text-gray-700 text-center">
-                  <span className="font-semibold text-red-600">💯 Supporting Nigerian businesses</span> with world-class solutions at ultra-affordable prices
-                </p>
-                <div className="flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-4 text-xs sm:text-sm">
-                  <SpotsRemaining className="" />
-                  <span className="hidden sm:inline text-gray-500">•</span>
-                  <CountdownTimer 
-                    endDate={new Date('2025-01-31T23:59:59Z')} 
-                    className=""
-                  />
-                  <span className="hidden sm:inline text-gray-500">•</span>
-                  <span className="text-green-600 font-medium whitespace-nowrap">💳 Payment plans available</span>
-                </div>
-              </div>
-            </div>
+            <DiscountBanner 
+              size="md" 
+              showCountdown={true} 
+              showSpots={true}
+              className="mt-6 mb-8"
+            />
 
             {/* Currency and Discount Message */}
             <div className="mt-6 flex flex-col sm:flex-row items-center justify-center gap-4">
@@ -270,16 +255,28 @@ export default function ServicesPage() {
                 
                 {focusService && (
                   <div className="text-center mb-8">
-                    <div className="inline-flex items-center space-x-2 bg-blue-100 text-blue-800 px-4 py-2 rounded-full text-sm font-medium">
+                    <div className="inline-flex items-center space-x-2 bg-blue-100 text-blue-800 px-4 py-2 rounded-full text-sm font-medium mb-4">
                       <SparklesIcon className="h-4 w-4" />
                       <span>Specialized {focusService === 'web-development' ? 'Web Development' : 'Mobile App'} packages below</span>
                     </div>
-                    <button 
-                      onClick={() => setFocusService(null)}
-                      className="ml-4 text-sm text-gray-500 hover:text-gray-700 underline"
-                    >
-                      View all services
-                    </button>
+                    <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+                      <button 
+                        onClick={() => setFocusService(null)}
+                        className="text-sm text-gray-500 hover:text-gray-700 underline"
+                      >
+                        View all services
+                      </button>
+                      <span className="hidden sm:inline text-gray-400">•</span>
+                      <Link 
+                        href="/services/web-and-mobile-software-development"
+                        className="inline-flex items-center text-sm text-primary hover:text-primary/80 font-medium transition-colors"
+                      >
+                        Learn about our complete Web & Mobile solutions
+                        <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                        </svg>
+                      </Link>
+                    </div>
                   </div>
                 )}
                 
@@ -313,7 +310,7 @@ export default function ServicesPage() {
                               {lowestPrice && (
                                 <div className="mt-2">
                                   <CompactPriceDisplay 
-                                    price={lowestPrice / 1650} 
+                                    price={lowestPrice} 
                                     showDiscount={true} 
                                     className="justify-center"
                                   />
@@ -331,15 +328,123 @@ export default function ServicesPage() {
                               {service.packages?.length || 0} package{service.packages?.length !== 1 ? 's' : ''} available
                             </div>
                             <div className="flex justify-center">
-                              <button className="bg-primary hover:bg-primary/90 text-white px-6 py-2 rounded-lg transition-colors font-medium w-full max-w-[200px]">
-                                Request Service
-                              </button>
+                              <RequestServiceCTA size="md" className="max-w-[200px]">Request Service</RequestServiceCTA>
                             </div>
                           </div>
                         </div>
                       </div>
                     )
                   })}
+                </div>
+              </div>
+              
+              {/* Web & Mobile Software Development Integration */}
+              <div className="mt-16 mb-8" id="web-mobile-integration">
+                <div className="bg-gradient-to-br from-blue-50 via-white to-purple-50 border-2 border-transparent bg-clip-border rounded-3xl p-8 relative overflow-hidden">
+                  {/* Background pattern */}
+                  <div className="absolute inset-0 opacity-5">
+                    <div className="absolute inset-0" style={{
+                      backgroundImage: `url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23666' fill-opacity='0.1'%3E%3Ccircle cx='20' cy='20' r='2'/%3E%3C/g%3E%3C/svg%3E")`
+                    }} />
+                  </div>
+                  
+                  <div className="relative z-10">
+                    <div className="text-center mb-8">
+                      <div className="inline-flex items-center space-x-2 bg-gradient-to-r from-blue-500 to-purple-500 text-white px-4 py-2 rounded-full text-sm font-semibold mb-4">
+                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
+                        </svg>
+                        <span>Need Web or Mobile Development?</span>
+                      </div>
+                      <h3 className="text-3xl font-bold text-gray-900 mb-4">We&apos;ve Got You Covered</h3>
+                      <p className="text-gray-600 max-w-3xl mx-auto text-lg leading-relaxed">
+                        Our <strong>Web Development</strong> and <strong>Mobile App Development</strong> services above are part of our 
+                        comprehensive <strong>Web & Mobile Software Development</strong> offering. Whether you need one or both, 
+                        we provide seamless integration and unified solutions.
+                      </p>
+                    </div>
+                    
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                      <div className="bg-gradient-to-br from-blue-50 to-blue-100 rounded-2xl p-8 border-2 border-blue-200 hover:border-blue-300 transition-all duration-300 hover:shadow-lg group">
+                        <div className="flex items-center mb-6">
+                          <div className="w-14 h-14 bg-blue-500 rounded-2xl flex items-center justify-center text-white mr-4 group-hover:bg-blue-600 transition-colors duration-300 shadow-lg">
+                            <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                            </svg>
+                          </div>
+                          <div>
+                            <h4 className="text-2xl font-bold text-blue-900 group-hover:text-blue-700 transition-colors">Web Development</h4>
+                            <p className="text-blue-600 text-sm font-medium">Modern • Responsive • SEO-Ready</p>
+                          </div>
+                        </div>
+                        <p className="text-blue-800 mb-6 leading-relaxed font-medium">
+                          Build stunning websites that convert visitors into customers. From landing pages to full e-commerce platforms.
+                        </p>
+                        <div className="space-y-3">
+                          <Link 
+                            href="/services/web-and-mobile-software-development?focus=web"
+                            className="w-full inline-flex items-center justify-center px-6 py-3 bg-blue-500 hover:bg-blue-600 text-white font-bold rounded-xl transition-all duration-300 shadow-md hover:shadow-lg transform hover:-translate-y-1"
+                          >
+                            🌍 View Web Development Options
+                            <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                            </svg>
+                          </Link>
+                          <p className="text-center text-blue-600 text-sm">
+                            <span className="font-medium">Starting from ₦122,925</span> • 
+                            <span className="text-green-600 font-bold">50% OFF for Nigerians!</span>
+                          </p>
+                        </div>
+                      </div>
+                      
+                      <div className="bg-gradient-to-br from-purple-50 to-purple-100 rounded-2xl p-8 border-2 border-purple-200 hover:border-purple-300 transition-all duration-300 hover:shadow-lg group">
+                        <div className="flex items-center mb-6">
+                          <div className="w-14 h-14 bg-purple-500 rounded-2xl flex items-center justify-center text-white mr-4 group-hover:bg-purple-600 transition-colors duration-300 shadow-lg">
+                            <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 18h.01M8 21h8a1 1 0 001-1V4a1 1 0 00-1-1H8a1 1 0 00-1 1v16a1 1 0 001 1z" />
+                            </svg>
+                          </div>
+                          <div>
+                            <h4 className="text-2xl font-bold text-purple-900 group-hover:text-purple-700 transition-colors">Mobile App Development</h4>
+                            <p className="text-purple-600 text-sm font-medium">iOS • Android • Cross-Platform</p>
+                          </div>
+                        </div>
+                        <p className="text-purple-800 mb-6 leading-relaxed font-medium">
+                          Create powerful mobile apps that engage users and drive growth. From simple utilities to complex enterprise solutions.
+                        </p>
+                        <div className="space-y-3">
+                          <Link 
+                            href="/services/web-and-mobile-software-development?focus=mobile"
+                            className="w-full inline-flex items-center justify-center px-6 py-3 bg-purple-500 hover:bg-purple-600 text-white font-bold rounded-xl transition-all duration-300 shadow-md hover:shadow-lg transform hover:-translate-y-1"
+                          >
+                            📱 View Mobile App Options
+                            <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                            </svg>
+                          </Link>
+                          <p className="text-center text-purple-600 text-sm">
+                            <span className="font-medium">Starting from ₦246,675</span> • 
+                            <span className="text-green-600 font-bold">50% OFF for Nigerians!</span>
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <div className="text-center">
+                      <Link 
+                        href="/services/web-and-mobile-software-development"
+                        className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white font-bold rounded-2xl transition-all duration-300 shadow-lg hover:shadow-xl"
+                      >
+                        Explore Complete Web & Mobile Solutions
+                        <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                        </svg>
+                      </Link>
+                      <p className="mt-3 text-gray-600 text-sm">
+                        Learn about our integrated approach, see pricing for combined packages, and discover why 80% of our clients choose both services.
+                      </p>
+                    </div>
+                  </div>
                 </div>
               </div>
             </>
@@ -380,15 +485,9 @@ export default function ServicesPage() {
             <p className="text-gray-700 text-lg mb-8 max-w-2xl mx-auto">
               Don&apos;t see exactly what you need? <span className="font-semibold text-primary">We specialize in creating custom IT solutions</span> tailored to your unique business requirements.
             </p>
-            <Link
-              href="/contact"
-              className="inline-flex items-center bg-primary text-white hover:bg-primary/90 font-semibold px-8 py-3 rounded-lg shadow transition-colors"
-            >
-              <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-              </svg>
+            <ContactCTA href="/contact" size="lg">
               Contact Us for Custom Quote
-            </Link>
+            </ContactCTA>
           </div>
         </div>
       </section>

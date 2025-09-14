@@ -28,7 +28,7 @@ export default function PrivacyPolicyPage() {
     { name: 'Privacy Policy', url: 'https://hexadigitall.com/privacy-policy' }
   ];
 
-  const lastUpdated = new Date('2025-01-01');
+  const lastUpdated = new Date('2025-01-14');
 
   return (
     <>

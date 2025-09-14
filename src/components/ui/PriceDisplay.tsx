@@ -62,9 +62,12 @@ export function PriceDisplay({
     <div className={`${className}`}>
       {/* Discount Badge */}
       {showUrgency && isLocalCurrency() && (
-        <div className="flex items-center justify-center mb-2">
-          <span className={`bg-red-500 text-white rounded-full font-bold animate-pulse ${styles.badge}`}>
-            🔥 {priceInfo.discountPercentage}% OFF - LIMITED TIME!
+        <div className="flex flex-col items-center justify-center mb-3 gap-2">
+          <span className={`bg-gradient-to-r from-red-500 to-red-600 text-white rounded-full font-bold animate-pulse shadow-lg ${styles.badge}`}>
+            🔥 MEGA {priceInfo.discountPercentage}% OFF - LIMITED TIME!
+          </span>
+          <span className="bg-green-500 text-white px-3 py-1 rounded-full text-xs font-bold">
+            🇳🇬 Nigerian Launch Special - Ends Jan 31, 2026
           </span>
         </div>
       )}
@@ -131,22 +134,34 @@ export function CompactPriceDisplay({
   }
   
   return (
-    <div className={`flex flex-col sm:flex-row items-center gap-2 ${className}`}>
+    <div className={`flex flex-col items-center gap-2 ${className}`}>
       {/* Discount Badge */}
       {isLocalCurrency() && (
-        <span className="bg-red-500 text-white px-2 py-1 rounded-full text-xs font-bold animate-pulse">
-          -{priceInfo.discountPercentage}%
-        </span>
+        <div className="flex items-center gap-2">
+          <span className="bg-red-500 text-white px-3 py-1 rounded-full text-xs font-bold animate-pulse shadow-md">
+            🔥 {priceInfo.discountPercentage}% OFF
+          </span>
+          <span className="bg-green-500 text-white px-2 py-1 rounded-full text-xs font-bold">
+            🇳🇬 SPECIAL
+          </span>
+        </div>
       )}
       
       {/* Prices */}
-      <div className="flex flex-col items-center sm:items-start">
-        <span className="text-gray-400 line-through text-sm">
-          {priceInfo.originalPrice}
-        </span>
-        <span className="text-primary font-bold text-lg">
+      <div className="flex flex-col items-center">
+        {priceInfo.hasDiscount && (
+          <span className="text-gray-500 line-through text-sm font-medium mb-1">
+            {priceInfo.originalPrice}
+          </span>
+        )}
+        <span className={`font-bold text-xl ${priceInfo.hasDiscount ? 'text-green-600' : 'text-primary'}`}>
           {priceInfo.discountedPrice}
         </span>
+        {priceInfo.hasDiscount && isLocalCurrency() && (
+          <span className="text-green-600 text-xs font-medium mt-1">
+            💰 You save {priceInfo.discountPercentage}%!
+          </span>
+        )}
       </div>
     </div>
   )

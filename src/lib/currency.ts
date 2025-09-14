@@ -233,8 +233,8 @@ class CurrencyService {
   }
 
   isLaunchSpecialActive(): boolean {
-    // Launch special runs until January 31, 2025
-    const endDate = new Date('2025-01-31T23:59:59Z');
+    // Launch special runs until January 31, 2026
+    const endDate = new Date('2026-01-31T23:59:59Z');
     return new Date() < endDate;
   }
 
