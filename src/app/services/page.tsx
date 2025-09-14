@@ -346,7 +346,7 @@ export default function ServicesPage() {
                       </div>
                       <h3 className="text-3xl font-bold text-gray-900 mb-4">Choose Your Development Path</h3>
                       <p className="text-gray-600 max-w-3xl mx-auto text-lg leading-relaxed">
-                        Whether you need web development, mobile apps, or both, we've designed a simple path to get you exactly what you need.
+                        Whether you need web development, mobile apps, or both, we&apos;ve designed a simple path to get you exactly what you need.
                       </p>
                     </div>
                     

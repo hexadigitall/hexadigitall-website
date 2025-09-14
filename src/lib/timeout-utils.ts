@@ -85,13 +85,13 @@ export async function withRetry<T>(
 /**
  * Creates a debounced version of a function
  */
-export function debounce<T extends (...args: any[]) => any>(
+export function debounce<T extends (...args: never[]) => unknown>(
   func: T,
   wait: number
 ): T {
   let timeout: NodeJS.Timeout | null = null
 
-  return ((...args: any[]) => {
+  return ((...args: Parameters<T>) => {
     if (timeout) {
       clearTimeout(timeout)
     }
@@ -105,13 +105,13 @@ export function debounce<T extends (...args: any[]) => any>(
 /**
  * Creates a throttled version of a function
  */
-export function throttle<T extends (...args: any[]) => any>(
+export function throttle<T extends (...args: never[]) => unknown>(
   func: T,
   limit: number
 ): T {
   let inThrottle = false
 
-  return ((...args: any[]) => {
+  return ((...args: Parameters<T>) => {
     if (!inThrottle) {
       func(...args)
       inThrottle = true

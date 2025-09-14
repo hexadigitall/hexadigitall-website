@@ -40,8 +40,8 @@ export function PerformanceMonitor({ enabled = process.env.NODE_ENV === 'develop
           const clsObserver = new PerformanceObserver((list) => {
             let cls = 0
             for (const entry of list.getEntries()) {
-              if (entry.entryType === 'layout-shift' && !(entry as any).hadRecentInput) {
-                cls += (entry as any).value
+              if (entry.entryType === 'layout-shift' && !('hadRecentInput' in entry ? entry.hadRecentInput : false)) {
+                cls += 'value' in entry ? (entry.value as number) : 0
               }
             }
             if (cls > 0) {
@@ -105,7 +105,7 @@ export function PerformanceMonitor({ enabled = process.env.NODE_ENV === 'develop
 
     // Memory usage monitoring (Chrome only)
     if ('memory' in performance) {
-      const memory = (performance as any).memory
+      const memory = (performance as Performance & { memory: { usedJSHeapSize: number; totalJSHeapSize: number } }).memory
       const used = Math.round(memory.usedJSHeapSize / 1048576)
       const total = Math.round(memory.totalJSHeapSize / 1048576)
       console.log(`🧠 Memory: ${used}MB / ${total}MB`)

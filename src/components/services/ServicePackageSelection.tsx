@@ -95,8 +95,12 @@ export const ServicePackageSelection: React.FC<ServicePackageSelectionProps> = (
   }
 
   const formatPrice = (price: number, originalCurrency: string = 'USD') => {
-    // All prices in Sanity are now stored as USD, so just format them
-    return formatCurrencyPrice(price, { applyNigerianDiscount: true });
+    // All prices in Sanity are now stored as USD, so format them with the currency context
+    // The originalCurrency parameter allows us to respect the stored currency if needed
+    return formatCurrencyPrice(price, { 
+      currency: originalCurrency === 'USD' ? undefined : originalCurrency, // Use context currency if USD, otherwise use specified
+      applyNigerianDiscount: true 
+    });
   }
 
   const handleAddOnToggle = (addOn: AddOn) => {

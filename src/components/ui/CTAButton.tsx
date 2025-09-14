@@ -93,7 +93,7 @@ export function CTAButton(props: CTAProps) {
   if ('href' in props && props.href) {
     const { href, ...linkProps } = props as CTALinkProps
     return (
-      <Link href={href} className={allClasses}>
+      <Link href={href} className={allClasses} {...linkProps}>
         {content}
       </Link>
     )
@@ -106,6 +106,7 @@ export function CTAButton(props: CTAProps) {
       onClick={onClick}
       type={type}
       disabled={disabled}
+      {...buttonProps}
     >
       {content}
     </button>

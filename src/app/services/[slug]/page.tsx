@@ -12,8 +12,6 @@ import Link from 'next/link'
 import ServicePricingClient from '@/components/services/ServicePricingClient'
 import FocusHandler from '@/components/services/FocusHandler'
 import WebMobilePricingSections from '@/components/services/WebMobilePricingSections'
-import CustomizationWizard from '@/components/services/CustomizationWizard'
-import CustomizeHandler from '@/components/services/CustomizeHandler'
 import ConditionalSections from '@/components/services/ConditionalSections'
 
 interface Service {
