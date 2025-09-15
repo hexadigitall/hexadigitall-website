@@ -61,7 +61,7 @@ function CourseCardSkeleton() {
 
 function CourseCard({ course, onEnrollClick }: { course: Course; onEnrollClick: (course: Course) => void }) {
   const fallbackImage = '/digitall_partner.png'
-  const { formatPriceWithDiscount, currentCurrency, isLocalCurrency } = useCurrency()
+  const { formatPriceWithDiscount, isLocalCurrency } = useCurrency()
   
   // Emergency fallback for invalid course data
   if (!course) {
@@ -141,95 +141,73 @@ function CourseCard({ course, onEnrollClick }: { course: Course; onEnrollClick: 
         
         {/* Price Section - Now with currency conversion */}
         <div className="mb-4">
-          {course.dollarPrice ? (
-            <div className="text-left">
-              {(() => {
-                const priceInfo = formatPriceWithDiscount(course.dollarPrice, { applyNigerianDiscount: true })
-                
-                if (priceInfo.hasDiscount) {
-                  return (
-                    <div className="space-y-2">
-                      {/* Discount badge for local currency */}
-                      {isLocalCurrency() && (
-                        <span className="inline-block bg-red-500 text-white px-2 py-1 rounded-full text-xs font-bold animate-pulse">
-                          🔥 {priceInfo.discountPercentage}% OFF
-                        </span>
-                      )}
-                      <div className="flex flex-col sm:flex-row sm:items-center sm:space-x-2">
-                        {/* Original price (crossed out) */}
-                        <span className="text-lg text-gray-500 line-through">
-                          {priceInfo.originalPrice}
-                        </span>
-                        {/* Discounted price */}
-                        <span className="text-2xl font-bold text-green-600">
-                          {priceInfo.discountedPrice}
-                        </span>
-                      </div>
-                      {/* Show Naira equivalent for non-NGN currencies */}
-                      {currentCurrency.code !== 'NGN' && course.nairaPrice && (
-                        <span className="text-sm text-gray-500">
-                          ≈ ₦{course.nairaPrice.toLocaleString()}
-                        </span>
-                      )}
-                    </div>
-                  )
-                } else {
-                  return (
+          {(() => {
+            // Debug: Log what pricing fields are available
+            console.log(`🎆 [FEATURED PRICING] ${course.title} - dollarPrice: ${course.dollarPrice}, nairaPrice: ${course.nairaPrice}, price: ${course.price}`);
+            
+            if (course.dollarPrice) {
+              const priceInfo = formatPriceWithDiscount(course.dollarPrice, { applyNigerianDiscount: true })
+              
+              if (priceInfo.hasDiscount) {
+                return (
+                  <div className="space-y-2">
+                    {isLocalCurrency() && (
+                      <span className="inline-block bg-red-500 text-white px-2 py-1 rounded-full text-xs font-bold animate-pulse">
+                        🔥 {priceInfo.discountPercentage}% OFF
+                      </span>
+                    )}
                     <div className="flex flex-col sm:flex-row sm:items-center sm:space-x-2">
-                      <span className="text-2xl font-bold text-primary">
+                      <span className="text-lg text-gray-500 line-through">
+                        {priceInfo.originalPrice}
+                      </span>
+                      <span className="text-2xl font-bold text-green-600">
                         {priceInfo.discountedPrice}
                       </span>
-                      {/* Show Naira equivalent for non-NGN currencies */}
-                      {currentCurrency.code !== 'NGN' && course.nairaPrice && (
-                        <span className="text-sm text-gray-500">
-                          ≈ ₦{course.nairaPrice.toLocaleString()}
-                        </span>
-                      )}
                     </div>
-                  )
-                }
-              })()
+                  </div>
+                )
+              } else {
+                return (
+                  <span className="text-2xl font-bold text-primary">
+                    {priceInfo.discountedPrice}
+                  </span>
+                )
               }
-            </div>
-          ) : (course.nairaPrice || course.price) ? (
-            <div className="text-left">
-              {(() => {
-                // Convert NGN to USD first (1650 NGN = 1 USD), then format in selected currency
-                const nairaAmount = course.nairaPrice || course.price || 0;
-                const usdEquivalent = nairaAmount / 1650;
-                const priceInfo = formatPriceWithDiscount(usdEquivalent, { applyNigerianDiscount: true })
-                
-                if (priceInfo.hasDiscount) {
-                  return (
-                    <div className="space-y-2">
-                      {isLocalCurrency() && (
-                        <span className="inline-block bg-red-500 text-white px-2 py-1 rounded-full text-xs font-bold animate-pulse">
-                          🔥 {priceInfo.discountPercentage}% OFF
-                        </span>
-                      )}
-                      <div className="flex flex-col sm:flex-row sm:items-center sm:space-x-2">
-                        <span className="text-lg text-gray-500 line-through">
-                          {priceInfo.originalPrice}
-                        </span>
-                        <span className="text-2xl font-bold text-green-600">
-                          {priceInfo.discountedPrice}
-                        </span>
-                      </div>
+            } else if (course.nairaPrice || course.price) {
+              // Convert NGN to USD first, then format in selected currency
+              const nairaAmount = course.nairaPrice || course.price || 0;
+              const usdEquivalent = nairaAmount / 1650;
+              const priceInfo = formatPriceWithDiscount(usdEquivalent, { applyNigerianDiscount: true })
+              
+              if (priceInfo.hasDiscount) {
+                return (
+                  <div className="space-y-2">
+                    {isLocalCurrency() && (
+                      <span className="inline-block bg-red-500 text-white px-2 py-1 rounded-full text-xs font-bold animate-pulse">
+                        🔥 {priceInfo.discountPercentage}% OFF
+                      </span>
+                    )}
+                    <div className="flex flex-col sm:flex-row sm:items-center sm:space-x-2">
+                      <span className="text-lg text-gray-500 line-through">
+                        {priceInfo.originalPrice}
+                      </span>
+                      <span className="text-2xl font-bold text-green-600">
+                        {priceInfo.discountedPrice}
+                      </span>
                     </div>
-                  )
-                } else {
-                  return (
-                    <span className="text-2xl font-bold text-primary">
-                      {priceInfo.discountedPrice}
-                    </span>
-                  )
-                }
-              })()
+                  </div>
+                )
+              } else {
+                return (
+                  <span className="text-2xl font-bold text-primary">
+                    {priceInfo.discountedPrice}
+                  </span>
+                )
               }
-            </div>
-          ) : (
-            <span className="text-2xl font-bold text-green-600">Free</span>
-          )}
+            } else {
+              return <span className="text-2xl font-bold text-green-600">Free</span>
+            }
+          })()}
         </div>
         
         {/* Action Buttons */}
@@ -327,6 +305,16 @@ export default function FeaturedCourses({ className = "" }: FeaturedCoursesProps
         }
         
         console.log('✅ [SUCCESS] Setting courses:', data.length, 'courses')
+        
+        // Debug: Log pricing data for featured courses
+        data?.forEach(course => {
+          console.log(`🎆 [FEATURED PRICING DEBUG] ${course.title}:`, {
+            nairaPrice: course.nairaPrice,
+            dollarPrice: course.dollarPrice,
+            price: course.price
+          });
+        });
+        
         setCourses(data)
       } catch (err) {
         console.error('💥 Error fetching featured courses:', err)

@@ -1,5 +1,6 @@
 // tailwind.config.ts
 import type { Config } from "tailwindcss";
+import tailwindTypography from '@tailwindcss/typography';
 
 const config: Config = {
   // ✅ CRITICAL: This 'content' array must be correct.
@@ -26,7 +27,7 @@ const config: Config = {
     },
   },
   plugins: [
-    require('@tailwindcss/typography'),
+    tailwindTypography,
   ],
 };
 export default config;

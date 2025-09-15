@@ -18,6 +18,7 @@ interface Course {
   instructor: string
   nairaPrice?: number
   dollarPrice?: number
+  price?: number // Legacy field for backward compatibility
   includes?: string[]
   curriculum?: {
     modules: number
@@ -87,7 +88,7 @@ export function CoursePaymentModal({
   const discountMessage = getLocalDiscountMessage()
   
   // Determine the course price to use
-  const coursePrice = course.dollarPrice || course.nairaPrice || 0
+  const coursePrice = course.dollarPrice || course.nairaPrice || course.price || 0
   const useDollarPrice = !!course.dollarPrice
   
   // Check if course qualifies for installments (above $200 or ₦150,000 threshold)
@@ -150,17 +151,18 @@ export function CoursePaymentModal({
           <div className="relative w-24 h-24 rounded-xl overflow-hidden flex-shrink-0">
             <Image 
               src={course.mainImage || '/digitall_partner.png'} 
-              alt={course.title}
+              alt={`${course.title} course image`}
               fill
               className="object-cover"
+              sizes="96px"
             />
           </div>
           <div className="flex-1">
             <h3 className="text-lg font-bold text-gray-900 mb-2">{course.title}</h3>
-            <div className="flex items-center gap-4 text-sm text-gray-600 mb-2">
-              <span>👨‍🏫 {course.instructor}</span>
-              <span>⏱️ {course.duration}</span>
-              <span>📊 {course.level}</span>
+            <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4 text-sm text-gray-600 mb-2">
+              <span><span className="sr-only">Instructor: </span>👨‍🏫 {course.instructor}</span>
+              <span><span className="sr-only">Duration: </span>⏱️ {course.duration}</span>
+              <span><span className="sr-only">Level: </span>📊 {course.level}</span>
             </div>
             <p className="text-sm text-gray-600 line-clamp-2">{course.description}</p>
           </div>
@@ -319,10 +321,10 @@ export function CoursePaymentModal({
               <p className="text-sm text-gray-600">Course Enrollment</p>
             </div>
             <div className="text-right">
-              {useDollarPrice ? (
+              {course.dollarPrice ? (
                 <div>
                   {(() => {
-                    const priceInfo = formatPriceWithDiscount(coursePrice, { applyNigerianDiscount: true })
+                    const priceInfo = formatPriceWithDiscount(course.dollarPrice, { applyNigerianDiscount: true })
                     
                     if (priceInfo.hasDiscount) {
                       return (
@@ -342,11 +344,41 @@ export function CoursePaymentModal({
                         </div>
                       )
                     }
-                  })()}
+                  })()
+                }
+                </div>
+              ) : (course.nairaPrice || course.price) ? (
+                <div>
+                  {(() => {
+                    // Convert NGN to USD first, then format in selected currency
+                    const nairaAmount = course.nairaPrice || course.price || 0;
+                    const usdEquivalent = nairaAmount / 1650;
+                    const priceInfo = formatPriceWithDiscount(usdEquivalent, { applyNigerianDiscount: true })
+                    
+                    if (priceInfo.hasDiscount) {
+                      return (
+                        <div>
+                          <div className="text-sm text-gray-500 line-through">
+                            {priceInfo.originalPrice}
+                          </div>
+                          <div className="text-lg font-bold text-green-600">
+                            {priceInfo.discountedPrice}
+                          </div>
+                        </div>
+                      )
+                    } else {
+                      return (
+                        <div className="text-lg font-bold text-primary">
+                          {priceInfo.discountedPrice}
+                        </div>
+                      )
+                    }
+                  })()
+                }
                 </div>
               ) : (
-                <div className="text-lg font-bold text-primary">
-                  ₦{coursePrice.toLocaleString()}
+                <div className="text-lg font-bold text-green-600">
+                  Free
                 </div>
               )}
             </div>

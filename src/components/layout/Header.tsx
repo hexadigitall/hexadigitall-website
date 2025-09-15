@@ -156,14 +156,18 @@ const Header = () => {
             <div className="relative services-dropdown">
               <button 
                 onClick={() => setServicesOpen(!isServicesOpen)}
+                onKeyDown={(e) => e.key === 'Enter' && setServicesOpen(!isServicesOpen)}
                 className="inline-flex items-center hover:text-secondary transition-colors"
+                aria-expanded={isServicesOpen}
+                aria-haspopup="true"
+                aria-label="Services menu"
               >
                 Services
-                <svg className={`ml-1 h-5 w-5 transition-transform duration-200 ${isServicesOpen ? 'rotate-180' : ''}`} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                <svg className={`ml-1 h-5 w-5 transition-transform duration-200 ${isServicesOpen ? 'rotate-180' : ''}`} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                   <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
                 </svg>
               </button>
-              <div className={`absolute left-0 lg:left-auto lg:right-0 bg-white shadow-lg rounded-md mt-2 w-60 z-50 transition-all duration-200 ${isServicesOpen ? 'opacity-100 visible translate-y-0' : 'opacity-0 invisible -translate-y-2'}`}>
+              <div className={`absolute left-0 lg:left-auto lg:right-0 bg-white shadow-lg rounded-md mt-2 w-60 z-50 transition-all duration-200 ${isServicesOpen ? 'opacity-100 visible translate-y-0' : 'opacity-0 invisible -translate-y-2'}`} role="menu" aria-labelledby="services-button">
                 <Link href="/services" className="block px-4 py-3 text-sm font-medium text-primary border-b border-gray-100 hover:bg-lightGray" onClick={() => setServicesOpen(false)}>
                   All Services
                 </Link>
@@ -183,10 +187,10 @@ const Header = () => {
           
           <div className="hidden lg:flex items-center space-x-6">
             <CurrencySwitcher />
-            <button onClick={() => setCartOpen(true)} className="relative">
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" /></svg>
+            <button onClick={() => setCartOpen(true)} className="relative" aria-label={`Shopping cart with ${cartCount || 0} items`}>
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" /></svg>
               {cartCount && cartCount > 0 && (
-                <span className="absolute -top-2 -right-2 bg-accent text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">{cartCount}</span>
+                <span className="absolute -top-2 -right-2 bg-accent text-white text-xs rounded-full h-5 w-5 flex items-center justify-center" aria-label={`${cartCount} items in cart`}>{cartCount}</span>
               )}
             </button>
             <Link href="/contact" className="btn-primary">
@@ -256,32 +260,32 @@ const Header = () => {
 
           {/* Mobile Menu Button - Only show on small screens */}
           <div className="md:hidden flex items-center space-x-4">
-            <button onClick={() => setCartOpen(true)} className="relative">
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" /></svg>
+            <button onClick={() => setCartOpen(true)} className="relative" aria-label={`Shopping cart with ${cartCount || 0} items`}>
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" /></svg>
               {cartCount && cartCount > 0 && (
-                <span className="absolute -top-2 -right-2 bg-accent text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">{cartCount}</span>
+                <span className="absolute -top-2 -right-2 bg-accent text-white text-xs rounded-full h-5 w-5 flex items-center justify-center" aria-label={`${cartCount} items in cart`}>{cartCount}</span>
               )}
             </button>
-            <button onClick={() => setMobileMenuOpen(!isMobileMenuOpen)}>
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+            <button onClick={() => setMobileMenuOpen(!isMobileMenuOpen)} aria-label={`${isMobileMenuOpen ? 'Close' : 'Open'} mobile menu`} aria-expanded={isMobileMenuOpen}>
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16m-7 6h7"></path></svg>
             </button>
           </div>
         </nav>
 
         {/* Mobile Menu - Only show on small screens since tablet has its own nav */}
         {isMobileMenuOpen && (
-          <div className="md:hidden bg-white px-4 sm:px-6 pb-4 border-t border-gray-100">
+          <div className="md:hidden bg-white px-4 sm:px-6 pb-4 border-t border-gray-100" role="navigation" aria-label="Mobile navigation menu">
             <div className="flex flex-col space-y-4 pt-4">
               <Link href="/about" onClick={() => setMobileMenuOpen(false)}>About</Link>
               <div>
-                <button onClick={() => setMobileServicesOpen(!isMobileServicesOpen)} className="flex items-center justify-between w-full text-left">
+                <button onClick={() => setMobileServicesOpen(!isMobileServicesOpen)} className="flex items-center justify-between w-full text-left" aria-expanded={isMobileServicesOpen} aria-controls="mobile-services-menu">
                   Services
-                  <svg className={`h-5 w-5 transition-transform duration-200 ${isMobileServicesOpen ? 'rotate-180' : ''}`} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                  <svg className={`h-5 w-5 transition-transform duration-200 ${isMobileServicesOpen ? 'rotate-180' : ''}`} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                     <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
                   </svg>
                 </button>
                 {isMobileServicesOpen && (
-                  <div className="mt-2 ml-4 space-y-2">
+                  <div className="mt-2 ml-4 space-y-2" id="mobile-services-menu" role="menu">
                     <Link href="/services" className="block text-sm text-primary font-medium py-1" onClick={() => setMobileMenuOpen(false)}>
                       All Services
                     </Link>

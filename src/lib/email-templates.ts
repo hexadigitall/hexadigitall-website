@@ -2,11 +2,6 @@
 import { CourseEnrollmentData, ServiceInquiryData } from './email-types';
 import { ContactFormData } from './email';
 
-interface BaseEmailData {
-  name: string;
-  email: string;
-}
-
 // Base email template wrapper
 const createEmailWrapper = (content: string) => `
   <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; max-width: 600px; margin: 0 auto; background: #ffffff;">
@@ -273,7 +268,7 @@ export const createServiceInquiryAdminTemplate = (data: ServiceInquiryData) => {
 };
 
 // Newsletter templates (keeping existing ones but updating styling)
-export const createNewsletterWelcomeTemplate = (email: string) => {
+export const createNewsletterWelcomeTemplate = () => {
   const content = `
     ${createEmailHeader('Welcome to Hexadigitall! 🎉', 'Thank you for subscribing to our newsletter', '#F5A623')}
     

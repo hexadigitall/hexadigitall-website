@@ -2,7 +2,6 @@
 import { Resend } from 'resend';
 import { 
   EMAIL_CONFIGS, 
-  EMAIL_ADDRESSES, 
   CourseEnrollmentData, 
   ServiceInquiryData 
 } from './email-types';
@@ -231,7 +230,7 @@ class EmailService {
       to: data.email,
       from: welcomeConfig.from,
       subject: welcomeConfig.subject,
-      html: createNewsletterWelcomeTemplate(data.email),
+      html: createNewsletterWelcomeTemplate(),
       replyTo: welcomeConfig.replyTo
     });
   }

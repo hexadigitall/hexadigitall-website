@@ -130,7 +130,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   ];
 
   // Add dynamic course pages
-  const courseRoutes = courses.map((course: any) => ({
+  const courseRoutes = courses.map((course: { slug: string; _updatedAt: string }) => ({
     url: `${baseUrl}/courses/${course.slug}`,
     lastModified: new Date(course._updatedAt),
     changeFrequency: 'monthly' as const,
@@ -138,7 +138,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   }));
 
   // Add dynamic blog post pages
-  const blogRoutes = posts.map((post: any) => ({
+  const blogRoutes = posts.map((post: { slug: string; _updatedAt: string }) => ({
     url: `${baseUrl}/blog/${post.slug}`,
     lastModified: new Date(post._updatedAt),
     changeFrequency: 'weekly' as const,

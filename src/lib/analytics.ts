@@ -2,7 +2,7 @@
 
 declare global {
   interface Window {
-    gtag: (command: string, ...args: any[]) => void;
+    gtag: (command: string, ...args: unknown[]) => void;
   }
 }
 
@@ -11,7 +11,7 @@ interface EventProperties {
   event_label?: string;
   value?: number;
   currency?: string;
-  [key: string]: any;
+  [key: string]: unknown;
 }
 
 export const trackEvent = (eventName: string, properties?: EventProperties) => {
