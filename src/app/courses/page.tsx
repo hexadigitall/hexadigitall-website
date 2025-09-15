@@ -1,6 +1,7 @@
 // src/app/courses/page.tsx
 import type { Metadata } from 'next';
 import CoursesPageContent from './CoursesPageContent';
+// import DebugCoursesPageContent from './DebugCoursesPageContent';
 
 export const metadata: Metadata = {
   title: 'Our Courses | Hexadigitall',

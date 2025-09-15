@@ -1,6 +1,6 @@
 // src/lib/cached-api.ts
 import { client } from '@/sanity/client'
-import { withTimeout, withRetry } from '@/lib/timeout-utils'
+// import { withTimeout, withRetry } from '@/lib/timeout-utils' // Temporarily disabled
 
 interface CacheEntry<T> {
   data: T
@@ -37,21 +37,7 @@ class APICache {
     // Fetch fresh data
     console.log(`🔄 [CACHE MISS] Fetching fresh data for query: ${query.substring(0, 50)}...`)
     try {
-      const data = await withRetry(
-        () => withTimeout(
-          client.fetch<T>(query, params as Record<string, unknown>),
-          15000, // 15 second timeout
-          `Sanity query timed out: ${query.substring(0, 50)}...`
-        ),
-        {
-          maxAttempts: 3,
-          baseDelay: 1000,
-          timeoutMs: 15000,
-          onRetry: (attempt, error) => {
-            console.warn(`🔄 [RETRY ${attempt}] Sanity fetch failed, retrying...`, error.message)
-          }
-        }
-      )
+      const data = await client.fetch<T>(query, params as Record<string, unknown>)
       
       // Cache the result
       this.cache.set(key, {
