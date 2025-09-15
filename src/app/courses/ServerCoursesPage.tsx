@@ -9,7 +9,7 @@ interface Course {
   title: string;
   slug: { current: string };
   summary: string;
-  mainImage: string;
+  mainImage: string | null;
   description: string;
   duration: string;
   level: string;
@@ -60,14 +60,14 @@ export async function getCoursesData(): Promise<Category[]> {
     
     if (!categories || categories.length === 0) {
       console.warn('⚠️ [SERVER] No categories found, using fallback data');
-      return fallbackCourses as Category[];
+      return fallbackCourses;
     }
     
     return categories;
   } catch (error) {
     console.error('❌ [SERVER] Error fetching courses:', error);
     console.log('🔄 [SERVER] Using fallback data due to error');
-    return fallbackCourses as Category[];
+    return fallbackCourses;
   }
 }
 

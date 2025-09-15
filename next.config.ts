@@ -46,8 +46,6 @@ const nextConfig: NextConfig = {
     // Limit image dimensions to prevent large image processing
     domains: [],
     unoptimized: false,
-    // Add timeout for image optimization
-    imageSizeLimit: 32 * 1024 * 1024, // 32MB limit
   },
 
   // Performance optimizations

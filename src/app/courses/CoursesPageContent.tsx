@@ -15,7 +15,7 @@ interface Course {
   title: string;
   slug: { current: string };
   summary: string;
-  mainImage: string;
+  mainImage: string | null;
   description: string;
   duration: string;
   level: string;

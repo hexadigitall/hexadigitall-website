@@ -11,7 +11,7 @@ interface Course {
   _id: string
   title: string
   slug: { current: string }
-  mainImage?: string
+  mainImage?: string | null
   description: string
   duration: string
   level: string
