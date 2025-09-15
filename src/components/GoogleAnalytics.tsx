@@ -3,7 +3,7 @@
 
 import Script from "next/script";
 import { usePathname, useSearchParams } from "next/navigation";
-import { useEffect } from "react";
+import { useEffect, Suspense } from "react";
 
 declare global {
   interface Window {
@@ -12,8 +12,8 @@ declare global {
   }
 }
 
-const GoogleAnalytics = () => {
-  const gaId = process.env.NEXT_PUBLIC_GA_ID;
+// Separate component for search params usage
+function GoogleAnalyticsTracker({ gaId }: { gaId: string }) {
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
@@ -26,6 +26,12 @@ const GoogleAnalytics = () => {
       });
     }
   }, [pathname, searchParams, gaId]);
+
+  return null;
+}
+
+const GoogleAnalytics = () => {
+  const gaId = process.env.NEXT_PUBLIC_GA_ID;
 
   if (!gaId) {
     console.warn('Google Analytics ID not found');
@@ -67,6 +73,11 @@ const GoogleAnalytics = () => {
           `,
         }}
       />
+      
+      {/* Wrap search params usage in Suspense */}
+      <Suspense fallback={null}>
+        <GoogleAnalyticsTracker gaId={gaId} />
+      </Suspense>
     </>
   );
 };
