@@ -182,49 +182,60 @@ export default function CourseEnrollment({ course }: { course: CourseEnrollmentD
           {/* Price & Availability */}
           <div className="flex items-center justify-between mb-4">
             <div className="text-left">
-              {course.dollarPrice ? (
-                <div>
-                  {(() => {
-                    const priceInfo = formatPriceWithDiscount(course.dollarPrice, { applyNigerianDiscount: true })
-                    
-                    if (priceInfo.hasDiscount) {
-                      return (
-                        <div className="space-y-1">
-                          <span className="text-lg text-gray-500 line-through block">
-                            {priceInfo.originalPrice}
-                          </span>
-                          <span className="text-3xl font-bold text-green-600">
-                            {priceInfo.discountedPrice}
-                          </span>
-                          {currentCurrency.code !== 'NGN' && course.nairaPrice && (
-                            <div className="text-sm text-gray-500">
-                              ≈ ₦{course.nairaPrice.toLocaleString()}
-                            </div>
-                          )}
-                        </div>
-                      )
-                    } else {
-                      return (
-                        <div>
-                          <span className="text-3xl font-bold text-gray-900">
-                            {priceInfo.discountedPrice}
-                          </span>
-                          {currentCurrency.code !== 'NGN' && course.nairaPrice && (
-                            <div className="text-sm text-gray-500">
-                              ≈ ₦{course.nairaPrice.toLocaleString()}
-                            </div>
-                          )}
-                        </div>
-                      )
-                    }
-                  })()
+              {(() => {
+                // Debug: Log what pricing fields are available
+                console.log(`💰 [COURSE ENROLLMENT PRICING] ${course.title} - dollarPrice: ${course.dollarPrice}, nairaPrice: ${course.nairaPrice}, price: ${course.price}`);
+                
+                // Prioritize dollarPrice for consistency and currency conversion
+                if (course.dollarPrice) {
+                  const priceInfo = formatPriceWithDiscount(course.dollarPrice, { applyNigerianDiscount: true })
+                  
+                  if (priceInfo.hasDiscount) {
+                    return (
+                      <div className="space-y-1">
+                        <span className="text-lg text-gray-500 line-through block">
+                          {priceInfo.originalPrice}
+                        </span>
+                        <span className="text-3xl font-bold text-green-600">
+                          {priceInfo.discountedPrice}
+                        </span>
+                      </div>
+                    )
+                  } else {
+                    return (
+                      <span className="text-3xl font-bold text-primary">
+                        {priceInfo.discountedPrice}
+                      </span>
+                    )
                   }
-                </div>
-              ) : (
-                <div className="text-3xl font-bold text-gray-900">
-                  {course.nairaPrice ? `₦${course.nairaPrice.toLocaleString()}` : `₦${course.price.toLocaleString()}`}
-                </div>
-              )}
+                } else if (course.nairaPrice || course.price) {
+                  // Convert NGN to USD first, then format in selected currency
+                  const nairaAmount = course.nairaPrice || course.price || 0;
+                  const usdEquivalent = nairaAmount / 1650;
+                  const priceInfo = formatPriceWithDiscount(usdEquivalent, { applyNigerianDiscount: true })
+                  
+                  if (priceInfo.hasDiscount) {
+                    return (
+                      <div className="space-y-1">
+                        <span className="text-lg text-gray-500 line-through block">
+                          {priceInfo.originalPrice}
+                        </span>
+                        <span className="text-3xl font-bold text-green-600">
+                          {priceInfo.discountedPrice}
+                        </span>
+                      </div>
+                    )
+                  } else {
+                    return (
+                      <span className="text-3xl font-bold text-primary">
+                        {priceInfo.discountedPrice}
+                      </span>
+                    )
+                  }
+                } else {
+                  return <span className="text-3xl font-bold text-green-600">Free</span>
+                }
+              })()}
             </div>
             {spotsLeft && spotsLeft <= 5 && (
               <div className="bg-orange-100 text-orange-800 px-3 py-1 rounded-full text-sm font-medium">
@@ -435,7 +446,31 @@ export default function CourseEnrollment({ course }: { course: CourseEnrollmentD
             <div className="flex-1">
               <h4 className="font-semibold text-gray-900">{course.title}</h4>
               <p className="text-sm text-gray-600">{course.instructor}</p>
-              <p className="text-lg font-bold text-gray-900 mt-2">₦{course.price.toLocaleString()}</p>
+              <div className="mt-2">
+                {(() => {
+                  // Use same pricing logic as the preview
+                  if (course.dollarPrice) {
+                    const priceInfo = formatPriceWithDiscount(course.dollarPrice, { applyNigerianDiscount: true })
+                    return (
+                      <span className="text-lg font-bold text-primary">
+                        {priceInfo.discountedPrice}
+                      </span>
+                    )
+                  } else if (course.nairaPrice || course.price) {
+                    const nairaAmount = course.nairaPrice || course.price || 0;
+                    const usdEquivalent = nairaAmount / 1650;
+                    const priceInfo = formatPriceWithDiscount(usdEquivalent, { applyNigerianDiscount: true })
+                    return (
+                      <span className="text-lg font-bold text-primary">
+                        {priceInfo.discountedPrice}
+                      </span>
+                    )
+                  } else {
+                    return <span className="text-lg font-bold text-green-600">Free</span>
+                  }
+                })()
+                }
+              </div>
             </div>
           </div>
         </div>
@@ -540,11 +575,19 @@ export default function CourseEnrollment({ course }: { course: CourseEnrollmentD
             })()
           ) : (
             <div className="text-lg font-bold text-blue-900">
-              Total: {course.dollarPrice ? (
-                formatPrice(coursePrice, { applyNigerianDiscount: true })
-              ) : (
-                `₦${course.price.toLocaleString()}`
-              )}
+              Total: {(() => {
+                if (course.dollarPrice) {
+                  const priceInfo = formatPriceWithDiscount(course.dollarPrice, { applyNigerianDiscount: true })
+                  return priceInfo.discountedPrice
+                } else if (course.nairaPrice || course.price) {
+                  const nairaAmount = course.nairaPrice || course.price || 0;
+                  const usdEquivalent = nairaAmount / 1650;
+                  const priceInfo = formatPriceWithDiscount(usdEquivalent, { applyNigerianDiscount: true })
+                  return priceInfo.discountedPrice
+                } else {
+                  return 'Free'
+                }
+              })()}
             </div>
           )}
         </div>
@@ -564,14 +607,23 @@ export default function CourseEnrollment({ course }: { course: CourseEnrollmentD
               Processing...
             </>
           ) : (
-            (() => {
+(() => {
               if (qualifiesForInstallments && selectedPaymentPlan.installments > 1) {
                 const downPaymentAmount = (coursePrice * selectedPaymentPlan.downPayment / 100) + selectedPaymentPlan.processingFee;
                 return `Pay ${formatPrice(downPaymentAmount, { applyNigerianDiscount: true })} & Enroll`;
-              } else if (course.dollarPrice) {
-                return `Pay ${formatPrice(coursePrice, { applyNigerianDiscount: true })} & Enroll`;
               } else {
-                return `Pay ₦${course.price.toLocaleString()} & Enroll`;
+                // Use consistent pricing logic
+                if (course.dollarPrice) {
+                  const priceInfo = formatPriceWithDiscount(course.dollarPrice, { applyNigerianDiscount: true })
+                  return `Pay ${priceInfo.discountedPrice} & Enroll`;
+                } else if (course.nairaPrice || course.price) {
+                  const nairaAmount = course.nairaPrice || course.price || 0;
+                  const usdEquivalent = nairaAmount / 1650;
+                  const priceInfo = formatPriceWithDiscount(usdEquivalent, { applyNigerianDiscount: true })
+                  return `Pay ${priceInfo.discountedPrice} & Enroll`;
+                } else {
+                  return 'Enroll Now';
+                }
               }
             })()
           )}

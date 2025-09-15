@@ -63,7 +63,7 @@ function CoursesPageContent() {
             if (isMounted) {
               reject(new Error('Fetching courses timed out. Please try again.'));
             }
-          }, 20000); // 20 second timeout
+          }, 10000); // 10 second timeout (reduced from 20s)
         });
         
         // Race the fetch against the timeout
@@ -216,8 +216,11 @@ function CoursesPageContent() {
                               fill
                               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                               className="object-cover transition-transform duration-300 hover:scale-105"
-                              priority={false}
-                              loading="lazy"
+                              priority={course.featured || false}
+                              loading={course.featured ? "eager" : "lazy"}
+                              quality={75}
+                              placeholder="blur"
+                              blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkqGx0f/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyJckliyjqTzSlT54b6bk+h0R//2Q=="
                             />
                           ) : (
                             <div className="w-full h-full bg-lightGray flex items-center justify-center">

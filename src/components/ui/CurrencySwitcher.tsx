@@ -100,7 +100,7 @@ export default function CurrencySwitcher({
 
       {isOpen && (
         <div 
-          className={`absolute right-0 z-50 min-w-[200px] rounded-md border py-1 ${styles.dropdown}`}
+          className={`absolute right-0 z-50 min-w-[200px] max-h-60 overflow-y-auto rounded-md border py-1 ${styles.dropdown}`}
           role="menu"
         >
           {currencies.map((currency) => (
