@@ -35,15 +35,25 @@ interface Category {
 
 // Using cached API for consistent data fetching
 
-function CoursesPageContent() {
-  const [categories, setCategories] = useState<Category[]>([]);
-  const [loading, setLoading] = useState(true);
+interface CoursesPageContentProps {
+  initialData?: Category[];
+}
+
+function CoursesPageContent({ initialData }: CoursesPageContentProps = {}) {
+  const [categories, setCategories] = useState<Category[]>(initialData || []);
+  const [loading, setLoading] = useState(!initialData);
   const [error, setError] = useState<string | null>(null);
   const [selectedCourse, setSelectedCourse] = useState<Course | null>(null);
   const [showPaymentModal, setShowPaymentModal] = useState(false);
   const { formatPriceWithDiscount, isLocalCurrency } = useCurrency();
 
   useEffect(() => {
+    // Skip fetching if we have initial data
+    if (initialData && initialData.length > 0) {
+      console.log('✅ [COURSES] Using server-side initial data:', initialData.length, 'categories');
+      return;
+    }
+    
     let isMounted = true;
     const controller = new AbortController();
     
@@ -54,6 +64,8 @@ function CoursesPageContent() {
         setError(null);
         
         console.log('👩‍🎓 [COURSES] Fetching course categories via cached API...');
+        console.log('🌍 [ENV] Environment:', process.env.NODE_ENV);
+        console.log('🔧 [SANITY] Project ID:', process.env.NEXT_PUBLIC_SANITY_PROJECT_ID?.substring(0, 8) + '...');
         // Set a longer timeout for fetching courses
         const fetchPromise = getCachedCourseCategories();
         
@@ -120,7 +132,7 @@ function CoursesPageContent() {
       isMounted = false;
       controller.abort();
     };
-  }, []);
+  }, [initialData]);
 
   if (loading) {
     return (
@@ -221,6 +233,15 @@ function CoursesPageContent() {
                               quality={75}
                               placeholder="blur"
                               blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkqGx0f/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyJckliyjqTzSlT54b6bk+h0R//2Q=="
+                              onError={(e) => {
+                                console.log(`❌ [IMAGE ERROR] Failed to load image: ${course.mainImage}`);
+                                const target = e.target as HTMLImageElement;
+                                target.style.display = 'none';
+                                const parent = target.parentElement;
+                                if (parent) {
+                                  parent.innerHTML = '<div class="w-full h-full bg-gradient-to-br from-primary/20 to-primary/40 flex items-center justify-center text-primary"><svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" /></svg></div>';
+                                }
+                              }}
                             />
                           ) : (
                             <div className="w-full h-full bg-lightGray flex items-center justify-center">
@@ -268,8 +289,8 @@ function CoursesPageContent() {
                               // Debug: Log what pricing fields are available
                               console.log(`💰 [COURSE PRICING] ${course.title} - dollarPrice: ${course.dollarPrice}, nairaPrice: ${course.nairaPrice}, price: ${course.price}`);
                               
-                              // Prioritize dollarPrice for consistency and currency conversion
-                              if (course.dollarPrice) {
+                              // Use dollarPrice if it exists and is greater than 0
+                              if (course.dollarPrice && course.dollarPrice > 0) {
                                 const priceInfo = formatPriceWithDiscount(course.dollarPrice, { applyNigerianDiscount: true })
                                 
                                 if (priceInfo.hasDiscount) {

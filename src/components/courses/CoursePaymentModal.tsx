@@ -88,8 +88,8 @@ export function CoursePaymentModal({
   const discountMessage = getLocalDiscountMessage()
   
   // Determine the course price to use
-  const coursePrice = course.dollarPrice || course.nairaPrice || course.price || 0
-  const useDollarPrice = !!course.dollarPrice
+  const coursePrice = (course.dollarPrice && course.dollarPrice > 0) ? course.dollarPrice : (course.nairaPrice || course.price || 0)
+  const useDollarPrice = !!(course.dollarPrice && course.dollarPrice > 0)
   
   // Check if course qualifies for installments (above $200 or ₦150,000 threshold)
   const qualifiesForInstallments = useDollarPrice ? coursePrice >= 200 : coursePrice >= 150000
@@ -330,7 +330,7 @@ export function CoursePaymentModal({
               <p className="text-sm text-gray-600">Course Enrollment</p>
             </div>
             <div className="text-right">
-              {course.dollarPrice ? (
+              {course.dollarPrice && course.dollarPrice > 0 ? (
                 <div>
                   {(() => {
                     const priceInfo = formatPriceWithDiscount(course.dollarPrice, { applyNigerianDiscount: true })

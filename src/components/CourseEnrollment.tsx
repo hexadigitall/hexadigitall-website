@@ -186,8 +186,8 @@ export default function CourseEnrollment({ course }: { course: CourseEnrollmentD
                 // Debug: Log what pricing fields are available
                 console.log(`💰 [COURSE ENROLLMENT PRICING] ${course.title} - dollarPrice: ${course.dollarPrice}, nairaPrice: ${course.nairaPrice}, price: ${course.price}`);
                 
-                // Prioritize dollarPrice for consistency and currency conversion
-                if (course.dollarPrice) {
+                // Use dollarPrice only if it exists and is greater than 0
+                if (course.dollarPrice && course.dollarPrice > 0) {
                   const priceInfo = formatPriceWithDiscount(course.dollarPrice, { applyNigerianDiscount: true })
                   
                   if (priceInfo.hasDiscount) {
@@ -449,7 +449,7 @@ export default function CourseEnrollment({ course }: { course: CourseEnrollmentD
               <div className="mt-2">
                 {(() => {
                   // Use same pricing logic as the preview
-                  if (course.dollarPrice) {
+                  if (course.dollarPrice && course.dollarPrice > 0) {
                     const priceInfo = formatPriceWithDiscount(course.dollarPrice, { applyNigerianDiscount: true })
                     return (
                       <span className="text-lg font-bold text-primary">
@@ -576,7 +576,7 @@ export default function CourseEnrollment({ course }: { course: CourseEnrollmentD
           ) : (
             <div className="text-lg font-bold text-blue-900">
               Total: {(() => {
-                if (course.dollarPrice) {
+                if (course.dollarPrice && course.dollarPrice > 0) {
                   const priceInfo = formatPriceWithDiscount(course.dollarPrice, { applyNigerianDiscount: true })
                   return priceInfo.discountedPrice
                 } else if (course.nairaPrice || course.price) {
@@ -613,7 +613,7 @@ export default function CourseEnrollment({ course }: { course: CourseEnrollmentD
                 return `Pay ${formatPrice(downPaymentAmount, { applyNigerianDiscount: true })} & Enroll`;
               } else {
                 // Use consistent pricing logic
-                if (course.dollarPrice) {
+                if (course.dollarPrice && course.dollarPrice > 0) {
                   const priceInfo = formatPriceWithDiscount(course.dollarPrice, { applyNigerianDiscount: true })
                   return `Pay ${priceInfo.discountedPrice} & Enroll`;
                 } else if (course.nairaPrice || course.price) {

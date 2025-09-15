@@ -18,9 +18,9 @@ export const fallbackCourses = [
         level: 'Beginner',
         instructor: 'Expert Instructor',
         nairaPrice: 75000,
-        dollarPrice: 50,
+        dollarPrice: 0, // Match actual data structure
         price: 75000,
-        featured: true
+        featured: false
       },
       {
         _id: 'course-2',
@@ -32,21 +32,36 @@ export const fallbackCourses = [
         duration: '6 weeks',
         level: 'Beginner',
         instructor: 'Expert Instructor',
-        nairaPrice: 90000,
+        nairaPrice: 75000,
         dollarPrice: 60,
-        price: 90000,
+        price: 75000,
+        featured: true
+      },
+      {
+        _id: 'course-lean-startup',
+        title: 'The Lean Startup: Build Your MVP',
+        slug: { current: 'lean-startup-mvp' },
+        summary: 'Learn how to build and validate your minimum viable product',
+        mainImage: null,
+        description: 'Master the lean startup methodology and build products people want.',
+        duration: '8 weeks',
+        level: 'Intermediate',
+        instructor: 'Expert Instructor',
+        nairaPrice: 95000,
+        dollarPrice: 80,
+        price: 95000,
         featured: true
       }
     ]
   },
   {
     _id: 'fallback-2',
-    title: 'Web Development',
-    description: 'Learn modern web development technologies.',
+    title: 'Web & Mobile Development',
+    description: 'Learn modern web and mobile development technologies.',
     courses: [
       {
         _id: 'course-3',
-        title: 'Web Development Bootcamp',
+        title: 'Web Development Bootcamp: From Zero to Hero',
         slug: { current: 'web-development-bootcamp' },
         summary: 'Complete web development from zero to hero',
         mainImage: null,
@@ -56,6 +71,58 @@ export const fallbackCourses = [
         instructor: 'Expert Instructor',
         nairaPrice: 150000,
         dollarPrice: 120,
+        price: 150000,
+        featured: true
+      },
+      {
+        _id: 'course-react-native',
+        title: 'React Native: Build Mobile Apps for iOS & Android',
+        slug: { current: 'react-native-mobile-apps' },
+        summary: 'Build cross-platform mobile apps with React Native',
+        mainImage: null,
+        description: 'Create native mobile apps for both iOS and Android using React Native.',
+        duration: '10 weeks',
+        level: 'Advanced',
+        instructor: 'Expert Instructor',
+        nairaPrice: 180000,
+        dollarPrice: 150,
+        price: 180000,
+        featured: true
+      }
+    ]
+  },
+  {
+    _id: 'fallback-3',
+    title: 'Data & Analytics',
+    description: 'Master data analysis and analytics skills.',
+    courses: [
+      {
+        _id: 'course-ga4',
+        title: 'Google Analytics 4: From Beginner to Expert',
+        slug: { current: 'google-analytics-4-expert' },
+        summary: 'Master Google Analytics 4 from basics to advanced features',
+        mainImage: null,
+        description: 'Complete guide to Google Analytics 4 with hands-on practice.',
+        duration: '6 weeks',
+        level: 'Beginner',
+        instructor: 'Expert Instructor',
+        nairaPrice: 75000,
+        dollarPrice: 0,
+        price: 75000,
+        featured: true
+      },
+      {
+        _id: 'course-python-data',
+        title: 'Data Analysis with Python',
+        slug: { current: 'python-data-analysis' },
+        summary: 'Learn data analysis and visualization with Python',
+        mainImage: null,
+        description: 'Master Python for data analysis, pandas, NumPy, and visualization.',
+        duration: '10 weeks',
+        level: 'Intermediate',
+        instructor: 'Expert Instructor',
+        nairaPrice: 150000,
+        dollarPrice: 0,
         price: 150000,
         featured: true
       }

@@ -40,9 +40,14 @@ const nextConfig: NextConfig = {
     minimumCacheTTL: 300, // 5 minutes cache
     dangerouslyAllowSVG: false,
     contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
+    // Add timeout and error handling
+    loader: 'default',
+    path: '/_next/image',
     // Limit image dimensions to prevent large image processing
     domains: [],
     unoptimized: false,
+    // Add timeout for image optimization
+    imageSizeLimit: 32 * 1024 * 1024, // 32MB limit
   },
 
   // Performance optimizations
