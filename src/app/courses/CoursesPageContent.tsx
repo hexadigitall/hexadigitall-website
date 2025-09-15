@@ -2,6 +2,7 @@
 "use client"
 
 import { getCachedCourseCategories } from '@/lib/cached-api'
+import { getFallbackCourseCategories } from '@/lib/fallback-data'
 import Link from 'next/link';
 import Image from 'next/image';
 import { useState, useEffect } from 'react';
@@ -43,13 +44,36 @@ function CoursesPageContent() {
   const { formatPriceWithDiscount, isLocalCurrency } = useCurrency();
 
   useEffect(() => {
+    let isMounted = true;
+    const controller = new AbortController();
+    
     async function fetchCourses() {
       try {
+        if (!isMounted) return;
         setLoading(true);
         setError(null);
         
-        console.log('🎓 [COURSES] Fetching course categories via cached API...');
-        const data: Category[] = await getCachedCourseCategories() as Category[];
+        console.log('👩‍🎓 [COURSES] Fetching course categories via cached API...');
+        // Set a longer timeout for fetching courses
+        const fetchPromise = getCachedCourseCategories();
+        
+        // Create a timeout in case the fetch takes too long
+        const timeoutPromise = new Promise((_, reject) => {
+          setTimeout(() => {
+            if (isMounted) {
+              reject(new Error('Fetching courses timed out. Please try again.'));
+            }
+          }, 20000); // 20 second timeout
+        });
+        
+        // Race the fetch against the timeout
+        const data: Category[] = await Promise.race([
+          fetchPromise,
+          timeoutPromise
+        ]) as Category[];
+        
+        if (!isMounted) return;
+        
         console.log('✅ [COURSES] Course categories fetched:', data?.length || 0, 'categories');
         
         // Debug: Log pricing data for each course
@@ -63,16 +87,45 @@ function CoursesPageContent() {
           });
         });
         
+        if (!isMounted) return;
         setCategories(data || []);
       } catch (err) {
         console.error('❌ [COURSES] Error fetching courses:', err);
-        setError('Failed to load courses. Please try again later.');
+        console.log('🔄 [COURSES] Attempting to use fallback data...');
+        
+        try {
+          // Try to use fallback data
+          if (isMounted) {
+            const fallbackData: Category[] = await getFallbackCourseCategories() as Category[];
+            console.log('✅ [FALLBACK] Using fallback course data');
+            setCategories(fallbackData || []);
+          }
+        } catch (fallbackErr) {
+          console.error('❌ [FALLBACK] Fallback data also failed:', fallbackErr);
+          if (isMounted) {
+            setError('Failed to load courses. Please try again later.');
+          }
+        }
       } finally {
-        setLoading(false);
+        if (isMounted) {
+          setLoading(false);
+        }
       }
     }
     
+    // Return cleanup function to prevent memory leaks
+    return () => {
+      isMounted = false;
+      controller.abort();
+    }
+    
     fetchCourses();
+    
+    // Return cleanup function to prevent memory leaks
+    return () => {
+      isMounted = false;
+      controller.abort();
+    };
   }, []);
 
   if (loading) {

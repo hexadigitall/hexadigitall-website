@@ -1,5 +1,6 @@
 // src/lib/cached-api.ts
 import { client } from '@/sanity/client'
+import { withTimeout, withRetry } from '@/lib/timeout-utils'
 
 interface CacheEntry<T> {
   data: T
@@ -36,7 +37,21 @@ class APICache {
     // Fetch fresh data
     console.log(`🔄 [CACHE MISS] Fetching fresh data for query: ${query.substring(0, 50)}...`)
     try {
-      const data = await client.fetch<T>(query, params as Record<string, unknown>)
+      const data = await withRetry(
+        () => withTimeout(
+          client.fetch<T>(query, params as Record<string, unknown>),
+          15000, // 15 second timeout
+          `Sanity query timed out: ${query.substring(0, 50)}...`
+        ),
+        {
+          maxAttempts: 3,
+          baseDelay: 1000,
+          timeoutMs: 15000,
+          onRetry: (attempt, error) => {
+            console.warn(`🔄 [RETRY ${attempt}] Sanity fetch failed, retrying...`, error.message)
+          }
+        }
+      )
       
       // Cache the result
       this.cache.set(key, {
@@ -146,14 +161,14 @@ export const getCachedCourseCategories = () =>
   cachedFetch(`*[_type == "courseCategory"] | order(title asc) {
     _id,
     title,
-    description,
+    description[0...200],
     "courses": *[_type == "course" && references(^._id)] | order(title asc) {
       _id,
       title,
       slug,
-      summary,
+      summary[0...200],
       "mainImage": mainImage.asset->url,
-      description,
+      description[0...300],
       duration,
       level,
       instructor,
@@ -162,4 +177,4 @@ export const getCachedCourseCategories = () =>
       price,
       featured
     }
-  }`, {}, 10) // 10 minutes cache
+  }`, {}, 15) // 15 minutes cache for better performance
