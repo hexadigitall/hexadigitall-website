@@ -113,12 +113,6 @@ function CoursesPageContent() {
       }
     }
     
-    // Return cleanup function to prevent memory leaks
-    return () => {
-      isMounted = false;
-      controller.abort();
-    }
-    
     fetchCourses();
     
     // Return cleanup function to prevent memory leaks
