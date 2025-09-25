@@ -11,7 +11,7 @@ import { CompactPriceDisplay } from '@/components/ui/PriceDisplay'
 import { RequestServiceCTA, ContactCTA } from '@/components/ui/CTAButton'
 import { SparklesIcon } from '@heroicons/react/24/outline'
 import { SearchParamsHandler } from '@/components/services/SearchParamsHandler'
-import ServicePaymentModal from '@/components/services/ServicePaymentModal'
+import { ServicePaymentModal } from '@/components/services/ServicePaymentModal'
 
 interface Service {
   _id: string
