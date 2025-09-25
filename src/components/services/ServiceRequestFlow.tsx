@@ -1,7 +1,7 @@
-//src/components/services/ServiceRequestFlow.tsx
 "use client"
 
-import { useState, useEffect } from 'react'
+import React from 'react'
+import { useState } from 'react'
 import { ServicePackageSelection, PaymentPlan } from './ServicePackageSelection'
 import { ServiceRequestForm } from './ServiceRequestForm'
 import { PaymentSummary } from './PaymentSummary'
@@ -16,6 +16,7 @@ export interface ServiceCategory {
   packages: Package[]
   requirements?: string[]
   faq?: FAQ[]
+  serviceType?: string
 }
 
 export interface Package {
@@ -60,6 +61,13 @@ export interface ProjectDetails {
   timeline: string
   budget: string
   attachments?: File[]
+  // Service-specific fields
+  brandStyle?: string
+  industry?: string
+  marketingGoals?: string
+  targetAudience?: string
+  specificRequirements?: string
+  notes?: string
 }
 
 interface ServiceRequestFlowProps {
@@ -88,23 +96,30 @@ export const ServiceRequestFlow: React.FC<ServiceRequestFlowProps> = ({
     description: '',
     requirements: '',
     timeline: '',
-    budget: ''
+    budget: '',
+    notes: ''
   })
 
   const steps = [
     { number: 1, title: 'Select Package', description: 'Choose your service package' },
-    { number: 2, title: 'Project Details', description: 'Tell us about your project' },
-    { number: 3, title: 'Payment', description: 'Review and pay' }
+    { number: 2, title: 'Contact Details', description: 'Provide your information' },
+    { number: 3, title: 'Payment', description: 'Complete your order' }
   ]
 
   const handlePackageSelect = (pkg: Package, addOns: AddOn[], paymentPlan: PaymentPlan) => {
     setSelectedPackage(pkg)
     setSelectedAddOns(addOns)
     setSelectedPaymentPlan(paymentPlan)
+    // Set project title from package
+    setProjectDetails(prev => ({ 
+      ...prev, 
+      title: `${pkg.name} - ${serviceCategory.title}`,
+      description: `Selected package: ${pkg.name} (${pkg.tier}) - ${serviceCategory.description}`
+    }))
     setCurrentStep(2)
   }
 
-  const handleProjectDetailsSubmit = (details: ProjectDetails, client: ClientInfo) => {
+  const handleFormSubmit = (details: ProjectDetails, client: ClientInfo) => {
     setProjectDetails(details)
     setClientInfo(client)
     setCurrentStep(3)
@@ -116,91 +131,112 @@ export const ServiceRequestFlow: React.FC<ServiceRequestFlowProps> = ({
     }
   }
 
-  const calculateTotal = () => {
-    const packagePrice = selectedPackage?.price || 0
-    const addOnTotal = selectedAddOns.reduce((sum, addOn) => sum + addOn.price, 0)
-    return packagePrice + addOnTotal
+  // Calculate total amount
+  const calculateTotalAmount = () => {
+    if (!selectedPackage) return 0
+    const packagePrice = selectedPackage.price
+    const addOnsPrice = selectedAddOns.reduce((sum, addOn) => sum + addOn.price, 0)
+    return packagePrice + addOnsPrice
   }
 
-  // Add keyboard and click-outside handling
-  useEffect(() => {
-    const handleEscape = (event: KeyboardEvent) => {
-      if (event.key === 'Escape' && onClose) {
+  // Define a type for payment data if known, otherwise use unknown
+  type PaymentData = {
+    transactionId?: string
+    amount?: number
+    currency?: string
+    // Add other fields as needed
+  }
+
+  const handlePaymentSuccess = async (paymentData: unknown) => {
+    try {
+      const data = paymentData as PaymentData
+      // Handle successful payment
+      console.log('Payment successful:', data)
+      
+      // Close modal and show success message
+      if (onClose) {
         onClose()
       }
+      
+      // You could also redirect to a success page or show a success modal
+      // window.location.href = '/services/success'
+    } catch (error) {
+      console.error('Error handling payment success:', error)
     }
+  }
 
-    document.addEventListener('keydown', handleEscape)
-    return () => document.removeEventListener('keydown', handleEscape)
-  }, [onClose])
+  const handlePaymentError = (error: unknown) => {
+    console.error('Payment error:', error)
+    // You could show an error message to the user here
+  }
 
-  const handleBackdropClick = (event: React.MouseEvent<HTMLDivElement>) => {
-    if (event.target === event.currentTarget && onClose) {
+  // Close modal when clicking outside
+  const handleBackdropClick = (e: React.MouseEvent) => {
+    if (e.target === e.currentTarget && onClose) {
       onClose()
     }
   }
 
   return (
-    <div 
-      className="fixed inset-0 bg-black/60 z-50 overflow-y-auto"
+    <div
+      className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-2 sm:p-4"
       onClick={handleBackdropClick}
     >
-      <div className="flex min-h-full items-start justify-center p-4 sm:p-6 lg:p-8">
-        <div className="relative w-full max-w-4xl mx-auto bg-white rounded-2xl shadow-2xl my-8">
+      <div className="w-full max-w-4xl sm:max-w-5xl lg:max-w-6xl h-full flex items-center justify-center">
+        <div
+          className="bg-white rounded-2xl shadow-2xl w-full h-[90vh] max-h-[90vh] flex flex-col overflow-hidden"
+        >
           {/* Header */}
-          <div className="bg-primary text-white p-4 sm:p-6 rounded-t-2xl">
-            <div className="flex justify-between items-start mb-4">
-              <div className="flex-1 pr-4">
-                <h2 className="text-xl sm:text-2xl font-bold">{serviceCategory.title}</h2>
-                <p className="text-primary-100 text-sm sm:text-base mt-1">{serviceCategory.description}</p>
-              </div>
-              {onClose && (
-                <button
-                  onClick={onClose}
-                  className="flex-shrink-0 text-white hover:text-primary-200 transition-colors p-1 rounded-full hover:bg-white/10"
-                  aria-label="Close modal"
-                >
-                  <svg className="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                  </svg>
-                </button>
-              )}
+          <div className="flex-shrink-0 flex items-center justify-between p-4 sm:p-6 border-b border-gray-200">
+            <div className="flex-1">
+              <h2 className="text-xl sm:text-2xl font-bold text-gray-900">{serviceCategory.title}</h2>
+              <p className="text-sm text-gray-600 mt-1 hidden sm:block truncate">{serviceCategory.description}</p>
             </div>
+            {onClose && (
+              <button
+                onClick={onClose}
+                className="ml-4 p-2 text-gray-400 hover:text-gray-600 transition-colors flex-shrink-0"
+                aria-label="Close"
+              >
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            )}
+          </div>
 
           {/* Progress Steps */}
-          <div className="flex flex-wrap items-center gap-2 sm:gap-4">
-            {steps.map((step, index) => (
-              <div key={step.number} className="flex items-center min-w-0">
-                <div className={`flex items-center justify-center w-6 h-6 sm:w-8 sm:h-8 rounded-full text-xs sm:text-sm font-medium ${
-                  currentStep >= step.number 
-                    ? 'bg-accent text-white' 
-                    : 'bg-primary-200 text-primary-600'
-                }`}>
-                  {currentStep > step.number ? (
-                    <svg className="w-3 h-3 sm:w-4 sm:h-4" fill="currentColor" viewBox="0 0 20 20">
-                      <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                    </svg>
-                  ) : (
-                    step.number
+          <div className="flex-shrink-0 px-4 sm:px-6 py-4 border-b border-gray-100">
+            <div className="flex items-center justify-center space-x-4 max-w-2xl mx-auto">
+              {steps.map((step, index) => (
+                <React.Fragment key={step.number}>
+                  <div className="flex items-center">
+                    <div className={`flex items-center justify-center w-8 h-8 rounded-full text-sm font-medium transition-colors ${
+                      currentStep >= step.number
+                        ? 'bg-primary text-white'
+                        : 'bg-gray-200 text-gray-600'
+                    }`}>
+                      {step.number}
+                    </div>
+                    <div className="ml-2 hidden sm:block">
+                      <div className={`text-sm font-medium transition-colors ${
+                        currentStep >= step.number ? 'text-primary' : 'text-gray-600'
+                      }`}>{step.title}</div>
+                      <div className="text-xs text-gray-400 truncate">{step.description}</div>
+                    </div>
+                  </div>
+                  {index < steps.length - 1 && (
+                    <div className={`w-8 h-px flex-shrink-0 transition-colors ${
+                      currentStep > step.number ? 'bg-primary' : 'bg-gray-200'
+                    }`} />
                   )}
-                </div>
-                <div className="ml-2 sm:ml-3 min-w-0">
-                  <div className="text-xs sm:text-sm font-medium text-white truncate">{step.title}</div>
-                  <div className="text-xs text-primary-200 hidden sm:block truncate">{step.description}</div>
-                </div>
-                {index < steps.length - 1 && (
-                  <div className={`ml-2 sm:ml-4 w-4 sm:w-8 h-px flex-shrink-0 ${
-                    currentStep > step.number ? 'bg-accent' : 'bg-primary-200'
-                  }`} />
-                )}
-              </div>
-            ))}
+                </React.Fragment>
+              ))}
+            </div>
           </div>
-        </div>
 
-        {/* Content Area - Improved scrolling */}
-        <div className="relative">
-          <div className="p-4 sm:p-6 max-h-[calc(100vh-200px)] overflow-y-auto">
+          {/* Content Area */}
+          <div className="flex-1 min-h-0 overflow-y-auto px-2 sm:px-4 py-4">
             {currentStep === 1 && (
               <ServicePackageSelection
                 serviceCategory={serviceCategory}
@@ -208,31 +244,35 @@ export const ServiceRequestFlow: React.FC<ServiceRequestFlowProps> = ({
               />
             )}
 
-            {currentStep === 2 && (
+            {currentStep === 2 && selectedPackage && (
               <ServiceRequestForm
                 serviceCategory={serviceCategory}
-                selectedPackage={selectedPackage!}
+                selectedPackage={selectedPackage}
                 clientInfo={clientInfo}
                 projectDetails={projectDetails}
-                onSubmit={handleProjectDetailsSubmit}
+                onSubmit={handleFormSubmit}
                 onBack={handleBack}
               />
             )}
 
-            {currentStep === 3 && (
+            {currentStep === 3 && selectedPackage && selectedPaymentPlan && (
               <PaymentSummary
                 serviceCategory={serviceCategory}
-                selectedPackage={selectedPackage!}
+                selectedPackage={selectedPackage}
                 selectedAddOns={selectedAddOns}
-                selectedPaymentPlan={selectedPaymentPlan!}
+                selectedPaymentPlan={selectedPaymentPlan}
                 clientInfo={clientInfo}
                 projectDetails={projectDetails}
-                totalAmount={calculateTotal()}
+                totalAmount={calculateTotalAmount()}
                 onBack={handleBack}
+                onSubmit={async () => {
+                  // This will be handled in PaymentSummary component
+                }}
+                onPaymentSuccess={handlePaymentSuccess}
+                onPaymentError={handlePaymentError}
               />
             )}
           </div>
-        </div>
         </div>
       </div>
     </div>

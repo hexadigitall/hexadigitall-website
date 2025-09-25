@@ -1,4 +1,4 @@
-import { defineType, defineField } from 'sanity'
+import { defineField, defineType } from 'sanity'
 
 export default defineType({
   name: 'serviceCategory',
@@ -7,7 +7,7 @@ export default defineType({
   fields: [
     defineField({
       name: 'title',
-      title: 'Service Category Title',
+      title: 'Category Title',
       type: 'string',
       validation: Rule => Rule.required()
     }),
@@ -17,7 +17,7 @@ export default defineType({
       type: 'slug',
       options: {
         source: 'title',
-        maxLength: 96
+        maxLength: 100
       },
       validation: Rule => Rule.required()
     }),
@@ -28,19 +28,41 @@ export default defineType({
       validation: Rule => Rule.required()
     }),
     defineField({
+      name: 'serviceType',
+      title: 'Service Type',
+      type: 'string',
+      options: {
+        list: [
+          { title: 'Web Development', value: 'web' },
+          { title: 'Mobile Development', value: 'mobile' },
+          { title: 'Digital Marketing', value: 'marketing' },
+          { title: 'Cloud Services', value: 'cloud' },
+          { title: 'IT Consulting', value: 'consulting' },
+          { title: 'Software Development', value: 'software' },
+          { title: 'Branding & Design', value: 'branding' },
+          { title: 'Profile & Portfolio', value: 'profile' },
+          { title: 'General', value: 'general' }
+        ]
+      },
+      initialValue: 'general'
+    }),
+    defineField({
       name: 'icon',
       title: 'Icon',
       type: 'string',
-      description: 'Icon name (e.g., "code", "server", "monitor")',
-      validation: Rule => Rule.required()
-    }),
-    defineField({
-      name: 'image',
-      title: 'Category Image',
-      type: 'image',
       options: {
-        hotspot: true
-      }
+        list: [
+          { title: 'Code', value: 'code' },
+          { title: 'Server', value: 'server' },
+          { title: 'Monitor', value: 'monitor' },
+          { title: 'Mobile', value: 'mobile' },
+          { title: 'Chart', value: 'chart' },
+          { title: 'Settings', value: 'settings' },
+          { title: 'Network', value: 'network' },
+          { title: 'Default', value: 'default' }
+        ]
+      },
+      initialValue: 'default'
     }),
     defineField({
       name: 'featured',
@@ -64,7 +86,7 @@ export default defineType({
             },
             {
               name: 'tier',
-              title: 'Tier Level',
+              title: 'Package Tier',
               type: 'string',
               options: {
                 list: [
@@ -114,14 +136,20 @@ export default defineType({
               name: 'deliveryTime',
               title: 'Delivery Time',
               type: 'string',
-              description: 'e.g., "3-5 business days", "2 weeks", "1 month"'
+              validation: Rule => Rule.required()
             },
             {
               name: 'features',
               title: 'Package Features',
               type: 'array',
               of: [{ type: 'string' }],
-              validation: Rule => Rule.required().min(3)
+              validation: Rule => Rule.required().min(1)
+            },
+            {
+              name: 'popular',
+              title: 'Popular Package',
+              type: 'boolean',
+              initialValue: false
             },
             {
               name: 'addOns',
@@ -138,23 +166,17 @@ export default defineType({
                     },
                     {
                       name: 'price',
-                      title: 'Additional Price',
+                      title: 'Add-on Price',
                       type: 'number'
                     },
                     {
                       name: 'description',
-                      title: 'Description',
+                      title: 'Add-on Description',
                       type: 'text'
                     }
                   ]
                 }
               ]
-            },
-            {
-              name: 'popular',
-              title: 'Most Popular',
-              type: 'boolean',
-              initialValue: false
             }
           ]
         }
@@ -163,10 +185,10 @@ export default defineType({
     }),
     defineField({
       name: 'requirements',
-      title: 'General Requirements',
+      title: 'What Client Needs to Provide',
       type: 'array',
       of: [{ type: 'string' }],
-      description: 'What clients need to provide for this service'
+      description: 'List of things the client needs to provide for this service'
     }),
     defineField({
       name: 'faq',
@@ -189,19 +211,16 @@ export default defineType({
           ]
         }
       ]
-    }),
-    defineField({
-      name: 'order',
-      title: 'Display Order',
-      type: 'number',
-      initialValue: 0
     })
   ],
   orderings: [
     {
-      title: 'Display Order',
-      name: 'orderAsc',
-      by: [{ field: 'order', direction: 'asc' }]
+      title: 'Featured First',
+      name: 'featuredFirst',
+      by: [
+        { field: 'featured', direction: 'desc' },
+        { field: 'title', direction: 'asc' }
+      ]
     }
   ]
 })

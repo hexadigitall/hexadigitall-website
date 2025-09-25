@@ -15,6 +15,8 @@ interface ServicePackage {
   deliveryTime: string
 }
 
+export default ServicePaymentModal
+
 // Payment plan options for services
 type PaymentPlan = {
   id: string
@@ -179,7 +181,7 @@ const PAYMENT_PLANS: PaymentPlan[] = [
   },
 ]
 
-export function ServicePaymentModal({
+function ServicePaymentModal({
   isOpen,
   onClose,
   serviceTitle,
@@ -223,7 +225,7 @@ export function ServicePaymentModal({
       onClose={onClose}
       title={`Purchase ${serviceTitle}`}
       size="xl"
-      className="max-h-[90vh] overflow-y-auto"
+      className="max-h-[90vh]"
     >
       <div className="space-y-6">
         {/* Nigerian discount banner */}
@@ -294,6 +296,8 @@ export function ServicePaymentModal({
         {/* Payment Plan Selection - Only for services above $300 */}
         {qualifiesForInstallments && (
           <div className="space-y-4">
+  
+                export default ServicePaymentModal
             <h3 className="text-lg font-semibold text-gray-900">Choose Payment Plan</h3>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               {PAYMENT_PLANS.map((plan) => (
@@ -483,5 +487,3 @@ export function ServicePaymentModal({
     </Modal>
   )
 }
-
-export default ServicePaymentModal

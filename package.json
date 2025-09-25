@@ -28,6 +28,8 @@
     "@esbuild/linux-x64": "^0.25.9",
     "@heroicons/react": "^2.2.0",
     "@portabletext/react": "^4.0.3",
+    "@react-email/components": "^0.5.3",
+    "@react-email/render": "^1.2.3",
     "@sanity/client": "^7.11.0",
     "@sanity/image-url": "^1.2.0",
     "@sanity/vision": "^4.6.0",

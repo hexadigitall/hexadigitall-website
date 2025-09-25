@@ -32,6 +32,12 @@ const Header = () => {
     { href: "/services/mentoring-and-consulting", label: "Mentoring & Consulting" },
   ];
 
+  // Helper function to close all mobile menus
+  const closeMobileMenus = () => {
+    setMobileMenuOpen(false);
+    setMobileServicesOpen(false);
+  };
+
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       const target = event.target as Element;
@@ -57,6 +63,31 @@ const Header = () => {
       document.removeEventListener('keydown', handleEscape);
     };
   }, []);
+
+  useEffect(() => {
+    // Handle body class for desktop cart push effect
+    if (typeof window !== 'undefined') {
+      if (isCartOpen && window.innerWidth >= 1024) {
+        document.body.classList.add('cart-open');
+        // Add CSS for cart open state
+        const style = document.createElement('style');
+        style.id = 'cart-push-styles';
+        style.textContent = `
+          @media (min-width: 1024px) {
+            body.cart-open {
+              margin-right: 384px;
+              transition: margin-right 300ms ease-in-out;
+            }
+          }
+        `;
+        if (!document.getElementById('cart-push-styles')) {
+          document.head.appendChild(style);
+        }
+      } else {
+        document.body.classList.remove('cart-open');
+      }
+    }
+  }, [isCartOpen]);
 
   const handleCheckout = async () => {
     console.log('🛒 Checkout button clicked');
@@ -276,7 +307,7 @@ const Header = () => {
         {isMobileMenuOpen && (
           <div className="md:hidden bg-white px-4 sm:px-6 pb-4 border-t border-gray-100" role="navigation" aria-label="Mobile navigation menu">
             <div className="flex flex-col space-y-4 pt-4">
-              <Link href="/about" onClick={() => setMobileMenuOpen(false)}>About</Link>
+              <Link href="/about" onClick={closeMobileMenus}>About</Link>
               <div>
                 <button onClick={() => setMobileServicesOpen(!isMobileServicesOpen)} className="flex items-center justify-between w-full text-left" aria-expanded={isMobileServicesOpen} aria-controls="mobile-services-menu">
                   Services
@@ -286,27 +317,27 @@ const Header = () => {
                 </button>
                 {isMobileServicesOpen && (
                   <div className="mt-2 ml-4 space-y-2" id="mobile-services-menu" role="menu">
-                    <Link href="/services" className="block text-sm text-primary font-medium py-1" onClick={() => setMobileMenuOpen(false)}>
+                    <Link href="/services" className="block text-sm text-primary font-medium py-1" onClick={closeMobileMenus}>
                       All Services
                     </Link>
                     {serviceLinks.map((link) => (
-                      <Link key={link.href} href={link.href} className="block text-sm text-darkText py-1 hover:text-secondary" onClick={() => setMobileMenuOpen(false)}>
+                      <Link key={link.href} href={link.href} className="block text-sm text-darkText py-1 hover:text-secondary" onClick={closeMobileMenus}>
                         {link.label}
                       </Link>
                     ))}
                   </div>
                 )}
               </div>
-              <Link href="/portfolio" onClick={() => setMobileMenuOpen(false)}>Portfolio</Link>
-              <Link href="/courses" onClick={() => setMobileMenuOpen(false)}>Courses</Link>
-              <Link href="/blog" onClick={() => setMobileMenuOpen(false)}>Blog</Link>
-              <Link href="/faq" onClick={() => setMobileMenuOpen(false)}>FAQs</Link>
+              <Link href="/portfolio" onClick={closeMobileMenus}>Portfolio</Link>
+              <Link href="/courses" onClick={closeMobileMenus}>Courses</Link>
+              <Link href="/blog" onClick={closeMobileMenus}>Blog</Link>
+              <Link href="/faq" onClick={closeMobileMenus}>FAQs</Link>
               <div className="pt-4 border-t border-gray-100">
                 <div className="flex items-center justify-between mb-4">
                   <span className="text-sm text-gray-600">Currency:</span>
                   <CurrencySwitcher position="inline" showLabel={false} />
                 </div>
-                <Link href="/contact" className="btn-primary text-center block" onClick={() => setMobileMenuOpen(false)}>
+                <Link href="/contact" className="btn-primary text-center block" onClick={closeMobileMenus}>
                   Contact
                 </Link>
               </div>
@@ -315,17 +346,17 @@ const Header = () => {
         )}
       </header>
 
-      {/* Cart Side Panel - Fixed implementation to prevent dual behavior */}
+      {/* Cart Side Panel - Enhanced with slide behavior */}
       {isCartOpen && (
         <>
           {/* Background Overlay */}
           <div 
             onClick={() => setCartOpen(false)} 
-            className="fixed inset-0 bg-black/50 z-40 transition-opacity duration-300 ease-in-out"
+            className="fixed inset-0 bg-black/50 z-40 transition-opacity duration-300 ease-in-out lg:hidden"
           />
           
           {/* Cart Panel */}
-          <div className="fixed top-0 right-0 h-full w-full max-w-md bg-white shadow-2xl z-50 transform transition-transform duration-300 ease-in-out">
+          <div className="fixed top-0 right-0 h-full w-full max-w-md lg:max-w-sm bg-white shadow-2xl z-50 transform transition-transform duration-300 ease-in-out border-l border-gray-200">
             <div className="flex flex-col h-full">
               <div className="flex justify-between items-center p-6 border-b bg-gray-50">
                 <h2 className="text-2xl font-bold font-heading text-primary">Your Cart</h2>

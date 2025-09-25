@@ -22,12 +22,15 @@ export default defineType({
       options: {
         list: [
           { title: 'Self-Paced (One-time fee)', value: 'self-paced' },
-          { title: 'Live Mentoring (Priced per hour)', value: 'live' },
+          { title: 'Live Mentoring (Hourly/Weekly pricing)', value: 'live' },
         ],
         layout: 'radio',
       },
-      initialValue: 'self-paced',
+      initialValue: 'live',
+      description: 'Live mentoring supports flexible hourly/weekly scheduling with monthly billing'
     }),
+
+    // Self-paced pricing (legacy support)
     defineField({
       name: 'nairaPrice',
       title: 'Price in Nigerian Naira (₦)',
@@ -42,19 +45,15 @@ export default defineType({
       description: 'Course price in USD for international customers (used for currency conversion)',
       hidden: ({ parent }) => parent?.courseType !== 'self-paced',
     }),
-    defineField({
-      name: 'price',
-      title: 'Legacy Price (NGN) - Deprecated',
-      type: 'number',
-      description: 'Legacy field - use nairaPrice and dollarPrice instead',
-      hidden: true,
-    }),
+
+    // Live mentoring hourly rates
     defineField({
       name: 'hourlyRateNGN',
       title: 'Hourly Rate (₦) - for Live Mentoring',
       type: 'number',
       description: 'The price per hour in Nigerian Naira for one-on-one or group classes',
       hidden: ({ parent }) => parent?.courseType !== 'live',
+      validation: (Rule) => Rule.positive().integer().min(1000).max(50000)
     }),
     defineField({
       name: 'hourlyRateUSD',
@@ -62,7 +61,84 @@ export default defineType({
       type: 'number',
       description: 'The price per hour in USD for international clients',
       hidden: ({ parent }) => parent?.courseType !== 'live',
+      validation: (Rule) => Rule.positive().min(5).max(200)
     }),
+
+    // Flexible scheduling options for live courses
+    defineField({
+      name: 'schedulingOptions',
+      title: 'Scheduling Options',
+      type: 'object',
+      hidden: ({ parent }) => parent?.courseType !== 'live',
+      fields: [
+        defineField({
+          name: 'minHoursPerSession',
+          title: 'Minimum Hours per Session',
+          type: 'number',
+          initialValue: 1,
+          validation: (Rule) => Rule.min(1).max(3)
+        }),
+        defineField({
+          name: 'maxHoursPerSession',
+          title: 'Maximum Hours per Session',
+          type: 'number',
+          initialValue: 3,
+          validation: (Rule) => Rule.min(1).max(5)
+        }),
+        defineField({
+          name: 'minSessionsPerWeek',
+          title: 'Minimum Sessions per Week',
+          type: 'number',
+          initialValue: 1,
+          validation: (Rule) => Rule.min(1).max(7)
+        }),
+        defineField({
+          name: 'maxSessionsPerWeek',
+          title: 'Maximum Sessions per Week',
+          type: 'number',
+          initialValue: 3,
+          validation: (Rule) => Rule.min(1).max(7)
+        }),
+        defineField({
+          name: 'defaultHours',
+          title: 'Default Hours per Week',
+          type: 'number',
+          description: 'Default selection for pricing display (1 hour per week for 1 month)',
+          initialValue: 1,
+          validation: (Rule) => Rule.min(1).max(21)
+        }),
+        defineField({
+          name: 'availableDays',
+          title: 'Available Days of the Week',
+          type: 'array',
+          of: [{
+            type: 'string',
+            options: {
+              list: [
+                { title: 'Monday', value: 'monday' },
+                { title: 'Tuesday', value: 'tuesday' },
+                { title: 'Wednesday', value: 'wednesday' },
+                { title: 'Thursday', value: 'thursday' },
+                { title: 'Friday', value: 'friday' },
+                { title: 'Saturday', value: 'saturday' },
+                { title: 'Sunday', value: 'sunday' }
+              ]
+            }
+          }],
+          initialValue: ['monday', 'tuesday', 'wednesday', 'thursday', 'friday']
+        })
+      ]
+    }),
+
+    // Legacy price field (hidden)
+    defineField({
+      name: 'price',
+      title: 'Legacy Price (NGN) - Deprecated',
+      type: 'number',
+      description: 'Legacy field - use nairaPrice and dollarPrice instead',
+      hidden: true,
+    }),
+
     defineField({ name: 'body', title: 'Full Description', type: 'array', of: [{type: 'block'}] }),
     defineField({ name: 'mainImage', title: 'Course Image', type: 'image', options: { hotspot: true } }),
     
@@ -71,8 +147,8 @@ export default defineType({
       name: 'duration',
       title: 'Course Duration',
       type: 'string',
-      description: 'e.g., "8 weeks", "3 months", "Self-paced"',
-      initialValue: '8 weeks',
+      description: 'e.g., "8 weeks", "3 months", "Flexible scheduling"',
+      initialValue: 'Flexible scheduling',
     }),
     defineField({
       name: 'level',
@@ -110,9 +186,9 @@ export default defineType({
     }),
     defineField({
       name: 'maxStudents',
-      title: 'Maximum Students',
+      title: 'Maximum Students per Session',
       type: 'number',
-      description: 'Maximum number of students (leave empty for unlimited)',
+      description: 'Maximum number of students per live session (leave empty for unlimited)',
     }),
     defineField({
       name: 'curriculum',
@@ -135,7 +211,7 @@ export default defineType({
           name: 'duration',
           title: 'Total Duration',
           type: 'string',
-          initialValue: '8 weeks',
+          initialValue: 'Flexible based on schedule',
         }),
       ],
     }),
@@ -146,11 +222,12 @@ export default defineType({
       of: [{ type: 'string' }],
       description: 'List of what students get with this course',
       initialValue: [
-        'Lifetime access to course materials',
-        'Certificate of completion',
+        'Live one-on-one or small group sessions',
+        'Personalized learning path',
         'Direct access to instructor',
+        'Flexible scheduling',
+        'Certificate of completion',
         'Downloadable resources',
-        'Mobile and desktop access',
       ],
     }),
     defineField({
@@ -166,6 +243,46 @@ export default defineType({
       type: 'boolean',
       description: 'Whether this course should be featured on the homepage',
       initialValue: false,
+    }),
+
+    // New fields for live course management
+    defineField({
+      name: 'timeZones',
+      title: 'Available Time Zones',
+      type: 'array',
+      of: [{
+        type: 'string',
+        options: {
+          list: [
+            { title: 'West Africa Time (WAT)', value: 'WAT' },
+            { title: 'Eastern Time (ET)', value: 'ET' },
+            { title: 'Central Time (CT)', value: 'CT' },
+            { title: 'Pacific Time (PT)', value: 'PT' },
+            { title: 'Greenwich Mean Time (GMT)', value: 'GMT' },
+            { title: 'Central European Time (CET)', value: 'CET' }
+          ]
+        }
+      }],
+      initialValue: ['WAT', 'ET'],
+      description: 'Time zones instructor is available for live sessions'
+    }),
+
+    defineField({
+      name: 'sessionFormats',
+      title: 'Available Session Formats',
+      type: 'array',
+      of: [{
+        type: 'string',
+        options: {
+          list: [
+            { title: 'One-on-One', value: 'one-on-one' },
+            { title: 'Small Group (2-4 students)', value: 'small-group' },
+            { title: 'Group Session (5-8 students)', value: 'group' }
+          ]
+        }
+      }],
+      initialValue: ['one-on-one', 'small-group'],
+      description: 'Available formats for live sessions'
     }),
   ],
 })

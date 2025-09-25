@@ -6,7 +6,6 @@ import Image from 'next/image'
 import { fetchWithTimeout } from '@/lib/timeout-utils'
 import { useCurrency } from '@/contexts/CurrencyContext'
 import CoursePaymentModal from '@/components/courses/CoursePaymentModal'
-// import { client } from '@/sanity/client'
 
 interface Course {
   _id: string
@@ -17,30 +16,27 @@ interface Course {
   duration: string
   level: string
   instructor: string
+  courseType?: 'self-paced' | 'live'
+  // Legacy pricing
   nairaPrice?: number
   dollarPrice?: number
-  price?: number // Legacy field for backward compatibility
+  price?: number
+  // Live course pricing
+  hourlyRateUSD?: number
+  hourlyRateNGN?: number
+  schedulingOptions?: {
+    minHoursPerSession: number
+    maxHoursPerSession: number
+    minSessionsPerWeek: number
+    maxSessionsPerWeek: number
+    defaultHours: number
+  }
   featured: boolean
 }
 
 interface FeaturedCoursesProps {
   className?: string
 }
-
-// Commented out unused query - courses are now fetched via API
-// const FEATURED_COURSES_QUERY = `*[_type == "course" && featured == true] | order(_createdAt desc)[0...4] {
-//   _id,
-//   title,
-//   slug,
-//   "mainImage": mainImage.asset->url,
-//   description,
-//   duration,
-//   level,
-//   instructor,
-//   nairaPrice,
-//   dollarPrice,
-//   featured
-// }`
 
 function CourseCardSkeleton() {
   return (
@@ -75,6 +71,50 @@ function CourseCard({ course, onEnrollClick }: { course: Course; onEnrollClick: 
   const safeTitle = course.title || 'Untitled Course'
   const safeSlug = course.slug?.current || '#'
   const safeImage = course.mainImage || fallbackImage
+  const isLiveCourse = course.courseType === 'live'
+  
+  // Calculate display price based on course type
+  const getDisplayPrice = (): {
+    price: number;
+    isLive: true;
+    currency: string;
+  } | {
+    priceInfo: { hasDiscount: boolean; discountPercentage?: number; originalPrice: string; discountedPrice: string; };
+    isLive: false;
+  } | null => {
+    if (isLiveCourse && course.hourlyRateUSD && course.hourlyRateNGN) {
+      // Show starting price for live courses (1 hour per week default)
+      const baseHourlyRate = isLocalCurrency() ? course.hourlyRateNGN : course.hourlyRateUSD
+      const defaultHours = course.schedulingOptions?.defaultHours || 1
+      const monthlyPrice = baseHourlyRate * defaultHours * 4 // 4 weeks per month
+      
+      return {
+        price: monthlyPrice,
+        isLive: true as const,
+        currency: isLocalCurrency() ? 'NGN' : 'USD'
+      }
+    } else if (course.dollarPrice) {
+      // Legacy self-paced pricing
+      const priceInfo = formatPriceWithDiscount(course.dollarPrice, { applyNigerianDiscount: true })
+      return {
+        priceInfo,
+        isLive: false as const
+      }
+    } else if (course.nairaPrice || course.price) {
+      // Convert NGN to USD first, then format in selected currency
+      const nairaAmount = course.nairaPrice || course.price || 0;
+      const usdEquivalent = nairaAmount / 1650;
+      const priceInfo = formatPriceWithDiscount(usdEquivalent, { applyNigerianDiscount: true })
+      return {
+        priceInfo,
+        isLive: false as const
+      }
+    }
+    
+    return null
+  }
+
+  const displayPrice = getDisplayPrice()
   
   return (
     <article 
@@ -95,6 +135,11 @@ function CourseCard({ course, onEnrollClick }: { course: Course; onEnrollClick: 
         <div className="absolute top-4 left-4 bg-primary text-white px-3 py-1 rounded-full text-sm font-medium">
           {course.level || 'Course'}
         </div>
+        {isLiveCourse && (
+          <div className="absolute top-4 right-4 bg-blue-500 text-white px-3 py-1 rounded-full text-sm font-medium">
+            Live Sessions
+          </div>
+        )}
       </div>
       
       <div className="p-6">
@@ -139,75 +184,49 @@ function CourseCard({ course, onEnrollClick }: { course: Course; onEnrollClick: 
           )}
         </div>
         
-        {/* Price Section - Now with currency conversion */}
+        {/* Price Section - Enhanced for live courses */}
         <div className="mb-4">
-          {(() => {
-            // Debug: Log what pricing fields are available
-            console.log(`🎆 [FEATURED PRICING] ${course.title} - dollarPrice: ${course.dollarPrice}, nairaPrice: ${course.nairaPrice}, price: ${course.price}`);
-            
-            if (course.dollarPrice) {
-              const priceInfo = formatPriceWithDiscount(course.dollarPrice, { applyNigerianDiscount: true })
-              
-              if (priceInfo.hasDiscount) {
-                return (
-                  <div className="space-y-2">
-                    {isLocalCurrency() && (
-                      <span className="inline-block bg-red-500 text-white px-2 py-1 rounded-full text-xs font-bold animate-pulse">
-                        🔥 {priceInfo.discountPercentage}% OFF
-                      </span>
-                    )}
-                    <div className="flex flex-col sm:flex-row sm:items-center sm:space-x-2">
-                      <span className="text-lg text-gray-500 line-through">
-                        {priceInfo.originalPrice}
-                      </span>
-                      <span className="text-2xl font-bold text-green-600">
-                        {priceInfo.discountedPrice}
-                      </span>
-                    </div>
+          {displayPrice ? (
+            displayPrice.isLive ? (
+              <div className="space-y-1">
+                <div className="text-2xl font-bold text-primary">
+                  {new Intl.NumberFormat(displayPrice.currency === 'NGN' ? 'en-NG' : 'en-US', {
+                    style: 'currency',
+                    currency: displayPrice.currency,
+                    minimumFractionDigits: 0
+                  }).format(displayPrice.price)}
+                  <span className="text-sm font-normal text-gray-600">/month</span>
+                </div>
+                <p className="text-xs text-gray-500">
+                  Starting from 1 hour/week • Flexible scheduling
+                </p>
+              </div>
+            ) : displayPrice.priceInfo ? (
+              displayPrice.priceInfo.hasDiscount ? (
+                <div className="space-y-2">
+                  {isLocalCurrency() && (
+                    <span className="inline-block bg-red-500 text-white px-2 py-1 rounded-full text-xs font-bold animate-pulse">
+                      🔥 {displayPrice.priceInfo.discountPercentage}% OFF
+                    </span>
+                  )}
+                  <div className="flex flex-col sm:flex-row sm:items-center sm:space-x-2">
+                    <span className="text-lg text-gray-500 line-through">
+                      {displayPrice.priceInfo.originalPrice}
+                    </span>
+                    <span className="text-2xl font-bold text-green-600">
+                      {displayPrice.priceInfo.discountedPrice}
+                    </span>
                   </div>
-                )
-              } else {
-                return (
-                  <span className="text-2xl font-bold text-primary">
-                    {priceInfo.discountedPrice}
-                  </span>
-                )
-              }
-            } else if (course.nairaPrice || course.price) {
-              // Convert NGN to USD first, then format in selected currency
-              const nairaAmount = course.nairaPrice || course.price || 0;
-              const usdEquivalent = nairaAmount / 1650;
-              const priceInfo = formatPriceWithDiscount(usdEquivalent, { applyNigerianDiscount: true })
-              
-              if (priceInfo.hasDiscount) {
-                return (
-                  <div className="space-y-2">
-                    {isLocalCurrency() && (
-                      <span className="inline-block bg-red-500 text-white px-2 py-1 rounded-full text-xs font-bold animate-pulse">
-                        🔥 {priceInfo.discountPercentage}% OFF
-                      </span>
-                    )}
-                    <div className="flex flex-col sm:flex-row sm:items-center sm:space-x-2">
-                      <span className="text-lg text-gray-500 line-through">
-                        {priceInfo.originalPrice}
-                      </span>
-                      <span className="text-2xl font-bold text-green-600">
-                        {priceInfo.discountedPrice}
-                      </span>
-                    </div>
-                  </div>
-                )
-              } else {
-                return (
-                  <span className="text-2xl font-bold text-primary">
-                    {priceInfo.discountedPrice}
-                  </span>
-                )
-              }
-            } else {
-              return <span className="text-2xl font-bold text-green-600">Free</span>
-            }
-          })()}
+                </div>
+              ) : (
+                <span className="text-2xl font-bold text-primary">
+                  {displayPrice.priceInfo.discountedPrice}
+                </span>
+              )
+            ) : null
+          ) : (
+            <span className="text-2xl font-bold text-green-600">Free</span>
+          )}
         </div>
         
         {/* Action Buttons */}
@@ -215,7 +234,7 @@ function CourseCard({ course, onEnrollClick }: { course: Course; onEnrollClick: 
           <button
             onClick={() => onEnrollClick(course)}
             className="inline-flex items-center justify-center w-full px-4 py-3 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
-            aria-label={`Enroll in ${safeTitle}`}
+            aria-label={`${isLiveCourse ? 'Start live sessions for' : 'Enroll in'} ${safeTitle}`}
           >
             <svg 
               className="w-4 h-4 mr-2" 
@@ -226,7 +245,7 @@ function CourseCard({ course, onEnrollClick }: { course: Course; onEnrollClick: 
             >
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
             </svg>
-            <span>Enroll Now</span>
+            <span>{isLiveCourse ? 'Start Live Sessions' : 'Enroll Now'}</span>
           </button>
           
           <Link
@@ -309,9 +328,12 @@ export default function FeaturedCourses({ className = "" }: FeaturedCoursesProps
         // Debug: Log pricing data for featured courses
         data?.forEach(course => {
           console.log(`🎆 [FEATURED PRICING DEBUG] ${course.title}:`, {
+            courseType: course.courseType,
             nairaPrice: course.nairaPrice,
             dollarPrice: course.dollarPrice,
-            price: course.price
+            price: course.price,
+            hourlyRateUSD: course.hourlyRateUSD,
+            hourlyRateNGN: course.hourlyRateNGN
           });
         });
         
@@ -414,7 +436,7 @@ export default function FeaturedCourses({ className = "" }: FeaturedCoursesProps
             Featured Courses
           </h2>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            Discover our most popular and highly-rated courses designed to advance your digital skills
+            Discover our most popular courses with flexible pricing options - from self-paced learning to personalized live sessions
           </p>
           
           {/* Temporary Debug Info */}
@@ -459,9 +481,12 @@ export default function FeaturedCourses({ className = "" }: FeaturedCoursesProps
                     <p className="text-red-600 text-sm mb-4">
                       Error rendering course card. Check console for details.
                     </p>
-                    {course.nairaPrice && (
+                    {(course.nairaPrice || course.hourlyRateNGN) && (
                       <p className="text-primary font-bold">
-                        ₦{course.nairaPrice.toLocaleString()}
+                        {course.courseType === 'live' && course.hourlyRateNGN
+                          ? `₦${course.hourlyRateNGN.toLocaleString()}/hour`
+                          : `₦${(course.nairaPrice || 0).toLocaleString()}`
+                        }
                       </p>
                     )}
                   </div>

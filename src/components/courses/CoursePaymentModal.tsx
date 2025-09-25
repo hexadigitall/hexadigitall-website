@@ -5,8 +5,9 @@ import { Modal } from '@/components/ui/Modal'
 import { useCurrency } from '@/contexts/CurrencyContext'
 import { CheckIcon } from '@heroicons/react/24/outline'
 import Image from 'next/image'
+import CoursePricingCalculator, { PricingConfiguration } from './CoursePricingCalculator'
 
-// Course interface for the modal
+// Enhanced Course interface for the modal
 interface Course {
   _id: string
   title: string
@@ -16,15 +17,29 @@ interface Course {
   duration: string
   level: string
   instructor: string
+  courseType?: 'self-paced' | 'live'
+  // Legacy pricing (self-paced courses)
   nairaPrice?: number
   dollarPrice?: number
-  price?: number // Legacy field for backward compatibility
+  price?: number
+  // Live course pricing
+  hourlyRateUSD?: number
+  hourlyRateNGN?: number
+  schedulingOptions?: {
+    minHoursPerSession: number
+    maxHoursPerSession: number
+    minSessionsPerWeek: number
+    maxSessionsPerWeek: number
+    defaultHours: number
+  }
   includes?: string[]
   curriculum?: {
     modules: number
     lessons: number
     duration: string
   }
+  sessionFormats?: string[]
+  timeZones?: string[]
 }
 
 // Payment plan options for courses
@@ -77,31 +92,49 @@ export function CoursePaymentModal({
 }: CoursePaymentModalProps) {
   const { formatPrice, formatPriceWithDiscount, currentCurrency, getLocalDiscountMessage } = useCurrency()
   const [selectedPaymentPlan, setSelectedPaymentPlan] = useState<PaymentPlan>(COURSE_PAYMENT_PLANS[0])
+  const [pricingConfiguration, setPricingConfiguration] = useState<PricingConfiguration | null>(null)
   const [studentDetails, setStudentDetails] = useState({
     fullName: '',
     email: '',
     phone: '',
     experience: '',
-    goals: ''
+    goals: '',
+    preferredSchedule: ''
   })
 
   const discountMessage = getLocalDiscountMessage()
+  const isLiveCourse = course.courseType === 'live'
   
-  // Determine the course price to use
-  const coursePrice = (course.dollarPrice && course.dollarPrice > 0) ? course.dollarPrice : (course.nairaPrice || course.price || 0)
-  const useDollarPrice = !!(course.dollarPrice && course.dollarPrice > 0)
+  // For legacy courses, determine the course price to use
+  const legacyCoursePrice = (course.dollarPrice && course.dollarPrice > 0) ? course.dollarPrice : (course.nairaPrice || course.price || 0)
+  const useLegacyDollarPrice = !!(course.dollarPrice && course.dollarPrice > 0)
   
   // Check if course qualifies for installments (above $200 or ₦150,000 threshold)
-  const qualifiesForInstallments = useDollarPrice ? coursePrice >= 200 : coursePrice >= 150000
+  const qualifiesForInstallments = useLegacyDollarPrice ? legacyCoursePrice >= 200 : legacyCoursePrice >= 150000
+
+  const getCurrentPrice = () => {
+    if (isLiveCourse && pricingConfiguration) {
+      return pricingConfiguration.totalMonthlyPrice
+    }
+    return legacyCoursePrice
+  }
+
+  const handlePriceChange = (totalPrice: number, configuration: PricingConfiguration) => {
+    setPricingConfiguration(configuration)
+  }
 
   const handleEnrollment = async () => {
     try {
+      const currentPrice = getCurrentPrice()
+      
       const enrollmentData = {
         courseId: course._id,
+        courseType: course.courseType || 'self-paced',
         studentDetails,
         paymentPlan: selectedPaymentPlan,
-        amount: useDollarPrice ? coursePrice : coursePrice / 1650, // Convert NGN to USD if needed
-        currency: useDollarPrice ? currentCurrency.code : 'NGN'
+        amount: isLiveCourse ? currentPrice : (useLegacyDollarPrice ? currentPrice : currentPrice / 1650), // Convert NGN to USD if needed
+        currency: (isLiveCourse && pricingConfiguration) ? pricingConfiguration.currency : (useLegacyDollarPrice ? currentCurrency.code : 'NGN'),
+        pricingConfiguration: isLiveCourse ? pricingConfiguration : null
       }
 
       const response = await fetch('/api/course-enrollment', {
@@ -133,7 +166,7 @@ export function CoursePaymentModal({
     >
       <div className="space-y-6">
         {/* Nigerian discount banner */}
-        {discountMessage && (
+        {discountMessage && !isLiveCourse && (
           <div className="bg-gradient-to-r from-green-50 to-green-100 border border-green-200 rounded-xl p-4">
             <div className="flex items-center space-x-2 text-green-800">
               <span>🇳🇬</span>
@@ -142,6 +175,20 @@ export function CoursePaymentModal({
             </div>
             <p className="text-green-700 text-sm mt-1">
               Special pricing for Nigerian clients - limited time offer!
+            </p>
+          </div>
+        )}
+
+        {/* Live Course Info Banner */}
+        {isLiveCourse && (
+          <div className="bg-gradient-to-r from-blue-50 to-purple-50 border border-blue-200 rounded-xl p-4">
+            <div className="flex items-center space-x-2 text-blue-800">
+              <span>🎓</span>
+              <span className="font-medium">Live Mentoring Course</span>
+              <span>✨</span>
+            </div>
+            <p className="text-blue-700 text-sm mt-1">
+              Personalized live sessions with flexible scheduling and monthly billing.
             </p>
           </div>
         )}
@@ -172,10 +219,21 @@ export function CoursePaymentModal({
               <span><span className="sr-only">Instructor: </span>👨‍🏫 {course.instructor}</span>
               <span><span className="sr-only">Duration: </span>⏱️ {course.duration}</span>
               <span><span className="sr-only">Level: </span>📊 {course.level}</span>
+              {isLiveCourse && <span className="bg-blue-100 text-blue-800 px-2 py-1 rounded-full text-xs font-medium">Live Sessions</span>}
             </div>
             <p className="text-sm text-gray-600 line-clamp-2">{course.description}</p>
           </div>
         </div>
+
+        {/* Live Course Pricing Calculator */}
+        {isLiveCourse && course.hourlyRateUSD && course.hourlyRateNGN && (
+          <CoursePricingCalculator
+            hourlyRateUSD={course.hourlyRateUSD}
+            hourlyRateNGN={course.hourlyRateNGN}
+            schedulingOptions={course.schedulingOptions}
+            onPriceChange={handlePriceChange}
+          />
+        )}
 
         {/* Course Details */}
         {course.curriculum && (
@@ -272,11 +330,25 @@ export function CoursePaymentModal({
                 <option value="advanced">Advanced</option>
               </select>
             </div>
+            {isLiveCourse && (
+              <div className="md:col-span-2">
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Preferred Schedule (Optional)
+                </label>
+                <textarea
+                  value={studentDetails.preferredSchedule}
+                  onChange={(e) => setStudentDetails({ ...studentDetails, preferredSchedule: e.target.value })}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary"
+                  rows={2}
+                  placeholder="e.g., Weekdays after 6 PM WAT, Weekends preferred"
+                />
+              </div>
+            )}
           </div>
         </div>
 
-        {/* Payment Plan Selection - Only for courses above threshold */}
-        {qualifiesForInstallments && (
+        {/* Payment Plan Selection - Only for legacy courses above threshold */}
+        {!isLiveCourse && qualifiesForInstallments && (
           <div>
             <h4 className="font-semibold text-gray-900 mb-3">Choose Payment Plan</h4>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
@@ -302,14 +374,14 @@ export function CoursePaymentModal({
                   
                   {plan.installments > 1 && (
                     <div className="text-xs text-gray-500">
-                      <div>Today: {useDollarPrice 
-                        ? formatPrice((coursePrice * plan.downPayment / 100) + plan.processingFee, { applyNigerianDiscount: true })
-                        : `₦${((coursePrice * plan.downPayment / 100) + (plan.processingFee * 1650)).toLocaleString()}`
+                      <div>Today: {useLegacyDollarPrice 
+                        ? formatPrice((legacyCoursePrice * plan.downPayment / 100) + plan.processingFee, { applyNigerianDiscount: true })
+                        : `₦${((legacyCoursePrice * plan.downPayment / 100) + (plan.processingFee * 1650)).toLocaleString()}`
                       }</div>
                       {plan.installments > 1 && (
-                        <div>Then: {plan.installments - 1} × {useDollarPrice
-                          ? formatPrice((coursePrice * (100 - plan.downPayment) / 100) / (plan.installments - 1), { applyNigerianDiscount: true })
-                          : `₦${((coursePrice * (100 - plan.downPayment) / 100) / (plan.installments - 1)).toLocaleString()}`
+                        <div>Then: {plan.installments - 1} × {useLegacyDollarPrice
+                          ? formatPrice((legacyCoursePrice * (100 - plan.downPayment) / 100) / (plan.installments - 1), { applyNigerianDiscount: true })
+                          : `₦${((legacyCoursePrice * (100 - plan.downPayment) / 100) / (plan.installments - 1)).toLocaleString()}`
                         }</div>
                       )}
                     </div>
@@ -327,10 +399,21 @@ export function CoursePaymentModal({
           <div className="flex justify-between items-start mb-4">
             <div>
               <h5 className="font-medium text-gray-900">{course.title}</h5>
-              <p className="text-sm text-gray-600">Course Enrollment</p>
+              <p className="text-sm text-gray-600">
+                {isLiveCourse ? 'Live Mentoring Course (Monthly)' : 'Course Enrollment'}
+              </p>
             </div>
             <div className="text-right">
-              {course.dollarPrice && course.dollarPrice > 0 ? (
+              {isLiveCourse && pricingConfiguration ? (
+                <div className="text-lg font-bold text-green-600">
+                  {new Intl.NumberFormat(pricingConfiguration.currency === 'NGN' ? 'en-NG' : 'en-US', {
+                    style: 'currency',
+                    currency: pricingConfiguration.currency,
+                    minimumFractionDigits: 0
+                  }).format(pricingConfiguration.totalMonthlyPrice)}
+                  <span className="text-sm font-normal text-gray-600">/month</span>
+                </div>
+              ) : course.dollarPrice && course.dollarPrice > 0 ? (
                 <div>
                   {(() => {
                     const priceInfo = formatPriceWithDiscount(course.dollarPrice, { applyNigerianDiscount: true })
@@ -393,7 +476,7 @@ export function CoursePaymentModal({
             </div>
           </div>
 
-          {qualifiesForInstallments && selectedPaymentPlan.installments > 1 && (
+          {!isLiveCourse && qualifiesForInstallments && selectedPaymentPlan.installments > 1 && (
             <div className="border-t pt-4">
               <div className="bg-blue-50 rounded-lg p-3">
                 <div className="flex items-center justify-between mb-2">
@@ -405,9 +488,9 @@ export function CoursePaymentModal({
                   <div className="flex justify-between items-center">
                     <span className="text-sm text-blue-700 font-medium">Today&apos;s Payment:</span>
                     <span className="text-sm font-bold text-green-600">
-                      {useDollarPrice 
-                        ? formatPrice((coursePrice * selectedPaymentPlan.downPayment / 100) + selectedPaymentPlan.processingFee, { applyNigerianDiscount: true })
-                        : `₦${((coursePrice * selectedPaymentPlan.downPayment / 100) + (selectedPaymentPlan.processingFee * 1650)).toLocaleString()}`
+                      {useLegacyDollarPrice 
+                        ? formatPrice((legacyCoursePrice * selectedPaymentPlan.downPayment / 100) + selectedPaymentPlan.processingFee, { applyNigerianDiscount: true })
+                        : `₦${((legacyCoursePrice * selectedPaymentPlan.downPayment / 100) + (selectedPaymentPlan.processingFee * 1650)).toLocaleString()}`
                       }
                     </span>
                   </div>
@@ -422,9 +505,9 @@ export function CoursePaymentModal({
                       Remaining {selectedPaymentPlan.installments - 1} payments:
                     </span>
                     <span className="text-sm font-medium text-blue-600">
-                      {useDollarPrice
-                        ? formatPrice((coursePrice * (100 - selectedPaymentPlan.downPayment) / 100) / (selectedPaymentPlan.installments - 1), { applyNigerianDiscount: true })
-                        : `₦${((coursePrice * (100 - selectedPaymentPlan.downPayment) / 100) / (selectedPaymentPlan.installments - 1)).toLocaleString()}`
+                      {useLegacyDollarPrice
+                        ? formatPrice((legacyCoursePrice * (100 - selectedPaymentPlan.downPayment) / 100) / (selectedPaymentPlan.installments - 1), { applyNigerianDiscount: true })
+                        : `₦${((legacyCoursePrice * (100 - selectedPaymentPlan.downPayment) / 100) / (selectedPaymentPlan.installments - 1)).toLocaleString()}`
                       } each
                     </span>
                   </div>
@@ -433,9 +516,9 @@ export function CoursePaymentModal({
             </div>
           )}
 
-          {discountMessage && useDollarPrice && (
+          {discountMessage && useLegacyDollarPrice && !isLiveCourse && (
             <div className="text-sm text-green-600 text-right mt-2">
-              You save {formatPrice(coursePrice * 0.5)}!
+              You save {formatPrice(legacyCoursePrice * 0.5)}!
             </div>
           )}
         </div>
@@ -451,15 +534,18 @@ export function CoursePaymentModal({
           
           <button
             onClick={handleEnrollment}
-            disabled={!studentDetails.fullName || !studentDetails.email || !studentDetails.phone}
+            disabled={!studentDetails.fullName || !studentDetails.email || !studentDetails.phone || (isLiveCourse && !pricingConfiguration)}
             className="flex-1 px-6 py-3 bg-primary text-white rounded-xl font-medium hover:bg-primary/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            {qualifiesForInstallments && selectedPaymentPlan.installments > 1
-              ? `Pay ${useDollarPrice 
-                  ? formatPrice((coursePrice * selectedPaymentPlan.downPayment / 100) + selectedPaymentPlan.processingFee, { applyNigerianDiscount: true })
-                  : `₦${((coursePrice * selectedPaymentPlan.downPayment / 100) + (selectedPaymentPlan.processingFee * 1650)).toLocaleString()}`
-                } & Enroll`
-              : 'Enroll Now'
+            {isLiveCourse 
+              ? 'Start Live Sessions'
+              : (!isLiveCourse && qualifiesForInstallments && selectedPaymentPlan.installments > 1
+                ? `Pay ${useLegacyDollarPrice 
+                    ? formatPrice((legacyCoursePrice * selectedPaymentPlan.downPayment / 100) + selectedPaymentPlan.processingFee, { applyNigerianDiscount: true })
+                    : `₦${((legacyCoursePrice * selectedPaymentPlan.downPayment / 100) + (selectedPaymentPlan.processingFee * 1650)).toLocaleString()}`
+                  } & Enroll`
+                : 'Enroll Now'
+              )
             }
           </button>
         </div>
@@ -473,10 +559,22 @@ export function CoursePaymentModal({
             <div className="text-sm text-blue-800">
               <p className="font-medium mb-1">What happens after enrollment?</p>
               <ul className="space-y-1 text-blue-700">
-                <li>• You&apos;ll receive immediate access to course materials</li>
-                <li>• Welcome email with login credentials and course roadmap</li>
-                <li>• Access to our private student community</li>
-                <li>• 30-day money-back guarantee</li>
+                {isLiveCourse ? (
+                  <>
+                    <li>• We&apos;ll contact you within 24 hours to schedule your first session</li>
+                    <li>• Flexible scheduling based on your preferences</li>
+                    <li>• Access to course materials and resources</li>
+                    <li>• Monthly billing for ongoing sessions</li>
+                    <li>• Cancel or pause anytime with 1-week notice</li>
+                  </>
+                ) : (
+                  <>
+                    <li>• You&apos;ll receive immediate access to course materials</li>
+                    <li>• Welcome email with login credentials and course roadmap</li>
+                    <li>• Access to our private student community</li>
+                    <li>• 30-day money-back guarantee</li>
+                  </>
+                )}
               </ul>
             </div>
           </div>
