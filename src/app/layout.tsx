@@ -1,6 +1,6 @@
 // src/app/layout.tsx
 import type { Metadata, Viewport } from 'next'; // 👈 1. Import Viewport
-import { Montserrat, Lato } from 'next/font/google';
+// import { Montserrat, Lato } from 'next/font/google';
 import './globals.css';
 import { Toaster } from 'react-hot-toast'
 import { PerformanceMonitor } from '@/components/ui/PerformanceMonitor'
@@ -14,22 +14,15 @@ import GoogleAnalytics from '@/components/GoogleAnalytics';
 import SEOStructuredData from '@/components/SEOStructuredData';
 
 // Define the fonts from your style guide with performance optimizations
-const montserrat = Montserrat({
-  subsets: ['latin'],
+// Temporarily disabled Google Fonts due to network restrictions
+const montserrat = {
   variable: '--font-montserrat',
-  weight: ['700'],
-  display: 'swap', // Improve font loading performance
-  preload: true,
-  fallback: ['system-ui', 'Arial', 'sans-serif'],
-});
-const lato = Lato({
-  subsets: ['latin'],
+  className: 'font-sans'
+};
+const lato = {
   variable: '--font-lato',
-  weight: ['400', '700'],
-  display: 'swap', // Improve font loading performance
-  preload: true,
-  fallback: ['system-ui', 'Arial', 'sans-serif'],
-});
+  className: 'font-sans'
+};
 
 // ✅ Enhanced metadata for SEO and accessibility
 export const metadata: Metadata = {
