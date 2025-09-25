@@ -1,7 +1,6 @@
 'use client'
 
 import { useState, useEffect, useRef } from 'react'
-import Link from 'next/link'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useCurrency } from '@/contexts/CurrencyContext'
 import { CTAButton } from '@/components/ui/CTAButton'

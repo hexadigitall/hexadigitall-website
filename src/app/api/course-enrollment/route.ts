@@ -5,6 +5,7 @@ import { client, writeClient } from '@/sanity/client';
 import { groq } from 'next-sanity';
 import { emailService } from '@/lib/email';
 import { CourseEnrollmentData } from '@/lib/email-types';
+import Stripe from 'stripe';
 
 interface StudentDetails {
   fullName: string;
@@ -59,13 +60,57 @@ interface Course {
   currentEnrollments?: number;
 }
 
+interface SanityReference {
+  _type: 'reference';
+  _ref: string;
+}
+
+interface PendingEnrollmentData {
+  _type: 'pendingEnrollment';
+  courseId: SanityReference;
+  courseType: 'live' | 'self-paced';
+  studentName: string;
+  studentEmail: string;
+  studentPhone: string;
+  experience?: string;
+  goals?: string;
+  preferredSchedule?: string;
+  stripeSessionId: string;
+  amount: number;
+  currency: string;
+  status: string;
+  createdAt: string;
+  pricingConfiguration?: PricingConfiguration;
+}
+
+interface EnrollmentData {
+  _type: 'enrollment';
+  courseId: SanityReference;
+  courseType: 'live' | 'self-paced';
+  studentName: string;
+  studentEmail: string;
+  studentPhone: string;
+  experience?: string;
+  goals?: string;
+  preferredSchedule?: string;
+  enrolledAt: string;
+  paymentStatus: string;
+  stripeSessionId: string;
+  amount: number | null;
+  liveCourseDetails?: {
+    hoursPerWeek: number;
+    sessionFormat: string;
+    totalHours?: number;
+    monthlyAmount: number | null;
+  };
+}
+
 export async function POST(request: Request) {
   try {
     const { 
       courseId, 
       courseType = 'self-paced',
       studentDetails, 
-      paymentPlan,
       amount,
       currency,
       pricingConfiguration
@@ -172,7 +217,7 @@ export async function POST(request: Request) {
       
     const cancelUrl = `${process.env.NEXT_PUBLIC_SITE_URL}/courses?enrollment=cancelled`;
 
-    const sessionCreateData: any = {
+    const sessionCreateData: Stripe.Checkout.SessionCreateParams = {
       mode: 'payment',
       payment_method_types: ['card'],
       line_items: [{
@@ -242,7 +287,7 @@ export async function POST(request: Request) {
     const session = await stripe.checkout.sessions.create(sessionCreateData);
 
     // Store pending enrollment
-    const pendingEnrollmentData: any = {
+    const pendingEnrollmentData: PendingEnrollmentData = {
       _type: 'pendingEnrollment',
       courseId: {
         _type: 'reference',
@@ -349,13 +394,13 @@ export async function PUT(request: Request) {
     }
 
     // Create confirmed enrollment
-    const enrollmentData: any = {
+    const enrollmentData: EnrollmentData = {
       _type: 'enrollment',
       courseId: {
         _type: 'reference',
         _ref: courseId,
       },
-      courseType: courseType || 'self-paced',
+      courseType: (courseType as 'live' | 'self-paced') || 'self-paced',
       studentName,
       studentEmail,
       studentPhone,
