@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Service Modal - Purchase Service Button Fix</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 p-8">
+    <div class="max-w-4xl mx-auto">
+        <h1 class="text-3xl font-bold mb-2 text-center">Purchase Service Button Fix - Demonstration</h1>
+        <p class="text-gray-600 text-center mb-8">This demonstrates what the new ServiceRequestFlow modal should look like when clicking "Purchase Service"</p>
+        
+        <!-- Mock Service Card -->
+        <div class="bg-white p-6 rounded-xl shadow-md hover:shadow-xl transition-all duration-300 max-w-md mx-auto">
+            <h2 class="text-xl font-bold mb-3">Web Development Service</h2>
+            <p class="text-gray-600 mb-4">Create modern, responsive websites with cutting-edge technology.</p>
+            
+            <div class="mb-4">
+                <p class="text-gray-600 text-sm mb-1">Starting from</p>
+                <div class="text-2xl font-bold text-blue-600">$199</div>
+            </div>
+            
+            <div class="space-y-3">
+                <button
+                    id="purchaseBtn"
+                    class="w-full inline-flex items-center justify-center px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-colors"
+                >
+                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-1.5 6M7 13l-1.5-6m0 0h15M17 21a2 2 0 100-4 2 2 0 000 4zM9 21a2 2 0 100-4 2 2 0 000 4z" />
+                    </svg>
+                    Purchase Service
+                </button>
+                <div class="text-center text-sm text-gray-500">
+                    ↑ This now opens ServiceRequestFlow modal instead of redirecting to /contact
+                </div>
+            </div>
+        </div>
+
+        <!-- Mock Modal (hidden by default) -->
+        <div id="modal" class="fixed inset-0 bg-black/60 z-50 hidden items-center justify-center p-4">
+            <div class="bg-white rounded-2xl shadow-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto">
+                <div class="bg-blue-600 text-white p-6 rounded-t-2xl">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <h2 class="text-2xl font-bold">Web Development Service</h2>
+                            <p class="text-blue-100 mt-1">Create modern, responsive websites with cutting-edge technology.</p>
+                        </div>
+                        <button id="closeBtn" class="text-white hover:text-gray-200 transition-colors">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                            </svg>
+                        </button>
+                    </div>
+                    
+                    <!-- Progress Steps -->
+                    <div class="flex items-center space-x-4 mt-6">
+                        <div class="flex items-center space-x-2">
+                            <div class="w-8 h-8 bg-white text-blue-600 rounded-full flex items-center justify-center font-bold text-sm">1</div>
+                            <span class="text-sm font-medium">Select Package</span>
+                        </div>
+                        <div class="w-8 h-px bg-blue-300"></div>
+                        <div class="flex items-center space-x-2 opacity-60">
+                            <div class="w-8 h-8 border-2 border-blue-300 rounded-full flex items-center justify-center font-bold text-sm">2</div>
+                            <span class="text-sm">Project Details</span>
+                        </div>
+                        <div class="w-8 h-px bg-blue-300 opacity-60"></div>
+                        <div class="flex items-center space-x-2 opacity-60">
+                            <div class="w-8 h-8 border-2 border-blue-300 rounded-full flex items-center justify-center font-bold text-sm">3</div>
+                            <span class="text-sm">Payment</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="p-8">
+                    <h3 class="text-xl font-bold mb-6">Choose Your Package</h3>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <!-- Basic Package -->
+                        <div class="border-2 border-gray-200 rounded-xl p-6 hover:border-blue-300 transition-colors cursor-pointer">
+                            <h4 class="font-bold text-lg mb-2">Basic Package</h4>
+                            <div class="text-3xl font-bold text-blue-600 mb-2">$199</div>
+                            <p class="text-gray-600 text-sm mb-4">Essential service package with core features</p>
+                            <ul class="text-sm text-gray-700 space-y-2 mb-4">
+                                <li class="flex items-start">
+                                    <svg class="w-4 h-4 text-green-500 mr-2 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                                    </svg>
+                                    Responsive design
+                                </li>
+                                <li class="flex items-start">
+                                    <svg class="w-4 h-4 text-green-500 mr-2 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                                    </svg>
+                                    Up to 5 pages
+                                </li>
+                                <li class="flex items-start">
+                                    <svg class="w-4 h-4 text-green-500 mr-2 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                                    </svg>
+                                    Contact form
+                                </li>
+                                <li class="flex items-start">
+                                    <svg class="w-4 h-4 text-green-500 mr-2 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                                    </svg>
+                                    Basic SEO
+                                </li>
+                                <li class="flex items-start">
+                                    <svg class="w-4 h-4 text-green-500 mr-2 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                                    </svg>
+                                    30-day support
+                                </li>
+                            </ul>
+                            <div class="text-xs text-gray-500 mb-4">Delivery: 5-7 business days</div>
+                            <button class="w-full bg-gray-100 hover:bg-gray-200 text-gray-800 font-medium py-2 px-4 rounded-lg transition-colors">
+                                Select Basic
+                            </button>
+                        </div>
+                        
+                        <!-- Professional Package -->
+                        <div class="border-2 border-blue-500 rounded-xl p-6 bg-blue-50 relative">
+                            <div class="absolute -top-3 left-1/2 transform -translate-x-1/2">
+                                <span class="bg-blue-500 text-white px-3 py-1 text-xs font-bold rounded-full">Most Popular</span>
+                            </div>
+                            <h4 class="font-bold text-lg mb-2">Professional Package</h4>
+                            <div class="text-3xl font-bold text-blue-600 mb-2">$399</div>
+                            <p class="text-gray-600 text-sm mb-4">Comprehensive service with advanced features</p>
+                            <ul class="text-sm text-gray-700 space-y-2 mb-4">
+                                <li class="flex items-start">
+                                    <svg class="w-4 h-4 text-green-500 mr-2 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                                    </svg>
+                                    Custom design
+                                </li>
+                                <li class="flex items-start">
+                                    <svg class="w-4 h-4 text-green-500 mr-2 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                                    </svg>
+                                    Up to 10 pages
+                                </li>
+                                <li class="flex items-start">
+                                    <svg class="w-4 h-4 text-green-500 mr-2 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                                    </svg>
+                                    Advanced forms
+                                </li>
+                                <li class="flex items-start">
+                                    <svg class="w-4 h-4 text-green-500 mr-2 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                                    </svg>
+                                    SEO optimization
+                                </li>
+                                <li class="flex items-start">
+                                    <svg class="w-4 h-4 text-green-500 mr-2 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                                    </svg>
+                                    Analytics setup
+                                </li>
+                                <li class="flex items-start">
+                                    <svg class="w-4 h-4 text-green-500 mr-2 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                                    </svg>
+                                    90-day support
+                                </li>
+                            </ul>
+                            <div class="text-xs text-gray-500 mb-4">Delivery: 7-10 business days</div>
+                            <button class="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg transition-colors">
+                                Select Professional
+                            </button>
+                        </div>
+                        
+                        <!-- Premium Package -->
+                        <div class="border-2 border-gray-200 rounded-xl p-6 hover:border-blue-300 transition-colors cursor-pointer">
+                            <h4 class="font-bold text-lg mb-2">Premium Package</h4>
+                            <div class="text-3xl font-bold text-blue-600 mb-2">$699</div>
+                            <p class="text-gray-600 text-sm mb-4">Complete solution with premium features</p>
+                            <ul class="text-sm text-gray-700 space-y-2 mb-4">
+                                <li class="flex items-start">
+                                    <svg class="w-4 h-4 text-green-500 mr-2 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                                    </svg>
+                                    Premium custom design
+                                </li>
+                                <li class="flex items-start">
+                                    <svg class="w-4 h-4 text-green-500 mr-2 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                                    </svg>
+                                    Unlimited pages
+                                </li>
+                                <li class="flex items-start">
+                                    <svg class="w-4 h-4 text-green-500 mr-2 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                                    </svg>
+                                    E-commerce integration
+                                </li>
+                                <li class="flex items-start">
+                                    <svg class="w-4 h-4 text-green-500 mr-2 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                                    </svg>
+                                    Advanced SEO
+                                </li>
+                                <li class="flex items-start">
+                                    <svg class="w-4 h-4 text-green-500 mr-2 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                                    </svg>
+                                    CMS integration
+                                </li>
+                                <li class="flex items-start">
+                                    <svg class="w-4 h-4 text-green-500 mr-2 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                                    </svg>
+                                    1-year support
+                                </li>
+                            </ul>
+                            <div class="text-xs text-gray-500 mb-4">Delivery: 10-14 business days</div>
+                            <button class="w-full bg-gray-100 hover:bg-gray-200 text-gray-800 font-medium py-2 px-4 rounded-lg transition-colors">
+                                Select Premium
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="mt-8 p-6 bg-green-100 border border-green-300 rounded-lg">
+            <h3 class="text-lg font-bold text-green-800 mb-2">✅ Changes Implemented</h3>
+            <ul class="text-green-700 space-y-1">
+                <li>• Purchase Service button now opens ServiceRequestFlow modal</li>
+                <li>• Service interface mapped to ServiceCategory interface</li>
+                <li>• Generated appropriate packages based on service type</li>
+                <li>• Removed unused ServicePaymentModal dependency</li>
+                <li>• No more redirect to /contact page for individual services</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        // Mock functionality to show modal
+        document.getElementById('purchaseBtn').addEventListener('click', function() {
+            document.getElementById('modal').classList.remove('hidden');
+            document.getElementById('modal').classList.add('flex');
+        });
+        
+        document.getElementById('closeBtn').addEventListener('click', function() {
+            document.getElementById('modal').classList.add('hidden');
+            document.getElementById('modal').classList.remove('flex');
+        });
+        
+        // Close on backdrop click
+        document.getElementById('modal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                this.classList.add('hidden');
+                this.classList.remove('flex');
+            }
+        });
+    </script>
+</body>
+</html>

@@ -4,14 +4,13 @@
 import * as React from 'react'
 import { useState, useEffect, Suspense } from 'react'
 import Link from 'next/link'
-import { ServiceRequestFlow, ServiceCategory } from '@/components/services/ServiceRequestFlow'
+import { ServiceRequestFlow, ServiceCategory, Package } from '@/components/services/ServiceRequestFlow'
 import { useCurrency } from '@/contexts/CurrencyContext'
 import { DiscountBanner } from '@/components/ui/DiscountBanner'
 import { CompactPriceDisplay } from '@/components/ui/PriceDisplay'
 import { RequestServiceCTA, ContactCTA } from '@/components/ui/CTAButton'
 import { SparklesIcon } from '@heroicons/react/24/outline'
 import { SearchParamsHandler } from '@/components/services/SearchParamsHandler'
-import { ServicePaymentModal } from '@/components/services/ServicePaymentModal'
 
 interface Service {
   _id: string
@@ -24,6 +23,121 @@ interface Service {
 
 // Queries moved to API routes for better performance
 
+// Function to convert Service to ServiceCategory for the ServiceRequestFlow modal
+const mapServiceToServiceCategory = (service: Service): ServiceCategory => {
+  // Generate packages similar to ServicePaymentModal's getDefaultPackages
+  const generatePackages = (serviceSlug: string): Package[] => {
+    const basePackages = [
+      {
+        _key: `basic-${service._id}`,
+        name: 'Basic Package',
+        tier: 'basic' as const,
+        price: serviceSlug.includes('mobile') || serviceSlug.includes('app') ? 499 : 199,
+        currency: 'USD',
+        billing: 'one_time' as const,
+        deliveryTime: '5-7 business days',
+        features: serviceSlug.includes('web') || serviceSlug.includes('website') ? [
+          'Responsive design',
+          'Up to 5 pages',
+          'Contact form',
+          'Basic SEO',
+          '30-day support'
+        ] : serviceSlug.includes('mobile') || serviceSlug.includes('app') ? [
+          'Basic app design',
+          'Core functionality',
+          'iOS or Android',
+          'App store submission',
+          '30-day support'
+        ] : [
+          'Initial consultation',
+          'Basic implementation',
+          'Email support',
+          '30-day warranty'
+        ]
+      },
+      {
+        _key: `standard-${service._id}`,
+        name: 'Professional Package',
+        tier: 'standard' as const,
+        price: serviceSlug.includes('mobile') || serviceSlug.includes('app') ? 999 : 399,
+        currency: 'USD',
+        billing: 'one_time' as const,
+        deliveryTime: '7-10 business days',
+        popular: true,
+        features: serviceSlug.includes('web') || serviceSlug.includes('website') ? [
+          'Custom design',
+          'Up to 10 pages',
+          'Advanced forms',
+          'SEO optimization',
+          'Analytics setup',
+          '90-day support'
+        ] : serviceSlug.includes('mobile') || serviceSlug.includes('app') ? [
+          'Custom app design',
+          'Advanced functionality',
+          'iOS and Android',
+          'Push notifications',
+          'App store optimization',
+          '90-day support'
+        ] : [
+          'Detailed consultation',
+          'Professional implementation',
+          'Priority support',
+          'Custom features',
+          '90-day warranty',
+          'Training included'
+        ]
+      },
+      {
+        _key: `premium-${service._id}`,
+        name: 'Premium Package',
+        tier: 'premium' as const,
+        price: serviceSlug.includes('mobile') || serviceSlug.includes('app') ? 1999 : 699,
+        currency: 'USD',
+        billing: 'one_time' as const,
+        deliveryTime: '10-14 business days',
+        features: serviceSlug.includes('web') || serviceSlug.includes('website') ? [
+          'Premium custom design',
+          'Unlimited pages',
+          'E-commerce integration',
+          'Advanced SEO',
+          'Analytics & tracking',
+          'CMS integration',
+          '1-year support'
+        ] : serviceSlug.includes('mobile') || serviceSlug.includes('app') ? [
+          'Premium app design',
+          'Full feature set',
+          'iOS and Android',
+          'Backend integration',
+          'Admin dashboard',
+          'Analytics integration',
+          '1-year support'
+        ] : [
+          'In-depth consultation',
+          'Premium implementation',
+          '24/7 priority support',
+          'Custom development',
+          'Advanced features',
+          '1-year warranty',
+          'Training & documentation',
+          '3 months free maintenance'
+        ]
+      }
+    ]
+    
+    return basePackages
+  }
+
+  return {
+    _id: service._id,
+    title: service.title,
+    slug: service.slug,
+    description: service.overview,
+    icon: 'default', // Use default icon since Service doesn't have icon field
+    featured: false,
+    packages: generatePackages(service.slug.current)
+  }
+}
+
 export default function ServicesPage() {
   const [services, setServices] = useState<Service[]>([])
   const [serviceCategories, setServiceCategories] = useState<ServiceCategory[]>([])
@@ -31,7 +145,6 @@ export default function ServicesPage() {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
   const [focusService, setFocusService] = useState<string | null>(null)
-  const [showIndividualServiceModal, setShowIndividualServiceModal] = useState<{show: boolean, service: Service | null}>({show: false, service: null})
   const { getLocalDiscountMessage, currentCurrency, formatPrice } = useCurrency()
   
   const discountMessage = getLocalDiscountMessage()
@@ -392,7 +505,7 @@ export default function ServicesPage() {
                         
                         <div className="space-y-3">
                           <button
-                            onClick={() => setShowIndividualServiceModal({show: true, service})}
+                            onClick={() => setSelectedService(mapServiceToServiceCategory(service))}
                             className="w-full inline-flex items-center justify-center px-6 py-3 bg-primary text-white font-semibold rounded-lg hover:bg-primary/90 transition-colors"
                           >
                             <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -443,17 +556,6 @@ export default function ServicesPage() {
         <ServiceRequestFlow
           serviceCategory={selectedService}
           onClose={() => setSelectedService(null)}
-        />
-      )}
-      
-      {/* Individual Service Payment Modal */}
-      {showIndividualServiceModal.show && showIndividualServiceModal.service && (
-        <ServicePaymentModal
-          isOpen={showIndividualServiceModal.show}
-          onClose={() => setShowIndividualServiceModal({show: false, service: null})}
-          serviceTitle={showIndividualServiceModal.service.title}
-          serviceSlug={showIndividualServiceModal.service.slug.current}
-          packages={[]}
         />
       )}
     </>
