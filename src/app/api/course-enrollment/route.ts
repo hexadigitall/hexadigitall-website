@@ -65,7 +65,6 @@ export async function POST(request: Request) {
       courseId, 
       courseType = 'self-paced',
       studentDetails, 
-      paymentPlan,
       amount,
       currency,
       pricingConfiguration
@@ -172,7 +171,7 @@ export async function POST(request: Request) {
       
     const cancelUrl = `${process.env.NEXT_PUBLIC_SITE_URL}/courses?enrollment=cancelled`;
 
-    const sessionCreateData: any = {
+  const sessionCreateData: Record<string, unknown> = {
       mode: 'payment',
       payment_method_types: ['card'],
       line_items: [{
@@ -242,7 +241,7 @@ export async function POST(request: Request) {
     const session = await stripe.checkout.sessions.create(sessionCreateData);
 
     // Store pending enrollment
-    const pendingEnrollmentData: any = {
+  const pendingEnrollmentData = {
       _type: 'pendingEnrollment',
       courseId: {
         _type: 'reference',
@@ -262,12 +261,12 @@ export async function POST(request: Request) {
       createdAt: new Date().toISOString(),
     };
 
-    // Add pricing configuration for live courses
-    if (pricingConfiguration) {
-      pendingEnrollmentData.pricingConfiguration = pricingConfiguration;
-    }
+    // Add pricing configuration for live courses using object spread
+    const finalPendingEnrollmentData = pricingConfiguration
+      ? { ...pendingEnrollmentData, pricingConfiguration }
+      : pendingEnrollmentData;
 
-    await writeClient.create(pendingEnrollmentData);
+    await writeClient.create(finalPendingEnrollmentData);
 
     return NextResponse.json({ 
       checkoutUrl: session.url,
@@ -349,7 +348,7 @@ export async function PUT(request: Request) {
     }
 
     // Create confirmed enrollment
-    const enrollmentData: any = {
+  const enrollmentData = {
       _type: 'enrollment',
       courseId: {
         _type: 'reference',
@@ -368,17 +367,20 @@ export async function PUT(request: Request) {
       amount: session.amount_total,
     };
 
-    // Add live course specific data
-    if (courseType === 'live' && hoursPerWeek) {
-      enrollmentData.liveCourseDetails = {
-        hoursPerWeek: parseInt(hoursPerWeek),
-        sessionFormat,
-        totalHours: totalHours ? parseInt(totalHours) : undefined,
-        monthlyAmount: session.amount_total,
-      };
-    }
+    // Add live course specific data using object spread
+    const finalEnrollmentData = (courseType === 'live' && hoursPerWeek)
+      ? {
+          ...enrollmentData,
+          liveCourseDetails: {
+            hoursPerWeek: parseInt(hoursPerWeek),
+            sessionFormat,
+            totalHours: totalHours ? parseInt(totalHours) : undefined,
+            monthlyAmount: session.amount_total,
+          }
+        }
+      : enrollmentData;
 
-    const enrollment = await writeClient.create(enrollmentData);
+    const enrollment = await writeClient.create(finalEnrollmentData);
 
     // Delete pending enrollment
     await writeClient.delete(pendingEnrollment._id);

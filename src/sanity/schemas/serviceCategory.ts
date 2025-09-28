@@ -6,6 +6,13 @@ export default defineType({
   type: 'document',
   fields: [
     defineField({
+      name: 'mainImage',
+      title: 'Main Image',
+      type: 'image',
+      options: { hotspot: true },
+      description: 'Main banner or background image for this service category.'
+    }),
+    defineField({
       name: 'title',
       title: 'Category Title',
       type: 'string',
