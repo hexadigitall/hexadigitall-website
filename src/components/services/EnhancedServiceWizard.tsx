@@ -535,19 +535,21 @@ export default function EnhancedServiceWizard({ onClose, onComplete, initialServ
                 
                 <button
                   onClick={() => {
-                    const selectedPackage = generateRecommendations().find(r => r.id === selectedRecommendation)
+                    const allRecommendations = generateRecommendations()
+                    const selectedPackage = allRecommendations.find(r => r.id === selectedRecommendation)
                     onComplete?.({
                       service: selectedService,
                       requirements: selectedRequirements,
                       usage: selectedUsage,
                       integrations: selectedIntegrations,
-                      selectedPackage: selectedPackage,
+                      selectedRecommendation: selectedPackage,
+                      recommendations: allRecommendations,
                       estimate: selectedPackage?.totalPrice || calculateEstimate()
                     })
                   }}
                   className="w-full bg-primary text-white px-8 py-4 rounded-lg hover:bg-primary/90 transition-colors font-semibold text-lg"
                 >
-                  Continue to Contact Form →
+                  Continue to Payment →
                 </button>
               </div>
             </div>

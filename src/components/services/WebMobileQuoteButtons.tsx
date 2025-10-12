@@ -2,8 +2,37 @@
 
 import { useState, ReactNode } from 'react'
 import EnhancedServiceWizard from './EnhancedServiceWizard'
-import ConditionalContactForm from './ConditionalContactForm'
+import ServicePaymentModal from './ServicePaymentModal'
 import SuccessModal from './SuccessModal'
+
+interface ServicePackage {
+  id: string
+  name: string
+  price: number
+  description: string
+  features: string[]
+  popular?: boolean
+  deliveryTime: string
+}
+
+interface WizardRecommendation {
+  id: string
+  name: string
+  totalPrice: number
+  description: string
+  features?: string[]
+  popular?: boolean
+  timeline?: string
+}
+
+interface WizardCompletionData {
+  selectedRecommendation?: WizardRecommendation
+  recommendations?: WizardRecommendation[]
+  requirements?: string[]
+  usage?: string
+  integrations?: string[]
+  estimate?: number
+}
 
 interface WebMobileQuoteButtonsProps {
   children: (props: {
@@ -15,13 +44,13 @@ interface WebMobileQuoteButtonsProps {
 
 export default function WebMobileQuoteButtons({ children }: WebMobileQuoteButtonsProps) {
   const [showWizard, setShowWizard] = useState(false)
-  const [showContactForm, setShowContactForm] = useState(false)
+  const [showPaymentModal, setShowPaymentModal] = useState(false)
   const [showSuccess, setShowSuccess] = useState(false)
   const [wizardConfig, setWizardConfig] = useState<{ 
     serviceType?: string
     quoteType?: 'web' | 'mobile' | 'complete' | 'general' 
   }>({})
-  const [quoteData, setQuoteData] = useState<any>(null)
+  const [recommendedPackages, setRecommendedPackages] = useState<ServicePackage[]>([])
 
   const handleWebQuoteClick = () => {
     setWizardConfig({ serviceType: 'web', quoteType: 'web' })
@@ -38,16 +67,65 @@ export default function WebMobileQuoteButtons({ children }: WebMobileQuoteButton
     setShowWizard(true)
   }
 
-  const handleWizardComplete = (data: any) => {
+  const handleWizardComplete = (data: WizardCompletionData) => {
     console.log('Wizard completed:', data)
-    setQuoteData(data)
+    
+    // Extract recommended packages from wizard data
+    const packages: ServicePackage[] = []
+    
+    if (data.selectedRecommendation) {
+      // Use the selected recommendation from wizard
+      packages.push({
+        id: data.selectedRecommendation.id,
+        name: data.selectedRecommendation.name,
+        price: data.selectedRecommendation.totalPrice,
+        description: data.selectedRecommendation.description,
+        features: data.selectedRecommendation.features || [],
+        popular: data.selectedRecommendation.popular,
+        deliveryTime: data.selectedRecommendation.timeline || '2-4 weeks'
+      })
+    }
+    
+    // Add other recommendations if available
+    if (data.recommendations && Array.isArray(data.recommendations)) {
+      data.recommendations.forEach((rec: WizardRecommendation) => {
+        if (rec.id !== data.selectedRecommendation?.id) {
+          packages.push({
+            id: rec.id,
+            name: rec.name,
+            price: rec.totalPrice,
+            description: rec.description,
+            features: rec.features || [],
+            popular: rec.popular,
+            deliveryTime: rec.timeline || '2-4 weeks'
+          })
+        }
+      })
+    }
+    
+    setRecommendedPackages(packages)
     setShowWizard(false)
-    setShowContactForm(true)
+    setShowPaymentModal(true)
   }
 
-  const handleContactFormSubmit = () => {
-    setShowContactForm(false)
+  const handlePaymentModalClose = () => {
+    setShowPaymentModal(false)
+    // Optionally show success modal or redirect handled by payment modal
     setShowSuccess(true)
+  }
+
+  const getServiceTitle = () => {
+    if (wizardConfig.quoteType === 'web') return 'Web Development Service'
+    if (wizardConfig.quoteType === 'mobile') return 'Mobile App Development Service'
+    if (wizardConfig.quoteType === 'complete') return 'Complete Solution Package'
+    return 'Software Development Service'
+  }
+
+  const getServiceSlug = () => {
+    if (wizardConfig.quoteType === 'web') return 'web-development'
+    if (wizardConfig.quoteType === 'mobile') return 'mobile-app-development'
+    if (wizardConfig.quoteType === 'complete') return 'complete-solution'
+    return 'web-and-mobile-software-development'
   }
 
   return (
@@ -71,20 +149,14 @@ export default function WebMobileQuoteButtons({ children }: WebMobileQuoteButton
         />
       )}
 
-      {/* Contact Form Modal */}
-      {showContactForm && (
-        <ConditionalContactForm
-          isOpen={showContactForm}
-          onClose={() => setShowContactForm(false)}
-          formType="quote"
-          prefilledData={{
-            projectType: wizardConfig.quoteType === 'web' ? 'Web Development' : 
-                        wizardConfig.quoteType === 'mobile' ? 'Mobile App' : 
-                        'Complete Solution',
-            budget: quoteData?.estimate ? `$${quoteData.estimate}` : undefined,
-            message: `Quote request for ${wizardConfig.quoteType} service.\n\nRequirements: ${quoteData?.requirements?.join(', ') || 'N/A'}\nUsage Scale: ${quoteData?.usage || 'N/A'}\nIntegrations: ${quoteData?.integrations?.join(', ') || 'N/A'}`
-          }}
-          onSubmit={handleContactFormSubmit}
+      {/* Payment Modal - Shows packages and handles payment */}
+      {showPaymentModal && recommendedPackages.length > 0 && (
+        <ServicePaymentModal
+          isOpen={showPaymentModal}
+          onClose={handlePaymentModalClose}
+          serviceTitle={getServiceTitle()}
+          serviceSlug={getServiceSlug()}
+          packages={recommendedPackages}
         />
       )}
 
@@ -94,11 +166,11 @@ export default function WebMobileQuoteButtons({ children }: WebMobileQuoteButton
           isOpen={showSuccess}
           onClose={() => {
             setShowSuccess(false)
-            setQuoteData(null)
             setWizardConfig({})
+            setRecommendedPackages([])
           }}
-          type="quote"
-          orderNumber={`Q-${Date.now().toString().slice(-6)}`}
+          type="payment"
+          orderNumber={`ORD-${Date.now().toString().slice(-6)}`}
         />
       )}
     </>
