@@ -3,7 +3,6 @@
 import { useSearchParams } from 'next/navigation'
 import { PriceDisplay } from '@/components/ui/PriceDisplay'
 import { useCurrency } from '@/contexts/CurrencyContext'
-import Link from 'next/link'
 
 // Service packages data matching the updated Sanity structure
 const WEB_PACKAGES = [
@@ -220,15 +219,19 @@ export default function WebMobilePricingSections() {
             </ul>
 
             {/* CTA Button */}
-            <Link
-              href={`/contact?service=${title.toLowerCase().replace(' ', '-')}&package=${pkg.name.toLowerCase().replace(' ', '-')}`}
+            <button
+              onClick={() => {
+                // Dispatch custom event to open wizard
+                const eventType = colorScheme === 'blue' ? 'openWebQuote' : 'openMobileQuote'
+                window.dispatchEvent(new CustomEvent(eventType))
+              }}
               className={`w-full inline-flex items-center justify-center px-6 py-3 ${scheme.button} text-white font-bold rounded-xl transition-all duration-300 shadow-md hover:shadow-lg`}
             >
               Get {pkg.name}
               <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
               </svg>
-            </Link>
+            </button>
           </div>
         ))}
       </div>

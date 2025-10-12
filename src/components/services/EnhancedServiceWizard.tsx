@@ -51,7 +51,8 @@ const serviceTypes: ServiceType[] = [
   { id: 'ecommerce', name: 'E-commerce', icon: '🛒', description: 'Online stores with payment processing', basePrice: 800 },
   { id: 'marketing', name: 'Digital Marketing', icon: '📢', description: 'SEO, social media, and online advertising', basePrice: 300 },
   { id: 'branding', name: 'Branding & Design', icon: '🎨', description: 'Logo, brand identity, and visual design', basePrice: 200 },
-  { id: 'consulting', name: 'Business Consulting', icon: '💼', description: 'Strategy and business planning', basePrice: 150 }
+  { id: 'consulting', name: 'Business Consulting', icon: '💼', description: 'Strategy and business planning', basePrice: 150 },
+  { id: 'complete', name: 'Complete Solution', icon: '🚀', description: 'Full web + mobile + marketing bundle', basePrice: 2500 }
 ]
 
 const requirements: Record<string, Requirement[]> = {
@@ -214,6 +215,50 @@ export default function EnhancedServiceWizard({ onClose, onComplete, initialServ
     
     if (!service) return []
 
+    // Special handling for complete solution
+    if (selectedService === 'complete') {
+      const selectedFeatures = selectedRequirements.map(id => 
+        requirements[selectedService]?.find(r => r.id === id)?.label || ''
+      ).filter(Boolean)
+
+      return [
+        {
+          id: 'standard',
+          name: 'Complete Standard Bundle',
+          description: 'Web + Mobile + Marketing solution for your business',
+          totalPrice: estimate,
+          timeline: '6-8 weeks',
+          features: [
+            ...selectedFeatures,
+            'Parallel Development (Web & Mobile)',
+            'Unified Branding',
+            'Cross-platform Compatibility',
+            '90-day support'
+          ],
+          recommended: true
+        },
+        {
+          id: 'premium',
+          name: 'Complete Premium Bundle',
+          description: 'Enterprise-grade complete digital solution',
+          totalPrice: estimate * 1.5,
+          timeline: '8-10 weeks',
+          features: [
+            ...selectedFeatures,
+            'Parallel Development (Web & Mobile)',
+            'Custom Branding & Design',
+            'Advanced Analytics Dashboard',
+            'Priority Support',
+            'Advanced Integrations',
+            'Performance Optimization',
+            '1-year support',
+            'FREE 3-month maintenance'
+          ]
+        }
+      ]
+    }
+
+    // Standard recommendations for other services
     return [
       {
         id: 'standard',
