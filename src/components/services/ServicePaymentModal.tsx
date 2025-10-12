@@ -189,7 +189,7 @@ function ServicePaymentModal({
   packages: customPackages
 }: ServicePaymentModalProps) {
   const [isProcessing, setIsProcessing] = useState(false)
-  const { formatPrice, currency, currentCurrency, getLocalDiscountMessage } = useCurrency()
+  const { formatPrice, currentCurrency, getLocalDiscountMessage } = useCurrency()
   const [selectedPackage, setSelectedPackage] = useState<ServicePackage | null>(null)
   const [selectedPaymentPlan, setSelectedPaymentPlan] = useState<PaymentPlan>(PAYMENT_PLANS[0])
 
@@ -466,7 +466,7 @@ function ServicePaymentModal({
                         ? getPaymentAmounts().downPayment 
                         : selectedPackage.price,
                       installments: qualifiesForInstallments && selectedPaymentPlan ? selectedPaymentPlan.installments : 1,
-                      currency: currency
+                      currency: currentCurrency.code
                     })
                   })
 
