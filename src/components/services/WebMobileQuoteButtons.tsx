@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, ReactNode } from 'react'
+import { useState, useEffect } from 'react'
 import EnhancedServiceWizard from './EnhancedServiceWizard'
 import ServicePaymentModal from './ServicePaymentModal'
 import SuccessModal from './SuccessModal'
@@ -34,15 +34,7 @@ interface WizardCompletionData {
   estimate?: number
 }
 
-interface WebMobileQuoteButtonsProps {
-  children: (props: {
-    onWebQuoteClick: () => void
-    onMobileQuoteClick: () => void
-    onCompleteQuoteClick: () => void
-  }) => ReactNode
-}
-
-export default function WebMobileQuoteButtons({ children }: WebMobileQuoteButtonsProps) {
+export default function WebMobileQuoteButtons() {
   const [showWizard, setShowWizard] = useState(false)
   const [showPaymentModal, setShowPaymentModal] = useState(false)
   const [showSuccess, setShowSuccess] = useState(false)
@@ -52,20 +44,34 @@ export default function WebMobileQuoteButtons({ children }: WebMobileQuoteButton
   }>({})
   const [recommendedPackages, setRecommendedPackages] = useState<ServicePackage[]>([])
 
-  const handleWebQuoteClick = () => {
-    setWizardConfig({ serviceType: 'web', quoteType: 'web' })
-    setShowWizard(true)
-  }
+  // Listen for custom events from buttons
+  useEffect(() => {
+    const handleWebQuote = () => {
+      setWizardConfig({ serviceType: 'web', quoteType: 'web' })
+      setShowWizard(true)
+    }
 
-  const handleMobileQuoteClick = () => {
-    setWizardConfig({ serviceType: 'mobile', quoteType: 'mobile' })
-    setShowWizard(true)
-  }
+    const handleMobileQuote = () => {
+      setWizardConfig({ serviceType: 'mobile', quoteType: 'mobile' })
+      setShowWizard(true)
+    }
 
-  const handleCompleteQuoteClick = () => {
-    setWizardConfig({ quoteType: 'complete' })
-    setShowWizard(true)
-  }
+    const handleCompleteQuote = () => {
+      setWizardConfig({ quoteType: 'complete' })
+      setShowWizard(true)
+    }
+
+    // Add event listeners
+    window.addEventListener('openWebQuote', handleWebQuote)
+    window.addEventListener('openMobileQuote', handleMobileQuote)
+    window.addEventListener('openCompleteQuote', handleCompleteQuote)
+
+    return () => {
+      window.removeEventListener('openWebQuote', handleWebQuote)
+      window.removeEventListener('openMobileQuote', handleMobileQuote)
+      window.removeEventListener('openCompleteQuote', handleCompleteQuote)
+    }
+  }, [])
 
   const handleWizardComplete = (data: WizardCompletionData) => {
     console.log('Wizard completed:', data)
@@ -130,12 +136,9 @@ export default function WebMobileQuoteButtons({ children }: WebMobileQuoteButton
 
   return (
     <>
-      {children({
-        onWebQuoteClick: handleWebQuoteClick,
-        onMobileQuoteClick: handleMobileQuoteClick,
-        onCompleteQuoteClick: handleCompleteQuoteClick,
-      })}
-
+      {/* This component only renders modals, not the buttons themselves */}
+      {/* The buttons in the page trigger these via custom window events */}
+      
       {/* Enhanced Service Wizard Modal */}
       {showWizard && (
         <EnhancedServiceWizard
