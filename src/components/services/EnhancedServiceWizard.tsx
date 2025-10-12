@@ -75,6 +75,16 @@ const requirements: Record<string, Requirement[]> = {
     { id: 'payment', label: 'Payment Gateway', category: 'essential' },
     { id: 'shipping', label: 'Shipping Integration', category: 'optional' },
     { id: 'inventory', label: 'Inventory Management', category: 'optional' }
+  ],
+  complete: [
+    { id: 'web-platform', label: 'Website/Web App', category: 'essential' },
+    { id: 'mobile-ios', label: 'iOS Mobile App', category: 'essential' },
+    { id: 'mobile-android', label: 'Android Mobile App', category: 'essential' },
+    { id: 'marketing', label: 'Digital Marketing Package', category: 'optional' },
+    { id: 'branding', label: 'Branding & Logo Design', category: 'optional' },
+    { id: 'seo', label: 'SEO Optimization', category: 'optional' },
+    { id: 'analytics', label: 'Comprehensive Analytics', category: 'optional' },
+    { id: 'maintenance', label: 'Ongoing Maintenance & Support', category: 'optional' }
   ]
 }
 
@@ -96,17 +106,22 @@ const integrations: Integration[] = [
 interface EnhancedServiceWizardProps {
   onClose?: () => void
   onComplete?: (data: object) => void
+  initialServiceType?: string // Pre-configure for specific service type
+  quoteType?: 'web' | 'mobile' | 'complete' | 'general' // Specify quote flow type
 }
 
-export default function EnhancedServiceWizard({ onClose, onComplete }: EnhancedServiceWizardProps) {
-  const [currentStep, setCurrentStep] = useState<WizardStep>('service-type')
-  const [selectedService, setSelectedService] = useState<string>('')
+export default function EnhancedServiceWizard({ onClose, onComplete, initialServiceType, quoteType = 'general' }: EnhancedServiceWizardProps) {
+  // For complete solution, use 'complete' as the service type
+  const effectiveServiceType = quoteType === 'complete' ? 'complete' : initialServiceType
+  const [currentStep, setCurrentStep] = useState<WizardStep>(effectiveServiceType ? 'requirements' : 'service-type')
+  const [selectedService, setSelectedService] = useState<string>(effectiveServiceType || '')
   const [selectedRequirements, setSelectedRequirements] = useState<string[]>([])
   const [selectedUsage, setSelectedUsage] = useState<string>('')
   const [selectedIntegrations, setSelectedIntegrations] = useState<string[]>([])
   const { formatPrice } = useCurrency()
 
-  const steps: { id: WizardStep; title: string; number: number }[] = [
+  // Adjust steps based on whether service type is pre-selected
+  const allSteps: { id: WizardStep; title: string; number: number }[] = [
     { id: 'service-type', title: 'Service Type', number: 1 },
     { id: 'requirements', title: 'Requirements', number: 2 },
     { id: 'usage', title: 'Usage Scale', number: 3 },
@@ -114,6 +129,11 @@ export default function EnhancedServiceWizard({ onClose, onComplete }: EnhancedS
     { id: 'recommendations', title: 'Recommendations', number: 5 },
     { id: 'quotation', title: 'Quotation', number: 6 }
   ]
+
+  // Skip service-type step if effectiveServiceType is provided
+  const steps = effectiveServiceType 
+    ? allSteps.filter(s => s.id !== 'service-type').map((s, i) => ({ ...s, number: i + 1 }))
+    : allSteps
 
   const currentStepIndex = steps.findIndex(s => s.id === currentStep)
 
@@ -142,10 +162,33 @@ export default function EnhancedServiceWizard({ onClose, onComplete }: EnhancedS
   }
 
   const calculateEstimate = (): number => {
-    const service = serviceTypes.find(s => s.id === selectedService)
     const usage = usageLevels.find(u => u.id === selectedUsage)
     
-    if (!service || !usage) return 0
+    if (!usage) return 0
+
+    // Special handling for complete solution
+    if (selectedService === 'complete') {
+      // Base price for complete solution (web + mobile bundle)
+      let total = 2500 * usage.multiplier
+      
+      // Add cost for optional requirements
+      const optionalReqs = selectedRequirements.filter(reqId => {
+        const req = requirements['complete']?.find(r => r.id === reqId)
+        return req?.category === 'optional'
+      })
+      total += optionalReqs.length * 200
+      
+      // Add integrations
+      selectedIntegrations.forEach(intId => {
+        const integration = integrations.find(i => i.id === intId)
+        if (integration) total += integration.price
+      })
+      
+      return total
+    }
+
+    const service = serviceTypes.find(s => s.id === selectedService)
+    if (!service) return 0
 
     let total = service.basePrice * usage.multiplier
     
@@ -216,7 +259,12 @@ export default function EnhancedServiceWizard({ onClose, onComplete }: EnhancedS
       <div className="bg-white rounded-2xl shadow-2xl max-w-4xl w-full max-h-[90vh] flex flex-col">
         {/* Header */}
         <div className="px-6 py-4 border-b flex items-center justify-between">
-          <h2 className="text-2xl font-bold text-gray-900">Service Configuration Wizard</h2>
+          <h2 className="text-2xl font-bold text-gray-900">
+            {quoteType === 'web' ? 'Get Web Development Quote' :
+             quoteType === 'mobile' ? 'Get Mobile App Quote' :
+             quoteType === 'complete' ? 'Get Complete Solution Quote' :
+             'Service Configuration Wizard'}
+          </h2>
           <button
             onClick={onClose}
             className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
@@ -286,7 +334,12 @@ export default function EnhancedServiceWizard({ onClose, onComplete }: EnhancedS
           {/* Requirements */}
           {currentStep === 'requirements' && selectedService && (
             <div>
-              <h3 className="text-xl font-bold mb-4">Select Your Requirements</h3>
+              <h3 className="text-xl font-bold mb-4">
+                {quoteType === 'web' ? 'Web Development Requirements' :
+                 quoteType === 'mobile' ? 'Mobile App Requirements' :
+                 quoteType === 'complete' ? 'Project Requirements' :
+                 'Select Your Requirements'}
+              </h3>
               <div className="space-y-3">
                 {requirements[selectedService]?.map(req => (
                   <label

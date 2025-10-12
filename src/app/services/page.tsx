@@ -489,6 +489,7 @@ export default function ServicesPage() {
   const [selectedCategory, setSelectedCategory] = useState<string>('all')
   const [showWizard, setShowWizard] = useState(false)
   const [showQuoteCalculator, setShowQuoteCalculator] = useState(false)
+  const [wizardConfig, setWizardConfig] = useState<{ serviceType?: string; quoteType?: 'web' | 'mobile' | 'complete' | 'general' }>({})
   const { getLocalDiscountMessage, currentCurrency, formatPrice } = useCurrency()
 
   const discountMessage = getLocalDiscountMessage()
@@ -700,19 +701,58 @@ export default function ServicesPage() {
               ]}
             />
 
-            {/* Quick Action Buttons */}
-            <div className="flex flex-wrap gap-4 justify-center">
+            {/* Quote Flow Buttons */}
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 max-w-5xl mx-auto">
               <button
-                onClick={() => setShowWizard(true)}
-                className="px-6 py-3 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors font-semibold shadow-md hover:shadow-lg"
+                onClick={() => {
+                  setWizardConfig({ serviceType: 'web', quoteType: 'web' })
+                  setShowWizard(true)
+                }}
+                className="group relative px-6 py-6 bg-gradient-to-br from-blue-500 to-blue-600 text-white rounded-xl hover:from-blue-600 hover:to-blue-700 transition-all duration-300 font-semibold shadow-lg hover:shadow-xl transform hover:scale-105"
               >
-                🧙‍♂️ Service Wizard
+                <div className="flex flex-col items-center text-center space-y-2">
+                  <div className="text-4xl mb-2">🌐</div>
+                  <div className="text-lg font-bold">Get Web Development Quote</div>
+                  <div className="text-sm text-blue-100">Custom websites & web apps</div>
+                </div>
               </button>
+              
+              <button
+                onClick={() => {
+                  setWizardConfig({ serviceType: 'mobile', quoteType: 'mobile' })
+                  setShowWizard(true)
+                }}
+                className="group relative px-6 py-6 bg-gradient-to-br from-purple-500 to-purple-600 text-white rounded-xl hover:from-purple-600 hover:to-purple-700 transition-all duration-300 font-semibold shadow-lg hover:shadow-xl transform hover:scale-105"
+              >
+                <div className="flex flex-col items-center text-center space-y-2">
+                  <div className="text-4xl mb-2">📱</div>
+                  <div className="text-lg font-bold">Get Mobile App Quote</div>
+                  <div className="text-sm text-purple-100">iOS & Android apps</div>
+                </div>
+              </button>
+              
+              <button
+                onClick={() => {
+                  setWizardConfig({ quoteType: 'complete' })
+                  setShowWizard(true)
+                }}
+                className="group relative px-6 py-6 bg-gradient-to-br from-green-500 to-green-600 text-white rounded-xl hover:from-green-600 hover:to-green-700 transition-all duration-300 font-semibold shadow-lg hover:shadow-xl transform hover:scale-105"
+              >
+                <div className="flex flex-col items-center text-center space-y-2">
+                  <div className="text-4xl mb-2">🚀</div>
+                  <div className="text-lg font-bold">Get Complete Solution Quote</div>
+                  <div className="text-sm text-green-100">Web + Mobile + Marketing</div>
+                </div>
+              </button>
+            </div>
+            
+            {/* Additional Quick Actions */}
+            <div className="flex flex-wrap gap-4 justify-center mt-4">
               <button
                 onClick={() => setShowQuoteCalculator(!showQuoteCalculator)}
-                className="px-6 py-3 bg-accent text-white rounded-lg hover:bg-accent/90 transition-colors font-semibold shadow-md hover:shadow-lg"
+                className="px-6 py-3 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors font-semibold shadow-md hover:shadow-lg"
               >
-                💰 Quick Quote
+                💰 Quick Price Estimate
               </button>
             </div>
 
@@ -994,12 +1034,18 @@ export default function ServicesPage() {
       {/* Enhanced Service Wizard */}
       {showWizard && (
         <EnhancedServiceWizard
-          onClose={() => setShowWizard(false)}
+          onClose={() => {
+            setShowWizard(false)
+            setWizardConfig({})
+          }}
           onComplete={(data) => {
             console.log('Wizard completed:', data)
             setShowWizard(false)
+            setWizardConfig({})
             // Here we could open a contact form or redirect
           }}
+          initialServiceType={wizardConfig.serviceType}
+          quoteType={wizardConfig.quoteType}
         />
       )}
     </>
