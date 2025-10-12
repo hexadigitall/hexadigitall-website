@@ -118,6 +118,7 @@ export default function EnhancedServiceWizard({ onClose, onComplete, initialServ
   const [selectedRequirements, setSelectedRequirements] = useState<string[]>([])
   const [selectedUsage, setSelectedUsage] = useState<string>('')
   const [selectedIntegrations, setSelectedIntegrations] = useState<string[]>([])
+  const [selectedRecommendation, setSelectedRecommendation] = useState<string>('')
   const { formatPrice } = useCurrency()
 
   // Adjust steps based on whether service type is pre-selected
@@ -249,7 +250,7 @@ export default function EnhancedServiceWizard({ onClose, onComplete, initialServ
       case 'requirements': return selectedRequirements.length > 0
       case 'usage': return selectedUsage !== ''
       case 'integrations': return true // Optional step
-      case 'recommendations': return true
+      case 'recommendations': return selectedRecommendation !== ''
       default: return true
     }
   }
@@ -423,19 +424,38 @@ export default function EnhancedServiceWizard({ onClose, onComplete, initialServ
           {currentStep === 'recommendations' && (
             <div>
               <h3 className="text-xl font-bold mb-4">Recommended Packages</h3>
+              <p className="text-gray-600 mb-6">Select the package that best fits your needs:</p>
               <div className="space-y-4">
                 {generateRecommendations().map(rec => (
                   <div
                     key={rec.id}
-                    className={`p-6 rounded-xl border-2 ${
-                      rec.recommended ? 'border-primary bg-primary/5' : 'border-gray-200'
+                    onClick={() => setSelectedRecommendation(rec.id)}
+                    className={`p-6 rounded-xl border-2 cursor-pointer transition-all ${
+                      selectedRecommendation === rec.id 
+                        ? 'border-primary bg-primary/10 ring-2 ring-primary' 
+                        : rec.recommended 
+                          ? 'border-primary bg-primary/5 hover:bg-primary/10' 
+                          : 'border-gray-200 hover:border-gray-300'
                     }`}
                   >
-                    {rec.recommended && (
-                      <span className="inline-block px-3 py-1 bg-primary text-white text-xs font-semibold rounded-full mb-3">
-                        Recommended
-                      </span>
-                    )}
+                    <div className="flex items-start justify-between mb-3">
+                      <div>
+                        {rec.recommended && (
+                          <span className="inline-block px-3 py-1 bg-primary text-white text-xs font-semibold rounded-full mb-2">
+                            Recommended
+                          </span>
+                        )}
+                      </div>
+                      <div className={`w-6 h-6 rounded-full border-2 flex items-center justify-center ${
+                        selectedRecommendation === rec.id 
+                          ? 'border-primary bg-primary' 
+                          : 'border-gray-300'
+                      }`}>
+                        {selectedRecommendation === rec.id && (
+                          <CheckIcon className="h-4 w-4 text-white" />
+                        )}
+                      </div>
+                    </div>
                     <h4 className="text-xl font-bold text-gray-900 mb-2">{rec.name}</h4>
                     <p className="text-gray-600 mb-4">{rec.description}</p>
                     <div className="flex items-baseline gap-4 mb-4">
@@ -451,7 +471,7 @@ export default function EnhancedServiceWizard({ onClose, onComplete, initialServ
                       <ul className="space-y-1">
                         {rec.features.map((feature, idx) => (
                           <li key={idx} className="text-sm text-gray-600 flex items-center">
-                            <CheckIcon className="h-4 w-4 text-green-600 mr-2" />
+                            <CheckIcon className="h-4 w-4 text-green-600 mr-2 flex-shrink-0" />
                             {feature}
                           </li>
                         ))}
@@ -467,22 +487,67 @@ export default function EnhancedServiceWizard({ onClose, onComplete, initialServ
           {currentStep === 'quotation' && (
             <div>
               <h3 className="text-xl font-bold mb-4">Your Custom Quotation</h3>
-              <div className="bg-gradient-to-r from-primary/10 to-accent/10 rounded-xl p-8 text-center">
-                <p className="text-gray-600 mb-2">Estimated Project Cost</p>
-                <div className="text-5xl font-bold text-gray-900 mb-6">
-                  <PriceDisplay price={calculateEstimate()} size="lg" />
+              <div className="bg-gradient-to-r from-primary/10 to-accent/10 rounded-xl p-8">
+                {/* Selected Package Info */}
+                {selectedRecommendation && (
+                  <div className="mb-6">
+                    <p className="text-sm text-gray-600 mb-2">Selected Package:</p>
+                    <h4 className="text-2xl font-bold text-gray-900 mb-4">
+                      {generateRecommendations().find(r => r.id === selectedRecommendation)?.name}
+                    </h4>
+                  </div>
+                )}
+                
+                <div className="text-center mb-6">
+                  <p className="text-gray-600 mb-2">Estimated Project Cost</p>
+                  <div className="text-5xl font-bold text-gray-900 mb-2">
+                    <PriceDisplay price={
+                      generateRecommendations().find(r => r.id === selectedRecommendation)?.totalPrice || calculateEstimate()
+                    } size="lg" />
+                  </div>
+                  <p className="text-sm text-gray-500">
+                    Timeline: {generateRecommendations().find(r => r.id === selectedRecommendation)?.timeline || 'TBD'}
+                  </p>
                 </div>
+
+                {/* What happens next */}
+                <div className="bg-white rounded-lg p-4 mb-6 text-left">
+                  <p className="font-semibold text-gray-900 mb-2">What happens next?</p>
+                  <ul className="space-y-2 text-sm text-gray-600">
+                    <li className="flex items-start">
+                      <CheckIcon className="h-5 w-5 text-green-600 mr-2 flex-shrink-0 mt-0.5" />
+                      <span>Fill out a quick contact form with your details</span>
+                    </li>
+                    <li className="flex items-start">
+                      <CheckIcon className="h-5 w-5 text-green-600 mr-2 flex-shrink-0 mt-0.5" />
+                      <span>Our team will review your requirements within 24 hours</span>
+                    </li>
+                    <li className="flex items-start">
+                      <CheckIcon className="h-5 w-5 text-green-600 mr-2 flex-shrink-0 mt-0.5" />
+                      <span>Schedule a free consultation call to discuss your project</span>
+                    </li>
+                    <li className="flex items-start">
+                      <CheckIcon className="h-5 w-5 text-green-600 mr-2 flex-shrink-0 mt-0.5" />
+                      <span>Receive a detailed proposal with payment options</span>
+                    </li>
+                  </ul>
+                </div>
+                
                 <button
-                  onClick={() => onComplete?.({
-                    service: selectedService,
-                    requirements: selectedRequirements,
-                    usage: selectedUsage,
-                    integrations: selectedIntegrations,
-                    estimate: calculateEstimate()
-                  })}
-                  className="w-full max-w-md mx-auto bg-primary text-white px-8 py-4 rounded-lg hover:bg-primary/90 transition-colors font-semibold text-lg"
+                  onClick={() => {
+                    const selectedPackage = generateRecommendations().find(r => r.id === selectedRecommendation)
+                    onComplete?.({
+                      service: selectedService,
+                      requirements: selectedRequirements,
+                      usage: selectedUsage,
+                      integrations: selectedIntegrations,
+                      selectedPackage: selectedPackage,
+                      estimate: selectedPackage?.totalPrice || calculateEstimate()
+                    })
+                  }}
+                  className="w-full bg-primary text-white px-8 py-4 rounded-lg hover:bg-primary/90 transition-colors font-semibold text-lg"
                 >
-                  Request This Quote
+                  Continue to Contact Form →
                 </button>
               </div>
             </div>
