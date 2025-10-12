@@ -199,6 +199,36 @@ export default function Hero() {
                       <CTAButton href={slide.cta.href} size="lg">
                         {slide.cta.text}
                       </CTAButton>
+
+                      {/* Clear Entry Points on First Slide */}
+                      {index === 0 && (
+                        <div className="mt-12 grid grid-cols-1 sm:grid-cols-3 gap-4 max-w-4xl mx-auto">
+                          <a
+                            href="/services"
+                            className="group bg-white/10 backdrop-blur-sm hover:bg-white/20 border border-white/20 rounded-xl p-6 transition-all duration-300 hover:scale-105"
+                          >
+                            <div className="text-4xl mb-3">🌐</div>
+                            <h3 className="text-lg font-bold text-white mb-2">Explore Our Services</h3>
+                            <p className="text-sm text-gray-200">Web, mobile, marketing & more</p>
+                          </a>
+                          <a
+                            href="/courses"
+                            className="group bg-white/10 backdrop-blur-sm hover:bg-white/20 border border-white/20 rounded-xl p-6 transition-all duration-300 hover:scale-105"
+                          >
+                            <div className="text-4xl mb-3">📚</div>
+                            <h3 className="text-lg font-bold text-white mb-2">Explore Our Courses</h3>
+                            <p className="text-sm text-gray-200">Learn from industry experts</p>
+                          </a>
+                          <a
+                            href="/contact"
+                            className="group bg-white/10 backdrop-blur-sm hover:bg-white/20 border border-white/20 rounded-xl p-6 transition-all duration-300 hover:scale-105"
+                          >
+                            <div className="text-4xl mb-3">🤝</div>
+                            <h3 className="text-lg font-bold text-white mb-2">Join Our Community</h3>
+                            <p className="text-sm text-gray-200">Network & grow together</p>
+                          </a>
+                        </div>
+                      )}
                     </motion.div>
                   </div>
                 </div>

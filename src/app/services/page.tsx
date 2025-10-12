@@ -11,6 +11,10 @@ import { CompactPriceDisplay } from '@/components/ui/PriceDisplay'
 import { RequestServiceCTA, ContactCTA } from '@/components/ui/CTAButton'
 import { SparklesIcon } from '@heroicons/react/24/outline'
 import { SearchParamsHandler } from '@/components/services/SearchParamsHandler'
+import ServiceSearchBar from '@/components/services/ServiceSearchBar'
+import QuickQuoteCalculator from '@/components/services/QuickQuoteCalculator'
+import EnhancedServiceWizard from '@/components/services/EnhancedServiceWizard'
+import Breadcrumb from '@/components/ui/Breadcrumb'
 
 interface Service {
   _id: string
@@ -481,6 +485,10 @@ export default function ServicesPage() {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
   const [focusService, setFocusService] = useState<string | null>(null)
+  const [searchQuery, setSearchQuery] = useState<string>('')
+  const [selectedCategory, setSelectedCategory] = useState<string>('all')
+  const [showWizard, setShowWizard] = useState(false)
+  const [showQuoteCalculator, setShowQuoteCalculator] = useState(false)
   const { getLocalDiscountMessage, currentCurrency, formatPrice } = useCurrency()
 
   const discountMessage = getLocalDiscountMessage()
@@ -673,6 +681,55 @@ export default function ServicesPage() {
             </div>
           </div>
 
+          {/* Breadcrumb Navigation */}
+          <div className="mb-6">
+            <Breadcrumb items={[{ label: 'Services' }]} />
+          </div>
+
+          {/* Search and Quick Actions */}
+          <div className="mb-12 space-y-6">
+            <ServiceSearchBar
+              onSearch={setSearchQuery}
+              onCategoryChange={setSelectedCategory}
+              categories={[
+                { id: 'web', label: 'Web Development' },
+                { id: 'mobile', label: 'Mobile Apps' },
+                { id: 'marketing', label: 'Marketing' },
+                { id: 'branding', label: 'Branding' },
+                { id: 'consulting', label: 'Consulting' }
+              ]}
+            />
+
+            {/* Quick Action Buttons */}
+            <div className="flex flex-wrap gap-4 justify-center">
+              <button
+                onClick={() => setShowWizard(true)}
+                className="px-6 py-3 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors font-semibold shadow-md hover:shadow-lg"
+              >
+                🧙‍♂️ Service Wizard
+              </button>
+              <button
+                onClick={() => setShowQuoteCalculator(!showQuoteCalculator)}
+                className="px-6 py-3 bg-accent text-white rounded-lg hover:bg-accent/90 transition-colors font-semibold shadow-md hover:shadow-lg"
+              >
+                💰 Quick Quote
+              </button>
+            </div>
+
+            {/* Quick Quote Calculator (Collapsible) */}
+            {showQuoteCalculator && (
+              <div className="mt-6 max-w-2xl mx-auto">
+                <QuickQuoteCalculator
+                  onGetQuote={(estimate, details) => {
+                    console.log('Quote requested:', { estimate, details })
+                    setShowQuoteCalculator(false)
+                    setShowWizard(true)
+                  }}
+                />
+              </div>
+            )}
+          </div>
+
           {/* Service Request Packages */}
           {serviceCategories.length > 0 && (
             <>
@@ -691,6 +748,35 @@ export default function ServicesPage() {
                         'Professional IT services with transparent pricing and guaranteed delivery'
                   ) : 'Professional IT services with transparent pricing and guaranteed delivery'}
                 </p>
+
+                {/* Filter services based on search and category */}
+                {(() => {
+                  const filteredServices = serviceCategories.filter(service => {
+                    const matchesSearch = searchQuery === '' || 
+                      service.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                      service.description.toLowerCase().includes(searchQuery.toLowerCase())
+                    
+                    const matchesCategory = selectedCategory === 'all' ||
+                      service.serviceType === selectedCategory
+
+                    return matchesSearch && matchesCategory
+                  })
+
+                  // Show search results message
+                  if (searchQuery || selectedCategory !== 'all') {
+                    const resultCount = filteredServices.length
+                    return (
+                      <div className="text-center mb-8">
+                        <p className="text-gray-600">
+                          Found <span className="font-bold text-primary">{resultCount}</span> service{resultCount !== 1 ? 's' : ''}
+                          {searchQuery && ` matching "${searchQuery}"`}
+                          {selectedCategory !== 'all' && ` in ${selectedCategory}`}
+                        </p>
+                      </div>
+                    )
+                  }
+                  return null
+                })()}
 
                 {focusService && (
                   <div className="text-center mb-8">
@@ -720,7 +806,16 @@ export default function ServicesPage() {
                 )}
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                  {serviceCategories.map((service) => {
+                  {serviceCategories.filter(service => {
+                    const matchesSearch = searchQuery === '' || 
+                      service.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                      service.description.toLowerCase().includes(searchQuery.toLowerCase())
+                    
+                    const matchesCategory = selectedCategory === 'all' ||
+                      service.serviceType === selectedCategory
+
+                    return matchesSearch && matchesCategory
+                  }).map((service) => {
                     const lowestPrice = getLowestPrice(service.packages)
 
                     return (
@@ -893,6 +988,18 @@ export default function ServicesPage() {
         <ServiceRequestFlow
           serviceCategory={selectedService}
           onClose={() => setSelectedService(null)}
+        />
+      )}
+
+      {/* Enhanced Service Wizard */}
+      {showWizard && (
+        <EnhancedServiceWizard
+          onClose={() => setShowWizard(false)}
+          onComplete={(data) => {
+            console.log('Wizard completed:', data)
+            setShowWizard(false)
+            // Here we could open a contact form or redirect
+          }}
         />
       )}
     </>
