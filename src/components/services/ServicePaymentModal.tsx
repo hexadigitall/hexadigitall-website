@@ -15,8 +15,6 @@ interface ServicePackage {
   deliveryTime: string
 }
 
-export default ServicePaymentModal
-
 // Payment plan options for services
 type PaymentPlan = {
   id: string
@@ -297,8 +295,6 @@ function ServicePaymentModal({
         {/* Payment Plan Selection - Only for services above $300 */}
         {qualifiesForInstallments && (
           <div className="space-y-4">
-  
-                export default ServicePaymentModal
             <h3 className="text-lg font-semibold text-gray-900">Choose Payment Plan</h3>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               {PAYMENT_PLANS.map((plan) => (
@@ -513,3 +509,5 @@ function ServicePaymentModal({
     </Modal>
   )
 }
+
+export default ServicePaymentModal

@@ -3,6 +3,7 @@
 import { useSearchParams } from 'next/navigation'
 import { PriceDisplay } from '@/components/ui/PriceDisplay'
 import { useCurrency } from '@/contexts/CurrencyContext'
+import PredefinedPackageButton from './PredefinedPackageButton'
 
 // Service packages data matching the updated Sanity structure
 const WEB_PACKAGES = [
@@ -219,19 +220,15 @@ export default function WebMobilePricingSections() {
             </ul>
 
             {/* CTA Button */}
-            <button
-              onClick={() => {
-                // Dispatch custom event to open wizard
-                const eventType = colorScheme === 'blue' ? 'openWebQuote' : 'openMobileQuote'
-                window.dispatchEvent(new CustomEvent(eventType))
-              }}
+            <PredefinedPackageButton
+              packageName={pkg.name}
+              packagePrice={pkg.price}
+              packageFeatures={pkg.features}
+              serviceTitle={title}
+              deliveryTime={pkg.features.find(f => f.includes('delivery'))?.match(/\d+-?\d*-day/)?.[0] || '2-4 weeks'}
+              buttonText={`Get ${pkg.name}`}
               className={`w-full inline-flex items-center justify-center px-6 py-3 ${scheme.button} text-white font-bold rounded-xl transition-all duration-300 shadow-md hover:shadow-lg`}
-            >
-              Get {pkg.name}
-              <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-              </svg>
-            </button>
+            />
           </div>
         ))}
       </div>

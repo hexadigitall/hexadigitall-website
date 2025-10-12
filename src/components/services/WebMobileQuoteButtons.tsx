@@ -61,15 +61,35 @@ export default function WebMobileQuoteButtons() {
       setShowWizard(true)
     }
 
+    const handleDirectPayment = (event: Event) => {
+      const customEvent = event as CustomEvent
+      const { packageName, packagePrice, packageFeatures, serviceTitle, deliveryTime } = customEvent.detail
+      
+      // Create package for payment modal
+      const directPackage: ServicePackage = {
+        id: packageName.toLowerCase().replace(/\s+/g, '-'),
+        name: packageName,
+        price: packagePrice,
+        description: serviceTitle,
+        features: packageFeatures,
+        deliveryTime: deliveryTime || '2-4 weeks'
+      }
+      
+      setRecommendedPackages([directPackage])
+      setShowPaymentModal(true)
+    }
+
     // Add event listeners
     window.addEventListener('openWebQuote', handleWebQuote)
     window.addEventListener('openMobileQuote', handleMobileQuote)
     window.addEventListener('openCompleteQuote', handleCompleteQuote)
+    window.addEventListener('openDirectPayment', handleDirectPayment as EventListener)
 
     return () => {
       window.removeEventListener('openWebQuote', handleWebQuote)
       window.removeEventListener('openMobileQuote', handleMobileQuote)
       window.removeEventListener('openCompleteQuote', handleCompleteQuote)
+      window.removeEventListener('openDirectPayment', handleDirectPayment as EventListener)
     }
   }, [])
 
