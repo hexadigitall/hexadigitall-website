@@ -14,6 +14,7 @@ import FocusHandler from '@/components/services/FocusHandler'
 import WebMobilePricingSections from '@/components/services/WebMobilePricingSections'
 import ConditionalSections from '@/components/services/ConditionalSections'
 import ServicePaymentSection from '@/components/services/ServicePaymentSection'
+import WebMobileQuoteButtons from '@/components/services/WebMobileQuoteButtons'
 
 interface Service {
   title: string
@@ -138,6 +139,9 @@ export default async function IndividualServicePage(
                     </p>
                   </div>
                 </div>
+                
+                {/* Quote Flow Buttons */}
+                <WebMobileQuoteButtons />
                 
                 <div className="text-center mb-12">
                   <div className="inline-flex items-center space-x-2 bg-gradient-to-r from-blue-100 to-purple-100 px-6 py-3 rounded-full text-sm font-medium text-gray-700 mb-6">

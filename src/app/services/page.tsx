@@ -12,8 +12,6 @@ import { RequestServiceCTA, ContactCTA } from '@/components/ui/CTAButton'
 import { SparklesIcon } from '@heroicons/react/24/outline'
 import { SearchParamsHandler } from '@/components/services/SearchParamsHandler'
 import ServiceSearchBar from '@/components/services/ServiceSearchBar'
-import QuickQuoteCalculator from '@/components/services/QuickQuoteCalculator'
-import EnhancedServiceWizard from '@/components/services/EnhancedServiceWizard'
 import Breadcrumb from '@/components/ui/Breadcrumb'
 
 interface Service {
@@ -487,9 +485,6 @@ export default function ServicesPage() {
   const [focusService, setFocusService] = useState<string | null>(null)
   const [searchQuery, setSearchQuery] = useState<string>('')
   const [selectedCategory, setSelectedCategory] = useState<string>('all')
-  const [showWizard, setShowWizard] = useState(false)
-  const [showQuoteCalculator, setShowQuoteCalculator] = useState(false)
-  const [wizardConfig, setWizardConfig] = useState<{ serviceType?: string; quoteType?: 'web' | 'mobile' | 'complete' | 'general' }>({})
   const { getLocalDiscountMessage, currentCurrency, formatPrice } = useCurrency()
 
   const discountMessage = getLocalDiscountMessage()
@@ -701,73 +696,7 @@ export default function ServicesPage() {
               ]}
             />
 
-            {/* Quote Flow Buttons */}
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 max-w-5xl mx-auto">
-              <button
-                onClick={() => {
-                  setWizardConfig({ serviceType: 'web', quoteType: 'web' })
-                  setShowWizard(true)
-                }}
-                className="group relative px-6 py-6 bg-gradient-to-br from-blue-500 to-blue-600 text-white rounded-xl hover:from-blue-600 hover:to-blue-700 transition-all duration-300 font-semibold shadow-lg hover:shadow-xl transform hover:scale-105"
-              >
-                <div className="flex flex-col items-center text-center space-y-2">
-                  <div className="text-4xl mb-2">🌐</div>
-                  <div className="text-lg font-bold">Get Web Development Quote</div>
-                  <div className="text-sm text-blue-100">Custom websites & web apps</div>
-                </div>
-              </button>
-              
-              <button
-                onClick={() => {
-                  setWizardConfig({ serviceType: 'mobile', quoteType: 'mobile' })
-                  setShowWizard(true)
-                }}
-                className="group relative px-6 py-6 bg-gradient-to-br from-purple-500 to-purple-600 text-white rounded-xl hover:from-purple-600 hover:to-purple-700 transition-all duration-300 font-semibold shadow-lg hover:shadow-xl transform hover:scale-105"
-              >
-                <div className="flex flex-col items-center text-center space-y-2">
-                  <div className="text-4xl mb-2">📱</div>
-                  <div className="text-lg font-bold">Get Mobile App Quote</div>
-                  <div className="text-sm text-purple-100">iOS & Android apps</div>
-                </div>
-              </button>
-              
-              <button
-                onClick={() => {
-                  setWizardConfig({ quoteType: 'complete' })
-                  setShowWizard(true)
-                }}
-                className="group relative px-6 py-6 bg-gradient-to-br from-green-500 to-green-600 text-white rounded-xl hover:from-green-600 hover:to-green-700 transition-all duration-300 font-semibold shadow-lg hover:shadow-xl transform hover:scale-105"
-              >
-                <div className="flex flex-col items-center text-center space-y-2">
-                  <div className="text-4xl mb-2">🚀</div>
-                  <div className="text-lg font-bold">Get Complete Solution Quote</div>
-                  <div className="text-sm text-green-100">Web + Mobile + Marketing</div>
-                </div>
-              </button>
-            </div>
-            
-            {/* Additional Quick Actions */}
-            <div className="flex flex-wrap gap-4 justify-center mt-4">
-              <button
-                onClick={() => setShowQuoteCalculator(!showQuoteCalculator)}
-                className="px-6 py-3 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors font-semibold shadow-md hover:shadow-lg"
-              >
-                💰 Quick Price Estimate
-              </button>
-            </div>
 
-            {/* Quick Quote Calculator (Collapsible) */}
-            {showQuoteCalculator && (
-              <div className="mt-6 max-w-2xl mx-auto">
-                <QuickQuoteCalculator
-                  onGetQuote={(estimate, details) => {
-                    console.log('Quote requested:', { estimate, details })
-                    setShowQuoteCalculator(false)
-                    setShowWizard(true)
-                  }}
-                />
-              </div>
-            )}
           </div>
 
           {/* Service Request Packages */}
@@ -1031,23 +960,6 @@ export default function ServicesPage() {
         />
       )}
 
-      {/* Enhanced Service Wizard */}
-      {showWizard && (
-        <EnhancedServiceWizard
-          onClose={() => {
-            setShowWizard(false)
-            setWizardConfig({})
-          }}
-          onComplete={(data) => {
-            console.log('Wizard completed:', data)
-            setShowWizard(false)
-            setWizardConfig({})
-            // Here we could open a contact form or redirect
-          }}
-          initialServiceType={wizardConfig.serviceType}
-          quoteType={wizardConfig.quoteType}
-        />
-      )}
     </>
   )
 }
