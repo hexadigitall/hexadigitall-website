@@ -6,6 +6,7 @@ import { notFound } from 'next/navigation';
 import { PortableText } from '@portabletext/react';
 import type { PortableTextBlock } from 'sanity';
 import CourseEnrollment, { type CourseEnrollmentData } from '@/components/CourseEnrollment';
+import Breadcrumb from '@/components/ui/Breadcrumb';
 
 // Interface for the full course data fetched from Sanity
 interface Course {
@@ -110,6 +111,15 @@ export default async function CoursePage({ params }: { params: Promise<{ slug: s
             {/* Course Hero */}
             <div className="bg-primary text-white py-16">
                 <div className="container mx-auto px-6">
+                    <div className="mb-4">
+                        <Breadcrumb 
+                            items={[
+                                { label: 'Courses', href: '/courses' },
+                                { label: course.title }
+                            ]}
+                            className="text-white [&_a]:text-white [&_svg]:text-white/70"
+                        />
+                    </div>
                     <h1 className="text-4xl font-bold font-heading !text-white">{course.title}</h1>
                 </div>
             </div>

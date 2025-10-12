@@ -6,6 +6,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { urlFor } from '@/sanity/imageUrlBuilder';
 import type { SanityImageSource } from '@sanity/image-url/lib/types/types';
+import Breadcrumb from '@/components/ui/Breadcrumb';
 
 export const metadata: Metadata = {
   title: 'Our Portfolio | Hexadigitall',
@@ -34,6 +35,9 @@ export default async function PortfolioPage() {
   return (
     <section className="bg-white py-12 md:py-20">
       <div className="container mx-auto px-6">
+        <div className="mb-6">
+          <Breadcrumb items={[{ label: 'Portfolio' }]} />
+        </div>
         <div className="text-center mb-16">
           {/* ✅ Rewritten Content */}
           <h1 className="text-4xl md:text-5xl font-bold font-heading">Proven Results, Powerful Partnerships</h1>

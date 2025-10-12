@@ -6,8 +6,10 @@ import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import type { PortableTextBlock } from 'sanity';
 import Image from 'next/image';
+import Link from 'next/link';
 import { urlFor } from '@/sanity/imageUrlBuilder';
 import type { SanityImageSource } from '@sanity/image-url/lib/types/types';
+import Breadcrumb from '@/components/ui/Breadcrumb';
 
 interface Project {
   title: string;
@@ -42,6 +44,14 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
   return (
     <article className="py-12 md:py-20">
       <div className="container mx-auto px-6 max-w-4xl">
+        <div className="mb-6">
+          <Breadcrumb 
+            items={[
+              { label: 'Portfolio', href: '/portfolio' },
+              { label: project.title }
+            ]} 
+          />
+        </div>
         <header className="mb-8 text-center">
           <h1 className="text-4xl md:text-5xl font-bold font-heading">{project.title}</h1>
         </header>
@@ -84,6 +94,30 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
               <p>{project.testimonial}</p>
             </blockquote>
           )}
+        </div>
+
+        {/* CTA Section */}
+        <div className="mt-16 bg-gradient-to-r from-primary/10 to-accent/10 rounded-2xl p-8 text-center">
+          <h2 className="text-3xl font-bold text-gray-900 mb-4">
+            Want Similar Results for Your Business?
+          </h2>
+          <p className="text-lg text-gray-600 mb-6 max-w-2xl mx-auto">
+            Let&apos;s discuss how we can help you achieve your goals with a customized solution.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Link
+              href="/contact?type=project&reference=portfolio"
+              className="px-8 py-4 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors font-semibold shadow-lg hover:shadow-xl"
+            >
+              Request Similar Project
+            </Link>
+            <Link
+              href="/services"
+              className="px-8 py-4 bg-white text-primary border-2 border-primary rounded-lg hover:bg-primary/5 transition-colors font-semibold"
+            >
+              View Our Services
+            </Link>
+          </div>
         </div>
       </div>
     </article>
