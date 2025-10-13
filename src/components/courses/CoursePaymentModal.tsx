@@ -6,6 +6,7 @@ import { useCurrency } from '@/contexts/CurrencyContext'
 import { CheckIcon } from '@heroicons/react/24/outline'
 import Image from 'next/image'
 import CoursePricingCalculator, { PricingConfiguration } from './CoursePricingCalculator'
+import { MonthlyBillingCalculation, SessionCustomization } from '@/types/course'
 
 // Enhanced Course interface for the modal
 interface Course {
@@ -119,7 +120,17 @@ export function CoursePaymentModal({
     return legacyCoursePrice
   }
 
-  const handlePriceChange = (totalPrice: number, configuration: PricingConfiguration) => {
+  const handlePriceChange = (billingCalculation: MonthlyBillingCalculation, customization: SessionCustomization) => {
+    // Convert to PricingConfiguration for compatibility
+    const configuration: PricingConfiguration = {
+      hoursPerWeek: billingCalculation.hoursPerWeek,
+      weeksPerMonth: 4,
+      totalHours: billingCalculation.hoursPerMonth,
+      sessionFormat: customization.sessionFormat,
+      currency: billingCalculation.currency,
+      hourlyRate: billingCalculation.adjustedHourlyRate,
+      totalMonthlyPrice: billingCalculation.monthlyTotal
+    }
     setPricingConfiguration(configuration)
   }
 

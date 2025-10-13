@@ -1,11 +1,19 @@
 "use client";
 
-import { useState, useEffect, useCallback, useMemo } from 'react';
+import { useState, useEffect, useCallback, useMemo, ChangeEvent } from 'react';
 import { useCurrency } from '@/contexts/CurrencyContext';
+import { 
+  MonthlyScheduling, 
+  SessionCustomization, 
+  MonthlyBillingCalculation,
+  SessionMatrix 
+} from '@/types/course';
 
 interface CoursePricingCalculatorProps {
   hourlyRateUSD: number;
   hourlyRateNGN: number;
+  monthlyScheduling?: MonthlyScheduling;
+  // Legacy support for old scheduling options
   schedulingOptions?: {
     minHoursPerSession: number;
     maxHoursPerSession: number;
@@ -13,15 +21,19 @@ interface CoursePricingCalculatorProps {
     maxSessionsPerWeek: number;
     defaultHours: number;
   };
-  onPriceChange: (totalPrice: number, configuration: PricingConfiguration) => void;
+  onPriceChange: (billingCalculation: MonthlyBillingCalculation, customization: SessionCustomization) => void;
   className?: string;
 }
 
+// Session format type
+type SessionFormat = 'one-on-one' | 'small-group' | 'large-group';
+
+// Legacy interface for backward compatibility
 export interface PricingConfiguration {
   hoursPerWeek: number;
   weeksPerMonth: number;
   totalHours: number;
-  sessionFormat: 'one-on-one' | 'small-group' | 'group';
+  sessionFormat: SessionFormat;
   currency: string;
   hourlyRate: number;
   totalMonthlyPrice: number;
@@ -30,172 +42,255 @@ export interface PricingConfiguration {
 const CoursePricingCalculator = ({
   hourlyRateUSD,
   hourlyRateNGN,
-  schedulingOptions = {
-    minHoursPerSession: 1,
-    maxHoursPerSession: 3,
-    minSessionsPerWeek: 1,
-    maxSessionsPerWeek: 3,
-    defaultHours: 1
-  },
+  monthlyScheduling,
+  schedulingOptions,
   onPriceChange,
   className = ""
 }: CoursePricingCalculatorProps) => {
-  const { isLocalCurrency, currentCurrency } = useCurrency();
+  const { isLocalCurrency, currentCurrency, formatPrice } = useCurrency();
   
-  const [hoursPerWeek, setHoursPerWeek] = useState(schedulingOptions.defaultHours);
-  const [weeksPerMonth] = useState(4); // Fixed to 4 weeks per month
-  const [sessionFormat, setSessionFormat] = useState<'one-on-one' | 'small-group' | 'group'>('one-on-one');
+  // Determine which scheduling configuration to use
+  const sessionMatrix: SessionMatrix = useMemo(() => {
+    if (monthlyScheduling?.sessionMatrix) {
+      return monthlyScheduling.sessionMatrix;
+    }
+    // Fallback to legacy scheduling options
+    return {
+      sessionsPerWeek: {
+        min: schedulingOptions?.minSessionsPerWeek || 1,
+        max: schedulingOptions?.maxSessionsPerWeek || 4,
+        default: 1
+      },
+      hoursPerSession: {
+        min: schedulingOptions?.minHoursPerSession || 1,
+        max: schedulingOptions?.maxHoursPerSession || 3,
+        default: 1
+      },
+      totalHoursLimit: 12
+    };
+  }, [monthlyScheduling, schedulingOptions]);
+  
+  // Session format multipliers - from course config or defaults
+  const formatMultipliers = useMemo(() => {
+    if (monthlyScheduling?.sessionPricing) {
+      return {
+        'one-on-one': monthlyScheduling.sessionPricing.oneOnOneMultiplier,
+        'small-group': monthlyScheduling.sessionPricing.smallGroupMultiplier,
+        'large-group': monthlyScheduling.sessionPricing.largeGroupMultiplier
+      };
+    }
+    // Default multipliers
+    return {
+      'one-on-one': 1.0,
+      'small-group': 0.7, // 30% discount for small groups
+      'large-group': 0.5 // 50% discount for larger groups
+    };
+  }, [monthlyScheduling]);
+  
+  // State for session customization
+  const [sessionsPerWeek, setSessionsPerWeek] = useState(sessionMatrix.sessionsPerWeek.default);
+  const [hoursPerSession, setHoursPerSession] = useState(sessionMatrix.hoursPerSession.default);
+  const [sessionFormat, setSessionFormat] = useState<'one-on-one' | 'small-group' | 'large-group'>('one-on-one');
 
-  // Session format multipliers for pricing - wrapped in useMemo
-  const formatMultipliers = useMemo(() => ({
-    'one-on-one': 1.0,
-    'small-group': 0.7, // 30% discount for small groups
-    'group': 0.5 // 50% discount for larger groups
-  }), []);
-
-  // Generate hour options based on scheduling constraints
+  // Validate session selection against total hours limit
+  const totalHoursPerWeek = sessionsPerWeek * hoursPerSession;
+  const isValidSelection = totalHoursPerWeek <= sessionMatrix.totalHoursLimit;
+  
+  // Generate session options based on constraints
+  const generateSessionOptions = useCallback(() => {
+    const options: number[] = [];
+    for (let i = sessionMatrix.sessionsPerWeek.min; i <= sessionMatrix.sessionsPerWeek.max; i++) {
+      options.push(i);
+    }
+    return options;
+  }, [sessionMatrix]);
+  
   const generateHourOptions = useCallback(() => {
     const options: number[] = [];
-    const { minHoursPerSession, maxHoursPerSession, minSessionsPerWeek, maxSessionsPerWeek } = schedulingOptions;
-    
-    for (let sessions = minSessionsPerWeek; sessions <= maxSessionsPerWeek; sessions++) {
-      for (let hours = minHoursPerSession; hours <= maxHoursPerSession; hours++) {
-        const totalHours = sessions * hours;
-        if (!options.includes(totalHours)) {
-          options.push(totalHours);
-        }
-      }
+    for (let i = sessionMatrix.hoursPerSession.min; i <= sessionMatrix.hoursPerSession.max; i++) {
+      options.push(i);
     }
-    
-    return options.sort((a, b) => a - b);
-  }, [schedulingOptions]);
+    return options;
+  }, [sessionMatrix]);
 
+  const sessionOptions = generateSessionOptions();
   const hourOptions = generateHourOptions();
 
-  const calculatePrice = useCallback(() => {
+  // Calculate monthly billing with enhanced breakdown
+  const calculateMonthlyBilling = useCallback((): MonthlyBillingCalculation => {
     const baseHourlyRate = isLocalCurrency() ? hourlyRateNGN : hourlyRateUSD;
-    const adjustedRate = baseHourlyRate * formatMultipliers[sessionFormat];
-    const totalHours = hoursPerWeek * weeksPerMonth;
-    const totalPrice = adjustedRate * totalHours;
+    const sessionFormatMultiplier = formatMultipliers[sessionFormat];
+    const adjustedHourlyRate = baseHourlyRate * sessionFormatMultiplier;
+    const hoursPerWeek = sessionsPerWeek * hoursPerSession;
+    const hoursPerMonth = hoursPerWeek * 4; // 4 weeks per month
+    const monthlyTotal = adjustedHourlyRate * hoursPerMonth;
 
-    const configuration: PricingConfiguration = {
+    return {
+      baseHourlyRate,
+      sessionFormatMultiplier,
+      adjustedHourlyRate,
       hoursPerWeek,
-      weeksPerMonth,
-      totalHours,
-      sessionFormat,
+      hoursPerMonth,
+      monthlyTotal,
       currency: currentCurrency.code,
-      hourlyRate: adjustedRate,
-      totalMonthlyPrice: totalPrice
+      breakdown: {
+        sessions: `${sessionsPerWeek} session${sessionsPerWeek !== 1 ? 's' : ''} per week`,
+        duration: `${hoursPerSession} hour${hoursPerSession !== 1 ? 's' : ''} per session`,
+        weekly: `${hoursPerWeek} hour${hoursPerWeek !== 1 ? 's' : ''} per week`,
+        monthly: `${hoursPerMonth} hour${hoursPerMonth !== 1 ? 's' : ''} per month`,
+        rate: `${formatPrice(adjustedHourlyRate, { applyNigerianDiscount: false })}/hour (${sessionFormat.replace('-', ' ')})`
+      }
     };
+  }, [sessionsPerWeek, hoursPerSession, sessionFormat, currentCurrency.code, isLocalCurrency, hourlyRateNGN, hourlyRateUSD, formatMultipliers, formatPrice]);
+  
+  // Create session customization object
+  const createSessionCustomization = useCallback((): SessionCustomization => {
+    return {
+      sessionsPerWeek,
+      hoursPerSession,
+      totalHoursPerWeek: sessionsPerWeek * hoursPerSession,
+      sessionFormat,
+      preferredDays: monthlyScheduling?.availabilityWindow?.daysOfWeek,
+      preferredTimeSlots: monthlyScheduling?.availabilityWindow?.timeSlots
+    };
+  }, [sessionsPerWeek, hoursPerSession, sessionFormat, monthlyScheduling]);
 
-    return { totalPrice, configuration };
-  }, [hoursPerWeek, weeksPerMonth, sessionFormat, currentCurrency.code, isLocalCurrency, hourlyRateNGN, hourlyRateUSD, formatMultipliers]);
-
-  useEffect(() => {
-    const { totalPrice, configuration } = calculatePrice();
-    onPriceChange(totalPrice, configuration);
-  }, [calculatePrice, onPriceChange]);
-
-  const { totalPrice, configuration } = calculatePrice();
-
-  const formatPrice = (price: number) => {
-    return new Intl.NumberFormat(isLocalCurrency() ? 'en-NG' : 'en-US', {
-      style: 'currency',
-      currency: isLocalCurrency() ? 'NGN' : 'USD',
-      minimumFractionDigits: 0,
-      maximumFractionDigits: 0
-    }).format(price);
+  const billingCalculation = calculateMonthlyBilling();
+  const sessionCustomization = createSessionCustomization();
+  
+  // Enhanced handlers
+  const handleSessionsChange = (e: ChangeEvent<HTMLSelectElement>) => {
+    const newSessions = parseInt(e.target.value);
+    setSessionsPerWeek(newSessions);
+  };
+  
+  const handleHoursChange = (e: ChangeEvent<HTMLSelectElement>) => {
+    const newHours = parseInt(e.target.value);
+    setHoursPerSession(newHours);
   };
 
+  const handleFormatChange = (e: ChangeEvent<HTMLSelectElement>) => {
+    setSessionFormat(e.target.value as SessionFormat);
+  };
+
+  // Auto-calculate when values change
+  useEffect(() => {
+    if (onPriceChange && isValidSelection) {
+      onPriceChange(billingCalculation, sessionCustomization);
+    }
+  }, [billingCalculation, sessionCustomization, isValidSelection, onPriceChange]);
+
   return (
-    <div className={`bg-white rounded-lg border border-gray-200 p-6 space-y-6 ${className}`}>
-      <div className="border-b border-gray-100 pb-4">
+    <div className={`glass card-enhanced p-6 space-y-6 ${className}`}>
+      <div className="border-b border-white/20 pb-4">
         <h3 className="text-lg font-semibold text-gray-900 mb-2">
           Customize Your Learning Schedule
         </h3>
         <p className="text-sm text-gray-600">
-          Select your preferred hours and session format for monthly pricing
+          Configure your sessions and format for monthly billing
         </p>
       </div>
 
-      {/* Hours per Week Selection */}
-      <div className="space-y-3">
-        <label className="block text-sm font-medium text-gray-700">
-          Hours per Week
-        </label>
-        <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-2">
-          {hourOptions.map((hours) => (
-            <button
-              key={hours}
-              onClick={() => setHoursPerWeek(hours)}
-              className={`px-3 py-2 text-sm font-medium rounded-md transition-colors ${
-                hoursPerWeek === hours
-                  ? 'bg-primary text-white'
-                  : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-              }`}
-            >
-              {hours}h
-            </button>
-          ))}
+      {/* Session Configuration Grid */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        {/* Sessions Per Week */}
+        <div className="space-y-3">
+          <label className="block text-sm font-medium text-gray-700">
+            Sessions per Week
+          </label>
+          <select 
+            value={sessionsPerWeek} 
+            onChange={handleSessionsChange}
+            className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary"
+          >
+            {sessionOptions.map(sessions => (
+              <option key={sessions} value={sessions}>{sessions} session{sessions !== 1 ? 's' : ''}</option>
+            ))}
+          </select>
+        </div>
+
+        {/* Hours Per Session */}
+        <div className="space-y-3">
+          <label className="block text-sm font-medium text-gray-700">
+            Hours per Session
+          </label>
+          <select 
+            value={hoursPerSession} 
+            onChange={handleHoursChange}
+            className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary"
+          >
+            {hourOptions.map(hours => (
+              <option key={hours} value={hours}>{hours} hour{hours !== 1 ? 's' : ''}</option>
+            ))}
+          </select>
+        </div>
+
+        {/* Session Format */}
+        <div className="space-y-3">
+          <label className="block text-sm font-medium text-gray-700">
+            Session Format
+          </label>
+          <select 
+            value={sessionFormat} 
+            onChange={handleFormatChange}
+            className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary"
+          >
+            <option value="one-on-one">One-on-One</option>
+            <option value="small-group">Small Group (30% discount)</option>
+            <option value="large-group">Large Group (50% discount)</option>
+          </select>
         </div>
       </div>
 
-      {/* Session Format Selection */}
-      <div className="space-y-3">
-        <label className="block text-sm font-medium text-gray-700">
-          Session Format
-        </label>
-        <div className="space-y-2">
-          {[
-            { value: 'one-on-one', label: 'One-on-One', description: 'Personal attention' },
-            { value: 'small-group', label: 'Small Group', description: '2-4 students (30% discount)' },
-            { value: 'group', label: 'Group Session', description: '5-8 students (50% discount)' }
-          ].map((option) => (
-            <div key={option.value} className="flex items-center">
-              <input
-                id={option.value}
-                name="sessionFormat"
-                type="radio"
-                value={option.value}
-                checked={sessionFormat === option.value}
-                onChange={(e) => setSessionFormat(e.target.value as typeof sessionFormat)}
-                className="h-4 w-4 text-primary focus:ring-primary border-gray-300"
-              />
-              <label htmlFor={option.value} className="ml-3 block text-sm">
-                <span className="font-medium text-gray-700">{option.label}</span>
-                <span className="text-gray-500 ml-1">- {option.description}</span>
-              </label>
+      {/* Validation Warning */}
+      {!isValidSelection && (
+        <div className="bg-red-50 border border-red-200 rounded-md p-4">
+          <div className="flex">
+            <div className="ml-3">
+              <h3 className="text-sm font-medium text-red-800">
+                Weekly Hours Limit Exceeded
+              </h3>
+              <div className="mt-2 text-sm text-red-700">
+                <p>
+                  Total weekly hours ({totalHoursPerWeek}) exceeds the limit of {sessionMatrix.totalHoursLimit} hours.
+                  Please adjust your sessions or hours per session.
+                </p>
+              </div>
             </div>
-          ))}
+          </div>
         </div>
-      </div>
+      )}
 
-      {/* Pricing Summary */}
-      <div className="border-t border-gray-100 pt-4 space-y-3">
-        <div className="flex justify-between items-center text-sm">
-          <span className="text-gray-600">Hourly Rate:</span>
-          <span className="font-medium">{formatPrice(configuration.hourlyRate)}</span>
-        </div>
-        <div className="flex justify-between items-center text-sm">
-          <span className="text-gray-600">Total Hours/Month:</span>
-          <span className="font-medium">{configuration.totalHours} hours</span>
-        </div>
-        <div className="flex justify-between items-center text-lg font-bold text-primary border-t border-gray-100 pt-3">
-          <span>Monthly Total:</span>
-          <span className="text-green-600">{formatPrice(totalPrice)}</span>
-        </div>
-      </div>
+      {/* Pricing Breakdown */}
+      {isValidSelection && (
+        <div className="space-y-4">
+          {/* Calculation Summary */}
+          <div className="glass rounded-lg p-4 space-y-3">
+            <h4 className="text-sm font-semibold text-gray-900">Monthly Billing Breakdown</h4>
+            <div className="space-y-2 text-sm">
+              {Object.entries(billingCalculation.breakdown).map(([key, value]) => (
+                <div key={key} className="flex justify-between text-gray-600">
+                  <span className="capitalize">{key}:</span>
+                  <span>{value}</span>
+                </div>
+              ))}
+            </div>
+          </div>
 
-      {/* Schedule Breakdown */}
-      <div className="bg-gray-50 rounded-md p-4">
-        <h4 className="text-sm font-medium text-gray-900 mb-2">Your Schedule</h4>
-        <div className="text-sm text-gray-600 space-y-1">
-          <p>• {hoursPerWeek} hour{hoursPerWeek > 1 ? 's' : ''} per week</p>
-          <p>• 4 weeks per month</p>
-          <p>• {sessionFormat.replace('-', ' ')} sessions</p>
-          <p>• Total: {configuration.totalHours} hours monthly</p>
+          {/* Total Price Display */}
+          <div className="border-t border-white/20 pt-4">
+            <div className="flex justify-between items-center">
+              <span className="text-lg font-semibold text-gray-900">Monthly Total:</span>
+              <span className="text-2xl font-bold text-primary">
+                {formatPrice(billingCalculation.monthlyTotal, { applyNigerianDiscount: true })}
+              </span>
+            </div>
+            <p className="text-sm text-gray-500 mt-1">
+              Billed monthly • Cancel anytime • Includes {billingCalculation.hoursPerMonth} hours
+            </p>
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 };
