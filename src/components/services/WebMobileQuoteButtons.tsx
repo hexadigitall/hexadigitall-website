@@ -136,8 +136,8 @@ export default function WebMobileQuoteButtons() {
 
   const handlePaymentModalClose = () => {
     setShowPaymentModal(false)
-    // Optionally show success modal or redirect handled by payment modal
-    setShowSuccess(true)
+    // Don't automatically show success - only show on actual payment success
+    // Success will be handled by the payment flow redirect
   }
 
   const getServiceTitle = () => {

@@ -198,31 +198,32 @@ export default function Hero() {
                 )}
 
                 {/* Content */}
-                <div className="relative container mx-auto px-6 h-full flex flex-col justify-center items-center">
-                  <div className="max-w-6xl text-center">
+                <div className="relative container mx-auto px-4 sm:px-6 lg:px-8 h-full flex flex-col justify-center items-center">
+                  <div className="max-w-7xl w-full text-center">
                     <motion.div
                       initial={{ opacity: 0, y: 20 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ duration: 0.6, delay: 0.2 }}
                     >
-                      <h1 className="text-sm sm:text-base font-semibold uppercase tracking-widest text-secondary mb-2 sm:mb-4">
+                      <h1 className="text-xs sm:text-sm lg:text-base font-semibold uppercase tracking-widest text-secondary mb-2 sm:mb-4">
                         {slide.subtitle}
                       </h1>
-                      <p className="text-3xl sm:text-5xl lg:text-6xl font-extrabold font-heading text-white mb-4 sm:mb-6 leading-tight">
+                      <p className="text-2xl sm:text-4xl lg:text-5xl xl:text-6xl font-extrabold font-heading text-white mb-4 sm:mb-6 leading-tight">
                         {slide.title}
                       </p>
-                      {/* Launch Special Banner */}
+                      {/* Launch Special Banner - Only for Nigerian currency */}
                       {isClient && index === 0 && discountMessage && (
                         <div className="mb-3 sm:mb-4 lg:mb-6 flex justify-center">
-                          <div className="inline-flex items-center space-x-1 sm:space-x-2 bg-gradient-to-r from-blue-500/80 to-cyan-500/80 backdrop-blur-sm border border-blue-400/50 text-white px-3 sm:px-6 py-2 sm:py-3 rounded-full text-xs sm:text-sm font-bold shadow-lg">
-                            <span>🔥</span>
+                          <div className="inline-flex items-center space-x-1 sm:space-x-2 bg-gradient-to-r from-green-500/80 to-green-600/80 backdrop-blur-sm border border-green-400/50 text-white px-3 sm:px-6 py-2 sm:py-3 rounded-full text-xs sm:text-sm font-bold shadow-lg">
+                            <span>🇳🇬</span>
                             <span className="hidden sm:inline">NIGERIAN LAUNCH SPECIAL - 50% OFF ALL SERVICES!</span>
                             <span className="sm:hidden">50% OFF FOR NIGERIANS!</span>
+                            <span>🔥</span>
                           </div>
                         </div>
                       )}
 
-                      <p className="max-w-3xl mx-auto text-base sm:text-lg lg:text-xl text-gray-200 mb-6 sm:mb-8">
+                      <p className="max-w-2xl sm:max-w-3xl mx-auto text-sm sm:text-base lg:text-lg text-gray-200 mb-6 sm:mb-8 leading-relaxed">
                         {slide.description}
                       </p>
                       <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
@@ -238,7 +239,7 @@ export default function Hero() {
 
                       {/* Enhanced Entry Points on First Slide */}
                       {index === 0 && (
-                        <div className="mt-12 grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-5xl mx-auto">
+                        <div className="mt-8 sm:mt-12 grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 max-w-5xl mx-auto px-4 sm:px-0">
                           <Link
                             href="/services"
                             className="group relative bg-white/5 backdrop-blur-md hover:bg-white/15 border border-white/20 hover:border-white/40 rounded-2xl p-8 transition-all duration-500 hover:scale-105 hover:-translate-y-2 hover:shadow-2xl overflow-hidden"

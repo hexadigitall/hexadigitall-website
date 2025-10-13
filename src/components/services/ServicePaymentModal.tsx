@@ -268,9 +268,9 @@ function ServicePaymentModal({
                   <div className="text-3xl font-bold text-primary mb-2">
                     {formatPrice(pkg.price, { applyNigerianDiscount: true })}
                   </div>
-                  {currentCurrency.code !== 'NGN' && (
+                  {currentCurrency.code !== 'NGN' && discountMessage && (
                     <div className="text-sm text-gray-500">
-                      ≈ ₦{(pkg.price * 500 * 0.5).toLocaleString()}
+                      ≈ {formatPrice(pkg.price, { currency: 'NGN', applyNigerianDiscount: true })}
                     </div>
                   )}
                   <p className="text-sm text-gray-600 mb-3">{pkg.description}</p>
