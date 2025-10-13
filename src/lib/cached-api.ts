@@ -128,6 +128,7 @@ export const getCachedServiceCategories = () =>
     title,
     slug,
     description,
+    serviceType,
     icon,
     featured,
     packages,

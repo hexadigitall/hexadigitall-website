@@ -448,6 +448,114 @@ export const SERVICE_PRICING: Record<string, PricingTier[]> = {
       ],
       cta: 'Accelerate My Growth'
     }
+  ],
+  'consulting': [
+    {
+      id: 'strategy-session',
+      name: 'Strategy Session',
+      description: '1-on-1 consultation to kickstart your journey',
+      basePrice: 99,
+      features: [
+        '90-minute consultation call',
+        'Business analysis & assessment',
+        'Strategic recommendations',
+        'Action plan with priorities',
+        'Resource recommendations',
+        'Follow-up email summary',
+        '7-day email support'
+      ],
+      cta: 'Book Strategy Session'
+    },
+    {
+      id: 'mentoring-program',
+      name: 'Mentoring Program',
+      description: 'Monthly mentoring for consistent growth',
+      basePrice: 299,
+      popular: true,
+      features: [
+        '4 one-hour sessions per month',
+        'Personalized learning plan',
+        'Industry insights & guidance',
+        'Career development advice',
+        'Skill assessment & roadmap',
+        'Resources & materials',
+        'Unlimited email support',
+        'Monthly progress review'
+      ],
+      cta: 'Start Mentoring'
+    },
+    {
+      id: 'full-consulting',
+      name: 'Full Consulting Package',
+      description: 'Comprehensive business transformation',
+      basePrice: 1999,
+      features: [
+        'Complete business audit',
+        'Strategic planning & roadmap',
+        'Implementation support',
+        'Team training & workshops',
+        'Process optimization',
+        'Technology recommendations',
+        '3-month implementation support',
+        'Ongoing guidance & reviews'
+      ],
+      cta: 'Get Full Consulting'
+    }
+  ],
+  'portfolio': [
+    {
+      id: 'basic-profile',
+      name: 'Professional Profile',
+      description: 'Showcase your work with a stunning profile',
+      basePrice: 199,
+      features: [
+        'Single-page portfolio',
+        'Mobile responsive design',
+        'Portfolio gallery',
+        'Contact information',
+        'Social media integration',
+        '2 revision rounds',
+        '5-day delivery'
+      ],
+      cta: 'Create My Profile'
+    },
+    {
+      id: 'portfolio-website',
+      name: 'Portfolio Website',
+      description: 'Complete portfolio website with multiple pages',
+      basePrice: 399,
+      popular: true,
+      features: [
+        'Multi-page portfolio site',
+        'Project case studies',
+        'About & services pages',
+        'Blog/news section',
+        'Contact forms',
+        'SEO optimization',
+        'Analytics integration',
+        '3 revision rounds',
+        '10-day delivery'
+      ],
+      cta: 'Build My Portfolio'
+    },
+    {
+      id: 'brand-website',
+      name: 'Premium Brand Site',
+      description: 'Complete brand website with advanced features',
+      basePrice: 799,
+      features: [
+        'Full brand website',
+        'Advanced portfolio features',
+        'Client testimonials',
+        'Service booking system',
+        'Client portal access',
+        'E-commerce integration',
+        'Advanced SEO & marketing',
+        'Social media integration',
+        '6-month support'
+      ],
+      cta: 'Launch Brand Site'
+    }
   ]
 };
 

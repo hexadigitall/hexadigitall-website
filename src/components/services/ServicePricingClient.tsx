@@ -17,8 +17,8 @@ export default function ServicePricingClient({ serviceSlug, serviceName }: Servi
     'business-plan-and-logo-design': 'business-plan',
     'web-and-mobile-software-development': 'web-development',
     'social-media-advertising-and-marketing': 'digital-marketing',
-    'profile-and-portfolio-building': 'web-development', // Use web-development pricing
-    'mentoring-and-consulting': 'digital-marketing', // Use digital-marketing pricing for consulting
+    'profile-and-portfolio-building': 'portfolio', // Use portfolio pricing
+    'mentoring-and-consulting': 'consulting', // Use consulting pricing
   };
 
   const serviceType = servicePricingMap[serviceSlug];
