@@ -226,9 +226,11 @@ export default function WebMobilePricingSections() {
               packageFeatures={pkg.features}
               serviceTitle={title}
               deliveryTime={pkg.features.find(f => f.includes('delivery'))?.match(/\d+-?\d*-day/)?.[0] || '2-4 weeks'}
-              buttonText={`Get ${pkg.name}`}
-              className={`w-full inline-flex items-center justify-center px-6 py-3 ${scheme.button} text-white font-bold rounded-xl transition-all duration-300 shadow-md hover:shadow-lg`}
-            />
+            >
+              <button className={`w-full inline-flex items-center justify-center px-6 py-3 ${scheme.button} text-white font-bold rounded-xl transition-all duration-300 shadow-md hover:shadow-lg`}>
+                Get {pkg.name}
+              </button>
+            </PredefinedPackageButton>
           </div>
         ))}
       </div>
