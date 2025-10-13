@@ -97,24 +97,63 @@ export default async function IndividualServicePage(
         </div>
       </div>
 
-      <article className="bg-white">
-        {/* Hero Section */}
-        <div className="bg-primary text-white py-16">
-          <div className="container mx-auto px-6">
-            <h1 className="text-4xl md:text-5xl font-bold font-heading !text-white mb-4">
-              {service.title}
-            </h1>
-            <p className="text-xl text-blue-100 max-w-3xl leading-relaxed">
-              {service.overview}
-            </p>
+      <article className="relative">
+        {/* Enhanced Hero Section with Background Image */}
+        <div className="relative min-h-[60vh] flex items-center justify-center overflow-hidden">
+          {/* Background Image */}
+          <div className="absolute inset-0">
+            <div 
+              className="w-full h-full bg-cover bg-center bg-no-repeat"
+              style={{
+                backgroundImage: `url('/assets/images/team/diverse-team.jpg')`,
+              }}
+            />
+            {/* Gradient Overlay */}
+            <div className="absolute inset-0 bg-gradient-to-br from-primary/90 via-secondary/80 to-accent/90"></div>
+            {/* Animated Background Elements */}
+            <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-gradient-to-r from-blue-400/20 to-purple-400/20 rounded-full blur-3xl animate-pulse-slow"></div>
+            <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-gradient-to-r from-purple-400/20 to-pink-400/20 rounded-full blur-3xl animate-float"></div>
+          </div>
+          
+          {/* Content */}
+          <div className="container mx-auto px-6 relative z-10">
+            <div className="text-center text-white">
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold font-heading mb-6 animate-slide-up">
+                {service.title}
+              </h1>
+              <p className="text-xl md:text-2xl text-blue-100 max-w-4xl mx-auto leading-relaxed animate-fade-in">
+                {service.overview}
+              </p>
+              
+              {/* Glass CTA Button */}
+              <div className="mt-8">
+                <a 
+                  href="#packages" 
+                  className="inline-flex items-center px-8 py-4 bg-white/20 backdrop-blur-md border border-white/30 text-white font-semibold rounded-2xl hover:bg-white/30 transition-all duration-300 hover:scale-105 hover:shadow-2xl"
+                >
+                  View Our Packages
+                  <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+                  </svg>
+                </a>
+              </div>
+            </div>
           </div>
         </div>
 
         {/* Main Content */}
-        <div className="container mx-auto px-6 py-12">
-          <div className="max-w-4xl mx-auto">
-            <div className="prose lg:prose-xl max-w-none">
-              <PortableText value={service.mainContent as Record<string, unknown>[]} />
+        <div className="relative py-16 md:py-24 bg-gradient-to-b from-slate-50 via-white to-blue-50 overflow-hidden">
+          {/* Background decorative elements */}
+          <div className="absolute inset-0 overflow-hidden">
+            <div className="absolute top-1/3 -left-32 w-64 h-64 bg-gradient-to-r from-blue-400/10 to-indigo-400/10 rounded-full blur-3xl"></div>
+            <div className="absolute bottom-1/3 -right-32 w-80 h-80 bg-gradient-to-r from-purple-400/10 to-pink-400/10 rounded-full blur-3xl"></div>
+          </div>
+          
+          <div className="container mx-auto px-6 relative z-10" id="packages">
+            <div className="max-w-4xl mx-auto">
+              <div className="prose lg:prose-xl max-w-none card-enhanced p-8 rounded-2xl">
+                <PortableText value={service.mainContent as Record<string, unknown>[]} />
+              </div>
             </div>
             
             {/* Sub-Services Section for Web & Mobile Software Development */}
@@ -148,7 +187,7 @@ export default async function IndividualServicePage(
                 
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
                   {/* Web Development */}
-                  <div className="bg-gradient-to-br from-blue-50 to-blue-100 rounded-3xl p-8 border-2 border-blue-200 hover:border-blue-300 transition-all duration-300 hover:shadow-xl group relative overflow-hidden">
+                  <div className="card-enhanced rounded-3xl p-8 hover:scale-105 transition-all duration-300 group relative overflow-hidden bg-gradient-to-br from-blue-500/10 to-blue-600/20">
                     {/* Background decoration */}
                     <div className="absolute top-0 right-0 w-32 h-32 bg-blue-500/10 rounded-full -mr-16 -mt-16 group-hover:scale-110 transition-transform duration-500"></div>
                     
@@ -213,7 +252,7 @@ export default async function IndividualServicePage(
                   </div>
 
                   {/* Mobile App Development */}
-                  <div className="bg-gradient-to-br from-purple-50 to-purple-100 rounded-3xl p-8 border-2 border-purple-200 hover:border-purple-300 transition-all duration-300 hover:shadow-xl group relative overflow-hidden">
+                  <div className="card-enhanced rounded-3xl p-8 hover:scale-105 transition-all duration-300 group relative overflow-hidden bg-gradient-to-br from-purple-500/10 to-purple-600/20">
                     {/* Background decoration */}
                     <div className="absolute top-0 right-0 w-32 h-32 bg-purple-500/10 rounded-full -mr-16 -mt-16 group-hover:scale-110 transition-transform duration-500"></div>
                     
@@ -295,7 +334,7 @@ export default async function IndividualServicePage(
                   </div>
                   
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-                    <div className="bg-white rounded-2xl p-6 text-center shadow-sm">
+                    <div className="glass rounded-2xl p-6 text-center">
                       <div className="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center text-green-600 mx-auto mb-4">
                         <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1" />
@@ -304,7 +343,7 @@ export default async function IndividualServicePage(
                       <h4 className="font-bold text-gray-900 mb-2">Cost Savings</h4>
                       <p className="text-gray-600 text-sm">Save up to 30% compared to separate projects</p>
                     </div>
-                    <div className="bg-white rounded-2xl p-6 text-center shadow-sm">
+                    <div className="glass rounded-2xl p-6 text-center">
                       <div className="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center text-blue-600 mx-auto mb-4">
                         <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
@@ -313,7 +352,7 @@ export default async function IndividualServicePage(
                       <h4 className="font-bold text-gray-900 mb-2">Faster Delivery</h4>
                       <p className="text-gray-600 text-sm">Parallel development reduces overall timeline</p>
                     </div>
-                    <div className="bg-white rounded-2xl p-6 text-center shadow-sm">
+                    <div className="glass rounded-2xl p-6 text-center">
                       <div className="w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center text-purple-600 mx-auto mb-4">
                         <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
@@ -361,10 +400,9 @@ export default async function IndividualServicePage(
             />
           </div>
         </div>
-      </article>
-
-      {/* Pricing Section */}
-      <ServicePricingClient serviceSlug={params.slug} serviceName={service.title} />
+        
+        {/* Pricing Section */}
+        <ServicePricingClient serviceSlug={params.slug} serviceName={service.title} />
 
         {/* Related Services */}
         {relatedServices && relatedServices.length > 0 && (
@@ -381,7 +419,7 @@ export default async function IndividualServicePage(
                     <Link
                       key={relatedService.slug.current}
                       href={`/services/${relatedService.slug.current}`}
-                      className="bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 p-6 group border border-gray-100"
+                      className="card-enhanced rounded-xl hover:scale-105 transition-all duration-300 p-6 group"
                     >
                       <h3 className="text-xl font-bold text-gray-900 group-hover:text-primary transition-colors mb-3">
                         {relatedService.title}
@@ -402,6 +440,7 @@ export default async function IndividualServicePage(
             </div>
           </div>
         )}
+      </article>
     </>
   );
 }

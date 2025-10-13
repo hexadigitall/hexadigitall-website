@@ -366,7 +366,7 @@ export default function WebAndMobileSoftwareDevelopmentPage() {
               return (
                 <div
                   key={group.id}
-                  className="bg-white border-2 border-gray-200 hover:border-primary/50 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden cursor-pointer group"
+                  className="card-enhanced hover:scale-105 rounded-2xl overflow-hidden cursor-pointer group transition-all duration-300"
                   onClick={() => openPackageModal(group.id)}
                 >
                   <div className={`bg-gradient-to-r ${group.color} p-6 text-white text-center`}>
@@ -414,7 +414,7 @@ export default function WebAndMobileSoftwareDevelopmentPage() {
           </div>
 
           {/* Why Choose Us Section */}
-          <div className="bg-gradient-to-br from-gray-50 to-blue-50 rounded-2xl p-8 md:p-12 mb-16">
+          <div className="card-enhanced rounded-2xl p-8 md:p-12 mb-16">
             <div className="text-center mb-12">
               <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Why Choose Our Development Services?</h2>
               <p className="text-lg text-gray-600 max-w-3xl mx-auto">
@@ -430,7 +430,7 @@ export default function WebAndMobileSoftwareDevelopmentPage() {
                 { icon: '🎨', title: 'Modern Design', desc: 'Beautiful, user-friendly interfaces' }
               ].map((feature, index) => (
                 <div key={index} className="text-center">
-                  <div className="w-16 h-16 bg-white rounded-full shadow-lg flex items-center justify-center mx-auto mb-4">
+                  <div className="w-16 h-16 glass rounded-full flex items-center justify-center mx-auto mb-4 hover:scale-110 transition-transform duration-300">
                     <span className="text-3xl">{feature.icon}</span>
                   </div>
                   <h3 className="text-xl font-semibold text-gray-900 mb-2">{feature.title}</h3>
@@ -441,7 +441,7 @@ export default function WebAndMobileSoftwareDevelopmentPage() {
           </div>
 
           {/* Call to Action */}
-          <div className="bg-gradient-to-r from-primary/10 via-white to-primary/10 border border-primary/20 shadow-lg rounded-2xl p-8 md:p-12 text-center">
+          <div className="card-enhanced rounded-2xl p-8 md:p-12 text-center">
             <h2 className="text-3xl md:text-4xl font-bold text-primary mb-4">Ready to Start Your Project?</h2>
             <p className="text-lg text-gray-700 mb-8 max-w-2xl mx-auto">
               Let&apos;s discuss your requirements and create a solution that perfectly fits your needs and budget.

@@ -7,7 +7,7 @@ import Link from 'next/link'
 import { ServiceRequestFlow, ServiceCategory, Package } from '@/components/services/ServiceRequestFlow'
 import { useCurrency } from '@/contexts/CurrencyContext'
 import { DiscountBanner } from '@/components/ui/DiscountBanner'
-import { CompactPriceDisplay } from '@/components/ui/PriceDisplay'
+import { CompactPriceDisplay, StartingAtPriceDisplay } from '@/components/ui/PriceDisplay'
 import { RequestServiceCTA, ContactCTA } from '@/components/ui/CTAButton'
 import { SparklesIcon } from '@heroicons/react/24/outline'
 import { SearchParamsHandler } from '@/components/services/SearchParamsHandler'
@@ -55,16 +55,16 @@ const mapServiceToServiceCategory = (service: Service): ServiceCategory => {
             billing: 'one_time' as const,
             deliveryTime: '3-5 business days',
             features: [
-              'Custom responsive single-page design',
-              'Mobile-first optimization',
-              'Contact form with email notifications',
-              'Basic SEO setup (title, meta, keywords)',
-              'Social media integration',
-              'Google Analytics integration',
-              'Page speed optimization',
-              '3 rounds of revisions',
-              '1 month free hosting included',
-              '30-day support & minor updates'
+              'Single custom-designed page with hero section',
+              'Mobile-responsive layout (phone, tablet, desktop)',
+              'Contact form with email notifications to your inbox',
+              'Basic SEO optimization (meta tags, page title, description)',
+              'Social media icons linking to your profiles',
+              'Google Analytics setup for visitor tracking',
+              'Fast loading optimization (under 3 seconds)',
+              '3 rounds of design revisions',
+              '1 month free hosting on our servers',
+              '30-day email support for questions & minor changes'
             ]
           },
           {
@@ -77,18 +77,19 @@ const mapServiceToServiceCategory = (service: Service): ServiceCategory => {
             deliveryTime: '7-10 business days',
             popular: true,
             features: [
-              '5-8 professional pages (Home, About, Services, Contact, + 4 custom)',
-              'Modern responsive design',
-              'Basic Content Management System',
-              'Advanced SEO optimization',
-              'Contact forms & Google Analytics',
-              'Social media integration',
-              'SSL certificate setup',
-              'Basic blog functionality',
-              'Performance optimization',
-              '3 months hosting included',
-              '4 rounds of revisions',
-              '90-day support & maintenance'
+              '5-8 professional pages: Home, About, Services, Portfolio, Contact + 3 custom pages',
+              'Modern responsive design with custom color scheme',
+              'WordPress CMS for easy content updates',
+              'Advanced SEO package (sitemap, schema markup, keyword optimization)',
+              'Multiple contact forms with spam protection',
+              'Social media feed integration',
+              'SSL security certificate included',
+              'Blog section with 5 starter posts written for you',
+              'Performance optimization (CDN, image compression)',
+              'Google My Business setup and optimization',
+              '3 months premium hosting included',
+              '4 rounds of design revisions',
+              '90-day phone & email support with monthly check-ins'
             ]
           },
           {
@@ -100,19 +101,21 @@ const mapServiceToServiceCategory = (service: Service): ServiceCategory => {
             billing: 'one_time' as const,
             deliveryTime: '14-21 business days',
             features: [
-              'Complete e-commerce website with unlimited products',
-              'Payment processing (Stripe, PayPal, Razorpay)',
-              'Inventory management with low-stock alerts',
-              'Customer accounts & order history',
-              'Order tracking & automated notifications',
-              'Admin dashboard for order & product management',
-              'Security features & SSL certification',
-              'SEO optimization for products',
-              'Mobile-optimized shopping experience',
-              'Basic email marketing integration',
-              '6 months hosting & domain included',
-              '5 rounds of revisions',
-              '6-month support & updates'
+              'Complete online store with unlimited product listings',
+              'Secure payment processing (Stripe, PayPal, Razorpay, bank transfers)',
+              'Advanced inventory management with automatic low-stock alerts',
+              'Customer accounts with order history, wishlist, and addresses',
+              'Automated order confirmation & shipping notification emails',
+              'Comprehensive admin dashboard for sales, orders, and customer management',
+              'Multi-currency support and tax calculation',
+              'Product reviews and ratings system',
+              'Coupon and discount code functionality',
+              'Email marketing integration (Mailchimp) with abandoned cart recovery',
+              'Advanced SEO for product pages and category optimization',
+              '6 months premium hosting with daily backups',
+              'Free domain name registration',
+              '5 rounds of design revisions',
+              '6-month priority support with dedicated account manager'
             ]
           }
         ]
@@ -128,16 +131,17 @@ const mapServiceToServiceCategory = (service: Service): ServiceCategory => {
             billing: 'one_time' as const,
             deliveryTime: '3-4 weeks',
             features: [
-              'iOS AND Android platforms (React Native)',
-              '5-7 core screens with navigation',
-              'User registration & login',
-              'Basic data storage & retrieval',
-              'Push notifications setup',
-              'Social media login integration',
-              'Basic UI/UX design with modern styling',
-              'App store submission assistance',
-              'Source code provided',
-              '60-day bug fixes & support'
+              'iOS AND Android app using React Native framework',
+              '5-7 core screens: login, home, profile, settings, and 3 custom screens',
+              'User authentication with email/password registration',
+              'Local data storage for user preferences and basic content',
+              'Push notification setup for announcements',
+              'Social media login (Google, Facebook)',
+              'Modern UI design with your brand colors and logo',
+              'Basic navigation menu and tab structure',
+              'App store submission help and guidelines',
+              'Full source code ownership provided',
+              '60-day bug fixes and technical support'
             ]
           },
           {
@@ -150,18 +154,19 @@ const mapServiceToServiceCategory = (service: Service): ServiceCategory => {
             deliveryTime: '5-7 weeks',
             popular: true,
             features: [
-              'iOS AND Android with native performance',
-              '10-15 feature-rich screens',
-              'Advanced user profiles & settings',
-              'Database integration (Firebase/MongoDB)',
-              'Custom UI/UX design with branding',
-              'Push notifications & in-app messaging',
-              'Analytics integration (Firebase/Mixpanel)',
-              'API integrations (3rd party services)',
-              'App store optimization & ASO',
-              'Admin panel for content management',
-              'Testing on multiple devices',
-              '90-day support & updates'
+              'Native-performance iOS & Android apps with advanced features',
+              '10-15 feature-rich screens with custom layouts and animations',
+              'Advanced user profiles with photo upload, bio, preferences',
+              'Cloud database integration (Firebase) with real-time sync',
+              'Custom UI/UX design with professional branding package',
+              'In-app messaging system between users',
+              'Advanced push notifications with scheduling and targeting',
+              'Third-party API integrations (payment, maps, social sharing)',
+              'App Store Optimization (ASO) with keywords and screenshots',
+              'Web-based admin panel for content and user management',
+              'Testing on 10+ physical devices and simulators',
+              'Analytics integration for user behavior tracking',
+              '90-day comprehensive support with monthly feature updates'
             ]
           },
           {
@@ -173,19 +178,21 @@ const mapServiceToServiceCategory = (service: Service): ServiceCategory => {
             billing: 'one_time' as const,
             deliveryTime: '8-12 weeks',
             features: [
-              'Full-featured native iOS & Android apps',
-              'Custom backend API & database architecture',
-              'Comprehensive admin dashboard',
-              'Enterprise-grade security & encryption',
-              'Multiple third-party integrations',
-              'Real-time data sync & offline functionality',
-              'Multi-language & multi-currency support',
-              'Advanced analytics & reporting',
-              'Custom server setup & deployment',
-              'Load balancing & scalability planning',
-              'Comprehensive testing & QA',
-              'App store optimization & marketing assets',
-              '6-month priority support & maintenance'
+              'Fully native iOS (Swift) & Android (Kotlin) applications',
+              'Custom-built backend API with scalable server architecture',
+              'Advanced admin dashboard with analytics, reporting, and user management',
+              'Enterprise security: encryption, secure authentication, data protection',
+              'Multiple integrations: CRM, ERP, payment gateways, third-party services',
+              'Real-time data synchronization with offline functionality',
+              'Multi-language support (up to 5 languages)',
+              'Multi-currency and international payment processing',
+              'Advanced analytics with custom reporting dashboard',
+              'Dedicated cloud server setup with auto-scaling',
+              'Load balancing and performance optimization',
+              'Comprehensive QA testing including security and performance tests',
+              'Professional app store assets and marketing materials',
+              'Priority support with dedicated project manager for 6 months',
+              'Monthly performance reviews and optimization recommendations'
             ]
           }
         ]
@@ -996,7 +1003,7 @@ export default function ServicesPage() {
                     return (
                       <div
                         key={service._id}
-                        className={`bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden group cursor-pointer border min-h-[400px] flex flex-col ${service.featured ? 'border-primary ring-2 ring-primary ring-opacity-20' : 'border-gray-200'
+                        className={`card-enhanced rounded-2xl transition-all duration-300 overflow-hidden group cursor-pointer min-h-[400px] flex flex-col hover:scale-105 ${service.featured ? 'ring-2 ring-primary ring-opacity-30' : ''
                           }`}
                         onClick={() => setSelectedService(service)}
                       >
@@ -1017,10 +1024,11 @@ export default function ServicesPage() {
                               </h3>
                               {lowestPrice && (
                                 <div className="mt-2">
-                                  <CompactPriceDisplay
+                                  <StartingAtPriceDisplay
                                     price={lowestPrice}
+                                    size="sm"
                                     showDiscount={true}
-                                    className="justify-start"
+                                    className="justify-start text-left"
                                   />
                                 </div>
                               )}
@@ -1054,7 +1062,7 @@ export default function ServicesPage() {
 
               {/* Simple CTA to Web & Mobile Development */}
               <div className="mt-16 mb-8 text-center">
-                <div className="bg-gradient-to-br from-blue-50 via-white to-purple-50 border-2 border-primary/20 rounded-2xl p-8">
+                <div className="card-enhanced rounded-2xl p-8">
                   <div className="inline-flex items-center space-x-2 bg-gradient-to-r from-blue-500 to-purple-500 text-white px-4 py-2 rounded-full text-sm font-semibold mb-4">
                     <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
@@ -1095,7 +1103,7 @@ export default function ServicesPage() {
                     return (
                       <div
                         key={service._id}
-                        className="bg-lightGray p-6 sm:p-8 rounded-xl shadow-md hover:shadow-xl hover:-translate-y-1 transition-all duration-300 min-h-[280px] flex flex-col justify-between"
+                        className="card-enhanced p-6 sm:p-8 rounded-xl hover:scale-105 transition-all duration-300 min-h-[280px] flex flex-col justify-between"
                       >
                         <div>
                           <h2 className="text-xl sm:text-2xl font-bold font-heading mb-3 leading-tight">{service.title}</h2>
@@ -1103,10 +1111,12 @@ export default function ServicesPage() {
 
                           {/* Starting price preview */}
                           <div className="mb-4">
-                            <p className="text-gray-600 text-sm mb-1">Starting from</p>
-                            <div className="text-2xl font-bold text-primary">
-                              {formatPrice(startingPrice, { applyNigerianDiscount: true })}
-                            </div>
+                            <StartingAtPriceDisplay
+                              price={startingPrice}
+                              size="md"
+                              showDiscount={true}
+                              className="text-left"
+                            />
                           </div>
                         </div>
 
@@ -1140,7 +1150,7 @@ export default function ServicesPage() {
           )}
 
           {/* Call to Action - Improved Design */}
-          <div className="mt-20 bg-gradient-to-r from-primary/10 via-white to-primary/10 border border-primary/20 shadow-lg rounded-2xl p-8 md:p-12 flex flex-col items-center text-center">
+          <div className="mt-20 card-enhanced rounded-2xl p-8 md:p-12 flex flex-col items-center text-center">
             <div className="flex items-center justify-center mb-4">
               <svg className="w-10 h-10 text-primary mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3" />

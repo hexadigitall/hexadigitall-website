@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { CheckIcon, SparklesIcon, ArrowRightIcon } from '@heroicons/react/24/outline';
 import { type PricingTier, SERVICE_PRICING } from '@/lib/currency';
 import { useCurrency } from '@/contexts/CurrencyContext';
-import { PriceDisplay } from './PriceDisplay';
+import { PriceDisplay, StartingAtPriceDisplay } from './PriceDisplay';
 
 interface PricingTiersProps {
   service: string;
@@ -116,11 +116,10 @@ export default function PricingTiers({
                   
                   {/* Price */}
                   <div className="mb-6">
-                    <PriceDisplay 
+                    <StartingAtPriceDisplay 
                       price={tier.basePrice}
                       size="lg"
                       showDiscount={true}
-                      showUrgency={true}
                       className=""
                     />
                     <p className="text-sm text-gray-600 mt-2">{tier.billing || 'One-time payment'}</p>
@@ -158,19 +157,35 @@ export default function PricingTiers({
 
         {/* Additional Info */}
         <div className="text-center mt-12">
-          <div className="bg-gray-50 rounded-lg p-6 max-w-4xl mx-auto">
-            <h4 className="font-semibold text-gray-900 mb-2">
-              Need something custom?
+          <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-2xl p-8 max-w-4xl mx-auto border border-blue-200">
+            <div className="inline-flex items-center px-4 py-2 bg-blue-100 text-blue-800 rounded-full text-sm font-medium mb-4">
+              💡 Pricing Information
+            </div>
+            <h4 className="font-semibold text-gray-900 mb-3 text-lg">
+              Flexible Pricing Options
             </h4>
-            <p className="text-gray-600 mb-4">
-              All our packages can be customized to fit your specific needs. 
-              Contact us for a personalized quote.
+            <p className="text-gray-700 mb-4 leading-relaxed">
+              The prices shown are <strong>starting prices</strong> for our standard packages. 
+              Final pricing may vary based on your specific requirements, project complexity, 
+              and additional features you choose.
             </p>
-            <div className="flex flex-wrap justify-center gap-6 text-sm text-gray-500">
-              <span>✓ 100% Satisfaction Guarantee</span>
-              <span>✓ Fast Turnaround</span>
-              <span>✓ Professional Quality</span>
-              <span>✓ Ongoing Support</span>
+            <p className="text-gray-700 mb-6 leading-relaxed">
+              <strong>Need something different?</strong> All packages can be customized, 
+              and we offer individual services too. Contact us for a personalized quote.
+            </p>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm text-gray-600">
+              <div className="flex items-center justify-center">
+                <span>✓ 100% Satisfaction Guarantee</span>
+              </div>
+              <div className="flex items-center justify-center">
+                <span>✓ Transparent Pricing</span>
+              </div>
+              <div className="flex items-center justify-center">
+                <span>✓ No Hidden Fees</span>
+              </div>
+              <div className="flex items-center justify-center">
+                <span>✓ Flexible Payments</span>
+              </div>
             </div>
           </div>
         </div>
