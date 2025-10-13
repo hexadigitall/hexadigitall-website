@@ -33,6 +33,7 @@
     "@sanity/client": "^7.11.0",
     "@sanity/image-url": "^1.2.0",
     "@sanity/vision": "^4.6.0",
+    "canvas": "^3.2.0",
     "dotenv": "^16.6.1",
     "embla-carousel-react": "^8.6.0",
     "framer-motion": "^12.23.24",
