@@ -167,6 +167,70 @@ export function CompactPriceDisplay({
   )
 }
 
+// "Starting at..." pricing display for service packages
+export function StartingAtPriceDisplay({ 
+  price, 
+  size = 'md',
+  showDiscount = true,
+  className = "" 
+}: {
+  price: number
+  size?: 'sm' | 'md' | 'lg'
+  showDiscount?: boolean
+  className?: string
+}) {
+  const { formatPriceWithDiscount } = useCurrency()
+  
+  const priceInfo = formatPriceWithDiscount(price, { applyNigerianDiscount: true })
+  
+  const sizeClasses = {
+    sm: {
+      starting: 'text-xs',
+      price: 'text-lg font-bold',
+    },
+    md: {
+      starting: 'text-sm',
+      price: 'text-2xl font-bold',
+    },
+    lg: {
+      starting: 'text-base',
+      price: 'text-3xl font-bold',
+    }
+  }
+  
+  const styles = sizeClasses[size]
+  
+  return (
+    <div className={`text-center ${className}`}>
+      <div className={`text-gray-600 ${styles.starting} mb-1 uppercase tracking-wide`}>
+        Starting at
+      </div>
+      
+      {priceInfo.hasDiscount && showDiscount ? (
+        <div className="flex flex-col items-center">
+          <span className={`text-gray-500 line-through text-sm mb-1`}>
+            {priceInfo.originalPrice}
+          </span>
+          <span className={`text-green-600 ${styles.price}`}>
+            {priceInfo.discountedPrice}
+          </span>
+          <span className="text-green-600 text-xs mt-1">
+            Save {priceInfo.discountPercentage}%!
+          </span>
+        </div>
+      ) : (
+        <span className={`text-primary ${styles.price}`}>
+          {priceInfo.discountedPrice}
+        </span>
+      )}
+      
+      <div className="text-gray-500 text-xs mt-2">
+        *Final price depends on specific requirements
+      </div>
+    </div>
+  )
+}
+
 // Hero/Landing page version with maximum urgency
 export function HeroPriceDisplay({ 
   price, 
