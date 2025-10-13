@@ -11,6 +11,8 @@ import { CompactPriceDisplay } from '@/components/ui/PriceDisplay'
 import { RequestServiceCTA, ContactCTA } from '@/components/ui/CTAButton'
 import { SparklesIcon } from '@heroicons/react/24/outline'
 import { SearchParamsHandler } from '@/components/services/SearchParamsHandler'
+import ServiceSearchBar from '@/components/services/ServiceSearchBar'
+import Breadcrumb from '@/components/ui/Breadcrumb'
 
 interface Service {
   _id: string
@@ -481,6 +483,8 @@ export default function ServicesPage() {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
   const [focusService, setFocusService] = useState<string | null>(null)
+  const [searchQuery, setSearchQuery] = useState<string>('')
+  const [selectedCategory, setSelectedCategory] = useState<string>('all')
   const { getLocalDiscountMessage, currentCurrency, formatPrice } = useCurrency()
 
   const discountMessage = getLocalDiscountMessage()
@@ -673,6 +677,28 @@ export default function ServicesPage() {
             </div>
           </div>
 
+          {/* Breadcrumb Navigation */}
+          <div className="mb-6">
+            <Breadcrumb items={[{ label: 'Services' }]} />
+          </div>
+
+          {/* Search and Quick Actions */}
+          <div className="mb-12 space-y-6">
+            <ServiceSearchBar
+              onSearch={setSearchQuery}
+              onCategoryChange={setSelectedCategory}
+              categories={[
+                { id: 'web', label: 'Web Development' },
+                { id: 'mobile', label: 'Mobile Apps' },
+                { id: 'marketing', label: 'Marketing' },
+                { id: 'branding', label: 'Branding' },
+                { id: 'consulting', label: 'Consulting' }
+              ]}
+            />
+
+
+          </div>
+
           {/* Service Request Packages */}
           {serviceCategories.length > 0 && (
             <>
@@ -691,6 +717,35 @@ export default function ServicesPage() {
                         'Professional IT services with transparent pricing and guaranteed delivery'
                   ) : 'Professional IT services with transparent pricing and guaranteed delivery'}
                 </p>
+
+                {/* Filter services based on search and category */}
+                {(() => {
+                  const filteredServices = serviceCategories.filter(service => {
+                    const matchesSearch = searchQuery === '' || 
+                      service.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                      service.description.toLowerCase().includes(searchQuery.toLowerCase())
+                    
+                    const matchesCategory = selectedCategory === 'all' ||
+                      service.serviceType === selectedCategory
+
+                    return matchesSearch && matchesCategory
+                  })
+
+                  // Show search results message
+                  if (searchQuery || selectedCategory !== 'all') {
+                    const resultCount = filteredServices.length
+                    return (
+                      <div className="text-center mb-8">
+                        <p className="text-gray-600">
+                          Found <span className="font-bold text-primary">{resultCount}</span> service{resultCount !== 1 ? 's' : ''}
+                          {searchQuery && ` matching "${searchQuery}"`}
+                          {selectedCategory !== 'all' && ` in ${selectedCategory}`}
+                        </p>
+                      </div>
+                    )
+                  }
+                  return null
+                })()}
 
                 {focusService && (
                   <div className="text-center mb-8">
@@ -720,7 +775,16 @@ export default function ServicesPage() {
                 )}
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                  {serviceCategories.map((service) => {
+                  {serviceCategories.filter(service => {
+                    const matchesSearch = searchQuery === '' || 
+                      service.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                      service.description.toLowerCase().includes(searchQuery.toLowerCase())
+                    
+                    const matchesCategory = selectedCategory === 'all' ||
+                      service.serviceType === selectedCategory
+
+                    return matchesSearch && matchesCategory
+                  }).map((service) => {
                     const lowestPrice = getLowestPrice(service.packages)
 
                     return (
@@ -895,6 +959,7 @@ export default function ServicesPage() {
           onClose={() => setSelectedService(null)}
         />
       )}
+
     </>
   )
 }

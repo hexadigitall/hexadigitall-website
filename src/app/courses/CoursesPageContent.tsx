@@ -8,6 +8,7 @@ import Image from 'next/image';
 import { useState, useEffect } from 'react';
 import { useCurrency } from '@/contexts/CurrencyContext';
 import CoursePaymentModal from '@/components/courses/CoursePaymentModal';
+import Breadcrumb from '@/components/ui/Breadcrumb';
 
 // Define types for our data
 interface Course {
@@ -192,6 +193,9 @@ function CoursesPageContent({ initialData }: CoursesPageContentProps = {}) {
   return (
     <section className="bg-white py-12 md:py-20">
       <div className="container mx-auto px-6">
+        <div className="mb-6">
+          <Breadcrumb items={[{ label: 'Courses' }]} />
+        </div>
         <div className="text-center mb-16">
           <h1 className="text-4xl md:text-5xl font-bold font-heading">Our Courses</h1>
           <p className="mt-4 text-lg text-darkText max-w-2xl mx-auto">

@@ -14,6 +14,8 @@ import FocusHandler from '@/components/services/FocusHandler'
 import WebMobilePricingSections from '@/components/services/WebMobilePricingSections'
 import ConditionalSections from '@/components/services/ConditionalSections'
 import ServicePaymentSection from '@/components/services/ServicePaymentSection'
+import WebMobileQuoteButtons from '@/components/services/WebMobileQuoteButtons'
+import QuoteButtonWrapper from '@/components/services/QuoteButtonWrapper'
 
 interface Service {
   title: string
@@ -153,6 +155,9 @@ export default async function IndividualServicePage(
                   </p>
                 </div>
                 
+                {/* Quote flow modals */}
+                <WebMobileQuoteButtons />
+                
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
                   {/* Web Development */}
                   <div className="bg-gradient-to-br from-blue-50 to-blue-100 rounded-3xl p-8 border-2 border-blue-200 hover:border-blue-300 transition-all duration-300 hover:shadow-xl group relative overflow-hidden">
@@ -202,15 +207,16 @@ export default async function IndividualServicePage(
                         </div>
                       </div>
                       <div className="space-y-3">
-                        <Link 
-                          href="/services?focus=web-development" 
-                          className="w-full inline-flex items-center justify-center px-6 py-3 bg-blue-500 hover:bg-blue-600 text-white font-semibold rounded-xl transition-all duration-300 group-hover:shadow-lg"
-                        >
-                          Get Web Development Quote
-                          <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                          </svg>
-                        </Link>
+                        <QuoteButtonWrapper quoteType="web">
+                          <button 
+                            className="w-full inline-flex items-center justify-center px-6 py-3 bg-blue-500 hover:bg-blue-600 text-white font-semibold rounded-xl transition-all duration-300 group-hover:shadow-lg"
+                          >
+                            Get Web Development Quote
+                            <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                            </svg>
+                          </button>
+                        </QuoteButtonWrapper>
                         <p className="text-center text-blue-600 text-sm">
                           <span className="font-medium">Starting from $299</span> • Free consultation included
                         </p>
@@ -266,15 +272,16 @@ export default async function IndividualServicePage(
                         </div>
                       </div>
                       <div className="space-y-3">
-                        <Link 
-                          href="/services?focus=mobile-development" 
-                          className="w-full inline-flex items-center justify-center px-6 py-3 bg-purple-500 hover:bg-purple-600 text-white font-semibold rounded-xl transition-all duration-300 group-hover:shadow-lg"
-                        >
-                          Get Mobile App Quote
-                          <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                          </svg>
-                        </Link>
+                        <QuoteButtonWrapper quoteType="mobile">
+                          <button 
+                            className="w-full inline-flex items-center justify-center px-6 py-3 bg-purple-500 hover:bg-purple-600 text-white font-semibold rounded-xl transition-all duration-300 group-hover:shadow-lg"
+                          >
+                            Get Mobile App Quote
+                            <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                            </svg>
+                          </button>
+                        </QuoteButtonWrapper>
                         <p className="text-center text-purple-600 text-sm">
                           <span className="font-medium">Starting from $499</span> • Free prototype included
                         </p>
@@ -330,15 +337,16 @@ export default async function IndividualServicePage(
                   </div>
                   
                   <div className="text-center">
-                    <Link 
-                      href="/contact?service=web-mobile-combo&package=complete-solution" 
-                      className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white font-bold rounded-2xl transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1"
-                    >
-                      Get Complete Solution Quote
-                      <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                      </svg>
-                    </Link>
+                    <QuoteButtonWrapper quoteType="complete">
+                      <button 
+                        className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white font-bold rounded-2xl transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1"
+                      >
+                        Get Complete Solution Quote
+                        <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                        </svg>
+                      </button>
+                    </QuoteButtonWrapper>
                     <p className="mt-4 text-gray-600">
                       <span className="font-semibold text-gray-800">Starting from ₦576,675</span> (with 50% Nigerian discount) • 
                       <span className="text-green-600 font-medium">Save up to 30%</span> • 

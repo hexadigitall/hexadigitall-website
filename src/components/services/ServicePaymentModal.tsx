@@ -15,8 +15,6 @@ interface ServicePackage {
   deliveryTime: string
 }
 
-export default ServicePaymentModal
-
 // Payment plan options for services
 type PaymentPlan = {
   id: string
@@ -188,6 +186,7 @@ function ServicePaymentModal({
   serviceSlug,
   packages: customPackages
 }: ServicePaymentModalProps) {
+  const [isProcessing, setIsProcessing] = useState(false)
   const { formatPrice, currentCurrency, getLocalDiscountMessage } = useCurrency()
   const [selectedPackage, setSelectedPackage] = useState<ServicePackage | null>(null)
   const [selectedPaymentPlan, setSelectedPaymentPlan] = useState<PaymentPlan>(PAYMENT_PLANS[0])
@@ -296,8 +295,6 @@ function ServicePaymentModal({
         {/* Payment Plan Selection - Only for services above $300 */}
         {qualifiesForInstallments && (
           <div className="space-y-4">
-  
-                export default ServicePaymentModal
             <h3 className="text-lg font-semibold text-gray-900">Choose Payment Plan</h3>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               {PAYMENT_PLANS.map((plan) => (
@@ -447,21 +444,46 @@ function ServicePaymentModal({
           
           {selectedPackage && (
             <button
-              onClick={() => {
-                // For now, redirect to contact with service info
-                const serviceData = {
-                  service: serviceTitle,
-                  package: selectedPackage.name,
-                  price: qualifiesForInstallments && selectedPaymentPlan.installments > 1 
-                    ? `${formatPrice(getPaymentAmounts().downPayment, { applyNigerianDiscount: true })} (${selectedPaymentPlan.name})`
-                    : formatPrice(selectedPackage.price, { applyNigerianDiscount: true })
-                };
-                const queryString = new URLSearchParams(serviceData).toString();
-                window.location.href = `/contact?${queryString}`;
+              onClick={async () => {
+                // Create Stripe checkout session
+                setIsProcessing(true)
+                try {
+                  const response = await fetch('/api/create-checkout-session', {
+                    method: 'POST',
+                    headers: {
+                      'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                      serviceTitle,
+                      packageName: selectedPackage.name,
+                      packagePrice: selectedPackage.price,
+                      paymentPlan: qualifiesForInstallments && selectedPaymentPlan ? selectedPaymentPlan.id : 'full',
+                      downPayment: qualifiesForInstallments && selectedPaymentPlan.installments > 1 
+                        ? getPaymentAmounts().downPayment 
+                        : selectedPackage.price,
+                      installments: qualifiesForInstallments && selectedPaymentPlan ? selectedPaymentPlan.installments : 1,
+                      currency: currentCurrency.code
+                    })
+                  })
+
+                  const data = await response.json()
+                  
+                  if (data.url) {
+                    // Redirect to Stripe checkout
+                    window.location.href = data.url
+                  } else {
+                    throw new Error('No checkout URL received')
+                  }
+                } catch (error) {
+                  console.error('Error creating checkout session:', error)
+                  alert('Failed to create checkout session. Please try again or contact support.')
+                  setIsProcessing(false)
+                }
               }}
-              className="flex-1 px-6 py-3 bg-primary text-white rounded-xl font-medium hover:bg-primary/90 transition-colors"
+              disabled={isProcessing}
+              className="flex-1 px-6 py-3 bg-primary text-white rounded-xl font-medium hover:bg-primary/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              Purchase Service
+              {isProcessing ? 'Processing...' : 'Purchase Service'}
             </button>
           )}
         </div>
@@ -487,3 +509,5 @@ function ServicePaymentModal({
     </Modal>
   )
 }
+
+export default ServicePaymentModal
