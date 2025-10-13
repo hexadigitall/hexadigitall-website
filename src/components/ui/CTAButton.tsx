@@ -6,12 +6,14 @@ import { ReactNode, MouseEventHandler } from 'react'
 
 interface BaseCTAProps {
   children: ReactNode
-  variant?: 'primary' | 'secondary' | 'accent' | 'success' | 'warning' | 'danger'
+  variant?: 'primary' | 'secondary' | 'accent' | 'success' | 'warning' | 'danger' | 'gradient' | 'premium' | 'neon' | 'glass'
   size?: 'sm' | 'md' | 'lg' | 'xl'
   fullWidth?: boolean
   className?: string
   icon?: ReactNode
   iconPosition?: 'left' | 'right'
+  glow?: boolean
+  animate?: boolean
 }
 
 interface CTAButtonProps extends BaseCTAProps {
@@ -30,14 +32,21 @@ interface CTALinkProps extends BaseCTAProps {
 
 type CTAProps = CTAButtonProps | CTALinkProps
 
-const getVariantClasses = (variant: string) => {
+const getVariantClasses = (variant: string, glow?: boolean, animate?: boolean) => {
+  const baseGlow = glow ? 'hover:animate-pulse-glow' : ''
+  const baseAnimate = animate ? 'hover:animate-bounce-soft' : ''
+  
   const variants = {
-    primary: 'bg-primary hover:bg-primary/90 text-white shadow-lg hover:shadow-xl border-transparent',
-    secondary: 'bg-gray-100 hover:bg-gray-200 text-gray-900 border-gray-300 hover:border-gray-400',
-    accent: 'bg-accent hover:bg-accent/90 text-white shadow-lg hover:shadow-xl border-transparent',
-    success: 'bg-green-500 hover:bg-green-600 text-white shadow-lg hover:shadow-xl border-transparent',
-    warning: 'bg-yellow-500 hover:bg-yellow-600 text-white shadow-lg hover:shadow-xl border-transparent',
-    danger: 'bg-red-500 hover:bg-red-600 text-white shadow-lg hover:shadow-xl border-transparent',
+    primary: `bg-primary hover:bg-primary/90 text-white shadow-lg hover:shadow-xl border-transparent ${baseGlow} ${baseAnimate}`,
+    secondary: `bg-gray-100 hover:bg-gray-200 text-gray-900 border-gray-300 hover:border-gray-400 ${baseAnimate}`,
+    accent: `bg-accent hover:bg-accent/90 text-white shadow-lg hover:shadow-xl border-transparent ${baseGlow} ${baseAnimate}`,
+    success: `bg-green-500 hover:bg-green-600 text-white shadow-lg hover:shadow-xl border-transparent ${baseGlow} ${baseAnimate}`,
+    warning: `bg-yellow-500 hover:bg-yellow-600 text-white shadow-lg hover:shadow-xl border-transparent ${baseGlow} ${baseAnimate}`,
+    danger: `bg-red-500 hover:bg-red-600 text-white shadow-lg hover:shadow-xl border-transparent ${baseGlow} ${baseAnimate}`,
+    gradient: `bg-gradient-to-r from-gradient-start to-gradient-end hover:from-gradient-end hover:to-gradient-start text-white shadow-lg hover:shadow-2xl border-transparent animate-gradient-x ${baseGlow} ${baseAnimate}`,
+    premium: `bg-gradient-to-r from-premium-gradient-start to-premium-gradient-end hover:from-premium-gradient-end hover:to-premium-gradient-start text-gray-800 shadow-lg hover:shadow-2xl border-transparent animate-gradient-x ${baseAnimate}`,
+    neon: `bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 hover:from-pink-500 hover:via-purple-500 hover:to-blue-500 text-white shadow-lg hover:shadow-2xl border-2 border-neon/50 hover:border-electric/50 animate-gradient-x ${baseGlow} ${baseAnimate}`,
+    glass: `bg-white/10 backdrop-blur-md border border-white/20 text-white hover:bg-white/20 hover:border-white/30 shadow-lg hover:shadow-xl ${baseAnimate}`,
   }
   return variants[variant as keyof typeof variants] || variants.primary
 }
@@ -60,7 +69,9 @@ export function CTAButton(props: CTAProps) {
     fullWidth = false,
     className = '',
     icon,
-    iconPosition = 'right'
+    iconPosition = 'right',
+    glow = false,
+    animate = false
   } = props
 
   const baseClasses = `
@@ -71,9 +82,10 @@ export function CTAButton(props: CTAProps) {
     focus:ring-4 focus:ring-opacity-50
     disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none
     ${fullWidth ? 'w-full' : ''}
+    ${animate ? 'hover:scale-105' : ''}
   `.trim()
 
-  const variantClasses = getVariantClasses(variant)
+  const variantClasses = getVariantClasses(variant, glow, animate)
   const sizeClasses = getSizeClasses(size)
   const allClasses = `${baseClasses} ${variantClasses} ${sizeClasses} ${className}`
 
@@ -128,10 +140,33 @@ export function AccentCTA({ children, ...props }: Omit<CTAProps, 'variant'>) {
   return <CTAButton {...(ctaProps as CTAProps)} />
 }
 
+// Modern gradient CTA variants
+export function GradientCTA({ children, ...props }: Omit<CTAProps, 'variant'>) {
+  const ctaProps = { variant: 'gradient' as const, children, glow: true, animate: true, ...props }
+  return <CTAButton {...(ctaProps as CTAProps)} />
+}
+
+export function PremiumCTA({ children, ...props }: Omit<CTAProps, 'variant'>) {
+  const ctaProps = { variant: 'premium' as const, children, animate: true, ...props }
+  return <CTAButton {...(ctaProps as CTAProps)} />
+}
+
+export function NeonCTA({ children, ...props }: Omit<CTAProps, 'variant'>) {
+  const ctaProps = { variant: 'neon' as const, children, glow: true, animate: true, ...props }
+  return <CTAButton {...(ctaProps as CTAProps)} />
+}
+
+export function GlassCTA({ children, ...props }: Omit<CTAProps, 'variant'>) {
+  const ctaProps = { variant: 'glass' as const, children, animate: true, ...props }
+  return <CTAButton {...(ctaProps as CTAProps)} />
+}
+
 // Service-specific CTAs with consistent styling
 export function RequestServiceCTA({ children = "Request Service", ...props }: Omit<CTAProps, 'variant' | 'icon'>) {
   const ctaProps = {
-    variant: 'primary' as const,
+    variant: 'gradient' as const,
+    glow: true,
+    animate: true,
     icon: (
       <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />

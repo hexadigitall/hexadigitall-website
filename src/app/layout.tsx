@@ -12,6 +12,7 @@ import AppCartProvider from '@/components/CartProvider';
 import { CurrencyProvider } from '@/contexts/CurrencyContext';
 import GoogleAnalytics from '@/components/GoogleAnalytics';
 import SEOStructuredData from '@/components/SEOStructuredData';
+import { QuickContactFAB } from '@/components/ui/FloatingCTA';
 
 // Define the fonts from your style guide with performance optimizations
 const montserrat = Montserrat({
@@ -179,6 +180,9 @@ export default function RootLayout({
               {children}
             </main>
             <Footer />
+            
+            {/* Floating CTA for conversion optimization */}
+            <QuickContactFAB />
           
           {/* Toast notifications with better accessibility */}
           <Toaster 

@@ -18,11 +18,82 @@ const config: Config = {
         accent: '#F5A623',    // Bright Orange
         lightGray: '#F4F7F6',
         darkText: '#333333',
+        // Modern gradient colors
+        'gradient-start': '#667eea',
+        'gradient-end': '#764ba2',
+        'accent-gradient-start': '#f093fb',
+        'accent-gradient-end': '#f5576c',
+        'success-gradient-start': '#4facfe',
+        'success-gradient-end': '#00f2fe',
+        'premium-gradient-start': '#a8edea',
+        'premium-gradient-end': '#fed6e3',
+        'neon': '#00ffff',
+        'electric': '#ff00ff',
       },
       fontFamily: {
         // ✅ Ensure these match the variables in layout.tsx with robust fallbacks
         heading: ['var(--font-montserrat)', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', 'sans-serif'],
         body: ['var(--font-lato)', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', 'sans-serif'],
+      },
+      animation: {
+        'gradient-x': 'gradient-x 15s ease infinite',
+        'gradient-y': 'gradient-y 15s ease infinite',
+        'gradient-xy': 'gradient-xy 15s ease infinite',
+        'pulse-glow': 'pulse-glow 2s ease-in-out infinite alternate',
+        'bounce-soft': 'bounce-soft 2s infinite',
+        'float': 'float 3s ease-in-out infinite',
+      },
+      keyframes: {
+        'gradient-y': {
+          '0%, 100%': {
+            'background-size': '400% 400%',
+            'background-position': 'center top'
+          },
+          '50%': {
+            'background-size': '200% 200%',
+            'background-position': 'center center'
+          }
+        },
+        'gradient-x': {
+          '0%, 100%': {
+            'background-size': '200% 200%',
+            'background-position': 'left center'
+          },
+          '50%': {
+            'background-size': '200% 200%',
+            'background-position': 'right center'
+          }
+        },
+        'gradient-xy': {
+          '0%, 100%': {
+            'background-size': '400% 400%',
+            'background-position': 'left center'
+          },
+          '25%': {
+            'background-size': '400% 400%',
+            'background-position': 'right center'
+          },
+          '50%': {
+            'background-size': '400% 400%',
+            'background-position': 'center top'
+          },
+          '75%': {
+            'background-size': '400% 400%',
+            'background-position': 'center bottom'
+          }
+        },
+        'pulse-glow': {
+          '0%': { 'box-shadow': '0 0 20px rgba(59, 130, 246, 0.5)' },
+          '100%': { 'box-shadow': '0 0 40px rgba(59, 130, 246, 0.8)' }
+        },
+        'bounce-soft': {
+          '0%, 100%': { transform: 'translateY(0)' },
+          '50%': { transform: 'translateY(-5px)' }
+        },
+        'float': {
+          '0%, 100%': { transform: 'translateY(0px)' },
+          '50%': { transform: 'translateY(-10px)' }
+        }
       },
     },
   },

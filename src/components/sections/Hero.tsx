@@ -4,7 +4,7 @@ import { useState, useEffect, useRef } from 'react'
 import Link from 'next/link'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useCurrency } from '@/contexts/CurrencyContext'
-import { CTAButton } from '@/components/ui/CTAButton'
+import { GradientCTA, GlassCTA } from '@/components/ui/CTAButton'
 import OptimizedImage from '@/components/ui/OptimizedImage'
 
 // Hero slides data
@@ -115,7 +115,7 @@ export default function Hero() {
                 role="group"
                 aria-roledescription="slide"
               >
-                {/* First Slide: Glassy Polymorphic Effect */}
+                {/* First Slide: Enhanced Modern Gradient Effect */}
                 {index === 0 ? (
                   <>
                     <div className="absolute inset-0 h-full">
@@ -125,30 +125,52 @@ export default function Hero() {
                         fill
                         sizes="100vw"
                         style={{ objectFit: 'cover' }}
-                        className="opacity-30"
+                        className="opacity-20"
                         priority={true}
                       />
-                      {/* Animated morph shapes */}
+                      {/* Modern animated gradient background */}
+                      <div className="absolute inset-0 bg-gradient-to-br from-gradient-start via-primary to-secondary opacity-90 animate-gradient-xy"></div>
+                      
+                      {/* Animated morph shapes with better gradients */}
                       <svg className="absolute top-0 left-0 w-full h-full pointer-events-none" viewBox="0 0 1440 600" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <motion.path
                           initial={{ opacity: 0 }}
-                          animate={{ opacity: 0.3 }}
-                          transition={{ duration: 1 }}
+                          animate={{ opacity: 0.4 }}
+                          transition={{ duration: 1.5 }}
                           d="M0,160 C480,320 960,0 1440,160 L1440,600 L0,600 Z"
-                          fill="url(#blueGradient)"
+                          fill="url(#modernGradient)"
+                        />
+                        <motion.path
+                          initial={{ opacity: 0, scale: 0.8 }}
+                          animate={{ opacity: 0.3, scale: 1 }}
+                          transition={{ duration: 2, delay: 0.5 }}
+                          d="M0,300 C360,150 720,450 1080,300 C1260,225 1350,375 1440,300 L1440,600 L0,600 Z"
+                          fill="url(#accentGradient)"
                         />
                         <defs>
-                          <linearGradient id="blueGradient" x1="0" y1="0" x2="1440" y2="600" gradientUnits="userSpaceOnUse">
-                            <stop stopColor="#3b82f6" />
-                            <stop offset="1" stopColor="#06b6d4" />
+                          <linearGradient id="modernGradient" x1="0" y1="0" x2="1440" y2="600" gradientUnits="userSpaceOnUse">
+                            <stop stopColor="#667eea" stopOpacity="0.8"/>
+                            <stop offset="0.5" stopColor="#764ba2" stopOpacity="0.6"/>
+                            <stop offset="1" stopColor="#f093fb" stopOpacity="0.4"/>
+                          </linearGradient>
+                          <linearGradient id="accentGradient" x1="0" y1="0" x2="1440" y2="600" gradientUnits="userSpaceOnUse">
+                            <stop stopColor="#f5576c" stopOpacity="0.6"/>
+                            <stop offset="1" stopColor="#4facfe" stopOpacity="0.4"/>
                           </linearGradient>
                         </defs>
                       </svg>
-                      <div className="absolute inset-0 bg-gradient-to-br from-blue-600/60 via-blue-400/40 to-blue-900/60 backdrop-blur-xl"></div>
                     </div>
-                    <div className="absolute inset-0 pointer-events-none">
-                      <div className="absolute left-1/4 top-1/4 w-1/2 h-1/2 bg-blue-400/30 rounded-full blur-3xl animate-pulse"></div>
-                      <div className="absolute right-1/4 bottom-1/4 w-1/3 h-1/3 bg-cyan-400/30 rounded-full blur-2xl animate-pulse"></div>
+                    
+                    {/* Enhanced floating particles */}
+                    <div className="absolute inset-0 pointer-events-none overflow-hidden">
+                      <div className="absolute left-1/4 top-1/4 w-96 h-96 bg-gradient-to-r from-blue-400/20 to-purple-400/20 rounded-full blur-3xl animate-float"></div>
+                      <div className="absolute right-1/4 bottom-1/4 w-64 h-64 bg-gradient-to-r from-pink-400/20 to-cyan-400/20 rounded-full blur-2xl animate-float" style={{animationDelay: '1s'}}></div>
+                      <div className="absolute left-1/2 top-1/2 w-32 h-32 bg-gradient-to-r from-yellow-400/30 to-orange-400/30 rounded-full blur-xl animate-pulse"></div>
+                      
+                      {/* Sparkle effects */}
+                      <div className="absolute top-1/4 right-1/3 w-2 h-2 bg-white rounded-full animate-ping" style={{animationDelay: '0.5s'}}></div>
+                      <div className="absolute bottom-1/3 left-1/3 w-1 h-1 bg-accent rounded-full animate-ping" style={{animationDelay: '1.2s'}}></div>
+                      <div className="absolute top-1/2 right-1/4 w-1 h-1 bg-secondary rounded-full animate-ping" style={{animationDelay: '2s'}}></div>
                     </div>
                   </>
                 ) : (
@@ -160,10 +182,17 @@ export default function Hero() {
                         fill
                         sizes="100vw"
                         style={{ objectFit: 'cover' }}
-                        className="opacity-50"
+                        className="opacity-40"
                         priority={false}
                       />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-black/10"></div>
+                      {/* Modern gradient overlay for other slides */}
+                      <div className={`absolute inset-0 ${index === 1 ? 'bg-gradient-to-br from-purple-900/80 via-blue-900/60 to-teal-900/70' : 'bg-gradient-to-br from-indigo-900/80 via-purple-900/60 to-pink-900/70'} animate-gradient-y`}></div>
+                      
+                      {/* Subtle floating particles */}
+                      <div className="absolute inset-0 pointer-events-none">
+                        <div className={`absolute left-1/3 top-1/3 w-64 h-64 ${index === 1 ? 'bg-purple-400/20' : 'bg-blue-400/20'} rounded-full blur-3xl animate-float`}></div>
+                        <div className={`absolute right-1/3 bottom-1/3 w-48 h-48 ${index === 1 ? 'bg-teal-400/15' : 'bg-pink-400/15'} rounded-full blur-2xl animate-float`} style={{animationDelay: '1.5s'}}></div>
+                      </div>
                     </div>
                   </>
                 )}
@@ -196,36 +225,52 @@ export default function Hero() {
                       <p className="max-w-3xl mx-auto text-base sm:text-lg lg:text-xl text-gray-200 mb-6 sm:mb-8">
                         {slide.description}
                       </p>
-                      <CTAButton href={slide.cta.href} size="lg">
-                        {slide.cta.text}
-                      </CTAButton>
+                      <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                        <GradientCTA href={slide.cta.href} size="lg">
+                          {slide.cta.text}
+                        </GradientCTA>
+                        {index === 0 && (
+                          <GlassCTA href="/contact" size="lg">
+                            Get Free Quote
+                          </GlassCTA>
+                        )}
+                      </div>
 
-                      {/* Clear Entry Points on First Slide */}
+                      {/* Enhanced Entry Points on First Slide */}
                       {index === 0 && (
-                        <div className="mt-12 grid grid-cols-1 sm:grid-cols-3 gap-4 max-w-4xl mx-auto">
+                        <div className="mt-12 grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-5xl mx-auto">
                           <Link
                             href="/services"
-                            className="group bg-white/10 backdrop-blur-sm hover:bg-white/20 border border-white/20 rounded-xl p-6 transition-all duration-300 hover:scale-105"
+                            className="group relative bg-white/5 backdrop-blur-md hover:bg-white/15 border border-white/20 hover:border-white/40 rounded-2xl p-8 transition-all duration-500 hover:scale-105 hover:-translate-y-2 hover:shadow-2xl overflow-hidden"
                           >
-                            <div className="text-4xl mb-3">🌐</div>
-                            <h3 className="text-lg font-bold text-white mb-2">Explore Our Services</h3>
-                            <p className="text-sm text-gray-200">Web, mobile, marketing & more</p>
+                            <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 to-cyan-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                            <div className="relative z-10">
+                              <div className="text-5xl mb-4 transform group-hover:scale-110 transition-transform duration-300">🌐</div>
+                              <h3 className="text-xl font-bold text-white mb-3 group-hover:text-cyan-300 transition-colors">Explore Our Services</h3>
+                              <p className="text-sm text-gray-300 group-hover:text-gray-200 transition-colors">Web, mobile, marketing & more</p>
+                            </div>
                           </Link>
                           <Link
                             href="/courses"
-                            className="group bg-white/10 backdrop-blur-sm hover:bg-white/20 border border-white/20 rounded-xl p-6 transition-all duration-300 hover:scale-105"
+                            className="group relative bg-white/5 backdrop-blur-md hover:bg-white/15 border border-white/20 hover:border-white/40 rounded-2xl p-8 transition-all duration-500 hover:scale-105 hover:-translate-y-2 hover:shadow-2xl overflow-hidden"
                           >
-                            <div className="text-4xl mb-3">📚</div>
-                            <h3 className="text-lg font-bold text-white mb-2">Explore Our Courses</h3>
-                            <p className="text-sm text-gray-200">Learn from industry experts</p>
+                            <div className="absolute inset-0 bg-gradient-to-br from-purple-500/10 to-pink-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                            <div className="relative z-10">
+                              <div className="text-5xl mb-4 transform group-hover:scale-110 transition-transform duration-300">📚</div>
+                              <h3 className="text-xl font-bold text-white mb-3 group-hover:text-pink-300 transition-colors">Explore Our Courses</h3>
+                              <p className="text-sm text-gray-300 group-hover:text-gray-200 transition-colors">Learn from industry experts</p>
+                            </div>
                           </Link>
                           <Link
                             href="/contact"
-                            className="group bg-white/10 backdrop-blur-sm hover:bg-white/20 border border-white/20 rounded-xl p-6 transition-all duration-300 hover:scale-105"
+                            className="group relative bg-white/5 backdrop-blur-md hover:bg-white/15 border border-white/20 hover:border-white/40 rounded-2xl p-8 transition-all duration-500 hover:scale-105 hover:-translate-y-2 hover:shadow-2xl overflow-hidden"
                           >
-                            <div className="text-4xl mb-3">🤝</div>
-                            <h3 className="text-lg font-bold text-white mb-2">Join Our Community</h3>
-                            <p className="text-sm text-gray-200">Network & grow together</p>
+                            <div className="absolute inset-0 bg-gradient-to-br from-green-500/10 to-teal-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                            <div className="relative z-10">
+                              <div className="text-5xl mb-4 transform group-hover:scale-110 transition-transform duration-300">🤝</div>
+                              <h3 className="text-xl font-bold text-white mb-3 group-hover:text-green-300 transition-colors">Join Our Community</h3>
+                              <p className="text-sm text-gray-300 group-hover:text-gray-200 transition-colors">Network & grow together</p>
+                            </div>
                           </Link>
                         </div>
                       )}

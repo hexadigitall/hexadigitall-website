@@ -1,0 +1,97 @@
+flowchart TD
+    A[Homepage] --> B[Explore Our Services]
+    A --> W[Need Help Choosing?]
+    
+    %% Enhanced Service Discovery
+    B --> C["/services - Enhanced Discovery"]
+    C --> C1[Filter by Category]
+    C --> C2[Filter by Budget]
+    C --> C3[Search Services]
+    C --> C4[Quick Quote Calculator]
+    
+    C1 --> D[Filtered Service List]
+    C2 --> D
+    C3 --> D
+    C4 --> QC[Quick Quote Modal]
+    
+    %% Service Selection
+    D --> E1[Service Card: Learn More]
+    D --> E2[Service Card: Quick Quote]
+    D --> E3[Service Card: View Packages]
+    
+    %% Individual Service Page Flow
+    E1 --> F["/services/{slug} - Service Hub"]
+    E2 --> QC
+    E3 --> F
+    
+    %% Service Hub - Everything in One Place
+    F --> F1[Interactive Pricing Calculator]
+    F --> F2[Package Comparison]
+    F --> F3[Feature Details]
+    F --> F4[Portfolio Examples]
+    F --> F5[Get Custom Quote]
+    
+    %% Interactive Pricing Flow (Modal on Service Page)
+    F1 --> PC[Pricing Calculator Modal]
+    F5 --> PC
+    
+    PC --> PC1[Select Base Package]
+    PC1 --> PC2[Toggle Features with Live Pricing]
+    PC2 --> PC3[See Real-time Total]
+    PC3 --> PC4[Review Quote Summary]
+    PC4 --> PC5[Proceed to Contact/Purchase]
+    
+    %% Package Comparison
+    F2 --> PKG[Package Comparison Modal]
+    PKG --> PKG1[Compare Features Side-by-Side]
+    PKG1 --> PKG2[Select Package]
+    PKG2 --> PC1
+    
+    %% Streamlined Contact Flow
+    PC5 --> CF[Smart Contact Form]
+    CF --> CF1[Pre-filled Service Details]
+    CF1 --> CF2[Add Project Requirements]
+    CF2 --> CF3[Submit Quote Request]
+    CF3 --> SUCCESS[Quote Confirmation]
+    
+    %% Wizard Flow for Uncertain Users
+    W --> WZ[Customization Wizard]
+    WZ --> WZ1[What type of business?]
+    WZ1 --> WZ2[What features do you need?]
+    WZ2 --> WZ3[What is your budget range?]
+    WZ3 --> WZ4[AI-Powered Recommendations]
+    WZ4 --> REC[Recommended Services]
+    REC --> F
+    
+    %% Quick Actions
+    QC --> QC1[Select Service Type]
+    QC1 --> QC2[Basic Requirements]
+    QC2 --> QC3[Instant Estimate]
+    QC3 --> QC4[View Detailed Options]
+    QC4 --> F
+    
+    %% Portfolio Integration
+    F4 --> PORT[Related Portfolio Items]
+    PORT --> PORTD[Portfolio Detail]
+    PORTD --> PORTC[Contact for Similar Project]
+    PORTC --> CF
+    
+    %% Enhanced Navigation
+    F -->|Breadcrumb| C
+    PC -->|Close| F
+    PKG -->|Close| F
+    WZ -->|Exit| C
+    
+    %% Emergency Exit Points
+    PC5 --> CALL[Call Sales Direct]
+    CF2 --> CHAT[Live Chat Support]
+    F --> FAQ[Service FAQ]
+    
+    %% Style Classes
+    classDef modal fill:#e1f5fe,stroke:#01579b,stroke-width:2px
+    classDef improved fill:#e8f5e8,stroke:#2e7d32,stroke-width:2px
+    classDef action fill:#fff3e0,stroke:#ef6c00,stroke-width:2px
+    
+    class PC,PKG,QC modal
+    class C,F,WZ improved
+    class CF,SUCCESS action
