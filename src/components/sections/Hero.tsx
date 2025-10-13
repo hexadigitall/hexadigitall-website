@@ -199,7 +199,7 @@ export default function Hero() {
 
                 {/* Content */}
                 <div className="relative container mx-auto px-4 sm:px-6 lg:px-8 h-full flex flex-col justify-center items-center">
-                  <div className="max-w-7xl w-full text-center">
+                  <div className="max-w-7xl w-full text-center px-4 sm:px-6 lg:px-8">
                     <motion.div
                       initial={{ opacity: 0, y: 20 }}
                       animate={{ opacity: 1, y: 0 }}
@@ -208,7 +208,7 @@ export default function Hero() {
                       <h1 className="text-xs sm:text-sm lg:text-base font-semibold uppercase tracking-widest text-secondary mb-2 sm:mb-4">
                         {slide.subtitle}
                       </h1>
-                      <p className="text-2xl sm:text-4xl lg:text-5xl xl:text-6xl font-extrabold font-heading text-white mb-4 sm:mb-6 leading-tight">
+                      <p className="text-xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-extrabold font-heading text-white mb-4 sm:mb-6 leading-tight px-2 sm:px-4">
                         {slide.title}
                       </p>
                       {/* Launch Special Banner - Only for Nigerian currency */}
@@ -223,7 +223,7 @@ export default function Hero() {
                         </div>
                       )}
 
-                      <p className="max-w-2xl sm:max-w-3xl mx-auto text-sm sm:text-base lg:text-lg text-gray-200 mb-6 sm:mb-8 leading-relaxed">
+                      <p className="max-w-2xl sm:max-w-3xl mx-auto text-sm sm:text-base lg:text-lg text-gray-200 mb-6 sm:mb-8 leading-relaxed px-4 sm:px-6">
                         {slide.description}
                       </p>
                       <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">

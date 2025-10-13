@@ -253,6 +253,19 @@
     }
   }
   
+  /* Improved responsive text utilities for hero */
+  @media (max-width: 640px) {
+    .hero-height {
+      padding: 2rem 0;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .hero-height {
+      padding: 1.5rem 0;
+    }
+  }
+  
   /* Animation utilities */
   .animate-fade-in {
     animation: fadeIn 0.5s ease-in-out;

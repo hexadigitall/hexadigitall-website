@@ -464,6 +464,8 @@ const mapServiceToServiceCategory = (service: Service): ServiceCategory => {
     return iconMap[serviceType] || 'default'
   }
 
+  const serviceType = getServiceType(service.slug.current)
+  
   return {
     _id: service._id,
     title: service.title,
@@ -472,7 +474,7 @@ const mapServiceToServiceCategory = (service: Service): ServiceCategory => {
     icon: getServiceIcon(service.slug.current),
     featured: false,
     packages: generatePackages(service.slug.current),
-    serviceType: getServiceType(service.slug.current)
+    serviceType: serviceType
   }
 }
 
@@ -516,8 +518,15 @@ export default function ServicesPage() {
         console.log('🛠️ [API] Services data:', apiData.services)
         console.log('📊 [API] Categories data:', apiData.serviceCategories)
 
+        // Map services to service categories and add them to the service categories list
+        const mappedServiceCategories = (apiData.services || []).map(mapServiceToServiceCategory)
+        const allServiceCategories = [...(apiData.serviceCategories || []), ...mappedServiceCategories]
+        
+        console.log('🔄 [DEBUG] Mapped service categories:', mappedServiceCategories.map((s: ServiceCategory) => ({ title: s.title, serviceType: s.serviceType })))
+        console.log('📦 [DEBUG] All service categories:', allServiceCategories.map((s: ServiceCategory) => ({ title: s.title, serviceType: s.serviceType })))
+
         setServices(apiData.services || [])
-        setServiceCategories(apiData.serviceCategories || [])
+        setServiceCategories(allServiceCategories)
 
         if (!apiData.services?.length && !apiData.serviceCategories?.length) {
           setError('No services found. Please check API configuration.')
@@ -725,8 +734,14 @@ export default function ServicesPage() {
                       service.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
                       service.description.toLowerCase().includes(searchQuery.toLowerCase())
                     
+                    // Fix category mapping for proper filtering
                     const matchesCategory = selectedCategory === 'all' ||
-                      service.serviceType === selectedCategory
+                      service.serviceType === selectedCategory ||
+                      (selectedCategory === 'web' && (service.serviceType === 'web' || service.title.toLowerCase().includes('web'))) ||
+                      (selectedCategory === 'mobile' && (service.serviceType === 'mobile' || service.title.toLowerCase().includes('mobile') || service.title.toLowerCase().includes('app'))) ||
+                      (selectedCategory === 'marketing' && (service.serviceType === 'marketing' || service.title.toLowerCase().includes('marketing') || service.title.toLowerCase().includes('seo'))) ||
+                      (selectedCategory === 'branding' && (service.serviceType === 'branding' || service.title.toLowerCase().includes('brand') || service.title.toLowerCase().includes('logo'))) ||
+                      (selectedCategory === 'consulting' && (service.serviceType === 'consulting' || service.title.toLowerCase().includes('consult') || service.title.toLowerCase().includes('mentor')))
 
                     return matchesSearch && matchesCategory
                   })
@@ -734,12 +749,20 @@ export default function ServicesPage() {
                   // Show search results message
                   if (searchQuery || selectedCategory !== 'all') {
                     const resultCount = filteredServices.length
+                    const categoryLabel = {
+                      'web': 'Web Development',
+                      'mobile': 'Mobile Apps',
+                      'marketing': 'Marketing',
+                      'branding': 'Branding',
+                      'consulting': 'Consulting'
+                    }[selectedCategory] || selectedCategory
+                    
                     return (
                       <div className="text-center mb-8">
                         <p className="text-gray-600">
                           Found <span className="font-bold text-primary">{resultCount}</span> service{resultCount !== 1 ? 's' : ''}
                           {searchQuery && ` matching "${searchQuery}"`}
-                          {selectedCategory !== 'all' && ` in ${selectedCategory}`}
+                          {selectedCategory !== 'all' && ` in ${categoryLabel}`}
                         </p>
                       </div>
                     )
@@ -780,8 +803,14 @@ export default function ServicesPage() {
                       service.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
                       service.description.toLowerCase().includes(searchQuery.toLowerCase())
                     
+                    // Use the same improved category matching logic
                     const matchesCategory = selectedCategory === 'all' ||
-                      service.serviceType === selectedCategory
+                      service.serviceType === selectedCategory ||
+                      (selectedCategory === 'web' && (service.serviceType === 'web' || service.title.toLowerCase().includes('web'))) ||
+                      (selectedCategory === 'mobile' && (service.serviceType === 'mobile' || service.title.toLowerCase().includes('mobile') || service.title.toLowerCase().includes('app'))) ||
+                      (selectedCategory === 'marketing' && (service.serviceType === 'marketing' || service.title.toLowerCase().includes('marketing') || service.title.toLowerCase().includes('seo'))) ||
+                      (selectedCategory === 'branding' && (service.serviceType === 'branding' || service.title.toLowerCase().includes('brand') || service.title.toLowerCase().includes('logo'))) ||
+                      (selectedCategory === 'consulting' && (service.serviceType === 'consulting' || service.title.toLowerCase().includes('consult') || service.title.toLowerCase().includes('mentor')))
 
                     return matchesSearch && matchesCategory
                   }).map((service) => {
