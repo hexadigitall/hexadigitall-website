@@ -10,12 +10,12 @@ import OptimizedImage from '@/components/ui/OptimizedImage'
 // Hero slides data
 const slides = [
   {
-    title: "Transforming Ideas into Digital Realities",
-    subtitle: "Web & Mobile Development • IT Consulting • Digital Marketing",
-    description: "We are a full-service digital agency dedicated to helping businesses grow and succeed in the digital world. From concept to launch, we provide the expertise and support you need to thrive.",
+    title: "Digital Solutions That Drive Results",
+    subtitle: "Web • Mobile • Marketing • Consulting",
+    description: "Transform your business with our expert digital services. From concept to launch, we deliver solutions that grow your success.",
     image: "/web-development.jpg",
     cta: {
-      text: "Explore Our Services",
+      text: "Get Started",
       href: "/services"
     }
   },
@@ -208,70 +208,80 @@ export default function Hero() {
                       <h1 className="text-xs sm:text-sm lg:text-base font-semibold uppercase tracking-widest text-secondary mb-2 sm:mb-4">
                         {slide.subtitle}
                       </h1>
-                      <p className="text-xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-extrabold font-heading text-white mb-4 sm:mb-6 leading-tight px-2 sm:px-4">
+                      <p className="text-lg sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-extrabold font-heading text-white mb-3 sm:mb-4 leading-tight px-2 sm:px-4">
                         {slide.title}
                       </p>
+                      
+                      <p className="max-w-xl sm:max-w-2xl mx-auto text-xs sm:text-sm lg:text-base text-gray-200 mb-4 sm:mb-6 leading-relaxed px-4 sm:px-6">
+                        {slide.description}
+                      </p>
+                      
                       {/* Launch Special Banner - Only for Nigerian currency */}
                       {isClient && index === 0 && discountMessage && (
-                        <div className="mb-3 sm:mb-4 lg:mb-6 flex justify-center">
-                          <div className="inline-flex items-center space-x-1 sm:space-x-2 bg-gradient-to-r from-green-500/80 to-green-600/80 backdrop-blur-sm border border-green-400/50 text-white px-3 sm:px-6 py-2 sm:py-3 rounded-full text-xs sm:text-sm font-bold shadow-lg">
+                        <div className="mb-3 sm:mb-4 flex justify-center">
+                          <div className="inline-flex items-center space-x-1 sm:space-x-2 bg-gradient-to-r from-green-500/80 to-green-600/80 backdrop-blur-sm border border-green-400/50 text-white px-2 sm:px-4 py-1 sm:py-2 rounded-full text-xs font-bold shadow-lg">
                             <span>🇳🇬</span>
-                            <span className="hidden sm:inline">NIGERIAN LAUNCH SPECIAL - 50% OFF ALL SERVICES!</span>
-                            <span className="sm:hidden">50% OFF FOR NIGERIANS!</span>
+                            <span className="hidden sm:inline">50% OFF ALL SERVICES!</span>
+                            <span className="sm:hidden">50% OFF!</span>
                             <span>🔥</span>
                           </div>
                         </div>
                       )}
-
-                      <p className="max-w-2xl sm:max-w-3xl mx-auto text-sm sm:text-base lg:text-lg text-gray-200 mb-6 sm:mb-8 leading-relaxed px-4 sm:px-6">
-                        {slide.description}
-                      </p>
-                      <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-                        <GradientCTA href={slide.cta.href} size="lg">
+                      <div className="flex flex-col sm:flex-row gap-3 justify-center items-center">
+                        <GradientCTA href={slide.cta.href} size={index === 0 ? "md" : "lg"}>
                           {slide.cta.text}
                         </GradientCTA>
                         {index === 0 && (
-                          <GlassCTA href="/contact" size="lg">
-                            Get Free Quote
+                          <GlassCTA href="/contact" size="md">
+                            Free Quote
                           </GlassCTA>
                         )}
                       </div>
 
-                      {/* Enhanced Entry Points on First Slide */}
+                      {/* Simplified Entry Points on First Slide - Mobile Optimized */}
                       {index === 0 && (
-                        <div className="mt-8 sm:mt-12 grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 max-w-5xl mx-auto px-4 sm:px-0">
+                        <div className="mt-6 sm:mt-8 hidden sm:grid grid-cols-3 gap-3 max-w-4xl mx-auto px-4">
                           <Link
                             href="/services"
-                            className="group relative bg-white/5 backdrop-blur-md hover:bg-white/15 border border-white/20 hover:border-white/40 rounded-2xl p-8 transition-all duration-500 hover:scale-105 hover:-translate-y-2 hover:shadow-2xl overflow-hidden"
+                            className="group bg-white/10 backdrop-blur-sm hover:bg-white/20 border border-white/30 rounded-xl p-4 transition-all duration-300 text-center"
                           >
-                            <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 to-cyan-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                            <div className="relative z-10">
-                              <div className="text-5xl mb-4 transform group-hover:scale-110 transition-transform duration-300">🌐</div>
-                              <h3 className="text-xl font-bold text-white mb-3 group-hover:text-cyan-300 transition-colors">Explore Our Services</h3>
-                              <p className="text-sm text-gray-300 group-hover:text-gray-200 transition-colors">Web, mobile, marketing & more</p>
-                            </div>
+                            <div className="text-3xl mb-2">🌐</div>
+                            <h3 className="text-sm font-semibold text-white mb-1">Services</h3>
+                            <p className="text-xs text-gray-300">Web & Mobile</p>
                           </Link>
                           <Link
                             href="/courses"
-                            className="group relative bg-white/5 backdrop-blur-md hover:bg-white/15 border border-white/20 hover:border-white/40 rounded-2xl p-8 transition-all duration-500 hover:scale-105 hover:-translate-y-2 hover:shadow-2xl overflow-hidden"
+                            className="group bg-white/10 backdrop-blur-sm hover:bg-white/20 border border-white/30 rounded-xl p-4 transition-all duration-300 text-center"
                           >
-                            <div className="absolute inset-0 bg-gradient-to-br from-purple-500/10 to-pink-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                            <div className="relative z-10">
-                              <div className="text-5xl mb-4 transform group-hover:scale-110 transition-transform duration-300">📚</div>
-                              <h3 className="text-xl font-bold text-white mb-3 group-hover:text-pink-300 transition-colors">Explore Our Courses</h3>
-                              <p className="text-sm text-gray-300 group-hover:text-gray-200 transition-colors">Learn from industry experts</p>
-                            </div>
+                            <div className="text-3xl mb-2">📚</div>
+                            <h3 className="text-sm font-semibold text-white mb-1">Courses</h3>
+                            <p className="text-xs text-gray-300">Learn & Grow</p>
                           </Link>
                           <Link
                             href="/contact"
-                            className="group relative bg-white/5 backdrop-blur-md hover:bg-white/15 border border-white/20 hover:border-white/40 rounded-2xl p-8 transition-all duration-500 hover:scale-105 hover:-translate-y-2 hover:shadow-2xl overflow-hidden"
+                            className="group bg-white/10 backdrop-blur-sm hover:bg-white/20 border border-white/30 rounded-xl p-4 transition-all duration-300 text-center"
                           >
-                            <div className="absolute inset-0 bg-gradient-to-br from-green-500/10 to-teal-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                            <div className="relative z-10">
-                              <div className="text-5xl mb-4 transform group-hover:scale-110 transition-transform duration-300">🤝</div>
-                              <h3 className="text-xl font-bold text-white mb-3 group-hover:text-green-300 transition-colors">Join Our Community</h3>
-                              <p className="text-sm text-gray-300 group-hover:text-gray-200 transition-colors">Network & grow together</p>
-                            </div>
+                            <div className="text-3xl mb-2">🤝</div>
+                            <h3 className="text-sm font-semibold text-white mb-1">Contact</h3>
+                            <p className="text-xs text-gray-300">Get Started</p>
+                          </Link>
+                        </div>
+                      )}
+
+                      {/* Mobile-only simplified version */}
+                      {index === 0 && (
+                        <div className="mt-4 sm:hidden flex justify-center space-x-4 px-4">
+                          <Link href="/services" className="flex flex-col items-center space-y-1 bg-white/10 backdrop-blur-sm border border-white/30 rounded-lg px-3 py-2 hover:bg-white/20 transition-all duration-300">
+                            <span className="text-2xl">🌐</span>
+                            <span className="text-xs font-medium text-white">Services</span>
+                          </Link>
+                          <Link href="/courses" className="flex flex-col items-center space-y-1 bg-white/10 backdrop-blur-sm border border-white/30 rounded-lg px-3 py-2 hover:bg-white/20 transition-all duration-300">
+                            <span className="text-2xl">📚</span>
+                            <span className="text-xs font-medium text-white">Courses</span>
+                          </Link>
+                          <Link href="/contact" className="flex flex-col items-center space-y-1 bg-white/10 backdrop-blur-sm border border-white/30 rounded-lg px-3 py-2 hover:bg-white/20 transition-all duration-300">
+                            <span className="text-2xl">🤝</span>
+                            <span className="text-xs font-medium text-white">Contact</span>
                           </Link>
                         </div>
                       )}

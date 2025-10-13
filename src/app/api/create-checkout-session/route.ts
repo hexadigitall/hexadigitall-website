@@ -28,7 +28,11 @@ export async function POST(request: NextRequest) {
     
     // For development, redirect directly to success page
     // In production, this would be the Stripe checkout URL
-    const successUrl = `${process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'}/services/request/success?session_id=${sessionId}&service=${encodeURIComponent(serviceTitle)}&package=${encodeURIComponent(packageName)}`
+    const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 
+                   process.env.NEXT_PUBLIC_APP_URL || 
+                   process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` :
+                   'https://hexadigitall.com'
+    const successUrl = `${baseUrl}/services/request/success?session_id=${sessionId}&service=${encodeURIComponent(serviceTitle)}&package=${encodeURIComponent(packageName)}`
     
     return NextResponse.json({
       id: sessionId,
