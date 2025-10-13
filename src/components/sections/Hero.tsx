@@ -14,7 +14,7 @@ const slides = [
     title: "Digital Solutions That Drive Results",
     subtitle: "Web • Mobile • Marketing • Consulting",
     description: "Transform your business with our expert digital services. From concept to launch, we deliver solutions that grow your success.",
-    image: "/web-development.jpg",
+    image: "/assets/images/heroes/hero-tech-team.jpg",
     cta: {
       text: "Get Started",
       href: "/services"
@@ -24,7 +24,7 @@ const slides = [
     title: "Launch Your Dream with Our Expert Guidance",
     subtitle: "Empowering Startups and Businesses",
     description: "Navigate the complexities of the digital landscape with our expert mentoring and consulting services. We provide strategic advice and hands-on support to help you achieve your goals.",
-    image: "/digital_marketing2.jpg",
+    image: "/assets/images/heroes/hero-success-celebration.jpg",
     cta: {
       text: "Get a Free Consultation",
       href: "/contact"
@@ -34,7 +34,7 @@ const slides = [
     title: "Unlock Your Potential with Our Online Courses",
     subtitle: "Learn, Grow, and Succeed with HexaDigitall",
     description: "Our comprehensive online courses are designed to equip you with the skills and knowledge needed to excel in the digital age. Learn from industry experts and take your career to the next level.",
-    image: "/web-development-bootcamp-from-zero-to-hero.jpg",
+    image: "/assets/images/heroes/hero-students-learning.jpg",
     cta: {
       text: "Browse Our Courses",
       href: "/courses"

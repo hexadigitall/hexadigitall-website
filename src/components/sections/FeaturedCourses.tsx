@@ -118,7 +118,7 @@ function CourseCard({ course, onEnrollClick }: { course: Course; onEnrollClick: 
   
   return (
     <article 
-      className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 focus-within:shadow-xl"
+      className="course-card rounded-2xl overflow-hidden hover:scale-105 hover:shadow-2xl transition-all duration-300 group relative"
       role="article"
       aria-labelledby={`course-${course._id}-title`}
     >
@@ -425,17 +425,22 @@ export default function FeaturedCourses({ className = "" }: FeaturedCoursesProps
 
   return (
     <section 
-      className={`py-16 bg-gray-50 ${className}`}
+      className={`relative py-16 md:py-24 bg-gradient-to-br from-indigo-50 via-white to-cyan-50 overflow-hidden ${className}`}
       aria-labelledby="featured-courses-heading"
       role="region"
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      {/* Background decorative elements */}
+      <div className="absolute inset-0 overflow-hidden">
+        <div className="absolute top-0 right-1/4 w-96 h-96 bg-gradient-to-r from-indigo-400/20 to-purple-400/20 rounded-full blur-3xl animate-float"></div>
+        <div className="absolute bottom-0 left-1/4 w-80 h-80 bg-gradient-to-r from-cyan-400/20 to-blue-400/20 rounded-full blur-3xl animate-pulse-slow"></div>
+      </div>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Section Header */}
         <div className="text-center mb-12">
-          <h2 id="featured-courses-heading" className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+          <h2 id="featured-courses-heading" className="text-3xl md:text-4xl font-bold mb-4 bg-gradient-to-r from-indigo-600 via-purple-600 to-cyan-600 bg-clip-text text-transparent">
             Featured Courses
           </h2>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+          <p className="text-lg text-gray-700 max-w-2xl mx-auto leading-relaxed">
             Discover our most popular courses with flexible pricing options - from self-paced learning to personalized live sessions
           </p>
           

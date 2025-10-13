@@ -37,11 +37,21 @@ const services = [
 
 const ServicesOverview = () => {
   return (
-    <section className="bg-white py-16 md:py-24">
-      <div className="container mx-auto px-6">
+    <section className="relative py-16 md:py-24 bg-gradient-to-b from-white via-slate-50 to-gray-100 overflow-hidden">
+      {/* Background decorative elements */}
+      <div className="absolute inset-0 overflow-hidden">
+        <div className="absolute top-1/3 -left-32 w-64 h-64 bg-gradient-to-r from-blue-400/10 to-indigo-400/10 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-1/3 -right-32 w-80 h-80 bg-gradient-to-r from-purple-400/10 to-pink-400/10 rounded-full blur-3xl"></div>
+      </div>
+      
+      <div className="container mx-auto px-6 relative z-10">
         <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold font-heading">Our Core Services</h2>
-          <p className="mt-4 text-lg text-darkText max-w-2xl mx-auto">We provide a holistic suite of services to build your vision from the ground up.</p>
+          <h2 className="text-3xl md:text-4xl font-bold font-heading mb-4 bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent">
+            Our Core Services
+          </h2>
+          <p className="text-lg text-darkText max-w-2xl mx-auto leading-relaxed">
+            We provide a holistic suite of services to build your vision from the ground up.
+          </p>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {services.map((service, index) => (
