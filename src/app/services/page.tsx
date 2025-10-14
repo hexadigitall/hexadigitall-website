@@ -13,6 +13,7 @@ import { SparklesIcon } from '@heroicons/react/24/outline'
 import { SearchParamsHandler } from '@/components/services/SearchParamsHandler'
 import ServiceSearchBar from '@/components/services/ServiceSearchBar'
 import Breadcrumb from '@/components/ui/Breadcrumb'
+import { ServiceGroupSelector } from '@/components/services/ServiceGroupSelector'
 
 interface Service {
   _id: string
@@ -888,8 +889,16 @@ export default function ServicesPage() {
                 { id: 'consulting', label: 'Consulting' }
               ]}
             />
+          </div>
 
-
+          {/* Service Group Selector - New organized approach */}
+          <div className="mb-16">
+            <h2 className="text-3xl font-bold text-center mb-4">Service Packages & Bundles</h2>
+            <p className="text-center text-gray-600 mb-12 max-w-3xl mx-auto">
+              Choose from our organized service groups, individual services, or create custom packages. 
+              We&apos;ve organized our services into logical groups to make it easier to find what you need.
+            </p>
+            <ServiceGroupSelector />
           </div>
 
           {/* Service Request Packages */}
