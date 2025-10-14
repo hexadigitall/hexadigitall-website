@@ -226,16 +226,47 @@ export async function POST(request: Request) {
       };
     }
 
-    // For live courses, set up recurring payments if needed
-    if (isLiveCourse && pricingConfiguration) {
-      sessionCreateData.subscription_data = {
-        metadata: {
+    // For live courses, determine if we should use subscriptions
+    // This logic can be expanded to support both one-time and subscription billing
+    const useSubscription = isLiveCourse && pricingConfiguration;
+    
+    if (useSubscription) {
+      // For live courses, redirect to subscription creation instead of one-time payment
+      return NextResponse.json({
+        useSubscription: true,
+        redirectToSubscription: true,
+        subscriptionData: {
           courseId,
-          studentEmail: studentDetails.email,
-          hoursPerWeek: pricingConfiguration.hoursPerWeek.toString(),
-          sessionFormat: pricingConfiguration.sessionFormat,
-        }
-      };
+          courseName: course.title,
+          studentDetails,
+          billingCalculation: {
+            baseHourlyRate: currency === 'NGN' ? course.hourlyRateNGN : course.hourlyRateUSD,
+            sessionFormatMultiplier: pricingConfiguration.sessionFormat === 'small-group' ? 0.7 : 
+                                   pricingConfiguration.sessionFormat === 'group' ? 0.5 : 1.0,
+            adjustedHourlyRate: pricingConfiguration.hourlyRate,
+            hoursPerWeek: pricingConfiguration.hoursPerWeek,
+            hoursPerMonth: pricingConfiguration.totalHours,
+            monthlyTotal: pricingConfiguration.totalMonthlyPrice,
+            currency: currency,
+            breakdown: {
+              sessions: `${pricingConfiguration.hoursPerWeek / (pricingConfiguration.totalHours / pricingConfiguration.hoursPerWeek)} sessions per week`,
+              duration: `${pricingConfiguration.totalHours / pricingConfiguration.hoursPerWeek} hours per session`,
+              weekly: `${pricingConfiguration.hoursPerWeek} hours per week`,
+              monthly: `${pricingConfiguration.totalHours} hours per month`,
+              rate: `${pricingConfiguration.hourlyRate}/hour (${pricingConfiguration.sessionFormat})`
+            }
+          },
+          sessionCustomization: {
+            sessionsPerWeek: Math.round(pricingConfiguration.hoursPerWeek / (pricingConfiguration.totalHours / pricingConfiguration.hoursPerWeek)),
+            hoursPerSession: Math.round(pricingConfiguration.totalHours / pricingConfiguration.hoursPerWeek),
+            totalHoursPerWeek: pricingConfiguration.hoursPerWeek,
+            sessionFormat: pricingConfiguration.sessionFormat as 'one-on-one' | 'small-group' | 'large-group',
+            preferredDays: studentDetails.preferredSchedule?.split(','),
+            preferredTimeSlots: undefined
+          }
+        },
+        message: 'Live course requires subscription billing. Redirecting to subscription setup.'
+      });
     }
 
     const session = await stripe.checkout.sessions.create(sessionCreateData);

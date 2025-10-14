@@ -156,7 +156,11 @@ export function CoursePaymentModal({
 
       const data = await response.json()
       
-      if (data.checkoutUrl) {
+      if (data.useSubscription && data.subscriptionData) {
+        // Handle subscription flow for live courses
+        await handleSubscriptionEnrollment(data.subscriptionData)
+      } else if (data.checkoutUrl) {
+        // Handle one-time payment flow
         window.location.href = data.checkoutUrl
       } else {
         throw new Error(data.error || 'Enrollment failed')
@@ -164,6 +168,68 @@ export function CoursePaymentModal({
     } catch (error) {
       console.error('Enrollment error:', error)
       alert('Enrollment failed. Please try again or contact support.')
+    }
+  }
+  
+  const handleSubscriptionEnrollment = async (subscriptionData: Record<string, unknown>) => {
+    try {
+      console.log('🔄 [SUBSCRIPTION] Creating subscription for live course:', subscriptionData)
+      
+      // Create subscription plan
+      const typedData = subscriptionData as {
+        courseId: string;
+        courseName: string;
+        billingCalculation: { currency: string; [key: string]: unknown };
+        sessionCustomization: { preferredDays?: string[]; [key: string]: unknown };
+        studentDetails: Record<string, unknown>;
+      };
+      
+      const subscriptionPlan = {
+        id: `plan_${course._id}_${Date.now()}`,
+        courseId: typedData.courseId,
+        courseName: typedData.courseName,
+        billingCalculation: typedData.billingCalculation,
+        sessionCustomization: typedData.sessionCustomization,
+        currency: typedData.billingCalculation.currency,
+        interval: 'month' as const,
+      }
+      
+      // Create subscription request
+      const subscriptionRequest = {
+        courseId: typedData.courseId,
+        studentDetails: typedData.studentDetails,
+        plan: subscriptionPlan,
+        trialPeriodDays: 7, // 7-day trial for live courses
+        preferredSchedule: {
+          timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+          daysOfWeek: typedData.sessionCustomization.preferredDays || ['monday', 'wednesday', 'friday'],
+          preferredTimes: ['morning', 'afternoon']
+        }
+      }
+      
+      const response = await fetch('/api/subscriptions', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(subscriptionRequest)
+      })
+      
+      const result = await response.json()
+      
+      if (result.success) {
+        // Subscription created successfully
+        alert('Subscription created successfully! Your 7-day trial has begun.')
+        window.location.href = `/enrollment-success?subscription_id=${result.subscription.id}&course_id=${course._id}&type=subscription`
+      } else if (result.requiresAction && result.clientSecret) {
+        // Payment setup required - would integrate with Stripe Elements here
+        alert('Payment method setup required. Please complete the payment setup to activate your subscription.')
+        // For now, redirect to a payment setup page or handle inline with Stripe Elements
+        console.log('Payment setup required:', result.clientSecret)
+      } else {
+        throw new Error(result.error || 'Subscription creation failed')
+      }
+    } catch (error) {
+      console.error('Subscription enrollment error:', error)
+      alert('Subscription enrollment failed. Please try again or contact support.')
     }
   }
 
