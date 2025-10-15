@@ -99,19 +99,17 @@ const nextConfig: NextConfig = {
     ppr: false, // Keep false for now as it's experimental
     // Optimize package imports
     optimizePackageImports: ['@heroicons/react', '@portabletext/react'],
-    // Enable turbo mode for faster builds
-    turbo: {
-      rules: {
-        '*.svg': {
-          loaders: ['@svgr/webpack'],
-          as: '*.js',
-        },
+  },
+
+  // Turbopack configuration (migrated from experimental.turbo)
+  turbopack: {
+    rules: {
+      '*.svg': {
+        loaders: ['@svgr/webpack'],
+        as: '*.js',
       },
     },
   },
-
-  // Turbopack is enabled via CLI flag --turbopack
-  // No additional configuration needed for basic usage
 
   // TypeScript configuration
   typescript: {
