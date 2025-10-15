@@ -1,4 +1,4 @@
-// src/app/courses/CoursesPageContentEnhanced.tsx
+// src/app/courses/CoursesPageContent.tsx
 "use client"
 
 import { getCachedCourseCategories } from '@/lib/cached-api'
@@ -7,10 +7,10 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useState, useEffect } from 'react';
 import { useCurrency } from '@/contexts/CurrencyContext';
-import CourseEnrollmentEnhanced, { CourseEnrollmentData } from '@/components/CourseEnrollmentEnhanced';
+import CoursePaymentModal from '@/components/courses/CoursePaymentModal';
 import Breadcrumb from '@/components/ui/Breadcrumb';
 
-// Define types for our data with session options
+// Define types for our data
 interface Course {
   _id: string;
   title: string;
@@ -25,27 +25,6 @@ interface Course {
   dollarPrice?: number;
   price?: number; // Legacy field for backward compatibility
   featured: boolean;
-  // Enhanced with session options
-  sessionOptions?: {
-    perSession?: boolean;
-    hourly?: boolean;
-    fixedPrice?: boolean;
-  };
-  sessionPricing?: {
-    perSessionPrice?: number;
-    hourlyRate?: number;
-    minimumHours?: number;
-    sessionDuration?: string;
-  };
-  curriculum?: {
-    modules: number;
-    lessons: number;
-    duration: string;
-  };
-  includes?: string[];
-  certificate?: boolean;
-  maxStudents?: number;
-  currentEnrollments?: number;
 }
 
 interface Category {
@@ -55,16 +34,18 @@ interface Category {
   courses: Course[];
 }
 
+// Using cached API for consistent data fetching
+
 interface CoursesPageContentProps {
   initialData?: Category[];
 }
 
-function CoursesPageContentEnhanced({ initialData }: CoursesPageContentProps = {}) {
+function CoursesPageContent({ initialData }: CoursesPageContentProps = {}) {
   const [categories, setCategories] = useState<Category[]>(initialData || []);
   const [loading, setLoading] = useState(!initialData);
   const [error, setError] = useState<string | null>(null);
-  const [selectedCourse, setSelectedCourse] = useState<CourseEnrollmentData | null>(null);
-  const [showEnrollmentModal, setShowEnrollmentModal] = useState(false);
+  const [selectedCourse, setSelectedCourse] = useState<Course | null>(null);
+  const [showPaymentModal, setShowPaymentModal] = useState(false);
   const { formatPriceWithDiscount, isLocalCurrency } = useCurrency();
 
   useEffect(() => {
@@ -84,17 +65,21 @@ function CoursesPageContentEnhanced({ initialData }: CoursesPageContentProps = {
         setError(null);
         
         console.log('👩‍🎓 [COURSES] Fetching course categories via cached API...');
-        
+        console.log('🌍 [ENV] Environment:', process.env.NODE_ENV);
+        console.log('🔧 [SANITY] Project ID:', process.env.NEXT_PUBLIC_SANITY_PROJECT_ID?.substring(0, 8) + '...');
+        // Set a longer timeout for fetching courses
         const fetchPromise = getCachedCourseCategories();
         
+        // Create a timeout in case the fetch takes too long
         const timeoutPromise = new Promise((_, reject) => {
           setTimeout(() => {
             if (isMounted) {
               reject(new Error('Fetching courses timed out. Please try again.'));
             }
-          }, 10000);
+          }, 10000); // 10 second timeout (reduced from 20s)
         });
         
+        // Race the fetch against the timeout
         const data: Category[] = await Promise.race([
           fetchPromise,
           timeoutPromise
@@ -104,6 +89,17 @@ function CoursesPageContentEnhanced({ initialData }: CoursesPageContentProps = {
         
         console.log('✅ [COURSES] Course categories fetched:', data?.length || 0, 'categories');
         
+        // Debug: Log pricing data for each course
+        data?.forEach(category => {
+          category.courses?.forEach(course => {
+            console.log(`📊 [PRICING DEBUG] ${course.title}:`, {
+              nairaPrice: course.nairaPrice,
+              dollarPrice: course.dollarPrice,
+              price: course.price
+            });
+          });
+        });
+        
         if (!isMounted) return;
         setCategories(data || []);
       } catch (err) {
@@ -111,6 +107,7 @@ function CoursesPageContentEnhanced({ initialData }: CoursesPageContentProps = {
         console.log('🔄 [COURSES] Attempting to use fallback data...');
         
         try {
+          // Try to use fallback data
           if (isMounted) {
             const fallbackData: Category[] = await getFallbackCourseCategories() as Category[];
             console.log('✅ [FALLBACK] Using fallback course data');
@@ -131,54 +128,12 @@ function CoursesPageContentEnhanced({ initialData }: CoursesPageContentProps = {
     
     fetchCourses();
     
+    // Return cleanup function to prevent memory leaks
     return () => {
       isMounted = false;
       controller.abort();
     };
   }, [initialData]);
-
-  // Convert course to enrollment data format
-  const convertToEnrollmentData = (course: Course): CourseEnrollmentData => {
-    return {
-      _id: course._id,
-      title: course.title,
-      price: course.price || 0,
-      nairaPrice: course.nairaPrice,
-      dollarPrice: course.dollarPrice,
-      duration: course.duration,
-      level: course.level,
-      instructor: course.instructor,
-      description: course.description || course.summary || '',
-      mainImage: course.mainImage,
-      curriculum: course.curriculum || {
-        modules: 8,
-        lessons: 24,
-        duration: course.duration
-      },
-      includes: course.includes || [
-        'Video lessons',
-        'Course materials',
-        'Certificate of completion',
-        'Lifetime access',
-        'Community access'
-      ],
-      certificate: course.certificate !== false,
-      sessionOptions: {
-        perSession: course.sessionOptions?.perSession || false,
-        hourly: course.sessionOptions?.hourly || false,
-        fixedPrice: course.sessionOptions?.fixedPrice !== false // Default to true
-      },
-      sessionPricing: course.sessionPricing,
-      maxStudents: course.maxStudents,
-      currentEnrollments: course.currentEnrollments
-    };
-  };
-
-  const handleEnrollClick = (course: Course) => {
-    const enrollmentData = convertToEnrollmentData(course);
-    setSelectedCourse(enrollmentData);
-    setShowEnrollmentModal(true);
-  };
 
   if (loading) {
     return (
@@ -242,10 +197,9 @@ function CoursesPageContentEnhanced({ initialData }: CoursesPageContentProps = {
           <Breadcrumb items={[{ label: 'Courses' }]} />
         </div>
         <div className="text-center mb-16">
-          <h1 className="text-4xl md:text-5xl font-bold font-heading">Our Enhanced Courses</h1>
+          <h1 className="text-4xl md:text-5xl font-bold font-heading">Our Courses</h1>
           <p className="mt-4 text-lg text-darkText max-w-2xl mx-auto">
-            Choose from flexible learning options: fixed-price courses, per-session booking, or hourly rates. 
-            Customize your learning experience to fit your schedule and budget.
+            Invest in your future with our expert-led courses designed for career growth.
           </p>
         </div>
         
@@ -281,6 +235,8 @@ function CoursesPageContentEnhanced({ initialData }: CoursesPageContentProps = {
                               priority={course.featured || false}
                               loading={course.featured ? "eager" : "lazy"}
                               quality={75}
+                              placeholder="blur"
+                              blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkqGx0f/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyJckliyjqTzSlT54b6bk+h0R//2Q=="
                               onError={(e) => {
                                 console.log(`❌ [IMAGE ERROR] Failed to load image: ${course.mainImage}`);
                                 const target = e.target as HTMLImageElement;
@@ -299,13 +255,6 @@ function CoursesPageContentEnhanced({ initialData }: CoursesPageContentProps = {
                           <div className="absolute top-4 left-4 bg-primary text-white px-3 py-1 rounded-full text-sm font-medium">
                             {course.level || 'Course'}
                           </div>
-                          
-                          {/* Session Options Badge */}
-                          {(course.sessionOptions?.perSession || course.sessionOptions?.hourly) && (
-                            <div className="absolute top-4 right-4 bg-blue-500 text-white px-3 py-1 rounded-full text-xs font-medium">
-                              Flexible Options
-                            </div>
-                          )}
                         </div>
                         
                         <div className="p-6">
@@ -338,46 +287,13 @@ function CoursesPageContentEnhanced({ initialData }: CoursesPageContentProps = {
                             )}
                           </div>
                           
-                          {/* Enhanced Price Section */}
+                          {/* Price Section - Same as Featured Courses */}
                           <div className="mb-4">
                             {(() => {
-                              // Show flexible pricing if session options are available
-                              if (course.sessionOptions?.perSession || course.sessionOptions?.hourly) {
-                                return (
-                                  <div className="space-y-2">
-                                    <div className="text-lg font-bold text-primary">Flexible Pricing</div>
-                                    <div className="space-y-1">
-                                      {course.sessionOptions.perSession && course.sessionPricing?.perSessionPrice && (
-                                        <div className="text-sm text-gray-600">
-                                          From {(() => {
-                                            const priceInfo = formatPriceWithDiscount(course.sessionPricing.perSessionPrice, { applyNigerianDiscount: true });
-                                            return priceInfo.discountedPrice;
-                                          })()} per session
-                                        </div>
-                                      )}
-                                      {course.sessionOptions.hourly && course.sessionPricing?.hourlyRate && (
-                                        <div className="text-sm text-gray-600">
-                                          From {(() => {
-                                            const priceInfo = formatPriceWithDiscount(course.sessionPricing.hourlyRate, { applyNigerianDiscount: true });
-                                            return priceInfo.discountedPrice;
-                                          })()} per hour
-                                        </div>
-                                      )}
-                                      {course.sessionOptions?.fixedPrice !== false && (course.dollarPrice || course.price) && (
-                                        <div className="text-sm text-gray-600">
-                                          Full course: {(() => {
-                                            const basePrice = course.dollarPrice || course.price || 0;
-                                            const priceInfo = formatPriceWithDiscount(basePrice, { applyNigerianDiscount: true });
-                                            return priceInfo.discountedPrice;
-                                          })()}
-                                        </div>
-                                      )}
-                                    </div>
-                                  </div>
-                                );
-                              }
+                              // Debug: Log what pricing fields are available
+                              console.log(`💰 [COURSE PRICING] ${course.title} - dollarPrice: ${course.dollarPrice}, nairaPrice: ${course.nairaPrice}, price: ${course.price}`);
                               
-                              // Show standard pricing for fixed-price courses
+                              // Use dollarPrice if it exists and is greater than 0
                               if (course.dollarPrice && course.dollarPrice > 0) {
                                 const priceInfo = formatPriceWithDiscount(course.dollarPrice, { applyNigerianDiscount: true })
                                 
@@ -407,6 +323,7 @@ function CoursesPageContentEnhanced({ initialData }: CoursesPageContentProps = {
                                   )
                                 }
                               } else if (course.nairaPrice || course.price) {
+                                // Convert NGN to USD first, then format in selected currency
                                 const nairaAmount = course.nairaPrice || course.price || 0;
                                 const usdEquivalent = nairaAmount / 1650;
                                 const priceInfo = formatPriceWithDiscount(usdEquivalent, { applyNigerianDiscount: true })
@@ -445,19 +362,17 @@ function CoursesPageContentEnhanced({ initialData }: CoursesPageContentProps = {
                           {/* Action Buttons */}
                           <div className="text-center space-y-2">
                             <button
-                              onClick={() => handleEnrollClick(course)}
+                              onClick={() => {
+                                setSelectedCourse(course);
+                                setShowPaymentModal(true);
+                              }}
                               className="inline-flex items-center justify-center w-full px-4 py-3 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
                               aria-label={`Enroll in ${course.title}`}
                             >
                               <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
                               </svg>
-                              <span>
-                                {course.sessionOptions?.perSession || course.sessionOptions?.hourly 
-                                  ? 'Customize & Enroll' 
-                                  : 'Enroll Now'
-                                }
-                              </span>
+                              <span>Enroll Now</span>
                             </button>
                             
                             <Link
@@ -481,33 +396,20 @@ function CoursesPageContentEnhanced({ initialData }: CoursesPageContentProps = {
           </div>
         )}
         
-        {/* Enhanced Course Enrollment Modal */}
+        {/* Course Payment Modal */}
         {selectedCourse && (
-          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
-            <div className="bg-white rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
-              <div className="sticky top-0 bg-white border-b px-6 py-4 flex justify-between items-center">
-                <h2 className="text-xl font-bold">Course Enrollment</h2>
-                <button
-                  onClick={() => {
-                    setShowEnrollmentModal(false);
-                    setSelectedCourse(null);
-                  }}
-                  className="text-gray-400 hover:text-gray-600 transition-colors"
-                >
-                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                  </svg>
-                </button>
-              </div>
-              <div className="p-6">
-                <CourseEnrollmentEnhanced course={selectedCourse} />
-              </div>
-            </div>
-          </div>
+          <CoursePaymentModal
+            isOpen={showPaymentModal}
+            onClose={() => {
+              setShowPaymentModal(false);
+              setSelectedCourse(null);
+            }}
+            course={selectedCourse}
+          />
         )}
       </div>
     </section>
   );
 }
 
-export default CoursesPageContentEnhanced;
+export default CoursesPageContent;
