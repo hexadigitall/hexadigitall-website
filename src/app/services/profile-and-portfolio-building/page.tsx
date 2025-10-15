@@ -58,7 +58,8 @@ const INDIVIDUAL_SERVICES = [
 export default function ProfilePortfolioPage() {
   const [selectedService, setSelectedService] = useState<ServiceCategory | null>(null)
   const [showIndividualServices, setShowIndividualServices] = useState(false)
-  const { currentCurrency, formatPrice } = useCurrency()
+  const { currentCurrency, getLocalDiscountMessage } = useCurrency()
+  const discountMessage = getLocalDiscountMessage()
 
   const portfolioPackages = SERVICE_PRICING['portfolio'] || []
 
@@ -105,6 +106,17 @@ export default function ProfilePortfolioPage() {
         
         <div className="container mx-auto px-6 relative z-10">
           <div className="text-center mb-16">
+            {/* Special Offer Banner */}
+            {discountMessage && (
+              <div className="mb-8 flex justify-center">
+                <div className="inline-flex items-center space-x-2 bg-gradient-to-r from-orange-500 to-pink-500 px-6 py-3 rounded-full text-sm font-bold text-white shadow-lg animate-bounce">
+                  <span>🇳🇬</span>
+                  <span>NIGERIAN LAUNCH SPECIAL - 50% OFF ALL PACKAGES!</span>
+                  <span>🔥</span>
+                </div>
+              </div>
+            )}
+            
             <div className="inline-flex items-center space-x-2 bg-gradient-to-r from-purple-100 to-blue-100 px-4 py-2 rounded-full text-sm font-medium text-purple-800 mb-6">
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
@@ -118,6 +130,14 @@ export default function ProfilePortfolioPage() {
               Showcase your skills and attract opportunities with professional portfolios, optimized profiles, 
               and personal branding that makes you stand out from the competition.
             </p>
+            
+            {/* Currency Info */}
+            <div className="mt-8">
+              <div className="inline-flex items-center space-x-2 text-sm text-gray-600 mb-4">
+                <span>Prices shown in:</span>
+                <span className="font-semibold text-primary">{currentCurrency.flag} {currentCurrency.code}</span>
+              </div>
+            </div>
           </div>
 
           {/* Quick Individual Services Section */}
@@ -257,6 +277,53 @@ export default function ProfilePortfolioPage() {
                   </button>
                 </div>
               ))}
+            </div>
+          </div>
+          
+          {/* Career Success Statistics */}
+          <div className="text-center">
+            <h3 className="text-2xl font-bold text-gray-900 mb-8">Career Advancement Results</h3>
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+              <div className="card-enhanced rounded-xl p-6 text-center">
+                <div className="w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center text-purple-600 mx-auto mb-4">
+                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                  </svg>
+                </div>
+                <h4 className="font-bold text-gray-900 mb-2">89% Job Success</h4>
+                <p className="text-gray-600 text-sm">Our clients land their dream jobs within 6 months</p>
+              </div>
+              
+              <div className="card-enhanced rounded-xl p-6 text-center">
+                <div className="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center text-blue-600 mx-auto mb-4">
+                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+                  </svg>
+                </div>
+                <h4 className="font-bold text-gray-900 mb-2">45% Salary Increase</h4>
+                <p className="text-gray-600 text-sm">Average salary boost after professional rebranding</p>
+              </div>
+              
+              <div className="card-enhanced rounded-xl p-6 text-center">
+                <div className="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center text-green-600 mx-auto mb-4">
+                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                  </svg>
+                </div>
+                <h4 className="font-bold text-gray-900 mb-2">3.2x More Views</h4>
+                <p className="text-gray-600 text-sm">LinkedIn profile views increase after optimization</p>
+              </div>
+              
+              <div className="card-enhanced rounded-xl p-6 text-center">
+                <div className="w-12 h-12 bg-orange-100 rounded-xl flex items-center justify-center text-orange-600 mx-auto mb-4">
+                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                </div>
+                <h4 className="font-bold text-gray-900 mb-2">7-Day Delivery</h4>
+                <p className="text-gray-600 text-sm">Fast-track your career with quick professional makeover</p>
+              </div>
             </div>
           </div>
         </div>

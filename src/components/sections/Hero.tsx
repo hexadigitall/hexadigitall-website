@@ -13,7 +13,7 @@ const slides = [
   {
     title: "Digital Solutions That Drive Results",
     subtitle: "Web • Mobile • Marketing • Consulting",
-    description: "Transform your business with our expert digital services. From concept to launch, we deliver solutions that grow your success.",
+    description: "Elevate your business with our expert digital services. From concept to launch, we deliver solutions that accelerate your success.",
     image: "/assets/images/heroes/hero-tech-team.jpg",
     cta: {
       text: "Get Started",
@@ -33,7 +33,7 @@ const slides = [
   {
     title: "Unlock Your Potential with Our Online Courses",
     subtitle: "Learn, Grow, and Succeed with HexaDigitall",
-    description: "Our comprehensive online courses are designed to equip you with the skills and knowledge needed to excel in the digital age. Learn from industry experts and take your career to the next level.",
+    description: "Our comprehensive online courses are designed to equip you with the skills and knowledge needed to excel in the digital age. Master industry-relevant skills and advance your career to new heights.",
     image: "/assets/images/heroes/hero-students-learning.jpg",
     cta: {
       text: "Browse Our Courses",

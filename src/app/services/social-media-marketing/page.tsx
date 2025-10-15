@@ -59,7 +59,8 @@ const INDIVIDUAL_SERVICES = [
 export default function SocialMediaMarketingPage() {
   const [selectedService, setSelectedService] = useState<ServiceCategory | null>(null)
   const [showIndividualServices, setShowIndividualServices] = useState(false)
-  const { currentCurrency, formatPrice } = useCurrency()
+  const { currentCurrency, getLocalDiscountMessage } = useCurrency()
+  const discountMessage = getLocalDiscountMessage()
 
   // Get service packages from centralized pricing
   const marketingPackages = SERVICE_PRICING['digital-marketing'] || []
@@ -102,11 +103,22 @@ export default function SocialMediaMarketingPage() {
         <div className="absolute inset-0">
           <div className="absolute inset-0 bg-gradient-to-br from-pink-600/10 via-red-600/10 to-orange-600/10"></div>
           <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-gradient-to-r from-pink-400/20 to-red-400/20 rounded-full blur-3xl animate-pulse"></div>
-          <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-gradient-to-r from-red-400/20 to-orange-400/20 rounded-full blur-3xl animate-float"></div>
+          <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-gradient-to-r from-red-400/20 to-orange-400/20 rounded-full blur-2xl animate-pulse" style={{animationDelay: '1s'}}></div>
         </div>
         
         <div className="container mx-auto px-6 relative z-10">
           <div className="text-center mb-16">
+            {/* Special Offer Banner */}
+            {discountMessage && (
+              <div className="mb-8 flex justify-center">
+                <div className="inline-flex items-center space-x-2 bg-gradient-to-r from-orange-500 to-pink-500 px-6 py-3 rounded-full text-sm font-bold text-white shadow-lg animate-bounce">
+                  <span>🇳🇬</span>
+                  <span>NIGERIAN LAUNCH SPECIAL - 50% OFF ALL PACKAGES!</span>
+                  <span>🔥</span>
+                </div>
+              </div>
+            )}
+            
             <div className="inline-flex items-center space-x-2 bg-gradient-to-r from-pink-100 to-red-100 px-4 py-2 rounded-full text-sm font-medium text-red-800 mb-6">
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
@@ -120,6 +132,14 @@ export default function SocialMediaMarketingPage() {
               Grow your audience, increase engagement, and drive sales with our comprehensive social media 
               marketing services. From content creation to paid advertising, we help you succeed online.
             </p>
+            
+            {/* Currency Info */}
+            <div className="mt-8">
+              <div className="inline-flex items-center space-x-2 text-sm text-gray-600 mb-4">
+                <span>Prices shown in:</span>
+                <span className="font-semibold text-primary">{currentCurrency.flag} {currentCurrency.code}</span>
+              </div>
+            </div>
           </div>
 
           {/* Quick Individual Services Section - Make it prominent */}

@@ -7,101 +7,103 @@ import { ServiceRequestFlow, ServiceCategory } from '@/components/services/Servi
 import { SERVICE_PRICING } from '@/lib/currency'
 import Breadcrumb from '@/components/ui/Breadcrumb'
 
+// Individual service options for easy access
 const INDIVIDUAL_SERVICES = [
   {
-    id: 'strategy-session',
-    name: '1-Hour Strategy Session',
-    price: 149,
-    description: 'Single consultation session for specific business or career guidance',
-    deliveryTime: 'Same day booking',
-    features: [
-      '60-minute video consultation',
-      'Personalized action plan',
-      'Follow-up email summary',
-      'Resource recommendations',
-      'Priority booking available',
-      '7-day follow-up check-in'
-    ]
-  },
-  {
-    id: 'business-audit',
-    name: 'Business Process Audit',
-    price: 299,
-    description: 'Comprehensive analysis of your current business operations',
+    id: 'social-media-audit',
+    name: 'Social Media Audit',
+    price: 49,
+    description: 'Comprehensive analysis of your social media presence with actionable insights',
     deliveryTime: '3-5 days',
     features: [
-      'Complete process review',
-      'Efficiency analysis report',
-      'Improvement recommendations',
-      '30-minute presentation call',
-      'Implementation roadmap',
-      '2 weeks post-audit support'
+      'Analysis of 3 social platforms',
+      'Basic competitor analysis',
+      'Content performance review',
+      'Audience demographics report',
+      'Actionable recommendations',
+      '1-week email support'
     ]
   },
   {
-    id: 'career-coaching',
-    name: 'Career Transition Coaching',
-    price: 199,
-    description: 'Guidance for career changes, promotions, or skill development',
-    deliveryTime: '1-2 weeks',
+    id: 'content-package',
+    name: 'Content Creation Package',
+    price: 99,
+    description: '15 professionally designed social media posts with captions',
+    deliveryTime: '5-7 days',
     features: [
-      '2 x 45-minute sessions',
-      'Career assessment tools',
-      'Skills gap analysis',
-      'Industry insights report',
-      'Networking strategy guide',
-      'Interview preparation tips'
+      '15 custom designed posts',
+      'Platform-optimized sizes (Instagram + Facebook)',
+      'Engaging captions included',
+      'Basic hashtag research',
+      'Brand-consistent design',
+      '2 revision rounds'
+    ]
+  },
+  {
+    id: 'ad-campaign-setup',
+    name: 'Ad Campaign Setup',
+    price: 149,
+    description: 'Professional setup and optimization of your first ad campaign',
+    deliveryTime: '3-5 days',
+    features: [
+      'Facebook & Instagram ads setup',
+      'Target audience research',
+      'Ad creative design (2 variants)',
+      'Campaign optimization',
+      'Performance tracking setup',
+      '1-week monitoring included'
     ]
   }
 ]
 
-export default function MentoringConsultingPage() {
+export default function SocialMediaAdvertisingAndMarketingPage() {
   const [selectedService, setSelectedService] = useState<ServiceCategory | null>(null)
   const [showIndividualServices, setShowIndividualServices] = useState(false)
   const { currentCurrency, getLocalDiscountMessage } = useCurrency()
   const discountMessage = getLocalDiscountMessage()
 
-  const consultingPackages = SERVICE_PRICING['consulting'] || []
+  // Get service packages from centralized pricing
+  const marketingPackages = SERVICE_PRICING['digital-marketing'] || []
 
   const serviceCategory = {
-    _id: 'mentoring-consulting',
-    title: 'Mentoring & Consulting',
-    slug: { current: 'mentoring-and-consulting' },
-    description: 'Expert guidance and strategic consulting to accelerate your business growth and career development.',
-    icon: 'users',
+    _id: 'social-media-advertising-and-marketing',
+    title: 'Social Media Advertising & Marketing',
+    slug: { current: 'social-media-advertising-and-marketing' },
+    description: 'Comprehensive social media marketing services to grow your audience, increase engagement, and drive sales.',
+    icon: 'chart',
     featured: false,
-    packages: consultingPackages.map(pkg => ({
+    packages: marketingPackages.map(pkg => ({
       _key: pkg.id,
       name: pkg.name,
       tier: 'standard' as const,
       price: pkg.basePrice,
       currency: 'USD',
-      billing: 'one_time' as const,
-      deliveryTime: pkg.billing || 'Flexible scheduling',
+      billing: pkg.billing?.includes('monthly') ? 'monthly' as const : 'one_time' as const,
+      deliveryTime: pkg.billing || '1-2 weeks setup',
       features: pkg.features,
       popular: pkg.popular || false
     })),
-    serviceType: 'mentoring' as const
+    serviceType: 'marketing' as const
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-slate-50 via-white to-indigo-50">
+    <main className="min-h-screen bg-gradient-to-b from-slate-50 via-white to-rose-50">
       {/* Breadcrumb */}
-      <div className="bg-white border-b">
+      <nav className="bg-white border-b" aria-label="Breadcrumb navigation">
         <div className="container mx-auto px-6 py-4">
           <Breadcrumb items={[
             { label: 'Services', href: '/services' },
-            { label: 'Mentoring & Consulting' }
+            { label: 'Social Media Advertising & Marketing' }
           ]} />
         </div>
-      </div>
+      </nav>
 
       {/* Hero Section */}
-      <div className="relative py-20 overflow-hidden">
-        <div className="absolute inset-0">
-          <div className="absolute inset-0 bg-gradient-to-br from-indigo-600/10 via-blue-600/10 to-purple-600/10"></div>
-          <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-gradient-to-r from-indigo-400/20 to-blue-400/20 rounded-full blur-3xl animate-pulse"></div>
-          <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-gradient-to-r from-blue-400/20 to-purple-400/20 rounded-full blur-3xl animate-float"></div>
+      <header className="relative py-20 overflow-hidden">
+        <div className="absolute inset-0" aria-hidden="true">
+          <div className="absolute inset-0 bg-gradient-to-br from-pink-600/10 via-red-600/10 to-orange-600/10"></div>
+          <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-gradient-to-r from-pink-400/20 to-red-400/20 rounded-full blur-3xl animate-pulse"></div>
+          <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-gradient-to-r from-red-400/20 to-orange-400/20 rounded-full blur-2xl animate-pulse" style={{animationDelay: '1s'}}></div>
         </div>
         
         <div className="container mx-auto px-6 relative z-10">
@@ -117,18 +119,18 @@ export default function MentoringConsultingPage() {
               </div>
             )}
             
-            <div className="inline-flex items-center space-x-2 bg-gradient-to-r from-indigo-100 to-blue-100 px-4 py-2 rounded-full text-sm font-medium text-indigo-800 mb-6">
+            <div className="inline-flex items-center space-x-2 bg-gradient-to-r from-pink-100 to-red-100 px-4 py-2 rounded-full text-sm font-medium text-red-800 mb-6">
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
               </svg>
-              <span>Expert Guidance & Strategic Advice</span>
+              <span>Growth Marketing Services</span>
             </div>
             <h1 className="text-4xl md:text-5xl font-bold font-heading text-gray-900 mb-6">
-              Mentoring & Consulting
+              Social Media Advertising & Marketing
             </h1>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-              Get expert guidance from industry professionals. Strategic consulting, career mentoring, 
-              and business advice to accelerate your growth and avoid costly mistakes.
+              Grow your audience, increase engagement, and drive sales with our comprehensive social media 
+              marketing services. From content creation to paid advertising, we help you succeed online.
             </p>
             
             {/* Currency Info */}
@@ -140,31 +142,31 @@ export default function MentoringConsultingPage() {
             </div>
           </div>
 
-          {/* Quick Individual Services Section */}
+          {/* Quick Individual Services Section - Make it prominent */}
           <div className="mb-16">
             <div className="card-enhanced rounded-2xl p-8 text-center">
               <div className="mb-6">
-                <h2 className="text-2xl font-bold text-gray-900 mb-3">Need Quick Guidance?</h2>
+                <h2 className="text-2xl font-bold text-gray-900 mb-3">Need Just One Service?</h2>
                 <p className="text-gray-600">
-                  Get focused consulting sessions for specific challenges. Perfect for immediate strategic advice.
+                  Get individual marketing services without monthly commitments. Perfect for one-time needs.
                 </p>
               </div>
               
               {!showIndividualServices ? (
                 <button
                   onClick={() => setShowIndividualServices(true)}
-                  className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-indigo-500 to-blue-500 text-white font-semibold rounded-xl hover:from-indigo-600 hover:to-blue-600 transition-all duration-300 transform hover:scale-105 shadow-lg"
+                  className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-pink-500 to-red-500 text-white font-semibold rounded-xl hover:from-pink-600 hover:to-red-600 transition-all duration-300 transform hover:scale-105 shadow-lg"
                 >
                   <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
                   </svg>
-                  View Individual Sessions
+                  View Individual Services
                 </button>
               ) : (
                 <div className="space-y-6">
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                     {INDIVIDUAL_SERVICES.map((service) => (
-                      <div key={service.id} className="bg-white border-2 border-gray-200 rounded-xl p-6 hover:border-indigo-400 hover:shadow-lg transition-all duration-300">
+                      <div key={service.id} className="bg-white border-2 border-gray-200 rounded-xl p-6 hover:border-pink-400 hover:shadow-lg transition-all duration-300">
                         <h3 className="font-bold text-gray-900 mb-2">{service.name}</h3>
                         <p className="text-sm text-gray-600 mb-4">{service.description}</p>
                         
@@ -174,13 +176,13 @@ export default function MentoringConsultingPage() {
                             size="md" 
                             showDiscount={true}
                           />
-                          <p className="text-sm text-gray-500 mt-1">Booking: {service.deliveryTime}</p>
+                          <p className="text-sm text-gray-500 mt-1">Delivery: {service.deliveryTime}</p>
                         </div>
 
                         <ul className="space-y-1 mb-6">
                           {service.features.slice(0, 4).map((feature, index) => (
                             <li key={index} className="flex items-center text-xs text-gray-600">
-                              <svg className="w-3 h-3 text-indigo-500 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                              <svg className="w-3 h-3 text-pink-500 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
                                 <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                               </svg>
                               {feature}
@@ -203,9 +205,9 @@ export default function MentoringConsultingPage() {
                               popular: false
                             }]
                           })}
-                          className="w-full bg-indigo-500 text-white py-2 px-4 rounded-lg hover:bg-indigo-600 transition-colors font-medium"
+                          className="w-full bg-pink-500 text-white py-2 px-4 rounded-lg hover:bg-pink-600 transition-colors font-medium"
                         >
-                          Book This Session
+                          Select This Service
                         </button>
                       </div>
                     ))}
@@ -215,7 +217,7 @@ export default function MentoringConsultingPage() {
                     onClick={() => setShowIndividualServices(false)}
                     className="text-gray-500 hover:text-gray-700 text-sm"
                   >
-                    Hide Individual Sessions
+                    Hide Individual Services
                   </button>
                 </div>
               )}
@@ -225,23 +227,23 @@ export default function MentoringConsultingPage() {
           {/* Service Packages */}
           <div className="mb-16">
             <div className="text-center mb-12">
-              <h2 className="text-3xl font-bold text-gray-900 mb-4">Comprehensive Mentoring Programs</h2>
+              <h2 className="text-3xl font-bold text-gray-900 mb-4">Monthly Marketing Packages</h2>
               <p className="text-gray-600 max-w-2xl mx-auto">
-                Long-term mentoring and consulting programs designed to provide ongoing guidance and support for your journey.
+                Ongoing social media marketing services to consistently grow your online presence and drive results.
               </p>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              {consultingPackages.map((pkg, index) => (
+              {marketingPackages.map((pkg, index) => (
                 <div 
                   key={pkg.id}
                   className={`card-enhanced rounded-2xl p-8 hover:scale-105 transition-all duration-300 cursor-pointer ${
-                    pkg.popular ? 'ring-2 ring-indigo-500 ring-opacity-50' : ''
+                    pkg.popular ? 'ring-2 ring-red-500 ring-opacity-50' : ''
                   }`}
                   onClick={() => setSelectedService(serviceCategory)}
                 >
                   {pkg.popular && (
-                    <div className="bg-gradient-to-r from-indigo-500 to-blue-500 text-white px-4 py-2 rounded-full text-sm font-bold text-center mb-6">
+                    <div className="bg-gradient-to-r from-pink-500 to-red-500 text-white px-4 py-2 rounded-full text-sm font-bold text-center mb-6">
                       Most Popular
                     </div>
                   )}
@@ -249,17 +251,20 @@ export default function MentoringConsultingPage() {
                   <div className="text-center mb-6">
                     <h3 className="text-2xl font-bold text-gray-900 mb-2">{pkg.name}</h3>
                     <p className="text-gray-600 mb-4">{pkg.description}</p>
-                    <StartingAtPriceDisplay 
-                      price={pkg.basePrice} 
-                      size="lg" 
-                      showDiscount={true}
-                    />
+                    <div className="flex items-center justify-center">
+                      <StartingAtPriceDisplay 
+                        price={pkg.basePrice} 
+                        size="lg" 
+                        showDiscount={true}
+                      />
+                      <span className="text-gray-500 text-sm ml-2">/month</span>
+                    </div>
                   </div>
 
                   <ul className="space-y-3 mb-8">
                     {pkg.features.slice(0, 8).map((feature, featureIndex) => (
                       <li key={featureIndex} className="flex items-start">
-                        <svg className="w-5 h-5 text-indigo-500 mt-0.5 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                        <svg className="w-5 h-5 text-pink-500 mt-0.5 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
                           <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                         </svg>
                         <span className="text-gray-700 text-sm">{feature}</span>
@@ -272,61 +277,61 @@ export default function MentoringConsultingPage() {
                     )}
                   </ul>
 
-                  <button className="w-full bg-gradient-to-r from-indigo-500 to-blue-500 text-white py-3 px-6 rounded-xl font-semibold hover:from-indigo-600 hover:to-blue-600 transition-colors">
+                  <button className="w-full bg-gradient-to-r from-pink-500 to-red-500 text-white py-3 px-6 rounded-xl font-semibold hover:from-pink-600 hover:to-red-600 transition-colors">
                     {pkg.cta}
                   </button>
                 </div>
               ))}
             </div>
           </div>
-          
-          {/* Business Growth & Mentoring Outcomes */}
+
+          {/* Social Media Marketing Results */}
           <div className="text-center">
-            <h3 className="text-2xl font-bold text-gray-900 mb-8">Proven Business Growth Results</h3>
+            <h3 className="text-2xl font-bold text-gray-900 mb-8">Real Marketing Results We Deliver</h3>
             <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
               <div className="card-enhanced rounded-xl p-6 text-center">
-                <div className="w-12 h-12 bg-indigo-100 rounded-xl flex items-center justify-center text-indigo-600 mx-auto mb-4">
+                <div className="w-12 h-12 bg-pink-100 rounded-xl flex items-center justify-center text-pink-600 mx-auto mb-4">
                   <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
                   </svg>
                 </div>
-                <h4 className="font-bold text-gray-900 mb-2">180% Revenue Growth</h4>
-                <p className="text-gray-600 text-sm">Average business growth within 12 months of consulting</p>
+                <h4 className="font-bold text-gray-900 mb-2">387% ROI Average</h4>
+                <p className="text-gray-600 text-sm">Our clients see nearly 4x return on their marketing investment</p>
               </div>
               
               <div className="card-enhanced rounded-xl p-6 text-center">
-                <div className="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center text-blue-600 mx-auto mb-4">
+                <div className="w-12 h-12 bg-red-100 rounded-xl flex items-center justify-center text-red-600 mx-auto mb-4">
                   <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
                   </svg>
                 </div>
-                <h4 className="font-bold text-gray-900 mb-2">92% Success Rate</h4>
-                <p className="text-gray-600 text-sm">Clients achieve their business goals through our guidance</p>
+                <h4 className="font-bold text-gray-900 mb-2">65% Engagement Boost</h4>
+                <p className="text-gray-600 text-sm">Average increase in social media engagement within 90 days</p>
               </div>
               
               <div className="card-enhanced rounded-xl p-6 text-center">
-                <div className="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center text-green-600 mx-auto mb-4">
+                <div className="w-12 h-12 bg-orange-100 rounded-xl flex items-center justify-center text-orange-600 mx-auto mb-4">
                   <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z" />
                   </svg>
                 </div>
-                <h4 className="font-bold text-gray-900 mb-2">6-Month Avg Timeline</h4>
-                <p className="text-gray-600 text-sm">Time to see significant business improvements</p>
+                <h4 className="font-bold text-gray-900 mb-2">2.5M+ Reach Growth</h4>
+                <p className="text-gray-600 text-sm">Total audience reach increase across all client accounts</p>
               </div>
               
               <div className="card-enhanced rounded-xl p-6 text-center">
                 <div className="w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center text-purple-600 mx-auto mb-4">
                   <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1" />
                   </svg>
                 </div>
-                <h4 className="font-bold text-gray-900 mb-2">120+ Mentees</h4>
-                <p className="text-gray-600 text-sm">Entrepreneurs successfully guided to business success</p>
+                <h4 className="font-bold text-gray-900 mb-2">₦750M+ Sales</h4>
+                <p className="text-gray-600 text-sm">Revenue generated for clients through social media campaigns</p>
               </div>
             </div>
           </div>
         </div>
-      </div>
+      </header>
 
       {/* Service Request Modal */}
       {selectedService && (
@@ -335,6 +340,6 @@ export default function MentoringConsultingPage() {
           onClose={() => setSelectedService(null)}
         />
       )}
-    </div>
+    </main>
   )
 }
