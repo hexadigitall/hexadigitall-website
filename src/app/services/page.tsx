@@ -8,6 +8,7 @@ import { ServiceRequestFlow, ServiceCategory, Package } from '@/components/servi
 import { useCurrency } from '@/contexts/CurrencyContext'
 import { DiscountBanner } from '@/components/ui/DiscountBanner'
 import { CompactPriceDisplay, StartingAtPriceDisplay } from '@/components/ui/PriceDisplay'
+import { SERVICE_PRICING } from '@/lib/currency'
 import { RequestServiceCTA, ContactCTA } from '@/components/ui/CTAButton'
 import { SparklesIcon } from '@heroicons/react/24/outline'
 import { SearchParamsHandler } from '@/components/services/SearchParamsHandler'
@@ -24,626 +25,104 @@ interface Service {
   overview: string
 }
 
-// Enhanced mapServiceToServiceCategory function with comprehensive service-specific mapping
+// Enhanced mapServiceToServiceCategory function that uses consistent SERVICE_PRICING data
 const mapServiceToServiceCategory = (service: Service): ServiceCategory => {
-  // Helper function to detect service type from slug
-  const getServiceType = (slug: string): string => {
+  // Helper function to detect service type from slug and map to SERVICE_PRICING keys
+  const getServiceType = (slug: string): keyof typeof SERVICE_PRICING | 'general' => {
     const slugLower = slug.toLowerCase()
-    if (slugLower.includes('web') || slugLower.includes('website')) return 'web'
-    if (slugLower.includes('mobile') || slugLower.includes('app')) return 'mobile'
-    if (slugLower.includes('marketing') || slugLower.includes('seo') || slugLower.includes('social')) return 'marketing'
-    if (slugLower.includes('cloud') || slugLower.includes('infrastructure') || slugLower.includes('hosting')) return 'cloud'
+    if (slugLower.includes('web') || slugLower.includes('website')) return 'web-development'
+    if (slugLower.includes('mobile') || slugLower.includes('app')) return 'mobile-development'
+    if (slugLower.includes('marketing') || slugLower.includes('seo') || slugLower.includes('social')) return 'digital-marketing'
     if (slugLower.includes('consulting') || slugLower.includes('strategy') || slugLower.includes('mentoring')) return 'consulting'
-    if (slugLower.includes('software') || slugLower.includes('custom')) return 'software'
-    if (slugLower.includes('business-plan') || slugLower.includes('logo')) return 'branding'
-    if (slugLower.includes('profile') || slugLower.includes('portfolio')) return 'profile'
+    if (slugLower.includes('business-plan') || slugLower.includes('logo')) return 'business-plan'
+    if (slugLower.includes('profile') || slugLower.includes('portfolio')) return 'portfolio'
     return 'general'
   }
 
-  // Service-specific package generation with proper pricing
+  // Service-specific package generation using consistent SERVICE_PRICING data
   const generatePackages = (serviceSlug: string): Package[] => {
     const serviceType = getServiceType(serviceSlug)
-
-    switch (serviceType) {
-      case 'web':
-        return [
-          {
-            _key: `landing-${service._id}`,
-            name: 'Professional Landing Page',
-            tier: 'basic' as const,
-            price: 179,
-            currency: 'USD',
-            billing: 'one_time' as const,
-            deliveryTime: '3-5 business days',
-            features: [
-              'Single custom-designed page with hero section',
-              'Mobile-responsive layout (phone, tablet, desktop)',
-              'Contact form with email notifications to your inbox',
-              'Basic SEO optimization (meta tags, page title, description)',
-              'Social media icons linking to your profiles',
-              'Google Analytics setup for visitor tracking',
-              'Fast loading optimization (under 3 seconds)',
-              '3 rounds of design revisions',
-              '1 month free hosting on our servers',
-              '30-day email support for questions & minor changes'
-            ]
-          },
-          {
-            _key: `business-site-${service._id}`,
-            name: 'Complete Business Website',
-            tier: 'standard' as const,
-            price: 449,
-            currency: 'USD',
-            billing: 'one_time' as const,
-            deliveryTime: '7-10 business days',
-            popular: true,
-            features: [
-              '5-8 professional pages: Home, About, Services, Portfolio, Contact + 3 custom pages',
-              'Modern responsive design with custom color scheme',
-              'WordPress CMS for easy content updates',
-              'Advanced SEO package (sitemap, schema markup, keyword optimization)',
-              'Multiple contact forms with spam protection',
-              'Social media feed integration',
-              'SSL security certificate included',
-              'Blog section with 5 starter posts written for you',
-              'Performance optimization (CDN, image compression)',
-              'Google My Business setup and optimization',
-              '3 months premium hosting included',
-              '4 rounds of design revisions',
-              '90-day phone & email support with monthly check-ins'
-            ]
-          },
-          {
-            _key: `ecommerce-${service._id}`,
-            name: 'Full E-commerce Platform',
-            tier: 'premium' as const,
-            price: 899,
-            currency: 'USD',
-            billing: 'one_time' as const,
-            deliveryTime: '14-21 business days',
-            features: [
-              'Complete online store with unlimited product listings',
-              'Secure payment processing (Stripe, PayPal, Razorpay, bank transfers)',
-              'Advanced inventory management with automatic low-stock alerts',
-              'Customer accounts with order history, wishlist, and addresses',
-              'Automated order confirmation & shipping notification emails',
-              'Comprehensive admin dashboard for sales, orders, and customer management',
-              'Multi-currency support and tax calculation',
-              'Product reviews and ratings system',
-              'Coupon and discount code functionality',
-              'Email marketing integration (Mailchimp) with abandoned cart recovery',
-              'Advanced SEO for product pages and category optimization',
-              '6 months premium hosting with daily backups',
-              'Free domain name registration',
-              '5 rounds of design revisions',
-              '6-month priority support with dedicated account manager'
-            ]
-          }
-        ]
-
-      case 'mobile':
-        return [
-          {
-            _key: `basic-app-${service._id}`,
-            name: 'Cross-Platform Basic App',
-            tier: 'basic' as const,
-            price: 899,
-            currency: 'USD',
-            billing: 'one_time' as const,
-            deliveryTime: '3-4 weeks',
-            features: [
-              'iOS AND Android app using React Native framework',
-              '5-7 core screens: login, home, profile, settings, and 3 custom screens',
-              'User authentication with email/password registration',
-              'Local data storage for user preferences and basic content',
-              'Push notification setup for announcements',
-              'Social media login (Google, Facebook)',
-              'Modern UI design with your brand colors and logo',
-              'Basic navigation menu and tab structure',
-              'App store submission help and guidelines',
-              'Full source code ownership provided',
-              '60-day bug fixes and technical support'
-            ]
-          },
-          {
-            _key: `cross-platform-${service._id}`,
-            name: 'Professional Business App',
-            tier: 'standard' as const,
-            price: 1899,
-            currency: 'USD',
-            billing: 'one_time' as const,
-            deliveryTime: '5-7 weeks',
-            popular: true,
-            features: [
-              'Native-performance iOS & Android apps with advanced features',
-              '10-15 feature-rich screens with custom layouts and animations',
-              'Advanced user profiles with photo upload, bio, preferences',
-              'Cloud database integration (Firebase) with real-time sync',
-              'Custom UI/UX design with professional branding package',
-              'In-app messaging system between users',
-              'Advanced push notifications with scheduling and targeting',
-              'Third-party API integrations (payment, maps, social sharing)',
-              'App Store Optimization (ASO) with keywords and screenshots',
-              'Web-based admin panel for content and user management',
-              'Testing on 10+ physical devices and simulators',
-              'Analytics integration for user behavior tracking',
-              '90-day comprehensive support with monthly feature updates'
-            ]
-          },
-          {
-            _key: `enterprise-app-${service._id}`,
-            name: 'Enterprise-Grade Application',
-            tier: 'premium' as const,
-            price: 4999,
-            currency: 'USD',
-            billing: 'one_time' as const,
-            deliveryTime: '8-12 weeks',
-            features: [
-              'Fully native iOS (Swift) & Android (Kotlin) applications',
-              'Custom-built backend API with scalable server architecture',
-              'Advanced admin dashboard with analytics, reporting, and user management',
-              'Enterprise security: encryption, secure authentication, data protection',
-              'Multiple integrations: CRM, ERP, payment gateways, third-party services',
-              'Real-time data synchronization with offline functionality',
-              'Multi-language support (up to 5 languages)',
-              'Multi-currency and international payment processing',
-              'Advanced analytics with custom reporting dashboard',
-              'Dedicated cloud server setup with auto-scaling',
-              'Load balancing and performance optimization',
-              'Comprehensive QA testing including security and performance tests',
-              'Professional app store assets and marketing materials',
-              'Priority support with dedicated project manager for 6 months',
-              'Monthly performance reviews and optimization recommendations'
-            ]
-          }
-        ]
-
-      case 'marketing':
-        return [
-          {
-            _key: `marketing-starter-${service._id}`,
-            name: 'Digital Marketing Essentials',
-            tier: 'basic' as const,
-            price: 299,
-            currency: 'USD',
-            billing: 'monthly' as const,
-            deliveryTime: '1-2 weeks setup',
-            features: [
-              'Website SEO audit & basic optimization',
-              'Google My Business setup & optimization',
-              'Social media management (2 platforms)',
-              '12 custom social media posts per month',
-              '2 blog posts or articles per month',
-              'Basic Google Analytics setup',
-              'Monthly performance report',
-              'Email & chat support during business hours'
-            ]
-          },
-          {
-            _key: `growth-package-${service._id}`,
-            name: 'Complete Growth Marketing',
-            tier: 'standard' as const,
-            price: 699,
-            currency: 'USD',
-            billing: 'monthly' as const,
-            deliveryTime: '1 week setup',
-            popular: true,
-            features: [
-              'Advanced SEO strategy & implementation',
-              'Social media management (4 platforms)',
-              '20 custom posts + 5 reels/videos per month',
-              'Google/Facebook Ads management (ad spend separate)',
-              'Email marketing with 2 campaigns per month',
-              'Content calendar & strategy planning',
-              'Advanced analytics & conversion tracking',
-              'Bi-weekly strategy calls (30 min each)',
-              'Weekly performance reports',
-              'Competitor analysis & monitoring'
-            ]
-          },
-          {
-            _key: `enterprise-marketing-${service._id}`,
-            name: 'Full-Service Marketing Suite',
-            tier: 'premium' as const,
-            price: 1499,
-            currency: 'USD',
-            billing: 'monthly' as const,
-            deliveryTime: '3-5 days setup',
-            features: [
-              'Dedicated marketing team (3-4 specialists)',
-              'Multi-platform advertising (Google, Facebook, LinkedIn, TikTok)',
-              'Custom landing pages & conversion optimization',
-              '30 social posts + 10 videos + 4 blog posts monthly',
-              'A/B testing & conversion rate optimization',
-              'Influencer outreach & partnership management',
-              'Advanced marketing automation setup',
-              'Custom analytics dashboard',
-              'Weekly 1-hour strategy calls',
-              'Dedicated account manager',
-              '24/7 priority support'
-            ]
-          }
-        ]
-
-      case 'consulting':
-        return [
-          {
-            _key: `consultation-${service._id}`,
-            name: 'Strategic Consultation Session',
-            tier: 'basic' as const,
-            price: 149,
-            currency: 'USD',
-            billing: 'one_time' as const,
-            deliveryTime: '1-2 days',
-            features: [
-              '90-minute focused consultation call',
-              'Business challenge assessment',
-              'Strategic recommendations document',
-              'Actionable next steps with timeline',
-              'Resource & tool recommendations',
-              'Detailed follow-up summary (5+ pages)',
-              '14-day email follow-up support'
-            ]
-          },
-          {
-            _key: `mentoring-program-${service._id}`,
-            name: 'Professional Mentoring Program',
-            tier: 'standard' as const,
-            price: 399,
-            currency: 'USD',
-            billing: 'monthly' as const,
-            deliveryTime: '24 hours',
-            popular: true,
-            features: [
-              '4 structured one-hour sessions per month',
-              'Personalized growth & development plan',
-              'Industry-specific insights & guidance',
-              'Goal setting & accountability tracking',
-              'Skills assessment with improvement roadmap',
-              'Access to exclusive resources & templates',
-              'Unlimited email & WhatsApp support',
-              'Monthly progress review & strategy adjustment',
-              'Certificate of completion after 3 months'
-            ]
-          },
-          {
-            _key: `full-consulting-${service._id}`,
-            name: 'Complete Business Transformation',
-            tier: 'premium' as const,
-            price: 2999,
-            currency: 'USD',
-            billing: 'project' as const,
-            deliveryTime: '2-3 weeks',
-            features: [
-              'Comprehensive 360° business audit (40+ page report)',
-              'Strategic planning & 12-month roadmap',
-              'Process optimization & workflow design',
-              'Team training & capacity building (up to 4 sessions)',
-              'Technology stack recommendations & setup',
-              'Financial planning & budget optimization',
-              '3-month hands-on implementation support',
-              'Monthly strategy review calls',
-              'Priority access for urgent questions',
-              'Final business transformation report'
-            ]
-          }
-        ]
-
-      case 'branding':
-        return [
-          {
-            _key: `logo-design-${service._id}`,
-            name: 'Professional Logo Design',
-            tier: 'basic' as const,
-            price: 199,
-            currency: 'USD',
-            billing: 'one_time' as const,
-            deliveryTime: '3-5 business days',
-            features: [
-              '4 unique logo concepts',
-              '4 rounds of revisions included',
-              'High-resolution files (PNG, JPG, PDF)',
-              'Vector files (AI, EPS, SVG)',
-              'Brand color palette (primary & secondary)',
-              'Typography recommendations',
-              'Logo usage guidelines document',
-              'Black & white variations',
-              '60-day support'
-            ]
-          },
-          {
-            _key: `brand-identity-${service._id}`,
-            name: 'Complete Brand Identity',
-            tier: 'standard' as const,
-            price: 449,
-            currency: 'USD',
-            billing: 'one_time' as const,
-            deliveryTime: '7-10 business days',
-            popular: true,
-            features: [
-              'Everything in Professional Logo Design',
-              'Business card design (2 variations)',
-              'Letterhead & envelope design',
-              'Brand style guide (10+ pages)',
-              'Social media profile templates',
-              'Email signature design',
-              'Basic marketing materials (flyer template)',
-              'Brand color psychology analysis',
-              '90-day support & minor updates'
-            ]
-          },
-          {
-            _key: `complete-brand-business-${service._id}`,
-            name: 'Brand + Business Plan Package',
-            tier: 'premium' as const,
-            price: 899,
-            currency: 'USD',
-            billing: 'one_time' as const,
-            deliveryTime: '14-21 business days',
-            features: [
-              'Everything in Complete Brand Identity',
-              'Professional business plan (20+ pages)',
-              'Market research & competitive analysis',
-              '3-year financial projections',
-              'Investor pitch deck (10 slides)',
-              'Marketing strategy outline',
-              'Website mockup design',
-              'Social media content templates (10 posts)',
-              'Brand implementation roadmap',
-              '6-month support & consultation calls'
-            ]
-          }
-        ]
-
-      case 'profile':
-        return [
-          {
-            _key: `basic-profile-${service._id}`,
-            name: 'Professional Portfolio Website',
-            tier: 'basic' as const,
-            price: 299,
-            currency: 'USD',
-            billing: 'one_time' as const,
-            deliveryTime: '5-7 business days',
-            features: [
-              '4-5 page responsive portfolio',
-              'Modern, professional design',
-              'Project gallery (up to 15 items)',
-              'About & contact pages',
-              'Contact form integration',
-              'Social media links',
-              'Mobile-optimized layout',
-              'Basic SEO setup',
-              '3 months hosting included',
-              '3 rounds of revisions',
-              '30-day support'
-            ]
-          },
-          {
-            _key: `professional-portfolio-${service._id}`,
-            name: 'Complete Portfolio & Brand',
-            tier: 'standard' as const,
-            price: 549,
-            currency: 'USD',
-            billing: 'one_time' as const,
-            deliveryTime: '7-10 business days',
-            popular: true,
-            features: [
-              '7-10 custom pages with unique design',
-              'Personal branding & color scheme',
-              'Advanced portfolio with filtering',
-              'Detailed project case studies',
-              'Client testimonials section',
-              'Integrated blog/news section',
-              'CV/Resume download feature',
-              'Advanced SEO & Google Analytics',
-              'Performance optimization',
-              '6 months hosting included',
-              '4 rounds of revisions',
-              '90-day support & updates'
-            ]
-          },
-          {
-            _key: `premium-brand-site-${service._id}`,
-            name: 'Business Portfolio Platform',
-            tier: 'premium' as const,
-            price: 899,
-            currency: 'USD',
-            billing: 'one_time' as const,
-            deliveryTime: '10-14 business days',
-            features: [
-              'Custom-designed multi-page platform',
-              'Content management system',
-              'Advanced portfolio with categories',
-              'Client testimonials & reviews system',
-              'Booking/appointment scheduling',
-              'Service pricing & packages display',
-              'Blog with content management',
-              'E-commerce for selling services/products',
-              'Advanced SEO & performance optimization',
-              'Custom integrations (calendars, CRM)',
-              '12 months hosting & domain included',
-              '5 rounds of revisions',
-              '6-month priority support'
-            ]
-          }
-        ]
-
-      case 'individual':
-      case 'custom':
-      case 'add-on':
-        // Individual service options for customization
-        return [
-          {
-            _key: `single-webpage-${service._id}`,
-            name: 'Single Webpage',
-            tier: 'basic' as const,
-            price: 99,
-            currency: 'USD',
-            billing: 'one_time' as const,
-            deliveryTime: '2-3 business days',
-            features: [
-              'Custom single page design',
-              'Mobile responsive',
-              'Basic SEO optimization',
-              'Contact form integration',
-              '2 rounds of revisions',
-              '30-day support'
-            ]
-          },
-          {
-            _key: `logo-only-${service._id}`,
-            name: 'Logo Design Only',
-            tier: 'basic' as const,
-            price: 149,
-            currency: 'USD',
-            billing: 'one_time' as const,
-            deliveryTime: '2-4 business days',
-            popular: true,
-            features: [
-              '3 logo concepts',
-              '3 rounds of revisions',
-              'High-resolution files (PNG, JPG)',
-              'Vector files (AI, SVG)',
-              'Basic color variations',
-              '30-day support'
-            ]
-          },
-          {
-            _key: `business-card-${service._id}`,
-            name: 'Business Card Design',
-            tier: 'basic' as const,
-            price: 79,
-            currency: 'USD',
-            billing: 'one_time' as const,
-            deliveryTime: '1-2 business days',
-            features: [
-              '2 business card designs',
-              'Print-ready files',
-              'Double-sided design',
-              '2 rounds of revisions',
-              '14-day support'
-            ]
-          },
-          {
-            _key: `social-media-post-${service._id}`,
-            name: 'Social Media Graphics',
-            tier: 'basic' as const,
-            price: 49,
-            currency: 'USD',
-            billing: 'one_time' as const,
-            deliveryTime: '1-2 business days',
-            features: [
-              '5 custom social media posts',
-              'Multiple platform sizes',
-              'Brand-consistent design',
-              '1 round of revisions',
-              '7-day support'
-            ]
-          },
-          {
-            _key: `flyer-design-${service._id}`,
-            name: 'Flyer/Poster Design',
-            tier: 'basic' as const,
-            price: 129,
-            currency: 'USD',
-            billing: 'one_time' as const,
-            deliveryTime: '2-3 business days',
-            features: [
-              'Custom flyer/poster design',
-              'Print & digital ready files',
-              'Multiple size variations',
-              '3 rounds of revisions',
-              '30-day support'
-            ]
-          },
-          {
-            _key: `blog-writing-${service._id}`,
-            name: 'Blog Post Writing',
-            tier: 'basic' as const,
-            price: 89,
-            currency: 'USD',
-            billing: 'one_time' as const,
-            deliveryTime: '3-5 business days',
-            features: [
-              '800-1200 word article',
-              'SEO optimized content',
-              'Research & fact-checking',
-              '2 rounds of revisions',
-              'WordPress formatting ready'
-            ]
-          }
-        ]
-
-      default:
-        // Default packages for general services
-        return [
-          {
-            _key: `basic-${service._id}`,
-            name: 'Basic Package',
-            tier: 'basic' as const,
-            price: 199,
-            currency: 'USD',
-            billing: 'one_time' as const,
-            deliveryTime: '5-7 business days',
-            features: [
-              'Initial consultation',
-              'Basic implementation',
-              'Email support',
-              '30-day warranty'
-            ]
-          },
-          {
-            _key: `professional-${service._id}`,
-            name: 'Professional Package',
-            tier: 'standard' as const,
-            price: 499,
-            currency: 'USD',
-            billing: 'one_time' as const,
-            deliveryTime: '7-10 business days',
-            popular: true,
-            features: [
-              'Detailed consultation',
-              'Professional implementation',
-              'Priority support',
-              'Custom features',
-              '90-day warranty',
-              'Training included'
-            ]
-          },
-          {
-            _key: `premium-${service._id}`,
-            name: 'Premium Package',
-            tier: 'premium' as const,
-            price: 999,
-            currency: 'USD',
-            billing: 'one_time' as const,
-            deliveryTime: '10-14 business days',
-            features: [
-              'In-depth consultation',
-              'Premium implementation',
-              '24/7 priority support',
-              'Advanced features',
-              '1-year warranty',
-              'Training & documentation'
-            ]
-          }
-        ]
+    
+    // Return packages from SERVICE_PRICING if available, otherwise fallback to defaults
+    if (serviceType !== 'general' && SERVICE_PRICING[serviceType]) {
+      return SERVICE_PRICING[serviceType].map((pricingTier, index) => ({
+        _key: `${serviceType}-${pricingTier.id}`,
+        name: pricingTier.name,
+        tier: index === 0 ? 'basic' : index === 1 ? 'standard' : index === 2 ? 'premium' : 'enterprise',
+        price: pricingTier.basePrice,
+        currency: 'USD',
+        billing: 'one_time' as const,
+        deliveryTime: pricingTier.billing || 'Standard delivery',
+        features: pricingTier.features,
+        popular: pricingTier.popular || false
+      }))
     }
+    
+    // Fallback for services not in SERVICE_PRICING
+    return [
+      {
+        _key: `basic-${service._id}`,
+        name: 'Basic Package',
+        tier: 'basic' as const,
+        price: 199,
+        currency: 'USD',
+        billing: 'one_time' as const,
+        deliveryTime: '5-7 business days',
+        features: [
+          'Initial consultation',
+          'Basic implementation',
+          'Email support',
+          '30-day warranty'
+        ]
+      },
+      {
+        _key: `professional-${service._id}`,
+        name: 'Professional Package',
+        tier: 'standard' as const,
+        price: 499,
+        currency: 'USD',
+        billing: 'one_time' as const,
+        deliveryTime: '7-10 business days',
+        popular: true,
+        features: [
+          'Detailed consultation',
+          'Professional implementation',
+          'Priority support',
+          'Custom features',
+          '90-day warranty',
+          'Training included'
+        ]
+      },
+      {
+        _key: `premium-${service._id}`,
+        name: 'Premium Package',
+        tier: 'premium' as const,
+        price: 999,
+        currency: 'USD',
+        billing: 'one_time' as const,
+        deliveryTime: '10-14 business days',
+        features: [
+          'In-depth consultation',
+          'Premium implementation',
+          '24/7 priority support',
+          'Advanced features',
+          '1-year warranty',
+          'Training & documentation'
+        ]
+      }
+    ]
   }
 
   // Service-specific icon mapping
   const getServiceIcon = (slug: string): string => {
     const serviceType = getServiceType(slug)
     const iconMap: Record<string, string> = {
-      'web': 'monitor',
-      'mobile': 'mobile',
-      'marketing': 'chart',
-      'cloud': 'server',
+      'web-development': 'monitor',
+      'mobile-development': 'mobile',
+      'digital-marketing': 'chart',
       'consulting': 'settings',
-      'software': 'code',
-      'branding': 'chart',
-      'profile': 'monitor',
+      'business-plan': 'chart',
+      'portfolio': 'monitor',
       'general': 'default'
     }
     return iconMap[serviceType] || 'default'

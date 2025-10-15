@@ -1,6 +1,7 @@
 'use client'
 
 import React, { useState } from 'react'
+import Link from 'next/link'
 import { Package } from './ServiceRequestFlow'
 import { StartingAtPriceDisplay } from '@/components/ui/PriceDisplay'
 
@@ -163,10 +164,30 @@ interface ServiceGroupCardProps {
 export const ServiceGroupCard: React.FC<ServiceGroupCardProps> = ({ group, onClick }) => {
   const lowestPrice = Math.min(...group.packages.map(pkg => pkg.price))
   
+  // Map service group IDs to their corresponding category page URLs
+  const getCategoryPageUrl = (groupId: string): string => {
+    const urlMap: Record<string, string> = {
+      'business-strategy': '/services/business-plan-and-logo-design',
+      'digital-presence': '/services/web-and-mobile-software-development',
+      'marketing-growth': '/services/social-media-marketing',
+      'profile-portfolio': '/services/profile-and-portfolio-building',
+      'mentoring-consulting': '/services/mentoring-and-consulting'
+    }
+    return urlMap[groupId] || '/services'
+  }
+  
+  const handleCardClick = (e: React.MouseEvent) => {
+    // Only trigger the modal if clicking on the main card, not the buttons
+    if ((e.target as HTMLElement).closest('button, a')) {
+      return
+    }
+    onClick()
+  }
+  
   return (
     <div
       className="relative overflow-hidden rounded-2xl cursor-pointer card-enhanced hover:scale-105 transition-all duration-300 group"
-      onClick={onClick}
+      onClick={handleCardClick}
     >
       {/* Background Image */}
       {group.backgroundImage && (
@@ -201,21 +222,29 @@ export const ServiceGroupCard: React.FC<ServiceGroupCardProps> = ({ group, onCli
           {group.description}
         </p>
         
-        <div className="flex items-center justify-between">
-          <div>
-            <StartingAtPriceDisplay 
-              price={lowestPrice} 
-              size="sm"
-              showDiscount={true}
-            />
-          </div>
+        <div className="mb-6">
+          <StartingAtPriceDisplay 
+            price={lowestPrice} 
+            size="sm"
+            showDiscount={true}
+          />
+        </div>
+        
+        {/* Action Buttons */}
+        <div className="space-y-3">
+          <button 
+            onClick={() => onClick()}
+            className="w-full bg-gradient-to-r from-primary to-secondary text-white py-3 px-4 rounded-xl font-semibold hover:from-secondary hover:to-accent transition-all duration-300"
+          >
+            View Quick Packages
+          </button>
           
-          <div className="flex items-center text-primary font-semibold group-hover:text-secondary transition-colors">
-            <span>View Options</span>
-            <svg className="w-4 h-4 ml-2 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-            </svg>
-          </div>
+          <Link
+            href={getCategoryPageUrl(group.id)}
+            className="w-full block text-center border-2 border-primary text-primary py-3 px-4 rounded-xl font-semibold hover:bg-primary hover:text-white transition-all duration-300"
+          >
+            Browse Individual Services
+          </Link>
         </div>
       </div>
     </div>
