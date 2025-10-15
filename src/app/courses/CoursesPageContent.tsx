@@ -177,7 +177,7 @@ function CoursesPageContentEnhanced({ initialData }: CoursesPageContentProps = {
   const handleEnrollClick = (course: Course) => {
     const enrollmentData = convertToEnrollmentData(course);
     setSelectedCourse(enrollmentData);
-    setShowEnrollmentModal(true);
+    setShowEnrollmentModal(course);
   };
 
   if (loading) {
