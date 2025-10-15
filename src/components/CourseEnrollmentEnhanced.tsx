@@ -349,7 +349,7 @@ export default function CourseEnrollmentEnhanced({ course }: { course: CourseEnr
 
           {/* What's Included */}
           <div className="mb-6">
-            <h4 className="font-semibold text-gray-900 mb-3">What's Included:</h4>
+            <h4 className="font-semibold text-gray-900 mb-3">What&apos;s Included:</h4>
             <ul className="space-y-2">
               {course.includes.map((item, index) => (
                 <li key={index} className="flex items-start text-sm text-gray-600">
@@ -408,7 +408,7 @@ export default function CourseEnrollmentEnhanced({ course }: { course: CourseEnr
             Back to Course
           </button>
           <h3 className="text-xl font-bold text-gray-900">Customize Your Learning Experience</h3>
-          <p className="text-gray-600">Choose how you'd like to learn this course</p>
+          <p className="text-gray-600">Choose how you&apos;d like to learn this course</p>
         </div>
 
         <div className="space-y-6">
@@ -881,7 +881,7 @@ export default function CourseEnrollmentEnhanced({ course }: { course: CourseEnr
                   </div>
                   <div className="bg-blue-100 rounded p-2 mt-3">
                     <div className="text-sm">
-                      <div className="font-medium text-blue-800">Today's Payment:</div>
+                      <div className="font-medium text-blue-800">Today&apos;s Payment:</div>
                       <div className="text-blue-700">
                         {formatPrice(downPaymentAmount)}
                       </div>

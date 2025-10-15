@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState } from 'react'
+import React, { useRef, useEffect } from 'react';
 import Link from 'next/link'
 import { Package } from './ServiceRequestFlow'
 import { StartingAtPriceDisplay } from '@/components/ui/PriceDisplay'
