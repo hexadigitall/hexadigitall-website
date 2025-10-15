@@ -12,29 +12,29 @@ const INDIVIDUAL_SERVICES = [
   {
     id: 'social-media-audit',
     name: 'Social Media Audit',
-    price: 49,
-    description: 'Comprehensive analysis of your social media presence with actionable insights',
+    price: 79,
+    description: 'Complete analysis of your social media presence with actionable insights',
     deliveryTime: '3-5 days',
     features: [
-      'Analysis of 3 social platforms',
-      'Basic competitor analysis',
+      'Analysis of all social platforms',
+      'Competitor benchmarking',
       'Content performance review',
-      'Audience demographics report',
-      'Actionable recommendations',
-      '1-week email support'
+      'Audience analysis report',
+      'Detailed recommendations',
+      'Strategy roadmap'
     ]
   },
   {
     id: 'content-package',
     name: 'Content Creation Package',
-    price: 99,
-    description: '15 professionally designed social media posts with captions',
+    price: 149,
+    description: '20 professionally designed social media posts with captions',
     deliveryTime: '5-7 days',
     features: [
-      '15 custom designed posts',
-      'Platform-optimized sizes (Instagram + Facebook)',
+      '20 custom designed posts',
+      'Platform-optimized sizes',
       'Engaging captions included',
-      'Basic hashtag research',
+      'Hashtag research & recommendations',
       'Brand-consistent design',
       '2 revision rounds'
     ]
@@ -42,21 +42,21 @@ const INDIVIDUAL_SERVICES = [
   {
     id: 'ad-campaign-setup',
     name: 'Ad Campaign Setup',
-    price: 149,
+    price: 199,
     description: 'Professional setup and optimization of your first ad campaign',
     deliveryTime: '3-5 days',
     features: [
       'Facebook & Instagram ads setup',
       'Target audience research',
-      'Ad creative design (2 variants)',
+      'Ad creative design (3 variants)',
       'Campaign optimization',
       'Performance tracking setup',
-      '1-week monitoring included'
+      '2-week monitoring included'
     ]
   }
 ]
 
-export default function SocialMediaAdvertisingAndMarketingPage() {
+export default function SocialMediaMarketingPage() {
   const [selectedService, setSelectedService] = useState<ServiceCategory | null>(null)
   const [showIndividualServices, setShowIndividualServices] = useState(false)
   const { currentCurrency, getLocalDiscountMessage } = useCurrency()
@@ -66,9 +66,9 @@ export default function SocialMediaAdvertisingAndMarketingPage() {
   const marketingPackages = SERVICE_PRICING['digital-marketing'] || []
 
   const serviceCategory = {
-    _id: 'social-media-advertising-and-marketing',
-    title: 'Social Media Advertising & Marketing',
-    slug: { current: 'social-media-advertising-and-marketing' },
+    _id: 'social-media-marketing',
+    title: 'Social Media Marketing',
+    slug: { current: 'social-media-marketing' },
     description: 'Comprehensive social media marketing services to grow your audience, increase engagement, and drive sales.',
     icon: 'chart',
     featured: false,
@@ -87,20 +87,20 @@ export default function SocialMediaAdvertisingAndMarketingPage() {
   }
 
   return (
-    <main className="min-h-screen bg-gradient-to-b from-slate-50 via-white to-rose-50">
+    <div className="min-h-screen bg-gradient-to-b from-slate-50 via-white to-rose-50">
       {/* Breadcrumb */}
-      <nav className="bg-white border-b" aria-label="Breadcrumb navigation">
+      <div className="bg-white border-b">
         <div className="container mx-auto px-6 py-4">
           <Breadcrumb items={[
             { label: 'Services', href: '/services' },
-            { label: 'Social Media Advertising & Marketing' }
+            { label: 'Social Media Marketing' }
           ]} />
         </div>
-      </nav>
+      </div>
 
       {/* Hero Section */}
-      <header className="relative py-20 overflow-hidden">
-        <div className="absolute inset-0" aria-hidden="true">
+      <div className="relative py-20 overflow-hidden">
+        <div className="absolute inset-0">
           <div className="absolute inset-0 bg-gradient-to-br from-pink-600/10 via-red-600/10 to-orange-600/10"></div>
           <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-gradient-to-r from-pink-400/20 to-red-400/20 rounded-full blur-3xl animate-pulse"></div>
           <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-gradient-to-r from-red-400/20 to-orange-400/20 rounded-full blur-2xl animate-pulse" style={{animationDelay: '1s'}}></div>
@@ -126,7 +126,7 @@ export default function SocialMediaAdvertisingAndMarketingPage() {
               <span>Growth Marketing Services</span>
             </div>
             <h1 className="text-4xl md:text-5xl font-bold font-heading text-gray-900 mb-6">
-              Social Media Advertising & Marketing
+              Social Media Marketing
             </h1>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
               Grow your audience, increase engagement, and drive sales with our comprehensive social media 
@@ -285,9 +285,9 @@ export default function SocialMediaAdvertisingAndMarketingPage() {
             </div>
           </div>
 
-          {/* Social Media Marketing Results */}
+          {/* Why Choose Us Section */}
           <div className="text-center">
-            <h3 className="text-2xl font-bold text-gray-900 mb-8">Real Marketing Results We Deliver</h3>
+            <h3 className="text-2xl font-bold text-gray-900 mb-8">Why Choose Our Marketing Services?</h3>
             <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
               <div className="card-enhanced rounded-xl p-6 text-center">
                 <div className="w-12 h-12 bg-pink-100 rounded-xl flex items-center justify-center text-pink-600 mx-auto mb-4">
@@ -295,43 +295,43 @@ export default function SocialMediaAdvertisingAndMarketingPage() {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
                   </svg>
                 </div>
-                <h4 className="font-bold text-gray-900 mb-2">387% ROI Average</h4>
-                <p className="text-gray-600 text-sm">Our clients see nearly 4x return on their marketing investment</p>
+                <h4 className="font-bold text-gray-900 mb-2">Proven Results</h4>
+                <p className="text-gray-600 text-sm">Data-driven strategies that deliver measurable growth</p>
               </div>
               
               <div className="card-enhanced rounded-xl p-6 text-center">
                 <div className="w-12 h-12 bg-red-100 rounded-xl flex items-center justify-center text-red-600 mx-auto mb-4">
                   <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
                   </svg>
                 </div>
-                <h4 className="font-bold text-gray-900 mb-2">65% Engagement Boost</h4>
-                <p className="text-gray-600 text-sm">Average increase in social media engagement within 90 days</p>
+                <h4 className="font-bold text-gray-900 mb-2">Expert Team</h4>
+                <p className="text-gray-600 text-sm">Certified marketing specialists and content creators</p>
               </div>
               
               <div className="card-enhanced rounded-xl p-6 text-center">
                 <div className="w-12 h-12 bg-orange-100 rounded-xl flex items-center justify-center text-orange-600 mx-auto mb-4">
                   <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z" />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
                   </svg>
                 </div>
-                <h4 className="font-bold text-gray-900 mb-2">2.5M+ Reach Growth</h4>
-                <p className="text-gray-600 text-sm">Total audience reach increase across all client accounts</p>
+                <h4 className="font-bold text-gray-900 mb-2">Detailed Reporting</h4>
+                <p className="text-gray-600 text-sm">Monthly analytics and performance insights</p>
               </div>
               
               <div className="card-enhanced rounded-xl p-6 text-center">
                 <div className="w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center text-purple-600 mx-auto mb-4">
                   <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1" />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                   </svg>
                 </div>
-                <h4 className="font-bold text-gray-900 mb-2">₦750M+ Sales</h4>
-                <p className="text-gray-600 text-sm">Revenue generated for clients through social media campaigns</p>
+                <h4 className="font-bold text-gray-900 mb-2">24/7 Support</h4>
+                <p className="text-gray-600 text-sm">Always available to help you succeed</p>
               </div>
             </div>
           </div>
         </div>
-      </header>
+      </div>
 
       {/* Service Request Modal */}
       {selectedService && (
@@ -340,6 +340,6 @@ export default function SocialMediaAdvertisingAndMarketingPage() {
           onClose={() => setSelectedService(null)}
         />
       )}
-    </main>
+    </div>
   )
 }

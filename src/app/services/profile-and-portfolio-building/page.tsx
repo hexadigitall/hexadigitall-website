@@ -11,43 +11,43 @@ const INDIVIDUAL_SERVICES = [
   {
     id: 'cv-resume-only',
     name: 'CV/Resume Only',
-    price: 99,
+    price: 59,
     description: 'Professional CV/Resume design with ATS optimization',
     deliveryTime: '3-5 days',
     features: [
       'ATS-friendly format',
-      'Professional design',
-      'Multiple format versions (PDF, DOC)',
+      'Professional design template',
+      'Multiple versions (PDF, DOC)',
       '2 revision rounds',
-      'Cover letter template included',
+      'Cover letter template',
       'LinkedIn optimization tips'
     ]
   },
   {
     id: 'portfolio-website-only',
     name: 'Portfolio Website Only',
-    price: 299,
-    description: 'Simple portfolio website to showcase your work',
+    price: 199,
+    description: 'Professional portfolio website to showcase your work',
     deliveryTime: '5-7 days',
     features: [
       '5-page responsive website',
-      'Portfolio gallery (15 projects)',
+      'Project gallery (15 items)',
       'Contact form integration',
       'Mobile optimization',
-      'SEO setup',
-      '3 months hosting included'
+      'Basic SEO setup',
+      '6 months hosting included'
     ]
   },
   {
     id: 'linkedin-optimization',
-    name: 'LinkedIn Profile Optimization',
-    price: 149,
+    name: 'LinkedIn Optimization',
+    price: 89,
     description: 'Complete LinkedIn profile makeover for professionals',
     deliveryTime: '2-3 days',
     features: [
       'Professional headline writing',
       'Compelling summary creation',
-      'Skills & endorsements optimization',
+      'Skills optimization',
       'Achievement highlights',
       'Connection strategy guide',
       'Profile photo guidelines'
@@ -101,7 +101,7 @@ export default function ProfilePortfolioPage() {
         <div className="absolute inset-0">
           <div className="absolute inset-0 bg-gradient-to-br from-purple-600/10 via-blue-600/10 to-indigo-600/10"></div>
           <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-gradient-to-r from-purple-400/20 to-blue-400/20 rounded-full blur-3xl animate-pulse"></div>
-          <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-gradient-to-r from-blue-400/20 to-indigo-400/20 rounded-full blur-3xl animate-float"></div>
+          <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-gradient-to-r from-blue-400/20 to-indigo-400/20 rounded-full blur-2xl animate-pulse" style={{animationDelay: '1s'}}></div>
         </div>
         
         <div className="container mx-auto px-6 relative z-10">
@@ -279,10 +279,10 @@ export default function ProfilePortfolioPage() {
               ))}
             </div>
           </div>
-          
-          {/* Career Success Statistics */}
+
+          {/* Why Choose Us Section */}
           <div className="text-center">
-            <h3 className="text-2xl font-bold text-gray-900 mb-8">Career Advancement Results</h3>
+            <h3 className="text-2xl font-bold text-gray-900 mb-8">Why Choose Our Portfolio Services?</h3>
             <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
               <div className="card-enhanced rounded-xl p-6 text-center">
                 <div className="w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center text-purple-600 mx-auto mb-4">
@@ -291,7 +291,7 @@ export default function ProfilePortfolioPage() {
                   </svg>
                 </div>
                 <h4 className="font-bold text-gray-900 mb-2">89% Job Success</h4>
-                <p className="text-gray-600 text-sm">Our clients land their dream jobs within 6 months</p>
+                <p className="text-gray-600 text-sm">Our clients land their dream jobs within 6 months of portfolio completion</p>
               </div>
               
               <div className="card-enhanced rounded-xl p-6 text-center">
@@ -301,18 +301,17 @@ export default function ProfilePortfolioPage() {
                   </svg>
                 </div>
                 <h4 className="font-bold text-gray-900 mb-2">45% Salary Increase</h4>
-                <p className="text-gray-600 text-sm">Average salary boost after professional rebranding</p>
+                <p className="text-gray-600 text-sm">Average salary boost after professional rebranding and portfolio upgrade</p>
               </div>
               
               <div className="card-enhanced rounded-xl p-6 text-center">
                 <div className="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center text-green-600 mx-auto mb-4">
                   <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
                   </svg>
                 </div>
                 <h4 className="font-bold text-gray-900 mb-2">3.2x More Views</h4>
-                <p className="text-gray-600 text-sm">LinkedIn profile views increase after optimization</p>
+                <p className="text-gray-600 text-sm">LinkedIn profile views increase significantly after our optimization</p>
               </div>
               
               <div className="card-enhanced rounded-xl p-6 text-center">
@@ -322,7 +321,7 @@ export default function ProfilePortfolioPage() {
                   </svg>
                 </div>
                 <h4 className="font-bold text-gray-900 mb-2">7-Day Delivery</h4>
-                <p className="text-gray-600 text-sm">Fast-track your career with quick professional makeover</p>
+                <p className="text-gray-600 text-sm">Fast-track your career with our quick professional makeover service</p>
               </div>
             </div>
           </div>

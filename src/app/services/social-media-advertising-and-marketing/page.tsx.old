@@ -10,100 +10,100 @@ import Breadcrumb from '@/components/ui/Breadcrumb'
 // Individual service options for easy access
 const INDIVIDUAL_SERVICES = [
   {
-    id: 'logo-design-only',
-    name: 'Logo Design Only',
-    price: 39,
-    description: 'Professional logo design with 3 concepts and unlimited revisions',
+    id: 'social-media-audit',
+    name: 'Social Media Audit',
+    price: 49,
+    description: 'Comprehensive analysis of your social media presence with actionable insights',
     deliveryTime: '3-5 days',
     features: [
-      '3 unique logo concepts',
-      'Unlimited revisions',
-      'High-resolution files (PNG, JPG, SVG)',
-      'Brand color palette',
-      'Commercial usage rights',
-      'Source files included'
+      'Analysis of 3 social platforms',
+      'Basic competitor analysis',
+      'Content performance review',
+      'Audience demographics report',
+      'Actionable recommendations',
+      '1-week email support'
     ]
   },
   {
-    id: 'business-plan-only',
-    name: 'Business Plan Only',
-    price: 89,
-    description: 'Comprehensive business plan for startups and funding applications',
+    id: 'content-package',
+    name: 'Content Creation Package',
+    price: 99,
+    description: '15 professionally designed social media posts with captions',
     deliveryTime: '5-7 days',
     features: [
-      'Executive summary',
-      'Market analysis & research',
-      'Financial projections (3 years)',
-      'Business model canvas',
-      'Competitive analysis',
-      'Investor-ready presentation'
+      '15 custom designed posts',
+      'Platform-optimized sizes (Instagram + Facebook)',
+      'Engaging captions included',
+      'Basic hashtag research',
+      'Brand-consistent design',
+      '2 revision rounds'
     ]
   },
   {
-    id: 'pitch-deck-only',
-    name: 'Pitch Deck Only',
+    id: 'ad-campaign-setup',
+    name: 'Ad Campaign Setup',
     price: 149,
-    description: 'Compelling pitch deck designed to secure funding from investors',
+    description: 'Professional setup and optimization of your first ad campaign',
     deliveryTime: '3-5 days',
     features: [
-      '10-12 professional slides',
-      'Investor-focused storytelling',
-      'Financial highlights',
-      'Market opportunity analysis',
-      'Team & traction showcase',
-      'Editable PowerPoint format'
+      'Facebook & Instagram ads setup',
+      'Target audience research',
+      'Ad creative design (2 variants)',
+      'Campaign optimization',
+      'Performance tracking setup',
+      '1-week monitoring included'
     ]
   }
 ]
 
-export default function BusinessPlanLogoPage() {
+export default function SocialMediaAdvertisingAndMarketingPage() {
   const [selectedService, setSelectedService] = useState<ServiceCategory | null>(null)
   const [showIndividualServices, setShowIndividualServices] = useState(false)
   const { currentCurrency, getLocalDiscountMessage } = useCurrency()
   const discountMessage = getLocalDiscountMessage()
 
   // Get service packages from centralized pricing
-  const businessPackages = SERVICE_PRICING['business-plan'] || []
+  const marketingPackages = SERVICE_PRICING['digital-marketing'] || []
 
   const serviceCategory = {
-    _id: 'business-plan-logo-design',
-    title: 'Business Plan & Logo Design',
-    slug: { current: 'business-plan-and-logo-design' },
-    description: 'Complete business planning and brand identity services to launch your business with confidence.',
+    _id: 'social-media-advertising-and-marketing',
+    title: 'Social Media Advertising & Marketing',
+    slug: { current: 'social-media-advertising-and-marketing' },
+    description: 'Comprehensive social media marketing services to grow your audience, increase engagement, and drive sales.',
     icon: 'chart',
     featured: false,
-    packages: businessPackages.map(pkg => ({
+    packages: marketingPackages.map(pkg => ({
       _key: pkg.id,
       name: pkg.name,
       tier: 'standard' as const,
       price: pkg.basePrice,
       currency: 'USD',
-      billing: 'one_time' as const,
-      deliveryTime: pkg.billing || '5-10 days',
+      billing: pkg.billing?.includes('monthly') ? 'monthly' as const : 'one_time' as const,
+      deliveryTime: pkg.billing || '1-2 weeks setup',
       features: pkg.features,
       popular: pkg.popular || false
     })),
-    serviceType: 'business' as const
+    serviceType: 'marketing' as const
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-slate-50 via-white to-blue-50">
+    <main className="min-h-screen bg-gradient-to-b from-slate-50 via-white to-rose-50">
       {/* Breadcrumb */}
-      <div className="bg-white border-b">
+      <nav className="bg-white border-b" aria-label="Breadcrumb navigation">
         <div className="container mx-auto px-6 py-4">
           <Breadcrumb items={[
             { label: 'Services', href: '/services' },
-            { label: 'Business Plan & Logo Design' }
+            { label: 'Social Media Advertising & Marketing' }
           ]} />
         </div>
-      </div>
+      </nav>
 
       {/* Hero Section */}
-      <div className="relative py-20 overflow-hidden">
-        <div className="absolute inset-0">
-          <div className="absolute inset-0 bg-gradient-to-br from-blue-600/10 via-indigo-600/10 to-purple-600/10"></div>
-          <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-gradient-to-r from-blue-400/20 to-indigo-400/20 rounded-full blur-3xl animate-pulse"></div>
-          <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-gradient-to-r from-indigo-400/20 to-purple-400/20 rounded-full blur-2xl animate-pulse" style={{animationDelay: '1s'}}></div>
+      <header className="relative py-20 overflow-hidden">
+        <div className="absolute inset-0" aria-hidden="true">
+          <div className="absolute inset-0 bg-gradient-to-br from-pink-600/10 via-red-600/10 to-orange-600/10"></div>
+          <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-gradient-to-r from-pink-400/20 to-red-400/20 rounded-full blur-3xl animate-pulse"></div>
+          <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-gradient-to-r from-red-400/20 to-orange-400/20 rounded-full blur-2xl animate-pulse" style={{animationDelay: '1s'}}></div>
         </div>
         
         <div className="container mx-auto px-6 relative z-10">
@@ -119,18 +119,18 @@ export default function BusinessPlanLogoPage() {
               </div>
             )}
             
-            <div className="inline-flex items-center space-x-2 bg-gradient-to-r from-blue-100 to-indigo-100 px-4 py-2 rounded-full text-sm font-medium text-blue-800 mb-6">
+            <div className="inline-flex items-center space-x-2 bg-gradient-to-r from-pink-100 to-red-100 px-4 py-2 rounded-full text-sm font-medium text-red-800 mb-6">
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
               </svg>
-              <span>Business Foundation Services</span>
+              <span>Growth Marketing Services</span>
             </div>
             <h1 className="text-4xl md:text-5xl font-bold font-heading text-gray-900 mb-6">
-              Business Plan & Logo Design
+              Social Media Advertising & Marketing
             </h1>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-              Launch your business with confidence. Professional business plans, stunning logos, and complete 
-              brand packages that establish credibility and attract investors.
+              Grow your audience, increase engagement, and drive sales with our comprehensive social media 
+              marketing services. From content creation to paid advertising, we help you succeed online.
             </p>
             
             {/* Currency Info */}
@@ -142,20 +142,20 @@ export default function BusinessPlanLogoPage() {
             </div>
           </div>
 
-          {/* Quick Individual Services Section */}
+          {/* Quick Individual Services Section - Make it prominent */}
           <div className="mb-16">
             <div className="card-enhanced rounded-2xl p-8 text-center">
               <div className="mb-6">
                 <h2 className="text-2xl font-bold text-gray-900 mb-3">Need Just One Service?</h2>
                 <p className="text-gray-600">
-                  Get individual business services without packages. Perfect for specific needs and tight budgets.
+                  Get individual marketing services without monthly commitments. Perfect for one-time needs.
                 </p>
               </div>
               
               {!showIndividualServices ? (
                 <button
                   onClick={() => setShowIndividualServices(true)}
-                  className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-blue-500 to-indigo-500 text-white font-semibold rounded-xl hover:from-blue-600 hover:to-indigo-600 transition-all duration-300 transform hover:scale-105 shadow-lg"
+                  className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-pink-500 to-red-500 text-white font-semibold rounded-xl hover:from-pink-600 hover:to-red-600 transition-all duration-300 transform hover:scale-105 shadow-lg"
                 >
                   <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
@@ -166,7 +166,7 @@ export default function BusinessPlanLogoPage() {
                 <div className="space-y-6">
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                     {INDIVIDUAL_SERVICES.map((service) => (
-                      <div key={service.id} className="bg-white border-2 border-gray-200 rounded-xl p-6 hover:border-blue-400 hover:shadow-lg transition-all duration-300">
+                      <div key={service.id} className="bg-white border-2 border-gray-200 rounded-xl p-6 hover:border-pink-400 hover:shadow-lg transition-all duration-300">
                         <h3 className="font-bold text-gray-900 mb-2">{service.name}</h3>
                         <p className="text-sm text-gray-600 mb-4">{service.description}</p>
                         
@@ -182,7 +182,7 @@ export default function BusinessPlanLogoPage() {
                         <ul className="space-y-1 mb-6">
                           {service.features.slice(0, 4).map((feature, index) => (
                             <li key={index} className="flex items-center text-xs text-gray-600">
-                              <svg className="w-3 h-3 text-blue-500 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                              <svg className="w-3 h-3 text-pink-500 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
                                 <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                               </svg>
                               {feature}
@@ -205,7 +205,7 @@ export default function BusinessPlanLogoPage() {
                               popular: false
                             }]
                           })}
-                          className="w-full bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 transition-colors font-medium"
+                          className="w-full bg-pink-500 text-white py-2 px-4 rounded-lg hover:bg-pink-600 transition-colors font-medium"
                         >
                           Select This Service
                         </button>
@@ -227,23 +227,23 @@ export default function BusinessPlanLogoPage() {
           {/* Service Packages */}
           <div className="mb-16">
             <div className="text-center mb-12">
-              <h2 className="text-3xl font-bold text-gray-900 mb-4">Complete Business Packages</h2>
+              <h2 className="text-3xl font-bold text-gray-900 mb-4">Monthly Marketing Packages</h2>
               <p className="text-gray-600 max-w-2xl mx-auto">
-                Comprehensive packages that combine business planning with brand identity for a complete business foundation.
+                Ongoing social media marketing services to consistently grow your online presence and drive results.
               </p>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              {businessPackages.map((pkg, index) => (
+              {marketingPackages.map((pkg, index) => (
                 <div 
                   key={pkg.id}
                   className={`card-enhanced rounded-2xl p-8 hover:scale-105 transition-all duration-300 cursor-pointer ${
-                    pkg.popular ? 'ring-2 ring-blue-500 ring-opacity-50' : ''
+                    pkg.popular ? 'ring-2 ring-red-500 ring-opacity-50' : ''
                   }`}
                   onClick={() => setSelectedService(serviceCategory)}
                 >
                   {pkg.popular && (
-                    <div className="bg-gradient-to-r from-blue-500 to-indigo-500 text-white px-4 py-2 rounded-full text-sm font-bold text-center mb-6">
+                    <div className="bg-gradient-to-r from-pink-500 to-red-500 text-white px-4 py-2 rounded-full text-sm font-bold text-center mb-6">
                       Most Popular
                     </div>
                   )}
@@ -251,17 +251,20 @@ export default function BusinessPlanLogoPage() {
                   <div className="text-center mb-6">
                     <h3 className="text-2xl font-bold text-gray-900 mb-2">{pkg.name}</h3>
                     <p className="text-gray-600 mb-4">{pkg.description}</p>
-                    <StartingAtPriceDisplay 
-                      price={pkg.basePrice} 
-                      size="lg" 
-                      showDiscount={true}
-                    />
+                    <div className="flex items-center justify-center">
+                      <StartingAtPriceDisplay 
+                        price={pkg.basePrice} 
+                        size="lg" 
+                        showDiscount={true}
+                      />
+                      <span className="text-gray-500 text-sm ml-2">/month</span>
+                    </div>
                   </div>
 
                   <ul className="space-y-3 mb-8">
                     {pkg.features.slice(0, 8).map((feature, featureIndex) => (
                       <li key={featureIndex} className="flex items-start">
-                        <svg className="w-5 h-5 text-blue-500 mt-0.5 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                        <svg className="w-5 h-5 text-pink-500 mt-0.5 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
                           <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                         </svg>
                         <span className="text-gray-700 text-sm">{feature}</span>
@@ -274,7 +277,7 @@ export default function BusinessPlanLogoPage() {
                     )}
                   </ul>
 
-                  <button className="w-full bg-gradient-to-r from-blue-500 to-indigo-500 text-white py-3 px-6 rounded-xl font-semibold hover:from-blue-600 hover:to-indigo-600 transition-colors">
+                  <button className="w-full bg-gradient-to-r from-pink-500 to-red-500 text-white py-3 px-6 rounded-xl font-semibold hover:from-pink-600 hover:to-red-600 transition-colors">
                     {pkg.cta}
                   </button>
                 </div>
@@ -282,53 +285,53 @@ export default function BusinessPlanLogoPage() {
             </div>
           </div>
 
-          {/* Why Choose Us Section */}
+          {/* Social Media Marketing Results */}
           <div className="text-center">
-            <h3 className="text-2xl font-bold text-gray-900 mb-8">Why Choose Our Business Services?</h3>
+            <h3 className="text-2xl font-bold text-gray-900 mb-8">Real Marketing Results We Deliver</h3>
             <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
               <div className="card-enhanced rounded-xl p-6 text-center">
-                <div className="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center text-blue-600 mx-auto mb-4">
-                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1" />
-                  </svg>
-                </div>
-                <h4 className="font-bold text-gray-900 mb-2">78% Funding Success</h4>
-                <p className="text-gray-600 text-sm">Our business plans help secure funding 3x more than industry average</p>
-              </div>
-              
-              <div className="card-enhanced rounded-xl p-6 text-center">
-                <div className="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center text-green-600 mx-auto mb-4">
-                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
-                  </svg>
-                </div>
-                <h4 className="font-bold text-gray-900 mb-2">₦2.8B+ Raised</h4>
-                <p className="text-gray-600 text-sm">Total funding raised by our clients across 150+ startups</p>
-              </div>
-              
-              <div className="card-enhanced rounded-xl p-6 text-center">
-                <div className="w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center text-purple-600 mx-auto mb-4">
+                <div className="w-12 h-12 bg-pink-100 rounded-xl flex items-center justify-center text-pink-600 mx-auto mb-4">
                   <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
                   </svg>
                 </div>
-                <h4 className="font-bold text-gray-900 mb-2">85% Revenue Growth</h4>
-                <p className="text-gray-600 text-sm">Average revenue increase within 12 months of plan implementation</p>
+                <h4 className="font-bold text-gray-900 mb-2">387% ROI Average</h4>
+                <p className="text-gray-600 text-sm">Our clients see nearly 4x return on their marketing investment</p>
+              </div>
+              
+              <div className="card-enhanced rounded-xl p-6 text-center">
+                <div className="w-12 h-12 bg-red-100 rounded-xl flex items-center justify-center text-red-600 mx-auto mb-4">
+                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                  </svg>
+                </div>
+                <h4 className="font-bold text-gray-900 mb-2">65% Engagement Boost</h4>
+                <p className="text-gray-600 text-sm">Average increase in social media engagement within 90 days</p>
               </div>
               
               <div className="card-enhanced rounded-xl p-6 text-center">
                 <div className="w-12 h-12 bg-orange-100 rounded-xl flex items-center justify-center text-orange-600 mx-auto mb-4">
                   <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z" />
                   </svg>
                 </div>
-                <h4 className="font-bold text-gray-900 mb-2">5-Day Delivery</h4>
-                <p className="text-gray-600 text-sm">Comprehensive business plans delivered faster than traditional consultants</p>
+                <h4 className="font-bold text-gray-900 mb-2">2.5M+ Reach Growth</h4>
+                <p className="text-gray-600 text-sm">Total audience reach increase across all client accounts</p>
+              </div>
+              
+              <div className="card-enhanced rounded-xl p-6 text-center">
+                <div className="w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center text-purple-600 mx-auto mb-4">
+                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1" />
+                  </svg>
+                </div>
+                <h4 className="font-bold text-gray-900 mb-2">₦750M+ Sales</h4>
+                <p className="text-gray-600 text-sm">Revenue generated for clients through social media campaigns</p>
               </div>
             </div>
           </div>
         </div>
-      </div>
+      </header>
 
       {/* Service Request Modal */}
       {selectedService && (
@@ -337,6 +340,6 @@ export default function BusinessPlanLogoPage() {
           onClose={() => setSelectedService(null)}
         />
       )}
-    </div>
+    </main>
   )
 }

@@ -11,7 +11,7 @@ const INDIVIDUAL_SERVICES = [
   {
     id: 'strategy-session',
     name: '1-Hour Strategy Session',
-    price: 149,
+    price: 99,
     description: 'Single consultation session for specific business or career guidance',
     deliveryTime: 'Same day booking',
     features: [
@@ -26,7 +26,7 @@ const INDIVIDUAL_SERVICES = [
   {
     id: 'business-audit',
     name: 'Business Process Audit',
-    price: 299,
+    price: 199,
     description: 'Comprehensive analysis of your current business operations',
     deliveryTime: '3-5 days',
     features: [
@@ -41,7 +41,7 @@ const INDIVIDUAL_SERVICES = [
   {
     id: 'career-coaching',
     name: 'Career Transition Coaching',
-    price: 199,
+    price: 149,
     description: 'Guidance for career changes, promotions, or skill development',
     deliveryTime: '1-2 weeks',
     features: [
@@ -101,7 +101,7 @@ export default function MentoringConsultingPage() {
         <div className="absolute inset-0">
           <div className="absolute inset-0 bg-gradient-to-br from-indigo-600/10 via-blue-600/10 to-purple-600/10"></div>
           <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-gradient-to-r from-indigo-400/20 to-blue-400/20 rounded-full blur-3xl animate-pulse"></div>
-          <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-gradient-to-r from-blue-400/20 to-purple-400/20 rounded-full blur-3xl animate-float"></div>
+          <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-gradient-to-r from-blue-400/20 to-purple-400/20 rounded-full blur-2xl animate-pulse" style={{animationDelay: '1s'}}></div>
         </div>
         
         <div className="container mx-auto px-6 relative z-10">
@@ -279,10 +279,10 @@ export default function MentoringConsultingPage() {
               ))}
             </div>
           </div>
-          
-          {/* Business Growth & Mentoring Outcomes */}
+
+          {/* Why Choose Us Section */}
           <div className="text-center">
-            <h3 className="text-2xl font-bold text-gray-900 mb-8">Proven Business Growth Results</h3>
+            <h3 className="text-2xl font-bold text-gray-900 mb-8">Why Choose Our Consulting Services?</h3>
             <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
               <div className="card-enhanced rounded-xl p-6 text-center">
                 <div className="w-12 h-12 bg-indigo-100 rounded-xl flex items-center justify-center text-indigo-600 mx-auto mb-4">
@@ -291,7 +291,7 @@ export default function MentoringConsultingPage() {
                   </svg>
                 </div>
                 <h4 className="font-bold text-gray-900 mb-2">180% Revenue Growth</h4>
-                <p className="text-gray-600 text-sm">Average business growth within 12 months of consulting</p>
+                <p className="text-gray-600 text-sm">Average business growth within 12 months of our consulting</p>
               </div>
               
               <div className="card-enhanced rounded-xl p-6 text-center">
@@ -301,7 +301,7 @@ export default function MentoringConsultingPage() {
                   </svg>
                 </div>
                 <h4 className="font-bold text-gray-900 mb-2">92% Success Rate</h4>
-                <p className="text-gray-600 text-sm">Clients achieve their business goals through our guidance</p>
+                <p className="text-gray-600 text-sm">Clients achieve their business goals through our strategic guidance</p>
               </div>
               
               <div className="card-enhanced rounded-xl p-6 text-center">
@@ -311,7 +311,7 @@ export default function MentoringConsultingPage() {
                   </svg>
                 </div>
                 <h4 className="font-bold text-gray-900 mb-2">6-Month Avg Timeline</h4>
-                <p className="text-gray-600 text-sm">Time to see significant business improvements</p>
+                <p className="text-gray-600 text-sm">Time to see significant improvements in business performance</p>
               </div>
               
               <div className="card-enhanced rounded-xl p-6 text-center">
@@ -321,7 +321,7 @@ export default function MentoringConsultingPage() {
                   </svg>
                 </div>
                 <h4 className="font-bold text-gray-900 mb-2">120+ Mentees</h4>
-                <p className="text-gray-600 text-sm">Entrepreneurs successfully guided to business success</p>
+                <p className="text-gray-600 text-sm">Entrepreneurs successfully guided to business success and growth</p>
               </div>
             </div>
           </div>

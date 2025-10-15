@@ -13,7 +13,7 @@ const INDIVIDUAL_SERVICES = [
     id: 'social-media-audit',
     name: 'Social Media Audit',
     price: 79,
-    description: 'Comprehensive analysis of your social media presence with actionable insights',
+    description: 'Complete analysis of your social media presence with actionable insights',
     deliveryTime: '3-5 days',
     features: [
       'Analysis of all social platforms',
