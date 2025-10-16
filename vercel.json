@@ -1,0 +1,43 @@
+{
+  "buildCommand": "npm run build",
+  "outputDirectory": ".next",
+  "framework": "nextjs",
+  "git": {
+    "deploymentEnabled": {
+      "main": true
+    }
+  },
+  "env": {
+    "NEXT_PUBLIC_SANITY_PROJECT_ID": "@sanity_project_id",
+    "NEXT_PUBLIC_SANITY_DATASET": "@sanity_dataset",
+    "NEXT_PUBLIC_SANITY_API_VERSION": "2024-08-30",
+    "SANITY_API_TOKEN": "@sanity_api_token",
+    "SANITY_API_READ_TOKEN": "@sanity_api_read_token",
+    "NEXT_PUBLIC_STRIPE_PUBLIC_KEY": "@stripe_public_key",
+    "STRIPE_SECRET_KEY": "@stripe_secret_key",
+    "NEXT_PUBLIC_SITE_URL": "@site_url",
+    "NEXT_PUBLIC_GA_ID": "@ga_id",
+    "RESEND_API_KEY": "@resend_api_key",
+    "FROM_EMAIL": "@from_email",
+    "CONTACT_FORM_RECIPIENT_EMAIL": "@contact_email"
+  },
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "X-Frame-Options",
+          "value": "DENY"
+        },
+        {
+          "key": "X-XSS-Protection",
+          "value": "1; mode=block"
+        }
+      ]
+    }
+  ]
+}
