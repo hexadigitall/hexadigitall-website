@@ -50,6 +50,9 @@ export async function POST(request: NextRequest) {
         break;
       
       case 'serviceCategory':
+        if (slug?.current) {
+          await revalidatePath(`/services/${slug.current}`);
+        }
         await revalidatePath('/services');
         await revalidateTag('services');
         break;
