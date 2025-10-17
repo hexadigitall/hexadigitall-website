@@ -53,7 +53,7 @@ export const client = createClient({
   projectId: projectId || 'puzezel0', // Fallback to known project ID
   dataset: dataset || 'production', // Fallback to production dataset
   apiVersion,
-  useCdn: process.env.NODE_ENV === 'production', // Use CDN in production for better performance
+  useCdn: false, // Temporarily disabled CDN to ensure fresh service data
   perspective: 'published', // Only fetch published documents
   stega: false, // Disable stega for production
   // Performance optimizations
