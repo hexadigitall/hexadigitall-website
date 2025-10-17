@@ -43,7 +43,7 @@ export interface ServiceCategory {
       _type: 'reference'
     }
     alt?: string
-    hotspot?: any
+    hotspot?: object
   }
 }
 
