@@ -31,7 +31,14 @@ const postsQuery = groq`*[_type == "post"] | order(publishedAt desc){
 }`;
 
 export default async function BlogPage() {
-  const posts: Post[] = await client.fetch(postsQuery);
+  let posts: Post[] = [];
+  
+  try {
+    posts = await client.fetch(postsQuery);
+  } catch (error) {
+    console.error('Failed to fetch blog posts:', error);
+    // Posts will remain empty array, showing the "no posts" message
+  }
 
   return (
     <section className="bg-white py-12 md:py-20">

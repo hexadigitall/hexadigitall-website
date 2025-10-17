@@ -30,7 +30,14 @@ const projectsQuery = groq`*[_type == "project"]{
 }`;
 
 export default async function PortfolioPage() {
-  const projects: Project[] = await client.fetch(projectsQuery);
+  let projects: Project[] = [];
+  
+  try {
+    projects = await client.fetch(projectsQuery);
+  } catch (error) {
+    console.error('Failed to fetch portfolio projects:', error);
+    // Projects will remain empty array
+  }
 
   return (
     <section className="bg-white py-12 md:py-20">

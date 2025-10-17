@@ -125,6 +125,11 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
 }
 
 export async function generateStaticParams() {
-  const slugs: { slug: { current: string } }[] = await client.fetch(groq`*[_type == "project"]{ slug }`);
-  return slugs.map(({ slug }) => ({ slug: slug.current }));
+  try {
+    const slugs: { slug: { current: string } }[] = await client.fetch(groq`*[_type == "project"]{ slug }`);
+    return slugs.map(({ slug }) => ({ slug: slug.current }));
+  } catch (error) {
+    console.error('Failed to fetch portfolio slugs:', error);
+    return []; // Return empty array on error to allow build to continue
+  }
 }

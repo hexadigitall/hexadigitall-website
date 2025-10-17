@@ -5,6 +5,10 @@ import { client } from '@/sanity/client'
 import { emailService } from '@/lib/email'
 import { ServiceInquiryData } from '@/lib/email-types'
 
+// Force dynamic rendering to avoid build-time initialization
+export const dynamic = 'force-dynamic';
+export const runtime = 'nodejs';
+
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json()

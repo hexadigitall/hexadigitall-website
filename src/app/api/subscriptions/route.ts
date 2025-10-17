@@ -8,6 +8,10 @@ import {
 } from '@/types/subscription';
 import Stripe from 'stripe';
 
+// Force dynamic rendering to avoid build-time initialization
+export const dynamic = 'force-dynamic';
+export const runtime = 'nodejs';
+
 /**
  * POST /api/subscriptions
  * Create a new subscription for a live course

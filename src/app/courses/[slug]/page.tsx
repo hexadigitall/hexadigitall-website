@@ -146,6 +146,11 @@ export default async function CoursePage({ params }: { params: Promise<{ slug: s
 
 // generateStaticParams function remains the same
 export async function generateStaticParams() {
-    const slugs: { slug: { current: string } }[] = await client.fetch(groq`*[_type == "course"]{ slug }`);
-    return slugs.map(({ slug }) => ({ slug: slug.current }));
+    try {
+        const slugs: { slug: { current: string } }[] = await client.fetch(groq`*[_type == "course"]{ slug }`);
+        return slugs.map(({ slug }) => ({ slug: slug.current }));
+    } catch (error) {
+        console.error('Failed to fetch course slugs:', error);
+        return []; // Return empty array on error to allow build to continue
+    }
 }

@@ -1,0 +1,48 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": "nextjs",
+  "buildCommand": "npm run build",
+  "devCommand": "npm run dev",
+  "installCommand": "npm ci",
+  "outputDirectory": ".next",
+  "regions": ["iad1"],
+  "env": {
+    "PUPPETEER_SKIP_DOWNLOAD": "true"
+  },
+  "build": {
+    "env": {
+      "PUPPETEER_SKIP_DOWNLOAD": "true",
+      "NODE_ENV": "production"
+    }
+  },
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "X-Frame-Options",
+          "value": "DENY"
+        },
+        {
+          "key": "X-XSS-Protection",
+          "value": "1; mode=block"
+        },
+        {
+          "key": "Referrer-Policy",
+          "value": "strict-origin-when-cross-origin"
+        }
+      ]
+    }
+  ],
+  "redirects": [
+    {
+      "source": "/studio",
+      "destination": "/studio/",
+      "permanent": false
+    }
+  ]
+}
