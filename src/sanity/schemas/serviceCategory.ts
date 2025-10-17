@@ -38,7 +38,7 @@ export default defineType({
       name: 'serviceType',
       title: 'Service Type',
       type: 'string',
-      options: {
+        options: {
         list: [
           { title: 'Web Development', value: 'web' },
           { title: 'Mobile Development', value: 'mobile' },
@@ -48,6 +48,7 @@ export default defineType({
           { title: 'Software Development', value: 'software' },
           { title: 'Branding & Design', value: 'branding' },
           { title: 'Profile & Portfolio', value: 'profile' },
+          { title: 'Business Planning', value: 'business' },
           { title: 'General', value: 'general' }
         ]
       },

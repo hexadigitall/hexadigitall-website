@@ -1,0 +1,132 @@
+{
+  "_type": "serviceCategory",
+  "title": "Business Plan & Logo Design",
+  "slug": {
+    "_type": "slug",
+    "current": "business-plan-and-logo-design"
+  },
+  "description": "Complete business planning and brand identity services to launch your business with confidence.",
+  "serviceType": "business",
+  "icon": "chart",
+  "featured": true,
+  "packages": [
+    {
+      "_key": "starter-plan-pkg",
+      "_type": "object",
+      "name": "Starter Plan",
+      "tier": "standard",
+      "price": 79,
+      "currency": "USD",
+      "billing": "one_time",
+      "deliveryTime": "5-7 days",
+      "popular": false,
+      "features": [
+        "Executive Summary (2 pages)",
+        "Business Description & Value Proposition",
+        "Basic Market Analysis & Target Customer Profile",
+        "1-Year Financial Projection (Revenue, Expenses, Profit)",
+        "Business Model Canvas",
+        "Simple Marketing Strategy Outline",
+        "Basic SWOT Analysis",
+        "Basic Logo Design (3 concepts)",
+        "Business Plan Template for Future Updates",
+        "1 Revision Round",
+        "5-Day Delivery",
+        "Email Support During Process"
+      ]
+    },
+    {
+      "_key": "growth-plan-pkg",
+      "_type": "object",
+      "name": "Growth Plan",
+      "tier": "standard",
+      "price": 149,
+      "currency": "USD",
+      "billing": "one_time",
+      "deliveryTime": "7-10 days",
+      "popular": true,
+      "features": [
+        "Comprehensive Business Plan (15-20 pages)",
+        "Executive Summary & Company Overview",
+        "Detailed Market Research & Industry Analysis",
+        "Competitive Analysis (5 key competitors)",
+        "3-Year Financial Projections with Monthly Breakdown",
+        "Marketing & Sales Strategy with Channels",
+        "Operations Plan & Organizational Structure",
+        "Risk Assessment & Mitigation Strategies",
+        "Basic Pitch Deck (6-8 professional slides)",
+        "Professional Logo Design with 3 Variations",
+        "Basic Brand Colors & Typography Guide",
+        "3 Revision Rounds",
+        "7-Day Delivery",
+        "FREE 45-minute Strategy Consultation Call",
+        "Business Plan Template & Guidelines"
+      ]
+    },
+    {
+      "_key": "investor-plan-pkg",
+      "_type": "object",
+      "name": "Investor Plan",
+      "tier": "premium",
+      "price": 249,
+      "currency": "USD",
+      "billing": "one_time",
+      "deliveryTime": "10-14 days",
+      "popular": false,
+      "features": [
+        "Investment-Grade Business Plan (25-35 pages)",
+        "Professional Executive Summary (3 pages)",
+        "Comprehensive Market Research & Analysis",
+        "In-depth Competitive Intelligence Report",
+        "5-Year Financial Modeling with Scenarios",
+        "Detailed Revenue Model & Unit Economics",
+        "Complete Go-to-Market Strategy",
+        "Management Team Profiles & Advisory Board",
+        "Professional Pitch Deck (12-15 slides)",
+        "Investment Summary One-Pager",
+        "Complete Brand Identity Package (Logo, Colors, Fonts)",
+        "Business Cards & Letterhead Design",
+        "Industry-Specific Legal Structure Recommendations",
+        "Funding Strategy & Investment Timeline",
+        "Unlimited Revisions for 30 Days",
+        "10-Day Development Timeline",
+        "FREE 2-Hour Strategy & Pitch Practice Session",
+        "Investor Network Introduction (qualified businesses)",
+        "30-Day Post-Delivery Support"
+      ]
+    }
+  ],
+  "requirements": [
+    "Business concept or idea description",
+    "Target market information (if available)",
+    "Basic financial information or goals",
+    "Company name and any existing branding materials",
+    "Timeline and funding goals (if seeking investment)"
+  ],
+  "faq": [
+    {
+      "_key": "faq-1",
+      "_type": "object",
+      "question": "How long does it take to create a business plan?",
+      "answer": "Our business plans typically take 5-14 days depending on the package chosen. The Starter Plan takes 5-7 days, Growth Plan takes 7-10 days, and Investor Plan takes 10-14 days."
+    },
+    {
+      "_key": "faq-2",
+      "_type": "object",
+      "question": "Will my business plan help me get funding?",
+      "answer": "Yes! Our business plans are specifically designed to attract investors and lenders. 78% of our clients successfully secure funding, which is 3x higher than the industry average."
+    },
+    {
+      "_key": "faq-3",
+      "_type": "object",
+      "question": "What's included in the logo design?",
+      "answer": "All our packages include professional logo design with multiple concepts, unlimited revisions, high-resolution files in various formats (PNG, JPG, SVG), and commercial usage rights."
+    },
+    {
+      "_key": "faq-4",
+      "_type": "object",
+      "question": "Can I get revisions on my business plan?",
+      "answer": "Absolutely! The Starter Plan includes 1 revision round, Growth Plan includes 3 revision rounds, and Investor Plan includes unlimited revisions for 30 days."
+    }
+  ]
+}
