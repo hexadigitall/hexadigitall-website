@@ -20,8 +20,14 @@ const Header = () => {
   const [isServicesOpen, setServicesOpen] = useState(false);
   const [isMobileServicesOpen, setMobileServicesOpen] = useState(false);
 
+  // Shopping cart with fallback for testing
   const { cartCount, cartDetails, removeItem, formattedTotalPrice, isAvailable } = useSafeShoppingCart();
   const [isCartOpen, setCartOpen] = useState(false);
+  
+  // Debug cart state changes
+  useEffect(() => {
+    console.log('Cart state changed:', isCartOpen);
+  }, [isCartOpen]);
 
   // ✅ Corrected and completed service links array
   const serviceLinks = [
@@ -218,7 +224,7 @@ const Header = () => {
           
           <div className="hidden lg:flex items-center space-x-6">
             <CurrencySwitcher />
-            <button onClick={() => setCartOpen(true)} className="relative" aria-label={`Shopping cart with ${cartCount || 0} items`}>
+            <button onClick={() => { console.log('Desktop cart button clicked'); setCartOpen(true); }} className="relative" aria-label={`Shopping cart with ${cartCount || 0} items`}>
               <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" /></svg>
               {cartCount && cartCount > 0 && (
                 <span className="absolute -top-2 -right-2 bg-accent text-white text-xs rounded-full h-5 w-5 flex items-center justify-center" aria-label={`${cartCount} items in cart`}>{cartCount}</span>
@@ -277,7 +283,7 @@ const Header = () => {
               <div className="scale-90">
                 <CurrencySwitcher />
               </div>
-              <button onClick={() => setCartOpen(true)} className="relative p-1">
+              <button onClick={() => { console.log('Tablet cart button clicked'); setCartOpen(true); }} className="relative p-1">
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" /></svg>
                 {cartCount && cartCount > 0 && (
                   <span className="absolute -top-1 -right-1 bg-accent text-white text-xs rounded-full h-3.5 w-3.5 flex items-center justify-center">{cartCount}</span>
@@ -291,7 +297,7 @@ const Header = () => {
 
           {/* Mobile Menu Button - Only show on small screens */}
           <div className="md:hidden flex items-center space-x-4">
-            <button onClick={() => setCartOpen(true)} className="relative" aria-label={`Shopping cart with ${cartCount || 0} items`}>
+            <button onClick={() => { console.log('Mobile cart button clicked'); setCartOpen(true); }} className="relative" aria-label={`Shopping cart with ${cartCount || 0} items`}>
               <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" /></svg>
               {cartCount && cartCount > 0 && (
                 <span className="absolute -top-2 -right-2 bg-accent text-white text-xs rounded-full h-5 w-5 flex items-center justify-center" aria-label={`${cartCount} items in cart`}>{cartCount}</span>
@@ -361,7 +367,7 @@ const Header = () => {
               <div className="flex justify-between items-center p-6 border-b bg-gray-50">
                 <h2 className="text-2xl font-bold font-heading text-primary">Your Cart</h2>
                 <button 
-                  onClick={() => setCartOpen(false)} 
+                  onClick={() => { console.log('Cart close button clicked'); setCartOpen(false); }}
                   className="text-gray-400 hover:text-gray-600 text-2xl font-bold p-2 hover:bg-gray-100 rounded-full transition-colors duration-200"
                   aria-label="Close cart"
                 >
