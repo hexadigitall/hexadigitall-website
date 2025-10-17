@@ -93,6 +93,12 @@ const getServiceStats = (serviceType: string, slug: string): ServiceStats => {
       averageRevenueGrowth: 145,
       averageDeliveryTime: '2-Week'
     },
+    'web': {
+      fundingSuccessRate: 96,
+      totalFundingRaised: '100M+',
+      averageRevenueGrowth: 120,
+      averageDeliveryTime: '10-Day'
+    },
     'profile': {
       fundingSuccessRate: 95,
       totalFundingRaised: '50M+',

@@ -74,6 +74,18 @@ export default function DynamicServicePage({
         packageDescription: 'Comprehensive consulting solutions to accelerate your business growth and success.',
         statsTitle: 'Why Choose Our Consulting Services?'
       },
+      'web': {
+        badge: 'Web & Mobile Development Services',
+        gradientFrom: 'from-indigo-600/10',
+        gradientVia: 'via-blue-600/10',
+        gradientTo: 'to-cyan-600/10',
+        accentColor: 'indigo',
+        individualTitle: 'Individual Development Services',
+        individualDescription: 'Get specific web or mobile development services tailored to your needs.',
+        packageTitle: 'Complete Development Packages',
+        packageDescription: 'Comprehensive web and mobile development solutions to bring your digital ideas to life.',
+        statsTitle: 'Why Choose Our Development Services?'
+      },
       'profile': {
         badge: 'Portfolio & Profile Services',
         gradientFrom: 'from-orange-600/10',

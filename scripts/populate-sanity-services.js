@@ -142,6 +142,139 @@ const serviceCategories = [
   },
   {
     _type: "serviceCategory",
+    title: "Web & Mobile Development",
+    slug: {
+      _type: "slug",
+      current: "web-and-mobile-software-development"
+    },
+    description: "Professional web and mobile application development services to bring your digital ideas to life.",
+    serviceType: "web",
+    icon: "code",
+    featured: true,
+    packages: [
+      {
+        _key: "landing-page-pkg",
+        name: "Landing Page",
+        tier: "basic",
+        price: 149,
+        currency: "USD",
+        billing: "one_time",
+        deliveryTime: "5-7 days",
+        popular: false,
+        features: [
+          "Single Page Design",
+          "Mobile Responsive",
+          "Contact Form",
+          "Basic SEO Setup",
+          "Social Media Links",
+          "2 Revision Rounds",
+          "5-day delivery",
+          "FREE Stock Images"
+        ]
+      },
+      {
+        _key: "business-website-pkg",
+        name: "Business Website",
+        tier: "standard",
+        price: 349,
+        currency: "USD",
+        billing: "one_time",
+        deliveryTime: "10-14 days",
+        popular: true,
+        features: [
+          "Up to 6 Pages",
+          "Mobile Responsive Design",
+          "Basic CMS (Content Management)",
+          "Contact Forms",
+          "SEO Optimization",
+          "Google Analytics Setup",
+          "Social Media Integration",
+          "SSL Certificate",
+          "3 Revision Rounds",
+          "10-day delivery",
+          "FREE Logo Design"
+        ]
+      },
+      {
+        _key: "ecommerce-website-pkg",
+        name: "E-commerce Store",
+        tier: "premium",
+        price: 649,
+        currency: "USD",
+        billing: "one_time",
+        deliveryTime: "14-21 days",
+        popular: false,
+        features: [
+          "Up to 25 Products",
+          "Payment Gateway Integration",
+          "Basic Inventory Management",
+          "Order Management System",
+          "Customer Account System",
+          "Mobile Responsive",
+          "SEO Optimized",
+          "Basic Analytics",
+          "3 Revision Rounds",
+          "14-day delivery",
+          "FREE 2-hour training session"
+        ]
+      },
+      {
+        _key: "mobile-app-pkg",
+        name: "Mobile App Development",
+        tier: "premium",
+        price: 999,
+        currency: "USD",
+        billing: "project",
+        deliveryTime: "21-30 days",
+        popular: false,
+        features: [
+          "iOS & Android App",
+          "Cross-Platform Development",
+          "Custom UI/UX Design",
+          "Backend API Integration",
+          "Push Notifications",
+          "App Store Deployment",
+          "User Authentication",
+          "Offline Functionality",
+          "Analytics Integration",
+          "3 Months Support",
+          "Source Code Included",
+          "App Store Optimization"
+        ]
+      }
+    ],
+    requirements: [
+      "Project scope and requirements document",
+      "Design preferences and brand guidelines",
+      "Content and images for the website/app",
+      "Third-party service accounts (if needed)",
+      "Domain name and hosting preferences"
+    ],
+    faq: [
+      {
+        _key: "web-faq-1",
+        question: "How long does it take to build a website?",
+        answer: "Development time varies by complexity: Landing pages take 5-7 days, business websites take 10-14 days, and e-commerce sites take 14-21 days."
+      },
+      {
+        _key: "web-faq-2",
+        question: "Will my website work on mobile devices?",
+        answer: "Yes! All our websites are fully responsive and optimized for mobile, tablet, and desktop devices."
+      },
+      {
+        _key: "web-faq-3",
+        question: "Do you provide ongoing maintenance?",
+        answer: "We offer ongoing maintenance packages and provide initial support. Long-term maintenance can be arranged separately."
+      },
+      {
+        _key: "web-faq-4",
+        question: "Can you build mobile apps for both iOS and Android?",
+        answer: "Yes, we specialize in cross-platform development that creates apps for both iOS and Android from a single codebase, saving time and cost."
+      }
+    ]
+  },
+  {
+    _type: "serviceCategory",
     title: "Social Media Marketing",
     slug: {
       _type: "slug",
