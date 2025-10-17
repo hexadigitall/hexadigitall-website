@@ -133,7 +133,36 @@ export const getCachedServiceCategories = () =>
     featured,
     packages,
     requirements,
-    faq
+    faq,
+    "services": services[]->{
+      _id,
+      title,
+      slug,
+      description,
+      shortDescription,
+      longDescription,
+      packages[] {
+        _key,
+        _type,
+        name,
+        description,
+        price,
+        currency,
+        popular,
+        features,
+        deliveryTime
+      },
+      individualServices[] {
+        _key,
+        _type,
+        name,
+        description,
+        price,
+        currency,
+        deliveryTime,
+        features
+      }
+    }
   }`, {}, 15) // 15 minutes cache
 
 export const getCachedServices = () =>
@@ -141,7 +170,36 @@ export const getCachedServices = () =>
     _id,
     title,
     slug,
-    overview
+    description,
+    shortDescription,
+    longDescription,
+    overview,
+    packages[] {
+      _key,
+      _type,
+      name,
+      description,
+      price,
+      currency,
+      popular,
+      features,
+      deliveryTime
+    },
+    individualServices[] {
+      _key,
+      _type,
+      name,
+      description,
+      price,
+      currency,
+      deliveryTime,
+      features
+    },
+    "category": category->{
+      _id,
+      title,
+      slug
+    }
   }`, {}, 15) // 15 minutes cache
 
 export const getCachedCourseCategories = () =>
