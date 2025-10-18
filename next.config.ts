@@ -119,8 +119,8 @@ const nextConfig: NextConfig = {
 
   // ESLint configuration
   eslint: {
-    // Lint on build
-    ignoreDuringBuilds: false,
+    // Don't fail builds on ESLint warnings - handle linting separately in CI
+    ignoreDuringBuilds: true,
     dirs: ['src'],
   },
 
