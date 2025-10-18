@@ -6,6 +6,10 @@ import { groq } from 'next-sanity';
 import { emailService } from '@/lib/email';
 import { CourseEnrollmentData } from '@/lib/email-types';
 
+// Force dynamic rendering to avoid build-time initialization
+export const dynamic = 'force-dynamic';
+export const runtime = 'nodejs';
+
 interface StudentDetails {
   fullName: string;
   email: string;

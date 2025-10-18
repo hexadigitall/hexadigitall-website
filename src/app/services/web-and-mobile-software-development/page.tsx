@@ -234,7 +234,7 @@ export default function WebMobilePage() {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              {webPackages.map((pkg, index) => (
+              {webPackages.map((pkg) => (
                 <div 
                   key={pkg.id}
                   className={`card-enhanced rounded-2xl p-8 hover:scale-105 transition-all duration-300 cursor-pointer ${

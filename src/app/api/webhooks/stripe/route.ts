@@ -1,14 +1,22 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { getStripe } from '@/lib/stripe'
 import { writeClient } from '@/sanity/client'
 import { groq } from 'next-sanity'
 import Stripe from 'stripe'
 
-const stripe = getStripe()
-const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET!
+// Force this route to be dynamic and not pre-rendered at build time
+export const dynamic = 'force-dynamic'
+export const runtime = 'nodejs'
 
-if (!webhookSecret) {
-  console.warn('⚠️ Stripe webhook secret is not configured. Webhook verification will fail.')
+// Initialize Stripe lazily inside the handler
+function getStripeInstance() {
+  const secretKey = process.env.STRIPE_SECRET_KEY
+  if (!secretKey) {
+    throw new Error('STRIPE_SECRET_KEY is not configured')
+  }
+  return new Stripe(secretKey, {
+    apiVersion: '2025-08-27.basil',
+    typescript: true,
+  })
 }
 
 // WebhookBody interface - commented out to resolve linting warning
@@ -31,9 +39,16 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: 'Missing signature' }, { status: 400 })
   }
 
+  const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET
+  if (!webhookSecret) {
+    console.error('❌ STRIPE_WEBHOOK_SECRET is not configured')
+    return NextResponse.json({ error: 'Webhook not configured' }, { status: 500 })
+  }
+
   let event: Stripe.Event
 
   try {
+    const stripe = getStripeInstance()
     event = stripe.webhooks.constructEvent(body, signature, webhookSecret)
   } catch (error) {
     console.error('❌ Webhook signature verification failed:', error)
@@ -114,6 +129,7 @@ async function handlePaymentIntentSucceeded(paymentIntent: Stripe.PaymentIntent)
   console.log('✅ Payment intent succeeded:', paymentIntent.id)
   
   // Find associated checkout session
+  const stripe = getStripeInstance()
   const sessions = await stripe.checkout.sessions.list({
     payment_intent: paymentIntent.id,
     limit: 1,
@@ -128,6 +144,7 @@ async function handlePaymentIntentFailed(paymentIntent: Stripe.PaymentIntent) {
   console.log('❌ Payment intent failed:', paymentIntent.id)
   
   // Find associated checkout session and update status
+  const stripe = getStripeInstance()
   const sessions = await stripe.checkout.sessions.list({
     payment_intent: paymentIntent.id,
     limit: 1,

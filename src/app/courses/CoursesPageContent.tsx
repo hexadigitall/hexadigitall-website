@@ -64,7 +64,7 @@ function CoursesPageContentEnhanced({ initialData }: CoursesPageContentProps = {
   const [loading, setLoading] = useState(!initialData);
   const [error, setError] = useState<string | null>(null);
   const [selectedCourse, setSelectedCourse] = useState<CourseEnrollmentData | null>(null);
-  const [, setShowEnrollmentModal] = useState<Course | null>(null);
+  // const [, setShowEnrollmentModal] = useState<Course | null>(null);
   const { formatPriceWithDiscount, isLocalCurrency } = useCurrency();
 
   useEffect(() => {
@@ -177,7 +177,6 @@ function CoursesPageContentEnhanced({ initialData }: CoursesPageContentProps = {
   const handleEnrollClick = (course: Course) => {
     const enrollmentData = convertToEnrollmentData(course);
     setSelectedCourse(enrollmentData);
-    setShowEnrollmentModal(course);
   };
 
   if (loading) {
@@ -489,7 +488,6 @@ function CoursesPageContentEnhanced({ initialData }: CoursesPageContentProps = {
                 <h2 className="text-xl font-bold">Course Enrollment</h2>
                 <button
                   onClick={() => {
-                    setShowEnrollmentModal(null);
                     setSelectedCourse(null);
                   }}
                   className="text-gray-400 hover:text-gray-600 transition-colors"

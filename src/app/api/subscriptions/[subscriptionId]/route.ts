@@ -4,6 +4,10 @@ import { getStripe } from '@/lib/stripe';
 import { UpdateSubscriptionRequest, CourseSubscription, SubscriptionStatus } from '@/types/subscription';
 import Stripe from 'stripe';
 
+// Force dynamic rendering to avoid build-time initialization
+export const dynamic = 'force-dynamic';
+export const runtime = 'nodejs';
+
 interface RouteParams {
   params: Promise<{
     subscriptionId: string;

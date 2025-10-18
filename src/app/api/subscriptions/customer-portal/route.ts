@@ -4,6 +4,10 @@ import { getStripe } from '@/lib/stripe';
 import { CustomerPortalConfig } from '@/types/subscription';
 import Stripe from 'stripe';
 
+// Force dynamic rendering to avoid build-time initialization
+export const dynamic = 'force-dynamic';
+export const runtime = 'nodejs';
+
 /**
  * POST /api/subscriptions/customer-portal
  * Create a Stripe Customer Portal session for subscription management

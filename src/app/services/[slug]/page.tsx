@@ -10,9 +10,9 @@ import { ServiceCategory, IndividualService, ServiceStats } from '@/types/servic
 import DynamicServicePage from '@/components/services/DynamicServicePage'
 
 interface ServicePageProps {
-  params: {
+  params: Promise<{
     slug: string
-  }
+  }>
 }
 
 // Generate static params for all service pages
@@ -30,8 +30,9 @@ export async function generateStaticParams() {
 
 // Generate metadata for each service page
 export async function generateMetadata({ params }: ServicePageProps): Promise<Metadata> {
+  const { slug } = await params
   try {
-    const serviceCategory = await getServiceCategoryBySlug(params.slug)
+    const serviceCategory = await getServiceCategoryBySlug(slug)
     
     if (!serviceCategory) {
       return {
@@ -49,7 +50,7 @@ export async function generateMetadata({ params }: ServicePageProps): Promise<Me
         description: serviceCategory.description,
         images: [
           {
-            url: `/images/services/${params.slug}.jpg`,
+            url: `/images/services/${slug}.jpg`,
             width: 1200,
             height: 630,
             alt: serviceCategory.title
@@ -60,7 +61,7 @@ export async function generateMetadata({ params }: ServicePageProps): Promise<Me
         card: 'summary_large_image',
         title: `${serviceCategory.title} Services`,
         description: serviceCategory.description,
-        images: [`/images/services/${params.slug}.jpg`]
+        images: [`/images/services/${slug}.jpg`]
       }
     }
   } catch (error) {
@@ -135,13 +136,14 @@ async function getServiceData(slug: string): Promise<{
 }
 
 export default async function ServicePage({ params }: ServicePageProps) {
-  const { serviceCategory, individualServices } = await getServiceData(params.slug)
+  const { slug } = await params
+  const { serviceCategory, individualServices } = await getServiceData(slug)
 
   if (!serviceCategory) {
     notFound()
   }
 
-  const serviceStats = getServiceStats(serviceCategory.serviceType, params.slug)
+  const serviceStats = getServiceStats(serviceCategory.serviceType, slug)
 
   return (
     <DynamicServicePage

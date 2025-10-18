@@ -150,7 +150,7 @@ export default function ServicesPage() {
                   icon: '🎯',
                   color: 'from-orange-500 to-amber-500'
                 }
-              ].map((category, index) => (
+              ].map((category) => (
                 <Link
                   key={category.href}
                   href={category.href}
@@ -189,7 +189,7 @@ export default function ServicesPage() {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              {featuredPackages.map((pkg, index) => (
+              {featuredPackages.map((pkg) => (
                 <article 
                   key={pkg.id}
                   className="card-enhanced rounded-2xl p-8 hover:scale-105 transition-all duration-300 cursor-pointer relative overflow-hidden focus:ring-2 focus:ring-primary focus:outline-none"

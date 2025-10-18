@@ -37,7 +37,18 @@ export default function DynamicServicePage({
 
   // Get service type specific styling and copy
   const getServiceTypeConfig = (serviceType: string) => {
-    const configs = {
+    const configs: Record<string, {
+      badge: string;
+      gradientFrom: string;
+      gradientVia: string;
+      gradientTo: string;
+      accentColor: string;
+      individualTitle: string;
+      individualDescription: string;
+      packageTitle: string;
+      packageDescription: string;
+      statsTitle: string;
+    }> = {
       'business': {
         badge: 'Business Foundation Services',
         gradientFrom: 'from-blue-600/10',

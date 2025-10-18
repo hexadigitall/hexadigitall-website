@@ -4,6 +4,10 @@ import { getStripe } from '@/lib/stripe';
 import { client } from '@/sanity/client'
 import { groq } from 'next-sanity';
 
+// Force dynamic rendering to avoid build-time initialization
+export const dynamic = 'force-dynamic';
+export const runtime = 'nodejs';
+
 interface CartItem {
   id: string;
   name: string;
