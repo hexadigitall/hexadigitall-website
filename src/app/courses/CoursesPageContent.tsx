@@ -64,7 +64,7 @@ function CoursesPageContentEnhanced({ initialData }: CoursesPageContentProps = {
   const [loading, setLoading] = useState(!initialData);
   const [error, setError] = useState<string | null>(null);
   const [selectedCourse, setSelectedCourse] = useState<CourseEnrollmentData | null>(null);
-  const [, setShowEnrollmentModal] = useState<Course | null>(null);
+  // const [, setShowEnrollmentModal] = useState<Course | null>(null);
   const { formatPriceWithDiscount, isLocalCurrency } = useCurrency();
 
   useEffect(() => {

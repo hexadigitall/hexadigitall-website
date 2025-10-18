@@ -6,10 +6,10 @@ export async function POST(request: NextRequest) {
       serviceTitle,
       packageName,
       packagePrice,
-      paymentPlan,
-      downPayment,
-      installments,
-      currency
+      // paymentPlan,
+      // downPayment,
+      // installments,
+      // currency
     } = await request.json()
 
     // Validate required fields
