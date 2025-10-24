@@ -1,3 +1,4 @@
+
 'use client'
 
 import React, { useState } from 'react'
@@ -6,6 +7,7 @@ import { StartingAtPriceDisplay } from '@/components/ui/PriceDisplay'
 import { ServiceRequestFlow, ServiceCategory } from '@/components/services/ServiceRequestFlow'
 import { SERVICE_PRICING } from '@/lib/currency'
 import Breadcrumb from '@/components/ui/Breadcrumb'
+import Link from 'next/link'
 
 // Individual service options for easy access
 const INDIVIDUAL_SERVICES = [
@@ -84,6 +86,64 @@ export default function WebMobilePage() {
       popular: pkg.popular || false
     })),
     serviceType: 'development' as const
+  }
+
+  // Build per-package tiers (flavors) for the modal based on the clicked package
+  const getTiersForPackage = (pkg: (typeof webPackages)[number]) => {
+    // Sensible price steps per package type
+    const priceTable: Record<string, { basic: number; standard: number; premium: number }> = {
+      'landing-page': { basic: 149, standard: 299, premium: 499 },
+      'business-website': { basic: 349, standard: 599, premium: 999 },
+      'ecommerce-website': { basic: 649, standard: 1199, premium: 1999 }
+    }
+
+    const defaults = priceTable[pkg.id] || {
+      basic: Math.max(99, Math.round(pkg.basePrice)),
+      standard: Math.max(149, Math.round(pkg.basePrice * 1.8)),
+      premium: Math.max(249, Math.round(pkg.basePrice * 3.2))
+    }
+
+    // Feature slices by tier (fallback if features are missing)
+    const features = Array.isArray(pkg.features) ? pkg.features : []
+    const basicFeatures = features.slice(0, Math.min(6, features.length))
+    const standardFeatures = features.slice(0, Math.min(10, features.length))
+    const premiumFeatures = features
+
+    return [
+      {
+        _key: `${pkg.id}-basic`,
+        name: `${pkg.name} — Basic`,
+        tier: 'basic' as const,
+        price: defaults.basic,
+        currency: 'USD',
+        billing: 'one_time' as const,
+        deliveryTime: '3-7 days',
+        features: basicFeatures,
+        popular: false
+      },
+      {
+        _key: `${pkg.id}-standard`,
+        name: `${pkg.name} — Standard`,
+        tier: 'standard' as const,
+        price: defaults.standard,
+        currency: 'USD',
+        billing: 'one_time' as const,
+        deliveryTime: '7-14 days',
+        features: standardFeatures,
+        popular: true
+      },
+      {
+        _key: `${pkg.id}-premium`,
+        name: `${pkg.name} — Premium`,
+        tier: 'premium' as const,
+        price: defaults.premium,
+        currency: 'USD',
+        billing: 'one_time' as const,
+        deliveryTime: '14-21 days',
+        features: premiumFeatures,
+        popular: false
+      }
+    ]
   }
 
   return (
@@ -240,7 +300,11 @@ export default function WebMobilePage() {
                   className={`card-enhanced rounded-2xl p-8 hover:scale-105 transition-all duration-300 cursor-pointer ${
                     pkg.popular ? 'ring-2 ring-green-500 ring-opacity-50' : ''
                   }`}
-                  onClick={() => setSelectedService(serviceCategory)}
+                  onClick={() => setSelectedService({
+                    ...serviceCategory,
+                    // Show only the tiers (flavors) for the selected package
+                    packages: getTiersForPackage(pkg)
+                  })}
                 >
                   {pkg.popular && (
                     <div className="bg-gradient-to-r from-green-500 to-blue-500 text-white px-4 py-2 rounded-full text-sm font-bold text-center mb-6">
@@ -274,11 +338,41 @@ export default function WebMobilePage() {
                     )}
                   </ul>
 
-                  <button className="w-full bg-gradient-to-r from-green-500 to-blue-500 text-white py-3 px-6 rounded-xl font-semibold hover:from-green-600 hover:to-blue-600 transition-colors">
-                    {pkg.cta}
+                  <button 
+                    className="w-full bg-gradient-to-r from-green-500 to-blue-500 text-white py-3 px-6 rounded-xl font-semibold hover:from-green-600 hover:to-blue-600 transition-colors"
+                    onClick={(e) => {
+                      e.stopPropagation()
+                      setSelectedService({
+                        ...serviceCategory,
+                        packages: getTiersForPackage(pkg)
+                      })
+                    }}
+                  >
+                    {pkg.cta || 'Choose Your Scope'}
                   </button>
                 </div>
               ))}
+            </div>
+
+            {/* Custom Build CTA */}
+            <div className="mt-10">
+              <div className="card-enhanced rounded-2xl p-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+                <div>
+                  <h3 className="text-2xl font-bold text-gray-900 mb-2">Want a Custom Build?</h3>
+                  <p className="text-gray-600 max-w-2xl">
+                    Combine website + mobile app, add or remove features, and tailor everything to your exact needs. Get a transparent quote instantly.
+                  </p>
+                </div>
+                <Link
+                  href="/services/custom-build"
+                  className="inline-flex items-center px-6 py-3 bg-white border-2 border-green-500 text-green-700 font-semibold rounded-xl hover:bg-green-50 transition-colors"
+                >
+                  Build a Custom Solution
+                  <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                  </svg>
+                </Link>
+              </div>
             </div>
           </div>
 
