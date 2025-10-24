@@ -1,6 +1,5 @@
 // src/app/layout.tsx
 import type { Metadata, Viewport } from 'next'; // 👈 1. Import Viewport
-import { Montserrat, Lato } from 'next/font/google';
 import './globals.css';
 import { Toaster } from 'react-hot-toast'
 import { PerformanceMonitor } from '@/components/ui/PerformanceMonitor'
@@ -13,24 +12,6 @@ import { CurrencyProvider } from '@/contexts/CurrencyContext';
 import GoogleAnalytics from '@/components/GoogleAnalytics';
 import SEOStructuredData from '@/components/SEOStructuredData';
 import { QuickContactFAB } from '@/components/ui/FloatingCTA';
-
-// Define the fonts from your style guide with performance optimizations
-const montserrat = Montserrat({
-  subsets: ['latin'],
-  variable: '--font-montserrat',
-  weight: ['700'],
-  display: 'swap', // Improve font loading performance
-  preload: true,
-  fallback: ['system-ui', 'Arial', 'sans-serif'],
-});
-const lato = Lato({
-  subsets: ['latin'],
-  variable: '--font-lato',
-  weight: ['400', '700'],
-  display: 'swap', // Improve font loading performance
-  preload: true,
-  fallback: ['system-ui', 'Arial', 'sans-serif'],
-});
 
 // ✅ Enhanced metadata for SEO and accessibility
 export const metadata: Metadata = {
@@ -155,7 +136,7 @@ export default function RootLayout({
         <meta name="mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="default" />
       </head>
-      <body className={`${montserrat.variable} ${lato.variable} font-body bg-white text-darkText antialiased`}>
+      <body className="font-body bg-white text-darkText antialiased">
         {/* Skip to main content link for screen readers */}
         <a
           href="#main-content"

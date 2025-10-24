@@ -27,7 +27,7 @@ export interface Package {
   currency: string
   billing: 'one_time' | 'monthly' | 'hourly' | 'project'
   deliveryTime: string
-  features: string[]
+  features: Array<string | { title?: string; description?: string }>
   addOns?: AddOn[]
   popular?: boolean
 }

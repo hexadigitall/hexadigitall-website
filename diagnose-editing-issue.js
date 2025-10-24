@@ -64,7 +64,7 @@ async function checkForDraft(documentId) {
     const draftId = documentId.startsWith('draft.') ? documentId : `draft.${documentId}`;
     const draft = await client.fetch('*[_id == $draftId][0]', { draftId });
     return !!draft;
-  } catch (error) {
+  } catch {
     return false;
   }
 }
@@ -101,8 +101,8 @@ async function testCreateAndEdit() {
     
     // Try to update it
     console.log('Testing document update...');
-    const updated = await client.patch(created._id).set({ title: 'UPDATED TEST COURSE' }).commit();
-    console.log(`✅ Updated document successfully`);
+  await client.patch(created._id).set({ title: 'UPDATED TEST COURSE' }).commit();
+  console.log(`✅ Updated document successfully`);
     
     // Clean up
     await client.delete(created._id);

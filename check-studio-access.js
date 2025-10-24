@@ -68,7 +68,7 @@ async function checkUserInfo() {
     });
     console.log(`✅ Logged in as: ${userInfo.displayName} (${userInfo.email})`);
     console.log(`✅ User role: ${userInfo.role}`);
-  } catch (error) {
+  } catch {
     console.log('❌ Could not fetch user info - you might need to log in to Studio');
     console.log('Visit: http://localhost:3000/studio and log in with your Sanity account');
   }

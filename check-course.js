@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-require-imports */
 const { client } = require('./src/sanity/client');
 const { groq } = require('next-sanity');
 

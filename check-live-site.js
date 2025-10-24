@@ -37,12 +37,13 @@ async function checkLiveSiteContent() {
               // Check if the page has substantial content (more than just the title)
               const hasRichContent = htmlContent.length > 5000; // Rough estimate
               const hasDescription = htmlContent.includes('description') || htmlContent.includes('learn');
-              
+
               console.log(`   ${course.title}`);
               console.log(`     URL: ${courseUrl}`);
               console.log(`     Status: ${courseResponse.status}`);
               console.log(`     Content size: ${htmlContent.length} chars`);
               console.log(`     Likely has rich content: ${hasRichContent ? '✅' : '❌'}`);
+              console.log(`     Has description keywords: ${hasDescription ? '✅' : '❌'}`);
               console.log('');
               
             } else {
@@ -71,7 +72,6 @@ async function checkForBackups() {
   
   // Check if there are any export files or backups in the current directory
   const fs = await import('fs');
-  const path = await import('path');
   
   const files = fs.readdirSync('.');
   const backupFiles = files.filter(file => 

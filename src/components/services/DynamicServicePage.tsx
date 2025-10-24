@@ -4,7 +4,7 @@ import React, { useState } from 'react'
 import { ServiceCategory, IndividualService, ServiceStats } from '@/types/service'
 import { useCurrency } from '@/contexts/CurrencyContext'
 import { StartingAtPriceDisplay } from '@/components/ui/PriceDisplay'
-import { ServiceRequestFlow, ServiceCategory as LegacyServiceCategory } from '@/components/services/ServiceRequestFlow'
+import { ServiceRequestFlow, ServiceCategory as LegacyServiceCategory, AddOn, Package } from '@/components/services/ServiceRequestFlow'
 import Breadcrumb from '@/components/ui/Breadcrumb'
 
 interface DynamicServicePageProps {
@@ -32,7 +32,22 @@ export default function DynamicServicePage({
     icon: service.icon,
     featured: service.featured,
     serviceType: service.serviceType,
-    packages: service.packages
+  packages: (service.packages ?? []).map(pkg => {
+      const mapped: Package = {
+        _key: pkg._key,
+        name: pkg.name,
+        tier: pkg.tier,
+        price: pkg.price,
+        currency: pkg.currency,
+        billing: pkg.billing,
+        deliveryTime: pkg.deliveryTime,
+        features: pkg.features?.map(f => (typeof f === 'string' ? f : (f.title || f.description || JSON.stringify(f)))) || [],
+        addOns: (pkg.addOns ?? []) as AddOn[],
+        popular: pkg.popular ?? false
+      }
+
+      return mapped
+    })
   })
 
   // Get service type specific styling and copy
@@ -99,7 +114,10 @@ export default function DynamicServicePage({
         statsTitle: 'Why Choose Our Profile Services?'
       }
     }
-    return configs[serviceType] || configs['business']
+    // ensure the serviceType is a valid key of configs, fallback to 'business'
+    type ConfigKey = keyof typeof configs
+    const key = (serviceType as ConfigKey)
+    return configs[key] ?? configs['business']
   }
 
   const config = getServiceTypeConfig(serviceCategory.serviceType)
@@ -303,7 +321,7 @@ export default function DynamicServicePage({
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              {serviceCategory.packages.map((pkg, index) => (
+              {(serviceCategory.packages ?? []).map((pkg) => (
                 <div 
                   key={pkg._key}
                   className={`card-enhanced rounded-2xl p-8 hover:scale-105 transition-all duration-300 cursor-pointer ${
@@ -327,17 +345,17 @@ export default function DynamicServicePage({
                   </div>
 
                   <ul className="space-y-3 mb-8">
-                    {pkg.features.slice(0, 8).map((feature, featureIndex) => (
+                    {(pkg.features || []).slice(0, 8).map((feature, featureIndex) => (
                       <li key={featureIndex} className="flex items-start">
                         <svg className={`w-5 h-5 text-${config.accentColor}-500 mt-0.5 mr-3 flex-shrink-0`} fill="currentColor" viewBox="0 0 20 20">
                           <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                         </svg>
-                        <span className="text-gray-700 text-sm">{feature}</span>
+                        <span className="text-gray-700 text-sm">{typeof feature === 'string' ? feature : (feature.title ?? feature.description ?? JSON.stringify(feature))}</span>
                       </li>
                     ))}
-                    {pkg.features.length > 8 && (
+                    {(pkg.features?.length ?? 0) > 8 && (
                       <li className="text-sm text-gray-500 italic pl-8">
-                        +{pkg.features.length - 8} more features...
+                        +{(pkg.features?.length ?? 0) - 8} more features...
                       </li>
                     )}
                   </ul>
@@ -354,8 +372,8 @@ export default function DynamicServicePage({
           <div className="text-center">
             <h3 className="text-2xl font-bold text-gray-900 mb-8">{config.statsTitle}</h3>
             <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-              {getStatsData().map((stat, index) => (
-                <div key={index} className="card-enhanced rounded-xl p-6 text-center">
+              {getStatsData().map((stat) => (
+                <div key={stat.title} className="card-enhanced rounded-xl p-6 text-center">
                   <div className={`w-12 h-12 ${stat.bgColor} rounded-xl flex items-center justify-center ${stat.textColor} mx-auto mb-4`}>
                     {stat.icon}
                   </div>

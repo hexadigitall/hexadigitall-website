@@ -4,7 +4,7 @@ import React, { useState } from 'react'
 import { ServiceCategory, IndividualService, ServiceStats } from '@/types/service'
 import { useCurrency } from '@/contexts/CurrencyContext'
 import { StartingAtPriceDisplay } from '@/components/ui/PriceDisplay'
-import { ServiceRequestFlow, ServiceCategory as LegacyServiceCategory } from '@/components/services/ServiceRequestFlow'
+import { ServiceRequestFlow, ServiceCategory as LegacyServiceCategory, AddOn, Package as LegacyPackage } from '@/components/services/ServiceRequestFlow'
 import Breadcrumb from '@/components/ui/Breadcrumb'
 
 interface BusinessServicePageProps {
@@ -21,16 +21,32 @@ export default function BusinessServicePage({
   const [selectedService, setSelectedService] = useState<LegacyServiceCategory | null>(null)
 
   // Helper function to convert new ServiceCategory to legacy format
-  const convertToLegacyServiceCategory = (service: ServiceCategory): LegacyServiceCategory => ({
-    _id: service._id,
-    title: service.title,
-    slug: service.slug,
-    description: service.description,
-    icon: service.icon,
-    featured: service.featured,
-    serviceType: service.serviceType,
-    packages: service.packages
-  })
+  const convertToLegacyServiceCategory = (service: ServiceCategory): LegacyServiceCategory => {
+    const mappedPackages: LegacyPackage[] = (service.packages || []).map(pkg => ({
+      _key: pkg._key,
+      name: pkg.name,
+      tier: pkg.tier as LegacyPackage['tier'],
+      price: pkg.price as number,
+      currency: pkg.currency as string,
+      billing: pkg.billing as LegacyPackage['billing'],
+      deliveryTime: pkg.deliveryTime as string,
+      // Normalize features to strings or keep object shape where present
+      features: (pkg.features || []).map(f => (typeof f === 'string' ? f : (f.title || f.description || JSON.stringify(f)))) as LegacyPackage['features'],
+      addOns: (pkg.addOns ?? []) as AddOn[],
+      popular: pkg.popular ?? false
+    }))
+
+    return {
+      _id: service._id,
+      title: service.title,
+      slug: service.slug,
+      description: service.description,
+      icon: service.icon,
+      featured: service.featured,
+      serviceType: service.serviceType,
+      packages: mappedPackages
+    }
+  }
   const [showIndividualServices, setShowIndividualServices] = useState(false)
   const { currentCurrency, getLocalDiscountMessage } = useCurrency()
   const discountMessage = getLocalDiscountMessage()
@@ -182,7 +198,7 @@ export default function BusinessServicePage({
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              {serviceCategory.packages.map((pkg, index) => (
+              {serviceCategory.packages.map((pkg) => (
                 <div 
                   key={pkg._key}
                   className={`card-enhanced rounded-2xl p-8 hover:scale-105 transition-all duration-300 cursor-pointer ${
@@ -211,7 +227,9 @@ export default function BusinessServicePage({
                         <svg className="w-5 h-5 text-blue-500 mt-0.5 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
                           <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                         </svg>
-                        <span className="text-gray-700 text-sm">{feature}</span>
+                          <span className="text-gray-700 text-sm">
+                            {typeof feature === 'string' ? feature : (feature.title || feature.description || JSON.stringify(feature))}
+                          </span>
                       </li>
                     ))}
                     {pkg.features.length > 8 && (

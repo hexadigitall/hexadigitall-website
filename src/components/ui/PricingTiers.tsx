@@ -4,7 +4,8 @@ import React, { useState, useEffect } from 'react';
 import { CheckIcon, SparklesIcon, ArrowRightIcon } from '@heroicons/react/24/outline';
 import { type PricingTier, SERVICE_PRICING } from '@/lib/currency';
 import { useCurrency } from '@/contexts/CurrencyContext';
-import { PriceDisplay, StartingAtPriceDisplay } from './PriceDisplay';
+import { StartingAtPriceDisplay } from './PriceDisplay';
+import { featureToText } from '@/lib/utils';
 
 interface PricingTiersProps {
   service: string;
@@ -129,10 +130,10 @@ export default function PricingTiers({
                 {/* Features */}
                 <div className="mb-8">
                   <ul className="space-y-4">
-                    {tier.features.map((feature, featureIndex) => (
+                    {(tier.features || []).map((feature, featureIndex) => (
                       <li key={featureIndex} className="flex items-start">
                         <CheckIcon className="h-5 w-5 text-green-500 mr-3 mt-0.5 flex-shrink-0" />
-                        <span className="text-gray-700">{feature}</span>
+                        <span className="text-gray-700">{featureToText(feature as string | { title?: string; description?: string } | undefined)}</span>
                       </li>
                     ))}
                   </ul>

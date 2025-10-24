@@ -8,7 +8,9 @@ export interface ServicePackage {
   currency: string
   billing: 'one_time' | 'monthly' | 'hourly' | 'project'
   deliveryTime: string
-  features: string[]
+  description?: string
+  originalPrice?: number
+  features: Array<string | { title?: string; description?: string }>
   popular?: boolean
   addOns?: ServiceAddOn[]
 }
@@ -37,6 +39,14 @@ export interface ServiceCategory {
   packages: ServicePackage[]
   requirements?: string[]
   faq?: ServiceFAQ[]
+  features?: Array<string | { title?: string; description?: string }>
+  processSteps?: Array<{ title?: string; description?: string }>
+  deliverables?: Array<{ title?: string; description?: string }>
+  additionalServices?: Array<{ title?: string; description?: string }>
+  heroImage?: {
+    url: string
+    alt?: string
+  }
   mainImage?: {
     asset: {
       _ref: string

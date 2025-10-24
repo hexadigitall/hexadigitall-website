@@ -1,4 +1,5 @@
 // Check all courses for price consistency issues
+/* eslint-disable @typescript-eslint/no-require-imports */
 const https = require('https');
 
 // Function to make HTTP requests
@@ -10,7 +11,7 @@ function makeRequest(url, options = {}) {
       res.on('end', () => {
         try {
           resolve(JSON.parse(data));
-        } catch (e) {
+        } catch {
           resolve({ error: 'Failed to parse response', raw: data });
         }
       });

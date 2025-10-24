@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react'
 import { ServiceGroupModal, ServiceGroupCard } from './ServiceGroupModal'
-import { SERVICE_GROUPS, INDIVIDUAL_SERVICES, SERVICE_BUNDLES, GroupPackage, IndividualService, ServiceBundle } from '@/data/serviceGroups'
+import { SERVICE_GROUPS, INDIVIDUAL_SERVICES, SERVICE_BUNDLES, GroupPackage, IndividualService } from '@/data/serviceGroups'
 import { Package } from './ServiceRequestFlow'
 import { StartingAtPriceDisplay } from '@/components/ui/PriceDisplay'
 

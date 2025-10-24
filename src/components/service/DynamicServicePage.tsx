@@ -1,8 +1,9 @@
 'use client';
 
 import React from 'react';
-import { ServiceCategory } from '@/types/sanity';
-import { Check } from 'lucide-react';
+import Image from 'next/image';
+import { ServiceCategory } from '@/types/service';
+import { IoCheckmark } from 'react-icons/io5';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 
@@ -17,11 +18,9 @@ export default function DynamicServicePage({ data }: DynamicServicePageProps) {
     heroImage,
     packages,
     features,
-    faqs,
+    faq,
     requirements,
-    processSteps,
-    deliverables,
-    additionalServices
+    processSteps
   } = data;
 
   return (
@@ -52,9 +51,11 @@ export default function DynamicServicePage({ data }: DynamicServicePageProps) {
             </div>
             {heroImage && (
               <div className="relative">
-                <img
+                <Image
                   src={heroImage.url}
                   alt={heroImage.alt || title}
+                  width={800}
+                  height={600}
                   className="rounded-lg shadow-2xl"
                 />
               </div>
@@ -77,14 +78,14 @@ export default function DynamicServicePage({ data }: DynamicServicePageProps) {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {packages.map((pkg, index) => (
+                {packages.map((pkg) => (
                 <div
-                  key={index}
+                  key={pkg._key ?? pkg.name}
                   className={`bg-white rounded-xl shadow-lg p-8 relative ${
-                    pkg.isPopular ? 'border-2 border-blue-500 transform scale-105' : ''
+                      pkg.popular ? 'border-2 border-blue-500 transform scale-105' : ''
                   }`}
                 >
-                  {pkg.isPopular && (
+                    {pkg.popular && (
                     <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
                       <span className="bg-blue-500 text-white px-4 py-1 rounded-full text-sm font-medium">
                         Most Popular
@@ -114,15 +115,19 @@ export default function DynamicServicePage({ data }: DynamicServicePageProps) {
                   <ul className="space-y-4 mb-8">
                     {pkg.features?.map((feature, idx) => (
                       <li key={idx} className="flex items-start">
-                        <Check className="h-5 w-5 text-green-500 mr-3 mt-0.5 flex-shrink-0" />
-                        <span className="text-gray-700">{feature}</span>
+                        <IoCheckmark className="h-5 w-5 text-green-500 mr-3 mt-0.5 flex-shrink-0" />
+                        <span className="text-gray-700">
+                          {typeof feature === 'string'
+                            ? feature
+                            : feature?.title || feature?.description || JSON.stringify(feature)}
+                        </span>
                       </li>
                     ))}
                   </ul>
 
                   <Button 
                     className="w-full" 
-                    variant={pkg.isPopular ? "default" : "outline"}
+                    variant={pkg.popular ? "default" : "outline"}
                     size="lg"
                   >
                     Choose {pkg.name}
@@ -151,13 +156,13 @@ export default function DynamicServicePage({ data }: DynamicServicePageProps) {
               {features.map((feature, index) => (
                 <div key={index} className="text-center p-6">
                   <div className="bg-blue-100 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
-                    <Check className="h-8 w-8 text-blue-600" />
+                    <IoCheckmark className="h-8 w-8 text-blue-600" />
                   </div>
                   <h3 className="text-xl font-semibold text-gray-900 mb-2">
-                    {feature.title}
+                    {typeof feature === 'string' ? feature : feature?.title}
                   </h3>
                   <p className="text-gray-600">
-                    {feature.description}
+                    {typeof feature === 'string' ? '' : feature?.description}
                   </p>
                 </div>
               ))}
@@ -186,10 +191,10 @@ export default function DynamicServicePage({ data }: DynamicServicePageProps) {
                     {index + 1}
                   </div>
                   <h3 className="text-lg font-semibold text-gray-900 mb-2">
-                    {step.title}
+                    {step?.title}
                   </h3>
                   <p className="text-gray-600 text-sm">
-                    {step.description}
+                    {step?.description}
                   </p>
                 </div>
               ))}
@@ -215,7 +220,7 @@ export default function DynamicServicePage({ data }: DynamicServicePageProps) {
               <ul className="space-y-4">
                 {requirements.map((requirement, index) => (
                   <li key={index} className="flex items-start">
-                    <Check className="h-5 w-5 text-blue-600 mr-3 mt-0.5 flex-shrink-0" />
+                    <IoCheckmark className="h-5 w-5 text-blue-600 mr-3 mt-0.5 flex-shrink-0" />
                     <span className="text-gray-800">{requirement}</span>
                   </li>
                 ))}
@@ -226,7 +231,7 @@ export default function DynamicServicePage({ data }: DynamicServicePageProps) {
       )}
 
       {/* FAQs Section */}
-      {faqs && faqs.length > 0 && (
+      {faq && faq.length > 0 && (
         <section className="py-20 bg-gray-50">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-16">
@@ -239,13 +244,13 @@ export default function DynamicServicePage({ data }: DynamicServicePageProps) {
             </div>
 
             <div className="space-y-6">
-              {faqs.map((faq, index) => (
+              {faq.map((faqItem, index) => (
                 <div key={index} className="bg-white rounded-lg shadow-md p-6">
                   <h3 className="text-lg font-semibold text-gray-900 mb-3">
-                    {faq.question}
+                    {faqItem.question}
                   </h3>
                   <p className="text-gray-700">
-                    {faq.answer}
+                    {faqItem.answer}
                   </p>
                 </div>
               ))}
