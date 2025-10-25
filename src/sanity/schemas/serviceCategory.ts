@@ -191,6 +191,148 @@ export default defineType({
       ],
       validation: Rule => Rule.required().min(1)
     }),
+    // New: Package Groups with per-package tiers (flavors)
+    // This complements the legacy "packages" field and enables a scoped modal experience per package.
+    defineField({
+      name: 'packageGroups',
+      title: 'Package Groups (with Tiers)',
+      type: 'array',
+      of: [
+        {
+          type: 'object',
+          fields: [
+            defineField({
+              name: 'key',
+              title: 'Group Key',
+              type: 'slug',
+              options: { source: 'name', maxLength: 96 },
+              validation: Rule => Rule.required()
+            }),
+            defineField({
+              name: 'name',
+              title: 'Group Name',
+              type: 'string',
+              validation: Rule => Rule.required()
+            }),
+            defineField({
+              name: 'description',
+              title: 'Group Description',
+              type: 'text'
+            }),
+            defineField({
+              name: 'tiers',
+              title: 'Tiers',
+              type: 'array',
+              of: [
+                {
+                  type: 'object',
+                  fields: [
+                    defineField({
+                      name: 'name',
+                      title: 'Tier Name',
+                      type: 'string',
+                      validation: Rule => Rule.required()
+                    }),
+                    defineField({
+                      name: 'tier',
+                      title: 'Tier Level',
+                      type: 'string',
+                      options: {
+                        list: [
+                          { title: 'Basic', value: 'basic' },
+                          { title: 'Standard', value: 'standard' },
+                          { title: 'Premium', value: 'premium' },
+                          { title: 'Enterprise', value: 'enterprise' }
+                        ]
+                      },
+                      validation: Rule => Rule.required()
+                    }),
+                    defineField({
+                      name: 'price',
+                      title: 'Price',
+                      type: 'number',
+                      validation: Rule => Rule.required().min(0)
+                    }),
+                    defineField({
+                      name: 'currency',
+                      title: 'Currency',
+                      type: 'string',
+                      initialValue: 'USD',
+                      options: {
+                        list: [
+                          { title: 'USD', value: 'USD' },
+                          { title: 'NGN', value: 'NGN' },
+                          { title: 'EUR', value: 'EUR' },
+                          { title: 'GBP', value: 'GBP' }
+                        ]
+                      }
+                    }),
+                    defineField({
+                      name: 'billing',
+                      title: 'Billing',
+                      type: 'string',
+                      options: {
+                        list: [
+                          { title: 'One-time', value: 'one_time' },
+                          { title: 'Monthly', value: 'monthly' },
+                          { title: 'Per Hour', value: 'hourly' },
+                          { title: 'Per Project', value: 'project' }
+                        ]
+                      },
+                      initialValue: 'one_time'
+                    }),
+                    defineField({
+                      name: 'deliveryTime',
+                      title: 'Delivery Time',
+                      type: 'string'
+                    }),
+                    defineField({
+                      name: 'features',
+                      title: 'Features',
+                      type: 'array',
+                      of: [
+                        { type: 'string' },
+                        {
+                          type: 'object',
+                          fields: [
+                            { name: 'title', title: 'Title', type: 'string' },
+                            { name: 'description', title: 'Description', type: 'text' }
+                          ]
+                        }
+                      ]
+                    }),
+                    defineField({
+                      name: 'popular',
+                      title: 'Popular',
+                      type: 'boolean',
+                      initialValue: false
+                    }),
+                    defineField({
+                      name: 'addOns',
+                      title: 'Add-ons',
+                      type: 'array',
+                      of: [
+                        {
+                          type: 'object',
+                          fields: [
+                            { name: 'name', title: 'Add-on Name', type: 'string' },
+                            { name: 'price', title: 'Add-on Price', type: 'number' },
+                            { name: 'description', title: 'Description', type: 'text' }
+                          ]
+                        }
+                      ]
+                    })
+                  ]
+                }
+              ]
+            })
+          ]
+        }
+      ],
+      description: 'Group related packages and define their Basic/Standard/Premium tiers for a scoped selection experience.',
+      // Optional: allow empty while we migrate
+      validation: Rule => Rule.min(0)
+    }),
     defineField({
       name: 'requirements',
       title: 'What Client Needs to Provide',

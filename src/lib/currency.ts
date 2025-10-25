@@ -360,7 +360,7 @@ export const SERVICE_PRICING: Record<string, PricingTier[]> = {
       id: 'landing-page',
       name: 'Landing Page',
       description: 'High-converting single page website',
-      basePrice: 149,
+      basePrice: 800,
       features: [
         'Single Page Design',
         'Mobile Responsive',
@@ -377,7 +377,7 @@ export const SERVICE_PRICING: Record<string, PricingTier[]> = {
       id: 'business-website',
       name: 'Business Website',
       description: 'Complete professional website',
-      basePrice: 349,
+      basePrice: 2000,
       popular: true,
       features: [
         'Up to 6 Pages',
@@ -398,7 +398,7 @@ export const SERVICE_PRICING: Record<string, PricingTier[]> = {
       id: 'ecommerce-website',
       name: 'E-commerce Store',
       description: 'Complete online store solution',
-      basePrice: 649,
+      basePrice: 4000,
       features: [
         'Up to 25 Products',
         'Payment Gateway Integration',
@@ -413,6 +413,22 @@ export const SERVICE_PRICING: Record<string, PricingTier[]> = {
         'FREE 2-hour training session'
       ],
       cta: 'Launch My Store'
+    },
+    {
+      id: 'custom-web-app',
+      name: 'Custom Web App',
+      description: 'Fully custom web application with advanced functionality and integrations',
+      basePrice: 8000,
+      features: [
+        'Custom feature development',
+        'API & third-party integrations',
+        'Authentication & user roles',
+        'Database design & setup',
+        'Scalable architecture',
+        'Performance & security hardening',
+        'Deployment & CI/CD setup'
+      ],
+      cta: 'Choose Your Scope'
     }
   ],
   'digital-marketing': [

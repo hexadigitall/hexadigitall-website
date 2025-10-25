@@ -64,8 +64,18 @@ export default function WebMobilePage() {
   const { currentCurrency, getLocalDiscountMessage } = useCurrency()
   const discountMessage = getLocalDiscountMessage()
 
-  // Get service packages from centralized pricing
-  const webPackages = SERVICE_PRICING['web-development'] || []
+  // Build display packages for this page with requested names and starting prices
+  const baseWebPackages = SERVICE_PRICING['web-development'] || []
+  const landing = baseWebPackages.find(p => p.id === 'landing-page')
+  const business = baseWebPackages.find(p => p.id === 'business-website')
+  const ecommerce = baseWebPackages.find(p => p.id === 'ecommerce-website')
+  const customAppTier = baseWebPackages.find(p => p.id === 'custom-web-app')
+  const webPackages = [
+    landing ? { ...landing, name: 'Landing Page Package', cta: 'Choose Your Scope' } : null,
+    business ? { ...business, name: 'Business Website Package', cta: 'Choose Your Scope' } : null,
+    ecommerce ? { ...ecommerce, name: 'E-commerce Package', cta: 'Choose Your Scope' } : null,
+    customAppTier ? { ...customAppTier, name: 'Custom Web App Package', cta: 'Choose Your Scope' } : null,
+  ].filter(Boolean) as typeof baseWebPackages
 
   const serviceCategory = {
     _id: 'web-mobile-development',
@@ -90,14 +100,8 @@ export default function WebMobilePage() {
 
   // Build per-package tiers (flavors) for the modal based on the clicked package
   const getTiersForPackage = (pkg: (typeof webPackages)[number]) => {
-    // Sensible price steps per package type
-    const priceTable: Record<string, { basic: number; standard: number; premium: number }> = {
-      'landing-page': { basic: 149, standard: 299, premium: 499 },
-      'business-website': { basic: 349, standard: 599, premium: 999 },
-      'ecommerce-website': { basic: 649, standard: 1199, premium: 1999 }
-    }
-
-    const defaults = priceTable[pkg.id] || {
+    // Derive tier prices relative to the package's base price to avoid hard-coding pricing
+    const defaults = {
       basic: Math.max(99, Math.round(pkg.basePrice)),
       standard: Math.max(149, Math.round(pkg.basePrice * 1.8)),
       premium: Math.max(249, Math.round(pkg.basePrice * 3.2))
