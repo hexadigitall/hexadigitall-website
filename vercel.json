@@ -1,8 +1,0 @@
-{
-  "rewrites": [
-    {
-      "source": "/socialmediaform",
-      "destination": "/socialmediaform/index.html"
-    }
-  ]
-}
