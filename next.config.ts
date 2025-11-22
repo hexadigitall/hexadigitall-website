@@ -7,7 +7,17 @@ const withBundleAnalyzer = bundleAnalyzer({
 
 const nextConfig: NextConfig = {
   // 1. ADD THE REWRITE RULE HERE
-  output: 'export',
+  async rewrites() {
+    return [
+      {
+        source: '/socialmediaform',
+        destination: '/socialmediaform/index.html',
+      },
+    ];
+  },
+
+  // 3. ADD trailingSlash: true
+  trailingSlash: true,
   // ------------------------------------------------------------------------------------------------
 
   // Enable strict mode for better development experience
