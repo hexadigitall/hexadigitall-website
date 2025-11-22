@@ -7,16 +7,7 @@ const withBundleAnalyzer = bundleAnalyzer({
 
 const nextConfig: NextConfig = {
   // 1. ADD THE REWRITE RULE HERE
-  async rewrites() {
-    return [
-      {
-        // The URL the user types: https://www.hexadigitall.com/socialmediaform
-        source: '/socialmediaform',
-        // The file Vercel should serve, assuming you moved it to public/socialmediaform/index.html
-        destination: '/socialmediaform/index.html',
-      },
-    ];
-  },
+  output: 'export',
   // ------------------------------------------------------------------------------------------------
 
   // Enable strict mode for better development experience
