@@ -14,8 +14,8 @@ const config: Config = {
     extend: {
       colors: {
         primary: '#0A4D68',   // Deep Blue
-        secondary: '#088395', // Vibrant Teal
-        accent: '#F5A623',    // Bright Orange
+        secondary: '#066d7f', // Darker Teal (improved contrast)
+        accent: '#92591B',    // Deep Orange (improved contrast with white)
         lightGray: '#F4F7F6',
         darkText: '#333333',
         // Modern gradient colors

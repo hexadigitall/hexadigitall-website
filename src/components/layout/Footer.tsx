@@ -53,9 +53,9 @@ const Footer = () => {
           
           {/* Quick Links */}
           <div className="space-y-4">
-            <h4 className="text-lg font-semibold text-white border-b border-accent/30 pb-2 mb-4">
+            <h3 className="text-lg font-semibold text-white border-b border-accent/30 pb-2 mb-4">
               Quick Links
-            </h4>
+            </h3>
             <ul className="space-y-3">
               <li>
                 <Link href="/about" className="text-gray-300 hover:text-accent transition-colors duration-300 flex items-center group">
@@ -86,9 +86,9 @@ const Footer = () => {
           
           {/* Services */}
           <div className="space-y-4">
-            <h4 className="text-lg font-semibold text-white border-b border-accent/30 pb-2 mb-4">
+            <h3 className="text-lg font-semibold text-white border-b border-accent/30 pb-2 mb-4">
               Services
-            </h4>
+            </h3>
             <ul className="space-y-3">
               <li>
                 <Link href="/services" className="text-accent hover:text-white font-medium transition-colors duration-300 flex items-center group">
@@ -109,9 +109,9 @@ const Footer = () => {
 
           {/* Connect & Legal */}
           <div className="space-y-4">
-            <h4 className="text-lg font-semibold text-white border-b border-accent/30 pb-2 mb-4">
+            <h3 className="text-lg font-semibold text-white border-b border-accent/30 pb-2 mb-4">
               Connect
-            </h4>
+            </h3>
             <ul className="space-y-3">
               <li>
                 <Link href="/contact" className="text-gray-300 hover:text-accent transition-colors duration-300 flex items-center group">
@@ -136,9 +136,9 @@ const Footer = () => {
 
           {/* Newsletter & Social */}
           <div className="space-y-4">
-            <h4 className="text-lg font-semibold text-white border-b border-accent/30 pb-2 mb-4">
+            <h3 className="text-lg font-semibold text-white border-b border-accent/30 pb-2 mb-4">
               Stay Updated
-            </h4>
+            </h3>
             <p className="text-gray-300 text-sm mb-4">
               Get the latest updates on digital trends and our services.
             </p>

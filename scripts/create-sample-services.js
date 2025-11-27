@@ -8,7 +8,7 @@ dotenv.config({ path: '.env.local' })
 const client = createClient({
   projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID,
   dataset: process.env.NEXT_PUBLIC_SANITY_DATASET,
-  token: process.env.SANITY_API_READ_TOKEN, // Using read token - you may need a write token
+  token: process.env.SANITY_API_TOKEN, // Using write token for creating services
   useCdn: false,
   apiVersion: '2024-01-01'
 })
@@ -22,6 +22,78 @@ const sampleServices = [
     icon: 'code',
     featured: true,
     order: 1,
+    packageGroups: [
+      {
+        key: { _type: 'slug', current: 'website-packages' },
+        name: 'Website Packages',
+        description: 'Landing page, Business website, E-commerce and custom web app packages with per-package tiers.',
+        tiers: [
+          {
+            name: 'Landing Page — Basic',
+            tier: 'basic',
+            price: 229,
+            currency: 'USD',
+            billing: 'one_time',
+            deliveryTime: '3-7 days',
+            features: [
+              'Single Page Design',
+              'Mobile Responsive',
+              'Contact Form',
+              'Basic SEO Setup',
+              '2 Revision Rounds'
+            ],
+            popular: false
+          },
+          {
+            name: 'Business Website — Standard',
+            tier: 'standard',
+            price: 429,
+            currency: 'USD',
+            billing: 'one_time',
+            deliveryTime: '7-14 days',
+            features: [
+              'Up to 6 Pages',
+              'Mobile Responsive Design',
+              'Basic CMS',
+              'SEO Optimization',
+              '3 Revision Rounds'
+            ],
+            popular: true
+          },
+          {
+            name: 'E-commerce Store — Premium',
+            tier: 'premium',
+            price: 729,
+            currency: 'USD',
+            billing: 'one_time',
+            deliveryTime: '10-21 days',
+            features: [
+              'Payment Gateway Integration',
+              'Inventory Management',
+              'Order Management System',
+              'Mobile Responsive',
+              'Basic Analytics'
+            ],
+            popular: false
+          },
+          {
+            name: 'Custom Web App — Enterprise',
+            tier: 'enterprise',
+            price: 1079,
+            currency: 'USD',
+            billing: 'one_time',
+            deliveryTime: '4-8 weeks',
+            features: [
+              'Custom feature development',
+              'API & third-party integrations',
+              'Authentication & user roles',
+              'Database design & setup'
+            ],
+            popular: false
+          }
+        ]
+      }
+    ],
     packages: [
       {
         _key: 'basic-web',
@@ -162,6 +234,60 @@ const sampleServices = [
     icon: 'mobile',
     featured: false,
     order: 2,
+    packageGroups: [
+      {
+        key: { _type: 'slug', current: 'mobile-app-packages' },
+        name: 'Mobile App Packages',
+        description: 'Simple to Enterprise mobile app packages with per-package tiers.',
+        tiers: [
+          {
+            name: 'Simple Mobile App — Basic',
+            tier: 'basic',
+            price: 5000,
+            currency: 'USD',
+            billing: 'one_time',
+            deliveryTime: '4-6 weeks',
+            features: [
+              'Cross-platform development',
+              'Up to 8 screens',
+              'Basic UI',
+              'Local data storage'
+            ],
+            popular: false
+          },
+          {
+            name: 'Business Mobile App — Standard',
+            tier: 'standard',
+            price: 12000,
+            currency: 'USD',
+            billing: 'one_time',
+            deliveryTime: '8-10 weeks',
+            features: [
+              'Native development',
+              'Unlimited screens',
+              'Custom UI/UX',
+              'User authentication'
+            ],
+            popular: true
+          },
+          {
+            name: 'Enterprise Mobile Solution — Enterprise',
+            tier: 'enterprise',
+            price: 25000,
+            currency: 'USD',
+            billing: 'one_time',
+            deliveryTime: '12-16 weeks',
+            features: [
+              'Advanced business logic',
+              'Enterprise security',
+              'Scalable infrastructure',
+              'DevOps & CI/CD'
+            ],
+            popular: false
+          }
+        ]
+      }
+    ],
     packages: [
       {
         _key: 'basic-mobile',

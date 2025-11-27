@@ -25,7 +25,13 @@
     "final-cleanup": "node final-cleanup.js",
     "update-service-overviews": "node update-service-overviews.js",
     "complete-course-rebuild": "node complete-course-rebuild.js",
-    "force-cleanup-courses": "node force-cleanup-courses.js"
+    "force-cleanup-courses": "node force-cleanup-courses.js",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "validate-services": "node scripts/validate-service-data.js",
+    "migrate": "ts-node scripts/migrate-services.ts",
+    "migrate:dry-run": "cross-env DRY_RUN=true ts-node scripts/migrate-services.ts",
+    "migrate:dry-run:compiled": "tsc --project scripts/tsconfig.json --outDir .build-scripts && node .build-scripts/migrate-services-dryrun.js"
   },
   "dependencies": {
     "@esbuild/linux-x64": "^0.25.9",
@@ -60,9 +66,11 @@
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
+    "@jest/globals": "^30.2.0",
     "@next/bundle-analyzer": "^15.5.3",
     "@tailwindcss/postcss": "^4.1.12",
     "@tailwindcss/typography": "^0.5.16",
+    "@types/jest": "^30.0.0",
     "@types/next": "^8.0.7",
     "@types/node": "^20.19.13",
     "@types/react": "^19.1.12",
@@ -73,9 +81,12 @@
     "cross-env": "^10.0.0",
     "eslint": "^9",
     "eslint-config-next": "15.5.2",
+    "jest": "^30.2.0",
     "postcss": "^8.4.38",
     "puppeteer": "^24.20.0",
     "tailwindcss": "^3.4.3",
+    "ts-jest": "^29.4.5",
+    "ts-node": "^10.9.2",
     "typescript": "^5"
   }
 }

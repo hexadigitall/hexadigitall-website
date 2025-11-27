@@ -1,7 +1,8 @@
 // src/app/services/page.tsx
 "use client"
 
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
+import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { useCurrency } from '@/contexts/CurrencyContext'
 import { SERVICE_PRICING } from '@/lib/currency'
@@ -11,12 +12,14 @@ import { StartingAtPriceDisplay } from '@/components/ui/PriceDisplay'
 import { ServiceRequestFlow, ServiceCategory } from '@/components/services/ServiceRequestFlow'
 import { SparklesIcon } from '@heroicons/react/24/outline'
 import Breadcrumb from '@/components/ui/Breadcrumb'
+import StartupFunnel from '@/components/marketing/StartupFunnel'
 
 
 export default function ServicesPage() {
   const { getLocalDiscountMessage, currentCurrency } = useCurrency()
   const discountMessage = getLocalDiscountMessage()
   const [selectedService, setSelectedService] = useState<ServiceCategory | null>(null)
+  const router = useRouter()
   
   // Featured packages from different categories
   const featuredPackages = [
@@ -67,8 +70,33 @@ export default function ServicesPage() {
     setSelectedService(serviceCategory)
   }
 
+  // If arriving with a funnel query param, open the relevant package modal or redirect
+  useEffect(() => {
+    if (typeof window === 'undefined') return
+    const params = new URLSearchParams(window.location.search)
+    const f = params.get('funnel')
+    if (!f) return
+
+    if (f === 'have-an-idea') {
+      openPackageModal(featuredPackages[0])
+    } else if (f === 'ready-to-build') {
+      openPackageModal(featuredPackages[1])
+    } else if (f === 'need-customers') {
+      openPackageModal(featuredPackages[2])
+    } else if (f === 'want-to-learn') {
+      // Send user to courses index
+      router.replace('/courses')
+    }
+
+    // Remove funnel param to avoid re-triggering
+    const url = new URL(window.location.href)
+    url.searchParams.delete('funnel')
+    router.replace(url.pathname + url.search)
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
   return (
-    <main className="bg-white py-12 md:py-20">
+    <div className="bg-white py-12 md:py-20">
         <div className="container mx-auto px-6">
           {/* Breadcrumb Navigation - Move to top */}
           <div className="mb-6">
@@ -105,6 +133,9 @@ export default function ServicesPage() {
             </div>
           </div>
 
+
+          {/* Startup Funnel (stage-based entry) */}
+          <StartupFunnel className="mb-12" />
 
           {/* Direct Service Category Links */}
           <div className="mb-16">
@@ -192,17 +223,7 @@ export default function ServicesPage() {
               {featuredPackages.map((pkg) => (
                 <article 
                   key={pkg.id}
-                  className="card-enhanced rounded-2xl p-8 hover:scale-105 transition-all duration-300 cursor-pointer relative overflow-hidden focus:ring-2 focus:ring-primary focus:outline-none"
-                  onClick={() => openPackageModal(pkg)}
-                  onKeyDown={(e) => {
-                    if (e.key === 'Enter' || e.key === ' ') {
-                      e.preventDefault();
-                      openPackageModal(pkg);
-                    }
-                  }}
-                  tabIndex={0}
-                  role="button"
-                  aria-label={`Select ${pkg.name} package for ${pkg.category}`}
+                  className="card-enhanced rounded-2xl p-8 hover:scale-105 transition-all duration-300 relative overflow-hidden focus:ring-2 focus:ring-primary focus:outline-none"
                 >
                   {/* Popular Badge */}
                   {pkg.popular && (
@@ -247,6 +268,7 @@ export default function ServicesPage() {
                     <button 
                       className={`w-full bg-gradient-to-r ${pkg.color} text-white py-3 px-6 rounded-xl font-semibold hover:opacity-90 transition-opacity focus:ring-2 focus:ring-white focus:ring-opacity-50 focus:outline-none`}
                       aria-label={`${pkg.cta} - ${pkg.name} package`}
+                      onClick={() => openPackageModal(pkg)}
                     >
                       {pkg.cta}
                     </button>
@@ -291,6 +313,6 @@ export default function ServicesPage() {
             onClose={() => setSelectedService(null)}
           />
         )}
-    </main>
+    </div>
   )
 }

@@ -17,9 +17,26 @@ const eslintConfig = [
       ".next/**",
       "out/**",
       "build/**",
+      ".build-scripts/**",
       "next-env.d.ts",
     ],
   },
+  // Relax some rules for scripts and test helpers where `any` is common and quick iteration is desired.
+  {
+    files: [
+      'scripts/**',
+      'scripts/**/**',
+      'scripts/**/*.ts',
+      'scripts/**/*.tsx',
+      'scripts/**/__tests__/**',
+      'scripts/**/*.test.ts',
+      'scripts/**/*.test.tsx'
+    ],
+    rules: {
+      '@typescript-eslint/no-explicit-any': 'off',
+      '@typescript-eslint/explicit-module-boundary-types': 'off'
+    }
+  }
 ];
 
 export default eslintConfig;

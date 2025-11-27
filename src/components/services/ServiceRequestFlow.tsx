@@ -2,9 +2,13 @@
 
 import React from 'react'
 import { useState } from 'react'
+import { useEffect } from 'react'
 import { ServicePackageSelection, PaymentPlan } from './ServicePackageSelection'
 import { ServiceRequestForm } from './ServiceRequestForm'
 import { PaymentSummary } from './PaymentSummary'
+import dynamic from 'next/dynamic'
+
+const FunnelOnboarding = dynamic(() => import('@/components/marketing/FunnelOnboarding'), { ssr: false })
 
 export interface ServiceCategory {
   _id: string
@@ -73,11 +77,13 @@ export interface ProjectDetails {
 interface ServiceRequestFlowProps {
   serviceCategory: ServiceCategory
   onClose?: () => void
+  initialPackageKey?: string | null
 }
 
 export const ServiceRequestFlow: React.FC<ServiceRequestFlowProps> = ({
   serviceCategory,
-  onClose
+  onClose,
+  initialPackageKey = null
 }) => {
   const [currentStep, setCurrentStep] = useState(1)
   const [selectedPackage, setSelectedPackage] = useState<Package | null>(null)
@@ -99,6 +105,32 @@ export const ServiceRequestFlow: React.FC<ServiceRequestFlowProps> = ({
     budget: '',
     notes: ''
   })
+  const [showOnboarding, setShowOnboarding] = useState(false)
+
+  // Check sessionStorage for funnel arrival marker and show onboarding if recent
+  useEffect(() => {
+    // If an initial package key was provided, preselect that package
+    if (initialPackageKey) {
+      const found = serviceCategory.packages.find((p) => p._key === initialPackageKey)
+      if (found) setSelectedPackage(found)
+    }
+    try {
+      const raw = sessionStorage.getItem('funnel.arrival')
+      if (!raw) return
+      const parsed = JSON.parse(raw)
+      if (parsed && parsed.ts && typeof parsed.funnel === 'string') {
+        const age = Date.now() - parsed.ts
+        // show onboarding if arrival within last 5 minutes
+        if (age < 1000 * 60 * 5) {
+          setShowOnboarding(true)
+        }
+      }
+      // clear marker so we don't repeatedly show
+      sessionStorage.removeItem('funnel.arrival')
+    } catch (err) {
+      // ignore
+    }
+  }, [])
 
   const steps = [
     { number: 1, title: 'Select Package', description: 'Choose your service package' },
@@ -238,10 +270,13 @@ export const ServiceRequestFlow: React.FC<ServiceRequestFlowProps> = ({
           {/* Content Area */}
           <div className="flex-1 min-h-0 overflow-y-auto px-2 sm:px-4 py-4">
             {currentStep === 1 && (
-              <ServicePackageSelection
-                serviceCategory={serviceCategory}
-                onPackageSelect={handlePackageSelect}
-              />
+              <>
+                {showOnboarding && <FunnelOnboarding onClose={() => setShowOnboarding(false)} />}
+                <ServicePackageSelection
+                  serviceCategory={serviceCategory}
+                  onPackageSelect={handlePackageSelect}
+                />
+              </>
             )}
 
             {currentStep === 2 && selectedPackage && (

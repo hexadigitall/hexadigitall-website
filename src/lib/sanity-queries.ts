@@ -1,6 +1,8 @@
 // src/lib/sanity-queries.ts
 import { client } from '@/sanity/client'
 import { ServiceCategory, IndividualService } from '@/types/service'
+import normalizeStatistics from '@/lib/normalizeStatistics'
+import WEB_DEV_PACKAGE_GROUPS, { MARKETING_PACKAGE_GROUPS, PROFILE_PACKAGE_GROUPS, CONSULTING_PACKAGE_GROUPS, BUSINESS_PACKAGE_GROUPS } from '@/data/servicePackages'
 
 // GROQ query for service category with packages
 const SERVICE_CATEGORY_QUERY = `*[_type == "serviceCategory" && slug.current == $slug][0]{
@@ -35,6 +37,62 @@ const SERVICE_CATEGORY_QUERY = `*[_type == "serviceCategory" && slug.current == 
       price,
       description
     }
+  },
+  // New: package groups with tiers
+  packageGroups[]{
+    key,
+    name,
+    description,
+    tiers[]{
+      _key,
+      name,
+      tier,
+      price,
+      currency,
+      billing,
+      deliveryTime,
+      features,
+      popular,
+      addOns[]{
+        _key,
+        name,
+        price,
+        description
+      }
+    }
+  },
+  // New dynamic features
+  statistics-> {
+    _id,
+    metrics,
+    performance,
+    clientMetrics,
+    techStack,
+    lastUpdated
+  },
+  testimonials[]->{
+    _id,
+    client,
+    role,
+    company,
+    image{asset->{_id, url}},
+    testimonial,
+    rating,
+    featured,
+    date
+  },
+  caseStudies[]->{
+    _id,
+    title,
+    slug,
+    client,
+    challenge,
+    solution,
+    results,
+    technologies,
+    timeline,
+    images[]{asset->{_id, url}, caption, alt},
+    featured
   },
   requirements,
   faq[]{
@@ -75,15 +133,49 @@ const SERVICE_CATEGORIES_BY_TYPE_QUERY = `*[_type == "serviceCategory" && servic
 /**
  * Fetch a specific service category by slug
  */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 export async function getServiceCategoryBySlug(slug: string): Promise<ServiceCategory | null> {
   try {
     const serviceCategory = await client.fetch(SERVICE_CATEGORY_QUERY, { slug })
+
+    // Normalize: if packageGroups are present, flatten tiers into packages for UI compatibility
+    if (serviceCategory?.packageGroups && Array.isArray(serviceCategory.packageGroups) && serviceCategory.packageGroups.length > 0) {
+      const normalizedPackages = serviceCategory.packageGroups.flatMap((group: Record<string, unknown>) => {
+        const tiers = Array.isArray(group?.tiers) ? group.tiers : []
+        return tiers.map((tierItem: unknown, idx: number) => {
+          const tier = tierItem as Record<string, unknown>
+          return {
+              _key: (tier._key as any) || `${(group?.key as any)?.current || group?.name || 'group'}-${tier.tier || 'tier'}-${idx}`,
+              name: (tier.name as any) || `${group?.name || 'Package'} — ${tier.tier || 'Tier'}`,
+              tier: ((tier.tier || 'standard') as any),
+            price: typeof tier.price === 'number' ? tier.price : 0,
+              currency: (tier.currency as any) || 'USD',
+              billing: ((tier.billing || 'one_time') as any),
+              deliveryTime: (tier.deliveryTime as any) || '',
+            features: Array.isArray(tier.features) ? tier.features : [],
+            popular: !!tier.popular,
+            addOns: Array.isArray(tier.addOns) ? tier.addOns : []
+          }
+        })
+      })
+      serviceCategory.packages = normalizedPackages
+    }
+
+    // Normalize statistics into canonical `{ metrics }` shape so UI components can rely on a single shape
+    try {
+        serviceCategory.statistics = normalizeStatistics(serviceCategory.statistics) as Record<string, unknown>
+    } catch (err) {
+      // Non-fatal; keep original statistics if normalization fails
+      console.warn('Failed to normalize statistics for serviceCategory', serviceCategory?._id, err)
+    }
+
     return serviceCategory
   } catch (error) {
     console.error('Error fetching service category:', error)
     return null
   }
 }
+/* eslint-enable @typescript-eslint/no-explicit-any */
 
 /**
  * Fetch all service categories
@@ -265,7 +357,118 @@ export function getFallbackServiceCategory(slug: string): ServiceCategory | null
           popular: false
         }
       ]
+    ,
+    packageGroups: BUSINESS_PACKAGE_GROUPS,
     }
   }
+
+  // Fallback POC for web & mobile dev page: include packageGroups so the UI can render scoped groups
+  if (slug === 'web-and-mobile-software-development') {
+    return {
+      _id: 'fallback-web-mobile-development',
+      title: 'Web & Mobile Development',
+      slug: { current: 'web-and-mobile-software-development' },
+      description: 'Professional websites and mobile applications that drive business growth and user engagement.',
+      serviceType: 'web',
+      icon: 'code',
+      featured: false,
+      packages: [],
+      packageGroups: WEB_DEV_PACKAGE_GROUPS,
+      requirements: [],
+      faq: []
+    }
+  }
+
+  // Marketing fallbacks
+  if (slug === 'social-media-marketing' || slug === 'social-media-advertising-and-marketing') {
+    return {
+      _id: 'fallback-marketing',
+      title: 'Digital Marketing',
+      slug: { current: slug },
+      description: 'Marketing services to grow your audience and revenue.',
+      serviceType: 'marketing',
+      icon: 'chart',
+      featured: false,
+      packages: [],
+      packageGroups: MARKETING_PACKAGE_GROUPS,
+      testimonials: [
+        {
+          _id: 'tm-1',
+          client: 'Acme Co',
+          testimonial: 'Great growth from the marketing team!',
+          rating: 5
+        }
+      ],
+      statistics: {
+        _id: 'stats-marketing',
+        metrics: {
+          projectsCompleted: 120,
+          clientSatisfaction: 92,
+          averageDeliveryTime: '30 days',
+          teamSize: 8
+        },
+        lastUpdated: new Date().toISOString()
+      },
+      requirements: [],
+      faq: []
+    }
+  }
+
+  // Profile / Portfolio fallback
+  if (slug === 'profile-and-portfolio-building') {
+    return {
+      _id: 'fallback-profile',
+      title: 'Profile & Portfolio',
+      slug: { current: 'profile-and-portfolio-building' },
+      description: 'Personal profiles and portfolio websites to showcase your work.',
+      serviceType: 'profile',
+      icon: 'monitor',
+      featured: false,
+      packages: [],
+      packageGroups: PROFILE_PACKAGE_GROUPS,
+      testimonials: [],
+      statistics: {
+        _id: 'stats-profile',
+        metrics: {
+          projectsCompleted: 320,
+          clientSatisfaction: 95,
+          averageDeliveryTime: '7 days',
+          teamSize: 3
+        },
+        lastUpdated: new Date().toISOString()
+      },
+      requirements: [],
+      faq: []
+    }
+  }
+
+  // Consulting fallback
+  if (slug === 'mentoring-and-consulting') {
+    return {
+      _id: 'fallback-consulting',
+      title: 'Mentoring & Consulting',
+      slug: { current: 'mentoring-and-consulting' },
+      description: 'Expert consulting and mentoring for founders and teams.',
+      serviceType: 'consulting',
+      icon: 'settings',
+      featured: false,
+      packages: [],
+      packageGroups: CONSULTING_PACKAGE_GROUPS,
+      testimonials: [],
+      statistics: {
+        _id: 'stats-consulting',
+        metrics: {
+          projectsCompleted: 58,
+          clientSatisfaction: 90,
+          averageDeliveryTime: '14 days',
+          teamSize: 4
+        },
+        lastUpdated: new Date().toISOString()
+      },
+      requirements: [],
+      faq: []
+    }
+  }
+
   return null
 }

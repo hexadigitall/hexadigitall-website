@@ -262,14 +262,14 @@ const serviceCategories: ServiceCategory[] = [
   }
 ];
 
-async function migrateServices() {
+export async function migrateServices(suppliedClient = client) {
   console.log('🚀 Starting service migration...');
 
   try {
     for (const service of serviceCategories) {
       console.log(`📝 Creating service: ${service.title}`);
       
-      const result = await client.create(service);
+      const result = await suppliedClient.create(service);
       console.log(`✅ Created service with ID: ${result._id}`);
     }
 
@@ -277,10 +277,62 @@ async function migrateServices() {
     console.log(`📊 Total services migrated: ${serviceCategories.length}`);
 
   } catch (error) {
-    console.error('❌ Migration failed:', error);
-    process.exit(1);
+    // Re-throw so callers (tests) can handle errors. CLI runner below will exit.
+    throw error;
   }
 }
 
-// Run migration
-migrateServices();
+// If run directly, execute and exit on error
+// Determine if this script was executed directly. Try CJS detection first, then fall back to argv checks.
+const isMain = (() => {
+  try {
+    if (typeof require !== 'undefined' && require.main === module) return true;
+  } catch (e) {
+    // ignore
+  }
+
+  const scriptPath = process.argv[1] || '';
+  if (scriptPath.endsWith('migrate-services.ts') || scriptPath.endsWith('migrate-services.js')) return true;
+  return false;
+})();
+
+if (isMain) {
+  migrateServices().catch((error) => {
+    console.error('❌ Migration failed:', error);
+    process.exit(1);
+  });
+}
+
+export { serviceCategories };
+
+// Helper: format legacy packages into packageGroups
+export function formatPackageGroups(legacyPackages: unknown[]) {
+  if (!Array.isArray(legacyPackages) || legacyPackages.length === 0) return [];
+
+  // Narrow to expected shape
+  const packages = legacyPackages.map((p) => (typeof p === 'object' && p !== null ? p as Record<string, any> : {}));
+
+  // Simple heuristic: remove the first word from package names to derive a group name
+  const firstName = (packages[0] && (packages[0].name as string)) || '';
+  const parts = firstName.split(' ');
+  const groupName = parts.slice(1).join(' ').trim() || firstName;
+  const key = groupName.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+
+  const tiers = packages.map((p) => ({
+    name: p.name,
+    tier: p.tier ?? null,
+    price: p.price ?? null,
+    currency: p.currency ?? 'USD',
+    billing: p.billing ?? 'one-time',
+    features: Array.isArray(p.features) ? p.features : []
+  }));
+
+  return [
+    {
+      _type: 'packageGroup',
+      name: groupName,
+      key: { _type: 'slug', current: key },
+      tiers
+    }
+  ];
+}

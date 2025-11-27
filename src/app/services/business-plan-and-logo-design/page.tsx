@@ -7,7 +7,7 @@ import {
   getFallbackServiceCategory 
 } from '@/lib/sanity-queries'
 import { ServiceCategory, IndividualService, ServiceStats } from '@/types/service'
-import BusinessServicePage from '@/components/services/BusinessServicePage'
+import DynamicServicePage from '@/components/services/DynamicServicePage'
 
 // Static metadata for SEO
 export const metadata: Metadata = {
@@ -71,7 +71,7 @@ export default async function BusinessPlanLogoPage() {
   }
 
   return (
-    <BusinessServicePage
+  <DynamicServicePage
       serviceCategory={serviceCategory}
       individualServices={individualServices}
       serviceStats={serviceStats}

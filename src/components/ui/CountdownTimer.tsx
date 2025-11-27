@@ -58,18 +58,18 @@ export function CountdownTimer({ endDate, className = "" }: CountdownTimerProps)
   return (
     <div className={`flex flex-col sm:flex-row items-center gap-1 sm:gap-2 ${className}`}>
       <span className="text-red-600 font-semibold text-sm sm:text-base">⏰</span>
-      <div className="flex items-center space-x-1 text-red-600 font-mono font-bold text-xs sm:text-sm">
+      <div className="flex items-center space-x-1 text-white font-mono font-bold text-xs sm:text-sm">
         {timeLeft.days > 0 && (
           <>
-            <span className="bg-red-100 px-1 sm:px-2 py-1 rounded">{timeLeft.days}</span>
-            <span className="text-xs">d</span>
+            <span className="bg-red-600 px-1 sm:px-2 py-1 rounded">{timeLeft.days}</span>
+            <span className="text-xs text-red-600">d</span>
           </>
         )}
-        <span className="bg-red-100 px-1 sm:px-2 py-1 rounded">{timeLeft.hours.toString().padStart(2, '0')}</span>
-        <span className="text-xs">:</span>
-        <span className="bg-red-100 px-1 sm:px-2 py-1 rounded">{timeLeft.minutes.toString().padStart(2, '0')}</span>
-        <span className="text-xs">:</span>
-        <span className="bg-red-100 px-1 sm:px-2 py-1 rounded">{timeLeft.seconds.toString().padStart(2, '0')}</span>
+        <span className="bg-red-600 px-1 sm:px-2 py-1 rounded">{timeLeft.hours.toString().padStart(2, '0')}</span>
+        <span className="text-xs text-red-600">:</span>
+        <span className="bg-red-600 px-1 sm:px-2 py-1 rounded">{timeLeft.minutes.toString().padStart(2, '0')}</span>
+        <span className="text-xs text-red-600">:</span>
+        <span className="bg-red-600 px-1 sm:px-2 py-1 rounded">{timeLeft.seconds.toString().padStart(2, '0')}</span>
       </div>
     </div>
   )

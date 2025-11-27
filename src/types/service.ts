@@ -37,6 +37,11 @@ export interface ServiceCategory {
   icon: string
   featured: boolean
   packages: ServicePackage[]
+  // Optional: package groups with per-package tiers from Sanity
+  packageGroups?: ServicePackageGroup[]
+  testimonials?: Array<{ _id?: string; client?: string; role?: string; testimonial?: string; company?: string; image?: { asset?: { url?: string } }; rating?: number }>
+  caseStudies?: Array<{ _id?: string; title?: string; client?: { name?: string; industry?: string }; challenge?: string; slug?: { current?: string }; featured?: boolean }>
+  statistics?: ServiceStats | { metrics?: { projectsCompleted?: number; clientSatisfaction?: number; averageDeliveryTime?: string; teamSize?: number } }
   requirements?: string[]
   faq?: ServiceFAQ[]
   features?: Array<string | { title?: string; description?: string }>
@@ -77,10 +82,23 @@ export interface ServicePageProps {
 
 // For stats/metrics display
 export interface ServiceStats {
-  fundingSuccessRate: number
-  totalFundingRaised: string
-  averageRevenueGrowth: number
-  averageDeliveryTime: string
+  // Allow legacy and new shapes coming from Sanity. Keep optional fields to
+  // accommodate different documents without causing type errors.
+  _id?: string
+  fundingSuccessRate?: number
+  totalFundingRaised?: string
+  averageRevenueGrowth?: number
+  averageDeliveryTime?: string
+  // Newer shape nests metrics under `metrics`.
+  metrics?: {
+    projectsCompleted?: number
+    clientSatisfaction?: number
+    averageDeliveryTime?: string
+    teamSize?: number
+    [key: string]: unknown
+  }
+  lastUpdated?: string
+  [key: string]: unknown
 }
 
 // Legacy types for backwards compatibility
@@ -141,4 +159,25 @@ export interface LegacyServiceCategory {
     popular: boolean
   }>
   serviceType: 'business' | 'technical' | 'creative' | 'consulting'
+}
+
+// Optional Sanity package groups with tiers (for scoped modal selection)
+export interface ServicePackageTier {
+  _key: string
+  name: string
+  tier: 'basic' | 'standard' | 'premium' | 'enterprise'
+  price: number
+  currency: string
+  billing: 'one_time' | 'monthly' | 'hourly' | 'project'
+  deliveryTime?: string
+  features?: Array<string | { title?: string; description?: string }>
+  popular?: boolean
+  addOns?: ServiceAddOn[]
+}
+
+export interface ServicePackageGroup {
+  key?: { current: string }
+  name: string
+  description?: string
+  tiers: ServicePackageTier[]
 }

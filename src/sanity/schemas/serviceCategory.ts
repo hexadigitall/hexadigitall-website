@@ -361,6 +361,61 @@ export default defineType({
           ]
         }
       ]
+    }),
+    defineField({
+      name: 'statistics',
+      title: 'Service Statistics',
+      type: 'reference',
+      to: [{ type: 'serviceStatistics' }],
+      description: 'Performance metrics and statistics for this service category'
+    }),
+    defineField({
+      name: 'testimonials',
+      title: 'Featured Testimonials',
+      type: 'array',
+      of: [{ type: 'reference', to: [{ type: 'serviceTestimonial' }] }],
+      description: 'Hand-picked testimonials to feature for this service'
+    }),
+    defineField({
+      name: 'caseStudies',
+      title: 'Case Studies',
+      type: 'array',
+      of: [{ type: 'reference', to: [{ type: 'serviceCaseStudy' }] }],
+      description: 'Related case studies demonstrating service success'
+    }),
+    defineField({
+      name: 'integrations',
+      title: 'Available Integrations',
+      type: 'array',
+      of: [
+        {
+          type: 'object',
+          fields: [
+            { name: 'name', title: 'Integration Name', type: 'string' },
+            { name: 'description', title: 'Description', type: 'text' },
+            { name: 'icon', title: 'Icon', type: 'image' },
+            { name: 'type', title: 'Integration Type', type: 'string' }
+          ]
+        }
+      ],
+      description: 'Third-party integrations available with this service'
+    }),
+    defineField({
+      name: 'techStack',
+      title: 'Technology Stack',
+      type: 'array',
+      of: [
+        {
+          type: 'object',
+          fields: [
+            { name: 'name', title: 'Technology Name', type: 'string' },
+            { name: 'category', title: 'Category', type: 'string' },
+            { name: 'icon', title: 'Icon', type: 'image' },
+            { name: 'expertise', title: 'Expertise Level', type: 'number' }
+          ]
+        }
+      ],
+      description: 'Technologies and tools used in this service'
     })
   ],
   orderings: [

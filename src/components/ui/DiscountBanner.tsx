@@ -52,7 +52,7 @@ export function DiscountBanner({
     <div className={`bg-gradient-to-r from-red-500/10 via-red-400/5 to-red-500/10 border-2 border-red-400/30 rounded-2xl text-center shadow-lg ${styles.container} ${className}`}>
       <div className="flex flex-col items-center justify-center gap-3 sm:gap-4">
         <div className="flex flex-col sm:flex-row items-center gap-2 sm:gap-4">
-          <span className={`bg-gradient-to-r from-red-500 to-red-600 text-white rounded-full font-bold animate-bounce whitespace-nowrap shadow-lg ${styles.badge}`}>
+          <span className={`bg-gradient-to-r from-red-500 to-red-600 bg-red-600 text-white rounded-full font-bold animate-bounce whitespace-nowrap shadow-lg ${styles.badge}`}>
             🔥 MEGA LAUNCH SPECIAL
           </span>
           <span className={`font-bold text-red-600 animate-pulse ${styles.mainText}`}>
@@ -98,7 +98,7 @@ export function CompactDiscountBanner({ className = "" }: { className?: string }
   }
 
   return (
-    <div className={`inline-flex items-center space-x-2 bg-gradient-to-r from-red-500 to-red-600 text-white px-4 py-2 rounded-full text-sm font-bold animate-pulse shadow-lg ${className}`}>
+    <div className={`inline-flex items-center space-x-2 bg-gradient-to-r from-red-500 to-red-600 bg-red-600 text-white px-4 py-2 rounded-full text-sm font-bold animate-pulse shadow-lg ${className}`}>
       <span>🔥</span>
       <span>50% OFF LAUNCH SPECIAL</span>
       <span>🇳🇬</span>

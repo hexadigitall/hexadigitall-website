@@ -7,11 +7,14 @@ import { PerformanceMonitor } from '@/components/ui/PerformanceMonitor'
 // Import Header and Footer
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
+import { CustomBuildResumeBar } from '@/components/services/CustomBuildResumeBar';
 import AppCartProvider from '@/components/CartProvider';
 import { CurrencyProvider } from '@/contexts/CurrencyContext';
+import { CustomBuildProvider } from '@/contexts/CustomBuildContext';
 import GoogleAnalytics from '@/components/GoogleAnalytics';
 import SEOStructuredData from '@/components/SEOStructuredData';
 import { QuickContactFAB } from '@/components/ui/FloatingCTA';
+import StartupFunnelClient from '@/components/marketing/StartupFunnelClient'
 
 // ✅ Enhanced metadata for SEO and accessibility
 export const metadata: Metadata = {
@@ -146,55 +149,60 @@ export default function RootLayout({
         </a>
         
         <CurrencyProvider>
-          <AppCartProvider>
-            {/* Google Analytics */}
-            <GoogleAnalytics />
+          <CustomBuildProvider>
+            <AppCartProvider>
+              {/* Google Analytics */}
+              <GoogleAnalytics />
+              
+              {/* SEO Structured Data */}
+              <SEOStructuredData />
+              
+              {/* Performance monitoring in development */}
+              <PerformanceMonitor />
+              
+              <Header />
+              <CustomBuildResumeBar />
+              <main id="main-content" role="main" tabIndex={-1}>
+                {children}
+              </main>
+              <Footer />
+              {/* Global funnel tracker (client-only) */}
+              <StartupFunnelClient />
+              
+              {/* Floating CTA for conversion optimization */}
+              <QuickContactFAB />
             
-            {/* SEO Structured Data */}
-            <SEOStructuredData />
-            
-            {/* Performance monitoring in development */}
-            <PerformanceMonitor />
-            
-            <Header />
-            <main id="main-content" role="main" tabIndex={-1}>
-              {children}
-            </main>
-            <Footer />
-            
-            {/* Floating CTA for conversion optimization */}
-            <QuickContactFAB />
-          
-          {/* Toast notifications with better accessibility */}
-          <Toaster 
-            position="top-right"
-            toastOptions={{
-              duration: 4000,
-              style: {
-                background: '#10B981',
-                color: '#fff',
-                fontSize: '16px',
-                padding: '16px',
-                borderRadius: '8px',
-                boxShadow: '0 10px 25px rgba(0, 0, 0, 0.1)',
-              },
-              success: {
-                iconTheme: {
-                  primary: '#fff',
-                  secondary: '#10B981',
-                },
-              },
-              error: {
+            {/* Toast notifications with better accessibility */}
+            <Toaster 
+              position="top-right"
+              toastOptions={{
+                duration: 4000,
                 style: {
-                  background: '#EF4444',
+                  background: '#10B981',
+                  color: '#fff',
+                  fontSize: '16px',
+                  padding: '16px',
+                  borderRadius: '8px',
+                  boxShadow: '0 10px 25px rgba(0, 0, 0, 0.1)',
                 },
-              },
-            }}
-            containerStyle={{
-              top: '80px', // Account for header height
-            }}
-          />
-          </AppCartProvider>
+                success: {
+                  iconTheme: {
+                    primary: '#fff',
+                    secondary: '#10B981',
+                  },
+                },
+                error: {
+                  style: {
+                    background: '#EF4444',
+                  },
+                },
+              }}
+              containerStyle={{
+                top: '80px', // Account for header height
+              }}
+            />
+            </AppCartProvider>
+          </CustomBuildProvider>
         </CurrencyProvider>
       </body>
     </html>
