@@ -20,6 +20,31 @@ export interface ServiceAddOn {
   name: string
   price: number
   description: string
+  required?: boolean
+}
+
+export interface CustomizableService {
+  _key: string
+  name: string
+  basePrice: number
+  currency: string
+  billing: 'one_time' | 'monthly' | 'hourly' | 'project'
+  deliveryTime?: string
+  description?: string
+  addOns: ServiceAddOn[]
+  defaultAddOns?: string[] // keys of default selected add-ons
+}
+
+export interface IndividualServiceItem {
+  _key: string
+  name: string
+  price: number
+  currency: string
+  billing: 'one_time' | 'monthly' | 'hourly' | 'project'
+  deliveryTime?: string
+  description?: string
+  features?: Array<string | { title?: string; description?: string }>
+  popular?: boolean
 }
 
 export interface ServiceFAQ {
@@ -71,6 +96,18 @@ export interface IndividualService {
   deliveryTime: string
   features: string[]
   category?: string
+}
+
+// Request cart item (combines selection with quantity/customization)
+export interface ServiceRequestItem {
+  serviceId: string
+  serviceName: string
+  serviceType: 'tiered' | 'individual' | 'customizable'
+  tier?: ServicePackageTier // if tiered
+  basePrice: number
+  addOns?: { _key: string; name: string; price: number }[]
+  quantity?: number
+  total: number
 }
 
 // Props for service page components

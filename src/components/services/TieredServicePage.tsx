@@ -39,20 +39,15 @@ export default function TieredServicePage({
   const [selectedGroup, setSelectedGroup] = useState<ServicePackageGroup | null>(null)
   const [selectedTier, setSelectedTier] = useState<ServicePackageTier | null>(null)
   const [showRequestFlow, setShowRequestFlow] = useState(false)
+  const [requestServiceCategory, setRequestServiceCategory] = useState<LegacyServiceCategory | null>(null)
 
   const discountMessage = getLocalDiscountMessage()
 
   const handleTierSelect = (tier: ServicePackageTier) => {
+    if (!selectedGroup) return
     setSelectedTier(tier)
-    setSelectedGroup(null)
-    setShowRequestFlow(true)
-  }
-
-  // Convert tier to legacy service category for ServiceRequestFlow
-  const createServiceCategoryFromTier = (): LegacyServiceCategory | null => {
-    if (!selectedTier || !selectedGroup) return null
-
-    return {
+    // Build and store the service category BEFORE closing the modal
+    const sc: LegacyServiceCategory = {
       _id: selectedGroup.key?.current || 'tier-service',
       title: selectedGroup.name,
       slug: { current: selectedGroup.key?.current || '' },
@@ -62,21 +57,25 @@ export default function TieredServicePage({
       serviceType: 'general',
       packages: [
         {
-          _key: selectedTier._key,
-          name: selectedTier.name,
-          tier: selectedTier.tier,
-          price: selectedTier.price,
-          currency: selectedTier.currency,
-          billing: selectedTier.billing,
-          deliveryTime: selectedTier.deliveryTime || '7-14 days',
-          features: selectedTier.features || [],
-          popular: selectedTier.popular || false
+          _key: tier._key,
+          name: tier.name,
+          tier: tier.tier,
+          price: tier.price,
+          currency: tier.currency,
+          billing: tier.billing,
+          deliveryTime: tier.deliveryTime || '7-14 days',
+          features: (tier.features || []).map(f => typeof f === 'string' ? f : (f?.title || f?.description || '')),
+          popular: tier.popular || false
         }
       ]
     }
+    setRequestServiceCategory(sc)
+    setShowRequestFlow(true)
+    // Close the modal AFTER we have stored the service category
+    setSelectedGroup(null)
   }
 
-  const serviceCategory = showRequestFlow ? createServiceCategoryFromTier() : null
+  const serviceCategory = showRequestFlow ? requestServiceCategory : null
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-slate-50 via-white to-blue-50">
@@ -174,6 +173,7 @@ export default function TieredServicePage({
           onClose={() => {
             setShowRequestFlow(false)
             setSelectedTier(null)
+            setRequestServiceCategory(null)
           }}
         />
       )}

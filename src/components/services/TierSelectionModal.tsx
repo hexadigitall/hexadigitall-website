@@ -2,7 +2,8 @@
 
 import React, { useState } from 'react'
 import { useCurrency } from '@/contexts/CurrencyContext'
-import type { ServicePackageGroup, ServicePackageTier } from '@/types/service'
+import UnifiedServiceRequestFlow from '@/components/services/UnifiedServiceRequestFlow'
+import type { ServicePackageGroup, ServicePackageTier, ServiceRequestItem } from '@/types/service'
 
 interface TierSelectionModalProps {
   packageGroup: ServicePackageGroup
@@ -19,8 +20,45 @@ export default function TierSelectionModal({
   const [selectedTierKey, setSelectedTierKey] = useState<string | null>(
     packageGroup.tiers?.find(t => t.popular)?._key || packageGroup.tiers?.[0]?._key || null
   )
+  const [showRequestFlow, setShowRequestFlow] = useState(false)
+  const [selectedTier, setSelectedTier] = useState<ServicePackageTier | null>(null)
 
   const tiers = packageGroup.tiers || []
+
+  // Normalize tiers in expected order for inheritance (basic -> standard -> premium)
+  const orderedTiers = [...tiers].sort((a, b) => {
+    const order = { basic: 0, standard: 1, premium: 2 } as Record<string, number>
+    return (order[a.tier || 'basic'] ?? 0) - (order[b.tier || 'basic'] ?? 0)
+  })
+
+  type TierFeature = string | { title?: string; description?: string }
+  const normalizeFeature = (f: TierFeature | undefined): string => {
+    if (typeof f === 'string') return f.trim()
+    if (f && typeof f === 'object') {
+      return (f.title || f.description || '').toString().trim()
+    }
+    return ''
+  }
+
+  // Build inherited feature sets per tier (higher tiers include lower tiers)
+  const featureSets: Record<string, Set<string>> = {}
+  orderedTiers.forEach((tier, idx) => {
+    const base = new Set<string>()
+    // inherit from previous tier if exists
+    if (idx > 0) {
+      const prev = orderedTiers[idx - 1]
+      const prevSet = featureSets[prev._key]
+      if (prevSet) prevSet.forEach(v => base.add(v))
+    }
+    // add current tier features (excluding placeholders like "Everything in ...")
+    (tier.features || []).forEach(fRaw => {
+      const text = normalizeFeature(fRaw)
+      if (!text) return
+      if (/^Everything in/i.test(text)) return
+      base.add(text)
+    })
+    featureSets[tier._key] = base
+  })
 
   if (!tiers || tiers.length === 0) {
     return (
@@ -50,8 +88,8 @@ export default function TierSelectionModal({
   }
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 overflow-y-auto">
-      <div className="bg-white rounded-2xl max-w-6xl w-full p-6 md:p-8 relative my-8">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 overflow-y-hidden">
+      <div className="bg-white rounded-2xl max-w-6xl w-full p-6 md:p-8 relative my-8 max-h-[90vh] overflow-y-auto">
         {/* Close Button */}
         <button
           onClick={onClose}
@@ -76,8 +114,8 @@ export default function TierSelectionModal({
         </div>
 
         {/* Tiers Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
-          {tiers.map((tier) => {
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+          {orderedTiers.map((tier) => {
             const isSelected = selectedTierKey === tier._key
             const convertedPrice = convertPrice(tier.price, currentCurrency.code)
 
@@ -187,14 +225,14 @@ export default function TierSelectionModal({
         </div>
 
         {/* Feature Comparison Table */}
-        {tiers.length > 1 && (
+        {orderedTiers.length > 1 && (
           <div className="mb-12 overflow-x-auto">
             <h3 className="text-lg font-bold text-gray-900 mb-4">Compare Features</h3>
             <table className="w-full text-sm">
               <thead>
                 <tr className="border-b-2 border-gray-200">
                   <th className="text-left py-3 px-4 font-bold text-gray-900">Feature</th>
-                  {tiers.map(tier => {
+                  {orderedTiers.map(tier => {
                     const isSelected = selectedTierKey === tier._key
                     return (
                       <th 
@@ -215,19 +253,17 @@ export default function TierSelectionModal({
                 </tr>
               </thead>
               <tbody>
-                {/* Collect all unique features */}
+                {/* Collect all unique features excluding placeholders and include inheritance */}
                 {Array.from(
                   new Set(
-                    tiers.flatMap(t => 
-                      (t.features || []).map(f => typeof f === 'string' ? f : (f.title || f.description || ''))
-                    )
+                    orderedTiers.flatMap(t => Array.from(featureSets[t._key] || new Set<string>()))
                   )
-                ).slice(0, 8).map((feature, idx) => (
+                ).filter(Boolean).slice(0, 14).map((feature, idx) => (
                   <tr key={idx} className={idx % 2 === 0 ? 'bg-gray-50' : ''}>
                     <td className="py-3 px-4 text-gray-700 font-medium">{feature}</td>
-                    {tiers.map(tier => {
+                    {orderedTiers.map(tier => {
                       const isSelected = selectedTierKey === tier._key
-                      const hasFeature = (tier.features || []).some(f => (typeof f === 'string' ? f : (f.title || f.description || '')) === feature)
+                      const hasFeature = (featureSets[tier._key] || new Set<string>()).has(feature)
                       return (
                         <td 
                           key={tier._key} 
@@ -260,9 +296,10 @@ export default function TierSelectionModal({
         <div className="flex flex-col md:flex-row gap-4">
           <button
             onClick={() => {
-              const selectedTier = tiers.find(t => t._key === selectedTierKey)
-              if (selectedTier) {
-                onTierSelect(selectedTier)
+              const tier = orderedTiers.find(t => t._key === selectedTierKey)
+              if (tier) {
+                setSelectedTier(tier)
+                setShowRequestFlow(true)
               }
             }}
             disabled={!selectedTierKey}
@@ -283,6 +320,26 @@ export default function TierSelectionModal({
           Prices shown in {currentCurrency.flag} {currentCurrency.code}
         </div>
       </div>
+
+      {/* Unified Service Request Flow */}
+      {showRequestFlow && selectedTier && (
+        <UnifiedServiceRequestFlow
+          serviceId={packageGroup.key?.current || 'service'}
+          serviceName={packageGroup.name}
+          serviceType="tiered"
+          tier={selectedTier}
+          basePrice={selectedTier.price}
+          onClose={() => {
+            setShowRequestFlow(false)
+            setSelectedTier(null)
+          }}
+          onSuccess={(item: ServiceRequestItem) => {
+            console.log('Service request submitted:', item)
+            // TODO: Send to payment or backend
+            onTierSelect(selectedTier)
+          }}
+        />
+      )}
     </div>
   )
 }

@@ -4,7 +4,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { WEB_DEV_PACKAGE_GROUPS } from '@/data/servicePackages';
 import TierSelectionModal from '@/components/services/TierSelectionModal';
-import ServicePaymentModal from '@/components/services/ServicePaymentModal';
+import { ServiceRequestFlow, ServiceCategory as LegacyServiceCategory } from '@/components/services/ServiceRequestFlow';
 import type { ServicePackageGroup, ServicePackageTier } from '@/types/service';
 import { useCurrency } from '@/contexts/CurrencyContext';
 
@@ -13,7 +13,7 @@ export default function WebMobileDevelopmentPage() {
   const [selectedGroup, setSelectedGroup] = useState<ServicePackageGroup | null>(null);
   const [showModal, setShowModal] = useState(false);
   const [selectedTier, setSelectedTier] = useState<ServicePackageTier | null>(null);
-  const [showPaymentModal, setShowPaymentModal] = useState(false);
+  const [showRequestFlow, setShowRequestFlow] = useState(false);
   const { currentCurrency, convertPrice } = useCurrency();
 
   const handleGroupSelect = (group: ServicePackageGroup) => {
@@ -24,7 +24,7 @@ export default function WebMobileDevelopmentPage() {
   const handleTierSelect = (tier: ServicePackageTier) => {
     if (tier) {
       setSelectedTier(tier);
-      setShowPaymentModal(true);
+      setShowRequestFlow(true);
       setShowModal(false);
     }
   };
@@ -34,10 +34,35 @@ export default function WebMobileDevelopmentPage() {
     setSelectedGroup(null);
   };
 
-  const handlePaymentClose = () => {
-    setShowPaymentModal(false);
-    setSelectedTier(null);
+  // Convert tier to legacy service category for ServiceRequestFlow
+  const createServiceCategoryFromTier = (): LegacyServiceCategory | null => {
+    if (!selectedTier || !selectedGroup) return null;
+
+    return {
+      _id: selectedGroup.key?.current || 'tier-service',
+      title: selectedGroup.name,
+      slug: { current: selectedGroup.key?.current || '' },
+      description: selectedGroup.description || 'Service package',
+      icon: '📦',
+      featured: true,
+      serviceType: 'general',
+      packages: [
+        {
+          _key: selectedTier._key,
+          name: selectedTier.name,
+          tier: selectedTier.tier,
+          price: selectedTier.price,
+          currency: selectedTier.currency,
+          billing: selectedTier.billing,
+          deliveryTime: selectedTier.deliveryTime || '7-14 days',
+          features: selectedTier.features || [],
+          popular: selectedTier.popular || false
+        }
+      ]
+    }
   };
+
+  const serviceCategory = showRequestFlow ? createServiceCategoryFromTier() : null;
 
   // Get minimum price for "Starting at" display
   const getMinPrice = (group: ServicePackageGroup) => {
@@ -240,22 +265,14 @@ export default function WebMobileDevelopmentPage() {
         />
       )}
 
-      {/* Service Payment Modal */}
-      {showPaymentModal && selectedTier && selectedGroup && (
-        <ServicePaymentModal
-          isOpen={showPaymentModal}
-          onClose={handlePaymentClose}
-          serviceTitle={selectedGroup.name}
-          serviceSlug={typeof selectedGroup.key === 'object' ? selectedGroup.key.current : String(selectedGroup.key)}
-          packages={[{
-            id: selectedTier._key,
-            name: selectedTier.name,
-            price: selectedTier.price,
-            description: selectedTier.tier,
-            features: selectedTier.features?.map(f => typeof f === 'string' ? f : f.title || '') || [],
-            popular: selectedTier.popular || false,
-            deliveryTime: selectedTier.deliveryTime || ''
-          }]}
+      {/* Service Request Flow */}
+      {showRequestFlow && serviceCategory && (
+        <ServiceRequestFlow
+          serviceCategory={serviceCategory}
+          onClose={() => {
+            setShowRequestFlow(false);
+            setSelectedTier(null);
+          }}
         />
       )}
     </main>
