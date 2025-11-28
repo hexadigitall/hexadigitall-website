@@ -73,10 +73,15 @@ export function CustomBuildProvider({ children }: { children: React.ReactNode })
   );
 }
 
-export function useCustomBuild() {
+export function useCustomBuild(): CustomBuildContextType {
   const context = useContext(CustomBuildContext);
   if (context === undefined) {
-    throw new Error('useCustomBuild must be used within CustomBuildProvider');
+    // Graceful fallback during SSR or when provider is not mounted yet.
+    return {
+      state: { step: 1, core: null, addOns: [] },
+      updateState: () => {},
+      resetState: () => {}
+    };
   }
   return context;
 }

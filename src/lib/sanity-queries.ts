@@ -2,7 +2,7 @@
 import { client } from '@/sanity/client'
 import { ServiceCategory, IndividualService } from '@/types/service'
 import normalizeStatistics from '@/lib/normalizeStatistics'
-import WEB_DEV_PACKAGE_GROUPS, { MARKETING_PACKAGE_GROUPS, PROFILE_PACKAGE_GROUPS, CONSULTING_PACKAGE_GROUPS, BUSINESS_PACKAGE_GROUPS } from '@/data/servicePackages'
+import WEB_DEV_PACKAGE_GROUPS, { MARKETING_PACKAGE_GROUPS, BRANDING_PACKAGE_GROUPS, BUSINESS_PLAN_PACKAGE_GROUPS } from '@/data/servicePackages'
 
 // GROQ query for service category with packages
 const SERVICE_CATEGORY_QUERY = `*[_type == "serviceCategory" && slug.current == $slug][0]{
@@ -358,7 +358,7 @@ export function getFallbackServiceCategory(slug: string): ServiceCategory | null
         }
       ]
     ,
-    packageGroups: BUSINESS_PACKAGE_GROUPS,
+    packageGroups: BUSINESS_PLAN_PACKAGE_GROUPS,
     }
   }
 
@@ -425,7 +425,7 @@ export function getFallbackServiceCategory(slug: string): ServiceCategory | null
       icon: 'monitor',
       featured: false,
       packages: [],
-      packageGroups: PROFILE_PACKAGE_GROUPS,
+      packageGroups: BRANDING_PACKAGE_GROUPS,
       testimonials: [],
       statistics: {
         _id: 'stats-profile',
@@ -453,7 +453,7 @@ export function getFallbackServiceCategory(slug: string): ServiceCategory | null
       icon: 'settings',
       featured: false,
       packages: [],
-      packageGroups: CONSULTING_PACKAGE_GROUPS,
+      packageGroups: MARKETING_PACKAGE_GROUPS,
       testimonials: [],
       statistics: {
         _id: 'stats-consulting',

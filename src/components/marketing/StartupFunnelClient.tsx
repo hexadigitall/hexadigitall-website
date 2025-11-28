@@ -23,13 +23,13 @@ export default function StartupFunnelClient() {
           try {
             const payload = JSON.stringify({ funnel: f, ts: Date.now() })
             sessionStorage.setItem('funnel.arrival', payload)
-          } catch (err) {
+          } catch {
             // ignore storage errors
           }
           // Dispatch a custom event so pages can react (open modals, etc.)
           window.dispatchEvent(new CustomEvent('funnel:arrive', { detail: { funnel: f } }))
         }
-      } catch (err) {
+      } catch {
         // ignore
       }
     }

@@ -109,7 +109,7 @@ export default function StartupFunnel({ className, variant: propVariant }: { cla
       if (match && (match[1] === 'playful' || match[1] === 'guide')) {
         setVariant(match[1] as Variant)
       }
-    } catch (err) {
+    } catch {
       // ignore
     }
   }, [propVariant])

@@ -64,7 +64,7 @@ export default function Step3Summary({
           Your Custom Solution Summary
         </h2>
         <p className="text-lg text-darkText/70">
-          Review your selections and submit your request. We'll get back to you within 24 hours.
+          Review your selections and submit your request. We&apos;ll get back to you within 24 hours.
         </p>
       </div>
 
@@ -175,7 +175,7 @@ export default function Step3Summary({
             </button>
 
             <p className="text-white/70 text-xs mt-4 text-center">
-              We'll contact you within 24 hours with next steps.
+              We&apos;ll contact you within 24 hours with next steps.
             </p>
           </div>
         </div>
@@ -202,7 +202,7 @@ export default function Step3Summary({
         <div className="p-6 bg-green-50 border-2 border-green-200 rounded-lg">
           <p className="text-green-900 font-semibold mb-2">✓ What happens next?</p>
           <ul className="text-green-800 text-sm space-y-1 ml-5 list-disc">
-            <li>We'll review your requirements</li>
+            <li>We&apos;ll review your requirements</li>
             <li>Schedule a brief call to clarify details (if needed)</li>
             <li>Provide a detailed project timeline and scope</li>
             <li>Send a formal proposal with payment terms</li>

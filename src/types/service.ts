@@ -165,6 +165,7 @@ export interface LegacyServiceCategory {
 export interface ServicePackageTier {
   _key: string
   name: string
+  subtitle?: string
   tier: 'basic' | 'standard' | 'premium' | 'enterprise'
   price: number
   currency: string

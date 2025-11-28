@@ -248,13 +248,14 @@ export const WEB_DEV_PACKAGE_GROUPS: ServicePackageGroup[] = [
     ]
   },
   {
-    key: { current: 'custom-web-app' },
-    name: 'Custom Web Application',
-    description: 'Bespoke web applications with complex logic, integrations, and backend systems.',
+    key: { current: 'web-app-development' },
+    name: 'Web Application Development',
+    description: 'Scalable web applications with database, APIs, and modern architecture tailored to your business stage.',
     tiers: [
       {
-        _key: 'custom-webapp-basic',
-        name: 'Custom Web App — Basic',
+        _key: 'webapp-startup',
+        name: 'Web App — Startup Edition',
+        subtitle: 'Perfect for MVPs and early-stage products',
         tier: 'basic',
         price: 2999,
         currency: 'USD',
@@ -275,15 +276,16 @@ export const WEB_DEV_PACKAGE_GROUPS: ServicePackageGroup[] = [
         popular: false
       },
       {
-        _key: 'custom-webapp-standard',
-        name: 'Custom Web App — Standard',
+        _key: 'webapp-business',
+        name: 'Web App — Business Edition',
+        subtitle: 'For growing companies scaling their operations',
         tier: 'standard',
         price: 5999,
         currency: 'USD',
         billing: 'one_time',
         deliveryTime: '28-40 days',
         features: [
-          'Everything in Basic',
+          'Everything in Startup Edition',
           'Up to 20 feature-rich pages/screens',
           'Advanced authentication (2FA, SSO)',
           'Complex data management',
@@ -299,15 +301,16 @@ export const WEB_DEV_PACKAGE_GROUPS: ServicePackageGroup[] = [
         popular: true
       },
       {
-        _key: 'custom-webapp-premium',
-        name: 'Custom Web App — Premium',
+        _key: 'webapp-enterprise',
+        name: 'Web App — Enterprise Edition',
+        subtitle: 'For complex systems requiring maximum flexibility',
         tier: 'premium',
         price: 12999,
         currency: 'USD',
         billing: 'one_time',
         deliveryTime: '40-60 days',
         features: [
-          'Everything in Standard',
+          'Everything in Business Edition',
           'Unlimited pages/screens',
           'Enterprise authentication (OAuth2, SAML)',
           'Microservices architecture',

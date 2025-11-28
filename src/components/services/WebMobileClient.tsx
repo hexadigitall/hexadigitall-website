@@ -117,14 +117,14 @@ export default function WebMobileClient({
     const landing = baseWebPackages.find(p => p.id === 'landing-page')
     const business = baseWebPackages.find(p => p.id === 'business-website')
     const ecommerce = baseWebPackages.find(p => p.id === 'ecommerce-website')
-    const customAppTier = baseWebPackages.find(p => p.id === 'custom-web-app')
+    const customAppTier = baseWebPackages.find(p => p.id === 'web-app-development')
     const packages = [landing, business, ecommerce, customAppTier].filter(Boolean) as typeof baseWebPackages
     return packages.map(pkg => ({
       id: pkg.id,
       name: pkg.id === 'landing-page' ? 'Landing Page Package'
         : pkg.id === 'business-website' ? 'Business Website Package'
         : pkg.id === 'ecommerce-website' ? 'E-commerce Package'
-        : pkg.id === 'custom-web-app' ? 'Custom Web App Package' : pkg.name,
+        : pkg.id === 'web-app-development' ? 'Web App Development' : pkg.name,
       basePrice: pkg.basePrice,
       features: Array.isArray(pkg.features) ? pkg.features.slice(0, 8) : [],
       popular: pkg.popular,

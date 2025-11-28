@@ -136,7 +136,7 @@ export default function Step1Core({ selectedCore, onCoreSelect }: Step1CoreProps
       {selectedCore && (
         <div className="mt-12 p-6 bg-blue-50 border border-blue-200 rounded-lg">
           <p className="text-blue-900 font-medium">
-            ✓ You've selected <strong>{CORE_OPTIONS.find(o => o.id === selectedCore)?.title}</strong>
+            ✓ You&apos;ve selected <strong>{CORE_OPTIONS.find(o => o.id === selectedCore)?.title}</strong>
           </p>
           <p className="text-blue-800 text-sm mt-2">
             Click Next to add optional features and get an instant quote.

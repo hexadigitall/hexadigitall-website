@@ -1,26 +1,18 @@
 'use client';
 
 import { useState } from 'react';
-import type { Metadata } from 'next';
 import Link from 'next/link';
 import { WEB_DEV_PACKAGE_GROUPS } from '@/data/servicePackages';
 import TierSelectionModal from '@/components/services/TierSelectionModal';
 import ServicePaymentModal from '@/components/services/ServicePaymentModal';
-import type { ServicePackageGroup } from '@/types/service';
+import type { ServicePackageGroup, ServicePackageTier } from '@/types/service';
 import { useCurrency } from '@/contexts/CurrencyContext';
 
-// Note: Metadata can't be used with 'use client', but we can export it for reference
-// In a real app, you'd extract this to a separate metadata file
-export const pageMetadata = {
-  title: 'Web & Mobile Development | Hexadigitall',
-  description: 'Custom web applications and mobile apps for your business. Choose from landing pages, business websites, e-commerce stores, and custom web apps.',
-  keywords: ['web development', 'mobile development', 'web app', 'software development', 'Nigeria'],
-};
 
 export default function WebMobileDevelopmentPage() {
   const [selectedGroup, setSelectedGroup] = useState<ServicePackageGroup | null>(null);
   const [showModal, setShowModal] = useState(false);
-  const [selectedTier, setSelectedTier] = useState<any>(null);
+  const [selectedTier, setSelectedTier] = useState<ServicePackageTier | null>(null);
   const [showPaymentModal, setShowPaymentModal] = useState(false);
   const { currentCurrency, convertPrice } = useCurrency();
 
@@ -29,7 +21,7 @@ export default function WebMobileDevelopmentPage() {
     setShowModal(true);
   };
 
-  const handleTierSelect = (tier: any) => {
+  const handleTierSelect = (tier: ServicePackageTier) => {
     if (tier) {
       setSelectedTier(tier);
       setShowPaymentModal(true);
@@ -256,13 +248,13 @@ export default function WebMobileDevelopmentPage() {
           serviceTitle={selectedGroup.name}
           serviceSlug={typeof selectedGroup.key === 'object' ? selectedGroup.key.current : String(selectedGroup.key)}
           packages={[{
-            id: selectedTier._key || selectedTier.id,
+            id: selectedTier._key,
             name: selectedTier.name,
             price: selectedTier.price,
             description: selectedTier.tier,
-            features: selectedTier.features,
-            popular: selectedTier.popular,
-            deliveryTime: selectedTier.deliveryTime
+            features: selectedTier.features?.map(f => typeof f === 'string' ? f : f.title || '') || [],
+            popular: selectedTier.popular || false,
+            deliveryTime: selectedTier.deliveryTime || ''
           }]}
         />
       )}

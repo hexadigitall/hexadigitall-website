@@ -83,7 +83,7 @@ export default function JourneySection({ className = "" }: { className?: string 
             Choose Your Next Step
           </h2>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            We'll guide you to the right service for your stage — a friendly, experienced journey from idea to growth.
+            We&apos;ll guide you to the right service for your stage — a friendly, experienced journey from idea to growth.
           </p>
         </div>
 
@@ -127,7 +127,7 @@ export default function JourneySection({ className = "" }: { className?: string 
         {/* Optional: Additional CTA for Custom Solutions */}
         <div className="mt-12 md:mt-16 text-center">
           <p className="text-gray-600 mb-4">
-            Don't fit into these boxes?
+            Don&apos;t fit into these boxes?
           </p>
           <Link
             href="/services/custom-build"

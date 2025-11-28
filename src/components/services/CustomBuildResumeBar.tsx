@@ -11,13 +11,20 @@ import { useState, useEffect } from 'react';
 export function CustomBuildResumeBar() {
   const { state } = useCustomBuild();
   const [isVisible, setIsVisible] = useState(false);
+  const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
-    // Only show if user has progress beyond step 1
-    setIsVisible(state.step > 1 || state.core !== null);
-  }, [state]);
+    setIsMounted(true);
+  }, []);
 
-  if (!isVisible) return null;
+  useEffect(() => {
+    if (isMounted) {
+      // Only show if user has progress beyond step 1
+      setIsVisible(state.step > 1 || state.core !== null);
+    }
+  }, [state, isMounted]);
+
+  if (!isMounted || !isVisible) return null;
 
   const stepLabels: Record<number, string> = {
     1: 'Core Selection',

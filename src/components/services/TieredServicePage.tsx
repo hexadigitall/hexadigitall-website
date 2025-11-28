@@ -15,7 +15,6 @@ interface TieredServicePageProps {
   journeyStage: 'idea' | 'build' | 'grow'
   packageGroups: ServicePackageGroup[]
   breadcrumbs: { label: string; href?: string }[]
-  heroImage?: string
 }
 
 /**
@@ -35,7 +34,6 @@ export default function TieredServicePage({
   journeyStage,
   packageGroups,
   breadcrumbs,
-  heroImage
 }: TieredServicePageProps) {
   const { currentCurrency, getLocalDiscountMessage } = useCurrency()
   const [selectedGroup, setSelectedGroup] = useState<ServicePackageGroup | null>(null)
@@ -58,7 +56,7 @@ export default function TieredServicePage({
       _id: selectedGroup.key?.current || 'tier-service',
       title: selectedGroup.name,
       slug: { current: selectedGroup.key?.current || '' },
-      description: selectedGroup.description,
+      description: selectedGroup.description || 'Service package',
       icon: '📦',
       featured: true,
       serviceType: 'general',

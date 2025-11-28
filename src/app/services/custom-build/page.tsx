@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import dynamic from 'next/dynamic';
@@ -14,7 +14,7 @@ import type { CoreType, SelectedAddOn } from './types';
 
 const STORAGE_KEY = 'hexadigitall_custom_build';
 
-export default function CustomBuildPage() {
+function CustomBuildInner() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [currentStep, setCurrentStep] = useState(1);
@@ -32,7 +32,7 @@ export default function CustomBuildPage() {
     if (addOnsParam) {
       try {
         addOns = JSON.parse(decodeURIComponent(addOnsParam));
-      } catch (e) {
+      } catch {
         // Fall back to localStorage if URL param is invalid
         const stored = localStorage.getItem(STORAGE_KEY);
         if (stored) {
@@ -187,7 +187,6 @@ export default function CustomBuildPage() {
 
           {currentStep === 2 && selectedCore && (
             <Step2AddOns
-              coreType={selectedCore}
               selectedAddOns={selectedAddOns}
               onAddOnsChange={handleAddOnsChange}
               onProceed={handleProceedToSummary}
@@ -223,5 +222,20 @@ export default function CustomBuildPage() {
         </section>
       )}
     </main>
+  );
+}
+
+export default function CustomBuildPage() {
+  return (
+    <Suspense fallback={
+      <main className="min-h-screen bg-gradient-to-b from-white via-blue-50 to-white flex items-center justify-center">
+        <div className="text-center">
+          <div className="inline-block animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary"></div>
+          <p className="mt-4 text-darkText">Loading your progress...</p>
+        </div>
+      </main>
+    }>
+      <CustomBuildInner />
+    </Suspense>
   );
 }

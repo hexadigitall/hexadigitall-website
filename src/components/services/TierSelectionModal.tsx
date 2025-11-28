@@ -114,9 +114,16 @@ export default function TierSelectionModal({
                 )}
 
                 {/* Tier Name */}
-                <h3 className="text-xl font-bold text-gray-900 mb-3 pr-10">
+                <h3 className="text-xl font-bold text-gray-900 mb-2 pr-10">
                   {tier.name}
                 </h3>
+
+                {/* Subtitle - Best For */}
+                {tier.subtitle && (
+                  <p className="text-sm text-gray-600 mb-3 italic leading-snug pr-8">
+                    {tier.subtitle}
+                  </p>
+                )}
 
                 {/* Price */}
                 <div className="mb-6">
@@ -187,11 +194,24 @@ export default function TierSelectionModal({
               <thead>
                 <tr className="border-b-2 border-gray-200">
                   <th className="text-left py-3 px-4 font-bold text-gray-900">Feature</th>
-                  {tiers.map(tier => (
-                    <th key={tier._key} className="text-center py-3 px-4 font-bold text-gray-900">
-                      {tier.name}
-                    </th>
-                  ))}
+                  {tiers.map(tier => {
+                    const isSelected = selectedTierKey === tier._key
+                    return (
+                      <th 
+                        key={tier._key} 
+                        className={`text-center py-3 px-4 font-bold transition-all ${
+                          isSelected 
+                            ? 'text-primary bg-primary/10 border-l-4 border-r-4 border-primary' 
+                            : 'text-gray-900'
+                        }`}
+                      >
+                        {tier.name}
+                        {isSelected && (
+                          <div className="text-xs font-normal text-primary mt-1">✓ Selected</div>
+                        )}
+                      </th>
+                    )
+                  })}
                 </tr>
               </thead>
               <tbody>
@@ -204,16 +224,31 @@ export default function TierSelectionModal({
                   )
                 ).slice(0, 8).map((feature, idx) => (
                   <tr key={idx} className={idx % 2 === 0 ? 'bg-gray-50' : ''}>
-                    <td className="py-3 px-4 text-gray-700">{feature}</td>
-                    {tiers.map(tier => (
-                      <td key={tier._key} className="text-center py-3 px-4">
-                        {(tier.features || []).some(f => (typeof f === 'string' ? f : (f.title || f.description || '')) === feature) && (
-                          <svg className="w-5 h-5 text-green-600 mx-auto" fill="currentColor" viewBox="0 0 20 20">
-                            <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                          </svg>
-                        )}
-                      </td>
-                    ))}
+                    <td className="py-3 px-4 text-gray-700 font-medium">{feature}</td>
+                    {tiers.map(tier => {
+                      const isSelected = selectedTierKey === tier._key
+                      const hasFeature = (tier.features || []).some(f => (typeof f === 'string' ? f : (f.title || f.description || '')) === feature)
+                      return (
+                        <td 
+                          key={tier._key} 
+                          className={`text-center py-3 px-4 transition-all ${
+                            isSelected ? 'bg-primary/5 border-l-4 border-r-4 border-primary' : ''
+                          }`}
+                        >
+                          {hasFeature && (
+                            <svg 
+                              className={`w-5 h-5 mx-auto ${
+                                isSelected ? 'text-primary' : 'text-green-600'
+                              }`} 
+                              fill="currentColor" 
+                              viewBox="0 0 20 20"
+                            >
+                              <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                            </svg>
+                          )}
+                        </td>
+                      )
+                    })}
                   </tr>
                 ))}
               </tbody>

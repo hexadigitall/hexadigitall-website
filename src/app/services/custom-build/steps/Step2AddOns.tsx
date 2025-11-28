@@ -1,10 +1,8 @@
 'use client';
 
-import { useState } from 'react';
-import type { CoreType, SelectedAddOn } from '../types';
+import type { SelectedAddOn } from '../types';
 
 interface Step2AddOnsProps {
-  coreType: CoreType;
   selectedAddOns: SelectedAddOn[];
   onAddOnsChange: (addOns: SelectedAddOn[]) => void;
   onProceed: () => void;
@@ -57,7 +55,6 @@ const ADDON_OPTIONS = [
 ];
 
 export default function Step2AddOns({
-  coreType,
   selectedAddOns,
   onAddOnsChange,
   onProceed,

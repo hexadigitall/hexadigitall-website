@@ -127,7 +127,7 @@ export const ServiceRequestFlow: React.FC<ServiceRequestFlowProps> = ({
       }
       // clear marker so we don't repeatedly show
       sessionStorage.removeItem('funnel.arrival')
-    } catch (err) {
+    } catch {
       // ignore
     }
   }, [])

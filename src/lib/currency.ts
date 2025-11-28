@@ -415,9 +415,9 @@ export const SERVICE_PRICING: Record<string, PricingTier[]> = {
       cta: 'Launch My Store'
     },
     {
-      id: 'custom-web-app',
-      name: 'Custom Web App',
-      description: 'Fully custom web application with advanced functionality and integrations',
+      id: 'web-app-development',
+      name: 'Web App Development',
+      description: 'Scalable web application with database, APIs, and modern architecture',
       basePrice: 1079,
       features: [
         'Custom feature development',

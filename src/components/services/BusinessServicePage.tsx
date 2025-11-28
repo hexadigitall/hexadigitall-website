@@ -61,7 +61,16 @@ export default function BusinessServicePage({
             { label: 'Services', href: '/services' },
             { label: serviceCategory.title }
           ]} />
-          
+        </div>
+      </div>
+
+      {/* Hero Section */}
+      <div className="relative py-20 overflow-hidden">
+        <div className="absolute inset-0">
+          <div className="absolute inset-0 bg-gradient-to-br from-blue-600/10 via-indigo-600/10 to-purple-600/10"></div>
+          <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-gradient-to-r from-blue-400/20 to-indigo-400/20 rounded-full blur-3xl animate-pulse"></div>
+          <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-gradient-to-r from-indigo-400/20 to-purple-400/20 rounded-full blur-2xl animate-pulse" style={{animationDelay: '1s'}}></div>
+        </div>
         
         <div className="container mx-auto px-6 relative z-10">
           <div className="text-center mb-16">
