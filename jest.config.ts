@@ -2,16 +2,18 @@ import type { Config } from '@jest/types';
 
 const config: Config.InitialOptions = {
   preset: 'ts-jest',
-  testEnvironment: 'node',
-  roots: ['<rootDir>/scripts'],
+  testEnvironment: 'jsdom',
+  roots: ['<rootDir>/scripts', '<rootDir>/src'],
   transform: {
-    '^.+\\.tsx?$': ['ts-jest', {
-      tsconfig: 'scripts/tsconfig.json'
-    }]
+    '^.+\\.(ts|tsx)$': ['ts-jest', { tsconfig: 'scripts/tsconfig.json' }],
   },
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
-  testMatch: ['**/__tests__/**/*.test.ts'],
+  testMatch: ['**/__tests__/**/*.(test|spec).?(ts|tsx|js)'],
   setupFilesAfterEnv: ['<rootDir>/scripts/jest.setup.ts'],
+  moduleNameMapper: {
+    '^@/(.*)$': '<rootDir>/src/$1'
+  },
+  clearMocks: true,
 };
 
 export default config;

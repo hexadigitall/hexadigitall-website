@@ -56,7 +56,6 @@
     "react-parallax-tilt": "^1.7.310",
     "resend": "^6.0.3",
     "sanity": "^4.19.0",
-
     "styled-components": "^6.1.19",
     "use-shopping-cart": "^3.2.0"
   },
@@ -70,6 +69,8 @@
     "@next/bundle-analyzer": "^15.5.3",
     "@tailwindcss/postcss": "^4.1.12",
     "@tailwindcss/typography": "^0.5.16",
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/react": "^16.3.0",
     "@types/jest": "^30.0.0",
     "@types/next": "^8.0.7",
     "@types/node": "^20.19.13",
