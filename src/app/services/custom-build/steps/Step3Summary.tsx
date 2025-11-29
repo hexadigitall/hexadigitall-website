@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { useCurrency } from '@/contexts/CurrencyContext';
 import type { CoreType, SelectedAddOn } from '../types';
@@ -31,8 +31,15 @@ export default function Step3Summary({
   onBack,
   onReset
 }: Step3SummaryProps) {
-  const { currentCurrency, convertPrice } = useCurrency();
+  const { currentCurrency, convertPrice, isLocalCurrency, isLaunchSpecialActive } = useCurrency();
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const headingRef = useRef<HTMLHeadingElement>(null);
+  const priceLiveRegionRef = useRef<HTMLDivElement>(null);
+
+  // Focus heading on mount for accessibility
+  useEffect(() => {
+    headingRef.current?.focus();
+  }, []);
 
   if (!coreType) return null;
 
@@ -40,27 +47,74 @@ export default function Step3Summary({
   const addOnsPrice = selectedAddOns.reduce((sum, addon) => sum + addon.price, 0);
   const totalPrice = corePrice + addOnsPrice;
 
-  const convertedCorePrice = convertPrice(corePrice, currentCurrency.code);
-  const convertedAddOnsPrice = convertPrice(addOnsPrice, currentCurrency.code);
-  const convertedTotalPrice = convertPrice(totalPrice, currentCurrency.code);
+  // Apply Nigerian launch special discount (50% off) if applicable using shared currency context logic
+  const discountActive = isLocalCurrency() && currentCurrency.code === 'NGN' && isLaunchSpecialActive();
+  const discountedCorePrice = discountActive ? corePrice * 0.5 : corePrice;
+  const discountedAddOnsPrice = discountActive ? addOnsPrice * 0.5 : addOnsPrice;
+  const discountedTotalPrice = discountActive ? totalPrice * 0.5 : totalPrice;
+
+  const convertedCorePrice = convertPrice(discountedCorePrice, currentCurrency.code);
+  const convertedAddOnsPrice = convertPrice(discountedAddOnsPrice, currentCurrency.code);
+  const convertedTotalPrice = convertPrice(discountedTotalPrice, currentCurrency.code);
 
   const handleSubmit = async () => {
     setIsSubmitting(true);
-    // TODO: Handle form submission to contact form or payment flow
-    console.log('Submitting custom build request:', {
-      coreType,
-      selectedAddOns,
-      totalPrice: convertedTotalPrice
-    });
-    // Simulate submission
-    await new Promise(resolve => setTimeout(resolve, 1500));
-    setIsSubmitting(false);
+    try {
+      // Recompute discounted total price with shared logic
+      const discountActive = isLocalCurrency() && currentCurrency.code === 'NGN' && isLaunchSpecialActive();
+      const finalDiscountedTotal = discountActive ? totalPrice * 0.5 : totalPrice;
+      const finalConvertedPrice = convertPrice(finalDiscountedTotal, currentCurrency.code);
+      
+      const response = await fetch('/api/service-checkout', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          serviceId: `custom-build-${coreType}`,
+          serviceName: `Custom ${coreType.charAt(0).toUpperCase() + coreType.slice(1)} Development`,
+          serviceType: 'customizable',
+          basePrice: finalConvertedPrice,
+          total: finalConvertedPrice,
+          currency: currentCurrency.code,
+          customBuildDetails: {
+            coreType,
+            corePrice: convertPrice(discountActive ? corePrice * 0.5 : corePrice, currentCurrency.code),
+            selectedAddOns: selectedAddOns.map(addon => ({
+              ...addon,
+              price: convertPrice(discountActive ? addon.price * 0.5 : addon.price, currentCurrency.code)
+            }))
+          },
+          customerInfo: {
+            name: '',
+            email: '',
+            phone: '',
+            company: '',
+            details: `Custom build request: ${coreType} with ${selectedAddOns.length} add-ons`
+          }
+        }),
+      });
+
+      if (!response.ok) {
+        const error = await response.json();
+        throw new Error(error.message || 'Checkout failed');
+      }
+
+      const { url } = await response.json();
+      if (url) {
+        window.location.href = url;
+      }
+    } catch (error) {
+      console.error('Checkout error:', error);
+      alert('Payment initialization failed. Please try again or contact support.');
+      setIsSubmitting(false);
+    }
   };
 
   return (
     <div className="max-w-4xl mx-auto">
       <div className="text-center mb-12">
-        <h2 className="text-3xl md:text-4xl font-bold font-heading mb-4 text-primary">
+        <h2 ref={headingRef} tabIndex={-1} className="text-3xl md:text-4xl font-bold font-heading mb-4 text-primary focus:outline-none">
           Your Custom Solution Summary
         </h2>
         <p className="text-lg text-darkText/70">
@@ -103,7 +157,8 @@ export default function Step3Summary({
                 </h3>
                 <div className="space-y-3">
                   {selectedAddOns.map((addon) => {
-                    const convertedAddonPrice = convertPrice(addon.price, currentCurrency.code);
+                    const discountedAddonPrice = discountActive ? addon.price * 0.5 : addon.price;
+                    const convertedAddonPrice = convertPrice(discountedAddonPrice, currentCurrency.code);
                     return (
                       <div key={addon.id} className="flex items-center justify-between p-4 bg-gray-50 rounded-lg border border-gray-200">
                         <div className="flex items-center gap-3">
@@ -132,7 +187,7 @@ export default function Step3Summary({
 
         {/* Price Summary Card - Sticky */}
         <div className="md:col-span-1">
-          <div className="sticky top-4 bg-gradient-to-br from-primary to-secondary rounded-lg p-8 text-white shadow-xl">
+          <div ref={priceLiveRegionRef} aria-live="polite" className="sticky top-4 bg-gradient-to-br from-primary to-secondary rounded-lg p-8 text-white shadow-xl">
             <h3 className="text-lg font-bold mb-6">Total Investment</h3>
 
             {/* Breakdown */}
@@ -161,7 +216,7 @@ export default function Step3Summary({
                 {currentCurrency.symbol}{Math.round(convertedTotalPrice).toLocaleString()}
               </p>
               <p className="text-white/80 text-xs mt-2">
-                One-time investment ({currentCurrency.code})
+                One-time investment ({currentCurrency.code}){discountActive ? ' • 50% launch discount applied' : ''}
               </p>
             </div>
 

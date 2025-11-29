@@ -1,5 +1,7 @@
 'use client';
 
+import { useRef, useEffect } from 'react';
+import { useCurrency } from '@/contexts/CurrencyContext';
 import type { SelectedAddOn } from '../types';
 
 interface Step2AddOnsProps {
@@ -60,6 +62,15 @@ export default function Step2AddOns({
   onProceed,
   onBack
 }: Step2AddOnsProps) {
+  const { currentCurrency, convertPrice, isLocalCurrency, isLaunchSpecialActive } = useCurrency();
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const liveRegionRef = useRef<HTMLDivElement>(null);
+
+  // Focus heading when component mounts for accessibility
+  useEffect(() => {
+    sectionRef.current?.focus();
+  }, []);
+
   const handleToggleAddOn = (addon: SelectedAddOn) => {
     const exists = selectedAddOns.some(a => a.id === addon.id);
     if (exists) {
@@ -67,23 +78,36 @@ export default function Step2AddOns({
     } else {
       onAddOnsChange([...selectedAddOns, addon]);
     }
+    // Maintain scroll position
+    setTimeout(() => {
+      sectionRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 50);
   };
 
   const totalAddOnPrice = selectedAddOns.reduce((sum, addon) => sum + addon.price, 0);
+  
+  // Apply Nigerian launch special discount (50% off) if applicable
+  const getDiscountedPrice = (price: number) => {
+    return (isLocalCurrency() && currentCurrency.code === 'NGN' && isLaunchSpecialActive()) 
+      ? price * 0.5 
+      : price;
+  };
+  
+  const convertedTotalAddOnPrice = convertPrice(getDiscountedPrice(totalAddOnPrice), currentCurrency.code);
 
   return (
-    <div className="max-w-5xl mx-auto">
-      <div className="text-center mb-12">
-        <h2 className="text-3xl md:text-4xl font-bold font-heading mb-4 text-primary">
+    <div ref={sectionRef} tabIndex={-1} className="max-w-5xl mx-auto scroll-mt-24 outline-none">
+      <div className="text-center mb-12 px-2 sm:px-0">
+        <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold font-heading mb-4 text-primary">
           Add Optional Features
         </h2>
-        <p className="text-lg text-darkText/70">
+        <p className="text-base sm:text-lg text-darkText/70">
           Enhance your project with these optional add-ons. You can always add them later!
         </p>
       </div>
 
       {/* Add-ons Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 mb-12">
         {ADDON_OPTIONS.map((addonOption) => {
           const isSelected = selectedAddOns.some(a => a.id === addonOption.id);
           return (
@@ -115,19 +139,19 @@ export default function Step2AddOns({
 
               {/* Content */}
               <div className="pr-8">
-                <h3 className={`text-lg font-bold mb-1 transition-colors ${
+                <h3 className={`text-base sm:text-lg font-bold mb-1 transition-colors ${
                   isSelected ? 'text-accent' : 'text-darkText'
                 }`}>
                   {addonOption.name}
                 </h3>
-                <p className="text-sm text-darkText/70 mb-4">
+                <p className="text-xs sm:text-sm text-darkText/70 mb-4">
                   {addonOption.description}
                 </p>
 
                 {/* Features */}
                 <ul className="space-y-1 mb-4">
                   {addonOption.features.map((feature, idx) => (
-                    <li key={idx} className="flex items-start gap-2 text-xs text-darkText/70">
+                    <li key={idx} className="flex items-start gap-2 text-[10px] sm:text-xs text-darkText/70">
                       <span className="text-green-600 mt-0.5">•</span>
                       <span>{feature}</span>
                     </li>
@@ -135,8 +159,8 @@ export default function Step2AddOns({
                 </ul>
 
                 {/* Price */}
-                <p className="font-bold text-accent text-lg">
-                  +${addonOption.price}
+                <p className="font-bold text-accent text-sm sm:text-lg">
+                  +{currentCurrency.symbol}{Math.round(convertPrice(getDiscountedPrice(addonOption.price), currentCurrency.code)).toLocaleString()}
                 </p>
               </div>
             </button>
@@ -145,16 +169,17 @@ export default function Step2AddOns({
       </div>
 
       {/* Summary Card */}
-      <div className="bg-gradient-to-r from-primary/5 to-secondary/5 border-2 border-primary/20 rounded-lg p-6 mb-8">
+      <div ref={liveRegionRef} aria-live="polite" className="bg-gradient-to-r from-primary/5 to-secondary/5 border-2 border-primary/20 rounded-lg p-4 sm:p-6 mb-8">
         <div className="flex items-center justify-between">
           <div>
             <p className="text-sm text-darkText/70 mb-1">Additional Add-ons Selected</p>
-            <p className="text-3xl font-bold text-primary">
-              +${totalAddOnPrice}
+            <p className="text-2xl sm:text-3xl font-bold text-primary">
+              +{currentCurrency.symbol}{Math.round(convertedTotalAddOnPrice).toLocaleString()}
             </p>
+            <p className="text-xs text-darkText/60 mt-1">{currentCurrency.code}</p>
           </div>
           <div className="text-right">
-            <p className="text-4xl font-bold text-accent mb-1">
+            <p className="text-3xl sm:text-4xl font-bold text-accent mb-1">
               {selectedAddOns.length}
             </p>
             <p className="text-sm text-darkText/70">
@@ -165,7 +190,7 @@ export default function Step2AddOns({
       </div>
 
       {/* Action Buttons */}
-      <div className="flex gap-4">
+      <div className="flex flex-col sm:flex-row gap-4">
         <button
           onClick={onBack}
           className="flex-1 px-6 py-4 border-2 border-gray-300 rounded-lg font-semibold text-darkText hover:bg-gray-50 transition-colors"
@@ -181,7 +206,7 @@ export default function Step2AddOns({
       </div>
 
       {/* Help Text */}
-      <div className="mt-8 p-4 bg-blue-50 border border-blue-200 rounded-lg">
+      <div className="mt-8 p-4 bg-blue-50 border border-blue-200 rounded-lg text-xs sm:text-sm">
         <p className="text-blue-900 text-sm">
           💡 <strong>Tip:</strong> Add-ons can be modified later. Proceed to the summary to see your total investment and submit your request.
         </p>

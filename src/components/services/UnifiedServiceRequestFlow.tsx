@@ -1,6 +1,6 @@
-'use client'
+"use client"
 
-import React, { useState } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import { useCurrency } from '@/contexts/CurrencyContext'
 import type { ServicePackageTier, ServiceAddOn, ServiceRequestItem } from '@/types/service'
 
@@ -12,11 +12,7 @@ interface UnifiedServiceRequestFlowProps {
   serviceName: string
   serviceType: ServiceType
   tier?: ServicePackageTier // for tiered services
-  basePrice: number
-  currency?: string // optional, uses context
-  availableAddOns?: ServiceAddOn[]
   onClose: () => void
-  onSuccess?: (item: ServiceRequestItem) => void
 }
 
 export default function UnifiedServiceRequestFlow({
@@ -24,14 +20,20 @@ export default function UnifiedServiceRequestFlow({
   serviceName,
   serviceType,
   tier,
-  basePrice,
-  availableAddOns = [],
-  onClose,
-  onSuccess
+  onClose
 }: UnifiedServiceRequestFlowProps) {
-  const { currentCurrency, convertPrice } = useCurrency()
+  // Extract basePrice from tier if available
+  const basePrice = tier?.price || 0
+  // Get available add-ons - tier packages typically don't have addOns property
+  // For tiered services, we skip the addons step
+  const availableAddOns: ServiceAddOn[] = []
+  const { currentCurrency, convertPrice, isLocalCurrency, isLaunchSpecialActive } = useCurrency()
+  const dialogRef = useRef<HTMLDivElement>(null)
+  const stepHeadingRef = useRef<HTMLHeadingElement>(null)
+  const priceLiveRegionRef = useRef<HTMLDivElement>(null)
   const [currentStep, setCurrentStep] = useState<FlowStep>('review')
   const [selectedAddOns, setSelectedAddOns] = useState<Set<string>>(new Set())
+  const [isProcessing, setIsProcessing] = useState(false)
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -41,10 +43,20 @@ export default function UnifiedServiceRequestFlow({
   })
   const [formErrors, setFormErrors] = useState<Record<string, string>>({})
 
-  const convertedPrice = convertPrice(basePrice, currentCurrency.code)
+  // Apply Nigerian launch special discount (50% off) if applicable - for NGN users only
+  const discountedBasePrice = (isLocalCurrency() && currentCurrency.code === 'NGN' && isLaunchSpecialActive()) 
+    ? basePrice * 0.5 
+    : basePrice
+  
+  const convertedPrice = convertPrice(discountedBasePrice, currentCurrency.code)
   const addOnsTotal = Array.from(selectedAddOns).reduce((sum, key) => {
     const addon = availableAddOns.find(a => a._key === key)
-    return sum + (addon ? convertPrice(addon.price, currentCurrency.code) : 0)
+    const addonPrice = addon?.price || 0
+    // Apply discount to add-ons as well for NGN users
+    const discountedAddonPrice = (isLocalCurrency() && currentCurrency.code === 'NGN' && isLaunchSpecialActive())
+      ? addonPrice * 0.5
+      : addonPrice
+    return sum + convertPrice(discountedAddonPrice, currentCurrency.code)
   }, 0)
   const totalPrice = convertedPrice + addOnsTotal
 
@@ -83,6 +95,10 @@ export default function UnifiedServiceRequestFlow({
         setCurrentStep('payment')
       }
     }
+    // After step change, focus on heading for accessibility
+    setTimeout(() => {
+      stepHeadingRef.current?.focus()
+    }, 50)
   }
 
   const handleBack = () => {
@@ -95,6 +111,9 @@ export default function UnifiedServiceRequestFlow({
     } else if (currentStep === 'addons') {
       setCurrentStep('review')
     }
+    setTimeout(() => {
+      stepHeadingRef.current?.focus()
+    }, 50)
   }
 
   const handleSubmit = async () => {
@@ -113,21 +132,49 @@ export default function UnifiedServiceRequestFlow({
       total: totalPrice
     }
 
-    if (onSuccess) {
-      onSuccess(item)
-    }
+    setIsProcessing(true)
+    try {
+      const response = await fetch('/api/service-checkout', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          ...item,
+          customerInfo: formData,
+          currency: currentCurrency.code,
+        }),
+      })
 
-    // TODO: Redirect to payment or send to backend
-    console.log('Service Request Item:', item)
+      if (!response.ok) {
+        const error = await response.json()
+        throw new Error(error.message || 'Checkout failed')
+      }
+
+      const { url } = await response.json()
+      if (url) {
+        window.location.href = url
+      }
+    } catch (error) {
+      console.error('Checkout error:', error)
+      setFormErrors({
+        submit: error instanceof Error ? error.message : 'Payment failed. Please try again.'
+      })
+      setIsProcessing(false)
+    }
   }
 
+  useEffect(() => {
+    dialogRef.current?.focus()
+  }, [])
+
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 overflow-y-hidden">
-      <div className="bg-white rounded-2xl max-w-2xl w-full p-6 md:p-8 relative my-8 max-h-[90vh] overflow-y-auto">
+    <div className="fixed inset-0 z-[60] flex items-center justify-center p-4 bg-black/50 overflow-y-hidden" onClick={onClose}>
+      <div ref={dialogRef} tabIndex={-1} aria-modal="true" role="dialog" aria-label={`Service request flow for ${serviceName}`} className="bg-white rounded-2xl max-w-2xl w-full p-6 md:p-8 relative my-8 max-h-[90vh] overflow-y-auto outline-none" onClick={(e) => e.stopPropagation()}>
         {/* Close Button */}
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 transition-colors"
+          className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center rounded-full hover:bg-gray-100"
           aria-label="Close"
         >
           <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -176,7 +223,7 @@ export default function UnifiedServiceRequestFlow({
         {/* Review Step */}
         {currentStep === 'review' && (
           <div>
-            <h2 className="text-2xl font-bold text-gray-900 mb-6">Review Your Selection</h2>
+            <h2 ref={stepHeadingRef} tabIndex={-1} className="text-2xl font-bold text-gray-900 mb-6 focus:outline-none">Review Your Selection</h2>
             <div className="bg-blue-50 border-l-4 border-primary p-4 rounded mb-6">
               <h3 className="font-semibold text-gray-900 mb-2">{serviceName}</h3>
               <p className="text-sm text-gray-700 mb-3">{serviceType === 'tiered' ? `Tier: ${tier?.name}` : 'Individual Service'}</p>
@@ -212,7 +259,7 @@ export default function UnifiedServiceRequestFlow({
         {/* Add-Ons Step (for customizable services) */}
         {currentStep === 'addons' && availableAddOns.length > 0 && (
           <div>
-            <h2 className="text-2xl font-bold text-gray-900 mb-6">Customize Your Service</h2>
+            <h2 ref={stepHeadingRef} tabIndex={-1} className="text-2xl font-bold text-gray-900 mb-6 focus:outline-none">Customize Your Service</h2>
             <div className="space-y-3 mb-6">
               {availableAddOns.map(addon => {
                 const convertedAddonPrice = convertPrice(addon.price, currentCurrency.code)
@@ -242,7 +289,7 @@ export default function UnifiedServiceRequestFlow({
             </div>
 
             {/* Price Summary */}
-            <div className="bg-gray-50 p-4 rounded-lg mb-6">
+            <div ref={priceLiveRegionRef} aria-live="polite" className="bg-gray-50 p-4 rounded-lg mb-6">
               <div className="flex justify-between mb-2">
                 <span className="text-gray-700">Base Price:</span>
                 <span className="font-semibold">{currentCurrency.symbol}{Math.round(convertedPrice).toLocaleString()}</span>
@@ -264,7 +311,7 @@ export default function UnifiedServiceRequestFlow({
         {/* Details Step */}
         {currentStep === 'details' && (
           <div>
-            <h2 className="text-2xl font-bold text-gray-900 mb-6">Your Details</h2>
+            <h2 ref={stepHeadingRef} tabIndex={-1} className="text-2xl font-bold text-gray-900 mb-6 focus:outline-none">Your Details</h2>
             <div className="space-y-4">
               <div>
                 <label htmlFor="name" className="block text-sm font-semibold text-gray-700 mb-1">
@@ -352,7 +399,7 @@ export default function UnifiedServiceRequestFlow({
         {/* Payment Step */}
         {currentStep === 'payment' && (
           <div>
-            <h2 className="text-2xl font-bold text-gray-900 mb-6">Order Summary & Payment</h2>
+            <h2 ref={stepHeadingRef} tabIndex={-1} className="text-2xl font-bold text-gray-900 mb-6 focus:outline-none">Order Summary & Payment</h2>
             
             {/* Order Summary */}
             <div className="bg-gray-50 p-4 rounded-lg mb-6">
@@ -393,6 +440,12 @@ export default function UnifiedServiceRequestFlow({
             <p className="text-xs text-gray-600 mb-6">
               By clicking &quot;Complete Payment&quot; you agree to our Terms of Service and will be redirected to secure payment.
             </p>
+
+            {formErrors.submit && (
+              <div className="bg-red-50 border border-red-200 p-3 rounded-lg mb-4">
+                <p className="text-red-700 text-sm">{formErrors.submit}</p>
+              </div>
+            )}
           </div>
         )}
 
@@ -401,20 +454,29 @@ export default function UnifiedServiceRequestFlow({
           {currentStep !== 'review' && (
             <button
               onClick={handleBack}
-              className="flex-1 border-2 border-gray-300 text-gray-700 py-3 px-6 rounded-xl font-semibold hover:border-gray-400 transition-colors"
+              className="flex-1 min-h-[44px] border-2 border-gray-300 text-gray-700 py-3 px-6 rounded-xl font-semibold hover:border-gray-400 active:scale-95 transition-all"
             >
               Back
             </button>
           )}
           <button
             onClick={currentStep === 'payment' ? handleSubmit : handleContinue}
-            className={`flex-1 text-white py-3 px-6 rounded-xl font-semibold transition-colors ${
+            disabled={isProcessing}
+            className={`flex-1 min-h-[44px] text-white py-3 px-6 rounded-xl font-semibold active:scale-95 transition-all ${
               currentStep === 'payment'
-                ? 'bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700'
+                ? 'bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 disabled:from-green-300 disabled:to-green-400'
                 : 'bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70'
             }`}
           >
-            {currentStep === 'payment' ? 'Complete Payment' : 'Continue'}
+            {isProcessing ? (
+              <span className="flex items-center justify-center">
+                <svg className="animate-spin -ml-1 mr-3 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                  <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                  <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg>
+                Processing...
+              </span>
+            ) : currentStep === 'payment' ? 'Complete Payment' : 'Continue'}
           </button>
         </div>
       </div>
