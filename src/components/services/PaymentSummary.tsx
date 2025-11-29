@@ -32,7 +32,7 @@ export const PaymentSummary: React.FC<PaymentSummaryProps> = ({
 }) => {
   const [isProcessing, setIsProcessing] = useState(false)
   const [error, setError] = useState<string | null>(null)
-  const { formatPrice } = useCurrency()
+  const { formatPrice, currentCurrency, convertPrice, isLocalCurrency, isLaunchSpecialActive } = useCurrency()
 
   const calculatePaymentBreakdown = () => {
     if (!selectedPaymentPlan) return null
@@ -71,6 +71,17 @@ export const PaymentSummary: React.FC<PaymentSummaryProps> = ({
     setError(null)
 
     try {
+      // For display, formatPrice already applies the Nigerian discount
+      // So totalAmount from props is the base USD price
+      // We need to apply discount here too before sending to API
+      let finalAmount = totalAmount
+      if (isLocalCurrency() && currentCurrency.code === 'NGN' && isLaunchSpecialActive()) {
+        finalAmount = totalAmount * 0.5 // 50% discount to match display
+      }
+      
+      // Convert discounted amount to selected currency
+      const convertedAmount = convertPrice(finalAmount, currentCurrency.code)
+      
       const response = await fetch('/api/service-request', {
         method: 'POST',
         headers: {
@@ -83,7 +94,8 @@ export const PaymentSummary: React.FC<PaymentSummaryProps> = ({
           selectedPaymentPlan,
           clientInfo,
           projectDetails,
-          totalAmount
+          totalAmount: convertedAmount,
+          currency: currentCurrency.code
         }),
       })
 
@@ -93,9 +105,10 @@ export const PaymentSummary: React.FC<PaymentSummaryProps> = ({
         throw new Error(data.error || 'Failed to create service request')
       }
 
-      // Redirect to Stripe Checkout
-      if (data.checkoutUrl) {
-        window.location.href = data.checkoutUrl
+      // Redirect to Paystack Checkout (support both 'url' from Paystack and 'checkoutUrl' for backwards compatibility)
+      const redirectUrl = data.url || data.checkoutUrl
+      if (redirectUrl) {
+        window.location.href = redirectUrl
       } else {
         throw new Error('No checkout URL received')
       }

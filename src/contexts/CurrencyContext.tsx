@@ -25,6 +25,7 @@ interface CurrencyContextType {
   }) => string;
   convertPrice: (usdPrice: number, toCurrency?: string) => number;
   isLocalCurrency: () => boolean;
+  isLaunchSpecialActive: () => boolean;
   getLocalDiscountMessage: () => string | null;
   isLoading: boolean;
 }
@@ -133,6 +134,10 @@ export function CurrencyProvider({ children }: CurrencyProviderProps) {
     return currencyService.isLocalCurrency();
   };
 
+  const isLaunchSpecialActive = () => {
+    return currencyService.isLaunchSpecialActive();
+  };
+
   const getLocalDiscountMessage = () => {
     return currencyService.getLocalDiscountMessage();
   };
@@ -146,6 +151,7 @@ export function CurrencyProvider({ children }: CurrencyProviderProps) {
     formatPriceRange,
     convertPrice,
     isLocalCurrency,
+    isLaunchSpecialActive,
     getLocalDiscountMessage,
     isLoading,
   };

@@ -1,37 +1,100 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# HexaDigitall - Digital Services Platform
 
-## Getting Started
+A modern Next.js application offering tiered digital services with integrated Paystack payment processing.
 
-First, run the development server:
+## Features
+
+- **Multi-tier Service Packages** - Web development, business planning, marketing, and branding services
+- **Paystack Payment Integration** - Secure payment processing with support for NGN and USD
+- **Multi-step Purchase Flow** - Tier selection → Add-ons → Customer details → Payment
+- **Responsive Design** - Tailwind CSS with mobile-first approach
+- **Sanity CMS Integration** - Content management for blogs, FAQs, and services
+
+## Quick Start
+
+### Prerequisites
+- Node.js 18+ 
+- npm/yarn/pnpm
+- Paystack account (test or live keys)
+
+### Installation
 
 ```bash
+# Install dependencies
+npm install
+
+# Copy environment variables
+cp .env.local.example .env.local
+
+# Add your Paystack keys to .env.local
+# Get keys from https://dashboard.paystack.com/#/settings/developers
+
+# Run development server
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3001](http://localhost:3001) with your browser to see the result.
 
 You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
-## Learn More
+## Documentation
 
-To learn more about Next.js, take a look at the following resources:
+- **[Paystack Setup Guide](./PAYSTACK_SETUP.md)** - Complete payment integration setup
+- **[Development Setup](./DEVELOPMENT_SETUP.md)** - Local development configuration
+- **[Deployment Guide](./DEPLOYMENT_GUIDE.md)** - Production deployment instructions
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Project Structure
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```
+src/
+├── app/
+│   ├── api/
+│   │   ├── service-checkout/     # Paystack transaction initialization
+│   │   └── webhooks/paystack/    # Payment webhook handler
+│   ├── services/                 # Service pages
+│   └── components/               # React components
+├── data/
+│   └── servicePackages.ts        # Service tier definitions
+└── lib/
+    └── sanity/                   # Sanity CMS configuration
+```
+
+## Key Technologies
+
+- **Next.js 15.5.3** - React framework with App Router
+- **React 19** - UI library
+- **TypeScript** - Type safety
+- **Tailwind CSS** - Styling
+- **Paystack API** - Payment processing
+- **Sanity CMS** - Content management
+
+## Payment Flow
+
+1. User selects service tier
+2. Adds optional add-ons
+3. Provides contact details
+4. Redirects to Paystack checkout
+5. Completes payment
+6. Webhook confirms payment
+7. User redirected to success page
+
+## Testing
+
+Use Paystack test cards:
+- **Success**: 4084084084084081
+- **PIN**: 0000
+- **OTP**: 123456
+
+See [PAYSTACK_SETUP.md](./PAYSTACK_SETUP.md) for complete testing guide.
 
 ## Deploy on Vercel
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+1. Push to GitHub
+2. Import project in Vercel
+3. Add environment variables (Paystack keys)
+4. Configure webhook URL in Paystack dashboard
+5. Deploy
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details. 
-# Trigger deployment - Thu Oct 16 10:10:10 WAT 2025
+Check out the [Deployment Guide](./DEPLOYMENT_GUIDE.md) for detailed instructions.

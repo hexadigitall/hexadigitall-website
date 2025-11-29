@@ -1,8 +1,9 @@
-"use client"
+'use client'
 
 import React, { useState } from 'react'
 import { useCurrency } from '@/contexts/CurrencyContext'
 import UnifiedServiceRequestFlow from '@/components/services/UnifiedServiceRequestFlow'
+import { COMMON_ADD_ONS } from '@/data/servicePackages'
 import type { ServicePackageGroup, ServicePackageTier, ServiceRequestItem } from '@/types/service'
 
 interface TierSelectionModalProps {
@@ -16,7 +17,7 @@ export default function TierSelectionModal({
   onTierSelect,
   onClose
 }: TierSelectionModalProps) {
-  const { currentCurrency, convertPrice } = useCurrency()
+  const { currentCurrency, convertPrice, isLocalCurrency, isLaunchSpecialActive } = useCurrency()
   const [selectedTierKey, setSelectedTierKey] = useState<string | null>(
     packageGroup.tiers?.find(t => t.popular)?._key || packageGroup.tiers?.[0]?._key || null
   )
@@ -60,6 +61,15 @@ export default function TierSelectionModal({
     featureSets[tier._key] = base
   })
 
+  // Handle Escape key to close modal
+  React.useEffect(() => {
+    const handleEscape = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') onClose()
+    }
+    document.addEventListener('keydown', handleEscape)
+    return () => document.removeEventListener('keydown', handleEscape)
+  }, [onClose])
+
   if (!tiers || tiers.length === 0) {
     return (
       <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50">
@@ -88,12 +98,12 @@ export default function TierSelectionModal({
   }
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 overflow-y-hidden">
-      <div className="bg-white rounded-2xl max-w-6xl w-full p-6 md:p-8 relative my-8 max-h-[90vh] overflow-y-auto">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 overflow-y-hidden" onClick={onClose}>
+      <div className="bg-white rounded-2xl max-w-6xl w-full p-6 md:p-8 relative my-8 max-h-[90vh] overflow-y-auto" onClick={(e) => e.stopPropagation()} style={{ display: showRequestFlow ? 'none' : 'block' }}>
         {/* Close Button */}
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 transition-colors"
+          className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 transition-colors z-10 min-h-[44px] min-w-[44px] flex items-center justify-center rounded-full hover:bg-gray-100"
           aria-label="Close modal"
         >
           <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -117,7 +127,11 @@ export default function TierSelectionModal({
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
           {orderedTiers.map((tier) => {
             const isSelected = selectedTierKey === tier._key
-            const convertedPrice = convertPrice(tier.price, currentCurrency.code)
+            // Apply Nigerian launch special discount (50% off) if applicable
+            const discountedPrice = (isLocalCurrency() && currentCurrency.code === 'NGN' && isLaunchSpecialActive()) 
+              ? tier.price * 0.5 
+              : tier.price
+            const convertedPrice = convertPrice(discountedPrice, currentCurrency.code)
 
             return (
               <div
@@ -303,13 +317,13 @@ export default function TierSelectionModal({
               }
             }}
             disabled={!selectedTierKey}
-            className="flex-1 bg-gradient-to-r from-primary to-primary/80 text-white py-3 px-6 rounded-xl font-semibold hover:from-primary/90 hover:to-primary/70 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+            className="flex-1 min-h-[44px] bg-gradient-to-r from-primary to-primary/80 text-white py-3 px-6 rounded-xl font-semibold hover:from-primary/90 hover:to-primary/70 active:scale-95 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
           >
             Continue with Selected Tier
           </button>
           <button
             onClick={onClose}
-            className="flex-1 md:flex-auto border-2 border-gray-300 text-gray-700 py-3 px-6 rounded-xl font-semibold hover:border-gray-400 transition-colors"
+            className="flex-1 md:flex-auto min-h-[44px] border-2 border-gray-300 text-gray-700 py-3 px-6 rounded-xl font-semibold hover:border-gray-400 active:scale-95 transition-all"
           >
             Back
           </button>
@@ -328,15 +342,9 @@ export default function TierSelectionModal({
           serviceName={packageGroup.name}
           serviceType="tiered"
           tier={selectedTier}
-          basePrice={selectedTier.price}
           onClose={() => {
             setShowRequestFlow(false)
             setSelectedTier(null)
-          }}
-          onSuccess={(item: ServiceRequestItem) => {
-            console.log('Service request submitted:', item)
-            // TODO: Send to payment or backend
-            onTierSelect(selectedTier)
           }}
         />
       )}

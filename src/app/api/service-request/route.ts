@@ -1,7 +1,5 @@
 // src/app/api/service-request/route.ts
 import { NextRequest, NextResponse } from 'next/server'
-import { getStripe } from '@/lib/stripe'
-import { client } from '@/sanity/client'
 
 // Type definitions
 interface AddOn {
@@ -54,110 +52,136 @@ export async function POST(request: NextRequest) {
     } = body
 
     // Validate required fields
-    if (!serviceCategory || !selectedPackage || !clientInfo || !projectDetails) {
+    if (!serviceCategory || !selectedPackage || !clientInfo) {
       return NextResponse.json(
         { error: 'Missing required fields' },
         { status: 400 }
       )
     }
 
-    // Calculate total amount
-    const packagePrice = selectedPackage.price || 0
-    const addOnTotal = selectedAddOns.reduce((sum: number, addOn: AddOn) => sum + (addOn.price || 0), 0)
-    const totalAmount = packagePrice + addOnTotal
+    // Validate email format
+    if (!clientInfo.email) {
+      return NextResponse.json(
+        { error: 'Email is required' },
+        { status: 400 }
+      )
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+    if (!emailRegex.test(clientInfo.email)) {
+      return NextResponse.json(
+        { error: 'Invalid email format' },
+        { status: 400 }
+      )
+    }
+
+    // Get currency from request
+    const requestCurrency = body.currency || 'NGN'
+    
+    // Calculate total amount - use amount from frontend as-is (already converted by CurrencyContext)
+    const totalAmount = body.totalAmount || 0
 
     // Generate unique request ID
     const requestId = `SR-${Date.now()}-${Math.random().toString(36).substr(2, 6).toUpperCase()}`
 
-    // Create service request in Sanity
-    const serviceRequestDoc = {
-      _type: 'serviceRequest',
-      requestId,
-      status: 'pending_payment',
-      priority: 'medium',
-      serviceCategory: {
-        _type: 'reference',
-        _ref: serviceCategory._id
-      },
-      selectedPackage,
-      selectedAddOns,
-      totalAmount,
-      clientInfo,
-      projectDetails,
-      paymentInfo: {
-        paymentStatus: 'pending'
-      }
+    // Skip Sanity document creation for now - will be created via webhook after successful payment
+    // This prevents the flow from breaking if Sanity schema is not set up
+
+    // Validate Paystack secret key
+    const paystackSecretKey = process.env.PAYSTACK_SECRET_KEY
+    if (!paystackSecretKey) {
+      return NextResponse.json(
+        { error: 'Payment provider not configured' },
+        { status: 500 }
+      )
     }
 
-    const createdRequest = await client.create(serviceRequestDoc)
+    // Convert price to kobo for Paystack (Paystack uses lowest currency unit)
+    // For NGN: multiply by 100 (kobo), For USD: multiply by 100 (cents)
+    const amountInKobo = Math.round(totalAmount * 100)
 
-    // Create Stripe checkout session
-    const stripe = getStripe()
-    const checkoutSession = await stripe.checkout.sessions.create({
-      payment_method_types: ['card'],
-      mode: 'payment',
-      line_items: [
-        {
-          price_data: {
-            currency: selectedPackage.currency?.toLowerCase() || 'usd',
-            product_data: {
-              name: `${serviceCategory.title} - ${selectedPackage.name}`,
-              description: projectDetails.description,
-              metadata: {
-                serviceType: 'service_request',
-                requestId: requestId,
-                serviceCategory: serviceCategory.title,
-                package: selectedPackage.name
-              }
-            },
-            unit_amount: Math.round(packagePrice * 100), // Convert to cents
-          },
-          quantity: 1,
-        },
-        // Add line items for add-ons
-        ...selectedAddOns.map((addOn: AddOn) => ({
-          price_data: {
-            currency: selectedPackage.currency?.toLowerCase() || 'usd',
-            product_data: {
-              name: `Add-on: ${addOn.name}`,
-              description: addOn.description || '',
-              metadata: {
-                serviceType: 'service_addon',
-                requestId: requestId,
-                addonName: addOn.name
-              }
-            },
-            unit_amount: Math.round(addOn.price * 100),
-          },
-          quantity: 1,
-        }))
-      ],
-      metadata: {
-        requestId: requestId,
-        serviceRequestId: createdRequest._id,
-        clientEmail: clientInfo.email,
-        serviceCategory: serviceCategory.title,
-        packageName: selectedPackage.name
+    // Validate amount is positive
+    if (amountInKobo <= 0) {
+      return NextResponse.json(
+        { error: 'Invalid amount: must be greater than 0' },
+        { status: 400 }
+      )
+    }
+
+    // Get the origin for callback URLs
+    const origin = request.headers.get('origin') || process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'
+
+    // Build metadata with service details
+    const metadata = {
+      requestId: requestId,
+      serviceType: 'service_request',
+      serviceCategory: serviceCategory.title || 'Service',
+      serviceCategoryId: serviceCategory._id || 'unknown',
+      packageName: selectedPackage.name,
+      packageTier: selectedPackage.tier,
+      packagePrice: selectedPackage.price?.toString() || totalAmount.toString(),
+      addOnsCount: selectedAddOns.length.toString(),
+      addOns: selectedAddOns.map((a: AddOn) => `${a.name} (${a.price})`).join(', ') || 'None',
+      customerName: clientInfo.name || (clientInfo.firstName && clientInfo.lastName ? clientInfo.firstName + ' ' + clientInfo.lastName : 'Customer'),
+      customerEmail: clientInfo.email,
+      customerPhone: clientInfo.phone || '',
+      customerCompany: clientInfo.company || '',
+      projectDetails: projectDetails?.title || projectDetails?.description || projectDetails || 'Service Request',
+      currency: requestCurrency,
+      totalAmount: totalAmount.toString(),
+    }
+
+    // Create Paystack transaction
+    const paystackResponse = await fetch('https://api.paystack.co/transaction/initialize', {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${paystackSecretKey}`,
+        'Content-Type': 'application/json',
       },
-      success_url: `${process.env.NEXT_PUBLIC_SITE_URL}/services/request/success?session_id={CHECKOUT_SESSION_ID}&request_id=${requestId}`,
-      cancel_url: `${process.env.NEXT_PUBLIC_SITE_URL}/services/${serviceCategory.slug?.current}?cancelled=true`,
-      customer_email: clientInfo.email,
-      billing_address_collection: 'required',
+      body: JSON.stringify({
+        email: clientInfo.email,
+        amount: amountInKobo,
+        currency: 'NGN', // Use NGN - Paystack's primary currency
+        callback_url: `${origin}/services/checkout-success`,
+        metadata,
+        channels: ['card', 'bank', 'ussd', 'qr', 'mobile_money', 'bank_transfer'],
+      }),
     })
 
-    // Update service request with checkout session ID
-    await client
-      .patch(createdRequest._id)
-      .set({
-        'paymentInfo.stripeCheckoutSessionId': checkoutSession.id
+    if (!paystackResponse.ok) {
+      const errorData = await paystackResponse.json().catch(() => ({ message: 'Could not parse error response' }))
+      console.error('Paystack initialization failed:', {
+        status: paystackResponse.status,
+        error: errorData,
+        requestBody: {
+          email: clientInfo.email,
+          amount: amountInKobo,
+          currency: selectedPackage.currency?.toUpperCase() || 'NGN'
+        }
       })
-      .commit()
+      return NextResponse.json(
+        { error: `Failed to initialize payment with Paystack: ${errorData.message || 'Unknown error'}`, details: errorData },
+        { status: 500 }
+      )
+    }
 
+    const paystackData = await paystackResponse.json()
+
+    if (!paystackData.status || !paystackData.data?.authorization_url) {
+      return NextResponse.json(
+        { error: 'Invalid response from payment provider' },
+        { status: 500 }
+      )
+    }
+
+    // Return both 'url' (for new components) and 'checkoutUrl' (for backwards compatibility)
     return NextResponse.json({
       success: true,
       requestId,
-      checkoutUrl: checkoutSession.url,
-      sessionId: checkoutSession.id
+      url: paystackData.data.authorization_url,
+      checkoutUrl: paystackData.data.authorization_url,
+      reference: paystackData.data.reference,
+      accessCode: paystackData.data.access_code
     })
 
   } catch (error) {

@@ -6,7 +6,7 @@ const withBundleAnalyzer = bundleAnalyzer({
 });
 
 const nextConfig: NextConfig = {
-  // 1. ADD THE REWRITE RULE HERE
+  // Rewrite rules for static files
   async rewrites() {
     return [
       {
@@ -15,10 +15,6 @@ const nextConfig: NextConfig = {
       },
     ];
   },
-
-  // 3. ADD trailingSlash: true
-  trailingSlash: true,
-  // ------------------------------------------------------------------------------------------------
 
   // Enable strict mode for better development experience
   reactStrictMode: true, 
@@ -135,12 +131,12 @@ const nextConfig: NextConfig = {
     dirs: ['src'],
   },
 
-  // Performance optimizations
+  // Performance optimizations - Increased for better stability
   onDemandEntries: {
     // Period (in ms) where the server will keep pages in the buffer
-    maxInactiveAge: 25 * 1000, // 25 seconds
+    maxInactiveAge: 60 * 1000, // 60 seconds (increased from 25s)
     // Number of pages that should be kept simultaneously without being disposed
-    pagesBufferLength: 2,
+    pagesBufferLength: 5, // Increased from 2 to prevent aggressive disposal
   },
 
   // Note: Webpack config removed for Turbopack compatibility

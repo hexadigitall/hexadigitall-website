@@ -380,7 +380,7 @@ export function getFallbackServiceCategory(slug: string): ServiceCategory | null
   }
 
   // Marketing fallbacks
-  if (slug === 'social-media-marketing' || slug === 'social-media-advertising-and-marketing') {
+  if (slug === 'social-media-advertising-and-marketing') {
     return {
       _id: 'fallback-marketing',
       title: 'Digital Marketing',

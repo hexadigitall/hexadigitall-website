@@ -77,21 +77,25 @@ export default function ServicesPage() {
     const f = params.get('funnel')
     if (!f) return
 
+    if (f === 'want-to-learn') {
+      // Send user to courses index - early return to prevent double navigation
+      router.replace('/courses')
+      return
+    }
+
+    // Handle modal opens
     if (f === 'have-an-idea') {
       openPackageModal(featuredPackages[0])
     } else if (f === 'ready-to-build') {
       openPackageModal(featuredPackages[1])
     } else if (f === 'need-customers') {
       openPackageModal(featuredPackages[2])
-    } else if (f === 'want-to-learn') {
-      // Send user to courses index
-      router.replace('/courses')
     }
 
-    // Remove funnel param to avoid re-triggering
+    // Remove funnel param to avoid re-triggering (only for modal cases)
     const url = new URL(window.location.href)
     url.searchParams.delete('funnel')
-    router.replace(url.pathname + url.search)
+    router.replace(url.pathname + url.search, { scroll: false })
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 

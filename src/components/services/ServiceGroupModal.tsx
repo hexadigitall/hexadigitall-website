@@ -170,7 +170,7 @@ export const ServiceGroupCard: React.FC<ServiceGroupCardProps> = ({ group, onCli
     const urlMap: Record<string, string> = {
       'business-strategy': '/services/business-plan-and-logo-design',
       'digital-presence': '/services/web-and-mobile-software-development',
-      'marketing-growth': '/services/social-media-marketing',
+      'marketing-growth': '/services/social-media-advertising-and-marketing',
       'profile-portfolio': '/services/profile-and-portfolio-building',
       'mentoring-consulting': '/services/mentoring-and-consulting'
     }

@@ -12,7 +12,42 @@
  * Currency: Dual USD/NGN support via convertPrice()
  */
 
-import type { ServicePackageGroup, ServicePackageTier } from '@/types/service'
+import type { ServicePackageGroup, ServicePackageTier, ServiceAddOn } from '@/types/service'
+
+// ============================================================================
+// GLOBAL ADD-ONS AVAILABLE FOR ALL SERVICES
+// ============================================================================
+
+export const COMMON_ADD_ONS: ServiceAddOn[] = [
+  {
+    _key: 'rush-delivery',
+    name: 'Rush Delivery',
+    price: 199,
+    description: 'Speed up delivery by 50% (2-3 days faster)',
+    required: false
+  },
+  {
+    _key: 'premium-support',
+    name: 'Premium Support',
+    price: 99,
+    description: 'Priority support with 24-hour response time for 1 month',
+    required: false
+  },
+  {
+    _key: 'unlimited-revisions',
+    name: 'Unlimited Revisions',
+    price: 149,
+    description: 'Unlimited revision rounds (instead of limited per tier)',
+    required: false
+  },
+  {
+    _key: 'source-code-access',
+    name: 'Source Code Access',
+    price: 299,
+    description: 'Full source code and documentation delivered',
+    required: false
+  }
+]
 
 // ============================================================================
 // WEB & MOBILE DEVELOPMENT PACKAGES (BUILD STAGE)
@@ -698,6 +733,434 @@ export const MARKETING_PACKAGE_GROUPS: ServicePackageGroup[] = [
           'Weekly performance reviews',
           'Bi-weekly strategy calls',
           'Growth goal tracking'
+        ],
+        popular: false
+      }
+    ]
+  }
+]
+
+// ============================================================================
+// MENTORING & CONSULTING PACKAGE GROUPS
+// ============================================================================
+
+export const MENTORING_PACKAGE_GROUPS: ServicePackageGroup[] = [
+  {
+    _id: 'mentoring-strategy-session',
+    name: 'Strategy Session',
+    slug: 'strategy-session',
+    description: 'One-on-one strategic consulting to address specific business or career challenges.',
+    icon: 'lightbulb',
+    category: 'consulting',
+    serviceType: 'tiered',
+    tiers: [
+      {
+        _key: 'strategy-basic',
+        name: 'Strategy Session — Quick Consult',
+        tier: 'basic',
+        price: 99,
+        currency: 'USD',
+        billing: 'one_time',
+        deliveryTime: '1 hour session',
+        features: [
+          '60-minute video consultation',
+          'Problem identification',
+          'Initial action plan',
+          'Resource recommendations',
+          'Follow-up email summary'
+        ],
+        popular: false
+      },
+      {
+        _key: 'strategy-standard',
+        name: 'Strategy Session — Deep Dive',
+        tier: 'standard',
+        price: 199,
+        currency: 'USD',
+        billing: 'one_time',
+        deliveryTime: '2 sessions',
+        features: [
+          'Everything in Quick Consult',
+          '2 x 90-minute sessions',
+          'Comprehensive analysis',
+          'Detailed implementation roadmap',
+          'Priority booking',
+          '30-day follow-up check-in',
+          'Direct email access for 2 weeks'
+        ],
+        popular: true
+      },
+      {
+        _key: 'strategy-premium',
+        name: 'Strategy Session — Complete Package',
+        tier: 'premium',
+        price: 499,
+        currency: 'USD',
+        billing: 'one_time',
+        deliveryTime: '4 weeks',
+        features: [
+          'Everything in Deep Dive',
+          '4 x 90-minute sessions over 4 weeks',
+          'Business process audit',
+          'Custom strategic framework',
+          'Implementation support',
+          '90-day follow-up program',
+          'Direct phone/WhatsApp access',
+          'Weekly progress check-ins'
+        ],
+        popular: false
+      }
+    ]
+  },
+  {
+    _id: 'mentoring-business-coaching',
+    name: 'Business Coaching',
+    slug: 'business-coaching',
+    description: 'Ongoing coaching program to grow your business and develop leadership skills.',
+    icon: 'chart-bar',
+    category: 'consulting',
+    serviceType: 'tiered',
+    tiers: [
+      {
+        _key: 'coaching-basic',
+        name: 'Business Coaching — Starter',
+        tier: 'basic',
+        price: 299,
+        currency: 'USD',
+        billing: 'monthly',
+        deliveryTime: 'Monthly',
+        features: [
+          '2 sessions per month (60 min each)',
+          'Goal setting & tracking',
+          'Email support',
+          'Resource library access',
+          'Monthly progress reports'
+        ],
+        popular: false
+      },
+      {
+        _key: 'coaching-standard',
+        name: 'Business Coaching — Professional',
+        tier: 'standard',
+        price: 599,
+        currency: 'USD',
+        billing: 'monthly',
+        deliveryTime: 'Monthly',
+        features: [
+          'Everything in Starter',
+          '4 sessions per month (60 min each)',
+          'Strategic planning support',
+          'Team dynamics consultation',
+          'Priority scheduling',
+          'Bi-weekly check-ins',
+          'WhatsApp support'
+        ],
+        popular: true
+      },
+      {
+        _key: 'coaching-premium',
+        name: 'Business Coaching — Executive',
+        tier: 'premium',
+        price: 1299,
+        currency: 'USD',
+        billing: 'monthly',
+        deliveryTime: 'Monthly',
+        features: [
+          'Everything in Professional',
+          'Unlimited 1-on-1 sessions',
+          'Leadership development program',
+          'Board meeting preparation',
+          'Investor pitch coaching',
+          '24/7 on-call support',
+          'Quarterly strategic retreats',
+          'Network introduction & connections'
+        ],
+        popular: false
+      }
+    ]
+  },
+  {
+    _id: 'mentoring-career-coaching',
+    name: 'Career Coaching',
+    slug: 'career-coaching',
+    description: 'Professional career development and transition coaching for tech professionals.',
+    icon: 'user-group',
+    category: 'consulting',
+    serviceType: 'tiered',
+    tiers: [
+      {
+        _key: 'career-basic',
+        name: 'Career Coaching — Jump Start',
+        tier: 'basic',
+        price: 149,
+        currency: 'USD',
+        billing: 'one_time',
+        deliveryTime: '1 week',
+        features: [
+          '2 x 45-minute sessions',
+          'Career assessment',
+          'Skills gap analysis',
+          'Resume/CV review',
+          'Job search strategy',
+          'Interview preparation tips'
+        ],
+        popular: false
+      },
+      {
+        _key: 'career-standard',
+        name: 'Career Coaching — Transition',
+        tier: 'standard',
+        price: 399,
+        currency: 'USD',
+        billing: 'one_time',
+        deliveryTime: '4 weeks',
+        features: [
+          'Everything in Jump Start',
+          '6 x 60-minute sessions over 4 weeks',
+          'Industry insights report',
+          'Personal branding strategy',
+          'LinkedIn optimization',
+          'Networking roadmap',
+          'Mock interviews',
+          'Salary negotiation coaching'
+        ],
+        popular: true
+      },
+      {
+        _key: 'career-premium',
+        name: 'Career Coaching — Executive',
+        tier: 'premium',
+        price: 999,
+        currency: 'USD',
+        billing: 'one_time',
+        deliveryTime: '12 weeks',
+        features: [
+          'Everything in Transition',
+          '12 x 60-minute sessions over 12 weeks',
+          'Executive presence development',
+          'Leadership brand building',
+          'C-suite interview preparation',
+          'Direct industry introductions',
+          'Board positioning strategy',
+          'Equity & compensation consulting',
+          'Lifetime alumni network access'
+        ],
+        popular: false
+      }
+    ]
+  }
+]
+
+// ============================================================================
+// PROFILE & PORTFOLIO BUILDING PACKAGE GROUPS
+// ============================================================================
+
+export const PORTFOLIO_PACKAGE_GROUPS: ServicePackageGroup[] = [
+  {
+    _id: 'portfolio-cv-resume',
+    name: 'Professional CV/Resume',
+    slug: 'cv-resume',
+    description: 'ATS-optimized professional CV and resume writing for tech professionals.',
+    icon: 'document-text',
+    category: 'portfolio',
+    serviceType: 'tiered',
+    tiers: [
+      {
+        _key: 'cv-basic',
+        name: 'CV/Resume — Essential',
+        tier: 'basic',
+        price: 59,
+        currency: 'USD',
+        billing: 'one_time',
+        deliveryTime: '3-5 days',
+        features: [
+          'ATS-friendly format',
+          '1 page professional CV',
+          'PDF & DOC formats',
+          '1 revision round',
+          'Professional design template',
+          'Basic keyword optimization'
+        ],
+        popular: false
+      },
+      {
+        _key: 'cv-standard',
+        name: 'CV/Resume — Professional',
+        tier: 'standard',
+        price: 129,
+        currency: 'USD',
+        billing: 'one_time',
+        deliveryTime: '3-5 days',
+        features: [
+          'Everything in Essential',
+          '2-page CV (if needed)',
+          'Cover letter template',
+          '3 revision rounds',
+          'LinkedIn headline & summary',
+          'Achievement quantification',
+          'Industry-specific optimization'
+        ],
+        popular: true
+      },
+      {
+        _key: 'cv-premium',
+        name: 'CV/Resume — Executive',
+        tier: 'premium',
+        price: 299,
+        currency: 'USD',
+        billing: 'one_time',
+        deliveryTime: '5-7 days',
+        features: [
+          'Everything in Professional',
+          'Executive CV (3+ pages)',
+          '3 custom cover letters',
+          'Complete LinkedIn makeover',
+          'Portfolio website integration',
+          'Unlimited revisions',
+          'Interview coaching session',
+          'Personal brand strategy'
+        ],
+        popular: false
+      }
+    ]
+  },
+  {
+    _id: 'portfolio-website',
+    name: 'Portfolio Website',
+    slug: 'portfolio-website',
+    description: 'Professional portfolio website to showcase your projects and skills.',
+    icon: 'monitor',
+    category: 'portfolio',
+    serviceType: 'tiered',
+    tiers: [
+      {
+        _key: 'portfolio-basic',
+        name: 'Portfolio Website — Starter',
+        tier: 'basic',
+        price: 199,
+        currency: 'USD',
+        billing: 'one_time',
+        deliveryTime: '5-7 days',
+        features: [
+          '3-page responsive website',
+          'Home + About + Portfolio',
+          'Gallery for 10 projects',
+          'Contact form',
+          'Mobile optimization',
+          'Basic SEO setup',
+          '3 months hosting'
+        ],
+        popular: false
+      },
+      {
+        _key: 'portfolio-standard',
+        name: 'Portfolio Website — Professional',
+        tier: 'standard',
+        price: 499,
+        currency: 'USD',
+        billing: 'one_time',
+        deliveryTime: '7-10 days',
+        features: [
+          'Everything in Starter',
+          '5-page website with blog',
+          'Gallery for 25 projects',
+          'Advanced filtering & search',
+          'Client testimonials section',
+          'Social media integration',
+          'Google Analytics',
+          'Content management system',
+          '12 months hosting + domain'
+        ],
+        popular: true
+      },
+      {
+        _key: 'portfolio-premium',
+        name: 'Portfolio Website — Premium',
+        tier: 'premium',
+        price: 999,
+        currency: 'USD',
+        billing: 'one_time',
+        deliveryTime: '10-14 days',
+        features: [
+          'Everything in Professional',
+          'Unlimited pages',
+          'Custom interactive features',
+          'Video portfolio integration',
+          'E-commerce for digital products',
+          'Newsletter integration',
+          'Advanced SEO & performance',
+          'Priority support for 6 months',
+          '24 months hosting + premium domain'
+        ],
+        popular: false
+      }
+    ]
+  },
+  {
+    _id: 'portfolio-linkedin',
+    name: 'LinkedIn Optimization',
+    slug: 'linkedin-optimization',
+    description: 'Complete LinkedIn profile makeover to attract recruiters and opportunities.',
+    icon: 'user-circle',
+    category: 'portfolio',
+    serviceType: 'tiered',
+    tiers: [
+      {
+        _key: 'linkedin-basic',
+        name: 'LinkedIn — Quick Refresh',
+        tier: 'basic',
+        price: 89,
+        currency: 'USD',
+        billing: 'one_time',
+        deliveryTime: '2-3 days',
+        features: [
+          'Professional headline writing',
+          'Compelling summary (about section)',
+          'Skills optimization (top 10)',
+          'Experience descriptions',
+          'Profile photo guidelines',
+          '1 revision round'
+        ],
+        popular: false
+      },
+      {
+        _key: 'linkedin-standard',
+        name: 'LinkedIn — Complete Makeover',
+        tier: 'standard',
+        price: 199,
+        currency: 'USD',
+        billing: 'one_time',
+        deliveryTime: '3-5 days',
+        features: [
+          'Everything in Quick Refresh',
+          'All 50 skills optimization',
+          'Featured section setup',
+          'Achievement highlights',
+          'Connection request templates',
+          'Networking strategy guide',
+          'Content posting strategy',
+          '3 revision rounds'
+        ],
+        popular: true
+      },
+      {
+        _key: 'linkedin-premium',
+        name: 'LinkedIn — Executive Presence',
+        tier: 'premium',
+        price: 499,
+        currency: 'USD',
+        billing: 'one_time',
+        deliveryTime: '5-7 days',
+        features: [
+          'Everything in Complete Makeover',
+          'Executive positioning strategy',
+          'Thought leadership content plan',
+          '5 custom posts + articles',
+          'Profile banner design',
+          'Recommendations strategy',
+          'Influencer engagement tactics',
+          'Lead generation setup',
+          'Monthly optimization for 3 months'
         ],
         popular: false
       }

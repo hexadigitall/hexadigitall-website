@@ -102,7 +102,8 @@ export function CTAButton(props: CTAProps) {
   )
 
   if ('href' in props && props.href) {
-    const { href, ...linkProps } = props as CTALinkProps
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const { href, glow: _glow, animate: _animate, ...linkProps } = props as CTALinkProps & { glow?: boolean; animate?: boolean }
     return (
       <Link href={href} className={allClasses} {...linkProps}>
         {content}
@@ -110,7 +111,8 @@ export function CTAButton(props: CTAProps) {
     )
   }
 
-  const { onClick, type, disabled, ...buttonProps } = props as CTAButtonProps
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const { onClick, type, disabled, glow: _glow, animate: _animate, ...buttonProps } = props as CTAButtonProps & { glow?: boolean; animate?: boolean }
   return (
     <button 
       className={allClasses} 
