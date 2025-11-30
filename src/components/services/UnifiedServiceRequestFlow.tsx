@@ -122,20 +122,35 @@ export default function UnifiedServiceRequestFlow({
     }, 50)
   }
 
+  // Track if we've redirected to payment gateway
+  const hasRedirectedRef = useRef(false)
+
   // Reset processing state when component becomes visible again (user returned from Paystack)
   useEffect(() => {
     const handleVisibilityChange = () => {
-      if (document.visibilityState === 'visible' && isProcessing) {
-        // User came back to the page, reset processing state
+      if (document.visibilityState === 'visible' && hasRedirectedRef.current) {
+        // User came back to the page after being redirected to Paystack
+        // Reset the processing state so they can try again
         setIsProcessing(false)
+        hasRedirectedRef.current = false
+      }
+    }
+    
+    // Also handle focus event as a backup (for popup scenarios)
+    const handleFocus = () => {
+      if (hasRedirectedRef.current) {
+        setIsProcessing(false)
+        hasRedirectedRef.current = false
       }
     }
     
     document.addEventListener('visibilitychange', handleVisibilityChange)
+    window.addEventListener('focus', handleFocus)
     return () => {
       document.removeEventListener('visibilitychange', handleVisibilityChange)
+      window.removeEventListener('focus', handleFocus)
     }
-  }, [isProcessing])
+  }, [])
 
   const handleSubmit = async () => {
     const selectedAddOnDetails = Array.from(selectedAddOns).map(key => {
@@ -174,6 +189,7 @@ export default function UnifiedServiceRequestFlow({
 
       const { url } = await response.json()
       if (url) {
+        hasRedirectedRef.current = true
         window.location.href = url
       }
     } catch (error) {
