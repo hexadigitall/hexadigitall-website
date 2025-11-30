@@ -115,27 +115,27 @@ function CustomBuildInner() {
   return (
     <main className="min-h-screen bg-gradient-to-b from-white via-blue-50 to-white">
       {/* Header */}
-      <section className="py-12 md:py-16 border-b border-gray-200">
-        <div className="container mx-auto px-6">
-          <div className="max-w-3xl mb-8">
+      <section className="py-8 sm:py-12 md:py-16 border-b border-gray-200">
+        <div className="container mx-auto px-4 sm:px-6">
+          <div className="max-w-3xl mb-6 sm:mb-8">
             <Link
               href="/services/web-and-mobile-software-development"
-              className="inline-flex items-center text-primary hover:underline mb-4 text-sm font-semibold"
+              className="inline-flex items-center text-primary hover:underline mb-3 sm:mb-4 text-sm font-semibold"
             >
               ← Back to Web & Mobile
             </Link>
-            <h1 className="text-4xl md:text-5xl font-bold font-heading mb-4 text-primary">
+            <h1 className="text-2xl sm:text-4xl md:text-5xl font-bold font-heading mb-3 sm:mb-4 text-primary">
               Build Your Custom Solution
             </h1>
-            <p className="text-lg text-darkText/70">
+            <p className="text-sm sm:text-lg text-darkText/70">
               Answer a few quick questions to get a personalized quote for your project.
             </p>
           </div>
 
           {/* Progress Bar - Make steps clickable to navigate backward */}
-          <div className="flex items-center gap-2 md:gap-4">
+          <div className="flex items-center gap-2 sm:gap-4">
             {[1, 2, 3].map((step) => (
-              <div key={step} className="flex-1 flex items-center gap-2 md:gap-3">
+              <div key={step} className="flex-1 flex items-center gap-1 sm:gap-2 md:gap-3">
                 <button
                   onClick={() => {
                     if (step < currentStep) {
@@ -143,7 +143,7 @@ function CustomBuildInner() {
                     }
                   }}
                   disabled={step > currentStep}
-                  className={`w-8 h-8 md:w-10 md:h-10 rounded-full flex items-center justify-center font-bold text-sm md:text-base transition-all ${
+                  className={`w-7 h-7 sm:w-8 sm:h-8 md:w-10 md:h-10 rounded-full flex items-center justify-center font-bold text-xs sm:text-sm md:text-base transition-all flex-shrink-0 ${
                     step < currentStep
                       ? 'bg-green-600 text-white cursor-pointer hover:bg-green-700'
                       : step === currentStep
@@ -156,7 +156,7 @@ function CustomBuildInner() {
                   {step < currentStep ? '✓' : step}
                 </button>
                 <span
-                  className={`hidden md:block text-sm font-medium ${
+                  className={`hidden sm:block text-xs sm:text-sm font-medium ${
                     step <= currentStep ? 'text-darkText' : 'text-gray-500'
                   }`}
                 >
@@ -164,7 +164,7 @@ function CustomBuildInner() {
                 </span>
                 {step < 3 && (
                   <div
-                    className={`hidden md:flex-1 md:block h-0.5 ${
+                    className={`flex-1 h-0.5 ${
                       step < currentStep ? 'bg-green-600' : 'bg-gray-200'
                     }`}
                   />
@@ -176,8 +176,8 @@ function CustomBuildInner() {
       </section>
 
       {/* Content Area */}
-      <section className="py-12 md:py-20">
-        <div className="container mx-auto px-6">
+      <section className="py-8 sm:py-12 md:py-20">
+        <div className="container mx-auto px-4 sm:px-6">
           {currentStep === 1 && (
             <Step1Core
               selectedCore={selectedCore}
