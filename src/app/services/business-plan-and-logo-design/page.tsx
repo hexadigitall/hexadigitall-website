@@ -22,6 +22,7 @@ export default function BusinessPlanLogoPage() {
       pageTitle="Business Plan & Logo Design"
       pageDescription="Launch your business with confidence. Professional business plans, stunning logos, and complete brand packages that establish credibility and attract investors."
       heroGradient="from-blue-600/10 via-indigo-600/10 to-purple-600/10"
+      heroImage="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=1920&q=80"
       accentColor="blue"
       categoryIcon={
         <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">

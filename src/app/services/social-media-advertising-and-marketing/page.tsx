@@ -16,6 +16,7 @@ export default function SocialMediaMarketingPage() {
       pageTitle="Social Media Marketing & Advertising"
       pageDescription="Grow your audience, increase engagement, and drive sales with our comprehensive social media marketing services. From content creation to paid advertising, we help you succeed online."
       heroGradient="from-pink-600/10 via-red-600/10 to-orange-600/10"
+      heroImage="https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=1920&q=80"
       accentColor="pink"
       categoryIcon={
         <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">

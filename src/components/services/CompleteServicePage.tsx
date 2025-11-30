@@ -14,6 +14,7 @@ interface CompleteServicePageProps {
   pageTitle: string
   pageDescription: string
   heroGradient: string
+  heroImage?: string
   accentColor: 'pink' | 'blue' | 'purple' | 'green' | 'indigo' | 'orange'
   categoryIcon: React.ReactNode
   breadcrumbItems: { label: string; href?: string }[]
@@ -95,6 +96,7 @@ export default function CompleteServicePage({
   pageTitle,
   pageDescription,
   heroGradient,
+  heroImage,
   accentColor,
   categoryIcon,
   breadcrumbItems,
@@ -280,6 +282,15 @@ export default function CompleteServicePage({
 
       {/* Hero Section */}
       <div className="relative py-12 sm:py-20 overflow-hidden">
+        {/* Background Image */}
+        {heroImage && (
+          <div 
+            className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+            style={{ backgroundImage: `url(${heroImage})` }}
+          >
+            <div className="absolute inset-0 bg-gradient-to-b from-white/90 via-white/85 to-white/95"></div>
+          </div>
+        )}
         <div className="absolute inset-0">
           <div className={`absolute inset-0 bg-gradient-to-br ${heroGradient}`}></div>
           <div className={`absolute top-1/4 left-1/4 w-48 sm:w-64 h-48 sm:h-64 bg-gradient-to-r ${colors.from} ${colors.to} opacity-20 rounded-full blur-3xl animate-pulse`}></div>

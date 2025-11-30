@@ -16,6 +16,7 @@ export default function ProfilePortfolioPage() {
       pageTitle="Profile & Portfolio Building"
       pageDescription="Showcase your skills and attract opportunities with professional portfolios, optimized profiles, and personal branding that makes you stand out from the competition."
       heroGradient="from-purple-600/10 via-blue-600/10 to-indigo-600/10"
+      heroImage="https://images.unsplash.com/photo-1586281380349-632531db7ed4?w=1920&q=80"
       accentColor="purple"
       categoryIcon={
         <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">

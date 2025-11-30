@@ -16,6 +16,7 @@ export default function WebMobileDevelopmentPage() {
       pageTitle="Web & Mobile Development"
       pageDescription="Transform your digital vision into reality with our custom web and mobile solutions. From landing pages to enterprise applications, we build scalable, user-friendly products."
       heroGradient="from-blue-600/10 via-cyan-600/10 to-sky-600/10"
+      heroImage="https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=1920&q=80"
       accentColor="blue"
       categoryIcon={
         <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">

@@ -16,6 +16,7 @@ export default function MentoringConsultingPage() {
       pageTitle="Mentoring & Consulting"
       pageDescription="Expert guidance from industry professionals. Strategic consulting, career mentoring, and business advice to accelerate your growth and avoid costly mistakes."
       heroGradient="from-indigo-600/10 via-blue-600/10 to-purple-600/10"
+      heroImage="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=1920&q=80"
       accentColor="indigo"
       categoryIcon={
         <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
