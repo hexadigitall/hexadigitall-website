@@ -1,7 +1,7 @@
 "use client"
 
 import * as React from 'react'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { ServiceCategory, Package, AddOn, ClientInfo, ProjectDetails } from './ServiceRequestFlow'
 import { PaymentPlan } from './ServicePackageSelection'
 import { useCurrency } from '@/contexts/CurrencyContext'
@@ -33,6 +33,28 @@ export const PaymentSummary: React.FC<PaymentSummaryProps> = ({
   const [isProcessing, setIsProcessing] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const { formatPrice, currentCurrency, convertPrice, isLocalCurrency, isLaunchSpecialActive } = useCurrency()
+
+  // Reset processing state when component becomes visible again (user returned from Paystack)
+  useEffect(() => {
+    const handleVisibilityChange = () => {
+      if (document.visibilityState === 'visible' && isProcessing) {
+        // User came back to the page, reset processing state
+        setIsProcessing(false)
+      }
+    }
+    
+    document.addEventListener('visibilitychange', handleVisibilityChange)
+    return () => {
+      document.removeEventListener('visibilitychange', handleVisibilityChange)
+    }
+  }, [isProcessing])
+
+  // Reset processing state when user clicks back
+  const handleBack = () => {
+    setIsProcessing(false)
+    setError(null)
+    onBack()
+  }
 
   const calculatePaymentBreakdown = () => {
     if (!selectedPaymentPlan) return null
@@ -128,7 +150,7 @@ export const PaymentSummary: React.FC<PaymentSummaryProps> = ({
         <div className="text-center">
           <p className="text-red-600">Payment plan not available. Please go back and select a package.</p>
           <button
-            onClick={onBack}
+            onClick={handleBack}
             className="mt-4 px-6 py-3 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors"
           >
             Back to Packages
@@ -345,7 +367,7 @@ export const PaymentSummary: React.FC<PaymentSummaryProps> = ({
         <div className="flex flex-col sm:flex-row gap-4 pt-8 mt-8 border-t">
           <button
             type="button"
-            onClick={onBack}
+            onClick={handleBack}
             disabled={isProcessing}
             className="sm:w-auto px-6 py-3 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors disabled:opacity-50"
           >

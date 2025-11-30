@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Modal } from '@/components/ui/Modal'
 import { useCurrency } from '@/contexts/CurrencyContext'
 import { CheckIcon } from '@heroicons/react/24/outline'
@@ -190,6 +190,21 @@ function ServicePaymentModal({
   const { formatPrice, currentCurrency, getLocalDiscountMessage } = useCurrency()
   const [selectedPackage, setSelectedPackage] = useState<ServicePackage | null>(null)
   const [selectedPaymentPlan, setSelectedPaymentPlan] = useState<PaymentPlan>(PAYMENT_PLANS[0])
+
+  // Reset processing state when component becomes visible again (user returned from Paystack)
+  useEffect(() => {
+    const handleVisibilityChange = () => {
+      if (document.visibilityState === 'visible' && isProcessing) {
+        // User came back to the page, reset processing state
+        setIsProcessing(false)
+      }
+    }
+    
+    document.addEventListener('visibilitychange', handleVisibilityChange)
+    return () => {
+      document.removeEventListener('visibilitychange', handleVisibilityChange)
+    }
+  }, [isProcessing])
 
   // Use custom packages if provided, otherwise use default packages
   const packages = customPackages.length > 0 ? customPackages : getDefaultPackages(serviceSlug)

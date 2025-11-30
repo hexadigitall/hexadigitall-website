@@ -102,6 +102,10 @@ export default function UnifiedServiceRequestFlow({
   }
 
   const handleBack = () => {
+    // Reset processing state when going back (in case user returned from Paystack without completing)
+    setIsProcessing(false)
+    setFormErrors({})
+    
     if (currentStep === 'payment') {
       setCurrentStep('details')
     } else if (currentStep === 'details') {
@@ -117,6 +121,21 @@ export default function UnifiedServiceRequestFlow({
       stepHeadingRef.current?.focus()
     }, 50)
   }
+
+  // Reset processing state when component becomes visible again (user returned from Paystack)
+  useEffect(() => {
+    const handleVisibilityChange = () => {
+      if (document.visibilityState === 'visible' && isProcessing) {
+        // User came back to the page, reset processing state
+        setIsProcessing(false)
+      }
+    }
+    
+    document.addEventListener('visibilitychange', handleVisibilityChange)
+    return () => {
+      document.removeEventListener('visibilitychange', handleVisibilityChange)
+    }
+  }, [isProcessing])
 
   const handleSubmit = async () => {
     const selectedAddOnDetails = Array.from(selectedAddOns).map(key => {
