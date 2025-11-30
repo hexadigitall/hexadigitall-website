@@ -102,7 +102,9 @@ export default function UnifiedServiceRequestFlow({
   }
 
   const handleBack = () => {
-    if (currentStep === 'details') {
+    if (currentStep === 'payment') {
+      setCurrentStep('details')
+    } else if (currentStep === 'details') {
       if (serviceType !== 'tiered' && availableAddOns.length > 0) {
         setCurrentStep('addons')
       } else {
