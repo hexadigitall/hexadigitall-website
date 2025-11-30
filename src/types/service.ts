@@ -214,8 +214,13 @@ export interface ServicePackageTier {
 }
 
 export interface ServicePackageGroup {
+  _id?: string
   key?: { current: string }
   name: string
+  slug?: string
   description?: string
+  icon?: string
+  category?: string
+  serviceType?: 'business' | 'technical' | 'creative' | 'consulting' | 'tiered'
   tiers: ServicePackageTier[]
 }

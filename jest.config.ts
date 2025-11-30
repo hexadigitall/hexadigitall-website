@@ -5,15 +5,27 @@ const config: Config.InitialOptions = {
   testEnvironment: 'jsdom',
   roots: ['<rootDir>/scripts', '<rootDir>/src'],
   transform: {
-    '^.+\\.(ts|tsx)$': ['ts-jest', { tsconfig: 'scripts/tsconfig.json' }],
+    '^.+\\.(ts|tsx)$': ['ts-jest', {
+      tsconfig: {
+        jsx: 'react-jsx',
+        esModuleInterop: true,
+        allowSyntheticDefaultImports: true,
+      },
+    }],
   },
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
   testMatch: ['**/__tests__/**/*.(test|spec).?(ts|tsx|js)'],
   setupFilesAfterEnv: ['<rootDir>/scripts/jest.setup.ts'],
   moduleNameMapper: {
-    '^@/(.*)$': '<rootDir>/src/$1'
+    '^@/(.*)$': '<rootDir>/src/$1',
   },
+  transformIgnorePatterns: [
+    'node_modules/(?!(nanoid|@sanity)/)',
+  ],
   clearMocks: true,
+  testEnvironmentOptions: {
+    customExportConditions: [''],
+  },
 };
 
 export default config;
