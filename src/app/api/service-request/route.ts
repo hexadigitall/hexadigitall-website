@@ -1,6 +1,32 @@
 // src/app/api/service-request/route.ts
 import { NextRequest, NextResponse } from 'next/server'
 
+// Exchange rates for currency conversion (same as src/lib/currency.ts)
+// Paystack only accepts NGN, so we need to convert all currencies to NGN
+const EXCHANGE_RATES: Record<string, number> = {
+  USD: 1,
+  NGN: 1650,
+  EUR: 0.92,
+  GBP: 0.79,
+  CAD: 1.36,
+  AUD: 1.53,
+  ZAR: 18.5,
+  KES: 129,
+  GHS: 15.8,
+  INR: 83.2,
+}
+
+// Convert any currency amount to NGN for Paystack
+function convertToNGN(amount: number, fromCurrency: string): number {
+  if (fromCurrency === 'NGN') {
+    return amount
+  }
+  // Convert to USD first, then to NGN
+  const usdRate = EXCHANGE_RATES[fromCurrency] || 1
+  const amountInUSD = amount / usdRate
+  return amountInUSD * EXCHANGE_RATES['NGN']
+}
+
 // Type definitions
 interface AddOn {
   _key: string;
@@ -81,6 +107,9 @@ export async function POST(request: NextRequest) {
     // Calculate total amount - use amount from frontend as-is (already converted by CurrencyContext)
     const totalAmount = body.totalAmount || 0
 
+    // Convert to NGN for Paystack (Paystack only supports NGN)
+    const amountInNGN = convertToNGN(totalAmount, requestCurrency.toUpperCase())
+
     // Generate unique request ID
     const requestId = `SR-${Date.now()}-${Math.random().toString(36).substr(2, 6).toUpperCase()}`
 
@@ -97,8 +126,8 @@ export async function POST(request: NextRequest) {
     }
 
     // Convert price to kobo for Paystack (Paystack uses lowest currency unit)
-    // For NGN: multiply by 100 (kobo), For USD: multiply by 100 (cents)
-    const amountInKobo = Math.round(totalAmount * 100)
+    // Amount is now in NGN, multiply by 100 to get kobo
+    const amountInKobo = Math.round(amountInNGN * 100)
 
     // Validate amount is positive
     if (amountInKobo <= 0) {
@@ -127,8 +156,11 @@ export async function POST(request: NextRequest) {
       customerPhone: clientInfo.phone || '',
       customerCompany: clientInfo.company || '',
       projectDetails: projectDetails?.title || projectDetails?.description || projectDetails || 'Service Request',
-      currency: requestCurrency,
-      totalAmount: totalAmount.toString(),
+      originalCurrency: requestCurrency,
+      originalAmount: totalAmount.toString(),
+      amountInNGN: amountInNGN.toFixed(2),
+      currency: 'NGN',
+      totalAmount: amountInNGN.toFixed(2),
     }
 
     // Create Paystack transaction

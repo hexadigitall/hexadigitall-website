@@ -1,5 +1,34 @@
 import { NextRequest, NextResponse } from 'next/server'
 
+// Exchange rates from USD (same as in currency.ts)
+// These should ideally be fetched from an API for accuracy
+const EXCHANGE_RATES: Record<string, number> = {
+  USD: 1,
+  NGN: 1650,
+  EUR: 0.92,
+  GBP: 0.79,
+  CAD: 1.36,
+  AUD: 1.53,
+  ZAR: 18.5,
+  KES: 129,
+  GHS: 15.8,
+  INR: 83.2,
+}
+
+// Convert any currency amount to NGN
+function convertToNGN(amount: number, fromCurrency: string): number {
+  const fromRate = EXCHANGE_RATES[fromCurrency.toUpperCase()] || 1
+  const ngnRate = EXCHANGE_RATES.NGN
+  
+  // Convert to USD first, then to NGN
+  // amount / fromRate = amount in USD
+  // (amount / fromRate) * ngnRate = amount in NGN
+  const amountInUSD = amount / fromRate
+  const amountInNGN = amountInUSD * ngnRate
+  
+  return Math.round(amountInNGN)
+}
+
 interface ServiceRequestBody {
   serviceId: string
   serviceName: string
@@ -69,12 +98,20 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    // Use amount from frontend as-is (already converted by CurrencyContext)
+    // Get the currency from the request
+    const userCurrency = body.currency.toUpperCase()
     const totalAmount = body.total
 
-    // Convert price to kobo for Paystack (Paystack uses lowest currency unit)
-    // For NGN: 1 NGN = 100 kobo
-    const amountInKobo = Math.round(totalAmount * 100)
+    // Convert to NGN if not already in NGN (Paystack only accepts NGN)
+    let amountInNGN: number
+    if (userCurrency === 'NGN') {
+      amountInNGN = Math.round(totalAmount)
+    } else {
+      amountInNGN = convertToNGN(totalAmount, userCurrency)
+    }
+
+    // Convert to kobo for Paystack (1 NGN = 100 kobo)
+    const amountInKobo = amountInNGN * 100
 
     // Build metadata with service details
     const metadata = {
@@ -90,7 +127,9 @@ export async function POST(request: NextRequest) {
       customerDetails: body.customerInfo.details || '',
       addOns: body.addOns?.map(a => `${a.name} (${a.price})`).join(', ') || 'None',
       addOnCount: body.addOns?.length.toString() || '0',
-      originalCurrency: body.currency.toUpperCase(),
+      originalCurrency: userCurrency,
+      originalAmount: totalAmount.toString(),
+      convertedNGN: amountInNGN.toString(),
     }
 
     // Get the origin for callback URLs
