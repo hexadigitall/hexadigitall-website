@@ -153,7 +153,7 @@ export const INDIVIDUAL_SERVICES: IndividualService[] = [
     id: 'logo-design-basic',
     name: 'Basic Logo Design',
     description: 'Simple, professional logo with 3 concepts and 2 revisions',
-    price: 49,
+    price: 149,
     category: 'branding',
     deliveryTime: '3-5 days',
     features: [
@@ -168,7 +168,7 @@ export const INDIVIDUAL_SERVICES: IndividualService[] = [
     id: 'logo-design-premium',
     name: 'Premium Logo Design',
     description: 'Complete logo package with variations and brand guidelines',
-    price: 99,
+    price: 299,
     category: 'branding',
     deliveryTime: '5-7 days',
     features: [
@@ -187,7 +187,7 @@ export const INDIVIDUAL_SERVICES: IndividualService[] = [
     id: 'single-webpage',
     name: 'Single Web Page',
     description: 'Professional single page design (landing page, about page, etc.)',
-    price: 79,
+    price: 199,
     category: 'web-development',
     deliveryTime: '3-5 days',
     features: [
@@ -203,7 +203,7 @@ export const INDIVIDUAL_SERVICES: IndividualService[] = [
     id: 'website-redesign',
     name: 'Website Redesign',
     description: 'Complete redesign of existing website with modern look',
-    price: 299,
+    price: 599,
     category: 'web-development',
     deliveryTime: '7-10 days',
     features: [
@@ -222,7 +222,7 @@ export const INDIVIDUAL_SERVICES: IndividualService[] = [
     id: 'social-media-audit',
     name: 'Social Media Audit',
     description: 'Comprehensive analysis of your social media presence',
-    price: 99,
+    price: 69,
     category: 'marketing',
     deliveryTime: '3-5 days',
     features: [
@@ -238,7 +238,7 @@ export const INDIVIDUAL_SERVICES: IndividualService[] = [
     id: 'content-creation',
     name: 'Social Media Content Package',
     description: '10 professionally designed social media posts',
-    price: 149,
+    price: 129,
     category: 'marketing',
     deliveryTime: '5-7 days',
     features: [
@@ -273,7 +273,7 @@ export const INDIVIDUAL_SERVICES: IndividualService[] = [
     id: 'business-audit',
     name: 'Business Process Audit',
     description: 'Comprehensive review of your business operations',
-    price: 399,
+    price: 299,
     category: 'consulting',
     deliveryTime: '7-10 days',
     features: [
@@ -307,9 +307,9 @@ export const SERVICE_BUNDLES: ServiceBundle[] = [
     name: 'Startup Essentials Bundle',
     description: 'Everything you need to launch your business online',
     services: ['logo-design-premium', 'single-webpage', 'social-media-audit'],
-    originalPrice: 277, // $99 + $79 + $99
-    bundlePrice: 199,
-    savings: 78,
+    originalPrice: 567, // $299 + $199 + $69
+    bundlePrice: 449,
+    savings: 118,
     popular: true,
     features: [
       'Premium logo design package',
@@ -324,9 +324,9 @@ export const SERVICE_BUNDLES: ServiceBundle[] = [
     name: 'Business Growth Bundle',
     description: 'Accelerate your business growth with comprehensive support',
     services: ['business-audit', 'website-redesign', 'content-creation'],
-    originalPrice: 847, // $399 + $299 + $149
-    bundlePrice: 649,
-    savings: 198,
+    originalPrice: 1027, // $299 + $599 + $129
+    bundlePrice: 799,
+    savings: 228,
     features: [
       'Complete business process audit',
       'Website redesign and optimization',

@@ -16,42 +16,42 @@ const ADDON_OPTIONS = [
     id: 'seo',
     name: 'SEO Optimization',
     description: 'Comprehensive SEO setup and optimization for search engines',
-    price: 299,
+    price: 249,
     features: ['Keyword research', 'Meta optimization', 'Sitemap setup', 'Analytics integration']
   },
   {
     id: 'logo',
     name: 'Logo Design',
     description: 'Professional brand logo design with multiple variations',
-    price: 199,
+    price: 149,
     features: ['Concept design', 'Revisions', 'Multiple formats', 'Brand guidelines']
   },
   {
     id: 'maintenance',
     name: 'Maintenance Package',
     description: 'Monthly maintenance and updates for your application',
-    price: 149,
+    price: 99,
     features: ['Security updates', 'Bug fixes', 'Performance monitoring', 'Priority support']
   },
   {
     id: 'security',
     name: 'Security Hardening',
     description: 'Enhanced security features and protections',
-    price: 249,
+    price: 199,
     features: ['SSL certificate', 'Data encryption', 'Backup system', 'Firewall setup']
   },
   {
     id: 'analytics',
     name: 'Advanced Analytics',
     description: 'Detailed analytics and reporting dashboard',
-    price: 179,
+    price: 149,
     features: ['Real-time tracking', 'Custom reports', 'User behavior analysis', 'Conversion tracking']
   },
   {
     id: 'training',
     name: 'Team Training',
     description: 'Training sessions for your team on how to use the application',
-    price: 199,
+    price: 149,
     features: ['Live sessions', 'Documentation', 'Video tutorials', 'Email support']
   }
 ];

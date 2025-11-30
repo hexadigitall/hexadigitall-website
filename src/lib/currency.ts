@@ -277,14 +277,14 @@ class CurrencyService {
 
 export const currencyService = new CurrencyService();
 
-// Pricing tiers for different services - AGGRESSIVE MARKET PENETRATION PRICING
+// Pricing tiers for different services - STANDARDIZED PRICING FRAMEWORK
 export const SERVICE_PRICING: Record<string, PricingTier[]> = {
   'business-plan': [
     {
       id: 'starter-plan',
       name: 'Starter Plan',
       description: 'Perfect for new entrepreneurs and startups',
-      basePrice: 79,
+      basePrice: 249,
       features: [
         'Executive Summary (2 pages)',
         'Business Description & Value Proposition',
@@ -305,7 +305,7 @@ export const SERVICE_PRICING: Record<string, PricingTier[]> = {
       id: 'growth-plan',
       name: 'Growth Plan',
       description: 'Complete plan for serious entrepreneurs',
-      basePrice: 149,
+      basePrice: 499,
       popular: true,
       features: [
         'Comprehensive Business Plan (15-20 pages)',
@@ -330,7 +330,7 @@ export const SERVICE_PRICING: Record<string, PricingTier[]> = {
       id: 'investor-plan',
       name: 'Investor Plan',
       description: 'Investment-ready business plan',
-      basePrice: 249,
+      basePrice: 999,
       features: [
         'Investment-Grade Business Plan (25-35 pages)',
         'Professional Executive Summary (3 pages)',
@@ -360,7 +360,7 @@ export const SERVICE_PRICING: Record<string, PricingTier[]> = {
       id: 'landing-page',
       name: 'Landing Page',
       description: 'High-converting single page website',
-      basePrice: 229,
+      basePrice: 299,
       features: [
         'Single Page Design',
         'Mobile Responsive',
@@ -377,7 +377,7 @@ export const SERVICE_PRICING: Record<string, PricingTier[]> = {
       id: 'business-website',
       name: 'Business Website',
       description: 'Complete professional website',
-      basePrice: 429,
+      basePrice: 999,
       popular: true,
       features: [
         'Up to 6 Pages',
@@ -398,7 +398,7 @@ export const SERVICE_PRICING: Record<string, PricingTier[]> = {
       id: 'ecommerce-website',
       name: 'E-commerce Store',
       description: 'Complete online store solution',
-      basePrice: 729,
+      basePrice: 1499,
       features: [
         'Up to 25 Products',
         'Payment Gateway Integration',
@@ -418,7 +418,7 @@ export const SERVICE_PRICING: Record<string, PricingTier[]> = {
       id: 'web-app-development',
       name: 'Web App Development',
       description: 'Scalable web application with database, APIs, and modern architecture',
-      basePrice: 1079,
+      basePrice: 2499,
       features: [
         'Custom feature development',
         'API & third-party integrations',
@@ -436,7 +436,7 @@ export const SERVICE_PRICING: Record<string, PricingTier[]> = {
       id: 'social-starter',
       name: 'Social Starter',
       description: 'Perfect entry into social media marketing',
-      basePrice: 99,
+      basePrice: 299,
       features: [
         '2 Platform Management (Instagram + Facebook)',
         '15 Custom Designed Posts/month',
@@ -456,7 +456,7 @@ export const SERVICE_PRICING: Record<string, PricingTier[]> = {
       id: 'marketing-pro',
       name: 'Marketing Pro',
       description: 'Complete social media & marketing solution',
-      basePrice: 249,
+      basePrice: 599,
       popular: true,
       features: [
         '4 Platform Management (Instagram, Facebook, LinkedIn, Twitter)',
@@ -480,7 +480,7 @@ export const SERVICE_PRICING: Record<string, PricingTier[]> = {
       id: 'growth-accelerator',
       name: 'Growth Accelerator',
       description: 'Full-service marketing for business growth',
-      basePrice: 449,
+      basePrice: 1199,
       features: [
         '6 Platform Management (Instagram, Facebook, LinkedIn, Twitter, TikTok, YouTube)',
         '50+ Custom Posts/month across all platforms',
@@ -508,7 +508,7 @@ export const SERVICE_PRICING: Record<string, PricingTier[]> = {
       id: 'strategy-session',
       name: 'Strategy Session',
       description: '1-on-1 consultation to kickstart your journey',
-      basePrice: 99,
+      basePrice: 79,
       features: [
         '90-minute Deep-Dive Video Consultation',
         'Pre-session Business Assessment Questionnaire',
@@ -527,7 +527,7 @@ export const SERVICE_PRICING: Record<string, PricingTier[]> = {
       id: 'mentoring-program',
       name: 'Mentoring Program',
       description: 'Monthly mentoring for consistent growth',
-      basePrice: 299,
+      basePrice: 249,
       popular: true,
       features: [
         '4 One-Hour Video Sessions per Month (Scheduled at convenience)',
@@ -550,7 +550,7 @@ export const SERVICE_PRICING: Record<string, PricingTier[]> = {
       id: 'full-consulting',
       name: 'Full Consulting Package',
       description: 'Comprehensive business transformation',
-      basePrice: 1999,
+      basePrice: 999,
       features: [
         'Complete Business Audit & Assessment (40+ point checklist)',
         'Strategic Business Plan Development (25+ pages)',
@@ -664,9 +664,9 @@ export const BUNDLE_PACKAGES = {
     description: 'Business Plan + Landing Page - Everything to launch your business',
     services: ['business-plan', 'web-development'],
     packages: ['growth-plan', 'landing-page'],
-    originalPrice: 298, // $149 + $149
-    bundlePrice: 249,
-    savings: 49,
+    originalPrice: 798, // $499 + $299
+    bundlePrice: 649,
+    savings: 149,
     popular: false,
     features: [
       'Complete Business Plan (15+ pages)',
@@ -681,9 +681,9 @@ export const BUNDLE_PACKAGES = {
     description: 'Complete business setup package',
     services: ['business-plan', 'web-development', 'digital-marketing'],
     packages: ['growth-plan', 'business-website', 'social-starter'],
-    originalPrice: 597, // $149 + $349 + $99
-    bundlePrice: 449,
-    savings: 148,
+    originalPrice: 1797, // $499 + $999 + $299
+    bundlePrice: 1499,
+    savings: 298,
     popular: true,
     features: [
       'Complete Business Plan',
@@ -700,9 +700,9 @@ export const BUNDLE_PACKAGES = {
     description: 'Launch to scale - Complete business package',
     services: ['business-plan', 'web-development', 'digital-marketing'],
     packages: ['investor-plan', 'ecommerce-website', 'marketing-pro'],
-    originalPrice: 1147, // $249 + $649 + $249
-    bundlePrice: 799,
-    savings: 348,
+    originalPrice: 3097, // $999 + $1499 + $599
+    bundlePrice: 2499,
+    savings: 598,
     popular: false,
     features: [
       'Investor-Ready Business Plan',

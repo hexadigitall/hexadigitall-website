@@ -125,7 +125,7 @@ export const BRANDING_INDIVIDUAL_SERVICES: IndividualService[] = [
   {
     id: 'logo-only',
     name: 'Logo Design Only',
-    price: 199,
+    price: 149,
     description: 'Professional logo design with 3 concepts and unlimited revisions',
     deliveryTime: '3-5 days',
     category: 'branding',
@@ -141,7 +141,7 @@ export const BRANDING_INDIVIDUAL_SERVICES: IndividualService[] = [
   {
     id: 'business-cards',
     name: 'Business Card Design',
-    price: 99,
+    price: 79,
     description: 'Professional business card design ready for print',
     deliveryTime: '2-3 days',
     category: 'branding',
@@ -157,7 +157,7 @@ export const BRANDING_INDIVIDUAL_SERVICES: IndividualService[] = [
   {
     id: 'social-media-kit',
     name: 'Social Media Branding Kit',
-    price: 299,
+    price: 249,
     description: 'Complete set of branded social media templates and assets',
     deliveryTime: '5-7 days',
     category: 'branding',
@@ -177,7 +177,7 @@ export const MARKETING_INDIVIDUAL_SERVICES: IndividualService[] = [
   {
     id: 'social-media-audit',
     name: 'Social Media Audit',
-    price: 79,
+    price: 69,
     description: 'Complete analysis of your social media presence with actionable insights',
     deliveryTime: '3-5 days',
     category: 'marketing',
@@ -193,7 +193,7 @@ export const MARKETING_INDIVIDUAL_SERVICES: IndividualService[] = [
   {
     id: 'content-package',
     name: 'Content Creation Package',
-    price: 149,
+    price: 129,
     description: '20 professionally designed social media posts with captions',
     deliveryTime: '5-7 days',
     category: 'marketing',
@@ -209,7 +209,7 @@ export const MARKETING_INDIVIDUAL_SERVICES: IndividualService[] = [
   {
     id: 'ad-campaign-setup',
     name: 'Ad Campaign Setup',
-    price: 199,
+    price: 179,
     description: 'Professional setup and optimization of your first ad campaign',
     deliveryTime: '3-5 days',
     category: 'marketing',
@@ -229,7 +229,7 @@ export const MENTORING_INDIVIDUAL_SERVICES: IndividualService[] = [
   {
     id: 'strategy-call',
     name: 'Strategy Call (1 Hour)',
-    price: 99,
+    price: 79,
     description: 'One-on-one strategy session with an industry expert',
     deliveryTime: '1-2 days',
     category: 'mentoring',
@@ -245,7 +245,7 @@ export const MENTORING_INDIVIDUAL_SERVICES: IndividualService[] = [
   {
     id: 'business-plan-review',
     name: 'Business Plan Review',
-    price: 199,
+    price: 149,
     description: 'Expert review and feedback on your business plan',
     deliveryTime: '3-5 days',
     category: 'mentoring',
@@ -261,7 +261,7 @@ export const MENTORING_INDIVIDUAL_SERVICES: IndividualService[] = [
   {
     id: 'pitch-practice',
     name: 'Pitch Practice Session',
-    price: 149,
+    price: 99,
     description: 'Mock pitch session with feedback from seasoned investors',
     deliveryTime: '2-3 days',
     category: 'mentoring',
@@ -281,7 +281,7 @@ export const PORTFOLIO_INDIVIDUAL_SERVICES: IndividualService[] = [
   {
     id: 'cv-resume-writing',
     name: 'Professional CV/Resume',
-    price: 59,
+    price: 49,
     description: 'ATS-optimized resume that gets past screening algorithms',
     deliveryTime: '2-3 days',
     category: 'portfolio',
@@ -297,7 +297,7 @@ export const PORTFOLIO_INDIVIDUAL_SERVICES: IndividualService[] = [
   {
     id: 'linkedin-optimization',
     name: 'LinkedIn Profile Optimization',
-    price: 89,
+    price: 69,
     description: 'Complete LinkedIn profile makeover for maximum visibility',
     deliveryTime: '3-4 days',
     category: 'portfolio',

@@ -22,28 +22,28 @@ export const COMMON_ADD_ONS: ServiceAddOn[] = [
   {
     _key: 'rush-delivery',
     name: 'Rush Delivery',
-    price: 199,
+    price: 149,
     description: 'Speed up delivery by 50% (2-3 days faster)',
     required: false
   },
   {
     _key: 'premium-support',
     name: 'Premium Support',
-    price: 99,
+    price: 79,
     description: 'Priority support with 24-hour response time for 1 month',
     required: false
   },
   {
     _key: 'unlimited-revisions',
     name: 'Unlimited Revisions',
-    price: 149,
+    price: 99,
     description: 'Unlimited revision rounds (instead of limited per tier)',
     required: false
   },
   {
     _key: 'source-code-access',
     name: 'Source Code Access',
-    price: 299,
+    price: 199,
     description: 'Full source code and documentation delivered',
     required: false
   }
@@ -63,10 +63,10 @@ export const WEB_DEV_PACKAGE_GROUPS: ServicePackageGroup[] = [
         _key: 'landing-page-basic',
         name: 'Landing Page — Basic',
         tier: 'basic',
-        price: 499,
+        price: 299,
         currency: 'USD',
         billing: 'one_time',
-        deliveryTime: '5-7 days',
+        deliveryTime: '3-5 days',
         features: [
           '1 Page design',
           'Mobile responsive',
@@ -74,7 +74,7 @@ export const WEB_DEV_PACKAGE_GROUPS: ServicePackageGroup[] = [
           'Hero section + CTA',
           'Basic SEO setup',
           'Email integration',
-          '3 Revisions'
+          '2 Revisions'
         ],
         popular: false
       },
@@ -82,10 +82,10 @@ export const WEB_DEV_PACKAGE_GROUPS: ServicePackageGroup[] = [
         _key: 'landing-page-standard',
         name: 'Landing Page — Standard',
         tier: 'standard',
-        price: 999,
+        price: 599,
         currency: 'USD',
         billing: 'one_time',
-        deliveryTime: '7-10 days',
+        deliveryTime: '5-7 days',
         features: [
           'Everything in Basic',
           'A/B Testing variants',
@@ -103,10 +103,10 @@ export const WEB_DEV_PACKAGE_GROUPS: ServicePackageGroup[] = [
         _key: 'landing-page-premium',
         name: 'Landing Page — Premium',
         tier: 'premium',
-        price: 1999,
+        price: 1199,
         currency: 'USD',
         billing: 'one_time',
-        deliveryTime: '10-14 days',
+        deliveryTime: '7-10 days',
         features: [
           'Everything in Standard',
           'Custom animations',
@@ -132,10 +132,10 @@ export const WEB_DEV_PACKAGE_GROUPS: ServicePackageGroup[] = [
         _key: 'business-website-basic',
         name: 'Business Website — Basic',
         tier: 'basic',
-        price: 1499,
+        price: 999,
         currency: 'USD',
         billing: 'one_time',
-        deliveryTime: '10-14 days',
+        deliveryTime: '7-10 days',
         features: [
           'Up to 5 pages',
           'Mobile responsive',
@@ -146,7 +146,7 @@ export const WEB_DEV_PACKAGE_GROUPS: ServicePackageGroup[] = [
           'Email setup',
           'Local SEO',
           'Google Analytics',
-          '5 Revisions'
+          '3 Revisions'
         ],
         popular: false
       },
@@ -154,10 +154,10 @@ export const WEB_DEV_PACKAGE_GROUPS: ServicePackageGroup[] = [
         _key: 'business-website-standard',
         name: 'Business Website — Standard',
         tier: 'standard',
-        price: 2999,
+        price: 1999,
         currency: 'USD',
         billing: 'one_time',
-        deliveryTime: '14-21 days',
+        deliveryTime: '10-14 days',
         features: [
           'Everything in Basic',
           'Up to 10 pages',
@@ -170,7 +170,7 @@ export const WEB_DEV_PACKAGE_GROUPS: ServicePackageGroup[] = [
           'Advanced SEO (schema, sitemaps)',
           'Social sharing optimization',
           'Newsletter integration',
-          '10 Revisions'
+          '5 Revisions'
         ],
         popular: true
       },
@@ -178,10 +178,10 @@ export const WEB_DEV_PACKAGE_GROUPS: ServicePackageGroup[] = [
         _key: 'business-website-premium',
         name: 'Business Website — Premium',
         tier: 'premium',
-        price: 5999,
+        price: 3999,
         currency: 'USD',
         billing: 'one_time',
-        deliveryTime: '21-30 days',
+        deliveryTime: '14-21 days',
         features: [
           'Everything in Standard',
           'Unlimited pages',
@@ -194,7 +194,7 @@ export const WEB_DEV_PACKAGE_GROUPS: ServicePackageGroup[] = [
           'Multi-language support',
           'Advanced analytics & reporting',
           'Performance optimization (99+ Lighthouse)',
-          'Monthly maintenance package (6 months)',
+          'Monthly maintenance package (3 months)',
           'Unlimited revisions'
         ],
         popular: false
@@ -210,7 +210,7 @@ export const WEB_DEV_PACKAGE_GROUPS: ServicePackageGroup[] = [
         _key: 'ecommerce-basic',
         name: 'E-commerce Store — Basic',
         tier: 'basic',
-        price: 1999,
+        price: 1499,
         currency: 'USD',
         billing: 'one_time',
         deliveryTime: '14-21 days',
@@ -225,7 +225,7 @@ export const WEB_DEV_PACKAGE_GROUPS: ServicePackageGroup[] = [
           'Shipping integration (basic)',
           'Mobile responsive',
           'SSL Certificate',
-          'Email support'
+          '3 Revisions'
         ],
         popular: false
       },
@@ -233,7 +233,7 @@ export const WEB_DEV_PACKAGE_GROUPS: ServicePackageGroup[] = [
         _key: 'ecommerce-standard',
         name: 'E-commerce Store — Standard',
         tier: 'standard',
-        price: 3999,
+        price: 2999,
         currency: 'USD',
         billing: 'one_time',
         deliveryTime: '21-28 days',
@@ -250,7 +250,7 @@ export const WEB_DEV_PACKAGE_GROUPS: ServicePackageGroup[] = [
           'Blog for SEO',
           'Analytics dashboard',
           'Google Shopping integration',
-          'Priority email support'
+          '5 Revisions'
         ],
         popular: true
       },
@@ -258,7 +258,7 @@ export const WEB_DEV_PACKAGE_GROUPS: ServicePackageGroup[] = [
         _key: 'ecommerce-premium',
         name: 'E-commerce Store — Premium',
         tier: 'premium',
-        price: 7999,
+        price: 5999,
         currency: 'USD',
         billing: 'one_time',
         deliveryTime: '28-35 days',
@@ -276,7 +276,7 @@ export const WEB_DEV_PACKAGE_GROUPS: ServicePackageGroup[] = [
           'Advanced CMS for content',
           'API access for custom integrations',
           'Monthly maintenance & optimization',
-          '24/7 Priority support'
+          'Unlimited revisions'
         ],
         popular: false
       }
@@ -292,7 +292,7 @@ export const WEB_DEV_PACKAGE_GROUPS: ServicePackageGroup[] = [
         name: 'Web App — Startup Edition',
         subtitle: 'Perfect for MVPs and early-stage products',
         tier: 'basic',
-        price: 2999,
+        price: 2499,
         currency: 'USD',
         billing: 'one_time',
         deliveryTime: '21-28 days',
@@ -306,7 +306,7 @@ export const WEB_DEV_PACKAGE_GROUPS: ServicePackageGroup[] = [
           'Mobile responsive',
           '3rd party API integration (1)',
           'SSL Certificate',
-          '10 Revisions'
+          '5 Revisions'
         ],
         popular: false
       },
@@ -315,7 +315,7 @@ export const WEB_DEV_PACKAGE_GROUPS: ServicePackageGroup[] = [
         name: 'Web App — Business Edition',
         subtitle: 'For growing companies scaling their operations',
         tier: 'standard',
-        price: 5999,
+        price: 4999,
         currency: 'USD',
         billing: 'one_time',
         deliveryTime: '28-40 days',
@@ -331,7 +331,7 @@ export const WEB_DEV_PACKAGE_GROUPS: ServicePackageGroup[] = [
           'Payment processing integration',
           'Analytics & logging',
           'Caching & optimization',
-          '20 Revisions'
+          '10 Revisions'
         ],
         popular: true
       },
@@ -340,7 +340,7 @@ export const WEB_DEV_PACKAGE_GROUPS: ServicePackageGroup[] = [
         name: 'Web App — Enterprise Edition',
         subtitle: 'For complex systems requiring maximum flexibility',
         tier: 'premium',
-        price: 12999,
+        price: 9999,
         currency: 'USD',
         billing: 'one_time',
         deliveryTime: '40-60 days',
@@ -357,7 +357,7 @@ export const WEB_DEV_PACKAGE_GROUPS: ServicePackageGroup[] = [
           'Custom admin dashboard',
           'Load testing & optimization',
           'Disaster recovery setup',
-          '6 months of maintenance included',
+          '3 months of maintenance included',
           'Technical documentation',
           'Unlimited revisions',
           'Dedicated developer consultation'
@@ -375,14 +375,14 @@ export const WEB_DEV_PACKAGE_GROUPS: ServicePackageGroup[] = [
 export const BUSINESS_PLAN_PACKAGE_GROUPS: ServicePackageGroup[] = [
   {
     key: { current: 'business-plan-starter' },
-    name: 'Starter Business Plan',
+    name: 'Business Plan',
     description: 'Essential business plan for new ventures and investors.',
     tiers: [
       {
         _key: 'bp-starter-basic',
-        name: 'Business Plan — Essentials',
+        name: 'Business Plan — Basic',
         tier: 'basic',
-        price: 299,
+        price: 249,
         currency: 'USD',
         billing: 'one_time',
         deliveryTime: '3-5 days',
@@ -393,20 +393,20 @@ export const BUSINESS_PLAN_PACKAGE_GROUPS: ServicePackageGroup[] = [
           'Financial projections (1 year)',
           'Funding request',
           'Up to 5 pages',
-          'Email support'
+          '2 Revisions'
         ],
         popular: false
       },
       {
         _key: 'bp-starter-standard',
-        name: 'Business Plan — Complete',
+        name: 'Business Plan — Standard',
         tier: 'standard',
-        price: 599,
+        price: 499,
         currency: 'USD',
         billing: 'one_time',
         deliveryTime: '5-7 days',
         features: [
-          'Everything in Essentials',
+          'Everything in Basic',
           'Company description & structure',
           'Competitive analysis',
           'Marketing & sales strategy',
@@ -416,20 +416,20 @@ export const BUSINESS_PLAN_PACKAGE_GROUPS: ServicePackageGroup[] = [
           'Risk assessment',
           'Up to 15 pages',
           'Professional formatting',
-          'Revision included'
+          '3 Revisions'
         ],
         popular: true
       },
       {
         _key: 'bp-starter-premium',
-        name: 'Business Plan — Investment-Ready',
+        name: 'Business Plan — Premium',
         tier: 'premium',
-        price: 1299,
+        price: 999,
         currency: 'USD',
         billing: 'one_time',
         deliveryTime: '7-10 days',
         features: [
-          'Everything in Complete',
+          'Everything in Standard',
           'Detailed financial modeling',
           'Sensitivity analysis',
           'Market research data (paid sources)',
@@ -453,9 +453,9 @@ export const BUSINESS_PLAN_PACKAGE_GROUPS: ServicePackageGroup[] = [
     tiers: [
       {
         _key: 'bp-growth-basic',
-        name: 'Growth Plan — Quick Assessment',
+        name: 'Growth Plan — Basic',
         tier: 'basic',
-        price: 499,
+        price: 399,
         currency: 'USD',
         billing: 'one_time',
         deliveryTime: '3-5 days',
@@ -471,14 +471,14 @@ export const BUSINESS_PLAN_PACKAGE_GROUPS: ServicePackageGroup[] = [
       },
       {
         _key: 'bp-growth-standard',
-        name: 'Growth Plan — Strategic',
+        name: 'Growth Plan — Standard',
         tier: 'standard',
-        price: 999,
+        price: 799,
         currency: 'USD',
         billing: 'one_time',
         deliveryTime: '5-7 days',
         features: [
-          'Everything in Quick Assessment',
+          'Everything in Basic',
           'Detailed market analysis',
           'Competitive positioning',
           'Growth channel analysis',
@@ -494,14 +494,14 @@ export const BUSINESS_PLAN_PACKAGE_GROUPS: ServicePackageGroup[] = [
       },
       {
         _key: 'bp-growth-premium',
-        name: 'Growth Plan — Enterprise',
+        name: 'Growth Plan — Premium',
         tier: 'premium',
-        price: 2499,
+        price: 1599,
         currency: 'USD',
         billing: 'one_time',
         deliveryTime: '7-12 days',
         features: [
-          'Everything in Strategic',
+          'Everything in Standard',
           'Detailed financial modeling & forecasting',
           'Multi-channel growth analysis',
           'Partnership & acquisition strategy',
@@ -534,12 +534,12 @@ export const BRANDING_PACKAGE_GROUPS: ServicePackageGroup[] = [
         _key: 'logo-basic',
         name: 'Logo Design — Basic',
         tier: 'basic',
-        price: 199,
+        price: 149,
         currency: 'USD',
         billing: 'one_time',
         deliveryTime: '3-5 days',
         features: [
-          '5 logo concepts',
+          '3 logo concepts',
           '2 Revision rounds',
           'PNG & SVG files',
           'Color & B&W versions',
@@ -549,16 +549,16 @@ export const BRANDING_PACKAGE_GROUPS: ServicePackageGroup[] = [
       },
       {
         _key: 'logo-standard',
-        name: 'Logo Design — Professional',
+        name: 'Logo Design — Standard',
         tier: 'standard',
-        price: 399,
+        price: 299,
         currency: 'USD',
         billing: 'one_time',
         deliveryTime: '5-7 days',
         features: [
           'Everything in Basic',
-          '10 logo concepts',
-          'Unlimited revision rounds',
+          '5 logo concepts',
+          '5 revision rounds',
           'All file formats (AI, PDF, PNG, SVG, JPG)',
           'Brand color palette',
           'Typography recommendations',
@@ -569,14 +569,15 @@ export const BRANDING_PACKAGE_GROUPS: ServicePackageGroup[] = [
       },
       {
         _key: 'logo-premium',
-        name: 'Logo Design — Brand Suite',
+        name: 'Logo Design — Premium',
         tier: 'premium',
-        price: 799,
+        price: 599,
         currency: 'USD',
         billing: 'one_time',
         deliveryTime: '7-10 days',
         features: [
-          'Everything in Professional',
+          'Everything in Standard',
+          '10 logo concepts',
           'Brand identity manual',
           'Business card design',
           'Letterhead design',
@@ -605,9 +606,9 @@ export const MARKETING_PACKAGE_GROUPS: ServicePackageGroup[] = [
     tiers: [
       {
         _key: 'dm-basic',
-        name: 'Marketing Strategy — Starter',
+        name: 'Marketing Strategy — Basic',
         tier: 'basic',
-        price: 399,
+        price: 299,
         currency: 'USD',
         billing: 'one_time',
         deliveryTime: '5-7 days',
@@ -623,14 +624,14 @@ export const MARKETING_PACKAGE_GROUPS: ServicePackageGroup[] = [
       },
       {
         _key: 'dm-standard',
-        name: 'Marketing Strategy — Professional',
+        name: 'Marketing Strategy — Standard',
         tier: 'standard',
-        price: 799,
+        price: 599,
         currency: 'USD',
         billing: 'one_time',
         deliveryTime: '7-10 days',
         features: [
-          'Everything in Starter',
+          'Everything in Basic',
           'Detailed audience personas',
           'SWOT analysis',
           'Multi-channel strategy',
@@ -645,14 +646,14 @@ export const MARKETING_PACKAGE_GROUPS: ServicePackageGroup[] = [
       },
       {
         _key: 'dm-premium',
-        name: 'Marketing Strategy — Enterprise',
+        name: 'Marketing Strategy — Premium',
         tier: 'premium',
-        price: 1999,
+        price: 1199,
         currency: 'USD',
         billing: 'one_time',
         deliveryTime: '10-14 days',
         features: [
-          'Everything in Professional',
+          'Everything in Standard',
           'Advanced audience insights & segmentation',
           'Competitive intelligence (3 competitors)',
           '6-month integrated marketing plan',
@@ -677,9 +678,9 @@ export const MARKETING_PACKAGE_GROUPS: ServicePackageGroup[] = [
     tiers: [
       {
         _key: 'sm-basic',
-        name: 'Social Media — Essential',
+        name: 'Social Media — Basic',
         tier: 'basic',
-        price: 499,
+        price: 399,
         currency: 'USD',
         billing: 'monthly',
         deliveryTime: 'Monthly',
@@ -694,14 +695,14 @@ export const MARKETING_PACKAGE_GROUPS: ServicePackageGroup[] = [
       },
       {
         _key: 'sm-standard',
-        name: 'Social Media — Professional',
+        name: 'Social Media — Standard',
         tier: 'standard',
-        price: 1199,
+        price: 799,
         currency: 'USD',
         billing: 'monthly',
         deliveryTime: 'Monthly',
         features: [
-          'Everything in Essential',
+          'Everything in Basic',
           '3 Social platforms',
           '20 posts per month',
           'Professional content creation',
@@ -715,14 +716,14 @@ export const MARKETING_PACKAGE_GROUPS: ServicePackageGroup[] = [
       },
       {
         _key: 'sm-premium',
-        name: 'Social Media — Managed Growth',
+        name: 'Social Media — Premium',
         tier: 'premium',
-        price: 2499,
+        price: 1599,
         currency: 'USD',
         billing: 'monthly',
         deliveryTime: 'Monthly',
         features: [
-          'Everything in Professional',
+          'Everything in Standard',
           'All 5 major platforms',
           '50+ posts per month',
           'Video content creation',
@@ -756,9 +757,9 @@ export const MENTORING_PACKAGE_GROUPS: ServicePackageGroup[] = [
     tiers: [
       {
         _key: 'strategy-basic',
-        name: 'Strategy Session — Quick Consult',
+        name: 'Strategy Session — Basic',
         tier: 'basic',
-        price: 99,
+        price: 79,
         currency: 'USD',
         billing: 'one_time',
         deliveryTime: '1 hour session',
@@ -773,14 +774,14 @@ export const MENTORING_PACKAGE_GROUPS: ServicePackageGroup[] = [
       },
       {
         _key: 'strategy-standard',
-        name: 'Strategy Session — Deep Dive',
+        name: 'Strategy Session — Standard',
         tier: 'standard',
-        price: 199,
+        price: 149,
         currency: 'USD',
         billing: 'one_time',
         deliveryTime: '2 sessions',
         features: [
-          'Everything in Quick Consult',
+          'Everything in Basic',
           '2 x 90-minute sessions',
           'Comprehensive analysis',
           'Detailed implementation roadmap',
@@ -792,14 +793,14 @@ export const MENTORING_PACKAGE_GROUPS: ServicePackageGroup[] = [
       },
       {
         _key: 'strategy-premium',
-        name: 'Strategy Session — Complete Package',
+        name: 'Strategy Session — Premium',
         tier: 'premium',
-        price: 499,
+        price: 349,
         currency: 'USD',
         billing: 'one_time',
         deliveryTime: '4 weeks',
         features: [
-          'Everything in Deep Dive',
+          'Everything in Standard',
           '4 x 90-minute sessions over 4 weeks',
           'Business process audit',
           'Custom strategic framework',
@@ -823,9 +824,9 @@ export const MENTORING_PACKAGE_GROUPS: ServicePackageGroup[] = [
     tiers: [
       {
         _key: 'coaching-basic',
-        name: 'Business Coaching — Starter',
+        name: 'Business Coaching — Basic',
         tier: 'basic',
-        price: 299,
+        price: 249,
         currency: 'USD',
         billing: 'monthly',
         deliveryTime: 'Monthly',
@@ -840,14 +841,14 @@ export const MENTORING_PACKAGE_GROUPS: ServicePackageGroup[] = [
       },
       {
         _key: 'coaching-standard',
-        name: 'Business Coaching — Professional',
+        name: 'Business Coaching — Standard',
         tier: 'standard',
-        price: 599,
+        price: 499,
         currency: 'USD',
         billing: 'monthly',
         deliveryTime: 'Monthly',
         features: [
-          'Everything in Starter',
+          'Everything in Basic',
           '4 sessions per month (60 min each)',
           'Strategic planning support',
           'Team dynamics consultation',
@@ -859,14 +860,14 @@ export const MENTORING_PACKAGE_GROUPS: ServicePackageGroup[] = [
       },
       {
         _key: 'coaching-premium',
-        name: 'Business Coaching — Executive',
+        name: 'Business Coaching — Premium',
         tier: 'premium',
-        price: 1299,
+        price: 999,
         currency: 'USD',
         billing: 'monthly',
         deliveryTime: 'Monthly',
         features: [
-          'Everything in Professional',
+          'Everything in Standard',
           'Unlimited 1-on-1 sessions',
           'Leadership development program',
           'Board meeting preparation',
@@ -890,9 +891,9 @@ export const MENTORING_PACKAGE_GROUPS: ServicePackageGroup[] = [
     tiers: [
       {
         _key: 'career-basic',
-        name: 'Career Coaching — Jump Start',
+        name: 'Career Coaching — Basic',
         tier: 'basic',
-        price: 149,
+        price: 99,
         currency: 'USD',
         billing: 'one_time',
         deliveryTime: '1 week',
@@ -910,7 +911,7 @@ export const MENTORING_PACKAGE_GROUPS: ServicePackageGroup[] = [
         _key: 'career-standard',
         name: 'Career Coaching — Transition',
         tier: 'standard',
-        price: 399,
+        price: 199,
         currency: 'USD',
         billing: 'one_time',
         deliveryTime: '4 weeks',
@@ -930,7 +931,7 @@ export const MENTORING_PACKAGE_GROUPS: ServicePackageGroup[] = [
         _key: 'career-premium',
         name: 'Career Coaching — Executive',
         tier: 'premium',
-        price: 999,
+        price: 399,
         currency: 'USD',
         billing: 'one_time',
         deliveryTime: '12 weeks',
@@ -969,7 +970,7 @@ export const PORTFOLIO_PACKAGE_GROUPS: ServicePackageGroup[] = [
         _key: 'cv-basic',
         name: 'CV/Resume — Essential',
         tier: 'basic',
-        price: 59,
+        price: 49,
         currency: 'USD',
         billing: 'one_time',
         deliveryTime: '3-5 days',
@@ -987,7 +988,7 @@ export const PORTFOLIO_PACKAGE_GROUPS: ServicePackageGroup[] = [
         _key: 'cv-standard',
         name: 'CV/Resume — Professional',
         tier: 'standard',
-        price: 129,
+        price: 99,
         currency: 'USD',
         billing: 'one_time',
         deliveryTime: '3-5 days',
@@ -1006,7 +1007,7 @@ export const PORTFOLIO_PACKAGE_GROUPS: ServicePackageGroup[] = [
         _key: 'cv-premium',
         name: 'CV/Resume — Executive',
         tier: 'premium',
-        price: 299,
+        price: 199,
         currency: 'USD',
         billing: 'one_time',
         deliveryTime: '5-7 days',
@@ -1056,7 +1057,7 @@ export const PORTFOLIO_PACKAGE_GROUPS: ServicePackageGroup[] = [
         _key: 'portfolio-standard',
         name: 'Portfolio Website — Professional',
         tier: 'standard',
-        price: 499,
+        price: 399,
         currency: 'USD',
         billing: 'one_time',
         deliveryTime: '7-10 days',
@@ -1077,7 +1078,7 @@ export const PORTFOLIO_PACKAGE_GROUPS: ServicePackageGroup[] = [
         _key: 'portfolio-premium',
         name: 'Portfolio Website — Premium',
         tier: 'premium',
-        price: 999,
+        price: 799,
         currency: 'USD',
         billing: 'one_time',
         deliveryTime: '10-14 days',
@@ -1109,7 +1110,7 @@ export const PORTFOLIO_PACKAGE_GROUPS: ServicePackageGroup[] = [
         _key: 'linkedin-basic',
         name: 'LinkedIn — Quick Refresh',
         tier: 'basic',
-        price: 89,
+        price: 69,
         currency: 'USD',
         billing: 'one_time',
         deliveryTime: '2-3 days',
@@ -1127,7 +1128,7 @@ export const PORTFOLIO_PACKAGE_GROUPS: ServicePackageGroup[] = [
         _key: 'linkedin-standard',
         name: 'LinkedIn — Complete Makeover',
         tier: 'standard',
-        price: 199,
+        price: 149,
         currency: 'USD',
         billing: 'one_time',
         deliveryTime: '3-5 days',
@@ -1147,7 +1148,7 @@ export const PORTFOLIO_PACKAGE_GROUPS: ServicePackageGroup[] = [
         _key: 'linkedin-premium',
         name: 'LinkedIn — Executive Presence',
         tier: 'premium',
-        price: 499,
+        price: 299,
         currency: 'USD',
         billing: 'one_time',
         deliveryTime: '5-7 days',
