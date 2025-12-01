@@ -15,6 +15,7 @@ export interface ServiceGroup {
     secondary: string;
     accent: string;
   };
+  journeyStage: 'idea' | 'build' | 'grow' | 'learn'; // Maps to Hero JOURNEY_STAGES
 }
 
 export interface GroupPackage {
@@ -61,6 +62,7 @@ export const SERVICE_GROUPS: ServiceGroup[] = [
     id: 'business-strategy',
     name: 'Business Strategy & Planning',
     description: 'Complete business planning, strategic consulting, and mentorship services to launch and grow your business.',
+    journeyStage: 'idea', // "Have an Idea?" stage
     icon: React.createElement('svg', {
       className: 'w-8 h-8',
       fill: 'none',
@@ -87,6 +89,7 @@ export const SERVICE_GROUPS: ServiceGroup[] = [
     id: 'digital-presence',
     name: 'Digital Presence & Development',
     description: 'Professional websites, portfolios, and digital solutions to establish your online presence.',
+    journeyStage: 'build', // "Ready to Build?" stage
     icon: React.createElement('svg', {
       className: 'w-8 h-8',
       fill: 'none',
@@ -113,6 +116,7 @@ export const SERVICE_GROUPS: ServiceGroup[] = [
     id: 'marketing-growth',
     name: 'Marketing & Growth',
     description: 'Comprehensive marketing solutions to grow your audience, increase engagement, and drive sales.',
+    journeyStage: 'grow', // "Need Customers?" stage
     icon: React.createElement('svg', {
       className: 'w-8 h-8',
       fill: 'none',
@@ -135,6 +139,62 @@ export const SERVICE_GROUPS: ServiceGroup[] = [
     }
   }
 ];
+
+// ============================================================================
+// JOURNEY STAGE HELPERS
+// ============================================================================
+
+/**
+ * Get all service groups for a specific journey stage
+ * Used by Hero component to show relevant services when a stage is selected
+ */
+export const getServiceGroupsByJourneyStage = (stage: 'idea' | 'build' | 'grow' | 'learn'): ServiceGroup[] => {
+  return SERVICE_GROUPS.filter(group => group.journeyStage === stage);
+};
+
+/**
+ * Get the starting price for a journey stage
+ * Shows the lowest tier price across all packages in that stage
+ */
+export const getStartingPriceForStage = (stage: 'idea' | 'build' | 'grow' | 'learn'): number => {
+  const groups = getServiceGroupsByJourneyStage(stage);
+  const allPrices = groups.flatMap(g => g.packages.map(p => p.price));
+  return allPrices.length > 0 ? Math.min(...allPrices) : 0;
+};
+
+/**
+ * Journey stage metadata for consistent usage across components
+ */
+export const JOURNEY_STAGE_META = {
+  idea: {
+    label: 'Have an Idea?',
+    shortLabel: 'Plan',
+    description: 'Business planning & brand identity',
+    color: 'green',
+    href: '/services/business-plan-and-logo-design'
+  },
+  build: {
+    label: 'Ready to Build?',
+    shortLabel: 'Build',
+    description: 'Web & mobile development',
+    color: 'blue',
+    href: '/services/web-and-mobile-software-development'
+  },
+  grow: {
+    label: 'Need Customers?',
+    shortLabel: 'Grow',
+    description: 'Marketing & growth strategies',
+    color: 'pink',
+    href: '/services/social-media-advertising-and-marketing'
+  },
+  learn: {
+    label: 'Want to Learn?',
+    shortLabel: 'Learn',
+    description: 'Online courses & training',
+    color: 'purple',
+    href: '/courses'
+  }
+} as const;
 
 // Individual services that can be purchased separately
 export interface IndividualService {

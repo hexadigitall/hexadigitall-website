@@ -1,325 +1,301 @@
+// src/components/sections/Hero.tsx
 'use client'
 
-import { useState, useEffect, useRef } from 'react'
+import { useState } from 'react'
 import Link from 'next/link'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useCurrency } from '@/contexts/CurrencyContext'
-import { GradientCTA, GlassCTA } from '@/components/ui/CTAButton'
 import OptimizedImage from '@/components/ui/OptimizedImage'
 import AnimatedBackground from '@/components/animations/AnimatedBackground'
 
-// Hero slides data
-const slides = [
+// ============================================================================
+// JOURNEY STAGES - The "Digital Compass" Points
+// ============================================================================
+const JOURNEY_STAGES = [
   {
-    title: "Digital Solutions That Drive Results",
-    subtitle: "Web • Mobile • Marketing • Consulting",
-    description: "Elevate your business with our expert digital services. From concept to launch, we deliver solutions that accelerate your success.",
-    image: "/assets/images/heroes/hero-tech-team.jpg",
-    cta: {
-      text: "Get Started",
-      href: "/services"
-    }
+    id: 'idea',
+    label: 'Have an Idea?',
+    title: 'Launch Your Dream',
+    description: 'We turn your vision into a blueprint with professional Business Plans & Brand Identity.',
+    image: '/assets/images/heroes/hero-success-celebration.jpg',
+    cta: 'Start Planning',
+    href: '/services/business-plan-and-logo-design',
+    color: 'from-green-600/90 to-emerald-600/90',
+    accentColor: 'green',
+    icon: (
+      <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+        <path strokeLinecap="round" strokeLinejoin="round" d="M9 18h6M12 3v1M7.5 7.5C6 9 6 11.5 7.2 13.4 8.4 15.3 10.8 16 12 16s3.6-.7 4.8-2.6C18 11.5 18 9 16.5 7.5 15 6 13 5.5 12 7c-1-1.5-3-1-4.5.5z" />
+      </svg>
+    )
   },
   {
-    title: "Launch Your Dream with Our Expert Guidance",
-    subtitle: "Empowering Startups and Businesses",
-    description: "Navigate the complexities of the digital landscape with our expert mentoring and consulting services. We provide strategic advice and hands-on support to help you achieve your goals.",
-    image: "/assets/images/heroes/hero-success-celebration.jpg",
-    cta: {
-      text: "Get a Free Consultation",
-      href: "/contact"
-    }
+    id: 'build',
+    label: 'Ready to Build?',
+    title: 'Digital Solutions That Drive Results',
+    description: 'Web & Mobile Development to build your digital headquarters. From landing pages to full platforms.',
+    image: '/assets/images/heroes/hero-tech-team.jpg',
+    cta: 'Start Building',
+    href: '/services/web-and-mobile-software-development',
+    color: 'from-blue-600/90 to-cyan-600/90',
+    accentColor: 'blue',
+    icon: (
+      <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+        <path strokeLinecap="round" strokeLinejoin="round" d="M3 21h18M7 7l5-4 5 4M7 11h10v10H7z" />
+      </svg>
+    )
   },
   {
-    title: "Unlock Your Potential with Our Online Courses",
-    subtitle: "Learn, Grow, and Succeed with HexaDigitall",
-    description: "Our comprehensive online courses are designed to equip you with the skills and knowledge needed to excel in the digital age. Master industry-relevant skills and advance your career to new heights.",
-    image: "/assets/images/heroes/hero-students-learning.jpg",
-    cta: {
-      text: "Browse Our Courses",
-      href: "/courses"
-    }
+    id: 'grow',
+    label: 'Need Customers?',
+    title: 'Amplify Your Voice',
+    description: 'Data-driven marketing strategies that convert followers into customers. Ads, social, and growth hacking.',
+    image: '/assets/images/heroes/hero-tech-team.jpg',
+    cta: 'Start Growing',
+    href: '/services/social-media-advertising-and-marketing',
+    color: 'from-pink-600/90 to-orange-600/90',
+    accentColor: 'pink',
+    icon: (
+      <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+        <path strokeLinecap="round" strokeLinejoin="round" d="M3 3v18h18M7 13l4-4 4 4 6-6" />
+      </svg>
+    )
+  },
+  {
+    id: 'learn',
+    label: 'Want to Learn?',
+    title: 'Unlock Your Potential',
+    description: 'Master industry-relevant skills with our comprehensive online courses. Learn at your own pace.',
+    image: '/assets/images/heroes/hero-students-learning.jpg',
+    cta: 'Browse Courses',
+    href: '/courses',
+    color: 'from-purple-600/90 to-indigo-600/90',
+    accentColor: 'purple',
+    icon: (
+      <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+        <path strokeLinecap="round" strokeLinejoin="round" d="M12 14l9-5-9-5-9 5 9 5zM12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" />
+        <path strokeLinecap="round" strokeLinejoin="round" d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422m-6.16 3.422V21" />
+      </svg>
+    )
   }
 ]
 
 export default function Hero() {
-  const [currentIndex, setCurrentIndex] = useState(0)
-  const [isClient, setIsClient] = useState(false)
+  // State-driven interaction replaces carousel auto-rotation
+  const [activeStage, setActiveStage] = useState(JOURNEY_STAGES[1]) // Default to "Build"
   const { getLocalDiscountMessage } = useCurrency()
-  const timeoutRef = useRef<NodeJS.Timeout | null>(null)
-
   const discountMessage = getLocalDiscountMessage()
-
-  useEffect(() => {
-    setIsClient(true)
-  }, [])
-
-  const resetTimeout = () => {
-    if (timeoutRef.current) {
-      clearTimeout(timeoutRef.current)
-    }
-  }
-
-  useEffect(() => {
-    resetTimeout()
-    timeoutRef.current = setTimeout(
-      () =>
-        setCurrentIndex((prevIndex) =>
-          prevIndex === slides.length - 1 ? 0 : prevIndex + 1
-        ),
-      5000 // Change slide every 5 seconds
-    )
-
-    return () => {
-      resetTimeout()
-    }
-  }, [currentIndex])
-
-  const goToSlide = (slideIndex: number) => {
-    setCurrentIndex(slideIndex)
-  }
-
-  const slideVariants = {
-    hidden: { opacity: 0, x: 50 },
-    visible: { opacity: 1, x: 0 },
-    exit: { opacity: 0, x: -50 },
-  }
 
   return (
     <section 
-      className="relative overflow-hidden bg-gray-900 text-white hero-height h-full"
-      aria-label="Hero carousel"
+      className="relative min-h-[85vh] overflow-hidden bg-gray-900 text-white flex flex-col justify-center"
+      aria-label="Interactive service navigator"
       role="region"
-      aria-roledescription="carousel"
     >
-  <div className="flex h-full w-full">
-        <AnimatePresence initial={false}>
-          {slides.map((slide, index) => (
-            currentIndex === index && (
-              <motion.article
-                key={index}
-                className="relative flex-shrink-0 w-full h-full"
-                variants={slideVariants}
-                initial="hidden"
-                animate="visible"
-                exit="exit"
-                transition={{ duration: 0.5, ease: 'easeInOut' }}
-                style={{
-                  position: 'absolute',
-                  top: 0,
-                  left: 0,
-                  right: 0,
-                  bottom: 0,
-                  height: '100%'
-                }}
-                aria-hidden={currentIndex !== index}
-                role="group"
-                aria-roledescription="slide"
-              >
-                {/* First Slide: Enhanced Modern Gradient Effect */}
-                {index === 0 ? (
-                  <>
-                    <div className="absolute inset-0 h-full">
-                      <OptimizedImage
-                        src={slide.image}
-                        alt={slide.title}
-                        fill
-                        sizes="100vw"
-                        style={{ objectFit: 'cover' }}
-                        className="opacity-20"
-                        priority={true}
-                      />
-                      {/* Enhanced animated gradient background */}
-                      <div className="absolute inset-0 bg-gradient-to-br from-gradient-start via-primary to-secondary opacity-90"></div>
-                      
-                      {/* Dynamic animated background */}
-                      <AnimatedBackground variant="gradient" intensity="medium" />
-                      <AnimatedBackground variant="particles" intensity="low" />
-                      
-                      {/* Enhanced wave overlay */}
-                      <svg className="absolute top-0 left-0 w-full h-full pointer-events-none" viewBox="0 0 1440 600" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <motion.path
-                          initial={{ opacity: 0, pathLength: 0 }}
-                          animate={{ opacity: 0.4, pathLength: 1 }}
-                          transition={{ duration: 2.5, ease: "easeInOut" }}
-                          d="M0,160 C480,320 960,0 1440,160 L1440,600 L0,600 Z"
-                          fill="url(#modernGradient)"
-                        />
-                        <motion.path
-                          initial={{ opacity: 0, scale: 0.8, pathLength: 0 }}
-                          animate={{ opacity: 0.3, scale: 1, pathLength: 1 }}
-                          transition={{ duration: 3, delay: 0.8, ease: "easeInOut" }}
-                          d="M0,300 C360,150 720,450 1080,300 C1260,225 1350,375 1440,300 L1440,600 L0,600 Z"
-                          fill="url(#accentGradient)"
-                        />
-                        <defs>
-                          <linearGradient id="modernGradient" x1="0" y1="0" x2="1440" y2="600" gradientUnits="userSpaceOnUse">
-                            <stop stopColor="#667eea" stopOpacity="0.8"/>
-                            <stop offset="0.5" stopColor="#764ba2" stopOpacity="0.6"/>
-                            <stop offset="1" stopColor="#f093fb" stopOpacity="0.4"/>
-                          </linearGradient>
-                          <linearGradient id="accentGradient" x1="0" y1="0" x2="1440" y2="600" gradientUnits="userSpaceOnUse">
-                            <stop stopColor="#f5576c" stopOpacity="0.6"/>
-                            <stop offset="1" stopColor="#4facfe" stopOpacity="0.4"/>
-                          </linearGradient>
-                        </defs>
-                      </svg>
-                    </div>
-                  </>
-                ) : (
-                  <>
-                    <div className="absolute inset-0 h-full">
-                      <OptimizedImage
-                        src={slide.image}
-                        alt={slide.title}
-                        fill
-                        sizes="100vw"
-                        style={{ objectFit: 'cover' }}
-                        className="opacity-40"
-                        priority={false}
-                      />
-                      {/* Modern gradient overlay for other slides */}
-                      <div className={`absolute inset-0 ${index === 1 ? 'bg-gradient-to-br from-purple-900/80 via-blue-900/60 to-teal-900/70' : 'bg-gradient-to-br from-indigo-900/80 via-purple-900/60 to-pink-900/70'}`}></div>
-                      
-                      {/* Different animated backgrounds for each slide */}
-                      {index === 1 ? (
-                        <>
-                          <AnimatedBackground variant="waves" intensity="medium" />
-                          <AnimatedBackground variant="particles" intensity="low" />
-                        </>
-                      ) : (
-                        <>
-                          <AnimatedBackground variant="geometric" intensity="low" />
-                          <AnimatedBackground variant="gradient" intensity="low" />
-                        </>
-                      )}
-                    </div>
-                  </>
-                )}
-
-                {/* Content */}
-                <div className="relative container mx-auto px-4 sm:px-6 lg:px-8 h-full flex flex-col justify-center items-center py-8 sm:py-12">
-                  <div className="max-w-6xl w-full text-center">
-                    <motion.div
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.6, delay: 0.2 }}
-                      className="space-y-4 sm:space-y-6"
-                    >
-                      <h1 className="text-sm sm:text-base lg:text-lg font-semibold uppercase tracking-widest text-secondary mb-2 sm:mb-4">
-                        {slide.subtitle}
-                      </h1>
-                      <div className="space-y-2 sm:space-y-3">
-                        <p className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-extrabold font-heading text-white leading-tight">
-                          {slide.title}
-                        </p>
-                        
-                        {/* Launch Special Banner - Only for Nigerian currency */}
-                        {isClient && index === 0 && discountMessage && (
-                          <div className="inline-flex items-center space-x-1 sm:space-x-2 bg-gradient-to-r from-green-500/80 to-green-600/80 backdrop-blur-sm border border-green-400/50 text-white px-3 sm:px-4 py-2 rounded-full text-sm font-bold shadow-lg">
-                            <span>🇳🇬</span>
-                            <span className="hidden sm:inline">50% OFF ALL SERVICES!</span>
-                            <span className="sm:hidden">50% OFF!</span>
-                            <span>🔥</span>
-                          </div>
-                        )}
-                      </div>
-                      
-                      <p className="max-w-2xl mx-auto text-base sm:text-lg text-gray-200 leading-relaxed">
-                        {slide.description}
-                      </p>
-                      
-                      <div className="flex flex-col sm:flex-row gap-3 justify-center items-center">
-                        <GradientCTA href={slide.cta.href} size={index === 0 ? "md" : "lg"}>
-                          {slide.cta.text}
-                        </GradientCTA>
-                        {index === 0 && (
-                          <GlassCTA href="/contact" size="md">
-                            Free Quote
-                          </GlassCTA>
-                        )}
-                      </div>
-
-                      {/* Enhanced Quick Links on First Slide - Responsive */}
-                      {index === 0 && (
-                        <div className="grid grid-cols-3 gap-3 sm:gap-4 max-w-md sm:max-w-lg mx-auto">
-                          <motion.div
-                            initial={{ opacity: 0, y: 30 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ delay: 0.8, duration: 0.6 }}
-                          >
-                            <Link
-                              href="/services"
-                              className="group bg-white/10 backdrop-blur-md hover:bg-white/20 border border-white/30 hover:border-white/50 rounded-xl p-3 sm:p-4 transition-all duration-500 text-center hover:scale-110 hover:-translate-y-2 hover-glow relative overflow-hidden"
-                            >
-                              <div className="absolute inset-0 bg-gradient-to-r from-blue-500/10 to-cyan-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                              <div className="relative z-10">
-                                <div className="text-2xl sm:text-3xl mb-1 sm:mb-2 transform group-hover:scale-110 group-hover:rotate-12 transition-transform duration-300">🌐</div>
-                                <h3 className="text-sm sm:text-base font-semibold text-white mb-0 sm:mb-1 group-hover:text-cyan-300 transition-colors">Services</h3>
-                                <p className="text-xs text-gray-300 group-hover:text-gray-200 hidden sm:block transition-colors">Web & Mobile</p>
-                              </div>
-                            </Link>
-                          </motion.div>
-                          
-                          <motion.div
-                            initial={{ opacity: 0, y: 30 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ delay: 1.0, duration: 0.6 }}
-                          >
-                            <Link
-                              href="/courses"
-                              className="group bg-white/10 backdrop-blur-md hover:bg-white/20 border border-white/30 hover:border-white/50 rounded-xl p-3 sm:p-4 transition-all duration-500 text-center hover:scale-110 hover:-translate-y-2 hover-glow relative overflow-hidden"
-                            >
-                              <div className="absolute inset-0 bg-gradient-to-r from-purple-500/10 to-pink-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                              <div className="relative z-10">
-                                <div className="text-2xl sm:text-3xl mb-1 sm:mb-2 transform group-hover:scale-110 group-hover:-rotate-12 transition-transform duration-300">📚</div>
-                                <h3 className="text-sm sm:text-base font-semibold text-white mb-0 sm:mb-1 group-hover:text-pink-300 transition-colors">Courses</h3>
-                                <p className="text-xs text-gray-300 group-hover:text-gray-200 hidden sm:block transition-colors">Learn & Grow</p>
-                              </div>
-                            </Link>
-                          </motion.div>
-                          
-                          <motion.div
-                            initial={{ opacity: 0, y: 30 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ delay: 1.2, duration: 0.6 }}
-                          >
-                            <Link
-                              href="/contact"
-                              className="group bg-white/10 backdrop-blur-md hover:bg-white/20 border border-white/30 hover:border-white/50 rounded-xl p-3 sm:p-4 transition-all duration-500 text-center hover:scale-110 hover:-translate-y-2 hover-glow relative overflow-hidden"
-                            >
-                              <div className="absolute inset-0 bg-gradient-to-r from-green-500/10 to-teal-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                              <div className="relative z-10">
-                                <div className="text-2xl sm:text-3xl mb-1 sm:mb-2 transform group-hover:scale-110 group-hover:rotate-6 transition-transform duration-300">🤝</div>
-                                <h3 className="text-sm sm:text-base font-semibold text-white mb-0 sm:mb-1 group-hover:text-green-300 transition-colors">Contact</h3>
-                                <p className="text-xs text-gray-300 group-hover:text-gray-200 hidden sm:block transition-colors">Get Started</p>
-                              </div>
-                            </Link>
-                          </motion.div>
-                        </div>
-                      )}
-                    </motion.div>
-                  </div>
-                </div>
-              </motion.article>
-            )
-          ))}
-        </AnimatePresence>
-      </div>
-
-      {/* Navigation Dots */}
-      <div className="absolute bottom-6 sm:bottom-8 left-1/2 -translate-x-1/2 flex space-x-3">
-        {slides.map((_, index) => (
-          <button
-            key={index}
-            onClick={() => goToSlide(index)}
-            className={`w-3 h-3 rounded-full transition-colors duration-300 ${
-              currentIndex === index ? 'bg-secondary' : 'bg-gray-400 hover:bg-gray-200'
-            }`}
-            aria-label={`Go to slide ${index + 1}`}
-            aria-current={currentIndex === index}
+      {/* Dynamic Background Layer - Changes based on active stage */}
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={activeStage.id}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.5 }}
+          className="absolute inset-0"
+        >
+          {/* Background Image */}
+          <OptimizedImage
+            src={activeStage.image}
+            alt={activeStage.title}
+            fill
+            sizes="100vw"
+            style={{ objectFit: 'cover' }}
+            className="opacity-20"
+            priority
           />
-        ))}
+          
+          {/* Dynamic Gradient based on stage */}
+          <div className={`absolute inset-0 bg-gradient-to-br ${activeStage.color}`} />
+          
+          {/* Animated Background Effects - Preserved from original */}
+          <AnimatedBackground variant="gradient" intensity="medium" />
+          <AnimatedBackground variant="particles" intensity="low" />
+          
+          {/* Decorative SVG Waves */}
+          <svg 
+            className="absolute bottom-0 left-0 w-full h-32 pointer-events-none" 
+            viewBox="0 0 1440 120" 
+            fill="none" 
+            xmlns="http://www.w3.org/2000/svg"
+            preserveAspectRatio="none"
+          >
+            <motion.path
+              initial={{ opacity: 0, pathLength: 0 }}
+              animate={{ opacity: 0.3, pathLength: 1 }}
+              transition={{ duration: 2, ease: "easeInOut" }}
+              d="M0,60 C360,120 720,0 1080,60 C1260,90 1350,30 1440,60 L1440,120 L0,120 Z"
+              fill="white"
+            />
+          </svg>
+        </motion.div>
+      </AnimatePresence>
+
+      {/* Main Content */}
+      <div className="relative z-10 container mx-auto px-4 sm:px-6 py-8 sm:py-12">
+        
+        {/* Nigerian Discount Banner */}
+        {discountMessage && (
+          <motion.div 
+            initial={{ y: -20, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            className="flex justify-center mb-6"
+          >
+            <div className="inline-flex items-center space-x-2 bg-gradient-to-r from-green-500/80 to-green-600/80 backdrop-blur-sm border border-green-400/50 text-white px-4 py-2 rounded-full text-sm font-bold shadow-lg">
+              <span>🇳🇬</span>
+              <span className="hidden sm:inline">NIGERIAN LAUNCH SPECIAL - 50% OFF ALL SERVICES!</span>
+              <span className="sm:hidden">50% OFF ALL SERVICES!</span>
+              <span>🔥</span>
+            </div>
+          </motion.div>
+        )}
+
+        {/* The Tour Guide Question */}
+        <motion.div 
+          className="text-center mb-8 sm:mb-10"
+          initial={{ y: -20, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ delay: 0.2 }}
+        >
+          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold font-heading mb-4">
+            Where is your business{' '}
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 to-blue-300">
+              right now?
+            </span>
+          </h1>
+          <p className="text-lg sm:text-xl text-gray-200 max-w-2xl mx-auto">
+            Choose your stage. We&apos;ll guide you to the perfect solution.
+          </p>
+        </motion.div>
+
+        {/* Interactive Stage Selector Cards - The "Compass" */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 max-w-5xl mx-auto mb-8 sm:mb-10">
+          {JOURNEY_STAGES.map((stage, index) => (
+            <motion.button
+              key={stage.id}
+              onClick={() => setActiveStage(stage)}
+              onMouseEnter={() => setActiveStage(stage)}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3 + index * 0.1 }}
+              className={`
+                relative p-3 sm:p-4 rounded-xl border-2 transition-all duration-300 text-left overflow-hidden group
+                min-h-[80px] sm:min-h-[100px]
+                focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-white/50
+                ${activeStage.id === stage.id 
+                  ? 'bg-white/15 border-white shadow-xl scale-105' 
+                  : 'bg-white/5 border-white/20 hover:bg-white/10 hover:border-white/40'}
+              `}
+              aria-pressed={activeStage.id === stage.id}
+              aria-label={`${stage.label} - ${stage.title}`}
+            >
+              {/* Icon */}
+              <div className={`mb-2 ${activeStage.id === stage.id ? 'text-white' : 'text-gray-300'}`}>
+                {stage.icon}
+              </div>
+              
+              {/* Label */}
+              <h3 className={`font-bold text-sm sm:text-base lg:text-lg leading-tight ${
+                activeStage.id === stage.id ? 'text-white' : 'text-gray-300'
+              }`}>
+                {stage.label}
+              </h3>
+              
+              {/* Active Indicator Line */}
+              {activeStage.id === stage.id && (
+                <motion.div 
+                  layoutId="active-indicator"
+                  className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-cyan-400 to-blue-400"
+                />
+              )}
+              
+              {/* Hover glow effect */}
+              <div className={`absolute inset-0 rounded-xl bg-gradient-to-br ${stage.color} opacity-0 group-hover:opacity-10 transition-opacity`} />
+            </motion.button>
+          ))}
+        </div>
+
+        {/* The Output Area - Dynamic Content Panel */}
+        <div className="max-w-4xl mx-auto">
+          <div className="bg-black/30 backdrop-blur-md rounded-2xl p-6 sm:p-8 border border-white/10 shadow-2xl">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={activeStage.id}
+                initial={{ y: 20, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                exit={{ y: -20, opacity: 0 }}
+                transition={{ duration: 0.3 }}
+                className="space-y-4 sm:space-y-6"
+              >
+                {/* Stage Title */}
+                <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-center">
+                  {activeStage.title}
+                </h2>
+                
+                {/* Stage Description */}
+                <p className="text-base sm:text-lg md:text-xl text-gray-200 text-center max-w-2xl mx-auto">
+                  {activeStage.description}
+                </p>
+                
+                {/* CTA Buttons */}
+                <div className="flex flex-col sm:flex-row justify-center items-center gap-3 sm:gap-4 pt-2 sm:pt-4">
+                  <Link 
+                    href={activeStage.href}
+                    className="w-full sm:w-auto min-h-[48px] px-8 py-4 bg-white text-gray-900 font-bold rounded-full hover:scale-105 hover:shadow-xl transition-all duration-300 text-center"
+                  >
+                    {activeStage.cta}
+                  </Link>
+                  
+                  <Link
+                    href="/contact"
+                    className="w-full sm:w-auto min-h-[48px] px-8 py-4 bg-white/10 backdrop-blur border border-white/30 text-white font-semibold rounded-full hover:bg-white/20 hover:border-white/50 transition-all duration-300 text-center"
+                  >
+                    Get Free Quote
+                  </Link>
+                </div>
+
+                {/* Nigerian Discount Badge - Show on Build stage */}
+                {activeStage.id === 'build' && discountMessage && (
+                  <motion.div 
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    className="flex justify-center pt-2"
+                  >
+                    <div className="inline-flex items-center px-4 py-2 bg-green-600/20 text-green-300 border border-green-500/50 rounded-full text-sm">
+                      🇳🇬 Special Nigerian Pricing Available
+                    </div>
+                  </motion.div>
+                )}
+              </motion.div>
+            </AnimatePresence>
+          </div>
+        </div>
+
+        {/* Bottom Navigation Hint */}
+        <motion.div 
+          className="text-center mt-8 sm:mt-10"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.8 }}
+        >
+          <p className="text-gray-300 text-sm mb-2">Not sure where to start?</p>
+          <Link 
+            href="/services/custom-build"
+            className="inline-flex items-center text-cyan-300 hover:text-cyan-200 font-medium transition-colors"
+          >
+            Build a Custom Solution
+            <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+            </svg>
+          </Link>
+        </motion.div>
       </div>
     </section>
   )

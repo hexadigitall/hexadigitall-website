@@ -2,22 +2,25 @@
 
 import React from 'react'
 import Link from 'next/link'
+import { JOURNEY_STAGE_META } from '@/data/serviceGroups'
 
 interface JourneyCard {
-  id: string
+  id: keyof typeof JOURNEY_STAGE_META
   title: string
   description: string
   href: string
   icon: React.ReactNode
   cta: string
+  color: string
 }
 
 const JOURNEY_CARDS: JourneyCard[] = [
   {
     id: 'idea',
-    title: 'Have an Idea?',
+    title: JOURNEY_STAGE_META.idea.label,
     description: "We'll turn your idea into a clear plan and brand you can be proud of.",
-    href: '/services/business-plan-and-logo-design',
+    href: JOURNEY_STAGE_META.idea.href,
+    color: 'text-green-500',
     icon: (
       <svg className="w-12 h-12 text-green-500" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
         <path d="M9 18h6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
@@ -29,9 +32,10 @@ const JOURNEY_CARDS: JourneyCard[] = [
   },
   {
     id: 'build',
-    title: 'Ready to Build?',
+    title: JOURNEY_STAGE_META.build.label,
     description: 'Ship your website or mobile app with a steady, experienced team.',
-    href: '/services/web-and-mobile-software-development',
+    href: JOURNEY_STAGE_META.build.href,
+    color: 'text-blue-500',
     icon: (
       <svg className="w-12 h-12 text-blue-500" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
         <path d="M3 21h18" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
@@ -42,10 +46,11 @@ const JOURNEY_CARDS: JourneyCard[] = [
     cta: 'Start Building'
   },
   {
-    id: 'customers',
-    title: 'Need Customers?',
+    id: 'grow',
+    title: JOURNEY_STAGE_META.grow.label,
     description: 'Growth strategies, ads and social campaigns that bring results.',
-    href: '/services/social-media-advertising-and-marketing',
+    href: JOURNEY_STAGE_META.grow.href,
+    color: 'text-pink-500',
     icon: (
       <svg className="w-12 h-12 text-pink-500" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
         <path d="M3 3v18h18" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
@@ -56,9 +61,10 @@ const JOURNEY_CARDS: JourneyCard[] = [
   },
   {
     id: 'learn',
-    title: 'Want to Learn?',
+    title: JOURNEY_STAGE_META.learn.label,
     description: 'Practical courses to help you master marketing, product and growth.',
-    href: '/courses',
+    href: JOURNEY_STAGE_META.learn.href,
+    color: 'text-purple-500',
     icon: (
       <svg className="w-12 h-12 text-purple-500" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
         <path d="M4 19.5A2.5 2.5 0 016.5 17H20" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" />
