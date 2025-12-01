@@ -1,7 +1,7 @@
 // src/components/sections/Hero.tsx
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useCurrency } from '@/contexts/CurrencyContext'
@@ -84,6 +84,22 @@ export default function Hero() {
   const [activeStage, setActiveStage] = useState(JOURNEY_STAGES[1]) // Default to "Build"
   const { getLocalDiscountMessage } = useCurrency()
   const discountMessage = getLocalDiscountMessage()
+
+  // Persist last selected stage in localStorage for better continuity
+  useEffect(() => {
+    try {
+      const saved = typeof window !== 'undefined' ? window.localStorage.getItem('hero:lastStage') : null
+      if (saved) {
+        const found = JOURNEY_STAGES.find(s => s.id === saved)
+        if (found) setActiveStage(found)
+      }
+    } catch {}
+  }, [])
+
+  const selectStage = (stage: (typeof JOURNEY_STAGES)[number]) => {
+    setActiveStage(stage)
+    try { if (typeof window !== 'undefined') window.localStorage.setItem('hero:lastStage', stage.id) } catch {}
+  }
 
   return (
     <section 
@@ -176,12 +192,12 @@ export default function Hero() {
         </motion.div>
 
         {/* Interactive Stage Selector Cards - The "Compass" */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 max-w-5xl mx-auto mb-8 sm:mb-10">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 max-w-5xl mx-auto mb-8 sm:mb-10">
           {JOURNEY_STAGES.map((stage, index) => (
             <motion.button
               key={stage.id}
-              onClick={() => setActiveStage(stage)}
-              onMouseEnter={() => setActiveStage(stage)}
+              onClick={() => selectStage(stage)}
+              onMouseEnter={() => selectStage(stage)}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3 + index * 0.1 }}
