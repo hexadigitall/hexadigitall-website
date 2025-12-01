@@ -41,12 +41,14 @@ const fallbackTestimonials: Testimonial[] = [
   }
 ];
 
-// The GROQ query to fetch all testimonials
-const testimonialQuery = groq`*[_type == "testimonial"]{
+// The GROQ query to fetch all testimonials - order by _createdAt to get consistent ordering
+const testimonialQuery = groq`*[_type == "testimonial"] | order(_createdAt desc) {
   _id,
   quote,
   authorName,
-  authorCompany
+  authorCompany,
+  rating,
+  "authorImage": authorImage.asset->url
 }`;
 
 const Testimonials = async () => {
@@ -54,12 +56,20 @@ const Testimonials = async () => {
   
   const dedupe = (items: Testimonial[]) => {
     const seen = new Set<string>();
-    return items.filter((t) => {
-      const key = `${t._id || ''}|${t.quote || ''}|${t.authorName || ''}`.trim();
-      if (seen.has(key)) return false;
-      seen.add(key);
-      return true;
-    });
+    const unique: Testimonial[] = [];
+    
+    for (const t of items) {
+      // Create a more robust deduplication key using multiple fields
+      const quoteSnippet = (t.quote || '').toLowerCase().slice(0, 50);
+      const key = `${quoteSnippet}|${(t.authorName || '').toLowerCase()}|${(t.authorCompany || '').toLowerCase()}`;
+      
+      if (!seen.has(key)) {
+        seen.add(key);
+        unique.push(t);
+      }
+    }
+    
+    return unique;
   };
   
   try {
