@@ -33,7 +33,7 @@
       font-size: 0.9rem;
     }
     form {
-      max-width: 980px;
+      max-width: 780px;
       margin: 0 auto 48px;
     }
     fieldset {
@@ -45,15 +45,11 @@
     legend {
       padding: 0 8px;
       font-weight: 600;
+      font-size: 1.1rem;
     }
     .row {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 12px;
-    }
-    .row-3 {
-      display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
       gap: 12px;
     }
     label {
@@ -61,10 +57,12 @@
       font-weight: 600;
       margin: 14px 0 6px;
     }
+    label .required {
+      color: #dc2626;
+    }
     input[type="text"],
     input[type="email"],
     input[type="tel"],
-    input[type="number"],
     select,
     textarea {
       width: 100%;
@@ -74,35 +72,18 @@
       font: inherit;
       box-sizing: border-box;
     }
-    textarea { min-height: 90px; }
-    .checkbox-group, .radio-group {
+    textarea { min-height: 80px; }
+    .checkbox-group {
       display: grid;
-      grid-template-columns: repeat(3, minmax(180px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
       gap: 8px 12px;
-      margin: 6px 0 6px;
+      margin: 6px 0 12px;
     }
     .inline {
       display: flex;
-      gap: 12px;
+      gap: 8px;
       align-items: center;
-      flex-wrap: wrap;
     }
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 12px;
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      overflow: hidden;
-    }
-    th, td {
-      border-bottom: 1px solid var(--border);
-      text-align: left;
-      padding: 10px 12px;
-      vertical-align: top;
-    }
-    th { background: #f9fafb; font-weight: 600; }
-    tfoot td { background: #f9fafb; font-weight: 600; }
     .actions {
       display: flex;
       gap: 12px;
@@ -111,485 +92,281 @@
     button {
       border: 0;
       border-radius: 8px;
-      padding: 10px 16px;
+      padding: 12px 24px;
       font: inherit;
       cursor: pointer;
+      font-weight: 600;
     }
     .primary { background: var(--accent); color: white; }
     .secondary { background: #f1f5f9; color: var(--text); }
+    details {
+      margin: 24px 0;
+      padding: 18px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+    }
+    summary {
+      cursor: pointer;
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
+    .glossary-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 12px;
+      font-size: 0.9rem;
+    }
+    .glossary-table th,
+    .glossary-table td {
+      border-bottom: 1px solid var(--border);
+      text-align: left;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .glossary-table th {
+      background: #f9fafb;
+      font-weight: 600;
+    }
     @media print {
       .actions { display: none; }
       body { padding: 0; }
+      details { display: none; }
+    }
+    @media (max-width: 640px) {
+      .row {
+        grid-template-columns: 1fr;
+      }
     }
   </style>
 </head>
 <body>
 
-  <!-- PageHeader: 2 | Page -->
   <img src="hexadigitall-logo.png" alt="Hexadigitall Technologies Logo" style="max-width:150px;display:block;margin:0 auto 24px;" />
   <h1 class="page-title">Social Media Strategy Intake Form</h1>
+  <p class="subtle" style="text-align: center;">Quick 3-5 minute form. Only essential information required.</p>
   
 
   <form id="intake-form" action="https://formspree.io/f/xrbvyjgy" method="POST">
-    <!-- Section 1 -->
-    <p class="subtle">Fill out the fields below. Save as PDF or print when done.</p>
+    
+    <!-- Contact Information -->
     <fieldset>
-      <legend>Section 1: Brand identity & vision</legend>
+      <legend>📋 Contact Information</legend>
+      <div class="row">
+        <div>
+          <label for="full_name">Full Name <span class="required">*</span></label>
+          <input id="full_name" name="full_name" type="text" placeholder="Your name" required />
+        </div>
+        <div>
+          <label for="email">Email <span class="required">*</span></label>
+          <input id="email" name="email" type="email" placeholder="your@email.com" required />
+        </div>
+      </div>
+      <div class="row">
+        <div>
+          <label for="phone">Phone Number</label>
+          <input id="phone" name="phone" type="tel" placeholder="+234 XXX XXX XXXX" />
+        </div>
+        <div>
+          <label for="brand_name">Brand/Business Name <span class="required">*</span></label>
+          <input id="brand_name" name="brand_name" type="text" placeholder="Your brand name" required />
+        </div>
+      </div>
+    </fieldset>
 
-      <label for="mission">What is your brand mission statement</label>
-      <textarea id="mission" name="mission" placeholder="Type your mission statement"></textarea>
+    <!-- Brand Essentials -->
+    <fieldset>
+      <legend>🎯 Brand Essentials</legend>
 
-      <label>Brand personality (select all that apply)</label>
+      <label for="target_audience">Who is your target audience? <span class="required">*</span></label>
+      <textarea id="target_audience" name="target_audience" placeholder="e.g., Women aged 25–40 in Lagos who love sustainable fashion" required></textarea>
+
+      <label for="usp">What makes your brand unique? <span class="required">*</span></label>
+      <textarea id="usp" name="usp" placeholder="What sets you apart from competitors?" required></textarea>
+
+      <label>Brand personality (select up to 3)</label>
       <div class="checkbox-group" role="group" aria-label="Brand personality">
         <label class="inline"><input type="checkbox" name="brand_personality" value="Elegant" /> Elegant</label>
         <label class="inline"><input type="checkbox" name="brand_personality" value="Edgy" /> Edgy</label>
         <label class="inline"><input type="checkbox" name="brand_personality" value="Playful" /> Playful</label>
         <label class="inline"><input type="checkbox" name="brand_personality" value="Minimalist" /> Minimalist</label>
-        <label class="inline" style="grid-column: span 3;">
-          <input type="checkbox" name="brand_personality" value="Other" /> Other
-          <input type="text" name="brand_personality_other" placeholder="If other, describe" />
-        </label>
+        <label class="inline"><input type="checkbox" name="brand_personality" value="Professional" /> Professional</label>
+        <label class="inline"><input type="checkbox" name="brand_personality" value="Bold" /> Bold</label>
       </div>
-
-      <label>Target audience</label>
-      <div class="row">
-        <div>
-          <label for="aud_demographics">Demographics</label>
-          <textarea id="aud_demographics" name="aud_demographics" placeholder="e.g., Women aged 25–40 in Cross River State"></textarea>
-        </div>
-        <div>
-          <label for="aud_psychographics">Psychographics</label>
-          <textarea id="aud_psychographics" name="aud_psychographics" placeholder="e.g., Eco-conscious shoppers who love sustainable fashion"></textarea>
-        </div>
-      </div>
-      <label for="aud_lifestyle">Lifestyle</label>
-      <textarea id="aud_lifestyle" name="aud_lifestyle" placeholder="e.g., Busy professionals seeking office-to-evening looks"></textarea>
-
-      <label for="usp">What makes your fashion house unique (USP)</label>
-      <textarea id="usp" name="usp" placeholder="Describe your unique selling proposition"></textarea>
     </fieldset>
 
-    <!-- Section 2 -->
+    <!-- Social Media Presence -->
     <fieldset>
-      <legend>Section 2: Current presence</legend>
+      <legend>📱 Social Media Presence</legend>
 
-      <label>Active platforms (check all that apply)</label>
+      <label>Which platforms do you want to focus on? (select all) <span class="required">*</span></label>
       <div class="checkbox-group" role="group" aria-label="Active platforms">
         <label class="inline"><input type="checkbox" name="platforms" value="Instagram" /> Instagram</label>
         <label class="inline"><input type="checkbox" name="platforms" value="Facebook" /> Facebook</label>
         <label class="inline"><input type="checkbox" name="platforms" value="TikTok" /> TikTok</label>
+        <label class="inline"><input type="checkbox" name="platforms" value="LinkedIn" /> LinkedIn</label>
+        <label class="inline"><input type="checkbox" name="platforms" value="Twitter/X" /> Twitter/X</label>
         <label class="inline"><input type="checkbox" name="platforms" value="Pinterest" /> Pinterest</label>
-        <label class="inline"><input type="checkbox" name="platforms" value="TwitterX" /> Twitter/X</label>
-        <label class="inline" style="grid-column: span 3;">
-          <input type="checkbox" name="platforms" value="Other" /> Other
-          <input type="text" name="platforms_other" placeholder="If other, specify" />
-        </label>
       </div>
 
-      <label for="best_content">What type of content has performed best so far?</label>
-      <textarea id="best_content" name="best_content" placeholder="Describe your top-performing content"></textarea>
-
-      <label>Existing brand guidelines (colors, fonts, tone of voice)</label>
-      <div class="radio-group" role="group" aria-label="Brand guidelines">
-        <label class="inline"><input type="radio" name="has_guidelines" value="Yes" /> Yes</label>
-        <label class="inline"><input type="radio" name="has_guidelines" value="No" /> No</label>
-      </div>
-      <textarea name="guidelines_details" placeholder="If yes, describe. If no, what would you like?"></textarea>
+      <label for="handles">Your social media handles (if any)</label>
+      <input id="handles" name="handles" type="text" placeholder="e.g., @yourbrand on Instagram" />
     </fieldset>
 
-    <!-- Section 3 -->
+    <!-- Goals -->
     <fieldset>
-      <legend>Section 3: Goals & success metrics</legend>
+      <legend>🎯 Your Goals</legend>
 
-      <label>What does success look like for you on social media? (select any)</label>
+      <label>What's your main goal? (select top 3) <span class="required">*</span></label>
       <div class="checkbox-group" role="group" aria-label="Success metrics">
-        <label class="inline"><input type="checkbox" name="success" value="Follower Growth" /> Follower Growth</label>
-        <label class="inline"><input type="checkbox" name="success" value="Engagement" /> Engagement</label>
-        <label class="inline"><input type="checkbox" name="success" value="Website Traffic" /> Website Traffic</label>
-        <label class="inline"><input type="checkbox" name="success" value="Conversions" /> Conversions</label>
-        <label class="inline"><input type="checkbox" name="success" value="Brand Awareness" /> Brand Awareness</label>
+        <label class="inline"><input type="checkbox" name="success" value="Follower Growth" /> Grow Followers</label>
+        <label class="inline"><input type="checkbox" name="success" value="Engagement" /> Increase Engagement</label>
+        <label class="inline"><input type="checkbox" name="success" value="Website Traffic" /> Drive Website Traffic</label>
+        <label class="inline"><input type="checkbox" name="success" value="Sales" /> Boost Sales</label>
+        <label class="inline"><input type="checkbox" name="success" value="Brand Awareness" /> Build Brand Awareness</label>
+        <label class="inline"><input type="checkbox" name="success" value="Community" /> Build Community</label>
       </div>
 
-      <div class="row">
-        <div>
-          <label for="target_followers">Follower growth (target in 6–12 months)</label>
-          <input id="target_followers" name="target_followers" type="text" placeholder="e.g., Grow IG from 5,000 to 10,000" />
-        </div>
-        <div>
-          <label for="target_engagement">Engagement (likes, comments, shares, saves)</label>
-          <input id="target_engagement" name="target_engagement" type="text" placeholder="e.g., 8% average engagement rate" />
-        </div>
-      </div>
-
-      <div class="row">
-        <div>
-          <label for="target_traffic">Website traffic & conversions</label>
-          <input id="target_traffic" name="target_traffic" type="text" placeholder="e.g., 2,000 clicks from IG Stories" />
-        </div>
-        <div>
-          <label for="target_sales">Direct sales via social platforms</label>
-          <input id="target_sales" name="target_sales" type="text" placeholder="e.g., 150 purchases from a 'Shop Now' campaign" />
-        </div>
-      </div>
-
-      <label>Which KPIs matter most to you (rank 1–5; 1 = highest priority)</label>
-      <table aria-label="KPI ranking table">
-        <thead>
-          <tr>
-            <th>KPI</th>
-            <th>Definition</th>
-            <th>Example / Context</th>
-            <th>Rank (1–5)</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Follower Growth</td>
-            <td>Increase in the number of followers over time.</td>
-            <td>Growing from 5,000 to 10,000 Instagram followers in 6 months.</td>
-            <td>
-              <select name="rank_follower_growth">
-                <option value="">Choose</option>
-                <option>1</option><option>2</option><option>3</option><option>4</option><option>5</option>
-              </select>
-            </td>
-          </tr>
-          <tr>
-            <td>Engagement Rate</td>
-            <td>Percentage of followers interacting with content (likes, comments, shares).</td>
-            <td>8% engagement on a new collection post.</td>
-            <td>
-              <select name="rank_engagement_rate">
-                <option value="">Choose</option>
-                <option>1</option><option>2</option><option>3</option><option>4</option><option>5</option>
-              </select>
-            </td>
-          </tr>
-          <tr>
-            <td>Website Traffic</td>
-            <td>Visitors directed to your website from social media.</td>
-            <td>2,000 clicks from Instagram stories to your online shop.</td>
-            <td>
-              <select name="rank_website_traffic">
-                <option value="">Choose</option>
-                <option>1</option><option>2</option><option>3</option><option>4</option><option>5</option>
-              </select>
-            </td>
-          </tr>
-          <tr>
-            <td>Conversions</td>
-            <td>Followers taking desired actions (sales, signups, bookings).</td>
-            <td>150 purchases from a “Shop Now” campaign.</td>
-            <td>
-              <select name="rank_conversions">
-                <option value="">Choose</option>
-                <option>1</option><option>2</option><option>3</option><option>4</option><option>5</option>
-              </select>
-            </td>
-          </tr>
-          <tr>
-            <td>Brand Awareness</td>
-            <td>Visibility and recognition of your brand across platforms.</td>
-            <td>50,000 people reached through a paid ad campaign.</td>
-            <td>
-              <select name="rank_brand_awareness">
-                <option value="">Choose</option>
-                <option>1</option><option>2</option><option>3</option><option>4</option><option>5</option>
-              </select>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+      <label for="target_metric">Specific target (optional)</label>
+      <input id="target_metric" name="target_metric" type="text" placeholder="e.g., Grow Instagram from 1,000 to 5,000 followers in 6 months" />
     </fieldset>
 
-    <!-- Section 4 -->
+    <!-- Content & Budget -->
     <fieldset>
-      <legend>Section 4: Content preferences</legend>
+      <legend>💡 Content & Budget</legend>
 
-      <label for="tone">Do you prefer a formal, aspirational tone or a casual, relatable one?</label>
-      <div class="radio-group" role="group" aria-label="Preferred tone">
+      <label>Preferred content tone</label>
+      <div class="checkbox-group" role="group" aria-label="Preferred tone">
         <label class="inline"><input type="radio" name="tone" value="Formal / Aspirational" /> Formal / Aspirational</label>
-        <label class="inline"><input type="radio" name="tone" value="Casual / Relatable" /> Casual / Relatable</label>
+        <label class="inline"><input type="radio" name="tone" value="Casual / Relatable" checked /> Casual / Relatable</label>
       </div>
 
-      <label>Content types to prioritize (rank 1–5; 1 = highest)</label>
-      <table aria-label="Content type ranking table">
-        <thead>
-          <tr>
-            <th>Content Type</th>
-            <th>Definition</th>
-            <th>Example / Context</th>
-            <th>Rank (1–5)</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Product Launches</td>
-            <td>Announcements of new collections or items.</td>
-            <td>Instagram reel showcasing a new handbag line.</td>
-            <td>
-              <select name="rank_product_launches">
-                <option value="">Choose</option>
-                <option>1</option><option>2</option><option>3</option><option>4</option><option>5</option>
-              </select>
-            </td>
-          </tr>
-          <tr>
-            <td>Behind-the-Scenes</td>
-            <td>Insider looks at your creative process or events.</td>
-            <td>Photos of your design team preparing for a runway show.</td>
-            <td>
-              <select name="rank_bts">
-                <option value="">Choose</option>
-                <option>1</option><option>2</option><option>3</option><option>4</option><option>5</option>
-              </select>
-            </td>
-          </tr>
-          <tr>
-            <td>Influencer Collaborations</td>
-            <td>Partnerships with style leaders to promote your brand.</td>
-            <td>Influencer styling your dress in a TikTok video.</td>
-            <td>
-              <select name="rank_influencers">
-                <option value="">Choose</option>
-                <option>1</option><option>2</option><option>3</option><option>4</option><option>5</option>
-              </select>
-            </td>
-          </tr>
-          <tr>
-            <td>Styling Tips</td>
-            <td>Practical advice on how to wear or combine pieces.</td>
-            <td>Carousel post showing three ways to style a blazer.</td>
-            <td>
-              <select name="rank_styling_tips">
-                <option value="">Choose</option>
-                <option>1</option><option>2</option><option>3</option><option>4</option><option>5</option>
-              </select>
-            </td>
-          </tr>
-          <tr>
-            <td>Seasonal Campaigns</td>
-            <td>Themed content tied to holidays or seasons.</td>
-            <td>Valentine’s Day “Date Night Looks” campaign.</td>
-            <td>
-              <select name="rank_seasonal">
-                <option value="">Choose</option>
-                <option>1</option><option>2</option><option>3</option><option>4</option><option>5</option>
-              </select>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-
-      <label for="competitors">Are there competitors or brands you admire on social media?</label>
-      <textarea id="competitors" name="competitors" placeholder="List brands or handles you admire"></textarea>
-    </fieldset>
-
-    <!-- Section 5 -->
-    <fieldset>
-      <legend>Section 5: Logistics</legend>
+      <label for="content_preferences">Top 3 content types you want (optional)</label>
+      <textarea id="content_preferences" name="content_preferences" placeholder="e.g., Product launches, Behind-the-scenes, Customer testimonials"></textarea>
 
       <div class="row">
         <div>
-          <label for="assets_provider">Who will provide product images/videos?</label>
-          <input id="assets_provider" name="assets_provider" type="text" placeholder="Team or contact name" />
+          <label for="assets_available">Do you have photos/videos?</label>
+          <select id="assets_available" name="assets_available">
+            <option value="">Select</option>
+            <option value="Yes">Yes, I have content</option>
+            <option value="No">No, need help creating</option>
+            <option value="Some">I have some</option>
+          </select>
         </div>
         <div>
-          <label for="ads_budget">Do you have a budget for paid ads or influencer partnerships?</label>
-          <input id="ads_budget" name="ads_budget" type="text" placeholder="e.g., ₦500,000/month or campaign-based" />
+          <label for="ads_budget">Monthly budget for ads (optional)</label>
+          <input id="ads_budget" name="ads_budget" type="text" placeholder="e.g., ₦50,000 - ₦200,000" />
         </div>
       </div>
-
-      <label>How often would you like to review performance reports?</label>
-      <table aria-label="Reporting frequency preference table">
-        <thead>
-          <tr>
-            <th>Frequency</th>
-            <th>Definition</th>
-            <th>Example / Context</th>
-            <th># of times (1–3)</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Weekly</td>
-            <td>Short-term updates with quick insights.</td>
-            <td>Weekly engagement snapshot for Instagram.</td>
-            <td>
-              <select name="reports_weekly">
-                <option value="">Choose</option>
-                <option>1</option><option>2</option><option>3</option>
-              </select>
-            </td>
-          </tr>
-          <tr>
-            <td>Monthly</td>
-            <td>Balanced overview of performance and trends.</td>
-            <td>Monthly report showing growth and conversions.</td>
-            <td>
-              <select name="reports_monthly">
-                <option value="">Choose</option>
-                <option>1</option><option>2</option><option>3</option>
-              </select>
-            </td>
-          </tr>
-          <tr>
-            <td>Quarterly</td>
-            <td>Long-term analysis with strategic recommendations.</td>
-            <td>Quarterly deep dive into audience behavior.</td>
-            <td>
-              <select name="reports_quarterly">
-                <option value="">Choose</option>
-                <option>1</option><option>2</option><option>3</option>
-              </select>
-            </td>
-          </tr>
-        </tbody>
-      </table>
     </fieldset>
 
-    <!-- Appendix (static reference; optional to include in PDF) -->
+    <!-- Additional Info -->
     <fieldset>
-      <legend>Appendix: Glossary of key terms</legend>
-      <table aria-label="Glossary">
-        <thead>
-          <tr>
-            <th>Term</th>
-            <th>Definition</th>
-            <th>Example / Context</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>USP (Unique Selling Proposition)</td>
-            <td>The distinct value or quality that sets your brand apart.</td>
-            <td>A fashion house known for eco-friendly fabrics or bold prints.</td>
-          </tr>
-          <tr>
-            <td>KPI (Key Performance Indicator)</td>
-            <td>A measurable value showing progress toward goals.</td>
-            <td>Tracking how many sales come from Instagram ads.</td>
-          </tr>
-          <tr>
-            <td>Engagement Rate</td>
-            <td>The percentage of followers who interact with your content.</td>
-            <td>Likes, comments, shares, and saves on a new collection post.</td>
-          </tr>
-          <tr>
-            <td>Conversion</td>
-            <td>When a follower takes a desired action.</td>
-            <td>Clicking “Shop Now” and buying a dress.</td>
-          </tr>
-          <tr>
-            <td>Reach</td>
-            <td>The number of unique people who saw your post.</td>
-            <td>10,000 different users viewed your runway teaser video.</td>
-          </tr>
-          <tr>
-            <td>Impressions</td>
-            <td>The total times your content was displayed.</td>
-            <td>One person saw your ad three times — that’s three impressions.</td>
-          </tr>
-          <tr>
-            <td>Content Calendar</td>
-            <td>A schedule of planned posts.</td>
-            <td>Planning Instagram reels for product launches every Friday.</td>
-          </tr>
-          <tr>
-            <td>Community Management</td>
-            <td>Engaging with followers to build relationships.</td>
-            <td>Replying to DMs about sizing or thanking fans for comments.</td>
-          </tr>
-          <tr>
-            <td>Paid Ads</td>
-            <td>Sponsored posts designed to reach more people.</td>
-            <td>Boosting a new collection launch to target fashion lovers in Lagos.</td>
-          </tr>
-          <tr>
-            <td>Influencer Collaboration</td>
-            <td>Partnering with trusted voices to promote your brand.</td>
-            <td>A stylist with 50k followers showcasing your latest handbag.</td>
-          </tr>
-        </tbody>
-      </table>
+      <legend>📝 Additional Information</legend>
 
-      <h3>Brand personality terms</h3>
-      <table aria-label="Brand personality terms">
-        <thead>
-          <tr>
-            <th>Term</th>
-            <th>Definition</th>
-            <th>Example / Context</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Edgy</td>
-            <td>Bold, daring, and unconventional.</td>
-            <td>A campaign with neon colors and unexpected cuts.</td>
-          </tr>
-          <tr>
-            <td>Minimalist</td>
-            <td>Clean, simple, and uncluttered.</td>
-            <td>Neutral-toned capsule wardrobe posts.</td>
-          </tr>
-          <tr>
-            <td>Playful</td>
-            <td>Fun, lighthearted, and approachable.</td>
-            <td>Bright reels with quirky captions and behind-the-scenes bloopers.</td>
-          </tr>
-          <tr>
-            <td>Elegant</td>
-            <td>Sophisticated, refined, and timeless.</td>
-            <td>A couture gown campaign with polished visuals.</td>
-          </tr>
-        </tbody>
-      </table>
+      <label for="competitors">Brands you admire (optional)</label>
+      <input id="competitors" name="competitors" type="text" placeholder="e.g., @brandname, @competitor" />
 
-      <h3>Audience terms</h3>
-      <table aria-label="Audience terms">
-        <thead>
-          <tr>
-            <th>Term</th>
-            <th>Definition</th>
-            <th>Example / Context</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Demographics</td>
-            <td>Statistical traits of your audience.</td>
-            <td>Women aged 25–40 in Cross River State.</td>
-          </tr>
-          <tr>
-            <td>Psychographics</td>
-            <td>Audience values, interests, and style preferences.</td>
-            <td>Eco-conscious shoppers who love sustainable fashion.</td>
-          </tr>
-          <tr>
-            <td>Lifestyle</td>
-            <td>How your audience lives day-to-day.</td>
-            <td>Busy professionals seeking chic outfits that work from office to evening.</td>
-          </tr>
-        </tbody>
-      </table>
+      <label for="additional_notes">Anything else we should know?</label>
+      <textarea id="additional_notes" name="additional_notes" placeholder="Any specific requests, concerns, or additional details..."></textarea>
     </fieldset>
 
     <div class="actions">
-      <button type="submit" class="primary">Submit</button>
+      <button type="submit" class="primary">Submit Form</button>
       <button type="button" class="secondary" onclick="window.print()">Print / Save as PDF</button>
     </div>
   </form>
 
-  <!-- PageFooter: Hexadigitall Technologies +234 8125 802 140 hexadigitztech@gmail.com -->
-  <footer class="subtle" style="max-width:980px;margin:24px auto 0;">
-    <img src="hexadigitall-logo.png" alt="Hexadigitall Technologies Logo" style="max-width:30px;display:inline-block;margin:0 auto 24px;" />
+  <!-- Hidden Appendix for reference only -->
+  <details>
+    <summary>📖 Reference: Glossary of Terms (click to expand)</summary>
+    
+    <h3>Key Social Media Terms</h3>
+    <table class="glossary-table" aria-label="Glossary">
+      <thead>
+        <tr>
+          <th>Term</th>
+          <th>Definition</th>
+          <th>Example</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>USP</strong></td>
+          <td>Unique Selling Proposition - what sets your brand apart.</td>
+          <td>Eco-friendly fabrics or bold prints</td>
+        </tr>
+        <tr>
+          <td><strong>Engagement Rate</strong></td>
+          <td>Percentage of followers who interact with your content.</td>
+          <td>Likes, comments, shares, and saves</td>
+        </tr>
+        <tr>
+          <td><strong>Conversion</strong></td>
+          <td>When a follower takes a desired action.</td>
+          <td>Clicking "Shop Now" and making a purchase</td>
+        </tr>
+        <tr>
+          <td><strong>Reach</strong></td>
+          <td>Number of unique people who saw your post.</td>
+          <td>10,000 different users viewed your video</td>
+        </tr>
+        <tr>
+          <td><strong>Impressions</strong></td>
+          <td>Total times your content was displayed.</td>
+          <td>One person saw your ad 3 times = 3 impressions</td>
+        </tr>
+        <tr>
+          <td><strong>Content Calendar</strong></td>
+          <td>Schedule of planned posts.</td>
+          <td>Planning Instagram posts every Friday</td>
+        </tr>
+        <tr>
+          <td><strong>Community Management</strong></td>
+          <td>Engaging with followers to build relationships.</td>
+          <td>Replying to comments and DMs</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3 style="margin-top: 24px;">Brand Personality Terms</h3>
+    <table class="glossary-table" aria-label="Brand personality terms">
+      <thead>
+        <tr>
+          <th>Term</th>
+          <th>Definition</th>
+          <th>Example</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Edgy</strong></td>
+          <td>Bold, daring, and unconventional.</td>
+          <td>Neon colors and unexpected cuts</td>
+        </tr>
+        <tr>
+          <td><strong>Minimalist</strong></td>
+          <td>Clean, simple, and uncluttered.</td>
+          <td>Neutral-toned capsule wardrobe</td>
+        </tr>
+        <tr>
+          <td><strong>Playful</strong></td>
+          <td>Fun, lighthearted, and approachable.</td>
+          <td>Bright colors with quirky captions</td>
+        </tr>
+        <tr>
+          <td><strong>Elegant</strong></td>
+          <td>Sophisticated, refined, and timeless.</td>
+          <td>Couture gown with polished visuals</td>
+        </tr>
+      </tbody>
+    </table>
+  </details>
+
+  <footer class="subtle" style="max-width:780px;margin:24px auto 0;text-align:center;padding-top:24px;border-top:1px solid var(--border);">
+    <img src="hexadigitall-logo.png" alt="Hexadigitall Technologies Logo" style="max-width:30px;display:inline-block;margin:0 8px 0 0;vertical-align:middle;" />
     Hexadigitall Technologies • +234 8125 802 140 • hexadigitztech@gmail.com
   </footer>
 
-  <script>
-    // JavaScript can be added here if needed for form enhancements
-  </script>
 </body>
 </html>
-

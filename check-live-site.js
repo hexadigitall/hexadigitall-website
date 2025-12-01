@@ -10,7 +10,7 @@ const client = createClient({
 console.log('🌐 Checking live site for course content...\n');
 
 // Your live site URL - update this to your actual domain
-const LIVE_SITE_URL = 'https://hexadigitall.vercel.app'; // Update this
+const LIVE_SITE_URL = 'https://hexadigitall.com'; // Updated to production domain
 
 async function checkLiveSiteContent() {
   try {
