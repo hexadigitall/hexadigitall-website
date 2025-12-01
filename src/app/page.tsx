@@ -2,7 +2,6 @@
 
 import type { Metadata } from 'next';
 import Hero from '@/components/sections/Hero';
-import JourneySection from '@/components/home/JourneySection';
 import FeaturedCourses from '@/components/sections/FeaturedCourses';
 import WhyChooseUs from '@/components/sections/WhyChooseUs';
 import Testimonials from '@/components/sections/Testimonials';
@@ -53,8 +52,7 @@ export default function HomePage() {
       />
       
       <Hero />
-      <JourneySection />
-      <FeaturedCourses />
+      <FeaturedCourses id="courses-preview" />
       <WhyChooseUs />
       <Testimonials />
       <FinalCTA />

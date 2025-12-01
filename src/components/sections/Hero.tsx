@@ -35,7 +35,7 @@ const JOURNEY_STAGES = [
     description: 'Web & Mobile Development to build your digital headquarters. From landing pages to full platforms.',
     image: '/assets/images/heroes/hero-tech-team.jpg',
     cta: 'Start Building',
-    href: '/services/web-and-mobile-software-development',
+    href: '/services/web-and-mobile-software-development?stage=build',
     color: 'from-blue-600/90 to-cyan-600/90',
     accentColor: 'blue',
     icon: (
@@ -66,8 +66,8 @@ const JOURNEY_STAGES = [
     title: 'Unlock Your Potential',
     description: 'Master industry-relevant skills with our comprehensive online courses. Learn at your own pace.',
     image: '/assets/images/heroes/hero-students-learning.jpg',
-    cta: 'Browse Courses',
-    href: '/courses',
+    cta: 'Preview Courses',
+    href: '#courses-preview',
     color: 'from-purple-600/90 to-indigo-600/90',
     accentColor: 'purple',
     icon: (
@@ -248,6 +248,7 @@ export default function Hero() {
                 <div className="flex flex-col sm:flex-row justify-center items-center gap-3 sm:gap-4 pt-2 sm:pt-4">
                   <Link 
                     href={activeStage.href}
+                    prefetch={true}
                     className="w-full sm:w-auto min-h-[48px] px-8 py-4 bg-white text-gray-900 font-bold rounded-full hover:scale-105 hover:shadow-xl transition-all duration-300 text-center"
                   >
                     {activeStage.cta}
@@ -255,6 +256,7 @@ export default function Hero() {
                   
                   <Link
                     href="/contact"
+                    prefetch={true}
                     className="w-full sm:w-auto min-h-[48px] px-8 py-4 bg-white/10 backdrop-blur border border-white/30 text-white font-semibold rounded-full hover:bg-white/20 hover:border-white/50 transition-all duration-300 text-center"
                   >
                     Get Free Quote
@@ -288,6 +290,7 @@ export default function Hero() {
           <p className="text-gray-300 text-sm mb-2">Not sure where to start?</p>
           <Link 
             href="/services/custom-build"
+            prefetch={true}
             className="inline-flex items-center text-cyan-300 hover:text-cyan-200 font-medium transition-colors"
           >
             Build a Custom Solution

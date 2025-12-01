@@ -36,6 +36,7 @@ interface Course {
 
 interface FeaturedCoursesProps {
   className?: string
+  id?: string
 }
 
 function CourseCardSkeleton() {
@@ -270,7 +271,7 @@ function CourseCard({ course, onEnrollClick }: { course: Course; onEnrollClick: 
   )
 }
 
-export default function FeaturedCourses({ className = "" }: FeaturedCoursesProps) {
+export default function FeaturedCourses({ className = "", id }: FeaturedCoursesProps) {
   const [courses, setCourses] = useState<Course[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
@@ -425,6 +426,7 @@ export default function FeaturedCourses({ className = "" }: FeaturedCoursesProps
 
   return (
     <section 
+      id={id}
       className={`relative py-16 md:py-24 bg-gradient-to-br from-indigo-50 via-white to-cyan-50 overflow-hidden ${className}`}
       aria-labelledby="featured-courses-heading"
       role="region"

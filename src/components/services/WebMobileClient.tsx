@@ -1,6 +1,7 @@
 "use client"
 
-import React, { useMemo, useState } from 'react'
+import React, { useMemo, useState, useEffect, useRef } from 'react'
+import { useSearchParams } from 'next/navigation'
 import { useCurrency } from '@/contexts/CurrencyContext'
 import { StartingAtPriceDisplay } from '@/components/ui/PriceDisplay'
 import { ServiceRequestFlow } from '@/components/services/ServiceRequestFlow'
@@ -83,6 +84,20 @@ export default function WebMobileClient({
   const [showIndividualServices, setShowIndividualServices] = useState(false)
   const { currentCurrency, getLocalDiscountMessage } = useCurrency()
   const discountMessage = getLocalDiscountMessage()
+  const searchParams = useSearchParams()
+  const packagesRef = useRef<HTMLDivElement>(null)
+
+  // Handle stage query param for auto-scroll to packages
+  useEffect(() => {
+    const stage = searchParams.get('stage')
+    if (stage === 'build' && packagesRef.current) {
+      // Small delay to ensure page is fully rendered
+      const timer = setTimeout(() => {
+        packagesRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+      }, 300)
+      return () => clearTimeout(timer)
+    }
+  }, [searchParams])
 
   // Build display packages either from Sanity packageGroups (preferred) or fallback to SERVICE_PRICING
   const webPackages: DisplayPackage[] = useMemo(() => {
@@ -360,25 +375,37 @@ export default function WebMobileClient({
                           ))}
                         </ul>
 
-                        <button 
-                          onClick={() => setSelectedService({
-                            ...modalServiceCategory,
-                            packages: [{
-                              _key: service.id,
-                              name: service.name,
-                              tier: 'basic' as const,
-                              price: service.price,
-                              currency: 'USD',
-                              billing: 'one_time' as const,
-                              deliveryTime: service.deliveryTime,
-                              features: service.features,
-                              popular: false
-                            }]
-                          })}
-                          className="w-full bg-green-500 text-white py-2 px-4 rounded-lg hover:bg-green-600 transition-colors font-medium"
-                        >
-                          Select This Service
-                        </button>
+                        {service.id === 'mobile-app-design' ? (
+                          <Link
+                            href="/services/custom-build"
+                            className="w-full inline-flex items-center justify-center bg-gradient-to-r from-blue-500 to-purple-500 text-white py-2 px-4 rounded-lg hover:from-blue-600 hover:to-purple-600 transition-all duration-300 font-medium"
+                          >
+                            <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                            </svg>
+                            Customize App Features
+                          </Link>
+                        ) : (
+                          <button 
+                            onClick={() => setSelectedService({
+                              ...modalServiceCategory,
+                              packages: [{
+                                _key: service.id,
+                                name: service.name,
+                                tier: 'basic' as const,
+                                price: service.price,
+                                currency: 'USD',
+                                billing: 'one_time' as const,
+                                deliveryTime: service.deliveryTime,
+                                features: service.features,
+                                popular: false
+                              }]
+                            })}
+                            className="w-full bg-green-500 text-white py-2 px-4 rounded-lg hover:bg-green-600 transition-colors font-medium"
+                          >
+                            Select This Service
+                          </button>
+                        )}
                       </div>
                     ))}
                   </div>
@@ -395,7 +422,7 @@ export default function WebMobileClient({
           </div>
 
           {/* Service Packages */}
-          <div className="mb-16">
+          <div className="mb-16" ref={packagesRef}>
             <div className="text-center mb-12">
               <h2 className="text-3xl font-bold text-gray-900 mb-4">Complete Development Packages</h2>
               <p className="text-gray-600 max-w-2xl mx-auto">
