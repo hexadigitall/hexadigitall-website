@@ -52,18 +52,31 @@ const testimonialQuery = groq`*[_type == "testimonial"]{
 const Testimonials = async () => {
   let testimonials: Testimonial[] = fallbackTestimonials;
   
+  const dedupe = (items: Testimonial[]) => {
+    const seen = new Set<string>();
+    return items.filter((t) => {
+      const key = `${t._id || ''}|${t.quote || ''}|${t.authorName || ''}`.trim();
+      if (seen.has(key)) return false;
+      seen.add(key);
+      return true;
+    });
+  };
+  
   try {
     // Only attempt to fetch if Sanity is properly configured
     if (process.env.NEXT_PUBLIC_SANITY_PROJECT_ID && process.env.NEXT_PUBLIC_SANITY_DATASET) {
       const sanityTestimonials = await client.fetch(testimonialQuery);
       if (Array.isArray(sanityTestimonials) && sanityTestimonials.length > 0) {
-        testimonials = sanityTestimonials;
+        testimonials = dedupe(sanityTestimonials).slice(0, 6);
       }
     }
   } catch (error) {
     console.warn('Failed to fetch testimonials from Sanity, using fallback data:', error);
     // testimonials already set to fallback
   }
+
+  // Ensure fallback set is also unique and capped
+  testimonials = dedupe(testimonials).slice(0, 6);
 
   return (
     <section className="relative py-16 md:py-24 bg-gradient-to-br from-slate-50 via-blue-50 to-purple-50 overflow-hidden">

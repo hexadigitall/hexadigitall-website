@@ -14,11 +14,20 @@ type Testimonial = {
 export default function ServiceTestimonials({ testimonials }: { testimonials?: Testimonial[] }) {
   if (!testimonials || testimonials.length === 0) return null
 
+  // Dedupe by id + client + text to avoid repeated cards
+  const seen = new Set<string>()
+  const unique = testimonials.filter((t) => {
+    const key = `${t._id || ''}|${t.client || ''}|${t.testimonial || ''}`.trim()
+    if (seen.has(key)) return false
+    seen.add(key)
+    return true
+  }).slice(0, 6)
+
   return (
     <div className="my-12">
       <h3 className="text-2xl font-bold mb-4">What our clients say</h3>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        {testimonials.map((t) => (
+        {unique.map((t) => (
           <div key={t._id || t.client} className="bg-white border rounded-xl p-4 shadow-sm">
             {t.image?.asset?.url && (
               <div className="w-12 h-12 mb-3">
