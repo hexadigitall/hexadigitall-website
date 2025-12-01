@@ -76,9 +76,10 @@ export function CTAButton(props: CTAProps) {
 
   const baseClasses = `
     inline-flex items-center justify-center
+    min-h-[44px]
     font-semibold rounded-xl border-2
     transition-all duration-300 
-    transform hover:-translate-y-1 active:translate-y-0
+    transform hover:-translate-y-1 active:translate-y-0 active:scale-95
     focus:ring-4 focus:ring-opacity-50
     disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none
     ${fullWidth ? 'w-full' : ''}

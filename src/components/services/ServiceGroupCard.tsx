@@ -59,8 +59,8 @@ export default function ServiceGroupCard({ group, onViewOptions }: ServiceGroupC
           </p>
         </div>
 
-        {/* Pricing highlight */}
-        <div className="mb-6 p-4 bg-gradient-to-br from-blue-50 to-indigo-50 rounded-lg border border-blue-100">
+        {/* Pricing highlight - Standardized border-radius */}
+        <div className="mb-6 p-4 bg-gradient-to-br from-blue-50 to-indigo-50 rounded-xl border border-blue-100">
           <p className="text-xs font-semibold text-gray-600 uppercase tracking-wide mb-1">
             Starting at
           </p>
@@ -108,10 +108,10 @@ export default function ServiceGroupCard({ group, onViewOptions }: ServiceGroupC
           </div>
         )}
 
-        {/* CTA Button */}
+        {/* CTA Button - Standardized design */}
         <button
           onClick={() => onViewOptions(group)}
-          className="w-full px-4 py-3 bg-gradient-to-r from-primary to-primary/80 text-white font-semibold rounded-lg hover:from-primary/90 hover:to-primary/70 transition-all duration-300 transform hover:scale-105 active:scale-95"
+          className="w-full min-h-[44px] px-4 py-3 bg-gradient-to-r from-primary to-primary/80 text-white font-semibold rounded-xl hover:from-primary/90 hover:to-primary/70 hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1 active:scale-95 focus:ring-2 focus:ring-primary/50 focus:ring-offset-2"
           aria-label={`View ${group.name} options`}
         >
           <span className="flex items-center justify-center gap-2">

@@ -355,7 +355,7 @@ export default function CompleteServicePage({
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 px-4">
               {(showAllIndividual ? individualServices : individualServices.slice(0, 3)).map((service) => (
-                <div key={service.id} className="card-enhanced rounded-xl p-4 sm:p-6 hover:shadow-xl transition-all duration-300">
+                <div key={service.id} className="card-enhanced p-4 sm:p-6 hover:shadow-xl transition-all duration-300">
                   <div className="mb-4">
                     <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-2">{service.name}</h3>
                     <p className="text-xs sm:text-sm text-gray-600">{service.description}</p>
@@ -388,7 +388,7 @@ export default function CompleteServicePage({
 
                   <button 
                     onClick={() => handleIndividualServiceSelect(service)}
-                    className={`w-full min-h-[44px] bg-gradient-to-r ${colors.from} ${colors.to} text-white py-3 px-4 sm:px-6 rounded-lg text-sm sm:text-base font-semibold ${colors.hover} transition-all duration-300 transform hover:scale-105 active:scale-95 shadow-md`}
+                    className={`w-full min-h-[44px] bg-gradient-to-r ${colors.from} ${colors.to} text-white py-3 px-4 sm:px-6 rounded-xl text-sm sm:text-base font-semibold ${colors.hover} transition-all duration-300 transform hover:-translate-y-1 active:scale-95 shadow-md hover:shadow-lg focus:ring-2 focus:ring-offset-2`}
                   >
                     Buy Now
                   </button>
@@ -464,7 +464,7 @@ export default function CompleteServicePage({
                       return (
                         <div 
                           key={service.id} 
-                          className={`bg-white border-2 rounded-xl p-4 sm:p-6 transition-all duration-300 cursor-pointer ${
+                          className={`bg-white border-2 rounded-2xl p-4 sm:p-6 transition-all duration-300 cursor-pointer ${
                             isSelected 
                               ? `${colors.border} shadow-lg ring-2 ${colors.ring}` 
                               : 'border-gray-200 hover:border-gray-300 hover:shadow-md'
@@ -559,7 +559,7 @@ export default function CompleteServicePage({
                 return (
                   <div 
                     key={group.key?.current || group.name}
-                    className="card-enhanced rounded-xl p-4 sm:p-6 hover:scale-105 transition-all duration-300 cursor-pointer"
+                    className="card-enhanced p-4 sm:p-6 hover:scale-105 transition-all duration-300 cursor-pointer"
                     onClick={() => setSelectedGroup(group)}
                   >
                     <div className="text-center mb-6">

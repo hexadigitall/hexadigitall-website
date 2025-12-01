@@ -186,20 +186,157 @@
 }
 
 @layer components {
+  /* ============================================
+   * DESIGN SYSTEM - STANDARDIZED COMPONENTS
+   * ============================================ */
+
+  /* === BUTTON BASE CLASSES === */
+  .btn-base {
+    @apply min-h-[44px] inline-flex items-center justify-center
+           font-semibold rounded-xl
+           transition-all duration-300
+           focus:ring-2 focus:ring-offset-2
+           disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+
+  /* Primary Button - Standard gradient style */
   .btn-primary {
-    @apply bg-secondary text-white font-bold py-3 px-6 rounded-md hover:bg-primary transition-colors duration-300 disabled:bg-gray-400;
+    @apply btn-base px-6 py-3
+           bg-gradient-to-r from-primary to-primary/80 text-white
+           hover:from-primary/90 hover:to-primary/70 hover:shadow-lg
+           active:scale-95
+           focus:ring-primary/50;
   }
 
+  /* Secondary Button - Outline style */
   .btn-secondary {
-    @apply bg-transparent border-2 border-primary text-primary font-bold py-3 px-6 rounded-md hover:bg-primary hover:text-white transition-colors duration-300;
+    @apply btn-base px-6 py-3
+           border-2 border-gray-300 text-gray-700 bg-transparent
+           hover:border-gray-400 hover:bg-gray-50 hover:shadow-md
+           active:scale-95
+           focus:ring-gray-300;
   }
 
+  /* Secondary Dark - For dark backgrounds */
   .btn-secondary-dark {
-    @apply bg-transparent border-2 border-white text-white font-bold py-3 px-6 rounded-md hover:bg-white hover:text-primary transition-colors duration-300;
+    @apply btn-base px-6 py-3
+           border-2 border-white text-white bg-transparent
+           hover:bg-white hover:text-primary hover:shadow-lg
+           active:scale-95
+           focus:ring-white/50;
   }
+
+  /* Accent Button - Orange/warm gradient */
+  .btn-accent {
+    @apply btn-base px-6 py-3
+           bg-gradient-to-r from-accent to-orange-500 text-white
+           hover:from-accent/90 hover:to-orange-400 hover:shadow-lg
+           active:scale-95
+           focus:ring-accent/50;
+  }
+
+  /* Ghost Button - Minimal style */
+  .btn-ghost {
+    @apply btn-base px-4 py-2
+           text-gray-600 bg-transparent
+           hover:text-gray-900 hover:bg-gray-100
+           focus:ring-gray-200;
+  }
+
+  /* === CARD CLASSES === */
+  .card-base {
+    @apply bg-white rounded-2xl
+           transition-all duration-300;
+  }
+
+  .card-bordered {
+    @apply card-base border border-gray-200
+           shadow-sm hover:shadow-lg;
+  }
+
+  .card-elevated {
+    @apply card-base shadow-md
+           hover:shadow-xl hover:-translate-y-1;
+  }
+
+  .card-interactive {
+    @apply card-base border border-gray-200 shadow-sm cursor-pointer
+           hover:shadow-xl hover:-translate-y-1 hover:border-primary/30
+           active:scale-[0.98];
+  }
+
+  /* === INPUT CLASSES === */
+  .input-standard {
+    @apply w-full px-4 py-3 rounded-lg
+           border border-gray-300 bg-white
+           focus:ring-2 focus:ring-primary focus:border-transparent
+           transition-all duration-200
+           placeholder:text-gray-400;
+  }
+
+  .input-error {
+    @apply input-standard border-red-500
+           focus:ring-red-500;
+  }
+
+  .input-success {
+    @apply input-standard border-green-500
+           focus:ring-green-500;
+  }
+
+  /* === BADGE CLASSES === */
+  .badge-base {
+    @apply inline-flex items-center px-3 py-1
+           rounded-full text-sm font-medium;
+  }
+
+  .badge-primary {
+    @apply badge-base bg-primary/10 text-primary;
+  }
+
+  .badge-secondary {
+    @apply badge-base bg-secondary/10 text-secondary;
+  }
+
+  .badge-success {
+    @apply badge-base bg-green-100 text-green-800;
+  }
+
+  .badge-warning {
+    @apply badge-base bg-orange-100 text-orange-800;
+  }
+
+  .badge-error {
+    @apply badge-base bg-red-100 text-red-800;
+  }
+
+  .badge-accent {
+    @apply badge-base bg-gradient-to-r from-orange-500 to-pink-500 text-white;
+  }
+
+  /* === SECTION SPACING === */
+  .section-padding {
+    @apply py-16 md:py-20;
+  }
+
+  .section-padding-sm {
+    @apply py-12 md:py-16;
+  }
+
+  .container-standard {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+
+  /* ============================================
+   * LEGACY BUTTON STYLES (for backwards compat)
+   * ============================================ */
 
   .btn-white {
-    @apply bg-white text-primary font-bold py-3 px-6 rounded-md hover:bg-lightGray transition-colors duration-300;
+    @apply btn-base px-6 py-3
+           bg-white text-primary
+           hover:bg-gray-50 hover:shadow-lg
+           active:scale-95
+           focus:ring-primary/30;
   }
 
   .brand-cursive {
@@ -422,6 +559,7 @@
   
   /* Enhanced card styles */
   .card-enhanced {
+    @apply rounded-2xl; /* Standardized border-radius */
     background: linear-gradient(145deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.7));
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
@@ -434,7 +572,7 @@
   }
   
   .card-enhanced:hover {
-    transform: translateY(-8px);
+    transform: translateY(-4px); /* Reduced from -8px for subtlety */
     box-shadow: 
       0 20px 40px 0 rgba(31, 38, 135, 0.2),
       0 8px 32px 0 rgba(31, 38, 135, 0.15),
