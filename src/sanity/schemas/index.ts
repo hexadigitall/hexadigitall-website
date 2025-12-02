@@ -15,7 +15,7 @@ import serviceTestimonial from './serviceTestimonial'
 import testimonial from './testimonial'
 
 export const schemaTypes = [
-  course,
+  // course, // TEMPORARILY DISABLED TO TEST IF IT'S THE CAUSE
   courseCategory, 
   enrollment,
   pendingEnrollment,
