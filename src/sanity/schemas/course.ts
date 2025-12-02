@@ -79,15 +79,15 @@ export default defineType({
       })
     }),
 
-    // CONSTRAINTS (The Rules)
-    defineField({
+    // CONSTRAINTS (The Rules) - TEMPORARILY DISABLED FOR DEBUGGING
+    /* defineField({
       name: 'monthlyScheduling',
       title: 'Scheduling Limits',
       type: 'object',
       hidden: ({ parent }) => parent?.courseType !== 'live',
       description: 'Set constraints for sessions per week and hours per session to control monthly subscription costs',
       fields: [
-        defineField({
+        {
           name: 'billingType',
           title: 'Billing Type',
           type: 'string',
@@ -100,7 +100,7 @@ export default defineType({
           },
           initialValue: 'monthly',
           description: 'How students will be billed for this course'
-        }),
+        },
         
         // Session Matrix Configuration
         defineField({
@@ -258,7 +258,7 @@ export default defineType({
           ]
         })
       ]
-    }),
+    }), */
 
     // Legacy price field (hidden)
     defineField({
@@ -272,8 +272,8 @@ export default defineType({
     defineField({ name: 'body', title: 'Full Description', type: 'array', of: [{type: 'block'}] }),
     defineField({ name: 'mainImage', title: 'Course Image', type: 'image', options: { hotspot: true } }),
     
-    // Professional Duration Guidelines
-    defineField({
+    // Professional Duration Guidelines - TEMPORARILY DISABLED FOR DEBUGGING
+    /* defineField({
       name: 'recommendedDuration',
       title: 'Recommended Course Duration',
       type: 'object',
@@ -323,7 +323,7 @@ export default defineType({
           initialValue: 'flexible'
         })
       ]
-    }),
+    }), */
     
     // Legacy duration field (for display compatibility)
     defineField({
@@ -373,7 +373,7 @@ export default defineType({
       type: 'number',
       description: 'Maximum number of students per live session (leave empty for unlimited)',
     }),
-    defineField({
+    /* defineField({
       name: 'curriculum',
       title: 'Curriculum Overview',
       type: 'object',
@@ -397,7 +397,7 @@ export default defineType({
           initialValue: 'Flexible based on schedule',
         }),
       ],
-    }),
+    }), */
     defineField({
       name: 'includes',
       title: 'What\'s Included',
