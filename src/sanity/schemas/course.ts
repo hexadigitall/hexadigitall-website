@@ -238,7 +238,7 @@ export default defineType({
               title: 'One-on-One Rate Multiplier',
               type: 'number',
               initialValue: 1.0,
-              validation: (Rule) => Rule.required().min(0.5).max(3.0),
+              validation: (Rule) => Rule.min(0.5).max(3.0),
               description: 'Multiply base rate by this for 1-on-1 sessions (1.0 = no change)'
             }),
             defineField({
@@ -246,7 +246,7 @@ export default defineType({
               title: 'Small Group Rate Multiplier (2-4 students)',
               type: 'number',
               initialValue: 0.7,
-              validation: (Rule) => Rule.required().min(0.3).max(1.0),
+              validation: (Rule) => Rule.min(0.3).max(1.0),
               description: 'Multiply base rate by this for small groups (0.7 = 30% discount)'
             }),
             defineField({
@@ -254,7 +254,7 @@ export default defineType({
               title: 'Large Group Rate Multiplier (5-8 students)',
               type: 'number',
               initialValue: 0.5,
-              validation: (Rule) => Rule.required().min(0.2).max(1.0),
+              validation: (Rule) => Rule.min(0.2).max(1.0),
               description: 'Multiply base rate by this for large groups (0.5 = 50% discount)'
             })
           ]
@@ -286,7 +286,7 @@ export default defineType({
           title: 'Duration in Weeks',
           type: 'number',
           description: 'Professional recommendation: Beginner (4-8 weeks), Intermediate (8-12 weeks), Advanced (12-16 weeks), Certification (16-24 weeks)',
-          validation: (Rule) => Rule.required().min(4).max(24),
+          validation: (Rule) => Rule.min(4).max(24),
           initialValue: 8
         }),
         defineField({
@@ -294,7 +294,7 @@ export default defineType({
           title: 'Recommended Hours per Week',
           type: 'number',
           description: 'Default recommendation for course completion',
-          validation: (Rule) => Rule.required().min(1).max(10),
+          validation: (Rule) => Rule.min(1).max(10),
           initialValue: 2
         }),
         defineField({
