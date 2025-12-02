@@ -76,7 +76,7 @@ export async function POST(request: NextRequest) {
         serviceName: session.metadata?.serviceCategory || 'Service',
         packageName: serviceRequest.selectedPackage?.name || 'Package',
         packagePrice: serviceRequest.selectedPackage?.price || 0,
-        paymentPlan: 'Full Payment', // For now, assuming full payment
+        paymentPlan: 'Full Payment', // Full payment via Paystack
         inquiryId: requestId
       };
 

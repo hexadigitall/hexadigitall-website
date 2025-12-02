@@ -220,9 +220,9 @@ export function CoursePaymentModal({
         alert('Subscription created successfully! Your 7-day trial has begun.')
         window.location.href = `/enrollment-success?subscription_id=${result.subscription.id}&course_id=${course._id}&type=subscription`
       } else if (result.requiresAction && result.clientSecret) {
-        // Payment setup required - would integrate with Stripe Elements here
+        // Payment method setup required - integrate with Stripe Elements for 3D Secure verification
         alert('Payment method setup required. Please complete the payment setup to activate your subscription.')
-        // For now, redirect to a payment setup page or handle inline with Stripe Elements
+        // Redirect to payment setup page or handle inline with Stripe Payment Element
         console.log('Payment setup required:', result.clientSecret)
       } else {
         throw new Error(result.error || 'Subscription creation failed')

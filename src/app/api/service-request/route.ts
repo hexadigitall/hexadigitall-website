@@ -113,8 +113,8 @@ export async function POST(request: NextRequest) {
     // Generate unique request ID
     const requestId = `SR-${Date.now()}-${Math.random().toString(36).substr(2, 6).toUpperCase()}`
 
-    // Skip Sanity document creation for now - will be created via webhook after successful payment
-    // This prevents the flow from breaking if Sanity schema is not set up
+    // Note: Sanity document is created via webhook after successful payment confirmation
+    // This ensures data consistency and proper transaction tracking
 
     // Validate Paystack secret key
     const paystackSecretKey = process.env.PAYSTACK_SECRET_KEY

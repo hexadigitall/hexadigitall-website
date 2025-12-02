@@ -221,10 +221,24 @@ export default function CustomBuildWizard() {
                       <div className="text-sm text-slate-600">{platform.description}</div>
                     </div>
                     <div className="text-right">
-                      <div className="text-2xl font-bold text-blue-600">
+                      <div className="text-lg font-bold text-blue-600">
                         ${platform.basePrice.toLocaleString()}
                       </div>
-                      <div className="text-xs text-slate-500">{platform.deliveryTime}</div>
+                      {priceBreakdown.discountActive ? (
+                        <div className="space-y-0.5">
+                          <div className="text-sm text-slate-400 line-through">
+                            {currentCurrency.symbol}{Math.round(convertPrice(platform.basePrice, currentCurrency.code)).toLocaleString()}
+                          </div>
+                          <div className="text-xl font-bold text-green-600">
+                            {currentCurrency.symbol}{Math.round(convertPrice(platform.basePrice * 0.5, currentCurrency.code)).toLocaleString()}
+                          </div>
+                        </div>
+                      ) : (
+                        <div className="text-base text-slate-600">
+                          {currentCurrency.symbol}{Math.round(convertPrice(platform.basePrice, currentCurrency.code)).toLocaleString()}
+                        </div>
+                      )}
+                      <div className="text-xs text-slate-500 mt-1">{platform.deliveryTime}</div>
                     </div>
                   </div>
                   
@@ -270,7 +284,23 @@ export default function CustomBuildWizard() {
                       <div className="flex items-center gap-2 mb-1">
                         <span className="text-xl">{feature.icon}</span>
                         <span className="font-semibold">{feature.name}</span>
-                        <span className="ml-auto text-blue-600 font-bold">+${feature.price}</span>
+                        <div className="ml-auto text-right">
+                          <div className="text-sm font-semibold text-blue-600">+${feature.price}</div>
+                          {priceBreakdown.discountActive ? (
+                            <div className="space-y-0.5">
+                              <div className="text-xs text-slate-400 line-through">
+                                {currentCurrency.symbol}{Math.round(convertPrice(feature.price, currentCurrency.code)).toLocaleString()}
+                              </div>
+                              <div className="text-sm font-bold text-green-600">
+                                {currentCurrency.symbol}{Math.round(convertPrice(feature.price * 0.5, currentCurrency.code)).toLocaleString()}
+                              </div>
+                            </div>
+                          ) : (
+                            <div className="text-xs text-slate-600">
+                              {currentCurrency.symbol}{Math.round(convertPrice(feature.price, currentCurrency.code)).toLocaleString()}
+                            </div>
+                          )}
+                        </div>
                       </div>
                       <div className="text-sm text-slate-600">{feature.description}</div>
                     </div>
@@ -307,9 +337,25 @@ export default function CustomBuildWizard() {
                     <div className="flex-1">
                       <div className="flex items-center gap-2 mb-1">
                         <span className="font-semibold">{addon.name}</span>
-                        <span className="ml-auto text-blue-600 font-bold">
-                          +${addon.price}{addon.billing === 'monthly' ? '/mo' : ''}
-                        </span>
+                        <div className="ml-auto text-right">
+                          <div className="text-sm font-semibold text-blue-600">
+                            +${addon.price}{addon.billing === 'monthly' ? '/mo' : ''}
+                          </div>
+                          {priceBreakdown.discountActive ? (
+                            <div className="space-y-0.5">
+                              <div className="text-xs text-slate-400 line-through">
+                                {currentCurrency.symbol}{Math.round(convertPrice(addon.price, currentCurrency.code)).toLocaleString()}
+                              </div>
+                              <div className="text-sm font-bold text-green-600">
+                                {currentCurrency.symbol}{Math.round(convertPrice(addon.price * 0.5, currentCurrency.code)).toLocaleString()}
+                              </div>
+                            </div>
+                          ) : (
+                            <div className="text-xs text-slate-600">
+                              {currentCurrency.symbol}{Math.round(convertPrice(addon.price, currentCurrency.code)).toLocaleString()}
+                            </div>
+                          )}
+                        </div>
                       </div>
                       <div className="text-sm text-slate-600">{addon.description}</div>
                     </div>
