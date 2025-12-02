@@ -54,12 +54,11 @@ export default defineType({
       description: 'The standard international hourly rate. Range: $15/hr (₦60/mo floor) to $87.5/hr ($350/mo ceiling). This is the global market rate.',
       hidden: ({ parent }) => parent?.courseType !== 'live',
       validation: (Rule) => Rule.custom((value, context) => {
-        const parent = context.parent as any;
-        if (parent?.courseType === 'live') {
-          if (!value) return 'Hourly rate is required for live mentoring courses';
-          if (value < 15) return 'Minimum rate is $15/hr';
-          if (value > 87.5) return 'Maximum rate is $87.5/hr';
-        }
+        const parent = context?.parent as any;
+        if (parent?.courseType !== 'live') return true;
+        if (!value) return 'Hourly rate is required for live mentoring courses';
+        if (value < 15) return 'Minimum rate is $15/hr';
+        if (value > 87.5) return 'Maximum rate is $87.5/hr';
         return true;
       })
     }),
@@ -70,13 +69,12 @@ export default defineType({
       description: 'The adjusted PPP rate for Nigeria. Range: ₦12,500/hr (₦50k/mo floor) to ₦70,000/hr (₦280k/mo ceiling). NOT a direct conversion.',
       hidden: ({ parent }) => parent?.courseType !== 'live',
       validation: (Rule) => Rule.custom((value, context) => {
-        const parent = context.parent as any;
-        if (parent?.courseType === 'live') {
-          if (!value) return 'Hourly rate is required for live mentoring courses';
-          if (value < 12500) return 'Minimum rate is ₦12,500/hr';
-          if (value > 70000) return 'Maximum rate is ₦70,000/hr';
-          if (!Number.isInteger(value)) return 'NGN rate must be a whole number';
-        }
+        const parent = context?.parent as any;
+        if (parent?.courseType !== 'live') return true;
+        if (!value) return 'Hourly rate is required for live mentoring courses';
+        if (value < 12500) return 'Minimum rate is ₦12,500/hr';
+        if (value > 70000) return 'Maximum rate is ₦70,000/hr';
+        if (!Number.isInteger(value)) return 'NGN rate must be a whole number';
         return true;
       })
     }),
