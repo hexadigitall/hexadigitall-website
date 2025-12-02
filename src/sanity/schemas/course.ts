@@ -17,17 +17,17 @@ export default defineType({
     defineField({ name: 'summary', title: 'Summary', type: 'text' }),
     defineField({
       name: 'courseType',
-      title: 'Course Type',
+      title: 'Course Pricing Model',
       type: 'string',
       options: {
         list: [
-          { title: 'Self-Paced (One-time fee)', value: 'self-paced' },
-          { title: 'Live Mentoring (Hourly/Weekly pricing)', value: 'live' },
+          { title: 'Mentorship Subscription (Monthly)', value: 'live' },
+          { title: 'Self-Paced (One-time)', value: 'self-paced' }
         ],
         layout: 'radio',
       },
       initialValue: 'live',
-      description: 'Live mentoring supports flexible hourly/weekly scheduling with monthly billing'
+      description: 'Monthly subscription with flexible scheduling using Regional Pricing (PPP)'
     }),
 
     // Self-paced pricing (legacy support)
@@ -46,31 +46,31 @@ export default defineType({
       hidden: ({ parent }) => parent?.courseType !== 'self-paced',
     }),
 
-    // Live mentoring hourly rates
-    defineField({
-      name: 'hourlyRateNGN',
-      title: 'Hourly Rate (₦) - for Live Mentoring',
-      type: 'number',
-      description: 'The price per hour in Nigerian Naira for one-on-one or group classes',
-      hidden: ({ parent }) => parent?.courseType !== 'live',
-      validation: (Rule) => Rule.positive().integer().min(1000).max(50000)
-    }),
+    // REGIONAL PRICING FIELDS (PPP Model)
     defineField({
       name: 'hourlyRateUSD',
-      title: 'Hourly Rate ($) - for Live Mentoring',
+      title: 'Hidden Global Rate (USD)',
       type: 'number',
-      description: 'The price per hour in USD for international clients',
+      description: 'The standard international hourly rate. Range: $15/hr (₦60/mo floor) to $87.5/hr ($350/mo ceiling). This is the global market rate.',
       hidden: ({ parent }) => parent?.courseType !== 'live',
-      validation: (Rule) => Rule.positive().min(5).max(200)
+      validation: (Rule) => Rule.required().positive().min(15).max(87.5)
+    }),
+    defineField({
+      name: 'hourlyRateNGN',
+      title: 'Hidden Regional Rate (NGN)',
+      type: 'number',
+      description: 'The adjusted PPP rate for Nigeria. Range: ₦12,500/hr (₦50k/mo floor) to ₦70,000/hr (₦280k/mo ceiling). NOT a direct conversion.',
+      hidden: ({ parent }) => parent?.courseType !== 'live',
+      validation: (Rule) => Rule.required().positive().integer().min(12500).max(70000)
     }),
 
-    // Enhanced Monthly Billing Scheduling Options
+    // CONSTRAINTS (The Rules)
     defineField({
       name: 'monthlyScheduling',
-      title: 'Monthly Billing & Scheduling Options',
+      title: 'Scheduling Limits',
       type: 'object',
       hidden: ({ parent }) => parent?.courseType !== 'live',
-      description: 'Configure flexible monthly billing with session customization',
+      description: 'Set constraints for sessions per week and hours per session to control monthly subscription costs',
       fields: [
         defineField({
           name: 'billingType',
@@ -96,7 +96,7 @@ export default defineType({
           fields: [
             defineField({
               name: 'sessionsPerWeek',
-              title: 'Sessions per Week Options',
+              title: 'Sessions per Week',
               type: 'object',
               fields: [
                 defineField({
@@ -104,27 +104,28 @@ export default defineType({
                   title: 'Minimum Sessions per Week',
                   type: 'number',
                   initialValue: 1,
-                  validation: (Rule) => Rule.required().min(1).max(7)
+                  readOnly: true,
+                  validation: (Rule) => Rule.required().min(1)
                 }),
                 defineField({
                   name: 'max',
                   title: 'Maximum Sessions per Week', 
                   type: 'number',
-                  initialValue: 4,
-                  validation: (Rule) => Rule.required().min(1).max(7)
+                  initialValue: 3,
+                  validation: (Rule) => Rule.required().max(3)
                 }),
                 defineField({
                   name: 'default',
                   title: 'Default Sessions per Week',
                   type: 'number',
                   initialValue: 1,
-                  validation: (Rule) => Rule.required().min(1).max(7)
+                  validation: (Rule) => Rule.required().min(1).max(3)
                 })
               ]
             }),
             defineField({
               name: 'hoursPerSession',
-              title: 'Hours per Session Options',
+              title: 'Hours per Session',
               type: 'object',
               fields: [
                 defineField({
@@ -132,21 +133,22 @@ export default defineType({
                   title: 'Minimum Hours per Session',
                   type: 'number',
                   initialValue: 1,
-                  validation: (Rule) => Rule.required().min(1).max(4)
+                  readOnly: true,
+                  validation: (Rule) => Rule.required().min(1)
                 }),
                 defineField({
                   name: 'max',
                   title: 'Maximum Hours per Session',
                   type: 'number',
                   initialValue: 3,
-                  validation: (Rule) => Rule.required().min(1).max(4)
+                  validation: (Rule) => Rule.required().max(3)
                 }),
                 defineField({
                   name: 'default',
                   title: 'Default Hours per Session',
                   type: 'number',
                   initialValue: 1,
-                  validation: (Rule) => Rule.required().min(1).max(4)
+                  validation: (Rule) => Rule.required().min(1).max(3)
                 })
               ]
             }),
