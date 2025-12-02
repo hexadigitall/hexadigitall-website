@@ -57,10 +57,78 @@ function BundleBuilderContent() {
   const totalUSD = selectedItems.reduce((sum, item) => sum + item.price, 0);
   const convertedTotal = Math.round(convertPrice(totalUSD * discountMultiplier, currentCurrency.code));
 
-  const handleCheckout = () => {
-    // TODO: Integrate with service-request flow
-    console.log('Selected bundle:', selectedItems);
-    alert('Checkout integration coming soon! Your bundle:\n' + selectedItems.map(i => i.name).join('\n'));
+  const [isProcessing, setIsProcessing] = useState(false);
+  const [checkoutError, setCheckoutError] = useState<string | null>(null);
+  const [showEmailModal, setShowEmailModal] = useState(false);
+  const [email, setEmail] = useState('');
+  const [company, setCompany] = useState('');
+
+  const openCheckoutModal = () => {
+    if (selectedItems.length === 0) return;
+    setShowEmailModal(true);
+  };
+
+  const handleCheckout = async () => {
+    if (selectedItems.length === 0 || !email.trim()) return;
+    
+    setIsProcessing(true);
+    setCheckoutError(null);
+
+    try {
+      // Build the request payload
+      const requestBody = {
+        serviceCategory: { 
+          title: 'À La Carte Bundle', 
+          _id: 'bundle-builder' 
+        },
+        selectedPackage: {
+          name: 'Custom Bundle',
+          tier: 'bundle',
+          price: totalUSD,
+          currency: 'USD'
+        },
+        selectedAddOns: selectedItems.map(item => ({
+          _key: item.id,
+          name: item.name,
+          price: item.price,
+          deliveryTime: item.deliveryTime
+        })),
+        clientInfo: {
+          email: email.trim(),
+          company: company.trim() || 'À La Carte Bundle'
+        },
+        projectDetails: {
+          title: 'À La Carte Bundle',
+          description: `Selected Services: ${selectedItems.map(i => i.name).join(', ')}`
+        },
+        currency: currentCurrency.code,
+        totalAmount: convertedTotal
+      };
+
+      const res = await fetch('/api/service-request', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify(requestBody)
+      });
+
+      if (!res.ok) {
+        const err = await res.json().catch(() => ({}));
+        throw new Error(err.error || `Checkout failed (${res.status})`);
+      }
+
+      const data = await res.json();
+      if (data?.url) {
+        // Redirect to Paystack
+        window.location.href = data.url;
+      } else {
+        throw new Error('No payment URL returned');
+      }
+    } catch (err) {
+      console.error('Checkout error:', err);
+      setCheckoutError(err instanceof Error ? err.message : 'Checkout failed. Please try again.');
+    } finally {
+      setIsProcessing(false);
+    }
   };
 
   return (
@@ -239,10 +307,11 @@ function BundleBuilderContent() {
                 )}
               </div>
               <button 
-                onClick={handleCheckout}
-                className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-xl font-bold shadow-lg transition-transform hover:scale-105 active:scale-95"
+                onClick={openCheckoutModal}
+                disabled={selectedItems.length === 0}
+                className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-xl font-bold shadow-lg transition-transform hover:scale-105 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
               >
-                Review & Checkout ({selectedItems.length})
+                Proceed to Checkout ({selectedItems.length})
               </button>
             </div>
           </div>
@@ -280,6 +349,104 @@ function BundleBuilderContent() {
           </div>
         </div>
       </div>
+
+      {/* Checkout Modal */}
+      {showEmailModal && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-2xl max-w-md w-full p-8 shadow-2xl">
+            <h3 className="text-2xl font-bold text-gray-900 mb-4">Complete Your Order</h3>
+            
+            {/* Order Summary */}
+            <div className="bg-gray-50 rounded-xl p-4 mb-6">
+              <div className="text-sm font-semibold text-gray-700 mb-2">Your Bundle:</div>
+              <ul className="space-y-1 text-sm text-gray-600 mb-3">
+                {selectedItems.map(item => (
+                  <li key={item.id} className="flex justify-between">
+                    <span>{item.name}</span>
+                    <span className="font-semibold">${item.price}</span>
+                  </li>
+                ))}
+              </ul>
+              <div className="border-t border-gray-200 pt-2 flex justify-between items-center">
+                <span className="font-bold text-gray-900">Total:</span>
+                <div className="text-right">
+                  <div className="text-xl font-bold text-blue-600">
+                    {currentCurrency.symbol}{convertedTotal.toLocaleString()}
+                  </div>
+                  <div className="text-xs text-gray-500">≈ ${totalUSD.toLocaleString()} USD</div>
+                </div>
+              </div>
+            </div>
+
+            {/* Email Form */}
+            <div className="space-y-4 mb-6">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Email Address *
+                </label>
+                <input
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="you@example.com"
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                  required
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Company / Project Name (Optional)
+                </label>
+                <input
+                  type="text"
+                  value={company}
+                  onChange={(e) => setCompany(e.target.value)}
+                  placeholder="Acme Inc."
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                />
+              </div>
+            </div>
+
+            {/* Error Display */}
+            {checkoutError && (
+              <div className="bg-red-50 border border-red-200 rounded-lg p-3 mb-4">
+                <p className="text-red-600 text-sm">{checkoutError}</p>
+              </div>
+            )}
+
+            {/* Action Buttons */}
+            <div className="flex gap-3">
+              <button
+                onClick={() => {
+                  setShowEmailModal(false);
+                  setCheckoutError(null);
+                }}
+                disabled={isProcessing}
+                className="flex-1 px-6 py-3 border border-gray-300 text-gray-700 font-semibold rounded-lg hover:bg-gray-50 disabled:opacity-50"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={handleCheckout}
+                disabled={isProcessing || !email.trim()}
+                className="flex-1 px-6 py-3 bg-blue-600 text-white font-bold rounded-lg hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                {isProcessing ? (
+                  <>
+                    <svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-white inline-block" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                    Processing...
+                  </>
+                ) : (
+                  'Pay Now'
+                )}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
