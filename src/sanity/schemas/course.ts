@@ -53,7 +53,15 @@ export default defineType({
       type: 'number',
       description: 'The standard international hourly rate. Range: $15/hr (₦60/mo floor) to $87.5/hr ($350/mo ceiling). This is the global market rate.',
       hidden: ({ parent }) => parent?.courseType !== 'live',
-      validation: (Rule) => Rule.required().positive().min(15).max(87.5)
+      validation: (Rule) => Rule.custom((value, context) => {
+        const parent = context.parent as any;
+        if (parent?.courseType === 'live') {
+          if (!value) return 'Hourly rate is required for live mentoring courses';
+          if (value < 15) return 'Minimum rate is $15/hr';
+          if (value > 87.5) return 'Maximum rate is $87.5/hr';
+        }
+        return true;
+      })
     }),
     defineField({
       name: 'hourlyRateNGN',
@@ -61,7 +69,16 @@ export default defineType({
       type: 'number',
       description: 'The adjusted PPP rate for Nigeria. Range: ₦12,500/hr (₦50k/mo floor) to ₦70,000/hr (₦280k/mo ceiling). NOT a direct conversion.',
       hidden: ({ parent }) => parent?.courseType !== 'live',
-      validation: (Rule) => Rule.required().positive().integer().min(12500).max(70000)
+      validation: (Rule) => Rule.custom((value, context) => {
+        const parent = context.parent as any;
+        if (parent?.courseType === 'live') {
+          if (!value) return 'Hourly rate is required for live mentoring courses';
+          if (value < 12500) return 'Minimum rate is ₦12,500/hr';
+          if (value > 70000) return 'Maximum rate is ₦70,000/hr';
+          if (!Number.isInteger(value)) return 'NGN rate must be a whole number';
+        }
+        return true;
+      })
     }),
 
     // CONSTRAINTS (The Rules)
