@@ -121,22 +121,21 @@ export default defineType({
                   title: 'Minimum Sessions per Week',
                   type: 'number',
                   initialValue: 1,
-                  readOnly: true,
-                  validation: (Rule) => Rule.required().min(1)
+                  readOnly: true
                 }),
                 defineField({
                   name: 'max',
                   title: 'Maximum Sessions per Week', 
                   type: 'number',
                   initialValue: 3,
-                  validation: (Rule) => Rule.required().max(3)
+                  validation: (Rule) => Rule.max(3)
                 }),
                 defineField({
                   name: 'default',
                   title: 'Default Sessions per Week',
                   type: 'number',
                   initialValue: 1,
-                  validation: (Rule) => Rule.required().min(1).max(3)
+                  validation: (Rule) => Rule.min(1).max(3)
                 })
               ]
             }),
@@ -150,22 +149,21 @@ export default defineType({
                   title: 'Minimum Hours per Session',
                   type: 'number',
                   initialValue: 1,
-                  readOnly: true,
-                  validation: (Rule) => Rule.required().min(1)
+                  readOnly: true
                 }),
                 defineField({
                   name: 'max',
                   title: 'Maximum Hours per Session',
                   type: 'number',
                   initialValue: 3,
-                  validation: (Rule) => Rule.required().max(3)
+                  validation: (Rule) => Rule.max(3)
                 }),
                 defineField({
                   name: 'default',
                   title: 'Default Hours per Session',
                   type: 'number',
                   initialValue: 1,
-                  validation: (Rule) => Rule.required().min(1).max(3)
+                  validation: (Rule) => Rule.min(1).max(3)
                 })
               ]
             }),
@@ -175,7 +173,7 @@ export default defineType({
               type: 'number',
               description: 'Prevent students from selecting unrealistic schedules',
               initialValue: 12,
-              validation: (Rule) => Rule.required().min(4).max(20)
+              validation: (Rule) => Rule.min(4).max(20)
             })
           ]
         }),
