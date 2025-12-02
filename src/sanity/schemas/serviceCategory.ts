@@ -89,8 +89,7 @@ export default defineType({
             {
               name: 'name',
               title: 'Package Name',
-              type: 'string',
-              validation: Rule => Rule.required()
+              type: 'string'
             },
             {
               name: 'tier',
@@ -103,14 +102,13 @@ export default defineType({
                   { title: 'Premium', value: 'premium' },
                   { title: 'Enterprise', value: 'enterprise' }
                 ]
-              },
-              validation: Rule => Rule.required()
+              }
             },
             {
               name: 'price',
               title: 'Starting Price',
               type: 'number',
-              validation: Rule => Rule.required().min(0)
+              validation: Rule => Rule.min(0)
             },
             {
               name: 'currency',
@@ -143,15 +141,14 @@ export default defineType({
             {
               name: 'deliveryTime',
               title: 'Delivery Time',
-              type: 'string',
-              validation: Rule => Rule.required()
+              type: 'string'
             },
             {
               name: 'features',
               title: 'Package Features',
               type: 'array',
               of: [{ type: 'string' }],
-              validation: Rule => Rule.required().min(1)
+              validation: Rule => Rule.min(1)
             },
             {
               name: 'popular',
@@ -230,8 +227,7 @@ export default defineType({
                     defineField({
                       name: 'name',
                       title: 'Tier Name',
-                      type: 'string',
-                      validation: Rule => Rule.required()
+                      type: 'string'
                     }),
                     defineField({
                       name: 'tier',
@@ -244,14 +240,13 @@ export default defineType({
                           { title: 'Premium', value: 'premium' },
                           { title: 'Enterprise', value: 'enterprise' }
                         ]
-                      },
-                      validation: Rule => Rule.required()
+                      }
                     }),
                     defineField({
                       name: 'price',
                       title: 'Price',
                       type: 'number',
-                      validation: Rule => Rule.required().min(0)
+                      validation: Rule => Rule.min(0)
                     }),
                     defineField({
                       name: 'currency',
