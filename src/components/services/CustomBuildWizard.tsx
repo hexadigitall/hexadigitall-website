@@ -2,6 +2,7 @@
 
 import { useMemo, useState } from 'react'
 import Link from 'next/link'
+import { useCurrency } from '@/contexts/CurrencyContext'
 
 type Platform = 'web' | 'mobile' | 'both'
 type Feature = 'auth' | 'payments' | 'chat' | 'ai' | 'notifications' | 'admin' | 'analytics' | 'multilingual'
@@ -19,12 +20,16 @@ const FEATURE_OPTIONS: { key: Feature; label: string; hint: string }[] = [
 ]
 
 export default function CustomBuildWizard() {
+  const { currentCurrency, convertPrice, isLocalCurrency, isLaunchSpecialActive } = useCurrency()
   const [step, setStep] = useState(1)
   const [platform, setPlatform] = useState<Platform | null>(null)
   const [features, setFeatures] = useState<Feature[]>([])
   const [budget, setBudget] = useState<Budget | null>(null)
   const [email, setEmail] = useState('')
   const [company, setCompany] = useState('')
+  const [wantsToProceedToPayment, setWantsToProceedToPayment] = useState(false)
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [paymentError, setPaymentError] = useState<string | null>(null)
 
   const estimatedRange = useMemo(() => {
     // Compute a rough range based on platform + features + budget preference
@@ -39,10 +44,20 @@ export default function CustomBuildWizard() {
     if (budget === 'premium') multiplier = 2.1
     if (budget === 'enterprise') multiplier = 3.3
 
-    const low = Math.round((base + complexity) * multiplier)
-    const high = Math.round(low * 1.6)
-    return { low, high }
-  }, [platform, features, budget])
+    const baseTotal = base + complexity
+    const lowUSD = Math.round(baseTotal * multiplier)
+    const highUSD = Math.round(lowUSD * 1.6)
+    
+    // Apply Nigerian launch special discount (50% off) if applicable
+    const discountActive = isLocalCurrency() && currentCurrency.code === 'NGN' && isLaunchSpecialActive()
+    const discountMultiplier = discountActive ? 0.5 : 1
+    
+    // Convert to user's currency
+    const low = Math.round(convertPrice(lowUSD * discountMultiplier, currentCurrency.code))
+    const high = Math.round(convertPrice(highUSD * discountMultiplier, currentCurrency.code))
+    
+    return { low, high, lowUSD, highUSD, discountActive }
+  }, [platform, features, budget, currentCurrency, convertPrice, isLocalCurrency, isLaunchSpecialActive])
 
   const canContinue = useMemo(() => {
     if (step === 1) return !!platform
@@ -65,13 +80,13 @@ export default function CustomBuildWizard() {
     setCompany('')
   }
 
-  const submit = async () => {
+  const submit = async (proceedToPayment: boolean = false) => {
     const payload = {
       form: 'custom-build-request',
       platform,
       features,
       budget,
-      estimate: `${estimatedRange.low} - ${estimatedRange.high} USD`,
+      estimate: `${currentCurrency.symbol}${estimatedRange.low.toLocaleString()} - ${currentCurrency.symbol}${estimatedRange.high.toLocaleString()} (${estimatedRange.lowUSD} - ${estimatedRange.highUSD} USD)`,
       email,
       company,
       timestamp: new Date().toISOString(),
@@ -89,10 +104,63 @@ export default function CustomBuildWizard() {
       }
       const data = await res.json()
       if (!data.success) console.warn('Email service reported issues:', data)
+      
+      if (proceedToPayment) {
+        setWantsToProceedToPayment(true)
+      }
       setStep(5)
     } catch (e) {
       console.error('Failed to submit request', e)
       alert('Submission failed. Please try again or contact us.')
+    }
+  }
+
+  // Build a synthetic package & add-ons pricing for payment initialization
+  const proceedToPayment = async () => {
+    if (!platform || !budget || !email) return
+    setPaymentError(null)
+    setIsSubmitting(true)
+    try {
+      // Choose charge amount: use low end of converted range as initial payment (could be refined later)
+      const totalAmount = estimatedRange.low
+      const requestBody = {
+        serviceCategory: { title: 'Custom Build', _id: 'custom-build' },
+        selectedPackage: {
+          name: `Custom ${platform === 'both' ? 'Web + Mobile' : platform.charAt(0).toUpperCase() + platform.slice(1)} Build (${budget})`,
+          tier: budget,
+          price: estimatedRange.lowUSD, // base USD for record
+          currency: 'USD'
+        },
+        selectedAddOns: features.map(f => ({ _key: f, name: f, price: 250 })),
+        clientInfo: { email, company },
+        projectDetails: {
+          title: 'Custom Build Wizard Submission',
+          description: `Platform: ${platform}; Features: ${features.join(', ') || 'None'}; Budget: ${budget}; Range (${currentCurrency.code}): ${currentCurrency.symbol}${estimatedRange.low.toLocaleString()} - ${currentCurrency.symbol}${estimatedRange.high.toLocaleString()}`
+        },
+        currency: currentCurrency.code,
+        totalAmount
+      }
+
+      const res = await fetch('/api/service-request', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify(requestBody)
+      })
+      if (!res.ok) {
+        const err = await res.json().catch(() => ({}))
+        throw new Error(err.error || `Payment init failed (${res.status})`)
+      }
+      const data = await res.json()
+      if (data?.url) {
+        window.location.href = data.url
+      } else {
+        throw new Error('No authorization URL returned')
+      }
+    } catch (err) {
+      console.error('Payment init error', err)
+      setPaymentError(err instanceof Error ? err.message : 'Unknown payment error')
+    } finally {
+      setIsSubmitting(false)
     }
   }
 
@@ -174,7 +242,21 @@ export default function CustomBuildWizard() {
             </div>
 
             <div className="mt-6 p-4 rounded-lg bg-slate-50 border text-slate-700">
-              Estimated Range (USD): <span className="font-semibold">{estimatedRange.low.toLocaleString()} — {estimatedRange.high.toLocaleString()}</span>
+              <div className="font-semibold mb-2">Estimated Range:</div>
+              <div className="text-2xl font-bold text-blue-600">
+                {currentCurrency.symbol}{estimatedRange.low.toLocaleString()} — {currentCurrency.symbol}{estimatedRange.high.toLocaleString()}
+              </div>
+              {estimatedRange.discountActive && (
+                <div className="mt-2 inline-flex items-center gap-2 px-3 py-1 bg-green-100 text-green-800 rounded-full text-sm font-medium">
+                  <span>🇳🇬</span>
+                  <span>50% Nigerian Launch Special Applied!</span>
+                </div>
+              )}
+              {currentCurrency.code !== 'USD' && (
+                <div className="mt-1 text-sm text-slate-500">
+                  ≈ ${estimatedRange.lowUSD.toLocaleString()} — ${estimatedRange.highUSD.toLocaleString()} USD
+                </div>
+              )}
             </div>
           </section>
         )}
@@ -207,25 +289,110 @@ export default function CustomBuildWizard() {
             </div>
 
             <div className="mt-6 p-4 rounded-lg bg-slate-50 border text-slate-700">
-              <div className="font-semibold mb-1">Summary</div>
-              <ul className="text-sm list-disc pl-5 space-y-1">
-                <li>Platform: {platform || '—'}</li>
-                <li>Features: {features.length ? features.join(', ') : '—'}</li>
-                <li>Budget Tier: {budget || '—'}</li>
-                <li>Estimate: {estimatedRange.low.toLocaleString()} — {estimatedRange.high.toLocaleString()} USD</li>
+              <div className="font-semibold mb-2">Summary</div>
+              <ul className="text-sm list-disc pl-5 space-y-1 mb-3">
+                <li>Platform: <span className="font-medium">{platform || '—'}</span></li>
+                <li>Features: <span className="font-medium">{features.length ? features.join(', ') : '—'}</span></li>
+                <li>Budget Tier: <span className="font-medium capitalize">{budget || '—'}</span></li>
               </ul>
+              <div className="pt-3 border-t">
+                <div className="font-semibold mb-1">Estimated Range:</div>
+                <div className="text-xl font-bold text-blue-600">
+                  {currentCurrency.symbol}{estimatedRange.low.toLocaleString()} — {currentCurrency.symbol}{estimatedRange.high.toLocaleString()}
+                </div>
+                {estimatedRange.discountActive && (
+                  <div className="mt-2 inline-flex items-center gap-2 px-3 py-1 bg-green-100 text-green-800 rounded-full text-xs font-medium">
+                    <span>🇳🇬</span>
+                    <span>50% Nigerian Launch Special!</span>
+                  </div>
+                )}
+                {currentCurrency.code !== 'USD' && (
+                  <div className="mt-1 text-xs text-slate-500">
+                    ≈ ${estimatedRange.lowUSD.toLocaleString()} — ${estimatedRange.highUSD.toLocaleString()} USD
+                  </div>
+                )}
+              </div>
             </div>
           </section>
         )}
 
-        {step === 5 && (
+        {step === 5 && !wantsToProceedToPayment && (
           <section className="text-center">
-            <h2 className="text-xl font-bold mb-2">Request Received</h2>
-            <p className="text-slate-600 mb-4">We’ll email your tailored plan shortly. Want to keep exploring?</p>
-            <div className="flex items-center justify-center gap-3">
-              <Link href="/services/web-and-mobile-software-development" className="px-5 py-3 rounded-lg bg-blue-600 text-white hover:bg-blue-700">Explore Web & Mobile</Link>
-              <Link href="/services/custom-build" className="px-5 py-3 rounded-lg bg-slate-100 border hover:bg-white">Start Over</Link>
+            <div className="mb-6">
+              <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <svg className="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                </svg>
+              </div>
+              <h2 className="text-2xl font-bold mb-2">Request Received!</h2>
+              <p className="text-slate-600 mb-4">We&apos;ve sent a confirmation to <strong>{email}</strong>. Our team will email your tailored plan within 4-6 hours.</p>
             </div>
+            
+            <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6 text-left">
+              <h3 className="font-semibold text-blue-900 mb-2">💡 Want to start immediately?</h3>
+              <p className="text-sm text-blue-800 mb-3">
+                If you&apos;re ready to move forward, you can proceed to payment now and we&apos;ll begin work within 24 hours.
+              </p>
+              <button
+                onClick={() => setWantsToProceedToPayment(true)}
+                className="w-full px-5 py-3 rounded-lg bg-green-600 text-white font-semibold hover:bg-green-700 transition-colors"
+              >
+                Proceed to Payment
+              </button>
+            </div>
+
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
+              <Link href="/services/web-and-mobile-software-development" className="w-full sm:w-auto px-5 py-3 rounded-lg bg-blue-600 text-white hover:bg-blue-700">Explore Web & Mobile</Link>
+              <Link href="/services/custom-build" className="w-full sm:w-auto px-5 py-3 rounded-lg bg-slate-100 border hover:bg-white">Start Over</Link>
+            </div>
+          </section>
+        )}
+
+        {step === 5 && wantsToProceedToPayment && (
+          <section className="text-center">
+            <h2 className="text-xl font-bold mb-2">Payment Integration</h2>
+            <p className="text-slate-600 mb-4">
+              Payment flow coming soon. For now, please contact us at{' '}
+              <a href="mailto:hexadigitztech@gmail.com" className="text-blue-600 hover:underline">
+                hexadigitztech@gmail.com
+              </a>
+              {' '}or call{' '}
+              <a href="tel:+2348125802140" className="text-blue-600 hover:underline">
+                +234 812 580 2140
+              </a>
+              {' '}to arrange payment.
+            </p>
+            <div className="mt-6 p-4 rounded-lg bg-slate-50 border text-left">
+              <div className="font-semibold mb-2">Your Quote:</div>
+              <div className="text-2xl font-bold text-blue-600 mb-2">
+                {currentCurrency.symbol}{estimatedRange.low.toLocaleString()} — {currentCurrency.symbol}{estimatedRange.high.toLocaleString()}
+              </div>
+              <div className="text-sm text-slate-600">
+                <div>Platform: <span className="font-medium">{platform}</span></div>
+                <div>Features: <span className="font-medium">{features.join(', ')}</span></div>
+                <div>Budget: <span className="font-medium capitalize">{budget}</span></div>
+              </div>
+            </div>
+            <div className="mt-6">
+              <button
+                onClick={proceedToPayment}
+                disabled={isSubmitting}
+                className={`px-6 py-3 rounded-lg font-semibold text-white transition-colors ${isSubmitting ? 'bg-gray-400' : 'bg-green-600 hover:bg-green-700'}`}
+              >
+                {isSubmitting ? 'Initializing Payment...' : 'Pay Now (Start Project)'}
+              </button>
+            </div>
+            {paymentError && (
+              <div className="mt-4 p-3 rounded-lg bg-red-100 border border-red-300 text-red-800 text-sm">
+                Payment error: {paymentError}
+              </div>
+            )}
+            <button
+              onClick={() => setWantsToProceedToPayment(false)}
+              className="mt-4 px-5 py-2 rounded-lg border hover:bg-slate-50"
+            >
+              Back to Confirmation
+            </button>
           </section>
         )}
       </div>
@@ -251,13 +418,24 @@ export default function CustomBuildWizard() {
               </button>
             )}
             {step === 4 && (
-              <button
-                className={`px-5 py-2.5 rounded-lg text-white ${canContinue ? 'bg-green-600 hover:bg-green-700' : 'bg-slate-400 cursor-not-allowed'}`}
-                disabled={!canContinue}
-                onClick={submit}
-              >
-                Get My Plan
-              </button>
+              <>
+                <button
+                  className={`px-5 py-2.5 rounded-lg text-white ${canContinue ? 'bg-blue-600 hover:bg-blue-700' : 'bg-slate-400 cursor-not-allowed'}`}
+                  disabled={!canContinue}
+                  onClick={() => submit(false)}
+                  title="Get a quote via email"
+                >
+                  Get Quote via Email
+                </button>
+                <button
+                  className={`px-5 py-2.5 rounded-lg text-white ${canContinue ? 'bg-green-600 hover:bg-green-700' : 'bg-slate-400 cursor-not-allowed'}`}
+                  disabled={!canContinue}
+                  onClick={() => submit(true)}
+                  title="Submit and proceed to payment"
+                >
+                  Submit & Pay Now
+                </button>
+              </>
             )}
           </div>
         </div>
