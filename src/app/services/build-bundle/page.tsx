@@ -2,6 +2,7 @@
 
 import { useState, useMemo, useEffect, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
+import Link from 'next/link';
 import { useCurrency } from '@/contexts/CurrencyContext';
 import { 
   ALL_INDIVIDUAL_SERVICES, 
@@ -134,16 +135,28 @@ function BundleBuilderContent() {
   return (
     <div className="min-h-screen bg-gray-50 pb-32">
       {/* Header */}
-      <div className="bg-gradient-to-r from-blue-900 to-indigo-900 text-white py-16 px-6">
+      <div className="bg-gradient-to-r from-blue-900 to-indigo-900 text-white py-12 md:py-16 px-6">
         <div className="container mx-auto">
           <Breadcrumb 
             items={[
+              { label: 'Home', href: '/' },
               { label: 'Services', href: '/services' },
-              { label: 'Build Your Bundle' }
+              { label: 'À La Carte Builder' }
             ]} 
             className="mb-6"
           />
-          <h1 className="text-4xl md:text-5xl font-bold mb-4">Build Your Custom Bundle</h1>
+          <div className="flex items-center gap-4 mb-4">
+            <Link 
+              href="/services" 
+              className="inline-flex items-center gap-2 text-white/80 hover:text-white transition-colors text-sm font-medium"
+            >
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+              </svg>
+              Back to Services
+            </Link>
+          </div>
+          <h1 className="text-4xl md:text-5xl font-bold mb-4">🛒 À La Carte Bundle Builder</h1>
           <p className="text-xl opacity-90 max-w-2xl">
             Mix and match individual services from any category to create a package that fits your exact needs. 
             <span className="block mt-2 text-lg font-semibold">No rigid packages—just the tasks you need.</span>
@@ -162,19 +175,20 @@ function BundleBuilderContent() {
           )}
 
           {/* Category Tabs */}
-          <div className="flex overflow-x-auto border-b border-gray-200 scrollbar-hide">
+          <div className="flex overflow-x-auto border-b border-gray-200 scrollbar-hide bg-gray-50/50">
             {CATEGORIES.map(cat => (
               <button
                 key={cat.id}
                 onClick={() => setActiveCategory(cat.id)}
-                className={`px-6 py-4 text-sm font-semibold whitespace-nowrap transition-all ${
+                className={`px-4 sm:px-6 py-3 sm:py-4 text-xs sm:text-sm font-semibold whitespace-nowrap transition-all flex items-center gap-2 ${
                   activeCategory === cat.id 
-                    ? 'text-blue-600 border-b-2 border-blue-600 bg-blue-50' 
-                    : 'text-gray-500 hover:text-gray-800 hover:bg-gray-50'
+                    ? 'text-blue-600 border-b-3 border-blue-600 bg-white shadow-sm' 
+                    : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100'
                 }`}
               >
-                <span className="mr-2">{cat.icon}</span>
-                {cat.label}
+                <span className="text-base sm:text-lg">{cat.icon}</span>
+                <span className="hidden sm:inline">{cat.label}</span>
+                <span className="sm:hidden">{cat.label.split(' ')[0]}</span>
               </button>
             ))}
           </div>
@@ -200,10 +214,10 @@ function BundleBuilderContent() {
                 <div 
                   key={service.id}
                   onClick={() => toggleItem(service)}
-                  className={`cursor-pointer rounded-xl border-2 p-5 transition-all duration-200 relative group ${
+                  className={`cursor-pointer rounded-xl border-2 p-5 transition-all duration-200 relative group hover:-translate-y-1 ${
                     isSelected 
-                      ? 'border-blue-500 bg-blue-50 shadow-md ring-2 ring-blue-200' 
-                      : 'border-gray-200 hover:border-blue-300 hover:shadow-lg'
+                      ? 'border-blue-500 bg-blue-50 shadow-lg ring-2 ring-blue-200 scale-[1.02]' 
+                      : 'border-gray-200 hover:border-blue-300 hover:shadow-xl hover:bg-blue-50/30'
                   }`}
                 >
                   {/* Selection Checkbox */}
@@ -266,8 +280,8 @@ function BundleBuilderContent() {
 
       {/* Sticky Bottom Summary Bar */}
       {selectedItems.length > 0 && (
-        <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 shadow-2xl p-4 z-50 animate-slide-up">
-          <div className="container mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
+        <div className="fixed bottom-0 left-0 right-0 bg-white border-t-2 border-blue-200 shadow-2xl p-3 sm:p-4 z-50 backdrop-blur-sm bg-white/95">
+          <div className="container mx-auto flex flex-col md:flex-row items-center justify-between gap-3 sm:gap-4">
             
             {/* Selected List Preview (Mobile Hidden) */}
             <div className="hidden md:flex items-center gap-2 overflow-x-auto max-w-2xl scrollbar-hide">

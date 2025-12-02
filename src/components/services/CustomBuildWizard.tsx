@@ -1,6 +1,7 @@
 "use client"
 
 import { useMemo, useState } from 'react'
+import Link from 'next/link'
 import { useCurrency } from '@/contexts/CurrencyContext'
 import { 
   PLATFORM_BASES, 
@@ -184,6 +185,27 @@ export default function CustomBuildWizard() {
 
   return (
     <div className="bg-white rounded-2xl shadow-xl border border-slate-200">
+      {/* Breadcrumb Navigation */}
+      <div className="px-4 sm:px-6 pt-4 border-b border-slate-100">
+        <nav className="flex items-center gap-2 text-sm text-slate-600 mb-3">
+          <Link href="/" className="hover:text-blue-600 transition-colors">Home</Link>
+          <span>/</span>
+          <Link href="/services" className="hover:text-blue-600 transition-colors">Services</Link>
+          <span>/</span>
+          <span className="text-slate-900 font-medium">Custom Build Wizard</span>
+        </nav>
+        {step > 1 && (
+          <button
+            onClick={() => setStep(step - 1)}
+            className="inline-flex items-center gap-1 text-sm text-blue-600 hover:text-blue-700 font-medium mb-3 transition-colors"
+          >
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+            </svg>
+            Back
+          </button>
+        )}
+      </div>
       <div className="p-4 sm:p-6 border-b">
         <nav aria-label="Progress" className="flex items-center justify-center gap-2 text-sm">
           {[1, 2, 3, 4, 5].map((i) => (
