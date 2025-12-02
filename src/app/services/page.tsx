@@ -141,6 +141,17 @@ export default function ServicesPage() {
           {/* Startup Funnel (stage-based entry) */}
           <StartupFunnel className="mb-12" />
 
+          {/* Direct access to Custom Build Wizard */}
+          <div className="mb-16">
+            <div className="bg-gradient-to-r from-cyan-50 to-blue-50 border border-blue-200 rounded-2xl p-6 text-center">
+              <h2 className="text-2xl font-bold text-gray-900 mb-2">Prefer a tailored plan?</h2>
+              <p className="text-gray-700 mb-4">Use our guided wizard to get a custom build plan and instant estimate.</p>
+              <Link href="/services/custom-build" className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-primary text-white font-semibold shadow hover:bg-primary/90">
+                <span>🧭 Start Custom Build Wizard</span>
+              </Link>
+            </div>
+          </div>
+
           {/* Direct Service Category Links */}
           <div className="mb-16">
             <h2 className="text-3xl font-bold text-center mb-4">Browse Service Categories</h2>

@@ -115,11 +115,20 @@ export default function JourneyHeader({ currentStage, hideNavigation = false }: 
 
         {/* Progress description - hidden on very small screens */}
         {!hideNavigation && (
-          <p className="hidden sm:block text-center text-xs text-gray-600 mt-2 sm:mt-4">
-            {currentIndex === 0 && '✨ Start here: Plan your business with a solid strategy'}
-            {currentIndex === 1 && '🚀 Build your digital presence with a professional website'}
-            {currentIndex === 2 && '📣 Scale your business with strategic marketing'}
-          </p>
+          <div className="hidden sm:flex flex-col items-center gap-2 mt-2 sm:mt-4">
+            <p className="text-center text-xs text-gray-600">
+              {currentIndex === 0 && '✨ Start here: Plan your business with a solid strategy'}
+              {currentIndex === 1 && '🚀 Build your digital presence with a professional website'}
+              {currentIndex === 2 && '📣 Scale your business with strategic marketing'}
+            </p>
+            <Link
+              href="/services/custom-build"
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary text-white text-xs font-semibold shadow hover:bg-primary/90 transition-colors"
+            >
+              <span>🧭 Custom Build Wizard</span>
+              <span className="hidden md:inline">— Get a tailored plan in minutes</span>
+            </Link>
+          </div>
         )}
       </div>
     </div>
