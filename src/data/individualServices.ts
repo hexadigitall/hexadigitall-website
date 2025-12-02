@@ -17,23 +17,9 @@ export interface IndividualService {
 }
 
 // Web & Mobile Development Individual Services
+// Note: Full projects (Landing Pages, E-commerce) are sold as Tiered Packages.
+// This list contains task-based services: audits, fixes, specific features.
 export const WEB_DEV_INDIVIDUAL_SERVICES: IndividualService[] = [
-  {
-    id: 'landing-page-quick',
-    name: 'Quick Landing Page',
-    price: 299,
-    description: 'Professional single-page website, perfect for launches and campaigns',
-    deliveryTime: '3-5 days',
-    category: 'web-dev',
-    features: [
-      'Responsive single-page design',
-      'Contact form integration',
-      'SEO optimization basics',
-      'Mobile-friendly layout',
-      'Fast loading performance',
-      '1 revision round'
-    ]
-  },
   {
     id: 'website-redesign',
     name: 'Website Redesign',
@@ -51,19 +37,67 @@ export const WEB_DEV_INDIVIDUAL_SERVICES: IndividualService[] = [
     ]
   },
   {
-    id: 'ecommerce-setup',
-    name: 'E-commerce Store Setup',
-    price: 899,
-    description: 'Launch your online store with payment integration and product management',
-    deliveryTime: '10-14 days',
+    id: 'seo-audit',
+    name: 'SEO Audit & Report',
+    price: 199,
+    description: 'Comprehensive SEO analysis with actionable recommendations',
+    deliveryTime: '3-5 days',
     category: 'web-dev',
     features: [
-      'Product catalog setup',
-      'Payment gateway integration',
-      'Shopping cart & checkout',
-      'Inventory management',
-      'Order tracking system',
-      'Admin dashboard'
+      'Technical SEO audit',
+      'On-page optimization review',
+      'Keyword analysis',
+      'Competitor comparison',
+      'Actionable recommendations',
+      'Priority roadmap'
+    ]
+  },
+  {
+    id: 'speed-optimization',
+    name: 'Website Speed Optimization',
+    price: 299,
+    description: 'Boost your site performance and Core Web Vitals scores',
+    deliveryTime: '3-5 days',
+    category: 'web-dev',
+    features: [
+      'Performance audit',
+      'Image optimization',
+      'Code minification',
+      'Caching setup',
+      'CDN configuration',
+      'Before/after metrics'
+    ]
+  },
+  {
+    id: 'payment-gateway-integration',
+    name: 'Payment Gateway Integration',
+    price: 349,
+    description: 'Add Stripe, Paystack, or Flutterwave to your existing site',
+    deliveryTime: '4-6 days',
+    category: 'web-dev',
+    features: [
+      'Gateway setup & configuration',
+      'Secure checkout flow',
+      'Webhook integration',
+      'Order confirmation emails',
+      'Testing & documentation',
+      'PCI compliance guidance'
+    ]
+  },
+  {
+    id: 'bug-fix-monthly',
+    name: 'Monthly Bug Fixes & Support',
+    price: 199,
+    description: 'Ongoing maintenance and bug fixes for your website',
+    deliveryTime: 'Monthly',
+    category: 'web-dev',
+    features: [
+      'Up to 5 hours of fixes/month',
+      'Priority support',
+      'Security updates',
+      'Content updates',
+      'Performance monitoring',
+      'Monthly report'
     ]
   }
 ]

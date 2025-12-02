@@ -110,7 +110,7 @@ export default function ServicesPage() {
           <div className="text-center mb-12">
             <h1 className="text-4xl md:text-5xl font-bold font-heading text-gray-900">Our Services</h1>
             <p className="mt-4 text-lg text-gray-700 max-w-2xl mx-auto">
-              We offer a complete suite of services to transform your ideas into successful digital realities.
+              Choose your path: Complete project packages, custom builds, or individual tasks.
             </p>
 
             {/* Launch Special Banner */}
@@ -120,6 +120,57 @@ export default function ServicesPage() {
               showSpots={true}
               className="mt-6 mb-8"
             />
+
+            {/* Service Path Selector */}
+            <div className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-4 max-w-5xl mx-auto">
+              <Link 
+                href="#packages" 
+                className="group p-6 bg-white rounded-xl border-2 border-blue-200 hover:border-blue-500 hover:shadow-lg transition-all"
+              >
+                <div className="text-4xl mb-2">📦</div>
+                <h3 className="text-xl font-bold text-gray-900 mb-1 group-hover:text-blue-600">
+                  Tiered Packages
+                </h3>
+                <p className="text-sm text-gray-600">
+                  Complete solutions (Basic/Standard/Premium) for full projects like websites, business plans, or marketing campaigns.
+                </p>
+                <div className="mt-3 text-blue-600 font-semibold text-sm">
+                  Browse Packages →
+                </div>
+              </Link>
+
+              <Link 
+                href="/services/custom-build" 
+                className="group p-6 bg-gradient-to-br from-blue-50 to-indigo-50 rounded-xl border-2 border-indigo-300 hover:border-indigo-500 hover:shadow-lg transition-all"
+              >
+                <div className="text-4xl mb-2">🧭</div>
+                <h3 className="text-xl font-bold text-gray-900 mb-1 group-hover:text-indigo-600">
+                  Custom Build Wizard
+                </h3>
+                <p className="text-sm text-gray-600">
+                  Configure your platform, features, and services with live pricing. Perfect for unique software needs.
+                </p>
+                <div className="mt-3 text-indigo-600 font-semibold text-sm">
+                  Start Building →
+                </div>
+              </Link>
+
+              <Link 
+                href="/services/build-bundle" 
+                className="group p-6 bg-white rounded-xl border-2 border-green-200 hover:border-green-500 hover:shadow-lg transition-all"
+              >
+                <div className="text-4xl mb-2">🛒</div>
+                <h3 className="text-xl font-bold text-gray-900 mb-1 group-hover:text-green-600">
+                  À La Carte Builder
+                </h3>
+                <p className="text-sm text-gray-600">
+                  Pick individual services (logo, audit, SEO, support) from any category and bundle them your way.
+                </p>
+                <div className="mt-3 text-green-600 font-semibold text-sm">
+                  Build Your Bundle →
+                </div>
+              </Link>
+            </div>
 
             {/* Currency and Discount Message */}
             <div className="mt-6 flex flex-col sm:flex-row items-center justify-center gap-4">
@@ -139,24 +190,13 @@ export default function ServicesPage() {
 
 
           {/* Startup Funnel (stage-based entry) */}
-          <StartupFunnel className="mb-12" />
-
-          {/* Direct access to Custom Build Wizard */}
-          <div className="mb-16">
-            <div className="bg-gradient-to-r from-cyan-50 to-blue-50 border border-blue-200 rounded-2xl p-6 text-center">
-              <h2 className="text-2xl font-bold text-gray-900 mb-2">Prefer a tailored plan?</h2>
-              <p className="text-gray-700 mb-4">Use our guided wizard to get a custom build plan and instant estimate.</p>
-              <Link href="/services/custom-build" className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-primary text-white font-semibold shadow hover:bg-primary/90">
-                <span>🧭 Start Custom Build Wizard</span>
-              </Link>
-            </div>
-          </div>
+          <StartupFunnel className="mb-16" />
 
           {/* Direct Service Category Links */}
-          <div className="mb-16">
-            <h2 className="text-3xl font-bold text-center mb-4">Browse Service Categories</h2>
+          <div className="mb-16" id="packages">
+            <h2 className="text-3xl font-bold text-center mb-4">📦 Tiered Package Categories</h2>
             <p className="text-center text-gray-600 mb-12 max-w-3xl mx-auto">
-              Explore our specialized service categories with detailed packages and pricing.
+              Browse complete project packages organized by category. Each offers Basic, Standard, and Premium tiers.
             </p>
             
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">

@@ -429,7 +429,7 @@ export default function CompleteServicePage({
             )}
           </div>
 
-          {/* Section 2: À La Carte Builder */}
+          {/* Section 2: À La Carte Builder - Redirect to Global Builder */}
           <div id="custom-bundle" className="mb-16 sm:mb-20 scroll-mt-24">
             <div className="card-enhanced rounded-2xl p-6 sm:p-8 mx-4">
               <div className="text-center mb-6">
@@ -437,26 +437,26 @@ export default function CompleteServicePage({
                   <svg className={`w-5 h-5 sm:w-6 sm:h-6 ${colors.text}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
                   </svg>
-                  Build Your Custom Bundle
+                  Need Individual Services?
                 </h2>
-                <p className="text-sm sm:text-base text-gray-600">
-                  Select multiple services and save! Get <strong>5% off</strong> when buying 2+ services, <strong>10% off</strong> for 3+.
+                <p className="text-sm sm:text-base text-gray-600 mb-6">
+                  Pick specific tasks from this or any category and bundle them your way with our <strong>Global À La Carte Builder</strong>.
+                </p>
+                <a
+                  href={`/services/build-bundle?category=${individualServices[0]?.category || 'all'}`}
+                  className={`inline-flex items-center min-h-[44px] px-6 sm:px-8 py-3 sm:py-4 bg-gradient-to-r ${colors.from} ${colors.to} text-white font-semibold rounded-xl ${colors.hover} transition-all duration-300 transform hover:scale-105 active:scale-95 shadow-lg text-sm sm:text-base`}
+                >
+                  <svg className="w-4 h-4 sm:w-5 sm:h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                  </svg>
+                  Browse À La Carte Services
+                </a>
+                <p className="text-xs text-gray-500 mt-4">
+                  Mix services from Web, Marketing, Branding, Portfolio, and more — all in one place.
                 </p>
               </div>
               
-              {!showALaCarte ? (
-                <div className="text-center">
-                  <button
-                    onClick={() => setShowALaCarte(true)}
-                    className={`inline-flex items-center min-h-[44px] px-6 sm:px-8 py-3 sm:py-4 bg-gradient-to-r ${colors.from} ${colors.to} text-white font-semibold rounded-xl ${colors.hover} transition-all duration-300 transform hover:scale-105 active:scale-95 shadow-lg text-sm sm:text-base`}
-                  >
-                    <svg className="w-4 h-4 sm:w-5 sm:h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
-                    </svg>
-                    Open À La Carte Builder
-                  </button>
-                </div>
-              ) : (
+              {false && ( /* Remove the collapsible section */
                 <div className="space-y-6">
                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
                     {individualServices.map((service) => {
