@@ -75,13 +75,13 @@ export default defineType({
       type: 'object',
       hidden: ({ parent }) => parent?.courseType !== 'live',
       fields: [
-        defineField({
+        {
           name: 'hoursPerWeek',
           title: 'Hours per Week',
           type: 'number',
           validation: (Rule) => Rule.positive().min(1).max(21),
-        }),
-        defineField({
+        },
+        {
           name: 'sessionFormat',
           title: 'Session Format',
           type: 'string',
@@ -92,30 +92,30 @@ export default defineType({
               { title: 'Group Session (5-8)', value: 'group' },
             ],
           },
-        }),
-        defineField({
+        },
+        {
           name: 'totalHours',
           title: 'Total Hours per Month',
           type: 'number',
           validation: (Rule) => Rule.positive(),
-        }),
-        defineField({
+        },
+        {
           name: 'monthlyAmount',
           title: 'Monthly Amount (in cents/kobo)',
           type: 'number',
           validation: (Rule) => Rule.positive(),
-        }),
-        defineField({
+        },
+        {
           name: 'nextSessionDate',
           title: 'Next Session Date',
           type: 'datetime',
-        }),
-        defineField({
+        },
+        {
           name: 'totalSessionsCompleted',
           title: 'Sessions Completed',
           type: 'number',
           initialValue: 0,
-        }),
+        },
       ],
     }),
     defineField({

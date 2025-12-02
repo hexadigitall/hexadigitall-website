@@ -75,25 +75,25 @@ export default defineType({
       type: 'object',
       hidden: ({ parent }) => parent?.courseType !== 'live',
       fields: [
-        defineField({
+        {
           name: 'hoursPerWeek',
           title: 'Hours per Week',
           type: 'number',
           validation: (Rule) => Rule.positive().min(1).max(21),
-        }),
-        defineField({
+        },
+        {
           name: 'weeksPerMonth',
           title: 'Weeks per Month',
           type: 'number',
           initialValue: 4,
-        }),
-        defineField({
+        },
+        {
           name: 'totalHours',
           title: 'Total Hours per Month',
           type: 'number',
           validation: (Rule) => Rule.positive(),
-        }),
-        defineField({
+        },
+        {
           name: 'sessionFormat',
           title: 'Session Format',
           type: 'string',
@@ -104,8 +104,8 @@ export default defineType({
               { title: 'Group Session (5-8)', value: 'group' },
             ],
           },
-        }),
-        defineField({
+        },
+        {
           name: 'currency',
           title: 'Currency',
           type: 'string',
@@ -115,19 +115,19 @@ export default defineType({
               { title: 'US Dollar', value: 'USD' },
             ],
           },
-        }),
-        defineField({
+        },
+        {
           name: 'hourlyRate',
           title: 'Hourly Rate',
           type: 'number',
           validation: (Rule) => Rule.positive(),
-        }),
-        defineField({
+        },
+        {
           name: 'totalMonthlyPrice',
           title: 'Total Monthly Price',
           type: 'number',
           validation: (Rule) => Rule.positive(),
-        }),
+        },
       ],
     }),
     defineField({
