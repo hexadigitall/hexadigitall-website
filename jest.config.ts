@@ -20,7 +20,7 @@ const config: Config.InitialOptions = {
     '^@/(.*)$': '<rootDir>/src/$1',
   },
   transformIgnorePatterns: [
-    'node_modules/(?!(nanoid|@sanity)/)',
+    'node_modules/(?!(nanoid|@sanity|sanity)/)',
   ],
   clearMocks: true,
   testEnvironmentOptions: {

@@ -14,7 +14,7 @@ export const getStripe = () => {
     }
 
     stripeInstance = new Stripe(secretKey, {
-      apiVersion: '2025-08-27.basil', // Latest supported version
+      apiVersion: '2025-11-17.clover', // Latest supported version
       typescript: true,
       // Enhanced configuration for better performance
       maxNetworkRetries: 3,
