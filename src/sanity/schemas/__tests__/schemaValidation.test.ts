@@ -9,7 +9,7 @@
  * - Malformed field definitions in object types
  */
 
-import { describe, test, expect, jest, beforeAll } from '@jest/globals';
+import { describe, test, expect, jest } from '@jest/globals';
 
 // Mock sanity module to avoid ESM transformation issues
 jest.mock('sanity', () => ({
