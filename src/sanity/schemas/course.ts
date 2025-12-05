@@ -1,6 +1,12 @@
 // sanity/schemas/course.ts
 import {defineField, defineType} from 'sanity'
 
+// Type for course parent context in validation
+interface CourseParent {
+  courseType?: 'live' | 'self-paced';
+  [key: string]: unknown;
+}
+
 export default defineType({
   name: 'course',
   title: 'Course',
@@ -54,7 +60,7 @@ export default defineType({
       description: 'The standard international hourly rate. Range: $15/hr (₦60/mo floor) to $87.5/hr ($350/mo ceiling). This is the global market rate.',
       hidden: ({ parent }) => parent?.courseType !== 'live',
       validation: (Rule) => Rule.custom((value, context) => {
-        const parent = context?.parent as any;
+        const parent = context?.parent as CourseParent;
         if (parent?.courseType !== 'live') return true;
         if (!value) return 'Hourly rate is required for live mentoring courses';
         if (value < 15) return 'Minimum rate is $15/hr';
@@ -69,7 +75,7 @@ export default defineType({
       description: 'The adjusted PPP rate for Nigeria. Range: ₦12,500/hr (₦50k/mo floor) to ₦70,000/hr (₦280k/mo ceiling). NOT a direct conversion.',
       hidden: ({ parent }) => parent?.courseType !== 'live',
       validation: (Rule) => Rule.custom((value, context) => {
-        const parent = context?.parent as any;
+        const parent = context?.parent as CourseParent;
         if (parent?.courseType !== 'live') return true;
         if (!value) return 'Hourly rate is required for live mentoring courses';
         if (value < 12500) return 'Minimum rate is ₦12,500/hr';
@@ -79,8 +85,8 @@ export default defineType({
       })
     }),
 
-    // CONSTRAINTS (The Rules) - TEMPORARILY DISABLED FOR DEBUGGING
-    /* defineField({
+    // CONSTRAINTS (The Rules) - Monthly Scheduling for live courses
+    defineField({
       name: 'monthlyScheduling',
       title: 'Scheduling Limits',
       type: 'object',
@@ -101,88 +107,86 @@ export default defineType({
           initialValue: 'monthly',
           description: 'How students will be billed for this course'
         },
-        
-        // Session Matrix Configuration
-        defineField({
+        // Session Matrix Configuration - using plain objects (no nested defineField)
+        {
           name: 'sessionMatrix',
           title: 'Session Customization Matrix',
           type: 'object',
           description: 'Allow students to customize sessions per week and hours per session',
           fields: [
-            defineField({
+            {
               name: 'sessionsPerWeek',
               title: 'Sessions per Week',
               type: 'object',
               fields: [
-                defineField({
+                {
                   name: 'min',
                   title: 'Minimum Sessions per Week',
                   type: 'number',
                   initialValue: 1,
                   readOnly: true
-                }),
-                defineField({
+                },
+                {
                   name: 'max',
                   title: 'Maximum Sessions per Week', 
                   type: 'number',
                   initialValue: 3,
                   validation: (Rule) => Rule.max(3)
-                }),
-                defineField({
+                },
+                {
                   name: 'default',
                   title: 'Default Sessions per Week',
                   type: 'number',
                   initialValue: 1,
                   validation: (Rule) => Rule.min(1).max(3)
-                })
+                }
               ]
-            }),
-            defineField({
+            },
+            {
               name: 'hoursPerSession',
               title: 'Hours per Session',
               type: 'object',
               fields: [
-                defineField({
+                {
                   name: 'min',
                   title: 'Minimum Hours per Session',
                   type: 'number',
                   initialValue: 1,
                   readOnly: true
-                }),
-                defineField({
+                },
+                {
                   name: 'max',
                   title: 'Maximum Hours per Session',
                   type: 'number',
                   initialValue: 3,
                   validation: (Rule) => Rule.max(3)
-                }),
-                defineField({
+                },
+                {
                   name: 'default',
                   title: 'Default Hours per Session',
                   type: 'number',
                   initialValue: 1,
                   validation: (Rule) => Rule.min(1).max(3)
-                })
+                }
               ]
-            }),
-            defineField({
+            },
+            {
               name: 'totalHoursLimit',
               title: 'Maximum Total Hours per Week',
               type: 'number',
               description: 'Prevent students from selecting unrealistic schedules',
               initialValue: 12,
               validation: (Rule) => Rule.min(4).max(20)
-            })
+            }
           ]
-        }),
-        
+        },
         // Professional scheduling constraints
-        defineField({
+        {
           name: 'availabilityWindow',
           title: 'Instructor Availability',
           type: 'object',
           fields: [
-            defineField({
+            {
               name: 'daysOfWeek',
               title: 'Available Days',
               type: 'array',
@@ -202,8 +206,8 @@ export default defineType({
               }],
               initialValue: ['monday', 'tuesday', 'wednesday', 'thursday', 'friday'],
               description: 'Days when instructor is available for sessions'
-            }),
-            defineField({
+            },
+            {
               name: 'timeSlots',
               title: 'Available Time Slots',
               type: 'array',
@@ -220,45 +224,44 @@ export default defineType({
               }],
               initialValue: ['morning', 'afternoon', 'evening'],
               description: 'Time slots when sessions can be scheduled'
-            })
+            }
           ]
-        }),
-        
+        },
         // Pricing structure for different session formats
-        defineField({
+        {
           name: 'sessionPricing',
           title: 'Session Format Pricing',
           type: 'object',
           description: 'Different rates for different session formats',
           fields: [
-            defineField({
+            {
               name: 'oneOnOneMultiplier',
               title: 'One-on-One Rate Multiplier',
               type: 'number',
               initialValue: 1.0,
               validation: (Rule) => Rule.min(0.5).max(3.0),
               description: 'Multiply base rate by this for 1-on-1 sessions (1.0 = no change)'
-            }),
-            defineField({
+            },
+            {
               name: 'smallGroupMultiplier',
               title: 'Small Group Rate Multiplier (2-4 students)',
               type: 'number',
               initialValue: 0.7,
               validation: (Rule) => Rule.min(0.3).max(1.0),
               description: 'Multiply base rate by this for small groups (0.7 = 30% discount)'
-            }),
-            defineField({
+            },
+            {
               name: 'largeGroupMultiplier',
               title: 'Large Group Rate Multiplier (5-8 students)',
               type: 'number',
               initialValue: 0.5,
               validation: (Rule) => Rule.min(0.2).max(1.0),
               description: 'Multiply base rate by this for large groups (0.5 = 50% discount)'
-            })
+            }
           ]
-        })
+        }
       ]
-    }), */
+    }),
 
     // Legacy price field (hidden)
     defineField({
@@ -272,30 +275,30 @@ export default defineType({
     defineField({ name: 'body', title: 'Full Description', type: 'array', of: [{type: 'block'}] }),
     defineField({ name: 'mainImage', title: 'Course Image', type: 'image', options: { hotspot: true } }),
     
-    // Professional Duration Guidelines - TEMPORARILY DISABLED FOR DEBUGGING
-    /* defineField({
+    // Professional Duration Guidelines - nested fields use plain objects (no defineField)
+    defineField({
       name: 'recommendedDuration',
       title: 'Recommended Course Duration',
       type: 'object',
       description: 'Professional duration recommendations based on course complexity',
       fields: [
-        defineField({
+        {
           name: 'weeks',
           title: 'Duration in Weeks',
           type: 'number',
           description: 'Professional recommendation: Beginner (4-8 weeks), Intermediate (8-12 weeks), Advanced (12-16 weeks), Certification (16-24 weeks)',
           validation: (Rule) => Rule.min(4).max(24),
           initialValue: 8
-        }),
-        defineField({
+        },
+        {
           name: 'hoursPerWeek',
           title: 'Recommended Hours per Week',
           type: 'number',
           description: 'Default recommendation for course completion',
           validation: (Rule) => Rule.min(1).max(10),
           initialValue: 2
-        }),
-        defineField({
+        },
+        {
           name: 'totalHours',
           title: 'Total Course Hours',
           type: 'number',
@@ -308,8 +311,8 @@ export default defineType({
             const calculated = weeks * hoursPerWeek;
             return calculated > 0 ? true : 'Total hours must be greater than 0';
           })
-        }),
-        defineField({
+        },
+        {
           name: 'flexibility',
           title: 'Schedule Flexibility',
           type: 'string',
@@ -321,9 +324,9 @@ export default defineType({
             ]
           },
           initialValue: 'flexible'
-        })
+        }
       ]
-    }), */
+    }),
     
     // Legacy duration field (for display compatibility)
     defineField({
@@ -373,31 +376,32 @@ export default defineType({
       type: 'number',
       description: 'Maximum number of students per live session (leave empty for unlimited)',
     }),
-    /* defineField({
+    // Curriculum Overview - nested fields use plain objects (no defineField)
+    defineField({
       name: 'curriculum',
       title: 'Curriculum Overview',
       type: 'object',
       fields: [
-        defineField({
+        {
           name: 'modules',
           title: 'Number of Modules',
           type: 'number',
           initialValue: 8,
-        }),
-        defineField({
+        },
+        {
           name: 'lessons',
           title: 'Total Lessons',
           type: 'number',
           initialValue: 24,
-        }),
-        defineField({
+        },
+        {
           name: 'duration',
           title: 'Total Duration',
           type: 'string',
           initialValue: 'Flexible based on schedule',
-        }),
+        },
       ],
-    }), */
+    }),
     defineField({
       name: 'includes',
       title: 'What\'s Included',
