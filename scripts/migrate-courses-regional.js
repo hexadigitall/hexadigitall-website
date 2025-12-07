@@ -53,23 +53,23 @@ async function migrateCourses() {
         // ----------------------------------------------------
         // TIER 1: EXECUTIVE & CORPORATE (₦180k - ₦280k)
         // ----------------------------------------------------
-        if (title.includes('pmp') || title.includes('cissp') || title.includes('aws') || title.includes('agile leadership')) {
-            hourlyNGN = 70000; // ₦280k/mo base
-            hourlyUSD = 75;
+        if (title.includes('pmp') || title.includes('agile leadership') || title.includes('aws solutions architect') || title.includes('cissp')) {
+            hourlyNGN = 70000; // ₦280k/mo base (PMP, Agile Leadership, AWS, CISSP)
+            hourlyUSD = title.includes('cissp') ? 87.5 : 75;
             tier = 'Tier 1: Executive (₦280k)';
         } 
         else if (title.includes('devops') || title.includes('kubernetes') || title.includes('ai engineering') || title.includes('llm')) {
-            hourlyNGN = 62500; // ₦250k/mo base
+            hourlyNGN = 62500; // ₦250k/mo base (DevOps, AI Engineering)
             hourlyUSD = 75;
             tier = 'Tier 1: Executive (₦250k)';
         }
         else if (title.includes('ethical hacking') || title.includes('ceh') || title.includes('machine learning')) {
-            hourlyNGN = 50000; // ₦200k/mo base
+            hourlyNGN = 50000; // ₦200k/mo base (Ethical Hacking, ML Engineering)
             hourlyUSD = 62.5;
             tier = 'Tier 1: Executive (₦200k)';
         }
         else if (title.includes('ansible')) {
-            hourlyNGN = 45000; // ₦180k/mo base
+            hourlyNGN = 45000; // ₦180k/mo base (Advanced Ansible)
             hourlyUSD = 50;
             tier = 'Tier 1: Executive (₦180k)';
         }
@@ -82,27 +82,42 @@ async function migrateCourses() {
             hourlyUSD = 50;
             tier = 'Tier 2: High-Demand (₦125k)';
         }
-        else if (title.includes('scrum') || title.includes('backend') || title.includes('frontend') || 
-                 title.includes('python') || title.includes('ccna') || title.includes('node.js') || 
-                 title.includes('react.js') || title.includes('cisco')) {
+        else if (title.includes('scrum master') || title.includes('csm')) {
+            hourlyNGN = 30000; // ₦120k/mo base (Scrum Master)
+            hourlyUSD = 45;
+            tier = 'Tier 2: High-Demand (₦120k)';
+        }
+        else if (title.includes('backend') || title.includes('frontend') || title.includes('node') || 
+                 title.includes('react.js') || title.includes('python for data') || title.includes('ccna') || 
+                 title.includes('cisco networking')) {
             hourlyNGN = 25000; // ₦100k/mo base
-            hourlyUSD = 40;
+            hourlyUSD = title.includes('ccna') || title.includes('cisco') ? 37.5 : 40;
             tier = 'Tier 2: High-Demand (₦100k)';
         }
 
         // ----------------------------------------------------
         // TIER 3: PROFESSIONAL SKILLS (₦60k - ₦80k)
         // ----------------------------------------------------
-        else if (title.includes('ui/ux') || title.includes('technical writing')) {
+        else if (title.includes('technical writing') || title.includes('ui/ux') || title.includes('product design')) {
             hourlyNGN = 20000; // ₦80k/mo base
             hourlyUSD = 30;
             tier = 'Tier 3: Professional (₦80k)';
         }
-        else if (title.includes('graphic design') || title.includes('marketing') || title.includes('seo') || 
-                 title.includes('hardware') || title.includes('design mastery') || title.includes('digital marketing')) {
+        else if (title.includes('graphic design') || title.includes('digital marketing') || title.includes('seo') || 
+                 title.includes('hardware') || title.includes('maintenance')) {
             hourlyNGN = 15000; // ₦60k/mo base
             hourlyUSD = 25;
             tier = 'Tier 3: Professional (₦60k)';
+        }
+
+        // ----------------------------------------------------
+        // TIER 4: FUNDAMENTALS (₦50k) - DEFAULT
+        // ----------------------------------------------------
+        else if (title.includes('computer appreciation') || title.includes('smartphone') || 
+                 title.includes('microsoft office') || title.includes('fundamentals')) {
+            hourlyNGN = 12500; // ₦50k/mo base (explicitly set for fundamentals)
+            hourlyUSD = 15;
+            tier = 'Tier 4: Fundamentals (₦50k)';
         }
 
         // ----------------------------------------------------
