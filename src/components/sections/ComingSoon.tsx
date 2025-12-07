@@ -23,7 +23,7 @@ export default function ComingSoon({
               fill="none" 
               stroke="currentColor" 
               viewBox="0 0 24 24"
-              aria-hidden="true"
+              aria-label="Clock icon indicating content is coming soon"
             >
               <path 
                 strokeLinecap="round" 
@@ -56,7 +56,7 @@ export default function ComingSoon({
               fill="none" 
               stroke="currentColor" 
               viewBox="0 0 24 24"
-              aria-hidden="true"
+              aria-label="Home icon"
             >
               <path 
                 strokeLinecap="round" 
@@ -78,7 +78,7 @@ export default function ComingSoon({
                 fill="none" 
                 stroke="currentColor" 
                 viewBox="0 0 24 24"
-                aria-hidden="true"
+                aria-label="Email icon"
               >
                 <path 
                   strokeLinecap="round" 
