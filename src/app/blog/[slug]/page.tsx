@@ -67,6 +67,12 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
 }
 
 export async function generateStaticParams() {
-  const slugs: { slug: { current: string } }[] = await client.fetch(groq`*[_type == "post"]{ slug }`);
-  return slugs.map(({ slug }) => ({ slug: slug.current }));
+  try {
+    const slugs: { slug: { current: string } }[] = await client.fetch(groq`*[_type == "post"]{ slug }`);
+    return slugs.map(({ slug }) => ({ slug: slug.current }));
+  } catch (error) {
+    console.warn('Failed to fetch blog slugs during build:', error);
+    // Return empty array to allow build to succeed
+    return [];
+  }
 }

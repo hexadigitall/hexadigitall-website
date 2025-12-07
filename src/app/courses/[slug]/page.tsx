@@ -144,8 +144,14 @@ export default async function CoursePage({ params }: { params: Promise<{ slug: s
     );
 }
 
-// generateStaticParams function remains the same
+// generateStaticParams function with error handling for build
 export async function generateStaticParams() {
-    const slugs: { slug: { current: string } }[] = await client.fetch(groq`*[_type == "course"]{ slug }`);
-    return slugs.map(({ slug }) => ({ slug: slug.current }));
+    try {
+        const slugs: { slug: { current: string } }[] = await client.fetch(groq`*[_type == "course"]{ slug }`);
+        return slugs.map(({ slug }) => ({ slug: slug.current }));
+    } catch (error) {
+        console.warn('Failed to fetch course slugs during build:', error);
+        // Return empty array to allow build to succeed
+        return [];
+    }
 }

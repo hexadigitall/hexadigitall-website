@@ -20,7 +20,14 @@ interface FaqItem {
 const faqQuery = groq`*[_type == "faq"] | order(category asc)`;
 
 export default async function FaqPage() {
-  const faqs: FaqItem[] = await client.fetch(faqQuery);
+  let faqs: FaqItem[] = [];
+  
+  try {
+    faqs = await client.fetch(faqQuery);
+  } catch (error) {
+    console.warn('Failed to fetch FAQs:', error);
+    // Continue with empty faqs array
+  }
 
   // Group FAQs by category
   const groupedFaqs = faqs.reduce((acc, faq) => {

@@ -1,17 +1,18 @@
 // src/app/courses/page.tsx
 import type { Metadata } from 'next';
-import ServerCoursesPage from './ServerCoursesPage';
+import ComingSoon from '@/components/sections/ComingSoon';
 
 export const metadata: Metadata = {
-  title: 'Our Courses | Hexadigitall',
-  description: 'Browse our range of professional, tech, and certification courses designed for career growth.',
+  title: 'Courses Coming Soon | Hexadigitall',
+  description: 'Our courses page is being updated. Check back soon for our range of professional, tech, and certification courses designed for career growth.',
 };
 
-// Add revalidation for better production data fetching
-export const revalidate = 300; // Revalidate every 5 minutes
-export const dynamic = 'auto';
-export const dynamicParams = true;
-
 export default function CoursesPage() {
-  return <ServerCoursesPage />;
+  return (
+    <ComingSoon 
+      title="Courses Coming Soon"
+      message="We're currently updating our course offerings and resolving technical issues. Please check back soon for an enhanced learning experience!"
+      showContactLink={true}
+    />
+  );
 }
