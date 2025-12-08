@@ -38,7 +38,7 @@ export default defineType({
       name: 'serviceType',
       title: 'Service Type',
       type: 'string',
-        options: {
+      options: {
         list: [
           { title: 'Web Development', value: 'web' },
           { title: 'Mobile Development', value: 'mobile' },
@@ -82,111 +82,109 @@ export default defineType({
       name: 'packages',
       title: 'Service Packages',
       type: 'array',
-      of: [
-        {
-          type: 'object',
-          fields: [
-            {
-              name: 'name',
-              title: 'Package Name',
-              type: 'string'
-            },
-            {
-              name: 'tier',
-              title: 'Package Tier',
-              type: 'string',
-              options: {
-                list: [
-                  { title: 'Basic', value: 'basic' },
-                  { title: 'Standard', value: 'standard' },
-                  { title: 'Premium', value: 'premium' },
-                  { title: 'Enterprise', value: 'enterprise' }
-                ]
-              }
-            },
-            {
-              name: 'price',
-              title: 'Starting Price',
-              type: 'number',
-              validation: Rule => Rule.min(0)
-            },
-            {
-              name: 'currency',
-              title: 'Currency',
-              type: 'string',
-              initialValue: 'USD',
-              options: {
-                list: [
-                  { title: 'USD', value: 'USD' },
-                  { title: 'NGN', value: 'NGN' },
-                  { title: 'EUR', value: 'EUR' },
-                  { title: 'GBP', value: 'GBP' }
-                ]
-              }
-            },
-            {
-              name: 'billing',
-              title: 'Billing Type',
-              type: 'string',
-              options: {
-                list: [
-                  { title: 'One-time', value: 'one_time' },
-                  { title: 'Monthly', value: 'monthly' },
-                  { title: 'Per Hour', value: 'hourly' },
-                  { title: 'Per Project', value: 'project' }
-                ]
-              },
-              initialValue: 'one_time'
-            },
-            {
-              name: 'deliveryTime',
-              title: 'Delivery Time',
-              type: 'string'
-            },
-            {
-              name: 'features',
-              title: 'Package Features',
-              type: 'array',
-              of: [{ type: 'string' }],
-              validation: Rule => Rule.min(1)
-            },
-            {
-              name: 'popular',
-              title: 'Popular Package',
-              type: 'boolean',
-              initialValue: false
-            },
-            {
-              name: 'addOns',
-              title: 'Available Add-ons',
-              type: 'array',
-              of: [
-                {
-                  type: 'object',
-                  fields: [
-                    {
-                      name: 'name',
-                      title: 'Add-on Name',
-                      type: 'string'
-                    },
-                    {
-                      name: 'price',
-                      title: 'Add-on Price',
-                      type: 'number'
-                    },
-                    {
-                      name: 'description',
-                      title: 'Add-on Description',
-                      type: 'text'
-                    }
-                  ]
-                }
+      of: [{
+        type: 'object',
+        name: 'package',
+        fields: [
+          {
+            name: 'name',
+            title: 'Package Name',
+            type: 'string'
+          },
+          {
+            name: 'tier',
+            title: 'Package Tier',
+            type: 'string',
+            options: {
+              list: [
+                { title: 'Basic', value: 'basic' },
+                { title: 'Standard', value: 'standard' },
+                { title: 'Premium', value: 'premium' },
+                { title: 'Enterprise', value: 'enterprise' }
               ]
             }
-          ]
-        }
-      ],
-      validation: Rule => Rule.required().min(1)
+          },
+          {
+            name: 'price',
+            title: 'Starting Price',
+            type: 'number',
+            validation: (Rule: any) => Rule.min(0)
+          },
+          {
+            name: 'currency',
+            title: 'Currency',
+            type: 'string',
+            initialValue: 'USD',
+            options: {
+              list: [
+                { title: 'USD', value: 'USD' },
+                { title: 'NGN', value: 'NGN' },
+                { title: 'EUR', value: 'EUR' },
+                { title: 'GBP', value: 'GBP' }
+              ]
+            }
+          },
+          {
+            name: 'billing',
+            title: 'Billing Type',
+            type: 'string',
+            options: {
+              list: [
+                { title: 'One-time', value: 'one_time' },
+                { title: 'Monthly', value: 'monthly' },
+                { title: 'Per Hour', value: 'hourly' },
+                { title: 'Per Project', value: 'project' }
+              ]
+            },
+            initialValue: 'one_time'
+          },
+          {
+            name: 'deliveryTime',
+            title: 'Delivery Time',
+            type: 'string'
+          },
+          {
+            name: 'features',
+            title: 'Package Features',
+            type: 'array',
+            of: [{ type: 'string' }],
+            validation: (Rule: any) => Rule.min(1)
+          },
+          {
+            name: 'popular',
+            title: 'Popular Package',
+            type: 'boolean',
+            initialValue: false
+          },
+          {
+            name: 'addOns',
+            title: 'Available Add-ons',
+            type: 'array',
+            of: [{
+              type: 'object',
+              name: 'addOn',
+              fields: [
+                {
+                  name: 'name',
+                  title: 'Add-on Name',
+                  type: 'string'
+                },
+                {
+                  name: 'price',
+                  title: 'Add-on Price',
+                  type: 'number'
+                },
+                {
+                  name: 'description',
+                  title: 'Add-on Description',
+                  type: 'text'
+                }
+              ]
+            }]
+          }
+        ]
+      }],
+      validation: (Rule: any) => Rule.required().min(1)
     }),
     // New: Package Groups with per-package tiers (flavors)
     // This complements the legacy "packages" field and enables a scoped modal experience per package.
@@ -194,139 +192,136 @@ export default defineType({
       name: 'packageGroups',
       title: 'Package Groups (with Tiers)',
       type: 'array',
-      of: [
-        {
-          type: 'object',
-          fields: [
-            defineField({
-              name: 'key',
-              title: 'Group Key',
-              type: 'slug',
-              options: { source: 'name', maxLength: 96 },
-              validation: Rule => Rule.required()
-            }),
-            defineField({
-              name: 'name',
-              title: 'Group Name',
-              type: 'string',
-              validation: Rule => Rule.required()
-            }),
-            defineField({
-              name: 'description',
-              title: 'Group Description',
-              type: 'text'
-            }),
-            defineField({
-              name: 'tiers',
-              title: 'Tiers',
-              type: 'array',
-              of: [
+      of: [{
+        type: 'object',
+        name: 'packageGroup',
+        fields: [
+          {
+            name: 'key',
+            title: 'Group Key',
+            type: 'slug',
+            options: { source: 'name', maxLength: 96 },
+            validation: (Rule: any) => Rule.required()
+          },
+          {
+            name: 'name',
+            title: 'Group Name',
+            type: 'string',
+            validation: (Rule: any) => Rule.required()
+          },
+          {
+            name: 'description',
+            title: 'Group Description',
+            type: 'text'
+          },
+          {
+            name: 'tiers',
+            title: 'Tiers',
+            type: 'array',
+            of: [{
+              type: 'object',
+              name: 'tier',
+              fields: [
                 {
-                  type: 'object',
-                  fields: [
-                    defineField({
-                      name: 'name',
-                      title: 'Tier Name',
-                      type: 'string'
-                    }),
-                    defineField({
-                      name: 'tier',
-                      title: 'Tier Level',
-                      type: 'string',
-                      options: {
-                        list: [
-                          { title: 'Basic', value: 'basic' },
-                          { title: 'Standard', value: 'standard' },
-                          { title: 'Premium', value: 'premium' },
-                          { title: 'Enterprise', value: 'enterprise' }
-                        ]
-                      }
-                    }),
-                    defineField({
-                      name: 'price',
-                      title: 'Price',
-                      type: 'number',
-                      validation: Rule => Rule.min(0)
-                    }),
-                    defineField({
-                      name: 'currency',
-                      title: 'Currency',
-                      type: 'string',
-                      initialValue: 'USD',
-                      options: {
-                        list: [
-                          { title: 'USD', value: 'USD' },
-                          { title: 'NGN', value: 'NGN' },
-                          { title: 'EUR', value: 'EUR' },
-                          { title: 'GBP', value: 'GBP' }
-                        ]
-                      }
-                    }),
-                    defineField({
-                      name: 'billing',
-                      title: 'Billing',
-                      type: 'string',
-                      options: {
-                        list: [
-                          { title: 'One-time', value: 'one_time' },
-                          { title: 'Monthly', value: 'monthly' },
-                          { title: 'Per Hour', value: 'hourly' },
-                          { title: 'Per Project', value: 'project' }
-                        ]
-                      },
-                      initialValue: 'one_time'
-                    }),
-                    defineField({
-                      name: 'deliveryTime',
-                      title: 'Delivery Time',
-                      type: 'string'
-                    }),
-                    defineField({
-                      name: 'features',
-                      title: 'Features',
-                      type: 'array',
-                      of: [
-                        { type: 'string' },
-                        {
-                          type: 'object',
-                          fields: [
-                            { name: 'title', title: 'Title', type: 'string' },
-                            { name: 'description', title: 'Description', type: 'text' }
-                          ]
-                        }
+                  name: 'name',
+                  title: 'Tier Name',
+                  type: 'string'
+                },
+                {
+                  name: 'tier',
+                  title: 'Tier Level',
+                  type: 'string',
+                  options: {
+                    list: [
+                      { title: 'Basic', value: 'basic' },
+                      { title: 'Standard', value: 'standard' },
+                      { title: 'Premium', value: 'premium' },
+                      { title: 'Enterprise', value: 'enterprise' }
+                    ]
+                  }
+                },
+                {
+                  name: 'price',
+                  title: 'Price',
+                  type: 'number',
+                  validation: (Rule: any) => Rule.min(0)
+                },
+                {
+                  name: 'currency',
+                  title: 'Currency',
+                  type: 'string',
+                  initialValue: 'USD',
+                  options: {
+                    list: [
+                      { title: 'USD', value: 'USD' },
+                      { title: 'NGN', value: 'NGN' },
+                      { title: 'EUR', value: 'EUR' },
+                      { title: 'GBP', value: 'GBP' }
+                    ]
+                  }
+                },
+                {
+                  name: 'billing',
+                  title: 'Billing',
+                  type: 'string',
+                  options: {
+                    list: [
+                      { title: 'One-time', value: 'one_time' },
+                      { title: 'Monthly', value: 'monthly' },
+                      { title: 'Per Hour', value: 'hourly' },
+                      { title: 'Per Project', value: 'project' }
+                    ]
+                  },
+                  initialValue: 'one_time'
+                },
+                {
+                  name: 'deliveryTime',
+                  title: 'Delivery Time',
+                  type: 'string'
+                },
+                {
+                  name: 'features',
+                  title: 'Features',
+                  type: 'array',
+                  of: [
+                    { type: 'string' },
+                    {
+                      type: 'object',
+                      name: 'featureObject',
+                      fields: [
+                        { name: 'title', title: 'Title', type: 'string' },
+                        { name: 'description', title: 'Description', type: 'text' }
                       ]
-                    }),
-                    defineField({
-                      name: 'popular',
-                      title: 'Popular',
-                      type: 'boolean',
-                      initialValue: false
-                    }),
-                    defineField({
-                      name: 'addOns',
-                      title: 'Add-ons',
-                      type: 'array',
-                      of: [
-                        {
-                          type: 'object',
-                          fields: [
-                            { name: 'name', title: 'Add-on Name', type: 'string' },
-                            { name: 'price', title: 'Add-on Price', type: 'number' },
-                            { name: 'description', title: 'Description', type: 'text' }
-                          ]
-                        }
-                      ]
-                    })
+                    }
                   ]
+                },
+                {
+                  name: 'popular',
+                  title: 'Popular',
+                  type: 'boolean',
+                  initialValue: false
+                },
+                {
+                  name: 'addOns',
+                  title: 'Add-ons',
+                  type: 'array',
+                  of: [{
+                    type: 'object',
+                    name: 'addOn',
+                    fields: [
+                      { name: 'name', title: 'Add-on Name', type: 'string' },
+                      { name: 'price', title: 'Add-on Price', type: 'number' },
+                      { name: 'description', title: 'Description', type: 'text' }
+                    ]
+                  }]
                 }
               ]
-            })
-          ]
-        }
-      ],
+            }]
+          }
+        ]
+      }],
       description: 'Group related packages and define their Basic/Standard/Premium tiers for a scoped selection experience.',
-      // Optional: allow empty while we migrate
-      validation: Rule => Rule.min(0)
+      validation: (Rule: any) => Rule.min(0)
     }),
     defineField({
       name: 'requirements',
@@ -339,23 +334,22 @@ export default defineType({
       name: 'faq',
       title: 'Frequently Asked Questions',
       type: 'array',
-      of: [
-        {
-          type: 'object',
-          fields: [
-            {
-              name: 'question',
-              title: 'Question',
-              type: 'string'
-            },
-            {
-              name: 'answer',
-              title: 'Answer',
-              type: 'text'
-            }
-          ]
-        }
-      ]
+      of: [{
+        type: 'object',
+        name: 'faqItem',
+        fields: [
+          {
+            name: 'question',
+            title: 'Question',
+            type: 'string'
+          },
+          {
+            name: 'answer',
+            title: 'Answer',
+            type: 'text'
+          }
+        ]
+      }]
     }),
     defineField({
       name: 'statistics',
@@ -382,34 +376,32 @@ export default defineType({
       name: 'integrations',
       title: 'Available Integrations',
       type: 'array',
-      of: [
-        {
-          type: 'object',
-          fields: [
-            { name: 'name', title: 'Integration Name', type: 'string' },
-            { name: 'description', title: 'Description', type: 'text' },
-            { name: 'icon', title: 'Icon', type: 'image' },
-            { name: 'type', title: 'Integration Type', type: 'string' }
-          ]
-        }
-      ],
+      of: [{
+        type: 'object',
+        name: 'integration',
+        fields: [
+          { name: 'name', title: 'Integration Name', type: 'string' },
+          { name: 'description', title: 'Description', type: 'text' },
+          { name: 'icon', title: 'Icon', type: 'image' },
+          { name: 'type', title: 'Integration Type', type: 'string' }
+        ]
+      }],
       description: 'Third-party integrations available with this service'
     }),
     defineField({
       name: 'techStack',
       title: 'Technology Stack',
       type: 'array',
-      of: [
-        {
-          type: 'object',
-          fields: [
-            { name: 'name', title: 'Technology Name', type: 'string' },
-            { name: 'category', title: 'Category', type: 'string' },
-            { name: 'icon', title: 'Icon', type: 'image' },
-            { name: 'expertise', title: 'Expertise Level', type: 'number' }
-          ]
-        }
-      ],
+      of: [{
+        type: 'object',
+        name: 'technology',
+        fields: [
+          { name: 'name', title: 'Technology Name', type: 'string' },
+          { name: 'category', title: 'Category', type: 'string' },
+          { name: 'icon', title: 'Icon', type: 'image' },
+          { name: 'expertise', title: 'Expertise Level', type: 'number' }
+        ]
+      }],
       description: 'Technologies and tools used in this service'
     })
   ],

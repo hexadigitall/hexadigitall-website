@@ -17,7 +17,7 @@ export default defineType({
       title: 'Key Metrics',
       type: 'object',
       fields: [
-        { 
+        {
           name: 'projectsCompleted',
           title: 'Projects Completed',
           type: 'number'
@@ -26,7 +26,7 @@ export default defineType({
           name: 'clientSatisfaction',
           title: 'Client Satisfaction Rate',
           type: 'number',
-          validation: Rule => Rule.min(0).max(100)
+          validation: (Rule: any) => Rule.min(0).max(100)
         },
         {
           name: 'averageDeliveryTime',
@@ -44,49 +44,46 @@ export default defineType({
       name: 'performance',
       title: 'Performance Metrics',
       type: 'array',
-      of: [
-        {
-          type: 'object',
-          fields: [
-            { name: 'metric', title: 'Metric Name', type: 'string' },
-            { name: 'value', title: 'Value', type: 'string' },
-            { name: 'change', title: 'Change (%)', type: 'number' },
-            { name: 'period', title: 'Time Period', type: 'string' }
-          ]
-        }
-      ]
+      of: [{
+        type: 'object',
+        name: 'performanceMetric',
+        fields: [
+          { name: 'metric', title: 'Metric Name', type: 'string' },
+          { name: 'value', title: 'Value', type: 'string' },
+          { name: 'change', title: 'Change (%)', type: 'number' },
+          { name: 'period', title: 'Time Period', type: 'string' }
+        ]
+      }]
     }),
     defineField({
       name: 'clientMetrics',
       title: 'Client Success Metrics',
       type: 'array',
-      of: [
-        {
-          type: 'object',
-          fields: [
-            { name: 'metric', title: 'Metric', type: 'string' },
-            { name: 'description', title: 'Description', type: 'text' },
-            { name: 'value', title: 'Average Value', type: 'string' },
-            { name: 'benchmark', title: 'Industry Benchmark', type: 'string' }
-          ]
-        }
-      ]
+      of: [{
+        type: 'object',
+        name: 'clientMetric',
+        fields: [
+          { name: 'metric', title: 'Metric', type: 'string' },
+          { name: 'description', title: 'Description', type: 'text' },
+          { name: 'value', title: 'Average Value', type: 'string' },
+          { name: 'benchmark', title: 'Industry Benchmark', type: 'string' }
+        ]
+      }]
     }),
     defineField({
       name: 'techStack',
       title: 'Technology Stack',
       type: 'array',
-      of: [
-        {
-          type: 'object',
-          fields: [
-            { name: 'name', title: 'Technology Name', type: 'string' },
-            { name: 'category', title: 'Category', type: 'string' },
-            { name: 'expertise', title: 'Expertise Level', type: 'number' },
-            { name: 'projectCount', title: 'Projects Using This', type: 'number' }
-          ]
-        }
-      ]
+      of: [{
+        type: 'object',
+        name: 'technology',
+        fields: [
+          { name: 'name', title: 'Technology Name', type: 'string' },
+          { name: 'category', title: 'Category', type: 'string' },
+          { name: 'expertise', title: 'Expertise Level', type: 'number' },
+          { name: 'projectCount', title: 'Projects Using This', type: 'number' }
+        ]
+      }]
     }),
     defineField({
       name: 'lastUpdated',

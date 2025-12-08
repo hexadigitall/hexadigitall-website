@@ -94,7 +94,7 @@ export const TECH_FEATURES: TechFeature[] = [
     id: 'payments',
     name: 'Payments & Subscriptions',
     price: 450,
-    description: 'Accept payments via Stripe, Paystack, or Flutterwave',
+    description: 'Accept payments via Paystack, Flutterwave, or other gateways',
     category: 'payments',
     icon: '💳'
   },

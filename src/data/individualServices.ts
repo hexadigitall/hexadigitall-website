@@ -72,7 +72,7 @@ export const WEB_DEV_INDIVIDUAL_SERVICES: IndividualService[] = [
     id: 'payment-gateway-integration',
     name: 'Payment Gateway Integration',
     price: 349,
-    description: 'Add Stripe, Paystack, or Flutterwave to your existing site',
+    description: 'Add Paystack, Flutterwave, or other payment gateways to your existing site',
     deliveryTime: '4-6 days',
     category: 'web-dev',
     features: [

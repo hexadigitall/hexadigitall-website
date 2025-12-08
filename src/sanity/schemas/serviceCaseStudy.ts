@@ -42,7 +42,7 @@ export default defineType({
       name: 'challenge',
       title: 'Client Challenge',
       type: 'text',
-      validation: Rule => Rule.required()
+      validation: (Rule) => Rule.required()
     }),
     defineField({
       name: 'solution',
@@ -55,16 +55,15 @@ export default defineType({
       name: 'results',
       title: 'Results & Impact',
       type: 'array',
-      of: [
-        {
-          type: 'object',
-          fields: [
-            { name: 'metric', title: 'Metric', type: 'string' },
-            { name: 'value', title: 'Value', type: 'string' },
-            { name: 'description', title: 'Description', type: 'text' }
-          ]
-        }
-      ]
+      of: [{
+        type: 'object',
+        name: 'result',
+        fields: [
+          { name: 'metric', title: 'Metric', type: 'string' },
+          { name: 'value', title: 'Value', type: 'string' },
+          { name: 'description', title: 'Description', type: 'text' }
+        ]
+      }]
     }),
     defineField({
       name: 'technologies',
@@ -86,16 +85,15 @@ export default defineType({
       name: 'images',
       title: 'Case Study Images',
       type: 'array',
-      of: [
-        {
-          type: 'image',
-          options: { hotspot: true },
-          fields: [
-            { name: 'caption', title: 'Caption', type: 'string' },
-            { name: 'alt', title: 'Alt Text', type: 'string' }
-          ]
-        }
-      ]
+      of: [{
+        type: 'image',
+        name: 'caseStudyImage',
+        options: { hotspot: true },
+        fields: [
+          { name: 'caption', title: 'Caption', type: 'string' },
+          { name: 'alt', title: 'Alt Text', type: 'string' }
+        ]
+      }]
     }),
     defineField({
       name: 'featured',

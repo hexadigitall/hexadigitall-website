@@ -52,7 +52,7 @@ export default defineType({
           type: 'string'
         }
       ],
-      validation: Rule => Rule.required()
+      validation: (Rule: any) => Rule.required()
     }),
     defineField({
       name: 'selectedPackage',
@@ -90,34 +90,33 @@ export default defineType({
           type: 'string'
         }
       ],
-      validation: Rule => Rule.required()
+      validation: (Rule: any) => Rule.required()
     }),
     defineField({
       name: 'selectedAddOns',
       title: 'Selected Add-ons',
       type: 'array',
-      of: [
-        {
-          type: 'object',
-          fields: [
-            {
-              name: 'name',
-              title: 'Add-on Name',
-              type: 'string'
-            },
-            {
-              name: 'price',
-              title: 'Price',
-              type: 'number'
-            },
-            {
-              name: 'description',
-              title: 'Description',
-              type: 'text'
-            }
-          ]
-        }
-      ]
+      of: [{
+        type: 'object',
+        name: 'addOn',
+        fields: [
+          {
+            name: 'name',
+            title: 'Add-on Name',
+            type: 'string'
+          },
+          {
+            name: 'price',
+            title: 'Price',
+            type: 'number'
+          },
+          {
+            name: 'description',
+            title: 'Description',
+            type: 'text'
+          }
+        ]
+      }]
     }),
     defineField({
       name: 'totalAmount',
@@ -134,19 +133,19 @@ export default defineType({
           name: 'firstName',
           title: 'First Name',
           type: 'string',
-          validation: Rule => Rule.required()
+          validation: (Rule: any) => Rule.required()
         },
         {
           name: 'lastName',
           title: 'Last Name',
           type: 'string',
-          validation: Rule => Rule.required()
+          validation: (Rule: any) => Rule.required()
         },
         {
           name: 'email',
           title: 'Email',
           type: 'string',
-          validation: Rule => Rule.required().email()
+          validation: (Rule: any) => Rule.required().email()
         },
         {
           name: 'phone',
@@ -164,7 +163,7 @@ export default defineType({
           type: 'text'
         }
       ],
-      validation: Rule => Rule.required()
+      validation: (Rule: any) => Rule.required()
     }),
     defineField({
       name: 'projectDetails',
@@ -175,13 +174,13 @@ export default defineType({
           name: 'title',
           title: 'Project Title',
           type: 'string',
-          validation: Rule => Rule.required()
+          validation: (Rule: any) => Rule.required()
         },
         {
           name: 'description',
           title: 'Project Description',
           type: 'text',
-          validation: Rule => Rule.required()
+          validation: (Rule: any) => Rule.required()
         },
         {
           name: 'notes',
@@ -199,7 +198,7 @@ export default defineType({
           type: 'string'
         }
       ],
-      validation: Rule => Rule.required()
+      validation: (Rule: any) => Rule.required()
     }),
     defineField({
       name: 'paymentInfo',
@@ -227,8 +226,8 @@ export default defineType({
           type: 'number'
         },
         {
-          name: 'stripeSessionId',
-          title: 'Stripe Session ID',
+          name: 'paystackReference',
+          title: 'Paystack Reference',
           type: 'string'
         },
         {

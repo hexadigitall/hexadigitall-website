@@ -3,7 +3,7 @@
 import Link from 'next/link'
 
 export default function ServicesError({
-  error,
+  error: _error,
   reset,
 }: {
   error: Error & { digest?: string }

@@ -8,7 +8,6 @@ import { PerformanceMonitor } from '@/components/ui/PerformanceMonitor'
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 import { CustomBuildResumeBar } from '@/components/services/CustomBuildResumeBar';
-import AppCartProvider from '@/components/CartProvider';
 import { CurrencyProvider } from '@/contexts/CurrencyContext';
 import { CustomBuildProvider } from '@/contexts/CustomBuildContext';
 import GoogleAnalytics from '@/components/GoogleAnalytics';
@@ -150,9 +149,8 @@ export default function RootLayout({
         
         <CurrencyProvider>
           <CustomBuildProvider>
-            <AppCartProvider>
-              {/* Google Analytics */}
-              <GoogleAnalytics />
+            {/* Google Analytics */}
+            <GoogleAnalytics />
               
               {/* SEO Structured Data */}
               <SEOStructuredData />
@@ -201,7 +199,6 @@ export default function RootLayout({
                 top: '80px', // Account for header height
               }}
             />
-            </AppCartProvider>
           </CustomBuildProvider>
         </CurrencyProvider>
       </body>
