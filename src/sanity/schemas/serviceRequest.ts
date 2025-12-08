@@ -1,5 +1,6 @@
 import { defineField, defineType } from 'sanity'
 
+/* eslint-disable @typescript-eslint/no-explicit-any */
 export default defineType({
   name: 'serviceRequest',
   title: 'Service Request',
