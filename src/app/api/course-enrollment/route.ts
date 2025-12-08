@@ -1,101 +1,38 @@
 // src/app/api/course-enrollment/route.ts
+// Paystack-based course enrollment endpoint
 import { NextResponse } from 'next/server';
-import { getStripe } from '@/lib/stripe';
-import { client, writeClient } from '@/sanity/client';
-import { groq } from 'next-sanity';
-import { emailService } from '@/lib/email';
-import { CourseEnrollmentData } from '@/lib/email-types';
-
-interface StudentDetails {
-  fullName: string;
-  email: string;
-  phone: string;
-  experience?: string;
-  goals?: string;
-  preferredSchedule?: string;
-}
-
-interface PaymentPlan {
-  id: string;
-  name: string;
-  installments: number;
-  downPayment: number;
-  processingFee: number;
-}
-
-interface PricingConfiguration {
-  hoursPerWeek: number;
-  weeksPerMonth: number;
-  totalHours: number;
-  sessionFormat: 'one-on-one' | 'small-group' | 'group';
-  currency: string;
-  hourlyRate: number;
-  totalMonthlyPrice: number;
-}
+import { client } from '@/sanity/client';
 
 interface EnrollmentRequest {
   courseId: string;
-  courseType: 'self-paced' | 'live';
-  studentDetails: StudentDetails;
-  paymentPlan: PaymentPlan;
+  studentDetails?: {
+    fullName?: string;
+    email?: string;
+    phone?: string;
+  };
   amount: number;
   currency: string;
-  pricingConfiguration?: PricingConfiguration;
-}
-
-interface Course {
-  _id: string;
-  title: string;
-  courseType?: 'self-paced' | 'live';
-  // Legacy pricing
-  price?: number;
-  nairaPrice?: number;
-  dollarPrice?: number;
-  // Live course pricing
-  hourlyRateUSD?: number;
-  hourlyRateNGN?: number;
-  instructor: string;
-  maxStudents?: number;
-  currentEnrollments?: number;
 }
 
 export async function POST(request: Request) {
   try {
-    const { 
-      courseId, 
-      courseType = 'self-paced',
-      studentDetails, 
-      amount,
-      currency,
-      pricingConfiguration
-    }: EnrollmentRequest = await request.json();
+    const body: EnrollmentRequest = await request.json();
+    const { courseId, amount, currency, studentDetails } = body;
 
     // Validate required fields
-    if (!courseId || !studentDetails?.fullName || !studentDetails?.email || !amount) {
+    if (!courseId || !amount || !currency) {
       return NextResponse.json(
-        { error: 'Missing required enrollment information' },
+        { error: 'Missing required fields: courseId, amount, currency' },
         { status: 400 }
       );
     }
 
-    // Fetch and validate course
-    const course: Course = await client.fetch(
-      groq`*[_type == "course" && _id == $courseId][0]{
-        _id,
-        title,
-        courseType,
-        price,
-        nairaPrice,
-        dollarPrice,
-        hourlyRateUSD,
-        hourlyRateNGN,
-        instructor,
-        maxStudents,
-        "currentEnrollments": count(*[_type == "enrollment" && courseId._ref == ^._id])
-      }`,
-      { courseId }
+    // Verify course exists in Sanity
+    const course = await client.fetch(
+      '*[_type == "course" && _id == $id][0]',
+      { id: courseId }
     );
-
+    
     if (!course) {
       return NextResponse.json(
         { error: 'Course not found' },
@@ -103,361 +40,115 @@ export async function POST(request: Request) {
       );
     }
 
-    const isLiveCourse = courseType === 'live' || course.courseType === 'live';
+    // Initialize Paystack transaction
+    const paystackAmount = Math.round(amount); // Paystack expects amount in kobo (for NGN) or lowest currency unit
 
-    // Check course availability (mainly for self-paced courses)
-    if (!isLiveCourse && course.maxStudents && (course.currentEnrollments || 0) >= course.maxStudents) {
-      return NextResponse.json(
-        { error: 'Course is full. Please join the waitlist.' },
-        { status: 400 }
-      );
-    }
-
-    // Validate pricing based on course type
-    let expectedAmount: number;
-    let productName: string;
-    let productDescription: string;
-    
-    if (isLiveCourse && pricingConfiguration) {
-      // Live course pricing validation
-      const baseRate = currency === 'NGN' ? course.hourlyRateNGN : course.hourlyRateUSD;
-      if (!baseRate) {
-        return NextResponse.json(
-          { error: 'Course pricing not configured for live sessions' },
-          { status: 400 }
-        );
-      }
-      
-      expectedAmount = Math.round(pricingConfiguration.totalMonthlyPrice * (currency === 'NGN' ? 1 : 100));
-      productName = `${course.title} - Live Sessions (${pricingConfiguration.hoursPerWeek}h/week)`;
-      productDescription = `${pricingConfiguration.sessionFormat} sessions: ${pricingConfiguration.totalHours} hours/month - ${course.title} by ${course.instructor}`;
-    } else {
-      // Legacy self-paced pricing validation
-      const basePrice = course.dollarPrice || (course.nairaPrice || course.price || 0);
-      expectedAmount = Math.round(basePrice * (currency === 'NGN' ? 1 : 100));
-      productName = `${course.title} - Course Enrollment`;
-      productDescription = `Enrollment for ${course.title} by ${course.instructor}`;
-    }
-
-    // Allow small price differences (for currency conversion fluctuations)
-    const tolerance = currency === 'NGN' ? 1000 : 100; // 10 NGN or $1 tolerance
-    if (Math.abs(amount - expectedAmount) > tolerance) {
-      return NextResponse.json(
-        { error: 'Price mismatch. Please refresh and try again.' },
-        { status: 400 }
-      );
-    }
-
-    // Check if student is already enrolled
-    const existingEnrollment = await client.fetch(
-      groq`*[_type == "enrollment" && studentEmail == $email && courseId._ref == $courseId][0]`,
-      { email: studentDetails.email, courseId }
-    );
-
-    if (existingEnrollment && !isLiveCourse) {
-      return NextResponse.json(
-        { error: 'You are already enrolled in this course.' },
-        { status: 400 }
-      );
-    }
-
-    // Create Stripe checkout session
-    const stripe = getStripe();
-    
-    // Determine success and cancel URLs
-    const successUrl = isLiveCourse 
-      ? `${process.env.NEXT_PUBLIC_SITE_URL}/enrollment-success?session_id={CHECKOUT_SESSION_ID}&course_id=${courseId}&type=live`
-      : `${process.env.NEXT_PUBLIC_SITE_URL}/enrollment-success?session_id={CHECKOUT_SESSION_ID}&course_id=${courseId}`;
-      
-    const cancelUrl = `${process.env.NEXT_PUBLIC_SITE_URL}/courses?enrollment=cancelled`;
-
-  const sessionCreateData: Record<string, unknown> = {
-      mode: 'payment',
-      payment_method_types: ['card'],
-      line_items: [{
-        price_data: {
-          currency: currency.toLowerCase(),
-          product_data: {
-            name: productName,
-            description: productDescription,
-            images: [`${process.env.NEXT_PUBLIC_SITE_URL}/api/course-image/${courseId}`],
-          },
-          unit_amount: expectedAmount,
-        },
-        quantity: 1,
-      }],
-      success_url: successUrl,
-      cancel_url: cancelUrl,
+    const paystackPayload = {
+      email: studentDetails?.email || 'noemail@hexadigitall.com',
+      amount: paystackAmount,
       metadata: {
-        type: isLiveCourse ? 'live_course_enrollment' : 'course_enrollment',
         courseId,
-        courseType: isLiveCourse ? 'live' : 'self-paced',
-        studentEmail: studentDetails.email,
-        studentName: studentDetails.fullName,
-        studentPhone: studentDetails.phone,
-        experience: studentDetails.experience || '',
-        goals: studentDetails.goals || '',
-        preferredSchedule: studentDetails.preferredSchedule || '',
-        ...(pricingConfiguration && {
-          hoursPerWeek: pricingConfiguration.hoursPerWeek.toString(),
-          sessionFormat: pricingConfiguration.sessionFormat,
-          totalHours: pricingConfiguration.totalHours.toString(),
-        })
+        courseName: course.title,
+        studentName: studentDetails?.fullName,
+        studentPhone: studentDetails?.phone,
       },
-      customer_email: studentDetails.email,
-      billing_address_collection: 'auto',
-      customer_creation: 'always',
-      invoice_creation: {
-        enabled: true,
-      },
-      phone_number_collection: {
-        enabled: true,
-      },
-      ui_mode: 'hosted',
-      automatic_tax: {
-        enabled: false,
-      },
+      channels: ['card', 'bank', 'ussd', 'qr', 'bank_transfer', 'eft'],
     };
 
-    // Add shipping collection for physical products or international customers
-    if (currency !== 'NGN') {
-      sessionCreateData.shipping_address_collection = {
-        allowed_countries: ['US', 'GB', 'CA', 'AU', 'DE', 'FR'],
-      };
-    }
-
-    // For live courses, determine if we should use subscriptions
-    // This logic can be expanded to support both one-time and subscription billing
-    const useSubscription = isLiveCourse && pricingConfiguration;
-    
-    if (useSubscription) {
-      // For live courses, redirect to subscription creation instead of one-time payment
-      return NextResponse.json({
-        useSubscription: true,
-        redirectToSubscription: true,
-        subscriptionData: {
-          courseId,
-          courseName: course.title,
-          studentDetails,
-          billingCalculation: {
-            baseHourlyRate: currency === 'NGN' ? course.hourlyRateNGN : course.hourlyRateUSD,
-            sessionFormatMultiplier: pricingConfiguration.sessionFormat === 'small-group' ? 0.7 : 
-                                   pricingConfiguration.sessionFormat === 'group' ? 0.5 : 1.0,
-            adjustedHourlyRate: pricingConfiguration.hourlyRate,
-            hoursPerWeek: pricingConfiguration.hoursPerWeek,
-            hoursPerMonth: pricingConfiguration.totalHours,
-            monthlyTotal: pricingConfiguration.totalMonthlyPrice,
-            currency: currency,
-            breakdown: {
-              sessions: `${pricingConfiguration.hoursPerWeek / (pricingConfiguration.totalHours / pricingConfiguration.hoursPerWeek)} sessions per week`,
-              duration: `${pricingConfiguration.totalHours / pricingConfiguration.hoursPerWeek} hours per session`,
-              weekly: `${pricingConfiguration.hoursPerWeek} hours per week`,
-              monthly: `${pricingConfiguration.totalHours} hours per month`,
-              rate: `${pricingConfiguration.hourlyRate}/hour (${pricingConfiguration.sessionFormat})`
-            }
-          },
-          sessionCustomization: {
-            sessionsPerWeek: Math.round(pricingConfiguration.hoursPerWeek / (pricingConfiguration.totalHours / pricingConfiguration.hoursPerWeek)),
-            hoursPerSession: Math.round(pricingConfiguration.totalHours / pricingConfiguration.hoursPerWeek),
-            totalHoursPerWeek: pricingConfiguration.hoursPerWeek,
-            sessionFormat: pricingConfiguration.sessionFormat as 'one-on-one' | 'small-group' | 'large-group',
-            preferredDays: studentDetails.preferredSchedule?.split(','),
-            preferredTimeSlots: undefined
-          }
-        },
-        message: 'Live course requires subscription billing. Redirecting to subscription setup.'
-      });
-    }
-
-    const session = await stripe.checkout.sessions.create(sessionCreateData);
-
-    // Store pending enrollment
-  const pendingEnrollmentData = {
-      _type: 'pendingEnrollment',
-      courseId: {
-        _type: 'reference',
-        _ref: courseId,
+    // Call Paystack API to initialize transaction
+    const response = await fetch('https://api.paystack.co/transaction/initialize', {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${process.env.PAYSTACK_SECRET_KEY}`,
+        'Content-Type': 'application/json',
       },
-      courseType: isLiveCourse ? 'live' : 'self-paced',
-      studentName: studentDetails.fullName,
-      studentEmail: studentDetails.email,
-      studentPhone: studentDetails.phone,
-      experience: studentDetails.experience,
-      goals: studentDetails.goals,
-      preferredSchedule: studentDetails.preferredSchedule,
-      stripeSessionId: session.id,
-      amount: expectedAmount,
-      currency,
-      status: 'pending',
-      createdAt: new Date().toISOString(),
-    };
-
-    // Add pricing configuration for live courses using object spread
-    const finalPendingEnrollmentData = pricingConfiguration
-      ? { ...pendingEnrollmentData, pricingConfiguration }
-      : pendingEnrollmentData;
-
-    await writeClient.create(finalPendingEnrollmentData);
-
-    return NextResponse.json({ 
-      checkoutUrl: session.url,
-      sessionId: session.id 
+      body: JSON.stringify(paystackPayload),
     });
 
+    if (!response.ok) {
+      const errorData = await response.json();
+      console.error('Paystack initialization error:', errorData);
+      return NextResponse.json(
+        { error: 'Failed to initialize payment', details: errorData },
+        { status: 500 }
+      );
+    }
+
+    const data = await response.json();
+
+    if (!data.status) {
+      return NextResponse.json(
+        { error: 'Payment initialization failed', details: data },
+        { status: 500 }
+      );
+    }
+
+    // Return the Paystack checkout URL
+    return NextResponse.json({
+      success: true,
+      checkoutUrl: data.data.authorization_url,
+      accessCode: data.data.access_code,
+      reference: data.data.reference,
+    });
   } catch (error) {
     console.error('Course enrollment error:', error);
-    
-    const errorMessage = error instanceof Error ? error.message : 'Unknown error occurred';
-    
-    // Check for common Sanity permission errors
-    if (errorMessage.includes('Insufficient permissions') || errorMessage.includes('permission "create" required')) {
-      return NextResponse.json(
-        { 
-          error: 'System configuration error. Please contact support to complete your enrollment.',
-          details: 'The enrollment system needs to be configured with proper permissions.'
-        },
-        { status: 500 }
-      );
-    }
-    
-    // Check for Stripe errors
-    if (errorMessage.includes('StripeInvalidRequestError')) {
-      return NextResponse.json(
-        { error: 'Payment processing error. Please try again.' },
-        { status: 500 }
-      );
-    }
-    
     return NextResponse.json(
-      { error: errorMessage },
+      { error: 'Internal server error', details: error instanceof Error ? error.message : 'Unknown error' },
       { status: 500 }
     );
   }
 }
 
-// Webhook handler for successful payments (to be called by Stripe)
-export async function PUT(request: Request) {
+export async function GET(request: Request) {
   try {
+    // Handle session verification from Paystack callback
     const { searchParams } = new URL(request.url);
-    const sessionId = searchParams.get('session_id');
+    const reference = searchParams.get('reference');
 
-    if (!sessionId) {
-      return NextResponse.json({ error: 'Missing session ID' }, { status: 400 });
-    }
-
-    // Verify session with Stripe
-    const stripe = getStripe();
-    const session = await stripe.checkout.sessions.retrieve(sessionId);
-
-    if (session.payment_status !== 'paid') {
-      return NextResponse.json({ error: 'Payment not completed' }, { status: 400 });
-    }
-
-    const metadata = session.metadata!;
-    const { 
-      courseId, 
-      courseType,
-      studentEmail, 
-      studentName, 
-      studentPhone, 
-      experience, 
-      goals,
-      preferredSchedule,
-      hoursPerWeek,
-      sessionFormat,
-      totalHours
-    } = metadata;
-
-    // Convert pending enrollment to confirmed enrollment
-    const pendingEnrollment = await client.fetch(
-      groq`*[_type == "pendingEnrollment" && stripeSessionId == $sessionId][0]`,
-      { sessionId }
-    );
-
-    if (!pendingEnrollment) {
-      return NextResponse.json({ error: 'Pending enrollment not found' }, { status: 404 });
-    }
-
-    // Create confirmed enrollment
-  const enrollmentData = {
-      _type: 'enrollment',
-      courseId: {
-        _type: 'reference',
-        _ref: courseId,
-      },
-      courseType: courseType || 'self-paced',
-      studentName,
-      studentEmail,
-      studentPhone,
-      experience: experience || undefined,
-      goals: goals || undefined,
-      preferredSchedule: preferredSchedule || undefined,
-      enrolledAt: new Date().toISOString(),
-      paymentStatus: 'completed',
-      stripeSessionId: sessionId,
-      amount: session.amount_total,
-    };
-
-    // Add live course specific data using object spread
-    const finalEnrollmentData = (courseType === 'live' && hoursPerWeek)
-      ? {
-          ...enrollmentData,
-          liveCourseDetails: {
-            hoursPerWeek: parseInt(hoursPerWeek),
-            sessionFormat,
-            totalHours: totalHours ? parseInt(totalHours) : undefined,
-            monthlyAmount: session.amount_total,
-          }
-        }
-      : enrollmentData;
-
-    const enrollment = await writeClient.create(finalEnrollmentData);
-
-    // Delete pending enrollment
-    await writeClient.delete(pendingEnrollment._id);
-
-    // Send enrollment confirmation emails
-    try {
-      const courseInfo = await client.fetch(
-        groq`*[_type == "course" && _id == $courseId][0]{
-          title,
-          courseType,
-          dollarPrice,
-          nairaPrice,
-          hourlyRateUSD,
-          hourlyRateNGN
-        }`,
-        { courseId }
+    if (!reference) {
+      return NextResponse.json(
+        { error: 'Missing reference' },
+        { status: 400 }
       );
-
-      const enrollmentEmailData: CourseEnrollmentData = {
-        studentName,
-        studentEmail,
-        courseName: courseInfo?.title || 'Course',
-        coursePrice: courseInfo?.dollarPrice || (session.amount_total || 0) / 100,
-        enrollmentId: enrollment._id,
-        paymentPlan: courseType === 'live' ? 'Live Sessions' : 'Full Payment'
-      };
-
-      const emailResult = await emailService.sendCourseEnrollmentEmails(enrollmentEmailData);
-      if (!emailResult.success) {
-        console.error('Failed to send enrollment emails:', emailResult.error);
-        // Don't fail the enrollment, just log the error
-      } else {
-        console.log('Enrollment emails sent successfully:', emailResult.message);
-      }
-    } catch (emailError) {
-      console.error('Email service error:', emailError);
-      // Continue with enrollment success even if email fails
     }
 
-    return NextResponse.json({ 
-      success: true,
-      enrollmentId: enrollment._id 
+    // Verify transaction with Paystack
+    const response = await fetch(`https://api.paystack.co/transaction/verify/${reference}`, {
+      method: 'GET',
+      headers: {
+        'Authorization': `Bearer ${process.env.PAYSTACK_SECRET_KEY}`,
+      },
     });
 
+    if (!response.ok) {
+      return NextResponse.json(
+        { error: 'Failed to verify payment' },
+        { status: 500 }
+      );
+    }
+
+    const data = await response.json();
+
+    if (!data.status || !data.data.status || data.data.status !== 'success') {
+      return NextResponse.json(
+        { error: 'Payment verification failed', status: data.data?.status },
+        { status: 400 }
+      );
+    }
+
+    // Payment successful
+    return NextResponse.json({
+      success: true,
+      message: 'Payment verified successfully',
+      reference: data.data.reference,
+      amount: data.data.amount,
+      customer: data.data.customer,
+    });
   } catch (error) {
-    console.error('Enrollment confirmation error:', error);
-    return NextResponse.json({ error: 'Failed to confirm enrollment' }, { status: 500 });
+    console.error('Enrollment verification error:', error);
+    return NextResponse.json(
+      { error: 'Internal server error' },
+      { status: 500 }
+    );
   }
 }

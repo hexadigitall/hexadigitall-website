@@ -2,17 +2,14 @@
 import { MonthlyBillingCalculation, SessionCustomization } from './course';
 
 /**
- * Subscription Status Types
+ * Payment Status Types (Paystack compatible)
  */
 export type SubscriptionStatus = 
-  | 'incomplete'           // Payment method not set up
-  | 'incomplete_expired'   // Setup intent expired
-  | 'trialing'            // In trial period
-  | 'active'              // Active subscription
-  | 'past_due'            // Payment failed but still active
-  | 'canceled'            // Canceled by customer
-  | 'unpaid'              // Payment failed and subscription ended
-  | 'paused';             // Temporarily paused
+  | 'pending'           // Payment initiated
+  | 'active'            // Payment successful, subscription active
+  | 'expired'           // Subscription period expired
+  | 'cancelled'         // Cancelled by customer
+  | 'failed';           // Payment failed
 
 /**
  * Billing Interval Types
@@ -20,25 +17,15 @@ export type SubscriptionStatus =
 export type BillingInterval = 'month' | 'year';
 
 /**
- * Payment Method Information
+ * Payment Reference Information (Paystack)
  */
 export interface PaymentMethod {
   id: string;
-  type: string;
-  card?: {
-    brand: string;
-    last4: string;
-    exp_month: number;
-    exp_year: number;
-  };
-  billing_details?: {
-    name?: string | null;
-    email?: string | null;
-    address?: {
-      country?: string | null;
-      postal_code?: string | null;
-    } | null;
-  };
+  reference: string;  // Paystack reference
+  type: 'paystack';
+  email?: string;
+  phone?: string;
+  metadata?: Record<string, unknown>;
 }
 
 /**
@@ -60,8 +47,8 @@ export interface SubscriptionPlan {
  */
 export interface CourseSubscription {
   id: string;
-  stripeSubscriptionId: string;
-  stripeCustomerId: string;
+  paystackSubscriptionCode: string;
+  paystackCustomerId: string;
   courseId: string;
   studentId: string;
   
@@ -114,7 +101,7 @@ export interface SessionRecord {
  */
 export interface SubscriptionInvoice {
   id: string;
-  stripeInvoiceId: string;
+  paystackReference: string;
   subscriptionId: string;
   amount: number;              // Amount in cents
   currency: string;
@@ -139,7 +126,7 @@ export interface CreateSubscriptionRequest {
     goals?: string;
   };
   plan: SubscriptionPlan;
-  paymentMethodId?: string;    // Stripe payment method ID
+  paymentAuthCode?: string;    // Paystack authorization code
   trialPeriodDays?: number;
   couponCode?: string;
   
@@ -157,7 +144,7 @@ export interface CreateSubscriptionRequest {
 export interface UpdateSubscriptionRequest {
   subscriptionId: string;
   newPlan?: SubscriptionPlan;
-  paymentMethodId?: string;
+  paymentAuthCode?: string;
   cancelAtPeriodEnd?: boolean;
   couponCode?: string;
   
@@ -191,7 +178,7 @@ export interface SubscriptionOperations {
 }
 
 /**
- * Webhook Event Types for Stripe
+ * Webhook Event Types for Paystack
  */
 export interface SubscriptionWebhookEvent {
   type: string;
