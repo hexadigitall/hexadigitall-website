@@ -1,18 +1,18 @@
 // src/app/courses/page.tsx
 import type { Metadata } from 'next';
-import ComingSoon from '@/components/sections/ComingSoon';
+import ServerCoursesPage from './ServerCoursesPage';
 
 export const metadata: Metadata = {
-  title: 'Courses Coming Soon | Hexadigitall',
-  description: 'Our courses page is being updated. Check back soon for our range of professional, tech, and certification courses designed for career growth.',
+  title: 'Professional Courses | Tech, Business & Certification Training | Hexadigitall',
+  description: 'Explore our comprehensive range of professional development courses including web development, digital marketing, business strategy, and industry certifications. Learn from experts and advance your career.',
+  keywords: 'online courses, professional development, tech training, business courses, certification programs, hexadigitall',
+  openGraph: {
+    title: 'Professional Development Courses',
+    description: 'Learn professional skills from industry experts with our comprehensive course offerings.',
+    type: 'website',
+  },
 };
 
 export default function CoursesPage() {
-  return (
-    <ComingSoon 
-      title="Courses Coming Soon"
-      message="We're currently updating our course offerings and resolving technical issues. Please check back soon for an enhanced learning experience!"
-      showContactLink={true}
-    />
-  );
+  return <ServerCoursesPage />;
 }
