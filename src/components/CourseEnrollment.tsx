@@ -14,6 +14,9 @@ export interface CourseEnrollmentData {
   price: number;
   nairaPrice?: number;
   dollarPrice?: number;
+  courseType?: 'live' | 'self-paced';
+  hourlyRateUSD?: number;
+  hourlyRateNGN?: number;
   duration: string;
   level: string;
   prerequisites?: string[];

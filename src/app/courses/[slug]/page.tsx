@@ -13,25 +13,33 @@ interface Course {
     _id: string;
     title: string;
     slug: { current: string };
+    summary?: string;
+    description?: string;
     price?: number;
     nairaPrice?: number;
     dollarPrice?: number;
+    courseType?: 'live' | 'self-paced';
+    hourlyRateUSD?: number;
+    hourlyRateNGN?: number;
     duration: string;
     level: string;
     instructor: string;
-    description: string;
     prerequisites?: string[];
     maxStudents?: number;
     currentEnrollments?: number;
     body: PortableTextBlock[];
     mainImage: string;
-    curriculum: {
+    curriculum?: {
         modules: number;
         lessons: number;
         duration: string;
     };
-    includes: string[];
-    certificate: boolean;
+    includes?: string[];
+    certificate?: boolean;
+    durationWeeks?: number;
+    hoursPerWeek?: number;
+    modules?: number;
+    lessons?: number;
 }
 
 // Metadata function remains the same
@@ -44,18 +52,22 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     return { title: `${course?.title || 'Course'} | Hexadigitall` };
 }
 
-// Enhanced query to fetch all enrollment data
+// Enhanced query to fetch all enrollment data including PPP pricing
 const courseQuery = groq`*[_type == "course" && slug.current == $slug][0]{
     _id,
     title,
     slug,
+    summary,
+    description,
     price,
     nairaPrice,
     dollarPrice,
+    courseType,
+    hourlyRateUSD,
+    hourlyRateNGN,
     duration,
     level,
     instructor,
-    description,
     prerequisites,
     maxStudents,
     "currentEnrollments": count(*[_type == "enrollment" && courseId._ref == ^._id]),
@@ -67,7 +79,11 @@ const courseQuery = groq`*[_type == "course" && slug.current == $slug][0]{
         duration
     },
     includes,
-    certificate
+    certificate,
+    durationWeeks,
+    hoursPerWeek,
+    modules,
+    lessons
 }`;
 
 export default async function CoursePage({ params }: { params: Promise<{ slug: string }> }) {
@@ -83,6 +99,9 @@ export default async function CoursePage({ params }: { params: Promise<{ slug: s
         price: course.price || course.nairaPrice || 0,
         nairaPrice: course.nairaPrice,
         dollarPrice: course.dollarPrice,
+        courseType: course.courseType,
+        hourlyRateUSD: course.hourlyRateUSD,
+        hourlyRateNGN: course.hourlyRateNGN,
         duration: course.duration || '8 weeks',
         level: course.level || 'Intermediate',
         prerequisites: course.prerequisites,
