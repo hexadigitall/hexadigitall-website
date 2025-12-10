@@ -110,6 +110,7 @@ export default defineType({
       hidden: true,
     }),
 
+    defineField({ name: 'description', title: 'Short Description', type: 'text', description: 'Brief description of what students will learn (shown on course cards)' }),
     defineField({ name: 'body', title: 'Full Description', type: 'array', of: [{type: 'block'}] }),
     defineField({ name: 'mainImage', title: 'Course Image', type: 'image', options: { hotspot: true } }),
     
