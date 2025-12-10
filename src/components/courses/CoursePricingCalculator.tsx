@@ -119,16 +119,29 @@ const CoursePricingCalculator = ({
   // Calculate monthly billing with enhanced breakdown
   const calculateMonthlyBilling = useCallback((): MonthlyBillingCalculation => {
     const baseHourlyRate = isLocalCurrency() ? hourlyRateNGN : hourlyRateUSD;
+    const formatMultiplier = formatMultipliers[sessionFormat];
+    const adjustedHourlyRate = baseHourlyRate * formatMultiplier;
     const hoursPerWeek = sessionsPerWeek * hoursPerSession;
     const hoursPerMonth = hoursPerWeek * 4; // 4 weeks per month
-    const monthlyTotal = baseHourlyRate * hoursPerMonth;
+    const monthlyTotal = adjustedHourlyRate * hoursPerMonth;
 
-    console.log('💰 [CALC] hourlyRateNGN:', hourlyRateNGN, 'hourlyRateUSD:', hourlyRateUSD, 'baseRate:', baseHourlyRate, 'hoursPerMonth:', hoursPerMonth, 'monthly:', monthlyTotal);
+    console.log('💰 [CALC] hourlyRateNGN:', hourlyRateNGN, 'hourlyRateUSD:', hourlyRateUSD, 'baseRate:', baseHourlyRate, 'multiplier:', formatMultiplier, 'adjustedRate:', adjustedHourlyRate, 'hoursPerMonth:', hoursPerMonth, 'monthly:', monthlyTotal);
+
+    // Format the hourly rate correctly
+    // formatPrice expects USD, so we DON'T use it for rates that are already in local currency
+    let rateDisplay: string;
+    if (isLocalCurrency()) {
+      // NGN rate - just format as a number with currency symbol
+      rateDisplay = `₦${Math.round(adjustedHourlyRate).toLocaleString()}/hour`;
+    } else {
+      // USD rate - format with currency symbol
+      rateDisplay = `$${adjustedHourlyRate.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}/hour`;
+    }
 
     return {
       baseHourlyRate,
-      sessionFormatMultiplier: 1,
-      adjustedHourlyRate: baseHourlyRate,
+      sessionFormatMultiplier: formatMultiplier,
+      adjustedHourlyRate,
       hoursPerWeek,
       hoursPerMonth,
       monthlyTotal,
@@ -138,10 +151,10 @@ const CoursePricingCalculator = ({
         duration: `${hoursPerSession} hour${hoursPerSession !== 1 ? 's' : ''} per session`,
         weekly: `${hoursPerWeek} hour${hoursPerWeek !== 1 ? 's' : ''} per week`,
         monthly: `${hoursPerMonth} hour${hoursPerMonth !== 1 ? 's' : ''} per month`,
-        rate: `${formatPrice(baseHourlyRate, { applyNigerianDiscount: false })}/hour`
+        rate: rateDisplay
       }
     };
-  }, [sessionsPerWeek, hoursPerSession, currentCurrency.code, isLocalCurrency, hourlyRateNGN, hourlyRateUSD, formatPrice]);
+  }, [sessionsPerWeek, hoursPerSession, sessionFormat, formatMultipliers, currentCurrency.code, isLocalCurrency, hourlyRateNGN, hourlyRateUSD]);
   
   // Create session customization object
   const createSessionCustomization = useCallback((): SessionCustomization => {
@@ -278,17 +291,25 @@ const CoursePricingCalculator = ({
           </div>
 
           {/* Total Price Display */}
-          <div className="border-t border-white/20 pt-4">
-            <div className="flex justify-between items-center">
-              <span className="text-lg font-semibold text-gray-900">Monthly Total:</span>
-              <span className="text-2xl font-bold text-primary">
-                {formatPrice(billingCalculation.monthlyTotal, { applyNigerianDiscount: true })}
-              </span>
+            <div className="border-t border-white/20 pt-4">
+              <div className="flex justify-between items-center">
+                <span className="text-lg font-semibold text-gray-900">Monthly Total:</span>
+                <span className="text-2xl font-bold text-primary">
+                  {new Intl.NumberFormat(
+                    billingCalculation.currency === 'NGN' ? 'en-NG' : 'en-US',
+                    {
+                      style: 'currency',
+                      currency: billingCalculation.currency,
+                      minimumFractionDigits: billingCalculation.currency === 'NGN' ? 0 : 2,
+                      maximumFractionDigits: billingCalculation.currency === 'NGN' ? 0 : 2
+                    }
+                  ).format(billingCalculation.monthlyTotal)}
+                </span>
+              </div>
+              <p className="text-sm text-gray-500 mt-1">
+                Billed monthly • Cancel anytime • Includes {billingCalculation.hoursPerMonth} hours
+              </p>
             </div>
-            <p className="text-sm text-gray-500 mt-1">
-              Billed monthly • Cancel anytime • Includes {billingCalculation.hoursPerMonth} hours
-            </p>
-          </div>
         </div>
       )}
     </div>

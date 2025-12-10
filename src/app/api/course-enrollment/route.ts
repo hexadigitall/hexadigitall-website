@@ -41,7 +41,8 @@ export async function POST(request: Request) {
     }
 
     // Initialize Paystack transaction
-    const paystackAmount = Math.round(amount); // Paystack expects amount in kobo (for NGN) or lowest currency unit
+    // Paystack expects the smallest currency unit (kobo for NGN, cents for USD, etc.)
+    const paystackAmount = Math.round(amount * 100);
 
     const paystackPayload = {
       email: studentDetails?.email || 'noemail@hexadigitall.com',

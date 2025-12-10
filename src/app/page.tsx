@@ -2,7 +2,7 @@
 
 import type { Metadata } from 'next';
 import Hero from '@/components/sections/Hero';
-// import FeaturedCourses from '@/components/sections/FeaturedCourses'; // Temporarily disabled until Sanity error is resolved
+import FeaturedCourses from '@/components/sections/FeaturedCourses';
 import WhyChooseUs from '@/components/sections/WhyChooseUs';
 import Testimonials from '@/components/sections/Testimonials';
 import FinalCTA from '@/components/sections/FinalCTA';
@@ -52,8 +52,7 @@ export default function HomePage() {
       />
       
       <Hero />
-      {/* <FeaturedCourses id="courses-preview" /> */}
-      {/* Temporarily disabled until Sanity error is resolved */}
+      <FeaturedCourses id="courses-preview" />
       <WhyChooseUs />
       <Testimonials />
       <FinalCTA />

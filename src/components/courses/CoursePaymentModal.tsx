@@ -304,12 +304,15 @@ export function CoursePaymentModal({
 
         {/* Live Course Pricing Calculator */}
         {isLiveCourse && course.hourlyRateUSD && course.hourlyRateNGN && (
-          <CoursePricingCalculator
-            hourlyRateUSD={course.hourlyRateUSD}
-            hourlyRateNGN={course.hourlyRateNGN}
-            schedulingOptions={course.schedulingOptions}
-            onPriceChange={handlePriceChange}
-          />
+          <>
+            {console.log('🎓 [MODAL] Live course pricing:', { hourlyRateUSD: course.hourlyRateUSD, hourlyRateNGN: course.hourlyRateNGN, courseTitle: course.title })}
+            <CoursePricingCalculator
+              hourlyRateUSD={course.hourlyRateUSD}
+              hourlyRateNGN={course.hourlyRateNGN}
+              schedulingOptions={course.schedulingOptions}
+              onPriceChange={handlePriceChange}
+            />
+          </>
         )}
 
         {/* Course Details */}
