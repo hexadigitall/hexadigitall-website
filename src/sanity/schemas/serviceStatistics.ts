@@ -14,77 +14,43 @@ export default defineType({
       validation: Rule => Rule.required()
     }),
     defineField({
-      name: 'metrics',
-      title: 'Key Metrics',
-      type: 'object',
-      fields: [
-        {
-          name: 'projectsCompleted',
-          title: 'Projects Completed',
-          type: 'number'
-        },
-        {
-          name: 'clientSatisfaction',
-          title: 'Client Satisfaction Rate',
-          type: 'number',
-          validation: (Rule: any) => Rule.min(0).max(100)
-        },
-        {
-          name: 'averageDeliveryTime',
-          title: 'Average Delivery Time',
-          type: 'string'
-        },
-        {
-          name: 'teamSize',
-          title: 'Team Size',
-          type: 'number'
-        }
-      ]
+      name: 'projectsCompleted',
+      title: 'Projects Completed',
+      type: 'number'
     }),
     defineField({
-      name: 'performance',
+      name: 'clientSatisfaction',
+      title: 'Client Satisfaction Rate',
+      type: 'number',
+      validation: (Rule: any) => Rule.min(0).max(100)
+    }),
+    defineField({
+      name: 'averageDeliveryTime',
+      title: 'Average Delivery Time',
+      type: 'string'
+    }),
+    defineField({
+      name: 'teamSize',
+      title: 'Team Size',
+      type: 'number'
+    }),
+    defineField({
+      name: 'performanceMetrics',
       title: 'Performance Metrics',
       type: 'array',
-      of: [{
-        type: 'object',
-        name: 'performanceMetric',
-        fields: [
-          { name: 'metric', title: 'Metric Name', type: 'string' },
-          { name: 'value', title: 'Value', type: 'string' },
-          { name: 'change', title: 'Change (%)', type: 'number' },
-          { name: 'period', title: 'Time Period', type: 'string' }
-        ]
-      }]
+      of: [{ type: 'string' }]
     }),
     defineField({
-      name: 'clientMetrics',
+      name: 'successMetrics',
       title: 'Client Success Metrics',
       type: 'array',
-      of: [{
-        type: 'object',
-        name: 'clientMetric',
-        fields: [
-          { name: 'metric', title: 'Metric', type: 'string' },
-          { name: 'description', title: 'Description', type: 'text' },
-          { name: 'value', title: 'Average Value', type: 'string' },
-          { name: 'benchmark', title: 'Industry Benchmark', type: 'string' }
-        ]
-      }]
+      of: [{ type: 'string' }]
     }),
     defineField({
       name: 'techStack',
       title: 'Technology Stack',
       type: 'array',
-      of: [{
-        type: 'object',
-        name: 'technology',
-        fields: [
-          { name: 'name', title: 'Technology Name', type: 'string' },
-          { name: 'category', title: 'Category', type: 'string' },
-          { name: 'expertise', title: 'Expertise Level', type: 'number' },
-          { name: 'projectCount', title: 'Projects Using This', type: 'number' }
-        ]
-      }]
+      of: [{ type: 'string' }]
     }),
     defineField({
       name: 'lastUpdated',

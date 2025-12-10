@@ -116,10 +116,14 @@ export const getCachedFeaturedCourses = () =>
     duration,
     level,
     instructor,
+    courseType,
+    hourlyRateUSD,
+    hourlyRateNGN,
     nairaPrice,
     dollarPrice,
     price,
-    featured
+    featured,
+    schedulingOptions
   }`, {}, 10) // 10 minutes cache
 
 export const getCachedServiceCategories = () =>
@@ -217,9 +221,18 @@ export const getCachedCourseCategories = () =>
       duration,
       level,
       instructor,
+      courseType,
+      hourlyRateUSD,
+      hourlyRateNGN,
       nairaPrice,
       dollarPrice,
       price,
-      featured
+      featured,
+      durationWeeks,
+      hoursPerWeek,
+      modules,
+      lessons,
+      includes,
+      certificate
     }
   }`, {}, 15) // 15 minutes cache for better performance

@@ -70,53 +70,51 @@ export default defineType({
       hidden: ({ parent }) => parent?.courseType !== 'live',
     }),
     defineField({
-      name: 'liveCourseDetails',
-      title: 'Live Course Details',
-      type: 'object',
+      name: 'hoursPerWeek',
+      title: 'Hours per Week',
+      type: 'number',
+      validation: (Rule) => Rule.positive().min(1).max(21),
       hidden: ({ parent }) => parent?.courseType !== 'live',
-      fields: [
-        {
-          name: 'hoursPerWeek',
-          title: 'Hours per Week',
-          type: 'number',
-          validation: (Rule) => Rule.positive().min(1).max(21),
-        },
-        {
-          name: 'sessionFormat',
-          title: 'Session Format',
-          type: 'string',
-          options: {
-            list: [
-              { title: 'One-on-One', value: 'one-on-one' },
-              { title: 'Small Group (2-4)', value: 'small-group' },
-              { title: 'Group Session (5-8)', value: 'group' },
-            ],
-          },
-        },
-        {
-          name: 'totalHours',
-          title: 'Total Hours per Month',
-          type: 'number',
-          validation: (Rule) => Rule.positive(),
-        },
-        {
-          name: 'monthlyAmount',
-          title: 'Monthly Amount (in cents/kobo)',
-          type: 'number',
-          validation: (Rule) => Rule.positive(),
-        },
-        {
-          name: 'nextSessionDate',
-          title: 'Next Session Date',
-          type: 'datetime',
-        },
-        {
-          name: 'totalSessionsCompleted',
-          title: 'Sessions Completed',
-          type: 'number',
-          initialValue: 0,
-        },
-      ],
+    }),
+    defineField({
+      name: 'sessionFormat',
+      title: 'Session Format',
+      type: 'string',
+      options: {
+        list: [
+          { title: 'One-on-One', value: 'one-on-one' },
+          { title: 'Small Group (2-4)', value: 'small-group' },
+          { title: 'Group Session (5-8)', value: 'group' },
+        ],
+      },
+      hidden: ({ parent }) => parent?.courseType !== 'live',
+    }),
+    defineField({
+      name: 'totalHours',
+      title: 'Total Hours per Month',
+      type: 'number',
+      validation: (Rule) => Rule.positive(),
+      hidden: ({ parent }) => parent?.courseType !== 'live',
+    }),
+    defineField({
+      name: 'monthlyAmount',
+      title: 'Monthly Amount (in cents/kobo)',
+      type: 'number',
+      validation: (Rule) => Rule.positive(),
+      hidden: ({ parent }) => parent?.courseType !== 'live',
+    }),
+    defineField({
+      name: 'nextSessionDate',
+      title: 'Next Session Date',
+      type: 'datetime',
+      hidden: ({ parent }) => parent?.courseType !== 'live',
+    }),
+    defineField({
+      name: 'totalSessionsCompleted',
+      title: 'Sessions Completed',
+      type: 'number',
+      initialValue: 0,
+      hidden: ({ parent }) => parent?.courseType !== 'live',
     }),
     defineField({
       name: 'enrolledAt',

@@ -74,7 +74,7 @@ function CourseCard({ course, onEnrollClick }: { course: Course; onEnrollClick: 
   const safeImage = course.mainImage || fallbackImage
   const isLiveCourse = course.courseType === 'live'
   
-  // Calculate display price based on course type
+  // Calculate display price based on course type (PPP pricing)
   const getDisplayPrice = (): {
     price: number;
     isLive: true;
@@ -84,10 +84,11 @@ function CourseCard({ course, onEnrollClick }: { course: Course; onEnrollClick: 
     isLive: false;
   } | null => {
     if (isLiveCourse && course.hourlyRateUSD && course.hourlyRateNGN) {
-      // Show starting price for live courses (1 hour per week default)
+      // Show starting price for live courses with PPP pricing (1 hour per week default)
       const baseHourlyRate = isLocalCurrency() ? course.hourlyRateNGN : course.hourlyRateUSD
-      const defaultHours = course.schedulingOptions?.defaultHours || 1
-      const monthlyPrice = baseHourlyRate * defaultHours * 4 // 4 weeks per month
+      const defaultSessions = 1; // 1 session per week
+      const defaultHours = 1; // 1 hour per session
+      const monthlyPrice = baseHourlyRate * defaultSessions * defaultHours * 4 // 4 weeks per month
       
       return {
         price: monthlyPrice,
@@ -95,17 +96,17 @@ function CourseCard({ course, onEnrollClick }: { course: Course; onEnrollClick: 
         currency: isLocalCurrency() ? 'NGN' : 'USD'
       }
     } else if (course.dollarPrice) {
-      // Legacy self-paced pricing
-      const priceInfo = formatPriceWithDiscount(course.dollarPrice, { applyNigerianDiscount: true })
+      // Legacy self-paced pricing (no PPP discount)
+      const priceInfo = formatPriceWithDiscount(course.dollarPrice, { applyNigerianDiscount: false })
       return {
         priceInfo,
         isLive: false as const
       }
     } else if (course.nairaPrice || course.price) {
-      // Convert NGN to USD first, then format in selected currency
+      // Convert NGN to USD first, then format in selected currency (no PPP discount)
       const nairaAmount = course.nairaPrice || course.price || 0;
       const usdEquivalent = nairaAmount / 1650;
-      const priceInfo = formatPriceWithDiscount(usdEquivalent, { applyNigerianDiscount: true })
+      const priceInfo = formatPriceWithDiscount(usdEquivalent, { applyNigerianDiscount: false })
       return {
         priceInfo,
         isLive: false as const
@@ -185,11 +186,14 @@ function CourseCard({ course, onEnrollClick }: { course: Course; onEnrollClick: 
           )}
         </div>
         
-        {/* Price Section - Enhanced for live courses */}
+        {/* Price Section - PPP Pricing for Live Courses */}
         <div className="mb-4">
           {displayPrice ? (
             displayPrice.isLive ? (
               <div className="space-y-1">
+                <div className="inline-block bg-blue-500 text-white px-2 py-1 rounded-full text-xs font-bold mb-2">
+                  💡 Monthly Subscription
+                </div>
                 <div className="text-2xl font-bold text-primary">
                   {new Intl.NumberFormat(displayPrice.currency === 'NGN' ? 'en-NG' : 'en-US', {
                     style: 'currency',
@@ -199,31 +203,18 @@ function CourseCard({ course, onEnrollClick }: { course: Course; onEnrollClick: 
                   <span className="text-sm font-normal text-gray-600">/month</span>
                 </div>
                 <p className="text-xs text-gray-500">
-                  Starting from 1 hour/week • Flexible scheduling
+                  Starting from 1hr/week • Customize when you subscribe
                 </p>
               </div>
             ) : displayPrice.priceInfo ? (
-              displayPrice.priceInfo.hasDiscount ? (
-                <div className="space-y-2">
-                  {isLocalCurrency() && (
-                    <span className="inline-block bg-red-500 text-white px-2 py-1 rounded-full text-xs font-bold animate-pulse">
-                      🔥 {displayPrice.priceInfo.discountPercentage}% OFF
-                    </span>
-                  )}
-                  <div className="flex flex-col sm:flex-row sm:items-center sm:space-x-2">
-                    <span className="text-lg text-gray-500 line-through">
-                      {displayPrice.priceInfo.originalPrice}
-                    </span>
-                    <span className="text-2xl font-bold text-green-600">
-                      {displayPrice.priceInfo.discountedPrice}
-                    </span>
-                  </div>
+              <div className="space-y-2">
+                <div className="inline-block bg-purple-500 text-white px-2 py-1 rounded-full text-xs font-bold mb-2">
+                  📚 One-time Payment
                 </div>
-              ) : (
                 <span className="text-2xl font-bold text-primary">
                   {displayPrice.priceInfo.discountedPrice}
                 </span>
-              )
+              </div>
             ) : null
           ) : (
             <span className="text-2xl font-bold text-green-600">Free</span>
@@ -235,7 +226,7 @@ function CourseCard({ course, onEnrollClick }: { course: Course; onEnrollClick: 
           <button
             onClick={() => onEnrollClick(course)}
             className="inline-flex items-center justify-center w-full px-4 py-3 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
-            aria-label={`${isLiveCourse ? 'Start live sessions for' : 'Enroll in'} ${safeTitle}`}
+            aria-label={`${isLiveCourse ? 'Customize and subscribe to' : 'Enroll in'} ${safeTitle}`}
           >
             <svg 
               className="w-4 h-4 mr-2" 
@@ -246,7 +237,7 @@ function CourseCard({ course, onEnrollClick }: { course: Course; onEnrollClick: 
             >
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
             </svg>
-            <span>{isLiveCourse ? 'Start Live Sessions' : 'Enroll Now'}</span>
+            <span>{isLiveCourse ? 'Customize & Subscribe' : 'Enroll Now'}</span>
           </button>
           
           <Link

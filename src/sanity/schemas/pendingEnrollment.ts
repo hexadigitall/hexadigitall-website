@@ -70,65 +70,64 @@ export default defineType({
       hidden: ({ parent }) => parent?.courseType !== 'live',
     }),
     defineField({
-      name: 'pricingConfiguration',
-      title: 'Pricing Configuration',
-      type: 'object',
+      name: 'hoursPerWeek',
+      title: 'Hours per Week',
+      type: 'number',
+      validation: (Rule) => Rule.positive().min(1).max(21),
       hidden: ({ parent }) => parent?.courseType !== 'live',
-      fields: [
-        {
-          name: 'hoursPerWeek',
-          title: 'Hours per Week',
-          type: 'number',
-          validation: (Rule) => Rule.positive().min(1).max(21),
-        },
-        {
-          name: 'weeksPerMonth',
-          title: 'Weeks per Month',
-          type: 'number',
-          initialValue: 4,
-        },
-        {
-          name: 'totalHours',
-          title: 'Total Hours per Month',
-          type: 'number',
-          validation: (Rule) => Rule.positive(),
-        },
-        {
-          name: 'sessionFormat',
-          title: 'Session Format',
-          type: 'string',
-          options: {
-            list: [
-              { title: 'One-on-One', value: 'one-on-one' },
-              { title: 'Small Group (2-4)', value: 'small-group' },
-              { title: 'Group Session (5-8)', value: 'group' },
-            ],
-          },
-        },
-        {
-          name: 'currency',
-          title: 'Currency',
-          type: 'string',
-          options: {
-            list: [
-              { title: 'Nigerian Naira', value: 'NGN' },
-              { title: 'US Dollar', value: 'USD' },
-            ],
-          },
-        },
-        {
-          name: 'hourlyRate',
-          title: 'Hourly Rate',
-          type: 'number',
-          validation: (Rule) => Rule.positive(),
-        },
-        {
-          name: 'totalMonthlyPrice',
-          title: 'Total Monthly Price',
-          type: 'number',
-          validation: (Rule) => Rule.positive(),
-        },
-      ],
+    }),
+    defineField({
+      name: 'weeksPerMonth',
+      title: 'Weeks per Month',
+      type: 'number',
+      initialValue: 4,
+      hidden: ({ parent }) => parent?.courseType !== 'live',
+    }),
+    defineField({
+      name: 'totalHours',
+      title: 'Total Hours per Month',
+      type: 'number',
+      validation: (Rule) => Rule.positive(),
+      hidden: ({ parent }) => parent?.courseType !== 'live',
+    }),
+    defineField({
+      name: 'sessionFormat',
+      title: 'Session Format',
+      type: 'string',
+      options: {
+        list: [
+          { title: 'One-on-One', value: 'one-on-one' },
+          { title: 'Small Group (2-4)', value: 'small-group' },
+          { title: 'Group Session (5-8)', value: 'group' },
+        ],
+      },
+      hidden: ({ parent }) => parent?.courseType !== 'live',
+    }),
+    defineField({
+      name: 'pricingCurrency',
+      title: 'Currency',
+      type: 'string',
+      options: {
+        list: [
+          { title: 'Nigerian Naira', value: 'NGN' },
+          { title: 'US Dollar', value: 'USD' },
+        ],
+      },
+      hidden: ({ parent }) => parent?.courseType !== 'live',
+    }),
+    defineField({
+      name: 'hourlyRate',
+      title: 'Hourly Rate',
+      type: 'number',
+      validation: (Rule) => Rule.positive(),
+      hidden: ({ parent }) => parent?.courseType !== 'live',
+    }),
+    defineField({
+      name: 'totalMonthlyPrice',
+      title: 'Total Monthly Price',
+      type: 'number',
+      validation: (Rule) => Rule.positive(),
+      hidden: ({ parent }) => parent?.courseType !== 'live',
     }),
     defineField({
       name: 'stripeSessionId',

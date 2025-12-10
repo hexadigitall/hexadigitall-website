@@ -28,15 +28,22 @@ export default defineType({
       to: [{ type: 'serviceCategory' }],
       validation: Rule => Rule.required()
     }),
+    // Client Details - Flattened
     defineField({
-      name: 'client',
-      title: 'Client Details',
-      type: 'object',
-      fields: [
-        { name: 'name', title: 'Client Name', type: 'string' },
-        { name: 'industry', title: 'Industry', type: 'string' },
-        { name: 'size', title: 'Company Size', type: 'string' }
-      ]
+      name: 'clientName',
+      title: 'Client Name',
+      type: 'string',
+      validation: Rule => Rule.required()
+    }),
+    defineField({
+      name: 'clientIndustry',
+      title: 'Client Industry',
+      type: 'string'
+    }),
+    defineField({
+      name: 'clientSize',
+      title: 'Company Size',
+      type: 'string'
     }),
     defineField({
       name: 'challenge',
@@ -52,18 +59,10 @@ export default defineType({
       validation: Rule => Rule.required()
     }),
     defineField({
-      name: 'results',
+      name: 'resultMetrics',
       title: 'Results & Impact',
       type: 'array',
-      of: [{
-        type: 'object',
-        name: 'result',
-        fields: [
-          { name: 'metric', title: 'Metric', type: 'string' },
-          { name: 'value', title: 'Value', type: 'string' },
-          { name: 'description', title: 'Description', type: 'text' }
-        ]
-      }]
+      of: [{ type: 'string' }]
     }),
     defineField({
       name: 'technologies',
@@ -72,28 +71,25 @@ export default defineType({
       of: [{ type: 'string' }]
     }),
     defineField({
-      name: 'timeline',
-      title: 'Project Timeline',
-      type: 'object',
-      fields: [
-        { name: 'start', title: 'Start Date', type: 'date' },
-        { name: 'end', title: 'End Date', type: 'date' },
-        { name: 'duration', title: 'Duration', type: 'string' }
-      ]
+      name: 'startDate',
+      title: 'Project Start Date',
+      type: 'date'
+    }),
+    defineField({
+      name: 'endDate',
+      title: 'Project End Date',
+      type: 'date'
+    }),
+    defineField({
+      name: 'duration',
+      title: 'Project Duration',
+      type: 'string'
     }),
     defineField({
       name: 'images',
       title: 'Case Study Images',
       type: 'array',
-      of: [{
-        type: 'image',
-        name: 'caseStudyImage',
-        options: { hotspot: true },
-        fields: [
-          { name: 'caption', title: 'Caption', type: 'string' },
-          { name: 'alt', title: 'Alt Text', type: 'string' }
-        ]
-      }]
+      of: [{ type: 'image', options: { hotspot: true } }]
     }),
     defineField({
       name: 'featured',
@@ -111,7 +107,7 @@ export default defineType({
   preview: {
     select: {
       title: 'title',
-      subtitle: 'client.name'
+      subtitle: 'clientName'
     }
   }
 })

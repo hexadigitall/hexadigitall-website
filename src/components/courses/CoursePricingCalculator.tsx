@@ -119,16 +119,16 @@ const CoursePricingCalculator = ({
   // Calculate monthly billing with enhanced breakdown
   const calculateMonthlyBilling = useCallback((): MonthlyBillingCalculation => {
     const baseHourlyRate = isLocalCurrency() ? hourlyRateNGN : hourlyRateUSD;
-    const sessionFormatMultiplier = formatMultipliers[sessionFormat];
-    const adjustedHourlyRate = baseHourlyRate * sessionFormatMultiplier;
     const hoursPerWeek = sessionsPerWeek * hoursPerSession;
     const hoursPerMonth = hoursPerWeek * 4; // 4 weeks per month
-    const monthlyTotal = adjustedHourlyRate * hoursPerMonth;
+    const monthlyTotal = baseHourlyRate * hoursPerMonth;
+
+    console.log('💰 [CALC] hourlyRateNGN:', hourlyRateNGN, 'hourlyRateUSD:', hourlyRateUSD, 'baseRate:', baseHourlyRate, 'hoursPerMonth:', hoursPerMonth, 'monthly:', monthlyTotal);
 
     return {
       baseHourlyRate,
-      sessionFormatMultiplier,
-      adjustedHourlyRate,
+      sessionFormatMultiplier: 1,
+      adjustedHourlyRate: baseHourlyRate,
       hoursPerWeek,
       hoursPerMonth,
       monthlyTotal,
@@ -138,10 +138,10 @@ const CoursePricingCalculator = ({
         duration: `${hoursPerSession} hour${hoursPerSession !== 1 ? 's' : ''} per session`,
         weekly: `${hoursPerWeek} hour${hoursPerWeek !== 1 ? 's' : ''} per week`,
         monthly: `${hoursPerMonth} hour${hoursPerMonth !== 1 ? 's' : ''} per month`,
-        rate: `${formatPrice(adjustedHourlyRate, { applyNigerianDiscount: false })}/hour (${sessionFormat.replace('-', ' ')})`
+        rate: `${formatPrice(baseHourlyRate, { applyNigerianDiscount: false })}/hour`
       }
     };
-  }, [sessionsPerWeek, hoursPerSession, sessionFormat, currentCurrency.code, isLocalCurrency, hourlyRateNGN, hourlyRateUSD, formatMultipliers, formatPrice]);
+  }, [sessionsPerWeek, hoursPerSession, currentCurrency.code, isLocalCurrency, hourlyRateNGN, hourlyRateUSD, formatPrice]);
   
   // Create session customization object
   const createSessionCustomization = useCallback((): SessionCustomization => {

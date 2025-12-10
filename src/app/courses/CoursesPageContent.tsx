@@ -7,10 +7,10 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useState, useEffect } from 'react';
 import { useCurrency } from '@/contexts/CurrencyContext';
-import CourseEnrollmentEnhanced, { CourseEnrollmentData } from '@/components/CourseEnrollmentEnhanced';
+import CoursePaymentModal from '@/components/courses/CoursePaymentModal';
 import Breadcrumb from '@/components/ui/Breadcrumb';
 
-// Define types for our data with session options
+// Define types for our data with PPP pricing
 interface Course {
   _id: string;
   title: string;
@@ -21,27 +21,19 @@ interface Course {
   duration: string;
   level: string;
   instructor: string;
+  courseType?: 'live' | 'self-paced';
+  // PPP Pricing (for live courses)
+  hourlyRateUSD?: number;
+  hourlyRateNGN?: number;
+  // Legacy pricing (for self-paced courses)
   nairaPrice?: number;
   dollarPrice?: number;
-  price?: number; // Legacy field for backward compatibility
+  price?: number;
   featured: boolean;
-  // Enhanced with session options
-  sessionOptions?: {
-    perSession?: boolean;
-    hourly?: boolean;
-    fixedPrice?: boolean;
-  };
-  sessionPricing?: {
-    perSessionPrice?: number;
-    hourlyRate?: number;
-    minimumHours?: number;
-    sessionDuration?: string;
-  };
-  curriculum?: {
-    modules: number;
-    lessons: number;
-    duration: string;
-  };
+  durationWeeks?: number;
+  hoursPerWeek?: number;
+  modules?: number;
+  lessons?: number;
   includes?: string[];
   certificate?: boolean;
   maxStudents?: number;
@@ -63,8 +55,8 @@ function CoursesPageContentEnhanced({ initialData }: CoursesPageContentProps = {
   const [categories, setCategories] = useState<Category[]>(initialData || []);
   const [loading, setLoading] = useState(!initialData);
   const [error, setError] = useState<string | null>(null);
-  const [selectedCourse, setSelectedCourse] = useState<CourseEnrollmentData | null>(null);
-  const [, setShowEnrollmentModal] = useState<Course | null>(null);
+  const [selectedCourse, setSelectedCourse] = useState<Course | null>(null);
+  const [showEnrollmentModal, setShowEnrollmentModal] = useState(false);
   const { formatPriceWithDiscount, isLocalCurrency } = useCurrency();
 
   useEffect(() => {
@@ -137,47 +129,14 @@ function CoursesPageContentEnhanced({ initialData }: CoursesPageContentProps = {
     };
   }, [initialData]);
 
-  // Convert course to enrollment data format
-  const convertToEnrollmentData = (course: Course): CourseEnrollmentData => {
-    return {
-      _id: course._id,
-      title: course.title,
-      price: course.price || 0,
-      nairaPrice: course.nairaPrice,
-      dollarPrice: course.dollarPrice,
-      duration: course.duration,
-      level: course.level,
-      instructor: course.instructor,
-      description: course.description || course.summary || '',
-      mainImage: course.mainImage,
-      curriculum: course.curriculum || {
-        modules: 8,
-        lessons: 24,
-        duration: course.duration
-      },
-      includes: course.includes || [
-        'Video lessons',
-        'Course materials',
-        'Certificate of completion',
-        'Lifetime access',
-        'Community access'
-      ],
-      certificate: course.certificate !== false,
-      sessionOptions: {
-        perSession: course.sessionOptions?.perSession || false,
-        hourly: course.sessionOptions?.hourly || false,
-        fixedPrice: course.sessionOptions?.fixedPrice !== false // Default to true
-      },
-      sessionPricing: course.sessionPricing,
-      maxStudents: course.maxStudents,
-      currentEnrollments: course.currentEnrollments
-    };
+  const handleEnrollClick = (course: Course) => {
+    setSelectedCourse(course);
+    setShowEnrollmentModal(true);
   };
 
-  const handleEnrollClick = (course: Course) => {
-    const enrollmentData = convertToEnrollmentData(course);
-    setSelectedCourse(enrollmentData);
-    setShowEnrollmentModal(course);
+  const handleCloseModal = () => {
+    setShowEnrollmentModal(false);
+    setSelectedCourse(null);
   };
 
   if (loading) {
@@ -299,13 +258,6 @@ function CoursesPageContentEnhanced({ initialData }: CoursesPageContentProps = {
                           <div className="absolute top-4 left-4 bg-primary text-white px-3 py-1 rounded-full text-sm font-medium">
                             {course.level || 'Course'}
                           </div>
-                          
-                          {/* Session Options Badge */}
-                          {(course.sessionOptions?.perSession || course.sessionOptions?.hourly) && (
-                            <div className="absolute top-4 right-4 bg-blue-500 text-white px-3 py-1 rounded-full text-xs font-medium">
-                              Flexible Options
-                            </div>
-                          )}
                         </div>
                         
                         <div className="p-6">
@@ -338,104 +290,66 @@ function CoursesPageContentEnhanced({ initialData }: CoursesPageContentProps = {
                             )}
                           </div>
                           
-                          {/* Enhanced Price Section */}
+                          {/* PPP Pricing Section */}
                           <div className="mb-4">
                             {(() => {
-                              // Show flexible pricing if session options are available
-                              if (course.sessionOptions?.perSession || course.sessionOptions?.hourly) {
+                              // Live courses with PPP pricing
+                              if (course.courseType === 'live' && course.hourlyRateUSD && course.hourlyRateNGN) {
+                                const hourlyRate = isLocalCurrency() ? course.hourlyRateNGN : course.hourlyRateUSD;
+                                const currency = isLocalCurrency() ? 'NGN' : 'USD';
+                                const defaultSessions = 1; // 1 session per week
+                                const defaultHours = 1; // 1 hour per session
+                                const monthlyPrice = hourlyRate * defaultSessions * defaultHours * 4; // 4 weeks
+                                
                                 return (
                                   <div className="space-y-2">
-                                    <div className="text-lg font-bold text-primary">Flexible Pricing</div>
-                                    <div className="space-y-1">
-                                      {course.sessionOptions.perSession && course.sessionPricing?.perSessionPrice && (
-                                        <div className="text-sm text-gray-600">
-                                          From {(() => {
-                                            const priceInfo = formatPriceWithDiscount(course.sessionPricing.perSessionPrice, { applyNigerianDiscount: true });
-                                            return priceInfo.discountedPrice;
-                                          })()} per session
-                                        </div>
-                                      )}
-                                      {course.sessionOptions.hourly && course.sessionPricing?.hourlyRate && (
-                                        <div className="text-sm text-gray-600">
-                                          From {(() => {
-                                            const priceInfo = formatPriceWithDiscount(course.sessionPricing.hourlyRate, { applyNigerianDiscount: true });
-                                            return priceInfo.discountedPrice;
-                                          })()} per hour
-                                        </div>
-                                      )}
-                                      {course.sessionOptions?.fixedPrice !== false && (course.dollarPrice || course.price) && (
-                                        <div className="text-sm text-gray-600">
-                                          Full course: {(() => {
-                                            const basePrice = course.dollarPrice || course.price || 0;
-                                            const priceInfo = formatPriceWithDiscount(basePrice, { applyNigerianDiscount: true });
-                                            return priceInfo.discountedPrice;
-                                          })()}
-                                        </div>
-                                      )}
+                                    <div className="inline-block bg-blue-500 text-white px-2 py-1 rounded-full text-xs font-bold mb-2">
+                                      💡 Monthly Subscription
                                     </div>
+                                    <div className="text-2xl font-bold text-primary">
+                                      {new Intl.NumberFormat(currency === 'NGN' ? 'en-NG' : 'en-US', {
+                                        style: 'currency',
+                                        currency: currency,
+                                        minimumFractionDigits: 0
+                                      }).format(monthlyPrice)}
+                                      <span className="text-sm font-normal text-gray-600">/month</span>
+                                    </div>
+                                    <p className="text-xs text-gray-500">
+                                      Starting from {defaultSessions}hr/week • Customize sessions & hours when you enroll
+                                    </p>
                                   </div>
                                 );
                               }
                               
-                              // Show standard pricing for fixed-price courses
+                              // Legacy self-paced courses
                               if (course.dollarPrice && course.dollarPrice > 0) {
-                                const priceInfo = formatPriceWithDiscount(course.dollarPrice, { applyNigerianDiscount: true })
+                                const priceInfo = formatPriceWithDiscount(course.dollarPrice, { applyNigerianDiscount: false })
                                 
-                                if (priceInfo.hasDiscount) {
-                                  return (
-                                    <div className="space-y-2">
-                                      {isLocalCurrency() && (
-                                        <span className="inline-block bg-red-500 text-white px-2 py-1 rounded-full text-xs font-bold animate-pulse">
-                                          🔥 {priceInfo.discountPercentage}% OFF
-                                        </span>
-                                      )}
-                                      <div className="flex flex-col sm:flex-row sm:items-center sm:space-x-2">
-                                        <span className="text-lg text-gray-500 line-through">
-                                          {priceInfo.originalPrice}
-                                        </span>
-                                        <span className="text-2xl font-bold text-green-600">
-                                          {priceInfo.discountedPrice}
-                                        </span>
-                                      </div>
+                                return (
+                                  <div className="space-y-2">
+                                    <div className="inline-block bg-purple-500 text-white px-2 py-1 rounded-full text-xs font-bold mb-2">
+                                      📚 One-time Payment
                                     </div>
-                                  )
-                                } else {
-                                  return (
                                     <span className="text-2xl font-bold text-primary">
                                       {priceInfo.discountedPrice}
                                     </span>
-                                  )
-                                }
+                                  </div>
+                                )
                               } else if (course.nairaPrice || course.price) {
                                 const nairaAmount = course.nairaPrice || course.price || 0;
                                 const usdEquivalent = nairaAmount / 1650;
-                                const priceInfo = formatPriceWithDiscount(usdEquivalent, { applyNigerianDiscount: true })
+                                const priceInfo = formatPriceWithDiscount(usdEquivalent, { applyNigerianDiscount: false })
                                 
-                                if (priceInfo.hasDiscount) {
-                                  return (
-                                    <div className="space-y-2">
-                                      {isLocalCurrency() && (
-                                        <span className="inline-block bg-red-500 text-white px-2 py-1 rounded-full text-xs font-bold animate-pulse">
-                                          🔥 {priceInfo.discountPercentage}% OFF
-                                        </span>
-                                      )}
-                                      <div className="flex flex-col sm:flex-row sm:items-center sm:space-x-2">
-                                        <span className="text-lg text-gray-500 line-through">
-                                          {priceInfo.originalPrice}
-                                        </span>
-                                        <span className="text-2xl font-bold text-green-600">
-                                          {priceInfo.discountedPrice}
-                                        </span>
-                                      </div>
+                                return (
+                                  <div className="space-y-2">
+                                    <div className="inline-block bg-purple-500 text-white px-2 py-1 rounded-full text-xs font-bold mb-2">
+                                      📚 One-time Payment
                                     </div>
-                                  )
-                                } else {
-                                  return (
                                     <span className="text-2xl font-bold text-primary">
                                       {priceInfo.discountedPrice}
                                     </span>
-                                  )
-                                }
+                                  </div>
+                                )
                               } else {
                                 return <span className="text-2xl font-bold text-green-600">Free</span>
                               }
@@ -453,8 +367,8 @@ function CoursesPageContentEnhanced({ initialData }: CoursesPageContentProps = {
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
                               </svg>
                               <span>
-                                {course.sessionOptions?.perSession || course.sessionOptions?.hourly 
-                                  ? 'Customize & Enroll' 
+                                {course.courseType === 'live' 
+                                  ? 'Customize & Subscribe' 
                                   : 'Enroll Now'
                                 }
                               </span>
@@ -481,29 +395,13 @@ function CoursesPageContentEnhanced({ initialData }: CoursesPageContentProps = {
           </div>
         )}
         
-        {/* Enhanced Course Enrollment Modal */}
+        {/* Payment Modal with PPP Pricing Calculator */}
         {selectedCourse && (
-          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
-            <div className="bg-white rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
-              <div className="sticky top-0 bg-white border-b px-6 py-4 flex justify-between items-center">
-                <h2 className="text-xl font-bold">Course Enrollment</h2>
-                <button
-                  onClick={() => {
-                    setShowEnrollmentModal(null);
-                    setSelectedCourse(null);
-                  }}
-                  className="text-gray-400 hover:text-gray-600 transition-colors"
-                >
-                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                  </svg>
-                </button>
-              </div>
-              <div className="p-6">
-                <CourseEnrollmentEnhanced course={selectedCourse} />
-              </div>
-            </div>
-          </div>
+          <CoursePaymentModal
+            isOpen={showEnrollmentModal}
+            onClose={handleCloseModal}
+            course={selectedCourse}
+          />
         )}
       </div>
     </section>

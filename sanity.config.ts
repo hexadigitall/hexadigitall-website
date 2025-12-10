@@ -1,39 +1,49 @@
-// sanity.config.test.ts
-// Minimal configuration for testing and isolating SchemaError
 import { defineConfig } from "sanity";
 import { structureTool } from "sanity/structure";
 import { visionTool } from "@sanity/vision";
-
-// Import only simple schemas first
+import course from "./src/sanity/schemas/course";
+import courseCategory from "./src/sanity/schemas/courseCategory";
+import enrollment from "./src/sanity/schemas/enrollment";
+import pendingEnrollment from "./src/sanity/schemas/pendingEnrollment";
+import faq from "./src/sanity/schemas/faq";
 import post from "./src/sanity/schemas/post";
 import project from "./src/sanity/schemas/project";
-import faq from "./src/sanity/schemas/faq";
+import service from "./src/sanity/schemas/service";
+import serviceCategory from "./src/sanity/schemas/serviceCategory";
+import serviceCaseStudy from "./src/sanity/schemas/serviceCaseStudy";
+import serviceRequest from "./src/sanity/schemas/serviceRequest";
+import serviceStatistics from "./src/sanity/schemas/serviceStatistics";
+import serviceTestimonial from "./src/sanity/schemas/serviceTestimonial";
 import testimonial from "./src/sanity/schemas/testimonial";
-import courseCategory from "./src/sanity/schemas/courseCategory";
+
+console.log("✅ Loading all 14 schemas");
 
 const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID!;
 const dataset = process.env.NEXT_PUBLIC_SANITY_DATASET!;
 
-// Start with only simple schemas (no complex nested objects)
-const testSchemas = [
-  post,
-  project,
-  faq,
-  testimonial,
-  courseCategory
-];
-
-console.log('🧪 TEST CONFIG: Loading', testSchemas.length, 'schemas');
-console.log('📝 Schemas:', testSchemas.map(s => s.name).join(', '));
-
 export default defineConfig({
   basePath: "/studio",
-  name: "hexadigitall_content_studio_test",
-  title: "Hexadigitall Content Studio (Test)",
+  name: "hexadigitall_content_studio",
+  title: "Hexadigitall Content Studio",
   projectId,
   dataset,
   plugins: [structureTool(), visionTool()],
   schema: {
-    types: testSchemas,
+    types: [
+      course,
+      courseCategory,
+      enrollment,
+      pendingEnrollment,
+      faq,
+      post,
+      project,
+      service,
+      serviceCategory,
+      serviceCaseStudy,
+      serviceRequest,
+      serviceStatistics,
+      serviceTestimonial,
+      testimonial,
+    ],
   },
 });

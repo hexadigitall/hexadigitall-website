@@ -85,182 +85,20 @@ export default defineType({
       })
     }),
 
-    // CONSTRAINTS (The Rules) - Monthly Scheduling for live courses
+    // Simplified scheduling constraints
     defineField({
-      name: 'monthlyScheduling',
-      title: 'Scheduling Limits',
-      type: 'object',
-      hidden: ({ parent }) => parent?.courseType !== 'live',
-      description: 'Set constraints for sessions per week and hours per session to control monthly subscription costs',
-      fields: [
-        {
-          name: 'billingType',
-          title: 'Billing Type',
-          type: 'string',
-          options: {
-            list: [
-              { title: 'Monthly Recurring (Recommended)', value: 'monthly' },
-              { title: 'Pay-per-Session', value: 'per-session' },
-              { title: 'Package Deal (Multiple months)', value: 'package' }
-            ]
-          },
-          initialValue: 'monthly',
-          description: 'How students will be billed for this course'
-        },
-        // Session Matrix Configuration - using plain objects (no nested defineField)
-        {
-          name: 'sessionMatrix',
-          title: 'Session Customization Matrix',
-          type: 'object',
-          description: 'Allow students to customize sessions per week and hours per session',
-          fields: [
-            {
-              name: 'sessionsPerWeek',
-              title: 'Sessions per Week',
-              type: 'object',
-              fields: [
-                {
-                  name: 'min',
-                  title: 'Minimum Sessions per Week',
-                  type: 'number',
-                  initialValue: 1,
-                  readOnly: true
-                },
-                {
-                  name: 'max',
-                  title: 'Maximum Sessions per Week', 
-                  type: 'number',
-                  initialValue: 3,
-                  validation: (Rule) => Rule.max(3)
-                },
-                {
-                  name: 'default',
-                  title: 'Default Sessions per Week',
-                  type: 'number',
-                  initialValue: 1,
-                  validation: (Rule) => Rule.min(1).max(3)
-                }
-              ]
-            },
-            {
-              name: 'hoursPerSession',
-              title: 'Hours per Session',
-              type: 'object',
-              fields: [
-                {
-                  name: 'min',
-                  title: 'Minimum Hours per Session',
-                  type: 'number',
-                  initialValue: 1,
-                  readOnly: true
-                },
-                {
-                  name: 'max',
-                  title: 'Maximum Hours per Session',
-                  type: 'number',
-                  initialValue: 3,
-                  validation: (Rule) => Rule.max(3)
-                },
-                {
-                  name: 'default',
-                  title: 'Default Hours per Session',
-                  type: 'number',
-                  initialValue: 1,
-                  validation: (Rule) => Rule.min(1).max(3)
-                }
-              ]
-            },
-            {
-              name: 'totalHoursLimit',
-              title: 'Maximum Total Hours per Week',
-              type: 'number',
-              description: 'Prevent students from selecting unrealistic schedules',
-              initialValue: 12,
-              validation: (Rule) => Rule.min(4).max(20)
-            }
-          ]
-        },
-        // Professional scheduling constraints
-        {
-          name: 'availabilityWindow',
-          title: 'Instructor Availability',
-          type: 'object',
-          fields: [
-            {
-              name: 'daysOfWeek',
-              title: 'Available Days',
-              type: 'array',
-              of: [{
-                type: 'string',
-                options: {
-                  list: [
-                    { title: 'Monday', value: 'monday' },
-                    { title: 'Tuesday', value: 'tuesday' },
-                    { title: 'Wednesday', value: 'wednesday' },
-                    { title: 'Thursday', value: 'thursday' },
-                    { title: 'Friday', value: 'friday' },
-                    { title: 'Saturday', value: 'saturday' },
-                    { title: 'Sunday', value: 'sunday' }
-                  ]
-                }
-              }],
-              initialValue: ['monday', 'tuesday', 'wednesday', 'thursday', 'friday'],
-              description: 'Days when instructor is available for sessions'
-            },
-            {
-              name: 'timeSlots',
-              title: 'Available Time Slots',
-              type: 'array',
-              of: [{
-                type: 'string',
-                options: {
-                  list: [
-                    { title: 'Morning (9AM - 12PM)', value: 'morning' },
-                    { title: 'Afternoon (1PM - 5PM)', value: 'afternoon' },
-                    { title: 'Evening (6PM - 9PM)', value: 'evening' },
-                    { title: 'Weekend (10AM - 4PM)', value: 'weekend' }
-                  ]
-                }
-              }],
-              initialValue: ['morning', 'afternoon', 'evening'],
-              description: 'Time slots when sessions can be scheduled'
-            }
-          ]
-        },
-        // Pricing structure for different session formats
-        {
-          name: 'sessionPricing',
-          title: 'Session Format Pricing',
-          type: 'object',
-          description: 'Different rates for different session formats',
-          fields: [
-            {
-              name: 'oneOnOneMultiplier',
-              title: 'One-on-One Rate Multiplier',
-              type: 'number',
-              initialValue: 1.0,
-              validation: (Rule) => Rule.min(0.5).max(3.0),
-              description: 'Multiply base rate by this for 1-on-1 sessions (1.0 = no change)'
-            },
-            {
-              name: 'smallGroupMultiplier',
-              title: 'Small Group Rate Multiplier (2-4 students)',
-              type: 'number',
-              initialValue: 0.7,
-              validation: (Rule) => Rule.min(0.3).max(1.0),
-              description: 'Multiply base rate by this for small groups (0.7 = 30% discount)'
-            },
-            {
-              name: 'largeGroupMultiplier',
-              title: 'Large Group Rate Multiplier (5-8 students)',
-              type: 'number',
-              initialValue: 0.5,
-              validation: (Rule) => Rule.min(0.2).max(1.0),
-              description: 'Multiply base rate by this for large groups (0.5 = 50% discount)'
-            }
-          ]
-        }
-      ]
+      name: 'billingType',
+      title: 'Billing Type',
+      type: 'string',
+      options: {
+        list: [
+          { title: 'Monthly Recurring (Recommended)', value: 'monthly' },
+          { title: 'Pay-per-Session', value: 'per-session' },
+          { title: 'Package Deal (Multiple months)', value: 'package' }
+        ]
+      },
+      initialValue: 'monthly',
+      description: 'How students will be billed for this course'
     }),
 
     // Legacy price field (hidden)
@@ -275,66 +113,27 @@ export default defineType({
     defineField({ name: 'body', title: 'Full Description', type: 'array', of: [{type: 'block'}] }),
     defineField({ name: 'mainImage', title: 'Course Image', type: 'image', options: { hotspot: true } }),
     
-    // Professional Duration Guidelines - nested fields use plain objects (no defineField)
     defineField({
-      name: 'recommendedDuration',
-      title: 'Recommended Course Duration',
-      type: 'object',
-      description: 'Professional duration recommendations based on course complexity',
-      fields: [
-        {
-          name: 'weeks',
-          title: 'Duration in Weeks',
-          type: 'number',
-          description: 'Professional recommendation: Beginner (4-8 weeks), Intermediate (8-12 weeks), Advanced (12-16 weeks), Certification (16-24 weeks)',
-          validation: (Rule) => Rule.min(4).max(24),
-          initialValue: 8
-        },
-        {
-          name: 'hoursPerWeek',
-          title: 'Recommended Hours per Week',
-          type: 'number',
-          description: 'Default recommendation for course completion',
-          validation: (Rule) => Rule.min(1).max(10),
-          initialValue: 2
-        },
-        {
-          name: 'totalHours',
-          title: 'Total Course Hours',
-          type: 'number',
-          description: 'Automatically calculated: weeks × hours per week',
-          readOnly: true,
-          validation: (Rule) => Rule.custom((totalHours, context) => {
-            const parent = context.parent as Record<string, unknown>;
-            const weeks = (parent?.weeks as number) || 0;
-            const hoursPerWeek = (parent?.hoursPerWeek as number) || 0;
-            const calculated = weeks * hoursPerWeek;
-            return calculated > 0 ? true : 'Total hours must be greater than 0';
-          })
-        },
-        {
-          name: 'flexibility',
-          title: 'Schedule Flexibility',
-          type: 'string',
-          options: {
-            list: [
-              { title: 'Fixed Schedule (instructor-led cohorts)', value: 'fixed' },
-              { title: 'Flexible Schedule (student choice)', value: 'flexible' },
-              { title: 'Semi-Flexible (some fixed milestones)', value: 'semi-flexible' }
-            ]
-          },
-          initialValue: 'flexible'
-        }
-      ]
+      name: 'durationWeeks',
+      title: 'Duration in Weeks',
+      type: 'number',
+      description: 'Professional recommendation: Beginner (4-8 weeks), Intermediate (8-12 weeks), Advanced (12-16 weeks), Certification (16-24 weeks)',
+      validation: (Rule) => Rule.min(4).max(24),
+      initialValue: 8
     }),
-    
-    // Legacy duration field (for display compatibility)
+    defineField({
+      name: 'hoursPerWeek',
+      title: 'Recommended Hours per Week',
+      type: 'number',
+      description: 'Default recommendation for course completion',
+      validation: (Rule) => Rule.min(1).max(10),
+      initialValue: 2
+    }),
     defineField({
       name: 'duration',
       title: 'Duration Display Text',
       type: 'string',
-      description: 'Display text for course duration (auto-generated from recommendedDuration)',
-      readOnly: true,
+      description: 'Display text for course duration',
     }),
     defineField({
       name: 'level',
@@ -376,31 +175,17 @@ export default defineType({
       type: 'number',
       description: 'Maximum number of students per live session (leave empty for unlimited)',
     }),
-    // Curriculum Overview - nested fields use plain objects (no defineField)
     defineField({
-      name: 'curriculum',
-      title: 'Curriculum Overview',
-      type: 'object',
-      fields: [
-        {
-          name: 'modules',
-          title: 'Number of Modules',
-          type: 'number',
-          initialValue: 8,
-        },
-        {
-          name: 'lessons',
-          title: 'Total Lessons',
-          type: 'number',
-          initialValue: 24,
-        },
-        {
-          name: 'duration',
-          title: 'Total Duration',
-          type: 'string',
-          initialValue: 'Flexible based on schedule',
-        },
-      ],
+      name: 'modules',
+      title: 'Number of Modules',
+      type: 'number',
+      initialValue: 8,
+    }),
+    defineField({
+      name: 'lessons',
+      title: 'Total Lessons',
+      type: 'number',
+      initialValue: 24,
     }),
     defineField({
       name: 'includes',

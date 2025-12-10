@@ -14,10 +14,21 @@ interface Course {
   duration: string;
   level: string;
   instructor: string;
+  courseType?: 'live' | 'self-paced';
+  // PPP Pricing (for live courses)
+  hourlyRateUSD?: number;
+  hourlyRateNGN?: number;
+  // Legacy pricing (for self-paced courses)
   nairaPrice?: number;
   dollarPrice?: number;
   price?: number;
   featured: boolean;
+  durationWeeks?: number;
+  hoursPerWeek?: number;
+  modules?: number;
+  lessons?: number;
+  includes?: string[];
+  certificate?: boolean;
 }
 
 interface Category {
@@ -41,10 +52,19 @@ const courseCategoriesQuery = groq`*[_type == "courseCategory"] | order(title as
     duration,
     level,
     instructor,
+    courseType,
+    hourlyRateUSD,
+    hourlyRateNGN,
     nairaPrice,
     dollarPrice,
     price,
-    featured
+    featured,
+    durationWeeks,
+    hoursPerWeek,
+    modules,
+    lessons,
+    includes,
+    certificate
   }
 }`;
 
@@ -52,9 +72,9 @@ export async function getCoursesData(): Promise<Category[]> {
   try {
     console.log('🔍 [SERVER] Fetching course categories from Sanity...');
     
-    const categories = await client.fetch<Category[]>(courseCategoriesQuery, {}, {
+    const categories = await client.fetch(courseCategoriesQuery, {}, {
       next: { revalidate: 300 }, // Revalidate every 5 minutes
-    });
+    }) as unknown as Category[];
     
     console.log('✅ [SERVER] Course categories fetched:', categories?.length || 0);
     
