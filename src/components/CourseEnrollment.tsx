@@ -187,8 +187,32 @@ export default function CourseEnrollment({ course }: { course: CourseEnrollmentD
             <div className="text-left">
               {(() => {
                 // Debug: Log what pricing fields are available
-                console.log(`💰 [COURSE ENROLLMENT PRICING] ${course.title} - dollarPrice: ${course.dollarPrice}, nairaPrice: ${course.nairaPrice}, price: ${course.price}`);
+                console.log(`💰 [COURSE ENROLLMENT PRICING] ${course.title} - courseType: ${course.courseType}, hourlyRateUSD: ${course.hourlyRateUSD}, hourlyRateNGN: ${course.hourlyRateNGN}`);
                 
+                // Check if it's a live course with PPP pricing
+                if (course.courseType === 'live' && course.hourlyRateUSD && course.hourlyRateNGN) {
+                  // Display monthly subscription pricing for live courses
+                  const isNGN = currentCurrency.code === 'NGN';
+                  const baseHourlyRate = isNGN ? course.hourlyRateNGN : course.hourlyRateUSD;
+                  // Base calculation: 1 session × 1 hour × 4 weeks = 4 hours/month
+                  const monthlyPrice = baseHourlyRate * 4;
+                  
+                  return (
+                    <div className="space-y-1">
+                      <div className="text-sm text-gray-600">Starting from</div>
+                      <span className="text-3xl font-bold text-primary">
+                        {isNGN 
+                          ? `₦${Math.round(monthlyPrice).toLocaleString()}`
+                          : `$${monthlyPrice.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`
+                        }
+                      </span>
+                      <div className="text-sm text-gray-600">/month</div>
+                      <div className="text-xs text-blue-600 mt-1">💡 Monthly Subscription • Flexible Scheduling</div>
+                    </div>
+                  );
+                }
+                
+                // Legacy pricing for self-paced courses
                 // Use dollarPrice only if it exists and is greater than 0
                 if (course.dollarPrice && course.dollarPrice > 0) {
                   const priceInfo = formatPriceWithDiscount(course.dollarPrice, { applyNigerianDiscount: true })
