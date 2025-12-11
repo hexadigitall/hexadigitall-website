@@ -2,6 +2,7 @@
 import { client } from '@/sanity/client';
 import { groq } from 'next-sanity';
 import Image from 'next/image';
+import Link from 'next/link';
 
 // Define the type for our testimonial data
 interface Testimonial {
@@ -169,7 +170,7 @@ const Testimonials = async () => {
         {/* Call to action */}
         <div className="text-center mt-12">
           <p className="text-lg text-darkText mb-4">Ready to join our success stories?</p>
-          <a 
+          <Link 
             href="/courses" 
             className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-secondary to-primary text-white font-semibold rounded-lg hover:from-primary hover:to-secondary transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-xl"
           >
@@ -177,7 +178,7 @@ const Testimonials = async () => {
             <svg className="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
             </svg>
-          </a>
+          </Link>
         </div>
       </div>
     </section>
