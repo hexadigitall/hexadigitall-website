@@ -125,20 +125,18 @@ class CurrencyService {
 
   async updateExchangeRates() {
     try {
-      // In production, you'd use a service like:
-      // - exchangerate-api.com
-      // - fixer.io
-      // - currencylayer.com
-      
-      const response = await fetch('https://api.exchangerate-api.com/v4/latest/USD');
+      // Use our own API endpoint which handles rate caching and fallbacks
+      const response = await fetch('/api/exchange-rates', {
+        next: { revalidate: 3600 } // Cache for 1 hour
+      });
       const data = await response.json();
       
       if (data.rates) {
-        this.rates = { USD: 1, ...data.rates };
+        this.rates = { ...this.rates, ...data.rates };
       }
     } catch (error) {
       console.error('Failed to update exchange rates:', error);
-      // Use fallback rates
+      // Use fallback rates that are already set in EXCHANGE_RATES
     }
   }
 

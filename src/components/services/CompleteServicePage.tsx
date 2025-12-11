@@ -1,6 +1,7 @@
 'use client'
 
 import React, { useState, useRef, useEffect } from 'react'
+import Link from 'next/link'
 import TierSelectionModal from '@/components/services/TierSelectionModal'
 import { ServiceRequestFlow, ServiceCategory as LegacyServiceCategory } from '@/components/services/ServiceRequestFlow'
 import type { ServicePackageGroup, ServicePackageTier } from '@/types/service'
@@ -342,6 +343,11 @@ export default function CompleteServicePage({
             <a href="#tiered-packages" className="min-h-[44px] px-4 sm:px-6 py-3 bg-white border-2 border-gray-300 rounded-full text-xs sm:text-sm font-medium text-gray-700 hover:border-gray-400 hover:shadow-md transition-all inline-flex items-center active:scale-95">
               Complete Packages
             </a>
+            {serviceType === 'web-dev' && (
+              <Link href="/services/custom-build" className="min-h-[44px] px-4 sm:px-6 py-3 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-full text-xs sm:text-sm font-medium text-white hover:shadow-md transition-all inline-flex items-center active:scale-95">
+                💡 Software Configurator
+              </Link>
+            )}
           </div>
 
           {/* Section 1: Pre-packaged Individual Services */}
