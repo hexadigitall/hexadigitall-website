@@ -7,7 +7,7 @@ interface EnrollmentRequest {
   courseId: string;
   studentDetails?: {
     fullName?: string;
-    email?: string;
+    email: string;
     phone?: string;
   };
   amount: number;

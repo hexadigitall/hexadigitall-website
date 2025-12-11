@@ -96,6 +96,7 @@ export default async function CoursePage({ params }: { params: Promise<{ slug: s
     const courseEnrollmentData: CourseEnrollmentData = {
         _id: course._id,
         title: course.title,
+        slug: course.slug,
         price: course.price || course.nairaPrice || 0,
         nairaPrice: course.nairaPrice,
         dollarPrice: course.dollarPrice,
