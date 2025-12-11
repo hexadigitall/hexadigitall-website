@@ -118,35 +118,44 @@ const CoursePricingCalculator = ({
 
   // Calculate monthly billing with enhanced breakdown
   const calculateMonthlyBilling = useCallback((): MonthlyBillingCalculation => {
-    // Always start with USD as base, then convert to current currency
-    const baseHourlyRateUSD = hourlyRateUSD;
     const formatMultiplier = formatMultipliers[sessionFormat];
-    const adjustedHourlyRateUSD = baseHourlyRateUSD * formatMultiplier;
-    
-    // Convert USD to current currency using the currency service
-    const convertedHourlyRate = convertPrice(adjustedHourlyRateUSD, currentCurrency.code);
-    
     const hoursPerWeek = sessionsPerWeek * hoursPerSession;
     const hoursPerMonth = hoursPerWeek * 4; // 4 weeks per month
-    const monthlyTotal = convertedHourlyRate * hoursPerMonth;
 
-    console.log('💰 [CALC] USD:', adjustedHourlyRateUSD, 'Currency:', currentCurrency.code, 'Converted:', convertedHourlyRate, 'Monthly:', monthlyTotal);
+    // Use PPP NGN rate when NGN is selected; otherwise use USD base and convert
+    const isNGN = currentCurrency.code === 'NGN';
+    const baseHourlyRate = isNGN ? hourlyRateNGN : hourlyRateUSD;
+    const adjustedBaseRate = baseHourlyRate * formatMultiplier;
 
-    // Format the hourly rate correctly using current currency
+    const displayHourlyRate = isNGN
+      ? adjustedBaseRate // already NGN
+      : convertPrice(adjustedBaseRate, currentCurrency.code); // USD → selected currency
+
+    const monthlyTotal = displayHourlyRate * hoursPerMonth;
+
+    console.log('💰 [CALC]', {
+      currency: currentCurrency.code,
+      baseHourlyRate,
+      formatMultiplier,
+      displayHourlyRate,
+      hoursPerMonth,
+      monthlyTotal
+    });
+
     const rateDisplay = new Intl.NumberFormat(
-      currentCurrency.code === 'NGN' ? 'en-NG' : 'en-US',
+      isNGN ? 'en-NG' : 'en-US',
       {
         style: 'currency',
         currency: currentCurrency.code,
-        minimumFractionDigits: currentCurrency.code === 'NGN' ? 0 : 2,
-        maximumFractionDigits: currentCurrency.code === 'NGN' ? 0 : 2
+        minimumFractionDigits: isNGN ? 0 : 2,
+        maximumFractionDigits: isNGN ? 0 : 2
       }
-    ).format(convertedHourlyRate) + '/hour';
+    ).format(displayHourlyRate) + '/hour';
 
     return {
-      baseHourlyRate: baseHourlyRateUSD,
+      baseHourlyRate: baseHourlyRate,
       sessionFormatMultiplier: formatMultiplier,
-      adjustedHourlyRate: convertedHourlyRate,
+      adjustedHourlyRate: displayHourlyRate,
       hoursPerWeek,
       hoursPerMonth,
       monthlyTotal,
@@ -159,7 +168,7 @@ const CoursePricingCalculator = ({
         rate: rateDisplay
       }
     };
-  }, [sessionsPerWeek, hoursPerSession, sessionFormat, formatMultipliers, currentCurrency.code, convertPrice, hourlyRateUSD]);
+  }, [sessionsPerWeek, hoursPerSession, sessionFormat, formatMultipliers, currentCurrency.code, convertPrice, hourlyRateUSD, hourlyRateNGN]);
   
   // Create session customization object
   const createSessionCustomization = useCallback((): SessionCustomization => {

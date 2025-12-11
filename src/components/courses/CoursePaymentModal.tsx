@@ -150,10 +150,14 @@ export function CoursePaymentModal({
         if (displayCurrency === 'NGN') {
           // Already in NGN
           amountInNGN = displayAmount;
+        } else if (displayCurrency === 'USD') {
+          // USD → NGN
+          amountInNGN = convertPrice(displayAmount, 'NGN');
         } else {
-          // Convert from display currency to NGN
-          // Use convertPrice to get the amount in NGN
-          amountInNGN = convertPrice(displayCurrency === 'USD' ? displayAmount : displayAmount, 'NGN');
+          // Non-USD currency displayed: convert back to USD, then to NGN
+          const rateToCurrency = convertPrice(1, displayCurrency); // 1 USD in target currency
+          const amountInUSD = displayAmount / rateToCurrency;
+          amountInNGN = convertPrice(amountInUSD, 'NGN');
         }
       } else {
         // Legacy self-paced courses

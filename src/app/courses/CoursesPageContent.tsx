@@ -57,7 +57,7 @@ function CoursesPageContentEnhanced({ initialData }: CoursesPageContentProps = {
   const [error, setError] = useState<string | null>(null);
   const [selectedCourse, setSelectedCourse] = useState<Course | null>(null);
   const [showEnrollmentModal, setShowEnrollmentModal] = useState(false);
-  const { formatPriceWithDiscount, isLocalCurrency } = useCurrency();
+  const { formatPriceWithDiscount, convertPrice, currentCurrency } = useCurrency();
 
   useEffect(() => {
     // Skip fetching if we have initial data
@@ -295,22 +295,28 @@ function CoursesPageContentEnhanced({ initialData }: CoursesPageContentProps = {
                             {(() => {
                               // Live courses with PPP pricing
                               if (course.courseType === 'live' && course.hourlyRateUSD && course.hourlyRateNGN) {
-                                const hourlyRate = isLocalCurrency() ? course.hourlyRateNGN : course.hourlyRateUSD;
-                                const currency = isLocalCurrency() ? 'NGN' : 'USD';
                                 const defaultSessions = 1; // 1 session per week
                                 const defaultHours = 1; // 1 hour per session
-                                const monthlyPrice = hourlyRate * defaultSessions * defaultHours * 4; // 4 weeks
-                                
+                                const monthlyUsd = course.hourlyRateUSD * defaultSessions * defaultHours * 4; // 4 weeks
+                                const monthlyNgn = course.hourlyRateNGN * defaultSessions * defaultHours * 4;
+                                const currency = currentCurrency?.code || 'USD';
+
+                                // Use PPP NGN rate when NGN is selected, otherwise convert USD to the selected currency
+                                const monthlyPrice = currency === 'NGN'
+                                  ? monthlyNgn
+                                  : convertPrice(monthlyUsd, currency);
+
                                 return (
                                   <div className="space-y-2">
                                     <div className="inline-block bg-blue-500 text-white px-2 py-1 rounded-full text-xs font-bold mb-2">
                                       💡 Monthly Subscription
                                     </div>
                                     <div className="text-2xl font-bold text-primary">
-                                      {new Intl.NumberFormat(currency === 'NGN' ? 'en-NG' : 'en-US', {
+                                      {new Intl.NumberFormat(undefined, {
                                         style: 'currency',
-                                        currency: currency,
-                                        minimumFractionDigits: 0
+                                        currency,
+                                        minimumFractionDigits: currency === 'NGN' ? 0 : 2,
+                                        maximumFractionDigits: currency === 'NGN' ? 0 : 2
                                       }).format(monthlyPrice)}
                                       <span className="text-sm font-normal text-gray-600">/month</span>
                                     </div>

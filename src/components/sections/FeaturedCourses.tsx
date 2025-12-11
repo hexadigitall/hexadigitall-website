@@ -58,7 +58,7 @@ function CourseCardSkeleton() {
 
 function CourseCard({ course, onEnrollClick }: { course: Course; onEnrollClick: (course: Course) => void }) {
   const fallbackImage = '/digitall_partner.png'
-  const { formatPriceWithDiscount, isLocalCurrency } = useCurrency()
+  const { formatPriceWithDiscount, convertPrice, currentCurrency } = useCurrency()
   
   // Emergency fallback for invalid course data
   if (!course) {
@@ -85,15 +85,22 @@ function CourseCard({ course, onEnrollClick }: { course: Course; onEnrollClick: 
   } | null => {
     if (isLiveCourse && course.hourlyRateUSD && course.hourlyRateNGN) {
       // Show starting price for live courses with PPP pricing (1 hour per week default)
-      const baseHourlyRate = isLocalCurrency() ? course.hourlyRateNGN : course.hourlyRateUSD
       const defaultSessions = 1; // 1 session per week
       const defaultHours = 1; // 1 hour per session
-      const monthlyPrice = baseHourlyRate * defaultSessions * defaultHours * 4 // 4 weeks per month
-      
+
+      const monthlyUsd = course.hourlyRateUSD * defaultSessions * defaultHours * 4 // 4 weeks per month
+      const monthlyNgn = course.hourlyRateNGN * defaultSessions * defaultHours * 4
+      const currency = currentCurrency?.code || 'USD'
+
+      // Use PPP NGN rate when NGN is selected, otherwise convert from USD to the active currency
+      const monthlyPrice = currency === 'NGN'
+        ? monthlyNgn
+        : convertPrice(monthlyUsd, currency)
+
       return {
         price: monthlyPrice,
         isLive: true as const,
-        currency: isLocalCurrency() ? 'NGN' : 'USD'
+        currency
       }
     } else if (course.dollarPrice) {
       // Legacy self-paced pricing (no PPP discount)
@@ -195,10 +202,11 @@ function CourseCard({ course, onEnrollClick }: { course: Course; onEnrollClick: 
                   💡 Monthly Subscription
                 </div>
                 <div className="text-2xl font-bold text-primary">
-                  {new Intl.NumberFormat(displayPrice.currency === 'NGN' ? 'en-NG' : 'en-US', {
+                  {new Intl.NumberFormat(undefined, {
                     style: 'currency',
                     currency: displayPrice.currency,
-                    minimumFractionDigits: 0
+                    minimumFractionDigits: displayPrice.currency === 'NGN' ? 0 : 2,
+                    maximumFractionDigits: displayPrice.currency === 'NGN' ? 0 : 2
                   }).format(displayPrice.price)}
                   <span className="text-sm font-normal text-gray-600">/month</span>
                 </div>
