@@ -14,6 +14,7 @@ export default function FloatingCTA({ showOnScroll = 300, hideOnPaths = [] }: Fl
   const [isVisible, setIsVisible] = useState(false)
   const [isExpanded, setIsExpanded] = useState(false)
   const [currentPath, setCurrentPath] = useState('')
+  const [showHelperText, setShowHelperText] = useState(true)
 
   useEffect(() => {
     setCurrentPath(window.location.pathname)
@@ -21,11 +22,25 @@ export default function FloatingCTA({ showOnScroll = 300, hideOnPaths = [] }: Fl
     const handleScroll = () => {
       const scrollY = window.scrollY
       setIsVisible(scrollY > showOnScroll)
+      // Reset helper text when scrolling shows the button
+      if (scrollY > showOnScroll && !showHelperText) {
+        setShowHelperText(true)
+      }
     }
 
     window.addEventListener('scroll', handleScroll, { passive: true })
     return () => window.removeEventListener('scroll', handleScroll)
-  }, [showOnScroll])
+  }, [showOnScroll, showHelperText])
+
+  // Auto-hide helper text after 4 seconds
+  useEffect(() => {
+    if (showHelperText && !isExpanded && isVisible) {
+      const timer = setTimeout(() => {
+        setShowHelperText(false)
+      }, 4000)
+      return () => clearTimeout(timer)
+    }
+  }, [showHelperText, isExpanded, isVisible])
 
   // Hide on specific paths
   if (hideOnPaths.includes(currentPath)) {
@@ -120,17 +135,21 @@ export default function FloatingCTA({ showOnScroll = 300, hideOnPaths = [] }: Fl
             </div>
           </motion.button>
 
-          {/* Floating helper text */}
-          {!isExpanded && (
-            <motion.div
-              initial={{ opacity: 0, x: 20 }}
-              animate={{ opacity: 1, x: 0 }}
-              className="absolute right-16 top-1/2 -translate-y-1/2 bg-gray-900 text-white px-3 py-2 rounded-lg text-sm whitespace-nowrap"
-            >
-              Need help? Chat with us!
-              <div className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-full w-0 h-0 border-l-[6px] border-l-gray-900 border-t-[6px] border-t-transparent border-b-[6px] border-b-transparent"></div>
-            </motion.div>
-          )}
+          {/* Floating helper text - fades in then out after 4 seconds */}
+          <AnimatePresence>
+            {!isExpanded && showHelperText && (
+              <motion.div
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: 20 }}
+                transition={{ duration: 0.3 }}
+                className="absolute right-16 top-1/2 -translate-y-1/2 bg-gray-900 text-white px-3 py-2 rounded-lg text-sm whitespace-nowrap"
+              >
+                Need help? Chat with us!
+                <div className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-full w-0 h-0 border-l-[6px] border-l-gray-900 border-t-[6px] border-t-transparent border-b-[6px] border-b-transparent"></div>
+              </motion.div>
+            )}
+          </AnimatePresence>
         </motion.div>
       )}
     </AnimatePresence>
