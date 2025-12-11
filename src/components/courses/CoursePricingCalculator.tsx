@@ -47,7 +47,7 @@ const CoursePricingCalculator = ({
   onPriceChange,
   className = ""
 }: CoursePricingCalculatorProps) => {
-  const { isLocalCurrency, currentCurrency, formatPrice } = useCurrency();
+  const { isLocalCurrency, currentCurrency, formatPrice, convertPrice } = useCurrency();
   
   // Determine which scheduling configuration to use
   const sessionMatrix: SessionMatrix = useMemo(() => {
@@ -118,30 +118,35 @@ const CoursePricingCalculator = ({
 
   // Calculate monthly billing with enhanced breakdown
   const calculateMonthlyBilling = useCallback((): MonthlyBillingCalculation => {
-    const baseHourlyRate = isLocalCurrency() ? hourlyRateNGN : hourlyRateUSD;
+    // Always start with USD as base, then convert to current currency
+    const baseHourlyRateUSD = hourlyRateUSD;
     const formatMultiplier = formatMultipliers[sessionFormat];
-    const adjustedHourlyRate = baseHourlyRate * formatMultiplier;
+    const adjustedHourlyRateUSD = baseHourlyRateUSD * formatMultiplier;
+    
+    // Convert USD to current currency using the currency service
+    const convertedHourlyRate = convertPrice(adjustedHourlyRateUSD, currentCurrency.code);
+    
     const hoursPerWeek = sessionsPerWeek * hoursPerSession;
     const hoursPerMonth = hoursPerWeek * 4; // 4 weeks per month
-    const monthlyTotal = adjustedHourlyRate * hoursPerMonth;
+    const monthlyTotal = convertedHourlyRate * hoursPerMonth;
 
-    console.log('💰 [CALC] hourlyRateNGN:', hourlyRateNGN, 'hourlyRateUSD:', hourlyRateUSD, 'baseRate:', baseHourlyRate, 'multiplier:', formatMultiplier, 'adjustedRate:', adjustedHourlyRate, 'hoursPerMonth:', hoursPerMonth, 'monthly:', monthlyTotal);
+    console.log('💰 [CALC] USD:', adjustedHourlyRateUSD, 'Currency:', currentCurrency.code, 'Converted:', convertedHourlyRate, 'Monthly:', monthlyTotal);
 
-    // Format the hourly rate correctly
-    // formatPrice expects USD, so we DON'T use it for rates that are already in local currency
-    let rateDisplay: string;
-    if (isLocalCurrency()) {
-      // NGN rate - just format as a number with currency symbol
-      rateDisplay = `₦${Math.round(adjustedHourlyRate).toLocaleString()}/hour`;
-    } else {
-      // USD rate - format with currency symbol
-      rateDisplay = `$${adjustedHourlyRate.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}/hour`;
-    }
+    // Format the hourly rate correctly using current currency
+    const rateDisplay = new Intl.NumberFormat(
+      currentCurrency.code === 'NGN' ? 'en-NG' : 'en-US',
+      {
+        style: 'currency',
+        currency: currentCurrency.code,
+        minimumFractionDigits: currentCurrency.code === 'NGN' ? 0 : 2,
+        maximumFractionDigits: currentCurrency.code === 'NGN' ? 0 : 2
+      }
+    ).format(convertedHourlyRate) + '/hour';
 
     return {
-      baseHourlyRate,
+      baseHourlyRate: baseHourlyRateUSD,
       sessionFormatMultiplier: formatMultiplier,
-      adjustedHourlyRate,
+      adjustedHourlyRate: convertedHourlyRate,
       hoursPerWeek,
       hoursPerMonth,
       monthlyTotal,
@@ -154,7 +159,7 @@ const CoursePricingCalculator = ({
         rate: rateDisplay
       }
     };
-  }, [sessionsPerWeek, hoursPerSession, sessionFormat, formatMultipliers, currentCurrency.code, isLocalCurrency, hourlyRateNGN, hourlyRateUSD]);
+  }, [sessionsPerWeek, hoursPerSession, sessionFormat, formatMultipliers, currentCurrency.code, convertPrice, hourlyRateUSD]);
   
   // Create session customization object
   const createSessionCustomization = useCallback((): SessionCustomization => {

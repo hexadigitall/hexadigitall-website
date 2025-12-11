@@ -91,7 +91,7 @@ export function CoursePaymentModal({
   onClose,
   course
 }: CoursePaymentModalProps) {
-  const { formatPrice, formatPriceWithDiscount, currentCurrency, getLocalDiscountMessage } = useCurrency()
+  const { formatPrice, formatPriceWithDiscount, currentCurrency, getLocalDiscountMessage, convertPrice } = useCurrency()
   const [selectedPaymentPlan, setSelectedPaymentPlan] = useState<PaymentPlan>(COURSE_PAYMENT_PLANS[0])
   const [pricingConfiguration, setPricingConfiguration] = useState<PricingConfiguration | null>(null)
   const [studentDetails, setStudentDetails] = useState({
@@ -138,33 +138,45 @@ export function CoursePaymentModal({
     try {
       const currentPrice = getCurrentPrice()
       
-      // Determine the amount and currency to send to Paystack
-      let amountForPaystack = currentPrice;
-      let currencyForPaystack = currentCurrency.code;
+      // CRITICAL: Paystack only accepts NGN for Nigerian transactions
+      // We must convert ALL currencies to NGN before sending to Paystack
+      let amountInNGN: number;
       
       if (isLiveCourse && pricingConfiguration) {
         // For live courses with custom pricing
-        amountForPaystack = pricingConfiguration.totalMonthlyPrice;
-        currencyForPaystack = pricingConfiguration.currency;
+        const displayCurrency = pricingConfiguration.currency;
+        const displayAmount = pricingConfiguration.totalMonthlyPrice;
         
-        // If user is viewing in USD but in Nigeria context, convert to NGN
-        // Paystack works best with NGN for Nigerian users
-        if (currentCurrency.code === 'NGN' && pricingConfiguration.currency === 'USD') {
-          amountForPaystack = pricingConfiguration.totalMonthlyPrice * 1650; // Convert USD to NGN
-          currencyForPaystack = 'NGN';
+        if (displayCurrency === 'NGN') {
+          // Already in NGN
+          amountInNGN = displayAmount;
+        } else {
+          // Convert from display currency to NGN
+          // Use convertPrice to get the amount in NGN
+          amountInNGN = convertPrice(displayCurrency === 'USD' ? displayAmount : displayAmount, 'NGN');
         }
-      } else if (!useLegacyDollarPrice) {
-        // Legacy course with NGN pricing - keep as is
-        currencyForPaystack = 'NGN';
+      } else {
+        // Legacy self-paced courses
+        if (useLegacyDollarPrice) {
+          // Convert USD to NGN
+          amountInNGN = convertPrice(currentPrice, 'NGN');
+        } else {
+          // Already in NGN
+          amountInNGN = currentPrice;
+        }
       }
+      
+      console.log('💳 [ENROLLMENT] Display:', currentPrice, currentCurrency.code, '→ Paystack:', amountInNGN, 'NGN');
       
       const enrollmentData = {
         courseId: course._id,
         courseType: course.courseType || 'self-paced',
         studentDetails,
         paymentPlan: selectedPaymentPlan,
-        amount: amountForPaystack,
-        currency: currencyForPaystack,
+        amount: amountInNGN, // Always send NGN amount
+        currency: 'NGN', // Always NGN for Paystack
+        displayCurrency: currentCurrency.code, // Track what user saw
+        displayAmount: currentPrice, // Track what user saw
         pricingConfiguration: isLiveCourse ? pricingConfiguration : null
       }
 
