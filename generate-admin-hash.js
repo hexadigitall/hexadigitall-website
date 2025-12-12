@@ -1,7 +1,7 @@
 // Script to generate admin password hash
 // Run with: node generate-admin-hash.js
 
-const crypto = require('crypto')
+import crypto from 'crypto'
 
 function generatePasswordHash(password, salt) {
   const hash = crypto.createHash('sha256')
