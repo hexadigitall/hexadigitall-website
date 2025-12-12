@@ -184,11 +184,18 @@ export default function AdminDashboard() {
             color="purple"
           />
           <NavCard
+            title="Enrollments"
+            description="Manage enrollments and assign teachers"
+            icon={<ChartBarIcon className="h-8 w-8" />}
+            href="/admin/enrollments"
+            color="blue"
+          />
+          <NavCard
             title="Users"
             description="Manage admins, teachers, and students"
             icon={<UserCircleIcon className="h-8 w-8" />}
             href="/admin/users"
-            color="blue"
+            color="purple"
           />
           <NavCard
             title="Settings"

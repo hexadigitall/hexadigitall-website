@@ -26,6 +26,21 @@ export default defineType({
       initialValue: 'self-paced',
     }),
     defineField({
+      name: 'studentId',
+      title: 'Student User',
+      type: 'reference',
+      to: [{ type: 'user' }],
+      description: 'Link to student user account (if enrolled via login)',
+    }),
+    defineField({
+      name: 'teacherId',
+      title: 'Assigned Teacher',
+      type: 'reference',
+      to: [{ type: 'user' }],
+      description: 'Teacher assigned to this enrollment (primarily for live courses)',
+      hidden: ({ parent }) => parent?.courseType !== 'live',
+    }),
+    defineField({
       name: 'studentName',
       title: 'Student Name',
       type: 'string',

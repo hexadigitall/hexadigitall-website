@@ -7,6 +7,7 @@ const links = [
   { label: 'Dashboard', href: '/admin/dashboard' },
   { label: 'Submissions', href: '/admin/submissions' },
   { label: 'Analytics', href: '/admin/analytics' },
+  { label: 'Enrollments', href: '/admin/enrollments' },
   { label: 'Users', href: '/admin/users' },
   { label: 'Settings', href: '/admin/settings' },
   { label: 'Teacher', href: '/teacher/dashboard' },
