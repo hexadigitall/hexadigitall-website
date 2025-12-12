@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
+import Breadcrumbs from '@/components/admin/Breadcrumbs'
 import {
   ChartBarIcon,
   InboxIcon,
@@ -95,10 +96,16 @@ export default function AdminDashboard() {
       <header className="bg-white shadow-sm border-b border-gray-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
-            <div className="flex items-center space-x-4">
+            <div className="flex items-center justify-between w-full">
               <h1 className="text-2xl font-bold bg-gradient-to-r from-primary to-purple-600 bg-clip-text text-transparent">
                 Hexadigitall Admin
               </h1>
+              <div className="hidden md:block">
+                <Breadcrumbs items={[
+                  { label: 'Admin', href: '/admin/dashboard' },
+                  { label: 'Dashboard' },
+                ]} />
+              </div>
             </div>
 
             <div className="flex items-center space-x-4">
@@ -180,6 +187,20 @@ export default function AdminDashboard() {
             icon={<Cog6ToothIcon className="h-8 w-8" />}
             href="/admin/settings"
             color="gray"
+          />
+          <NavCard
+            title="Teacher Portal"
+            description="Manage courses and students you teach"
+            icon={<UserCircleIcon className="h-8 w-8" />}
+            href="/teacher/dashboard"
+            color="blue"
+          />
+          <NavCard
+            title="Student Portal"
+            description="View enrollments, payments and updates"
+            icon={<UserCircleIcon className="h-8 w-8" />}
+            href="/student/dashboard"
+            color="purple"
           />
         </div>
 

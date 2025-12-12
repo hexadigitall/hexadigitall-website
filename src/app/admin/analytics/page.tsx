@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
+import Breadcrumbs from '@/components/admin/Breadcrumbs'
 import {
   ArrowLeftIcon,
   ChartBarIcon,
@@ -94,6 +95,12 @@ export default function AnalyticsPage() {
               <ArrowLeftIcon className="h-5 w-5" />
             </Link>
             <h1 className="text-2xl font-bold text-gray-900">Analytics Dashboard</h1>
+            <div className="hidden md:block">
+              <Breadcrumbs items={[
+                { label: 'Admin', href: '/admin/dashboard' },
+                { label: 'Analytics' },
+              ]} />
+            </div>
           </div>
         </div>
       </header>

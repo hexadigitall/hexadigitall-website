@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
+import Breadcrumbs from '@/components/admin/Breadcrumbs'
 import { ArrowLeftIcon, KeyIcon, ShieldCheckIcon } from '@heroicons/react/24/outline'
 
 export default function AdminSettingsPage() {
@@ -84,6 +85,12 @@ export default function AdminSettingsPage() {
               <ArrowLeftIcon className="h-5 w-5" />
             </Link>
             <h1 className="text-2xl font-bold text-gray-900">Admin Settings</h1>
+            <div className="hidden md:block">
+              <Breadcrumbs items={[
+                { label: 'Admin', href: '/admin/dashboard' },
+                { label: 'Settings' },
+              ]} />
+            </div>
           </div>
         </div>
       </header>
