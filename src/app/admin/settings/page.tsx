@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import Breadcrumbs from '@/components/admin/Breadcrumbs'
+import AdminNavbar from '@/components/admin/AdminNavbar'
 import { ArrowLeftIcon, KeyIcon, ShieldCheckIcon } from '@heroicons/react/24/outline'
 
 export default function AdminSettingsPage() {
@@ -62,7 +63,7 @@ export default function AdminSettingsPage() {
       } else {
         setStatus({ type: 'error', message: data.message || 'Failed to update password.' })
       }
-    } catch (err) {
+    } catch {
       setStatus({ type: 'error', message: 'Unexpected error.' })
     }
   }
@@ -94,6 +95,7 @@ export default function AdminSettingsPage() {
           </div>
         </div>
       </header>
+      <AdminNavbar />
 
       <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
         <section className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">

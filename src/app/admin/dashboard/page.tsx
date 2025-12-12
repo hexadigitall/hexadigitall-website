@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import Breadcrumbs from '@/components/admin/Breadcrumbs'
+import AdminNavbar from '@/components/admin/AdminNavbar'
 import {
   ChartBarIcon,
   InboxIcon,
@@ -130,6 +131,7 @@ export default function AdminDashboard() {
           </div>
         </div>
       </header>
+      <AdminNavbar />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Quick Stats */}
@@ -180,6 +182,13 @@ export default function AdminDashboard() {
             icon={<ChartBarIcon className="h-8 w-8" />}
             href="/admin/analytics"
             color="purple"
+          />
+          <NavCard
+            title="Users"
+            description="Manage admins, teachers, and students"
+            icon={<UserCircleIcon className="h-8 w-8" />}
+            href="/admin/users"
+            color="blue"
           />
           <NavCard
             title="Settings"

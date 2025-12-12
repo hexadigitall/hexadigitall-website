@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import Breadcrumbs from '@/components/admin/Breadcrumbs'
+import AdminNavbar from '@/components/admin/AdminNavbar'
 import {
   ArrowLeftIcon,
   FunnelIcon,
@@ -168,6 +169,7 @@ export default function SubmissionsPage() {
           </div>
         </div>
       </header>
+      <AdminNavbar />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Filters */}

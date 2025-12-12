@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
+import Breadcrumbs from '@/components/admin/Breadcrumbs'
 import { ArrowLeftIcon, AcademicCapIcon, UsersIcon } from '@heroicons/react/24/outline'
 
 export default function TeacherDashboardPage() {
@@ -43,6 +44,13 @@ export default function TeacherDashboardPage() {
               <ArrowLeftIcon className="h-5 w-5" />
             </Link>
             <h1 className="text-2xl font-bold text-gray-900">Teacher Dashboard</h1>
+            <div className="hidden md:block">
+              <Breadcrumbs items={[
+                { label: 'Admin', href: '/admin/dashboard' },
+                { label: 'Teacher', href: '/teacher/dashboard' },
+                { label: 'Dashboard' },
+              ]} />
+            </div>
           </div>
         </div>
       </header>
