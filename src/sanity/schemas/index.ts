@@ -15,6 +15,7 @@ import serviceTestimonial from './serviceTestimonial'
 import testimonial from './testimonial'
 import formSubmission from './formSubmission'
 import analyticsEvent from './analyticsEvent'
+import user from './user'
 
 export const schemaTypes = [
   course,
@@ -32,5 +33,6 @@ export const schemaTypes = [
   serviceTestimonial,
   testimonial,
   formSubmission,
-  analyticsEvent
+  analyticsEvent,
+  user
 ]
