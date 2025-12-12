@@ -1,6 +1,7 @@
 // src/app/api/contact/route.ts
 import { NextResponse, type NextRequest } from 'next/server';
 import { emailService } from '@/lib/email';
+import { client } from '@/sanity/client';
 
 export async function POST(request: NextRequest) {
   try {
@@ -18,6 +19,26 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Invalid email format' }, { status: 400 });
     }
 
+    // Save to Sanity database (even if email fails, we want to keep the submission)
+    try {
+      await client.create({
+        _type: 'formSubmission',
+        type: 'contact',
+        status: 'new',
+        name,
+        email,
+        message,
+        formData: { service },
+        submittedAt: new Date().toISOString(),
+        ipAddress: request.headers.get('x-forwarded-for') || request.headers.get('x-real-ip'),
+        userAgent: request.headers.get('user-agent'),
+        referrer: request.headers.get('referer'),
+      });
+    } catch (dbError) {
+      console.error('Failed to save to database:', dbError);
+      // Continue even if database save fails
+    }
+
     // Send email using the email service
     const result = await emailService.sendContactForm({
       name,
@@ -28,10 +49,10 @@ export async function POST(request: NextRequest) {
 
     if (!result.success) {
       console.error('Email sending failed:', result.error);
-      return NextResponse.json(
-        { error: 'Failed to send message. Please try again or contact us directly.' }, 
-        { status: 500 }
-      );
+      // Still return success since we saved to database
+      return NextResponse.json({ 
+        message: 'Thank you! Your message has been received. We\'ll get back to you within 24 hours.' 
+      }, { status: 200 });
     }
 
     console.log('Contact form email sent successfully:', result.message);

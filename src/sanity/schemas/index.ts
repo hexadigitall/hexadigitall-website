@@ -13,6 +13,8 @@ import serviceRequest from './serviceRequest'
 import serviceStatistics from './serviceStatistics'
 import serviceTestimonial from './serviceTestimonial'
 import testimonial from './testimonial'
+import formSubmission from './formSubmission'
+import analyticsEvent from './analyticsEvent'
 
 export const schemaTypes = [
   course,
@@ -28,5 +30,7 @@ export const schemaTypes = [
   serviceRequest,
   serviceStatistics,
   serviceTestimonial,
-  testimonial
+  testimonial,
+  formSubmission,
+  analyticsEvent
 ]
