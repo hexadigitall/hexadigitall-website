@@ -95,6 +95,30 @@ export default function RootLayout({
   return (
     <html lang="en" className="scroll-smooth" data-scroll-behavior="smooth" suppressHydrationWarning>
       <head>
+        {/* JSON-LD: Organization & WebSite */}
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
+          '@context': 'https://schema.org',
+          '@type': 'Organization',
+          name: 'Hexadigitall',
+          url: 'https://hexadigitall.com',
+          logo: 'https://hexadigitall.com/hexadigitall-logo.svg',
+          sameAs: [
+            'https://www.facebook.com/',
+            'https://www.instagram.com/',
+            'https://www.linkedin.com/company/'
+          ]
+        }) }} />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
+          '@context': 'https://schema.org',
+          '@type': 'WebSite',
+          name: 'Hexadigitall',
+          url: 'https://hexadigitall.com',
+          potentialAction: {
+            '@type': 'SearchAction',
+            target: 'https://hexadigitall.com/search?q={search_term_string}',
+            'query-input': 'required name=search_term_string'
+          }
+        }) }} />
         {/* Preload critical resources */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />

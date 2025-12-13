@@ -15,6 +15,9 @@ import serviceRequest from "./src/sanity/schemas/serviceRequest";
 import serviceStatistics from "./src/sanity/schemas/serviceStatistics";
 import serviceTestimonial from "./src/sanity/schemas/serviceTestimonial";
 import testimonial from "./src/sanity/schemas/testimonial";
+import user from "./src/sanity/schemas/user";
+import formSubmission from "./src/sanity/schemas/formSubmission";
+import analyticsEvent from "./src/sanity/schemas/analyticsEvent";
 
 console.log("✅ Loading all 14 schemas");
 
@@ -44,6 +47,9 @@ export default defineConfig({
       serviceStatistics,
       serviceTestimonial,
       testimonial,
+      user,
+      formSubmission,
+      analyticsEvent,
     ],
   },
 });

@@ -15,6 +15,12 @@ export default defineType({
     defineField({ name: 'title', title: 'Title', type: 'string' }),
     defineField({ name: 'slug', title: 'Slug', type: 'slug', options: { source: 'title' } }),
     defineField({
+      name: 'order',
+      title: 'Display Order',
+      type: 'number',
+      description: 'Order in which this course appears in listings (lower numbers appear first)',
+    }),
+    defineField({
       name: 'category',
       title: 'Category',
       type: 'reference',
@@ -156,13 +162,7 @@ export default defineType({
       type: 'string',
       description: 'The main instructor for this course',
     }),
-    defineField({
-      name: 'description',
-      title: 'Short Description',
-      type: 'text',
-      description: 'Brief course description for enrollment cards',
-      rows: 3,
-    }),
+    
     defineField({
       name: 'prerequisites',
       title: 'Prerequisites',
@@ -256,6 +256,51 @@ export default defineType({
       }],
       initialValue: ['one-on-one', 'small-group'],
       description: 'Available formats for live sessions'
+    }),
+
+    // Legacy fields - kept for backward compatibility with existing documents
+    defineField({
+      name: 'curriculum',
+      title: 'Curriculum (Legacy)',
+      type: 'object',
+      description: 'Legacy field - data migrating to modules/lessons/duration fields',
+      fields: [
+        { name: 'duration', type: 'string', title: 'Duration' },
+        { name: 'lessons', type: 'number', title: 'Lessons' },
+        { name: 'modules', type: 'number', title: 'Modules' },
+      ],
+      hidden: true,
+    }),
+
+    defineField({
+      name: 'monthlyScheduling',
+      title: 'Monthly Scheduling (Legacy)',
+      type: 'object',
+      description: 'Legacy scheduling constraints - superseded by flexible hourly model',
+      fields: [
+        {
+          name: 'sessionsPerWeek',
+          type: 'object',
+          title: 'Sessions Per Week',
+          fields: [
+            { name: 'min', type: 'number', title: 'Min' },
+            { name: 'max', type: 'number', title: 'Max' },
+            { name: 'default', type: 'number', title: 'Default' },
+          ],
+        },
+        {
+          name: 'hoursPerSession',
+          type: 'object',
+          title: 'Hours Per Session',
+          fields: [
+            { name: 'min', type: 'number', title: 'Min' },
+            { name: 'max', type: 'number', title: 'Max' },
+            { name: 'default', type: 'number', title: 'Default' },
+          ],
+        },
+        { name: 'totalHoursLimit', type: 'number', title: 'Total Hours Limit' },
+      ],
+      hidden: true,
     }),
   ],
 })

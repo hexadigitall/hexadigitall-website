@@ -30,6 +30,12 @@ export default defineType({
       validation: Rule => Rule.required()
     }),
     defineField({
+      name: 'order',
+      title: 'Display Order',
+      type: 'number',
+      description: 'Order in which this service category appears (lower numbers first)',
+    }),
+    defineField({
       name: 'description',
       title: 'Description',
       type: 'text',

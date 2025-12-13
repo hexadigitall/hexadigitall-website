@@ -9,8 +9,15 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Professional Development Courses',
     description: 'Learn professional skills from industry experts with our comprehensive course offerings.',
+    images: [{ url: '/og-images/courses-hub.jpg', width: 1200, height: 630, alt: 'Hexadigitall Courses' }],
     type: 'website',
   },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Professional Development Courses',
+    description: 'Live mentoring and self‑paced options across tech and business.',
+    images: ['/og-images/courses-hub.jpg']
+  }
 };
 
 export default function CoursesPage() {

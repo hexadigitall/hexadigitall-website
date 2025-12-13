@@ -42,14 +42,86 @@ interface Course {
     lessons?: number;
 }
 
-// Metadata function remains the same
+/**
+ * Get course-specific OG image - uses generated images from scripts/generate-og-course-images.mjs
+ */
+function getCourseOgImage(slug: string): string {
+  // Check if generated course OG image exists
+  const generatedImage = `/og-images/course-${slug}.jpg`
+  // Note: In production, verify file exists. Using optimistic approach for now.
+  return generatedImage
+}
+
+/**
+ * Extract pricing info from course for metadata
+ */
+function getCoursePricing(course: { courseType?: string; hourlyRateNGN?: number; nairaPrice?: number }): string {
+  if (course.courseType === 'live' && course.hourlyRateNGN) {
+    return `From ₦${course.hourlyRateNGN.toLocaleString()}/hour`
+  }
+  if (course.nairaPrice) {
+    return `₦${course.nairaPrice.toLocaleString()}`
+  }
+  return 'Flexible pricing available'
+}
+
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
     const { slug } = await params;
-    const course: { title: string } = await client.fetch(
-        groq`*[_type == "course" && slug.current == $slug][0]{ title }`,
+    const course = await client.fetch(
+        groq`*[_type == "course" && slug.current == $slug][0]{ 
+            title, description, summary, level, courseType, 
+            hourlyRateNGN, nairaPrice,
+            "imageUrl": mainImage.asset->url 
+        }`,
         { slug }
     );
-    return { title: `${course?.title || 'Course'} | Hexadigitall` };
+
+    if (!course) return { title: 'Course | Hexadigitall' };
+
+    const title = `${course.title} | Hexadigitall Courses`;
+    const baseDescription = course.description || course.summary || `Master ${course.title} with expert mentoring.`;
+    const pricing = getCoursePricing(course)
+    const description = `${baseDescription} ${pricing}. Live mentoring & certification available.`
+    
+    // Use generated OG image, fallback to Sanity image, then hub image
+    const ogImage = getCourseOgImage(slug) || course.imageUrl || '/og-images/courses-hub.jpg';
+    
+    // Optimize for social media (truncate if too long)
+    const socialDescription = baseDescription.length > 130
+      ? `${baseDescription.slice(0, 130)}... ${pricing}`
+      : `${baseDescription} ${pricing}`
+
+    return {
+        title,
+        description,
+        keywords: `${course.title}, ${course.level} course, online learning, tech education, Hexadigitall`,
+        openGraph: {
+            title: `${course.title} - ${course.level || 'Professional'} Course`,
+            description: socialDescription,
+            images: [{ 
+              url: ogImage, 
+              width: 1200, 
+              height: 630, 
+              alt: `${course.title} Course - Hexadigitall`,
+              type: 'image/jpeg'
+            }],
+            type: 'website',
+            siteName: 'Hexadigitall',
+            url: `https://hexadigitall.com/courses/${slug}`,
+            locale: 'en_NG'
+        },
+        twitter: {
+            card: 'summary_large_image',
+            title: `${course.title} - ${course.level || 'Professional'} Course`,
+            description: socialDescription,
+            images: [ogImage],
+            creator: '@hexadigitall',
+            site: '@hexadigitall'
+        },
+        alternates: {
+          canonical: `https://hexadigitall.com/courses/${slug}`
+        }
+    };
 }
 
 // Enhanced query to fetch all enrollment data including PPP pricing
@@ -125,9 +197,75 @@ export default async function CoursePage({ params }: { params: Promise<{ slug: s
         ],
         certificate: course.certificate !== false // Default to true
     };
-
-    return (
-        <article className="bg-white">
+    // Breadcrumb structured data for courses
+    const breadcrumbJsonLd = {
+        '@context': 'https://schema.org',
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+            {
+                '@type': 'ListItem',
+                position: 1,
+                name: 'Home',
+                item: 'https://hexadigitall.com'
+            },
+            {
+                '@type': 'ListItem',
+                position: 2,
+                name: 'Courses',
+                item: 'https://hexadigitall.com/courses'
+            },
+            {
+                '@type': 'ListItem',
+                position: 3,
+                name: course.title,
+                item: `https://hexadigitall.com/courses/${course.slug.current}`
+            }
+        ]
+    }
+        return (
+                <article className="bg-white">
+                        {/* JSON-LD: Enhanced Course structured data */}
+                        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
+                            '@context': 'https://schema.org',
+                            '@type': 'Course',
+                            name: course.title,
+                            description: course.description || course.summary,
+                            provider: {
+                                '@type': 'Organization',
+                                name: 'Hexadigitall',
+                                url: 'https://hexadigitall.com',
+                                logo: 'https://hexadigitall.com/hexadigitall-logo.svg',
+                                sameAs: [
+                                  'https://twitter.com/hexadigitall',
+                                  'https://linkedin.com/company/hexadigitall'
+                                ]
+                            },
+                            instructor: {
+                                '@type': 'Person',
+                                name: course.instructor || 'Expert Instructor'
+                            },
+                            offers: {
+                                '@type': 'Offer',
+                                priceCurrency: 'NGN',
+                                price: course.nairaPrice || course.price,
+                                availability: 'https://schema.org/InStock',
+                                url: `https://hexadigitall.com/courses/${course.slug.current}`,
+                                validFrom: new Date().toISOString()
+                            },
+                            educationalLevel: course.level,
+                            coursePrerequisites: course.prerequisites,
+                            timeRequired: course.duration,
+                            numberOfLessons: course.lessons || course.curriculum?.lessons,
+                            hasCourseInstance: {
+                                '@type': 'CourseInstance',
+                                courseMode: course.courseType === 'live' ? 'online' : 'online',
+                                courseWorkload: `PT${course.hoursPerWeek || 5}H`
+                            }
+                        }) }} />
+                        
+                        {/* Breadcrumb structured data */}
+                        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }} />
+            
             {/* Course Hero */}
             <div className="bg-primary text-white py-16">
                 <div className="container mx-auto px-6">

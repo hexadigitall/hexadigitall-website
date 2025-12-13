@@ -7,6 +7,8 @@
     "node": ">=20"
   },
   "scripts": {
+      "og:generate": "node scripts/generate-og-images.mjs",
+      "og:generate:courses": "node scripts/generate-og-course-images.mjs",
     "dev": "next dev --turbopack",
     "dev:fast": "cross-env NODE_ENV=development next dev --turbopack --experimental-https",
     "build": "next build",
