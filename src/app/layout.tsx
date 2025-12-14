@@ -46,17 +46,18 @@ export const metadata: Metadata = {
     title: 'Hexadigitall | Business Planning, Web Dev & Digital Marketing',
     description: 'Your all-in-one digital partner in Nigeria, turning ideas into reality.',
     images: [{
-      url: '/digitall_partner.png',
+      url: 'https://hexadigitall.com/digitall_partner.png',
       width: 1200,
       height: 630,
       alt: 'Hexadigitall - Your Digital Partner',
+      type: 'image/png'
     }],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Hexadigitall | Your Digital Partner',
     description: 'Expert web development, digital marketing, and business planning services in Nigeria.',
-    images: ['/digitall_partner.png'],
+    images: ['https://hexadigitall.com/digitall_partner.png'],
   },
   icons: {
     icon: [
@@ -92,9 +93,14 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const FB_APP_ID = process.env.NEXT_PUBLIC_FB_APP_ID;
   return (
     <html lang="en" className="scroll-smooth" data-scroll-behavior="smooth" suppressHydrationWarning>
       <head>
+        {/* Facebook App ID for link previews */}
+        {FB_APP_ID ? (
+          <meta property="fb:app_id" content={FB_APP_ID} />
+        ) : null}
         {/* JSON-LD: Organization & WebSite */}
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
           '@context': 'https://schema.org',

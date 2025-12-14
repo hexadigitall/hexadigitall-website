@@ -175,14 +175,14 @@ function BundleBuilderContent() {
           )}
 
           {/* Category Tabs */}
-          <div className="flex overflow-x-auto border-b border-gray-200 scrollbar-hide bg-gray-50/50">
+          <div className="flex overflow-x-auto border-b border-gray-200 scrollbar-hide bg-gray-50/50 gap-1 sm:gap-2 snap-x snap-mandatory -mx-4 px-4">
             {CATEGORIES.map(cat => (
               <button
                 key={cat.id}
                 onClick={() => setActiveCategory(cat.id)}
-                className={`px-4 sm:px-6 py-3 sm:py-4 text-xs sm:text-sm font-semibold whitespace-nowrap transition-all flex items-center gap-2 ${
+                className={`px-4 sm:px-6 py-3 sm:py-4 text-xs sm:text-sm font-semibold whitespace-nowrap transition-all flex items-center gap-2 snap-start min-w-[140px] ${
                   activeCategory === cat.id 
-                    ? 'text-blue-600 border-b-3 border-blue-600 bg-white shadow-sm' 
+                    ? 'text-blue-600 border-b-[3px] border-blue-600 bg-white shadow-sm' 
                     : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100'
                 }`}
               >

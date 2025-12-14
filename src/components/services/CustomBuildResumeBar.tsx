@@ -12,6 +12,7 @@ export function CustomBuildResumeBar() {
   const { state } = useCustomBuild();
   const [isVisible, setIsVisible] = useState(false);
   const [isMounted, setIsMounted] = useState(false);
+  const DISMISS_KEY = 'hexadigitall_custom_build_resume_dismissed';
 
   useEffect(() => {
     setIsMounted(true);
@@ -19,8 +20,11 @@ export function CustomBuildResumeBar() {
 
   useEffect(() => {
     if (isMounted) {
-      // Only show if user has progress beyond step 1
-      setIsVisible(state.step > 1 || state.core !== null);
+      // Only show if user has real progress beyond step 1,
+      // or has selected core/add-ons, and hasn't dismissed.
+      const dismissed = typeof window !== 'undefined' && localStorage.getItem(DISMISS_KEY) === 'true';
+      const hasProgress = (state.step && state.step >= 2) || !!state.core || (Array.isArray(state.addOns) && state.addOns.length > 0);
+      setIsVisible(!dismissed && !!hasProgress);
     }
   }, [state, isMounted]);
 
@@ -57,7 +61,15 @@ export function CustomBuildResumeBar() {
             Resume
           </Link>
           <button
-            onClick={() => setIsVisible(false)}
+            onClick={() => {
+              // Persist dismissal until user makes new progress
+              try {
+                localStorage.setItem(DISMISS_KEY, 'true');
+              } catch {}
+              // If no meaningful progress, also clear any stale build state elsewhere
+              // (context will handle absence gracefully)
+              setIsVisible(false);
+            }}
             className="px-2 py-1 hover:bg-white/20 rounded transition-colors text-sm"
             aria-label="Dismiss resume notification"
             type="button"
