@@ -11,6 +11,7 @@ import { CustomBuildResumeBar } from '@/components/services/CustomBuildResumeBar
 import { CurrencyProvider } from '@/contexts/CurrencyContext';
 import { CustomBuildProvider } from '@/contexts/CustomBuildContext';
 import GoogleAnalytics from '@/components/GoogleAnalytics';
+import AnalyticsTracker from '@/components/AnalyticsTracker';
 import SEOStructuredData from '@/components/SEOStructuredData';
 import { QuickContactFAB } from '@/components/ui/FloatingCTA';
 import StartupFunnelClient from '@/components/marketing/StartupFunnelClient'
@@ -181,6 +182,8 @@ export default function RootLayout({
           <CustomBuildProvider>
             {/* Google Analytics */}
             <GoogleAnalytics />
+            {/* Analytics tracking for admin dashboard */}
+            <AnalyticsTracker />
               
               {/* SEO Structured Data */}
               <SEOStructuredData />
