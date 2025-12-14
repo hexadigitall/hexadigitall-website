@@ -251,32 +251,32 @@ export default function AdminEnrollmentsPage() {
                         <div className="text-sm font-medium text-gray-900">{enrollment.studentName}</div>
                         <div className="text-xs text-gray-500">{enrollment.studentEmail}</div>
                       </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
-                        {enrollment.courseId?.title || 'Unknown'}
+                      <td className="px-3 md:px-6 py-3 md:py-4 text-xs md:text-sm text-gray-600 max-w-xs">
+                        <span className="line-clamp-2">{enrollment.courseId?.title || 'Unknown'}</span>
                       </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
+                      <td className="px-3 md:px-6 py-3 md:py-4 whitespace-nowrap text-xs md:text-sm text-gray-600">
                         {enrollment.courseType === 'live' ? '🎓 Live' : '📚 Self-paced'}
                       </td>
-                      <td className="px-6 py-4 whitespace-nowrap">
+                      <td className="px-3 md:px-6 py-3 md:py-4 whitespace-nowrap">
                         <span
-                          className={`px-3 py-1 rounded-full text-xs font-medium ${
+                          className={`px-2 md:px-3 py-1 rounded-full text-xs font-medium ${
                             statusColors[enrollment.paymentStatus] || 'bg-gray-100 text-gray-700'
                           }`}
                         >
                           {enrollment.paymentStatus}
                         </span>
                       </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                        {enrollment.enrolledAt ? new Date(enrollment.enrolledAt).toLocaleDateString() : '—'}
+                      <td className="px-3 md:px-6 py-3 md:py-4 whitespace-nowrap text-xs md:text-sm text-gray-500">
+                        {enrollment.enrolledAt ? new Date(enrollment.enrolledAt).toLocaleDateString('en-US', { year: '2-digit', month: 'short', day: 'numeric' }) : '—'}
                       </td>
-                      <td className="px-6 py-4 whitespace-nowrap">
+                      <td className="px-3 md:px-6 py-3 md:py-4 text-xs md:text-sm">
                         {enrollment.courseType === 'live' ? (
-                          <div className="flex items-center space-x-2">
+                          <div className="flex flex-col gap-2">
                             <select
                               value={enrollment.teacherId?._id || ''}
                               onChange={(e) => handleAssignTeacher(enrollment._id, e.target.value)}
                               disabled={assigningId === enrollment._id}
-                              className="border border-gray-300 rounded-lg px-2 py-1 text-sm focus:ring-2 focus:ring-primary focus:border-transparent disabled:opacity-50"
+                              className="border border-gray-300 rounded-lg px-2 py-1 text-xs md:text-sm focus:ring-2 focus:ring-primary focus:border-transparent disabled:opacity-50 w-full"
                             >
                               <option value="">Select teacher</option>
                               {teachers.map((t) => (
@@ -287,13 +287,13 @@ export default function AdminEnrollmentsPage() {
                             </select>
                             {enrollment.teacherId && (
                               <div className="flex items-center space-x-1 text-xs text-gray-600">
-                                <UserGroupIcon className="h-4 w-4" />
-                                <span>{enrollment.teacherId.name || enrollment.teacherId.username}</span>
+                                <UserGroupIcon className="h-3 w-3 md:h-4 md:w-4" />
+                                <span className="truncate">{enrollment.teacherId.name || enrollment.teacherId.username}</span>
                               </div>
                             )}
                           </div>
                         ) : (
-                          <span className="text-sm text-gray-400">N/A</span>
+                          <span className="text-xs md:text-sm text-gray-400">N/A</span>
                         )}
                       </td>
                     </tr>
