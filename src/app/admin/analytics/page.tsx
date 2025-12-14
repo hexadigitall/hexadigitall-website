@@ -108,9 +108,9 @@ export default function AnalyticsPage() {
       <AdminNavbar />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 md:gap-6 py-6 md:py-8">
           {/* Popular Pages */}
-          <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+          <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-4 md:p-6">
             <div className="flex items-center space-x-3 mb-6">
               <DocumentTextIcon className="h-6 w-6 text-blue-600" />
               <h2 className="text-lg font-semibold text-gray-900">Popular Pages</h2>
@@ -126,7 +126,7 @@ export default function AnalyticsPage() {
           </div>
 
           {/* Top Services */}
-          <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+          <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-4 md:p-6">
             <div className="flex items-center space-x-3 mb-6">
               <ChartBarIcon className="h-6 w-6 text-purple-600" />
               <h2 className="text-lg font-semibold text-gray-900">Top Services</h2>
@@ -142,7 +142,7 @@ export default function AnalyticsPage() {
           </div>
 
           {/* Top Courses */}
-          <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+          <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-4 md:p-6">
             <div className="flex items-center space-x-3 mb-6">
               <UsersIcon className="h-6 w-6 text-green-600" />
               <h2 className="text-lg font-semibold text-gray-900">Top Courses</h2>
@@ -158,7 +158,7 @@ export default function AnalyticsPage() {
           </div>
 
           {/* Event Types */}
-          <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+          <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-4 md:p-6">
             <div className="flex items-center space-x-3 mb-6">
               <CursorArrowRaysIcon className="h-6 w-6 text-orange-600" />
               <h2 className="text-lg font-semibold text-gray-900">Event Types</h2>
@@ -175,29 +175,29 @@ export default function AnalyticsPage() {
         </div>
 
         {/* Recent Events */}
-        <div className="mt-6 bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+        <div className="mt-4 md:mt-6 bg-white rounded-lg shadow-sm border border-gray-200 p-4 md:p-6">
           <h2 className="text-lg font-semibold text-gray-900 mb-4">Recent Events</h2>
           <div className="overflow-x-auto">
             <table className="w-full">
               <thead className="bg-gray-50 border-b border-gray-200">
                 <tr>
-                  <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Time</th>
-                  <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Event</th>
-                  <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Page</th>
-                  <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Device</th>
+                  <th className="px-3 md:px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase whitespace-nowrap">Time</th>
+                  <th className="px-3 md:px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase whitespace-nowrap">Event</th>
+                  <th className="px-3 md:px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase whitespace-nowrap">Page</th>
+                  <th className="px-3 md:px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase whitespace-nowrap">Device</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-200">
                 {data?.recentEvents?.slice(0, 20).map((event, index) => (
                   <tr key={index}>
-                    <td className="px-4 py-3 text-sm text-gray-500">
+                    <td className="px-3 md:px-4 py-3 text-xs md:text-sm text-gray-500">
                       {new Date(event.timestamp).toLocaleTimeString()}
                     </td>
-                    <td className="px-4 py-3 text-sm text-gray-900">{event.eventName || event.eventType}</td>
-                    <td className="px-4 py-3 text-sm text-gray-700">{event.page}</td>
-                    <td className="px-4 py-3 text-sm text-gray-600">{event.deviceType}</td>
+                    <td className="px-3 md:px-4 py-3 text-xs md:text-sm text-gray-900">{event.eventName || event.eventType}</td>
+                    <td className="px-3 md:px-4 py-3 text-xs md:text-sm text-gray-700">{event.page}</td>
+                    <td className="px-3 md:px-4 py-3 text-xs md:text-sm text-gray-600">{event.deviceType}</td>
                   </tr>
-                )) || <tr><td colSpan={4} className="px-4 py-8 text-center text-gray-500">No events yet</td></tr>}
+                )) || <tr><td colSpan={4} className="px-4 py-8 text-center text-gray-500 text-sm">No events yet</td></tr>}
               </tbody>
             </table>
           </div>

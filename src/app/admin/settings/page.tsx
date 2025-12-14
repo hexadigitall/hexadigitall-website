@@ -98,7 +98,7 @@ export default function AdminSettingsPage() {
       <AdminNavbar />
 
       <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
-        <section className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+        <section className="bg-white rounded-lg shadow-sm border border-gray-200 p-4 md:p-6">
           <div className="flex items-center space-x-3 mb-4">
             <ShieldCheckIcon className="h-6 w-6 text-primary" />
             <h2 className="text-lg font-semibold text-gray-900">Security</h2>

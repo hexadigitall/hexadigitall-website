@@ -341,7 +341,7 @@ export default function AdminUsersPage() {
           </div>
         )}
 
-        <section className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+        <section className="bg-white rounded-lg shadow-sm border border-gray-200 p-4 md:p-6">
           <div className="flex items-center justify-between mb-4">
             <div className="flex items-center space-x-3">
               <UsersIcon className="h-6 w-6 text-primary" />
@@ -432,7 +432,7 @@ export default function AdminUsersPage() {
               <button
                 type="submit"
                 disabled={creating}
-                className="inline-flex items-center space-x-2 px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors disabled:opacity-60"
+                className="inline-flex items-center gap-2 px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors disabled:opacity-60"
               >
                 <PlusIcon className="h-5 w-5" />
                 <span>{creating ? 'Creating...' : 'Create user'}</span>
@@ -441,7 +441,7 @@ export default function AdminUsersPage() {
           </form>
         </section>
 
-        <section className="bg-white rounded-xl shadow-sm border border-gray-200">
+        <section className="bg-white rounded-lg shadow-sm border border-gray-200">
           <div className="flex items-center justify-between px-6 py-4 border-b border-gray-200">
             <div className="flex items-center space-x-3">
               <CheckBadgeIcon className="h-6 w-6 text-primary" />
