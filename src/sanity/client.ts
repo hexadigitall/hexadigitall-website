@@ -4,10 +4,10 @@ import { createClient } from "next-sanity";
 const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID;
 const dataset = process.env.NEXT_PUBLIC_SANITY_DATASET;
 const apiVersion = process.env.NEXT_PUBLIC_SANITY_API_VERSION || "2024-08-30";
-const token = process.env.SANITY_API_TOKEN; // Write token for server-side operations
+const token = process.env.SANITY_API_TOKEN; // Write token for server-side operations (server-only)
 const readToken = process.env.NEXT_PUBLIC_SANITY_READ_TOKEN; // Public read token for client-side queries
 
-// Enhanced environment variable validation
+// Enhanced environment variable validation (server-only)
 if (!projectId) {
   console.error('❌ Missing NEXT_PUBLIC_SANITY_PROJECT_ID environment variable');
   console.log('Available env vars:', Object.keys(process.env).filter(key => key.includes('SANITY')));
@@ -17,8 +17,10 @@ if (!dataset) {
   console.error('❌ Missing NEXT_PUBLIC_SANITY_DATASET environment variable');
 }
 
-if (!token) {
-  console.warn('⚠️ Missing SANITY_API_TOKEN. Write operations (like enrollment) will fail.');
+if (typeof window === 'undefined') {
+  if (!token) {
+    console.warn('⚠️ Missing SANITY_API_TOKEN. Write operations (like enrollment) will fail.');
+  }
 }
 
 // Validate we have the required configuration
@@ -30,9 +32,8 @@ if (!projectId || !dataset) {
       !dataset ? 'NEXT_PUBLIC_SANITY_DATASET ' : ''
     }`
   );
-  
+
   // Use known fallback values if environment variables are missing
-  // This helps with deployment issues where env vars might not be set
   if (!projectId) {
     console.warn('🔁 Using fallback project ID');
   }
@@ -50,27 +51,30 @@ console.log('🔧 Sanity Config:', {
   environment: process.env.NODE_ENV,
 });
 
-// Read-only client for public operations with optimized caching
+// Public client for read operations (browser/server) using read token when present
 export const client = createClient({
-  projectId: projectId || 'puzezel0', // Fallback to known project ID
-  dataset: dataset || 'production', // Fallback to production dataset
+  projectId: projectId || 'puzezel0',
+  dataset: dataset || 'production',
   apiVersion,
-  useCdn: true, // Use CDN for better performance on read operations
-  token: readToken, // Use public read token for client-side queries
-  perspective: 'published', // Only fetch published documents
-  stega: false, // Disable stega for production
-  // Performance optimizations
+  // If a token is present (readToken in browser or token on server), avoid apicdn to prevent CORS with auth
+  useCdn: !readToken,
+  token: readToken || undefined,
+  perspective: 'published',
+  ignoreBrowserTokenWarning: !readToken,
+  stega: false,
   requestTagPrefix: 'hexadigitall',
-  ignoreBrowserTokenWarning: true,
-  allowReconfigure: false, // Prevent client reconfiguration for better performance
+  allowReconfigure: false,
 });
 
 // Write client for server-side operations (enrollments, etc.)
 export const writeClient = createClient({
-  projectId: projectId || 'puzezel0', // Fallback to known project ID
-  dataset: dataset || 'production', // Fallback to production dataset
+  projectId: projectId || 'puzezel0',
+  dataset: dataset || 'production',
   apiVersion,
-  useCdn: false, // Never use CDN for write operations
-  token: token, // This enables write permissions
+  useCdn: false,
+  token: token,
   perspective: 'published',
+  stega: false,
+  requestTagPrefix: 'hexadigitall-write',
+  allowReconfigure: false,
 });
