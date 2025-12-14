@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { client } from '@/sanity/client'
+import { client, writeClient } from '@/sanity/client'
 
 export async function GET() {
   try {
@@ -51,7 +51,7 @@ export async function PATCH(request: NextRequest) {
     if (priority) updates.priority = priority
     if (notes !== undefined) updates.notes = notes
 
-    await client.patch(id).set(updates).commit()
+    await writeClient.patch(id).set(updates).commit()
 
     return NextResponse.json({
       success: true,

@@ -1,12 +1,12 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { client } from '@/sanity/client'
+import { writeClient } from '@/sanity/client'
 
 export async function POST(request: NextRequest) {
   try {
     const data = await request.json()
 
     // Create analytics event in Sanity
-    await client.create({
+    await writeClient.create({
       _type: 'analyticsEvent',
       ...data,
     })

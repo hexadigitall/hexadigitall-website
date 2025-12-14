@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import crypto from 'crypto'
-import { client } from '@/sanity/client'
+import { client, writeClient } from '@/sanity/client'
 
 function hashWithSalt(password: string, salt: string) {
   return crypto.createHash('sha256').update(password + salt).digest('hex')
@@ -54,7 +54,7 @@ export async function POST(request: NextRequest) {
       const newSalt = crypto.randomBytes(16).toString('hex')
       const newHash = hashWithSalt(newPassword, newSalt)
 
-      await client.patch(userId).set({ salt: newSalt, passwordHash: newHash }).commit()
+      await writeClient.patch(userId).set({ salt: newSalt, passwordHash: newHash }).commit()
       return NextResponse.json({ success: true })
     }
 
@@ -66,10 +66,10 @@ export async function POST(request: NextRequest) {
       const newHash = hashWithSalt(newPassword, newSalt)
 
       if (existing?._id) {
-        await client.patch(existing._id).set({ role: 'admin', status: 'active', salt: newSalt, passwordHash: newHash }).commit()
+        await writeClient.patch(existing._id).set({ role: 'admin', status: 'active', salt: newSalt, passwordHash: newHash }).commit()
         return NextResponse.json({ success: true })
       } else {
-        await client.create({
+        await writeClient.create({
           _type: 'user',
           username,
           email: `${username}@example.com`,

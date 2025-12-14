@@ -1,7 +1,7 @@
 // src/app/api/contact/route.ts
 import { NextResponse, type NextRequest } from 'next/server';
 import { emailService } from '@/lib/email';
-import { client } from '@/sanity/client';
+import { writeClient } from '@/sanity/client';
 
 export async function POST(request: NextRequest) {
   try {
@@ -21,7 +21,7 @@ export async function POST(request: NextRequest) {
 
     // Save to Sanity database (even if email fails, we want to keep the submission)
     try {
-      await client.create({
+      await writeClient.create({
         _type: 'formSubmission',
         type: 'contact',
         status: 'new',
