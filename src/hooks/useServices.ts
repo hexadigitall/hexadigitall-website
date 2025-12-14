@@ -18,12 +18,6 @@ export function useServices() {
   useEffect(() => {
     async function fetchServices() {
       try {
-        // Check if Sanity is properly configured
-        if (!process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || !process.env.NEXT_PUBLIC_SANITY_DATASET) {
-          console.warn('Sanity not configured, using fallback services');
-          throw new Error('Sanity configuration missing');
-        }
-
         const query = groq`*[_type == "service"] | order(title asc) {
           title,
           "slug": slug.current

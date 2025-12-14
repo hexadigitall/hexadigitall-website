@@ -5,6 +5,7 @@ const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID;
 const dataset = process.env.NEXT_PUBLIC_SANITY_DATASET;
 const apiVersion = process.env.NEXT_PUBLIC_SANITY_API_VERSION || "2024-08-30";
 const token = process.env.SANITY_API_TOKEN; // Write token for server-side operations
+const readToken = process.env.NEXT_PUBLIC_SANITY_READ_TOKEN; // Public read token for client-side queries
 
 // Enhanced environment variable validation
 if (!projectId) {
@@ -45,6 +46,7 @@ console.log('🔧 Sanity Config:', {
   dataset,
   apiVersion,
   hasToken: !!token,
+  hasReadToken: !!readToken,
   environment: process.env.NODE_ENV,
 });
 
@@ -53,7 +55,8 @@ export const client = createClient({
   projectId: projectId || 'puzezel0', // Fallback to known project ID
   dataset: dataset || 'production', // Fallback to production dataset
   apiVersion,
-  useCdn: false, // Temporarily disabled CDN to ensure fresh service data
+  useCdn: true, // Use CDN for better performance on read operations
+  token: readToken, // Use public read token for client-side queries
   perspective: 'published', // Only fetch published documents
   stega: false, // Disable stega for production
   // Performance optimizations
