@@ -137,6 +137,11 @@ const SERVICE_CATEGORIES_BY_TYPE_QUERY = `*[_type == "serviceCategory" && servic
 export async function getServiceCategoryBySlug(slug: string): Promise<ServiceCategory | null> {
   try {
     const serviceCategory = await client.fetch(SERVICE_CATEGORY_QUERY, { slug })
+    
+    // Return null early if no service category found
+    if (!serviceCategory) {
+      return null;
+    }
 
     // Normalize: if packageGroups are present, flatten tiers into packages for UI compatibility
     if (serviceCategory?.packageGroups && Array.isArray(serviceCategory.packageGroups) && serviceCategory.packageGroups.length > 0) {
@@ -162,11 +167,13 @@ export async function getServiceCategoryBySlug(slug: string): Promise<ServiceCat
     }
 
     // Normalize statistics into canonical `{ metrics }` shape so UI components can rely on a single shape
-    try {
-        serviceCategory.statistics = normalizeStatistics(serviceCategory.statistics) as Record<string, unknown>
-    } catch (err) {
-      // Non-fatal; keep original statistics if normalization fails
-      console.warn('Failed to normalize statistics for serviceCategory', serviceCategory?._id, err)
+    if (serviceCategory.statistics) {
+      try {
+          serviceCategory.statistics = normalizeStatistics(serviceCategory.statistics) as Record<string, unknown>
+      } catch (err) {
+        // Non-fatal; keep original statistics if normalization fails
+        console.warn('Failed to normalize statistics for serviceCategory', serviceCategory?._id, err)
+      }
     }
 
     return serviceCategory
