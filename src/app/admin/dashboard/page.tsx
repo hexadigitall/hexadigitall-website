@@ -23,12 +23,25 @@ interface DashboardStats {
   avgSessionDuration: string
 }
 
+interface NotificationItem {
+  _id: string
+  name?: string
+  email?: string
+  type: string
+  submittedAt: string
+  subject?: string
+}
+
 export default function AdminDashboard() {
   const router = useRouter()
   const [isAuthenticated, setIsAuthenticated] = useState(false)
   const [loading, setLoading] = useState(true)
   const [stats, setStats] = useState<DashboardStats | null>(null)
   const [adminUser, setAdminUser] = useState('')
+  const [notifications, setNotifications] = useState<NotificationItem[]>([])
+  const [notificationsOpen, setNotificationsOpen] = useState(false)
+  const [notificationsLoading, setNotificationsLoading] = useState(false)
+  const [hasUnread, setHasUnread] = useState(false)
 
   useEffect(() => {
     const checkAuth = async () => {
@@ -50,6 +63,7 @@ export default function AdminDashboard() {
           const sessionData = JSON.parse(session)
           setAdminUser(sessionData.username)
           fetchDashboardData()
+          fetchNotifications()
         } else {
           router.push('/admin/login')
         }
@@ -70,6 +84,22 @@ export default function AdminDashboard() {
       setStats(data.stats)
     } catch (error) {
       console.error('Failed to fetch dashboard data:', error)
+    }
+  }
+
+  const fetchNotifications = async () => {
+    setNotificationsLoading(true)
+    try {
+      const res = await fetch('/api/admin/submissions?status=new&limit=5')
+      const data = await res.json()
+      if (data.success && Array.isArray(data.submissions)) {
+        setNotifications(data.submissions)
+        setHasUnread(data.submissions.length > 0)
+      }
+    } catch (error) {
+      console.error('Failed to fetch notifications:', error)
+    } finally {
+      setNotificationsLoading(false)
     }
   }
 
@@ -95,34 +125,93 @@ export default function AdminDashboard() {
     <div className="min-h-screen bg-gray-50">
       {/* Header */}
       <header className="bg-white shadow-sm border-b border-gray-200">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16">
-            <div className="flex items-center justify-between w-full">
-              <h1 className="text-2xl font-bold bg-gradient-to-r from-primary to-purple-600 bg-clip-text text-transparent">
+        <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
+          <div className="flex flex-wrap items-center justify-between gap-3 py-3">
+            <div className="flex items-center justify-between w-full md:w-auto gap-3">
+              <h1 className="text-xl sm:text-2xl font-bold bg-gradient-to-r from-primary to-purple-600 bg-clip-text text-transparent">
                 Hexadigitall Admin
               </h1>
               <div className="hidden md:block">
-                <Breadcrumbs items={[
-                  { label: 'Admin', href: '/admin/dashboard' },
-                  { label: 'Dashboard' },
-                ]} />
+                <Breadcrumbs
+                  items={[
+                    { label: 'Admin', href: '/admin/dashboard' },
+                    { label: 'Dashboard' },
+                  ]}
+                />
               </div>
             </div>
 
-            <div className="flex items-center space-x-4">
-              <button className="p-2 text-gray-400 hover:text-gray-600 relative">
-                <BellIcon className="h-6 w-6" />
-                <span className="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full"></span>
-              </button>
+            <div className="flex items-center space-x-3 sm:space-x-4">
+              <div className="relative">
+                <button
+                  onClick={() => {
+                    setNotificationsOpen((prev) => !prev)
+                    setHasUnread(false)
+                  }}
+                  className="p-2 text-gray-500 hover:text-gray-700 relative rounded-lg hover:bg-gray-100"
+                  aria-haspopup="true"
+                  aria-expanded={notificationsOpen}
+                >
+                  <BellIcon className="h-6 w-6" />
+                  {hasUnread && <span className="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full" />}
+                </button>
 
-              <div className="flex items-center space-x-3 border-l pl-4">
+                {notificationsOpen && (
+                  <div className="absolute right-0 mt-2 w-72 sm:w-80 bg-white shadow-lg border border-gray-200 rounded-lg z-20 overflow-hidden">
+                    <div className="flex items-center justify-between px-4 py-3 border-b border-gray-100">
+                      <span className="text-sm font-semibold text-gray-900">Notifications</span>
+                      <button
+                        onClick={fetchNotifications}
+                        className="text-xs text-primary hover:text-primary/80"
+                      >
+                        Refresh
+                      </button>
+                    </div>
+                    <div className="max-h-80 overflow-y-auto divide-y divide-gray-100">
+                      {notificationsLoading && (
+                        <div className="px-4 py-3 text-sm text-gray-500">Loading...</div>
+                      )}
+                      {!notificationsLoading && notifications.length === 0 && (
+                        <div className="px-4 py-4 text-sm text-gray-500">No new submissions.</div>
+                      )}
+                      {!notificationsLoading && notifications.map((item) => (
+                        <div key={item._id} className="px-4 py-3 hover:bg-gray-50">
+                          <div className="flex items-start justify-between">
+                            <div>
+                              <p className="text-sm font-semibold text-gray-900">{item.name || 'Unknown sender'}</p>
+                              <p className="text-xs text-gray-500">{item.email || 'No email'}</p>
+                              <p className="text-xs text-gray-500 mt-1 capitalize">{item.type}</p>
+                            </div>
+                            <div className="text-right text-xs text-gray-500 whitespace-nowrap">
+                              {new Date(item.submittedAt).toLocaleDateString()}
+                            </div>
+                          </div>
+                          {item.subject && (
+                            <p className="mt-1 text-xs text-gray-700 line-clamp-2">{item.subject}</p>
+                          )}
+                          <div className="mt-2 flex justify-end">
+                            <Link
+                              href={`/admin/submissions/${item._id}`}
+                              className="text-xs text-primary hover:text-primary/80"
+                            >
+                              View details
+                            </Link>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </div>
+
+              <div className="flex items-center space-x-3 border-l pl-3 sm:pl-4">
                 <UserCircleIcon className="h-8 w-8 text-gray-400" />
                 <span className="text-sm font-medium text-gray-700">{adminUser}</span>
               </div>
 
               <button
                 onClick={handleLogout}
-                className="flex items-center space-x-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded-lg transition-colors"
+                className="flex items-center space-x-2 px-3 sm:px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded-lg transition-colors"
               >
                 <ArrowRightOnRectangleIcon className="h-5 w-5" />
                 <span>Logout</span>

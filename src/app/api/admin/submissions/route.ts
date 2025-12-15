@@ -5,12 +5,35 @@ export async function GET(request: NextRequest) {
   try {
     const url = new URL(request.url)
     const submissionId = url.searchParams.get('id')
+    const status = url.searchParams.get('status')
+    const type = url.searchParams.get('type')
+    const limitParam = url.searchParams.get('limit')
+    const limit = limitParam ? Math.min(parseInt(limitParam, 10), 50) : null
 
-    let query = `*[_type == "formSubmission"]`
+    const filters: string[] = ['_type == "formSubmission"']
+    const params: Record<string, unknown> = {}
+
     if (submissionId) {
-      query = `*[_type == "formSubmission" && _id == $id]`
+      filters.push('_id == $id')
+      params.id = submissionId
     }
-    query += ` | order(submittedAt desc) {
+    if (status) {
+      filters.push('status == $status')
+      params.status = status
+    }
+    if (type) {
+      filters.push('type == $type')
+      params.type = type
+    }
+
+    let query = `*[$[filters]] | order(submittedAt desc)`
+    query = query.replace('$[filters]', filters.join(' && '))
+
+    if (limit) {
+      query += `[0...${limit}]`
+    }
+
+    query += `{
       _id,
       type,
       status,
@@ -28,7 +51,7 @@ export async function GET(request: NextRequest) {
       referrer
     }`
 
-    const submissions = await client.fetch(query, submissionId ? { id: submissionId } : {})
+    const submissions = await client.fetch(query, params)
 
     return NextResponse.json({
       success: true,
