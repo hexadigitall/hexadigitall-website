@@ -9,6 +9,7 @@ import {
   ArrowLeftIcon,
   AcademicCapIcon,
   UserGroupIcon,
+  EyeIcon,
 } from '@heroicons/react/24/outline'
 
 interface Teacher {
@@ -24,6 +25,10 @@ interface Enrollment {
     _id: string
     title: string
     slug: { current: string }
+    price?: {
+      usd?: number
+      ngn?: number
+    }
   }
   studentId?: {
     _id: string
@@ -38,6 +43,10 @@ interface Enrollment {
   paymentStatus: string
   enrolledAt?: string
   isActive?: boolean
+  monthlyAmount?: number
+  totalHours?: number
+  goals?: string
+  experience?: string
 }
 
 const statusColors: Record<string, string> = {
@@ -270,8 +279,15 @@ export default function AdminEnrollmentsPage() {
                         {enrollment.enrolledAt ? new Date(enrollment.enrolledAt).toLocaleDateString('en-US', { year: '2-digit', month: 'short', day: 'numeric' }) : '—'}
                       </td>
                       <td className="px-3 md:px-6 py-3 md:py-4 text-xs md:text-sm">
-                        {enrollment.courseType === 'live' ? (
-                          <div className="flex flex-col gap-2">
+                        <div className="flex flex-col gap-2">
+                          <Link
+                            href={`/admin/enrollments/${enrollment._id}`}
+                            className="flex items-center justify-center space-x-1 px-2 py-1 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors text-xs"
+                          >
+                            <EyeIcon className="h-4 w-4" />
+                            <span>View</span>
+                          </Link>
+                          {enrollment.courseType === 'live' && (
                             <select
                               value={enrollment.teacherId?._id || ''}
                               onChange={(e) => handleAssignTeacher(enrollment._id, e.target.value)}
@@ -285,16 +301,14 @@ export default function AdminEnrollmentsPage() {
                                 </option>
                               ))}
                             </select>
-                            {enrollment.teacherId && (
-                              <div className="flex items-center space-x-1 text-xs text-gray-600">
-                                <UserGroupIcon className="h-3 w-3 md:h-4 md:w-4" />
-                                <span className="truncate">{enrollment.teacherId.name || enrollment.teacherId.username}</span>
-                              </div>
-                            )}
-                          </div>
-                        ) : (
-                          <span className="text-xs md:text-sm text-gray-400">N/A</span>
-                        )}
+                          )}
+                          {enrollment.teacherId && (
+                            <div className="flex items-center space-x-1 text-xs text-gray-600">
+                              <UserGroupIcon className="h-3 w-3 md:h-4 md:w-4" />
+                              <span className="truncate">{enrollment.teacherId.name || enrollment.teacherId.username}</span>
+                            </div>
+                          )}
+                        </div>
                       </td>
                     </tr>
                   ))}

@@ -13,6 +13,7 @@ import {
   ClockIcon,
   XCircleIcon,
   ArrowDownTrayIcon,
+  EyeIcon,
 } from '@heroicons/react/24/outline'
 
 interface FormSubmission {
@@ -262,6 +263,13 @@ export default function SubmissionsPage() {
                       </td>
                       <td className="px-3 md:px-6 py-3 md:py-4 whitespace-nowrap text-right text-sm font-medium">
                         <div className="flex items-center justify-end gap-2">
+                          <Link
+                            href={`/admin/submissions/${submission._id}`}
+                            className="text-primary hover:text-primary/80"
+                            title="View details"
+                          >
+                            <EyeIcon className="h-5 w-5" />
+                          </Link>
                           {submission.status === 'new' && (
                             <button
                               onClick={() => updateStatus(submission._id, 'in-progress')}

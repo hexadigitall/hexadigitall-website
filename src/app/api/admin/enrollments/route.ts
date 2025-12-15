@@ -25,15 +25,23 @@ export async function GET(request: NextRequest) {
 
   const url = new URL(request.url)
   const courseId = url.searchParams.get('courseId')
+  const enrollmentId = url.searchParams.get('enrollmentId')
 
   try {
     let query = '*[_type == "enrollment"]'
+    let queryParams: Record<string, string> = {}
+
     if (courseId) {
       query = '*[_type == "enrollment" && courseId._ref == $courseId]'
+      queryParams = { courseId }
+    } else if (enrollmentId) {
+      query = '*[_type == "enrollment" && _id == $enrollmentId]'
+      queryParams = { enrollmentId }
     }
+
     query += ` | order(enrolledAt desc) {
       _id,
-      courseId->{_id, title, slug},
+      courseId->{_id, title, slug, price},
       studentId->{_id, username, email},
       teacherId->{_id, username, name, email},
       studentName,
@@ -42,10 +50,17 @@ export async function GET(request: NextRequest) {
       courseType,
       paymentStatus,
       enrolledAt,
-      isActive
+      isActive,
+      monthlyAmount,
+      totalHours,
+      goals,
+      experience,
+      hoursPerWeek,
+      sessionFormat,
+      preferredSchedule
     }`
 
-    const enrollments = await client.fetch(query, courseId ? { courseId } : {})
+    const enrollments = await client.fetch(query, queryParams)
     return NextResponse.json({ success: true, enrollments })
   } catch (error) {
     console.error('Enrollments fetch error:', error)

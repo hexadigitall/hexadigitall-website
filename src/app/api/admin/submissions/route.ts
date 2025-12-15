@@ -1,9 +1,16 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { client, writeClient } from '@/sanity/client'
 
-export async function GET() {
+export async function GET(request: NextRequest) {
   try {
-    const query = `*[_type == "formSubmission"] | order(submittedAt desc) {
+    const url = new URL(request.url)
+    const submissionId = url.searchParams.get('id')
+
+    let query = `*[_type == "formSubmission"]`
+    if (submissionId) {
+      query = `*[_type == "formSubmission" && _id == $id]`
+    }
+    query += ` | order(submittedAt desc) {
       _id,
       type,
       status,
@@ -17,10 +24,11 @@ export async function GET() {
       formData,
       submittedAt,
       ipAddress,
-      userAgent
+      userAgent,
+      referrer
     }`
 
-    const submissions = await client.fetch(query)
+    const submissions = await client.fetch(query, submissionId ? { id: submissionId } : {})
 
     return NextResponse.json({
       success: true,
