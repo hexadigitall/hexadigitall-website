@@ -124,14 +124,14 @@ export default function AdminDashboard() {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Header */}
-      <header className="bg-white shadow-sm border-b border-gray-200">
+      <header className="bg-white shadow-sm border-b border-gray-200 sticky top-0 z-10">
         <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
-          <div className="flex flex-wrap items-center justify-between gap-3 py-3">
-            <div className="flex items-center justify-between w-full md:w-auto gap-3">
-              <h1 className="text-xl sm:text-2xl font-bold bg-gradient-to-r from-primary to-purple-600 bg-clip-text text-transparent">
+          <div className="flex items-center justify-between gap-2 py-3 min-h-16">
+            <div className="flex-1 min-w-0">
+              <h1 className="text-lg sm:text-2xl font-bold bg-gradient-to-r from-primary to-purple-600 bg-clip-text text-transparent truncate">
                 Hexadigitall Admin
               </h1>
-              <div className="hidden md:block">
+              <div className="hidden md:block text-xs">
                 <Breadcrumbs
                   items={[
                     { label: 'Admin', href: '/admin/dashboard' },
@@ -141,8 +141,8 @@ export default function AdminDashboard() {
               </div>
             </div>
 
-            <div className="flex items-center space-x-3 sm:space-x-4">
-              <div className="relative">
+            <div className="flex items-center gap-2 sm:gap-3 flex-shrink-0">
+              <div className="relative z-30">
                 <button
                   onClick={() => {
                     setNotificationsOpen((prev) => !prev)
@@ -157,7 +157,7 @@ export default function AdminDashboard() {
                 </button>
 
                 {notificationsOpen && (
-                  <div className="absolute right-0 mt-2 w-72 sm:w-80 bg-white shadow-lg border border-gray-200 rounded-lg z-20 overflow-hidden">
+                  <div className="absolute left-1/2 transform -translate-x-1/2 sm:left-auto sm:right-0 mt-2 w-[90vw] sm:w-80 bg-white shadow-lg border border-gray-200 rounded-lg z-50 overflow-hidden max-h-96 flex flex-col">
                     <div className="flex items-center justify-between px-4 py-3 border-b border-gray-100">
                       <span className="text-sm font-semibold text-gray-900">Notifications</span>
                       <button
@@ -167,7 +167,7 @@ export default function AdminDashboard() {
                         Refresh
                       </button>
                     </div>
-                    <div className="max-h-80 overflow-y-auto divide-y divide-gray-100">
+                    <div className="overflow-y-auto divide-y divide-gray-100 flex-1">
                       {notificationsLoading && (
                         <div className="px-4 py-3 text-sm text-gray-500">Loading...</div>
                       )}
@@ -204,17 +204,18 @@ export default function AdminDashboard() {
                 )}
               </div>
 
-              <div className="flex items-center space-x-3 border-l pl-3 sm:pl-4">
-                <UserCircleIcon className="h-8 w-8 text-gray-400" />
-                <span className="text-sm font-medium text-gray-700">{adminUser}</span>
+              <div className="hidden sm:flex items-center gap-2 border-l pl-2 sm:pl-3">
+                <UserCircleIcon className="h-6 w-6 sm:h-8 sm:w-8 text-gray-400 flex-shrink-0" />
+                <span className="text-xs sm:text-sm font-medium text-gray-700 truncate">{adminUser}</span>
               </div>
 
               <button
                 onClick={handleLogout}
-                className="flex items-center space-x-2 px-3 sm:px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded-lg transition-colors"
+                className="flex items-center gap-1 sm:gap-2 px-2 sm:px-3 py-1.5 sm:py-2 text-xs sm:text-sm text-gray-700 hover:bg-gray-100 rounded-lg transition-colors flex-shrink-0"
+                title="Logout"
               >
-                <ArrowRightOnRectangleIcon className="h-5 w-5" />
-                <span>Logout</span>
+                <ArrowRightOnRectangleIcon className="h-4 w-4 sm:h-5 sm:w-5" />
+                <span className="hidden sm:inline">Logout</span>
               </button>
             </div>
           </div>
@@ -222,9 +223,9 @@ export default function AdminDashboard() {
       </header>
       <AdminNavbar />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-4 sm:py-8">
         {/* Quick Stats */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 mb-6 md:mb-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 md:gap-6 mb-4 sm:mb-6 md:mb-8">
           <StatCard
             title="Total Submissions"
             value={stats?.totalSubmissions || 0}
@@ -256,7 +257,7 @@ export default function AdminDashboard() {
         </div>
 
         {/* Navigation Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-3 sm:gap-4 md:gap-6">
           <NavCard
             title="Form Submissions"
             description="View and manage all form submissions"
@@ -310,9 +311,9 @@ export default function AdminDashboard() {
         </div>
 
         {/* Recent Activity */}
-        <div className="mt-8 bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-          <h2 className="text-lg font-semibold text-gray-900 mb-4">Recent Activity</h2>
-          <div className="space-y-4">
+        <div className="mt-6 sm:mt-8 bg-white rounded-lg sm:rounded-xl shadow-sm border border-gray-200 p-4 sm:p-6">
+          <h2 className="text-base sm:text-lg font-semibold text-gray-900 mb-3 sm:mb-4">Recent Activity</h2>
+          <div className="space-y-3 sm:space-y-4">
             <ActivityItem
               title="New contact form submission"
               time="2 minutes ago"
@@ -350,15 +351,15 @@ function StatCard({ title, value, change, icon, color }: {
   }
 
   return (
-    <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-      <div className="flex items-center justify-between mb-4">
-        <div className={`p-3 rounded-lg ${colorClasses[color] || colorClasses.blue} text-white`}>
+    <div className="bg-white rounded-lg sm:rounded-xl shadow-sm border border-gray-200 p-4 sm:p-6">
+      <div className="flex items-center justify-between mb-3 sm:mb-4">
+        <div className={`p-2 sm:p-3 rounded-lg ${colorClasses[color] || colorClasses.blue} text-white`}>
           {icon}
         </div>
-        <span className="text-sm font-medium text-green-600">{change}</span>
+        <span className="text-xs sm:text-sm font-medium text-green-600">{change}</span>
       </div>
-      <h3 className="text-sm font-medium text-gray-600 mb-1">{title}</h3>
-      <p className="text-3xl font-bold text-gray-900">{value}</p>
+      <h3 className="text-xs sm:text-sm font-medium text-gray-600 mb-1">{title}</h3>
+      <p className="text-2xl sm:text-3xl font-bold text-gray-900">{value}</p>
     </div>
   )
 }
@@ -379,19 +380,19 @@ function NavCard({ title, description, icon, href, count, color }: {
 
   return (
     <Link href={href}>
-      <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 hover:shadow-md transition-shadow cursor-pointer group">
-        <div className="flex items-start justify-between mb-4">
-          <div className={`p-3 rounded-lg bg-gradient-to-r ${colorClasses[color] || colorClasses.blue} text-white group-hover:scale-110 transition-transform`}>
+      <div className="bg-white rounded-lg sm:rounded-xl shadow-sm border border-gray-200 p-4 sm:p-6 hover:shadow-md transition-shadow cursor-pointer group h-full">
+        <div className="flex items-start justify-between mb-3 sm:mb-4 gap-2">
+          <div className={`p-2 sm:p-3 rounded-lg bg-gradient-to-r ${colorClasses[color] || colorClasses.blue} text-white group-hover:scale-110 transition-transform flex-shrink-0`}>
             {icon}
           </div>
           {count !== undefined && (
-            <span className="px-3 py-1 bg-red-100 text-red-600 text-sm font-medium rounded-full">
+            <span className="px-2 sm:px-3 py-0.5 sm:py-1 bg-red-100 text-red-600 text-xs sm:text-sm font-medium rounded-full flex-shrink-0">
               {count} new
             </span>
           )}
         </div>
-        <h3 className="text-lg font-semibold text-gray-900 mb-2">{title}</h3>
-        <p className="text-sm text-gray-600">{description}</p>
+        <h3 className="text-base sm:text-lg font-semibold text-gray-900 mb-1 sm:mb-2 line-clamp-2">{title}</h3>
+        <p className="text-xs sm:text-sm text-gray-600 line-clamp-2">{description}</p>
       </div>
     </Link>
   )
@@ -403,11 +404,11 @@ function ActivityItem({ title, time, user }: {
   user: string
 }) {
   return (
-    <div className="flex items-center space-x-4 p-4 bg-gray-50 rounded-lg">
-      <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
-      <div className="flex-1">
-        <p className="text-sm font-medium text-gray-900">{title}</p>
-        <p className="text-xs text-gray-500">
+    <div className="flex items-center gap-3 p-3 sm:p-4 bg-gray-50 rounded-lg">
+      <div className="w-2 h-2 bg-blue-500 rounded-full flex-shrink-0"></div>
+      <div className="flex-1 min-w-0">
+        <p className="text-xs sm:text-sm font-medium text-gray-900 truncate">{title}</p>
+        <p className="text-xs text-gray-500 truncate">
           {user} • {time}
         </p>
       </div>
