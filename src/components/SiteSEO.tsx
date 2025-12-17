@@ -138,35 +138,54 @@ export function generateSiteSEO(props: SiteSEOProps): Metadata {
     : `${SITE_CONFIG.url}${image}`;
 
   // Build Open Graph metadata
-  const openGraph: Metadata['openGraph'] = {
-    type,
-    locale,
-    url,
-    siteName: SITE_CONFIG.name,
-    title: `${title} ${SITE_CONFIG.titleSuffix}`,
-    description,
-    images: [
-      {
-        url: absoluteImageUrl,
-        secureUrl: absoluteImageUrl, // HTTPS version
-        width: imageWidth,
-        height: imageHeight,
-        alt: imageAlt,
-        type: imageType,
-      },
-    ],
-  };
-
-  // Add article-specific metadata
+  let openGraph: Metadata['openGraph'];
+  
   if (type === 'article') {
-    openGraph.publishedTime = publishedTime;
-    openGraph.modifiedTime = modifiedTime;
-    openGraph.authors = authors;
-    openGraph.tags = tags;
+    openGraph = {
+      type: 'article',
+      locale,
+      url,
+      siteName: SITE_CONFIG.name,
+      title: `${title} ${SITE_CONFIG.titleSuffix}`,
+      description,
+      publishedTime,
+      modifiedTime,
+      authors,
+      tags,
+      images: [
+        {
+          url: absoluteImageUrl,
+          secureUrl: absoluteImageUrl, // HTTPS version
+          width: imageWidth,
+          height: imageHeight,
+          alt: imageAlt,
+          type: imageType,
+        },
+      ],
+    };
+  } else {
+    openGraph = {
+      type,
+      locale,
+      url,
+      siteName: SITE_CONFIG.name,
+      title: `${title} ${SITE_CONFIG.titleSuffix}`,
+      description,
+      images: [
+        {
+          url: absoluteImageUrl,
+          secureUrl: absoluteImageUrl, // HTTPS version
+          width: imageWidth,
+          height: imageHeight,
+          alt: imageAlt,
+          type: imageType,
+        },
+      ],
+    };
   }
 
   // Add alternate locales
-  if (alternateLocales && alternateLocales.length > 0) {
+  if (alternateLocales && alternateLocales.length > 0 && openGraph) {
     openGraph.alternateLocale = alternateLocales;
   }
 
