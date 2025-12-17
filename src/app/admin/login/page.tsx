@@ -31,6 +31,8 @@ export default function AdminLogin() {
           username: data.username,
           loginTime: new Date().toISOString(),
         }))
+        // Set cookie for middleware-based protection (24h)
+        document.cookie = `admin_token=${data.token}; Path=/; Max-Age=86400; SameSite=Lax`;
         router.push('/admin/dashboard')
       } else {
         setError(data.message || 'Invalid credentials')

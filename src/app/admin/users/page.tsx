@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import Breadcrumbs from '@/components/admin/Breadcrumbs'
 import AdminNavbar from '@/components/admin/AdminNavbar'
+import AssignCoursesModal from '@/components/admin/AssignCoursesModal'
 import {
   ArrowLeftIcon,
   PlusIcon,
@@ -12,6 +13,8 @@ import {
   CheckBadgeIcon,
   NoSymbolIcon,
   KeyIcon,
+  TrashIcon,
+  AcademicCapIcon,
 } from '@heroicons/react/24/outline'
 
 interface User {
@@ -45,6 +48,8 @@ export default function AdminUsersPage() {
   const [savingId, setSavingId] = useState<string | null>(null)
   const [feedback, setFeedback] = useState<{ type: 'success' | 'error'; message: string } | null>(null)
   const [roleEdits, setRoleEdits] = useState<Record<string, User['role']>>({})
+  const [assignModalOpen, setAssignModalOpen] = useState(false)
+  const [selectedTeacher, setSelectedTeacher] = useState<{ id: string; name: string } | null>(null)
   const [form, setForm] = useState({
     name: '',
     username: '',
@@ -285,6 +290,56 @@ export default function AdminUsersPage() {
     }
   }
 
+  const handleDeleteUser = async (user: User) => {
+    const token = localStorage.getItem('admin_token')
+    if (!token) {
+      router.push('/admin/login')
+      return
+    }
+    if (user.username === currentUser) {
+      setFeedback({ type: 'error', message: 'You cannot delete your own account.' })
+      return
+    }
+
+    const confirmed = window.confirm(
+      `Are you sure you want to delete ${user.name || user.username}? This action cannot be undone.`
+    )
+    if (!confirmed) return
+
+    setSavingId(user._id)
+    setFeedback(null)
+    try {
+      const res = await fetch(`/api/admin/users/${user._id}`, {
+        method: 'DELETE',
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      const data = await res.json()
+      if (res.ok && data.success) {
+        setFeedback({ type: 'success', message: 'User deleted.' })
+        await loadUsers()
+      } else {
+        setFeedback({ type: 'error', message: data.message || 'Failed to delete user.' })
+      }
+    } catch (error) {
+      console.error('Delete user failed:', error)
+      setFeedback({ type: 'error', message: 'Failed to delete user.' })
+    } finally {
+      setSavingId(null)
+    }
+  }
+
+  const handleOpenAssignModal = (user: User) => {
+    setSelectedTeacher({ id: user._id, name: user.name || user.username })
+    setAssignModalOpen(true)
+  }
+
+  const handleAssignModalSuccess = async () => {
+    setFeedback({ type: 'success', message: 'Course assignments updated.' })
+    await loadUsers()
+  }
+
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gray-50">
@@ -510,34 +565,56 @@ export default function AdminUsersPage() {
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                           {user.createdAt ? new Date(user.createdAt).toLocaleDateString() : '—'}
                         </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700 space-x-3">
-                          <button
-                            type="button"
-                            onClick={() => handleStatusToggle(user)}
-                            disabled={savingId === user._id}
-                            className="inline-flex items-center space-x-1 text-sm text-gray-700 hover:text-gray-900 disabled:opacity-50"
-                          >
-                            {user.status === 'active' ? (
-                              <>
-                                <NoSymbolIcon className="h-4 w-4" />
-                                <span>Suspend</span>
-                              </>
-                            ) : (
-                              <>
-                                <CheckBadgeIcon className="h-4 w-4" />
-                                <span>Activate</span>
-                              </>
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
+                          <div className="flex flex-wrap gap-2">
+                            <button
+                              type="button"
+                              onClick={() => handleStatusToggle(user)}
+                              disabled={savingId === user._id}
+                              className="inline-flex items-center space-x-1 text-sm text-gray-700 hover:text-gray-900 disabled:opacity-50"
+                            >
+                              {user.status === 'active' ? (
+                                <>
+                                  <NoSymbolIcon className="h-4 w-4" />
+                                  <span>Suspend</span>
+                                </>
+                              ) : (
+                                <>
+                                  <CheckBadgeIcon className="h-4 w-4" />
+                                  <span>Activate</span>
+                                </>
+                              )}
+                            </button>
+                            <button
+                              type="button"
+                              onClick={() => handleResetPassword(user)}
+                              disabled={savingId === user._id}
+                              className="inline-flex items-center space-x-1 text-sm text-gray-700 hover:text-gray-900 disabled:opacity-50"
+                            >
+                              <KeyIcon className="h-4 w-4" />
+                              <span>Reset</span>
+                            </button>
+                            {user.role === 'teacher' && (
+                              <button
+                                type="button"
+                                onClick={() => handleOpenAssignModal(user)}
+                                disabled={savingId === user._id}
+                                className="inline-flex items-center space-x-1 text-sm text-primary hover:text-primary/80 disabled:opacity-50"
+                              >
+                                <AcademicCapIcon className="h-4 w-4" />
+                                <span>Assign</span>
+                              </button>
                             )}
-                          </button>
-                          <button
-                            type="button"
-                            onClick={() => handleResetPassword(user)}
-                            disabled={savingId === user._id}
-                            className="inline-flex items-center space-x-1 text-sm text-gray-700 hover:text-gray-900 disabled:opacity-50"
-                          >
-                            <KeyIcon className="h-4 w-4" />
-                            <span>Reset password</span>
-                          </button>
+                            <button
+                              type="button"
+                              onClick={() => handleDeleteUser(user)}
+                              disabled={savingId === user._id || isSelf}
+                              className="inline-flex items-center space-x-1 text-sm text-red-600 hover:text-red-700 disabled:opacity-50"
+                            >
+                              <TrashIcon className="h-4 w-4" />
+                              <span>Delete</span>
+                            </button>
+                          </div>
                         </td>
                       </tr>
                     )
@@ -548,6 +625,15 @@ export default function AdminUsersPage() {
           )}
         </section>
       </div>
+
+      {assignModalOpen && selectedTeacher && (
+        <AssignCoursesModal
+          teacherId={selectedTeacher.id}
+          teacherName={selectedTeacher.name}
+          onClose={() => setAssignModalOpen(false)}
+          onSuccess={handleAssignModalSuccess}
+        />
+      )}
     </div>
   )
 }
