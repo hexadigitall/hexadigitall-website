@@ -9,6 +9,8 @@ A modern Next.js application offering tiered digital services with integrated Pa
 - **Multi-step Purchase Flow** - Tier selection → Add-ons → Customer details → Payment
 - **Responsive Design** - Tailwind CSS with mobile-first approach
 - **Sanity CMS Integration** - Content management for blogs, FAQs, and services
+- **Open Graph & Social Sharing** - Optimized meta tags for social media sharing with beautiful previews
+- **ShareButtons Component** - Reusable component for sharing content across platforms (Facebook, Twitter, WhatsApp, LinkedIn)
 
 ## Quick Start
 
@@ -44,6 +46,8 @@ This project uses [`next/font`](https://nextjs.org/docs/app/building-your-applic
 - **[Paystack Setup Guide](./PAYSTACK_SETUP.md)** - Complete payment integration setup
 - **[Development Setup](./DEVELOPMENT_SETUP.md)** - Local development configuration
 - **[Deployment Guide](./DEPLOYMENT_GUIDE.md)** - Production deployment instructions
+- **[OG Investigation](./docs/og-investigation.md)** - Open Graph implementation and social sharing fixes
+- **[Jhema Wears Proposal](./docs/jhema-wears-proposal/)** - Complete e-commerce proposal package with outreach templates
 
 ## Project Structure
 
@@ -80,14 +84,59 @@ src/
 6. Webhook confirms payment
 7. User redirected to success page
 
+## Demo Pages
+
+### Jhema Wears E-Commerce Demo
+Visit `/demo/jhema-wears` to see a complete demonstration of:
+- Open Graph meta tags for social sharing
+- ShareButtons component in action
+- Product page layout optimized for e-commerce
+- Mobile-responsive design
+- Educational info boxes explaining the features
+
+This demo showcases how proper OG implementation leads to beautiful social media previews.
+
+### Testing Social Sharing
+
+1. **Local Testing:**
+   ```bash
+   npm run dev
+   # Visit http://localhost:3000/demo/jhema-wears
+   ```
+
+2. **Test Social Previews:**
+   - Facebook: https://developers.facebook.com/tools/debug/
+   - Twitter: https://cards-dev.twitter.com/validator
+   - LinkedIn: https://www.linkedin.com/post-inspector/
+
+3. **ShareButtons Component Usage:**
+   ```tsx
+   import ShareButtons from '@/components/ShareButtons/ShareButtons';
+
+   <ShareButtons
+     url="https://hexadigitall.com/your-page"
+     title="Your Page Title"
+     description="Your page description"
+     showLabels={true}
+     size="lg"
+   />
+   ```
+
 ## Testing
 
+### Paystack Testing
 Use Paystack test cards:
 - **Success**: 4084084084084081
 - **PIN**: 0000
 - **OTP**: 123456
 
 See [PAYSTACK_SETUP.md](./PAYSTACK_SETUP.md) for complete testing guide.
+
+### OG Meta Tags Testing
+Run the OG tests:
+```bash
+npm test og.test.tsx
+```
 
 ## Deploy on Vercel
 
