@@ -21,7 +21,6 @@
 
 import fs from 'node:fs';
 import path from 'node:path';
-import { fileURLToPath } from 'node:url';
 
 // Note: In a real implementation, you would import puppeteer
 // For now, this is a placeholder/template showing the structure
@@ -294,6 +293,8 @@ async function generateImage(options: ImageGenerationOptions): Promise<void> {
 
   const { width, height } = CONFIG.dimensions[dimension];
   const dir = CONFIG.outputDirs[outputDir];
+  // Note: html is used in the Puppeteer implementation below (currently commented out)
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const html = generateHTML(options);
 
   // Placeholder: In real implementation, use Puppeteer
