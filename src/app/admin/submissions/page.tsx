@@ -141,44 +141,50 @@ export default function SubmissionsPage() {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Header */}
-      <header className="bg-white shadow-sm border-b border-gray-200">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-4">
+      <header className="bg-white shadow-sm border-b border-gray-200 sticky top-0 z-10">
+        <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-4">
+          <div className="flex items-start sm:items-center justify-between gap-3 flex-wrap">
+            <div className="flex items-center gap-3 min-w-0">
               <Link
                 href="/admin/dashboard"
-                className="p-2 text-gray-400 hover:text-gray-600 rounded-lg hover:bg-gray-100"
+                className="p-2 text-gray-400 hover:text-gray-600 rounded-lg hover:bg-gray-100 flex-shrink-0"
               >
                 <ArrowLeftIcon className="h-5 w-5" />
               </Link>
-              <h1 className="text-2xl font-bold text-gray-900">Form Submissions</h1>
-              <div className="hidden md:block">
-                <Breadcrumbs items={[
-                  { label: 'Admin', href: '/admin/dashboard' },
-                  { label: 'Submissions' },
-                ]} />
+              <div className="min-w-0">
+                <h1 className="text-xl sm:text-2xl font-bold text-gray-900 truncate">Form Submissions</h1>
+                <div className="hidden md:block">
+                  <Breadcrumbs
+                    items={[
+                      { label: 'Admin', href: '/admin/dashboard' },
+                      { label: 'Submissions' },
+                    ]}
+                  />
+                </div>
               </div>
             </div>
 
-            <button
-              onClick={exportData}
-              className="flex items-center space-x-2 px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors"
-            >
-              <ArrowDownTrayIcon className="h-5 w-5" />
-              <span>Export CSV</span>
-            </button>
+            <div className="w-full sm:w-auto">
+              <button
+                onClick={exportData}
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-3 sm:px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors"
+              >
+                <ArrowDownTrayIcon className="h-5 w-5" />
+                <span>Export CSV</span>
+              </button>
+            </div>
           </div>
         </div>
       </header>
       <AdminNavbar />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 md:py-8">
+      <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-4 sm:py-6 md:py-8">
         {/* Filters */}
-        <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-4 md:p-6 mb-4 md:mb-6">
+        <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-3 sm:p-4 md:p-6 mb-4 md:mb-6">
           <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-3 md:gap-4">
-            <div className="flex items-center space-x-4">
+            <div className="flex items-center space-x-3">
               <FunnelIcon className="h-5 w-5 text-gray-400" />
-              <div className="flex space-x-2">
+              <div className="flex flex-wrap gap-2">
                 <FilterButton active={filter === 'all'} onClick={() => setFilter('all')}>
                   All
                 </FilterButton>
@@ -194,51 +200,85 @@ export default function SubmissionsPage() {
               </div>
             </div>
 
-            <div className="relative">
-              <MagnifyingGlassIcon className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
+            <div className="relative w-full md:w-auto">
+              <MagnifyingGlassIcon className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
               <input
                 type="text"
                 placeholder="Search submissions..."
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
-                className="pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent w-full md:w-80"
+                className="pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent w-full sm:w-72 md:w-80"
               />
             </div>
           </div>
         </div>
 
-        {/* Submissions Table */}
-        <div className="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
+        {/* Mobile Cards */}
+        <div className="md:hidden space-y-3">
+          {filteredSubmissions.length === 0 ? (
+            <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-4 text-center text-gray-500">No submissions found</div>
+          ) : (
+            filteredSubmissions.map((s) => (
+              <div key={s._id} className="bg-white rounded-lg shadow-sm border border-gray-200 p-4">
+                <div className="flex items-center justify-between">
+                  <span className="text-xs text-gray-500">{new Date(s.submittedAt).toLocaleDateString()}</span>
+                  <span className="inline-flex px-2 py-1 text-xs font-medium rounded-full bg-blue-100 text-blue-800 capitalize">{s.type}</span>
+                </div>
+                <div className="mt-2">
+                  <p className="text-sm font-medium text-gray-900 truncate">{s.name}</p>
+                  <p className="text-xs text-gray-600 truncate">{s.email}</p>
+                </div>
+                {s.message && (
+                  <p className="mt-2 text-sm text-gray-700 line-clamp-2">{s.message}</p>
+                )}
+                <div className="mt-3 flex items-center justify-between">
+                  <StatusBadge status={s.status} />
+                  <div className="flex items-center gap-2">
+                    <Link
+                      href={`/admin/submissions/${s._id}`}
+                      className="text-gray-600 hover:text-gray-900"
+                      title="View details"
+                    >
+                      <EyeIcon className="h-5 w-5" />
+                    </Link>
+                    {s.status === 'new' && (
+                      <button onClick={() => updateStatus(s._id, 'in-progress')} className="text-blue-600 hover:text-blue-800" title="Mark in progress">
+                        <ClockIcon className="h-5 w-5" />
+                      </button>
+                    )}
+                    {s.status !== 'completed' && (
+                      <button onClick={() => updateStatus(s._id, 'completed')} className="text-green-600 hover:text-green-900" title="Mark completed">
+                        <CheckCircleIcon className="h-5 w-5" />
+                      </button>
+                    )}
+                    <button onClick={() => updateStatus(s._id, 'archived')} className="text-gray-600 hover:text-gray-900" title="Archive">
+                      <XCircleIcon className="h-5 w-5" />
+                    </button>
+                  </div>
+                </div>
+              </div>
+            ))
+          )}
+        </div>
+
+        {/* Desktop Table */}
+        <div className="hidden md:block bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
           <div className="overflow-x-auto">
-            <table className="w-full">
+            <table className="min-w-full">
               <thead className="bg-gray-50 border-b border-gray-200">
                 <tr>
-                  <th className="px-3 md:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider whitespace-nowrap">
-                    Date
-                  </th>
-                  <th className="px-3 md:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider whitespace-nowrap">
-                    Type
-                  </th>
-                  <th className="px-3 md:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider whitespace-nowrap">
-                    Contact
-                  </th>
-                  <th className="hidden lg:table-cell px-3 md:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider whitespace-nowrap">
-                    Message
-                  </th>
-                  <th className="px-3 md:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider whitespace-nowrap">
-                    Status
-                  </th>
-                  <th className="px-3 md:px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider whitespace-nowrap">
-                    Actions
-                  </th>
+                  <th className="px-3 md:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider whitespace-nowrap">Date</th>
+                  <th className="px-3 md:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider whitespace-nowrap">Type</th>
+                  <th className="px-3 md:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider whitespace-nowrap">Contact</th>
+                  <th className="hidden lg:table-cell px-3 md:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider whitespace-nowrap">Message</th>
+                  <th className="px-3 md:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider whitespace-nowrap">Status</th>
+                  <th className="px-3 md:px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider whitespace-nowrap">Actions</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-200">
                 {filteredSubmissions.length === 0 ? (
                   <tr>
-                    <td colSpan={6} className="px-4 md:px-6 py-8 md:py-12 text-center text-gray-500">
-                      No submissions found
-                    </td>
+                    <td colSpan={6} className="px-4 md:px-6 py-8 md:py-12 text-center text-gray-500">No submissions found</td>
                   </tr>
                 ) : (
                   filteredSubmissions.map((submission) => (
@@ -247,11 +287,9 @@ export default function SubmissionsPage() {
                         {new Date(submission.submittedAt).toLocaleDateString()}
                       </td>
                       <td className="px-3 md:px-6 py-3 md:py-4 whitespace-nowrap">
-                        <span className="inline-flex px-2 py-1 text-xs font-medium rounded-full bg-blue-100 text-blue-800">
-                          {submission.type}
-                        </span>
+                        <span className="inline-flex px-2 py-1 text-xs font-medium rounded-full bg-blue-100 text-blue-800 capitalize">{submission.type}</span>
                       </td>
-                      <td className="px-3 md:px-6 py-3 md:py-4">
+                      <td className="px-3 md:px-6 py-3 md:py-4 max-w-sm">
                         <div className="text-xs md:text-sm font-medium text-gray-900 truncate">{submission.name}</div>
                         <div className="text-xs md:text-sm text-gray-500 truncate">{submission.email}</div>
                       </td>
@@ -265,7 +303,7 @@ export default function SubmissionsPage() {
                         <div className="flex items-center justify-end gap-2">
                           <Link
                             href={`/admin/submissions/${submission._id}`}
-                            className="text-primary hover:text-primary/80"
+                            className="text-gray-600 hover:text-gray-900"
                             title="View details"
                           >
                             <EyeIcon className="h-5 w-5" />

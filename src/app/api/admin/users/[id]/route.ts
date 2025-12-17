@@ -117,3 +117,53 @@ export async function PATCH(request: NextRequest) {
     )
   }
 }
+
+export async function DELETE(request: NextRequest) {
+  const auth = await requireAdmin(request)
+  if (!auth.ok) {
+    return auth.response
+  }
+
+  const userId = await getUserIdFromPath(request)
+  if (!userId) {
+    return NextResponse.json(
+      { success: false, message: 'User id is required' },
+      { status: 400 }
+    )
+  }
+
+  try {
+    const existing = await client.fetch(
+      '*[_type == "user" && _id == $id][0]{ _id, username, role }',
+      { id: userId }
+    )
+
+    if (!existing) {
+      return NextResponse.json(
+        { success: false, message: 'User not found' },
+        { status: 404 }
+      )
+    }
+
+    // Prevent deleting yourself
+    if (existing.username === auth.user.username) {
+      return NextResponse.json(
+        { success: false, message: 'Cannot delete your own account' },
+        { status: 400 }
+      )
+    }
+
+    await writeClient.delete(userId)
+
+    return NextResponse.json({ 
+      success: true, 
+      message: 'User deleted successfully' 
+    })
+  } catch (error) {
+    console.error('Delete user error:', error)
+    return NextResponse.json(
+      { success: false, message: 'Failed to delete user' },
+      { status: 500 }
+    )
+  }
+}

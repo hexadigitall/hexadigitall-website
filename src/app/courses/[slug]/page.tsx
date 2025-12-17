@@ -7,6 +7,7 @@ import { PortableText } from '@portabletext/react';
 import type { PortableTextBlock } from 'sanity';
 import CourseEnrollment, { type CourseEnrollmentData } from '@/components/CourseEnrollment';
 import Breadcrumb from '@/components/ui/Breadcrumb';
+import { cookies } from 'next/headers'
 
 // Interface for the full course data fetched from Sanity
 interface Course {
@@ -29,6 +30,8 @@ interface Course {
     currentEnrollments?: number;
     body: PortableTextBlock[];
     mainImage: string;
+    contentPdf?: { asset?: { _ref?: string; url?: string } };
+    roadmapPdf?: { asset?: { _ref?: string; url?: string } };
     curriculum?: {
         modules: number;
         lessons: number;
@@ -145,6 +148,8 @@ const courseQuery = groq`*[_type == "course" && slug.current == $slug][0]{
     "currentEnrollments": count(*[_type == "enrollment" && courseId._ref == ^._id]),
     body,
     "mainImage": mainImage.asset->url,
+    contentPdf{asset->{_ref,url}},
+    roadmapPdf{asset->{_ref,url}},
     curriculum {
         modules,
         lessons,
@@ -163,6 +168,46 @@ export default async function CoursePage({ params }: { params: Promise<{ slug: s
     const course: Course = await client.fetch(courseQuery, { slug });
 
     if (!course) notFound();
+
+        // Determine access to materials via cookie token
+        const cookieStore = await cookies()
+        const token = cookieStore.get('admin_token')?.value
+        let role: 'admin' | 'teacher' | 'student' | undefined
+        let userId: string | undefined
+        let hasAccess = false
+
+        if (token) {
+            try {
+                const decoded = JSON.parse(Buffer.from(token, 'base64').toString('utf-8')) as {
+                    role?: string
+                    userId?: string
+                    timestamp?: number
+                }
+                if (decoded?.timestamp && (Date.now() - decoded.timestamp) < 24 * 60 * 60 * 1000) {
+                    role = (decoded.role as 'admin' | 'teacher' | 'student' | undefined) || undefined
+                    userId = decoded.userId
+                    if (role === 'admin') {
+                        hasAccess = true
+                    } else if (role === 'teacher' && userId) {
+                        // Check if this teacher is assigned to this course
+                        const assigned = await client.fetch(
+                            groq`count(*[_type == "course" && _id == $courseId && references($teacherId)]) > 0`,
+                            { courseId: course._id, teacherId: userId }
+                        )
+                        hasAccess = Boolean(assigned)
+                    } else if (role === 'student' && userId) {
+                        // Check if student is enrolled in this course
+                        const enrolled = await client.fetch(
+                            groq`count(*[_type == "enrollment" && courseId._ref == $courseId && studentId._ref == $studentId]) > 0`,
+                            { courseId: course._id, studentId: userId }
+                        )
+                        hasAccess = Boolean(enrolled)
+                    }
+                }
+            } catch {
+                // ignore bad token
+            }
+        }
 
     // Prepare course data for enrollment component with fallbacks
     const courseEnrollmentData: CourseEnrollmentData = {
@@ -294,6 +339,41 @@ export default async function CoursePage({ params }: { params: Promise<{ slug: s
                     <div className="lg:col-span-1">
                         <div className="sticky top-28">
                             <CourseEnrollment course={courseEnrollmentData} />
+                                                        {/* Course Materials (conditional access) */}
+                                                        <div className="mt-6 bg-white rounded-xl shadow-sm border border-gray-200 p-5">
+                                                            <h3 className="text-base font-semibold text-gray-900 mb-3">Course Materials</h3>
+                                                            {hasAccess ? (
+                                                                <div className="space-y-2">
+                                                                    {course.contentPdf?.asset?._ref && (
+                                                                        <a
+                                                                            href={`https://cdn.sanity.io/files/${process.env.NEXT_PUBLIC_SANITY_PROJECT_ID}/${process.env.NEXT_PUBLIC_SANITY_DATASET}/${course.contentPdf.asset._ref.replace('file-', '').replace('-pdf', '.pdf')}`}
+                                                                            target="_blank"
+                                                                            rel="noopener noreferrer"
+                                                                            className="inline-flex w-full items-center justify-center gap-2 px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors text-sm"
+                                                                            download
+                                                                        >
+                                                                            Download Course Content (PDF)
+                                                                        </a>
+                                                                    )}
+                                                                    {course.roadmapPdf?.asset?._ref && (
+                                                                        <a
+                                                                            href={`https://cdn.sanity.io/files/${process.env.NEXT_PUBLIC_SANITY_PROJECT_ID}/${process.env.NEXT_PUBLIC_SANITY_DATASET}/${course.roadmapPdf.asset._ref.replace('file-', '').replace('-pdf', '.pdf')}`}
+                                                                            target="_blank"
+                                                                            rel="noopener noreferrer"
+                                                                            className="inline-flex w-full items-center justify-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-sm"
+                                                                            download
+                                                                        >
+                                                                            Download Roadmap (PDF)
+                                                                        </a>
+                                                                    )}
+                                                                    {!course.contentPdf?.asset?._ref && !course.roadmapPdf?.asset?._ref && (
+                                                                        <p className="text-sm text-gray-600">No materials available yet.</p>
+                                                                    )}
+                                                                </div>
+                                                            ) : (
+                                                                <p className="text-sm text-gray-600">Login and enroll (or be assigned) to access downloadable materials.</p>
+                                                            )}
+                                                        </div>
                         </div>
                     </div>
                 </div>

@@ -218,6 +218,41 @@ export default defineType({
       initialValue: false,
     }),
 
+    // Course Materials
+    defineField({
+      name: 'contentPdf',
+      title: 'Course Content PDF',
+      type: 'file',
+      description: 'Downloadable course content/curriculum PDF for enrolled students and assigned teachers',
+      options: {
+        accept: '.pdf',
+      },
+    }),
+    defineField({
+      name: 'roadmapPdf',
+      title: 'Course Roadmap PDF',
+      type: 'file',
+      description: 'Downloadable learning roadmap PDF for enrolled students and assigned teachers',
+      options: {
+        accept: '.pdf',
+      },
+    }),
+    defineField({
+      name: 'assignedTeachers',
+      title: 'Assigned Teachers',
+      type: 'array',
+      of: [{
+        type: 'reference',
+        to: [{ type: 'user' }],
+      }],
+      description: 'Teachers assigned to teach this course',
+      validation: (Rule) => Rule.custom((teachers, context) => {
+        if (!teachers || teachers.length === 0) return true
+        // Could add validation here to ensure referenced users have role='teacher'
+        return true
+      }),
+    }),
+
     // New fields for live course management
     defineField({
       name: 'timeZones',

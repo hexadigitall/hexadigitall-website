@@ -68,9 +68,9 @@ export async function GET(request: NextRequest) {
 
 export async function PATCH(request: NextRequest) {
   try {
-    const { id, status, priority, notes } = await request.json()
+    const { id, ids, status, priority, notes } = await request.json()
 
-    if (!id) {
+    if (!id && (!ids || !Array.isArray(ids) || ids.length === 0)) {
       return NextResponse.json(
         { success: false, error: 'Submission ID is required' },
         { status: 400 }
@@ -82,11 +82,19 @@ export async function PATCH(request: NextRequest) {
     if (priority) updates.priority = priority
     if (notes !== undefined) updates.notes = notes
 
-    await writeClient.patch(id).set(updates).commit()
+    if (ids && Array.isArray(ids) && ids.length > 0) {
+      const tx = writeClient.transaction()
+      ids.forEach((docId: string) => {
+        tx.patch(docId, (p) => p.set(updates))
+      })
+      await tx.commit()
+    } else if (id) {
+      await writeClient.patch(id).set(updates).commit()
+    }
 
     return NextResponse.json({
       success: true,
-      message: 'Submission updated successfully',
+      message: 'Submission(s) updated successfully',
     })
   } catch (error) {
     console.error('Failed to update submission:', error)
