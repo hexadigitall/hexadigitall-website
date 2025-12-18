@@ -116,6 +116,42 @@ const CARDS = [
     },
   },
   {
+    file: 'proposal-jhema-wears',
+    params: {
+      title: 'Jhema Wears — E‑Commerce Proposal',
+      subtitle: 'Tiered packages • Paystack checkout • Fast mobile UX',
+      bullets: [
+        'Product catalog with variants',
+        'Paystack payments (cards, transfer, USSD)',
+        'Shipping providers & notifications',
+        'SEO + social meta (OG) ready',
+      ],
+      badge: 'Most Popular: Starter',
+      price: 'From ₦199,000',
+      icon: '🛍️',
+      gradientFrom: '#0A4D68',
+      gradientTo: '#066d7f',
+    },
+  },
+  {
+    file: 'proposal-generic',
+    params: {
+      title: 'E‑Commerce Proposal — Your Business',
+      subtitle: 'Launch fast • Scale smart • Convert more',
+      bullets: [
+        'Product catalog & checkout',
+        'Paystack payments (cards, transfer, USSD)',
+        'Shipping & notifications',
+        'SEO + OG social previews',
+      ],
+      badge: 'Pick a plan to start',
+      price: 'From ₦199,000',
+      icon: '🛒',
+      gradientFrom: '#4facfe',
+      gradientTo: '#00f2fe',
+    },
+  },
+  {
     file: 'courses-hub',
     params: {
       title: 'Master In‑Demand Tech Skills',
