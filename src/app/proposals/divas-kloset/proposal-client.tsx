@@ -294,7 +294,7 @@ export default function DivasProposalClient({ companyName = 'Your Business' }: {
               <h2 className="text-2xl font-bold text-slate-900 mb-3">{selectedTier.name}</h2>
               <p className="text-slate-600 mb-4 italic">{selectedTier.tagline}</p>
               
-              <h3 className="text-lg font-semibold text-slate-900 mb-3">What's Included:</h3>
+              <h3 className="text-lg font-semibold text-slate-900 mb-3">What&apos;s Included:</h3>
               <ul className="space-y-2 text-sm text-slate-700 mb-6">
                 {selectedTier.features.map(item => (
                   <li key={item} className="flex gap-2">
