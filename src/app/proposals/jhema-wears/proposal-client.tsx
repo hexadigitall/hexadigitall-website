@@ -90,13 +90,6 @@ export default function JhemaProposalClient({ companyName = 'Your Business' }: {
 
   const toSlug = (s: string) => s.trim().toLowerCase().replace(/[^a-z0-9\s-]/g, '').replace(/\s+/g, '-').replace(/-+/g, '-')
 
-  const shareButtons = [
-    { label: 'WhatsApp', href: `https://wa.me/?text=${encodeURIComponent(`Quick look: ${shareUrl}`)}` },
-    { label: 'LinkedIn', href: `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(shareUrl)}` },
-    { label: 'Facebook', href: `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}` },
-    { label: 'X / Twitter', href: `https://twitter.com/intent/tweet?url=${encodeURIComponent(shareUrl)}&text=${encodeURIComponent(`E-commerce proposal for ${companyName}`)}` },
-  ]
-
   const handleCheckout = async () => {
     if (!selectedTier) return
     if (!email) {
@@ -182,20 +175,8 @@ export default function JhemaProposalClient({ companyName = 'Your Business' }: {
           <p className="text-sm uppercase tracking-[0.2em] text-primary font-semibold mb-2">E-commerce proposal</p>
           <h1 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">{companyName} — Online Store Launch</h1>
           <p className="text-lg md:text-xl text-slate-600 max-w-3xl mx-auto">
-            Tiered packages with Paystack checkout, tailored for fashion retail. Share this link with stakeholders and pick a plan to get started.
+            Tiered packages with Paystack checkout, tailored for fashion retail. Choose a plan below to get started.
           </p>
-          <div className="flex flex-wrap items-center justify-center gap-3 mt-6">
-            {shareButtons.map(btn => (
-              <Link
-                key={btn.label}
-                href={btn.href}
-                target="_blank"
-                className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-slate-200 bg-white text-slate-700 hover:border-primary hover:text-primary transition"
-              >
-                <span className="text-sm font-semibold">{btn.label}</span>
-              </Link>
-            ))}
-          </div>
         </div>
 
         <div className="grid gap-6 md:grid-cols-3 mb-10">
