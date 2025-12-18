@@ -3,6 +3,7 @@
 import { useMemo, useState } from 'react'
 import Link from 'next/link'
 import { useCurrency } from '@/contexts/CurrencyContext'
+import { EXCHANGE_RATES } from '@/lib/currency'
 
 interface ProposalTier {
   key: string
@@ -108,7 +109,11 @@ export default function JhemaProposalClient({ companyName = 'Your Business' }: {
     setError(null)
 
     try {
-      const convertedPrice = convertPrice(selectedTier.priceNGN, currentCurrency.code)
+      // Prices are stored in NGN; convert once using USD as the pivot to avoid double conversion when NGN is selected.
+      const priceInUsd = selectedTier.priceNGN / EXCHANGE_RATES.NGN
+      const priceForCurrency = currentCurrency.code === 'NGN'
+        ? selectedTier.priceNGN
+        : convertPrice(priceInUsd, currentCurrency.code)
       const body = {
         serviceCategory: {
           _id: `proposal-${toSlug(companyName)}`,
@@ -143,7 +148,7 @@ export default function JhemaProposalClient({ companyName = 'Your Business' }: {
           description: 'E-commerce launch with tiered package selected from proposal page.',
           timeline: selectedTier.delivery,
         },
-        totalAmount: convertedPrice,
+        totalAmount: priceForCurrency,
         currency: currentCurrency.code,
       }
 
@@ -197,9 +202,9 @@ export default function JhemaProposalClient({ companyName = 'Your Business' }: {
           {tiers.map(tier => {
             const isSelected = selectedTier?.key === tier.key
             const displayPrice = formatPrice(tier.priceNGN, { currency: 'NGN', applyNigerianDiscount: false })
-            const converted = convertPrice(tier.priceNGN, currentCurrency.code)
+            const priceInUsd = tier.priceNGN / EXCHANGE_RATES.NGN
             const convertedLabel = currentCurrency.code !== 'NGN'
-              ? formatPrice(converted, { currency: currentCurrency.code as 'NGN', applyNigerianDiscount: false })
+              ? formatPrice(priceInUsd, { currency: currentCurrency.code as 'NGN', applyNigerianDiscount: false })
               : null
 
             return (
