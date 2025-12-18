@@ -203,6 +203,45 @@ const CARDS = [
       gradientTo: '#00f2fe',
     },
   },
+  {
+    file: 'proposal-jhema-wears',
+    params: {
+      title: 'Jhema Wears E-Commerce',
+      subtitle: 'Complete Online Store Solution',
+      bullets: ['Paystack Checkout', 'Product Catalog', 'Shipping Integration', 'Marketing Tools'],
+      badge: 'Ready to Launch',
+      price: 'From ₦199,000',
+      icon: '🛍️',
+      gradientFrom: '#0A4D68',
+      gradientTo: '#066d7f',
+    },
+  },
+  {
+    file: 'proposal-generic',
+    params: {
+      title: 'E-Commerce Proposal',
+      subtitle: 'Tailored Online Store Solutions',
+      bullets: ['Secure Payments', 'Inventory Mgmt', 'Shipping Ready', 'SEO Optimized'],
+      badge: 'Customizable Plans',
+      price: 'From ₦199,000',
+      icon: '🛒',
+      gradientFrom: '#0A4D68',
+      gradientTo: '#066d7f',
+    },
+  },
+  {
+    file: 'proposal-divas-kloset',
+    params: {
+      title: 'Diva\'s Kloset Marketing',
+      subtitle: 'Social Media & Growth Strategy',
+      bullets: ['Content Creation', 'Influencer Mgmt', 'Meta Ads', 'DM Sales Closing'],
+      badge: 'Festive Ready',
+      price: 'From ₦250,000',
+      icon: '📱',
+      gradientFrom: '#d946ef',
+      gradientTo: '#ec4899',
+    },
+  },
 ];
 
 async function generate() {
