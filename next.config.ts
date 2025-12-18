@@ -6,6 +6,16 @@ const withBundleAnalyzer = bundleAnalyzer({
 });
 
 const nextConfig: NextConfig = {
+  // Canonical redirects for proposal templates
+  async redirects() {
+    return [
+      {
+        source: '/proposals/divas-kloset',
+        destination: '/proposals/social-media-marketing/divas-kloset',
+        permanent: false,
+      },
+    ]
+  },
   // Rewrite rules for static files
   async rewrites() {
     return [
