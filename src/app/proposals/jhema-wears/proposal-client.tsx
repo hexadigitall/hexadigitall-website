@@ -201,7 +201,7 @@ export default function JhemaProposalClient({ companyName = 'Your Business' }: {
         <div className="grid gap-6 md:grid-cols-3 mb-10">
           {tiers.map(tier => {
             const isSelected = selectedTier?.key === tier.key
-            const displayPrice = formatPrice(tier.priceNGN, { currency: 'NGN', applyNigerianDiscount: false })
+            const displayPrice = `₦${tier.priceNGN.toLocaleString()}`
             const priceInUsd = tier.priceNGN / EXCHANGE_RATES.NGN
             const convertedLabel = currentCurrency.code !== 'NGN'
               ? formatPrice(priceInUsd, { currency: currentCurrency.code as 'NGN', applyNigerianDiscount: false })
@@ -304,7 +304,7 @@ export default function JhemaProposalClient({ companyName = 'Your Business' }: {
                 </div>
                 <div className="flex justify-between items-center mt-1 text-slate-600">
                   <span>Price</span>
-                  <span className="font-semibold text-primary">{selectedTier ? formatPrice(selectedTier.priceNGN, { currency: 'NGN', applyNigerianDiscount: false }) : '—'}</span>
+                    <span className="font-semibold text-primary">{selectedTier ? `₦${selectedTier.priceNGN.toLocaleString()}` : '—'}</span>
                 </div>
               </div>
               {error && <p className="text-sm text-red-600">{error}</p>}
