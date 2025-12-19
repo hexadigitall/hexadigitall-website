@@ -25,12 +25,20 @@ interface FormSubmission {
   email?: string
   phone?: string
   company?: string
+  service?: string
+  city?: string
   subject?: string
   message?: string
   formData?: Record<string, unknown>
   submittedAt: string
   ipAddress?: string
   userAgent?: string
+  campaignName?: string
+  campaignSource?: string
+  campaignMedium?: string
+  campaignContent?: string
+  campaignTerm?: string
+  landingPage?: string
 }
 
 export default function SubmissionsPage() {
@@ -39,6 +47,9 @@ export default function SubmissionsPage() {
   const [loading, setLoading] = useState(true)
   const [filter, setFilter] = useState('all')
   const [search, setSearch] = useState('')
+  const [campaignFilter, setCampaignFilter] = useState('all')
+  const [sourceFilter, setSourceFilter] = useState('all')
+  const [serviceFilter, setServiceFilter] = useState('all')
 
   useEffect(() => {
     const checkAuth = async () => {
@@ -122,13 +133,23 @@ export default function SubmissionsPage() {
 
   const filteredSubmissions = submissions.filter(s => {
     const matchesFilter = filter === 'all' || s.status === filter || s.type === filter
+    const matchesCampaign = campaignFilter === 'all' || s.campaignName === campaignFilter
+    const matchesSource = sourceFilter === 'all' || s.campaignSource === sourceFilter
+    const matchesService = serviceFilter === 'all' || s.service === serviceFilter
     const matchesSearch =
       !search ||
       s.name?.toLowerCase().includes(search.toLowerCase()) ||
       s.email?.toLowerCase().includes(search.toLowerCase()) ||
-      s.message?.toLowerCase().includes(search.toLowerCase())
-    return matchesFilter && matchesSearch
+      s.message?.toLowerCase().includes(search.toLowerCase()) ||
+      s.city?.toLowerCase().includes(search.toLowerCase()) ||
+      s.service?.toLowerCase().includes(search.toLowerCase()) ||
+      s.campaignName?.toLowerCase().includes(search.toLowerCase())
+    return matchesFilter && matchesCampaign && matchesSource && matchesService && matchesSearch
   })
+
+  const campaigns = Array.from(new Set(submissions.map(s => s.campaignName).filter(Boolean)))
+  const sources = Array.from(new Set(submissions.map(s => s.campaignSource).filter(Boolean)))
+  const services = Array.from(new Set(submissions.map(s => s.service).filter(Boolean)))
 
   if (loading) {
     return (
@@ -200,6 +221,39 @@ export default function SubmissionsPage() {
               </div>
             </div>
 
+            <div className="grid sm:grid-cols-3 gap-3 w-full md:w-auto">
+              <select
+                value={campaignFilter}
+                onChange={(e) => setCampaignFilter(e.target.value)}
+                className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-primary focus:border-transparent"
+              >
+                <option value="all">All campaigns</option>
+                {campaigns.map((c) => (
+                  <option key={c} value={c}>{c}</option>
+                ))}
+              </select>
+              <select
+                value={sourceFilter}
+                onChange={(e) => setSourceFilter(e.target.value)}
+                className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-primary focus:border-transparent"
+              >
+                <option value="all">All sources</option>
+                {sources.map((s) => (
+                  <option key={s} value={s}>{s}</option>
+                ))}
+              </select>
+              <select
+                value={serviceFilter}
+                onChange={(e) => setServiceFilter(e.target.value)}
+                className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-primary focus:border-transparent"
+              >
+                <option value="all">All services</option>
+                {services.map((s) => (
+                  <option key={s} value={s}>{s}</option>
+                ))}
+              </select>
+            </div>
+
             <div className="relative w-full md:w-auto">
               <MagnifyingGlassIcon className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
               <input
@@ -227,6 +281,10 @@ export default function SubmissionsPage() {
                 <div className="mt-2">
                   <p className="text-sm font-medium text-gray-900 truncate">{s.name}</p>
                   <p className="text-xs text-gray-600 truncate">{s.email}</p>
+                  {s.city && <p className="text-xs text-gray-600 truncate">City: {s.city}</p>}
+                  {s.service && <p className="text-xs text-gray-600 truncate">Service: {s.service}</p>}
+                  {s.campaignName && <p className="text-xs text-gray-600 truncate">Campaign: {s.campaignName}</p>}
+                  {s.campaignSource && <p className="text-xs text-gray-600 truncate">Source: {s.campaignSource}</p>}
                 </div>
                 {s.message && (
                   <p className="mt-2 text-sm text-gray-700 line-clamp-2">{s.message}</p>
@@ -270,6 +328,7 @@ export default function SubmissionsPage() {
                   <th className="px-3 md:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider whitespace-nowrap">Date</th>
                   <th className="px-3 md:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider whitespace-nowrap">Type</th>
                   <th className="px-3 md:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider whitespace-nowrap">Contact</th>
+                  <th className="hidden lg:table-cell px-3 md:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider whitespace-nowrap">Campaign</th>
                   <th className="hidden lg:table-cell px-3 md:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider whitespace-nowrap">Message</th>
                   <th className="px-3 md:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider whitespace-nowrap">Status</th>
                   <th className="px-3 md:px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider whitespace-nowrap">Actions</th>
@@ -292,6 +351,11 @@ export default function SubmissionsPage() {
                       <td className="px-3 md:px-6 py-3 md:py-4 max-w-sm">
                         <div className="text-xs md:text-sm font-medium text-gray-900 truncate">{submission.name}</div>
                         <div className="text-xs md:text-sm text-gray-500 truncate">{submission.email}</div>
+                        <div className="text-[11px] text-gray-500 truncate">{submission.city || '—'} • {submission.service || '—'}</div>
+                      </td>
+                      <td className="hidden lg:table-cell px-3 md:px-6 py-3 md:py-4 max-w-xs">
+                        <div className="text-sm text-gray-900 truncate">{submission.campaignName || '—'}</div>
+                        <div className="text-xs text-gray-500 truncate">Src: {submission.campaignSource || '—'} • Med: {submission.campaignMedium || '—'}</div>
                       </td>
                       <td className="hidden lg:table-cell px-3 md:px-6 py-3 md:py-4 max-w-xs">
                         <p className="text-sm text-gray-900 truncate">{submission.message}</p>

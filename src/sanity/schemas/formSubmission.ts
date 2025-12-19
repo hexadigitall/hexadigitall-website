@@ -16,6 +16,7 @@ export default defineType({
           { title: 'Course Enrollment', value: 'course' },
           { title: 'Newsletter', value: 'newsletter' },
           { title: 'Custom Build', value: 'custom-build' },
+          { title: 'Campaign', value: 'campaign' },
         ],
       },
       validation: (Rule) => Rule.required(),
@@ -71,6 +72,54 @@ export default defineType({
       type: 'string',
     }),
     defineField({
+      name: 'service',
+      title: 'Service',
+      type: 'string',
+      description: 'Service selected on the form (web dev, marketing, etc.)',
+    }),
+    defineField({
+      name: 'city',
+      title: 'City',
+      type: 'string',
+      description: 'City captured from form or utm_term (Lagos, Abuja, etc.)',
+    }),
+    defineField({
+      name: 'campaignName',
+      title: 'Campaign Name',
+      type: 'string',
+      description: 'utm_campaign value',
+    }),
+    defineField({
+      name: 'campaignSource',
+      title: 'Campaign Source',
+      type: 'string',
+      description: 'utm_source value (whatsapp, instagram, etc.)',
+    }),
+    defineField({
+      name: 'campaignMedium',
+      title: 'Campaign Medium',
+      type: 'string',
+      description: 'utm_medium value (social, email, web, etc.)',
+    }),
+    defineField({
+      name: 'campaignContent',
+      title: 'Campaign Content',
+      type: 'string',
+      description: 'utm_content value (creative variant, day, etc.)',
+    }),
+    defineField({
+      name: 'campaignTerm',
+      title: 'Campaign Term',
+      type: 'string',
+      description: 'utm_term value (city/keyword)',
+    }),
+    defineField({
+      name: 'landingPage',
+      title: 'Landing Page URL',
+      type: 'url',
+      description: 'Landing page where the form was submitted',
+    }),
+    defineField({
       name: 'subject',
       title: 'Subject',
       type: 'string',
@@ -83,14 +132,7 @@ export default defineType({
     defineField({
       name: 'formData',
       title: 'Complete Form Data',
-      type: 'object',
-      fields: [
-        {
-          name: 'data',
-          title: 'JSON Data',
-          type: 'text',
-        },
-      ],
+      type: 'json',
     }),
     defineField({
       name: 'submittedAt',
