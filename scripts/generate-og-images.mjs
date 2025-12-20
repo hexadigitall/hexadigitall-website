@@ -171,7 +171,7 @@ const CARDS = [
       subtitle: 'Fast · Secure · Responsive',
       bullets: ['Custom Websites', 'React & Next.js', 'Android/iOS Apps', 'E‑commerce & APIs'],
       badge: 'Business Website Special',
-      price: 'From ₦99,000',
+      price: 'From ₦299,000',
       icon: '🧩',
       gradientFrom: '#10b981',
       gradientTo: '#0ea5e9',
@@ -184,7 +184,7 @@ const CARDS = [
       subtitle: 'Growth · Engagement · ROI',
       bullets: ['Instagram & TikTok Ads', 'Content Strategy', 'SEO & Analytics', 'Lead Funnels'],
       badge: 'Promo Running',
-      price: 'From ₦10k / month',
+      price: 'From ₦300,000/month',
       icon: '📈',
       gradientFrom: '#f093fb',
       gradientTo: '#f5576c',
@@ -201,6 +201,32 @@ const CARDS = [
       icon: '🧠',
       gradientFrom: '#4facfe',
       gradientTo: '#00f2fe',
+    },
+  },
+  {
+    file: 'service-ecommerce',
+    params: {
+      title: 'E‑Commerce Stores',
+      subtitle: 'Sell Fast · Scale Smart',
+      bullets: ['Mobile‑First Storefront', 'Paystack Checkout', 'Inventory & Shipping', 'Analytics & SEO'],
+      badge: 'Ready to Launch',
+      price: 'From ₦199,000',
+      icon: '🛒',
+      gradientFrom: '#4facfe',
+      gradientTo: '#00f2fe',
+    },
+  },
+  {
+    file: 'service-portfolio',
+    params: {
+      title: 'Professional Portfolio Sites',
+      subtitle: 'Your 24/7 Salesperson',
+      bullets: ['Personal Brand Site', 'Case Studies & Testimonials', 'SEO & Contact Forms', 'Fast Hosting'],
+      badge: 'Client‑Winning Design',
+      price: 'From ₦299,000',
+      icon: '🗂️',
+      gradientFrom: '#10b981',
+      gradientTo: '#0ea5e9',
     },
   },
   {
@@ -255,6 +281,7 @@ async function generate() {
   try {
     const page = await browser.newPage();
 
+    // Base cards
     for (const { file, params } of CARDS) {
       const html = cardHTML(params);
       await page.setContent(html, { waitUntil: 'domcontentloaded' });
@@ -263,6 +290,59 @@ async function generate() {
       await page.screenshot({ path: pngPath, type: 'png' });
       await page.screenshot({ path: jpgPath, type: 'jpeg', quality: 90 });
       console.log(`✅ Generated: ${path.relative(process.cwd(), pngPath)} & .jpg`);
+    }
+
+    // City-labeled variants for top cities
+    const cities = ['lagos', 'abuja', 'portharcourt', 'calabar', 'ibadan', 'kano', 'enugu'];
+    const cityNames = {
+      lagos: 'Lagos',
+      abuja: 'Abuja',
+      portharcourt: 'Port Harcourt',
+      calabar: 'Calabar',
+      ibadan: 'Ibadan',
+      kano: 'Kano',
+      enugu: 'Enugu',
+    };
+
+    const serviceFiles = [
+      'service-web-development',
+      'service-digital-marketing',
+      'service-ecommerce',
+      'service-business-planning',
+      'service-portfolio',
+    ];
+
+    const serviceDisplay = {
+      'service-web-development': 'Websites',
+      'service-digital-marketing': 'Digital Marketing',
+      'service-ecommerce': 'E‑Commerce',
+      'service-business-planning': 'Business Plans',
+      'service-portfolio': 'Portfolio Sites',
+    };
+
+    function paramsFor(file) {
+      const base = CARDS.find(c => c.file === file);
+      return base ? base.params : null;
+    }
+
+    for (const svc of serviceFiles) {
+      const baseParams = paramsFor(svc);
+      if (!baseParams) continue;
+      for (const city of cities) {
+        const cityLabel = cityNames[city] || city;
+        const file = `${svc}-${city}`;
+        const params = {
+          ...baseParams,
+          title: `${serviceDisplay[svc]} — ${cityLabel}`,
+        };
+        const html = cardHTML(params);
+        await page.setContent(html, { waitUntil: 'domcontentloaded' });
+        const pngPath = path.join(OUT_DIR, `${file}.png`);
+        const jpgPath = path.join(OUT_DIR, `${file}.jpg`);
+        await page.screenshot({ path: pngPath, type: 'png' });
+        await page.screenshot({ path: jpgPath, type: 'jpeg', quality: 90 });
+        console.log(`🏙️  City OG: ${path.relative(process.cwd(), jpgPath)} & .png`);
+      }
     }
   } finally {
     await browser.close();

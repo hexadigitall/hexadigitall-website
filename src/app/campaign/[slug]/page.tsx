@@ -95,12 +95,12 @@ const CAMPAIGNS: Record<string, {
   },
 }
 
-export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
-  const page = CAMPAIGNS[params.slug]
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  const { slug } = await params;
+  const page = CAMPAIGNS[slug];
   if (!page) {
-    return {}
+    return {};
   }
-
   return {
     title: `${page.title} | Hexadigitall`,
     description: page.subtitle,
@@ -116,13 +116,15 @@ export async function generateMetadata({ params }: { params: { slug: string } })
       description: page.subtitle,
       images: [page.heroImage],
     },
-  }
+  };
 }
 
-export default function CampaignPage({ params }: { params: { slug: string } }) {
-  const page = CAMPAIGNS[params.slug]
+
+export default async function CampaignPage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+  const page = CAMPAIGNS[slug];
   if (!page) {
-    notFound()
+    notFound();
   }
 
   return (
@@ -194,5 +196,5 @@ export default function CampaignPage({ params }: { params: { slug: string } }) {
         </div>
       </section>
     </div>
-  )
+  );
 }

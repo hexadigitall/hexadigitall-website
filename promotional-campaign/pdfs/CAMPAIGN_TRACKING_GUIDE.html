@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CAMPAIGN_TRACKING_GUIDE</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    @page {
+      size: A4;
+      margin: 1in;
+    }
+    
+    html, body {
+      width: 100%;
+      min-height: 100%;
+    }
+    
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+      line-height: 1.65;
+      color: #333;
+      background: white;
+      padding: 0;
+    }
+    
+    .document {
+      padding: 40px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    
+    .title-block {
+      border-bottom: 3px solid #00D9FF;
+      padding-bottom: 20px;
+      margin-bottom: 30px;
+      page-break-after: avoid;
+    }
+    
+    .title-block h1 {
+      font-size: 2.5em;
+      color: #001F3F;
+      margin: 0 0 10px 0;
+      line-height: 1.2;
+    }
+    
+    .title-block .meta {
+      font-size: 0.9em;
+      color: #666;
+      font-style: italic;
+    }
+    
+    h1 {
+      font-size: 2.2em;
+      margin: 40px 0 15px 0;
+      color: #001F3F;
+      border-bottom: 2px solid #00D9FF;
+      padding-bottom: 8px;
+      page-break-after: avoid;
+      page-break-before: auto;
+    }
+    
+    h2 {
+      font-size: 1.6em;
+      margin: 35px 0 12px 0;
+      color: #1B4D5C;
+      page-break-after: avoid;
+    }
+    
+    h3 {
+      font-size: 1.2em;
+      margin: 20px 0 10px 0;
+      color: #00D9FF;
+      page-break-after: avoid;
+    }
+    
+    p {
+      margin: 12px 0;
+      text-align: justify;
+    }
+    
+    strong {
+      font-weight: 700;
+      color: #001F3F;
+    }
+    
+    em {
+      font-style: italic;
+      color: #555;
+    }
+    
+    code {
+      background: #f5f5f5;
+      padding: 2px 6px;
+      border-radius: 3px;
+      font-family: 'Courier New', monospace;
+      font-size: 0.9em;
+      color: #d63384;
+    }
+    
+    pre {
+      background: #f5f5f5;
+      padding: 15px;
+      border-radius: 5px;
+      overflow: auto;
+      margin: 15px 0;
+      border-left: 4px solid #00D9FF;
+      page-break-inside: avoid;
+      font-family: 'Courier New', monospace;
+      font-size: 0.85em;
+      line-height: 1.4;
+    }
+    
+    pre code {
+      background: none;
+      padding: 0;
+      color: inherit;
+    }
+    
+    ul, ol {
+      margin: 15px 0 15px 30px;
+    }
+    
+    li {
+      margin: 8px 0;
+      line-height: 1.6;
+    }
+    
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 15px 0;
+      font-size: 0.9em;
+      page-break-inside: avoid;
+    }
+    
+    th, td {
+      padding: 10px 12px;
+      border: 1px solid #ddd;
+      text-align: left;
+    }
+    
+    th {
+      background: #001F3F;
+      color: white;
+      font-weight: 700;
+    }
+    
+    tr:nth-child(even) {
+      background: #f9f9f9;
+    }
+    
+    a {
+      color: #00D9FF;
+      text-decoration: none;
+      word-break: break-word;
+    }
+    
+    a:visited {
+      color: #00a8cc;
+    }
+    
+    blockquote {
+      border-left: 4px solid #00D9FF;
+      padding-left: 15px;
+      margin: 15px 0;
+      color: #666;
+      font-style: italic;
+    }
+    
+    hr {
+      border: none;
+      border-top: 2px solid #00D9FF;
+      margin: 30px 0;
+      page-break-before: always;
+    }
+    
+    .footer {
+      text-align: center;
+      color: #999;
+      font-size: 0.9em;
+      margin-top: 40px;
+      padding-top: 20px;
+      border-top: 1px solid #ddd;
+    }
+    
+    @media print {
+      body {
+        margin: 0;
+        padding: 0;
+      }
+      
+      .document {
+        max-width: 100%;
+        padding: 40px;
+      }
+      
+      h1, h2, h3 {
+        page-break-after: avoid;
+      }
+      
+      h1 {
+        page-break-before: always;
+      }
+      
+      table, pre, blockquote {
+        page-break-inside: avoid;
+      }
+      
+      a {
+        color: #0066cc;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="document">
+    <div class="title-block">
+      <h1>CAMPAIGN_TRACKING_GUIDE</h1>
+      <div class="meta">Generated: 12/19/2025, 12:17:07 PM | Hexadigitall Campaign</div>
+    </div>
+    
+    <h1>Campaign Tracking Setup &amp; Reference</h1></p><p>This document explains the tracking system for the 30-day aggressive market penetration campaign.</p><p><hr></p><p><h2>Overview</h2></p><p>Track every post across all platforms and cities to identify:
+<li><strong>Hot city/service combos</strong> (high engagement, low cost per lead)</li>
+<li><strong>Underperformers</strong> (pivot copy or reallocate budget)</li>
+<li><strong>Best platforms</strong> (Facebook vs. Twitter vs. IG for each service)</li>
+<li><strong>Optimal posting times</strong> (when your audience is most active)</p><p><hr></p><p><h2>Tracking Sheet Template</h2></p><p><strong>Use this in Google Sheets, Excel, or Airtable.</strong></p><p><h3>Column Headers</h3></p><p><tr><td> A | B | C | D | E | F | G | H | I | J | K | L | M | N | O </td></tr></li>
+<tr><td>---|---|---|---|---|---|---|---|---|---|---|---|---|---|---</td></tr>
+<tr><td> Date | Service | City | Platform | URL | Copy Angle | Posted Time | Reach | Impressions | Engagement | Clicks | CTR % | Leads | Lead Cost | Conversions </td></tr></p><p><h3>Sample Row (Day 1 — Web Development, Lagos)</h3></p><p><tr><td> Date | Service | City | Platform | URL | Copy Angle | Posted Time | Reach | Impressions | Engagement | Clicks | CTR % | Leads | Lead Cost | Conversions </td></tr>
+<tr><td>------|---------|------|----------|-----|-----------|------------|-------|-------------|-----------|--------|-------|-------|-----------|-------------</td></tr>
+<tr><td> 12/19/25 | Web | Lagos | Facebook | [URL link] | Authority | 8:00 AM | 2,450 | 8,320 | 128 | 67 | 2.7% | 8 | ₦8,375 | 1 </td></tr>
+<tr><td> 12/19/25 | Web | Lagos | Instagram | [URL link] | Authority | 1:00 PM | 1,890 | 5,210 | 203 | 82 | 4.3% | 11 | ₦6,090 | 2 </td></tr>
+<tr><td> 12/19/25 | Web | Lagos | Twitter | [URL link] | Authority | 9:00 AM | 892 | 3,450 | 45 | 28 | 3.1% | 2 | ₦14,000 | 0 </td></tr></p><p><h3>What Each Column Means</h3></p><p><strong>Basic Info:</strong>
+<li><strong>Date</strong>: YYYY-MM-DD format (e.g., 12/19/25)</li>
+<li><strong>Service</strong>: Web, Marketing, Ecommerce, Business Plans, Portfolio</li>
+<li><strong>City</strong>: Lagos, Abuja, Port Harcourt, Calabar, Ibadan, Kano, Enugu</li>
+<li><strong>Platform</strong>: Facebook, Instagram, Twitter, WhatsApp</li>
+<li><strong>URL</strong>: Paste the city-specific tracked link (from SOCIAL_SHARE_GUIDE.md)</li>
+<li><strong>Copy Angle</strong>: Authority, Speed, Proof, Urgency, FOMO, Social Proof</li>
+<li><strong>Posted Time</strong>: Nigeria time (8:00 AM, 1:00 PM, etc.)</p><p><strong>Reach &amp; Engagement:</strong></li>
+<li><strong>Reach</strong>: # of unique people who saw the post (Facebook/Instagram native metric)</li>
+<li><strong>Impressions</strong>: # of times post was shown (may include repeats; Twitter metric)</li>
+<li><strong>Engagement</strong>: Likes + Comments + Shares</li>
+<li><strong>Clicks</strong>: # of people who clicked the link</li>
+<li><strong>CTR %</strong>: (Clicks / Reach) × 100 = Click-through rate (auto-calc formula)</p><p><strong>Conversion:</strong></li>
+<li><strong>Leads</strong>: # of people who clicked + filled out form / replied to DM (manual entry from CRM/form tool)</li>
+<li><strong>Lead Cost</strong>: (Total Ad Spend for that post) / Leads (if you boosted the post; else leave blank)</li>
+<li><strong>Conversions</strong>: # of leads who became paying customers (track after 30-day window)</p><p><hr></p><p><h2>Google Sheets Setup (Recommended)</h2></p><p><h3>Step 1: Create Sheet</h3></li>
+<li>Open Google Sheets</li>
+<li>Title: "Hexadigitall Campaign Tracking - Dec 2025"</li>
+<li>Share with team (Editor access)</p><p><h3>Step 2: Add Headers</h3></li>
+Copy-paste the headers above into row 1.</p><p><h3>Step 3: Format &amp; Formulas</h3>
+<pre><code>
+<p>Column L (CTR %):</p>
+<p>=IF(H2>0, (K2/H2)*100, 0)</p>
+<p>(Calculates: Clicks / Reach × 100)</p><p>Column N (Lead Cost):</p>
+<p>=IF(M2>0, BUDGET_PER_POST / M2, 0)</p>
+<p>(Adjust BUDGET_PER_POST to actual spend, or leave blank for organic)</p>
+</code></pre></p><p><h3>Step 4: Conditional Formatting (optional but powerful)</h3>
+<strong>Highlight high performers (CTR &gt; 3%)</strong>
+<li>Select Column L (CTR %)</li>
+<li>Format → Conditional Formatting</li>
+<li>Format rules: "Greater than or equal to" → 3 → Fill green</li>
+<li>Format rules: "Less than or equal to" → 1 → Fill red</p><p><strong>This makes it visually obvious which posts are working.</strong></p><p><h3>Step 5: Create Summary Tab</h3></li>
+Create a second sheet called "Summary" with these rollups:</p><p><pre><code>
+<p>DAILY TOTALS (auto-sum):</p>
+<p>Total Reach: =SUM(H:H)</p>
+<p>Total Engagement: =SUM(J:J)</p>
+<p>Total Clicks: =SUM(K:K)</p>
+<p>Total Leads: =SUM(M:M)</p>
+<p>Avg CTR: =AVERAGE(L:L)</p><p>BY SERVICE:</p>
+<p>Web Dev: Reach=?, Engagement=?, CTR=?, Leads=?</p>
+<p>Marketing: Reach=?, Engagement=?, CTR=?, Leads=?</p>
+<p>Ecommerce: Reach=?, Engagement=?, CTR=?, Leads=?</p>
+<p>Business Plans: Reach=?, Engagement=?, CTR=?, Leads=?</p>
+<p>Portfolio: Reach=?, Engagement=?, CTR=?, Leads=?</p><p>BY CITY (example):</p>
+<p>Lagos: Reach=?, Engagement=?, CTR=?, Leads=?</p>
+<p>Abuja: Reach=?, Engagement=?, CTR=?, Leads=?</p>
+<p>...</p><p>BY PLATFORM:</p>
+<p>Facebook: Reach=?, Engagement=?, CTR=?, Leads=?</p>
+<p>Instagram: Reach=?, Engagement=?, CTR=?, Leads=?</p>
+<p>Twitter: Reach=?, Engagement=?, CTR=?, Leads=?</p>
+<p>WhatsApp: Reach=?, Engagement=?, CTR=?, Leads=?</p>
+</code></pre></p><p>Use SUMIF formulas to pull these automatically:
+<pre><code>
+<p>=SUMIF(B:B, "Web", H:H)  // Sum Reach where Service = Web</p>
+<p>=AVERAGEIF(C:C, "Lagos", L:L)  // Avg CTR where City = Lagos</p>
+</code></pre></p><p><hr></p><p><h2>Daily Tracking Workflow</h2></p><p><h3>During Posting (2 minutes per post)</h3>
+<li>Copy URL from <a href="docs/SOCIAL_SHARE_GUIDE.md">docs/SOCIAL_SHARE_GUIDE.md</a></li>
+<li>Paste into sheet Column E</li>
+<li>Note copy angle (Urgency, Authority, etc.)</li>
+<li>Record posting time</p><p><h3>2 Hours Post-Posting (5 minutes)</h3></li>
+<li>Pull metrics from each platform:</li>
+<li><strong>Facebook</strong>: Post → Insights → Reach, Engagement, Link Clicks</li>
+<li><strong>Instagram</strong>: Post → Insights → Impressions, Engagement, Clicks</li>
+<li><strong>Twitter</strong>: Tweet → Analytics → Impressions, Engagements, Link Clicks</li>
+<li><strong>WhatsApp</strong>: Manual count from replies in CRM or group DMs</li>
+<li>Fill columns H–K in sheet</p><p><h3>End of Day (10 minutes)</h3></li>
+<li>Check CRM/form tool for lead count (Column M)</li>
+<li>Calculate CTR % (auto-formula)</li>
+<li>Note any anomalies in "Notes" column</p><p><h3>Weekly Review (30 minutes)</h3></li>
+<li>Review Summary tab</li>
+<li>Identify top 3 city/service/platform combos</li>
+<li>Identify bottom 3 underperformers</li>
+<li><strong>Action</strong>: Double down on top 3 (boost budget, post more often)</li>
+<li><strong>Action</strong>: Pivot copy on bottom 3 (test new angle next rotation)</p><p><hr></p><p><h2>Key Metrics &amp; Targets</h2></p><p><h3>Daily Targets</h3></li>
+<li><strong>Reach</strong>: 500–1,000 per post (platform-dependent)</li>
+<li><strong>Engagement Rate</strong>: 2–5% (good is 3%+)</li>
+<li><strong>CTR</strong>: 1–3% (good is 2%+)</li>
+<li><strong>Lead rate</strong>: 5–15% of clickers (test until you hit 10%+)</p><p><h3>30-Day Aggregate Targets</h3></li>
+<li><strong>Total Reach</strong>: 150,000–200,000 (across all platforms/cities)</li>
+<li><strong>Total Engagement</strong>: 4,000–6,000</li>
+<li><strong>Total Clicks</strong>: 3,000–5,000</li>
+<li><strong>Total Leads</strong>: 300–500 (depends on lead quality; track to first meeting)</li>
+<li><strong>Lead Cost</strong>: ₦2,000–₦5,000 per lead (if boosting with budget)</p><p><h3>Conversion Targets (track beyond 30 days)</h3></li>
+<li><strong>Lead → First Call</strong>: 40–50% (e.g., 300 leads → 120–150 calls)</li>
+<li><strong>First Call → Paid</strong>: 5–10% (e.g., 120 calls → 6–12 customers)</li>
+<li><strong>AOV per service</strong>: Web ₦299k · Marketing ₦300k/mo · Ecommerce ₦199k · Plans ₦199k · Portfolio ₦299k</p><p><hr></p><p><h2>Optimization Rules</h2></p><p><h3>Green Light (Keep doing this)</h3></li>
+<li>CTR &gt; 3%</li>
+<li>Engagement &gt; 5%</li>
+<li>Lead cost &lt; ₦3,000</p><p><h3>Yellow Light (Test modifications)</h3></li>
+<li>CTR 1–3%</li>
+<li>Engagement 2–5%</li>
+<li>Lead cost ₦3,000–₦5,000</p><p><h3>Red Light (Pivot or pause)</h3></li>
+<li>CTR &lt; 1%</li>
+<li>Engagement &lt; 2%</li>
+<li>Lead cost &gt; ₦7,000</p><p><h3>Weekly Pivot Rules</h3></li>
+<li><strong>If underperforming (&lt;1% CTR)</strong>:</li>
+<li>Next rotation: Change copy angle (e.g., Authority → Urgency)</li>
+<li>Try different posting time (+1–2 hours)</li>
+<li>Swap city or service if no improvement after 2nd rotation</p><p>2. <strong>If outperforming (&gt;3% CTR)</strong>:</li>
+<li>Boost spend if budget allows</li>
+<li>Post same service/city combo +1 more time per week</li>
+<li>Test with different platform next week</p><p>3. <strong>If middling (1–2% CTR)</strong>:</li>
+<li>Keep posting but monitor closely</li>
+<li>Test new copy angle in next rotation</li>
+<li>If still middling after 3 rotations, archive combo and reallocate</p><p><hr></p><p><h2>Sample Post-Campaign Report (Day 7 example)</h2></p><p><pre><code></li>
+<p>WEEK 1 SUMMARY: Web Development Focus</p><p>Total Posts: 21 (3 services × 7 cities)</p>
+<p>Total Reach: 47,340</p>
+<p>Total Engagement: 1,203 (2.5% avg rate)</p>
+<p>Total Clicks: 987</p>
+<p>Total Leads: 123</p>
+<p>Avg Lead Cost: ₦3,840</p><p>Top 3 Combos:</p>
+<li>Web + Lagos + Facebook: 8.2% engagement, ₦2,450 reach, 67 clicks, 8 leads ✅</li>
+<li>Web + Abuja + Instagram: 6.3% engagement, ₦1,890 reach, 82 clicks, 11 leads ✅</li>
+<li>Web + Port Harcourt + Twitter: 5.1% engagement, ₦892 reach, 28 clicks, 2 leads ✅</p><p>Bottom 3 Combos:</li>
+<li>Web + Kano + WhatsApp: 0.3% engagement, ₦1,200 reach, 8 clicks, 1 lead ❌</li>
+<li>Web + Enugu + Twitter: 0.8% engagement, ₦650 reach, 12 clicks, 1 lead ❌</li>
+<li>Web + Calabar + Instagram: 1.2% engagement, ₦1,450 reach, 19 clicks, 2 leads ⚠️</p><p>ACTIONS FOR WEEK 2:</li>
+<p>✅ Boost Web + Lagos (add 1 extra post/week)</p>
+<p>✅ Keep Web + Abuja, Port Harcourt (momentum strong)</p>
+<p>⚠️ Test new copy angle for Calabar (Urgency instead of Authority)</p>
+<p>❌ Pause Kano/Enugu WhatsApp until we fix messaging</p>
+<p>→ Reallocate Kano/Enugu budget to top 3 performers for 1 week test</p>
+</code></pre></p><p><hr></p><p><h2>Export &amp; Sharing</h2></p><p>Every Friday:
+<li>Export sheet as CSV: File → Download → CSV</li>
+<li>Save to: <code>promotional-campaign/tracking/campaign_tracking_{WEEK}.csv</code></li>
+<li>Share summary screenshot in team Slack/email</li>
+<li>Highlight wins + action items for next week</p><p><hr></p><p><h2>Platform-Specific Notes</h2></p><p><h3>Facebook</h3></li>
+<li>Reach = unique people; Impressions may be higher</li>
+<li>Save post link for easy access: facebook.com/[page]/posts/[post-id]</li>
+<li>Click metrics often lag 2–4 hours; check again at end of day</p><p><h3>Instagram</h3></li>
+<li>Insights tab takes 24 hours to populate fully</li>
+<li>Story metrics (swipe-ups) export separately from feed posts</li>
+<li>Clicks = taps to link in bio; count manual story link-clicks separately</p><p><h3>Twitter/X</h3></li>
+<li>Analytics tab shows Impressions (accurate), not Reach (estimate)</li>
+<li>Engagement = Retweets + Likes + Replies</li>
+<li>Click data less reliable; use bit.ly or short.link for accurate tracking</p><p><h3>WhatsApp Business</h3></li>
+<li>No native analytics; track manually via CRM or spreadsheet</li>
+<li>Count: Delivered, Read, Replied, Clicked (if you include link)</li>
+<li>Personal follow-up via voice note = high conversion (track separately)</p><p><hr></p><p><h2>Tools to Use</h2></p><p><strong>Recommended free/cheap tools for tracking:</strong></li>
+<li><strong>Google Sheets</strong> (free) — recommended for simplicity + team sharing</li>
+<li><strong>Airtable</strong> ($12/mo) — if you want more automation</li>
+<li><strong>Metricool</strong> ($25/mo) — single dashboard for FB/IG/Twitter analytics</li>
+<li><strong>Bit.ly</strong> ($5/mo) — accurate link click tracking across all platforms</p><p><strong>Setup tip</strong>: Use bit.ly links with campaign parameters:</li>
+<li>Original: https://hexadigitall.com/services/websites-lagos?utm_source=facebook&amp;utm_medium=social&amp;utm_campaign=local_penetration</li>
+<li>Bit.ly: https://bit.ly/hex-web-lagos-fb</li>
+<li>Track clicks easily without relying on platform native metrics</p><p><hr></p><p><h2>30-Day Campaign Success Checklist</h2></p><p>By day 30, track:</li>
+<li>[ ] Total reach: 150k–200k</li>
+<li>[ ] Total leads: 300–500</li>
+<li>[ ] Avg lead cost: &lt; ₦5,000</li>
+<li>[ ] Avg CTR: &gt; 2%</li>
+<li>[ ] Top 3 city/service combos identified and doubled down</li>
+<li>[ ] Bottom 3 pivoted or paused</li>
+<li>[ ] Copy angles tested and winners locked in</li>
+<li>[ ] Best platform per service identified</li>
+<li>[ ] Weekly learnings documented for next campaign</li>
+<li>[ ] First conversions tracked and attributed</p><p><hr></p><p><h2>Next Steps (Post-Campaign, Jan 19+)</h2></p><p>1. Analyze full 30 days of data</li>
+<li>Calculate customer acquisition cost (CAC) per service/city</li>
+<li>Calculate lifetime value (LTV) per customer</li>
+<li>ROI = (Total Revenue - Total Spend) / Total Spend</li>
+<li>Double down on top ROI performers</li>
+<li>Scale budget to high-performers</li>
+<li>Archive learnings in playbook for next campaign</p><p><hr></p><p><h2>Questions? Use This Checklist</h2></p><p>- <strong>"Why are leads so high but conversions low?"</strong> → Check lead quality (form/DM qualifier weak)</li>
+<li><strong>"Why is this city performing worse?"</strong> → Check: language, local holidays, time zone, competitor activity</li>
+<li><strong>"Should I boost this post?"</strong> → Yes, if CTR &gt; 2% and engagement &gt; 3%</li>
+<li><strong>"Why aren't we seeing conversions yet?"</strong> → Track time lag; B2B/complex sales = 2–4 weeks post-click</li>
+<li><strong>"Which platform is best?"</strong> → Look at CTR + Lead Cost; adjust budget accordingly</li>
+
+    
+    <hr>
+    <div class="footer">
+      <p>This document is part of the Hexadigitall Aggressive Market Penetration Campaign (Dec 19, 2025 – Feb 17, 2026)<br>For questions, contact: Campaign Manager</p>
+    </div>
+  </div>
+</body>
+</html>

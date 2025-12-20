@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hexadigitall Campaign Documents Index</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+      line-height: 1.6;
+      color: #333;
+      background: linear-gradient(135deg, #001F3F 0%, #1B4D5C 100%);
+      min-height: 100vh;
+      padding: 40px 20px;
+    }
+    
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+    
+    .header {
+      background: white;
+      padding: 40px;
+      border-radius: 10px;
+      margin-bottom: 40px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+    
+    .header h1 {
+      color: #001F3F;
+      font-size: 2.5em;
+      margin-bottom: 10px;
+      border-bottom: 3px solid #00D9FF;
+      padding-bottom: 15px;
+    }
+    
+    .header p {
+      color: #666;
+      font-size: 1.1em;
+      margin: 10px 0;
+    }
+    
+    .meta {
+      background: #f0f8ff;
+      padding: 15px;
+      border-radius: 5px;
+      margin-top: 20px;
+      border-left: 4px solid #00D9FF;
+    }
+    
+    .meta strong {
+      color: #001F3F;
+    }
+    
+    .documents-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 20px;
+      margin-bottom: 40px;
+    }
+    
+    .doc-card {
+      background: white;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    
+    .doc-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 12px rgba(0,0,0,0.15);
+    }
+    
+    .doc-card-header {
+      background: linear-gradient(135deg, #00D9FF 0%, #00FF41 100%);
+      padding: 15px;
+      color: #001F3F;
+      font-weight: 700;
+    }
+    
+    .doc-card-body {
+      padding: 20px;
+    }
+    
+    .doc-card-body p {
+      color: #666;
+      margin-bottom: 15px;
+      font-size: 0.95em;
+      line-height: 1.6;
+    }
+    
+    .doc-badge {
+      display: inline-block;
+      background: #f0f8ff;
+      color: #00D9FF;
+      padding: 5px 10px;
+      border-radius: 20px;
+      font-size: 0.85em;
+      margin: 3px 3px 3px 0;
+      font-weight: 600;
+    }
+    
+    .doc-link {
+      display: inline-block;
+      background: linear-gradient(135deg, #001F3F 0%, #1B4D5C 100%);
+      color: white;
+      padding: 12px 20px;
+      border-radius: 5px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: all 0.3s;
+      margin-top: 15px;
+    }
+    
+    .doc-link:hover {
+      background: linear-gradient(135deg, #1B4D5C 0%, #00D9FF 100%);
+      transform: scale(1.05);
+    }
+    
+    .section-title {
+      background: white;
+      padding: 20px 30px;
+      border-radius: 10px;
+      margin-top: 40px;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    
+    .section-title h2 {
+      color: #001F3F;
+      font-size: 1.8em;
+      border-bottom: 3px solid #00D9FF;
+      padding-bottom: 10px;
+    }
+    
+    .section-title p {
+      color: #666;
+      margin-top: 10px;
+    }
+    
+    .footer {
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      text-align: center;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    
+    .footer p {
+      color: #666;
+      margin: 10px 0;
+    }
+    
+    .footer strong {
+      color: #001F3F;
+    }
+    
+    .how-to {
+      background: #fffaf0;
+      padding: 20px;
+      border-radius: 5px;
+      border-left: 4px solid #FF6B4A;
+      margin: 20px 0;
+    }
+    
+    .how-to h3 {
+      color: #FF6B4A;
+      margin-bottom: 10px;
+    }
+    
+    .how-to ol {
+      margin-left: 20px;
+      color: #555;
+    }
+    
+    .how-to li {
+      margin: 8px 0;
+    }
+    
+    @media (max-width: 768px) {
+      .documents-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .header h1 {
+        font-size: 2em;
+      }
+    }
+    
+    @media print {
+      body {
+        background: white;
+      }
+      
+      .container {
+        max-width: 100%;
+      }
+      
+      .doc-card:hover {
+        transform: none;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>📚 Hexadigitall Campaign Documents</h1>
+      <p>Complete Collection of Searchable Campaign Materials</p>
+      <p><strong>Campaign Duration:</strong> December 19, 2025 – February 17, 2026</p>
+      <p><strong>Objective:</strong> Aggressive Local Market Penetration (ALMP)</p>
+      
+      <div class="meta">
+        <p><strong>📍 Coverage:</strong> 7 Nigerian cities × 5 services × 4 platforms</p>
+        <p><strong>🎯 Goal:</strong> 500+ qualified leads, 50–100 conversions, ₦15–25M attributed revenue</p>
+        <p><strong>📄 Format:</strong> All documents are searchable HTML (use Ctrl+F to search, Ctrl+P to print as PDF)</p>
+        <p><strong>✅ Status:</strong> All 12 campaign documents converted and ready for use</p>
+      </div>
+    </div>
+    
+    <!-- Strategic Documents -->
+    <div class="section-title">
+      <h2>🎯 Strategic Documents</h2>
+      <p>High-level campaign strategy, roadmap, and execution framework</p>
+    </div>
+    
+    <div class="documents-grid">
+      <div class="doc-card">
+        <div class="doc-card-header">Master Playbook</div>
+        <div class="doc-card-body">
+          <p>Complete 60-day campaign execution guide including strategic objectives, success metrics framework, team roles, weekly sprint templates, decision framework, and risk mitigation strategies.</p>
+          <div>
+            <span class="doc-badge">Strategic</span>
+            <span class="doc-badge">60-Day Plan</span>
+            <span class="doc-badge">Team Roles</span>
+          </div>
+          <a href="MASTER_PLAYBOOK.html" class="doc-link">→ Open Master Playbook</a>
+        </div>
+      </div>
+      
+      <div class="doc-card">
+        <div class="doc-card-header">Launch Day Checklist</div>
+        <div class="doc-card-body">
+          <p>Hour-by-hour execution plan for December 19, 2025 including pre-launch verification, content preparation, team huddle, launch windows, metrics check-ins, contingency plans, and success criteria.</p>
+          <div>
+            <span class="doc-badge">Dec 19</span>
+            <span class="doc-badge">Checklist</span>
+            <span class="doc-badge">Tactical</span>
+          </div>
+          <a href="LAUNCH_DAY_CHECKLIST.html" class="doc-link">→ Open Launch Checklist</a>
+        </div>
+      </div>
+      
+      <div class="doc-card">
+        <div class="doc-card-header">Campaign Strategy</div>
+        <div class="doc-card-body">
+          <p>Deep-dive into campaign strategy covering market positioning, competitor analysis, key messaging pillars, target audience segmentation by city and service, and strategic differentiation.</p>
+          <div>
+            <span class="doc-badge">Market Analysis</span>
+            <span class="doc-badge">Strategy</span>
+            <span class="doc-badge">Positioning</span>
+          </div>
+          <a href="CAMPAIGN_STRATEGY.html" class="doc-link">→ Open Strategy</a>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Execution Documents -->
+    <div class="section-title">
+      <h2>📋 Execution Documents</h2>
+      <p>Day-to-day tactical execution guides, copy templates, and operational frameworks</p>
+    </div>
+    
+    <div class="documents-grid">
+      <div class="doc-card">
+        <div class="doc-card-header">Content Calendar (30 Days)</div>
+        <div class="doc-card-body">
+          <p>Day-by-day posting schedule with specific copy, platform assignments, images, UTM parameters, engagement hooks, and daily checklists for all 7 cities and 5 services.</p>
+          <div>
+            <span class="doc-badge">Calendar</span>
+            <span class="doc-badge">Posts</span>
+            <span class="doc-badge">Schedule</span>
+          </div>
+          <a href="CONTENT_CALENDAR_30DAYS.html" class="doc-link">→ Open Calendar</a>
+        </div>
+      </div>
+      
+      <div class="doc-card">
+        <div class="doc-card-header">Swipe File</div>
+        <div class="doc-card-body">
+          <p>25+ copy-paste ready social media post templates organized by service and platform. Includes multiple angles (authority, proof, speed, urgency, FOMO) for Facebook, Instagram, Twitter, and WhatsApp.</p>
+          <div>
+            <span class="doc-badge">Copy</span>
+            <span class="doc-badge">Templates</span>
+            <span class="doc-badge">Angles</span>
+          </div>
+          <a href="SWIPE_FILE.html" class="doc-link">→ Open Swipes</a>
+        </div>
+      </div>
+      
+      <div class="doc-card">
+        <div class="doc-card-header">Email Nurture Sequences</div>
+        <div class="doc-card-body">
+          <p>5 complete 7-email sequences (Web, Marketing, E-Commerce, Business Plans, Portfolio) with full copy, subject line A/B tests, send time optimization, personalization variables, and lead scoring framework.</p>
+          <div>
+            <span class="doc-badge">Email</span>
+            <span class="doc-badge">Sequences</span>
+            <span class="doc-badge">Automation</span>
+          </div>
+          <a href="EMAIL_NURTURE_SEQUENCES.html" class="doc-link">→ Open Sequences</a>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Tracking & Optimization Documents -->
+    <div class="section-title">
+      <h2>📊 Tracking & Optimization</h2>
+      <p>Analytics setup, performance tracking, and decision frameworks</p>
+    </div>
+    
+    <div class="documents-grid">
+      <div class="doc-card">
+        <div class="doc-card-header">Campaign Tracking Guide</div>
+        <div class="doc-card-body">
+          <p>Complete Google Sheets setup with formulas, conditional formatting, daily workflow, weekly review process, optimization rules (green/yellow/red lights), target metrics, and sample reports.</p>
+          <div>
+            <span class="doc-badge">Tracking</span>
+            <span class="doc-badge">Analytics</span>
+            <span class="doc-badge">Sheets</span>
+          </div>
+          <a href="CAMPAIGN_TRACKING_GUIDE.html" class="doc-link">→ Open Tracking Guide</a>
+        </div>
+      </div>
+      
+      <div class="doc-card">
+        <div class="doc-card-header">Social Share Guide</div>
+        <div class="doc-card-body">
+          <p>Consolidated guide with all social media URLs, OG image mappings, platform-specific guidelines, hashtag strategy, optimal posting times, and platform-specific message templates.</p>
+          <div>
+            <span class="doc-badge">Social</span>
+            <span class="doc-badge">URLs</span>
+            <span class="doc-badge">OG Images</span>
+          </div>
+          <a href="SOCIAL_SHARE_GUIDE.html" class="doc-link">→ Open Social Guide</a>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Content Strategy Documents -->
+    <div class="section-title">
+      <h2>💡 Content Strategy</h2>
+      <p>Detailed content frameworks for different channels and buyer journey stages</p>
+    </div>
+    
+    <div class="documents-grid">
+      <div class="doc-card">
+        <div class="doc-card-header">Social Media Content Strategy</div>
+        <div class="doc-card-body">
+          <p>Comprehensive strategy for Facebook, Instagram, Twitter, and WhatsApp including content pillars, posting frequency, engagement tactics, community management, influencer partnerships, and platform-specific best practices.</p>
+          <div>
+            <span class="doc-badge">Social</span>
+            <span class="doc-badge">Strategy</span>
+            <span class="doc-badge">Community</span>
+          </div>
+          <a href="SOCIAL_MEDIA_CONTENT.html" class="doc-link">→ Open Social Strategy</a>
+        </div>
+      </div>
+      
+      <div class="doc-card">
+        <div class="doc-card-header">Sales Strategy</div>
+        <div class="doc-card-body">
+          <p>Sales playbook covering lead qualification framework, demo scripts, objection handling, pricing strategies, closing techniques, follow-up sequences, and CRM integration for the sales team.</p>
+          <div>
+            <span class="doc-badge">Sales</span>
+            <span class="doc-badge">Conversion</span>
+            <span class="doc-badge">CRM</span>
+          </div>
+          <a href="SALES_STRATEGY.html" class="doc-link">→ Open Sales Strategy</a>
+        </div>
+      </div>
+      
+      <div class="doc-card">
+        <div class="doc-card-header">SEO Content Strategy</div>
+        <div class="doc-card-body">
+          <p>Long-term SEO strategy including keyword research by city/service, content calendar for blog posts, on-page optimization guidelines, backlink strategy, local SEO tactics, and performance tracking.</p>
+          <div>
+            <span class="doc-badge">SEO</span>
+            <span class="doc-badge">Content</span>
+            <span class="doc-badge">Long-term</span>
+          </div>
+          <a href="SEO_CONTENT_STRATEGY.html" class="doc-link">→ Open SEO Strategy</a>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Reference Documents -->
+    <div class="section-title">
+      <h2>📖 Reference Documents</h2>
+      <p>Additional resources and documentation</p>
+    </div>
+    
+    <div class="documents-grid">
+      <div class="doc-card">
+        <div class="doc-card-header">README</div>
+        <div class="doc-card-body">
+          <p>Getting started guide and documentation overview for the promotional campaign system. Includes quick links, setup instructions, and frequently asked questions.</p>
+          <div>
+            <span class="doc-badge">Overview</span>
+            <span class="doc-badge">Getting Started</span>
+          </div>
+          <a href="README.html" class="doc-link">→ Open README</a>
+        </div>
+      </div>
+    </div>
+    
+    <!-- How to Use Section -->
+    <div class="section-title">
+      <h2>🔍 How to Use These Documents</h2>
+      <div class="how-to">
+        <h3>Searching Documents</h3>
+        <ol>
+          <li><strong>Within a document:</strong> Press <code>Ctrl+F</code> (Windows/Linux) or <code>Cmd+F</code> (Mac) to open search</li>
+          <li><strong>Search example:</strong> Search for "Web Development", "Lagos", "CTR", "email open rate", etc.</li>
+          <li><strong>All documents are fully searchable</strong> — find any content instantly</li>
+        </ol>
+      </div>
+      
+      <div class="how-to" style="border-left-color: #00FF41; background: #f0fdf4;">
+        <h3>Converting to PDF</h3>
+        <ol>
+          <li>Open any HTML document (click link above)</li>
+          <li>Press <code>Ctrl+P</code> (Windows/Linux) or <code>Cmd+P</code> (Mac)</li>
+          <li>Select <strong>"Save as PDF"</strong> from the printer menu</li>
+          <li><strong>Important:</strong> Check <strong>"Background graphics"</strong> to preserve formatting</li>
+          <li>Click "Save" — your PDF will be fully searchable</li>
+        </ol>
+      </div>
+      
+      <div class="how-to" style="border-left-color: #00D9FF; background: #f0f8ff;">
+        <h3>Document Access</h3>
+        <ul style="margin-left: 20px; list-style: disc;">
+          <li>All documents are in: <strong>promotional-campaign/pdfs/</strong></li>
+          <li>Total size: ~284 KB (12 documents)</li>
+          <li>Format: Searchable HTML (modern browsers required)</li>
+          <li>Mobile-friendly: Works on phones, tablets, and desktops</li>
+        </ul>
+      </div>
+    </div>
+    
+    <!-- Campaign Quick Stats -->
+    <div class="section-title">
+      <h2>📈 Campaign Quick Stats</h2>
+      <table style="width: 100%; border-collapse: collapse;">
+        <tr style="background: #f9f9f9;">
+          <th style="text-align: left; padding: 12px; border-bottom: 2px solid #00D9FF;">Metric</th>
+          <th style="text-align: left; padding: 12px; border-bottom: 2px solid #00D9FF;">Target</th>
+          <th style="text-align: left; padding: 12px; border-bottom: 2px solid #00D9FF;">Notes</th>
+        </tr>
+        <tr>
+          <td style="padding: 12px; border-bottom: 1px solid #ddd;">Total Reach</td>
+          <td style="padding: 12px; border-bottom: 1px solid #ddd;">200k+</td>
+          <td style="padding: 12px; border-bottom: 1px solid #ddd;">Unique people across all platforms</td>
+        </tr>
+        <tr style="background: #f9f9f9;">
+          <td style="padding: 12px; border-bottom: 1px solid #ddd;">Qualified Leads</td>
+          <td style="padding: 12px; border-bottom: 1px solid #ddd;">500+</td>
+          <td style="padding: 12px; border-bottom: 1px solid #ddd;">Email signups + consultation requests</td>
+        </tr>
+        <tr>
+          <td style="padding: 12px; border-bottom: 1px solid #ddd;">Conversion Rate</td>
+          <td style="padding: 12px; border-bottom: 1px solid #ddd;">50–100 closes</td>
+          <td style="padding: 12px; border-bottom: 1px solid #ddd;">10–20% of qualified leads</td>
+        </tr>
+        <tr style="background: #f9f9f9;">
+          <td style="padding: 12px; border-bottom: 1px solid #ddd;">Revenue Target</td>
+          <td style="padding: 12px; border-bottom: 1px solid #ddd;">₦15–25M</td>
+          <td style="padding: 12px; border-bottom: 1px solid #ddd;">Attributed to campaign</td>
+        </tr>
+        <tr>
+          <td style="padding: 12px;">Average Engagement</td>
+          <td style="padding: 12px;">3%+</td>
+          <td style="padding: 12px;">CTR, engagement rate, email opens</td>
+        </tr>
+      </table>
+    <!-- Sharable Links Section: Only Valid, Routable Links -->
+    <div class="section-title">
+      <h2>🔗 Valid Sharable Links (Copy & Use)</h2>
+      <p>All links below are routable, OG/UTM-optimized, and ready for sharing. No city-specific or invalid links.</p>
+    </div>
+    <div class="documents-grid">
+      <div class="doc-card">
+        <div class="doc-card-header">Services Hub</div>
+        <div class="doc-card-body">
+          <p>Main services landing page (all services):</p>
+          <a href="https://hexadigitall.com/services" class="doc-link" target="_blank">https://hexadigitall.com/services</a>
+        </div>
+      </div>
+      <div class="doc-card">
+        <div class="doc-card-header">Courses Hub</div>
+        <div class="doc-card-body">
+          <p>Main courses landing page (all courses):</p>
+          <a href="https://hexadigitall.com/courses" class="doc-link" target="_blank">https://hexadigitall.com/courses</a>
+        </div>
+      </div>
+      <div class="doc-card">
+        <div class="doc-card-header">Direct Service Links</div>
+        <div class="doc-card-body">
+          <ul>
+            <li><a href="https://hexadigitall.com/services/business-plan-and-logo-design" target="_blank">Business Plan & Logo</a></li>
+            <li><a href="https://hexadigitall.com/services/web-and-mobile-software-development" target="_blank">Web Development</a></li>
+            <li><a href="https://hexadigitall.com/services/social-media-advertising-and-marketing" target="_blank">Social Media Marketing</a></li>
+            <li><a href="https://hexadigitall.com/services/profile-and-portfolio-building" target="_blank">Portfolio Building</a></li>
+            <li><a href="https://hexadigitall.com/services/mentoring-and-consulting" target="_blank">Mentoring & Consulting</a></li>
+            <li><a href="https://hexadigitall.com/services/custom-build" target="_blank">Custom Build</a></li>
+            <li><a href="https://hexadigitall.com/services/build-bundle" target="_blank">Build Bundle</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="doc-card">
+        <div class="doc-card-header">Tracked Campaign Links (UTM/OG Ready)</div>
+        <div class="doc-card-body">
+          <ul>
+            <li><strong>WhatsApp:</strong> <a href="https://hexadigitall.com/services?utm_source=whatsapp&utm_medium=social&utm_campaign=dec_jan_2025" target="_blank">Services</a> | <a href="https://hexadigitall.com/courses?utm_source=whatsapp&utm_medium=social&utm_campaign=dec_jan_2025" target="_blank">Courses</a></li>
+            <li><strong>Instagram:</strong> <a href="https://hexadigitall.com/services?utm_source=instagram&utm_medium=social&utm_campaign=dec_jan_2025" target="_blank">Services</a> | <a href="https://hexadigitall.com/courses?utm_source=instagram&utm_medium=social&utm_campaign=dec_jan_2025" target="_blank">Courses</a></li>
+            <li><strong>TikTok:</strong> <a href="https://hexadigitall.com/services/web-and-mobile-software-development?utm_source=tiktok&utm_medium=social&utm_campaign=dec_jan_2025" target="_blank">Web Development</a> | <a href="https://hexadigitall.com/courses?utm_source=tiktok&utm_medium=social&utm_campaign=dec_jan_2025" target="_blank">Courses</a></li>
+            <li><strong>Facebook:</strong> <a href="https://hexadigitall.com/services?utm_source=facebook&utm_medium=social&utm_campaign=dec_jan_2025" target="_blank">Services</a> | <a href="https://hexadigitall.com/courses?utm_source=facebook&utm_medium=social&utm_campaign=dec_jan_2025" target="_blank">Courses</a></li>
+            <li><strong>LinkedIn:</strong> <a href="https://hexadigitall.com/services?utm_source=linkedin&utm_medium=social&utm_campaign=dec_jan_2025" target="_blank">Services</a> | <a href="https://hexadigitall.com/courses?utm_source=linkedin&utm_medium=social&utm_campaign=dec_jan_2025" target="_blank">Courses</a></li>
+            <li><strong>Email:</strong> <a href="https://hexadigitall.com/services?utm_source=email&utm_medium=newsletter&utm_campaign=dec_jan_2025" target="_blank">Services</a> | <a href="https://hexadigitall.com/courses?utm_source=email&utm_medium=newsletter&utm_campaign=dec_jan_2025" target="_blank">Courses</a></li>
+          </ul>
+          <p style="margin-top:10px;font-size:0.95em;color:#666;">All links above are OG/UTM-optimized for best social preview and analytics.</p>
+        </div>
+      </div>
+    </div>
+    </div>
+    
+    <!-- Footer -->
+    <div class="footer">
+      <p><strong>🚀 Hexadigitall Aggressive Market Penetration Campaign</strong></p>
+      <p>Campaign Duration: December 19, 2025 – February 17, 2026</p>
+      <p>All documents generated: December 19, 2025</p>
+      <p style="margin-top: 20px; color: #999; font-size: 0.9em;">
+        This document collection is confidential and intended for internal Hexadigitall use only.
+      </p>
+    </div>
+  </div>
+</body>
+</html>

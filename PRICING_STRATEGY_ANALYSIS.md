@@ -29,7 +29,7 @@
 
 #### **Business Planning Services**
 ```
-Essential Plan:     $149 (₦245,835) - Entry point for startups
+Essential Plan:     $149 (₦199,000) - Entry point for startups
 Professional Plan:  $297 (₦489,405) - Most popular (current Essential price)
 Investor-Ready:     $497 (₦820,005) - Premium offering
 ```

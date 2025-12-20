@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EMAIL_NURTURE_SEQUENCES</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    @page {
+      size: A4;
+      margin: 1in;
+    }
+    
+    html, body {
+      width: 100%;
+      min-height: 100%;
+    }
+    
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+      line-height: 1.65;
+      color: #333;
+      background: white;
+      padding: 0;
+    }
+    
+    .document {
+      padding: 40px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    
+    .title-block {
+      border-bottom: 3px solid #00D9FF;
+      padding-bottom: 20px;
+      margin-bottom: 30px;
+      page-break-after: avoid;
+    }
+    
+    .title-block h1 {
+      font-size: 2.5em;
+      color: #001F3F;
+      margin: 0 0 10px 0;
+      line-height: 1.2;
+    }
+    
+    .title-block .meta {
+      font-size: 0.9em;
+      color: #666;
+      font-style: italic;
+    }
+    
+    h1 {
+      font-size: 2.2em;
+      margin: 40px 0 15px 0;
+      color: #001F3F;
+      border-bottom: 2px solid #00D9FF;
+      padding-bottom: 8px;
+      page-break-after: avoid;
+      page-break-before: auto;
+    }
+    
+    h2 {
+      font-size: 1.6em;
+      margin: 35px 0 12px 0;
+      color: #1B4D5C;
+      page-break-after: avoid;
+    }
+    
+    h3 {
+      font-size: 1.2em;
+      margin: 20px 0 10px 0;
+      color: #00D9FF;
+      page-break-after: avoid;
+    }
+    
+    p {
+      margin: 12px 0;
+      text-align: justify;
+    }
+    
+    strong {
+      font-weight: 700;
+      color: #001F3F;
+    }
+    
+    em {
+      font-style: italic;
+      color: #555;
+    }
+    
+    code {
+      background: #f5f5f5;
+      padding: 2px 6px;
+      border-radius: 3px;
+      font-family: 'Courier New', monospace;
+      font-size: 0.9em;
+      color: #d63384;
+    }
+    
+    pre {
+      background: #f5f5f5;
+      padding: 15px;
+      border-radius: 5px;
+      overflow: auto;
+      margin: 15px 0;
+      border-left: 4px solid #00D9FF;
+      page-break-inside: avoid;
+      font-family: 'Courier New', monospace;
+      font-size: 0.85em;
+      line-height: 1.4;
+    }
+    
+    pre code {
+      background: none;
+      padding: 0;
+      color: inherit;
+    }
+    
+    ul, ol {
+      margin: 15px 0 15px 30px;
+    }
+    
+    li {
+      margin: 8px 0;
+      line-height: 1.6;
+    }
+    
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 15px 0;
+      font-size: 0.9em;
+      page-break-inside: avoid;
+    }
+    
+    th, td {
+      padding: 10px 12px;
+      border: 1px solid #ddd;
+      text-align: left;
+    }
+    
+    th {
+      background: #001F3F;
+      color: white;
+      font-weight: 700;
+    }
+    
+    tr:nth-child(even) {
+      background: #f9f9f9;
+    }
+    
+    a {
+      color: #00D9FF;
+      text-decoration: none;
+      word-break: break-word;
+    }
+    
+    a:visited {
+      color: #00a8cc;
+    }
+    
+    blockquote {
+      border-left: 4px solid #00D9FF;
+      padding-left: 15px;
+      margin: 15px 0;
+      color: #666;
+      font-style: italic;
+    }
+    
+    hr {
+      border: none;
+      border-top: 2px solid #00D9FF;
+      margin: 30px 0;
+      page-break-before: always;
+    }
+    
+    .footer {
+      text-align: center;
+      color: #999;
+      font-size: 0.9em;
+      margin-top: 40px;
+      padding-top: 20px;
+      border-top: 1px solid #ddd;
+    }
+    
+    @media print {
+      body {
+        margin: 0;
+        padding: 0;
+      }
+      
+      .document {
+        max-width: 100%;
+        padding: 40px;
+      }
+      
+      h1, h2, h3 {
+        page-break-after: avoid;
+      }
+      
+      h1 {
+        page-break-before: always;
+      }
+      
+      table, pre, blockquote {
+        page-break-inside: avoid;
+      }
+      
+      a {
+        color: #0066cc;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="document">
+    <div class="title-block">
+      <h1>EMAIL_NURTURE_SEQUENCES</h1>
+      <div class="meta">Generated: 12/19/2025, 12:17:07 PM | Hexadigitall Campaign</div>
+    </div>
+    
+    <h1>Email Nurture Sequences for Social Campaign</h1>
+<h2>Auto-Triggered, Service-Specific, 7-Day Conversion Funnels</h2></p><p>Use these sequences in your email automation tool (Mailchimp, Klaviyo, ConvertKit, HubSpot, etc.). Trigger sends when a visitor lands from a social link and opts in.</p><p><hr></p><p><h2>Setup &amp; Automation</h2></p><p><h3>Email Tool Setup (Recommended: Mailchimp or HubSpot free tier)</h3>
+<li>Create a landing page form (email + first name minimum)</li>
+<li>Set form to trigger email sequence based on service/city</li>
+<li>Use UTM tags to auto-segment (e.g., ?utm_source=facebook&amp;utm_service=web)</li>
+<li>Schedule sends: Day 0 (immediate), Day 1, Day 3, Day 5, Day 7</p><p><h3>Segmentation by Service</h3></li>
+<li>Web: sends "Web Dev Sequence"</li>
+<li>Marketing: sends "Digital Marketing Sequence"</li>
+<li>Ecommerce: sends "E-Commerce Sequence"</li>
+<li>Business Plans: sends "Business Plans Sequence"</li>
+<li>Portfolio: sends "Portfolio Sequence"</li>
+<li>Courses: sends "Courses Sequence"</p><p><h3>Send Times (Nigeria Time)</h3></li>
+<li>Day 0: Immediate (5 min post-optin)</li>
+<li>Day 1: 9 AM (morning energy high)</li>
+<li>Day 3: 2 PM (midweek lull, office hours)</li>
+<li>Day 5: 11 AM (Friday momentum)</li>
+<li>Day 7: 6 PM (weekend prep)</p><p><hr></p><p><h2>Email 1: Welcome + Problem Hook (Day 0 — Immediate)</h2></p><p><h3>Subject Lines (Test A/B)</h3></li>
+<li>A: "Your website is costing you money"</li>
+<li>B: "Quick question: does your website make sales?"</li>
+<li>C: "See how {City} businesses launched websites in 14 days"</p><p><h3>Body Template</h3></p><p><pre><code></li>
+<p>Hi {FirstName},</p><p>Thanks for checking out our website services. 👋</p><p>I'm guessing you're either:</p>
+<li>Tired of waiting 3 months (and ₦500k+) for a website</li>
+<li>Running a website that doesn't make sales</li>
+<li>Or both</p><p>Here's the truth: A website is your 24/7 salesperson.</p><p>If it's not making you money, it's costing you money.</p><p><hr></p><p><strong>Here's what most businesses get wrong:</strong></li>
+<li>They hire agencies that take forever</li>
+<li>They pay too much upfront</li>
+<li>Their site looks pretty but doesn't convert</p><p><strong>Here's what we do different:</strong></li>
+<p>✅ 14-day turnaround (not 14 weeks)</p>
+<p>✅ ₦299,000 flat (no hidden fees)</p>
+<p>✅ Mobile-first + conversion-optimized</p>
+<p>✅ Paystack checkout built in</p><p><hr></p><p><strong>Next step:</strong> Reply to this email or book a 15-min consultation below.</p><p>No pressure. No sales pitch. Just a chat about your goals.</p><p>[BUTTON: Book Free Consultation]</p><p>Questions? Hit reply. I read every email personally.</p><p>{YourName}</p>
+<p>Hexadigitall</p>
+</code></pre></p><p><h3>Send Settings</h3>
+<li>From: {YourName}@hexadigitall.com (personalized sender)</li>
+<li>Reply-to: Enable (you monitor replies)</li>
+<li>Track opens/clicks</p><p><hr></p><p><h2>Email 2: Social Proof + Authority (Day 1)</h2></p><p><h3>Subject Lines (Test A/B)</h3></li>
+<li>A: "One {City} client went from ₦0 to ₦500k/month"</li>
+<li>B: "{FirstName}, see what {City} businesses are doing"</li>
+<li>C: "Why 47 {City} brands chose us this year"</p><p><h3>Body Template</h3></p><p><pre><code></li>
+Hi {FirstName},</p><p>Yesterday I told you about our website services.</p><p>Today, I want to show you proof.</p><p><hr></p><p><strong>One of our {City} clients:</strong>
+<li>Launched website on March 15</li>
+<li>First sale: March 18 (3 days later)</li>
+<li>Current revenue: ₦500k+/month</p><p>How? </p><p>Simple: We built a site designed to convert.</p><p>Every button. Every form. Every page. Tested and optimized for sales.</p><p><hr></p><p><strong>What they got:</strong></li>
+<p>✅ Professional brand site (not a template)</p>
+<p>✅ Contact forms + lead capture</p>
+<p>✅ Mobile-perfect on every device</p>
+<p>✅ SEO ready (ranks in Google within 60 days)</p>
+<p>✅ Built-in Paystack checkout</p><p><strong>Time invested:</strong> 14 days</p>
+<strong>Cost:</strong> ₦299,000 (one-time)
+<strong>Result after 6 months:</strong> ₦2.3M revenue attributed to website</p><p><hr></p><p><strong>The question for you:</strong>
+<p>If you had a website making ₦500k+/month, would it change your business?</p><p>I'm betting yes.</p><p>[BUTTON: See Our Other Success Stories]</p><p>Or reply here with your story. I'd love to hear what's blocking you.</p><p>{YourName}</p>
+<p>Hexadigitall</p>
+</code></pre></p><p><h3>Why This Works</h3>
+<li>Uses city name (personalization increases open rates 26%)</li>
+<li>Proof with numbers (₦500k = credible, specific)</li>
+<li>Social proof + authority + curiosity</li>
+<li>Multiple CTAs (link + reply option)</p><p><hr></p><p><h2>Email 3: Objection Handler + Scarcity (Day 3)</h2></p><p><h3>Subject Lines (Test A/B)</h3></li>
+<li>A: "The thing everyone gets wrong about website costs"</li>
+<li>B: "Why ₦299,000 is the best deal you'll see"</li>
+<li>C: "Only 3 spots left this month"</p><p><h3>Body Template</h3></p><p><pre><code></li>
+Hi {FirstName},</p><p>I've heard a lot of objections over the years.</p><p>The most common? "That's expensive."</p><p>So let's talk about it.</p><p><hr></p><p><strong>The math:</strong>
+<li>Agencies want ₦500k–₦1.5M for a website</li>
+<li>That ₦300k website sits on a server for 2 years</li>
+<li>That's ₦1.50/day in cost</li>
+<li>One customer on your site pays for it in an hour</p><p><strong>So really, the question isn't "Is ₦299,000 expensive?"</strong></p><p>The question is: "Can I afford NOT to have a website?"</p><p>For ₦299k, the answer is no. You can't afford not to.</p><p><hr></p><p><strong>Here's what you're getting:</strong></li>
+<p>✅ Custom design (not template)</p>
+<p>✅ Mobile responsive (100% device coverage)</p>
+<p>✅ SEO ready (Google search traffic)</p>
+<p>✅ Paystack checkout (take payments immediately)</p>
+<p>✅ 14-day launch (compete faster)</p>
+<p>✅ Free hosting (first year included)</p>
+<p>✅ Support (we're here if things break)</p><p>Plus: If you're not happy after 7 days, you get 50% back.</p><p>No questions asked.</p><p><hr></p><p><strong>Real talk:</strong> We're opening only 3 more spots this December.</p><p>After that, it's a 6-week wait until January.</p><p>If you want a website before year-end, now is the time.</p><p>[BUTTON: Reserve Your Spot]</p><p>Or reply: "Tell me more" and we'll book a call.</p><p>{YourName}</p>
+<p>Hexadigitall</p>
+</code></pre></p><p><h3>Why This Works</h3>
+<li>Addresses budget objection head-on (honesty builds trust)</li>
+<li>ROI framing (one customer pays for it)</li>
+<li>Scarcity (3 spots, 6-week wait) = urgency without being pushy</li>
+<li>Risk reversal (50% back guarantee) = removes risk</p><p><hr></p><p><h2>Email 4: Case Study Deep Dive (Day 5)</h2></p><p><h3>Subject Lines (Test A/B)</h3></li>
+<li>A: "How {City} law firm got 50 new clients from website"</li>
+<li>B: "{FirstName}, this client's story might be yours"</li>
+<li>C: "From 0 to 50 clients: The website case study"</p><p><h3>Body Template</h3></p><p><pre><code></li>
+<p>Hi {FirstName},</p><p>I want to walk you through one project from start to finish.</p><p>It's the kind of thing that gets me excited every time.</p><p><hr></p><p><strong>CLIENT:</strong> Law firm in {City}</p>
+<strong>CHALLENGE:</strong> No online presence. Losing clients to competitors with websites.
+<strong>GOAL:</strong> 20+ qualified leads in first 3 months.</p><p><hr></p><p><strong>What we built (14 days):</strong>
+<p>✅ Professional law firm site (practice areas, attorney bios, testimonials)</p>
+<p>✅ Contact form + lead capture</p>
+<p>✅ SEO optimized for "{City} lawyer" search terms</p>
+<p>✅ Client testimonial videos</p>
+<p>✅ Mobile-perfect UX</p><p><strong>What happened:</strong></p><p>Month 1: 8 leads (mostly cold traffic)</p>
+<p>Month 2: 22 leads (50% from Google organic search)</p>
+<p>Month 3: 35 leads (Google now ranking #1 for "{City} lawyer")</p><p>Month 6 result: ₦4.2M revenue attributed to website</p><p><strong>Cost:</strong> ₦299,000 (site) + ₦8,000/month maintenance</p>
+<strong>ROI:</strong> 14× return in 6 months</p><p><hr></p><p><strong>Key lesson:</strong> Your website isn't an expense. It's your best sales tool.</p><p>It works 24/7. No commission. No salary. Just results.</p><p><hr></p><p><strong>Your turn:</strong> What if we built the same for your business?</p><p>(We do web dev for law firms, agencies, e-commerce, coaches, consultants—you name it.)</p><p>[BUTTON: Get Your Custom Quote]</p><p>Or reply: "I want details on my specific business" and we'll design a plan.</p><p>{YourName}
+<p>Hexadigitall</p><p>P.S. Most clients recoup their investment in the first 30 days. You might too.</p>
+</code></pre></p><p><h3>Why This Works</h3>
+<li>Specific case study (law firm, {City}) = relatability</li>
+<li>Metrics + timeline (8→22→35 leads) = credible progression</li>
+<li>ROI math (14× return) = compelling value</li>
+<li>Removes last objection (investment pays for itself)</p><p><hr></p><p><h2>Email 5: Final Offer + Decision Time (Day 7)</h2></p><p><h3>Subject Lines (Test A/B)</h3></li>
+<li>A: "Last chance: Website special ends tonight"</li>
+<li>B: "{FirstName}, the decision is yours"</li>
+<li>C: "Your website could go live by January 2"</p><p><h3>Body Template</h3></p><p><pre><code></li>
+Hi {FirstName},</p><p>This is my last email to you.</p><p>By tomorrow, I'm closing the December special.</p><p><hr></p><p><strong>Here's what we've covered:</strong>
+<p>✅ Website as 24/7 salesperson</p>
+<p>✅ Real ROI (law firm: ₦4.2M in 6 months)</p>
+<p>✅ Cost reality (₦1.50/day = cheaper than coffee)</p>
+<p>✅ Your competition already has one</p><p><strong>So the question is:</strong></p><p><strong>Do you want in, or are you waiting?</strong></p><p><hr></p><p><strong>If you're ready:</strong></p><p>1. Reply to this email with "YES, I'm ready"</p>
+<li>We'll book a 20-min call to confirm details</li>
+<li>You'll be live by January 2</p><p>Cost: ₦299,000 (one-time, no surprises)</li>
+<p>Time to launch: 14 days</p>
+<p>Money-back guarantee: 50% if you're not happy</p><p>[BUTTON: Book Consultation Call Now]</p><p><hr></p><p><strong>If you're waiting:</strong></p><p>That's okay. But know this:</p><p>Every day your website isn't live, your competitor's is working.</p><p>When you're ready, we'll be here. Just reply to this email.</p><p><hr></p><p><strong>If this isn't for you:</strong></p><p>No hard feelings. </p><p>But do yourself a favor: Get a website this year. Even if it's not with us.</p><p>Your business deserves to be online.</p><p>{YourName}</p>
+<p>Hexadigitall</p><p>P.S. Still have questions? Reply here. I'll answer within 2 hours.</p>
+</code></pre></p><p><h3>Why This Works</h3>
+<li>Recap of whole journey (reminds them why they opted in)</li>
+<li>Direct ask (no ambiguity = higher conversion)</li>
+<li>Multiple options (yes → call, no → wait, not sure → reply)</li>
+<li>Empathy + permission to say no (removes pressure, increases trust)</li>
+<li>Scarcity (tonight, closes special) = final nudge</p><p><hr></p><p><h2>ADDITIONAL SEQUENCES (Per Service)</h2></p><p><h3>Digital Marketing Sequence (Swap These)</h3></li>
+<strong>Subject angles:</strong>
+<li>Email 1: "Your Instagram followers are watching competitors"</li>
+<li>Email 2: "One {City} brand went from 0 to ₦2.3M/month"</li>
+<li>Email 3: "Why ₦300k/month is the best ROI you'll get"</li>
+<li>Email 4: "Case study: How we grew brand from 5k to 50k followers"</li>
+<li>Email 5: "Last spots for managed social program"</p><p><strong>CTA flow:</strong> Problem → Proof → Cost objection → Case study → Decision</p><p><hr></p><p><h3>E-Commerce Sequence (Swap These)</h3></li>
+<strong>Subject angles:</strong>
+<li>Email 1: "Your e-commerce site isn't converting"</li>
+<li>Email 2: "One {City} seller made ₦500k first month"</li>
+<li>Email 3: "Checkout optimization = ₦100k/month more"</li>
+<li>Email 4: "Case study: ₦300 → ₦500k/month"</li>
+<li>Email 5: "Your store can go live in 7 days"</p><p><strong>CTA flow:</strong> Pain → Proof → Conversion objection → Case study → Urgency</p><p><hr></p><p><h3>Business Plans Sequence (Swap These)</h3></li>
+<strong>Subject angles:</strong>
+<li>Email 1: "Bank rejected your loan? Here's why."</li>
+<li>Email 2: "One founder got ₦50M approved with our plan"</li>
+<li>Email 3: "Why ₦199k is cheap for a bank-ready plan"</li>
+<li>Email 4: "Case study: Plan → ₦50M approval in 8 weeks"</li>
+<li>Email 5: "Funding doesn't wait. Neither should you."</p><p><strong>CTA flow:</strong> Problem → Authority → Investment logic → Social proof → Urgency</p><p><hr></p><p><h3>Portfolio Sequence (Swap These)</h3></li>
+<strong>Subject angles:</strong>
+<li>Email 1: "Your portfolio isn't booking clients"</li>
+<li>Email 2: "Designer went from 2 to 8 clients/month"</li>
+<li>Email 3: "Why ₦299k portfolio = ₦100k+ annual income"</li>
+<li>Email 4: "Case study: Portfolio → booked out 6 months"</li>
+<li>Email 5: "Your 24/7 salesperson launches this week"</p><p><strong>CTA flow:</strong> Reality check → Proof → ROI → Case study → Action</p><p><hr></p><p><h3>Courses Sequence (Swap These)</h3></li>
+<strong>Subject angles:</strong>
+<li>Email 1: "Ready to learn a ₦500k/month skill?"</li>
+<li>Email 2: "Alum went from freelancer to agency founder"</li>
+<li>Email 3: "Why ₦25k course saves ₦200k in mistakes"</li>
+<li>Email 4: "Case study: 6-week course → ₦1M first contract"</li>
+<li>Email 5: "Next cohort starts Jan 6. Last 3 seats."</p><p><strong>CTA flow:</strong> Aspiration → Proof → Value → Success story → Urgency</p><p><hr></p><p><h2>Email Personalization Variables</h2></p><p>Use these in your email platform to auto-insert dynamic content:</p><p><pre><code></li>
+<p>{FirstName} = First name from form</p>
+<p>{City} = City from landing page UTM</p>
+<p>{Service} = Service type (web/marketing/ecom/plans/portfolio)</p>
+<p>{CompetitorCount} = Number of competitors in their city with websites</p>
+<p>{Price} = Service price (₦299k/300k/199k/25k)</p>
+<p>{DaysSinceSignup} = Days since they opted in</p>
+<p>{YourName} = Sender name</p>
+<p>{CompanyName} = Hexadigitall</p>
+</code></pre></p><p><hr></p><p><h2>Send Time Optimization</h2></p><p>Test different send times per day:</p><p><tr><td> Email | Test A | Test B | Test C | Winner (track) </td></tr>
+<tr><td>-------|--------|--------|--------|----------------</td></tr>
+<tr><td> Day 0 | Immediate | — | — | Immediate (always) </td></tr>
+<tr><td> Day 1 | 9 AM | 11 AM | 2 PM | Track opens </td></tr>
+<tr><td> Day 3 | 10 AM | 2 PM | 6 PM | Track opens </td></tr>
+<tr><td> Day 5 | 9 AM | 1 PM | 5 PM | Track opens </td></tr>
+<tr><td> Day 7 | 11 AM | 3 PM | 7 PM | Track opens </td></tr></p><p>After 3 cycles, lock in highest open rate time and use it for all future sends.</p><p><hr></p><p><h2>Subject Line Testing Framework</h2></p><p>Test 2 subject lines per email (A/B split):</p><p><strong>Email 1 (Day 0):</strong>
+<li>A: "Your website is costing you money" (direct pain)</li>
+<li>B: "Quick question: does your website make sales?" (curious)</li>
+→ Winner: A/B = measure opens, pick winner, use for future web leads</p><p><strong>Email 2 (Day 1):</strong>
+<li>A: "One {City} client went from ₦0 to ₦500k/month" (specific proof)</li>
+<li>B: "{FirstName}, see what {City} businesses are doing" (personalization)</li>
+→ Winner: measure opens, lock in</p><p><strong>Continue pattern for Emails 3–5</strong></p><p><hr></p><p><h2>Tracking &amp; Optimization</h2></p><p><h3>Metrics to Monitor</h3>
+<li><strong>Open rate:</strong> Target 25–35% (good = 30%)</li>
+<li><strong>Click rate:</strong> Target 3–5% (good = 4%)</li>
+<li><strong>Reply rate:</strong> Target 2–5% (shows interest)</li>
+<li><strong>Conversion to call:</strong> Target 5–15% of opens</p><p><h3>A/B Testing Priority Order</h3></li>
+<li>Subject line (biggest impact on opens)</li>
+<li>Send time (affects open rates)</li>
+<li>Email copy (swap angles: pain → proof → urgency → offer)</li>
+<li>CTA button text (clear action words)</li>
+<li>From name (personalization improves opens 26%)</p><p><hr></p><p><h2>Email Copy Tone &amp; Style</h2></p><p><strong>Always:</strong></li>
+<li>Write like a human (not corporate)</li>
+<li>Use short paragraphs (2-3 lines max)</li>
+<li>Start with benefit (hook first sentence)</li>
+<li>Use specific numbers (₦500k, 14 days, 50 leads)</li>
+<li>End with clear CTA (reply, click button, or book call)</p><p><strong>Never:</strong></li>
+<li>ALL CAPS (unless emphasis on one word)</li>
+<li>10+ paragraphs (wall of text = 0% opens)</li>
+<li>Vague CTAs ("Click here" vs. "Book free consultation")</li>
+<li>Multiple CTAs per email (one ask per email)</p><p><hr></p><p><h2>Integration with Sales Pipeline</h2></p><p><h3>Lead Scoring</h3></li>
+<p>Tag emails with:</p>
+<li><strong>Hot:</strong> Opened 3+ emails, clicked 2+ links, replied to email</li>
+<li><strong>Warm:</strong> Opened 2 emails, clicked 1 link</li>
+<li><strong>Cold:</strong> Opened 0–1 emails</p><p>Route Hot leads to sales call immediately.</li>
+<p>Route Warm leads to check-in email (Day 10).</p>
+Route Cold leads to re-engagement sequence (Day 14).</p><p><h3>From Email to Call</h3>
+<li>Email 7 closes with: "Reply 'YES' or book here"</li>
+<li>If they reply: Sales team responds within 2 hours</li>
+<li>If they click: Calendar link opens (book 20-min consultation)</li>
+<li>If no response: Day 10 reminder email ("Still interested?")</p><p><hr></p><p><h2>Email Tool Recommendations</h2></p><p><strong>Free/Cheap:</strong></li>
+<li>Mailchimp: Free up to 500 contacts, basic automation</li>
+<li>Brevo (formerly Sendinblue): Free tier, solid automation</li>
+<li>Omnisend: ₦2,000/mo, great for automations + SMS</p><p><strong>Professional:</strong></li>
+<li>HubSpot: Free CRM + email, premium automation</li>
+<li>Klaviyo: ₦2,000–₦10k/mo, advanced segmentation</li>
+<li>ConvertKit: ₦3,000–₦15k/mo, email + landing pages</p><p><strong>Setup tip:</strong> Use Zapier to auto-tag leads by service/city, then trigger the right sequence.</p><p><hr></p><p><h2>30-Day Email Campaign Success Metrics</h2></p><p>By Day 30, track:</li>
+<li>[ ] 300–500 total email signups (from social clicks)</li>
+<li>[ ] 25%+ avg open rate</li>
+<li>[ ] 3–5% avg click rate</li>
+<li>[ ] 5–10% conversion to consultation calls</li>
+<li>[ ] 30–50 discovery calls booked</li>
+<li>[ ] 5–15% of calls close to paid customer</p><p><strong>ROI calculation:</strong></li>
+<p>(New customers × avg service price) - (email tool cost) = Net revenue from email nurture</p><p>Example: 10 customers × ₦299k web = ₦2.99M revenue from email, minus ₦5k/mo email tool = ₦2.94M profit</p><p><hr></p><p><h2>Quick Deployment Checklist</h2></p><p>- [ ] Email sequences written (use templates above)</p>
+<li>[ ] Landing page form created (capture email + first name)</li>
+<li>[ ] Email automation tool set up</li>
+<li>[ ] Sequences triggered by service/city (via UTM tags)</li>
+<li>[ ] Send times scheduled</li>
+<li>[ ] Subject line A/B tests configured</li>
+<li>[ ] Sales team trained on hot lead follow-up (2-hour response)</li>
+<li>[ ] Tracking pixels installed (Google Analytics + email platform)</li>
+<li>[ ] Weekly reporting dashboard set up</li>
+
+    
+    <hr>
+    <div class="footer">
+      <p>This document is part of the Hexadigitall Aggressive Market Penetration Campaign (Dec 19, 2025 – Feb 17, 2026)<br>For questions, contact: Campaign Manager</p>
+    </div>
+  </div>
+</body>
+</html>
