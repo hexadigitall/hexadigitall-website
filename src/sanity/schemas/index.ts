@@ -1,6 +1,5 @@
 // sanity/schemas/index.ts
 import course from './course'
-import courseCategory from './courseCategory'
 import enrollment from './enrollment'
 import pendingEnrollment from './pendingEnrollment'
 import faq from './faq'
