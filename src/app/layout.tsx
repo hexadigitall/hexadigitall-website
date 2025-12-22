@@ -2,7 +2,7 @@
 import type { Metadata, Viewport } from 'next';
 import './globals.css';
 import { Toaster } from 'react-hot-toast'
-import { PerformanceMonitor } from '@/components/ui/PerformanceMonitor'
+import { PerformanceMonitor } from '@/components/ui/PerformanceMonitor';
 
 // Import Header and Footer
 import Header from '@/components/layout/Header';
@@ -206,7 +206,6 @@ export default function RootLayout({
               <Footer />
               {/* Global funnel tracker (client-only) */}
               <StartupFunnelClient />
-              
               {/* Floating CTA for conversion optimization */}
               <QuickContactFAB />
             

@@ -9,8 +9,9 @@ import { useState, useEffect } from 'react';
 import { useCurrency } from '@/contexts/CurrencyContext';
 import CoursePaymentModal from '@/components/courses/CoursePaymentModal';
 import Breadcrumb from '@/components/ui/Breadcrumb';
+import { getWhatsAppLink, getCourseInquiryMessage } from '@/lib/whatsapp'; 
 
-// Define types for our data with PPP pricing
+// Define types for our data
 interface Course {
   _id: string;
   title: string;
@@ -59,31 +60,32 @@ function CoursesPageContentEnhanced({ initialData }: CoursesPageContentProps = {
   const [error, setError] = useState<string | null>(null);
   const [selectedCourse, setSelectedCourse] = useState<Course | null>(null);
   const [showEnrollmentModal, setShowEnrollmentModal] = useState(false);
+  
+  // ✅ Get Currency Context
   const { formatPriceWithDiscount, convertPrice, currentCurrency } = useCurrency();
 
   useEffect(() => {
     if (initialData && initialData.length > 0) {
       const filtered = initialData.filter(school => school.courses && school.courses.length > 0);
       setSchools(filtered);
-      console.log('✅ [COURSES] Using server-side initial data:', filtered.length, 'schools');
       return;
     }
+    
     let isMounted = true;
     async function fetchSchools() {
       try {
         setLoading(true);
-        setError(null);
-        const schoolsQuery = groq`*[_type == "school"] | order(title asc) {
+        const schoolsQuery = groq`*[_type == "school"] | order(order asc) {
           _id,
           title,
-          description[0...200],
-          "courses": *[_type == "course" && references(^._id)] | order(title asc) {
+          description,
+          "courses": *[_type == "course" && references(^._id)] | order(order asc) {
             _id,
             title,
             slug,
-            summary[0...200],
+            summary,
+            description,
             "mainImage": mainImage.asset->url,
-            description[0...300],
             duration,
             level,
             instructor,
@@ -93,30 +95,15 @@ function CoursesPageContentEnhanced({ initialData }: CoursesPageContentProps = {
             nairaPrice,
             dollarPrice,
             price,
-            featured,
-            durationWeeks,
-            hoursPerWeek,
-            modules,
-            lessons,
-            includes,
-            certificate
+            featured
           }
         }`;
         const data: School[] = await client.fetch(schoolsQuery);
         if (!isMounted) return;
         setSchools((data || []).filter(school => school.courses && school.courses.length > 0));
       } catch (err) {
-        console.error('❌ [COURSES] Error fetching schools:', err);
-        try {
-          if (isMounted) {
-            const fallbackData: School[] = await getFallbackCourseCategories() as unknown as School[];
-            setSchools((fallbackData || []).filter(school => school.courses && school.courses.length > 0));
-          }
-        } catch (fallbackErr) {
-          if (isMounted) {
-            setError('Failed to load courses. Please try again later.');
-          }
-        }
+        console.error('Error fetching schools:', err);
+        setError('Failed to load courses.');
       } finally {
         if (isMounted) setLoading(false);
       }
@@ -135,62 +122,15 @@ function CoursesPageContentEnhanced({ initialData }: CoursesPageContentProps = {
     setSelectedCourse(null);
   };
 
-  if (loading) {
-    return (
-      <section className="bg-white py-12 md:py-20">
-        <div className="container mx-auto px-6">
-          <div className="text-center mb-16">
-            <h1 className="text-4xl md:text-5xl font-bold font-heading">Our Courses</h1>
-            <p className="mt-4 text-lg text-darkText max-w-2xl mx-auto">
-              Invest in your future with our expert-led courses designed for career growth.
-            </p>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {Array.from({ length: 6 }, (_, index) => (
-              <div key={`skeleton-${index}`} className="bg-white rounded-xl shadow-lg overflow-hidden animate-pulse">
-                <div className="aspect-video bg-gray-200" />
-                <div className="p-6 space-y-4">
-                  <div className="h-4 bg-gray-200 rounded w-3/4" />
-                  <div className="h-3 bg-gray-200 rounded w-full" />
-                  <div className="h-3 bg-gray-200 rounded w-2/3" />
-                  <div className="flex justify-between items-center">
-                    <div className="h-4 bg-gray-200 rounded w-16" />
-                    <div className="h-6 bg-gray-200 rounded w-20" />
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-    );
-  }
+  // ⚡ WhatsApp Logic
+  const handleWhatsAppClick = (course: Course, priceDisplay: string) => {
+    const message = getCourseInquiryMessage(course.title, priceDisplay);
+    const link = getWhatsAppLink(message);
+    window.open(link, '_blank');
+  };
 
-  if (error) {
-    return (
-      <section className="bg-white py-12 md:py-20">
-        <div className="container mx-auto px-6">
-          <div className="text-center mb-16">
-            <h1 className="text-4xl md:text-5xl font-bold font-heading">Our Courses</h1>
-            <p className="mt-4 text-lg text-darkText max-w-2xl mx-auto">
-              Invest in your future with our expert-led courses designed for career growth.
-            </p>
-          </div>
-          <div className="text-center py-16">
-            <p className="text-xl text-red-600 mb-4">{error}</p>
-            <button
-              onClick={() => {
-                if (typeof window !== 'undefined') window.location.reload();
-              }}
-              className="bg-primary text-white px-6 py-3 rounded-lg hover:bg-primary/90 transition-colors"
-            >
-              Try Again
-            </button>
-          </div>
-        </div>
-      </section>
-    );
-  }
+  if (loading) return <div className="py-20 text-center">Loading courses...</div>;
+  if (error) return <div className="py-20 text-center text-red-500">{error}</div>;
 
   return (
     <section className="bg-white py-12 md:py-20">
@@ -201,14 +141,13 @@ function CoursesPageContentEnhanced({ initialData }: CoursesPageContentProps = {
         <div className="text-center mb-16">
           <h1 className="text-4xl md:text-5xl font-bold font-heading">Our Enhanced Courses</h1>
           <p className="mt-4 text-lg text-darkText max-w-2xl mx-auto">
-            Choose from flexible learning options: fixed-price courses, per-session booking, or hourly rates. 
-            Customize your learning experience to fit your schedule and budget.
+            Choose from flexible learning options: fixed-price courses, per-session booking, or hourly rates.
           </p>
         </div>
+
         {schools.length === 0 ? (
           <div className="text-center py-16">
-            <p className="text-xl text-darkText mb-4">No courses are currently available.</p>
-            <p className="text-sm text-gray-500">Please check back later or contact us for more information.</p>
+             <p className="text-xl text-darkText mb-4">No courses are currently available.</p>
           </div>
         ) : (
           <div className="space-y-16">
@@ -216,185 +155,130 @@ function CoursesPageContentEnhanced({ initialData }: CoursesPageContentProps = {
               <div key={school._id}>
                 <h2 className="text-3xl font-bold font-heading border-b-2 border-primary pb-2 mb-8">{school.title}</h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                  {school.courses.map((course) => (
+                  {school.courses.map((course) => {
+                    
+                    // 💰 DYNAMIC MULTI-CURRENCY PRICING LOGIC 💰
+                    const currencyCode = currentCurrency?.code || 'USD';
+                    let displayPrice = "";
+                    let displayLabel = "One-Time Payment";
+                    
+                    // CASE 1: Live Courses (Monthly Subscription)
+                    if (course.courseType === 'live' && course.hourlyRateUSD && course.hourlyRateNGN) {
+                      displayLabel = "Monthly Mentorship";
+                      
+                      const monthlyUSD = course.hourlyRateUSD * 4;
+                      const monthlyNGN = course.hourlyRateNGN * 4;
+                      let finalValue = monthlyUSD;
+
+                      // PPP Check: Use local NGN rate if strictly NGN, otherwise convert USD to target
+                      if (currencyCode === 'NGN') {
+                         finalValue = monthlyNGN;
+                      } else {
+                         finalValue = convertPrice(monthlyUSD, currencyCode);
+                      }
+                      
+                      // Format with correct symbol ($, €, £, ₦) automatically
+                      displayPrice = new Intl.NumberFormat('en-US', {
+                        style: 'currency',
+                        currency: currencyCode,
+                        maximumFractionDigits: 0
+                      }).format(finalValue) + '/mo';
+
+                    } 
+                    // CASE 2: Self-Paced (One-time)
+                    else {
+                      if (course.dollarPrice) {
+                        // formatPriceWithDiscount handles conversion and symbols automatically
+                        const formatted = formatPriceWithDiscount(course.dollarPrice, { applyNigerianDiscount: false });
+                        displayPrice = formatted.discountedPrice;
+                      } else if (course.nairaPrice) {
+                        // Fallback logic for legacy NGN-only courses
+                        if (currencyCode === 'NGN') {
+                           displayPrice = `₦${course.nairaPrice.toLocaleString()}`;
+                        } else {
+                           // Approximate conversion if we only have NGN price
+                           const approxUSD = course.nairaPrice / 1650;
+                           const converted = convertPrice(approxUSD, currencyCode);
+                           displayPrice = new Intl.NumberFormat('en-US', {
+                              style: 'currency',
+                              currency: currencyCode,
+                              maximumFractionDigits: 0
+                           }).format(converted);
+                        }
+                      } else {
+                        displayPrice = "Free";
+                      }
+                    }
+
+                    return (
                     <article 
                       key={course._id}
-                      className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2"
-                      role="article"
-                      aria-labelledby={`course-${course._id}-title`}
+                      className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 flex flex-col h-full"
                     >
+                      {/* Image */}
                       <div className="relative aspect-video overflow-hidden">
                         {course.mainImage ? (
-                          <Image
-                            src={course.mainImage}
-                            alt={`${course.title} course preview`}
-                            fill
-                            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                            className="object-cover transition-transform duration-300 hover:scale-105"
-                            priority={course.featured || false}
-                            loading={course.featured ? "eager" : "lazy"}
-                            quality={75}
-                            onError={(e) => {
-                              console.log(`❌ [IMAGE ERROR] Failed to load image: ${course.mainImage}`);
-                              const target = e.target as HTMLImageElement;
-                              target.style.display = 'none';
-                              const parent = target.parentElement;
-                              if (parent) {
-                                parent.innerHTML = '<div class="w-full h-full bg-gradient-to-br from-primary/20 to-primary/40 flex items-center justify-center text-primary"><svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" /></svg></div>';
-                              }
-                            }}
-                          />
+                          <Image src={course.mainImage} alt={course.title} fill className="object-cover transition-transform duration-300 hover:scale-105" />
                         ) : (
-                          <div className="w-full h-full bg-lightGray flex items-center justify-center">
-                            <span className="text-gray-400">No Image</span>
-                          </div>
+                          <div className="w-full h-full bg-gray-200" />
                         )}
                         <div className="absolute top-4 left-4 bg-primary text-white px-3 py-1 rounded-full text-sm font-medium">
                           {course.level || 'Course'}
                         </div>
                       </div>
                       
-                      <div className="p-6">
-                        <h3 
-                          id={`course-${course._id}-title`}
-                          className="text-xl font-bold text-gray-900 mb-2 line-clamp-2 hover:text-primary transition-colors"
-                        >
+                      <div className="p-6 flex flex-col flex-grow">
+                        <h3 className="text-xl font-bold text-gray-900 mb-2 line-clamp-2 hover:text-primary transition-colors">
                           {course.title}
                         </h3>
                         
-                        <p className="text-gray-600 text-sm mb-4 line-clamp-3">
+                        <p className="text-gray-600 text-sm mb-4 line-clamp-3 flex-grow">
                           {course.description || course.summary || 'Course description coming soon...'}
                         </p>
                         
+                        {/* Meta */}
                         <div className="flex items-center text-sm text-gray-500 mb-4 space-x-4">
-                          <div className="flex items-center" aria-label={`Course duration: ${course.duration}`}>
-                            <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                            </svg>
-                            <span>{course.duration}</span>
-                          </div>
-                          
-                          {course.instructor && (
-                            <div className="flex items-center" aria-label={`Instructor: ${course.instructor}`}>
-                              <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                              </svg>
-                              <span>{course.instructor}</span>
+                           <div className="flex items-center">⏱️ {course.duration}</div>
+                           {course.courseType === 'live' && <div className="text-blue-600 font-medium">🔴 Live</div>}
+                        </div>
+                        
+                        {/* Pricing Display */}
+                        <div className="mb-6 p-3 bg-gray-50 rounded-lg">
+                          <div>
+                            <div className={`text-xs font-bold uppercase mb-1 ${course.courseType === 'live' ? 'text-blue-600' : 'text-green-600'}`}>
+                              {displayLabel}
                             </div>
-                          )}
+                            <div className="text-2xl font-bold text-primary">
+                              {displayPrice}
+                            </div>
+                          </div>
                         </div>
                         
-                        {/* PPP Pricing Section */}
-                        <div className="mb-4">
-                          {(() => {
-                            // Live courses with PPP pricing
-                            if (course.courseType === 'live' && course.hourlyRateUSD && course.hourlyRateNGN) {
-                              const defaultSessions = 1; // 1 session per week
-                              const defaultHours = 1; // 1 hour per session
-                              const monthlyUsd = course.hourlyRateUSD * defaultSessions * defaultHours * 4; // 4 weeks
-                              const monthlyNgn = course.hourlyRateNGN * defaultSessions * defaultHours * 4;
-                              const currency = currentCurrency?.code || 'USD';
-
-                              // Use PPP NGN rate when NGN is selected, otherwise convert USD to the selected currency
-                              const monthlyPrice = currency === 'NGN'
-                                ? monthlyNgn
-                                : convertPrice(monthlyUsd, currency);
-
-                              return (
-                                <div className="space-y-2">
-                                  <div className="inline-block bg-blue-500 text-white px-2 py-1 rounded-full text-xs font-bold mb-2">
-                                    💡 Monthly Subscription
-                                  </div>
-                                  <div className="text-2xl font-bold text-primary">
-                                    {new Intl.NumberFormat(undefined, {
-                                      style: 'currency',
-                                      currency,
-                                      currencyDisplay: 'symbol',
-                                      minimumFractionDigits: currency === 'NGN' ? 0 : 2,
-                                      maximumFractionDigits: currency === 'NGN' ? 0 : 2
-                                    }).format(monthlyPrice)}
-                                  </div>
-                                  <p className="text-xs text-gray-500">
-                                    Starting from {defaultSessions}hr/week • Customize sessions & hours when you enroll
-                                  </p>
-                                </div>
-                              );
-                            }
-                            
-                            // Legacy self-paced courses
-                            if (course.dollarPrice && course.dollarPrice > 0) {
-                              const priceInfo = formatPriceWithDiscount(course.dollarPrice, { applyNigerianDiscount: false })
-                              
-                              return (
-                                <div className="space-y-2">
-                                  <div className="inline-block bg-purple-500 text-white px-2 py-1 rounded-full text-xs font-bold mb-2">
-                                    📚 One-time Payment
-                                  </div>
-                                  <span className="text-2xl font-bold text-primary">
-                                    {priceInfo.discountedPrice}
-                                  </span>
-                                </div>
-                              )
-                            } else if (course.nairaPrice || course.price) {
-                              const nairaAmount = course.nairaPrice || course.price || 0;
-                              const usdEquivalent = nairaAmount / 1650;
-                              const priceInfo = formatPriceWithDiscount(usdEquivalent, { applyNigerianDiscount: false })
-                              
-                              return (
-                                <div className="space-y-2">
-                                  <div className="inline-block bg-purple-500 text-white px-2 py-1 rounded-full text-xs font-bold mb-2">
-                                    📚 One-time Payment
-                                  </div>
-                                  <span className="text-2xl font-bold text-primary">
-                                    {priceInfo.discountedPrice}
-                                  </span>
-                                </div>
-                              )
-                            } else {
-                              return <span className="text-2xl font-bold text-green-600">Free</span>
-                            }
-                          })()}
-                        </div>
-                        
-                        {/* Action Buttons */}
-                        <div className="text-center space-y-2">
+                        {/* ⚡ BUTTONS ⚡ */}
+                        <div className="grid grid-cols-2 gap-3 mt-auto">
+                          <button
+                            onClick={() => handleWhatsAppClick(course, displayPrice)}
+                            className="flex items-center justify-center px-4 py-3 border-2 border-green-500 text-green-600 rounded-lg hover:bg-green-50 transition-colors font-bold text-sm"
+                          >
+                            <svg className="w-5 h-5 mr-1" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                            Chat
+                          </button>
                           <button
                             onClick={() => handleEnrollClick(course)}
-                            className="inline-flex items-center justify-center w-full px-4 py-3 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
-                            aria-label={`Enroll in ${course.title}`}
+                            className="flex items-center justify-center px-4 py-3 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors font-bold text-sm"
                           >
-                            <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
-                            </svg>
-                            <span>
-                              {course.courseType === 'live' 
-                                ? 'Customize & Subscribe' 
-                                : 'Enroll Now'
-                              }
-                            </span>
+                            Enroll Now
                           </button>
-                          
-                          <Link
-                            href={`/courses/${course.slug.current}`}
-                            className="inline-flex items-center justify-center w-full px-4 py-2 text-primary border border-primary rounded-lg hover:bg-primary/5 transition-colors focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
-                            aria-label={`Learn more about ${course.title}`}
-                          >
-                            <span>Learn More</span>
-                            <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                            </svg>
-                          </Link>
                         </div>
                       </div>
                     </article>
-                  ))}
+                  )})}
                 </div>
               </div>
             ))}
           </div>
         )}
         
-        {/* Payment Modal with PPP Pricing Calculator */}
         {selectedCourse && (
           <CoursePaymentModal
             isOpen={showEnrollmentModal}

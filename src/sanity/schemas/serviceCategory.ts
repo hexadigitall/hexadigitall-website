@@ -1,18 +1,10 @@
 import { defineField, defineType } from 'sanity'
 
-/* eslint-disable @typescript-eslint/no-explicit-any */
 export default defineType({
   name: 'serviceCategory',
   title: 'Service Category',
   type: 'document',
   fields: [
-    defineField({
-      name: 'mainImage',
-      title: 'Main Image',
-      type: 'image',
-      options: { hotspot: true },
-      description: 'Main banner or background image for this service category.'
-    }),
     defineField({
       name: 'title',
       title: 'Category Title',
@@ -30,12 +22,6 @@ export default defineType({
       validation: Rule => Rule.required()
     }),
     defineField({
-      name: 'order',
-      title: 'Display Order',
-      type: 'number',
-      description: 'Order in which this service category appears (lower numbers first)',
-    }),
-    defineField({
       name: 'description',
       title: 'Description',
       type: 'text',
@@ -50,12 +36,9 @@ export default defineType({
           { title: 'Web Development', value: 'web' },
           { title: 'Mobile Development', value: 'mobile' },
           { title: 'Digital Marketing', value: 'marketing' },
-          { title: 'Cloud Services', value: 'cloud' },
-          { title: 'IT Consulting', value: 'consulting' },
-          { title: 'Software Development', value: 'software' },
-          { title: 'Branding & Design', value: 'branding' },
-          { title: 'Profile & Portfolio', value: 'profile' },
-          { title: 'Business Planning', value: 'business' },
+          { title: 'Consulting', value: 'consulting' },
+          { title: 'Business', value: 'business' },
+          { title: 'Profile', value: 'profile' },
           { title: 'General', value: 'general' }
         ]
       },
@@ -65,18 +48,6 @@ export default defineType({
       name: 'icon',
       title: 'Icon',
       type: 'string',
-      options: {
-        list: [
-          { title: 'Code', value: 'code' },
-          { title: 'Server', value: 'server' },
-          { title: 'Monitor', value: 'monitor' },
-          { title: 'Mobile', value: 'mobile' },
-          { title: 'Chart', value: 'chart' },
-          { title: 'Settings', value: 'settings' },
-          { title: 'Network', value: 'network' },
-          { title: 'Default', value: 'default' }
-        ]
-      },
       initialValue: 'default'
     }),
     defineField({
@@ -85,166 +56,84 @@ export default defineType({
       type: 'boolean',
       initialValue: false
     }),
+    
+    // 🚨 CRITICAL FIX: Redefining 'packages' to be the MAIN complex object array
+    // This matches what your frontend (DynamicServicePage) is trying to read.
     defineField({
       name: 'packages',
-      title: 'Service Packages (Legacy - kept for compatibility)',
-      type: 'array',
-      of: [{ type: 'string' }],
-      description: 'Simple list of package names. Use packageGroups for detailed tier-based packages.'
-    }),
-    defineField({
-      name: 'packageGroups',
-      title: 'Package Groups (Tiered Packages)',
+      title: 'Service Packages',
       type: 'array',
       of: [{
         type: 'object',
+        name: 'package',
         fields: [
-          {
-            name: 'key',
-            title: 'Package Key',
-            type: 'slug',
-            validation: (Rule: any) => Rule.required()
+          { name: 'name', type: 'string', title: 'Package Name' },
+          { 
+            name: 'tier', 
+            type: 'string', 
+            title: 'Tier', 
+            options: { list: ['basic', 'standard', 'premium', 'enterprise'] } 
           },
-          {
-            name: 'name',
-            title: 'Package Name',
-            type: 'string',
-            validation: (Rule: any) => Rule.required()
+          { name: 'price', type: 'number', title: 'Price (USD)' },
+          { name: 'currency', type: 'string', title: 'Currency', initialValue: 'USD' },
+          { 
+            name: 'billing', 
+            type: 'string', 
+            title: 'Billing Type', 
+            options: { list: ['one_time', 'monthly', 'hourly', 'project'] } 
           },
-          {
-            name: 'description',
-            title: 'Package Description',
-            type: 'text'
+          { name: 'deliveryTime', type: 'string', title: 'Delivery Time' },
+          { name: 'popular', type: 'boolean', title: 'Is Popular?' },
+          { 
+            name: 'features', 
+            type: 'array', 
+            title: 'Features', 
+            of: [{ type: 'string' }] 
           },
+          // Add-ons for the modal flow
           {
-            name: 'tiers',
-            title: 'Package Tiers',
+            name: 'addOns',
+            title: 'Available Add-ons',
             type: 'array',
             of: [{
               type: 'object',
               fields: [
-                {
-                  name: 'name',
-                  title: 'Tier Name',
-                  type: 'string',
-                  validation: (Rule: any) => Rule.required()
-                },
-                {
-                  name: 'tier',
-                  title: 'Tier Level',
-                  type: 'string',
-                  options: {
-                    list: [
-                      { title: 'Basic', value: 'basic' },
-                      { title: 'Standard', value: 'standard' },
-                      { title: 'Premium', value: 'premium' }
-                    ]
-                  },
-                  validation: (Rule: any) => Rule.required()
-                },
-                {
-                  name: 'price',
-                  title: 'Price',
-                  type: 'number',
-                  validation: (Rule: any) => Rule.required().min(0)
-                },
-                {
-                  name: 'currency',
-                  title: 'Currency',
-                  type: 'string',
-                  options: {
-                    list: ['USD', 'NGN', 'EUR', 'GBP']
-                  },
-                  initialValue: 'USD'
-                },
-                {
-                  name: 'billing',
-                  title: 'Billing Type',
-                  type: 'string',
-                  options: {
-                    list: [
-                      { title: 'One-time', value: 'one_time' },
-                      { title: 'Monthly', value: 'monthly' },
-                      { title: 'Hourly', value: 'hourly' }
-                    ]
-                  },
-                  initialValue: 'one_time'
-                },
-                {
-                  name: 'deliveryTime',
-                  title: 'Delivery Time',
-                  type: 'string'
-                },
-                {
-                  name: 'features',
-                  title: 'Features',
-                  type: 'array',
-                  of: [{ type: 'string' }]
-                },
-                {
-                  name: 'popular',
-                  title: 'Popular Tier',
-                  type: 'boolean',
-                  initialValue: false
-                }
+                { name: 'name', type: 'string', title: 'Name' },
+                { name: 'price', type: 'number', title: 'Price' },
+                { name: 'description', type: 'string', title: 'Description' }
               ]
             }]
           }
         ]
-      }],
-      description: 'Define package groups with multiple tiers (Basic/Standard/Premium) for each package type'
+      }]
     }),
+
+    // Legacy fields (optional, kept just in case, but hidden)
+    defineField({
+      name: 'packageGroups',
+      title: 'Package Groups (Legacy)',
+      type: 'array',
+      hidden: true,
+      of: [{ type: 'object', fields: [{ name: 'name', type: 'string' }] }]
+    }),
+
     defineField({
       name: 'requirements',
-      title: 'What Client Needs to Provide',
+      title: 'Requirements',
       type: 'array',
-      of: [{ type: 'string' }],
-      description: 'List of things the client needs to provide for this service'
+      of: [{ type: 'string' }]
     }),
     defineField({
-      name: 'statistics',
-      title: 'Service Statistics',
-      type: 'reference',
-      to: [{ type: 'serviceStatistics' }],
-      description: 'Performance metrics and statistics for this service category'
-    }),
-    defineField({
-      name: 'testimonials',
-      title: 'Featured Testimonials',
+      name: 'faq',
+      title: 'FAQs',
       type: 'array',
-      of: [{ type: 'reference', to: [{ type: 'serviceTestimonial' }] }],
-      description: 'Hand-picked testimonials to feature for this service'
-    }),
-    defineField({
-      name: 'caseStudies',
-      title: 'Case Studies',
-      type: 'array',
-      of: [{ type: 'reference', to: [{ type: 'serviceCaseStudy' }] }],
-      description: 'Related case studies demonstrating service success'
-    }),
-    defineField({
-      name: 'integrations',
-      title: 'Available Integrations',
-      type: 'array',
-      of: [{ type: 'string' }],
-      description: 'Third-party integrations available with this service'
-    }),
-    defineField({
-      name: 'techStack',
-      title: 'Technology Stack',
-      type: 'array',
-      of: [{ type: 'string' }],
-      description: 'Technologies and tools used in this service'
+      of: [{
+        type: 'object',
+        fields: [
+          { name: 'question', type: 'string' },
+          { name: 'answer', type: 'text' }
+        ]
+      }]
     })
-  ],
-  orderings: [
-    {
-      title: 'Featured First',
-      name: 'featuredFirst',
-      by: [
-        { field: 'featured', direction: 'desc' },
-        { field: 'title', direction: 'asc' }
-      ]
-    }
   ]
 })
