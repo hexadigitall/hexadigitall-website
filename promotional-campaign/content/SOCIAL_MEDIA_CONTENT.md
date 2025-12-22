@@ -1,5 +1,5 @@
 # 📱 HEXADIGITALL CAMPAIGN CONTENT LIBRARY
-## Ready-to-Post Social Media Content (Dec 19 - Jan 31)
+## Ready-to-Post Social Media Content (Dec 20 - Jan 31)
 
 ---
 

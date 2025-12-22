@@ -178,8 +178,10 @@ function CoursesPageContentEnhanced({ initialData }: CoursesPageContentProps = {
           </div>
           <div className="text-center py-16">
             <p className="text-xl text-red-600 mb-4">{error}</p>
-            <button 
-              onClick={() => window.location.reload()}
+            <button
+              onClick={() => {
+                if (typeof window !== 'undefined') window.location.reload();
+              }}
               className="bg-primary text-white px-6 py-3 rounded-lg hover:bg-primary/90 transition-colors"
             >
               Try Again

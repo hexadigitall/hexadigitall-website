@@ -1,5 +1,5 @@
 // src/app/layout.tsx
-import type { Metadata, Viewport } from 'next'; // 👈 1. Import Viewport
+import type { Metadata, Viewport } from 'next';
 import './globals.css';
 import { Toaster } from 'react-hot-toast'
 import { PerformanceMonitor } from '@/components/ui/PerformanceMonitor'
@@ -81,13 +81,11 @@ export const metadata: Metadata = {
   manifest: '/manifest.json',
 };
 
-// 👇 2. Add the new viewport export
 export const viewport: Viewport = {
-  themeColor: '#0A4D68', // Moved from metadata
+  themeColor: '#0A4D68',
   initialScale: 1,
   width: 'device-width',
 };
-
 
 export default function RootLayout({
   children,
@@ -96,7 +94,8 @@ export default function RootLayout({
 }>) {
   const FB_APP_ID = process.env.NEXT_PUBLIC_FB_APP_ID;
   return (
-    <html lang="en" className="scroll-smooth" data-scroll-behavior="smooth" suppressHydrationWarning>
+    // Suppressing hydration warning on html tag as well
+    <html lang="en" className="scroll-smooth" data-scroll-behavior="smooth" suppressHydrationWarning={true}>
       <head>
         {/* Facebook App ID for link previews */}
         {FB_APP_ID ? (
@@ -169,7 +168,15 @@ export default function RootLayout({
         <meta name="mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="default" />
       </head>
-      <body className="font-body bg-white text-darkText antialiased">
+      
+      {/* CRITICAL FIX: 
+         Added suppressHydrationWarning={true} to body.
+         This forces React to ignore the extra attribute injected by the Scholarcy extension.
+      */}
+      <body 
+        className="font-body bg-white text-darkText antialiased" 
+        suppressHydrationWarning={true}
+      >
         {/* Skip to main content link for screen readers */}
         <a
           href="#main-content"

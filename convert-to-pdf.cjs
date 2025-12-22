@@ -320,7 +320,7 @@ function markdownToHtml(markdownContent, filename) {
     
     <hr>
     <div class="footer">
-      <p>This document is part of the Hexadigitall Aggressive Market Penetration Campaign (Dec 19, 2025 – Feb 17, 2026)<br>For questions, contact: Campaign Manager</p>
+      <p>This document is part of the Hexadigitall Aggressive Market Penetration Campaign (Dec 20, 2025 – Feb 18, 2026)<br>For questions, contact: Campaign Manager</p>
     </div>
   </div>
 </body>

@@ -1,5 +1,5 @@
 # Hexadigitall 30-Day Content Calendar
-## Aggressive Local Market Penetration (Dec 19, 2025 – Jan 18, 2026)
+## Aggressive Local Market Penetration (Dec 20, 2025 – Jan 18, 2026)
 
 This calendar rotates through **5 services** × **7 cities** across **4 platforms** (Facebook, Instagram, Twitter/X, WhatsApp) with pre-populated URLs, copy, and engagement hooks.
 
@@ -30,9 +30,9 @@ This calendar rotates through **5 services** × **7 cities** across **4 platform
 
 ---
 
-## Week 1: Web Development Focus (Dec 19–25)
+## Week 1: Web Development Focus (Dec 20–25)
 
-### Day 1: Thursday, Dec 19
+### Day 1: Thursday, Dec 20
 **Service**: Web Development | **City**: Lagos | **Theme**: Launch Announcement
 
 | Platform | Post Copy | URL | Image | Time | Engagement |
@@ -187,7 +187,7 @@ Track daily in a spreadsheet:
 
 | Date | Service | City | Platform | Posts | Reach | Engagement | Clicks | Leads | Conversions | Notes |
 |------|---------|------|----------|-------|-------|------------|--------|-------|-------------|-------|
-| Dec 19 | Web | Lagos | FB/IG/TW | 3 | — | — | — | — | — | — |
+| Dec 20 | Web | Lagos | FB/IG/TW | 3 | — | — | — | — | — | — |
 
 **Target benchmarks (30-day):**
 - Reach: 10,000+ per city

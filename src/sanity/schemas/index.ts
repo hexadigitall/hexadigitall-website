@@ -1,5 +1,6 @@
-// sanity/schemas/index.ts
+// src/sanity/schemas/index.ts
 import course from './course'
+import school from './school' // ✅ Import the new school schema
 import enrollment from './enrollment'
 import pendingEnrollment from './pendingEnrollment'
 import faq from './faq'
@@ -18,6 +19,7 @@ import user from './user'
 
 export const schemaTypes = [
   course,
+  school, // ✅ Add school to the schema array
   enrollment,
   pendingEnrollment,
   faq,

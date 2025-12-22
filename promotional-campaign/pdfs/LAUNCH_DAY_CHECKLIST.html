@@ -189,6 +189,40 @@
       border-top: 1px solid #ddd;
     }
     
+    .campaign-nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      background: #f0f8ff;
+      border-radius: 8px;
+      padding: 14px 18px;
+      margin-bottom: 32px;
+      box-shadow: 0 2px 8px rgba(0,217,255,0.07);
+      align-items: center;
+    }
+    .campaign-nav a {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: #001F3F;
+      background: #e6faff;
+      border-radius: 5px;
+      padding: 7px 16px;
+      font-weight: 600;
+      text-decoration: none;
+      font-size: 1em;
+      transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+    }
+    .campaign-nav a:hover {
+      background: #00D9FF;
+      color: #fff;
+      box-shadow: 0 2px 8px rgba(0,217,255,0.13);
+    }
+    .campaign-nav .nav-icon {
+      font-size: 1.1em;
+      margin-right: 2px;
+    }
+    
     @media print {
       body {
         margin: 0;
@@ -219,14 +253,32 @@
   </style>
 </head>
 <body>
+  <nav class="breadcrumbs" style="margin-bottom: 20px; font-size: 0.95em;">
+    <a href="INDEX.html">Campaign Home</a> &gt; <span>Launch Day Checklist</span>
+  </nav>
+  <nav class="campaign-nav">
+    <a href="INDEX.html"><span class="nav-icon">🏠</span>Home</a>
+    <a href="MASTER_PLAYBOOK.html"><span class="nav-icon">📘</span>Master Playbook</a>
+    <a href="LAUNCH_DAY_CHECKLIST.html"><span class="nav-icon">✅</span>Launch Checklist</a>
+    <a href="CONTENT_CALENDAR_30DAYS.html"><span class="nav-icon">🗓️</span>Content Calendar</a>
+    <a href="SWIPE_FILE.html"><span class="nav-icon">✂️</span>Swipe File</a>
+    <a href="EMAIL_NURTURE_SEQUENCES.html"><span class="nav-icon">📧</span>Email Sequences</a>
+    <a href="CAMPAIGN_TRACKING_GUIDE.html"><span class="nav-icon">📊</span>Tracking Guide</a>
+    <a href="SOCIAL_SHARE_GUIDE.html"><span class="nav-icon">🔗</span>Social Share</a>
+    <a href="CAMPAIGN_STRATEGY.html"><span class="nav-icon">🎯</span>Strategy</a>
+    <a href="SOCIAL_MEDIA_CONTENT.html"><span class="nav-icon">💬</span>Social Media Content</a>
+    <a href="SALES_STRATEGY.html"><span class="nav-icon">💼</span>Sales Strategy</a>
+    <a href="SEO_CONTENT_STRATEGY.html"><span class="nav-icon">🔍</span>SEO Content</a>
+    <a href="README.html"><span class="nav-icon">📄</span>README</a>
+  </nav>
   <div class="document">
     <div class="title-block">
       <h1>LAUNCH_DAY_CHECKLIST</h1>
-      <div class="meta">Generated: 12/19/2025, 12:17:07 PM | Hexadigitall Campaign</div>
+      <div class="meta">Generated: 12/20/2025, 12:17:07 PM | Hexadigitall Campaign</div>
     </div>
     
-    <h1>Launch Day Checklist — December 19, 2025</h1></p><p><strong>Campaign:</strong> Aggressive Local Market Penetration (ALMP)
-<strong>Today's Goal:</strong> Go live with 3 posts/platform × 4 platforms × 7 cities across Web Development (Week 1 primary focus)
+    <h1>Launch Day Checklist — December 20, 2025</h1></p><p><strong>Campaign:</strong> Aggressive Local Market Penetration (ALMP)
+<strong>Today's Goal:</strong> Go live with 3 posts/platform × 4 platforms across Web Development (Week 1 primary focus)
 <strong>Success Metric:</strong> 50k+ reach, 100+ email signups, 5+ consultation calls by end of day</p><p><hr></p><p><h2>PRE-LAUNCH (Before 8 AM)</h2></p><p><h3>[ ] System Verification</h3>
 <li>[ ] All 40 promo images verified in <code>/promotional-campaign/images/designed/</code></li>
 <li>[ ] All 80+ OG images verified in <code>/public/og-images/</code></li>
@@ -250,25 +302,32 @@
 <li>[5 min] Go/no-go decision</p><p>GO = Launch on schedule</li>
 <p>NO-GO = Delay + fix blocker</p>
 </code></pre></p><p><strong>Gate:</strong> If anything is red/uncertain, DELAY launch by 24 hours. Don't force it.</p><p><hr></p><p><h2>LAUNCH WINDOW (8 AM – 8 PM)</h2></p><p><h3>8:00 AM — First Post Wave (30 min)</h3>
-<strong>Focus:</strong> Web Development, all 7 cities, all 4 platforms</p><p><strong>Content team task:</strong>
+<strong>Focus:</strong> Web Development, all 4 platforms</p><p><strong>Content team task:</strong>
 <p>Post in this order (stagger by 2 min to avoid algorithm flags):</p>
-<li>Facebook: Lagos + Web Development (use Authority angle from swipe file)</li>
-<li>Instagram: Lagos + Web Development (use Proof angle, different copy)</li>
-<li>Twitter: Lagos + Web Development (use Speed angle, shorter copy)</li>
-<li>WhatsApp: Lagos + Web Development (use Urgency angle, group message)</li>
-<li>Repeat for Abuja, Calabar, Kano, Port Harcourt, Benin, Ibadan (same order, 4-min delay between cities)</p><p><strong>Image assignment:</strong></li>
+<li>Facebook: Web Development (use Authority angle from swipe file)</li>
+<li>Instagram: Web Development (use Proof angle, different copy)</li>
+<li>Twitter: Web Development (use Speed angle, shorter copy)</li>
+<li>WhatsApp: Web Development (use Urgency angle, group message)</li>
+<li>Repeat for each platform as needed (no city-specific posts)</li>
+<strong>Image assignment:</strong></li>
 <li>Use web-development-promo-feed-01.jpg (or similar from designed folder)</li>
-<li>Pair with OG image: service-web-development-lagos.jpg, etc. (city-specific)</p><p><strong>Copy template (from swipe file):</strong></li>
+<li>Pair with OG image: service-web-development.jpg (generic, not city-specific)</li>
+<strong>Copy template (from swipe file):</strong></li>
 <pre><code>
 <p>Authority angle:</p>
-<p>"Hexadigitall helped [City] businesses attract 2x more customers online. Professional web development, proven results. Book your free consultation → [LANDING_PAGE_URL]"</p><p>Proof angle:</p>
-<p>"See how [City business] increased sales 300% with our web development. Your success story starts here. [LANDING_PAGE_URL]"</p><p>Speed angle:</p>
-<p>"Go live in 14 days. Hexadigitall. Fast web development. No delays. [LANDING_PAGE_URL]"</p><p>Urgency angle:</p>
-<p>"Limited: Free consultation for first 5 businesses in [City] this week. Web development + marketing alignment. Yes, I'm interested → [LANDING_PAGE_URL]"</p>
+<p>"Hexadigitall helped businesses attract 2x more customers online. Professional web development, proven results. Book your free consultation → <a href='https://hexadigitall.com/services/web-and-mobile-software-development?utm_source=facebook&utm_medium=social&utm_campaign=dec_jan_2025' target='_blank'>https://hexadigitall.com/services/web-and-mobile-software-development?utm_source=facebook&utm_medium=social&utm_campaign=dec_jan_2025</a>"</p>
+<p>Proof angle:</p>
+<p>"See how businesses increased sales 300% with our web development. Your success story starts here. <a href='https://hexadigitall.com/services/web-and-mobile-software-development?utm_source=instagram&utm_medium=social&utm_campaign=dec_jan_2025' target='_blank'>https://hexadigitall.com/services/web-and-mobile-software-development?utm_source=instagram&utm_medium=social&utm_campaign=dec_jan_2025</a>"</p>
+<p>Speed angle:</p>
+<p>"Go live in 14 days. Hexadigitall. Fast web development. No delays. <a href='https://hexadigitall.com/services/web-and-mobile-software-development?utm_source=twitter&utm_medium=social&utm_campaign=dec_jan_2025' target='_blank'>https://hexadigitall.com/services/web-and-mobile-software-development?utm_source=twitter&utm_medium=social&utm_campaign=dec_jan_2025</a>"</p>
+<p>Urgency angle:</p>
+<p>"Limited: Free consultation for first 5 businesses this week. Web development + marketing alignment. Yes, I'm interested → <a href='https://hexadigitall.com/services/web-and-mobile-software-development?utm_source=whatsapp&utm_medium=social&utm_campaign=dec_jan_2025' target='_blank'>https://hexadigitall.com/services/web-and-mobile-software-development?utm_source=whatsapp&utm_medium=social&utm_campaign=dec_jan_2025</a>"</p>
 </code></pre></p><p><strong>Post checklist:</strong>
 <li>[ ] Image attached (high res, matches OG image)</li>
 <li>[ ] Copy matches angle + city</li>
-<li>[ ] Landing page URL correct (+ UTM params if ads)</li>
+<li>[ ] Copy matches angle (no city)</li>
+<li>[ ] Landing page URL correct (+ UTM params, no city slug)</li>
+<strong>Expected output:</strong> Posts live on all platforms</li>
 <li>[ ] Posted (not scheduled) to go live immediately</li>
 <li>[ ] Team confirms post is live (screenshot to #campaign-almp)</p><p><strong>Expected output:</strong> 28 posts live by 8:45 AM (7 cities × 4 platforms)</li>
 <strong>Metric target:</strong> 50k+ reach by 10 AM (average 1.7k per post)</p><p><hr></p><p><h3>9:00 AM — Email Sequence Launch (15 min)</h3>
@@ -336,11 +395,14 @@
 </code></pre></p><p><strong>Expected output:</strong> 90%+ of comments/DMs replied within 2 hours
 <strong>Metric target:</strong> 30–50 comment thread engagements + 10–20 DM conversations</p><p><hr></p><p><h3>2:00 PM — Second Post Wave (30 min)</h3>
 <strong>Focus:</strong> Digital Marketing, all 7 cities, all 4 platforms</p><p><strong>Content team task:</strong>
+<strong>Focus:</strong> Digital Marketing, all 4 platforms</p><p><strong>Content team task:</strong>
 <p>Repeat launch window sequence with Digital Marketing angle (different service):</p>
-<li>28 posts across 7 cities × 4 platforms</li>
+<li>Posts across all 4 platforms (no city-specific posts)</li>
 <li>Use digital-marketing-promo images</li>
-<li>Copy angle: Urgency (limited spots, end of year pricing)</p><p><strong>Expected output:</strong> 28 new posts live</li>
-<strong>Metric target:</strong> 50k+ reach (cumulative 100k for day)</p><p><hr></p><p><h3>4:00 PM — Lead Quality Check (15 min)</h3>
+<li>Copy angle: Urgency (limited spots, end of year pricing)</li>
+<li>Use link: <a href='https://hexadigitall.com/services/social-media-advertising-and-marketing?utm_source=facebook&utm_medium=social&utm_campaign=dec_jan_2025' target='_blank'>https://hexadigitall.com/services/social-media-advertising-and-marketing?utm_source=facebook&utm_medium=social&utm_campaign=dec_jan_2025</a> (adjust utm_source per platform)</li>
+<strong>Expected output:</strong> Posts live on all platforms</li>
+<strong>Metric target:</strong> 50k+ reach (cumulative 100k for day)</p><p><hr></p>
 <strong>Sales + Email team task:</strong></p><p>1. Review all leads captured so far (email signups, form submissions, DM conversations)
 <li>Categorize temperature:</li>
 <li><strong>🔴 Cold:</strong> Just visited, no engagement signal</li>
@@ -354,10 +416,13 @@
 <li>Warm (50%): 50–75 leads → email sequence Day 1</li>
 <li>Cold (20%): 20–30 leads → segment for retargeting</p><p><hr></p><p><h3>6:00 PM — Third Post Wave (30 min)</h3></li>
 <strong>Focus:</strong> E-Commerce, all 7 cities, all 4 platforms</p><p><strong>Content team task:</strong>
+<strong>Focus:</strong> E-Commerce, all 4 platforms</p><p><strong>Content team task:</strong>
 <p>Repeat with E-Commerce service + Proof angle (case study + results)</p>
-<li>28 posts live</li>
-<li>Use ecommerce-promo images</p><p><strong>Expected output:</strong> 28 new posts live</li>
-<strong>Metric target:</strong> 50k+ reach (cumulative 150k for day)</p><p><hr></p><p><h3>8:00 PM — End-of-Day Standup (30 min)</h3>
+<li>Posts live on all platforms (no city-specific posts)</li>
+<li>Use ecommerce-promo images</li>
+<li>Use link: <a href='https://hexadigitall.com/services/ecommerce?utm_source=facebook&utm_medium=social&utm_campaign=dec_jan_2025' target='_blank'>https://hexadigitall.com/services/ecommerce?utm_source=facebook&utm_medium=social&utm_campaign=dec_jan_2025</a> (adjust utm_source per platform)</li>
+<strong>Expected output:</strong> Posts live on all platforms</li>
+<strong>Metric target:</strong> 50k+ reach (cumulative 150k for day)</p><p><hr></p>
 <strong>Attendees:</strong> All team + campaign manager</p><p><strong>Agenda:</strong>
 <pre><code>
 <li>[5 min] Metrics summary (reach, leads, calls, emails)</li>
@@ -392,7 +457,7 @@
 <li>[ ] Slack team: "Great launch! Rest up. Day 2 at 8 AM."</p><p><h3>[ ] Management Report (9 PM)</h3></li>
 <p>Create simple 1-page report:</p>
 <pre><code>
-<p>LAUNCH DAY SUMMARY — December 19, 2025</p><p>METRICS</p>
+<p>LAUNCH DAY SUMMARY — December 20, 2025</p><p>METRICS</p>
 <li>Total reach: [X]</li>
 <li>Total engagement: [X]</li>
 <li>Leads captured: [X] (Hot: X, Warm: X, Cold: X)</li>
@@ -421,7 +486,8 @@
 <strong>Action:</strong>
 <li>Subject line might be weak → Activate A/B variant immediately</li>
 <li>Send time might be off → Test 2-hour shifts tomorrow</li>
-<li>List might be cold → Add more recent/engaged subscribers to next send</p><p><h3>If: Sales aren't converting DMs to calls (&lt; 3 bookings)</h3></li>
+<li>List might be cold → Add more recent/engaged subscribers to next send</li>
+<p><h3>If: Sales aren't converting DMs to calls (&lt; 3 bookings)</h3></li>
 <strong>Action:</strong>
 <li>Review CRM: Did leads get follow-up?</li>
 <li>Check Calendly link: Is it working?</li>
@@ -437,11 +503,11 @@
 <p>✅ <strong>Hot leads:</strong> 30+ people with clear buying intent</p>
 <p>✅ <strong>Calls booked:</strong> 5–10 consultation calls (tomorrow/next week)</p>
 <p>✅ <strong>Email opens:</strong> 28%+ from welcome email</p>
-<p>✅ <strong>Team morale:</strong> High (we launched a real campaign 🚀)</p><p><hr></p><p><h2>Tomorrow (Dec 20)</h2></p><p>Use Friday's metrics to guide Monday's decision framework (green/yellow/red lights):</p>
+<p>✅ <strong>Team morale:</strong> High (we launched a real campaign 🚀)</p><p><hr></p><p><h2>Tomorrow (Dec 21)</h2></p><p>Use Saturday's metrics to guide Monday's decision framework (green/yellow/red lights):</p>
 <li>[ ] Continue momentum on top 3 performers</li>
 <li>[ ] Test pivot angle on underperformers (1 more chance)</li>
 <li>[ ] Monday 9 AM: Full week planning based on today's performance</li>
-<li>[ ] Target: Reach 50k+ again (consistent momentum)</p><p><hr></p><p><strong>READY? Let's go live. 🚀</strong></p><p><strong>Time:</strong> 8 AM sharp (30 min from now if launching at 8:30 AM Dec 19)</li>
+<li>[ ] Target: Reach 50k+ again (consistent momentum)</p><p><hr></p><p><strong>READY? Let's go live. 🚀</strong></p><p><strong>Time:</strong> 8 AM sharp (30 min from now if launching at 8:30 AM Dec 20)</li>
 <strong>First post:</strong> Facebook + Lagos + Web Development + Authority angle
 <strong>Goal:</strong> 50k reach + 100 leads by 8 PM
 <strong>Team:</strong> Locked in, energized, ready to execute</p><p>Go.
@@ -449,7 +515,7 @@
     
     <hr>
     <div class="footer">
-      <p>This document is part of the Hexadigitall Aggressive Market Penetration Campaign (Dec 19, 2025 – Feb 17, 2026)<br>For questions, contact: Campaign Manager</p>
+      <p>This document is part of the Hexadigitall Aggressive Market Penetration Campaign (Dec 20, 2025 – Feb 17, 2026)<br>For questions, contact: Campaign Manager</p>
     </div>
   </div>
 </body>

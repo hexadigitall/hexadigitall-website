@@ -132,7 +132,15 @@ export default defineType({
     defineField({
       name: 'formData',
       title: 'Complete Form Data',
-      type: 'json',
+      type: 'object',
+      fields: [
+        {
+          name: 'raw',
+          title: 'Raw JSON',
+          type: 'text',
+          description: 'Paste JSON here',
+        },
+      ],
     }),
     defineField({
       name: 'submittedAt',

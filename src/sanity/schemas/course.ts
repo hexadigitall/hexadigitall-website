@@ -21,10 +21,10 @@ export default defineType({
       description: 'Order in which this course appears in listings (lower numbers appear first)',
     }),
     defineField({
-      name: 'category',
-      title: 'Category',
+      name: 'school',
+      title: 'School',
       type: 'reference',
-      to: [{type: 'courseCategory'}],
+      to: [{type: 'school'}],
     }),
     defineField({ name: 'summary', title: 'Summary', type: 'text' }),
     defineField({
@@ -293,7 +293,38 @@ export default defineType({
       description: 'Available formats for live sessions'
     }),
 
-    // Legacy fields - kept for backward compatibility with existing documents
+    // OG/SEO fields
+    defineField({
+      name: 'ogTitle',
+      title: 'OG Title',
+      type: 'string',
+      description: 'Open Graph title for social sharing',
+    }),
+    defineField({
+      name: 'ogDescription',
+      title: 'OG Description',
+      type: 'string',
+      description: 'Open Graph description for social sharing',
+    }),
+    defineField({
+      name: 'ogImage',
+      title: 'OG Image',
+      type: 'image',
+      description: 'Open Graph image for social sharing',
+      options: { hotspot: true },
+    }),
+    defineField({
+      name: 'seo',
+      title: 'SEO Metadata',
+      type: 'object',
+      fields: [
+        { name: 'title', type: 'string', title: 'SEO Title' },
+        { name: 'description', type: 'string', title: 'SEO Description' },
+        { name: 'image', type: 'image', title: 'SEO Image', options: { hotspot: true } },
+        { name: 'url', type: 'url', title: 'SEO URL' },
+      ],
+      description: 'SEO metadata for this course',
+    }),
     defineField({
       name: 'curriculum',
       title: 'Curriculum (Legacy)',

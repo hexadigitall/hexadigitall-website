@@ -2,7 +2,7 @@ import { defineConfig } from "sanity";
 import { structureTool } from "sanity/structure";
 import { visionTool } from "@sanity/vision";
 import course from "./src/sanity/schemas/course";
-import courseCategory from "./src/sanity/schemas/courseCategory";
+import school from "./src/sanity/schemas/school";
 import enrollment from "./src/sanity/schemas/enrollment";
 import pendingEnrollment from "./src/sanity/schemas/pendingEnrollment";
 import faq from "./src/sanity/schemas/faq";
@@ -34,7 +34,7 @@ export default defineConfig({
   schema: {
     types: [
       course,
-      courseCategory,
+      school,
       enrollment,
       pendingEnrollment,
       faq,

@@ -1,4 +1,4 @@
-# Launch Day Checklist — December 19, 2025
+# Launch Day Checklist — December 20, 2025
 
 **Campaign:** Aggressive Local Market Penetration (ALMP)
 **Today's Goal:** Go live with 3 posts/platform × 4 platforms × 7 cities across Web Development (Week 1 primary focus)
@@ -299,7 +299,7 @@ Repeat with E-Commerce service + Proof angle (case study + results)
 ### [ ] Management Report (9 PM)
 Create simple 1-page report:
 ```
-LAUNCH DAY SUMMARY — December 19, 2025
+LAUNCH DAY SUMMARY — December 20, 2025
 
 METRICS
 - Total reach: [X]
@@ -388,7 +388,7 @@ Use Friday's metrics to guide Monday's decision framework (green/yellow/red ligh
 
 **READY? Let's go live. 🚀**
 
-**Time:** 8 AM sharp (30 min from now if launching at 8:30 AM Dec 19)
+**Time:** 8 AM sharp (30 min from now if launching at 8:30 AM Dec 20)
 **First post:** Facebook + Lagos + Web Development + Authority angle
 **Goal:** 50k reach + 100 leads by 8 PM
 **Team:** Locked in, energized, ready to execute

@@ -189,6 +189,40 @@
       border-top: 1px solid #ddd;
     }
     
+    .campaign-nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      background: #f0f8ff;
+      border-radius: 8px;
+      padding: 14px 18px;
+      margin-bottom: 32px;
+      box-shadow: 0 2px 8px rgba(0,217,255,0.07);
+      align-items: center;
+    }
+    .campaign-nav a {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: #001F3F;
+      background: #e6faff;
+      border-radius: 5px;
+      padding: 7px 16px;
+      font-weight: 600;
+      text-decoration: none;
+      font-size: 1em;
+      transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+    }
+    .campaign-nav a:hover {
+      background: #00D9FF;
+      color: #fff;
+      box-shadow: 0 2px 8px rgba(0,217,255,0.13);
+    }
+    .campaign-nav .nav-icon {
+      font-size: 1.1em;
+      margin-right: 2px;
+    }
+    
     @media print {
       body {
         margin: 0;
@@ -222,77 +256,29 @@
   <div class="document">
     <div class="title-block">
       <h1>SOCIAL_SHARE_GUIDE</h1>
-      <div class="meta">Generated: 12/19/2025, 12:17:07 PM | Hexadigitall Campaign</div>
+      <div class="meta">Generated: 12/20/2025, 12:17:07 PM | Hexadigitall Campaign</div>
     </div>
     
+    <nav class="breadcrumbs" style="margin-bottom: 20px; font-size: 0.95em;">
+      <a href="INDEX.html">Campaign Home</a> &gt; <span>Social Share Guide</span>
+    </nav>
+    <nav class="campaign-nav">
+      <a href="INDEX.html"><span class="nav-icon">🏠</span>Home</a>
+      <a href="MASTER_PLAYBOOK.html"><span class="nav-icon">📘</span>Master Playbook</a>
+      <a href="LAUNCH_DAY_CHECKLIST.html"><span class="nav-icon">✅</span>Launch Checklist</a>
+      <a href="CONTENT_CALENDAR_30DAYS.html"><span class="nav-icon">🗓️</span>Content Calendar</a>
+      <a href="SWIPE_FILE.html"><span class="nav-icon">✂️</span>Swipe File</a>
+      <a href="EMAIL_NURTURE_SEQUENCES.html"><span class="nav-icon">📧</span>Email Sequences</a>
+      <a href="CAMPAIGN_TRACKING_GUIDE.html"><span class="nav-icon">📊</span>Tracking Guide</a>
+      <a href="SOCIAL_SHARE_GUIDE.html"><span class="nav-icon">🔗</span>Social Share</a>
+      <a href="CAMPAIGN_STRATEGY.html"><span class="nav-icon">🎯</span>Strategy</a>
+      <a href="SOCIAL_MEDIA_CONTENT.html"><span class="nav-icon">💬</span>Social Media Content</a>
+      <a href="SALES_STRATEGY.html"><span class="nav-icon">💼</span>Sales Strategy</a>
+      <a href="SEO_CONTENT_STRATEGY.html"><span class="nav-icon">🔍</span>SEO Content</a>
+      <a href="README.html"><span class="nav-icon">📄</span>README</a>
+    </nav>
+    
     <h1>Hexadigitall Social Share Guide (OG + URLs)</h1></p><p>This guide consolidates share-ready URLs, UTM tagging, OG image recommendations, and campaign copy for aggressive, city-targeted market penetration.</p><p><h2>Quick Links</h2>
-<li>OG assets: see <a href="public/og-images">public/og-images</a></li>
-<li>Promo images (people-based): see <a href="promotional-campaign/images/designed">promotional-campaign/images/designed</a></li>
-<li>Generators:</li>
-<li>OG cards: <a href="scripts/generate-og-images.mjs">scripts/generate-og-images.mjs</a></li>
-<li>Course OG: <a href="scripts/generate-og-course-images.mjs">scripts/generate-og-course-images.mjs</a></li>
-<li>Promo images v5: <a href="promotional-campaign/generate-images-v5.cjs">promotional-campaign/generate-images-v5.cjs</a></p><p><h2>UTM Campaigns</h2></li>
-<li>City services: <code>utm_campaign=local_penetration</code></li>
-<li>Courses: <code>utm_campaign=aggressive_penetration</code></p><p><h2>Platform Share Templates</h2></li>
-<li>Facebook/LinkedIn: https://www.facebook.com/sharer/sharer.php?u=https://hexadigitall.com/{slug}?utm_source=facebook&amp;utm_medium=social&amp;utm_campaign={campaign}</li>
-<li>Twitter/X: https://twitter.com/intent/tweet?text={encoded_copy}%20https%3A%2F%2Fhexadigitall.com%2F{slug}%3Futm_source%3Dtwitter%26utm_medium%3Dsocial%26utm_campaign%3D{campaign}</li>
-<li>WhatsApp: https://wa.me/?text={encoded_copy}%20https%3A%2F%2Fhexadigitall.com%2F{slug}%3Futm_source%3Dwhatsapp%26utm_medium%3Dsocial%26utm_campaign%3D{campaign}</li>
-<li>Instagram bio/link-in-bio: https://hexadigitall.com/{slug}?utm_source=instagram&amp;utm_medium=social&amp;utm_campaign={campaign}</p><p><h2>Cities</h2></li>
-Use in <code>{city}</code>: lagos · abuja · portharcourt · calabar · ibadan · kano · enugu</p><p><hr></p><p><h2>Services — City Slugs, OG, and Copy</h2></p><p><h3>Web Development (Starting at ₦299,000)</h3>
-<li>Slug: <code>/services/websites-{city}</code></li>
-<li>OG image: <a href="public/og-images/service-web-development.jpg">public/og-images/service-web-development.jpg</a></li>
-<li>Copy:</li>
-<li>“Launch your {City} website in days, not months. Starting at ₦299,000. Built for speed, trust, and conversions.”</li>
-<li>Examples:</li>
-<li>FB/LinkedIn: https://www.facebook.com/sharer/sharer.php?u=https://hexadigitall.com/services/websites-lagos?utm_source=facebook&amp;utm_medium=social&amp;utm_campaign=local_penetration</li>
-<li>X/Twitter: https://twitter.com/intent/tweet?text=Launch%20your%20Lagos%20website%20in%20days%2C%20not%20months.%20Starting%20at%20%E2%82%A6299%2C000.%20https%3A%2F%2Fhexadigitall.com%2Fservices%2Fwebsites-lagos%3Futm_source%3Dtwitter%26utm_medium%3Dsocial%26utm_campaign%3Dlocal_penetration</li>
-<li>WhatsApp: https://wa.me/?text=Launch%20your%20Lagos%20website%20from%20%E2%82%A6299%2C000.%20Fast%2C%20secure%2C%20responsive.%20https%3A%2F%2Fhexadigitall.com%2Fservices%2Fwebsites-lagos%3Futm_source%3Dwhatsapp%26utm_medium%3Dsocial%26utm_campaign%3Dlocal_penetration</p><p><h3>Digital Marketing (From ₦300,000/month)</h3></li>
-<li>Slug: <code>/services/digital-marketing-{city}</code></li>
-<li>OG image: <a href="public/og-images/service-digital-marketing.jpg">public/og-images/service-digital-marketing.jpg</a></li>
-<li>Copy:</li>
-<li>“Your brand everywhere in {City}. From ₦300,000/month. Strategy, creative, ads, reporting—done for you.”</li>
-<li>Examples:</li>
-<li>FB/LinkedIn: https://www.facebook.com/sharer/sharer.php?u=https://hexadigitall.com/services/digital-marketing-abuja?utm_source=facebook&amp;utm_medium=social&amp;utm_campaign=local_penetration</li>
-<li>X/Twitter: https://twitter.com/intent/tweet?text=Your%20brand%20everywhere%20in%20Abuja.%20From%20%E2%82%A6300%2C000%2Fmonth.%20Strategy%2C%20creative%2C%20ads%2C%20reporting.%20https%3A%2F%2Fhexadigitall.com%2Fservices%2Fdigital-marketing-abuja%3Futm_source%3Dtwitter%26utm_medium%3Dsocial%26utm_campaign%3Dlocal_penetration</li>
-<li>WhatsApp: https://wa.me/?text=Social%20media%20that%20sells%20in%20Abuja.%20From%20%E2%82%A6300%2C000%2Fmonth.%20https%3A%2F%2Fhexadigitall.com%2Fservices%2Fdigital-marketing-abuja%3Futm_source%3Dwhatsapp%26utm_medium%3Dsocial%26utm_campaign%3Dlocal_penetration</p><p><h3>E‑Commerce Stores (From ₦199,000)</h3></li>
-<li>Slug: <code>/services/ecommerce-{city}</code></li>
-<li>OG image: <a href="public/og-images/service-ecommerce.jpg">public/og-images/service-ecommerce.jpg</a></li>
-<li>Copy:</li>
-<li>“Start selling online in {City} from ₦199,000. Payments, shipping, analytics—ready to go.”</li>
-<li>Examples:</li>
-<li>FB/LinkedIn: https://www.facebook.com/sharer/sharer.php?u=https://hexadigitall.com/services/ecommerce-portharcourt?utm_source=facebook&amp;utm_medium=social&amp;utm_campaign=local_penetration</li>
-<li>X/Twitter: https://twitter.com/intent/tweet?text=Start%20selling%20online%20in%20Port%20Harcourt%20from%20%E2%82%A6199%2C000.%20Payments%2C%20shipping%2C%20analytics%E2%80%94ready%20to%20go.%20https%3A%2F%2Fhexadigitall.com%2Fservices%2Fecommerce-portharcourt%3Futm_source%3Dtwitter%26utm_medium%3Dsocial%26utm_campaign%3Dlocal_penetration</li>
-<li>WhatsApp: https://wa.me/?text=Launch%20your%20e%E2%80%91commerce%20store%20in%20Port%20Harcourt%20from%20%E2%82%A6199%2C000.%20https%3A%2F%2Fhexadigitall.com%2Fservices%2Fecommerce-portharcourt%3Futm_source%3Dwhatsapp%26utm_medium%3Dsocial%26utm_campaign%3Dlocal_penetration</p><p><h3>Business Plans (From ₦199,000)</h3></li>
-<li>Slug: <code>/services/business-plans-{city}</code></li>
-<li>OG image: <a href="public/og-images/service-business-planning.jpg">public/og-images/service-business-planning.jpg</a></li>
-<li>Copy:</li>
-<li>“Investor- and bank-ready business plans in {City}. From ₦199,000. Financials, TAM/SAM/SOM, approvals.”</li>
-<li>Examples:</li>
-<li>FB/LinkedIn: https://www.facebook.com/sharer/sharer.php?u=https://hexadigitall.com/services/business-plans-calabar?utm_source=facebook&amp;utm_medium=social&amp;utm_campaign=local_penetration</p><p><h3>Portfolio Sites (From ₦299,000)</h3></li>
-<li>Slug: <code>/services/portfolio-sites-{city}</code></li>
-<li>OG image: <a href="public/og-images/service-portfolio.jpg">public/og-images/service-portfolio.jpg</a></li>
-<li>Copy:</li>
-<li>“Book more clients in {City} with a portfolio that sells your work. From ₦299,000.”</li>
-<li>Examples:</li>
-<li>IG Bio: https://hexadigitall.com/services/portfolio-sites-ibadan?utm_source=instagram&amp;utm_medium=social&amp;utm_campaign=local_penetration</p><p><hr></p><p><h2>Courses — Hub + Per‑Course Shares</h2></p><p><h3>Courses Hub</h3></li>
-<li>Slug: <code>/courses</code></li>
-<li>OG image: <a href="public/og-images/courses-hub.jpg">public/og-images/courses-hub.jpg</a></li>
-<li>Messages:</li>
-<li>“Learn a ₦500k/month skill. Courses from ₦25,000. Mentors + portfolio builds.”</li>
-<li>Share URLs:</li>
-<li>FB/LinkedIn: https://www.facebook.com/sharer/sharer.php?u=https://hexadigitall.com/courses?utm_source=facebook&amp;utm_medium=social&amp;utm_campaign=aggressive_penetration</li>
-<li>X/Twitter: https://twitter.com/intent/tweet?text=Learn%20a%20%E2%82%A6500k%2Fmonth%20tech%20skill.%20Courses%20from%20%E2%82%A625%2C000.%20Mentorship%2C%20projects%2C%20portfolio.%20https%3A%2F%2Fhexadigitall.com%2Fcourses%3Futm_source%3Dtwitter%26utm_medium%3Dsocial%26utm_campaign%3Daggressive_penetration</li>
-<li>WhatsApp: https://wa.me/?text=Learn%20tech%20skills%20from%20%E2%82%A625%2C000.%20Real%20projects%2C%20portfolio%2C%20mentorship.%20https%3A%2F%2Fhexadigitall.com%2Fcourses%3Futm_source%3Dwhatsapp%26utm_medium%3Dsocial%26utm_campaign%3Daggressive_penetration</p><p><h3>Per‑Course (examples)</h3></li>
-<li>Slugs and OG images:</li>
-<li>React Native: <code>/courses/react-native-mobile-apps</code> → <a href="public/og-images/course-react-native-build-mobile-apps-for-ios-and-android.jpg">public/og-images/course-react-native-build-mobile-apps-for-ios-and-android.jpg</a></li>
-<li>Data Analysis (Python): <code>/courses/data-analysis-python</code> → <a href="public/og-images/course-data-analysis-python.jpg">public/og-images/course-data-analysis-python.jpg</a></li>
-<li>Advanced SEO: <code>/courses/advanced-seo-google-ranking</code> → <a href="public/og-images/course-advanced-seo-google-ranking.jpg">public/og-images/course-advanced-seo-google-ranking.jpg</a></li>
-<li>Google Analytics 4: <code>/courses/google-analytics-4-expert</code> → <a href="public/og-images/course-google-analytics-4-expert.jpg">public/og-images/course-google-analytics-4-expert.jpg</a></li>
-<li>Git &amp; GitHub: <code>/courses/git-github-beginners</code> → <a href="public/og-images/course-git-github-beginners.jpg">public/og-images/course-git-github-beginners.jpg</a></li>
-<li>CISSP Prep: <code>/courses/cissp-certification-prep</code> → <a href="public/og-images/course-cissp-certification-prep.jpg">public/og-images/course-cissp-certification-prep.jpg</a></li>
-<li>PM Fundamentals: <code>/courses/project-management-fundamentals</code> → <a href="public/og-images/course-project-management-fundamentals.jpg">public/og-images/course-project-management-fundamentals.jpg</a></li>
-<li>Message template:</li>
-<li>“Enroll now — hands‑on, mentor‑led, portfolio‑ready. Starting at ₦25,000. Limited seats.”</p><p><hr></p><p><h2>Generate/Update OG Assets</h2></p><p>To regenerate or add assets, run:</p><p><pre><code>bash</li>
 <h1>Generate service/course OG cards</h1>
 node scripts/generate-og-images.mjs</p><p><h1>Generate course-specific OG cards from Sanity content</h1>
 <p>node scripts/generate-og-course-images.mjs</p>
@@ -307,10 +293,37 @@ node scripts/generate-og-images.mjs</p><p><h1>Generate course-specific OG cards 
 <li>Reuse generic OG images per city unless bespoke city variants are needed.</li>
 <li>PPP pricing used: Web ₦299,000 · Marketing ₦300,000/month · E‑Commerce ₦199,000 · Business Plans ₦199,000 · Portfolio ₦299,000 · Courses ₦25,000.</li>
 
+<h2>✅ Copy-Paste Ready Sharable Links (All Platforms)</h2>
+<p>All links below are valid, routable, OG/UTM-optimized, and update your admin dashboard for tracking. <b>NO city-specific or non-working links.</b></p>
+<ul>
+  <li><b>Services Hub:</b> <a href="https://hexadigitall.com/services" target="_blank">https://hexadigitall.com/services</a></li>
+  <li><b>Courses Hub:</b> <a href="https://hexadigitall.com/courses" target="_blank">https://hexadigitall.com/courses</a></li>
+</ul>
+<h3>Direct Service Links</h3>
+<ul>
+  <li><a href="https://hexadigitall.com/services/business-plan-and-logo-design" target="_blank">Business Plan & Logo</a></li>
+  <li><a href="https://hexadigitall.com/services/web-and-mobile-software-development" target="_blank">Web Development</a></li>
+  <li><a href="https://hexadigitall.com/services/social-media-advertising-and-marketing" target="_blank">Social Media Marketing</a></li>
+  <li><a href="https://hexadigitall.com/services/profile-and-portfolio-building" target="_blank">Portfolio Building</a></li>
+  <li><a href="https://hexadigitall.com/services/mentoring-and-consulting" target="_blank">Mentoring & Consulting</a></li>
+  <li><a href="https://hexadigitall.com/services/custom-build" target="_blank">Custom Build</a></li>
+  <li><a href="https://hexadigitall.com/services/build-bundle" target="_blank">Build Bundle</a></li>
+</ul>
+<h3>Tracked Campaign Links (UTM/OG Ready)</h3>
+<ul>
+  <li><b>WhatsApp:</b> <a href="https://hexadigitall.com/services?utm_source=whatsapp&utm_medium=social&utm_campaign=dec_jan_2025" target="_blank">Services</a> | <a href="https://hexadigitall.com/courses?utm_source=whatsapp&utm_medium=social&utm_campaign=dec_jan_2025" target="_blank">Courses</a></li>
+  <li><b>Instagram:</b> <a href="https://hexadigitall.com/services?utm_source=instagram&utm_medium=social&utm_campaign=dec_jan_2025" target="_blank">Services</a> | <a href="https://hexadigitall.com/courses?utm_source=instagram&utm_medium=social&utm_campaign=dec_jan_2025" target="_blank">Courses</a></li>
+  <li><b>TikTok:</b> <a href="https://hexadigitall.com/services/web-and-mobile-software-development?utm_source=tiktok&utm_medium=social&utm_campaign=dec_jan_2025" target="_blank">Web Development</a> | <a href="https://hexadigitall.com/courses?utm_source=tiktok&utm_medium=social&utm_campaign=dec_jan_2025" target="_blank">Courses</a></li>
+  <li><b>Facebook:</b> <a href="https://hexadigitall.com/services?utm_source=facebook&utm_medium=social&utm_campaign=dec_jan_2025" target="_blank">Services</a> | <a href="https://hexadigitall.com/courses?utm_source=facebook&utm_medium=social&utm_campaign=dec_jan_2025" target="_blank">Courses</a></li>
+  <li><b>LinkedIn:</b> <a href="https://hexadigitall.com/services?utm_source=linkedin&utm_medium=social&utm_campaign=dec_jan_2025" target="_blank">Services</a> | <a href="https://hexadigitall.com/courses?utm_source=linkedin&utm_medium=social&utm_campaign=dec_jan_2025" target="_blank">Courses</a></li>
+  <li><b>Email:</b> <a href="https://hexadigitall.com/services?utm_source=email&utm_medium=newsletter&utm_campaign=dec_jan_2025" target="_blank">Services</a> | <a href="https://hexadigitall.com/courses?utm_source=email&utm_medium=newsletter&utm_campaign=dec_jan_2025" target="_blank">Courses</a></li>
+</ul>
+<p style="margin-top:10px;font-size:0.95em;color:#666;">All links above are OG/UTM-optimized for best social preview, analytics, and admin dashboard tracking. <b>Do not use city-specific or Facebook.com sharer links.</b></p>
+
     
     <hr>
     <div class="footer">
-      <p>This document is part of the Hexadigitall Aggressive Market Penetration Campaign (Dec 19, 2025 – Feb 17, 2026)<br>For questions, contact: Campaign Manager</p>
+      <p>This document is part of the Hexadigitall Aggressive Market Penetration Campaign (Dec 20, 2025 – Feb 18, 2026)<br>For questions, contact: Campaign Manager</p>
     </div>
   </div>
 </body>

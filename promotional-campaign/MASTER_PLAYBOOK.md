@@ -1,12 +1,12 @@
 # Hexadigitall Aggressive Market Penetration — Master Playbook
-## 60-Day Campaign Execution Guide (Dec 19, 2025 – Feb 17, 2026)
+## 60-Day Campaign Execution Guide (Dec 20, 2025 – Feb 18, 2026)
 
 ---
 
 ## Campaign Command Center
 
 **Campaign Name:** Aggressive Local Market Penetration (ALMP)
-**Duration:** 60 days (Dec 19, 2025 – Feb 17, 2026)
+**Duration:** 60 days (Dec 20, 2025 – Feb 18, 2026)
 **Scope:** 5 services × 7 Nigerian cities across 4 platforms
 **Goal:** 500+ qualified leads, 50–100 conversions, ₦15–25M attributed revenue
 **Owner:** [Your Name, Campaign Manager]
@@ -81,7 +81,7 @@
 
 | Week | Focus | Actions | Metrics | Gate |
 |------|-------|---------|---------|------|
-| Week 1 (Dec 19–25) | Web Development saturate | Post 3x/day across 4 platforms, 7 cities. Daily SMS/WhatsApp broadcasts. | Reach 50k, capture 100 leads | Reach > 30k ✅ |
+| Week 1 (Dec 20–25) | Web Development saturate | Post 3x/day across 4 platforms, 7 cities. Daily SMS/WhatsApp broadcasts. | Reach 50k, capture 100 leads | Reach > 30k ✅ |
 | Week 2 (Dec 26–Jan 1) | Digital Marketing push | Rotate to marketing sequence. Boost top performers from Week 1. Holiday messaging. | Reach 50k, capture 150 leads | Reach > 40k ✅ |
 
 **Week 1 Success Criteria (GO/NO-GO):**
@@ -317,11 +317,11 @@ All assets are linked below. Bookmark this section for daily reference.
 ### Campaign Documents
 | Asset | Purpose | Link | Owner | Updated |
 |-------|---------|------|-------|---------|
-| Content Calendar | Daily posting schedule | [promotional-campaign/CONTENT_CALENDAR_30DAYS.md](promotional-campaign/CONTENT_CALENDAR_30DAYS.md) | Content team | Dec 19 |
-| Swipe File | Copy-paste post templates | [promotional-campaign/SWIPE_FILE.md](promotional-campaign/SWIPE_FILE.md) | Content team | Dec 19 |
-| Tracking Guide | Spreadsheet setup + metrics | [promotional-campaign/CAMPAIGN_TRACKING_GUIDE.md](promotional-campaign/CAMPAIGN_TRACKING_GUIDE.md) | Analytics | Dec 19 |
-| Email Sequences | 7-email nurture flows | [promotional-campaign/EMAIL_NURTURE_SEQUENCES.md](promotional-campaign/EMAIL_NURTURE_SEQUENCES.md) | Email team | Dec 19 |
-| Social Share Guide | URLs + OG images | [docs/SOCIAL_SHARE_GUIDE.md](docs/SOCIAL_SHARE_GUIDE.md) | Content team | Dec 19 |
+| Content Calendar | Daily posting schedule | [promotional-campaign/CONTENT_CALENDAR_30DAYS.md](promotional-campaign/CONTENT_CALENDAR_30DAYS.md) | Content team | Dec 20 |
+| Swipe File | Copy-paste post templates | [promotional-campaign/SWIPE_FILE.md](promotional-campaign/SWIPE_FILE.md) | Content team | Dec 20 |
+| Tracking Guide | Spreadsheet setup + metrics | [promotional-campaign/CAMPAIGN_TRACKING_GUIDE.md](promotional-campaign/CAMPAIGN_TRACKING_GUIDE.md) | Analytics | Dec 20 |
+| Email Sequences | 7-email nurture flows | [promotional-campaign/EMAIL_NURTURE_SEQUENCES.md](promotional-campaign/EMAIL_NURTURE_SEQUENCES.md) | Email team | Dec 20 |
+| Social Share Guide | URLs + OG images | [docs/SOCIAL_SHARE_GUIDE.md](docs/SOCIAL_SHARE_GUIDE.md) | Content team | Dec 20 |
 
 ### OG Images (Social Previews)
 | Asset | Link | Size | Format |
@@ -505,5 +505,5 @@ This is a successful campaign. Scale it.
 
 **Go make it happen. 🚀**
 
-Campaign kickoff: December 19, 2025
+Campaign kickoff: December 20, 2025
 Expected results by: February 17, 2026

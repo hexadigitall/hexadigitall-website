@@ -31,14 +31,15 @@ interface Course {
   certificate?: boolean;
 }
 
-interface Category {
+
+interface School {
   _id: string;
   title: string;
   description: string;
   courses: Course[];
 }
 
-const courseCategoriesQuery = groq`*[_type == "courseCategory"] | order(title asc) {
+const schoolsQuery = groq`*[_type == "school"] | order(title asc) {
   _id,
   title,
   description[0...200],
@@ -68,22 +69,22 @@ const courseCategoriesQuery = groq`*[_type == "courseCategory"] | order(title as
   }
 }`;
 
-export async function getCoursesData(): Promise<Category[]> {
+export async function getCoursesData(): Promise<School[]> {
   try {
     console.log('🔍 [SERVER] Fetching course categories from Sanity...');
     
-    const categories = await client.fetch(courseCategoriesQuery, {}, {
+    const schools = await client.fetch(schoolsQuery, {}, {
       next: { revalidate: 300 }, // Revalidate every 5 minutes
-    }) as unknown as Category[];
+    }) as unknown as School[];
     
-    console.log('✅ [SERVER] Course categories fetched:', categories?.length || 0);
+    console.log('✅ [SERVER] Schools fetched:', schools?.length || 0);
     
-    if (!categories || categories.length === 0) {
-      console.warn('⚠️ [SERVER] No categories found, using fallback data');
+    if (!schools || schools.length === 0) {
+      console.warn('⚠️ [SERVER] No schools found, using fallback data');
       return fallbackCourses;
     }
     
-    return categories;
+    return schools;
   } catch (error) {
     console.error('❌ [SERVER] Error fetching courses:', error);
     console.log('🔄 [SERVER] Using fallback data due to error');
@@ -92,7 +93,6 @@ export async function getCoursesData(): Promise<Category[]> {
 }
 
 export default async function ServerCoursesPage() {
-  const categories = await getCoursesData();
-  
-  return <CoursesPageContent initialData={categories} />;
+  const schools = await getCoursesData();
+  return (<CoursesPageContent initialData={schools} />);
 }
