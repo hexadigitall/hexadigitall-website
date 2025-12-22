@@ -18,7 +18,6 @@ import user from './user'
 
 export const schemaTypes = [
   course,
-  courseCategory, 
   enrollment,
   pendingEnrollment,
   faq,
