@@ -8,18 +8,43 @@ import type { PortableTextBlock } from 'sanity';
 import Image from 'next/image';
 import { urlFor } from '@/sanity/imageUrlBuilder';
 import type { SanityImageSource } from '@sanity/image-url/lib/types/types';
+import { generateOGMetadata } from '@/lib/og';
 
 interface Post {
   title: string;
   publishedAt: string;
   body: PortableTextBlock[];
   mainImage?: SanityImageSource;
+  excerpt?: string;
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
-  const post: { title?: string } = await client.fetch(groq`*[_type == "post" && slug.current == $slug][0]{ title }`, { slug });
-  return { title: `${post?.title || 'Blog Post'} | Hexadigitall Blog` };
+  const post: Post = await client.fetch(
+    groq`*[_type == "post" && slug.current == $slug][0]{ title, excerpt, publishedAt, mainImage }`,
+    { slug }
+  );
+  
+  if (!post) {
+    return { title: 'Blog Post | Hexadigitall Blog' };
+  }
+
+  // Generate complete OG metadata for blog posts
+  return generateOGMetadata({
+    title: post.title,
+    description: post.excerpt || `Read ${post.title} on Hexadigitall Blog`,
+    url: `/blog/${slug}`,
+    type: 'article',
+    image: post.mainImage
+      ? {
+          url: urlFor(post.mainImage).width(1200).height(630).url(),
+          width: 1200,
+          height: 630,
+          alt: post.title,
+        }
+      : undefined,
+    publishedTime: post.publishedAt,
+  });
 }
 
 const postQuery = groq`*[_type == "post" && slug.current == $slug][0]{
