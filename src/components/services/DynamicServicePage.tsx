@@ -1,12 +1,66 @@
 'use client'
 
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { ServiceCategory, IndividualService, ServiceStats } from '@/types/service'
 import { useCurrency } from '@/contexts/CurrencyContext'
 import { StartingAtPriceDisplay } from '@/components/ui/PriceDisplay'
 import { ServiceRequestFlow, ServiceCategory as LegacyServiceCategory, AddOn, Package } from '@/components/services/ServiceRequestFlow'
 import Breadcrumb from '@/components/ui/Breadcrumb'
-import { getWhatsAppLink } from '@/lib/whatsapp' // 👈 Import WhatsApp helper
+import { getWhatsAppLink } from '@/lib/whatsapp' 
+
+// --- INTERNAL COMPONENT: Sticky Bottom CTA for Mobile/Tablet ---
+const StickyServiceCTA = ({ 
+  price, 
+  onChat, 
+  onBuy, 
+  currencyCode 
+}: { 
+  price: number, 
+  onChat: () => void, 
+  onBuy: () => void,
+  currencyCode: string
+}) => {
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      // Show after scrolling 400px (past the hero/intro)
+      setIsVisible(window.scrollY > 400);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  if (!isVisible) return null;
+
+  return (
+    <div className="fixed bottom-0 left-0 right-0 bg-white/95 backdrop-blur-md border-t border-gray-200 p-3 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.1)] z-50 md:hidden animate-in slide-in-from-bottom-full duration-300">
+      <div className="flex items-center justify-between gap-3 max-w-md mx-auto">
+        <div className="flex flex-col">
+          <span className="text-[10px] uppercase tracking-wider text-gray-500 font-semibold">Starting at</span>
+          <span className="font-bold text-lg text-primary leading-tight">
+            {new Intl.NumberFormat('en-NG', { style: 'currency', currency: currencyCode, maximumFractionDigits: 0 }).format(price)}
+          </span>
+        </div>
+        <div className="flex gap-2 flex-1 justify-end">
+          <button 
+            onClick={onChat}
+            className="p-3 bg-green-100 text-green-700 rounded-xl hover:bg-green-200 active:scale-95 transition-all flex-shrink-0"
+            aria-label="Chat on WhatsApp"
+          >
+            <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          </button>
+          <button 
+            onClick={onBuy}
+            className="flex-1 bg-primary text-white font-bold rounded-xl py-3 text-sm shadow-md hover:bg-primary/90 active:scale-95 transition-all"
+          >
+            Get Started
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+};
 
 interface DynamicServicePageProps {
   serviceCategory: ServiceCategory
@@ -51,9 +105,11 @@ export default function DynamicServicePage({
   })
 
   // ⚡ WhatsApp Click Handler
-  const handleWhatsAppClick = (message: string, e: React.MouseEvent) => {
-    e.stopPropagation();
-    e.preventDefault();
+  const handleWhatsAppClick = (message: string, e?: React.MouseEvent) => {
+    if(e) {
+        e.stopPropagation();
+        e.preventDefault();
+    }
     window.open(getWhatsAppLink(message), '_blank');
   };
 
@@ -66,6 +122,12 @@ export default function DynamicServicePage({
       maximumFractionDigits: 0 
     }).format(val);
   }
+
+  // Find lowest price for Sticky Bar
+  const lowestPrice = (serviceCategory.packages || []).reduce((min, pkg) => {
+    const converted = convertPrice(pkg.price, currentCurrency.code);
+    return converted < min ? converted : min;
+  }, Infinity);
 
   // Get service type specific styling and copy
   const getServiceTypeConfig = (serviceType: string) => {
@@ -190,7 +252,7 @@ export default function DynamicServicePage({
   ]
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-slate-50 via-white to-blue-50">
+    <div className="min-h-screen bg-gradient-to-b from-slate-50 via-white to-blue-50 pb-20 md:pb-0">
       {/* Breadcrumb */}
       <div className="bg-white border-b">
         <div className="container mx-auto px-6 py-4">
@@ -224,7 +286,7 @@ export default function DynamicServicePage({
             
             <div className={`inline-flex items-center space-x-2 bg-gradient-to-r from-${config.accentColor}-100 to-indigo-100 px-4 py-2 rounded-full text-sm font-medium text-${config.accentColor}-800 mb-6`}>
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 013.138-3.138z" />
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
               </svg>
               <span>{config.badge}</span>
             </div>
@@ -293,10 +355,10 @@ export default function DynamicServicePage({
                             ))}
                           </ul>
 
-                          {/* ⚡ TWO BUTTONS for Individual Services */}
+                          {/* ⚡ TWO BUTTONS for Individual Services (Customized) */}
                           <div className="grid grid-cols-2 gap-2 mt-auto">
                             <button
-                              onClick={(e) => handleWhatsAppClick(`Hello, I'm interested in the individual service: *${service.name}* (${getFormattedPrice(service.price)}).`, e)}
+                              onClick={(e) => handleWhatsAppClick(`Hi, I'm interested in the *${service.name}* individual service (${getFormattedPrice(service.price)}). Can we proceed?`, e)}
                               className="flex items-center justify-center px-2 py-2 border border-green-500 text-green-600 rounded-lg hover:bg-green-50 transition-colors font-medium text-xs"
                             >
                               <svg className="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
@@ -390,7 +452,7 @@ export default function DynamicServicePage({
                   {/* ⚡ TWO BUTTONS: WhatsApp + Get Started */}
                   <div className="grid grid-cols-2 gap-3 mt-auto">
                     <button
-                      onClick={(e) => handleWhatsAppClick(`Hello Hexadigitall, I am interested in the *${pkg.name}* package for ${serviceCategory.title} (${getFormattedPrice(pkg.price)}).`, e)}
+                      onClick={(e) => handleWhatsAppClick(`Hello Hexadigitall! I am interested in the *${pkg.name}* package for ${serviceCategory.title} (${getFormattedPrice(pkg.price)}). Is this available to start?`, e)}
                       className="flex items-center justify-center px-3 py-3 border-2 border-green-500 text-green-600 rounded-xl hover:bg-green-50 transition-colors font-bold text-sm"
                     >
                       <svg className="w-5 h-5 mr-1" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
@@ -430,6 +492,14 @@ export default function DynamicServicePage({
           onClose={() => setSelectedService(null)}
         />
       )}
+
+      {/* 🚀 STICKY BOTTOM ACTION BAR (Mobile/Tablet) */}
+      <StickyServiceCTA 
+        price={lowestPrice}
+        currencyCode={currentCurrency.code}
+        onChat={() => handleWhatsAppClick(`Hello, I have questions about ${serviceCategory.title} services starting at ${getFormattedPrice(lowestPrice)}.`)}
+        onBuy={() => setSelectedService(convertToLegacyServiceCategory(serviceCategory))}
+      />
     </div>
   )
 }
