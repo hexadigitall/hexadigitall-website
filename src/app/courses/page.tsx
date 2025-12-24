@@ -3,7 +3,7 @@ import type { Metadata } from 'next';
 import CoursesPageContentEnhanced from './CoursesPageContent';
 import { client } from '@/sanity/client';
 import { groq } from 'next-sanity';
-import { getFallbackCourseCategories } from '@/lib/fallback-data'; // Ensure this import exists
+import { getFallbackCourseCategories } from '@/lib/fallback-data';
 
 const BASE_URL = 'https://hexadigitall.com';
 const COURSES_OG_IMAGE = `${BASE_URL}/og-images/courses-hub.jpg`;
@@ -56,22 +56,20 @@ export default async function CoursesPage() {
     }
   }`;
 
-  let initialData: unknown = [];
+  let initialData = [];
 
   try {
-    // Attempt to fetch from Sanity
     initialData = await client.fetch(query);
   } catch (error) {
     console.error("Sanity fetch failed, using fallback:", error);
-    // Use your existing fallback logic here if the API fails
     try {
-      initialData = await getFallbackCourseCategories();
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      initialData = await getFallbackCourseCategories() as any;
     } catch (fallbackError) {
       console.error("Fallback failed:", fallbackError);
       initialData = [];
     }
   }
 
-  // Type assertion to match CoursesPageContentEnhanced props
-  return <CoursesPageContentEnhanced initialSchools={initialData as School[]} />;
+  return <CoursesPageContentEnhanced initialSchools={initialData} />;
 }

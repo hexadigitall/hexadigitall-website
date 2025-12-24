@@ -10,13 +10,13 @@ export interface Course {
   _id: string
   title: string
   slug: { current: string }
-  mainImage: string | null // 👈 Fixed: Allows null images
-  description?: string     // 👈 Fixed: Optional
-  summary?: string         // 👈 Fixed: Optional
+  mainImage: string | null
+  description?: string
+  summary?: string
   duration: string
   level: string
   instructor: string
-  courseType?: 'self-paced' | 'live' | string // 👈 Fixed: Loose string to prevent enum errors
+  courseType?: 'self-paced' | 'live' | string
   
   // Pricing
   nairaPrice?: number
@@ -30,7 +30,8 @@ export interface Course {
   featured?: boolean
   
   // Allow other props to pass through without errors
-  // [key: string]: unknown // Avoid explicit any, use unknown if needed
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  [key: string]: any 
 }
 
 export default function CourseCard({ 
@@ -48,7 +49,6 @@ export default function CourseCard({
   const safeTitle = course.title || 'Untitled Course'
   const safeSlug = course.slug?.current || '#'
   const safeImage = course.mainImage || fallbackImage
-  // Smart Description: Prefers summary, falls back to description
   const safeDescription = course.summary || course.description || 'Course description coming soon...'
   const isLiveCourse = course.courseType === 'live'
   
