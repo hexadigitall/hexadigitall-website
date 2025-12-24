@@ -3,41 +3,29 @@ import type { Metadata } from 'next';
 import CoursesPageContentEnhanced from './CoursesPageContent';
 import { client } from '@/sanity/client';
 import { groq } from 'next-sanity';
+import { getFallbackCourseCategories } from '@/lib/fallback-data'; // Ensure this import exists
 
 const BASE_URL = 'https://hexadigitall.com';
 const COURSES_OG_IMAGE = `${BASE_URL}/og-images/courses-hub.jpg`;
 
-// 🚀 FORCE DYNAMIC: This prevents Next.js from serving old/stale data
 export const dynamic = 'force-dynamic';
 export const revalidate = 0;
 
 export const metadata: Metadata = {
   title: 'Professional Courses | Tech, Business & Certification Training | Hexadigitall',
   description: 'Tech, business, and certification training with live mentoring and self‑paced options. Clear Nigerian pricing, fast enrollment, and expert support to help you level up your career.',
-  keywords: 'online courses, professional development, tech training, business courses, certification programs, hexadigitall',
   openGraph: {
     title: 'Professional Development Courses',
-    description: 'Learn professional skills from industry experts with live mentoring, self‑paced tracks, and clear Nigerian pricing. From ₦15,000 with fast enrollment and ongoing support.',
+    description: 'Learn professional skills from industry experts.',
     images: [{ url: COURSES_OG_IMAGE, width: 1200, height: 630, alt: 'Hexadigitall Courses', type: 'image/jpeg' }],
     type: 'website',
     siteName: 'Hexadigitall',
     url: `${BASE_URL}/courses`,
     locale: 'en_NG',
   },
-  twitter: {
-    card: 'summary_large_image',
-    title: 'Professional Development Courses',
-    description: 'Live mentoring and self‑paced options across tech and business. From ₦15,000 with clear Nigerian pricing and fast enrollment.',
-    images: [COURSES_OG_IMAGE],
-    creator: '@hexadigitall',
-    site: '@hexadigitall'
-  },
-  alternates: { canonical: `${BASE_URL}/courses` }
 };
 
 export default async function CoursesPage() {
-  // 🔍 FETCH DATA DIRECTLY
-  // This query explicitly asks for 'summary' and 'description'
   const query = groq`*[_type == "school"] | order(order asc) {
     _id,
     title,
@@ -46,8 +34,8 @@ export default async function CoursesPage() {
       _id,
       title,
       slug,
-      summary,      // We ensure this is fetched
-      description,  // We ensure this is fetched
+      summary,
+      description,
       "mainImage": mainImage.asset->url,
       duration,
       level,
@@ -68,7 +56,21 @@ export default async function CoursesPage() {
     }
   }`;
 
-  const initialData = await client.fetch(query);
+  let initialData = [];
 
-  return <CoursesPageContentEnhanced initialData={initialData} />;
+  try {
+    // Attempt to fetch from Sanity
+    initialData = await client.fetch(query);
+  } catch (error) {
+    console.error("Sanity fetch failed, using fallback:", error);
+    // Use your existing fallback logic here if the API fails
+    try {
+      initialData = await getFallbackCourseCategories() as any;
+    } catch (fallbackError) {
+      console.error("Fallback failed:", fallbackError);
+      initialData = [];
+    }
+  }
+
+  return <CoursesPageContentEnhanced initialSchools={initialData} />;
 }

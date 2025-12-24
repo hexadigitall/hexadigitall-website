@@ -1,6 +1,7 @@
-// src/components/ui/DiscountBanner.tsx
 'use client'
 
+// 👇 CRITICAL FIX: Added missing imports
+import { useState, useEffect } from 'react' 
 import { useCurrency } from '@/contexts/CurrencyContext'
 import { CountdownTimer, SpotsRemaining } from './CountdownTimer'
 
@@ -18,7 +19,16 @@ export function DiscountBanner({
   className = "" 
 }: DiscountBannerProps) {
   const { isLocalCurrency, getLocalDiscountMessage } = useCurrency()
-  
+  const [mounted, setMounted] = useState(false)
+
+  // Fix: Hydration mismatch prevention
+  useEffect(() => {
+    setMounted(true)
+  }, [])
+
+  // Fix: Hooks rules - Return must be AFTER hooks
+  if (!mounted) return null;
+
   const discountMessage = getLocalDiscountMessage()
   
   if (!isLocalCurrency() || !discountMessage) {
@@ -63,12 +73,10 @@ export function DiscountBanner({
           🇳🇬 Nigerian clients only • Limited spots remaining • Ends Jan 31, 2026
         </div>
       </div>
-      
       <div className="mt-4 flex flex-col items-center justify-center gap-3">
         <p className={`text-gray-700 text-center ${styles.subText}`}>
           <span className="font-semibold text-red-600">💯 Supporting Nigerian businesses</span> with world-class solutions at ultra-affordable prices
         </p>
-        
         {(showCountdown || showSpots) && (
           <div className={`flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-4 ${styles.subText}`}>
             {showSpots && <SpotsRemaining className="" />}
@@ -90,12 +98,14 @@ export function DiscountBanner({
 
 export function CompactDiscountBanner({ className = "" }: { className?: string }) {
   const { isLocalCurrency, getLocalDiscountMessage } = useCurrency()
+  const [mounted, setMounted] = useState(false)
+  
+  useEffect(() => { setMounted(true) }, [])
+
+  if (!mounted) return null
   
   const discountMessage = getLocalDiscountMessage()
-  
-  if (!isLocalCurrency() || !discountMessage) {
-    return null
-  }
+  if (!isLocalCurrency() || !discountMessage) return null
 
   return (
     <div className={`inline-flex items-center space-x-2 bg-gradient-to-r from-red-500 to-red-600 bg-red-600 text-white px-4 py-2 rounded-full text-sm font-bold animate-pulse shadow-lg ${className}`}>
@@ -108,10 +118,11 @@ export function CompactDiscountBanner({ className = "" }: { className?: string }
 
 export function InlineDiscountBadge({ className = "" }: { className?: string }) {
   const { isLocalCurrency } = useCurrency()
+  const [mounted, setMounted] = useState(false)
   
-  if (!isLocalCurrency()) {
-    return null
-  }
+  useEffect(() => { setMounted(true) }, [])
+  
+  if (!mounted || !isLocalCurrency()) return null
 
   return (
     <span className={`bg-red-500 text-white px-2 py-1 rounded-full text-xs font-bold animate-pulse ${className}`}>
