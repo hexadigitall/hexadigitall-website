@@ -30,7 +30,7 @@ export interface Course {
   featured?: boolean
   
   // Allow other props to pass through without errors
-  [key: string]: any 
+  // [key: string]: unknown // Avoid explicit any, use unknown if needed
 }
 
 export default function CourseCard({ 

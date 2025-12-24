@@ -56,7 +56,7 @@ export default async function CoursesPage() {
     }
   }`;
 
-  let initialData = [];
+  let initialData: unknown = [];
 
   try {
     // Attempt to fetch from Sanity
@@ -65,12 +65,13 @@ export default async function CoursesPage() {
     console.error("Sanity fetch failed, using fallback:", error);
     // Use your existing fallback logic here if the API fails
     try {
-      initialData = await getFallbackCourseCategories() as any;
+      initialData = await getFallbackCourseCategories();
     } catch (fallbackError) {
       console.error("Fallback failed:", fallbackError);
       initialData = [];
     }
   }
 
-  return <CoursesPageContentEnhanced initialSchools={initialData} />;
+  // Type assertion to match CoursesPageContentEnhanced props
+  return <CoursesPageContentEnhanced initialSchools={initialData as School[]} />;
 }
