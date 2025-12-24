@@ -46,13 +46,15 @@ interface Course {
 }
 
 /**
- * Get course-specific OG image - uses generated images from scripts/generate-og-course-images.mjs
+ * Get course-specific OG image with ABSOLUTE URL
  */
 function getCourseOgImage(slug: string): string {
-  // Check if generated course OG image exists
-  const generatedImage = `/og-images/course-${slug}.jpg`
-  // Note: In production, verify file exists. Using optimistic approach for now.
-  return generatedImage
+  // 1. Get Base URL (default to production if env is missing)
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://hexadigitall.com';
+  
+  // 2. Return absolute path to the generated image
+  // Ensure you have run 'node scripts/generate-course-og-images.cjs' to create these files
+  return `${baseUrl}/og-images/course-${slug}.jpg`;
 }
 
 /**
@@ -84,10 +86,9 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     const title = `${course.title} | Hexadigitall Courses`;
     const baseDescription = course.description || course.summary || `Master ${course.title} with expert mentoring.`;
     const pricing = getCoursePricing(course)
-    const description = `${baseDescription} ${pricing}. Live mentoring & certification available.`
     
-    // Use generated OG image, fallback to Sanity image, then hub image
-    const ogImage = getCourseOgImage(slug) || course.imageUrl || '/og-images/courses-hub.jpg';
+    // Use generated OG image (absolute URL), fallback to Sanity image, then hub image
+    const absoluteOgImage = getCourseOgImage(slug);
     
     // Optimize for social media (truncate if too long)
     const socialDescription = baseDescription.length > 130
@@ -96,13 +97,14 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 
     return {
         title,
-        description,
+        description: `${baseDescription} ${pricing}. Live mentoring & certification available.`,
         keywords: `${course.title}, ${course.level} course, online learning, tech education, Hexadigitall`,
         openGraph: {
             title: `${course.title} - ${course.level || 'Professional'} Course`,
             description: socialDescription,
+            // Images MUST be absolute URLs for LinkedIn/FB to read them
             images: [{ 
-              url: ogImage, 
+              url: absoluteOgImage, 
               width: 1200, 
               height: 630, 
               alt: `${course.title} Course - Hexadigitall`,
@@ -117,7 +119,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
             card: 'summary_large_image',
             title: `${course.title} - ${course.level || 'Professional'} Course`,
             description: socialDescription,
-            images: [ogImage],
+            images: [absoluteOgImage],
             creator: '@hexadigitall',
             site: '@hexadigitall'
         },
@@ -242,6 +244,7 @@ export default async function CoursePage({ params }: { params: Promise<{ slug: s
         ],
         certificate: course.certificate !== false // Default to true
     };
+    
     // Breadcrumb structured data for courses
     const breadcrumbJsonLd = {
         '@context': 'https://schema.org',
@@ -267,50 +270,51 @@ export default async function CoursePage({ params }: { params: Promise<{ slug: s
             }
         ]
     }
-        return (
-                <article className="bg-white">
-                        {/* JSON-LD: Enhanced Course structured data */}
-                        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
-                            '@context': 'https://schema.org',
-                            '@type': 'Course',
-                            name: course.title,
-                            description: course.description || course.summary,
-                            provider: {
-                                '@type': 'Organization',
-                                name: 'Hexadigitall',
-                                url: 'https://hexadigitall.com',
-                                logo: 'https://hexadigitall.com/hexadigitall-logo.svg',
-                                sameAs: [
-                                  'https://twitter.com/hexadigitall',
-                                  'https://linkedin.com/company/hexadigitall'
-                                ]
-                            },
-                            instructor: {
-                                '@type': 'Person',
-                                name: course.instructor || 'Expert Instructor'
-                            },
-                            offers: {
-                                '@type': 'Offer',
-                                priceCurrency: 'NGN',
-                                price: course.nairaPrice || course.price,
-                                availability: 'https://schema.org/InStock',
-                                url: `https://hexadigitall.com/courses/${course.slug.current}`,
-                                validFrom: new Date().toISOString()
-                            },
-                            educationalLevel: course.level,
-                            coursePrerequisites: course.prerequisites,
-                            timeRequired: course.duration,
-                            numberOfLessons: course.lessons || course.curriculum?.lessons,
-                            hasCourseInstance: {
-                                '@type': 'CourseInstance',
-                                courseMode: course.courseType === 'live' ? 'online' : 'online',
-                                courseWorkload: `PT${course.hoursPerWeek || 5}H`
-                            }
-                        }) }} />
-                        
-                        {/* Breadcrumb structured data */}
-                        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }} />
+    
+    return (
+        <article className="bg-white">
+            {/* JSON-LD: Enhanced Course structured data */}
+            <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
+                '@context': 'https://schema.org',
+                '@type': 'Course',
+                name: course.title,
+                description: course.description || course.summary,
+                provider: {
+                    '@type': 'Organization',
+                    name: 'Hexadigitall',
+                    url: 'https://hexadigitall.com',
+                    logo: 'https://hexadigitall.com/hexadigitall-logo.svg',
+                    sameAs: [
+                        'https://twitter.com/hexadigitall',
+                        'https://linkedin.com/company/hexadigitall'
+                    ]
+                },
+                instructor: {
+                    '@type': 'Person',
+                    name: course.instructor || 'Expert Instructor'
+                },
+                offers: {
+                    '@type': 'Offer',
+                    priceCurrency: 'NGN',
+                    price: course.nairaPrice || course.price,
+                    availability: 'https://schema.org/InStock',
+                    url: `https://hexadigitall.com/courses/${course.slug.current}`,
+                    validFrom: new Date().toISOString()
+                },
+                educationalLevel: course.level,
+                coursePrerequisites: course.prerequisites,
+                timeRequired: course.duration,
+                numberOfLessons: course.lessons || course.curriculum?.lessons,
+                hasCourseInstance: {
+                    '@type': 'CourseInstance',
+                    courseMode: course.courseType === 'live' ? 'online' : 'online',
+                    courseWorkload: `PT${course.hoursPerWeek || 5}H`
+                }
+            }) }} />
             
+            {/* Breadcrumb structured data */}
+            <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }} />
+
             {/* Course Hero */}
             <div className="bg-primary text-white py-16">
                 <div className="container mx-auto px-6">
@@ -332,6 +336,7 @@ export default async function CoursePage({ params }: { params: Promise<{ slug: s
                 <div className="grid lg:grid-cols-3 gap-12">
                     {/* Left Column: Course Details */}
                     <div className="lg:col-span-2 prose lg:prose-xl max-w-none">
+                        {/* 🛠️ OPTIMIZATION: Type-casted body to prevent 'any' error */}
                         <PortableText value={course.body as Record<string, unknown>[]} />
                     </div>
 
@@ -339,41 +344,42 @@ export default async function CoursePage({ params }: { params: Promise<{ slug: s
                     <div className="lg:col-span-1">
                         <div className="sticky top-28">
                             <CourseEnrollment course={courseEnrollmentData} />
-                                                        {/* Course Materials (conditional access) */}
-                                                        <div className="mt-6 bg-white rounded-xl shadow-sm border border-gray-200 p-5">
-                                                            <h3 className="text-base font-semibold text-gray-900 mb-3">Course Materials</h3>
-                                                            {hasAccess ? (
-                                                                <div className="space-y-2">
-                                                                    {course.contentPdf?.asset?._ref && (
-                                                                        <a
-                                                                            href={`https://cdn.sanity.io/files/${process.env.NEXT_PUBLIC_SANITY_PROJECT_ID}/${process.env.NEXT_PUBLIC_SANITY_DATASET}/${course.contentPdf.asset._ref.replace('file-', '').replace('-pdf', '.pdf')}`}
-                                                                            target="_blank"
-                                                                            rel="noopener noreferrer"
-                                                                            className="inline-flex w-full items-center justify-center gap-2 px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors text-sm"
-                                                                            download
-                                                                        >
-                                                                            Download Course Content (PDF)
-                                                                        </a>
-                                                                    )}
-                                                                    {course.roadmapPdf?.asset?._ref && (
-                                                                        <a
-                                                                            href={`https://cdn.sanity.io/files/${process.env.NEXT_PUBLIC_SANITY_PROJECT_ID}/${process.env.NEXT_PUBLIC_SANITY_DATASET}/${course.roadmapPdf.asset._ref.replace('file-', '').replace('-pdf', '.pdf')}`}
-                                                                            target="_blank"
-                                                                            rel="noopener noreferrer"
-                                                                            className="inline-flex w-full items-center justify-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-sm"
-                                                                            download
-                                                                        >
-                                                                            Download Roadmap (PDF)
-                                                                        </a>
-                                                                    )}
-                                                                    {!course.contentPdf?.asset?._ref && !course.roadmapPdf?.asset?._ref && (
-                                                                        <p className="text-sm text-gray-600">No materials available yet.</p>
-                                                                    )}
-                                                                </div>
-                                                            ) : (
-                                                                <p className="text-sm text-gray-600">Login and enroll (or be assigned) to access downloadable materials.</p>
-                                                            )}
-                                                        </div>
+                            
+                            {/* Course Materials (conditional access) */}
+                            <div className="mt-6 bg-white rounded-xl shadow-sm border border-gray-200 p-5">
+                                <h3 className="text-base font-semibold text-gray-900 mb-3">Course Materials</h3>
+                                {hasAccess ? (
+                                    <div className="space-y-2">
+                                        {course.contentPdf?.asset?._ref && (
+                                            <a
+                                                href={`https://cdn.sanity.io/files/${process.env.NEXT_PUBLIC_SANITY_PROJECT_ID}/${process.env.NEXT_PUBLIC_SANITY_DATASET}/${course.contentPdf.asset._ref.replace('file-', '').replace('-pdf', '.pdf')}`}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className="inline-flex w-full items-center justify-center gap-2 px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors text-sm"
+                                                download
+                                            >
+                                                Download Course Content (PDF)
+                                            </a>
+                                        )}
+                                        {course.roadmapPdf?.asset?._ref && (
+                                            <a
+                                                href={`https://cdn.sanity.io/files/${process.env.NEXT_PUBLIC_SANITY_PROJECT_ID}/${process.env.NEXT_PUBLIC_SANITY_DATASET}/${course.roadmapPdf.asset._ref.replace('file-', '').replace('-pdf', '.pdf')}`}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className="inline-flex w-full items-center justify-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-sm"
+                                                download
+                                            >
+                                                Download Roadmap (PDF)
+                                            </a>
+                                        )}
+                                        {!course.contentPdf?.asset?._ref && !course.roadmapPdf?.asset?._ref && (
+                                            <p className="text-sm text-gray-600">No materials available yet.</p>
+                                        )}
+                                    </div>
+                                ) : (
+                                    <p className="text-sm text-gray-600">Login and enroll (or be assigned) to access downloadable materials.</p>
+                                )}
+                            </div>
                         </div>
                     </div>
                 </div>

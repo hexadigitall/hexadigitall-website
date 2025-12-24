@@ -152,11 +152,6 @@ export default function FloatingCTA({ showOnScroll = 0, hideOnPaths = [] }: Floa
                 <ChatBubbleLeftEllipsisIcon className="w-6 h-6" />
               )}
             </motion.div>
-
-            {/* Notification Badge */}
-            <div className="absolute -top-1 -right-1 w-4 h-4 bg-red-500 rounded-full flex items-center justify-center border-2 border-white">
-              <span className="text-[10px] text-white font-bold">1</span>
-            </div>
           </motion.button>
 
           {/* Floating helper text */}
