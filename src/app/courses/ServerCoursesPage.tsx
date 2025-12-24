@@ -94,5 +94,6 @@ export async function getCoursesData(): Promise<School[]> {
 
 export default async function ServerCoursesPage() {
   const schools = await getCoursesData();
-  return (<CoursesPageContent initialData={schools} />);
+  // 👇 FIXED: Changed initialData to initialSchools
+  return (<CoursesPageContent initialSchools={schools} />);
 }
