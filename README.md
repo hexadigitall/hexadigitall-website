@@ -1,4 +1,4 @@
-# HexaDigitall - Digital Services Platform
+# Hexadigitall - Digital Services Platform
 
 A modern Next.js application offering tiered digital services with integrated Paystack payment processing.
 

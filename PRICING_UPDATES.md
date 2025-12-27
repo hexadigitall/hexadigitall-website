@@ -1,4 +1,4 @@
-# HexaDigitall Pricing Updates Summary
+# Hexadigitall Pricing Updates Summary
 
 ## Overview
 Updated pricing structure to be more competitive and logically aligned with market standards for both Nigerian and international clients. All pricing is in USD with the existing 50% Nigerian discount still applicable.

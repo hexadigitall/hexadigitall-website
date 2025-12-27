@@ -1,7 +1,7 @@
-# HexaDigitall UI/UX Enhancement Summary
+# Hexadigitall UI/UX Enhancement Summary
 
 ## 🎯 Objective Achieved
-Transformed the HexaDigitall website from a stark, white interface to an engaging, modern, and visually appealing platform that encourages user engagement and conversions.
+Transformed the Hexadigitall website from a stark, white interface to an engaging, modern, and visually appealing platform that encourages user engagement and conversions.
 
 ## ✨ Major Improvements Implemented
 
@@ -162,4 +162,4 @@ public/assets/
 
 ---
 
-The HexaDigitall website has been transformed from a functional but plain interface into a modern, engaging platform that reflects the company's digital expertise and builds user trust through professional visual design. The glassmorphism effects, professional imagery, and interactive elements create an experience that encourages users to explore services and ultimately convert into clients.
+The Hexadigitall website has been transformed from a functional but plain interface into a modern, engaging platform that reflects the company's digital expertise and builds user trust through professional visual design. The glassmorphism effects, professional imagery, and interactive elements create an experience that encourages users to explore services and ultimately convert into clients.

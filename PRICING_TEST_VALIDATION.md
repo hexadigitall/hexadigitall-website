@@ -1,7 +1,7 @@
 # Pricing Logic Validation Report
 
 ## Overview
-This document validates that the pricing logic and discount calculations are working correctly across the HexaDigitall services platform.
+This document validates that the pricing logic and discount calculations are working correctly across the Hexadigitall services platform.
 
 ## Test Results Summary
 
