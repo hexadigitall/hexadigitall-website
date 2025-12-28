@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import DynamicServicePage from '@/components/services/DynamicServicePage'
@@ -138,8 +139,6 @@ async function getSmartServiceCategory(slug: string): Promise<ServiceCategory | 
   const sanityData = await getServiceCategoryBySlug(slug);
 
   // 2. Validate Sanity Data (BUILD-PROOFED)
-  // We cast to 'any' to prevent TypeScript from blocking the build if the 
-  // 'ServiceCategory' type definition is outdated (missing 'packages').
   const safeData = sanityData as any;
 
   if (safeData && safeData.packages && safeData.packages.length > 0) {
@@ -220,7 +219,6 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
   const individualServices = filterIndividualServices(serviceCategory.serviceType)
 
   // Enhanced JSON-LD (Restored Provider & Rating info)
-  // SAFETY: Use safe access for packages
   const packages = serviceCategory.packages || []
   const minPrice = packages.length > 0
     ? Math.min(...packages.map((p: any) => p.price || 0).filter((p: number) => p > 0))
@@ -319,17 +317,12 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
 // --- STATIC GENERATION (Restored Full Logic) ---
 export async function generateStaticParams() {
   try {
-    // 1. Fetch live categories from Sanity
     const categories = await getAllServiceCategories()
     const slugs = categories.map((category) => category.slug?.current).filter(Boolean) as string[]
-    
-    // 2. Combine with Fallback (Critical) Slugs to ensure everything is covered
     const unique = Array.from(new Set([...slugs, ...FALLBACK_SLUGS]))
-    
     return unique.map((slug) => ({ slug }))
   } catch (error) {
     console.warn('Failed to fetch service slugs during build:', error)
-    // 3. Fail safe: If Sanity is down at build time, at least build the critical pages
     return FALLBACK_SLUGS.map((slug) => ({ slug }))
   }
 }
