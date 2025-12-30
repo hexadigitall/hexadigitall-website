@@ -1,6 +1,7 @@
 // src/sanity/schemas/index.ts
 import course from './course'
 import school from './school' // ✅ Import the new school schema
+import servicesPage from './servicesPage'
 import enrollment from './enrollment'
 import pendingEnrollment from './pendingEnrollment'
 import faq from './faq'
@@ -34,5 +35,6 @@ export const schemaTypes = [
   testimonial,
   formSubmission,
   analyticsEvent,
-  user
+  user,
+  servicesPage
 ]

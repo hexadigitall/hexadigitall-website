@@ -21,5 +21,21 @@ export default defineType({
       initialValue: 'default',
       validation: Rule => Rule.required(),
     }),
+      defineField({
+        name: 'bannerBackgroundImage',
+        title: 'Banner Background Image',
+        type: 'image',
+        options: { hotspot: true },
+        description: 'Banner image for school detail page (recommended: 1920x600)'
+      }),
+      defineField({
+        name: 'ogImage',
+        title: 'Open Graph Image',
+        type: 'image',
+        options: { hotspot: true },
+        description: 'Image for sharing this school (1200x630 recommended).'
+      }),
+      defineField({ name: 'ogTitle', title: 'Open Graph Title', type: 'string' }),
+      defineField({ name: 'ogDescription', title: 'Open Graph Description', type: 'text' }),
   ],
 })

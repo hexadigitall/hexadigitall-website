@@ -6,8 +6,9 @@ import { notFound } from 'next/navigation';
 import { PortableText } from '@portabletext/react';
 import type { PortableTextBlock } from 'sanity';
 import CourseEnrollment, { type CourseEnrollmentData } from '@/components/CourseEnrollment';
-import Breadcrumb from '@/components/ui/Breadcrumb';
 import { cookies } from 'next/headers'
+import Banner from '@/components/common/Banner';
+import Breadcrumb from '@/components/common/Breadcrumb';
 
 // Interface for the full course data fetched from Sanity
 interface Course {
@@ -70,63 +71,63 @@ function getCoursePricing(course: { courseType?: string; hourlyRateNGN?: number;
   return 'Flexible pricing available'
 }
 
-export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
-    const { slug } = await params;
-    const course = await client.fetch(
-        groq`*[_type == "course" && slug.current == $slug][0]{ 
-            title, description, summary, level, courseType, 
-            hourlyRateNGN, nairaPrice,
-            "imageUrl": mainImage.asset->url 
-        }`,
-        { slug }
-    );
+export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
+  const { slug } = params;
+  const course = await client.fetch(
+    groq`*[_type == "course" && slug.current == $slug][0]{ 
+      title, description, summary, level, courseType, 
+      hourlyRateNGN, nairaPrice,
+      ogTitle, ogDescription, ogImage{asset->{url}},
+      "imageUrl": mainImage.asset->url 
+    }`,
+    { slug }
+  );
 
-    if (!course) return { title: 'Course | Hexadigitall' };
+  if (!course) return { title: 'Course | Hexadigitall' };
 
-    const title = `${course.title} | Hexadigitall Courses`;
-    const baseDescription = course.description || course.summary || `Master ${course.title} with expert mentoring.`;
-    const pricing = getCoursePricing(course)
-    
-    // Use generated OG image (absolute URL), fallback to Sanity image, then hub image
-    const absoluteOgImage = getCourseOgImage(slug);
-    
-    // Optimize for social media (truncate if too long)
-    const socialDescription = baseDescription.length > 130
-      ? `${baseDescription.slice(0, 130)}... ${pricing}`
-      : `${baseDescription} ${pricing}`
+  const title = course.ogTitle || `${course.title} | Hexadigitall Courses`;
+  const baseDescription = course.ogDescription || course.description || course.summary || `Master ${course.title} with expert mentoring.`;
+  const pricing = getCoursePricing(course)
 
-    return {
-        title,
-        description: `${baseDescription} ${pricing}. Live mentoring & certification available.`,
-        keywords: `${course.title}, ${course.level} course, online learning, tech education, Hexadigitall`,
-        openGraph: {
-            title: `${course.title} - ${course.level || 'Professional'} Course`,
-            description: socialDescription,
-            // Images MUST be absolute URLs for LinkedIn/FB to read them
-            images: [{ 
-              url: absoluteOgImage, 
-              width: 1200, 
-              height: 630, 
-              alt: `${course.title} Course - Hexadigitall`,
-              type: 'image/jpeg'
-            }],
-            type: 'website',
-            siteName: 'Hexadigitall',
-            url: `https://hexadigitall.com/courses/${slug}`,
-            locale: 'en_NG'
-        },
-        twitter: {
-            card: 'summary_large_image',
-            title: `${course.title} - ${course.level || 'Professional'} Course`,
-            description: socialDescription,
-            images: [absoluteOgImage],
-            creator: '@hexadigitall',
-            site: '@hexadigitall'
-        },
-        alternates: {
-          canonical: `https://hexadigitall.com/courses/${slug}`
-        }
-    };
+  // Use ogImage if available, else fallback
+  const absoluteOgImage = course.ogImage?.asset?.url || getCourseOgImage(slug);
+
+  // Optimize for social media (truncate if too long)
+  const socialDescription = baseDescription.length > 130
+    ? `${baseDescription.slice(0, 130)}... ${pricing}`
+    : `${baseDescription} ${pricing}`
+
+  return {
+    title,
+    description: `${baseDescription} ${pricing}. Live mentoring & certification available.`,
+    keywords: `${course.title}, ${course.level} course, online learning, tech education, Hexadigitall`,
+    openGraph: {
+      title,
+      description: socialDescription,
+      images: [{ 
+        url: absoluteOgImage, 
+        width: 1200, 
+        height: 630, 
+        alt: `${course.title} Course - Hexadigitall`,
+        type: 'image/jpeg'
+      }],
+      type: 'website',
+      siteName: 'Hexadigitall',
+      url: `https://hexadigitall.com/courses/${slug}`,
+      locale: 'en_NG'
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description: socialDescription,
+      images: [absoluteOgImage],
+      creator: '@hexadigitall',
+      site: '@hexadigitall'
+    },
+    alternates: {
+      canonical: `https://hexadigitall.com/courses/${slug}`
+    }
+  };
 }
 
 // Enhanced query to fetch all enrollment data including PPP pricing
@@ -150,6 +151,10 @@ const courseQuery = groq`*[_type == "course" && slug.current == $slug][0]{
     "currentEnrollments": count(*[_type == "enrollment" && courseId._ref == ^._id]),
     body,
     "mainImage": mainImage.asset->url,
+    bannerBackgroundImage{asset->{url}},
+    ogImage{asset->{url}},
+    ogTitle,
+    ogDescription,
     contentPdf{asset->{_ref,url}},
     roadmapPdf{asset->{_ref,url}},
     curriculum {
@@ -165,8 +170,8 @@ const courseQuery = groq`*[_type == "course" && slug.current == $slug][0]{
     lessons
 }`;
 
-export default async function CoursePage({ params }: { params: Promise<{ slug: string }> }) {
-    const { slug } = await params;
+export default async function CoursePage({ params }: { params: { slug: string } }) {
+    const { slug } = params;
     const course: Course = await client.fetch(courseQuery, { slug });
 
     if (!course) notFound();
@@ -315,21 +320,23 @@ export default async function CoursePage({ params }: { params: Promise<{ slug: s
             {/* Breadcrumb structured data */}
             <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }} />
 
-            {/* Course Hero */}
-            <div className="bg-primary text-white py-16">
-                <div className="container mx-auto px-6">
-                    <div className="mb-4">
-                        <Breadcrumb 
-                            items={[
-                                { label: 'Courses', href: '/courses' },
-                                { label: course.title }
-                            ]}
-                            className="text-white [&_a]:text-white [&_svg]:text-white/70"
-                        />
-                    </div>
-                    <h1 className="text-4xl font-bold font-heading !text-white">{course.title}</h1>
-                </div>
+            {/* Breadcrumb above Banner */}
+            <div className="container mx-auto px-6 pt-8">
+                <Breadcrumb 
+                    items={[
+                        { label: 'Courses', href: '/courses' },
+                        { label: course.title }
+                    ]}
+                    className="mb-2 text-gray-700 [&_a]:text-primary [&_svg]:text-primary/70"
+                />
             </div>
+
+            {/* Banner with background image, title, and description */}
+            <Banner
+                image={course.bannerBackgroundImage?.asset?.url}
+                title={course.title}
+                description={course.summary || course.description}
+            />
 
             {/* Main Content */}
             <div className="container mx-auto px-6 py-12">

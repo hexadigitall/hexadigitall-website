@@ -6,9 +6,9 @@
  * - Maximum Image Visibility
  */
 
-const puppeteer = require('puppeteer');
-const fs = require('fs');
-const path = require('path');
+import puppeteer from 'puppeteer';
+import fs from 'fs';
+import path from 'path';
 
 // --- CONFIGURATION ---
 const INPUT_DIR = path.join(__dirname, '..', 'public', 'course-images');
@@ -297,7 +297,7 @@ function loadFileAsBase64(filePath) {
       const ext = path.extname(filePath).slice(1);
       return `data:image/${ext};base64,${data.toString('base64')}`;
     }
-  } catch (err) {
+  } catch {
     console.warn(`Could not load file: ${filePath}`);
   }
   return null;
@@ -345,8 +345,8 @@ async function main() {
       await page.screenshot({ path: outputPath, type: 'png' });
       console.log(`✅ Generated: ${outputFilename} ("${title}")`);
       successCount++;
-    } catch (err) {
-      console.error(`❌ Failed to generate ${filename}:`, err.message);
+    } catch (error) {
+      console.error(`❌ Failed to generate ${filename}:`, error?.message || error);
     } finally {
       await page.close();
     }

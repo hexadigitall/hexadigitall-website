@@ -75,8 +75,19 @@ export default function DynamicServicePage({
 }: DynamicServicePageProps) {
   const [selectedService, setSelectedService] = useState<LegacyServiceCategory | null>(null)
   const [showIndividualServices, setShowIndividualServices] = useState(false)
+  
+  // 1. HYDRATION FIX: Add mounted state
+  const [isMounted, setIsMounted] = useState(false)
+
   const { currentCurrency, getLocalDiscountMessage, convertPrice } = useCurrency()
-  const discountMessage = getLocalDiscountMessage()
+  
+  // 2. HYDRATION FIX: Only retrieve discount message if mounted
+  const discountMessage = isMounted ? getLocalDiscountMessage() : null
+
+  // 3. HYDRATION FIX: Set mounted to true after first render
+  useEffect(() => {
+    setIsMounted(true)
+  }, [])
 
   // Helper function to convert new ServiceCategory to legacy format
   const convertToLegacyServiceCategory = (service: ServiceCategory): LegacyServiceCategory => ({
@@ -115,17 +126,21 @@ export default function DynamicServicePage({
 
   // Helper to format price for WhatsApp message
   const getFormattedPrice = (price: number) => {
-    const val = convertPrice(price, currentCurrency.code);
+    // 4. HYDRATION FIX: Fallback to a safe currency if not mounted, though price logic is usually less strict than structure
+    const currencyCode = isMounted ? currentCurrency.code : 'USD'
+    const val = convertPrice(price, currencyCode);
     return new Intl.NumberFormat('en-US', { 
       style: 'currency', 
-      currency: currentCurrency.code, 
+      currency: currencyCode, 
       maximumFractionDigits: 0 
     }).format(val);
   }
 
   // Find lowest price for Sticky Bar
   const lowestPrice = (serviceCategory.packages || []).reduce((min, pkg) => {
-    const converted = convertPrice(pkg.price, currentCurrency.code);
+    // 5. HYDRATION FIX: Ensure calculations are consistent during server render
+    const currencyCode = isMounted ? currentCurrency.code : 'USD'
+    const converted = convertPrice(pkg.price, currencyCode);
     return converted < min ? converted : min;
   }, Infinity);
 
@@ -193,7 +208,6 @@ export default function DynamicServicePage({
         statsTitle: 'Why Choose Our Profile Services?'
       }
     }
-    // ensure the serviceType is a valid key of configs, fallback to 'business'
     type ConfigKey = keyof typeof configs
     const key = (serviceType as ConfigKey)
     return configs[key] ?? configs['business']
@@ -201,7 +215,6 @@ export default function DynamicServicePage({
 
   const config = getServiceTypeConfig(serviceCategory.serviceType)
 
-  // Get stats display data
   const getStatsData = () => [
     {
       icon: (
@@ -273,12 +286,12 @@ export default function DynamicServicePage({
         
         <div className="container mx-auto px-6 relative z-10">
           <div className="text-center mb-16">
-            {/* Special Offer Banner */}
+            {/* Special Offer Banner - HYDRATION SAFE */}
             {discountMessage && (
               <div className="mb-8 flex justify-center">
                 <div className="inline-flex items-center space-x-2 bg-gradient-to-r from-orange-500 to-pink-500 px-6 py-3 rounded-full text-sm font-bold text-white shadow-lg animate-bounce">
                   <span>🎉</span>
-                  <span>NIGERIAN LAUNCH SPECIAL - 50% OFF ALL PACKAGES!</span>
+                  <span>{discountMessage}</span>
                   <span>🚀</span>
                 </div>
               </div>
@@ -286,7 +299,7 @@ export default function DynamicServicePage({
             
             <div className={`inline-flex items-center space-x-2 bg-gradient-to-r from-${config.accentColor}-100 to-indigo-100 px-4 py-2 rounded-full text-sm font-medium text-${config.accentColor}-800 mb-6`}>
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138z" />
               </svg>
               <span>{config.badge}</span>
             </div>
@@ -301,7 +314,10 @@ export default function DynamicServicePage({
             <div className="mt-8">
               <div className="inline-flex items-center space-x-2 text-sm text-gray-600 mb-4">
                 <span>Prices shown in:</span>
-                <span className="font-semibold text-primary">{currentCurrency.flag} {currentCurrency.code}</span>
+                <span className="font-semibold text-primary">
+                  {/* HYDRATION SAFE CURRENCY DISPLAY */}
+                  {isMounted ? `${currentCurrency.flag} ${currentCurrency.code}` : '🇺🇸 USD'}
+                </span>
               </div>
             </div>
           </div>
@@ -494,9 +510,10 @@ export default function DynamicServicePage({
       )}
 
       {/* 🚀 STICKY BOTTOM ACTION BAR (Mobile/Tablet) */}
+      {/* 6. HYDRATION FIX: Use mounted state for safe price/currency rendering in Sticky Bar too */}
       <StickyServiceCTA 
         price={lowestPrice}
-        currencyCode={currentCurrency.code}
+        currencyCode={isMounted ? currentCurrency.code : 'USD'}
         onChat={() => handleWhatsAppClick(`Hello, I have questions about ${serviceCategory.title} services starting at ${getFormattedPrice(lowestPrice)}.`)}
         onBuy={() => setSelectedService(convertToLegacyServiceCategory(serviceCategory))}
       />

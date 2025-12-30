@@ -1,14 +1,23 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
-import DynamicServicePage from '@/components/services/DynamicServicePage'
+import CompleteServicePage from '@/components/services/CompleteServicePage'
 import {
   getAllServiceCategories,
-  getFallbackServiceCategory,
-  getIndividualServices,
   getServiceCategoryBySlug,
 } from '@/lib/sanity-queries'
-import type { IndividualService, ServiceCategory, ServiceStats } from '@/types/service'
+import { 
+  WEB_DEV_PACKAGE_GROUPS, 
+  BUSINESS_PLAN_PACKAGE_GROUPS, 
+  BRANDING_PACKAGE_GROUPS, 
+  MARKETING_PACKAGE_GROUPS, 
+  MENTORING_PACKAGE_GROUPS, 
+  PORTFOLIO_PACKAGE_GROUPS 
+} from '@/data/servicePackages'
+import type { ServicePackageGroup } from '@/types/service'
+// Import the specific type the component expects to fix the red underline
+import type { IndividualService as ComponentIndividualService } from '@/data/individualServices'
+import { ALL_INDIVIDUAL_SERVICES } from '@/data/individualServices';
 
 // Fallback slugs for static params generation (Critical Pages)
 const FALLBACK_SLUGS = [
@@ -22,253 +31,209 @@ const FALLBACK_SLUGS = [
   'web-app-development',
 ]
 
+// Map slugs to Local Data Groups
+const DATA_MAP: Record<string, ServicePackageGroup[]> = {
+  'web-and-mobile-software-development': WEB_DEV_PACKAGE_GROUPS,
+  'business-plan-and-logo-design': [...BUSINESS_PLAN_PACKAGE_GROUPS, ...BRANDING_PACKAGE_GROUPS],
+  'social-media-advertising-and-marketing': MARKETING_PACKAGE_GROUPS,
+  'mentoring-and-consulting': MENTORING_PACKAGE_GROUPS,
+  'profile-and-portfolio-building': PORTFOLIO_PACKAGE_GROUPS,
+}
+
+// Define specific type to match CompleteServicePage props
+type AccentColor = 'pink' | 'blue' | 'purple' | 'green' | 'indigo' | 'orange'
+
+const ACCENT_MAP: Record<string, AccentColor> = {
+  'web': 'indigo',
+  'business': 'blue',
+  'marketing': 'pink',
+  'consulting': 'purple',
+  'profile': 'orange'
+}
+
+type Props = {
+  params: { slug: string }
+}
+
 /**
- * 🎨 Get OG image for service
+ * Get OG image for service
  * Uses the exact slug to match the generated asset in public/og-images
  */
 function getOgImage(slug: string): string {
-  // Use absolute URL for best compatibility with LinkedIn/WhatsApp
   return `https://hexadigitall.com/og-images/${slug}.jpg`
 }
 
-/**
- * 💰 Extract pricing info from service category for metadata
- */
-function getServicePricing(serviceCategory: ServiceCategory): string {
-  // SAFETY: Use optional chaining in case types are loose
-  const packages = serviceCategory.packages || []
-  
-  if (packages.length === 0) {
-    return 'Professional packages available'
+export async function generateMetadata(props: Props): Promise<Metadata> {
+  const params = await props.params;
+  const slug = params.slug;
+  let service = null;
+  try {
+    service = await getServiceCategoryBySlug(slug);
+  } catch (e) {
+    service = null;
   }
-  
-  const prices = packages
-    .map((pkg: any) => pkg.price)
-    .filter((price: any) => typeof price === 'number' && price > 0)
-  
-  if (prices.length === 0) return 'Flexible pricing available'
-  
-  const minPrice = Math.min(...prices)
-  return `Starting from ₦${minPrice.toLocaleString()}`
-}
-
-/**
- * 📊 Resolve Service Stats with Intelligent Defaults
- */
-function resolveServiceStats(serviceCategory: ServiceCategory): ServiceStats {
-  // SAFETY: Typed as Record<string, ...> to prevent "Index signature" errors
-  const defaults: Record<string, ServiceStats> = {
-    business: {
-      fundingSuccessRate: 95,
-      totalFundingRaised: '$1.8M+ Value Created',
-      averageRevenueGrowth: 120,
-      averageDeliveryTime: '5-10 days',
-    },
-    web: {
-      fundingSuccessRate: 93,
-      totalFundingRaised: '$2.4M+ in Projects',
-      averageRevenueGrowth: 140,
-      averageDeliveryTime: '10-20 days',
-    },
-    marketing: {
-      fundingSuccessRate: 92,
-      totalFundingRaised: '$900k+ in Growth',
-      averageRevenueGrowth: 160,
-      averageDeliveryTime: '7-14 days',
-    },
-    consulting: {
-      fundingSuccessRate: 94,
-      totalFundingRaised: '$1.2M+ Impact',
-      averageRevenueGrowth: 110,
-      averageDeliveryTime: '5-12 days',
-    },
-    mobile: {
-      fundingSuccessRate: 90,
-      totalFundingRaised: '$1.1M+ in Builds',
-      averageRevenueGrowth: 130,
-      averageDeliveryTime: '15-25 days',
-    },
-    branding: {
-      fundingSuccessRate: 91,
-      totalFundingRaised: '$480k+ Brand Value',
-      averageRevenueGrowth: 105,
-      averageDeliveryTime: '5-9 days',
-    },
-    profile: {
-      fundingSuccessRate: 91,
-      totalFundingRaised: '$480k+ Brand Value',
-      averageRevenueGrowth: 105,
-      averageDeliveryTime: '5-9 days',
-    },
-    general: {
-      fundingSuccessRate: 90,
-      totalFundingRaised: '$500k+ Impact',
-      averageRevenueGrowth: 100,
-      averageDeliveryTime: '7-14 days',
-    },
-  }
-
-  // SAFETY: Handle undefined or unknown service types gracefully
-  const serviceType = serviceCategory.serviceType || 'general';
-  const defaultStats = defaults[serviceType] || defaults.general;
-
-  // SAFETY: Use optional chaining for statistics
-  const metrics = (serviceCategory.statistics as ServiceStats | undefined)?.metrics ?? {}
-  
-  return {
-    fundingSuccessRate: metrics.clientSatisfaction ?? defaultStats.fundingSuccessRate,
-    totalFundingRaised: metrics.projectsCompleted
-      ? `${metrics.projectsCompleted}+ Projects Delivered`
-      : defaultStats.totalFundingRaised,
-    averageRevenueGrowth: defaultStats.averageRevenueGrowth,
-    averageDeliveryTime: (metrics.averageDeliveryTime as string | undefined) ?? defaultStats.averageDeliveryTime,
-  }
-}
-
-function filterIndividualServices(serviceType: any): IndividualService[] {
-  // SAFETY: Cast to string comparison to avoid strict enum issues
-  return getIndividualServices().filter((service) => !service.category || service.category === serviceType)
-}
-
-/**
- * 🛡️ SMART DATA FETCHER (Safety Net)
- * Tries Sanity first. If Sanity returns old/broken data, falls back to src/data.
- */
-async function getSmartServiceCategory(slug: string): Promise<ServiceCategory | null> {
-  // 1. Try fetching from Sanity
-  const sanityData = await getServiceCategoryBySlug(slug);
-
-  // 2. Validate Sanity Data (BUILD-PROOFED)
-  const safeData = sanityData as any;
-
-  if (safeData && safeData.packages && safeData.packages.length > 0) {
-    return sanityData;
-  }
-
-  // 3. Force Fallback to Local Data if Sanity is missing or outdated
-  return getFallbackServiceCategory(slug);
-}
-
-// --- METADATA GENERATION ---
-export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
-  const { slug } = await params
-  const serviceCategory = await getSmartServiceCategory(slug);
-
-  if (!serviceCategory) {
-    return {
-      title: 'Services | Hexadigitall',
-      description: 'Professional services for ambitious founders and teams.',
+  // Fallback to local data if Sanity is unreachable and slug is critical
+  if (!service) {
+    if (FALLBACK_SLUGS.includes(slug) && DATA_MAP[slug]) {
+      // Try to find an individual service for this slug
+      const individual = ALL_INDIVIDUAL_SERVICES.find(s => s.id === slug);
+      if (individual) {
+        return {
+          title: individual.ogTitle || individual.name,
+          description: individual.ogDescription || individual.description,
+          openGraph: {
+            title: individual.ogTitle || individual.name,
+            description: individual.ogDescription || individual.description,
+            url: `https://hexadigitall.com/services/${slug}`,
+            images: [
+              individual.ogImage
+                ? { url: `https://hexadigitall.com${individual.ogImage}`, width: 1200, height: 630 }
+                : { url: getOgImage(slug), width: 1200, height: 630 }
+            ],
+            type: 'website',
+          },
+          twitter: {
+            card: 'summary_large_image',
+            title: individual.ogTitle || individual.name,
+            description: individual.ogDescription || individual.description,
+            images: [individual.ogImage ? `https://hexadigitall.com${individual.ogImage}` : getOgImage(slug)],
+          },
+        };
+      }
+      return {
+        title: slug.replace(/-/g, ' '),
+        description: `Service page for ${slug.replace(/-/g, ' ')}.`,
+        openGraph: {
+          title: slug.replace(/-/g, ' '),
+          description: `Service page for ${slug.replace(/-/g, ' ')}.`,
+          url: `https://hexadigitall.com/services/${slug}`,
+          images: [{ url: getOgImage(slug), width: 1200, height: 630 }],
+          type: 'website',
+        },
+        twitter: {
+          card: 'summary_large_image',
+          title: slug.replace(/-/g, ' '),
+          description: `Service page for ${slug.replace(/-/g, ' ')}.`,
+          images: [getOgImage(slug)],
+        },
+      };
     }
+    return {
+      title: 'Service Not Found',
+    };
   }
+  // Safe price extraction
+  const lowestPrice = service.packages?.reduce((min: number, p: any) => 
+    (p.price < min ? p.price : min), Infinity) || 0;
+  const formattedPrice = lowestPrice !== Infinity 
+    ? new Intl.NumberFormat('en-NG', { style: 'currency', currency: 'NGN', minimumFractionDigits: 0 }).format(lowestPrice * 1000) 
+    : 'Contact for pricing';
 
-  const ogImage = getOgImage(slug)
-  const pricing = getServicePricing(serviceCategory)
-  const title = `${serviceCategory.title} | Hexadigitall`
-  const baseDescription = serviceCategory.description || 'Professional services tailored to your goals.'
-  
-  // Enhanced description with pricing for better CTR
-  const socialDescription = baseDescription.length > 120 
-    ? `${baseDescription.slice(0, 120)}... ${pricing}`
-    : `${baseDescription} ${pricing}`
+  // Use ogImage from Sanity if available, fallback to old logic
+  const ogImageUrl = service.ogImage?.asset?.url || getOgImage(slug);
 
   return {
-    title,
-    description: `${baseDescription} ${pricing}. Fast delivery, Nigerian market expertise.`,
-    keywords: `${serviceCategory.title}, ${serviceCategory.serviceType} services, Nigerian businesses, Hexadigitall`,
+    title: service.ogTitle || service.title,
+    description: service.ogDescription || `${service.description || service.title}. Starting from ${formattedPrice}.`,
     openGraph: {
-      title: `${serviceCategory.title} Services`,
-      description: socialDescription,
-      images: [{ 
-        url: ogImage, 
-        width: 1200, 
-        height: 630, 
-        alt: `${serviceCategory.title} - Hexadigitall Professional Services`,
-        type: 'image/jpeg'
-      }],
-      type: 'website',
-      siteName: 'Hexadigitall',
+      title: service.ogTitle || service.title,
+      description: service.ogDescription || service.description,
       url: `https://hexadigitall.com/services/${slug}`,
-      locale: 'en_NG',
+      images: [{ url: ogImageUrl, width: 1200, height: 630 }],
+      type: 'website',
     },
     twitter: {
       card: 'summary_large_image',
-      title: `${serviceCategory.title} Services`,
-      description: socialDescription,
-      images: [ogImage],
-      creator: '@hexadigitall',
-      site: '@hexadigitall'
+      title: service.ogTitle || service.title,
+      description: service.ogDescription || service.description,
+      images: [ogImageUrl],
     },
-    alternates: {
-      canonical: `https://hexadigitall.com/services/${slug}`
-    }
-  }
+  };
 }
 
-// --- PAGE COMPONENT ---
-export default async function ServicePage({ params }: { params: Promise<{ slug: string }> }) {
-  const { slug } = await params
-  
-  // Use Smart Fetcher (Sanity -> Fallback)
-  const serviceCategory = await getSmartServiceCategory(slug);
-
-  if (!serviceCategory) {
-    notFound()
+export default async function ServicePage(props: Props) {
+  const params = await props.params;
+  const slug = params.slug;
+  let serviceCategory = null;
+  try {
+    serviceCategory = await getServiceCategoryBySlug(slug);
+  } catch (e) {
+    serviceCategory = null;
   }
-
-  const serviceStats = resolveServiceStats(serviceCategory)
-  const individualServices = filterIndividualServices(serviceCategory.serviceType)
-
-  // Enhanced JSON-LD (Restored Provider & Rating info)
-  const packages = serviceCategory.packages || []
-  const minPrice = packages.length > 0
-    ? Math.min(...packages.map((p: any) => p.price || 0).filter((p: number) => p > 0))
-    : undefined
-
+  // Fallback to local data if Sanity is unreachable and slug is critical
+  let localGroups = DATA_MAP[slug] || [];
+  let accentColor: AccentColor = 'blue';
+  let pageTitle = slug.replace(/-/g, ' ');
+  let pageDescription = '';
+  let serviceType = 'general';
+  if (!serviceCategory) {
+    if (FALLBACK_SLUGS.includes(slug) && localGroups.length > 0) {
+      // Use fallback data
+      pageDescription = `Service page for ${pageTitle}.`;
+      accentColor = 'blue';
+      serviceType = 'general';
+    } else {
+      notFound();
+    }
+  } else {
+    accentColor = (ACCENT_MAP[serviceCategory.serviceType] || 'blue') as AccentColor;
+    pageTitle = serviceCategory.title;
+    pageDescription = serviceCategory.description || '';
+    serviceType = serviceCategory.serviceType || 'general';
+    // Merge Sanity Prices into Local Structure
+    localGroups = localGroups.map(group => ({
+      ...group,
+      tiers: group.tiers.map(tier => {
+        const sanityPackage = serviceCategory.packages?.find((p: any) => p.name === tier.name);
+        return sanityPackage ? { ...tier, price: sanityPackage.price } : tier;
+      })
+    }));
+  }
+  // Map serviceType or slug to the correct category string for individual services
+  const serviceTypeToCategory: Record<string, string> = {
+    'web': 'web-dev',
+    'web-dev': 'web-dev',
+    'web & mobile': 'web-dev',
+    'business': 'business',
+    'business-plan': 'business',
+    'branding': 'branding',
+    'marketing': 'marketing',
+    'social': 'marketing',
+    'social-media': 'marketing',
+    'mentoring': 'mentoring',
+    'consulting': 'mentoring',
+    'portfolio': 'portfolio',
+    'profile': 'portfolio',
+  };
+  const categoryKey = serviceTypeToCategory[serviceType] || serviceType;
+  const relevantIndividualServices = ALL_INDIVIDUAL_SERVICES.filter(s => s.category === categoryKey) as ComponentIndividualService[];
+  // --- JSON-LD GENERATION (Restored) ---
   const serviceJsonLd = {
     '@context': 'https://schema.org',
     '@type': 'Service',
-    name: serviceCategory.title,
-    description: serviceCategory.description,
-    serviceType: serviceCategory.serviceType,
+    name: pageTitle,
+    description: pageDescription,
     provider: {
       '@type': 'Organization',
       name: 'Hexadigitall',
-      url: 'https://hexadigitall.com',
-      logo: 'https://hexadigitall.com/hexadigitall-logo.svg',
-      sameAs: [
-        'https://twitter.com/hexadigitall',
-        'https://linkedin.com/company/hexadigitall'
-      ]
+      url: 'https://hexadigitall.com'
     },
-    areaServed: {
-      '@type': 'Country',
-      name: 'Nigeria'
-    },
-    offers: minPrice ? {
-      '@type': 'Offer',
-      priceCurrency: 'NGN',
-      price: minPrice,
-      priceValidUntil: new Date(Date.now() + 90 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
-      availability: 'https://schema.org/InStock',
-      url: `https://hexadigitall.com/services/${slug}`,
-      seller: {
-        '@type': 'Organization',
-        name: 'Hexadigitall'
-      }
-    } : {
-      '@type': 'Offer',
-      priceCurrency: 'NGN',
-      availability: 'https://schema.org/InStock',
-      url: `https://hexadigitall.com/services/${slug}`,
-    },
-    aggregateRating: {
-      '@type': 'AggregateRating',
-      ratingValue: '4.8',
-      reviewCount: '127',
-      bestRating: '5'
+    areaServed: 'Worldwide',
+    hasOfferCatalog: {
+      '@type': 'OfferCatalog',
+      name: 'Service Packages',
+      itemListElement: localGroups.flatMap(g => g.tiers).map((tier, index) => ({
+        '@type': 'Offer',
+        itemOffered: {
+          '@type': 'Service',
+          name: tier.name
+        },
+        price: tier.price,
+        priceCurrency: 'USD',
+        position: index + 1
+      }))
     }
-  }
-
+  };
   const breadcrumbJsonLd = {
     '@context': 'https://schema.org',
     '@type': 'BreadcrumbList',
@@ -288,12 +253,11 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
       {
         '@type': 'ListItem',
         position: 3,
-        name: serviceCategory.title,
+        name: pageTitle,
         item: `https://hexadigitall.com/services/${slug}`
       }
     ]
-  }
-
+  };
   return (
     <article>
       <script
@@ -304,17 +268,45 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
       />
-
-      <DynamicServicePage
-        serviceCategory={serviceCategory}
-        individualServices={individualServices}
-        serviceStats={serviceStats}
+      <CompleteServicePage
+        pageTitle={pageTitle}
+        pageDescription={pageDescription}
+        heroGradient={`from-${accentColor}-900 to-${accentColor}-800`}
+        bannerBackgroundImage={
+          serviceCategory?.bannerBackgroundImage?.asset?.url
+            ? serviceCategory.bannerBackgroundImage.asset.url
+            : (() => {
+                switch (slug) {
+                  case 'web-and-mobile-software-development':
+                    return '/promotional-campaign/images/raw/person-screen-2.jpg';
+                  case 'business-plan-and-logo-design':
+                    return '/promotional-campaign/images/raw/person-business-1.jpg';
+                  case 'social-media-advertising-and-marketing':
+                    return '/promotional-campaign/images/raw/service-web-and-mobile-development2.jpg';
+                  case 'profile-and-portfolio-building':
+                    return '/promotional-campaign/images/raw/service-social-starter2.jpg';
+                  case 'mentoring-and-consulting':
+                    return '/promotional-campaign/images/raw/service-mentoring-and-consulting.jpg';
+                  default:
+                    return undefined;
+                }
+              })()
+        }
+        accentColor={accentColor}
+        categoryIcon={null}
+        breadcrumbItems={[
+          { label: 'Services', href: '/services' },
+          { label: pageTitle }
+        ]}
+        packageGroups={localGroups.length > 0 ? localGroups : []}
+        individualServices={relevantIndividualServices}
+        serviceType={serviceType}
+        slug={slug}
       />
     </article>
-  )
+  );
 }
 
-// --- STATIC GENERATION (Restored Full Logic) ---
 export async function generateStaticParams() {
   try {
     const categories = await getAllServiceCategories()
@@ -322,7 +314,7 @@ export async function generateStaticParams() {
     const unique = Array.from(new Set([...slugs, ...FALLBACK_SLUGS]))
     return unique.map((slug) => ({ slug }))
   } catch (error) {
-    console.warn('Failed to fetch service slugs during build:', error)
+    console.warn('Error generating static params:', error)
     return FALLBACK_SLUGS.map((slug) => ({ slug }))
   }
 }

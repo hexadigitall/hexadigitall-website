@@ -14,6 +14,9 @@ export interface IndividualService {
   deliveryTime: string
   features: string[]
   category: 'web-dev' | 'business' | 'branding' | 'marketing' | 'mentoring' | 'portfolio'
+  ogTitle?: string
+  ogDescription?: string
+  ogImage?: string // URL to OG image
 }
 
 // Web & Mobile Development Individual Services
@@ -34,7 +37,10 @@ export const WEB_DEV_INDIVIDUAL_SERVICES: IndividualService[] = [
       'Performance enhancement',
       'Content migration',
       '2 revision rounds'
-    ]
+    ],
+    ogTitle: 'Website Redesign Service | Hexadigitall',
+    ogDescription: 'Modernize your website with a fresh design, improved UX, and mobile optimization. Fast delivery by Hexadigitall.',
+    ogImage: '/og-images/website-redesign.jpg'
   },
   {
     id: 'seo-audit',
@@ -50,7 +56,10 @@ export const WEB_DEV_INDIVIDUAL_SERVICES: IndividualService[] = [
       'Competitor comparison',
       'Actionable recommendations',
       'Priority roadmap'
-    ]
+    ],
+    ogTitle: 'SEO Audit & Report | Hexadigitall',
+    ogDescription: 'Comprehensive SEO analysis and actionable recommendations to boost your site ranking. Delivered by Hexadigitall.',
+    ogImage: '/og-images/seo-audit.jpg'
   },
   {
     id: 'speed-optimization',
@@ -66,7 +75,10 @@ export const WEB_DEV_INDIVIDUAL_SERVICES: IndividualService[] = [
       'Caching setup',
       'CDN configuration',
       'Before/after metrics'
-    ]
+    ],
+    ogTitle: 'Website Speed Optimization | Hexadigitall',
+    ogDescription: 'Boost your website performance and Core Web Vitals with Hexadigitall’s speed optimization service.',
+    ogImage: '/og-images/speed-optimization.jpg'
   },
   {
     id: 'payment-gateway-integration',
@@ -82,7 +94,10 @@ export const WEB_DEV_INDIVIDUAL_SERVICES: IndividualService[] = [
       'Order confirmation emails',
       'Testing & documentation',
       'PCI compliance guidance'
-    ]
+    ],
+    ogTitle: 'Payment Gateway Integration | Hexadigitall',
+    ogDescription: 'Integrate Paystack, Flutterwave, or other payment gateways securely with Hexadigitall.',
+    ogImage: '/og-images/payment-gateway.jpg'
   },
   {
     id: 'bug-fix-monthly',
@@ -98,7 +113,10 @@ export const WEB_DEV_INDIVIDUAL_SERVICES: IndividualService[] = [
       'Content updates',
       'Performance monitoring',
       'Monthly report'
-    ]
+    ],
+    ogTitle: 'Monthly Bug Fixes & Support | Hexadigitall',
+    ogDescription: 'Ongoing website maintenance and bug fixes with priority support from Hexadigitall.',
+    ogImage: '/og-images/bug-fix-support.jpg'
   }
 ]
 
@@ -118,7 +136,10 @@ export const BUSINESS_PLAN_INDIVIDUAL_SERVICES: IndividualService[] = [
       'Team highlights',
       'Investment ask & use of funds',
       'Professional formatting'
-    ]
+    ],
+    ogTitle: 'Executive Summary Service | Hexadigitall',
+    ogDescription: 'Get a compelling 2-page executive summary for investors, crafted by Hexadigitall business experts.',
+    ogImage: '/og-images/executive-summary.jpg'
   },
   {
     id: 'pitch-deck',
@@ -170,7 +191,10 @@ export const BRANDING_INDIVIDUAL_SERVICES: IndividualService[] = [
       'PNG & JPG formats',
       'Black & white versions',
       'Social media sizes'
-    ]
+    ],
+    ogTitle: 'Logo Design Service | Hexadigitall',
+    ogDescription: 'Professional logo design with unlimited revisions and fast delivery. Stand out with Hexadigitall.',
+    ogImage: '/og-images/logo-design.jpg'
   },
   {
     id: 'business-cards',
@@ -222,7 +246,10 @@ export const MARKETING_INDIVIDUAL_SERVICES: IndividualService[] = [
       'Audience analysis report',
       'Detailed recommendations',
       'Strategy roadmap'
-    ]
+    ],
+    ogTitle: 'Social Media Audit | Hexadigitall',
+    ogDescription: 'Get a comprehensive social media audit with actionable insights and strategy roadmap from Hexadigitall.',
+    ogImage: '/og-images/social-media-audit.jpg'
   },
   {
     id: 'content-package',
@@ -274,7 +301,10 @@ export const MENTORING_INDIVIDUAL_SERVICES: IndividualService[] = [
       'Action plan document',
       'Email follow-up support (1 week)',
       'Session recording'
-    ]
+    ],
+    ogTitle: 'Strategy Call | Hexadigitall',
+    ogDescription: 'Book a one-on-one strategy call with a Hexadigitall expert. Actionable advice, fast.',
+    ogImage: '/og-images/strategy-call.jpg'
   },
   {
     id: 'business-plan-review',
@@ -326,7 +356,10 @@ export const PORTFOLIO_INDIVIDUAL_SERVICES: IndividualService[] = [
       '2 format versions (modern & traditional)',
       'Cover letter template',
       '2 revision rounds'
-    ]
+    ],
+    ogTitle: 'Professional CV/Resume Service | Hexadigitall',
+    ogDescription: 'Get an ATS-optimized, professionally written CV or resume from Hexadigitall. Fast turnaround.',
+    ogImage: '/og-images/cv-resume.jpg'
   },
   {
     id: 'linkedin-optimization',

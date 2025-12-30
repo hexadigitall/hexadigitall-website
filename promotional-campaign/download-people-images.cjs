@@ -1,9 +1,10 @@
-const https = require('https');
-const fs = require('fs');
-const path = require('path');
+import https from 'https';
+import fs from 'fs';
+import path from 'path';
+import dotenv from 'dotenv';
 
 const dotenvPath = path.resolve(__dirname, '../../.env.local');
-require('dotenv').config({ path: dotenvPath });
+dotenv.config({ path: dotenvPath });
 const UNSPLASH_ACCESS_KEY = process.env.UNSPLASH_ACCESS_KEY || 'YOUR_ACCESS_KEY_HERE';
 console.log('Loaded UNSPLASH_ACCESS_KEY:', UNSPLASH_ACCESS_KEY);
 const OUTPUT_DIR = path.join(__dirname, 'images', 'raw');
@@ -153,8 +154,8 @@ async function downloadPeopleImages() {
 }
 
 // Run if called directly
-if (require.main === module) {
+if (import.meta.url === `file://${process.argv[1]}`) {
   downloadPeopleImages().catch(console.error);
 }
 
-module.exports = { downloadPeopleImages };
+export { downloadPeopleImages };

@@ -83,6 +83,10 @@ export interface Course {
   // Session management
   timeZones?: string[];
   sessionFormats?: string[];
+  bannerBackgroundImage?: { asset: { url: string } };
+  ogImage?: { asset: { url: string } };
+  ogTitle?: string;
+  ogDescription?: string;
 }
 
 // Session customization for student enrollment

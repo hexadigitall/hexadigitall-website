@@ -1,3 +1,25 @@
+// GROQ query for the main services page singleton
+export const SERVICES_PAGE_QUERY = `*[_type == "servicesPage"][0]{
+  title,
+  description,
+  bannerBackgroundImage {
+    asset->{url},
+    alt
+  },
+  ogImage {
+    asset->{url},
+    alt
+  },
+  ogTitle,
+  ogDescription
+}`
+
+/**
+ * Fetch the main services page singleton
+ */
+export async function getServicesPage() {
+  return client.fetch(SERVICES_PAGE_QUERY)
+}
 // src/lib/sanity-queries.ts
 import { client } from '@/sanity/client'
 import { ServiceCategory, IndividualService } from '@/types/service'
@@ -13,6 +35,22 @@ const SERVICE_CATEGORY_QUERY = `*[_type == "serviceCategory" && slug.current == 
   serviceType,
   icon,
   featured,
+  bannerBackgroundImage{
+    asset->{
+      _id,
+      url
+    },
+    alt,
+    hotspot
+  },
+  ogImage{
+    asset->{
+      _id,
+      url
+    },
+    alt,
+    hotspot
+  },
   mainImage{
     asset->{
       _id,
@@ -31,6 +69,14 @@ const SERVICE_CATEGORY_QUERY = `*[_type == "serviceCategory" && slug.current == 
     deliveryTime,
     features,
     popular,
+    ogImage{
+      asset->{
+        _id,
+        url
+      },
+      alt,
+      hotspot
+    },
     addOns[]{
       _key,
       name,

@@ -208,7 +208,8 @@ export default function ServicesPageClient() {
                        <svg className="w-4 h-4 ml-2 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
                      </span>
                      <button 
-                       onClick={(e) => handleWhatsAppClick(`Hello, I have questions about ${category.title} services.`, e)}
+                       onClick={(e) => handleWhatsAppClick(
+                         `Hello Hexadigitall team,\n\nI am interested in learning more about your ${category.title} services. Could you please provide details on how your team can help me achieve my goals in this area, and what the next steps would be to get started?\n\nThank you.`, e)}
                        className="text-gray-400 hover:text-green-600 p-2 rounded-full hover:bg-green-50 transition-all"
                        title="Chat on WhatsApp"
                      >

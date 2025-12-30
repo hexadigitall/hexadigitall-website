@@ -1,3 +1,22 @@
+// --- ServicePackageTier: Optional Sanity package groups with tiers (for scoped modal selection) ---
+export interface ServicePackageTier {
+  _key: string;
+  name: string;
+  subtitle?: string;
+  tier: 'basic' | 'standard' | 'premium' | 'enterprise';
+  price: number;
+  currency: string;
+  billing: 'one_time' | 'monthly' | 'hourly' | 'project';
+  deliveryTime?: string;
+  features?: Array<string | { title?: string; description?: string }>;
+  popular?: boolean;
+  addOns?: ServiceAddOn[];
+  ogImage?: {
+    asset?: {
+      url?: string;
+    };
+  };
+}
 // src/types/service.ts
 
 export interface ServicePackage {
@@ -73,11 +92,26 @@ export interface ServiceCategory {
   processSteps?: Array<{ title?: string; description?: string }>
   deliverables?: Array<{ title?: string; description?: string }>
   additionalServices?: Array<{ title?: string; description?: string }>
+  bannerBackgroundImage?: {
+    asset?: {
+      _id?: string
+      url?: string
+    }
+    alt?: string
+    hotspot?: object
+  }
   heroImage?: {
     url: string
     alt?: string
   }
   mainImage?: {
+      ogImage?: {
+        asset?: {
+          url?: string;
+        };
+        alt?: string;
+        hotspot?: object;
+      };
     asset: {
       _ref: string
       _type: 'reference'
@@ -85,6 +119,8 @@ export interface ServiceCategory {
     alt?: string
     hotspot?: object
   }
+  ogTitle?: string
+  ogDescription?: string
 }
 
 // Individual service for quick access (like $39 Logo, $89 Business Plan, etc.)
@@ -96,6 +132,9 @@ export interface IndividualService {
   deliveryTime: string
   features: string[]
   category?: string
+  ogTitle?: string
+  ogDescription?: string
+  ogImage?: string
 }
 
 // Request cart item (combines selection with quantity/customization)
@@ -176,41 +215,60 @@ export interface LegacyService {
   category?: ServiceCategory
 }
 
+
 // For backwards compatibility with existing components
 export interface LegacyServiceCategory {
-  _id: string
-  title: string
-  slug: { current: string }
-  description: string
-  icon: string
-  featured: boolean
+  _id: string;
+  title: string;
+  slug: { current: string };
+  description: string;
+  icon: string;
+  featured: boolean;
   packages: Array<{
-    _key: string
-    name: string
-    tier: 'basic' | 'standard' | 'premium'
-    price: number
-    currency: string
-    billing: 'one_time' | 'monthly' | 'yearly'
-    deliveryTime: string
-    features: string[]
-    popular: boolean
-  }>
-  serviceType: 'business' | 'technical' | 'creative' | 'consulting'
+    _key: string;
+    name: string;
+    tier: 'basic' | 'standard' | 'premium';
+    price: number;
+    currency: string;
+    billing: 'one_time' | 'monthly' | 'yearly';
+    deliveryTime: string;
+    features: string[];
+    popular: boolean;
+  }>;
+  serviceType: 'business' | 'technical' | 'creative' | 'consulting';
 }
 
 // Optional Sanity package groups with tiers (for scoped modal selection)
 export interface ServicePackageTier {
-  _key: string
-  name: string
-  subtitle?: string
-  tier: 'basic' | 'standard' | 'premium' | 'enterprise'
-  price: number
-  currency: string
-  billing: 'one_time' | 'monthly' | 'hourly' | 'project'
-  deliveryTime?: string
-  features?: Array<string | { title?: string; description?: string }>
-  popular?: boolean
-  addOns?: ServiceAddOn[]
+  _key: string;
+  name: string;
+  subtitle?: string;
+  tier: 'basic' | 'standard' | 'premium' | 'enterprise';
+  price: number;
+  currency: string;
+  billing: 'one_time' | 'monthly' | 'hourly' | 'project';
+  deliveryTime?: string;
+  features?: Array<string | { title?: string; description?: string }>;
+  popular?: boolean;
+  addOns?: ServiceAddOn[];
+  ogImage?: {
+    asset?: {
+      url?: string;
+    };
+  };
+}
+
+// Add ogImage to ServiceCategory
+declare module './service' {
+  interface ServiceCategory {
+    ogImage?: {
+      asset?: {
+        url?: string;
+      };
+      alt?: string;
+      hotspot?: object;
+    };
+  }
 }
 
 export interface ServicePackageGroup {

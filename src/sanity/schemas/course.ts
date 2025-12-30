@@ -27,6 +27,13 @@ export default defineType({
       to: [{type: 'school'}],
     }),
     defineField({ name: 'summary', title: 'Summary', type: 'text' }),
+      defineField({
+        name: 'bannerBackgroundImage',
+        title: 'Banner Background Image',
+        type: 'image',
+        options: { hotspot: true },
+        description: 'Banner image for course detail page (recommended: 1920x600)'
+      }),
     defineField({
       name: 'courseType',
       title: 'Course Pricing Model',
@@ -63,13 +70,13 @@ export default defineType({
       name: 'hourlyRateUSD',
       title: 'Hidden Global Rate (USD)',
       type: 'number',
-      description: 'The standard international hourly rate. Range: $15/hr (₦60/mo floor) to $87.5/hr ($350/mo ceiling). This is the global market rate.',
+      description: 'The standard international hourly rate. (No enforced minimum, set as needed for market)',
       hidden: ({ parent }) => parent?.courseType !== 'live',
       validation: (Rule) => Rule.custom((value, context) => {
         const parent = context?.parent as CourseParent;
         if (parent?.courseType !== 'live') return true;
         if (!value) return 'Hourly rate is required for live mentoring courses';
-        if (value < 15) return 'Minimum rate is $15/hr';
+        // Minimum rate removed for market flexibility
         if (value > 87.5) return 'Maximum rate is $87.5/hr';
         return true;
       })
@@ -78,13 +85,13 @@ export default defineType({
       name: 'hourlyRateNGN',
       title: 'Hidden Regional Rate (NGN)',
       type: 'number',
-      description: 'The adjusted PPP rate for Nigeria. Range: ₦12,500/hr (₦50k/mo floor) to ₦70,000/hr (₦280k/mo ceiling). NOT a direct conversion.',
+      description: 'The adjusted PPP rate for Nigeria. (No enforced minimum, set as needed for market)',
       hidden: ({ parent }) => parent?.courseType !== 'live',
       validation: (Rule) => Rule.custom((value, context) => {
         const parent = context?.parent as CourseParent;
         if (parent?.courseType !== 'live') return true;
         if (!value) return 'Hourly rate is required for live mentoring courses';
-        if (value < 12500) return 'Minimum rate is ₦12,500/hr';
+        // Minimum rate removed for market flexibility
         if (value > 70000) return 'Maximum rate is ₦70,000/hr';
         if (!Number.isInteger(value)) return 'NGN rate must be a whole number';
         return true;

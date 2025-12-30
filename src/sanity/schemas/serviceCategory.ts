@@ -50,13 +50,47 @@ export default defineType({
       type: 'string',
       initialValue: 'default'
     }),
+
+    // Banner background image for hero/banner UI
+    defineField({
+      name: 'bannerBackgroundImage',
+      title: 'Banner Background Image',
+      type: 'image',
+      options: {
+        hotspot: true
+      },
+      description: 'Large background image for the hero/banner area of this service category.'
+    }),
+
+    // Open Graph fields for sharing
+    defineField({
+      name: 'ogTitle',
+      title: 'Open Graph Title',
+      type: 'string',
+      description: 'Title for social sharing (overrides default title in link previews)'
+    }),
+    defineField({
+      name: 'ogDescription',
+      title: 'Open Graph Description',
+      type: 'text',
+      description: 'Description for social sharing (overrides default description in link previews)'
+    }),
+    defineField({
+      name: 'ogImage',
+      title: 'Open Graph Image',
+      type: 'image',
+      options: {
+        hotspot: true
+      },
+      description: 'Image used for social sharing and link previews (1200x630 recommended).'
+    }),
     defineField({
       name: 'featured',
       title: 'Featured Service',
       type: 'boolean',
       initialValue: false
     }),
-    
+
     // 🚨 CRITICAL FIX: Redefining 'packages' to be the MAIN complex object array
     // This matches what your frontend (DynamicServicePage) is trying to read.
     defineField({
@@ -68,27 +102,28 @@ export default defineType({
         name: 'package',
         fields: [
           { name: 'name', type: 'string', title: 'Package Name' },
-          { 
-            name: 'tier', 
-            type: 'string', 
-            title: 'Tier', 
-            options: { list: ['basic', 'standard', 'premium', 'enterprise'] } 
+          { name: 'groupName', type: 'string', title: 'Group Name', description: 'Optional: Logical group for this package/tier (e.g. "Landing Page")' },
+          {
+            name: 'tier',
+            type: 'string',
+            title: 'Tier',
+            options: { list: ['basic', 'standard', 'premium', 'enterprise'] }
           },
           { name: 'price', type: 'number', title: 'Price (USD)' },
           { name: 'currency', type: 'string', title: 'Currency', initialValue: 'USD' },
-          { 
-            name: 'billing', 
-            type: 'string', 
-            title: 'Billing Type', 
-            options: { list: ['one_time', 'monthly', 'hourly', 'project'] } 
+          {
+            name: 'billing',
+            type: 'string',
+            title: 'Billing Type',
+            options: { list: ['one_time', 'monthly', 'hourly', 'project'] }
           },
           { name: 'deliveryTime', type: 'string', title: 'Delivery Time' },
           { name: 'popular', type: 'boolean', title: 'Is Popular?' },
-          { 
-            name: 'features', 
-            type: 'array', 
-            title: 'Features', 
-            of: [{ type: 'string' }] 
+          {
+            name: 'features',
+            type: 'array',
+            title: 'Features',
+            of: [{ type: 'string' }]
           },
           // Add-ons for the modal flow
           {
@@ -103,7 +138,18 @@ export default defineType({
                 { name: 'description', type: 'string', title: 'Description' }
               ]
             }]
-          }
+          },
+          // OG image for this tier/package
+          {
+            name: 'ogImage',
+            title: 'Open Graph Image',
+            type: 'image',
+            options: { hotspot: true },
+            description: 'Image for sharing this tier/package (1200x630 recommended).'
+          },
+          //OG Fields
+          { name: 'ogTitle', type: 'string', title: 'Open Graph Title' },
+          { name: 'ogDescription', type: 'text', title: 'Open Graph Description' }
         ]
       }]
     }),

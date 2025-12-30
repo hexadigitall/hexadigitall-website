@@ -28,6 +28,7 @@ interface CurrencyContextType {
   isLaunchSpecialActive: () => boolean;
   getLocalDiscountMessage: () => string | null;
   isLoading: boolean;
+  isInitialized: boolean;
 }
 
 const CurrencyContext = createContext<CurrencyContextType | undefined>(undefined);
@@ -45,6 +46,7 @@ interface CurrencyProviderProps {
 }
 
 export function CurrencyProvider({ children }: CurrencyProviderProps) {
+  // 1. DEFAULT TO SERVER STATE (USD)
   const [currentCurrency, setCurrentCurrency] = useState<Currency>({
     code: 'USD',
     symbol: '$',
@@ -53,27 +55,26 @@ export function CurrencyProvider({ children }: CurrencyProviderProps) {
   });
   const [currencies] = useState<Currency[]>(currencyService.getSupportedCurrencies());
   const [isLoading, setIsLoading] = useState(true);
+  
+  // 2. INITIALIZATION FLAG
+  const [isInitialized, setIsInitialized] = useState(false);
 
   useEffect(() => {
-    // Initialize currency detection
     const initializeCurrency = async () => {
       try {
-        // Update exchange rates
         await currencyService.updateExchangeRates();
-        
-        // Get current currency (might be from localStorage or geo-detected)
         const current = currencyService.getCurrentCurrency();
         setCurrentCurrency(current);
       } catch (error) {
         console.error('Failed to initialize currency:', error);
       } finally {
         setIsLoading(false);
+        setIsInitialized(true); // 3. MARK AS READY AFTER HYDRATION
       }
     };
 
     initializeCurrency();
 
-    // Listen for currency changes from other components
     const handleCurrencyChange = (event: CustomEvent) => {
       const { currency } = event.detail;
       setCurrentCurrency(currency);
@@ -95,51 +96,74 @@ export function CurrencyProvider({ children }: CurrencyProviderProps) {
     const newCurrency = currencyService.getCurrentCurrency();
     setCurrentCurrency(newCurrency);
     
-    // Dispatch event for other components
-    window.dispatchEvent(new CustomEvent('currencyChanged', { 
-      detail: { currency: newCurrency } 
-    }));
+    if (typeof window !== 'undefined') {
+      window.dispatchEvent(new CustomEvent('currencyChanged', { 
+        detail: { currency: newCurrency } 
+      }));
+    }
   };
 
-  const formatPrice = (usdPrice: number, options?: {
-    currency?: string;
-    showCurrency?: boolean;
-    showOriginal?: boolean;
-    applyNigerianDiscount?: boolean;
-  }) => {
-    return currencyService.formatPrice(usdPrice, options);
-  };
-
-  const formatPriceWithDiscount = (usdPrice: number, options?: {
-    currency?: string;
-    showCurrency?: boolean;
-    showOriginal?: boolean;
-    applyNigerianDiscount?: boolean;
-  }) => {
-    return currencyService.formatPriceWithDiscount(usdPrice, options);
-  };
-
-  const formatPriceRange = (minUsd: number, maxUsd: number, options?: {
-    currency?: string;
-    showCurrency?: boolean;
-  }) => {
-    return currencyService.formatPriceRange(minUsd, maxUsd, options);
-  };
-
-  const convertPrice = (usdPrice: number, toCurrency?: string) => {
-    return currencyService.convertPrice(usdPrice, toCurrency);
-  };
-
+  // --- SAFE GUARDED HELPER FUNCTIONS ---
+  // These functions now force "Server Mode" (USD/No Discount) if called before hydration is complete.
+  
   const isLocalCurrency = () => {
+    if (!isInitialized) return false; 
     return currencyService.isLocalCurrency();
   };
 
   const isLaunchSpecialActive = () => {
+    if (!isInitialized) return false;
     return currencyService.isLaunchSpecialActive();
   };
 
   const getLocalDiscountMessage = () => {
+    if (!isInitialized) return null;
     return currencyService.getLocalDiscountMessage();
+  };
+
+  // --- CRITICAL FIX FOR PRICING COMPONENTS ---
+  // We strictly override options to ensure USD/No Discount until initialized.
+  
+  const formatPrice = (usdPrice: number, options?: any) => {
+    if (!isInitialized) {
+      return currencyService.formatPrice(usdPrice, { 
+        ...options, 
+        currency: 'USD', 
+        applyNigerianDiscount: false 
+      });
+    }
+    return currencyService.formatPrice(usdPrice, options);
+  };
+
+  const formatPriceWithDiscount = (usdPrice: number, options?: any) => {
+    if (!isInitialized) {
+      return currencyService.formatPriceWithDiscount(usdPrice, { 
+        ...options, 
+        currency: 'USD', 
+        applyNigerianDiscount: false 
+      });
+    }
+    return currencyService.formatPriceWithDiscount(usdPrice, options);
+  };
+
+  const formatPriceRange = (minUsd: number, maxUsd: number, options?: any) => {
+    if (!isInitialized) {
+      return currencyService.formatPriceRange(minUsd, maxUsd, { 
+        ...options, 
+        currency: 'USD' 
+      });
+    }
+    return currencyService.formatPriceRange(minUsd, maxUsd, options);
+  };
+
+  const convertPrice = (usdPrice: number, toCurrency?: string) => {
+    // If specific currency requested, allow it. Otherwise default to context currency.
+    if (toCurrency) return currencyService.convertPrice(usdPrice, toCurrency);
+    
+    // If relying on context currency, check initialization
+    if (!isInitialized) return usdPrice; // Return raw USD value
+    
+    return currencyService.convertPrice(usdPrice);
   };
 
   const value: CurrencyContextType = {
@@ -154,6 +178,7 @@ export function CurrencyProvider({ children }: CurrencyProviderProps) {
     isLaunchSpecialActive,
     getLocalDiscountMessage,
     isLoading,
+    isInitialized,
   };
 
   return (

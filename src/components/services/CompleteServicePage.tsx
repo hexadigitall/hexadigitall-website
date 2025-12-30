@@ -1,688 +1,474 @@
 'use client'
 
-import React, { useState, useRef, useEffect } from 'react'
-import Link from 'next/link'
-import TierSelectionModal from '@/components/services/TierSelectionModal'
-import { ServiceRequestFlow, ServiceCategory as LegacyServiceCategory } from '@/components/services/ServiceRequestFlow'
-import type { ServicePackageGroup, ServicePackageTier } from '@/types/service'
-import type { IndividualService } from '@/data/individualServices'
-import { useCurrency } from '@/contexts/CurrencyContext'
-import { StartingAtPriceDisplay } from '@/components/ui/PriceDisplay'
-import Breadcrumb from '@/components/ui/Breadcrumb'
-import JourneyHeader from '@/components/services/JourneyHeader'
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import React, { useState, useEffect, useRef } from 'react';
+import Image from 'next/image';
+import Link from 'next/link';
+import { Dialog, DialogBackdrop } from '@headlessui/react';
+import JourneyHeader from '@/components/services/JourneyHeader';
+import type { ServicePackageGroup, ServicePackageTier } from '@/types/service';
+
+import type { IndividualService } from '@/data/individualServices';
+import Breadcrumb from '@/components/ui/Breadcrumb';
+import TierSelectionModal from '@/components/services/TierSelectionModal';
+import UnifiedServiceRequestFlow from '@/components/services/UnifiedServiceRequestFlow';
+import { useCurrency } from '@/contexts/CurrencyContext';
+import { StartingAtPriceDisplay } from '@/components/ui/PriceDisplay';
+import { getWhatsAppLink } from '@/lib/whatsapp';
+
+// --- Types ---
 
 interface CompleteServicePageProps {
   pageTitle: string
   pageDescription: string
   heroGradient: string
-  heroImage?: string
+  bannerBackgroundImage?: string
   accentColor: 'pink' | 'blue' | 'purple' | 'green' | 'indigo' | 'orange'
   categoryIcon: React.ReactNode
   breadcrumbItems: { label: string; href?: string }[]
   packageGroups: ServicePackageGroup[]
   individualServices: IndividualService[]
   serviceType: string
+  slug: string
 }
+
+export default CompleteServicePage;
+
+// --- Visual Config ---
 
 const accentColors = {
-  pink: {
-    from: 'from-pink-500',
-    to: 'to-red-500',
-    hover: 'hover:from-pink-600 hover:to-red-600',
-    bg: 'bg-pink-500',
-    hoverBg: 'hover:bg-pink-600',
-    border: 'border-pink-500',
-    ring: 'ring-pink-200',
-    text: 'text-pink-500',
-    gradient: 'from-pink-600/10 via-red-600/10 to-orange-600/10'
-  },
-  blue: {
-    from: 'from-blue-500',
-    to: 'to-cyan-500',
-    hover: 'hover:from-blue-600 hover:to-cyan-600',
-    bg: 'bg-blue-500',
-    hoverBg: 'hover:bg-blue-600',
-    border: 'border-blue-500',
-    ring: 'ring-blue-200',
-    text: 'text-blue-500',
-    gradient: 'from-blue-600/10 via-cyan-600/10 to-sky-600/10'
-  },
-  purple: {
-    from: 'from-purple-500',
-    to: 'to-indigo-500',
-    hover: 'hover:from-purple-600 hover:to-indigo-600',
-    bg: 'bg-purple-500',
-    hoverBg: 'hover:bg-purple-600',
-    border: 'border-purple-500',
-    ring: 'ring-purple-200',
-    text: 'text-purple-500',
-    gradient: 'from-purple-600/10 via-indigo-600/10 to-blue-600/10'
-  },
-  green: {
-    from: 'from-green-500',
-    to: 'to-emerald-500',
-    hover: 'hover:from-green-600 hover:to-emerald-600',
-    bg: 'bg-green-500',
-    hoverBg: 'hover:bg-green-600',
-    border: 'border-green-500',
-    ring: 'ring-green-200',
-    text: 'text-green-500',
-    gradient: 'from-green-600/10 via-emerald-600/10 to-teal-600/10'
-  },
-  indigo: {
-    from: 'from-indigo-500',
-    to: 'to-purple-500',
-    hover: 'hover:from-indigo-600 hover:to-purple-600',
-    bg: 'bg-indigo-500',
-    hoverBg: 'hover:bg-indigo-600',
-    border: 'border-indigo-500',
-    ring: 'ring-indigo-200',
-    text: 'text-indigo-500',
-    gradient: 'from-indigo-600/10 via-purple-600/10 to-pink-600/10'
-  },
-  orange: {
-    from: 'from-orange-500',
-    to: 'to-amber-500',
-    hover: 'hover:from-orange-600 hover:to-amber-600',
-    bg: 'bg-orange-500',
-    hoverBg: 'hover:bg-orange-600',
-    border: 'border-orange-500',
-    ring: 'ring-orange-200',
-    text: 'text-orange-500',
-    gradient: 'from-orange-600/10 via-amber-600/10 to-yellow-600/10'
-  }
+  pink: { from: 'from-pink-500', to: 'to-red-500', bg: 'bg-pink-500', border: 'border-pink-500', text: 'text-pink-600', light: 'bg-pink-50', hoverBg: 'hover:bg-pink-600', ring: 'ring-pink-200' },
+  blue: { from: 'from-blue-600', to: 'to-indigo-600', bg: 'bg-blue-600', border: 'border-blue-600', text: 'text-blue-600', light: 'bg-blue-50', hoverBg: 'hover:bg-blue-700', ring: 'ring-blue-200' },
+  purple: { from: 'from-purple-600', to: 'to-violet-600', bg: 'bg-purple-600', border: 'border-purple-600', text: 'text-purple-600', light: 'bg-purple-50', hoverBg: 'hover:bg-purple-700', ring: 'ring-purple-200' },
+  green: { from: 'from-emerald-500', to: 'to-teal-500', bg: 'bg-emerald-500', border: 'border-emerald-500', text: 'text-emerald-600', light: 'bg-emerald-50', hoverBg: 'hover:bg-emerald-700', ring: 'ring-emerald-200' },
+  indigo: { from: 'from-indigo-500', to: 'to-blue-500', bg: 'bg-indigo-500', border: 'border-indigo-500', text: 'text-indigo-600', light: 'bg-indigo-50', hoverBg: 'hover:bg-indigo-700', ring: 'ring-indigo-200' },
+  orange: { from: 'from-orange-500', to: 'to-amber-500', bg: 'bg-orange-500', border: 'border-orange-500', text: 'text-orange-600', light: 'bg-orange-50', hoverBg: 'hover:bg-orange-700', ring: 'ring-orange-200' }
 }
 
-export default function CompleteServicePage({
-  pageTitle,
-  pageDescription,
-  heroGradient,
-  heroImage,
-  accentColor,
-  categoryIcon,
-  breadcrumbItems,
-  packageGroups,
-  individualServices,
-  serviceType
-}: CompleteServicePageProps) {
-  const [selectedGroup, setSelectedGroup] = useState<ServicePackageGroup | null>(null)
-  // Track a selected tier when a group is opened (used for modal launch)
-  // Selected tier state retained for potential future tier-specific actions (modal launch, analytics)
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [selectedTier, setSelectedTier] = useState<ServicePackageTier | null>(null)
-  const [showRequestFlow, setShowRequestFlow] = useState(false)
-  const [requestServiceCategory, setRequestServiceCategory] = useState<LegacyServiceCategory | null>(null)
-  const [showALaCarte, setShowALaCarte] = useState(false)
-  const [selectedServices, setSelectedServices] = useState<Set<string>>(new Set())
-  const [showAllIndividual, setShowAllIndividual] = useState(false)
-  const individualSectionRef = useRef<HTMLDivElement>(null)
-  // Reserved for future dynamic pricing announcements
-  // Live region reserved for dynamic pricing updates (currently unused)
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const priceLiveRegionRef = useRef<HTMLDivElement>(null)
-  const tierHeadingRef = useRef<HTMLHeadingElement>(null)
-  const bundleHeadingRef = useRef<HTMLHeadingElement>(null)
-  const individualHeadingRef = useRef<HTMLHeadingElement>(null)
+const INITIAL_SERVICES_LIMIT = 3;
+
+// --- Helper: Determine Journey Stage ---
+const getJourneyStage = (serviceType: string): 'idea' | 'build' | 'grow' => {
+  const type = serviceType.toLowerCase();
+  if (['business', 'consulting', 'branding'].includes(type)) return 'idea';
+  if (['marketing', 'social'].includes(type)) return 'grow';
+  return 'build'; // Default for 'web', 'profile', 'app'
+};
+
+// --- Helper Component: Sticky CTA for Mobile ---
+const StickyServiceCTA = ({ 
+  price, 
+  onChat, 
+  onBuy, 
+  currencyCode 
+}: { 
+  price: number, 
+  onChat: () => void, 
+  onBuy: () => void,
+  currencyCode: string
+}) => {
+  const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
-    individualHeadingRef.current?.focus()
-  }, [])
-  const { currentCurrency, getLocalDiscountMessage, convertPrice } = useCurrency()
-  const discountMessage = getLocalDiscountMessage()
-  const colors = accentColors[accentColor]
-  
-  // Determine journey stage based on service type
-  const journeyStage = serviceType === 'business' ? 'idea' 
-    : serviceType === 'web-dev' ? 'build' 
-    : 'grow'
+    const handleScroll = () => {
+      // Show after scrolling 400px (past the hero/intro)
+      setIsVisible(window.scrollY > 400);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
-  // Toggle service selection
-  const toggleServiceSelection = (serviceId: string) => {
-    const newSelected = new Set(selectedServices)
-    if (newSelected.has(serviceId)) {
-      newSelected.delete(serviceId)
-    } else {
-      newSelected.add(serviceId)
-    }
-    setSelectedServices(newSelected)
-  }
-
-  // Calculate total price for selected services
-  const calculateTotal = () => {
-    let total = 0
-    selectedServices.forEach(serviceId => {
-      const service = individualServices.find(s => s.id === serviceId)
-      if (service) {
-        total += service.price
-      }
-    })
-    return total
-  }
-
-  const totalPrice = calculateTotal()
-  const hasSelectedServices = selectedServices.size > 0
-
-  // Bundle discount (5% off when buying 2+, 10% off when buying 3+)
-  const getBundleDiscount = () => {
-    if (selectedServices.size >= 3) return 0.10
-    if (selectedServices.size >= 2) return 0.05
-    return 0
-  }
-
-  const bundleDiscount = getBundleDiscount()
-  const savings = totalPrice * bundleDiscount
-  const finalPrice = totalPrice - savings
-
-  const handleTierSelect = (tier: ServicePackageTier) => {
-    if (!selectedGroup) return
-    setSelectedTier(tier)
-    const sc: LegacyServiceCategory = {
-      _id: selectedGroup.key?.current || 'tier-service',
-      title: selectedGroup.name,
-      slug: { current: selectedGroup.key?.current || '' },
-      description: selectedGroup.description || 'Service package',
-      icon: '📦',
-      featured: true,
-      serviceType,
-      packages: [
-        {
-          _key: tier._key,
-          name: tier.name,
-          tier: tier.tier,
-          price: tier.price,
-          currency: tier.currency,
-          billing: tier.billing,
-          deliveryTime: tier.deliveryTime || '7-14 days',
-          features: (tier.features || []).map(f => typeof f === 'string' ? f : (f?.title || f?.description || '')),
-          popular: tier.popular || false
-        }
-      ]
-    }
-    setRequestServiceCategory(sc)
-    setShowRequestFlow(true)
-    setSelectedGroup(null)
-  }
-
-  const handleIndividualServiceSelect = (service: IndividualService) => {
-    const sc: LegacyServiceCategory = {
-      _id: `${serviceType}-individual`,
-      title: pageTitle,
-      slug: { current: serviceType },
-      description: service.description,
-      icon: '📦',
-      featured: false,
-      serviceType,
-      packages: [{
-        _key: service.id,
-        name: service.name,
-        tier: 'basic' as const,
-        price: service.price,
-        currency: 'USD',
-        billing: 'one_time' as const,
-        deliveryTime: service.deliveryTime,
-        features: service.features,
-        popular: false
-      }]
-    }
-    setRequestServiceCategory(sc)
-    setShowRequestFlow(true)
-  }
-
-  const handleCustomBundleCheckout = () => {
-    if (selectedServices.size === 0) return
-
-    const selectedItems = Array.from(selectedServices).map(serviceId => {
-      const service = individualServices.find(s => s.id === serviceId)!
-      return service
-    })
-
-    const bundleName = selectedServices.size === 1 
-      ? selectedItems[0].name
-      : `Custom Bundle (${selectedServices.size} services)`
-    
-    const allFeatures = selectedItems.flatMap(s => s.features)
-    const longestDelivery = Math.max(...selectedItems.map(s => parseInt(s.deliveryTime.split('-')[1] || '7')))
-
-    const sc: LegacyServiceCategory = {
-      _id: `${serviceType}-custom-bundle`,
-      title: pageTitle,
-      slug: { current: serviceType },
-      description: `Custom bundle including: ${selectedItems.map(s => s.name).join(', ')}`,
-      icon: '📦',
-      featured: false,
-      serviceType,
-      packages: [{
-        _key: 'custom-bundle',
-        name: bundleName,
-        tier: 'basic' as const,
-        price: finalPrice,
-        currency: 'USD',
-        billing: 'one_time' as const,
-        deliveryTime: `${longestDelivery}-${longestDelivery + 2} days`,
-        features: allFeatures,
-        popular: false
-      }]
-    }
-    setRequestServiceCategory(sc)
-    setShowRequestFlow(true)
-  }
-
-  const serviceCategory = showRequestFlow ? requestServiceCategory : null
+  if (!isVisible) return null;
 
   return (
-    <div className={`min-h-screen bg-gradient-to-b from-slate-50 via-white to-gray-50 scroll-smooth ${hasSelectedServices ? 'pb-32 sm:pb-24' : ''}`}>
-      {/* Breadcrumb */}
-      <div className="bg-white border-b sticky top-0 z-30 shadow-sm">
-        <div className="container mx-auto px-4 sm:px-6 py-3 sm:py-4">
-          <Breadcrumb items={breadcrumbItems} />
+    <div className="fixed bottom-0 left-0 right-0 bg-white/95 backdrop-blur-md border-t border-gray-200 p-3 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.1)] z-[60] md:hidden animate-in slide-in-from-bottom-full duration-300">
+      <div className="flex items-center justify-between gap-3 max-w-md mx-auto">
+        <div className="flex flex-col">
+          <span className="text-[10px] uppercase tracking-wider text-gray-500 font-semibold">Starting at</span>
+          <span className="font-bold text-lg text-blue-600 leading-tight">
+            {new Intl.NumberFormat('en-NG', { style: 'currency', currency: currencyCode, maximumFractionDigits: 0 }).format(price)}
+          </span>
+        </div>
+        <div className="flex gap-2 flex-1 justify-end">
+          <button 
+            onClick={onChat}
+            className="p-3 bg-green-100 text-green-700 rounded-xl hover:bg-green-200 active:scale-95 transition-all flex-shrink-0 border border-green-200"
+            aria-label="Chat on WhatsApp"
+          >
+            <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          </button>
+          <button 
+            onClick={onBuy}
+            className="flex-1 bg-blue-600 text-white font-bold rounded-xl py-3 text-sm shadow-md hover:bg-blue-700 active:scale-95 transition-all"
+          >
+            Get Started
+          </button>
         </div>
       </div>
-      
-      {/* User Journey Navigation */}
-      <JourneyHeader currentStage={journeyStage} />
+    </div>
+  );
+};
 
-      {/* Hero Section */}
-      <div className="relative py-12 sm:py-20 overflow-hidden">
-        {/* Background Image */}
-        {heroImage && (
-          <div 
-            className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-            style={{ backgroundImage: `url(${heroImage})` }}
-          >
-            <div className="absolute inset-0 bg-gradient-to-b from-white/90 via-white/85 to-white/95"></div>
-          </div>
+// --- Main Component ---
+function CompleteServicePage(props: CompleteServicePageProps) {
+  const [selectedIndividualService, setSelectedIndividualService] = useState<IndividualService | null>(null);
+  const [shareModal, setShareModal] = useState<{ open: boolean; title: string; url: string; ogImage?: string } | null>(null);
+  const {
+    pageTitle,
+    pageDescription,
+    heroGradient,
+    bannerBackgroundImage,
+    accentColor,
+    categoryIcon,
+    breadcrumbItems,
+    packageGroups,
+    individualServices,
+    serviceType
+  } = props;
+  const { currentCurrency } = useCurrency();
+  const [selectedGroup, setSelectedGroup] = useState<ServicePackageGroup | null>(null);
+  const [selectedTier, setSelectedTier] = useState<ServicePackageTier | null>(null);
+  const [showRequestFlow, setShowRequestFlow] = useState(false);
+  const [activeTab, setActiveTab] = useState<'individual' | 'bundle' | 'packages'>('packages');
+  const [showAllServices, setShowAllServices] = useState(false);
+  const tabNavRef = useRef<HTMLDivElement>(null);
+
+  // Find lowest price for sticky CTA (use discounted local currency value)
+  const allTiers = packageGroups.flatMap((g: ServicePackageGroup) => g.tiers as ServicePackageTier[] || []);
+  const lowestTier = allTiers.reduce((min: number, t: ServicePackageTier) => (t && typeof t.price === 'number' && t.price < min ? t.price : min), Infinity);
+  const lowestPriceUSD = isFinite(lowestTier) ? lowestTier : 0;
+  const { formatPriceWithDiscount } = useCurrency();
+  // Removed unused priceInfo
+
+  // WhatsApp action for lowest package (always use current currency)
+  const handleWhatsApp = () => {
+    const priceInCurrentCurrency = formatPriceWithDiscount(lowestPriceUSD, { currency: currentCurrency.code, applyNigerianDiscount: true });
+    const msg = `Hello Hexadigitall! I'm interested in the ${pageTitle} service starting at ${priceInCurrentCurrency.discountedPrice}. Can you provide more details?`;
+    window.open(getWhatsAppLink(msg), '_blank');
+  };
+
+  // Buy action for lowest package
+  const handleBuy = () => {
+    if (packageGroups.length > 0) {
+      setSelectedGroup(packageGroups[0]);
+    }
+  };
+
+  // Handle tier selection from modal
+  const handleTierSelect = (tier: ServicePackageTier) => {
+    setSelectedTier(tier);
+    setShowRequestFlow(true);
+  };
+
+  // Close modal/request flow
+  const handleCloseModal = () => {
+    setSelectedGroup(null);
+    setSelectedTier(null);
+    setShowRequestFlow(false);
+  };
+
+  // --- Scroll to section on tab click ---
+  const scrollToSection = (sectionId: string) => {
+    const el = document.getElementById(sectionId);
+    if (el) {
+      window.scrollTo({ top: el.offsetTop - 70, behavior: 'smooth' });
+    }
+  };
+
+  // --- Sticky Tab Navigation ---
+  useEffect(() => {
+    const handleScroll = () => {
+      if (!tabNavRef.current) return;
+      const { top } = tabNavRef.current.getBoundingClientRect();
+      tabNavRef.current.classList.toggle('sticky', top <= 0);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  return (
+    <div className="min-h-screen bg-slate-50">
+      <JourneyHeader currentStage={getJourneyStage(serviceType)} />
+      <div className="relative pt-32 pb-24 overflow-hidden text-white">
+        {bannerBackgroundImage && (
+          <div
+            className="absolute inset-0 w-full h-full z-0"
+            style={{
+              backgroundImage: `linear-gradient(120deg, rgba(0,0,0,0.48) 0%, rgba(0,0,0,0.32) 100%), url('${bannerBackgroundImage}')`,
+              backgroundSize: 'cover',
+              backgroundPosition: 'center',
+              backgroundRepeat: 'no-repeat',
+            }}
+            aria-hidden="true"
+          />
         )}
-        <div className="absolute inset-0">
-          <div className={`absolute inset-0 bg-gradient-to-br ${heroGradient}`}></div>
-          <div className={`absolute top-1/4 left-1/4 w-48 sm:w-64 h-48 sm:h-64 bg-gradient-to-r ${colors.from} ${colors.to} opacity-20 rounded-full blur-3xl animate-pulse`}></div>
-          <div className={`absolute bottom-1/4 right-1/4 w-60 sm:w-80 h-60 sm:h-80 bg-gradient-to-r ${colors.from} ${colors.to} opacity-20 rounded-full blur-2xl animate-pulse`} style={{animationDelay: '1s'}}></div>
+        <div className={`absolute inset-0 bg-gradient-to-br ${heroGradient} z-10`} aria-hidden="true" />
+        <div className="absolute inset-0 bg-grid-white/[0.05] bg-[length:20px_20px] z-20" aria-hidden="true" />
+        <div className="container mx-auto px-4 relative z-30">
+          <div className="mb-8">
+            <Breadcrumb items={breadcrumbItems} />
+          </div>
+          <div className="max-w-4xl mx-auto text-center flex flex-col items-center">
+            {categoryIcon && (
+              <span className="mb-4 inline-flex items-center justify-center w-16 h-16 rounded-full bg-white/20 border-2 border-white/30 text-4xl">
+                {categoryIcon}
+              </span>
+            )}
+            <h1 className="text-4xl md:text-6xl font-bold mb-6 tracking-tight drop-shadow-lg" style={{textShadow: '0 2px 8px rgba(0,0,0,0.18)'}}>{pageTitle}</h1>
+            <p className="text-xl md:text-2xl leading-relaxed max-w-2xl mx-auto drop-shadow-md" style={{color: 'rgba(255,255,255,0.92)', textShadow: '0 1px 6px rgba(0,0,0,0.12)'}}>{pageDescription}</p>
+          </div>
         </div>
-        
-        <div className="container mx-auto px-4 sm:px-6 relative z-10">
-          <div className="text-center mb-12 sm:mb-16">
-            {/* Special Offer Banner */}
-            {discountMessage && (
-              <div className="mb-6 sm:mb-8 flex justify-center">
-                <div className="inline-flex items-center space-x-2 bg-gradient-to-r from-orange-500 to-pink-500 px-4 sm:px-6 py-2 sm:py-3 rounded-full text-xs sm:text-sm font-bold text-white shadow-lg animate-bounce">
-                  <span>🇳🇬</span>
-                  <span className="hidden sm:inline">NIGERIAN LAUNCH SPECIAL - 50% OFF ALL PACKAGES!</span>
-                  <span className="sm:hidden">50% OFF ALL PACKAGES!</span>
-                  <span>🔥</span>
+        <div className="absolute bottom-0 left-0 right-0 h-16 bg-slate-50 z-40" style={{ clipPath: "polygon(0 100%, 100% 100%, 100% 0, 0 100%)" }}></div>
+      </div>
+
+      {/* --- Sticky Tab Navigation --- */}
+      <div ref={tabNavRef} className="w-full bg-white z-30 shadow-sm sticky top-0 transition-all duration-200">
+        <div className="container mx-auto px-4 flex justify-center gap-2 py-2">
+          <button
+            className={`px-4 py-2 rounded-full font-semibold text-sm transition-colors ${activeTab === 'individual' ? accentColors[accentColor].bg + ' text-white' : 'bg-gray-100 text-gray-700'}`}
+            onClick={() => { setActiveTab('individual'); scrollToSection('individual-services-section'); }}
+          >Individual Services</button>
+          <button
+            className={`px-4 py-2 rounded-full font-semibold text-sm transition-colors ${activeTab === 'bundle' ? accentColors[accentColor].bg + ' text-white' : 'bg-gray-100 text-gray-700'}`}
+            onClick={() => { setActiveTab('bundle'); scrollToSection('build-bundle-section'); }}
+          >Build Bundle</button>
+          <button
+            className={`px-4 py-2 rounded-full font-semibold text-sm transition-colors ${activeTab === 'packages' ? accentColors[accentColor].bg + ' text-white' : 'bg-gray-100 text-gray-700'}`}
+            onClick={() => { setActiveTab('packages'); scrollToSection('package-groups-section'); }}
+          >Complete Packages</button>
+        </div>
+      </div>
+
+      {/* --- Package Groups Section --- */}
+      <section id="package-groups-section" className="container mx-auto px-4 py-12">
+        <h2 className="text-2xl font-bold text-gray-900 mb-8 text-center">Choose a Package</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {packageGroups.map((group: ServicePackageGroup) => {
+            const groupLowest = (group.tiers as ServicePackageTier[] || []).reduce((min: number, t: ServicePackageTier) => (t && typeof t.price === 'number' && t.price < min ? t.price : min), Infinity);
+            // Removed unused groupPriceInfo
+            return (
+              <div key={typeof group.key === 'string' ? group.key : group.key?.current || group.name} className="bg-white rounded-2xl shadow-md p-6 flex flex-col">
+                <div className="mb-4">
+                  <h3 className="text-xl font-bold text-gray-900 mb-2">{group.name}</h3>
+                  <p className="text-gray-600 mb-4">{group.description}</p>
+                  {isFinite(groupLowest) && (
+                    <StartingAtPriceDisplay price={groupLowest} size="md" showDiscount={true} />
+                  )}
                 </div>
-              </div>
-            )}
-            
-            <div className={`inline-flex items-center space-x-2 bg-gradient-to-r ${colors.from} ${colors.to} bg-opacity-10 px-3 sm:px-4 py-2 rounded-full text-xs sm:text-sm font-medium mb-4 sm:mb-6`}>
-              {categoryIcon}
-              <span className="capitalize">{pageTitle}</span>
-            </div>
-            <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold font-heading text-gray-900 mb-4 sm:mb-6 px-4">
-              {pageTitle}
-            </h1>
-            <p className="text-base sm:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed px-4">
-              {pageDescription}
-            </p>
-            
-            {/* Currency Info */}
-            <div className="mt-6 sm:mt-8">
-              <div className="inline-flex items-center space-x-2 text-xs sm:text-sm text-gray-600">
-                <span>Prices shown in:</span>
-                <span className="font-semibold text-primary">{currentCurrency.flag} {currentCurrency.code}</span>
-              </div>
-            </div>
-          </div>
-
-          {/* Quick Navigation Pills */}
-          <div className="flex flex-wrap justify-center gap-3 sm:gap-4 mb-8 sm:mb-12">
-            <a href="#individual-services" className="min-h-[44px] px-4 sm:px-6 py-3 bg-white border-2 border-gray-300 rounded-full text-xs sm:text-sm font-medium text-gray-700 hover:border-gray-400 hover:shadow-md transition-all inline-flex items-center active:scale-95">
-              Individual Services
-            </a>
-            <a href="#custom-bundle" className="min-h-[44px] px-4 sm:px-6 py-3 bg-white border-2 border-gray-300 rounded-full text-xs sm:text-sm font-medium text-gray-700 hover:border-gray-400 hover:shadow-md transition-all inline-flex items-center active:scale-95">
-              Build Bundle
-            </a>
-            <a href="#tiered-packages" className="min-h-[44px] px-4 sm:px-6 py-3 bg-white border-2 border-gray-300 rounded-full text-xs sm:text-sm font-medium text-gray-700 hover:border-gray-400 hover:shadow-md transition-all inline-flex items-center active:scale-95">
-              Complete Packages
-            </a>
-            {serviceType === 'web-dev' && (
-              <Link href="/services/custom-build" className="min-h-[44px] px-4 sm:px-6 py-3 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-full text-xs sm:text-sm font-medium text-white hover:shadow-md transition-all inline-flex items-center active:scale-95">
-                💡 Software Configurator
-              </Link>
-            )}
-          </div>
-
-          {/* Section 1: Pre-packaged Individual Services */}
-          <div id="individual-services" ref={individualSectionRef} className="mb-16 sm:mb-20 scroll-mt-24">
-            <div className="text-center mb-8 sm:mb-12 px-4">
-              <h2 ref={individualHeadingRef} tabIndex={-1} className="text-2xl sm:text-3xl font-bold text-gray-900 mb-3 focus:outline-none">Individual Services</h2>
-              <p className="text-sm sm:text-base text-gray-600 max-w-2xl mx-auto">
-                Need just one specific service? Choose from our ready-to-buy individual offerings.
-              </p>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 px-4">
-              {(showAllIndividual ? individualServices : individualServices.slice(0, 3)).map((service) => (
-                <div key={service.id} className="card-enhanced p-4 sm:p-6 hover:shadow-xl transition-all duration-300">
-                  <div className="mb-4">
-                    <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-2">{service.name}</h3>
-                    <p className="text-xs sm:text-sm text-gray-600">{service.description}</p>
-                  </div>
-                  
-                  <div className="mb-4 pb-4 border-b border-gray-200">
-                    <StartingAtPriceDisplay 
-                      price={service.price} 
-                      size="lg" 
-                      showDiscount={true}
-                    />
-                    <p className="text-xs sm:text-sm text-gray-500 mt-2 flex items-center">
-                      <svg className="w-3 h-3 sm:w-4 sm:h-4 inline mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                      </svg>
-                      Delivery: {service.deliveryTime}
-                    </p>
-                  </div>
-
-                  <ul className="space-y-2 mb-6">
-                    {service.features.map((feature, index) => (
-                      <li key={index} className="flex items-start text-xs sm:text-sm text-gray-700">
-                        <svg className={`w-3 h-3 sm:w-4 sm:h-4 ${colors.text} mr-2 flex-shrink-0 mt-0.5`} fill="currentColor" viewBox="0 0 20 20">
+                <ul className="space-y-2 mb-6">
+                  {(group.tiers?.[0]?.features || []).slice(0, 5).map((feature: any, idx: number) => {
+                    let featureText = '';
+                    if (typeof feature === 'string') featureText = feature;
+                    else if (feature && typeof feature === 'object' && ('title' in feature || 'description' in feature)) {
+                      featureText = (feature as { title?: string; description?: string }).title || (feature as { title?: string; description?: string }).description || '';
+                    }
+                    return (
+                      <li key={idx} className="flex items-center text-sm text-gray-600">
+                        <svg className={`w-4 h-4 text-${accentColor}-500 mr-2 flex-shrink-0`} fill="currentColor" viewBox="0 0 20 20">
                           <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                         </svg>
-                        {feature}
+                        {featureText}
                       </li>
-                    ))}
-                  </ul>
+                    );
+                  })}
+                  {(group.tiers?.[0]?.features?.length || 0) > 5 && (
+                    <li className="text-xs text-gray-400 italic">+{(group.tiers?.[0]?.features?.length || 0) - 5} more features</li>
+                  )}
+                </ul>
+                <div className="flex gap-2 mt-auto">
+                  <button
+                    className={`bg-gradient-to-r from-${accentColor}-500 to-indigo-500 text-white py-3 px-4 rounded-xl font-semibold hover:from-${accentColor}-600 hover:to-indigo-600 transition-colors`}
+                    onClick={() => setSelectedGroup(group)}
+                  >
+                    View Options
+                  </button>
+                  <button
+                    className="bg-green-100 text-green-700 font-semibold rounded-xl py-3 px-4 hover:bg-green-200 transition-colors"
+                    onClick={() => {
+                      const groupPriceInCurrentCurrency = formatPriceWithDiscount(groupLowest, { currency: currentCurrency.code, applyNigerianDiscount: true });
+                      const msg = `Hello Hexadigitall! I'm interested in the ${group.tiers?.[0]?.name || group.name} package for ${pageTitle} starting at ${groupPriceInCurrentCurrency.discountedPrice}. Can you provide more details?`;
+                      window.open(getWhatsAppLink(msg), '_blank');
+                    }}
+                  >
+                    Chat on WhatsApp
+                  </button>
+                  {/* Share button for this package/tier */}
+                  {group.tiers?.[0]?.ogImage?.asset?.url && (
+                    <button
+                      className="bg-gray-100 text-gray-700 rounded-xl py-3 px-4 hover:bg-gray-200 transition-colors flex items-center gap-2"
+                      onClick={() => setShareModal({
+                        open: true,
+                        title: `${group.name} – ${group.tiers?.[0]?.tier || ''}`,
+                        url: typeof window !== 'undefined' ? window.location.href : '',
+                        ogImage: group.tiers[0]?.ogImage?.asset?.url
+                      })}
+                      aria-label="Share this package"
+                    >
+                      <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M15 8a3 3 0 11-6 0 3 3 0 016 0zm6 8a6 6 0 10-12 0 6 6 0 0012 0zm-6 6v-6" /></svg>
+                      Share
+                    </button>
+                  )}
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </section>
+      {/* Share Modal for ogImage preview and link copy */}
+      {shareModal?.open && (
+        <Dialog open={shareModal.open} onClose={() => setShareModal(null)} className="fixed z-[100] inset-0 flex items-center justify-center">
+          <DialogBackdrop className="fixed inset-0 bg-black/40" />
+          <div className="relative bg-white rounded-2xl shadow-xl p-8 max-w-md w-full z-10 flex flex-col items-center">
+            {shareModal.ogImage && (
+              <Image src={shareModal.ogImage} alt="Share preview" width={800} height={300} className="w-full h-48 object-cover rounded-xl mb-4 border" />
+            )}
+            <h3 className="text-lg font-bold mb-2 text-center">Share: {shareModal.title}</h3>
+            <input
+              className="w-full border rounded px-3 py-2 mb-3 text-sm text-gray-700 bg-gray-100"
+              value={shareModal.url}
+              readOnly
+              onFocus={e => e.target.select()}
+            />
+            <button
+              className="bg-blue-600 text-white rounded-xl px-4 py-2 font-semibold hover:bg-blue-700 transition-colors"
+              onClick={() => { navigator.clipboard.writeText(shareModal.url); }}
+            >Copy Link</button>
+            <button
+              className="mt-4 text-gray-500 hover:text-gray-700 text-xs"
+              onClick={() => setShareModal(null)}
+            >Close</button>
+          </div>
+        </Dialog>
+      )}
 
-                  <button 
-                    onClick={() => handleIndividualServiceSelect(service)}
-                    className={`w-full min-h-[44px] bg-gradient-to-r ${colors.from} ${colors.to} text-white py-3 px-4 sm:px-6 rounded-xl text-sm sm:text-base font-semibold ${colors.hover} transition-all duration-300 transform hover:-translate-y-1 active:scale-95 shadow-md hover:shadow-lg focus:ring-2 focus:ring-offset-2`}
+      {/* --- Individual Services Section --- */}
+      {individualServices && individualServices.length > 0 && (
+        <section id="individual-services-section" className="container mx-auto px-4 py-12">
+          <h2 className="text-2xl font-bold text-gray-900 mb-8 text-center">Or Pick an Individual Service</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {(showAllServices ? individualServices : individualServices.slice(0, INITIAL_SERVICES_LIMIT)).map((service) => (
+              <div key={service.name} className="bg-white rounded-2xl shadow-md p-6 flex flex-col">
+                <h3 className="text-lg font-bold text-gray-900 mb-2">{service.name}</h3>
+                <p className="text-gray-600 mb-4 flex-grow">{service.description}</p>
+                <div className="mb-4">
+                  <StartingAtPriceDisplay price={service.price} size="sm" showDiscount={true} />
+                  <p className="text-xs text-gray-500 mt-1">Delivery: {service.deliveryTime}</p>
+                </div>
+                <ul className="space-y-1 mb-6">
+                  {(service.features || []).slice(0, 4).map((feature, idx) => {
+                    let featureText = '';
+                    if (typeof feature === 'string') featureText = feature;
+                    else if (feature && typeof feature === 'object' && ('title' in feature || 'description' in feature)) {
+                      featureText = (feature as { title?: string; description?: string }).title || (feature as { title?: string; description?: string }).description || '';
+                    }
+                    return (
+                      <li key={idx} className="flex items-center text-xs text-gray-600">
+                        <svg className={`w-3 h-3 text-${accentColor}-500 mr-2 flex-shrink-0`} fill="currentColor" viewBox="0 0 20 20">
+                          <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                        </svg>
+                        {featureText}
+                      </li>
+                    );
+                  })}
+                  {(service.features?.length || 0) > 4 && (
+                    <li className="text-xs text-gray-400 italic">+{(service.features?.length || 0) - 4} more features</li>
+                  )}
+                </ul>
+                <div className="flex gap-2 mt-auto">
+                  <button
+                    className="bg-blue-600 text-white font-semibold rounded-xl py-3 px-4 hover:bg-blue-700 transition-colors"
+                    onClick={() => {
+                      setSelectedIndividualService(service);
+                      setShowRequestFlow(true);
+                    }}
                   >
                     Buy Now
                   </button>
-                </div>
-              ))}
-            </div>
-            
-            {/* Show More/Less Button */}
-            {individualServices.length > 3 && (
-              <div className="text-center mt-8 px-4">
-                <button
-                  onClick={() => {
-                    if (showAllIndividual) {
-                      // When collapsing, scroll to the section to maintain view context
-                      individualSectionRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })
-                    }
-                    setShowAllIndividual(!showAllIndividual)
-                  }}
-                  className={`inline-flex items-center gap-2 min-h-[44px] px-6 sm:px-8 py-3 bg-white border-2 ${colors.border} text-gray-700 font-semibold rounded-xl hover:bg-gray-50 transition-all duration-300 shadow-md hover:shadow-lg active:scale-95`}
-                >
-                  {showAllIndividual ? (
-                    <>
-                      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 15l7-7 7 7" />
-                      </svg>
-                      <span>Show Less</span>
-                    </>
-                  ) : (
-                    <>
-                      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                      </svg>
-                      <span>Show {individualServices.length - 3} More Services</span>
-                    </>
-                  )}
-                </button>
-              </div>
-            )}
-          </div>
-
-          {/* Section 2: À La Carte Builder - Redirect to Global Builder */}
-          <div id="custom-bundle" className="mb-16 sm:mb-20 scroll-mt-24">
-            <div className="card-enhanced rounded-2xl p-6 sm:p-8 mx-4">
-              <div className="text-center mb-6">
-                <h2 ref={bundleHeadingRef} tabIndex={-1} className="text-2xl sm:text-3xl font-bold text-gray-900 mb-3 flex items-center justify-center gap-2 focus:outline-none">
-                  <svg className={`w-5 h-5 sm:w-6 sm:h-6 ${colors.text}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
-                  </svg>
-                  Need Individual Services?
-                </h2>
-                <p className="text-sm sm:text-base text-gray-600 mb-6">
-                  Pick specific tasks from this or any category and bundle them your way with our <strong>Global À La Carte Builder</strong>.
-                </p>
-                <a
-                  href={`/services/build-bundle?category=${individualServices[0]?.category || 'all'}`}
-                  className={`inline-flex items-center min-h-[44px] px-6 sm:px-8 py-3 sm:py-4 bg-gradient-to-r ${colors.from} ${colors.to} text-white font-semibold rounded-xl ${colors.hover} transition-all duration-300 transform hover:scale-105 active:scale-95 shadow-lg text-sm sm:text-base`}
-                >
-                  <svg className="w-4 h-4 sm:w-5 sm:h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
-                  </svg>
-                  Browse À La Carte Services
-                </a>
-                <p className="text-xs text-gray-500 mt-4">
-                  Mix services from Web, Marketing, Branding, Portfolio, and more — all in one place.
-                </p>
-              </div>
-              
-              {false && ( /* Remove the collapsible section */
-                <div className="space-y-6">
-                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
-                    {individualServices.map((service) => {
-                      const isSelected = selectedServices.has(service.id)
-                      return (
-                        <div 
-                          key={service.id} 
-                          className={`bg-white border-2 rounded-2xl p-4 sm:p-6 transition-all duration-300 cursor-pointer ${
-                            isSelected 
-                              ? `${colors.border} shadow-lg ring-2 ${colors.ring}` 
-                              : 'border-gray-200 hover:border-gray-300 hover:shadow-md'
-                          }`}
-                          onClick={() => toggleServiceSelection(service.id)}
-                        >
-                          {/* Checkbox Header */}
-                          <div className="flex items-start justify-between mb-3 min-h-[44px]">
-                            <div className="flex-1 pr-2">
-                              <h3 className="font-bold text-gray-900 mb-1 text-sm sm:text-base">{service.name}</h3>
-                            </div>
-                            <div className={`flex-shrink-0 w-6 h-6 sm:w-7 sm:h-7 rounded border-2 flex items-center justify-center transition-colors ${
-                              isSelected 
-                                ? `${colors.bg} ${colors.border}` 
-                                : 'border-gray-300'
-                            }`}>
-                              {isSelected && (
-                                <svg className="w-4 h-4 sm:w-5 sm:h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
-                                  <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                                </svg>
-                              )}
-                            </div>
-                          </div>
-
-                          <p className="text-xs sm:text-sm text-gray-600 mb-4">{service.description}</p>
-                          
-                          <div className="mb-4">
-                            <StartingAtPriceDisplay 
-                              price={service.price} 
-                              size="md" 
-                              showDiscount={true}
-                            />
-                            <p className="text-xs text-gray-500 mt-1">Delivery: {service.deliveryTime}</p>
-                          </div>
-
-                          <ul className="space-y-1">
-                            {service.features.slice(0, 3).map((feature, index) => (
-                              <li key={index} className="flex items-center text-xs text-gray-600">
-                                <svg className={`w-3 h-3 ${colors.text} mr-2 flex-shrink-0`} fill="currentColor" viewBox="0 0 20 20">
-                                  <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                                </svg>
-                                {feature}
-                              </li>
-                            ))}
-                            {service.features.length > 3 && (
-                              <li className="text-xs text-gray-500 italic pl-5">
-                                +{service.features.length - 3} more
-                              </li>
-                            )}
-                          </ul>
-                        </div>
-                      )
-                    })}
-                  </div>
-                  
-                  <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-4">
-                    <button
-                      onClick={() => {
-                        setShowALaCarte(false)
-                        setSelectedServices(new Set())
-                      }}
-                      className="text-gray-500 hover:text-gray-700 text-xs sm:text-sm font-medium px-4 py-2"
-                    >
-                      Hide Builder
-                    </button>
-                    {hasSelectedServices && (
-                      <button
-                        onClick={() => setSelectedServices(new Set())}
-                        className={`${colors.text} hover:opacity-80 text-xs sm:text-sm font-medium px-4 py-2`}
-                      >
-                        Clear All ({selectedServices.size})
-                      </button>
-                    )}
-                  </div>
-                </div>
-              )}
-            </div>
-          </div>
-
-          {/* Section 3: Tiered Packages */}
-          <div id="tiered-packages" className="mb-16 sm:mb-20 scroll-mt-24 px-4">
-            <div className="text-center mb-8 sm:mb-12">
-              <h2 ref={tierHeadingRef} tabIndex={-1} className="text-2xl sm:text-3xl font-bold text-gray-900 mb-3 focus:outline-none">Complete Packages</h2>
-              <p className="text-sm sm:text-base text-gray-600 max-w-2xl mx-auto">
-                Choose from our tiered packages with flexible options to match your budget and growth goals.
-              </p>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
-              {packageGroups.map((group) => {
-                const minPrice = group.tiers.length > 0 ? Math.min(...group.tiers.map(t => t.price)) : 0
-                return (
-                  <div 
-                    key={group.key?.current || group.name}
-                    className="card-enhanced p-4 sm:p-6 hover:scale-105 transition-all duration-300 cursor-pointer"
-                    onClick={() => setSelectedGroup(group)}
+                  <button
+                    className="bg-green-100 text-green-700 font-semibold rounded-xl py-3 px-4 hover:bg-green-200 transition-colors"
+                    onClick={() => {
+                      const servicePriceInCurrentCurrency = formatPriceWithDiscount(service.price, { currency: currentCurrency.code, applyNigerianDiscount: true });
+                      const msg = `Hello Hexadigitall! I'm interested in the ${service.name} service for ${pageTitle} starting at ${servicePriceInCurrentCurrency.discountedPrice}. Can you provide more details?`;
+                      window.open(getWhatsAppLink(msg), '_blank');
+                    }}
                   >
-                    <div className="text-center mb-6">
-                      <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-2">{group.name}</h3>
-                      <p className="text-xs sm:text-sm text-gray-600 mb-4">{group.description}</p>
-                      <StartingAtPriceDisplay 
-                        price={minPrice} 
-                        size="lg" 
-                        showDiscount={true}
-                      />
-                    </div>
-
-                    <div className="mb-6 sm:mb-8">
-                      <p className="text-xs sm:text-sm font-semibold text-gray-700 mb-3">Available tiers:</p>
-                      <ul className="space-y-2">
-                        {group.tiers.map((tier) => (
-                          <li key={tier._key} className="flex items-center text-xs sm:text-sm text-gray-600">
-                            <svg className={`w-3 h-3 sm:w-4 sm:h-4 ${colors.text} mr-2 flex-shrink-0`} fill="currentColor" viewBox="0 0 20 20">
-                              <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                            </svg>
-                            <span className="font-medium">{tier.name}</span>
-                            {tier.popular && <span className={`ml-2 text-xs ${colors.text} font-bold`}>POPULAR</span>}
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-
-                    <button className={`w-full bg-gradient-to-r ${colors.from} ${colors.to} text-white py-2 sm:py-3 px-4 sm:px-6 rounded-xl text-sm sm:text-base font-semibold ${colors.hover} transition-colors`}>
-                      View Options & Pricing
-                    </button>
-                  </div>
-                )
-              })}
+                    Chat on WhatsApp
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
+          {/* Universal Show More button for all screen sizes */}
+          {individualServices.length > INITIAL_SERVICES_LIMIT && !showAllServices && (
+            <div className="flex justify-center mt-6">
+              <button
+                className={`px-6 py-2 rounded-full font-semibold text-sm bg-gray-100 text-gray-700 hover:bg-gray-200 transition-colors`}
+                onClick={() => setShowAllServices(true)}
+              >
+                Show {individualServices.length - INITIAL_SERVICES_LIMIT} More
+              </button>
             </div>
+          )}
+        </section>
+      )}
+      {/* --- Build Bundle CTA Card --- */}
+      <section id="build-bundle-section" className="container mx-auto px-4 py-12">
+        <div className="max-w-2xl mx-auto">
+          <div className="bg-indigo-50 border border-indigo-200 rounded-2xl shadow-md p-8 flex flex-col items-center text-center">
+            <h2 className="text-2xl font-bold text-indigo-700 mb-2">Global À La Carte Builder</h2>
+            <p className="text-gray-700 mb-4">Mix and match any services to create your own custom bundle. Get instant pricing and recommendations.</p>
+            <Link href="/services/build-bundle" className="bg-indigo-600 text-white font-semibold rounded-xl py-3 px-6 hover:bg-indigo-700 transition-colors">Start Building</Link>
           </div>
         </div>
-      </div>
-
-      {/* Sticky Checkout Bar for Custom Bundle */}
-      {hasSelectedServices && (
-        <div className={`fixed bottom-0 left-0 right-0 bg-white border-t-2 ${colors.border} shadow-2xl z-50 animate-slide-up`}>
-          <div className="container mx-auto px-4 sm:px-6 py-3 sm:py-4">
-            <div className="flex flex-col sm:flex-row items-center justify-between gap-3 sm:gap-4 relative">
-              {/* Dismiss Button */}
-              <button
-                onClick={() => setSelectedServices(new Set())}
-                className="absolute -top-10 right-4 sm:-top-12 sm:right-6 bg-gray-800 hover:bg-gray-900 text-white rounded-full p-2 shadow-lg transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center"
-                aria-label="Clear selection"
-              >
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                </svg>
-              </button>
-              <div className="flex items-center gap-3 sm:gap-6 flex-wrap justify-center sm:justify-start">
-                <div className="text-center sm:text-left">
-                  <p className="text-xs text-gray-600">Selected Services</p>
-                  <p className="text-base sm:text-lg font-bold text-gray-900">{selectedServices.size} {selectedServices.size === 1 ? 'service' : 'services'}</p>
-                </div>
-                <div className="h-8 sm:h-10 w-px bg-gray-300 hidden sm:block"></div>
-                <div className="text-center sm:text-left">
-                  <p className="text-xs text-gray-600">Total Price</p>
-                  <div className="flex items-baseline gap-2 flex-wrap justify-center sm:justify-start">
-                    {bundleDiscount > 0 && (
-                      <span className="text-sm text-gray-400 line-through">{currentCurrency.symbol}{Math.round(convertPrice(totalPrice, currentCurrency.code))}</span>
-                    )}
-                    <StartingAtPriceDisplay 
-                      price={finalPrice} 
-                      size="lg" 
-                      showDiscount={true}
-                    />
-                    {bundleDiscount > 0 && (
-                      <span className="text-xs text-green-600 font-semibold">
-                        Save {Math.round(bundleDiscount * 100)}%!
-                      </span>
-                    )}
-                  </div>
-                  {savings > 0 && (
-                    <p className="text-xs text-green-600 font-medium">
-                      You save {currentCurrency.symbol}{Math.round(convertPrice(savings, currentCurrency.code))}
-                    </p>
-                  )}
-                </div>
-              </div>
-              <button
-                onClick={handleCustomBundleCheckout}
-                className={`inline-flex items-center min-h-[44px] px-6 sm:px-8 py-3 sm:py-4 bg-gradient-to-r ${colors.from} ${colors.to} text-white font-bold rounded-xl ${colors.hover} transition-all duration-300 transform hover:scale-105 active:scale-95 shadow-lg text-sm sm:text-base whitespace-nowrap`}
-              >
-                <svg className="w-4 h-4 sm:w-5 sm:h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
-                </svg>
-                Proceed to Checkout
-              </button>
-            </div>
-          </div>
+      </section>
+      {/* --- Software Configurator Link (Web & Mobile only) --- */}
+      {['web', 'mobile', 'web & mobile'].includes(serviceType.toLowerCase()) && (
+        <div className="container mx-auto px-4 py-6 flex justify-center">
+          <Link href="/software-configurator" className="bg-green-600 text-white font-semibold rounded-xl py-3 px-6 hover:bg-green-700 transition-colors shadow-md">Try the Software Configurator</Link>
         </div>
       )}
 
-      {/* Tier Selection Modal */}
-      {selectedGroup && (
-        <TierSelectionModal
-          packageGroup={selectedGroup}
-          onClose={() => setSelectedGroup(null)}
-          onTierSelect={handleTierSelect}
+      {/* --- Sticky Mobile CTA --- */}
+      {!(showRequestFlow || selectedGroup || selectedIndividualService) && (
+        <StickyServiceCTA
+          price={parseFloat(formatPriceWithDiscount(lowestPriceUSD, { currency: currentCurrency.code, applyNigerianDiscount: true }).discountedPrice.replace(/[^0-9.]/g, ''))}
+          onChat={handleWhatsApp}
+          onBuy={handleBuy}
+          currencyCode={currentCurrency.code}
         />
       )}
 
-      {/* Service Request Flow for checkout */}
-      {serviceCategory && showRequestFlow && (
-        <ServiceRequestFlow
-          serviceCategory={serviceCategory}
+      {/* --- Tier Selection Modal --- */}
+      {selectedGroup && !showRequestFlow && (
+        <TierSelectionModal
+          packageGroup={selectedGroup}
+          onTierSelect={handleTierSelect}
+          onClose={handleCloseModal}
+        />
+      )}
+
+      {/* --- Unified Service Request Flow --- */}
+      {showRequestFlow && selectedTier && (
+        <UnifiedServiceRequestFlow
+          serviceId={typeof selectedGroup?.key === 'string' ? selectedGroup.key : selectedGroup?.key?.current || 'service'}
+          serviceName={selectedGroup?.name || pageTitle}
+          serviceType="tiered"
+          tier={selectedTier}
+          onClose={handleCloseModal}
+        />
+      )}
+      {showRequestFlow && selectedIndividualService && (
+        <UnifiedServiceRequestFlow
+          serviceId={selectedIndividualService.id}
+          serviceName={selectedIndividualService.name}
+          serviceType="individual"
+          tier={undefined}
           onClose={() => {
-            setShowRequestFlow(false)
-            setRequestServiceCategory(null)
-            setSelectedTier(null)
+            setShowRequestFlow(false);
+            setSelectedIndividualService(null);
           }}
         />
       )}
     </div>
-  )
+  );
 }

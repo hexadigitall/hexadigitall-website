@@ -1,5 +1,5 @@
-// Delete all courseCategory documents from Sanity (CommonJS)
-const { writeClient } = require('../src/sanity/client.ts');
+// Delete all courseCategory documents from Sanity (ESM)
+import { writeClient } from '../src/sanity/client.ts';
 
 async function deleteAllCategories() {
   const categories = await writeClient.fetch('*[_type == "courseCategory"]{_id, title}');
