@@ -1,7 +1,6 @@
 "use client"
 
-import { useMemo, useState } from 'react'
-import Link from 'next/link'
+import { useState } from 'react'
 import { useCurrency } from '@/contexts/CurrencyContext'
 import { EXCHANGE_RATES } from '@/lib/currency'
 
@@ -68,18 +67,12 @@ const tiers: ProposalTier[] = [
   },
 ]
 
-const proposalPath = '/proposals/jhema-wears'
+// removed unused proposalPath
 
-function useShareUrl() {
-  return useMemo(() => {
-    if (typeof window !== 'undefined') return window.location.href
-    return `${process.env.NEXT_PUBLIC_SITE_URL || 'https://hexadigitall.com'}${proposalPath}`
-  }, [])
-}
 
 export default function JhemaProposalClient({ companyName = 'Your Business' }: { companyName?: string }) {
   const { currentCurrency, convertPrice, formatPrice } = useCurrency()
-  const shareUrl = useShareUrl()
+  // const shareUrl = useShareUrl()
   const [selectedTier, setSelectedTier] = useState<ProposalTier | null>(tiers[1])
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')

@@ -69,7 +69,7 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
   let service = null;
   try {
     service = await getServiceCategoryBySlug(slug);
-  } catch (e) {
+  } catch {
     service = null;
   }
   // Fallback to local data if Sanity is unreachable and slug is critical
@@ -157,7 +157,7 @@ export default async function ServicePage(props: Props) {
   let serviceCategory = null;
   try {
     serviceCategory = await getServiceCategoryBySlug(slug);
-  } catch (e) {
+  } catch {
     serviceCategory = null;
   }
   // Fallback to local data if Sanity is unreachable and slug is critical

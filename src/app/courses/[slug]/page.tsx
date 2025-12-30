@@ -8,7 +8,7 @@ import type { PortableTextBlock } from 'sanity';
 import CourseEnrollment, { type CourseEnrollmentData } from '@/components/CourseEnrollment';
 import { cookies } from 'next/headers'
 import Banner from '@/components/common/Banner';
-import Breadcrumb from '@/components/common/Breadcrumb';
+import Breadcrumb from '@/components/ui/Breadcrumb';
 
 // Interface for the full course data fetched from Sanity
 interface Course {
@@ -38,6 +38,7 @@ interface Course {
         lessons: number;
         duration: string;
     };
+    bannerBackgroundImage?: { asset?: { url?: string } };
     includes?: string[];
     certificate?: boolean;
     durationWeeks?: number;

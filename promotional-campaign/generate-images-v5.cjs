@@ -5,14 +5,14 @@
  * Official brand colors, logo, and full-bleed people images
  */
 
-const puppeteer = require('puppeteer');
-const fs = require('fs');
-const path = require('path');
+import puppeteer from 'puppeteer';
+import fs from 'fs';
+import path from 'path';
 let sharp;
 try {
-  sharp = require('sharp');
+  sharp = await import('sharp');
 } catch (e) {
-  // sharp will be installed if missing; continue without analysis if unavailable
+  void e;
 }
 
 const OUTPUT_DIR = path.join(__dirname, 'images', 'designed');
@@ -145,7 +145,7 @@ function getLogoBase64() {
     const logoBuffer = fs.readFileSync(LOGO_PATH);
     const base64 = logoBuffer.toString('base64');
     return `data:image/png;base64,${base64}`;
-  } catch (err) {
+  } catch {
     console.warn(`Logo not found at ${LOGO_PATH}`);
     return null;
   }
@@ -222,7 +222,7 @@ const IMAGE_PLACEMENT_RULES = {
  */
 async function analyzeImage(filepath, format) {
   const isStory = format.height > format.width * 1.5;
-  const isSquare = format.width === format.height;
+  // removed unused isSquare
   
   // Extract filename from path
   const filename = filepath ? path.basename(filepath) : null;
@@ -318,7 +318,7 @@ async function analyzeImage(filepath, format) {
     const textColor = selectedStats.meanL < 140 ? '#FFFFFF' : '#001F3F';
     
     return { placement, align, stackText, color: selectedStats.meanColor, textColor };
-  } catch (e) {
+  } catch {
     return { 
       placement: customRule?.placement || defaultPlacement, 
       align: customRule?.align || defaultAlign,
@@ -333,7 +333,7 @@ async function analyzeImage(filepath, format) {
  * Generate HTML template
  */
 function generateTemplate(campaign, format, personImageDataUri, logoDataUri, analysis) {
-  const isSquare = format.width === format.height;
+  // removed unused isSquare
   const isStory = format.height > format.width * 1.5;
   
   // Scale multiplier based on image dimensions
@@ -610,7 +610,7 @@ async function main() {
 
     for (const format of FORMATS) {
       try {
-        const filepath = await generateImage(browser, campaign, format, personImage, logoDataUri);
+        await generateImage(browser, campaign, format, personImage, logoDataUri);
         console.log(`   ✓ ${format.name}`);
         totalGenerated++;
       } catch (err) {

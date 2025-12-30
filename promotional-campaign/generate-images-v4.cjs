@@ -5,9 +5,9 @@
  * Full-bleed people images with bold, legible text overlay
  */
 
-const puppeteer = require('puppeteer');
-const fs = require('fs');
-const path = require('path');
+import puppeteer from 'puppeteer';
+import fs from 'fs';
+import path from 'path';
 
 const OUTPUT_DIR = path.join(__dirname, 'images', 'designed');
 const RAW_IMAGES_DIR = path.join(__dirname, 'images', 'raw');
@@ -137,7 +137,7 @@ function getPersonImageBase64(theme) {
  * Generate HTML template
  */
 function generateTemplate(campaign, format, personImageDataUri) {
-  const isSquare = format.width === format.height;
+  // removed unused isSquare
   const isStory = format.height > format.width * 1.5;
   
   // Scale multiplier based on image dimensions
@@ -373,7 +373,7 @@ async function main() {
 
     for (const format of FORMATS) {
       try {
-        const filepath = await generateImage(browser, campaign, format, personImageDataUri);
+        await generateImage(browser, campaign, format, personImageDataUri);
         console.log(`   ✓ ${format.name}`);
         totalGenerated++;
       } catch (err) {

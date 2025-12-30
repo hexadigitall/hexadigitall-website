@@ -28,6 +28,7 @@ let LOGO_SVG = '';
 try {
   LOGO_SVG = fs.readFileSync(path.resolve('public/hexadigitall-logo-transparent.svg'), 'utf8');
 } catch (e) {
+  void e;
   try {
     LOGO_SVG = fs.readFileSync(path.resolve('public/hexadigitall-logo.svg'), 'utf8');
   } catch {}

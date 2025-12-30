@@ -5,9 +5,9 @@
  * Creates stunning promotional graphics with real people
  */
 
-const puppeteer = require('puppeteer');
-const fs = require('fs');
-const path = require('path');
+import puppeteer from 'puppeteer';
+import fs from 'fs';
+import path from 'path';
 
 const OUTPUT_DIR = path.join(__dirname, 'images', 'designed');
 const RAW_IMAGES_DIR = path.join(__dirname, 'images', 'raw');
@@ -341,11 +341,12 @@ async function main() {
 
     for (const format of FORMATS) {
       try {
-        const filepath = await generateImage(browser, campaign, format, personImage);
+        await generateImage(browser, campaign, format, personImage);
         console.log(`   ✓ ${format.name}`);
         totalGenerated++;
       } catch (err) {
         console.log(`   ✗ ${format.name}: ${err.message}`);
+        void err;
         totalFailed++;
       }
     }

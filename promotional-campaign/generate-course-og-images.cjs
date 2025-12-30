@@ -5,15 +5,10 @@
  * Uses course images, logo, and polymorphic backgrounds
  */
 
-const puppeteer = require('puppeteer');
-const fs = require('fs');
-const path = require('path');
-let sharp;
-try {
-  sharp = require('sharp');
-} catch (e) {
-  // sharp will be installed if missing; continue without analysis if unavailable
-}
+import puppeteer from 'puppeteer';
+import fs from 'fs';
+import path from 'path';
+// removed unused sharp import
 
 const OUTPUT_DIR = path.join(__dirname, 'images', 'courses-og');
 const COURSE_IMAGES_DIR = path.join(__dirname, '..', 'public', 'course-images');
@@ -43,7 +38,7 @@ function getLogoBase64() {
     const logoBuffer = fs.readFileSync(LOGO_PATH);
     const base64 = logoBuffer.toString('base64');
     return `data:image/png;base64,${base64}`;
-  } catch (err) {
+  } catch {
     console.warn(`Logo not found at ${LOGO_PATH}`);
     return null;
   }
@@ -55,8 +50,8 @@ function getCourseImageBase64(imageName) {
     const imageBuffer = fs.readFileSync(filepath);
     const base64 = imageBuffer.toString('base64');
     return { dataUri: `data:image/jpeg;base64,${base64}`, filepath };
-  } catch (err) {
-    console.error(`Failed to read image: ${filepath}`, err.message);
+  } catch {
+    console.error(`Failed to read image: ${filepath}`);
     return { dataUri: null, filepath: null };
   }
 }
@@ -78,7 +73,7 @@ function parseCourses() {
   return courses;
 }
 
-async function analyzeImage(filepath, format) {
+async function analyzeImage() {
   // ...existing code from V5 for placement, color, etc...
   return { placement: 'bottom-center', align: 'center', stackText: true, color: 'rgba(0,0,0,0.55)', textColor: '#FFFFFF' };
 }
@@ -128,7 +123,7 @@ function generateTemplate(course, format, courseImageDataUri, logoDataUri, analy
 async function generateImage(browser, course, format, courseImageObj, logoDataUri) {
   const page = await browser.newPage();
   await page.setViewport({ width: format.width, height: format.height, deviceScaleFactor: 2 });
-  const analysis = await analyzeImage(courseImageObj?.filepath || null, format);
+  const analysis = await analyzeImage();
   const html = generateTemplate(course, format, courseImageObj?.dataUri || null, logoDataUri, analysis);
   await page.setContent(html, { waitUntil: 'networkidle0' });
   const filename = `${course.slug}-${format.name}.jpg`;
@@ -161,7 +156,7 @@ async function main() {
     }
     for (const format of FORMATS) {
       try {
-        const filepath = await generateImage(browser, course, format, courseImage, logoDataUri);
+        await generateImage(browser, course, format, courseImage, logoDataUri);
         console.log(`   ✓ ${format.name}`);
         totalGenerated++;
       } catch (err) {

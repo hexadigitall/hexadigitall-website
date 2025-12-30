@@ -253,7 +253,7 @@ export default defineType({
         to: [{ type: 'user' }],
       }],
       description: 'Teachers assigned to teach this course',
-      validation: (Rule) => Rule.custom((teachers, context) => {
+      validation: (Rule) => Rule.custom((teachers) => {
         if (!teachers || teachers.length === 0) return true
         // Could add validation here to ensure referenced users have role='teacher'
         return true

@@ -5,9 +5,9 @@
  * Creates stunning promotional graphics with real Unsplash people images
  */
 
-const puppeteer = require('puppeteer');
-const fs = require('fs');
-const path = require('path');
+import puppeteer from 'puppeteer';
+import fs from 'fs';
+import path from 'path';
 
 const OUTPUT_DIR = path.join(__dirname, 'images', 'designed');
 const RAW_IMAGES_DIR = path.join(__dirname, 'images', 'raw');
@@ -370,7 +370,7 @@ async function main() {
 
     for (const format of FORMATS) {
       try {
-        const filepath = await generateImage(browser, campaign, format, personImageDataUri);
+        await generateImage(browser, campaign, format, personImageDataUri);
         console.log(`   ✓ ${format.name}`);
         totalGenerated++;
       } catch (err) {
