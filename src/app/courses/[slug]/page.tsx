@@ -1,6 +1,6 @@
 // Force dynamic rendering to avoid static build errors with GROQ $slug
 export const dynamic = "force-dynamic";
-// src/app/courses/[slug]/page.tsx
+
 import { client } from '@/sanity/client'
 import { groq } from 'next-sanity';
 import type { Metadata } from 'next';
@@ -49,6 +49,11 @@ interface Course {
     lessons?: number;
 }
 
+// Define Props type with Params as a Promise (Next.js 15+ requirement)
+type Props = {
+  params: Promise<{ slug: string }>;
+}
+
 /**
  * Get course-specific OG image with ABSOLUTE URL
  */
@@ -57,7 +62,6 @@ function getCourseOgImage(slug: string): string {
   const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://hexadigitall.com';
   
   // 2. Return absolute path to the generated image
-  // Ensure you have run 'node scripts/generate-course-og-images.cjs' to create these files
   return `${baseUrl}/og-images/course-${slug}.jpg`;
 }
 
@@ -74,8 +78,10 @@ function getCoursePricing(course: { courseType?: string; hourlyRateNGN?: number;
   return 'Flexible pricing available'
 }
 
-export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
-  const { slug } = params;
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  // ✅ FIX: Await params before accessing slug
+  const { slug } = await params;
+  
   const course = await client.fetch(
     groq`*[_type == "course" && slug.current == $slug][0]{ 
       title, description, summary, level, courseType, 
@@ -173,51 +179,58 @@ const courseQuery = groq`*[_type == "course" && slug.current == $slug][0]{
     lessons
 }`;
 
-export default async function CoursePage({ params }: { params: { slug: string } }) {
-    const { slug } = params;
+export default async function CoursePage({ params }: Props) {
+    // ✅ FIX: Await params here as well
+    const { slug } = await params;
+
+    // Safety check for slug
+    if (!slug) {
+        notFound();
+    }
+
     const course: Course = await client.fetch(courseQuery, { slug });
 
     if (!course) notFound();
 
-        // Determine access to materials via cookie token
-        const cookieStore = await cookies()
-        const token = cookieStore.get('admin_token')?.value
-        let role: 'admin' | 'teacher' | 'student' | undefined
-        let userId: string | undefined
-        let hasAccess = false
+    // Determine access to materials via cookie token
+    const cookieStore = await cookies()
+    const token = cookieStore.get('admin_token')?.value
+    let role: 'admin' | 'teacher' | 'student' | undefined
+    let userId: string | undefined
+    let hasAccess = false
 
-        if (token) {
-            try {
-                const decoded = JSON.parse(Buffer.from(token, 'base64').toString('utf-8')) as {
-                    role?: string
-                    userId?: string
-                    timestamp?: number
-                }
-                if (decoded?.timestamp && (Date.now() - decoded.timestamp) < 24 * 60 * 60 * 1000) {
-                    role = (decoded.role as 'admin' | 'teacher' | 'student' | undefined) || undefined
-                    userId = decoded.userId
-                    if (role === 'admin') {
-                        hasAccess = true
-                    } else if (role === 'teacher' && userId) {
-                        // Check if this teacher is assigned to this course
-                        const assigned = await client.fetch(
-                            groq`count(*[_type == "course" && _id == $courseId && references($teacherId)]) > 0`,
-                            { courseId: course._id, teacherId: userId }
-                        )
-                        hasAccess = Boolean(assigned)
-                    } else if (role === 'student' && userId) {
-                        // Check if student is enrolled in this course
-                        const enrolled = await client.fetch(
-                            groq`count(*[_type == "enrollment" && courseId._ref == $courseId && studentId._ref == $studentId]) > 0`,
-                            { courseId: course._id, studentId: userId }
-                        )
-                        hasAccess = Boolean(enrolled)
-                    }
-                }
-            } catch {
-                // ignore bad token
+    if (token) {
+        try {
+            const decoded = JSON.parse(Buffer.from(token, 'base64').toString('utf-8')) as {
+                role?: string
+                userId?: string
+                timestamp?: number
             }
+            if (decoded?.timestamp && (Date.now() - decoded.timestamp) < 24 * 60 * 60 * 1000) {
+                role = (decoded.role as 'admin' | 'teacher' | 'student' | undefined) || undefined
+                userId = decoded.userId
+                if (role === 'admin') {
+                    hasAccess = true
+                } else if (role === 'teacher' && userId) {
+                    // Check if this teacher is assigned to this course
+                    const assigned = await client.fetch(
+                        groq`count(*[_type == "course" && _id == $courseId && references($teacherId)]) > 0`,
+                        { courseId: course._id, teacherId: userId }
+                    )
+                    hasAccess = Boolean(assigned)
+                } else if (role === 'student' && userId) {
+                    // Check if student is enrolled in this course
+                    const enrolled = await client.fetch(
+                        groq`count(*[_type == "enrollment" && courseId._ref == $courseId && studentId._ref == $studentId]) > 0`,
+                        { courseId: course._id, studentId: userId }
+                    )
+                    hasAccess = Boolean(enrolled)
+                }
+            }
+        } catch {
+            // ignore bad token
         }
+    }
 
     // Prepare course data for enrollment component with fallbacks
     const courseEnrollmentData: CourseEnrollmentData = {
