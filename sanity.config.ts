@@ -18,8 +18,10 @@ import testimonial from "./src/sanity/schemas/testimonial";
 import user from "./src/sanity/schemas/user";
 import formSubmission from "./src/sanity/schemas/formSubmission";
 import analyticsEvent from "./src/sanity/schemas/analyticsEvent";
+// ✅ IMPORT THE NEW SCHEMA
+import servicesPage from "./src/sanity/schemas/servicesPage";
 
-console.log("✅ Loading all 14 schemas");
+console.log("✅ Loading all schemas including servicesPage");
 
 const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID!;
 const dataset = process.env.NEXT_PUBLIC_SANITY_DATASET!;
@@ -33,6 +35,8 @@ export default defineConfig({
   plugins: [structureTool(), visionTool()],
   schema: {
     types: [
+      // ✅ ADD IT TO THE ARRAY
+      servicesPage, 
       course,
       school,
       enrollment,

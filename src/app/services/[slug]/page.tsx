@@ -2,6 +2,9 @@
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import CompleteServicePage from '@/components/services/CompleteServicePage'
+import { client } from '@/sanity/client'
+import { groq } from 'next-sanity'
+// ✅ FIX: Added getAllServiceCategories back to imports
 import {
   getAllServiceCategories,
   getServiceCategoryBySlug,
@@ -15,7 +18,6 @@ import {
   PORTFOLIO_PACKAGE_GROUPS 
 } from '@/data/servicePackages'
 import type { ServicePackageGroup } from '@/types/service'
-// Import the specific type the component expects to fix the red underline
 import type { IndividualService as ComponentIndividualService } from '@/data/individualServices'
 import { ALL_INDIVIDUAL_SERVICES } from '@/data/individualServices';
 
@@ -40,7 +42,6 @@ const DATA_MAP: Record<string, ServicePackageGroup[]> = {
   'profile-and-portfolio-building': PORTFOLIO_PACKAGE_GROUPS,
 }
 
-// Define specific type to match CompleteServicePage props
 type AccentColor = 'pink' | 'blue' | 'purple' | 'green' | 'indigo' | 'orange'
 
 const ACCENT_MAP: Record<string, AccentColor> = {
@@ -52,7 +53,7 @@ const ACCENT_MAP: Record<string, AccentColor> = {
 }
 
 type Props = {
-  params: { slug: string }
+  params: Promise<{ slug: string }>
 }
 
 /**
@@ -66,86 +67,121 @@ function getOgImage(slug: string): string {
 export async function generateMetadata(props: Props): Promise<Metadata> {
   const params = await props.params;
   const slug = params.slug;
+  
   let service = null;
+
+  // 1. Try Fetching from Sanity with EXPANDED Assets
   try {
-    service = await getServiceCategoryBySlug(slug);
-  } catch {
+    const query = groq`*[_type == "serviceCategory" && slug.current == $slug][0]{
+      title,
+      description,
+      ogTitle,
+      ogDescription,
+      "packages": packages[]{ price },
+      // Explicitly expand the image asset to get the URL
+      ogImage {
+        asset-> {
+          url
+        }
+      },
+      bannerBackgroundImage {
+        asset-> {
+          url
+        }
+      }
+    }`;
+    service = await client.fetch(query, { slug });
+  } catch (error) {
+    console.warn(`Sanity fetch failed for slug: ${slug}`, error);
     service = null;
   }
-  // Fallback to local data if Sanity is unreachable and slug is critical
+
+  // 2. Fallback to local data if Sanity is unreachable or returns null
   if (!service) {
-    if (FALLBACK_SLUGS.includes(slug) && DATA_MAP[slug]) {
-      // Try to find an individual service for this slug
-      const individual = ALL_INDIVIDUAL_SERVICES.find(s => s.id === slug);
-      if (individual) {
-        return {
+    // Case A: Is it an Individual Service?
+    const individual = ALL_INDIVIDUAL_SERVICES.find(s => s.id === slug);
+    if (individual) {
+      // Logic for Individual Service Metadata
+      const individualImage = individual.ogImage 
+        ? (individual.ogImage.startsWith('http') ? individual.ogImage : `https://hexadigitall.com${individual.ogImage}`)
+        : getOgImage(slug);
+
+      return {
+        title: individual.ogTitle || individual.name,
+        description: individual.ogDescription || individual.description,
+        openGraph: {
           title: individual.ogTitle || individual.name,
           description: individual.ogDescription || individual.description,
-          openGraph: {
-            title: individual.ogTitle || individual.name,
-            description: individual.ogDescription || individual.description,
-            url: `https://hexadigitall.com/services/${slug}`,
-            images: [
-              individual.ogImage
-                ? { url: `https://hexadigitall.com${individual.ogImage}`, width: 1200, height: 630 }
-                : { url: getOgImage(slug), width: 1200, height: 630 }
-            ],
-            type: 'website',
-          },
-          twitter: {
-            card: 'summary_large_image',
-            title: individual.ogTitle || individual.name,
-            description: individual.ogDescription || individual.description,
-            images: [individual.ogImage ? `https://hexadigitall.com${individual.ogImage}` : getOgImage(slug)],
-          },
-        };
-      }
-      return {
-        title: slug.replace(/-/g, ' '),
+          url: `https://hexadigitall.com/services/${slug}`,
+          images: [{ url: individualImage, width: 1200, height: 630 }],
+          type: 'website',
+        },
+        twitter: {
+          card: 'summary_large_image',
+          title: individual.ogTitle || individual.name,
+          description: individual.ogDescription || individual.description,
+          images: [individualImage],
+        },
+      };
+    }
+
+    // Case B: Generic Fallback for critical pages
+    if (FALLBACK_SLUGS.includes(slug)) {
+       return {
+        title: slug.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase()),
         description: `Service page for ${slug.replace(/-/g, ' ')}.`,
         openGraph: {
           title: slug.replace(/-/g, ' '),
-          description: `Service page for ${slug.replace(/-/g, ' ')}.`,
           url: `https://hexadigitall.com/services/${slug}`,
           images: [{ url: getOgImage(slug), width: 1200, height: 630 }],
           type: 'website',
         },
         twitter: {
           card: 'summary_large_image',
-          title: slug.replace(/-/g, ' '),
-          description: `Service page for ${slug.replace(/-/g, ' ')}.`,
           images: [getOgImage(slug)],
         },
       };
     }
+
     return {
       title: 'Service Not Found',
     };
   }
-  // Safe price extraction
+
+  // 3. Construct Metadata from Sanity Data
   const lowestPrice = service.packages?.reduce((min: number, p: any) => 
     (p.price < min ? p.price : min), Infinity) || 0;
+  
   const formattedPrice = lowestPrice !== Infinity 
     ? new Intl.NumberFormat('en-NG', { style: 'currency', currency: 'NGN', minimumFractionDigits: 0 }).format(lowestPrice * 1000) 
     : 'Contact for pricing';
 
-  // Use ogImage from Sanity if available, fallback to old logic
-  const ogImageUrl = service.ogImage?.asset?.url || getOgImage(slug);
+  // RESOLVE IMAGE PRIORITY
+  let ogImageUrl = getOgImage(slug);
+  
+  if (service.ogImage?.asset?.url) {
+    ogImageUrl = service.ogImage.asset.url;
+  } else if (service.bannerBackgroundImage?.asset?.url) {
+    ogImageUrl = service.bannerBackgroundImage.asset.url;
+  }
+
+  const finalTitle = service.ogTitle || service.title;
+  const finalDescription = service.ogDescription || `${service.description || service.title}. Starting from ${formattedPrice}.`;
 
   return {
-    title: service.ogTitle || service.title,
-    description: service.ogDescription || `${service.description || service.title}. Starting from ${formattedPrice}.`,
+    title: finalTitle,
+    description: finalDescription,
     openGraph: {
-      title: service.ogTitle || service.title,
-      description: service.ogDescription || service.description,
+      title: finalTitle,
+      description: finalDescription,
       url: `https://hexadigitall.com/services/${slug}`,
       images: [{ url: ogImageUrl, width: 1200, height: 630 }],
       type: 'website',
     },
     twitter: {
       card: 'summary_large_image',
-      title: service.ogTitle || service.title,
-      description: service.ogDescription || service.description,
+      title: finalTitle,
+      description: finalDescription,
       images: [ogImageUrl],
     },
   };
@@ -154,18 +190,21 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
 export default async function ServicePage(props: Props) {
   const params = await props.params;
   const slug = params.slug;
+  
   let serviceCategory = null;
   try {
     serviceCategory = await getServiceCategoryBySlug(slug);
   } catch {
     serviceCategory = null;
   }
+
   // Fallback to local data if Sanity is unreachable and slug is critical
   let localGroups = DATA_MAP[slug] || [];
   let accentColor: AccentColor = 'blue';
   let pageTitle = slug.replace(/-/g, ' ');
   let pageDescription = '';
   let serviceType = 'general';
+
   if (!serviceCategory) {
     if (FALLBACK_SLUGS.includes(slug) && localGroups.length > 0) {
       // Use fallback data
@@ -180,6 +219,7 @@ export default async function ServicePage(props: Props) {
     pageTitle = serviceCategory.title;
     pageDescription = serviceCategory.description || '';
     serviceType = serviceCategory.serviceType || 'general';
+    
     // Merge Sanity Prices into Local Structure
     localGroups = localGroups.map(group => ({
       ...group,
@@ -189,6 +229,7 @@ export default async function ServicePage(props: Props) {
       })
     }));
   }
+
   // Map serviceType or slug to the correct category string for individual services
   const serviceTypeToCategory: Record<string, string> = {
     'web': 'web-dev',
@@ -205,9 +246,15 @@ export default async function ServicePage(props: Props) {
     'portfolio': 'portfolio',
     'profile': 'portfolio',
   };
+  
   const categoryKey = serviceTypeToCategory[serviceType] || serviceType;
-  const relevantIndividualServices = ALL_INDIVIDUAL_SERVICES.filter(s => s.category === categoryKey) as ComponentIndividualService[];
-  // --- JSON-LD GENERATION (Restored) ---
+  
+  // Filter directly from the imported array
+  const relevantIndividualServices = ALL_INDIVIDUAL_SERVICES.filter(s => 
+    s.category === categoryKey
+  ) as unknown as ComponentIndividualService[];
+
+  // --- JSON-LD GENERATION ---
   const serviceJsonLd = {
     '@context': 'https://schema.org',
     '@type': 'Service',
@@ -234,6 +281,7 @@ export default async function ServicePage(props: Props) {
       }))
     }
   };
+
   const breadcrumbJsonLd = {
     '@context': 'https://schema.org',
     '@type': 'BreadcrumbList',
@@ -258,6 +306,20 @@ export default async function ServicePage(props: Props) {
       }
     ]
   };
+
+  // Determine Banner Image with Fallback Logic
+  const bannerImage = serviceCategory?.bannerBackgroundImage?.asset?.url 
+    || (() => {
+        switch (slug) {
+          case 'web-and-mobile-software-development': return '/promotional-campaign/images/raw/person-screen-2.jpg';
+          case 'business-plan-and-logo-design': return '/promotional-campaign/images/raw/person-business-1.jpg';
+          case 'social-media-advertising-and-marketing': return '/promotional-campaign/images/raw/service-web-and-mobile-development2.jpg';
+          case 'profile-and-portfolio-building': return '/promotional-campaign/images/raw/service-social-starter2.jpg';
+          case 'mentoring-and-consulting': return '/promotional-campaign/images/raw/service-mentoring-and-consulting.jpg';
+          default: return undefined;
+        }
+      })();
+
   return (
     <article>
       <script
@@ -268,49 +330,32 @@ export default async function ServicePage(props: Props) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
       />
+      
       <CompleteServicePage
         pageTitle={pageTitle}
         pageDescription={pageDescription}
         heroGradient={`from-${accentColor}-900 to-${accentColor}-800`}
-        bannerBackgroundImage={
-          serviceCategory?.bannerBackgroundImage?.asset?.url
-            ? serviceCategory.bannerBackgroundImage.asset.url
-            : (() => {
-                switch (slug) {
-                  case 'web-and-mobile-software-development':
-                    return '/promotional-campaign/images/raw/person-screen-2.jpg';
-                  case 'business-plan-and-logo-design':
-                    return '/promotional-campaign/images/raw/person-business-1.jpg';
-                  case 'social-media-advertising-and-marketing':
-                    return '/promotional-campaign/images/raw/service-web-and-mobile-development2.jpg';
-                  case 'profile-and-portfolio-building':
-                    return '/promotional-campaign/images/raw/service-social-starter2.jpg';
-                  case 'mentoring-and-consulting':
-                    return '/promotional-campaign/images/raw/service-mentoring-and-consulting.jpg';
-                  default:
-                    return undefined;
-                }
-              })()
-        }
+        bannerBackgroundImage={bannerImage}
         accentColor={accentColor}
         categoryIcon={null}
         breadcrumbItems={[
           { label: 'Services', href: '/services' },
           { label: pageTitle }
         ]}
-        packageGroups={localGroups.length > 0 ? localGroups : []}
+        packageGroups={localGroups.length > 0 ? localGroups : []} 
         individualServices={relevantIndividualServices}
         serviceType={serviceType}
         slug={slug}
       />
     </article>
-  );
+  )
 }
 
 export async function generateStaticParams() {
   try {
     const categories = await getAllServiceCategories()
-    const slugs = categories.map((category) => category.slug?.current).filter(Boolean) as string[]
+    // ✅ FIX: Explicit typing for the category parameter
+    const slugs = categories.map((category: any) => category.slug?.current).filter(Boolean) as string[]
     const unique = Array.from(new Set([...slugs, ...FALLBACK_SLUGS]))
     return unique.map((slug) => ({ slug }))
   } catch (error) {

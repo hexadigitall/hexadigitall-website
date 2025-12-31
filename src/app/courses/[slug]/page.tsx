@@ -1,4 +1,4 @@
-// Force dynamic rendering to avoid static build errors with GROQ $slug
+// Force dynamic rendering to handle search params and dynamic content
 export const dynamic = "force-dynamic";
 
 import { client } from '@/sanity/client'
@@ -12,7 +12,9 @@ import { cookies } from 'next/headers'
 import Banner from '@/components/common/Banner';
 import Breadcrumb from '@/components/ui/Breadcrumb';
 
-// Interface for the full course data fetched from Sanity
+// --- Interfaces ---
+
+// Full Course Interface matching Sanity Schema
 interface Course {
     _id: string;
     title: string;
@@ -47,27 +49,24 @@ interface Course {
     hoursPerWeek?: number;
     modules?: number;
     lessons?: number;
+    ogTitle?: string;
+    ogDescription?: string;
+    ogImage?: { asset?: { url?: string } };
 }
 
-// Define Props type with Params as a Promise (Next.js 15+ requirement)
+// Props Type for Next.js 15+ (Params is a Promise)
 type Props = {
   params: Promise<{ slug: string }>;
 }
 
-/**
- * Get course-specific OG image with ABSOLUTE URL
- */
+// --- Helpers ---
+
 function getCourseOgImage(slug: string): string {
-  // 1. Get Base URL (default to production if env is missing)
+  // Use environment variable or default to production URL
   const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://hexadigitall.com';
-  
-  // 2. Return absolute path to the generated image
   return `${baseUrl}/og-images/course-${slug}.jpg`;
 }
 
-/**
- * Extract pricing info from course for metadata
- */
 function getCoursePricing(course: { courseType?: string; hourlyRateNGN?: number; nairaPrice?: number }): string {
   if (course.courseType === 'live' && course.hourlyRateNGN) {
     return `From ₦${course.hourlyRateNGN.toLocaleString()}/hour`
@@ -78,33 +77,62 @@ function getCoursePricing(course: { courseType?: string; hourlyRateNGN?: number;
   return 'Flexible pricing available'
 }
 
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  // ✅ FIX: Await params before accessing slug
-  const { slug } = await params;
+// --- Metadata Generation ---
+
+export async function generateMetadata(props: Props): Promise<Metadata> {
+  // 1. Await params (Critical for Next.js 15)
+  const params = await props.params;
+  const slug = params.slug;
   
-  const course = await client.fetch(
-    groq`*[_type == "course" && slug.current == $slug][0]{ 
-      title, description, summary, level, courseType, 
-      hourlyRateNGN, nairaPrice,
-      ogTitle, ogDescription, ogImage{asset->{url}},
-      "imageUrl": mainImage.asset->url 
-    }`,
-    { slug }
-  );
+  let course = null;
 
-  if (!course) return { title: 'Course | Hexadigitall' };
+  try {
+    // 2. Fetch specific fields needed for SEO (Expand Assets!)
+    const query = groq`*[_type == "course" && slug.current == $slug][0]{ 
+      title, 
+      description, 
+      summary, 
+      level, 
+      courseType, 
+      hourlyRateNGN, 
+      nairaPrice,
+      ogTitle, 
+      ogDescription, 
+      ogImage {
+        asset-> {
+          url
+        }
+      },
+      mainImage {
+        asset-> {
+          url
+        }
+      }
+    }`;
+    course = await client.fetch(query, { slug });
+  } catch (error) {
+    console.warn(`Sanity metadata fetch failed for: ${slug}`, error);
+  }
 
+  if (!course) return { title: 'Course Not Found | Hexadigitall' };
+
+  // 3. Resolve Metadata Values
   const title = course.ogTitle || `${course.title} | Hexadigitall Courses`;
+  
   const baseDescription = course.ogDescription || course.description || course.summary || `Master ${course.title} with expert mentoring.`;
-  const pricing = getCoursePricing(course)
-
-  // Use ogImage if available, else fallback
-  const absoluteOgImage = course.ogImage?.asset?.url || getCourseOgImage(slug);
-
-  // Optimize for social media (truncate if too long)
+  const pricing = getCoursePricing(course);
+  
   const socialDescription = baseDescription.length > 130
     ? `${baseDescription.slice(0, 130)}... ${pricing}`
-    : `${baseDescription} ${pricing}`
+    : `${baseDescription} ${pricing}`;
+
+  // Image Priority: Sanity OG -> Sanity Main -> Generated Fallback
+  let imageUrl = getCourseOgImage(slug);
+  if (course.ogImage?.asset?.url) {
+    imageUrl = course.ogImage.asset.url;
+  } else if (course.mainImage?.asset?.url) {
+    imageUrl = course.mainImage.asset.url;
+  }
 
   return {
     title,
@@ -114,10 +142,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       title,
       description: socialDescription,
       images: [{ 
-        url: absoluteOgImage, 
+        url: imageUrl, 
         width: 1200, 
         height: 630, 
-        alt: `${course.title} Course - Hexadigitall`,
+        alt: `${course.title} Course`,
         type: 'image/jpeg'
       }],
       type: 'website',
@@ -129,7 +157,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       card: 'summary_large_image',
       title,
       description: socialDescription,
-      images: [absoluteOgImage],
+      images: [imageUrl],
       creator: '@hexadigitall',
       site: '@hexadigitall'
     },
@@ -139,100 +167,105 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
-// Enhanced query to fetch all enrollment data including PPP pricing
-const courseQuery = groq`*[_type == "course" && slug.current == $slug][0]{
-    _id,
-    title,
-    slug,
-    summary,
-    description,
-    price,
-    nairaPrice,
-    dollarPrice,
-    courseType,
-    hourlyRateUSD,
-    hourlyRateNGN,
-    duration,
-    level,
-    instructor,
-    prerequisites,
-    maxStudents,
-    "currentEnrollments": count(*[_type == "enrollment" && courseId._ref == ^._id]),
-    body,
-    "mainImage": mainImage.asset->url,
-    bannerBackgroundImage{asset->{url}},
-    ogImage{asset->{url}},
-    ogTitle,
-    ogDescription,
-    contentPdf{asset->{_ref,url}},
-    roadmapPdf{asset->{_ref,url}},
-    curriculum {
+// --- Main Page Component ---
+
+export default async function CoursePage(props: Props) {
+    // 1. Await params
+    const params = await props.params;
+    const slug = params.slug;
+
+    if (!slug) notFound();
+
+    // 2. Fetch Complete Course Data
+    // We use a robust query to get everything needed for the UI
+    const courseQuery = groq`*[_type == "course" && slug.current == $slug][0]{
+        _id,
+        title,
+        slug,
+        summary,
+        description,
+        price,
+        nairaPrice,
+        dollarPrice,
+        courseType,
+        hourlyRateUSD,
+        hourlyRateNGN,
+        duration,
+        level,
+        instructor,
+        prerequisites,
+        maxStudents,
+        "currentEnrollments": count(*[_type == "enrollment" && courseId._ref == ^._id]),
+        body,
+        "mainImage": mainImage.asset->url,
+        bannerBackgroundImage{asset->{url}},
+        ogImage{asset->{url}},
+        ogTitle,
+        ogDescription,
+        contentPdf{asset->{_ref,url}},
+        roadmapPdf{asset->{_ref,url}},
+        curriculum {
+            modules,
+            lessons,
+            duration
+        },
+        includes,
+        certificate,
+        durationWeeks,
+        hoursPerWeek,
         modules,
-        lessons,
-        duration
-    },
-    includes,
-    certificate,
-    durationWeeks,
-    hoursPerWeek,
-    modules,
-    lessons
-}`;
+        lessons
+    }`;
 
-export default async function CoursePage({ params }: Props) {
-    // ✅ FIX: Await params here as well
-    const { slug } = await params;
-
-    // Safety check for slug
-    if (!slug) {
-        notFound();
+    let course: Course | null = null;
+    try {
+        course = await client.fetch(courseQuery, { slug });
+    } catch (error) {
+        console.error(`Failed to fetch course data for ${slug}:`, error);
     }
-
-    const course: Course = await client.fetch(courseQuery, { slug });
 
     if (!course) notFound();
 
-    // Determine access to materials via cookie token
-    const cookieStore = await cookies()
-    const token = cookieStore.get('admin_token')?.value
-    let role: 'admin' | 'teacher' | 'student' | undefined
-    let userId: string | undefined
-    let hasAccess = false
+    // 3. Check Access Permissions (Cookies)
+    const cookieStore = await cookies();
+    const token = cookieStore.get('admin_token')?.value;
+    let hasAccess = false;
 
     if (token) {
         try {
             const decoded = JSON.parse(Buffer.from(token, 'base64').toString('utf-8')) as {
-                role?: string
-                userId?: string
-                timestamp?: number
-            }
+                role?: string;
+                userId?: string;
+                timestamp?: number;
+            };
+            
+            // Check token validity (24h)
             if (decoded?.timestamp && (Date.now() - decoded.timestamp) < 24 * 60 * 60 * 1000) {
-                role = (decoded.role as 'admin' | 'teacher' | 'student' | undefined) || undefined
-                userId = decoded.userId
+                const role = decoded.role;
+                const userId = decoded.userId;
+
                 if (role === 'admin') {
-                    hasAccess = true
+                    hasAccess = true;
                 } else if (role === 'teacher' && userId) {
-                    // Check if this teacher is assigned to this course
                     const assigned = await client.fetch(
                         groq`count(*[_type == "course" && _id == $courseId && references($teacherId)]) > 0`,
                         { courseId: course._id, teacherId: userId }
-                    )
-                    hasAccess = Boolean(assigned)
+                    );
+                    hasAccess = Boolean(assigned);
                 } else if (role === 'student' && userId) {
-                    // Check if student is enrolled in this course
                     const enrolled = await client.fetch(
                         groq`count(*[_type == "enrollment" && courseId._ref == $courseId && studentId._ref == $studentId]) > 0`,
                         { courseId: course._id, studentId: userId }
-                    )
-                    hasAccess = Boolean(enrolled)
+                    );
+                    hasAccess = Boolean(enrolled);
                 }
             }
         } catch {
-            // ignore bad token
+            // Token invalid, access remains false
         }
     }
 
-    // Prepare course data for enrollment component with fallbacks
+    // 4. Map Data for Enrollment Component
     const courseEnrollmentData: CourseEnrollmentData = {
         _id: course._id,
         title: course.title,
@@ -266,7 +299,7 @@ export default async function CoursePage({ params }: Props) {
         certificate: course.certificate !== false // Default to true
     };
     
-    // Breadcrumb structured data for courses
+    // 5. SEO Data (JSON-LD)
     const breadcrumbJsonLd = {
         '@context': 'https://schema.org',
         '@type': 'BreadcrumbList',
@@ -290,53 +323,42 @@ export default async function CoursePage({ params }: Props) {
                 item: `https://hexadigitall.com/courses/${course.slug.current}`
             }
         ]
-    }
+    };
+
+    const courseJsonLd = {
+        '@context': 'https://schema.org',
+        '@type': 'Course',
+        name: course.title,
+        description: course.description || course.summary,
+        provider: {
+            '@type': 'Organization',
+            name: 'Hexadigitall',
+            url: 'https://hexadigitall.com',
+            logo: 'https://hexadigitall.com/hexadigitall-logo.svg'
+        },
+        instructor: {
+            '@type': 'Person',
+            name: course.instructor || 'Expert Instructor'
+        },
+        offers: {
+            '@type': 'Offer',
+            priceCurrency: 'NGN',
+            price: course.nairaPrice || course.price,
+            availability: 'https://schema.org/InStock',
+            url: `https://hexadigitall.com/courses/${course.slug.current}`
+        },
+        educationalLevel: course.level,
+        timeRequired: course.duration,
+        numberOfLessons: course.lessons || course.curriculum?.lessons
+    };
     
     return (
         <article className="bg-white">
-            {/* JSON-LD: Enhanced Course structured data */}
-            <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
-                '@context': 'https://schema.org',
-                '@type': 'Course',
-                name: course.title,
-                description: course.description || course.summary,
-                provider: {
-                    '@type': 'Organization',
-                    name: 'Hexadigitall',
-                    url: 'https://hexadigitall.com',
-                    logo: 'https://hexadigitall.com/hexadigitall-logo.svg',
-                    sameAs: [
-                        'https://twitter.com/hexadigitall',
-                        'https://linkedin.com/company/hexadigitall'
-                    ]
-                },
-                instructor: {
-                    '@type': 'Person',
-                    name: course.instructor || 'Expert Instructor'
-                },
-                offers: {
-                    '@type': 'Offer',
-                    priceCurrency: 'NGN',
-                    price: course.nairaPrice || course.price,
-                    availability: 'https://schema.org/InStock',
-                    url: `https://hexadigitall.com/courses/${course.slug.current}`,
-                    validFrom: new Date().toISOString()
-                },
-                educationalLevel: course.level,
-                coursePrerequisites: course.prerequisites,
-                timeRequired: course.duration,
-                numberOfLessons: course.lessons || course.curriculum?.lessons,
-                hasCourseInstance: {
-                    '@type': 'CourseInstance',
-                    courseMode: course.courseType === 'live' ? 'online' : 'online',
-                    courseWorkload: `PT${course.hoursPerWeek || 5}H`
-                }
-            }) }} />
-            
-            {/* Breadcrumb structured data */}
+            {/* Inject JSON-LD */}
+            <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(courseJsonLd) }} />
             <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }} />
 
-            {/* Breadcrumb above Banner */}
+            {/* Breadcrumb Navigation */}
             <div className="container mx-auto px-6 pt-8">
                 <Breadcrumb 
                     items={[
@@ -347,28 +369,32 @@ export default async function CoursePage({ params }: Props) {
                 />
             </div>
 
-            {/* Banner with background image, title, and description */}
+            {/* Hero Banner */}
             <Banner
                 image={course.bannerBackgroundImage?.asset?.url}
                 title={course.title}
                 description={course.summary || course.description}
             />
 
-            {/* Main Content */}
+            {/* Main Content Area */}
             <div className="container mx-auto px-6 py-12">
                 <div className="grid lg:grid-cols-3 gap-12">
-                    {/* Left Column: Course Details */}
+                    {/* Left Column: Course Body/Description */}
                     <div className="lg:col-span-2 prose lg:prose-xl max-w-none">
-                        {/* 🛠️ OPTIMIZATION: Type-casted body to prevent 'any' error */}
-                        <PortableText value={course.body as Record<string, unknown>[]} />
+                        {course.body ? (
+                            // Type-cast body to avoid TS errors with PortableText
+                            <PortableText value={course.body as Record<string, unknown>[]} />
+                        ) : (
+                            <p className="text-gray-600 italic">No detailed description available.</p>
+                        )}
                     </div>
 
-                    {/* Right Column: Enrollment Card */}
+                    {/* Right Column: Enrollment & Materials */}
                     <div className="lg:col-span-1">
                         <div className="sticky top-28">
                             <CourseEnrollment course={courseEnrollmentData} />
                             
-                            {/* Course Materials (conditional access) */}
+                            {/* Materials Section (Protected) */}
                             <div className="mt-6 bg-white rounded-xl shadow-sm border border-gray-200 p-5">
                                 <h3 className="text-base font-semibold text-gray-900 mb-3">Course Materials</h3>
                                 {hasAccess ? (
@@ -411,14 +437,14 @@ export default async function CoursePage({ params }: Props) {
     );
 }
 
-// generateStaticParams function with error handling for build
+// --- Static Params Generation ---
+
 export async function generateStaticParams() {
     try {
         const slugs: { slug: { current: string } }[] = await client.fetch(groq`*[_type == "course"]{ slug }`);
         return slugs.map(({ slug }) => ({ slug: slug.current }));
     } catch (error) {
         console.warn('Failed to fetch course slugs during build:', error);
-        // Return empty array to allow build to succeed
         return [];
     }
 }

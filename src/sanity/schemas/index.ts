@@ -1,40 +1,45 @@
-// src/sanity/schemas/index.ts
+import { type SchemaTypeDefinition } from 'sanity'
+
+// Documents
+import post from './post'
+import user from './user'
+import category from './serviceCategory' // Assuming this is your category schema
 import course from './course'
-import school from './school' // ✅ Import the new school schema
-import servicesPage from './servicesPage'
+import school from './school'
+import service from './service' // Individual service
+import project from './project'
+import serviceRequest from './serviceRequest'
 import enrollment from './enrollment'
 import pendingEnrollment from './pendingEnrollment'
-import faq from './faq'
-import post from './post'
-import project from './project'
-import service from './service'
-import serviceCategory from './serviceCategory'
-import serviceCaseStudy from './serviceCaseStudy'
-import serviceRequest from './serviceRequest'
-import serviceStatistics from './serviceStatistics'
-import serviceTestimonial from './serviceTestimonial'
-import testimonial from './testimonial'
 import formSubmission from './formSubmission'
-import analyticsEvent from './analyticsEvent'
-import user from './user'
+import faq from './faq'
+import testimonial from './testimonial'
+import serviceTestimonial from './serviceTestimonial'
+import serviceCaseStudy from './serviceCaseStudy'
+import serviceStatistics from './serviceStatistics'
+import servicesPage from './servicesPage' // 👈 IMPORTED HERE
 
-export const schemaTypes = [
-  course,
-  school, // ✅ Add school to the schema array
-  enrollment,
-  pendingEnrollment,
-  faq,
-  post,
-  project,
-  service,
-  serviceCategory,
-  serviceCaseStudy,
-  serviceRequest,
-  serviceStatistics,
-  serviceTestimonial,
-  testimonial,
-  formSubmission,
-  analyticsEvent,
-  user,
-  servicesPage
-]
+// Objects (if any, though most seem to be documents based on your file list)
+// ...
+
+export const schema: { types: SchemaTypeDefinition[] } = {
+  types: [
+    post,
+    user,
+    category,
+    course,
+    school,
+    service,
+    project,
+    serviceRequest,
+    enrollment,
+    pendingEnrollment,
+    formSubmission,
+    faq,
+    testimonial,
+    serviceTestimonial,
+    serviceCaseStudy,
+    serviceStatistics,
+    servicesPage, // 👈 ADDED HERE
+  ],
+}
