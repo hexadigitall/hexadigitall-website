@@ -1,9 +1,7 @@
 {
   "compilerOptions": {
     "target": "ES2019",
-  "module": "es2020",
-    "moduleResolution": "bundler",
-    "ignoreDeprecations": "6.0",
+    "module": "es2020",
     "esModuleInterop": true,
     "allowJs": true,
     "resolveJsonModule": true,

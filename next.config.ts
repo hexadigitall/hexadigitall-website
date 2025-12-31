@@ -134,12 +134,7 @@ const nextConfig: NextConfig = {
     ignoreBuildErrors: false,
   },
 
-  // ESLint configuration
-  eslint: {
-    // Lint on build
-    ignoreDuringBuilds: false,
-    dirs: ['src'],
-  },
+  // Removed unsupported ESLint configuration (moved to .eslintrc or package.json if needed)
 
   // Performance optimizations - Increased for better stability
   onDemandEntries: {

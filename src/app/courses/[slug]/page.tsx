@@ -1,3 +1,5 @@
+// Force dynamic rendering to avoid static build errors with GROQ $slug
+export const dynamic = "force-dynamic";
 // src/app/courses/[slug]/page.tsx
 import { client } from '@/sanity/client'
 import { groq } from 'next-sanity';

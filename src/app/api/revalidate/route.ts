@@ -38,7 +38,7 @@ export async function POST(request: NextRequest) {
     switch (_type) {
       case 'testimonial':
         await revalidatePath('/');
-        await revalidateTag('testimonials');
+        await revalidateTag('testimonials', 'default');
         break;
       
       case 'course':
@@ -46,7 +46,7 @@ export async function POST(request: NextRequest) {
           await revalidatePath(`/courses/${slug.current}`);
         }
         await revalidatePath('/courses');
-        await revalidateTag('courses');
+        await revalidateTag('courses', 'default');
         break;
       
       case 'serviceCategory':
@@ -54,7 +54,7 @@ export async function POST(request: NextRequest) {
           await revalidatePath(`/services/${slug.current}`);
         }
         await revalidatePath('/services');
-        await revalidateTag('services');
+        await revalidateTag('services', 'default');
         break;
       
       case 'blogPost':
@@ -62,12 +62,12 @@ export async function POST(request: NextRequest) {
           await revalidatePath(`/blog/${slug.current}`);
         }
         await revalidatePath('/blog');
-        await revalidateTag('blog');
+        await revalidateTag('blog', 'default');
         break;
       
       case 'faq':
         await revalidatePath('/faq');
-        await revalidateTag('faq');
+        await revalidateTag('faq', 'default');
         break;
       
       default:
