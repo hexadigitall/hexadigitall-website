@@ -5,11 +5,12 @@
     "esModuleInterop": true,
     "allowJs": true,
     "resolveJsonModule": true,
+    "moduleResolution": "node",
     "types": ["node", "jest"],
-  "noEmit": false,
+    "noEmit": false,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
-  "strict": true
+    "strict": true
   },
   "include": [
     "./**/*.ts",

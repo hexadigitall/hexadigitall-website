@@ -1,11 +1,10 @@
-// src/app/about/page.tsx
 import type { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
 import { generateMetadata, generateBreadcrumbSchema } from '@/lib/seo';
 import { generateStructuredData } from '@/lib/structured-data';
 
-export const metadata: Metadata = generateMetadata({
+const baseMetadata = generateMetadata({
   title: 'About Us - The People Behind the Process',
   description: 'Discover the story, mission, and vision of Hexadigitall - your trusted digital partner in Nigeria. Learn how we transform business ideas into reality with expert web development, digital marketing, and consulting services.',
   keywords: [
@@ -21,6 +20,22 @@ export const metadata: Metadata = generateMetadata({
   type: 'website'
 });
 
+// ✅ FIX: Manually extend openGraph to bypass strict type checking and add the image
+export const metadata: Metadata = {
+  ...baseMetadata,
+  openGraph: {
+    ...(baseMetadata.openGraph || {}),
+    title: 'About Us - The People Behind the Process',
+    description: 'Discover the story, mission, and vision of Hexadigitall.',
+    images: [{
+      url: '/assets/images/services/person-business-3.jpg',
+      width: 1200,
+      height: 630,
+      alt: 'Hexadigitall Team'
+    }]
+  }
+};
+
 export default function AboutPage() {
   const breadcrumbItems = [
     { name: 'Home', url: 'https://hexadigitall.com' },
@@ -29,7 +44,6 @@ export default function AboutPage() {
 
   return (
     <>
-      {/* Breadcrumb Structured Data */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -37,10 +51,8 @@ export default function AboutPage() {
         }}
       />
       
-      {/* Hero Section for About Page */}
       <section className="bg-primary text-white py-20">
         <div className="container mx-auto px-6 text-center">
-          {/* Breadcrumb Navigation */}
           <nav className="mb-8" aria-label="Breadcrumb">
             <ol className="flex justify-center items-center space-x-2 text-sm text-gray-300">
               <li><Link href="/" className="hover:text-accent transition-colors">Home</Link></li>
@@ -56,7 +68,6 @@ export default function AboutPage() {
         </div>
       </section>
       
-      {/* Our Story Section */}
       <section className="bg-white py-16 md:py-24">
         <div className="container mx-auto px-6 max-w-4xl">
           <div className="grid md:grid-cols-2 gap-12 items-center">
@@ -78,7 +89,6 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Mission & Vision Section */}
       <section className="bg-lightGray py-16 md:py-24">
         <div className="container mx-auto px-6 max-w-5xl">
           <div className="grid md:grid-cols-2 gap-12 text-center">

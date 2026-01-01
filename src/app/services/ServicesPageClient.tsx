@@ -28,29 +28,29 @@ export default function ServicesPageClient({ initialData }: ServicesPageClientPr
   const [selectedService, setSelectedService] = useState<ServiceCategory | null>(null)
   const router = useRouter()
   
-  // 1. Resolve Banner Data (Sanity -> Fallback)
+  // 1. Resolve Banner Data
   const bannerImage = initialData?.bannerImage || '/assets/images/services/service-portfolio-website.jpg';
   const pageTitle = initialData?.title || 'Our Services';
   const pageDescription = initialData?.description || 'Choose your path: Complete project packages, custom builds, or individual tasks.';
 
-  // Featured packages from different categories
+  // Featured packages data
   const featuredPackages = [
     {
-      ...SERVICE_PRICING['business-plan'][1], // Growth Plan
+      ...SERVICE_PRICING['business-plan'][1],
       category: 'Business Plan & Logo Design',
       categorySlug: 'business-plan-and-logo-design',
       serviceType: 'business' as const,
       color: 'from-blue-500 to-indigo-500'
     },
     {
-      ...SERVICE_PRICING['web-development'][1], // Business Website
+      ...SERVICE_PRICING['web-development'][1],
       category: 'Web & Mobile Development', 
       categorySlug: 'web-and-mobile-software-development',
       serviceType: 'web' as const,
       color: 'from-green-500 to-teal-500'
     },
     {
-      ...SERVICE_PRICING['digital-marketing'][1], // Marketing Pro
+      ...SERVICE_PRICING['digital-marketing'][1],
       category: 'Social Media Marketing',
       categorySlug: 'social-media-advertising-and-marketing',
       serviceType: 'marketing' as const,
@@ -82,7 +82,6 @@ export default function ServicesPageClient({ initialData }: ServicesPageClientPr
     setSelectedService(serviceCategory)
   }
 
-  // ⚡ WhatsApp Helper
   const handleWhatsAppClick = (message: string, e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
@@ -113,14 +112,15 @@ export default function ServicesPageClient({ initialData }: ServicesPageClientPr
   return (
     <div className="bg-slate-50">
         
-        {/* --- 1. BREADCRUMBS (Tightened Spacing) --- */}
-        <div className="pt-24 pb-2 container mx-auto px-6">
+        {/* --- 1. BREADCRUMBS (Tightest Gap) --- */}
+        {/* pt-24 provides space for fixed header, pb-0 pulls banner closer */}
+        <div className="pt-20 pb-2 container mx-auto px-6">
            <Breadcrumb items={[{ label: 'Services' }]} className="text-gray-600" />
         </div>
 
-        {/* --- 2. GLASSMORPHISM HERO SECTION --- */}
-        <div className="relative h-[500px] md:h-[400px] w-full overflow-hidden mb-12 flex items-center justify-center">
-          {/* Background Image (No Dark Overlay) */}
+        {/* --- 2. HERO SECTION (High Transparency Dark Glass) --- */}
+        <div className="relative h-[500px] md:h-[400px] w-full overflow-hidden mb-12 flex items-center justify-center mt-2">
+          {/* Background Image */}
           <div 
             className="absolute inset-0 w-full h-full z-0"
             style={{
@@ -131,24 +131,24 @@ export default function ServicesPageClient({ initialData }: ServicesPageClientPr
             }}
           />
           
-          {/* Glass Card Content */}
+          {/* Transparent Glass Card */}
           <div className="container mx-auto px-4 relative z-10 flex justify-center">
-             <div className="max-w-4xl w-full bg-slate-900/60 backdrop-blur-md border border-white/10 rounded-3xl p-8 md:p-12 text-center shadow-2xl">
-                <h1 className="text-3xl md:text-5xl font-bold mb-4 tracking-tight text-white drop-shadow-md">
+             <div className="max-w-4xl w-full bg-slate-900/30 backdrop-blur-sm border border-white/20 rounded-3xl p-8 md:p-10 text-center shadow-2xl">
+                <h1 className="text-3xl md:text-5xl font-bold mb-4 tracking-tight text-white drop-shadow-lg">
                   {pageTitle}
                 </h1>
-                <p className="text-lg md:text-xl text-gray-100 max-w-2xl mx-auto leading-relaxed drop-shadow-sm">
+                <p className="text-lg md:text-xl text-gray-100 max-w-2xl mx-auto leading-relaxed drop-shadow-md font-medium">
                   {pageDescription}
                 </p>
 
-                {/* Currency Info (Inside Glass) */}
+                {/* Currency Info */}
                 <div className="mt-6 flex flex-col sm:flex-row items-center justify-center gap-4">
-                  <div className="flex items-center space-x-2 text-sm text-gray-300">
+                  <div className="flex items-center space-x-2 text-sm text-gray-200 font-medium">
                     <span>Prices shown in:</span>
-                    <span className="font-semibold text-white">{currentCurrency.flag} {currentCurrency.code}</span>
+                    <span className="font-bold text-white">{currentCurrency.flag} {currentCurrency.code}</span>
                   </div>
                   {discountMessage && (
-                    <div className="inline-flex items-center space-x-2 bg-green-500/20 border border-green-500/50 text-green-100 px-4 py-2 rounded-full text-sm font-medium backdrop-blur-sm">
+                    <div className="inline-flex items-center space-x-2 bg-green-500/30 border border-green-400/50 text-white px-4 py-2 rounded-full text-sm font-bold backdrop-blur-md">
                       <SparklesIcon className="h-4 w-4" aria-hidden="true" />
                       <span>{discountMessage}</span>
                     </div>
@@ -162,7 +162,7 @@ export default function ServicesPageClient({ initialData }: ServicesPageClientPr
           
           <DiscountBanner size="md" showCountdown={true} showSpots={true} className="mb-12 shadow-lg" />
 
-          {/* --- 3. SERVICE PATH SELECTOR (Center Aligned) --- */}
+          {/* --- 3. SERVICE PATH SELECTOR --- */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto mb-16">
             <Link 
               href="#packages" 
@@ -215,7 +215,7 @@ export default function ServicesPageClient({ initialData }: ServicesPageClientPr
 
           <StartupFunnel className="mb-20" />
 
-          {/* --- 4. CATEGORY CARDS (Fixed: Uses 'category' variable) --- */}
+          {/* --- 4. CATEGORY CARDS --- */}
           <div className="mb-20" id="packages">
             <div className="text-center mb-10">
               <h2 className="text-3xl font-bold text-gray-900 mb-4">📦 Tiered Package Categories</h2>
@@ -241,7 +241,6 @@ export default function ServicesPageClient({ initialData }: ServicesPageClientPr
                    <p className="text-gray-600 text-sm leading-relaxed mb-6 flex-grow">{category.desc}</p>
                    
                    <div className="flex items-center justify-between mt-auto relative z-10 pt-4 border-t border-gray-50">
-                     {/* 1. Chat Button (Fixed to use category.title) */}
                      <button 
                        onClick={(e) => handleWhatsAppClick(
                          `Hello Hexadigitall team,\n\nI am interested in learning more about your ${category.title} services. Could you please provide details?`, e)}
@@ -252,11 +251,10 @@ export default function ServicesPageClient({ initialData }: ServicesPageClientPr
                         Chat
                      </button>
 
-                     {/* 2. Browse Button (Fixed: Uses href, not Modal) */}
                      <Link
                         href={category.href}
                         className="flex items-center justify-center bg-gradient-to-r from-gray-900 to-gray-800 text-white py-2 px-4 rounded-lg font-bold text-sm hover:from-primary hover:to-secondary transition-all shadow-md"
-                        onClick={(e) => e.stopPropagation()} // Prevent double-click since card is link
+                        onClick={(e) => e.stopPropagation()}
                      >
                         Browse Options
                      </Link>
@@ -266,7 +264,7 @@ export default function ServicesPageClient({ initialData }: ServicesPageClientPr
             </div>
           </div>
 
-          {/* --- 5. FEATURED PACKAGES (Correctly uses 'pkg') --- */}
+          {/* --- 5. FEATURED PACKAGES --- */}
           <div className="mb-20">
             <div className="text-center mb-12">
               <h2 className="text-3xl font-bold text-gray-900 mb-4">Featured Packages</h2>
@@ -281,14 +279,12 @@ export default function ServicesPageClient({ initialData }: ServicesPageClientPr
                   key={pkg.id}
                   className="bg-white rounded-2xl p-8 border border-gray-100 shadow-sm hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 relative overflow-hidden flex flex-col h-full"
                 >
-                  {/* Popular Badge */}
                   {pkg.popular && (
                     <div className="absolute top-4 right-4 bg-gradient-to-r from-orange-500 to-pink-500 text-white px-3 py-1 rounded-full text-xs font-bold z-10 shadow-sm">
                       POPULAR
                     </div>
                   )}
 
-                  {/* Category Badge */}
                   <div className={`inline-flex items-center space-x-2 bg-gradient-to-r ${pkg.color} bg-opacity-10 px-3 py-1 rounded-full text-xs font-medium mb-4 w-fit`}>
                     <div className={`w-2 h-2 bg-gradient-to-r ${pkg.color} rounded-full`}></div>
                     <span className="text-gray-700">{pkg.category}</span>
@@ -318,7 +314,6 @@ export default function ServicesPageClient({ initialData }: ServicesPageClientPr
                     )}
                   </ul>
 
-                  {/* ⚡ TWO BUTTONS: WhatsApp + CTA ⚡ */}
                   <div className="grid grid-cols-2 gap-3 mt-auto">
                     <button
                       onClick={(e) => {
