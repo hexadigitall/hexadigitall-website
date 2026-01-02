@@ -27,7 +27,7 @@ const servicesPageQuery = groq`*[_type == "servicesPage"][0]{
 
 
 export const BASE_URL = 'https://hexadigitall.com';
-export const SERVICES_OG_IMAGE = `${BASE_URL}/assets/images/services/service-portfolio-website.jpg`;
+export const SERVICES_OG_IMAGE = 'https://cdn.sanity.io/images/puzezel0/production/3aea2a5b0d3c40bb0165b12f309deb431ab30b61-1600x840.png';
 
 export const metadata: Metadata = {
   title: 'Our Services | Hexadigitall',
@@ -35,7 +35,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Our Services | Hexadigitall',
     description: 'Explore our expert web development, marketing, and business solutions.',
-    images: [{ url: SERVICES_OG_IMAGE, width: 1200, height: 630, alt: 'Hexadigitall Services', type: 'image/jpeg' }],
+    images: [{ url: SERVICES_OG_IMAGE, width: 1600, height: 840, alt: 'Hexadigitall Services', type: 'image/png' }],
     type: 'website',
     siteName: 'Hexadigitall',
     url: `${BASE_URL}/services`,
