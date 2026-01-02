@@ -28,10 +28,11 @@ export const metadata: Metadata = {
     title: 'About Us - The People Behind the Process',
     description: 'Discover the story, mission, and vision of Hexadigitall.',
     images: [{
-      url: 'https://hexadigitall.com/assets/images/services/person-business-3.jpg',
-      width: 1200,
-      height: 630,
-      alt: 'Hexadigitall Team'
+      url: 'https://cdn.sanity.io/images/puzezel0/production/2e2e2b2b0d3c40bb0165b12f309deb431ab30b61-1600x840.jpg',
+      width: 1600,
+      height: 840,
+      alt: 'Hexadigitall Team',
+      type: 'image/jpeg'
     }]
   }
 };

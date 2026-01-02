@@ -12,10 +12,11 @@ export const metadata: Metadata = {
     description: 'Common questions about our digital services.',
     url: 'https://hexadigitall.com/faq',
     images: [{
-      url: 'https://hexadigitall.com/digitall_partner.png',
-      width: 1200,
-      height: 630,
-      alt: 'Hexadigitall FAQ'
+      url: 'https://cdn.sanity.io/images/puzezel0/production/1f1f1b1b0d3c40bb0165b12f309deb431ab30b61-1600x840.jpg',
+      width: 1600,
+      height: 840,
+      alt: 'Hexadigitall FAQ',
+      type: 'image/jpeg'
     }],
     type: 'website'
   }

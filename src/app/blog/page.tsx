@@ -11,10 +11,11 @@ export const metadata: Metadata = {
     description: 'Expert articles on web development, SEO, business strategy, and digital marketing trends.',
     url: 'https://hexadigitall.com/blog',
     images: [{
-      url: 'https://hexadigitall.com/assets/images/services/service-social-media-marketing.jpg',
-      width: 1200,
-      height: 630,
-      alt: 'Hexadigitall Blog'
+      url: 'https://cdn.sanity.io/images/puzezel0/production/4b4b4d4d0d3c40bb0165b12f309deb431ab30b61-1600x840.jpg',
+      width: 1600,
+      height: 840,
+      alt: 'Hexadigitall Blog',
+      type: 'image/jpeg'
     }],
     type: 'website'
   }
