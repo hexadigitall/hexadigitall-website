@@ -17,10 +17,10 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Professional Development Courses',
     description: 'Learn professional skills from industry experts.',
-    images: [{ url: 'https://hexadigitall.com/og-images/courses-hub.jpg', width: 1200, height: 630, alt: 'Hexadigitall Courses', type: 'image/jpeg' }],
+    images: [{ url: COURSES_OG_IMAGE, width: 1200, height: 630, alt: 'Hexadigitall Courses', type: 'image/jpeg' }],
     type: 'website',
     siteName: 'Hexadigitall',
-    url: 'https://hexadigitall.com/courses',
+    url: `${BASE_URL}/courses`,
     locale: 'en_NG',
   },
 };
