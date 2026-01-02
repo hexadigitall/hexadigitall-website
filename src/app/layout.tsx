@@ -18,7 +18,9 @@ import StartupFunnelClient from '@/components/marketing/StartupFunnelClient'
 
 // ✅ Enhanced metadata for SEO and accessibility
 export const metadata: Metadata = {
+  // ✅ THE FIX: Resolves relative images to absolute URLs automatically
   metadataBase: new URL('https://hexadigitall.com'),
+  
   title: {
     default: 'Hexadigitall | Business Planning, Web Dev & Digital Marketing',
     template: '%s | Hexadigitall'
@@ -47,7 +49,7 @@ export const metadata: Metadata = {
     title: 'Hexadigitall | Business Planning, Web Dev & Digital Marketing',
     description: 'Your all-in-one digital partner in Nigeria, turning ideas into reality.',
     images: [{
-      url: 'https://hexadigitall.com/digitall_partner.png',
+      url: '/digitall_partner.png', // This will now work thanks to metadataBase
       width: 1200,
       height: 630,
       alt: 'Hexadigitall - Your Digital Partner',
@@ -58,7 +60,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Hexadigitall | Your Digital Partner',
     description: 'Expert web development, digital marketing, and business planning services in Nigeria.',
-    images: ['https://hexadigitall.com/digitall_partner.png'],
+    images: ['/digitall_partner.png'],
   },
   icons: {
     icon: [
@@ -169,10 +171,6 @@ export default function RootLayout({
         <meta name="apple-mobile-web-app-status-bar-style" content="default" />
       </head>
       
-      {/* CRITICAL FIX: 
-         Added suppressHydrationWarning={true} to body.
-         This forces React to ignore the extra attribute injected by the Scholarcy extension.
-      */}
       <body 
         className="font-body bg-white text-darkText antialiased" 
         suppressHydrationWarning={true}
