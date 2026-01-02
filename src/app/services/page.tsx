@@ -25,40 +25,23 @@ const servicesPageQuery = groq`*[_type == "servicesPage"][0]{
   }
 }`
 
-export async function generateMetadata(): Promise<Metadata> {
-  const data = await client.fetch(servicesPageQuery);
 
-  const title = data?.ogTitle || data?.title || 'Our Services | Hexadigitall';
-  const description = data?.ogDescription || data?.description || 'Explore our expert web development, marketing, and business solutions.';
-  
-  // Logic: Sanity OG -> Sanity Banner -> Local Fallback (all absolute URLs)
-  let ogImage = data?.ogImage?.asset?.url
-    || data?.bannerBackgroundImage?.asset?.url
-    || 'https://hexadigitall.com/assets/images/services/service-portfolio-website.jpg';
+export const BASE_URL = 'https://hexadigitall.com';
+export const SERVICES_OG_IMAGE = `${BASE_URL}/assets/images/services/service-portfolio-website.jpg`;
 
-  // If ogImage is a relative path, prefix with domain
-  if (ogImage && ogImage.startsWith('/')) {
-    ogImage = `https://hexadigitall.com${ogImage}`;
-  }
-
-  return {
-    title,
-    description,
-    openGraph: {
-      title,
-      description,
-      url: 'https://hexadigitall.com/services',
-      images: [{ url: ogImage, width: 1200, height: 630 }],
-      type: 'website',
-    },
-    twitter: {
-      card: 'summary_large_image',
-      title,
-      description,
-      images: [ogImage],
-    },
-  }
-}
+export const metadata: Metadata = {
+  title: 'Our Services | Hexadigitall',
+  description: 'Explore our expert web development, marketing, and business solutions.',
+  openGraph: {
+    title: 'Our Services | Hexadigitall',
+    description: 'Explore our expert web development, marketing, and business solutions.',
+    images: [{ url: SERVICES_OG_IMAGE, width: 1200, height: 630, alt: 'Hexadigitall Services', type: 'image/jpeg' }],
+    type: 'website',
+    siteName: 'Hexadigitall',
+    url: `${BASE_URL}/services`,
+    locale: 'en_NG',
+  },
+};
 
 export default async function ServicesPage() {
   // Fetch data for the UI
