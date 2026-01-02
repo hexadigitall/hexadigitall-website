@@ -31,10 +31,15 @@ export async function generateMetadata(): Promise<Metadata> {
   const title = data?.ogTitle || data?.title || 'Our Services | Hexadigitall';
   const description = data?.ogDescription || data?.description || 'Explore our expert web development, marketing, and business solutions.';
   
-  // Logic: Sanity OG -> Sanity Banner -> Local Fallback
-  const ogImage = data?.ogImage?.asset?.url 
-    || data?.bannerBackgroundImage?.asset?.url 
-    || '/assets/images/services/service-portfolio-website.jpg';
+  // Logic: Sanity OG -> Sanity Banner -> Local Fallback (all absolute URLs)
+  let ogImage = data?.ogImage?.asset?.url
+    || data?.bannerBackgroundImage?.asset?.url
+    || 'https://hexadigitall.com/assets/images/services/service-portfolio-website.jpg';
+
+  // If ogImage is a relative path, prefix with domain
+  if (ogImage && ogImage.startsWith('/')) {
+    ogImage = `https://hexadigitall.com${ogImage}`;
+  }
 
   return {
     title,

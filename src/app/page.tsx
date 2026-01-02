@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     url: 'https://hexadigitall.com',
     siteName: 'Hexadigitall',
     images: [{
-      url: '/digitall_partner.png', // Works because metadataBase is in layout.tsx
+      url: 'https://hexadigitall.com/digitall_partner.png',
       width: 1200,
       height: 630,
       alt: 'Hexadigitall - Your Digital Partner',
@@ -29,7 +29,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Hexadigitall | Your Digital Partner',
     description: 'Transform your business ideas into reality with expert digital services in Nigeria.',
-    images: ['/digitall_partner.png'],
+    images: ['https://hexadigitall.com/digitall_partner.png'],
   },
   alternates: {
     canonical: '/',

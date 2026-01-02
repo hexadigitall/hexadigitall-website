@@ -28,7 +28,7 @@ export const metadata: Metadata = {
     title: 'About Us - The People Behind the Process',
     description: 'Discover the story, mission, and vision of Hexadigitall.',
     images: [{
-      url: '/assets/images/services/person-business-3.jpg',
+      url: 'https://hexadigitall.com/assets/images/services/person-business-3.jpg',
       width: 1200,
       height: 630,
       alt: 'Hexadigitall Team'

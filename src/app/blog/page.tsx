@@ -11,7 +11,7 @@ export const metadata: Metadata = {
     description: 'Expert articles on web development, SEO, business strategy, and digital marketing trends.',
     url: 'https://hexadigitall.com/blog',
     images: [{
-      url: '/assets/images/services/service-social-media-marketing.jpg',
+      url: 'https://hexadigitall.com/assets/images/services/service-social-media-marketing.jpg',
       width: 1200,
       height: 630,
       alt: 'Hexadigitall Blog'

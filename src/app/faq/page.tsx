@@ -12,7 +12,7 @@ export const metadata: Metadata = {
     description: 'Common questions about our digital services.',
     url: 'https://hexadigitall.com/faq',
     images: [{
-      url: '/digitall_partner.png',
+      url: 'https://hexadigitall.com/digitall_partner.png',
       width: 1200,
       height: 630,
       alt: 'Hexadigitall FAQ'
