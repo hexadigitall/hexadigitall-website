@@ -215,6 +215,46 @@ export default defineType({
       type: 'datetime',
       hidden: ({ parent }) => parent?.courseType !== 'live',
     }),
+    defineField({
+      name: 'expiryDate',
+      title: 'Subscription Expiry Date',
+      type: 'datetime',
+      description: 'When the monthly subscription expires. Set to 30 days from enrollment for monthly plans.',
+    }),
+    defineField({
+      name: 'paystackReference',
+      title: 'Paystack Payment Reference',
+      type: 'string',
+      description: 'Unique Paystack transaction reference for tracking payments',
+    }),
+    defineField({
+      name: 'renewalHistory',
+      title: 'Renewal History',
+      type: 'array',
+      of: [
+        {
+          type: 'object',
+          fields: [
+            {
+              name: 'renewalDate',
+              title: 'Renewal Date',
+              type: 'datetime',
+            },
+            {
+              name: 'paystackReference',
+              title: 'Paystack Reference',
+              type: 'string',
+            },
+            {
+              name: 'amount',
+              title: 'Amount',
+              type: 'number',
+            },
+          ],
+        },
+      ],
+      description: 'Track all monthly renewal payments',
+    }),
   ],
   preview: {
     select: {

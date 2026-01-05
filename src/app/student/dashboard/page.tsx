@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation'
 import Image from 'next/image'
 import Link from 'next/link'
 import { urlFor } from '@/sanity/imageUrlBuilder'
+import SubscriptionCard from '@/components/student/SubscriptionCard'
 import {
   BookOpenIcon,
   CalendarIcon,
@@ -18,9 +19,11 @@ interface Enrollment {
   courseType: string
   status: string
   enrolledAt: string
+  expiryDate?: string
   monthlyAmount?: number
   totalPrice?: number
   nextPaymentDue?: string
+  paymentStatus?: string
   course?: {
     _id: string
     title: string
@@ -44,7 +47,6 @@ export default function StudentDashboardPage() {
   const [loading, setLoading] = useState(true)
   const [student, setStudent] = useState<{ username: string; name?: string } | null>(null)
   const [enrollments, setEnrollments] = useState<Enrollment[]>([])
-  const [paymentLoading, setPaymentLoading] = useState<string | null>(null)
 
   useEffect(() => {
     const checkAuth = async () => {
@@ -110,47 +112,6 @@ export default function StudentDashboardPage() {
     a.download = filename || 'download.pdf'
     a.target = '_blank'
     a.click()
-  }
-
-  const handlePayment = async (enrollment: Enrollment) => {
-    const token = localStorage.getItem('admin_token')
-    if (!token) {
-      router.push('/student/login')
-      return
-    }
-
-    setPaymentLoading(enrollment._id)
-    try {
-      const res = await fetch('/api/student/renew', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({
-          enrollmentId: enrollment._id,
-          amount: enrollment.monthlyAmount,
-          currency: 'NGN',
-        }),
-      })
-
-      const data = await res.json()
-      if (res.ok && data.success) {
-        if (data.paymentUrl && data.paymentUrl !== '#') {
-          // Redirect to payment gateway
-          window.location.href = data.paymentUrl
-        } else {
-          alert(data.message || 'Payment system not yet configured. Contact admin.')
-        }
-      } else {
-        alert(data.message || 'Failed to initiate payment')
-      }
-    } catch (error) {
-      console.error('Payment failed:', error)
-      alert('Failed to initiate payment. Please try again.')
-    } finally {
-      setPaymentLoading(null)
-    }
   }
 
   const getNextPaymentDue = () => {
@@ -246,101 +207,110 @@ export default function StudentDashboardPage() {
               </Link>
             </div>
           ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {enrollments.map((enrollment) => (
-                <div key={enrollment._id} className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden hover:shadow-md transition-shadow">
-                  {enrollment.course?.mainImage && (
-                    <div className="relative h-48 w-full">
-                      <Image
-                        src={urlFor(enrollment.course.mainImage).width(600).height(400).url()}
-                        alt={enrollment.course.title}
-                        fill
-                        className="object-cover"
-                      />
-                    </div>
-                  )}
-                  <div className="p-6">
-                    <div className="flex items-start justify-between mb-3">
-                      <div>
-                        <h3 className="text-lg font-semibold text-gray-900 mb-1">
-                          {enrollment.course?.title || 'Course'}
-                        </h3>
-                        <div className="flex items-center gap-2">
-                          {enrollment.course?.level && (
-                            <span className="inline-flex px-2 py-1 text-xs font-medium rounded-full bg-blue-100 text-blue-800 capitalize">
-                              {enrollment.course.level}
+            <div className="space-y-6">
+              {/* Subscription Cards for Active Courses */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {enrollments
+                  .filter(e => e.status === 'active' && e.expiryDate && e.monthlyAmount)
+                  .map((enrollment) => (
+                    <SubscriptionCard
+                      key={enrollment._id}
+                      enrollmentId={enrollment._id}
+                      expiryDate={enrollment.expiryDate || ''}
+                      monthlyAmount={enrollment.monthlyAmount || 0}
+                      paymentStatus={enrollment.paymentStatus || enrollment.status}
+                      courseTitle={enrollment.course?.title}
+                      courseSlug={enrollment.course?.slug?.current}
+                    />
+                  ))}
+              </div>
+
+              {/* Course Cards */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {enrollments.map((enrollment) => (
+                  <div key={enrollment._id} className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden hover:shadow-md transition-shadow">
+                    {enrollment.course?.mainImage && (
+                      <div className="relative h-48 w-full">
+                        <Image
+                          src={urlFor(enrollment.course.mainImage).width(600).height(400).url()}
+                          alt={enrollment.course.title}
+                          fill
+                          className="object-cover"
+                        />
+                      </div>
+                    )}
+                    <div className="p-6">
+                      <div className="flex items-start justify-between mb-3">
+                        <div>
+                          <h3 className="text-lg font-semibold text-gray-900 mb-1">
+                            {enrollment.course?.title || 'Course'}
+                          </h3>
+                          <div className="flex items-center gap-2">
+                            {enrollment.course?.level && (
+                              <span className="inline-flex px-2 py-1 text-xs font-medium rounded-full bg-blue-100 text-blue-800 capitalize">
+                                {enrollment.course.level}
+                              </span>
+                            )}
+                            <span className={`inline-flex px-2 py-1 text-xs font-medium rounded-full ${
+                              enrollment.status === 'active' ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800'
+                            }`}>
+                              {enrollment.status}
                             </span>
-                          )}
-                          <span className={`inline-flex px-2 py-1 text-xs font-medium rounded-full ${
-                            enrollment.status === 'active' ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800'
-                          }`}>
-                            {enrollment.status}
-                          </span>
+                          </div>
                         </div>
                       </div>
-                    </div>
-                    
-                    <p className="text-sm text-gray-600 mb-4 line-clamp-2">
-                      {enrollment.course?.description}
-                    </p>
-                    
-                    {enrollment.teacher && (
-                      <p className="text-xs text-gray-500 mb-4">
-                        Instructor: <span className="font-medium text-gray-700">{enrollment.teacher.name || enrollment.teacher.email}</span>
+                      
+                      <p className="text-sm text-gray-600 mb-4 line-clamp-2">
+                        {enrollment.course?.description}
                       </p>
-                    )}
-                    
-                    <div className="space-y-2 mb-4">
-                      {enrollment.course?.contentPdf && (
-                        <button
-                          onClick={() => downloadPdf(enrollment.course?.contentPdf, `${enrollment.course?.title || 'course'}-content.pdf`)}
-                          className="w-full flex items-center justify-center gap-2 px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors text-sm"
-                        >
-                          <ArrowDownTrayIcon className="h-4 w-4" />
-                          Download Course Content
-                        </button>
+                      
+                      {enrollment.teacher && (
+                        <p className="text-xs text-gray-500 mb-4">
+                          Instructor: <span className="font-medium text-gray-700">{enrollment.teacher.name || enrollment.teacher.email}</span>
+                        </p>
                       )}
-                      {enrollment.course?.roadmapPdf && (
-                        <button
-                          onClick={() => downloadPdf(enrollment.course?.roadmapPdf, `${enrollment.course?.title || 'course'}-roadmap.pdf`)}
-                          className="w-full flex items-center justify-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-sm"
-                        >
-                          <ArrowDownTrayIcon className="h-4 w-4" />
-                          Download Roadmap
-                        </button>
-                      )}
-                    </div>
-                    
-                    <div className="pt-4 border-t border-gray-200">
-                      <div className="text-sm text-gray-600 mb-3">
-                        <p>Enrolled: {new Date(enrollment.enrolledAt).toLocaleDateString()}</p>
-                        {enrollment.monthlyAmount && (
-                          <p className="mt-1">Monthly: ₦{enrollment.monthlyAmount.toLocaleString()}</p>
+                      
+                      <div className="space-y-2 mb-4">
+                        {enrollment.course?.contentPdf && (
+                          <button
+                            onClick={() => downloadPdf(enrollment.course?.contentPdf, `${enrollment.course?.title || 'course'}-content.pdf`)}
+                            className="w-full flex items-center justify-center gap-2 px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors text-sm"
+                          >
+                            <ArrowDownTrayIcon className="h-4 w-4" />
+                            Download Course Content
+                          </button>
                         )}
-                        {enrollment.totalPrice && (
-                          <p className="mt-1">Total: ₦{enrollment.totalPrice.toLocaleString()}</p>
-                        )}
-                        {enrollment.nextPaymentDue && enrollment.status === 'active' && enrollment.courseType === 'live' && (
-                          <p className="mt-1 font-medium text-orange-600">
-                            Next payment: {new Date(enrollment.nextPaymentDue).toLocaleDateString()}
-                          </p>
+                        {enrollment.course?.roadmapPdf && (
+                          <button
+                            onClick={() => downloadPdf(enrollment.course?.roadmapPdf, `${enrollment.course?.title || 'course'}-roadmap.pdf`)}
+                            className="w-full flex items-center justify-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-sm"
+                          >
+                            <ArrowDownTrayIcon className="h-4 w-4" />
+                            Download Roadmap
+                          </button>
                         )}
                       </div>
                       
-                      {enrollment.status === 'active' && enrollment.courseType === 'live' && enrollment.monthlyAmount && (
-                        <button
-                          onClick={() => handlePayment(enrollment)}
-                          disabled={paymentLoading === enrollment._id}
-                          className="w-full flex items-center justify-center gap-2 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors text-sm font-medium disabled:opacity-50 disabled:cursor-not-allowed"
-                        >
-                          <CreditCardIcon className="h-4 w-4" />
-                          {paymentLoading === enrollment._id ? 'Processing...' : 'Pay Now'}
-                        </button>
-                      )}
+                      <div className="pt-4 border-t border-gray-200">
+                        <div className="text-sm text-gray-600 mb-3">
+                          <p>Enrolled: {new Date(enrollment.enrolledAt).toLocaleDateString()}</p>
+                          {enrollment.monthlyAmount && (
+                            <p className="mt-1">Monthly: ₦{enrollment.monthlyAmount.toLocaleString()}</p>
+                          )}
+                          {enrollment.totalPrice && (
+                            <p className="mt-1">Total: ₦{enrollment.totalPrice.toLocaleString()}</p>
+                          )}
+                          {enrollment.expiryDate && (
+                            <p className="mt-1 font-medium text-blue-600">
+                              Expires: {new Date(enrollment.expiryDate).toLocaleDateString()}
+                            </p>
+                          )}
+                        </div>
+                      </div>
                     </div>
                   </div>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
           )}
         </section>
