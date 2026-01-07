@@ -1,5 +1,5 @@
+export const dynamic = 'force-dynamic';
 // Force dynamic rendering to handle search params and dynamic content
-export const dynamic = "force-dynamic";
 
 import { client } from '@/sanity/client'
 import { groq } from 'next-sanity';

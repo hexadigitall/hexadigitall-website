@@ -20,6 +20,7 @@ import formSubmission from "./src/sanity/schemas/formSubmission";
 import analyticsEvent from "./src/sanity/schemas/analyticsEvent";
 // ✅ IMPORT THE NEW SCHEMA
 import servicesPage from "./src/sanity/schemas/servicesPage";
+import pageOgAssets from "./src/sanity/schemas/pageOgAssets";
 
 console.log("✅ Loading all schemas including servicesPage");
 
@@ -54,6 +55,7 @@ export default defineConfig({
       user,
       formSubmission,
       analyticsEvent,
+      pageOgAssets, // 👈 Added here
     ],
   },
 });

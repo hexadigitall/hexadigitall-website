@@ -18,6 +18,7 @@ import serviceTestimonial from './serviceTestimonial'
 import serviceCaseStudy from './serviceCaseStudy'
 import serviceStatistics from './serviceStatistics'
 import servicesPage from './servicesPage' // 👈 IMPORTED HERE
+import pageOgAssets from './pageOgAssets'
 
 // Objects (if any, though most seem to be documents based on your file list)
 // ...
@@ -41,5 +42,6 @@ export const schema: { types: SchemaTypeDefinition[] } = {
     serviceCaseStudy,
     serviceStatistics,
     servicesPage, // 👈 ADDED HERE
+    pageOgAssets,
   ],
 }

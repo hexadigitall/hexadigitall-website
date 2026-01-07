@@ -47,6 +47,7 @@ export default function StudentDashboardPage() {
   const [loading, setLoading] = useState(true)
   const [student, setStudent] = useState<{ username: string; name?: string } | null>(null)
   const [enrollments, setEnrollments] = useState<Enrollment[]>([])
+  const [paymentLoading, setPaymentLoading] = useState<string | null>(null)
 
   useEffect(() => {
     const checkAuth = async () => {
@@ -112,6 +113,48 @@ export default function StudentDashboardPage() {
     a.download = filename || 'download.pdf'
     a.target = '_blank'
     a.click()
+  }
+
+  const handlePayment = async (enrollment: Enrollment) => {
+    const token = localStorage.getItem('admin_token')
+    if (!token) {
+      router.push('/student/login')
+      return
+    }
+
+    setPaymentLoading(enrollment._id)
+    try {
+      const res = await fetch('/api/student/renew', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          enrollmentId: enrollment._id,
+          amount: enrollment.monthlyAmount,
+          currency: 'NGN',
+        }),
+      })
+
+      const data = await res.json()
+      if (res.ok && data.success) {
+        if (data.paymentUrl && data.paymentUrl !== '#') {
+          window.location.href = data.paymentUrl
+        } else if (data.authorization_url) {
+          window.location.href = data.authorization_url
+        } else {
+          alert(data.message || 'Payment system not yet configured. Contact admin.')
+        }
+      } else {
+        alert(data.message || 'Failed to initiate payment')
+      }
+    } catch (error) {
+      console.error('Payment failed:', error)
+      alert('Failed to initiate payment. Please try again.')
+    } finally {
+      setPaymentLoading(null)
+    }
   }
 
   const getNextPaymentDue = () => {
@@ -290,7 +333,7 @@ export default function StudentDashboardPage() {
                           </button>
                         )}
                       </div>
-                      
+
                       <div className="pt-4 border-t border-gray-200">
                         <div className="text-sm text-gray-600 mb-3">
                           <p>Enrolled: {new Date(enrollment.enrolledAt).toLocaleDateString()}</p>
@@ -306,6 +349,17 @@ export default function StudentDashboardPage() {
                             </p>
                           )}
                         </div>
+
+                        {enrollment.status === 'active' && enrollment.courseType === 'live' && enrollment.monthlyAmount && (
+                          <button
+                            onClick={() => handlePayment(enrollment)}
+                            disabled={paymentLoading === enrollment._id}
+                            className="w-full flex items-center justify-center gap-2 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors text-sm font-medium disabled:opacity-50 disabled:cursor-not-allowed"
+                          >
+                            <CreditCardIcon className="h-4 w-4" />
+                            {paymentLoading === enrollment._id ? 'Processing...' : 'Pay Now'}
+                          </button>
+                        )}
                       </div>
                     </div>
                   </div>

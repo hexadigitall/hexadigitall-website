@@ -1,0 +1,764 @@
+#!/usr/bin/env node
+/**
+ * Generate Open Graph images from HTML/CSS using Puppeteer.
+ * Features:
+ * - Base cards with rich, specific content for services, proposals, and courses
+ * - Dynamic school and service OG images from background image folders
+ * - Robust title logic with suffix/abbreviation handling
+ * - QR code generation and embedding in card designs
+ * 
+ * Outputs 1200x630 PNG + JPG files to public/og-images.
+ * 
+ * Background Image Directories:
+ * - Courses: public/assets/images/courses
+ * - Schools: public/assets/images/schools
+ * - Services: public/assets/images/services
+ */
+import fs from 'node:fs';
+import path from 'node:path';
+import puppeteer from 'puppeteer';
+import QRCode from 'qrcode';
+
+const OUT_DIR = path.resolve('public/og-images');
+const ASSETS_DIR = path.resolve('public/assets/images');
+const WIDTH = 1200;
+const HEIGHT = 630;
+
+// Input image directories by type
+const IMAGE_DIRS = {
+  courses: path.join(ASSETS_DIR, 'courses'),
+  schools: path.join(ASSETS_DIR, 'schools'),
+  services: path.join(ASSETS_DIR, 'services'),
+};
+
+function ensureOutDir() {
+  fs.mkdirSync(OUT_DIR, { recursive: true });
+}
+
+// Load inline SVG logo once
+let LOGO_SVG = '';
+try {
+  LOGO_SVG = fs.readFileSync(path.resolve('public/hexadigitall-logo-transparent.svg'), 'utf8');
+} catch (e) {
+  void e;
+  try {
+    LOGO_SVG = fs.readFileSync(path.resolve('public/hexadigitall-logo.svg'), 'utf8');
+  } catch {}
+}
+
+function cardHTML({ title, label, buttonText, icon = '🚀', backgroundImageUri = '', qrCodeDataUri = '' }) {
+  const bgStyle = backgroundImageUri 
+    ? `background-image: url('${backgroundImageUri}'); background-size: cover; background-position: center;`
+    : 'background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);';
+  const qrHtml = qrCodeDataUri 
+    ? `<img src="${qrCodeDataUri}" class="qr-code" alt="QR Code" aria-hidden="true" />`
+    : '';
+
+  return `<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>${escapeHtml(title)} | Hexadigitall</title>
+  <style>
+    * { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; }
+    body {
+      width: ${WIDTH}px; height: ${HEIGHT}px;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', 'Liberation Sans', sans-serif;
+      color: #fff;
+      ${bgStyle}
+      background-attachment: fixed;
+    }
+    .card {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      padding: 0;
+    }
+    .content-overlay {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 55%;
+      height: 100%;
+      background: rgba(10, 20, 40, 0.75);
+      backdrop-filter: blur(2px);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 60px 64px;
+    }
+    .label {
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      color: #00d9ff;
+      margin: 0 0 16px 0;
+      text-transform: uppercase;
+    }
+    .title {
+      font-weight: 900;
+      font-size: 64px;
+      line-height: 1.15;
+      color: #ffffff;
+      margin: 0 0 32px 0;
+    }
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: #00d9ff;
+      color: #0a1428;
+      padding: 14px 32px;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 16px;
+      letter-spacing: 0.5px;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      width: fit-content;
+      text-transform: uppercase;
+    }
+    .button:hover {
+      background: #00c5e8;
+    }
+    .logo {
+      position: absolute;
+      top: 24px;
+      right: 28px;
+      width: 140px;
+      height: auto;
+      opacity: 0.95;
+      z-index: 10;
+    }
+    .logo svg {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .brand {
+      position: absolute;
+      top: 24px;
+      right: 180px;
+      color: #00d9ff;
+      opacity: 0.9;
+      font-weight: 700;
+      letter-spacing: 1px;
+      font-size: 12px;
+      z-index: 10;
+    }
+    .qr-code {
+      position: absolute;
+      bottom: 32px;
+      right: 32px;
+      width: 120px;
+      height: 120px;
+      opacity: 0.95;
+      border-radius: 8px;
+      border: 2px solid rgba(0, 217, 255, 0.3);
+      z-index: 10;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    ${LOGO_SVG ? `<div class="logo">${LOGO_SVG}</div>` : ''}
+    <div class="brand">HEXADIGITALL.COM</div>
+    ${qrHtml}
+    <div class="content-overlay">
+      <div class="label">${escapeHtml(label || 'PROFESSIONAL CERTIFICATION')}</div>
+      <h1 class="title">${escapeHtml(title)}</h1>
+      <button class="button">${escapeHtml(buttonText || 'ENROLL NOW')}</button>
+    </div>
+  </div>
+</body>
+</html>`;
+
+/**
+ * Generate QR code as data URI
+ */
+async function generateQRCodeUri(text) {
+  try {
+    return await QRCode.toDataURL(text, {
+      errorCorrectionLevel: 'M',
+      type: 'image/png',
+      width: 160,
+      margin: 1,
+      color: { dark: '#0A4D68', light: '#ffffff' },
+    });
+  } catch (err) {
+    console.warn('QR code generation failed:', err.message);
+    return '';
+  }
+}
+
+// Original base cards (replaced with simpler structure below)
+// const CARDS = [...];
+  {
+    file: 'proposal-jhema-wears',
+    params: {
+      title: 'Jhema Wears — E‑Commerce Proposal',
+      subtitle: 'Tiered packages • Paystack checkout • Fast mobile UX',
+      bullets: [
+        'Product catalog with variants',
+        'Paystack payments (cards, transfer, USSD)',
+        'Shipping providers & notifications',
+        'SEO + social meta (OG) ready',
+      ],
+      badge: 'Most Popular: Starter',
+      price: 'From ₦199,000',
+      icon: '🛍️',
+      gradientFrom: '#0A4D68',
+      gradientTo: '#066d7f',
+    },
+  },
+  {
+    file: 'proposal-generic',
+    params: {
+      title: 'E‑Commerce Proposal — Your Business',
+      subtitle: 'Launch fast • Scale smart • Convert more',
+      bullets: [
+        'Product catalog & checkout',
+        'Paystack payments (cards, transfer, USSD)',
+        'Shipping & notifications',
+        'SEO + OG social previews',
+      ],
+      badge: 'Pick a plan to start',
+      price: 'From ₦199,000',
+      icon: '🛒',
+      gradientFrom: '#4facfe',
+      gradientTo: '#00f2fe',
+    },
+  },
+  {
+    file: 'courses-hub',
+    params: {
+      title: 'Master In‑Demand Tech Skills',
+      subtitle: 'Live Mentoring · Self‑Paced',
+      bullets: ['Web & Mobile Development', 'Digital Marketing', 'Business Fundamentals', 'Career Mentoring'],
+      badge: 'New for 2025',
+      price: 'Regional pricing available',
+      icon: '🎓',
+      gradientFrom: '#667eea',
+      gradientTo: '#764ba2',
+    },
+  },
+  {
+    file: 'service-web-development',
+    params: {
+      title: 'Web & Mobile Development',
+      subtitle: 'Fast · Secure · Responsive',
+      bullets: ['Custom Websites', 'React & Next.js', 'Android/iOS Apps', 'E‑commerce & APIs'],
+      badge: 'Business Website Special',
+      price: 'From ₦299,000',
+      icon: '🧩',
+      gradientFrom: '#10b981',
+      gradientTo: '#0ea5e9',
+    },
+  },
+  {
+    file: 'service-digital-marketing',
+    params: {
+      title: 'Digital Marketing & Ads',
+      subtitle: 'Growth · Engagement · ROI',
+      bullets: ['Instagram & TikTok Ads', 'Content Strategy', 'SEO & Analytics', 'Lead Funnels'],
+      badge: 'Promo Running',
+      price: 'From ₦300,000/month',
+      icon: '📈',
+      gradientFrom: '#f093fb',
+      gradientTo: '#f5576c',
+    },
+  },
+  {
+    file: 'service-business-planning',
+    params: {
+      title: 'Business Planning & Logo',
+      subtitle: 'Plan · Brand · Launch',
+      bullets: ['Business Plan', 'Logo & Identity', 'Pitch Deck', 'Go‑to‑Market'],
+      badge: 'Bundle Discount',
+      price: 'Save ₦39,000',
+      icon: '🧠',
+      gradientFrom: '#4facfe',
+      gradientTo: '#00f2fe',
+    },
+  },
+  {
+    file: 'service-ecommerce',
+    params: {
+      title: 'E‑Commerce Stores',
+      subtitle: 'Sell Fast · Scale Smart',
+      bullets: ['Mobile‑First Storefront', 'Paystack Checkout', 'Inventory & Shipping', 'Analytics & SEO'],
+      badge: 'Ready to Launch',
+      price: 'From ₦199,000',
+      icon: '🛒',
+      gradientFrom: '#4facfe',
+      gradientTo: '#00f2fe',
+    },
+  },
+  {
+    file: 'service-portfolio',
+    params: {
+      title: 'Professional Portfolio Sites',
+      subtitle: 'Your 24/7 Salesperson',
+      bullets: ['Personal Brand Site', 'Case Studies & Testimonials', 'SEO & Contact Forms', 'Fast Hosting'],
+      badge: 'Client‑Winning Design',
+      price: 'From ₦299,000',
+      icon: '🗂️',
+      gradientFrom: '#10b981',
+      gradientTo: '#0ea5e9',
+    },
+  },
+  {
+    file: 'proposal-divas-kloset',
+    params: {
+      title: 'Diva\'s Kloset Marketing',
+      subtitle: 'Social Media & Growth Strategy',
+      bullets: ['Content Creation', 'Influencer Mgmt', 'Meta Ads', 'DM Sales Closing'],
+      badge: 'Festive Ready',
+      price: 'From ₦250,000',
+      icon: '📱',
+      gradientFrom: '#d946ef',
+      gradientTo: '#ec4899',
+    },
+  },
+];
+
+// Load inline SVG logo once
+let LOGO_SVG = '';
+try {
+  LOGO_SVG = fs.readFileSync(path.resolve('public/hexadigitall-logo-transparent.svg'), 'utf8');
+} catch (e) {
+  void e;
+  try {
+    LOGO_SVG = fs.readFileSync(path.resolve('public/hexadigitall-logo.svg'), 'utf8');
+  } catch {}
+}
+
+function cardHTML({ title, subtitle, bullets = [], badge, price, icon = '🚀', gradientFrom = '#0A4D68', gradientTo = '#066d7f', backgroundImageUri = '' }) {
+  const bulletHtml = bullets.map(b => `<li>${escapeHtml(b)}</li>`).join('');
+  const priceHtml = price ? `<div class="price">${escapeHtml(price)}</div>` : '';
+  const badgeHtml = badge ? `<div class="badge">${escapeHtml(badge)}</div>` : '';
+  const bgStyle = backgroundImageUri 
+    ? `background-image: url('${backgroundImageUri}'); background-size: cover; background-position: center;`
+    : '';
+
+  return `<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>${escapeHtml(title)} | Hexadigitall</title>
+  <style>
+    :root {
+      --from: ${gradientFrom};
+      --to: ${gradientTo};
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; }
+    body {
+      width: ${WIDTH}px; height: ${HEIGHT}px;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', 'Liberation Sans', sans-serif;
+      color: #0b1520;
+      ${bgStyle}
+    }
+    .card {
+      position: relative;
+      display: flex; flex-direction: column; justify-content: center;
+      height: 100%; width: 100%;
+      padding: 64px 72px;
+      overflow: hidden;
+    }
+    .bg-gradient {
+      position: absolute; inset: -40px -40px auto auto; width: 70%; height: 70%;
+      background: radial-gradient(1200px 600px at 85% 30%, var(--to) 0%, transparent 60%),
+                  radial-gradient(1000px 500px at 70% 60%, var(--from) 0%, transparent 60%);
+      opacity: 0.18; filter: blur(2px);
+    }
+    .brand { position: absolute; bottom: 20px; right: 28px; color: #0A4D68; opacity: .85; font-weight: 700; letter-spacing: .3px; }
+    .logo { position: absolute; top: 22px; right: 22px; width: 160px; height: auto; opacity: .95; }
+    .logo svg { width: 100%; height: auto; display: block; }
+    .icon { font-size: 72px; line-height: 1; margin-bottom: 12px; }
+    .title { font-weight: 800; font-size: 56px; line-height: 1.1; color: #0A2230; margin: 0 0 14px; }
+    .subtitle { font-weight: 500; font-size: 26px; color: #234; margin: 0 0 18px; opacity: .9; }
+    .list { display: grid; grid-template-columns: 1fr 1fr; gap: 8px 28px; list-style: none; padding: 0; margin: 0 0 20px; }
+    .list li { font-size: 22px; color: #1c2a36; position: relative; padding-left: 28px; }
+    .list li::before { content: '✓'; position: absolute; left: 0; top: 0; color: #0A4D68; font-weight: 900; }
+    .footer { display: flex; align-items: center; gap: 16px; margin-top: 10px; }
+    .badge { background: linear-gradient(135deg, var(--from), var(--to)); color: white; padding: 10px 16px; border-radius: 999px; font-size: 18px; font-weight: 700; letter-spacing: .3px; }
+    .price { color: #0A4D68; font-weight: 800; font-size: 22px; }
+    .frame { position: absolute; inset: 18px; border-radius: 18px; border: 1px solid rgba(10,77,104,.12); }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="bg-gradient" aria-hidden="true"></div>
+    <div class="frame" aria-hidden="true"></div>
+    ${LOGO_SVG ? `<div class="logo" aria-hidden="true">${LOGO_SVG}</div>` : ''}
+    <div class="icon">${escapeHtml(icon)}</div>
+    <h1 class="title">${escapeHtml(title)}</h1>
+    <p class="subtitle">${escapeHtml(subtitle || '')}</p>
+    ${bullets.length ? `<ul class="list">${bulletHtml}</ul>` : ''}
+    <div class="footer">${badgeHtml}${priceHtml}</div>
+    <div class="brand">hexadigitall.com</div>
+  </div>
+</body>
+</html>`;
+}
+
+// Legacy base cards (kept for reference, now using asset folders instead)
+// All cards are now generated from image files in public/assets/images/{courses,schools,services}
+/*
+const CARDS = [
+  // ... old card definitions removed, using asset folders instead
+];
+*/
+
+/**
+ * Convert filename to readable title
+ * Removes suffixes (-2, -3, etc.), handles abbreviations and spacing
+ */
+function filenameToTitle(filename) {
+  if (!filename) return '';
+  let title = filename.replace(/\.[^/.]+$/, '');
+  title = title.replace(/-\d+$/, '');
+  let words = title.split('-');
+  const acronyms = new Set([
+    'api', 'aws', 'ccna', 'cissp', 'cms', 'csm', 'devops', 'ga', 'ga4', 'html', 
+    'http', 'iac', 'ios', 'it', 'json', 'llm', 'mvp', 'node', 'oop', 'orm', 'pmp', 
+    'rest', 'seo', 'sql', 'sso', 'ui', 'ux', 'vfx', 'wip', 'xml', 'ai', 'bi', 'cv', 
+    'dm', 'cto', 'cfo', 'ceo', 'saas', 'b2b', 'b2c', 'yoy', 'roi', 'kpi', 'oa'
+  ]);
+  words = words.map(word => {
+    if (!word) return '';
+    const lower = word.toLowerCase();
+    if (acronyms.has(lower)) return lower.toUpperCase();
+    return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
+  });
+  words = words.filter(word => !isNaN(word) === false);
+  return words.join(' ');
+}
+
+function getBackgroundImage(type, slug) {
+  const dir = IMAGE_DIRS[type];
+  if (!dir || !fs.existsSync(dir)) return '';
+  const primaryName = `${slug}.jpg`;
+  const primaryPath = path.join(dir, primaryName);
+  if (fs.existsSync(primaryPath)) return primaryPath;
+  try {
+    const files = fs.readdirSync(dir).filter(f => f.endsWith('.jpg') || f.endsWith('.png'));
+    return files.length > 0 ? path.join(dir, files[0]) : '';
+  } catch {
+    return '';
+  }
+}
+
+function getImageDataUri(imagePath) {
+  if (!imagePath || !fs.existsSync(imagePath)) return '';
+  try {
+    const buffer = fs.readFileSync(imagePath);
+    const ext = path.extname(imagePath).slice(1).toLowerCase();
+    const mime = ext === 'jpg' || ext === 'jpeg' ? 'image/jpeg' : 'image/png';
+    return `data:${mime};base64,${buffer.toString('base64')}`;
+  } catch {
+    return '';
+  }
+}
+
+async function generateBaseCards(browser) {
+  const page = await browser.newPage();
+  let count = 0;
+
+  for (const { file, params } of CARDS) {
+    const qrUrl = `https://www.hexadigitall.com/${file}`;
+    const qrCodeUri = await generateQRCodeUri(qrUrl);
+    const html = cardHTML({ ...params, qrCodeDataUri: qrCodeUri });
+    
+    try {
+      await page.setContent(html, { waitUntil: 'domcontentloaded' });
+      const pngPath = path.join(OUT_DIR, `${file}.png`);
+      const jpgPath = path.join(OUT_DIR, `${file}.jpg`);
+      await page.screenshot({ path: pngPath, type: 'png' });
+      await page.screenshot({ path: jpgPath, type: 'jpeg', quality: 90 });
+      console.log(`✅ Base card: ${path.relative(process.cwd(), jpgPath)}`);
+      count++;
+    } catch (err) {
+      console.error(`❌ Failed to generate base card ${file}:`, err.message);
+    }
+  }
+
+  // City-labeled variants
+  const cities = ['lagos', 'abuja', 'portharcourt', 'calabar', 'ibadan', 'kano', 'enugu'];
+  const cityNames = {
+    lagos: 'Lagos',
+    abuja: 'Abuja',
+    portharcourt: 'Port Harcourt',
+    calabar: 'Calabar',
+    ibadan: 'Ibadan',
+    kano: 'Kano',
+    enugu: 'Enugu',
+  };
+
+  const serviceFiles = [
+    'service-web-development',
+    'service-digital-marketing',
+    'service-ecommerce',
+    'service-business-planning',
+    'service-portfolio',
+  ];
+
+  const serviceDisplay = {
+    'service-web-development': 'Websites',
+    'service-digital-marketing': 'Digital Marketing',
+    'service-ecommerce': 'E‑Commerce',
+    'service-business-planning': 'Business Plans',
+    'service-portfolio': 'Portfolio Sites',
+  };
+
+  function paramsFor(file) {
+    const base = CARDS.find(c => c.file === file);
+    return base ? base.params : null;
+  }
+
+  for (const svc of serviceFiles) {
+    const baseParams = paramsFor(svc);
+    if (!baseParams) continue;
+    for (const city of cities) {
+      const cityLabel = cityNames[city] || city;
+      const file = `${svc}-${city}`;
+      const params = {
+        ...baseParams,
+        title: `${serviceDisplay[svc]} — ${cityLabel}`,
+      };
+      const qrUrl = `https://www.hexadigitall.com/${file}`;
+      const qrCodeUri = await generateQRCodeUri(qrUrl);
+      const html = cardHTML({ ...params, qrCodeDataUri: qrCodeUri });
+      
+      try {
+        await page.setContent(html, { waitUntil: 'domcontentloaded' });
+        const pngPath = path.join(OUT_DIR, `${file}.png`);
+        const jpgPath = path.join(OUT_DIR, `${file}.jpg`);
+        await page.screenshot({ path: pngPath, type: 'png' });
+        await page.screenshot({ path: jpgPath, type: 'jpeg', quality: 90 });
+        console.log(`🏙️  City variant: ${path.relative(process.cwd(), jpgPath)}`);
+        count++;
+      } catch (err) {
+        console.error(`❌ Failed to generate city variant ${file}:`, err.message);
+      }
+    }
+  }
+
+  await page.close();
+  return count;
+}
+
+async function generateCourseOGImages(browser) {
+  const page = await browser.newPage();
+  const coursesDir = IMAGE_DIRS.courses;
+  
+  if (!fs.existsSync(coursesDir)) {
+    console.warn(`⚠️  Courses directory not found: ${coursesDir}`);
+    return 0;
+  }
+
+  const courseImages = fs.readdirSync(coursesDir).filter(f => f.endsWith('.jpg') || f.endsWith('.png'));
+  let count = 0;
+
+  for (const imageFile of courseImages) {
+    const imagePath = path.join(coursesDir, imageFile);
+    const slug = imageFile.replace(/\.[^/.]+$/, '');
+    const title = filenameToTitle(slug);
+    const bgUri = getImageDataUri(imagePath);
+    const qrUrl = `https://www.hexadigitall.com/courses/${slug}`;
+    const qrCodeUri = await generateQRCodeUri(qrUrl);
+
+    const html = cardHTML({
+      title,
+      subtitle: 'Master this skill with expert-led mentoring',
+      bullets: [],
+      badge: 'Enroll Today',
+      price: 'Regional pricing',
+      icon: '🎓',
+      gradientFrom: '#667eea',
+      gradientTo: '#764ba2',
+      backgroundImageUri: bgUri,
+      qrCodeDataUri: qrCodeUri,
+    });
+
+    const outFile = `course-${slug}`;
+    try {
+      await page.setContent(html, { waitUntil: 'domcontentloaded' });
+      const pngPath = path.join(OUT_DIR, `${outFile}.png`);
+      const jpgPath = path.join(OUT_DIR, `${outFile}.jpg`);
+      await page.screenshot({ path: pngPath, type: 'png' });
+      await page.screenshot({ path: jpgPath, type: 'jpeg', quality: 90 });
+      console.log(`✅ Course: ${path.relative(process.cwd(), jpgPath)}`);
+      count++;
+    } catch (err) {
+      console.error(`❌ Failed to generate course OG for ${slug}:`, err.message);
+    }
+  }
+
+  await page.close();
+  return count;
+}
+
+async function generateSchoolOGImages(browser) {
+  const page = await browser.newPage();
+  const schoolsDir = IMAGE_DIRS.schools;
+  
+  if (!fs.existsSync(schoolsDir)) {
+    console.warn(`⚠️  Schools directory not found: ${schoolsDir}`);
+    return 0;
+  }
+
+  const schoolImages = fs.readdirSync(schoolsDir).filter(f => f.endsWith('.jpg') || f.endsWith('.png'));
+  let count = 0;
+
+  const gradients = [
+    { from: '#0A4D68', to: '#066d7f' },
+    { from: '#667eea', to: '#764ba2' },
+    { from: '#10b981', to: '#0ea5e9' },
+    { from: '#4facfe', to: '#00f2fe' },
+    { from: '#f093fb', to: '#f5576c' },
+  ];
+
+  for (let idx = 0; idx < schoolImages.length; idx++) {
+    const imageFile = schoolImages[idx];
+    const imagePath = path.join(schoolsDir, imageFile);
+    const slug = imageFile.replace(/\.[^/.]+$/, '');
+    const title = filenameToTitle(slug);
+    const bgUri = getImageDataUri(imagePath);
+    const gradient = gradients[idx % gradients.length];
+    const qrUrl = `https://www.hexadigitall.com/school/${slug}`;
+    const qrCodeUri = await generateQRCodeUri(qrUrl);
+
+    const html = cardHTML({
+      title,
+      subtitle: 'Comprehensive curriculum with expert instruction',
+      bullets: [],
+      badge: 'Learn More',
+      price: 'Multiple course levels',
+      icon: '🏫',
+      gradientFrom: gradient.from,
+      gradientTo: gradient.to,
+      backgroundImageUri: bgUri,
+      qrCodeDataUri: qrCodeUri,
+    });
+
+    const outFile = `school-${slug}`;
+    try {
+      await page.setContent(html, { waitUntil: 'domcontentloaded' });
+      const pngPath = path.join(OUT_DIR, `${outFile}.png`);
+      const jpgPath = path.join(OUT_DIR, `${outFile}.jpg`);
+      await page.screenshot({ path: pngPath, type: 'png' });
+      await page.screenshot({ path: jpgPath, type: 'jpeg', quality: 90 });
+      console.log(`✅ School: ${path.relative(process.cwd(), jpgPath)}`);
+      count++;
+    } catch (err) {
+      console.error(`❌ Failed to generate school OG for ${slug}:`, err.message);
+    }
+  }
+
+  await page.close();
+  return count;
+}
+
+async function generateServiceOGImages(browser) {
+  const page = await browser.newPage();
+  const servicesDir = IMAGE_DIRS.services;
+  
+  if (!fs.existsSync(servicesDir)) {
+    console.warn(`⚠️  Services directory not found: ${servicesDir}`);
+    return 0;
+  }
+
+  const serviceImages = fs.readdirSync(servicesDir).filter(f => f.endsWith('.jpg') || f.endsWith('.png'));
+  let count = 0;
+
+  const gradients = [
+    { from: '#10b981', to: '#0ea5e9' },
+    { from: '#f093fb', to: '#f5576c' },
+    { from: '#4facfe', to: '#00f2fe' },
+    { from: '#0A4D68', to: '#066d7f' },
+    { from: '#667eea', to: '#764ba2' },
+  ];
+
+  for (let idx = 0; idx < serviceImages.length; idx++) {
+    const imageFile = serviceImages[idx];
+    const imagePath = path.join(servicesDir, imageFile);
+    const slug = imageFile.replace(/\.[^/.]+$/, '');
+    const title = filenameToTitle(slug);
+    const bgUri = getImageDataUri(imagePath);
+    const gradient = gradients[idx % gradients.length];
+    const qrUrl = `https://www.hexadigitall.com/services/${slug}`;
+    const qrCodeUri = await generateQRCodeUri(qrUrl);
+
+    const html = cardHTML({
+      title,
+      subtitle: 'Professional service with quality assurance',
+      bullets: [],
+      badge: 'Get Started',
+      price: 'Custom quote',
+      icon: '⚡',
+      gradientFrom: gradient.from,
+      gradientTo: gradient.to,
+      backgroundImageUri: bgUri,
+      qrCodeDataUri: qrCodeUri,
+    });
+
+    const outFile = `service-${slug}`;
+    try {
+      await page.setContent(html, { waitUntil: 'domcontentloaded' });
+      const pngPath = path.join(OUT_DIR, `${outFile}.png`);
+      const jpgPath = path.join(OUT_DIR, `${outFile}.jpg`);
+      await page.screenshot({ path: pngPath, type: 'png' });
+      await page.screenshot({ path: jpgPath, type: 'jpeg', quality: 90 });
+      console.log(`✅ Service: ${path.relative(process.cwd(), jpgPath)}`);
+      count++;
+    } catch (err) {
+      console.error(`❌ Failed to generate service OG for ${slug}:`, err.message);
+    }
+  }
+
+  await page.close();
+  return count;
+}
+
+async function generate() {
+  ensureOutDir();
+  const browser = await puppeteer.launch({
+    headless: 'new',
+    defaultViewport: { width: WIDTH, height: HEIGHT, deviceScaleFactor: 2 },
+    args: ['--no-sandbox', '--disable-setuid-sandbox'],
+  });
+
+  try {
+    console.log('🎨 Generating OG images with rich content and QR codes...\n');
+
+    const baseCount = await generateBaseCards(browser);
+    const courseCount = await generateCourseOGImages(browser);
+    const schoolCount = await generateSchoolOGImages(browser);
+    const serviceCount = await generateServiceOGImages(browser);
+
+    const totalCount = baseCount + courseCount + schoolCount + serviceCount;
+    console.log(`\n✨ Generation complete!`);
+    console.log(`   Base cards: ${baseCount}`);
+    console.log(`   Courses: ${courseCount}`);
+    console.log(`   Schools: ${schoolCount}`);
+    console.log(`   Services: ${serviceCount}`);
+    console.log(`   Total: ${totalCount} OG images generated`);
+  } finally {
+    await browser.close();
+  }
+}
+
+if (import.meta.url === `file://${process.argv[1]}`) {
+  generate().catch((err) => {
+    console.error('❌ Generation failed:', err);
+    process.exit(1);
+  });
+}
