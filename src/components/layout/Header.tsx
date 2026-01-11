@@ -12,7 +12,7 @@ const Header = () => {
   const [isServicesOpen, setServicesOpen] = useState(false);
   const [isMobileServicesOpen, setMobileServicesOpen] = useState(false);
 
-  // ✅ Corrected and completed service links array
+  // Service links array
   const serviceLinks = [
     { href: "/services/business-plan-and-logo-design", label: "Business Plan & Logo" },
     { href: "/services/web-and-mobile-software-development", label: "Web & Mobile Dev" },
@@ -34,6 +34,13 @@ const Header = () => {
   };
 
   useEffect(() => {
+    // Lock body scroll when mobile menu is open
+    if (isMobileMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+
     const handleClickOutside = (event: MouseEvent) => {
       const target = event.target as Element;
       if (!target.closest('.services-dropdown')) {
@@ -53,17 +60,18 @@ const Header = () => {
     document.addEventListener('keydown', handleEscape);
 
     return () => {
+      document.body.style.overflow = 'unset';
       document.removeEventListener('mousedown', handleClickOutside);
       document.removeEventListener('keydown', handleEscape);
     };
-  }, []);
+  }, [isMobileMenuOpen]);
 
   return (
     <>
       <header className="bg-white shadow-md sticky top-0 z-50">
-        <nav className="container mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center min-h-[72px]">
+        <nav className="container mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center min-h-[72px] relative">
           {/* Logo */}
-          <Link href="/" className="flex items-center space-x-2 flex-shrink-0">
+          <Link href="/" className="flex items-center space-x-2 flex-shrink-0" onClick={closeMobileMenus}>
             <Image
               src="/hexadigitall-logo-transparent.png"
               alt="Hexadigitall Logo"
@@ -130,7 +138,7 @@ const Header = () => {
             </Link>
           </div>
 
-          {/* Tablet Navigation - Optimized */}
+          {/* Tablet Navigation */}
           <div className="hidden md:flex lg:hidden items-center justify-between flex-1 ml-4">
             <div className="flex items-center space-x-3 xl:space-x-4">
               <Link href="/about" className="text-sm font-medium hover:text-secondary transition-colors whitespace-nowrap">About</Link>
@@ -180,65 +188,98 @@ const Header = () => {
             </div>
           </div>
 
-          {/* Mobile Menu Button */}
+          {/* Mobile Menu Button - Animates between Hamburger and Close X */}
           <div className="md:hidden flex items-center space-x-4">
-            <button onClick={() => setMobileMenuOpen(!isMobileMenuOpen)} aria-label="Toggle mobile menu">
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+            <button 
+              onClick={() => setMobileMenuOpen(!isMobileMenuOpen)} 
+              aria-label="Toggle mobile menu"
+              className="p-2 -mr-2 text-darkText"
+            >
+              {isMobileMenuOpen ? (
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12"></path></svg>
+              ) : (
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+              )}
             </button>
           </div>
-        </nav>
 
-        {/* Mobile Menu */}
+        {/* MOBILE MENU OVERLAY & BACKDROP */}
         {isMobileMenuOpen && (
-          <div className="md:hidden bg-white px-4 sm:px-6 pb-4 border-t border-gray-100">
-            <div className="flex flex-col space-y-4 pt-4">
-              <Link href="/about" onClick={closeMobileMenus}>About</Link>
-              <div>
-                <button onClick={() => setMobileServicesOpen(!isMobileServicesOpen)} className="flex items-center justify-between w-full text-left">
-                  Services
-                  <svg className={`h-5 w-5 transition-transform duration-200 ${isMobileServicesOpen ? 'rotate-180' : ''}`} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                    <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
-                  </svg>
-                </button>
-                {isMobileServicesOpen && (
-                  <div className="mt-2 ml-4 space-y-2">
-                    <Link href="/services" className="block text-sm text-primary font-medium py-1" onClick={closeMobileMenus}>
-                      All Services
-                    </Link>
-                    {serviceLinks.map((link) => (
-                      <Link key={link.href} href={link.href} className="block text-sm text-darkText py-1 hover:text-secondary" onClick={closeMobileMenus}>
-                        {link.label}
-                      </Link>
-                    ))}
-                  </div>
-                )}
-              </div>
-              <Link href="/portfolio" onClick={closeMobileMenus}>Portfolio</Link>
-              <Link href="/courses" onClick={closeMobileMenus}>Courses</Link>
-              <Link href="/blog" onClick={closeMobileMenus}>Blog</Link>
-              <Link href="/faq" onClick={closeMobileMenus}>FAQs</Link>
-              <div className="pt-4 border-t border-gray-100">
-                <div className="flex items-center justify-between mb-4">
-                  <span className="text-sm text-gray-600">Currency:</span>
-                  <CurrencySwitcher position="inline" showLabel={false} />
+          <>
+            {/* The Backdrop: Catches clicks outside the menu */}
+            <div 
+              className="fixed inset-0 bg-black/30 backdrop-blur-sm z-40 md:hidden"
+              style={{ top: '72px' }} 
+              onClick={closeMobileMenus}
+              aria-hidden="true"
+            ></div>
+
+            {/* The Menu Panel: Floats over content */}
+            <div className="absolute top-full left-0 w-full bg-white z-50 shadow-xl border-t border-gray-100 md:hidden animate-in slide-in-from-top-2 duration-200 overflow-y-auto max-h-[calc(100vh-72px)]">
+              <div className="px-4 sm:px-6 pb-4 pt-3 flex flex-col space-y-1">
+                
+                {/* 1. Quick Access Row (About | Portfolio | FAQ) */}
+                <div className="flex items-center justify-between border-b border-gray-100 pb-2 mb-1">
+                  <Link href="/about" onClick={closeMobileMenus} className="text-sm font-medium text-darkText hover:text-secondary py-2 flex-1 text-left">About</Link>
+                  <div className="h-4 w-px bg-gray-200 mx-2"></div> {/* Divider */}
+                  <Link href="/portfolio" onClick={closeMobileMenus} className="text-sm font-medium text-darkText hover:text-secondary py-2 flex-1 text-center">Portfolio</Link>
+                  <div className="h-4 w-px bg-gray-200 mx-2"></div> {/* Divider */}
+                  <Link href="/faq" onClick={closeMobileMenus} className="text-sm font-medium text-darkText hover:text-secondary py-2 flex-1 text-right">FAQ</Link>
                 </div>
                 
-                {/* Mobile WhatsApp Button */}
-                <button 
-                  onClick={handleWhatsAppClick}
-                  className="w-full flex items-center justify-center space-x-2 py-2 mb-3 border-2 border-green-500 text-green-600 rounded-lg font-medium"
-                >
-                  <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-                  <span>Chat on WhatsApp</span>
-                </button>
+                {/* Mobile Services Accordion */}
+                <div className="border-b border-gray-100 pb-1">
+                  <button 
+                    onClick={() => setMobileServicesOpen(!isMobileServicesOpen)} 
+                    className="flex items-center justify-between w-full text-left text-sm py-2 font-medium text-darkText hover:text-secondary transition-colors"
+                  >
+                    Services
+                    <svg className={`h-5 w-5 text-gray-400 transition-transform duration-200 ${isMobileServicesOpen ? 'rotate-180' : ''}`} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                      <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
+                    </svg>
+                  </button>
+                  
+                  {/* Smooth expand for services */}
+                  <div className={`overflow-hidden transition-all duration-300 ${isMobileServicesOpen ? 'max-h-96 opacity-100 mt-1' : 'max-h-0 opacity-0'}`}>
+                    <div className="ml-4 space-y-1">
+                      <Link href="/services" className="block text-sm text-primary font-medium py-1.5" onClick={closeMobileMenus}>
+                        All Services
+                      </Link>
+                      {serviceLinks.map((link) => (
+                        <Link key={link.href} href={link.href} className="block text-sm text-darkText py-1.5 hover:text-secondary transition-colors" onClick={closeMobileMenus}>
+                          {link.label}
+                        </Link>
+                      ))}
+                    </div>
+                  </div>
+                </div>
 
-                <Link href="/contact" className="btn-primary text-center block" onClick={closeMobileMenus}>
-                  Contact
-                </Link>
+                <Link href="/courses" onClick={closeMobileMenus} className="block text-sm py-1.5 text-darkText hover:text-secondary font-medium transition-colors">Courses</Link>
+                <Link href="/blog" onClick={closeMobileMenus} className="block text-sm py-1.5 text-darkText hover:text-secondary font-medium transition-colors">Blog</Link>
+                
+                {/* Action Area (Bottom) - Compacted Spacing */}
+                <div className="pt-2 mt-1 border-t border-gray-100">
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="text-sm text-gray-600">Currency:</span>
+                    <CurrencySwitcher position="inline" showLabel={false} />
+                  </div>
+                  
+                  <button 
+                    onClick={handleWhatsAppClick}
+                    className="w-full flex items-center justify-center space-x-2 py-2 mb-2 border-2 border-green-500 text-green-600 rounded-lg font-medium hover:bg-green-50 transition-colors"
+                  >
+                    <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                  </button>
+
+                  <Link href="/contact" className="btn-primary text-center block w-full py-2" onClick={closeMobileMenus}>
+                    Contact
+                  </Link>
+                </div>
               </div>
             </div>
-          </div>
+          </>
         )}
+        </nav>
       </header>
     </>
   );
