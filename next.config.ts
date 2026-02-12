@@ -23,6 +23,18 @@ const nextConfig: NextConfig = {
         source: '/socialmediaform',
         destination: '/socialmediaform/index.html',
       },
+      {
+        source: '/forms',
+        destination: '/forms/index.html',
+      },
+      {
+        source: '/forms/profile-and-portfolio/cv-resume-professional',
+        destination: '/forms/profile-and-portfolio/cv-resume-professional/index.html',
+      },
+      {
+        source: '/forms/profile-and-portfolio/linkedin-complete-makeover',
+        destination: '/forms/profile-and-portfolio/linkedin-complete-makeover/index.html',
+      },
     ];
   },
 
