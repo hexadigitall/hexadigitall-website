@@ -36,6 +36,7 @@
             <li>Target role(s), industries, and job postings if available.</li>
             <li>Work history, achievements, and key metrics.</li>
             <li>Education, certifications, and notable projects.</li>
+            <li>Any existing files, certificates, or headshots (share links or upload names).</li>
             <li>Preferred tone, style, and formatting requests.</li>
           </ul>
         </div>
@@ -44,6 +45,9 @@
           <p>
             Please gather links to any documents or files in Google Drive, Dropbox, or OneDrive.
             Use the form below and click Submit to email the details to our team.
+          </p>
+          <p class="note">
+            File uploads do not attach to the email. Please include share links for every file.
           </p>
           <div class="actions">
             <button class="secondary" data-print>Print / Save PDF</button>
@@ -54,7 +58,14 @@
       </section>
 
       <section class="section-card">
-        <form class="form" data-service-form data-subject="CV Resume Professional Intake">
+        <form
+          class="form"
+          data-service-form
+          data-subject="CV Resume Professional Intake"
+          data-service="CV/Resume — Professional"
+          data-formspree="https://formspree.io/f/mzdadnlr"
+          data-admin-endpoint="/api/campaign/leads"
+        >
           <div class="field-group">
             <h3>Client Details</h3>
             <div class="inline-fields two">
@@ -184,6 +195,23 @@
 
           <div class="field-group">
             <h3>Files and Notes</h3>
+            <p class="note">
+              Use the upload fields to list filenames and still provide share links below.
+            </p>
+            <div class="inline-fields two">
+              <div>
+                <label for="resumeFile">Current resume/CV file</label>
+                <input id="resumeFile" name="Resume File" data-label="Resume File" type="file" accept=".pdf,.doc,.docx" />
+              </div>
+              <div>
+                <label for="certFile">Certificates or awards files</label>
+                <input id="certFile" name="Certificates Files" data-label="Certificates Files" type="file" accept=".pdf,.jpg,.jpeg,.png" multiple />
+              </div>
+            </div>
+            <div>
+              <label for="headshotFile">Optional professional headshot</label>
+              <input id="headshotFile" name="Headshot File" data-label="Headshot File" type="file" accept=".jpg,.jpeg,.png" />
+            </div>
             <div>
               <label for="files">Links to existing resume, certificates, or other files</label>
               <textarea id="files" name="File Links" data-label="File Links" required></textarea>
@@ -198,6 +226,7 @@
             <button type="submit">Submit via Email</button>
             <button class="secondary" data-print>Print / Save PDF</button>
           </div>
+          <div class="status" data-status aria-live="polite"></div>
           <p class="note">
             By submitting, you confirm the details are accurate and you want Hexadigitall to
             proceed with the CV/Resume - Professional package.

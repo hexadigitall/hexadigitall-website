@@ -183,6 +183,12 @@ textarea {
   align-items: center;
 }
 
+.status {
+  margin-top: 12px;
+  font-size: 13px;
+  color: var(--muted);
+}
+
 button, .btn-link {
   border: none;
   background: var(--accent);

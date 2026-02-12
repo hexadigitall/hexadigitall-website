@@ -37,6 +37,8 @@
             <li>Target roles, industries, and keywords.</li>
             <li>Key achievements, metrics, and portfolio links.</li>
             <li>Featured content assets (articles, projects, media).</li>
+            <li>Preferred access method if you want us to apply edits (no passwords).</li>
+            <li>Profile photo and banner files or share links.</li>
             <li>Preferred tone, audience, and networking goals.</li>
           </ul>
         </div>
@@ -45,6 +47,9 @@
           <p>
             Please share links to any photos, banners, or documents in Google Drive, Dropbox,
             or OneDrive. Use the form below and click Submit to email the details to our team.
+          </p>
+          <p class="note">
+            File uploads do not attach to the email. Please include share links for every file.
           </p>
           <div class="actions">
             <button class="secondary" data-print>Print / Save PDF</button>
@@ -55,7 +60,14 @@
       </section>
 
       <section class="section-card">
-        <form class="form" data-service-form data-subject="LinkedIn Complete Makeover Intake">
+        <form
+          class="form"
+          data-service-form
+          data-subject="LinkedIn Complete Makeover Intake"
+          data-service="LinkedIn — Complete Makeover"
+          data-formspree="https://formspree.io/f/mqederva"
+          data-admin-endpoint="/api/campaign/leads"
+        >
           <div class="field-group">
             <h3>Client Details</h3>
             <div class="inline-fields two">
@@ -96,6 +108,20 @@
                   <option>Other (explain in notes)</option>
                 </select>
               </div>
+            </div>
+            <div>
+              <label for="accessMethod">Access method if you want us to apply edits</label>
+              <textarea id="accessMethod" name="Access Method" data-label="Access Method"></textarea>
+              <p class="note">Do not share passwords here. We can coordinate secure access separately.</p>
+            </div>
+            <div>
+              <label for="twoFactor">Two-factor authentication enabled?</label>
+              <select id="twoFactor" name="Two Factor Enabled" data-label="Two Factor Enabled">
+                <option value="">Select</option>
+                <option>Yes</option>
+                <option>No</option>
+                <option>Not sure</option>
+              </select>
             </div>
             <div>
               <label for="liSnapshot">Current headline and about section</label>
@@ -143,6 +169,19 @@
 
           <div class="field-group">
             <h3>Featured Section and Assets</h3>
+            <p class="note">
+              Profile photo: square JPG/PNG, minimum 400x400, under 8 MB. Banner: 1584x396 JPG/PNG, under 8 MB.
+            </p>
+            <div class="inline-fields two">
+              <div>
+                <label for="liProfilePhoto">Profile photo upload</label>
+                <input id="liProfilePhoto" name="Profile Photo File" data-label="Profile Photo File" type="file" accept=".jpg,.jpeg,.png" />
+              </div>
+              <div>
+                <label for="liBanner">Banner image upload</label>
+                <input id="liBanner" name="Banner File" data-label="Banner File" type="file" accept=".jpg,.jpeg,.png" />
+              </div>
+            </div>
             <div>
               <label for="liFeatured">Links or assets to showcase (projects, articles, media)</label>
               <textarea id="liFeatured" name="Featured Assets" data-label="Featured Assets"></textarea>
@@ -177,6 +216,13 @@
 
           <div class="field-group">
             <h3>Files and Notes</h3>
+            <p class="note">
+              Use the upload fields to list filenames and still provide share links below.
+            </p>
+            <div>
+              <label for="liResumeFile">Current resume/CV file</label>
+              <input id="liResumeFile" name="Resume File" data-label="Resume File" type="file" accept=".pdf,.doc,.docx" />
+            </div>
             <div>
               <label for="liResume">Current resume or CV link</label>
               <textarea id="liResume" name="Resume Link" data-label="Resume Link" required></textarea>
@@ -195,6 +241,7 @@
             <button type="submit">Submit via Email</button>
             <button class="secondary" data-print>Print / Save PDF</button>
           </div>
+          <div class="status" data-status aria-live="polite"></div>
           <p class="note">
             By submitting, you confirm the details are accurate and you want Hexadigitall to
             proceed with the LinkedIn - Complete Makeover package.

@@ -2,40 +2,94 @@
   const forms = document.querySelectorAll('[data-service-form]');
   const supportEmail = 'info@hexadigitall.com';
 
-  function serializeForm(form) {
-    const entries = [];
-    const fields = form.querySelectorAll('input, select, textarea');
+  function getFormDataObject(form) {
+    const data = {};
+    const formData = new FormData(form);
 
-    fields.forEach((field) => {
-      const type = field.type;
-      const name = field.getAttribute('data-label') || field.name || field.id;
-      if (!name) return;
-
-      if (type === 'checkbox') {
-        if (!field.checked) return;
-        entries.push([name, field.value || 'Yes']);
-        return;
+    formData.forEach((value, key) => {
+      let normalized = value;
+      if (value instanceof File) {
+        if (!value.name) {
+          return;
+        }
+        normalized = value.name;
       }
 
-      if (type === 'radio') {
-        if (!field.checked) return;
-        entries.push([name, field.value]);
-        return;
+      if (data[key]) {
+        if (Array.isArray(data[key])) {
+          data[key].push(normalized);
+        } else {
+          data[key] = [data[key], normalized];
+        }
+      } else {
+        data[key] = normalized;
       }
-
-      const value = field.value.trim();
-      if (!value) return;
-      entries.push([name, value]);
     });
 
-    return entries;
+    return data;
   }
 
-  function toMailto(form, entries) {
+  function getUtmParams() {
+    const params = new URLSearchParams(window.location.search);
+    return {
+      campaignName: params.get('utm_campaign') || 'client_intake',
+      campaignSource: params.get('utm_source') || 'direct',
+      campaignMedium: params.get('utm_medium') || 'form',
+      campaignContent: params.get('utm_content') || undefined,
+      campaignTerm: params.get('utm_term') || undefined,
+    };
+  }
+
+  function pickFirst(data, keys) {
+    for (const key of keys) {
+      if (data[key]) {
+        return data[key];
+      }
+    }
+    return '';
+  }
+
+  function toMailto(form, data) {
     const subject = form.getAttribute('data-subject') || 'Hexadigitall Service Intake';
-    const lines = entries.map(([label, value]) => `${label}: ${value}`);
+    const lines = Object.entries(data).map(([label, value]) => {
+      const normalized = Array.isArray(value) ? value.join(', ') : value;
+      return `${label}: ${normalized}`;
+    });
     const body = lines.join('\n');
     return `mailto:${supportEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  }
+
+  async function submitToFormspree(url, form) {
+    if (!url) return true;
+    const formData = new FormData(form);
+    const response = await fetch(url, {
+      method: 'POST',
+      body: formData,
+      headers: { 'Accept': 'application/json' },
+    });
+    return response.ok;
+  }
+
+  async function submitToAdmin(endpoint, data, form) {
+    if (!endpoint) return true;
+    const utm = getUtmParams();
+    const payload = {
+      name: pickFirst(data, ['Full Name', 'full_name', 'name']) || 'Unknown',
+      email: pickFirst(data, ['Email', 'email']) || '',
+      phone: pickFirst(data, ['Phone', 'phone']) || '',
+      service: form.getAttribute('data-service') || form.getAttribute('data-subject') || 'Client Intake',
+      city: pickFirst(data, ['Location', 'location', 'City', 'city']) || 'Not provided',
+      message: pickFirst(data, ['Career Goals', 'LinkedIn Goals', 'Profile Goals', 'Additional Notes']) || '',
+      ...utm,
+      formData: data,
+    };
+
+    const response = await fetch(endpoint, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+    });
+    return response.ok;
   }
 
   function printForm() {
@@ -44,6 +98,7 @@
 
   forms.forEach((form) => {
     const printButton = form.querySelector('[data-print]');
+    const statusEl = form.querySelector('[data-status]');
     if (printButton) {
       printButton.addEventListener('click', (event) => {
         event.preventDefault();
@@ -55,9 +110,30 @@
       event.preventDefault();
       if (!form.reportValidity()) return;
 
-      const entries = serializeForm(form);
-      const mailto = toMailto(form, entries);
-      window.location.href = mailto;
+      if (statusEl) {
+        statusEl.textContent = 'Submitting...';
+      }
+
+      const values = getFormDataObject(form);
+      const formspreeUrl = form.getAttribute('data-formspree');
+      const adminEndpoint = form.getAttribute('data-admin-endpoint');
+
+      Promise.all([
+        submitToFormspree(formspreeUrl, form).catch(() => false),
+        submitToAdmin(adminEndpoint, values, form).catch(() => false),
+      ]).then(([formspreeOk, adminOk]) => {
+        const mailto = toMailto(form, values);
+        window.location.href = mailto;
+
+        if (!statusEl) return;
+        if (formspreeOk && adminOk) {
+          statusEl.textContent = 'Submitted successfully. A pre-filled email has been opened.';
+        } else if (formspreeOk || adminOk) {
+          statusEl.textContent = 'Submitted partially. A pre-filled email has been opened.';
+        } else {
+          statusEl.textContent = 'Submission failed. Please email info@hexadigitall.com.';
+        }
+      });
     });
   });
 })();

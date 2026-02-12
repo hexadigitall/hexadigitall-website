@@ -89,6 +89,11 @@
       gap: 12px;
       margin-top: 20px;
     }
+      .status {
+        margin-top: 16px;
+        font-size: 0.95rem;
+        color: var(--muted);
+      }
     button {
       border: 0;
       border-radius: 8px;
@@ -275,6 +280,112 @@
       <button type="submit" class="primary">Submit Form</button>
       <button type="button" class="secondary" onclick="window.print()">Print / Save as PDF</button>
     </div>
+      <div class="status" id="submission-status" aria-live="polite"></div>
+    <script>
+      (function () {
+        const form = document.getElementById('intake-form');
+        const statusEl = document.getElementById('submission-status');
+        const supportEmail = 'info@hexadigitall.com';
+
+        function getFormValues(formEl) {
+          const formData = new FormData(formEl);
+          const data = {};
+
+          formData.forEach((value, key) => {
+            if (data[key]) {
+              if (Array.isArray(data[key])) {
+                data[key].push(value);
+              } else {
+                data[key] = [data[key], value];
+              }
+            } else {
+              data[key] = value;
+            }
+          });
+
+          return data;
+        }
+
+        function getUtmParams() {
+          const params = new URLSearchParams(window.location.search);
+          return {
+            campaignName: params.get('utm_campaign') || 'social_media_intake',
+            campaignSource: params.get('utm_source') || 'direct',
+            campaignMedium: params.get('utm_medium') || 'form',
+            campaignContent: params.get('utm_content') || undefined,
+            campaignTerm: params.get('utm_term') || undefined,
+          };
+        }
+
+        function toMailto(subject, data) {
+          const lines = Object.entries(data).map(([label, value]) => {
+            const normalized = Array.isArray(value) ? value.join(', ') : value;
+            return `${label}: ${normalized}`;
+          });
+          const body = lines.join('\n');
+          return `mailto:${supportEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+        }
+
+        async function submitToFormspree(action, formEl) {
+          const formData = new FormData(formEl);
+          const response = await fetch(action, {
+            method: 'POST',
+            body: formData,
+            headers: { 'Accept': 'application/json' },
+          });
+          return response.ok;
+        }
+
+        async function submitToAdmin(data) {
+          const utm = getUtmParams();
+          const payload = {
+            name: data.full_name || 'Unknown',
+            email: data.email || '',
+            phone: data.phone || '',
+            service: 'Social Media Strategy Intake',
+            city: data.city || 'Not provided',
+            message: data.usp || data.target_audience || 'Social media strategy intake form',
+            ...utm,
+            formData: data,
+          };
+
+          const response = await fetch('/api/campaign/leads', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload),
+          });
+          return response.ok;
+        }
+
+        form.addEventListener('submit', async (event) => {
+          event.preventDefault();
+
+          if (!form.reportValidity()) {
+            return;
+          }
+
+          statusEl.textContent = 'Submitting...';
+
+          const values = getFormValues(form);
+
+          const [formspreeOk, adminOk] = await Promise.all([
+            submitToFormspree(form.action, form).catch(() => false),
+            submitToAdmin(values).catch(() => false),
+          ]);
+
+          const mailtoLink = toMailto('Social Media Strategy Intake', values);
+          window.location.href = mailtoLink;
+
+          if (formspreeOk && adminOk) {
+            statusEl.textContent = 'Submitted successfully. A pre-filled email has been opened.';
+          } else if (formspreeOk || adminOk) {
+            statusEl.textContent = 'Submitted partially. A pre-filled email has been opened.';
+          } else {
+            statusEl.textContent = 'Submission failed. Please email info@hexadigitall.com.';
+          }
+        });
+      })();
+    </script>
   </form>
 
   <!-- Hidden Appendix for reference only -->

@@ -283,10 +283,11 @@ public/
 ├── index.html
 ├── social-preview/
 │   └── README.md
-├── socialmediaform/
-│   ├── hexadigitall-logo.png
-│   ├── index-original-backup.html
-│   └── index.html
+├── forms/
+│   └── social-media/
+│       ├── hexadigitall-logo.png
+│       ├── index-original-backup.html
+│       └── index.html
 ├── web-development-bootcamp-from-zero-to-hero.jpg
 ├── web-development.jpg
 └── web.jpg
