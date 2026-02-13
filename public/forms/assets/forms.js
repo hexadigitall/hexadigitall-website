@@ -59,9 +59,21 @@
     return `mailto:${supportEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
   }
 
-  async function submitToFormspree(url, form) {
+  function buildFormspreeData(data) {
+    const formData = new FormData();
+    Object.entries(data).forEach(([key, value]) => {
+      if (Array.isArray(value)) {
+        value.forEach((item) => formData.append(key, item));
+        return;
+      }
+      formData.append(key, value);
+    });
+    return formData;
+  }
+
+  async function submitToFormspree(url, data) {
     if (!url) return true;
-    const formData = new FormData(form);
+    const formData = buildFormspreeData(data);
     const response = await fetch(url, {
       method: 'POST',
       body: formData,
@@ -119,7 +131,7 @@
       const adminEndpoint = form.getAttribute('data-admin-endpoint');
 
       Promise.all([
-        submitToFormspree(formspreeUrl, form).catch(() => false),
+        submitToFormspree(formspreeUrl, values).catch(() => false),
         submitToAdmin(adminEndpoint, values, form).catch(() => false),
       ]).then(([formspreeOk, adminOk]) => {
         const mailto = toMailto(form, values);
