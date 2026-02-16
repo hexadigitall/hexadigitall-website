@@ -83,7 +83,7 @@
     "@types/node": "^20.19.27",
     "@types/react": "^19.2.7",
     "@types/react-dom": "^19.2.3",
-    "autoprefixer": "^10.4.19",
+    "autoprefixer": "^10.4.23",
     "baseline-browser-mapping": "^2.8.31",
     "critters": "^0.0.23",
     "cross-env": "^10.0.0",
