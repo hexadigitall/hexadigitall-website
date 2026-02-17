@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Social Media — Standard Intake Form - Hexadigitall</title>
+  <meta name="description" content="Intake form for Social Media — Standard service at Hexadigitall">
+  <meta property="og:title" content="Social Media — Standard Intake Form">
+  <meta property="og:description" content="Get started with our Social Media — Standard service. Professional intake form for Social Media — Standard.">
+  <link rel="stylesheet" href="/forms/assets/forms.css">
+  <style>
+    .tier-badge {
+      display: inline-block;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 0.5rem 1rem;
+      border-radius: 0.5rem;
+      font-weight: bold;
+      margin: 1rem 0;
+      font-size: 0.9rem;
+    }
+    .price-display {
+      font-size: 2rem;
+      font-weight: bold;
+      color: #667eea;
+      margin: 1rem 0;
+    }
+    .currency {
+      font-size: 1.2rem;
+      margin-right: 0.25rem;
+    }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <div class="header-content">
+      <h1>Service Intake Form</h1>
+      <p>Social Media — Standard</p>
+    </div>
+  </header>
+
+  <main class="main-content">
+    <section class="hero-card">
+      <h1>Social Media — Standard</h1>
+      <p class="subtitle">Social media management for 3 platforms</p>
+      
+      <div class="price-section">
+        <div class="price-display">
+          <span class="currency">$</span>799
+        </div>
+        <p class="delivery-time">⏱️ Delivery: Monthly</p>
+      </div>
+    </section>
+
+    <section class="section-card">
+      <h2>What's Included</h2>
+      <ul class="feature-list">
+        <li>Everything in Basic</li><li>3 Social platforms</li><li>20 posts per month</li><li>Professional content creation</li><li>Community engagement & responses</li><li>Monthly performance analytics</li><li>Influencer outreach</li><li>Hashtag strategy</li><li>Monthly strategy call</li>
+      </ul>
+    </section>
+
+    <form data-service-form data-subject="Social Media — Standard" data-service="marketing" data-intake-endpoint="/api/forms/intake" class="intake-form">
+      <section class="section-card">
+        <h2>Your Information</h2>
+        
+        <div class="grid two">
+          <div class="field-group">
+            <label for="firstName">First Name *</label>
+            <input type="text" id="firstName" name="firstName" required>
+          </div>
+          <div class="field-group">
+            <label for="lastName">Last Name *</label>
+            <input type="text" id="lastName" name="lastName" required>
+          </div>
+        </div>
+
+        <div class="grid two">
+          <div class="field-group">
+            <label for="email">Email Address *</label>
+            <input type="email" id="email" name="email" required>
+          </div>
+          <div class="field-group">
+            <label for="phone">Phone Number</label>
+            <input type="tel" id="phone" name="phone">
+          </div>
+        </div>
+
+        <div class="field-group">
+          <label for="company">Company/Business Name</label>
+          <input type="text" id="company" name="company">
+        </div>
+      </section>
+
+      <section class="section-card">
+        <h2>Project Details</h2>
+        
+        <div class="field-group">
+          <label for="description">Project Description *</label>
+          <textarea id="description" name="description" rows="4" placeholder="Tell us about your project, goals, and any specific requirements..." required></textarea>
+          <small class="print-value"></small>
+        </div>
+
+        
+        <fieldset>
+          <legend>Required Information for This Tier</legend>
+          
+          <div class="field-group checkbox-group">
+            <label>
+              <input type="checkbox" name="requirements_0" value="All Basic requirements">
+              All Basic requirements
+            </label>
+          </div>
+          
+          <div class="field-group checkbox-group">
+            <label>
+              <input type="checkbox" name="requirements_1" value="3 platforms to manage">
+              3 platforms to manage
+            </label>
+          </div>
+          
+          <div class="field-group checkbox-group">
+            <label>
+              <input type="checkbox" name="requirements_2" value="Content calendar approval process">
+              Content calendar approval process
+            </label>
+          </div>
+          
+          <div class="field-group checkbox-group">
+            <label>
+              <input type="checkbox" name="requirements_3" value="Photography/video content (or sourcing help needed)">
+              Photography/video content (or sourcing help needed)
+            </label>
+          </div>
+          
+          <div class="field-group checkbox-group">
+            <label>
+              <input type="checkbox" name="requirements_4" value="Target audience details">
+              Target audience details
+            </label>
+          </div>
+          
+          <div class="field-group checkbox-group">
+            <label>
+              <input type="checkbox" name="requirements_5" value="Posting schedule preferences">
+              Posting schedule preferences
+            </label>
+          </div>
+          
+          <div class="field-group checkbox-group">
+            <label>
+              <input type="checkbox" name="requirements_6" value="Influencer targets">
+              Influencer targets
+            </label>
+          </div>
+          
+        </fieldset>
+        
+
+        <div class="field-group">
+          <label for="timeline">Timeline Preference</label>
+          <select id="timeline" name="timeline">
+            <option value="">Select timeline</option>
+            <option value="asap">ASAP (Rush)</option>
+            <option value="1-2-weeks">1-2 weeks</option>
+            <option value="2-4-weeks">2-4 weeks</option>
+            <option value="flexible">Flexible</option>
+          </select>
+        </div>
+
+        <div class="field-group">
+          <label for="budget">Budget (USD) - Minimum: $799</label>
+          <input type="number" id="budget" name="budget" min="799" placeholder="799">
+        </div>
+      </section>
+
+      <section class="section-card">
+        <h2>Additional Information</h2>
+        
+        <div class="field-group">
+          <label for="additionalNotes">Additional Notes</label>
+          <textarea id="additionalNotes" name="additionalNotes" rows="4" placeholder="Any other information you'd like to share..."></textarea>
+          <small class="print-value"></small>
+        </div>
+
+        <div class="field-group">
+          <label for="files">Send us files (images, documents, wireframes, etc.)</label>
+          <input type="file" id="files" name="files" multiple accept="image/*,.pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx">
+          <small>Max 5 files, 25MB each</small>
+          <div class="attachment-links" id="attachments"></div>
+        </div>
+      </section>
+
+      <section class="section-card">
+        <div class="form-actions">
+          <button type="submit" class="btn-primary">Submit Intake Form</button>
+          <button type="button" class="btn-secondary" onclick="window.print()">🖨️ Print</button>
+        </div>
+      </section>
+
+      <div id="formMessage" class="form-message" style="display: none;"></div>
+    </form>
+  </main>
+
+  <footer class="footer">
+    <p>&copy; 2024 Hexadigitall. All rights reserved.</p>
+  </footer>
+
+  <script src="/forms/assets/forms.js"></script>
+</body>
+</html>

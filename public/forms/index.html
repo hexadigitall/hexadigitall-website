@@ -1,95 +1,281 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Hexadigitall Client Forms</title>
-    <link rel="stylesheet" href="/forms/assets/forms.css" />
-  </head>
-  <body>
-    <main class="page">
-      <section class="header">
-        <span class="eyebrow">Hexadigitall</span>
-        <h1>Client Intake Forms</h1>
-        <p>
-          Use these forms to collect the details we need to deliver your service. Each form is
-          printable and can be saved as a PDF.
-        </p>
-      </section>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Service Intake Forms - Hexadigitall</title>
+  <meta name="description" content="Browse all Hexadigitall service intake forms. Choose from our tiered services across web development, business strategy, branding, portfolio, and marketing.">
+  <link rel="stylesheet" href="/forms/assets/forms.css">
+  <style>
+    body {
+      background-color: #f9fafb;
+    }
+    
+    .forms-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      margin: 2rem 0;
+    }
+    
+    .service-group {
+      background: white;
+      border-radius: 1rem;
+      padding: 2rem;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+      border-left: 4px solid #667eea;
+    }
+    
+    .service-group h3 {
+      color: #667eea;
+      margin-top: 0;
+      font-size: 1.3rem;
+    }
+    
+    .tier-links {
+      list-style: none;
+      padding: 0;
+      margin: 1rem 0 0 0;
+    }
+    
+    .tier-links li {
+      margin: 0.75rem 0;
+    }
+    
+    .tier-links a {
+      display: inline-block;
+      padding: 0.75rem 1rem;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      text-decoration: none;
+      border-radius: 0.5rem;
+      font-weight: 500;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    
+    .tier-links a:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+    }
+    
+    .tier-price {
+      font-size: 0.85rem;
+      color: #fff;
+      font-weight: bold;
+      margin-left: 0.5rem;
+    }
+    
+    .service-category {
+      margin: 3rem 0;
+    }
+    
+    .service-category h2 {
+      color: #1f2937;
+      border-bottom: 2px solid #667eea;
+      padding-bottom: 1rem;
+      margin-bottom: 1.5rem;
+    }
+    
+    .breadcrumb {
+      margin: 2rem 0;
+      font-size: 0.9rem;
+    }
+    
+    .breadcrumb a {
+      color: #667eea;
+      text-decoration: none;
+    }
+    
+    .breadcrumb a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <div class="header-content">
+      <h1>Service Intake Forms</h1>
+      <p>Complete tier-specific intake forms for all Hexadigitall services</p>
+    </div>
+  </header>
 
-      <section class="section-card">
-        <h2>Profile and Portfolio Building</h2>
-        <p>Select the form that matches your package:</p>
-        <div class="actions">
-          <a class="btn-link" href="/forms/profile-and-portfolio/cv-resume-professional/">CV/Resume - Professional</a>
-          <a class="btn-link secondary" href="/forms/profile-and-portfolio/linkedin-complete-makeover/">LinkedIn - Complete Makeover</a>
+  <main class="main-content">
+    <div class="breadcrumb">
+      <a href="/">Home</a> / Service Forms
+    </div>
+
+    <!-- WEB DEVELOPMENT SECTION -->
+    <div class="service-category">
+      <h2>🌐 Web Development & Mobile</h2>
+      <div class="forms-grid">
+        <!-- Landing Page -->
+        <div class="service-group">
+          <h3>Landing Page</h3>
+          <p>High-converting single-page websites for campaigns and lead generation</p>
+          <ul class="tier-links">
+            <li><a href="/forms/web-development/landing-page/landing-page-basic/">Basic <span class="tier-price">$299</span></a></li>
+            <li><a href="/forms/web-development/landing-page/landing-page-standard/">Standard <span class="tier-price">$599</span></a></li>
+            <li><a href="/forms/web-development/landing-page/landing-page-premium/">Premium <span class="tier-price">$1,199</span></a></li>
+          </ul>
         </div>
-      </section>
 
-      <section class="section-card">
-        <h2>Web and Mobile Development</h2>
-        <p>Select the form that matches your project:</p>
-        <div class="actions">
-          <a class="btn-link" href="/forms/web-and-mobile/landing-page/">Landing Page</a>
-          <a class="btn-link secondary" href="/forms/web-and-mobile/business-website/">Business Website</a>
-          <a class="btn-link" href="/forms/web-and-mobile/ecommerce-store/">E-commerce Store</a>
-          <a class="btn-link secondary" href="/forms/web-and-mobile/web-app-development/">Web Application Development</a>
+        <!-- Business Website -->
+        <div class="service-group">
+          <h3>Business Website</h3>
+          <p>Professional multi-page websites with CMS and full company presence</p>
+          <ul class="tier-links">
+            <li><a href="/forms/web-development/business-website/business-website-basic/">Basic <span class="tier-price">$999</span></a></li>
+            <li><a href="/forms/web-development/business-website/business-website-standard/">Standard <span class="tier-price">$1,999</span></a></li>
+            <li><a href="/forms/web-development/business-website/business-website-premium/">Premium <span class="tier-price">$3,999</span></a></li>
+          </ul>
         </div>
-      </section>
 
-      <section class="section-card">
-        <h2>Business and Strategy</h2>
-        <p>Develop your business foundation:</p>
-        <div class="actions">
-          <a class="btn-link" href="/forms/business-and-strategy/business-plan-package/">Business Plan & Strategy</a>
+        <!-- E-commerce Store -->
+        <div class="service-group">
+          <h3>E-commerce Store</h3>
+          <p>Full-featured online stores with inventory and payment processing</p>
+          <ul class="tier-links">
+            <li><a href="/forms/web-development/ecommerce-store/ecommerce-basic/">Basic <span class="tier-price">$1,499</span></a></li>
+            <li><a href="/forms/web-development/ecommerce-store/ecommerce-standard/">Standard <span class="tier-price">$2,999</span></a></li>
+            <li><a href="/forms/web-development/ecommerce-store/ecommerce-premium/">Premium <span class="tier-price">$5,999</span></a></li>
+          </ul>
         </div>
-      </section>
 
-      <section class="section-card">
-        <h2>Consulting & Advisory</h2>
-        <p>Get expert guidance and strategic support:</p>
-        <div class="actions">
-          <a class="btn-link" href="/forms/consulting-advisory/business-consulting/">Business Consulting</a>
+        <!-- Web Application -->
+        <div class="service-group">
+          <h3>Web Application</h3>
+          <p>Scalable applications with APIs, databases, and modern architecture</p>
+          <ul class="tier-links">
+            <li><a href="/forms/web-development/web-app/webapp-startup/">Startup Edition <span class="tier-price">$2,499</span></a></li>
+            <li><a href="/forms/web-development/web-app/webapp-business/">Business Edition <span class="tier-price">$4,999</span></a></li>
+            <li><a href="/forms/web-development/web-app/webapp-enterprise/">Enterprise Edition <span class="tier-price">$9,999</span></a></li>
+          </ul>
         </div>
-      </section>
+      </div>
+    </div>
 
-      <section class="section-card">
-        <h2>Digital Marketing & Growth</h2>
-        <p>Drive traffic, leads, and revenue:</p>
-        <div class="actions">
-          <a class="btn-link" href="/forms/digital-marketing/marketing-strategy/">Digital Marketing Strategy</a>
-          <a class="btn-link secondary" href="/forms/social-media/">Social Media Strategy</a>
+    <!-- BUSINESS STRATEGY SECTION -->
+    <div class="service-category">
+      <h2>📊 Business Strategy & Planning</h2>
+      <div class="forms-grid">
+        <!-- Business Plan -->
+        <div class="service-group">
+          <h3>Business Plan</h3>
+          <p>Essential to investment-ready business plans for new ventures</p>
+          <ul class="tier-links">
+            <li><a href="/forms/business-strategy/business-plan/bp-basic/">Basic <span class="tier-price">$249</span></a></li>
+            <li><a href="/forms/business-strategy/business-plan/bp-standard/">Standard <span class="tier-price">$499</span></a></li>
+            <li><a href="/forms/business-strategy/business-plan/bp-premium/">Premium <span class="tier-price">$999</span></a></li>
+          </ul>
         </div>
-      </section>
 
-      <section class="section-card">
-        <h2>Branding & Design</h2>
-        <p>Build a strong brand identity:</p>
-        <div class="actions">
-          <a class="btn-link" href="/forms/branding-design/professional-branding/">Professional Branding</a>
+        <!-- Growth Strategy Plan -->
+        <div class="service-group">
+          <h3>Growth Strategy Plan</h3>
+          <p>Comprehensive growth strategies for scaling existing businesses</p>
+          <ul class="tier-links">
+            <li><a href="/forms/business-strategy/growth-plan/growth-basic/">Basic <span class="tier-price">$399</span></a></li>
+            <li><a href="/forms/business-strategy/growth-plan/growth-standard/">Standard <span class="tier-price">$799</span></a></li>
+            <li><a href="/forms/business-strategy/growth-plan/growth-premium/">Premium <span class="tier-price">$1,599</span></a></li>
+          </ul>
         </div>
-      </section>
+      </div>
+    </div>
 
-      <section class="section-card">
-        <h2>Creative Services</h2>
-        <p>Showcase your work and expertise:</p>
-        <div class="actions">
-          <a class="btn-link" href="/forms/creative-services/portfolio-website/">Portfolio Website</a>
+    <!-- BRANDING SECTION -->
+    <div class="service-category">
+      <h2>🎨 Branding & Design</h2>
+      <div class="forms-grid">
+        <!-- Logo Design -->
+        <div class="service-group">
+          <h3>Logo Design</h3>
+          <p>Professional logo and complete brand identity systems</p>
+          <ul class="tier-links">
+            <li><a href="/forms/branding/logo-design/logo-basic/">Basic <span class="tier-price">$149</span></a></li>
+            <li><a href="/forms/branding/logo-design/logo-standard/">Standard <span class="tier-price">$299</span></a></li>
+            <li><a href="/forms/branding/logo-design/logo-premium/">Premium <span class="tier-price">$599</span></a></li>
+          </ul>
         </div>
-      </section>
+      </div>
+    </div>
 
-      <section class="section-card">
-        <h2>Not Sure Which Service?</h2>
-        <p>Use this general inquiry form, and we'll help you find the right solution:</p>
-        <div class="actions">
-          <a class="btn-link secondary" href="/forms/general-inquiry/">General Service Inquiry</a>
+    <!-- PORTFOLIO SECTION -->
+    <div class="service-category">
+      <h2>👤 Profile & Portfolio Building</h2>
+      <div class="forms-grid">
+        <!-- CV/Resume -->
+        <div class="service-group">
+          <h3>Professional CV/Resume</h3>
+          <p>ATS-optimized resumes from essential to executive level</p>
+          <ul class="tier-links">
+            <li><a href="/forms/portfolio/cv-resume/cv-essential/">Essential <span class="tier-price">$49</span></a></li>
+            <li><a href="/forms/portfolio/cv-resume/cv-professional/">Professional <span class="tier-price">$99</span></a></li>
+            <li><a href="/forms/portfolio/cv-resume/cv-executive/">Executive <span class="tier-price">$199</span></a></li>
+          </ul>
         </div>
-      </section>
 
-      <footer class="footer">
-        <p>Need help? Email info@hexadigitall.com</p>
-        <p style="margin-top: 1rem; font-size: 0.9rem;">All forms are printable and can be saved as PDF. File uploads do not attach to email confirmation.</p>
-      </footer>
-    </main>
-  </body>
+        <!-- Portfolio Website -->
+        <div class="service-group">
+          <h3>Portfolio Website</h3>
+          <p>Professional portfolio websites to showcase your work</p>
+          <ul class="tier-links">
+            <li><a href="/forms/portfolio/portfolio-website/portfolio-starter/">Starter <span class="tier-price">$199</span></a></li>
+            <li><a href="/forms/portfolio/portfolio-website/portfolio-professional/">Professional <span class="tier-price">$399</span></a></li>
+            <li><a href="/forms/portfolio/portfolio-website/portfolio-premium/">Premium <span class="tier-price">$799</span></a></li>
+          </ul>
+        </div>
+
+        <!-- LinkedIn Optimization -->
+        <div class="service-group">
+          <h3>LinkedIn Optimization</h3>
+          <p>Complete LinkedIn profile transformation and thought leadership</p>
+          <ul class="tier-links">
+            <li><a href="/forms/portfolio/linkedin-optimization/linkedin-quick/">Quick Refresh <span class="tier-price">$69</span></a></li>
+            <li><a href="/forms/portfolio/linkedin-optimization/linkedin-complete/">Complete Makeover <span class="tier-price">$149</span></a></li>
+            <li><a href="/forms/portfolio/linkedin-optimization/linkedin-executive/">Executive Presence <span class="tier-price">$299</span></a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- MARKETING SECTION -->
+    <div class="service-category">
+      <h2>📈 Digital Marketing & Strategy</h2>
+      <div class="forms-grid">
+        <!-- Digital Marketing Strategy -->
+        <div class="service-group">
+          <h3>Digital Marketing Strategy</h3>
+          <p>Comprehensive marketing plans from foundational to premium</p>
+          <ul class="tier-links">
+            <li><a href="/forms/marketing/marketing-strategy/market-basic/">Basic <span class="tier-price">$299</span></a></li>
+            <li><a href="/forms/marketing/marketing-strategy/market-standard/">Standard <span class="tier-price">$599</span></a></li>
+            <li><a href="/forms/marketing/marketing-strategy/market-premium/">Premium <span class="tier-price">$1,199</span></a></li>
+          </ul>
+        </div>
+
+        <!-- Social Media Management -->
+        <div class="service-group">
+          <h3>Social Media Management</h3>
+          <p>Monthly social media management for 1 to all 5 platforms</p>
+          <ul class="tier-links">
+            <li><a href="/forms/marketing/social-media/socmed-basic/">Basic <span class="tier-price">$399/mo</span></a></li>
+            <li><a href="/forms/marketing/social-media/socmed-standard/">Standard <span class="tier-price">$799/mo</span></a></li>
+            <li><a href="/forms/marketing/social-media/socmed-premium/">Premium <span class="tier-price">$1,599/mo</span></a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- CTA SECTION -->
+    <section class="section-card" style="text-align: center; margin: 4rem 0;">
+      <h2>Can't Find What You Need?</h2>
+      <p>Contact us directly for custom service inquiries or special requests</p>
+      <a href="mailto:info@hexadigitall.com" class="btn-primary" style="display: inline-block;">Contact Us</a>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>&copy; 2024 Hexadigitall. All rights reserved.</p>
+  </footer>
+</body>
 </html>
