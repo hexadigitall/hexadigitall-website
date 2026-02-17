@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Business Plan & Strategy Intake</title>
+    <link rel="stylesheet" href="/forms/assets/forms.css" />
+  </head>
+  <body>
+    <main class="page">
+      <section class="header">
+        <span class="eyebrow">Business & Strategy</span>
+        <h1>Business Plan & Strategy Intake</h1>
+        <p>
+          Develop a comprehensive business strategy, financial projections, and investor-ready
+          documentation to launch or scale your business with confidence.
+        </p>
+      </section>
+
+      <section class="hero-card">
+        <div class="tag">What we will create</div>
+        <ul>
+          <li>Professional business plan with market analysis and financial projections.</li>
+          <li>Pitch deck and executive summary for stakeholders.</li>
+          <li>Competitive analysis and go-to-market strategy.</li>
+          <li>Brand identity including logo and brand guidelines.</li>
+        </ul>
+      </section>
+
+      <section class="section-card">
+        <h2>Deliverables by tier</h2>
+        <div class="grid two">
+          <div class="field-group">
+            <h3>Starter Plan</h3>
+            <ul>
+              <li>Executive Summary (2 pages)</li>
+              <li>Business Description & Value Proposition</li>
+              <li>Basic Market Analysis</li>
+              <li>1-Year Financial Projection</li>
+              <li>Business Model Canvas</li>
+              <li>Simple Marketing Strategy Outline</li>
+              <li>Basic SWOT Analysis</li>
+              <li>Basic Logo Design (3 concepts)</li>
+              <li>Business Plan Template</li>
+              <li>1 Revision Round</li>
+              <li>5-Day Delivery</li>
+            </ul>
+          </div>
+          <div class="field-group">
+            <h3>Growth Plan</h3>
+            <ul>
+              <li>Comprehensive Business Plan (15-20 pages)</li>
+              <li>Detailed Market Research & Industry Analysis</li>
+              <li>Competitive Analysis (5 key competitors)</li>
+              <li>3-Year Financial Projections</li>
+              <li>Marketing & Sales Strategy with Channels</li>
+              <li>Operations Plan & Organizational Structure</li>
+              <li>Risk Assessment & Mitigation Strategies</li>
+              <li>Basic Pitch Deck (6-8 slides)</li>
+              <li>Professional Logo Design with 3 Variations</li>
+              <li>Brand Colors & Typography Guide</li>
+              <li>3 Revision Rounds</li>
+              <li>45-minute Strategy Consultation Call</li>
+            </ul>
+          </div>
+          <div class="field-group">
+            <h3>Investor Plan</h3>
+            <ul>
+              <li>Investment-Grade Business Plan (25-35 pages)</li>
+              <li>Professional Executive Summary (3 pages)</li>
+              <li>Comprehensive Market Research & Analysis</li>
+              <li>In-depth Competitive Intelligence Report</li>
+              <li>5-Year Financial Modeling with Scenarios</li>
+              <li>Detailed Revenue Model & Unit Economics</li>
+              <li>Complete Go-to-Market Strategy</li>
+              <li>Management Team Profiles & Advisory Board</li>
+              <li>Professional Pitch Deck (12-15 slides)</li>
+              <li>Investment Summary One-Pager</li>
+              <li>Complete Brand Identity Package</li>
+              <li>1-Hour Strategy Consultation Call</li>
+              <li>Unlimited Revisions</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="grid two">
+        <div class="section-card">
+          <h2>What we need from you</h2>
+          <ul>
+            <li>Business overview, vision, and mission.</li>
+            <li>Target market, customer personas, and market size.</li>
+            <li>Products/services description and value proposition.</li>
+            <li>Revenue model and pricing strategy.</li>
+            <li>Team background and relevant expertise.</li>
+            <li>Historical financial data (if applicable).</li>
+            <li>Competitive landscape summary.</li>
+            <li>Any existing brand assets or references.</li>
+          </ul>
+        </div>
+        <div class="section-card">
+          <h2>Before you submit</h2>
+          <p>
+            Gather any existing business documents, market research, financial records, and brand
+            preferences. File uploads do not attach to the email.
+          </p>
+          <div class="actions">
+            <button class="secondary" data-print>Print / Save PDF</button>
+            <a class="btn-link secondary" href="/forms">Back to all forms</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="section-card">
+        <form
+          class="form"
+          data-service-form
+          data-subject="Business Plan & Strategy Intake"
+          data-service="Business Plan & Strategy"
+          data-intake-endpoint="/api/forms/intake"
+        >
+          <div class="field-group">
+            <h3>Client Details</h3>
+            <div class="inline-fields two">
+              <div>
+                <label for="bpFullName">Full name</label>
+                <input id="bpFullName" name="Full Name" type="text" required />
+              </div>
+              <div>
+                <label for="bpEmail">Email</label>
+                <input id="bpEmail" name="Email" type="email" required />
+              </div>
+            </div>
+            <div class="inline-fields two">
+              <div>
+                <label for="bpPhone">Phone number</label>
+                <input id="bpPhone" name="Phone" type="tel" />
+              </div>
+              <div>
+                <label for="bpCompany">Company or business name</label>
+                <input id="bpCompany" name="Company" type="text" required />
+              </div>
+            </div>
+          </div>
+
+          <div class="field-group">
+            <h3>Business Overview</h3>
+            <div>
+              <label for="bpStage">Business stage</label>
+              <select id="bpStage" name="Business Stage" required>
+                <option value="">Select</option>
+                <option value="idea">Idea/Concept - Not yet started</option>
+                <option value="pre-launch">Pre-launch - Preparing to launch</option>
+                <option value="early-stage">Early-stage - Less than 1 year in business</option>
+                <option value="established">Established - 1-5 years in business</option>
+                <option value="scaling">Scaling - Looking to expand significantly</option>
+              </select>
+            </div>
+            <div>
+              <label for="bpIndustry">Industry or vertical</label>
+              <input id="bpIndustry" name="Industry" type="text" placeholder="e.g., SaaS, E-commerce, Education" />
+            </div>
+            <div>
+              <label for="bpDescription">Brief business description (2-3 sentences)</label>
+              <textarea id="bpDescription" name="Business Description" placeholder="What does your business do?"></textarea>
+            </div>
+            <div>
+              <label for="bpUSP">Unique selling proposition / competitive advantage</label>
+              <textarea id="bpUSP" name="Unique Selling Proposition" placeholder="What makes you different?"></textarea>
+            </div>
+          </div>
+
+          <div class="field-group">
+            <h3>Market & Target Audience</h3>
+            <div>
+              <label for="bpMarketSize">Estimated target market size or addressable market</label>
+              <input id="bpMarketSize" name="Market Size" type="text" placeholder="e.g., $2B, 500K businesses" />
+            </div>
+            <div>
+              <label for="bpCustomer">Primary customer profile (who are they?)</label>
+              <textarea id="bpCustomer" name="Customer Profile" placeholder="Age range, industry, pain points, etc."></textarea>
+            </div>
+            <div>
+              <label for="bpProblem">Problem you're solving</label>
+              <textarea id="bpProblem" name="Problem Solved" placeholder="What pain point does your business address?"></textarea>
+            </div>
+          </div>
+
+          <div class="field-group">
+            <h3>Package Selection</h3>
+            <label for="bpPlan">Preferred package tier</label>
+            <select id="bpPlan" name="Preferred Plan" required>
+              <option value="">Select</option>
+              <option value="starter">Starter Plan - $249</option>
+              <option value="growth">Growth Plan - $499</option>
+              <option value="investor">Investor Plan - $899</option>
+            </select>
+          </div>
+
+          <div class="field-group">
+            <h3>Funding & Goals</h3>
+            <div>
+              <label for="bpFunding">Are you seeking funding or investment?</label>
+              <select id="bpFunding" name="Seeking Funding" required>
+                <option value="">Select</option>
+                <option value="no">No - Self-funded or bootstrapping</option>
+                <option value="angel">Yes - Angel or seed funding ($50K-$500K)</option>
+                <option value="vc">Yes - Venture Capital ($500K+)</option>
+                <option value="bank">Yes - Bank loan or grant</option>
+                <option value="undecided">Undecided - Exploring options</option>
+              </select>
+            </div>
+            <div>
+              <label for="bpTimeline">Timeline for business plan completion</label>
+              <select id="bpTimeline" name="Timeline" required>
+                <option value="">Select</option>
+                <option value="4-weeks">Within 4 weeks (urgent)</option>
+                <option value="6-weeks">Within 6 weeks</option>
+                <option value="8-weeks">Within 8 weeks</option>
+                <option value="flexible">Flexible</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="field-group">
+            <h3>File Uploads</h3>
+            <label for="bpFiles">Upload supporting documents (business plan drafts, financial records, market research, brand assets)</label>
+            <input id="bpFiles" name="Supporting Documents" type="file" multiple />
+            <p class="note">Max 25MB per file. PDFs, images, and documents accepted.</p>
+          </div>
+
+          <div class="field-group">
+            <h3>Additional Information</h3>
+            <div>
+              <label for="bpAdditional">Any other details or preferences?</label>
+              <textarea id="bpAdditional" name="Additional Notes" placeholder="Tell us anything else we should know..."></textarea>
+            </div>
+          </div>
+
+          <div class="actions">
+            <button class="secondary" data-print>Print / Save PDF</button>
+            <button type="submit" class="primary">Submit</button>
+          </div>
+        </form>
+      </section>
+    </main>
+
+    <script src="/forms/assets/forms.js" defer></script>
+  </body>
+</html>

@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>E-commerce Store Intake</title>
+    <link rel="stylesheet" href="/forms/assets/forms.css" />
+  </head>
+  <body>
+    <main class="page">
+      <section class="header">
+        <span class="eyebrow">Web and Mobile Development</span>
+        <h1>E-commerce Store Intake</h1>
+        <p>
+          Use this form for online store projects. It captures products, payments, and
+          operational requirements for your shop.
+        </p>
+      </section>
+
+      <section class="hero-card">
+        <div class="tag">What we will create</div>
+        <ul>
+          <li>Full-featured online store with product catalog and checkout.</li>
+          <li>Payment integration, order management, and shipping setup.</li>
+          <li>SEO, analytics, and automation per tier.</li>
+        </ul>
+      </section>
+
+      <section class="section-card">
+        <h2>Deliverables by tier</h2>
+        <div class="grid two">
+          <div class="field-group">
+            <h3>Basic</h3>
+            <ul>
+              <li>Up to 50 products</li>
+              <li>Product catalog with categories</li>
+              <li>Basic product filters</li>
+              <li>Shopping cart</li>
+              <li>Paystack payment integration</li>
+              <li>Order management</li>
+              <li>Email notifications</li>
+              <li>Shipping integration (basic)</li>
+              <li>Mobile responsive</li>
+              <li>SSL certificate</li>
+              <li>3 revisions</li>
+            </ul>
+          </div>
+          <div class="field-group">
+            <h3>Standard</h3>
+            <ul>
+              <li>Everything in Basic</li>
+              <li>Up to 500 products</li>
+              <li>Advanced product filtering and search</li>
+              <li>Customer accounts and wishlists</li>
+              <li>Email marketing integration (Klaviyo)</li>
+              <li>Inventory management system</li>
+              <li>Discount codes and promotions</li>
+              <li>Advanced shipping calculator</li>
+              <li>Product reviews and ratings</li>
+              <li>Blog for SEO</li>
+              <li>Analytics dashboard</li>
+              <li>Google Shopping integration</li>
+              <li>5 revisions</li>
+            </ul>
+          </div>
+          <div class="field-group">
+            <h3>Premium</h3>
+            <ul>
+              <li>Everything in Standard</li>
+              <li>Unlimited products</li>
+              <li>Multi-currency and language support</li>
+              <li>Advanced inventory and warehouse management</li>
+              <li>Subscription and recurring billing</li>
+              <li>Abandoned cart recovery automation</li>
+              <li>Advanced analytics and AI insights</li>
+              <li>Custom loyalty program</li>
+              <li>Multiple payment gateways (Paystack, PayPal)</li>
+              <li>Marketplace integration (Amazon, eBay)</li>
+              <li>Advanced CMS for content</li>
+              <li>API access for custom integrations</li>
+              <li>Monthly maintenance and optimization</li>
+              <li>Unlimited revisions</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="grid two">
+        <div class="section-card">
+          <h2>What we need from you</h2>
+          <ul>
+            <li>Product list, categories, pricing, and inventory.</li>
+            <li>Payment and shipping preferences.</li>
+            <li>Brand assets and product images.</li>
+            <li>Policies (returns, privacy, shipping).</li>
+            <li>Domain/hosting access or preferred provider.</li>
+          </ul>
+        </div>
+        <div class="section-card">
+          <h2>Before you submit</h2>
+          <p>
+            Gather product catalogs, images, and brand files in Google Drive, Dropbox, or
+            OneDrive. File uploads do not attach to the email.
+          </p>
+          <div class="actions">
+            <button class="secondary" data-print>Print / Save PDF</button>
+            <a class="btn-link secondary" href="/forms">Back to all forms</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="section-card">
+        <form
+          class="form"
+          data-service-form
+          data-subject="E-commerce Store Intake"
+          data-service="E-commerce Store"
+          data-formspree="https://formspree.io/f/xaqdeena"
+          data-intake-endpoint="/api/forms/intake"
+          data-mailto="false"
+        >
+          <div class="field-group">
+            <h3>Client Details</h3>
+            <div class="inline-fields two">
+              <div>
+                <label for="ecFullName">Full name</label>
+                <input id="ecFullName" name="Full Name" type="text" required />
+              </div>
+              <div>
+                <label for="ecEmail">Email</label>
+                <input id="ecEmail" name="Email" type="email" required />
+              </div>
+            </div>
+            <div class="inline-fields two">
+              <div>
+                <label for="ecPhone">Phone number</label>
+                <input id="ecPhone" name="Phone" type="tel" />
+              </div>
+              <div>
+                <label for="ecCompany">Company or brand name</label>
+                <input id="ecCompany" name="Company" type="text" required />
+              </div>
+            </div>
+          </div>
+
+          <div class="field-group">
+            <h3>Package Selection</h3>
+            <label for="ecTier">Preferred tier</label>
+            <select id="ecTier" name="Preferred Tier" required>
+              <option value="">Select</option>
+              <option>E-commerce Store - Basic</option>
+              <option>E-commerce Store - Standard</option>
+              <option>E-commerce Store - Premium</option>
+              <option>Not sure yet</option>
+            </select>
+            <label for="ecTimeline">Preferred timeline</label>
+            <select id="ecTimeline" name="Timeline">
+              <option value="">Select</option>
+              <option>Standard (1-2 months)</option>
+              <option>Extended (3-6 months)</option>
+              <option>Long-term (6+ months)</option>
+            </select>
+          </div>
+
+          <div class="field-group">
+            <h3>Store Overview</h3>
+            <label for="ecOverview">Brand overview and store goals</label>
+            <textarea id="ecOverview" name="Store Overview" required></textarea>
+            <label for="ecAudience">Target audience</label>
+            <textarea id="ecAudience" name="Target Audience" required></textarea>
+            <label for="ecProducts">Product categories and estimated count</label>
+            <textarea id="ecProducts" name="Product Summary" required></textarea>
+          </div>
+
+          <div class="field-group">
+            <h3>Catalog and Content</h3>
+            <label for="ecCatalog">Product catalog link (CSV or spreadsheet)</label>
+            <textarea id="ecCatalog" name="Product Catalog Link"></textarea>
+            <label for="ecImages">Product image links</label>
+            <textarea id="ecImages" name="Product Image Links"></textarea>
+            <div class="inline-fields two">
+              <div>
+                <label for="ecCatalogFile">Catalog file upload</label>
+                <input id="ecCatalogFile" name="Catalog File" type="file" accept=".csv,.xlsx,.xls" />
+              </div>
+              <div>
+                <label for="ecImageFile">Product images upload</label>
+                <input id="ecImageFile" name="Product Image Files" type="file" accept=".png,.jpg,.jpeg" multiple />
+              </div>
+            </div>
+          </div>
+
+          <div class="field-group">
+            <h3>Payments and Shipping</h3>
+            <label for="ecPayments">Payment gateways required</label>
+            <textarea id="ecPayments" name="Payment Gateways"></textarea>
+            <label for="ecShipping">Shipping regions and carriers</label>
+            <textarea id="ecShipping" name="Shipping Details"></textarea>
+            <label for="ecPolicies">Policies (returns, privacy, shipping)</label>
+            <textarea id="ecPolicies" name="Policies"></textarea>
+          </div>
+
+          <div class="field-group">
+            <h3>Brand Assets and Access</h3>
+            <label for="ecBrandLinks">Brand asset links</label>
+            <textarea id="ecBrandLinks" name="Brand Asset Links" required></textarea>
+            <label for="ecAccess">Domain/hosting access or provider</label>
+            <textarea id="ecAccess" name="Hosting Access"></textarea>
+          </div>
+
+          <div class="field-group">
+            <h3>References and Notes</h3>
+            <label for="ecReferences">Reference stores or inspiration</label>
+            <textarea id="ecReferences" name="References"></textarea>
+            <label for="ecNotes">Additional notes</label>
+            <textarea id="ecNotes" name="Additional Notes"></textarea>
+          </div>
+
+          <div class="actions">
+            <button type="submit">Submit via Email</button>
+            <button class="secondary" data-print>Print / Save PDF</button>
+          </div>
+          <div class="status" data-status aria-live="polite"></div>
+        </form>
+      </section>
+    </main>
+
+    <script src="/forms/assets/forms.js"></script>
+  </body>
+</html>

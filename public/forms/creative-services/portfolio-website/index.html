@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Portfolio Website Intake</title>
+    <link rel="stylesheet" href="/forms/assets/forms.css" />
+  </head>
+  <body>
+    <main class="page">
+      <section class="header">
+        <span class="eyebrow">Creative & Design</span>
+        <h1>Portfolio Website Intake</h1>
+        <p>
+          Showcase your work with a custom portfolio website that impresses clients and converts them into paying customers.
+        </p>
+      </section>
+
+      <section class="hero-card">
+        <div class="tag">What we create</div>
+        <ul>
+          <li>Professional portfolio website showcasing your best work.</li>
+          <li>Fast, mobile-responsive design optimized for conversions.</li>
+          <li>Portfolio gallery with filtering, case studies, and testimonials.</li>
+          <li>Contact forms and lead capture integrated throughout.</li>
+        </ul>
+      </section>
+
+      <section class="section-card">
+        <h2>Portfolio website tiers</h2>
+        <div class="grid two">
+          <div class="field-group">
+            <h3>Starter Portfolio</h3>
+            <ul>
+              <li>Home/Hero section</li>
+              <li>About page</li>
+              <li>Portfolio gallery (up to 12 projects)</li>
+              <li>Simple gallery with filtering</li>
+              <li>Services/skills section</li>
+              <li>Testimonials carousel</li>
+              <li>Contact form with notifications</li>
+              <li>Mobile responsive design</li>
+              <li>Meta tags and basic SEO</li>
+              <li>SSL certificate</li>
+              <li>Google Analytics setup</li>
+              <li>3 revisions included</li>
+              <li>Delivery: 2-3 weeks</li>
+            </ul>
+          </div>
+          <div class="field-group">
+            <h3>Professional Portfolio</h3>
+            <ul>
+              <li>Everything in Starter</li>
+              <li>Portfolio gallery (up to 24 projects)</li>
+              <li>Individual case study pages</li>
+              <li>Blog section (5-10 starter posts)</li>
+              <li>Advanced filtering and search</li>
+              <li>Client testimonials with photos</li>
+              <li>Process/methodology page</li>
+              <li>Service packages page with pricing</li>
+              <li>Team page (2-3 team members)</li>
+              <li>Call-to-action buttons throughout</li>
+              <li>Email capture (newsletter, forms)</li>
+              <li>Advanced SEO optimization</li>
+              <li>Social sharing optimization</li>
+              <li>Newsletter integration</li>
+              <li>5 revisions included</li>
+              <li>Delivery: 4-5 weeks</li>
+            </ul>
+          </div>
+          <div class="field-group">
+            <h3>Enterprise Portfolio</h3>
+            <ul>
+              <li>Everything in Professional</li>
+              <li>Unlimited portfolio projects</li>
+              <li>Advanced CMS for easy updating</li>
+              <li>Custom blog with categories/tags</li>
+              <li>Multi-category portfolio filtering</li>
+              <li>Interactive timeline (career milestones)</li>
+              <li>Client logos gallery</li>
+              <li>Detailed metrics/achievements sections</li>
+              <li>Video integration (Vimeo, YouTube)</li>
+              <li>Booking/consultation scheduler</li>
+              <li>Advanced analytics dashboard</li>
+              <li>Payment integration (for services)</li>
+              <li>Multi-language support</li>
+              <li>Performance optimization (98+ Lighthouse)</li>
+              <li>Unlimited revisions</li>
+              <li>3 months maintenance included</li>
+              <li>Delivery: 6-8 weeks</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="grid two">
+        <div class="section-card">
+          <h2>What we need from you</h2>
+          <ul>
+            <li>Portfolio projects/work samples (images, descriptions, links).</li>
+            <li>Case study details (challenge, solution, results).</li>
+            <li>Professional bio and background information.</li>
+            <li>Brand assets (logo, colors, fonts, photos).</li>
+            <li>Client testimonials and case studies.</li>
+            <li>Project metrics and results (if available).</li>
+            <li>Service offerings and expertise areas.</li>
+            <li>High-resolution images of your work.</li>
+          </ul>
+        </div>
+        <div class="section-card">
+          <h2>Before you submit</h2>
+          <p>
+            Gather 6-12 of your best project samples in high resolution. Prepare 2-3 short client testimonials. Have your professional bio ready.
+          </p>
+          <div class="actions">
+            <button class="secondary" data-print>Print / Save PDF</button>
+            <a class="btn-link secondary" href="/forms">Back to all forms</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="section-card">
+        <form
+          class="form"
+          data-service-form
+          data-subject="Portfolio Website Intake"
+          data-service="Portfolio Website"
+          data-intake-endpoint="/api/forms/intake"
+        >
+          <div class="field-group">
+            <h3>Personal Details</h3>
+            <div class="inline-fields two">
+              <div>
+                <label for="pwFullName">Full name</label>
+                <input id="pwFullName" name="Full Name" type="text" required />
+              </div>
+              <div>
+                <label for="pwEmail">Email</label>
+                <input id="pwEmail" name="Email" type="email" required />
+              </div>
+            </div>
+            <div class="inline-fields two">
+              <div>
+                <label for="pwPhone">Phone number</label>
+                <input id="pwPhone" name="Phone" type="tel" />
+              </div>
+              <div>
+                <label for="pwTitle">Professional title/role</label>
+                <input id="pwTitle" name="Professional Title" type="text" placeholder="e.g., Graphic Designer, Web Developer, Photographer" required />
+              </div>
+            </div>
+          </div>
+
+          <div class="field-group">
+            <h3>About You</h3>
+            <div>
+              <label for="pwBio">Professional bio (100-150 words)</label>
+              <textarea id="pwBio" name="Professional Bio" placeholder="Your background, expertise, and what you're passionate about..." required></textarea>
+            </div>
+            <div>
+              <label for="pwExpertise">Areas of expertise</label>
+              <input id="pwExpertise" name="Expertise Areas" type="text" placeholder="e.g., Logo Design, UI/UX, Photography, Branding" />
+            </div>
+            <div>
+              <label for="pwYearsExp">Years of professional experience</label>
+              <select id="pwYearsExp" name="Years Experience" required>
+                <option value="">Select</option>
+                <option value="0-1">Less than 1 year</option>
+                <option value="1-3">1-3 years</option>
+                <option value="3-5">3-5 years</option>
+                <option value="5-10">5-10 years</option>
+                <option value="10+">10+ years</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="field-group">
+            <h3>Portfolio Projects</h3>
+            <div>
+              <label for="pwNumProjects">How many projects do you have to showcase?</label>
+              <input id="pwNumProjects" name="Number of Projects" type="number" min="3" max="100" placeholder="e.g., 15" required />
+            </div>
+            <div>
+              <label for="pwProjectTypes">Types of projects you want to showcase</label>
+              <textarea id="pwProjectTypes" name="Project Types" placeholder="e.g., Website redesigns, Branding projects, Photo shoots, App design, etc."></textarea>
+            </div>
+            <div>
+              <label for="pwCaseStudies">How many detailed case studies do you want to feature?</label>
+              <select id="pwCaseStudies" name="Case Studies Count" required>
+                <option value="">Select</option>
+                <option value="3-5">3-5 detailed case studies</option>
+                <option value="6-10">6-10 case studies</option>
+                <option value="10+">10+ case studies</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="field-group">
+            <h3>Services & Offerings</h3>
+            <div>
+              <label>What services do you offer?</label>
+              <div>
+                <label><input type="checkbox" name="Services Offered" value="Design" /> Design (UI/UX, Graphic, Branding)</label>
+                <label><input type="checkbox" name="Services Offered" value="Development" /> Development (Web, Mobile, Full-stack)</label>
+                <label><input type="checkbox" name="Services Offered" value="Photography" /> Photography</label>
+                <label><input type="checkbox" name="Services Offered" value="Consulting" /> Consulting / Advisory</label>
+                <label><input type="checkbox" name="Services Offered" value="Copywriting" /> Copywriting / Content</label>
+                <label><input type="checkbox" name="Services Offered" value="Marketing" /> Marketing / Growth</label>
+                <label><input type="checkbox" name="Services Offered" value="Other" /> Other (please specify below)</label>
+              </div>
+            </div>
+            <div>
+              <label for="pwRateModal">Are you open to sharing your rate/pricing?</label>
+              <select id="pwRateModal" name="Share Pricing" required>
+                <option value="">Select</option>
+                <option value="hourly">Yes - Show hourly rates</option>
+                <option value="project">Yes - Show project-based pricing</option>
+                <option value="packages">Yes - Show service packages</option>
+                <option value="no">No - Use "Contact for pricing"</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="field-group">
+            <h3>Target Audience</h3>
+            <div>
+              <label for="pwTarget">Who is your ideal client?</label>
+              <textarea id="pwTarget" name="Target Audience" placeholder="Industries, company sizes, client types, pain points..."></textarea>
+            </div>
+          </div>
+
+          <div class="field-group">
+            <h3>Testimonials & Social Proof</h3>
+            <div>
+              <label for="pwTestimonials">How many client testimonials do you have?</label>
+              <select id="pwTestimonials" name="Testimonial Count" required>
+                <option value="">Select</option>
+                <option value="0">None yet</option>
+                <option value="1-3">1-3</option>
+                <option value="4-5">4-5</option>
+                <option value="5+">5+</option>
+              </select>
+            </div>
+            <div>
+              <label for="pwAchievements">Key achievements, awards, or recognition</label>
+              <textarea id="pwAchievements" name="Achievements Awards" placeholder="e.g., Award winner, Featured in X publication, 100+ happy clients..."></textarea>
+            </div>
+          </div>
+
+          <div class="field-group">
+            <h3>Package Selection</h3>
+            <label for="pwPackage">Which portfolio website tier are you interested in?</label>
+            <select id="pwPackage" name="Preferred Package" required>
+              <option value="">Select</option>
+              <option value="starter">Starter Portfolio</option>
+              <option value="professional">Professional Portfolio</option>
+              <option value="enterprise">Enterprise Portfolio</option>
+            </select>
+          </div>
+
+          <div class="field-group">
+            <h3>Timeline & Budget</h3>
+            <div>
+              <label for="pwTimeline">When do you want your website live?</label>
+              <select id="pwTimeline" name="Desired Launch Date" required>
+                <option value="">Select</option>
+                <option value="asap">ASAP (this month)</option>
+                <option value="3-weeks">Within 3 weeks</option>
+                <option value="4-6-weeks">Within 4-6 weeks</option>
+                <option value="flexible">Flexible / No rush</option>
+              </select>
+            </div>
+            <div>
+              <label for="pwBudget">Budget range</label>
+              <select id="pwBudget" name="Budget Range" required>
+                <option value="">Select</option>
+                <option value="<1000">Less than $1,000</option>
+                <option value="1-2k">$1,000 - $2,000</option>
+                <option value="2-3k">$2,000 - $3,000</option>
+                <option value="3-5k">$3,000 - $5,000</option>
+                <option value=">5k">$5,000+</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="field-group">
+            <h3>Asset Uploads</h3>
+            <label for="pwFiles">Upload project images, testimonials, resume, brand assets, or any reference materials</label>
+            <input id="pwFiles" name="Portfolio Assets" type="file" multiple />
+            <p class="note">Max 25MB per file. Images (JPG, PNG) and PDFs are best. Please organize files with clear names.</p>
+          </div>
+
+          <div class="field-group">
+            <h3>Additional Information</h3>
+            <div>
+              <label for="pwAdditional">Any other details or preferences?</label>
+              <textarea id="pwAdditional" name="Additional Notes" placeholder="Design preferences, must-have features, existing website URL, etc."></textarea>
+            </div>
+          </div>
+
+          <div class="actions">
+            <button class="secondary" data-print>Print / Save PDF</button>
+            <button type="submit" class="primary">Submit</button>
+          </div>
+        </form>
+      </section>
+    </main>
+
+    <script src="/forms/assets/forms.js" defer></script>
+  </body>
+</html>

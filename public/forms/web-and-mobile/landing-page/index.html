@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Landing Page Intake</title>
+    <link rel="stylesheet" href="/forms/assets/forms.css" />
+  </head>
+  <body>
+    <main class="page">
+      <section class="header">
+        <span class="eyebrow">Web and Mobile Development</span>
+        <h1>Landing Page Intake</h1>
+        <p>
+          Use this form for Landing Page packages. It captures goals, content, branding, and
+          technical requirements so we can deliver a high-converting page.
+        </p>
+      </section>
+
+      <section class="hero-card">
+        <div class="tag">What we will create</div>
+        <ul>
+          <li>High-converting landing page aligned to your offer.</li>
+          <li>Mobile responsive layout, CTA, and lead capture.</li>
+          <li>SEO basics, analytics, and integration setup per tier.</li>
+        </ul>
+      </section>
+
+      <section class="section-card">
+        <h2>Deliverables by tier</h2>
+        <div class="grid two">
+          <div class="field-group">
+            <h3>Basic</h3>
+            <ul>
+              <li>1 page design</li>
+              <li>Mobile responsive</li>
+              <li>Contact form</li>
+              <li>Hero section + CTA</li>
+              <li>Basic SEO setup</li>
+              <li>Email integration</li>
+              <li>2 revisions</li>
+            </ul>
+          </div>
+          <div class="field-group">
+            <h3>Standard</h3>
+            <ul>
+              <li>Everything in Basic</li>
+              <li>A/B testing variants</li>
+              <li>Video background support</li>
+              <li>Newsletter signup</li>
+              <li>Analytics dashboard</li>
+              <li>Social media integration</li>
+              <li>Payment form integration</li>
+              <li>Advanced SEO (meta tags, schema)</li>
+              <li>5 revisions</li>
+            </ul>
+          </div>
+          <div class="field-group">
+            <h3>Premium</h3>
+            <ul>
+              <li>Everything in Standard</li>
+              <li>Custom animations</li>
+              <li>Heatmap and conversion tracking</li>
+              <li>Multi-variant funnel setup</li>
+              <li>Email automation workflow</li>
+              <li>CRM integration (HubSpot/Pipedrive)</li>
+              <li>Performance optimization (99+ Lighthouse)</li>
+              <li>CDN and image optimization</li>
+              <li>Monthly analytics report</li>
+              <li>Unlimited revisions</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="grid two">
+        <div class="section-card">
+          <h2>What we need from you</h2>
+          <ul>
+            <li>Offer or campaign details, CTA, and target audience.</li>
+            <li>Brand assets: logo, colors, fonts, and imagery.</li>
+            <li>Copy points, testimonials, and social proof.</li>
+            <li>Any integrations (email, CRM, analytics).</li>
+            <li>Domain/hosting access or preferred provider.</li>
+          </ul>
+        </div>
+        <div class="section-card">
+          <h2>Before you submit</h2>
+          <p>
+            Gather links to documents, images, and brand files in Google Drive, Dropbox, or
+            OneDrive. File uploads do not attach to the email.
+          </p>
+          <div class="actions">
+            <button class="secondary" data-print>Print / Save PDF</button>
+            <a class="btn-link secondary" href="/forms">Back to all forms</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="section-card">
+        <form
+          class="form"
+          data-service-form
+          data-subject="Landing Page Intake"
+          data-service="Landing Page"
+          data-formspree="https://formspree.io/f/xaqdeena"
+          data-intake-endpoint="/api/forms/intake"
+          data-mailto="false"
+        >
+          <div class="field-group">
+            <h3>Client Details</h3>
+            <div class="inline-fields two">
+              <div>
+                <label for="lpFullName">Full name</label>
+                <input id="lpFullName" name="Full Name" type="text" required />
+              </div>
+              <div>
+                <label for="lpEmail">Email</label>
+                <input id="lpEmail" name="Email" type="email" required />
+              </div>
+            </div>
+            <div class="inline-fields two">
+              <div>
+                <label for="lpPhone">Phone number</label>
+                <input id="lpPhone" name="Phone" type="tel" />
+              </div>
+              <div>
+                <label for="lpCompany">Company or brand name</label>
+                <input id="lpCompany" name="Company" type="text" required />
+              </div>
+            </div>
+          </div>
+
+          <div class="field-group">
+            <h3>Package Selection</h3>
+            <label for="lpTier">Preferred tier</label>
+            <select id="lpTier" name="Preferred Tier" required>
+              <option value="">Select</option>
+              <option>Landing Page - Basic</option>
+              <option>Landing Page - Standard</option>
+              <option>Landing Page - Premium</option>
+              <option>Not sure yet</option>
+            </select>
+            <label for="lpTimeline">Preferred timeline</label>
+            <select id="lpTimeline" name="Timeline">
+              <option value="">Select</option>
+              <option>Rush (1-2 weeks)</option>
+              <option>Standard (1-2 months)</option>
+              <option>Extended (3-6 months)</option>
+            </select>
+          </div>
+
+          <div class="field-group">
+            <h3>Project Goals</h3>
+            <label for="lpGoal">Primary goal</label>
+            <textarea id="lpGoal" name="Primary Goal" required></textarea>
+            <label for="lpAudience">Target audience</label>
+            <textarea id="lpAudience" name="Target Audience" required></textarea>
+            <label for="lpOffer">Offer details and CTA</label>
+            <textarea id="lpOffer" name="Offer and CTA" required></textarea>
+          </div>
+
+          <div class="field-group">
+            <h3>Content and Structure</h3>
+            <label for="lpSections">Desired sections (hero, features, pricing, FAQ, etc.)</label>
+            <textarea id="lpSections" name="Page Sections" required></textarea>
+            <label for="lpCopy">Copy points or draft text</label>
+            <textarea id="lpCopy" name="Copy Points"></textarea>
+            <label for="lpProof">Testimonials, case studies, or social proof</label>
+            <textarea id="lpProof" name="Social Proof"></textarea>
+          </div>
+
+          <div class="field-group">
+            <h3>Brand Assets</h3>
+            <div class="inline-fields two">
+              <div>
+                <label for="lpLogoFile">Logo upload</label>
+                <input id="lpLogoFile" name="Logo File" type="file" accept=".png,.jpg,.jpeg,.svg,.pdf" />
+              </div>
+              <div>
+                <label for="lpImagesFile">Images or graphics</label>
+                <input id="lpImagesFile" name="Image Files" type="file" accept=".png,.jpg,.jpeg" multiple />
+              </div>
+            </div>
+            <label for="lpBrandLinks">Brand asset links</label>
+            <textarea id="lpBrandLinks" name="Brand Asset Links" required></textarea>
+          </div>
+
+          <div class="field-group">
+            <h3>Integrations and Access</h3>
+            <label for="lpIntegrations">Integrations needed (email, CRM, payments, analytics)</label>
+            <textarea id="lpIntegrations" name="Integrations"></textarea>
+            <label for="lpAccess">Domain/hosting access or preferred provider</label>
+            <textarea id="lpAccess" name="Hosting Access"></textarea>
+          </div>
+
+          <div class="field-group">
+            <h3>References and Notes</h3>
+            <label for="lpReferences">Reference sites or inspiration</label>
+            <textarea id="lpReferences" name="References"></textarea>
+            <label for="lpNotes">Additional notes</label>
+            <textarea id="lpNotes" name="Additional Notes"></textarea>
+          </div>
+
+          <div class="actions">
+            <button type="submit">Submit via Email</button>
+            <button class="secondary" data-print>Print / Save PDF</button>
+          </div>
+          <div class="status" data-status aria-live="polite"></div>
+        </form>
+      </section>
+    </main>
+
+    <script src="/forms/assets/forms.js"></script>
+  </body>
+</html>

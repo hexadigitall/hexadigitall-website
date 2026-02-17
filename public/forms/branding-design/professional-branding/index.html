@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Professional Branding Intake</title>
+    <link rel="stylesheet" href="/forms/assets/forms.css" />
+  </head>
+  <body>
+    <main class="page">
+      <section class="header">
+        <span class="eyebrow">Branding & Design</span>
+        <h1>Professional Branding Intake</h1>
+        <p>
+          Create a compelling brand identity that resonates with your audience and sets you apart from competitors.
+        </p>
+      </section>
+
+      <section class="hero-card">
+        <div class="tag">What we create</div>
+        <ul>
+          <li>Professional brand strategy and positioning.</li>
+          <li>Logo design with multiple concepts and variations.</li>
+          <li>Complete brand guidelines and visual system.</li>
+          <li>Brand assets for all marketing touchpoints.</li>
+        </ul>
+      </section>
+
+      <section class="section-card">
+        <h2>Branding packages</h2>
+        <div class="grid two">
+          <div class="field-group">
+            <h3>Logo Design</h3>
+            <ul>
+              <li>Brand discovery and positioning workshop</li>
+              <li>Competitive analysis and inspiration research</li>
+              <li>3 unique logo concepts</li>
+              <li>2 rounds of revisions</li>
+              <li>Final logo files (SVG, PNG, JPEG)</li>
+              <li>Black & white and color variations</li>
+              <li>Basic usage guidelines</li>
+              <li>Delivery: 7-10 days</li>
+            </ul>
+          </div>
+          <div class="field-group">
+            <h3>Complete Brand Identity</h3>
+            <ul>
+              <li>Everything in Logo Design</li>
+              <li>Brand strategy document</li>
+              <li>Brand tone and messaging guidelines</li>
+              <li>Color palette (primary & secondary)</li>
+              <li>Typography selection and pairing</li>
+              <li>Brand imagery style guide</li>
+              <li>Logo lockups and spacing guidelines</li>
+              <li>Brand pattern and icon system</li>
+              <li>Social media templates</li>
+              <li>Business card design</li>
+              <li>3 rounds of revisions</li>
+              <li>Delivery: 3-4 weeks</li>
+            </ul>
+          </div>
+          <div class="field-group">
+            <h3>Full Brand Package + Collateral</h3>
+            <ul>
+              <li>Everything in Complete Brand Identity</li>
+              <li>Letterhead and envelope design</li>
+              <li>Email signature templates</li>
+              <li>LinkedIn profile templates</li>
+              <li>Website header/footer design</li>
+              <li>Marketing collateral (brochure, postcard)</li>
+              <li>Brand photography style guide</li>
+              <li>Brand voice and messaging toolkit</li>
+              <li>One-pager template</li>
+              <li>5 rounds of revisions</li>
+              <li>Unlimited support during design</li>
+              <li>Delivery: 5-6 weeks</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="grid two">
+        <div class="section-card">
+          <h2>What we need from you</h2>
+          <ul>
+            <li>Business description, mission, and core values.</li>
+            <li>Target audience and customer personas.</li>
+            <li>Unique value proposition and differentiators.</li>
+            <li>Desired brand personality and tone.</li>
+            <li>Industry competitors and brands you admire.</li>
+            <li>Any existing assets or brand direction.</li>
+            <li>Preferred colors or style preferences.</li>
+          </ul>
+        </div>
+        <div class="section-card">
+          <h2>Before you submit</h2>
+          <p>
+            Think about your brand personality, industry, and what makes you unique. Collect references of brands you like for inspiration.
+          </p>
+          <div class="actions">
+            <button class="secondary" data-print>Print / Save PDF</button>
+            <a class="btn-link secondary" href="/forms">Back to all forms</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="section-card">
+        <form
+          class="form"
+          data-service-form
+          data-subject="Professional Branding Intake"
+          data-service="Professional Branding"
+          data-intake-endpoint="/api/forms/intake"
+        >
+          <div class="field-group">
+            <h3>Client Details</h3>
+            <div class="inline-fields two">
+              <div>
+                <label for="pbFullName">Full name</label>
+                <input id="pbFullName" name="Full Name" type="text" required />
+              </div>
+              <div>
+                <label for="pbEmail">Email</label>
+                <input id="pbEmail" name="Email" type="email" required />
+              </div>
+            </div>
+            <div class="inline-fields two">
+              <div>
+                <label for="pbPhone">Phone number</label>
+                <input id="pbPhone" name="Phone" type="tel" />
+              </div>
+              <div>
+                <label for="pbBrand">Brand/business name</label>
+                <input id="pbBrand" name="Brand Name" type="text" required />
+              </div>
+            </div>
+          </div>
+
+          <div class="field-group">
+            <h3>Business Overview</h3>
+            <div>
+              <label for="pbDescription">What does your business do?</label>
+              <textarea id="pbDescription" name="Business Description" placeholder="Tell us about your products/services..." required></textarea>
+            </div>
+            <div>
+              <label for="pbMission">Mission, vision, or core values</label>
+              <textarea id="pbMission" name="Mission Vision" placeholder="What drives your business? What do you stand for?"></textarea>
+            </div>
+            <div>
+              <label for="pbStage">Business stage</label>
+              <select id="pbStage" name="Business Stage" required>
+                <option value="">Select</option>
+                <option value="startup">Startup / Just launching</option>
+                <option value="early">Early-stage (less than 1 year)</option>
+                <option value="established">Established (1-5 years)</option>
+                <option value="rebrand">Rebranding existing business</option>
+                <option value="freelancer">Freelancer / Personal brand</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="field-group">
+            <h3>Target Audience</h3>
+            <div>
+              <label for="pbTarget">Who is your ideal customer?</label>
+              <textarea id="pbTarget" name="Target Audience" placeholder="Age, industry, roles, pain points, demographics..."></textarea>
+            </div>
+            <div>
+              <label for="pbVSP">What makes you different from competitors?</label>
+              <textarea id="pbVSP" name="Unique Selling Proposition" placeholder="Your competitive advantage and value proposition..."></textarea>
+            </div>
+          </div>
+
+          <div class="field-group">
+            <h3>Brand Personality</h3>
+            <div>
+              <label>How would you describe your brand personality?</label>
+              <div>
+                <label><input type="checkbox" name="Brand Personality" value="Minimalist" /> Minimalist / Clean</label>
+                <label><input type="checkbox" name="Brand Personality" value="Bold" /> Bold / Vibrant</label>
+                <label><input type="checkbox" name="Brand Personality" value="Professional" /> Professional / Corporate</label>
+                <label><input type="checkbox" name="Brand Personality" value="Creative" /> Creative / Artistic</label>
+                <label><input type="checkbox" name="Brand Personality" value="Playful" /> Playful / Fun</label>
+                <label><input type="checkbox" name="Brand Personality" value="Elegant" /> Elegant / Luxury</label>
+                <label><input type="checkbox" name="Brand Personality" value="Friendly" /> Friendly / Approachable</label>
+                <label><input type="checkbox" name="Brand Personality" value="Technical" /> Technical / Innovative</label>
+              </div>
+            </div>
+            <div>
+              <label for="pbTone">Brand tone of voice</label>
+              <select id="pbTone" name="Brand Tone" required>
+                <option value="">Select</option>
+                <option value="formal">Formal and professional</option>
+                <option value="casual">Casual and conversational</option>
+                <option value="inspirational">Inspirational and motivational</option>
+                <option value="educational">Educational and informative</option>
+                <option value="humorous">Humorous and witty</option>
+                <option value="mix">Mix of tones</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="field-group">
+            <h3>Visual Preferences</h3>
+            <div>
+              <label for="pbColors">Do you have color preferences?</label>
+              <input id="pbColors" name="Color Preferences" type="text" placeholder="e.g., Blues and greens, warm earth tones, etc." />
+            </div>
+            <div>
+              <label for="pbAversions">Any colors or styles to avoid?</label>
+              <input id="pbAversions" name="Colors to Avoid" type="text" placeholder="e.g., No neon colors, avoid Corporate look, etc." />
+            </div>
+            <div>
+              <label for="pbInspiration">Brands or designs you admire</label>
+              <textarea id="pbInspiration" name="Design Inspiration" placeholder="List 3-5 brands whose branding you like (any industry)..."></textarea>
+            </div>
+          </div>
+
+          <div class="field-group">
+            <h3>Package Selection</h3>
+            <label for="pbPackage">Which branding package are you interested in?</label>
+            <select id="pbPackage" name="Preferred Package" required>
+              <option value="">Select</option>
+              <option value="logo-only">Logo Design Only</option>
+              <option value="complete-brand">Complete Brand Identity</option>
+              <option value="full-package">Full Brand Package + Collateral</option>
+              <option value="unsure">Not sure / Want to discuss</option>
+            </select>
+          </div>
+
+          <div class="field-group">
+            <h3>Timeline & Budget</h3>
+            <div>
+              <label for="pbTimeline">When do you need this completed?</label>
+              <select id="pbTimeline" name="Timeline" required>
+                <option value="">Select</option>
+                <option value="urgent">ASAP (this month)</option>
+                <option value="3-weeks">Within 3 weeks</option>
+                <option value="4-6-weeks">Within 4-6 weeks</option>
+                <option value="flexible">Flexible / No rush</option>
+              </select>
+            </div>
+            <div>
+              <label for="pbBudget">Budget range (if you have one)</label>
+              <select id="pbBudget" name="Budget Range" required>
+                <option value="">Select</option>
+                <option value="<500">Less than $500</option>
+                <option value="500-1k">$500 - $1,000</option>
+                <option value="1-2k">$1,000 - $2,000</option>
+                <option value="2-5k">$2,000 - $5,000</option>
+                <option value=">5k">$5,000+</option>
+                <option value="tbd">Open to discussion</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="field-group">
+            <h3>Asset Uploads</h3>
+            <label for="pbFiles">Upload any existing materials (logo drafts, business cards, website screenshots, brand guidelines)</label>
+            <input id="pbFiles" name="Existing Assets" type="file" multiple />
+            <p class="note">Max 25MB per file. Images and PDFs are best.</p>
+          </div>
+
+          <div class="field-group">
+            <h3>Additional Information</h3>
+            <div>
+              <label for="pbAdditional">Anything else we should know about your brand?</label>
+              <textarea id="pbAdditional" name="Additional Notes" placeholder="Industry constraints, target locations, legal requirements, etc."></textarea>
+            </div>
+          </div>
+
+          <div class="actions">
+            <button class="secondary" data-print>Print / Save PDF</button>
+            <button type="submit" class="primary">Submit</button>
+          </div>
+        </form>
+      </section>
+    </main>
+
+    <script src="/forms/assets/forms.js" defer></script>
+  </body>
+</html>

@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>General Service Inquiry</title>
+    <link rel="stylesheet" href="/forms/assets/forms.css" />
+  </head>
+  <body>
+    <main class="page">
+      <section class="header">
+        <span class="eyebrow">Service Inquiry</span>
+        <h1>General Service Inquiry</h1>
+        <p>
+          Not sure which specific form to fill? Use this inquiry form to tell us about your project, and we'll connect you with the right specialist.
+        </p>
+      </section>
+
+      <section class="hero-card">
+        <div class="tag">How we help</div>
+        <ul>
+          <li>We'll review your inquiry within 24 hours.</li>
+          <li>A specialist will reach out to discuss your goals and options.</li>
+          <li>We'll recommend the best service package for your needs.</li>
+          <li>You'll get a custom quote and project timeline.</li>
+        </ul>
+      </section>
+
+      <section class="grid two">
+        <div class="section-card">
+          <h2>Service Categories</h2>
+          <ul>
+            <li><strong>Web & Mobile:</strong> Websites, e-commerce, web apps, mobile apps</li>
+            <li><strong>Branding & Design:</strong> Logo, brand identity, professional branding</li>
+            <li><strong>Business Services:</strong> Business plans, strategies, consulting</li>
+            <li><strong>Digital Marketing:</strong> Marketing strategy, SEO, paid ads, social media</li>
+            <li><strong>Creative Services:</strong> Portfolio websites, professional branding</li>
+            <li><strong>Profile & Portfolio:</strong> LinkedIn optimization, resume writing, portfolio</li>
+          </ul>
+        </div>
+        <div class="section-card">
+          <h2>About Our Process</h2>
+          <p>
+            After receiving your inquiry, we'll review your project and reach out within 1 business day. We'll ask more detailed questions, understand your goals and budget, and recommend the best service packages to meet your needs.
+          </p>
+          <div class="actions">
+            <button class="secondary" data-print>Print / Save PDF</button>
+            <a class="btn-link secondary" href="/forms">Back to all forms</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="section-card">
+        <form
+          class="form"
+          data-service-form
+          data-subject="General Service Inquiry"
+          data-service="General Inquiry"
+          data-intake-endpoint="/api/forms/intake"
+        >
+          <div class="field-group">
+            <h3>Contact Information</h3>
+            <div class="inline-fields two">
+              <div>
+                <label for="giName">Full name</label>
+                <input id="giName" name="Full Name" type="text" required />
+              </div>
+              <div>
+                <label for="giEmail">Email</label>
+                <input id="giEmail" name="Email" type="email" required />
+              </div>
+            </div>
+            <div class="inline-fields two">
+              <div>
+                <label for="giPhone">Phone number</label>
+                <input id="giPhone" name="Phone" type="tel" />
+              </div>
+              <div>
+                <label for="giCompany">Company/brand name (if applicable)</label>
+                <input id="giCompany" name="Company" type="text" />
+              </div>
+            </div>
+          </div>
+
+          <div class="field-group">
+            <h3>Project Overview</h3>
+            <div>
+              <label for="giCategory">What type(s) of service are you interested in?</label>
+              <select id="giCategory" name="Service Category" required>
+                <option value="">-- Select primary service --</option>
+                <option value="Web & Mobile Development">Web & Mobile Development</option>
+                <option value="E-commerce Store">E-commerce Store</option>
+                <option value="Business Website">Business Website</option>
+                <option value="Landing Page">Landing Page</option>
+                <option value="Branding & Design">Professional Branding & Design</option>
+                <option value="Logo Design">Logo Design</option>
+                <option value="Business Plan & Strategy">Business Plan & Strategy</option>
+                <option value="Consulting">Consulting & Advisory</option>
+                <option value="Digital Marketing">Digital Marketing Strategy</option>
+                <option value="Social Media Marketing">Social Media Marketing</option>
+                <option value="Portfolio Website">Portfolio Website</option>
+                <option value="CV & Resume">Professional CV & Resume</option>
+                <option value="LinkedIn Profile">LinkedIn Profile Optimization</option>
+                <option value="Other">Other / Multiple services</option>
+              </select>
+            </div>
+            <div>
+              <label for="giDescription">Tell us about your project or need</label>
+              <textarea id="giDescription" name="Project Description" placeholder="What do you want to achieve? What's your challenge or goal?" required></textarea>
+            </div>
+            <div>
+              <label for="giBackground">Current state or relevant background</label>
+              <textarea id="giBackground" name="Current State" placeholder="e.g., Do you have an existing website? Is this a startup? Any previous attempts?"></textarea>
+            </div>
+          </div>
+
+          <div class="field-group">
+            <h3>Project Details</h3>
+            <div>
+              <label for="giTimeline">What's your timeline?</label>
+              <select id="giTimeline" name="Timeline" required>
+                <option value="">Select</option>
+                <option value="asap">ASAP (this month)</option>
+                <option value="2-months">Within 2 months</option>
+                <option value="3-months">Within 3 months</option>
+                <option value="flexible">Flexible / No rush</option>
+              </select>
+            </div>
+            <div>
+              <label for="giBudget">Budget range (if you have one)</label>
+              <select id="giBudget" name="Budget Range" required>
+                <option value="">Select</option>
+                <option value="<1k">Less than $1,000</option>
+                <option value="1-3k">$1,000 - $3,000</option>
+                <option value="3-5k">$3,000 - $5,000</option>
+                <option value="5-10k">$5,000 - $10,000</option>
+                <option value="10-20k">$10,000 - $20,000</option>
+                <option value=">20k">$20,000+</option>
+                <option value="tbd">To be determined / Open to discussion</option>
+              </select>
+            </div>
+            <div>
+              <label for="giTeam">Do you have an internal team or resources to help?</label>
+              <select id="giTeam" name="Internal Resources" required>
+                <option value="">Select</option>
+                <option value="yes-full">Yes - Dedicated team</option>
+                <option value="yes-part">Yes - Limited help available</option>
+                <option value="no">No - You'll handle it all</option>
+                <option value="unsure">Not sure yet</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="field-group">
+            <h3>Goals & Success Metrics</h3>
+            <div>
+              <label for="giGoals">What are your main goals or success metrics?</label>
+              <textarea id="giGoals" name="Goals Metrics" placeholder="e.g., 50% more sales, 1000 weekly visitors, brand recognition, etc."></textarea>
+            </div>
+          </div>
+
+          <div class="field-group">
+            <h3>File Uploads</h3>
+            <label for="giFiles">Upload any relevant documents, images, or reference materials</label>
+            <input id="giFiles" name="Supporting Documents" type="file" multiple />
+            <p class="note">Max 25MB per file. PDFs, images, and documents are all welcome.</p>
+          </div>
+
+          <div class="field-group">
+            <h3>Additional Information</h3>
+            <div>
+              <label for="giAdditional">Is there anything else you'd like us to know?</label>
+              <textarea id="giAdditional" name="Additional Notes" placeholder="Concerns, preferences, constraints, or any other details..."></textarea>
+            </div>
+            <div>
+              <label for="giPreferred">Preferred contact method?</label>
+              <select id="giPreferred" name="Preferred Contact" required>
+                <option value="">Select</option>
+                <option value="email">Email</option>
+                <option value="phone">Phone call</option>
+                <option value="whatsapp">WhatsApp</option>
+                <option value="no-preference">No preference</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="actions">
+            <button class="secondary" data-print>Print / Save PDF</button>
+            <button type="submit" class="primary">Submit Inquiry</button>
+          </div>
+        </form>
+      </section>
+    </main>
+
+    <script src="/forms/assets/forms.js" defer></script>
+  </body>
+</html>

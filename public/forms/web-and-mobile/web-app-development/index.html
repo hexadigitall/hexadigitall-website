@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Web Application Development Intake</title>
+    <link rel="stylesheet" href="/forms/assets/forms.css" />
+  </head>
+  <body>
+    <main class="page">
+      <section class="header">
+        <span class="eyebrow">Web and Mobile Development</span>
+        <h1>Web Application Development Intake</h1>
+        <p>
+          Use this form for web application builds. It captures product scope, roles, and
+          technical requirements for your application.
+        </p>
+      </section>
+
+      <section class="hero-card">
+        <div class="tag">What we will create</div>
+        <ul>
+          <li>Scalable web application with authentication and database.</li>
+          <li>APIs, integrations, and admin tools per tier.</li>
+          <li>Security and performance optimization based on scope.</li>
+        </ul>
+      </section>
+
+      <section class="section-card">
+        <h2>Deliverables by tier</h2>
+        <div class="grid two">
+          <div class="field-group">
+            <h3>Startup Edition</h3>
+            <ul>
+              <li>Up to 10 simple pages/screens</li>
+              <li>User authentication (basic)</li>
+              <li>Database integration</li>
+              <li>REST API</li>
+              <li>Email notifications</li>
+              <li>Basic file uploads</li>
+              <li>Mobile responsive</li>
+              <li>3rd party API integration (1)</li>
+              <li>SSL certificate</li>
+              <li>5 revisions</li>
+            </ul>
+          </div>
+          <div class="field-group">
+            <h3>Business Edition</h3>
+            <ul>
+              <li>Everything in Startup Edition</li>
+              <li>Up to 20 feature-rich pages/screens</li>
+              <li>Advanced authentication (2FA, SSO)</li>
+              <li>Complex data management</li>
+              <li>GraphQL and REST APIs</li>
+              <li>Real-time notifications (WebSockets)</li>
+              <li>Advanced file management</li>
+              <li>3rd party API integrations (up to 5)</li>
+              <li>Payment processing integration</li>
+              <li>Analytics and logging</li>
+              <li>Caching and optimization</li>
+              <li>10 revisions</li>
+            </ul>
+          </div>
+          <div class="field-group">
+            <h3>Enterprise Edition</h3>
+            <ul>
+              <li>Everything in Business Edition</li>
+              <li>Unlimited pages/screens</li>
+              <li>Enterprise authentication (OAuth2, SAML)</li>
+              <li>Microservices architecture</li>
+              <li>Advanced reporting and dashboards</li>
+              <li>Machine learning integration</li>
+              <li>Real-time collaboration features</li>
+              <li>Advanced security (encryption, auditing)</li>
+              <li>Unlimited 3rd party integrations</li>
+              <li>Custom admin dashboard</li>
+              <li>Load testing and optimization</li>
+              <li>Disaster recovery setup</li>
+              <li>3 months maintenance included</li>
+              <li>Technical documentation</li>
+              <li>Unlimited revisions</li>
+              <li>Dedicated developer consultation</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="grid two">
+        <div class="section-card">
+          <h2>What we need from you</h2>
+          <ul>
+            <li>Product vision, target users, and success metrics.</li>
+            <li>Core features, user roles, and workflows.</li>
+            <li>Integrations, APIs, and data sources.</li>
+            <li>Compliance or security requirements.</li>
+            <li>Brand assets and UI references.</li>
+          </ul>
+        </div>
+        <div class="section-card">
+          <h2>Before you submit</h2>
+          <p>
+            Share any PRDs, wireframes, or diagrams via Google Drive, Dropbox, or OneDrive.
+            File uploads do not attach to the email.
+          </p>
+          <div class="actions">
+            <button class="secondary" data-print>Print / Save PDF</button>
+            <a class="btn-link secondary" href="/forms">Back to all forms</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="section-card">
+        <form
+          class="form"
+          data-service-form
+          data-subject="Web Application Development Intake"
+          data-service="Web App Development"
+          data-formspree="https://formspree.io/f/xaqdeena"
+          data-intake-endpoint="/api/forms/intake"
+          data-mailto="false"
+        >
+          <div class="field-group">
+            <h3>Client Details</h3>
+            <div class="inline-fields two">
+              <div>
+                <label for="waFullName">Full name</label>
+                <input id="waFullName" name="Full Name" type="text" required />
+              </div>
+              <div>
+                <label for="waEmail">Email</label>
+                <input id="waEmail" name="Email" type="email" required />
+              </div>
+            </div>
+            <div class="inline-fields two">
+              <div>
+                <label for="waPhone">Phone number</label>
+                <input id="waPhone" name="Phone" type="tel" />
+              </div>
+              <div>
+                <label for="waCompany">Company or brand name</label>
+                <input id="waCompany" name="Company" type="text" required />
+              </div>
+            </div>
+          </div>
+
+          <div class="field-group">
+            <h3>Package Selection</h3>
+            <label for="waTier">Preferred tier</label>
+            <select id="waTier" name="Preferred Tier" required>
+              <option value="">Select</option>
+              <option>Web App - Startup Edition</option>
+              <option>Web App - Business Edition</option>
+              <option>Web App - Enterprise Edition</option>
+              <option>Not sure yet</option>
+            </select>
+            <label for="waComplexity">Project complexity</label>
+            <select id="waComplexity" name="Project Complexity">
+              <option value="">Select</option>
+              <option>Simple (Basic functionality)</option>
+              <option>Medium (Standard features)</option>
+              <option>Complex (Advanced features)</option>
+              <option>Enterprise (Full-scale system)</option>
+            </select>
+          </div>
+
+          <div class="field-group">
+            <h3>Product Overview</h3>
+            <label for="waVision">Product vision and goals</label>
+            <textarea id="waVision" name="Product Vision" required></textarea>
+            <label for="waUsers">Target users and user roles</label>
+            <textarea id="waUsers" name="Target Users" required></textarea>
+            <label for="waFeatures">Core features and workflows</label>
+            <textarea id="waFeatures" name="Core Features" required></textarea>
+          </div>
+
+          <div class="field-group">
+            <h3>Data and Integrations</h3>
+            <label for="waData">Data types, storage, and reporting needs</label>
+            <textarea id="waData" name="Data Requirements"></textarea>
+            <label for="waIntegrations">Required integrations or APIs</label>
+            <textarea id="waIntegrations" name="Integrations"></textarea>
+            <label for="waSecurity">Security or compliance requirements</label>
+            <textarea id="waSecurity" name="Security Requirements"></textarea>
+          </div>
+
+          <div class="field-group">
+            <h3>Assets and References</h3>
+            <label for="waBrandLinks">Brand asset links</label>
+            <textarea id="waBrandLinks" name="Brand Asset Links"></textarea>
+            <label for="waReferences">Reference apps or UI inspiration</label>
+            <textarea id="waReferences" name="References"></textarea>
+            <label for="waDocs">PRDs, wireframes, or docs link</label>
+            <textarea id="waDocs" name="Project Docs"></textarea>
+          </div>
+
+          <div class="field-group">
+            <h3>Timeline and Budget</h3>
+            <label for="waTimeline">Preferred timeline</label>
+            <select id="waTimeline" name="Timeline">
+              <option value="">Select</option>
+              <option>Rush (1-2 weeks)</option>
+              <option>Standard (1-2 months)</option>
+              <option>Extended (3-6 months)</option>
+              <option>Long-term (6+ months)</option>
+            </select>
+            <label for="waBudget">Budget range</label>
+            <select id="waBudget" name="Budget Range">
+              <option value="">Select</option>
+              <option>Under $5,000</option>
+              <option>$5,000 - $15,000</option>
+              <option>$15,000 - $50,000</option>
+              <option>$50,000 - $100,000</option>
+              <option>Over $100,000</option>
+            </select>
+          </div>
+
+          <div class="field-group">
+            <h3>Additional Notes</h3>
+            <label for="waNotes">Anything else we should know</label>
+            <textarea id="waNotes" name="Additional Notes"></textarea>
+          </div>
+
+          <div class="actions">
+            <button type="submit">Submit via Email</button>
+            <button class="secondary" data-print>Print / Save PDF</button>
+          </div>
+          <div class="status" data-status aria-live="polite"></div>
+        </form>
+      </section>
+    </main>
+
+    <script src="/forms/assets/forms.js"></script>
+  </body>
+</html>

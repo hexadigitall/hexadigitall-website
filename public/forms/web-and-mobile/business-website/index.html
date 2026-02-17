@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Business Website Intake</title>
+    <link rel="stylesheet" href="/forms/assets/forms.css" />
+  </head>
+  <body>
+    <main class="page">
+      <section class="header">
+        <span class="eyebrow">Web and Mobile Development</span>
+        <h1>Business Website Intake</h1>
+        <p>
+          Use this form for multi-page business websites. It captures content, structure, and
+          technical requirements for your company presence.
+        </p>
+      </section>
+
+      <section class="hero-card">
+        <div class="tag">What we will create</div>
+        <ul>
+          <li>Professional multi-page website with key business pages.</li>
+          <li>CMS, blog, SEO, and analytics as required by tier.</li>
+          <li>Mobile optimization and lead capture.</li>
+        </ul>
+      </section>
+
+      <section class="section-card">
+        <h2>Deliverables by tier</h2>
+        <div class="grid two">
+          <div class="field-group">
+            <h3>Basic</h3>
+            <ul>
+              <li>Up to 5 pages</li>
+              <li>Mobile responsive</li>
+              <li>Contact/Quote form</li>
+              <li>About, Services, Contact pages</li>
+              <li>Basic blog setup</li>
+              <li>SSL certificate</li>
+              <li>Email setup</li>
+              <li>Local SEO</li>
+              <li>Google Analytics</li>
+              <li>3 revisions</li>
+            </ul>
+          </div>
+          <div class="field-group">
+            <h3>Standard</h3>
+            <ul>
+              <li>Everything in Basic</li>
+              <li>Up to 10 pages</li>
+              <li>CMS (Sanity/Strapi)</li>
+              <li>Blog with 10 posts</li>
+              <li>Portfolio/Gallery</li>
+              <li>Team member pages</li>
+              <li>Testimonials section</li>
+              <li>Services pages with pricing</li>
+              <li>Advanced SEO (schema, sitemaps)</li>
+              <li>Social sharing optimization</li>
+              <li>Newsletter integration</li>
+              <li>5 revisions</li>
+            </ul>
+          </div>
+          <div class="field-group">
+            <h3>Premium</h3>
+            <ul>
+              <li>Everything in Standard</li>
+              <li>Unlimited pages</li>
+              <li>Advanced CMS with workflows</li>
+              <li>Blog with SEO automation</li>
+              <li>Interactive portfolio with filtering</li>
+              <li>Testimonials with ratings</li>
+              <li>Appointment booking system</li>
+              <li>Payment integration (Paystack/PayPal)</li>
+              <li>Multi-language support</li>
+              <li>Advanced analytics and reporting</li>
+              <li>Performance optimization (99+ Lighthouse)</li>
+              <li>Monthly maintenance (3 months)</li>
+              <li>Unlimited revisions</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="grid two">
+        <div class="section-card">
+          <h2>What we need from you</h2>
+          <ul>
+            <li>Business overview, services, and target audience.</li>
+            <li>Brand assets: logo, colors, fonts, imagery.</li>
+            <li>Page content (about, services, team, FAQ).</li>
+            <li>Testimonials, case studies, and portfolio items.</li>
+            <li>Domain/hosting access or preferred provider.</li>
+          </ul>
+        </div>
+        <div class="section-card">
+          <h2>Before you submit</h2>
+          <p>
+            Gather content and brand files in Google Drive, Dropbox, or OneDrive.
+            File uploads do not attach to the email.
+          </p>
+          <div class="actions">
+            <button class="secondary" data-print>Print / Save PDF</button>
+            <a class="btn-link secondary" href="/forms">Back to all forms</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="section-card">
+        <form
+          class="form"
+          data-service-form
+          data-subject="Business Website Intake"
+          data-service="Business Website"
+          data-formspree="https://formspree.io/f/xaqdeena"
+          data-intake-endpoint="/api/forms/intake"
+          data-mailto="false"
+        >
+          <div class="field-group">
+            <h3>Client Details</h3>
+            <div class="inline-fields two">
+              <div>
+                <label for="bwFullName">Full name</label>
+                <input id="bwFullName" name="Full Name" type="text" required />
+              </div>
+              <div>
+                <label for="bwEmail">Email</label>
+                <input id="bwEmail" name="Email" type="email" required />
+              </div>
+            </div>
+            <div class="inline-fields two">
+              <div>
+                <label for="bwPhone">Phone number</label>
+                <input id="bwPhone" name="Phone" type="tel" />
+              </div>
+              <div>
+                <label for="bwCompany">Company or brand name</label>
+                <input id="bwCompany" name="Company" type="text" required />
+              </div>
+            </div>
+          </div>
+
+          <div class="field-group">
+            <h3>Package Selection</h3>
+            <label for="bwTier">Preferred tier</label>
+            <select id="bwTier" name="Preferred Tier" required>
+              <option value="">Select</option>
+              <option>Business Website - Basic</option>
+              <option>Business Website - Standard</option>
+              <option>Business Website - Premium</option>
+              <option>Not sure yet</option>
+            </select>
+            <label for="bwTimeline">Preferred timeline</label>
+            <select id="bwTimeline" name="Timeline">
+              <option value="">Select</option>
+              <option>Standard (1-2 months)</option>
+              <option>Extended (3-6 months)</option>
+              <option>Long-term (6+ months)</option>
+            </select>
+          </div>
+
+          <div class="field-group">
+            <h3>Business Overview</h3>
+            <label for="bwOverview">Company overview and mission</label>
+            <textarea id="bwOverview" name="Business Overview" required></textarea>
+            <label for="bwAudience">Target audience</label>
+            <textarea id="bwAudience" name="Target Audience" required></textarea>
+            <label for="bwGoals">Primary goals for the website</label>
+            <textarea id="bwGoals" name="Website Goals" required></textarea>
+          </div>
+
+          <div class="field-group">
+            <h3>Pages and Content</h3>
+            <label for="bwPages">Required pages</label>
+            <textarea id="bwPages" name="Required Pages" required></textarea>
+            <label for="bwServices">Services list and descriptions</label>
+            <textarea id="bwServices" name="Services" required></textarea>
+            <label for="bwTeam">Team member details</label>
+            <textarea id="bwTeam" name="Team Details"></textarea>
+            <label for="bwTestimonials">Testimonials or case studies</label>
+            <textarea id="bwTestimonials" name="Testimonials"></textarea>
+          </div>
+
+          <div class="field-group">
+            <h3>Brand Assets</h3>
+            <div class="inline-fields two">
+              <div>
+                <label for="bwLogoFile">Logo upload</label>
+                <input id="bwLogoFile" name="Logo File" type="file" accept=".png,.jpg,.jpeg,.svg,.pdf" />
+              </div>
+              <div>
+                <label for="bwImageFile">Images or graphics</label>
+                <input id="bwImageFile" name="Image Files" type="file" accept=".png,.jpg,.jpeg" multiple />
+              </div>
+            </div>
+            <label for="bwBrandLinks">Brand asset links</label>
+            <textarea id="bwBrandLinks" name="Brand Asset Links" required></textarea>
+          </div>
+
+          <div class="field-group">
+            <h3>Technical and Integrations</h3>
+            <label for="bwCms">CMS preference (if any)</label>
+            <textarea id="bwCms" name="CMS Preference"></textarea>
+            <label for="bwIntegrations">Integrations (newsletter, CRM, booking, payments)</label>
+            <textarea id="bwIntegrations" name="Integrations"></textarea>
+            <label for="bwAccess">Domain/hosting access or provider</label>
+            <textarea id="bwAccess" name="Hosting Access"></textarea>
+          </div>
+
+          <div class="field-group">
+            <h3>References and Notes</h3>
+            <label for="bwReferences">Reference sites or inspiration</label>
+            <textarea id="bwReferences" name="References"></textarea>
+            <label for="bwNotes">Additional notes</label>
+            <textarea id="bwNotes" name="Additional Notes"></textarea>
+          </div>
+
+          <div class="actions">
+            <button type="submit">Submit via Email</button>
+            <button class="secondary" data-print>Print / Save PDF</button>
+          </div>
+          <div class="status" data-status aria-live="polite"></div>
+        </form>
+      </section>
+    </main>
+
+    <script src="/forms/assets/forms.js"></script>
+  </body>
+</html>

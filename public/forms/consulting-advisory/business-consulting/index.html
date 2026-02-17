@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Consulting Services Intake</title>
+    <link rel="stylesheet" href="/forms/assets/forms.css" />
+  </head>
+  <body>
+    <main class="page">
+      <section class="header">
+        <span class="eyebrow">Consulting & Strategy</span>
+        <h1>Consulting Services Intake</h1>
+        <p>
+          Get expert guidance on business strategy, operations, technology, and growth. Our consultants help you tackle challenges and accelerate your success.
+        </p>
+      </section>
+
+      <section class="hero-card">
+        <div class="tag">What we provide</div>
+        <ul>
+          <li>Strategic business assessment and actionable recommendations.</li>
+          <li>Ongoing advisory and coaching for your team and leadership.</li>
+          <li>Implementation support and performance monitoring.</li>
+          <li>Industry expertise and best practices guidance.</li>
+        </ul>
+      </section>
+
+      <section class="section-card">
+        <h2>Consulting packages</h2>
+        <div class="grid two">
+          <div class="field-group">
+            <h3>Discovery & Assessment</h3>
+            <ul>
+              <li>Initial consultation call (1-2 hours)</li>
+              <li>Business assessment and analysis</li>
+              <li>Competitive landscape review</li>
+              <li>Opportunity and risk identification</li>
+              <li>Executive summary with 5-7 recommendations</li>
+              <li>Resources and tools guide</li>
+              <li>Follow-up email consultation</li>
+            </ul>
+          </div>
+          <div class="field-group">
+            <h3>Advisory Package</h3>
+            <ul>
+              <li>Everything in Discovery & Assessment</li>
+              <li>2 months of ongoing advisory (bi-weekly calls)</li>
+              <li>Implementation roadmap and action plan</li>
+              <li>Team workshop or team coaching session</li>
+              <li>Priority email/message support</li>
+              <li>Progress tracking and KPI monitoring</li>
+              <li>Mid-point review and strategy adjustment</li>
+            </ul>
+          </div>
+          <div class="field-group">
+            <h3>Full Implementation</h3>
+            <ul>
+              <li>Everything in Advisory</li>
+              <li>6 months of intensive partnership</li>
+              <li>Weekly strategic calls</li>
+              <li>Hands-on implementation support</li>
+              <li>Multiple team workshops (3-5 sessions)</li>
+              <li>Custom tools and process design</li>
+              <li>Change management support</li>
+              <li>Dedicated Slack/communication channel</li>
+              <li>Final results report and transition plan</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="grid two">
+        <div class="section-card">
+          <h2>What we need from you</h2>
+          <ul>
+            <li>Overview of your business, products/services, and market position.</li>
+            <li>Current challenges, pain points, or areas for improvement.</li>
+            <li>Business goals and success metrics for the next 12 months.</li>
+            <li>Team structure and key stakeholder information.</li>
+            <li>Relevant historical data, metrics, or financials (if applicable).</li>
+            <li>Your availability for calls and implementation.</li>
+          </ul>
+        </div>
+        <div class="section-card">
+          <h2>Before you submit</h2>
+          <p>
+            Prepare a summary of your business challenges and objectives. Have any supporting documents or data ready. We'll dive deeper in our initial consultation.
+          </p>
+          <div class="actions">
+            <button class="secondary" data-print>Print / Save PDF</button>
+            <a class="btn-link secondary" href="/forms">Back to all forms</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="section-card">
+        <form
+          class="form"
+          data-service-form
+          data-subject="Consulting Services Intake"
+          data-service="Consulting Services"
+          data-intake-endpoint="/api/forms/intake"
+        >
+          <div class="field-group">
+            <h3>Client Details</h3>
+            <div class="inline-fields two">
+              <div>
+                <label for="cFullName">Full name</label>
+                <input id="cFullName" name="Full Name" type="text" required />
+              </div>
+              <div>
+                <label for="cEmail">Email</label>
+                <input id="cEmail" name="Email" type="email" required />
+              </div>
+            </div>
+            <div class="inline-fields two">
+              <div>
+                <label for="cPhone">Phone number</label>
+                <input id="cPhone" name="Phone" type="tel" required />
+              </div>
+              <div>
+                <label for="cCompany">Company name</label>
+                <input id="cCompany" name="Company" type="text" required />
+              </div>
+            </div>
+            <div>
+              <label for="cRole">Your role/title</label>
+              <input id="cRole" name="Role" type="text" placeholder="e.g., CEO, Founder, Director" />
+            </div>
+          </div>
+
+          <div class="field-group">
+            <h3>Consulting Type</h3>
+            <label for="cType">What type of consulting do you need?</label>
+            <select id="cType" name="Consulting Type" required>
+              <option value="">Select primary focus</option>
+              <option value="business-strategy">Business Strategy & Growth</option>
+              <option value="operations">Operations & Process Optimization</option>
+              <option value="digital-transformation">Digital Transformation</option>
+              <option value="technology">Technology & Technical Strategy</option>
+              <option value="marketing-sales">Marketing & Sales Strategy</option>
+              <option value="organizational">Organizational & Team Development</option>
+              <option value="financial">Financial Planning & Analysis</option>
+              <option value="other">Other / Multiple areas</option>
+            </select>
+          </div>
+
+          <div class="field-group">
+            <h3>Business Overview</h3>
+            <div>
+              <label for="cIndustry">Industry/sector</label>
+              <input id="cIndustry" name="Industry" type="text" placeholder="e.g., Technology, Healthcare, Retail" />
+            </div>
+            <div>
+              <label for="cSize">Company size (number of employees)</label>
+              <select id="cSize" name="Company Size" required>
+                <option value="">Select</option>
+                <option value="1-5">1-5 (Solo/Small team)</option>
+                <option value="6-20">6-20</option>
+                <option value="21-50">21-50</option>
+                <option value="51-100">51-100</option>
+                <option value="100+">100+</option>
+              </select>
+            </div>
+            <div>
+              <label for="cRevenue">Annual revenue (approximate)</label>
+              <select id="cRevenue" name="Annual Revenue" required>
+                <option value="">Select</option>
+                <option value="<50k">Less than $50K</option>
+                <option value="50-250k">$50K - $250K</option>
+                <option value="250k-1m">$250K - $1M</option>
+                <option value="1-5m">$1M - $5M</option>
+                <option value="5-10m">$5M - $10M</option>
+                <option value=">10m">$10M+</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="field-group">
+            <h3>Primary Challenges</h3>
+            <div>
+              <label for="cChallenge">What's your biggest challenge right now?</label>
+              <textarea id="cChallenge" name="Primary Challenge" placeholder="Describe your main business pain point..." required></textarea>
+            </div>
+            <div>
+              <label for="cGoals">What are your top business goals for the next 12 months?</label>
+              <textarea id="cGoals" name="Business Goals" placeholder="List 2-3 key objectives..."></textarea>
+            </div>
+            <div>
+              <label for="cMetrics">How do you measure success? (KPIs, metrics)</label>
+              <textarea id="cMetrics" name="Success Metrics" placeholder="e.g., Revenue growth 30%, Customer churn <2%..."></textarea>
+            </div>
+          </div>
+
+          <div class="field-group">
+            <h3>Package & Timeline</h3>
+            <div>
+              <label for="cPackage">Preferred consulting package</label>
+              <select id="cPackage" name="Preferred Package" required>
+                <option value="">Select</option>
+                <option value="discovery">Discovery & Assessment (1-2 weeks)</option>
+                <option value="advisory">Advisory Package (2 months)</option>
+                <option value="implementation">Full Implementation (6 months)</option>
+                <option value="custom">Custom / Discussing options</option>
+              </select>
+            </div>
+            <div>
+              <label for="cAvailability">Your availability for consulting calls</label>
+              <select id="cAvailability" name="Availability" required>
+                <option value="">Select</option>
+                <option value="weekly">Weekly (most flexible)</option>
+                <option value="biweekly">Bi-weekly</option>
+                <option value="monthly">Monthly (minimal)</option>
+                <option value="asneeded">As-needed only</option>
+              </select>
+            </div>
+            <div>
+              <label for="cBudget">Budget range (if you have one)</label>
+              <input id="cBudget" name="Budget Range" type="text" placeholder="e.g., $5K-$10K or 'Open to discussion'" />
+            </div>
+          </div>
+
+          <div class="field-group">
+            <h3>Document Uploads</h3>
+            <label for="cFiles">Upload any relevant documents (business plan, financials, org chart, strategic plan)</label>
+            <input id="cFiles" name="Supporting Documents" type="file" multiple />
+            <p class="note">Max 25MB per file. PDFs and images are best.</p>
+          </div>
+
+          <div class="field-group">
+            <h3>Additional Information</h3>
+            <div>
+              <label for="cAdditional">Anything else we should know?</label>
+              <textarea id="cAdditional" name="Additional Notes" placeholder="Team dynamics, previous consulting experiences, etc."></textarea>
+            </div>
+          </div>
+
+          <div class="actions">
+            <button class="secondary" data-print>Print / Save PDF</button>
+            <button type="submit" class="primary">Submit</button>
+          </div>
+        </form>
+      </section>
+    </main>
+
+    <script src="/forms/assets/forms.js" defer></script>
+  </body>
+</html>
