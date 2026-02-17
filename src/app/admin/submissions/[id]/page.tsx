@@ -17,7 +17,11 @@ interface FormSubmission {
   company?: string
   subject?: string
   message?: string
-  formData?: Record<string, unknown>
+  formData?: {
+    raw?: string
+    fields?: Array<{ key?: string; value?: string }>
+  }
+  attachments?: Array<{ name?: string; url?: string; type?: string; size?: number }>
   submittedAt: string
   ipAddress?: string
   userAgent?: string
@@ -33,6 +37,158 @@ export default function SubmissionDetailPage() {
   const [loading, setLoading] = useState(true)
   const [updating, setUpdating] = useState(false)
   const [feedback, setFeedback] = useState<{ type: 'success' | 'error'; message: string } | null>(null)
+
+  const buildExportRows = (data: FormSubmission) => {
+    const rows: Array<[string, string]> = [
+      ['Submission ID', data._id],
+      ['Submitted At', new Date(data.submittedAt).toLocaleString()],
+      ['Status', data.status],
+      ['Type', data.type],
+      ['Service', data.subject || '—'],
+      ['Name', data.name || '—'],
+      ['Email', data.email || '—'],
+      ['Phone', data.phone || '—'],
+      ['Company', data.company || '—'],
+      ['Message', data.message || '—'],
+      ['IP Address', data.ipAddress || '—'],
+      ['User Agent', data.userAgent || '—'],
+      ['Referrer', data.referrer || '—'],
+    ]
+
+    if (data.formData?.fields?.length) {
+      data.formData.fields.forEach((field) => {
+        rows.push([field.key || 'Field', field.value || '—'])
+      })
+    } else if (data.formData?.raw) {
+      rows.push(['Form Data (raw)', data.formData.raw])
+    }
+
+    if (data.attachments?.length) {
+      data.attachments.forEach((attachment, index) => {
+        const label = `Attachment ${index + 1}`
+        const value = `${attachment.name || 'Attachment'} - ${attachment.url || '—'}`
+        rows.push([label, value])
+      })
+    }
+
+    return rows
+  }
+
+  const downloadBlob = (content: string, filename: string, type: string) => {
+    const blob = new Blob([content], { type })
+    const url = URL.createObjectURL(blob)
+    const link = document.createElement('a')
+    link.href = url
+    link.download = filename
+    document.body.appendChild(link)
+    link.click()
+    link.remove()
+    URL.revokeObjectURL(url)
+  }
+
+  const exportSubmission = (format: 'csv' | 'json' | 'xls' | 'doc' | 'pdf') => {
+    if (!submission) return
+    const rows = buildExportRows(submission)
+    const baseFileName = `submission-${submission._id}`
+
+    const escapeCsv = (value: string) => `"${value.replace(/"/g, '""')}"`
+    const escapeXml = (value: string) =>
+      value
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&apos;')
+    const escapeRtf = (value: string) =>
+      value.replace(/[\\{}]/g, '\\$&').replace(/\r?\n/g, '\\line ')
+
+    if (format === 'json') {
+      const payload = {
+        id: submission._id,
+        submittedAt: submission.submittedAt,
+        status: submission.status,
+        type: submission.type,
+        subject: submission.subject,
+        contact: {
+          name: submission.name,
+          email: submission.email,
+          phone: submission.phone,
+          company: submission.company,
+        },
+        message: submission.message,
+        formData: submission.formData,
+        attachments: submission.attachments,
+        metadata: {
+          ipAddress: submission.ipAddress,
+          userAgent: submission.userAgent,
+          referrer: submission.referrer,
+        },
+      }
+      downloadBlob(JSON.stringify(payload, null, 2), `${baseFileName}.json`, 'application/json')
+      return
+    }
+
+    if (format === 'csv') {
+      const csv = rows.map(([key, value]) => `${escapeCsv(key)},${escapeCsv(value || '')}`).join('\n')
+      const csvWithBom = `\uFEFF${csv}`
+      downloadBlob(csvWithBom, `${baseFileName}.csv`, 'text/csv')
+      return
+    }
+
+    if (format === 'xls') {
+      const tableRows = rows
+        .map(
+          ([key, value]) =>
+            `<Row><Cell><Data ss:Type="String">${escapeXml(key)}</Data></Cell><Cell><Data ss:Type="String">${escapeXml(
+              value || ''
+            )}</Data></Cell></Row>`
+        )
+        .join('')
+      const xls = `<?xml version="1.0"?>\n<?mso-application progid="Excel.Sheet"?>\n<Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet" xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"><Worksheet ss:Name="Submission"><Table>${tableRows}</Table></Worksheet></Workbook>`
+      downloadBlob(`\uFEFF${xls}`, `${baseFileName}.xls`, 'application/vnd.ms-excel')
+      return
+    }
+
+    if (format === 'doc') {
+      const rtfBody = rows
+        .map(
+          ([key, value]) =>
+            `\\b ${escapeRtf(key)}\\b0\\line ${escapeRtf(value || '—')}\\line\\line`
+        )
+        .join('')
+      const rtf = `{\\rtf1\\ansi\\deff0{\\fonttbl{\\f0 Calibri;}}\\fs22 ${rtfBody}}`
+      downloadBlob(rtf, `${baseFileName}.doc`, 'application/rtf')
+      return
+    }
+
+    const tableRows = rows
+      .map(
+        ([key, value]) =>
+          `<tr><td style="border:1px solid #ddd;padding:8px;"><strong>${key}</strong></td><td style="border:1px solid #ddd;padding:8px;">${value}</td></tr>`
+      )
+      .join('')
+    const html = `
+      <html>
+        <head>
+          <meta charset="utf-8" />
+          <title>Submission ${submission._id}</title>
+        </head>
+        <body>
+          <h2>Submission Details</h2>
+          <table style="border-collapse:collapse;width:100%;">${tableRows}</table>
+        </body>
+      </html>
+    `
+
+    if (format === 'pdf') {
+      const printWindow = window.open('', '_blank')
+      if (!printWindow) return
+      printWindow.document.write(html)
+      printWindow.document.close()
+      printWindow.focus()
+      printWindow.print()
+    }
+  }
 
   useEffect(() => {
     const checkAuth = async () => {
@@ -223,19 +379,89 @@ export default function SubmissionDetailPage() {
           </div>
         </div>
 
+        {/* Export Actions */}
+        <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+          <h2 className="text-lg font-semibold text-gray-900 mb-4">Export</h2>
+          <div className="flex flex-wrap gap-3">
+            <button
+              onClick={() => exportSubmission('csv')}
+              className="px-4 py-2 bg-gray-900 text-white rounded-lg hover:bg-gray-800 transition-colors"
+            >
+              Download CSV
+            </button>
+            <button
+              onClick={() => exportSubmission('xls')}
+              className="px-4 py-2 bg-gray-900 text-white rounded-lg hover:bg-gray-800 transition-colors"
+            >
+              Download XLS
+            </button>
+            <button
+              onClick={() => exportSubmission('doc')}
+              className="px-4 py-2 bg-gray-900 text-white rounded-lg hover:bg-gray-800 transition-colors"
+            >
+              Download DOC
+            </button>
+            <button
+              onClick={() => exportSubmission('json')}
+              className="px-4 py-2 bg-gray-900 text-white rounded-lg hover:bg-gray-800 transition-colors"
+            >
+              Download JSON
+            </button>
+            <button
+              onClick={() => exportSubmission('pdf')}
+              className="px-4 py-2 bg-gray-900 text-white rounded-lg hover:bg-gray-800 transition-colors"
+            >
+              Print / Save PDF
+            </button>
+          </div>
+        </div>
+
+        {/* Attachments */}
+        {submission.attachments && submission.attachments.length > 0 && (
+          <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+            <h2 className="text-lg font-semibold text-gray-900 mb-4">Attachments</h2>
+            <div className="space-y-3">
+              {submission.attachments.map((attachment, index) => (
+                <div key={`${attachment.url}-${index}`}>
+                  <a
+                    href={attachment.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-primary hover:underline text-sm font-medium"
+                  >
+                    {attachment.name || 'Attachment'}
+                  </a>
+                  <div className="text-xs text-gray-500">
+                    {attachment.type || 'file'}
+                    {attachment.size ? ` • ${Math.round(attachment.size / 1024)} KB` : ''}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
         {/* Additional Form Data */}
-        {submission.formData && Object.keys(submission.formData).length > 0 && (
+        {submission.formData && (submission.formData.fields || submission.formData.raw) && (
           <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
             <h2 className="text-lg font-semibold text-gray-900 mb-4">Additional Information</h2>
             <div className="space-y-4">
-              {Object.entries(submission.formData).map(([key, value]) => (
-                <div key={key}>
-                  <label className="block text-xs font-medium text-gray-600 uppercase">{key}</label>
-                  <p className="text-sm text-gray-900 mt-1 whitespace-pre-wrap">
-                    {typeof value === 'object' ? JSON.stringify(value, null, 2) : String(value)}
-                  </p>
-                </div>
-              ))}
+              {submission.formData.fields && submission.formData.fields.length > 0 ? (
+                submission.formData.fields.map((field, index) => (
+                  <div key={`${field.key}-${index}`}>
+                    <label className="block text-xs font-medium text-gray-600 uppercase">
+                      {field.key || 'Field'}
+                    </label>
+                    <p className="text-sm text-gray-900 mt-1 whitespace-pre-wrap">
+                      {field.value || '—'}
+                    </p>
+                  </div>
+                ))
+              ) : (
+                <pre className="text-xs text-gray-600 whitespace-pre-wrap">
+                  {submission.formData.raw || '—'}
+                </pre>
+              )}
             </div>
           </div>
         )}

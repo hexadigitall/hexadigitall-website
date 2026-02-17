@@ -18,7 +18,7 @@ const createEmailWrapper = (content: string) => `
         <p style="margin: 0 0 10px 0;">Transforming Ideas into Digital Reality</p>
         
         <div style="margin: 20px 0; padding-top: 20px; border-top: 1px solid #dee2e6;">
-          <p style="margin: 0 0 5px 0;">📧 hexadigitztech@gmail.com | 📞 +234 812 580 2140</p>
+          <p style="margin: 0 0 5px 0;">📧 info@hexadigitall.com | 📞 +234 812 580 2140</p>
           <p style="margin: 0 0 15px 0;">🌐 <a href="https://hexadigitall.com" style="color: #0A4D68; text-decoration: none;">hexadigitall.com</a></p>
         </div>
         

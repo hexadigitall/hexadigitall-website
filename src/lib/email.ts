@@ -15,11 +15,12 @@ import {
 } from './email-templates';
 
 interface EmailOptions {
-  to: string;
+  to: string | string[];
   subject: string;
   html: string;
   from?: string;
   replyTo?: string;
+  attachments?: Array<{ filename: string; content: string; contentType?: string }>;
 }
 
 interface NewsletterSubscription {
@@ -80,12 +81,13 @@ class EmailService {
 
     try {
       const result = await this.resend.emails.send({
-        from: options.from || process.env.FROM_EMAIL || 'noreply@hexadigitall.com',
+        from: options.from || process.env.FROM_EMAIL || 'info@hexadigitall.com',
         to: options.to,
         subject: options.subject,
         html: options.html,
         // Always ensure replies go to a working email address
-        replyTo: options.replyTo || process.env.CONTACT_FORM_RECIPIENT_EMAIL || 'hexadigitztech@gmail.com'
+        replyTo: options.replyTo || process.env.CONTACT_FORM_RECIPIENT_EMAIL || 'info@hexadigitall.com',
+        attachments: options.attachments,
       });
 
       if (result.error) {
@@ -103,6 +105,7 @@ class EmailService {
       throw new Error('SENDGRID_API_KEY not configured');
     }
 
+    const recipients = Array.isArray(options.to) ? options.to : [options.to];
     const response = await fetch('https://api.sendgrid.com/v3/mail/send', {
       method: 'POST',
       headers: {
@@ -111,10 +114,10 @@ class EmailService {
       },
       body: JSON.stringify({
         personalizations: [{
-          to: [{ email: options.to }]
+          to: recipients.map((email) => ({ email }))
         }],
         from: {
-          email: options.from || process.env.FROM_EMAIL || 'noreply@hexadigitall.com'
+          email: options.from || process.env.FROM_EMAIL || 'info@hexadigitall.com'
         },
         subject: options.subject,
         content: [{
@@ -166,9 +169,12 @@ class EmailService {
   private async sendWithConsole(options: EmailOptions) {
     console.log('=== EMAIL SIMULATION (Development Mode) ===');
     console.log(`From: ${options.from || 'noreply@hexadigitall.com'}`);
-    console.log(`To: ${options.to}`);
+    console.log(`To: ${Array.isArray(options.to) ? options.to.join(', ') : options.to}`);
     console.log(`Subject: ${options.subject}`);
     console.log(`Reply-To: ${options.replyTo || 'N/A'}`);
+    if (options.attachments && options.attachments.length > 0) {
+      console.log(`Attachments: ${options.attachments.map((a) => a.filename).join(', ')}`);
+    }
     console.log('--- HTML Content ---');
     console.log(options.html);
     console.log('==========================================');

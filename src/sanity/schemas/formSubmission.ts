@@ -140,6 +140,37 @@ export default defineType({
           type: 'text',
           description: 'Paste JSON here',
         },
+        {
+          name: 'fields',
+          title: 'Form Fields',
+          type: 'array',
+          of: [
+            {
+              type: 'object',
+              fields: [
+                { name: 'key', type: 'string', title: 'Key' },
+                { name: 'value', type: 'text', title: 'Value' },
+              ],
+            },
+          ],
+        },
+      ],
+    }),
+    defineField({
+      name: 'attachments',
+      title: 'Attachments',
+      type: 'array',
+      of: [
+        {
+          type: 'object',
+          fields: [
+            { name: 'name', type: 'string', title: 'File Name' },
+            { name: 'url', type: 'url', title: 'URL' },
+            { name: 'assetId', type: 'string', title: 'Asset ID' },
+            { name: 'type', type: 'string', title: 'MIME Type' },
+            { name: 'size', type: 'number', title: 'Size (bytes)' },
+          ],
+        },
       ],
     }),
     defineField({

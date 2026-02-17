@@ -28,16 +28,16 @@ export interface ServiceInquiryData {
 // Email address configuration
 export const EMAIL_ADDRESSES = {
   // For sending emails (these work with Resend)
-  NOREPLY: 'noreply@hexadigitall.com',
-  HELLO: 'hello@hexadigitall.com', 
-  SUPPORT: 'support@hexadigitall.com',
-  ENQUIRY: 'enquiry@hexadigitall.com',
-  ADMIN: 'admin@hexadigitall.com',
+  NOREPLY: 'info@hexadigitall.com',
+  HELLO: 'info@hexadigitall.com',
+  SUPPORT: 'info@hexadigitall.com',
+  ENQUIRY: 'info@hexadigitall.com',
+  ADMIN: 'info@hexadigitall.com',
   
   // For receiving emails (fallback to Gmail until email hosting is set up)
-  REPLY_TO_GENERAL: process.env.CONTACT_FORM_RECIPIENT_EMAIL || 'hexadigitztech@gmail.com',
-  REPLY_TO_SUPPORT: process.env.CONTACT_FORM_RECIPIENT_EMAIL || 'hexadigitztech@gmail.com',
-  REPLY_TO_ADMIN: process.env.CONTACT_FORM_RECIPIENT_EMAIL || 'hexadigitztech@gmail.com',
+  REPLY_TO_GENERAL: process.env.CONTACT_FORM_RECIPIENT_EMAIL || 'info@hexadigitall.com',
+  REPLY_TO_SUPPORT: process.env.CONTACT_FORM_RECIPIENT_EMAIL || 'info@hexadigitall.com',
+  REPLY_TO_ADMIN: process.env.CONTACT_FORM_RECIPIENT_EMAIL || 'info@hexadigitall.com',
 } as const;
 
 // Email configurations for different purposes

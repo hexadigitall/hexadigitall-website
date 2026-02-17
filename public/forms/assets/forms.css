@@ -223,6 +223,40 @@ button.secondary:hover, .btn-link.secondary:hover {
   color: var(--muted);
 }
 
+.print-value {
+  display: none;
+  font-size: 14px;
+  color: var(--ink);
+  white-space: pre-wrap;
+  padding: 10px 12px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: #ffffff;
+}
+
+.print-value.print-hidden {
+  display: none;
+}
+
+.attachment-links {
+  margin-top: 16px;
+  padding: 16px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: #fffaf5;
+}
+
+.attachment-links h4 {
+  margin: 0 0 8px 0;
+  font-size: 14px;
+}
+
+.attachment-links ul {
+  margin: 0;
+  padding-left: 18px;
+  color: var(--muted);
+}
+
 .footer {
   margin-top: 40px;
   text-align: center;
@@ -262,5 +296,24 @@ button.secondary:hover, .btn-link.secondary:hover {
   .hero-card {
     box-shadow: none;
     border-color: #cccccc;
+  }
+
+  input,
+  select,
+  textarea {
+    display: none;
+  }
+
+  .print-value {
+    display: block;
+  }
+
+  .print-value.print-hidden {
+    display: none;
+  }
+
+  .field-group,
+  .section-card {
+    page-break-inside: avoid;
   }
 }

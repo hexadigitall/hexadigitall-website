@@ -1,6 +1,25 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { client, writeClient } from '@/sanity/client'
 
+type Attachment = {
+  name?: string
+  url?: string
+  type?: string
+  size?: number
+  assetId?: string
+}
+
+function maskAttachmentUrls(origin: string, attachments?: Attachment[]) {
+  if (!attachments || attachments.length === 0) return attachments
+  return attachments.map((attachment) => {
+    if (!attachment.assetId) return attachment
+    return {
+      ...attachment,
+      url: `${origin}/api/files/${encodeURIComponent(attachment.assetId)}`,
+    }
+  })
+}
+
 export async function GET(request: NextRequest) {
   try {
     const url = new URL(request.url)
@@ -53,6 +72,7 @@ export async function GET(request: NextRequest) {
       campaignTerm,
       landingPage,
       formData,
+      attachments,
       submittedAt,
       ipAddress,
       userAgent,
@@ -60,10 +80,15 @@ export async function GET(request: NextRequest) {
     }`
 
     const submissions = await client.fetch(query, params)
+    const origin = new URL(request.url).origin
+    const maskedSubmissions = submissions.map((submission: { attachments?: Attachment[] }) => ({
+      ...submission,
+      attachments: maskAttachmentUrls(origin, submission.attachments),
+    }))
 
     return NextResponse.json({
       success: true,
-      submissions,
+      submissions: maskedSubmissions,
     })
   } catch (error) {
     console.error('Failed to fetch submissions:', error)
