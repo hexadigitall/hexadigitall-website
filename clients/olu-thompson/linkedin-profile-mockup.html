@@ -27,37 +27,47 @@
             overflow: hidden;
         }
 
-        /* Header Section with Banner Background */
-        .header-section {
+        /* Banner Section - JUST the background image */
+        .banner-section {
             background-image: url('assets/security-article.png');
             background-size: cover;
             background-position: center;
             background-color: #0a66c2;
-            padding: 0;
-            color: white;
+            height: 200px;
             position: relative;
-            min-height: 280px;
+            width: 100%;
         }
 
-        /* Banner overlay for text readability */
-        .header-section::before {
+        /* Banner overlay for better contrast */
+        .banner-section::before {
             content: '';
             position: absolute;
             top: 0;
             left: 0;
             right: 0;
             bottom: 0;
-            background: rgba(10, 102, 194, 0.4);
+            background: rgba(10, 102, 194, 0.3);
             z-index: 0;
+        }
+
+        /* Header Section - BELOW banner, contains profile pic and info */
+        .header-section {
+            background: white;
+            padding: 0 80px 40px;
+            color: #000;
+            position: relative;
+            display: flex;
+            justify-content: flex-start;
+            align-items: flex-start;
+            gap: 24px;
         }
 
         .header-content {
             display: flex;
-            gap: 24px;
-            align-items: flex-start;
-            padding: 20px 80px 40px;
-            position: relative;
-            z-index: 1;
+            flex-direction: column;
+            gap: 12px;
+            flex: 1;
+            padding-top: 20px;
         }
 
         .profile-photo {
@@ -67,9 +77,11 @@
             background: white;
             overflow: hidden;
             flex-shrink: 0;
-            border: 6px solid white;
-            box-shadow: 0 4px 16px rgba(0,0,0,0.3);
-            margin-top: -80px;
+            border: 5px solid white;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+            position: absolute;
+            left: 80px;
+            top: -90px;
         }
 
         .profile-photo img {
@@ -79,45 +91,51 @@
         }
 
         .profile-info {
-            color: white;
-            padding-top: 30px;
+            color: #000;
             display: flex;
             flex-direction: column;
             justify-content: flex-start;
+            margin-left: 200px;
+            margin-top: 20px;
         }
 
         .profile-name {
             font-size: 32px;
-            font-weight: 700;
+            font-weight: 600;
             margin-bottom: 8px;
             letter-spacing: -0.5px;
-            text-shadow: 0 1px 3px rgba(0,0,0,0.3);
+            color: #000;
         }
 
         .profile-headline {
-            font-size: 16px;
+            font-size: 15px;
             font-weight: 400;
-            line-height: 1.4;
+            line-height: 1.5;
             margin-bottom: 16px;
-            opacity: 0.98;
-            text-shadow: 0 1px 2px rgba(0,0,0,0.2);
+            color: #666;
         }
 
         .profile-location {
             font-size: 14px;
-            opacity: 0.95;
-            margin-bottom: 12px;
-            text-shadow: 0 1px 2px rgba(0,0,0,0.2);
+            color: #666;
+            margin-bottom: 16px;
         }
 
         .profile-contact {
             display: flex;
-            gap: 24px;
+            gap: 20px;
             font-size: 13px;
         }
 
         .profile-contact a {
-            color: white;
+            color: #0a66c2;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .profile-contact a:hover {
+            text-decoration: underline;
+        }
             text-decoration: none;
             border-bottom: 1px solid rgba(255,255,255,0.7);
             padding-bottom: 2px;
@@ -389,14 +407,18 @@
                 display: none;
             }
 
-            .header-section {
+            .banner-section {
                 page-break-inside: avoid;
-                box-shadow: none;
                 background-image: url('assets/security-article.png');
                 background-size: cover;
                 background-position: center;
                 -webkit-print-color-adjust: exact;
                 print-color-adjust: exact;
+            }
+
+            .header-section {
+                page-break-inside: avoid;
+                box-shadow: none;
             }
 
             .section {
@@ -417,8 +439,13 @@
 
         /* Responsive */
         @media (max-width: 768px) {
+            .banner-section {
+                height: 150px;
+            }
+
             .header-section {
-                padding: 16px 16px 40px;
+                padding: 100px 16px 40px;
+                flex-direction: column;
             }
 
             .section {
@@ -427,19 +454,21 @@
 
             .header-content {
                 flex-direction: column;
-                align-items: center;
-                text-align: center;
-                gap: 16px;
             }
 
             .profile-photo {
                 width: 140px;
                 height: 140px;
-                margin-top: -60px;
+                position: relative;
+                right: auto;
+                top: auto;
+                margin: 0 auto -70px;
             }
 
             .profile-info {
-                padding-top: 0;
+                padding-right: 0;
+                text-align: center;
+                margin-top: 40px;
             }
 
             .profile-name {
@@ -448,6 +477,11 @@
 
             .profile-headline {
                 font-size: 14px;
+            }
+
+            .profile-contact {
+                justify-content: center;
+                flex-wrap: wrap;
             }
 
             .skills-grid {
@@ -471,12 +505,12 @@
     </div>
 
     <div class="page-container">
-        <!-- HEADER WITH BANNER BACKGROUND -->
+        <!-- BANNER -->
+        <div class="banner-section"></div>
+
+        <!-- HEADER WITH PROFILE INFO -->
         <div class="header-section">
             <div class="header-content">
-                <div class="profile-photo">
-                    <img src="assets/profile-photo.jpg" alt="Olu Thompson">
-                </div>
                 <div class="profile-info">
                     <div class="profile-name">Olu Thompson</div>
                     <div class="profile-headline">Cloud & Identity Security Engineer | Entra ID & IAM Specialist | Terraform Automation | Azure & AWS Infrastructure | Zero-Trust Security Architecture | Building Secure-by-Default Cloud Platforms</div>
@@ -486,6 +520,9 @@
                         <a href="https://github.com">GitHub</a>
                     </div>
                 </div>
+            </div>
+            <div class="profile-photo">
+                <img src="assets/profile-photo.jpg" alt="Olu Thompson">
             </div>
         </div>
 
