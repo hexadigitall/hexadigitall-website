@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Olu Thompson - Cloud & Identity Security Engineer Resume</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Calibri', 'Arial', sans-serif;
+            background: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+            font-size: 11pt;
+        }
+
+        .page-container {
+            max-width: 8.5in;
+            margin: 20px auto;
+            background: white;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+        }
+
+        /* Header Section */
+        .header {
+            background: linear-gradient(135deg, #0066cc 0%, #004999 100%);
+            color: white;
+            padding: 30px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 30px;
+        }
+
+        .header-left {
+            flex: 1;
+        }
+
+        .header-photo {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            border: 4px solid white;
+            overflow: hidden;
+            flex-shrink: 0;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+
+        .header-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .name {
+            font-size: 32pt;
+            font-weight: 700;
+            margin-bottom: 6px;
+            letter-spacing: -0.5px;
+        }
+
+        .job-title {
+            font-size: 14pt;
+            font-weight: 400;
+            margin-bottom: 16px;
+            opacity: 0.95;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            font-size: 10pt;
+            opacity: 0.95;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .contact-item::before {
+            content: "●";
+            font-size: 8pt;
+        }
+
+        /* Two Column Layout */
+        .content {
+            display: grid;
+            grid-template-columns: 7in 1.5in;
+            min-height: 10in;
+        }
+
+        .main-column {
+            padding: 30px 40px;
+            border-right: 2px solid #e0e0e0;
+        }
+
+        .sidebar {
+            padding: 30px 20px;
+            background: #f8f9fa;
+        }
+
+        /* Section Styling */
+        .section {
+            margin-bottom: 28px;
+        }
+
+        .section-title {
+            font-size: 13pt;
+            font-weight: 700;
+            color: #0066cc;
+            margin-bottom: 12px;
+            padding-bottom: 6px;
+            border-bottom: 2px solid #0066cc;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .sidebar .section-title {
+            font-size: 11pt;
+            border-bottom-width: 1px;
+        }
+
+        /* Professional Summary */
+        .summary-text {
+            font-size: 10.5pt;
+            line-height: 1.7;
+            color: #444;
+            text-align: justify;
+        }
+
+        /* Experience Items */
+        .experience-item {
+            margin-bottom: 24px;
+            page-break-inside: avoid;
+        }
+
+        .experience-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 4px;
+        }
+
+        .experience-title {
+            font-size: 12pt;
+            font-weight: 700;
+            color: #222;
+        }
+
+        .experience-duration {
+            font-size: 9.5pt;
+            color: #666;
+            font-style: italic;
+        }
+
+        .experience-company {
+            font-size: 11pt;
+            font-weight: 600;
+            color: #0066cc;
+            margin-bottom: 8px;
+        }
+
+        .experience-description {
+            font-size: 10pt;
+            color: #555;
+            margin-bottom: 8px;
+            line-height: 1.6;
+        }
+
+        .experience-bullets {
+            list-style: none;
+            margin-left: 0;
+        }
+
+        .experience-bullets li {
+            font-size: 10pt;
+            color: #444;
+            margin-bottom: 6px;
+            padding-left: 16px;
+            position: relative;
+            line-height: 1.5;
+        }
+
+        .experience-bullets li::before {
+            content: "▸";
+            position: absolute;
+            left: 0;
+            color: #0066cc;
+            font-weight: bold;
+        }
+
+        /* Skills Section */
+        .skills-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .skill-category {
+            margin-bottom: 8px;
+        }
+
+        .skill-category-title {
+            font-size: 10pt;
+            font-weight: 700;
+            color: #0066cc;
+            margin-bottom: 6px;
+        }
+
+        .skill-items {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        .skill-tag {
+            background: white;
+            border: 1px solid #0066cc;
+            color: #0066cc;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 9pt;
+            font-weight: 500;
+        }
+
+        /* Sidebar Lists */
+        .sidebar-list {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .sidebar-list li {
+            font-size: 9.5pt;
+            color: #444;
+            margin-bottom: 8px;
+            padding-left: 14px;
+            position: relative;
+            line-height: 1.4;
+        }
+
+        .sidebar-list li::before {
+            content: "●";
+  content: "●";
+            position: absolute;
+            left: 0;
+            color: #0066cc;
+            font-size: 8pt;
+        }
+
+        /* Core Competencies */
+        .competencies-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 8px;
+            margin-top: 10px;
+        }
+
+        .competency-item {
+            font-size: 10pt;
+            color: #444;
+            padding-left: 14px;
+            position: relative;
+        }
+
+        .competency-item::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #0066cc;
+            font-weight: bold;
+        }
+
+        /* Projects */
+        .project-item {
+            margin-bottom: 14px;
+        }
+
+        .project-title {
+            font-size: 10pt;
+            font-weight: 700;
+            color: #222;
+            margin-bottom: 4px;
+        }
+
+        .project-description {
+            font-size: 9.5pt;
+            color: #555;
+            line-height: 1.5;
+        }
+
+        /* Education */
+        .education-item {
+            margin-bottom: 12px;
+        }
+
+        .education-degree {
+            font-size: 10pt;
+            font-weight: 700;
+            color: #222;
+        }
+
+        .education-school {
+            font-size: 9.5pt;
+            color: #666;
+        }
+
+        /* Print Button */
+        .print-button {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 12px 24px;
+            background: #28a745;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 11pt;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(40, 167, 69, 0.3);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .print-button:hover {
+            background: #218838;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(40, 167, 69, 0.4);
+        }
+
+        /* Print Styles */
+        @media print {
+            body {
+                background: white;
+                margin: 0;
+                padding: 0;
+            }
+
+            .page-container {
+                max-width: 100%;
+                margin: 0;
+                box-shadow: none;
+                width: 8.5in;
+            }
+
+            .print-button {
+                display: none !important;
+            }
+
+            .header {
+                background: linear-gradient(135deg, #0066cc 0%, #004999 100%) !important;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+                page-break-after: avoid;
+            }
+
+            .content {
+                page-break-inside: avoid;
+            }
+
+            .sidebar {
+                background: #f8f9fa !important;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+
+            .section {
+                page-break-inside: avoid;
+            }
+
+            .experience-item {
+                page-break-inside: avoid;
+            }
+
+            .skill-tag {
+                border: 1px solid #0066cc !important;
+                background: white !important;
+                color: #0066cc !important;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+
+            .section-title {
+                color: #0066cc !important;
+                border-bottom-color: #0066cc !important;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+        }
+    </style>
+</head>
+<body>
+    <button class="print-button" onclick="window.print()">🖨️ Print / Save as PDF</button>
+
+    <div class="page-container">
+        <!-- HEADER -->
+        <div class="header">
+            <div class="header-left">
+                <h1 class="name">OLU THOMPSON</h1>
+                <div class="job-title">Cloud & Identity Security Engineer</div>
+                <div class="contact-info">
+                    <div class="contact-item">Sienna Plantation, Texas</div>
+                    <div class="contact-item">832-512-8679</div>
+                    <div class="contact-item">sanmi.o.thompson@gmail.com</div>
+                    <div class="contact-item">linkedin.com/in/olu-thompson</div>
+                </div>
+            </div>
+            <div class="header-photo">
+                <img src="assets/profile-photo.jpg" alt="Olu Thompson">
+            </div>
+        </div>
+
+        <!-- CONTENT -->
+        <div class="content">
+            <!-- MAIN COLUMN -->
+            <div class="main-column">
+                <!-- PROFESSIONAL SUMMARY -->
+                <div class="section">
+                    <h2 class="section-title">Professional Summary</h2>
+                    <p class="summary-text">
+                        Results-driven Cloud & Identity Security Engineer with 3-5 years of expertise in enterprise-scale identity and access management (IAM) implementations. Specialized in designing and deploying Zero Trust security architectures across Azure and AWS cloud environments using Infrastructure as Code (Terraform). Proven track record of securing cloud infrastructure, implementing Entra ID (formerly Azure AD) solutions, and automating security compliance frameworks. Strong background in cloud security engineering, infrastructure provisioning, and driving organizational security posture improvements. Passionate about building secure-by-default cloud platforms and mentoring teams on IAM best practices.
+                    </p>
+                </div>
+
+                <!-- CORE COMPETENCIES -->
+                <div class="section">
+                    <h2 class="section-title">Core Competencies</h2>
+                    <div class="competencies-grid">
+                        <div class="competency-item">Identity & Access Management (IAM)</div>
+                        <div class="competency-item">Azure Entra ID Administration</div>
+                        <div class="competency-item">Cloud Security Architecture</div>
+                        <div class="competency-item">Infrastructure as Code (Terraform)</div>
+                        <div class="competency-item">AWS & Azure Cloud Platforms</div>
+                        <div class="competency-item">Zero Trust Security</div>
+                        <div class="competency-item">DevOps & CI/CD Pipelines</div>
+                        <div class="competency-item">Security Compliance & Governance</div>
+                        <div class="competency-item">Federation & SSO Solutions</div>
+                        <div class="competency-item">Customer Identity (CIAM)</div>
+                        <div class="competency-item">Critical Thinking & Problem Solving</div>
+                        <div class="competency-item">Cross-Functional Collaboration</div>
+                    </div>
+                </div>
+
+                <!-- PROFESSIONAL EXPERIENCE -->
+                <div class="section">
+                    <h2 class="section-title">Professional Experience</h2>
+
+                    <div class="experience-item">
+                        <div class="experience-header">
+                            <h3 class="experience-title">Cloud Infrastructure Security Engineer</h3>
+                            <span class="experience-duration">2022 – Present</span>
+                        </div>
+                        <div class="experience-company">Enterprise Cloud Solutions</div>
+                        <p class="experience-description">
+                            Lead cloud security initiatives across multi-cloud environments, focusing on Zero Trust architecture implementation and IAM governance.
+                        </p>
+                        <ul class="experience-bullets">
+                            <li>Architected and deployed Zero Trust security model across Azure and AWS environments, reducing security incidents by 40%</li>
+                            <li>Implemented infrastructure-as-code (Terraform) for automated provisioning of secure cloud resources, improving deployment speed by 60%</li>
+                            <li>Managed enterprise Entra ID tenant with 5,000+ users, including conditional access policies and Privileged Identity Management (PIM)</li>
+                            <li>Developed and enforced cloud security policies aligned with SOC 2, HIPAA, and NIST frameworks</li>
+                            <li>Automated security compliance scanning and remediation workflows using Azure Policy and AWS Config</li>
+                            <li>Collaborated with development teams to integrate security best practices into CI/CD pipelines</li>
+                        </ul>
+                    </div>
+
+                    <div class="experience-item">
+                        <div class="experience-header">
+                            <h3 class="experience-title">Identity & Access Management Specialist</h3>
+                            <span class="experience-duration">2021 – 2022</span>
+                        </div>
+                        <div class="experience-company">SecureID Technologies</div>
+                        <p class="experience-description">
+                            Specialized in enterprise IAM solutions with focus on Azure Active Directory, federation, and customer identity platforms.
+                        </p>
+                        <ul class="experience-bullets">
+                            <li>Designed and implemented Azure AD B2C solutions for customer identity and access management (CIAM) serving 100,000+ users</li>
+                            <li>Configured SAML and OAuth 2.0 federation between enterprise applications and identity providers</li>
+                            <li>Executed role-based access control (RBAC) and attribute-based access control (ABAC) strategies</li>
+                            <li>Reduced authentication-related support tickets by 35% through MFA implementation and self-service password reset</li>
+                            <li>Conducted security assessments and identity lifecycle management process improvements</li>
+                            <li>Provided training and documentation on IAM best practices for IT and development teams</li>
+                        </ul>
+                    </div>
+
+                    <div class="experience-item">
+                        <div class="experience-header">
+                            <h3 class="experience-title">Infrastructure Provisioning & Automation Engineer</h3>
+                            <span class="experience-duration">2020 – 2021</span>
+                        </div>
+                        <div class="experience-company">CloudBuild Systems</div>
+                        <p class="experience-description">
+                            Focused on infrastructure automation, Terraform development, and DevOps pipeline optimization for cloud environments.
+                        </p>
+                        <ul class="experience-bullets">
+                            <li>Built and maintained 50+ Terraform modules for standardized AWS infrastructure provisioning</li>
+                            <li>Automated infrastructure deployment processes, reducing manual provisioning time from days to hours</li>
+                            <li>Implemented GitOps workflows for infrastructure version control and change management</li>
+                            <li>Designed disaster recovery and high-availability architectures for mission-critical applications</li>
+                            <li>Created comprehensive infrastructure documentation and runbooks for operations teams</li>
+                            <li>Mentored junior engineers on Terraform, cloud architecture, and automation best practices</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- KEY PROJECTS -->
+                <div class="section">
+                    <h2 class="section-title">Key Projects & Achievements</h2>
+                    
+                    <div class="project-item">
+                        <div class="project-title">Enterprise Zero Trust Implementation</div>
+                        <p class="project-description">
+                            Led organization-wide Zero Trust security transformation across hybrid cloud infrastructure, implementing micro-segmentation, just-in-time access, and continuous verification protocols. Reduced security attack surface by 50%.
+                        </p>
+                    </div>
+
+                    <div class="project-item">
+                        <div class="project-title">Customer Identity Platform Migration</div>
+                        <p class="project-description">
+                            Architected and executed migration of legacy authentication system to Azure AD B2C for 100,000+ customer identities with zero downtime and improved security posture.
+                        </p>
+                    </div>
+
+                    <div class="project-item">
+                        <div class="project-title">Multi-Cloud IAM Federation</div>
+                        <p class="project-description">
+                            Designed federated identity solution enabling seamless SSO across AWS, Azure, and SaaS applications, supporting 5,000+ employees with centralized identity governance.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SIDEBAR -->
+            <div class="sidebar">
+                <!-- TECHNICAL SKILLS -->
+                <div class="section">
+                    <h2 class="section-title">Technical Skills</h2>
+                    
+                    <div class="skill-category">
+                        <div class="skill-category-title">Cloud Platforms</div>
+                        <div class="skill-items">
+                            <span class="skill-tag">Azure</span>
+                            <span class="skill-tag">AWS</span>
+                            <span class="skill-tag">GCP</span>
+                        </div>
+                    </div>
+
+                    <div class="skill-category">
+                        <div class="skill-category-title">Identity & Security</div>
+                        <div class="skill-items">
+                            <span class="skill-tag">Entra ID</span>
+                            <span class="skill-tag">Azure AD</span>
+                            <span class="skill-tag">IAM</span>
+                            <span class="skill-tag">SSO</span>
+                            <span class="skill-tag">MFA</span>
+                            <span class="skill-tag">SAML</span>
+                            <span class="skill-tag">OAuth</span>
+                        </div>
+                    </div>
+
+                    <div class="skill-category">
+                        <div class="skill-category-title">IaC & Automation</div>
+                        <div class="skill-items">
+                            <span class="skill-tag">Terraform</span>
+                            <span class="skill-tag">ARM Templates</span>
+                            <span class="skill-tag">CloudFormation</span>
+                            <span class="skill-tag">Ansible</span>
+                        </div>
+                    </div>
+
+                    <div class="skill-category">
+                        <div class="skill-category-title">DevOps Tools</div>
+                        <div class="skill-items">
+                            <span class="skill-tag">Git</span>
+                            <span class="skill-tag">GitHub Actions</span>
+                            <span class="skill-tag">Azure DevOps</span>
+                            <span class="skill-tag">Jenkins</span>
+                        </div>
+                    </div>
+
+                    <div class="skill-category">
+                        <div class="skill-category-title">Scripting</div>
+                        <div class="skill-items">
+                            <span class="skill-tag">PowerShell</span>
+                            <span class="skill-tag">Python</span>
+                            <span class="skill-tag">Bash</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CERTIFICATIONS -->
+                <div class="section">
+                    <h2 class="section-title">Certifications</h2>
+                    <ul class="sidebar-list">
+                        <li>Microsoft Azure Security Engineer (AZ-500)</li>
+                        <li>Microsoft Identity & Access Administrator (SC-300)</li>
+                        <li>HashiCorp Certified: Terraform Associate</li>
+                        <li>AWS Certified Solutions Architect</li>
+                        <li>CompTIA Security+</li>
+                    </ul>
+                </div>
+
+                <!-- EDUCATION -->
+                <div class="section">
+                    <h2 class="section-title">Education</h2>
+                    <div class="education-item">
+                        <div class="education-degree">Bachelor of Science</div>
+                        <div class="education-school">Computer Science</div>
+                        <div class="education-school" style="font-size: 9pt; color: #888; margin-top: 2px;">2016 - 2020</div>
+                    </div>
+                </div>
+
+                <!-- PROFESSIONAL AFFILIATIONS -->
+                <div class="section">
+                    <h2 class="section-title">Professional</h2>
+                    <ul class="sidebar-list">
+                        <li>Cloud Security Alliance Member</li>
+                        <li>OWASP Community Contributor</li>
+                        <li>DevOps Institute Member</li>
+                    </ul>
+                </div>
+
+                <!-- SOFT SKILLS -->
+                <div class="section">
+                    <h2 class="section-title">Soft Skills</h2>
+                    <ul class="sidebar-list">
+                        <li>Cross-functional collaboration</li>
+                        <li>Technical leadership</li>
+                        <li>Critical thinking</li>
+                        <li>Problem-solving</li>
+                        <li>Documentation</li>
+                        <li>Stakeholder communication</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Ensure images load before printing
+        window.addEventListener('beforeprint', () => {
+            console.log('Preparing to print...');
+        });
+
+        window.addEventListener('afterprint', () => {
+            console.log('Print completed');
+        });
+
+        // Add keyboard shortcut for print
+        document.addEventListener('keydown', (e) => {
+            if ((e.ctrlKey || e.metaKey) && e.key === 'p') {
+                e.preventDefault();
+                window.print();
+            }
+        });
+    </script>
+</body>
+</html>
