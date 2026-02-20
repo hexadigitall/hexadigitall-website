@@ -7,7 +7,8 @@
 
 **Client:** Olu Thompson  
 **Service Tier:** CV/Resume — Professional  
-**Submission Date:** February 17, 2026  
+**Submission Date:** February 20, 2026  
+**Content Status:** ✅ UPDATED WITH AUTHENTIC PROFESSIONAL HISTORY  
 **Delivery Status:** ✅ READY FOR CLIENT REVIEW  
 
 **What We Delivered:**
@@ -15,7 +16,7 @@
 2. ✅ Print-ready PDF export functionality
 3. ✅ ATS-optimized structure for resume parsing tools
 4. ✅ Industry-standard professional design
-5. ✅ Comprehensive work history and skills presentation
+5. ✅ Authentic work history from actual professional background (IBM, Amazon, Chevron, ABS)
 
 ---
 
@@ -41,10 +42,16 @@ All files are located in: `/clients/olu-thompson/resume/`
    - Professional Experience (3 detailed positions)
    - Key Projects & Achievements
    - Technical Skills (categorized by domain)
-   - Certifications
-   - Education
-   - Professional affiliations
-   - Soft skills
+**Certifications (Actual):**
+- Microsoft Certified: AZ-500 – Azure Security Engineer Associate
+- Microsoft Certified: SC-300 – Identity & Access Administrator Associate
+- Microsoft Certified: SC-900 – Security, Compliance & Identity Fundamentals
+- CompTIA Security+
+- CISSP – In Progress
+
+**Education (Actual):**
+- M.Sc., Project Management — University of Manchester, United Kingdom
+- B.Sc., Built & Natural Environment — University of the West of England, Bristol
 
 ### 2. **assets/profile-photo.jpg**
    - Professional headshot
@@ -84,36 +91,50 @@ All files are located in: `/clients/olu-thompson/resume/`
 
 ---
 
-## 💼 WORK EXPERIENCE CREATED
+## 💼 WORK EXPERIENCE - AUTHENTIC CLIENT BACKGROUND
 
-Based on client's LinkedIn optimization and form submission, we created **3 professional experience positions**:
+Based on **Olu Thompson's actual professional history**, the resume includes **4 real positions**:
 
-### **Position 1: Cloud Infrastructure Security Engineer (2022 – Present)**
-- **Company:** Enterprise Cloud Solutions
-- **Focus:** Zero Trust architecture, IAM governance, multi-cloud security
-- **Achievements:**
-  - 40% reduction in security incidents
-  - 60% faster deployment with Terraform IaC
-  - Managed 5,000+ user Entra ID tenant
-  - SOC 2, HIPAA, NIST compliance
+### **Position 1: Cloud & Identity Security Engineer (May 2023 – Present)**
+- **Company:** IBM (Remote)
+- **Focus:** Identity-first security controls, Terraform baselines, CI/CD guardrails
+- **Real Achievements:**
+  - Designed identity and access patterns using Microsoft Entra ID
+  - Built Terraform-based infrastructure foundations and reusable modules
+  - Embedded pre-deployment infrastructure security scanning into CI/CD pipelines
+  - Reduced insecure infrastructure deployments by ~20-25%
+  - Supported FedRAMP and NIST 800-53 compliance
+  - Shortened audit remediation cycles by ~15-20%
 
-### **Position 2: Identity & Access Management Specialist (2021 – 2022)**
-- **Company:** SecureID Technologies
-- **Focus:** Azure AD B2C, federation, CIAM
-- **Achievements:**
-  - CIAM platform serving 100,000+ users
-  - SAML/OAuth federation implementation
-  - 35% reduction in auth support tickets
-  - RBAC/ABAC strategy execution
+### **Position 2: Security Engineer (April 2022 – April 2023)**
+- **Company:** Amazon
+- **Focus:** IAM design, infrastructure security baselines, CI/CD integration
+- **Real Achievements:**
+  - Designed and reviewed IAM roles and least-privilege access models
+  - Reduced over-permissioned access by approximately 20%
+  - Developed Terraform-based infrastructure components and security baselines
+  - Improved logging coverage and access visibility
+  - Supported faster investigations and stronger audit readiness
 
-### **Position 3: Infrastructure Provisioning & Automation Engineer (2020 – 2021)**
-- **Company:** CloudBuild Systems
-- **Focus:** Terraform automation, DevOps, AWS infrastructure
-- **Achievements:**
-  - 50+ reusable Terraform modules
-  - Days to hours deployment time reduction
-  - GitOps workflow implementation
-  - DR and HA architecture design
+### **Position 3: Security Engineer (September 2020 – March 2022)**
+- **Company:** Chevron
+- **Focus:** Enterprise IAM initiatives, cloud security assessments
+- **Real Achievements:**
+  - Supported IAM initiatives including role design and access reviews
+  - Reduced access drift and improved consistency
+  - Performed cloud and infrastructure security assessments
+  - Supported audit preparation and compliance validation
+  - Contributed to cloud guardrail standardization
+
+### **Position 4: Security Engineer (February 2019 – August 2020)**
+- **Company:** American Bureau of Shipping (ABS)
+- **Focus:** Enterprise IAM operations, authentication systems
+- **Real Achievements:**
+  - Managed IAM operations including provisioning and access governance
+  - Supported authentication systems and access control implementations
+  - Assisted with security audits and compliance-driven control validation
+  - Developed documentation and procedural guidance
+  - Supported security operations investigations
 
 ---
 
@@ -131,13 +152,19 @@ Based on client's LinkedIn optimization and form submission, we created **3 prof
 
 ---
 
-## 📊 TECHNICAL SKILLS ORGANIZED BY DOMAIN
+## 📊 TECHNICAL SKILLS - ACTUAL CLIENT EXPERTISE
 
-**Cloud Platforms:** Azure, AWS, GCP  
-**Identity & Security:** Entra ID, Azure AD, IAM, SSO, MFA, SAML, OAuth  
-**IaC & Automation:** Terraform, ARM Templates, CloudFormation, Ansible  
-**DevOps Tools:** Git, GitHub Actions, Azure DevOps, Jenkins  
-**Scripting:** PowerShell, Python, Bash  
+**Cloud Platforms:** AWS, Microsoft Azure  
+
+**Identity & Access:** Microsoft Entra ID, AWS IAM, Okta, CyberArk, CIAM, SAML, OIDC, OAuth 2.0, MFA, Conditional Access, RBAC  
+
+**Infrastructure as Code:** Terraform, Ansible  
+
+**DevSecOps:** GitHub, GitHub Actions, Git, CI/CD Security Controls  
+
+**Containers & OS:** Docker, Linux, Git Bash  
+
+**Governance & Compliance:** FedRAMP, NIST 800-53, SSPs, POA&Ms, Audit Readiness  
 
 ---
 
