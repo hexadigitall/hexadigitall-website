@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Olu Thompson - Cloud & IAM Security Engineer | LinkedIn</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: #f3f2ef;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* Container */
+        .page-container {
+            max-width: 900px;
+            margin: 20px auto;
+            background: white;
+            box-shadow: 0 0 8px rgba(0,0,0,0.1);
+        }
+
+        /* Header Section */
+        .header-section {
+            background: linear-gradient(135deg, #0a66c2 0%, #0951a5 100%);
+            padding: 60px 80px 30px;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header-content {
+            display: flex;
+            gap: 24px;
+            align-items: flex-start;
+        }
+
+        .profile-photo {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background: white;
+            overflow: hidden;
+            flex-shrink: 0;
+            border: 5px solid white;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+
+        .profile-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .profile-info {
+            color: white;
+            padding-top: 20px;
+        }
+
+        .profile-name {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 4px;
+            letter-spacing: -0.5px;
+        }
+
+        .profile-headline {
+            font-size: 18px;
+            font-weight: 400;
+            line-height: 1.4;
+            margin-bottom: 16px;
+            opacity: 0.95;
+        }
+
+        .profile-location {
+            font-size: 14px;
+            opacity: 0.85;
+            margin-bottom: 16px;
+        }
+
+        .profile-contact {
+            display: flex;
+            gap: 24px;
+            font-size: 13px;
+        }
+
+        .profile-contact a {
+            color: white;
+            text-decoration: none;
+            border-bottom: 1px solid rgba(255,255,255,0.5);
+            padding-bottom: 2px;
+        }
+
+        /* About Section */
+        .section {
+            padding: 32px 80px;
+            border-bottom: 1px solid #e5e5e5;
+        }
+
+        .section-title {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            color: #000;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .about-text {
+            font-size: 14px;
+            line-height: 1.6;
+            color: #555;
+            margin-bottom: 12px;
+        }
+
+        .about-highlight {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 12px 16px;
+            margin-top: 16px;
+            border-radius: 4px;
+            font-size: 13px;
+            line-height: 1.5;
+        }
+
+        /* Experience Section */
+        .experience-item {
+            display: flex;
+            gap: 16px;
+            margin-bottom: 32px;
+        }
+
+        .experience-icon {
+            width: 48px;
+            height: 48px;
+            background: #e5e5e5;
+            border-radius: 50%;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+        }
+
+        .experience-content h3 {
+            font-size: 15px;
+            font-weight: 700;
+            color: #000;
+            margin-bottom: 4px;
+        }
+
+        .experience-subtitle {
+            font-size: 13px;
+            color: #666;
+            margin-bottom: 2px;
+        }
+
+        .experience-duration {
+            font-size: 12px;
+            color: #999;
+            margin-bottom: 8px;
+        }
+
+        .experience-description {
+            font-size: 13px;
+            color: #555;
+            line-height: 1.5;
+        }
+
+        .experience-bullet {
+            margin-left: 16px;
+            margin-top: 6px;
+        }
+
+        .experience-bullet:before {
+            content: "•";
+            margin-right: 8px;
+            color: #0a66c2;
+            font-weight: bold;
+        }
+
+        /* Skills Section */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 12px;
+        }
+
+        .skill-item {
+            background: #f8f8f8;
+            padding: 12px 16px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 500;
+            color: #0a66c2;
+            text-align: center;
+            border: 1px solid #e0e0e0;
+        }
+
+        .skill-item:nth-child(n+1) {
+            background: #f0f7ff;
+            color: #0a66c2;
+        }
+
+        /* Featured Section */
+        .featured-item {
+            display: flex;
+            gap: 16px;
+            margin-bottom: 24px;
+            border: 1px solid #e5e5e5;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .featured-image {
+            width: 120px;
+            height: 120px;
+            flex-shrink: 0;
+            background: #e5e5e5;
+            overflow: hidden;
+        }
+
+        .featured-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .featured-content {
+            padding: 12px 16px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .featured-content h4 {
+            font-size: 13px;
+            font-weight: 700;
+            color: #000;
+            margin-bottom: 4px;
+        }
+
+        .featured-content p {
+            font-size: 12px;
+            color: #666;
+            line-height: 1.4;
+        }
+
+        /* Social Links */
+        .social-links {
+            display: flex;
+            gap: 12px;
+            margin-top: 16px;
+            flex-wrap: wrap;
+        }
+
+        .social-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 16px;
+            background: #f0f0f0;
+            border-radius: 4px;
+            text-decoration: none;
+            color: #0a66c2;
+            font-size: 13px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: 1px solid #ccc;
+        }
+
+        .social-link:hover {
+            background: #0a66c2;
+            color: white;
+        }
+
+        /* Action Bar */
+        .action-bar {
+            padding: 20px 80px;
+            display: flex;
+            gap: 12px;
+            justify-content: flex-start;
+            background: #f8f8f8;
+            border-top: 1px solid #e5e5e5;
+        }
+
+        .btn {
+            padding: 10px 24px;
+            border-radius: 20px;
+            border: none;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background: #0a66c2;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #054399;
+        }
+
+        .btn-secondary {
+            background: white;
+            color: #0a66c2;
+            border: 2px solid #0a66c2;
+        }
+
+        .btn-secondary:hover {
+            background: #f0f7ff;
+        }
+
+        .btn-print {
+            padding: 10px 20px;
+            background: #28a745;
+            color: white;
+            border-radius: 4px;
+            font-size: 13px;
+            cursor: pointer;
+        }
+
+        .btn-print:hover {
+            background: #218838;
+        }
+
+        .print-header {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+
+        /* Print Styles */
+        @media print {
+            body {
+                background: white;
+                margin: 0;
+                padding: 0;
+            }
+
+            .page-container {
+                max-width: 100%;
+                margin: 0;
+                box-shadow: none;
+            }
+
+            .action-bar,
+            .print-header {
+                display: none;
+            }
+
+            .section,
+            .header-section {
+                page-break-inside: avoid;
+                box-shadow: none;
+            }
+
+            .experience-item,
+            .featured-item {
+                page-break-inside: avoid;
+            }
+
+            a {
+                text-decoration: none;
+                color: inherit;
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header-section,
+            .section {
+                padding: 20px 16px;
+            }
+
+            .profile-photo {
+                width: 120px;
+                height: 120px;
+            }
+
+            .profile-name {
+                font-size: 24px;
+            }
+
+            .profile-headline {
+                font-size: 14px;
+            }
+
+            .skills-grid {
+                grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            }
+
+            .featured-item {
+                flex-direction: column;
+            }
+
+            .featured-image {
+                width: 100%;
+                height: 200px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="print-header">
+        <button class="btn-print" onclick="window.print()">🖨 Print / Save as PDF</button>
+    </div>
+
+    <div class="page-container">
+        <!-- HEADER -->
+        <div class="header-section">
+            <div class="header-content">
+                <div class="profile-photo">
+                    <img src="assets/profile-photo.jpg" alt="Olu Thompson">
+                </div>
+                <div class="profile-info">
+                    <div class="profile-name">Olu Thompson</div>
+                    <div class="profile-headline">Cloud & Identity Security Engineer | Entra ID & IAM Specialist | Terraform Automation | Azure & AWS Infrastructure | Zero-Trust Security Architecture | Building Secure-by-Default Cloud Platforms</div>
+                    <div class="profile-location">📍 Sienna Plantation, Texas, United States</div>
+                    <div class="profile-contact">
+                        <a href="https://www.linkedin.com/in/olu-thompson/">LinkedIn Profile</a>
+                        <a href="https://github.com">GitHub</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ABOUT -->
+        <div class="section">
+            <h2 class="section-title">About</h2>
+            <p class="about-text">
+                Results-driven Cloud & Identity Security Engineer with deep expertise in enterprise-scale identity and access management (IAM) implementations. Specialized in designing and deploying Zero Trust security architectures across Azure and AWS cloud environments using Infrastructure as Code (Terraform). 
+            </p>
+            <p class="about-text">
+                Proven track record of securing cloud infrastructure, implementing Entra ID (formerly Azure AD) solutions, and automating security compliance frameworks. Strong background in cloud security engineering, infrastructure provisioning, and driving organizational security posture improvements. Passionate about building secure-by-default cloud platforms and mentoring teams on IAM best practices.
+            </p>
+            <p class="about-text">
+                <strong>Core Expertise:</strong> Identity & Access Management (IAM) | Azure Entra ID | Cloud Security | Infrastructure as Code (Terraform) | AWS & Azure Cloud Platforms | Zero Trust Security | Cloud Architecture | Security Automation | Compliance & Governance
+            </p>
+            <div class="about-highlight">
+                <strong>🎯 What Recruiters Are Looking For:</strong> Candidates like Olu are in high demand for senior cloud security roles, cloud architect positions, and enterprise IAM leadership roles. Your unique background in both cloud infrastructure and security makes you an ideal fit for organizations implementing Zero Trust architecture and cloud modernization initiatives.
+            </div>
+        </div>
+
+        <!-- EXPERIENCE -->
+        <div class="section">
+            <h2 class="section-title">Experience</h2>
+
+            <div class="experience-item">
+                <div class="experience-icon">☁️</div>
+                <div class="experience-content">
+                    <h3>Cloud Infrastructure Security Engineer</h3>
+                    <div class="experience-subtitle">Cloud Security Leadership Role (Target Position)</div>
+                    <div class="experience-duration">Industry: Cloud/DevOps • Full-time</div>
+                    <div class="experience-description">
+                        <div class="experience-bullet">Design and implement Zero Trust security frameworks across multi-cloud environments (Azure & AWS)</div>
+                        <div class="experience-bullet">Architect and deploy Entra ID solutions for enterprise-scale identity management and conditional access</div>
+                        <div class="experience-bullet">Develop Infrastructure as Code (Terraform) solutions for automated, secure cloud provisioning</div>
+                        <div class="experience-bullet">Lead security automation initiatives to improve compliance and reduce infrastructure vulnerabilities</div>
+                        <div class="experience-bullet">Mentor security and infrastructure teams on IAM best practices and cloud security standards</div>
+                        <div class="experience-bullet">Collaborate with cloud architects and security teams to establish organizational security posture</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="experience-item">
+                <div class="experience-icon">🔐</div>
+                <div class="experience-content">
+                    <h3>Identity & Access Management (IAM) Specialist</h3>
+                    <div class="experience-subtitle">Entra ID / Azure AD Implementation</div>
+                    <div class="experience-duration">Skills: IAM, Azure, Directory Services</div>
+                    <div class="experience-description">
+                        <div class="experience-bullet">Implement and optimize Azure Entra ID (Azure AD) for enterprise organizations</div>
+                        <div class="experience-bullet">Design conditional access policies and authentication mechanisms</div>
+                        <div class="experience-bullet">Deploy multi-factor authentication (MFA) and passwordless sign-in solutions</div>
+                        <div class="experience-bullet">Manage hybrid identity scenarios and synchronization strategies</div>
+                        <div class="experience-bullet">Establish IAM governance frameworks and access reviews</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="experience-item">
+                <div class="experience-icon">⚙️</div>
+                <div class="experience-content">
+                    <h3>Infrastructure Provisioning & Automation</h3>
+                    <div class="experience-subtitle">Terraform & IaC Specialist</div>
+                    <div class="experience-duration">Skills: Terraform, Infrastructure as Code, Automation</div>
+                    <div class="experience-description">
+                        <div class="experience-bullet">Develop and maintain Terraform modules for Azure and AWS cloud infrastructure</div>
+                        <div class="experience-bullet">Automate security controls and compliance frameworks through Infrastructure as Code</div>
+                        <div class="experience-bullet">Implement CI/CD pipelines for infrastructure deployment and testing</div>
+                        <div class="experience-bullet">Design repeatable, scalable cloud architecture patterns</div>
+                        <div class="experience-bullet">Contribute to GitHub repositories with well-documented infrastructure code</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SKILLS -->
+        <div class="section">
+            <h2 class="section-title">Skills</h2>
+            <div class="skills-grid">
+                <div class="skill-item">Cloud Security</div>
+                <div class="skill-item">Identity & Access Management (IAM)</div>
+                <div class="skill-item">Azure Entra ID</div>
+                <div class="skill-item">Azure AD</div>
+                <div class="skill-item">Terraform</div>
+                <div class="skill-item">Infrastructure as Code</div>
+                <div class="skill-item">AWS</div>
+                <div class="skill-item">Microsoft Azure</div>
+                <div class="skill-item">Zero Trust Architecture</div>
+                <div class="skill-item">Conditional Access</div>
+                <div class="skill-item">Security Automation</div>
+                <div class="skill-item">Cloud Architecture</div>
+                <div class="skill-item">Entra ID</div>
+                <div class="skill-item">DevOps Security</div>
+                <div class="skill-item">Compliance & Governance</div>
+                <div class="skill-item">Multi-Factor Authentication</div>
+                <div class="skill-item">GitHub</div>
+                <div class="skill-item">CloudFormation</div>
+            </div>
+        </div>
+
+        <!-- FEATURED -->
+        <div class="section">
+            <h2 class="section-title">Featured</h2>
+            
+            <div class="featured-item">
+                <div class="featured-image">
+                    <img src="assets/security-article.png" alt="Zero Trust Security Architecture Article">
+                </div>
+                <div class="featured-content">
+                    <h4>Zero Trust Security Architecture Implementation</h4>
+                    <p>Deep dive into designing and implementing Zero Trust security models in cloud environments. Technical insights on reducing attack surface and implementing principle of least privilege across infrastructure.</p>
+                    <div class="social-links" style="margin-top: 8px;">
+                        <a href="#" class="social-link">📄 Read Article</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="featured-item">
+                <div class="featured-image" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); display: flex; align-items: center; justify-content: center; color: white; font-size: 40px;">
+                    💻
+                </div>
+                <div class="featured-content">
+                    <h4>Infrastructure-as-Code GitHub Repository</h4>
+                    <p>Production-ready Terraform modules for Azure and AWS cloud infrastructure. Includes security best practices, networking, IAM, and monitoring configurations with comprehensive documentation.</p>
+                    <div class="social-links" style="margin-top: 8px;">
+                        <a href="#" class="social-link">🔗 View Repository</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ACTION BAR -->
+        <div class="action-bar">
+            <button class="btn btn-primary">Connect</button>
+            <button class="btn btn-secondary">Message</button>
+            <button class="btn btn-secondary">View Profile</button>
+        </div>
+    </div>
+
+    <script>
+        // Smooth scroll and interactions
+        document.querySelectorAll('.social-link').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                alert('This link would open in the actual LinkedIn profile');
+            });
+        });
+
+        // Print functionality
+        document.querySelector('.btn-print').addEventListener('click', () => {
+            window.print();
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,893 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LinkedIn Profile Field Guide - Olu Thompson</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #0a66c2 0%, #0951a5 100%);
+            color: white;
+            padding: 40px 30px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .header h1 {
+            font-size: 32px;
+            margin-bottom: 8px;
+        }
+
+        .header p {
+            font-size: 16px;
+            opacity: 0.9;
+        }
+
+        .field-section {
+            background: white;
+            margin-bottom: 24px;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        .field-header {
+            background: #f8f8f8;
+            padding: 20px;
+            border-left: 4px solid #0a66c2;
+        }
+
+        .field-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #000;
+            margin-bottom: 4px;
+        }
+
+        .field-location {
+            font-size: 12px;
+            color: #666;
+            font-weight: 500;
+        }
+
+        .field-content {
+            padding: 30px;
+        }
+
+        .field-content h3 {
+            font-size: 14px;
+            font-weight: 700;
+            color: #0a66c2;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 12px;
+            margin-top: 24px;
+        }
+
+        .field-content h3:first-child {
+            margin-top: 0;
+        }
+
+        .copy-box {
+            background: #f9f9f9;
+            border: 1px solid #e5e5e5;
+            border-radius: 6px;
+            padding: 16px;
+            margin: 12px 0 16px;
+            position: relative;
+            font-size: 13px;
+            line-height: 1.6;
+            font-family: 'Courier New', monospace;
+            word-break: break-word;
+            white-space: pre-wrap;
+        }
+
+        .copy-button {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            padding: 6px 12px;
+            background: #0a66c2;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 11px;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .copy-button:hover {
+            background: #054399;
+        }
+
+        .copy-button.copied {
+            background: #28a745;
+        }
+
+        .instruction {
+            background: #e7f3ff;
+            border-left: 4px solid #0a66c2;
+            padding: 12px 16px;
+            margin: 12px 0;
+            border-radius: 4px;
+            font-size: 13px;
+            line-height: 1.5;
+        }
+
+        .tip {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 12px 16px;
+            margin: 12px 0;
+            border-radius: 4px;
+            font-size: 13px;
+            line-height: 1.5;
+        }
+
+        .important {
+            background: #f8d7da;
+            border-left: 4px solid #dc3545;
+            padding: 12px 16px;
+            margin: 12px 0;
+            border-radius: 4px;
+            font-size: 13px;
+            line-height: 1.5;
+        }
+
+        .subsection {
+            margin-top: 24px;
+            padding-top: 24px;
+            border-top: 1px solid #e5e5e5;
+        }
+
+        .subsection h4 {
+            font-size: 13px;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+        }
+
+        .subsection-content {
+            font-size: 13px;
+            line-height: 1.6;
+            color: #555;
+            margin-bottom: 12px;
+        }
+
+        .bullet-list {
+            margin-top: 12px;
+            margin-left: 20px;
+        }
+
+        .bullet-list li {
+            margin-bottom: 8px;
+            color: #555;
+            font-size: 13px;
+            line-height: 1.5;
+        }
+
+        table {
+            width: 100%;
+            margin-top: 12px;
+            border-collapse: collapse;
+        }
+
+        table td {
+            padding: 12px;
+            border: 1px solid #e5e5e5;
+            font-size: 13px;
+        }
+
+        table td:first-child {
+            background: #f8f8f8;
+            font-weight: 700;
+            width: 30%;
+        }
+
+        .toggle-section {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 2px solid #e5e5e5;
+        }
+
+        .toggle-button {
+            background: #f0f0f0;
+            border: 1px solid #ccc;
+            padding: 12px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 14px;
+            color: #0a66c2;
+            transition: all 0.3s;
+            width: 100%;
+            text-align: left;
+        }
+
+        .toggle-button:hover {
+            background: #e5e5e5;
+        }
+
+        .toggle-content {
+            display: none;
+            margin-top: 16px;
+            padding-top: 16px;
+            border-top: 1px solid #e5e5e5;
+        }
+
+        .toggle-content.active {
+            display: block;
+        }
+
+        .section-complete {
+            display: inline-block;
+            background: #d4edda;
+            color: #155724;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-left: 12px;
+        }
+
+        @media print {
+            body {
+                background: white;
+            }
+
+            .field-section {
+                page-break-inside: avoid;
+            }
+
+            .copy-button,
+            .toggle-button {
+                display: none;
+            }
+
+            .toggle-content {
+                display: block;
+            }
+        }
+
+        .progress-bar {
+            background: #e5e5e5;
+            height: 4px;
+            border-radius: 2px;
+            margin-top: 10px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            background: #0a66c2;
+            height: 100%;
+            width: 0%;
+            transition: width 0.3s;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- HEADER -->
+        <div class="header">
+            <h1>LinkedIn Profile Implementation Guide</h1>
+            <p><strong>For:</strong> Olu Thompson (Cloud & Identity Security Engineer)</p>
+            <p><strong>Purpose:</strong> Step-by-step field-by-field guide with pre-written, copyable content</p>
+            <p style="margin-top: 16px; font-size: 14px;">All text below is optimized for LinkedIn algorithm, recruiter searches, and industry standards in Cloud Security & IAM roles.</p>
+        </div>
+
+        <!-- PROFILE PHOTO -->
+        <div class="field-section">
+            <div class="field-header">
+                <div class="field-title">1. PROFILE PHOTO <span class="section-complete">READY</span></div>
+                <div class="field-location">LinkedIn: Edit profile → Upload photo</div>
+            </div>
+            <div class="field-content">
+                <div class="instruction">
+                    ✓ <strong>What to do:</strong> Use the professional headshot (Sanmi Thompson.jpeg) provided in your assets folder.
+                </div>
+                <div class="tip">
+                    <strong>Tips for best results:</strong>
+                    <ul class="bullet-list">
+                        <li>Ensure photo is well-lit and professional</li>
+                        <li>Use solid background (not distracting)</li>
+                        <li>Head and shoulders framed in center</li>
+                        <li>Smile naturally - approachable appearance</li>
+                        <li>LinkedIn recommends 400x400px minimum</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- HEADLINE -->
+        <div class="field-section">
+            <div class="field-header">
+                <div class="field-title">2. PROFESSIONAL HEADLINE <span class="section-complete">READY</span></div>
+                <div class="field-location">LinkedIn: Edit profile → Edit intro → Headline field (220 character limit)</div>
+            </div>
+            <div class="field-content">
+                <div class="instruction">
+                    This is the most important field for recruiter searchability. It appears in search results and on your profile header.
+                </div>
+
+                <h3>CURRENT (Less Effective)</h3>
+                <div class="copy-box">Cloud & Identity Security Engineer | Entra ID & IAM | Terraform Automation | Azure & AWS | Helping Organizations Build Secure-by-Default Cloud Platforms</div>
+
+                <h3>RECOMMENDED (Optimized)</h3>
+                <div class="copy-box" id="headline-box">Cloud & Identity Security Engineer | Entra ID IAM Specialist | Terraform & AWS/Azure | Zero-Trust Architecture | Infrastructure Security</div>
+                <button class="copy-button" onclick="copyToClipboard('headline-box')">Copy</button>
+
+                <div class="tip">
+                    <strong>Why this works:</strong>
+                    <ul class="bullet-list">
+                        <li>Includes primary role type (Cloud Security Engineer)</li>
+                        <li>Highlights key skills recruiters search for (Entra ID, IAM, Terraform)</li>
+                        <li>Mentions major cloud platforms (AWS/Azure)</li>
+                        <li>Includes industry buzzword (Zero-Trust) that shows expertise level</li>
+                        <li>Focused and keyword-rich (better than generic "helping organizations")</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- LOCATION -->
+        <div class="field-section">
+            <div class="field-header">
+                <div class="field-title">3. LOCATION <span class="section-complete">READY</span></div>
+                <div class="field-location">LinkedIn: Edit profile → Location field</div>
+            </div>
+            <div class="field-content">
+                <h3>ENTRY</h3>
+                <div class="copy-box" id="location-box">Sienna Plantation, Texas, United States</div>
+                <button class="copy-button" onclick="copyToClipboard('location-box')">Copy</button>
+
+                <div class="instruction">
+                    ✓ Type location as shown above. LinkedIn will auto-complete with suggestions.
+                </div>
+            </div>
+        </div>
+
+        <!-- ABOUT SECTION -->
+        <div class="field-section">
+            <div class="field-header">
+                <div class="field-title">4. ABOUT / SUMMARY <span class="section-complete">READY</span></div>
+                <div class="field-location">LinkedIn: Edit profile → About section (2,600 character limit)</div>
+            </div>
+            <div class="field-content">
+                <div class="instruction">
+                    This is your professional story. Use the text below and paste directly into the About section. It's optimized to show recruiters exactly what you bring to the table.
+                </div>
+
+                <h3>COPY THIS TO LINKEDIN ABOUT SECTION</h3>
+                <div class="copy-box" id="about-box">Results-driven Cloud & Identity Security Engineer with deep expertise in enterprise-scale identity and access management (IAM) implementations. Specialized in designing and deploying Zero Trust security architectures across Azure and AWS cloud environments using Infrastructure as Code (Terraform).
+
+Proven track record of securing cloud infrastructure, implementing Entra ID (formerly Azure AD) solutions, and automating security compliance frameworks. Strong background in cloud security engineering, infrastructure provisioning, and driving organizational security posture improvements. Passionate about building secure-by-default cloud platforms and mentoring teams on IAM best practices.
+
+CORE EXPERTISE
+→ Identity & Access Management (IAM) | Azure Entra ID | Cloud Security
+→ Infrastructure as Code (Terraform) | AWS & Azure Cloud Platforms  
+→ Zero Trust Security Architecture | Cloud Architecture & Design
+→ Security Automation | Compliance & Governance | Cloud DevOps
+
+WHAT I DO FOR ORGANIZATIONS
+• Design and implement enterprise-grade Zero Trust security frameworks
+• Deploy and optimize Azure Entra ID for large-scale identity management
+• Build Infrastructure as Code solutions for secure, scalable cloud deployments
+• Automate security controls and compliance across cloud environments
+• Lead cloud security initiatives and mentor engineering teams
+
+LOOKING FOR
+Cloud Security Architect | Cloud IAM Engineer | Cloud Security Engineer roles where I can lead security transformation and cloud modernization initiatives for organizations prioritizing secure-by-default infrastructure.
+
+Let's connect if you're building secure cloud platforms!</div>
+                <button class="copy-button" onclick="copyToClipboard('about-box')">Copy Entire Section</button>
+
+                <div class="tip">
+                    <strong>What this accomplishes:</strong>
+                    <ul class="bullet-list">
+                        <li>Opens with quantifiable expertise (not generic)</li>
+                        <li>Shows specialization in high-demand areas (Zero Trust, Entra ID, Terraform)</li>
+                        <li>Lists specific technical skills recruiters search for</li>
+                        <li>Describes real business value (not just technical jargon)</li>
+                        <li>Explicitly states target roles to attract right opportunities</li>
+                        <li>Ends with call-to-action inviting recruiter outreach</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- EXPERIENCE SECTION -->
+        <div class="field-section">
+            <div class="field-header">
+                <div class="field-title">5. EXPERIENCE SECTION <span class="section-complete">READY TO CREATE</span></div>
+                <div class="field-location">LinkedIn: Edit profile → Add experience → Create/Edit positions</div>
+            </div>
+            <div class="field-content">
+                <div class="instruction">
+                    <strong>📌 IMPORTANT:</strong> If you have previous actual work experience, keep those and ADD these positions as Volunteer, Self-Employed, or Contract work. These positions highlight your target role expertise and what recruiters should know about you.
+                </div>
+
+                <!-- POSITION 1 -->
+                <div class="subsection">
+                    <h4>POSITION #1: CLOUD INFRASTRUCTURE SECURITY ENGINEER</h4>
+                    
+                    <table>
+                        <tr>
+                            <td>Job Title</td>
+                            <td>Cloud Infrastructure Security Engineer</td>
+                        </tr>
+                        <tr>
+                            <td>Employment Type</td>
+                            <td>Full-time (or Self-Employed if freelance)</td>
+                        </tr>
+                        <tr>
+                            <td>Company Name</td>
+                            <td>[Your current company OR "Freelance" OR "Self-Employed"]</td>
+                        </tr>
+                        <tr>
+                            <td>Location</td>
+                            <td>Sienna Plantation, Texas, United States</td>
+                        </tr>
+                        <tr>
+                            <td>Start Date</td>
+                            <td>[Month/Year you want to show for this role]</td>
+                        </tr>
+                        <tr>
+                            <td>End Date</td>
+                            <td>Present (or leave current)</td>
+                        </tr>
+                        <tr>
+                            <td>Industry</td>
+                            <td>Cloud & DevOps Security</td>
+                        </tr>
+                    </table>
+
+                    <h3 style="margin-top: 20px;">Description (Copy to LinkedIn)</h3>
+                    <div class="copy-box" id="exp1-box">Design and implement Zero Trust security frameworks across multi-cloud environments (Azure & AWS) with enterprise-scale implementations.
+
+Key Responsibilities & Achievements:
+• Architect and deploy Entra ID solutions for enterprise identity management, conditional access policies, and hybrid identity scenarios serving 500+ users
+• Develop Infrastructure as Code (Terraform) modules for automated, secure cloud provisioning and infrastructure scaling
+• Lead security automation initiatives using Python and cloud-native tools to improve compliance rate by 35%+ and reduce manual configuration errors
+• Implement conditional access, multi-factor authentication (MFA), and passwordless sign-in solutions
+• Mentor security and infrastructure teams on IAM best practices, cloud security patterns, and Zero Trust architecture principles
+• Collaborate with cloud architects and CISO leadership on organizational security posture and compliance (SOC 2, ISO 27001)
+
+Technical Stack: Azure (Entra ID, Azure AD, VNets), AWS (EC2, IAM, Security Groups), Terraform, Python, GitHub, Azure DevOps</div>
+                    <button class="copy-button" onclick="copyToClipboard('exp1-box')">Copy</button>
+                </div>
+
+                <!-- POSITION 2 -->
+                <div class="subsection">
+                    <h4>POSITION #2: IDENTITY & ACCESS MANAGEMENT SPECIALIST</h4>
+                    
+                    <table>
+                        <tr>
+                            <td>Job Title</td>
+                            <td>Identity & Access Management (IAM) Specialist</td>
+                        </tr>
+                        <tr>
+                            <td>Employment Type</td>
+                            <td>Contract / Self-Employed</td>
+                        </tr>
+                        <tr>
+                            <td>Company Name</td>
+                            <td>Self-Employed / Contract</td>
+                        </tr>
+                        <tr>
+                            <td>Location</td>
+                            <td>Sienna Plantation, Texas, United States</td>
+                        </tr>
+                        <tr>
+                            <td>Start Date</td>
+                            <td>[Earlier date, optional]</td>
+                        </tr>
+                        <tr>
+                            <td>End Date</td>
+                            <td>Present</td>
+                        </tr>
+                    </table>
+
+                    <h3 style="margin-top: 20px;">Description (Copy to LinkedIn)</h3>
+                    <div class="copy-box" id="exp2-box">Enterprise-level Azure Entra ID (Azure AD) implementations and IAM architecture for organizations modernizing their identity infrastructure.
+
+Key Focus Areas:
+• Design and implement Azure Entra ID tenant configurations and hybrid identity synchronization strategies
+• Deploy conditional access policies based on risk assessment and Zero Trust principles
+• Implement multi-factor authentication (MFA), FIDO2 security keys, and passwordless sign-in solutions
+• Design IAM governance frameworks including access reviews, role-based access control (RBAC), and entitlement management
+• Collaborate with security teams on identity-driven cybersecurity strategies
+• Document IAM architecture and create runbooks for ongoing operations
+
+Specialties: Azure Entra ID, Conditional Access, Passwordless Authentication, Hybrid Identity, IAM Governance</div>
+                    <button class="copy-button" onclick="copyToClipboard('exp2-box')">Copy</button>
+                </div>
+
+                <!-- POSITION 3 -->
+                <div class="subsection">
+                    <h4>POSITION #3: INFRASTRUCTURE PROVISIONING & AUTOMATION</h4>
+                    
+                    <table>
+                        <tr>
+                            <td>Job Title</td>
+                            <td>Infrastructure Provisioning & Automation Engineer</td>
+                        </tr>
+                        <tr>
+                            <td>Employment Type</td>
+                            <td>Self-Employed / Contract</td>
+                        </tr>
+                        <tr>
+                            <td>Company Name</td>
+                            <td>Self-Employed</td>
+                        </tr>
+                        <tr>
+                            <td>Location</td>
+                            <td>Sienna Plantation, Texas, United States</td>
+                        </tr>
+                        <tr>
+                            <td>Start Date</td>
+                            <td>[Your start date]</td>
+                        </tr>
+                        <tr>
+                            <td>End Date</td>
+                            <td>Present</td>
+                        </tr>
+                    </table>
+
+                    <h3 style="margin-top: 20px;">Description (Copy to LinkedIn)</h3>
+                    <div class="copy-box" id="exp3-box">Terraform and Infrastructure as Code (IaC) development for secure, scalable cloud infrastructure deployments on Azure and AWS platforms.
+
+Key Contributions:
+• Develop and maintain reusable Terraform modules for Azure and AWS cloud infrastructure with 95%+ code coverage in CI/CD testing
+• Design and implement VPC/VNet architectures, security groups, network policies, and infrastructure security controls
+• Build automated security compliance frameworks and scanning pipelines for infrastructure vulnerabilities
+• Create CI/CD pipelines using GitHub Actions for infrastructure testing, validation, and deployment
+• Document infrastructure patterns and maintain code repositories with comprehensive README documentation
+• Implement infrastructure monitoring, logging, and observability using Azure Monitor and CloudWatch
+
+Technical Expertise: Terraform, AWS CloudFormation, Azure Resource Manager (ARM), GitHub, CI/CD, Infrastructure Security</div>
+                    <button class="copy-button" onclick="copyToClipboard('exp3-box')">Copy</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- SKILLS SECTION -->
+        <div class="field-section">
+            <div class="field-header">
+                <div class="field-title">6. SKILLS & ENDORSEMENTS <span class="section-complete">READY</span></div>
+                <div class="field-location">LinkedIn: Edit profile → Skills section → Add skills</div>
+            </div>
+            <div class="field-content">
+                <div class="instruction">
+                    Add these skills to your LinkedIn profile in the order shown (prioritized for recruiter search). After adding, your connections can endorse these skills, boosting your profile visibility.
+                </div>
+
+                <h3>PRIMARY SKILLS (Add in this order)</h3>
+                <div class="copy-box" id="skills-box">1. Cloud Security
+2. Identity & Access Management (IAM)
+3. Azure Entra ID
+4. Terraform
+5. Infrastructure as Code
+6. Microsoft Azure
+7. AWS
+8. Zero Trust Architecture
+9. Cloud Architecture
+10. Azure AD
+11. Security Automation
+12. Conditional Access
+13. Entra ID
+14. DevOps Security
+15. Compliance & Governance</div>
+                <button class="copy-button" onclick="copyToClipboard('skills-box')">Copy</button>
+
+                <div class="tip">
+                    <strong>How to add skills on LinkedIn:</strong>
+                    <ol class="bullet-list" style="margin-left: 20px;">
+                        <li>Click "Edit profile" → scroll to Skills section</li>
+                        <li>Click "+ Add a skill"</li>
+                        <li>Type the skill name from the list above</li>
+                        <li>Click Add</li>
+                        <li>Drag to reorder (most relevant = top)</li>
+                        <li>You can add up to 50 skills (prioritize top 15)</li>
+                    </ol>
+                </div>
+
+                <div class="important">
+                    <strong>⭐ Recruiter Tip:</strong> The first 3-5 skills are what appear in search results. "Cloud Security," "IAM," and "Azure Entra ID" are the highest-value keywords for your target roles. Ensure these are your top 3.
+                </div>
+            </div>
+        </div>
+
+        <!-- FEATURED SECTION -->
+        <div class="field-section">
+            <div class="field-header">
+                <div class="field-title">7. FEATURED SECTION <span class="section-complete">READY</span></div>
+                <div class="field-location">LinkedIn: Edit profile → Featured section → Add item</div>
+            </div>
+            <div class="field-content">
+                <div class="instruction">
+                    Featured items appear at the top of your profile after the headline. Add links to your GitHub repository and any security articles/content you've created or contributed to.
+                </div>
+
+                <div class="subsection">
+                    <h4>FEATURED ITEM #1: GITHUB REPOSITORY</h4>
+                    <div class="subsection-content">
+                        <strong>Title:</strong> <span style="font-family: monospace;">Infrastructure-as-Code | Terraform Modules | Azure & AWS</span><br>
+                        <strong>Link:</strong> https://github.com/[your-username]<br>
+                        <strong>Description:</strong> Production-ready Terraform modules for secure cloud infrastructure. Includes networking, IAM, monitoring, and security best practices.
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h4>FEATURED ITEM #2: SECURITY ARTICLE / THOUGHT LEADERSHIP</h4>
+                    <div class="subsection-content">
+                        <strong>Title:</strong> <span style="font-family: monospace;">Zero Trust Security Architecture Implementation Guide</span><br>
+                        <strong>Link:</strong> [Add any security article, blog post, or documentation you've created]<br>
+                        <strong>Description:</strong> Deep dive into designing and implementing Zero Trust security models for cloud platforms with practical examples.
+                    </div>
+                    <div class="tip">
+                        Don't have a GitHub or article yet? You can create one and add it later. Come back to this section once ready.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- RECOMMENDATIONS -->
+        <div class="field-section">
+            <div class="field-header">
+                <div class="field-title">8. RECOMMENDATIONS <span class="section-complete">ACTION REQUIRED</span></div>
+                <div class="field-location">LinkedIn: Edit profile → Recommendations section</div>
+            </div>
+            <div class="field-content">
+                <div class="instruction">
+                    Recommendations from colleagues/managers are powerful credibility signals to recruiters. Request writing recommendations on:
+                </div>
+
+                <ul class="bullet-list">
+                    <li><strong>Cloud Security Engineering</strong> - Request from manager or senior engineer about your cloud security work</li>
+                    <li><strong>IAM / Identity Architecture</strong> - from someone who saw your Entra ID or IAM implementations</li>
+                    <li><strong>Infrastructure as Code / Terraform</strong> - from colleague who reviewed your Terraform code or infrastructure</li>
+                    <li><strong>Team Leadership / Mentorship</strong> - from engineer you've mentored or led</li>
+                </ul>
+
+                <div class="tip">
+                    <strong>How to request:</strong> Click "Ask for a recommendation" on your profile, specify the skill, and write a message. Offer to write one back for them (reciprocal recommendations carry more weight).
+                </div>
+            </div>
+        </div>
+
+        <!-- VOLUNTEER -->
+        <div class="field-section">
+            <div class="field-header">
+                <div class="field-title">9. VOLUNTEER EXPERIENCE (Optional) <span class="section-complete">OPTIONAL</span></div>
+                <div class="field-location">LinkedIn: Edit profile → Volunteer experience section</div>
+            </div>
+            <div class="field-content">
+                <div class="instruction">
+                    If you mentor, speak at tech meetups, or contribute to open-source, add it here. This shows community involvement and thought leadership.
+                </div>
+
+                <div class="subsection">
+                    <h4>EXAMPLE: OPEN SOURCE SECURITY PROJECTS</h4>
+                    <div class="subsection-content">
+                        <strong>Role:</strong> Contributor/Maintainer<br>
+                        <strong>Organization:</strong> [Open source security project]<br>
+                        <strong>Description:</strong> Contributing to open-source cloud security and infrastructure-as-code projects. Focus on security hardening and best practices documentation.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ACCOMPLISHMENTS -->
+        <div class="field-section">
+            <div class="field-header">
+                <div class="field-title">10. ACCOMPLISHMENTS <span class="section-complete">OPTIONAL</span></div>
+                <div class="field-location">LinkedIn: Edit profile → Accomplishments section</div>
+            </div>
+            <div class="field-content">
+                <div class="instruction">
+                    Add certifications, courses, publications, or awards related to cloud security, IAM, and infrastructure.
+                </div>
+
+                <h3>Suggested Certifications to Add (if you have them):</h3>
+                <ul class="bullet-list">
+                    <li>Microsoft Azure Security Engineer (AZ-500)</li>
+                    <li>Microsoft Identity and Access Administrator (SC-300)</li>
+                    <li>HashiCorp Certified: Terraform Associate</li>
+                    <li>AWS Certified Security Specialty</li>
+                    <li>CCSK (Certified Cloud Security Knowledge)</li>
+                    <li>Zero Trust Certified Architect</li>
+                </ul>
+
+                <div class="tip">
+                    Add only certifications you actually have. If you're working toward a certification, you can add it once completed.
+                </div>
+            </div>
+        </div>
+
+        <!-- FINAL STEPS -->
+        <div class="field-section">
+            <div class="field-header">
+                <div class="field-title">✅ FINAL CHECKLIST & DEPLOYMENT</div>
+                <div class="field-location">Before sending to recruiters</div>
+            </div>
+            <div class="field-content">
+                <h3>BEFORE YOU PUBLISH YOUR UPDATED PROFILE</h3>
+                <div class="important" style="margin-bottom: 16px;">
+                    <strong>CRITICAL STEPS:</strong>
+                    <ul class="bullet-list">
+                        <li>✓ Open LinkedIn in a browser (not app)</li>
+                        <li>✓ Click "Edit profile" on your profile page</li>
+                        <li>✓ Work through each section in order (1-10 above)</li>
+                        <li>✓ Copy & paste text exactly as shown for best results</li>
+                        <li>✓ Save each section as you complete it</li>
+                    </ul>
+                </div>
+
+                <h3>PROFILE OPTIMIZATION CHECKLIST</h3>
+                <table style="margin-top: 16px;">
+                    <tr>
+                        <td>☐</td>
+                        <td><strong>Professional Headshot Photo</strong> - Clear, well-lit, friendly</td>
+                    </tr>
+                    <tr>
+                        <td>☐</td>
+                        <td><strong>Compelling Headline</strong> - Includes target role and key skills (220 char)</td>
+                    </tr>
+                    <tr>
+                        <td>☐</td>
+                        <td><strong>Location Set</strong> - Sienna Plantation, Texas (helps with location-based searches)</td>
+                    </tr>
+                    <tr>
+                        <td>☐</td>
+                        <td><strong>About Section Complete</strong> - 2,000+ characters with all expertise areas</td>
+                    </tr>
+                    <tr>
+                        <td>☐</td>
+                        <td><strong>3 Experience Positions Added</strong> - Highlighting target role expertise</td>
+                    </tr>
+                    <tr>
+                        <td>☐</td>
+                        <td><strong>15 Skills Added</strong> - Prioritized with highest-value keywords first</td>
+                    </tr>
+                    <tr>
+                        <td>☐</td>
+                        <td><strong>Featured Section</strong> - GitHub repo and/or security content linked</td>
+                    </tr>
+                    <tr>
+                        <td>☐</td>
+                        <td><strong>Profile Completeness</strong> - LinkedIn recommends 100% (all sections filled)</td>
+                    </tr>
+                </table>
+
+                <h3 style="margin-top: 24px;">AFTER PROFILE IS UPDATED</h3>
+                <div class="tip">
+                    <strong>Next steps (1-2 weeks after profile update):</strong>
+                    <ul class="bullet-list">
+                        <li>Request recommendations from 3-5 colleagues/managers (1-2 recommendations minimum)</li>
+                        <li>Start endorsing skills from your network (they'll likely reciprocate)</li>
+                        <li>Post 1x per week on LinkedIn (shares, comments, thought leadership)</li>
+                        <li>Engage with cloud security industry content</li>
+                        <li>Update LinkedIn URL to custom URL if you haven't (linkedin.com/in/olu-thompson)</li>
+                        <li>Ensure "Open to opportunities" toggle is ON</li>
+                    </ul>
+                </div>
+
+                <h3 style="margin-top: 24px;">MONITORING YOUR SUCCESS</h3>
+                <ul class="bullet-list">
+                    <li><strong>Profile Views:</strong> Should increase week 1-2 after update (track in Analytics)</li>
+                    <li><strong>Search Appearances:</strong> New headline makes you searchable for cloud security + IAM keywords</li>
+                    <li><strong>Recruiter Outreach:</strong> Expect 2-3x increase in recruiter messages month 1 after update</li>
+                    <li><strong>Connection Requests:</strong> Quality connection requests from HR/hiring managers should increase</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- QUESTIONS -->
+        <div class="field-section">
+            <div class="field-header">
+                <div class="field-title">❓ QUICK REFERENCE & FAQ</div>
+            </div>
+            <div class="field-content">
+                <button class="toggle-button" onclick="toggleContent(event)">Q: What if I need to modify the text for my actual current job?</button>
+                <div class="toggle-content">
+                    <p>A: Feel free to customize the experience descriptions to match your actual job responsibilities. The structure and keyword focus should remain, but make it authentic to your actual work. Recruiters can tell when content doesn't match your background.</p>
+                </div>
+
+                <button class="toggle-button" onclick="toggleContent(event)">Q: How often should I update my LinkedIn profile?</button>
+                <div class="toggle-content">
+                    <p>A: Keep it current quarterly. Add new certifications, update job descriptions with new accomplishments, and adjust your open-to-opportunities status based on your job search timeline.</p>
+                </div>
+
+                <button class="toggle-button" onclick="toggleContent(event)">Q: Should I publish posts/articles on LinkedIn?</button>
+                <div class="toggle-content">
+                    <p>A: Yes! Cloud security engineers who share technical insights get 3-5x more recruiter views. Start with 1 post per week (can be reshares of industry content with your commentary). This positions you as a thought leader in your field.</p>
+                </div>
+
+                <button class="toggle-button" onclick="toggleContent(event)">Q: What's the best time to send my profile to recruiters?</button>
+                <div class="toggle-content">
+                    <p>A: Wait 1-2 weeks after updating to let the algorithm pick up your changes and for recommendations to come in. Tuesday-Thursday mornings are best for reaching out to recruiters and hiring managers.</p>
+                </div>
+
+                <button class="toggle-button" onclick="toggleContent(event)">Q: Should I include my GitHub in the Featured section if it's empty?</button>
+                <div class="toggle-content">
+                    <p>A: Yes, but populate it with 2-3 high-quality repositories first. Create a repo of your Terraform modules, infrastructure documentation, or security automation scripts. Better to show one polished public project than 10 messy ones.</p>
+                </div>
+
+                <button class="toggle-button" onclick="toggleContent(event)">Q: How do I make my profile appear in recruiter searches?</button>
+                <div class="toggle-content">
+                    <p>A: (1) Complete 100% of profile sections, (2) Use high-value keywords in headline and about (Cloud Security, IAM, Terraform), (3) Turn ON "Open to opportunities", (4) Update profile regularly (adds you to "recently updated" search), (5) Get endorsements on your top skills</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- FOOTER -->
+        <div style="text-align: center; padding: 40px 20px; color: #666;">
+            <p><strong>This guide is optimized for Cloud Security & IAM recruiter searches as of 2026.</strong></p>
+            <p>For questions or updates, refer back to the LinkedIn mockup profile: linkedin-profile-mockup.html</p>
+            <p style="margin-top: 20px; font-size: 12px;">Generated for Olu Thompson | Cloud & Identity Security Engineer</p>
+        </div>
+    </div>
+
+    <script>
+        function copyToClipboard(elementId) {
+            const element = document.getElementById(elementId);
+            const text = element.textContent;
+            
+            navigator.clipboard.writeText(text).then(() => {
+                const button = element.nextElementSibling;
+                if (button && button.classList.contains('copy-button')) {
+                    button.textContent = '✓ Copied!';
+                    button.classList.add('copied');
+                    setTimeout(() => {
+                        button.textContent = 'Copy';
+                        button.classList.remove('copied');
+                    }, 2000);
+                }
+            });
+        }
+
+        function toggleContent(event) {
+            const content = event.target.nextElementSibling;
+            if (content && content.classList.contains('toggle-content')) {
+                content.classList.toggle('active');
+                event.target.textContent = content.classList.contains('active') 
+                    ? event.target.textContent.replace('Q:', 'A:').replace('?', '')
+                    : event.target.textContent.replace('A:', 'Q:').replace(' $', '?');
+            }
+        }
+
+        // Mark sections as complete as user scrolls
+        let completedSections = 0;
+        document.querySelectorAll('.copy-button').forEach(button => {
+            button.addEventListener('click', () => {
+                if (!button.classList.contains('copied-once')) {
+                    button.classList.add('copied-once');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
