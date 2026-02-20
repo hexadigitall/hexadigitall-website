@@ -400,25 +400,55 @@
                 max-width: 100%;
                 margin: 0;
                 box-shadow: none;
+                page-break-after: avoid;
             }
 
             .action-bar,
             .print-header {
-                display: none;
+                display: none !important;
             }
 
             .banner-section {
                 page-break-inside: avoid;
+                height: 200px;
                 background-image: url('assets/security-article.png');
                 background-size: cover;
                 background-position: center;
                 -webkit-print-color-adjust: exact;
                 print-color-adjust: exact;
+                margin: 0;
+                padding: 0;
             }
 
             .header-section {
                 page-break-inside: avoid;
                 box-shadow: none;
+                background: white;
+                position: relative;
+                margin-top: -90px;
+                padding-top: 110px;
+                padding-left: 80px;
+                padding-right: 80px;
+                padding-bottom: 40px;
+                min-height: 180px;
+            }
+
+            .profile-photo {
+                position: absolute;
+                left: 80px;
+                top: 0;
+                width: 180px;
+                height: 180px;
+                border-radius: 50%;
+                border: 5px solid white;
+                box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+                background: white;
+                page-break-inside: avoid;
+            }
+
+            .profile-info {
+                margin-left: 200px;
+                margin-top: 0;
             }
 
             .section {
