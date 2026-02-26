@@ -21350,9 +21350,21 @@
     <div class="exercise-box c20">
       <h4 class="c16">Anatomy of a Resource Block</h4>
       <div class="code-block c167">
-        resource "aws_instance" "web_server" { ami =
-        "ami-0c55b159cbfafe1f0" instance_type = "t2.micro" tags = {
-        Name = "MyFirstServer" } }
+        # Best Practice: Use a data source to get the latest AMI dynamically<br>
+        data "aws_ami" "ubuntu" {<br>
+        &nbsp;&nbsp;most_recent = true<br>
+        &nbsp;&nbsp;owners = ["099720109477"]<br>
+        &nbsp;&nbsp;filter {<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;name = "name"<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;values = ["ubuntu/images/hvm-ssd/ubuntu-jammy-22.04-amd64-server-*"]<br>
+        &nbsp;&nbsp;}<br>
+        }<br>
+        <br>
+        resource "aws_instance" "web_server" {<br>
+        &nbsp;&nbsp;ami = data.aws_ami.ubuntu.id<br>
+        &nbsp;&nbsp;instance_type = "t3.micro"<br>
+        &nbsp;&nbsp;tags = { Name = "MyFirstServer" }<br>
+        }
       </div>
       <ul class="c173">
         <li><strong>Block Type (`resource`):</strong> Tells
@@ -21596,15 +21608,29 @@
           </div>
         </div>
         <div class="lab-step">
-          <strong>Define the EC2 Instance:</strong>
-          <p class="c126">Append this to <code>main.tf</code>. We
-          are hardcoding the AMI ID for Ubuntu 20.04 (this ID is
-          specific to us-east-1).</p>
+          <strong>Define the EC2 Instance (main.tf):</strong>
+          <p class="c126">Use a data source to fetch the latest Ubuntu AMI dynamically. This is more maintainable than hardcoding AMI IDs.</p>
           <div class="code-block">
-            resource "aws_instance" "web_server" { ami =
-            "ami-0c7217cdde317cfec" # Ubuntu 22.04 LTS (us-east-1)
-            instance_type = "t2.micro" # Free Tier eligible tags =
-            { Name = "Terraform-Lab-2" } }
+            # First, define the data source<br>
+            data "aws_ami" "ubuntu" {<br>
+            &nbsp;&nbsp;most_recent = true<br>
+            &nbsp;&nbsp;owners = ["099720109477"]  # Canonical<br>
+            &nbsp;&nbsp;filter {<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;name = "name"<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;values = ["ubuntu/images/hvm-ssd/ubuntu-jammy-22.04-amd64-server-*"]<br>
+            &nbsp;&nbsp;}<br>
+            &nbsp;&nbsp;filter {<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;name = "virtualization-type"<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;values = ["hvm"]<br>
+            &nbsp;&nbsp;}<br>
+            }<br>
+            <br>
+            # Then, create the instance using the dynamic AMI<br>
+            resource "aws_instance" "web_server" {<br>
+            &nbsp;&nbsp;ami = data.aws_ami.ubuntu.id<br>
+            &nbsp;&nbsp;instance_type = "t3.micro"<br>
+            &nbsp;&nbsp;tags = { Name = "Terraform-Lab-2" }<br>
+            }
           </div>
         </div>
         <div class="lab-step">
@@ -21646,31 +21672,60 @@
           </div>
         </div>
         <div class="lab-step">
-          <strong>Update main.tf (Use Data Source):</strong>
-          <p class="c126">Replace the hardcoded AMI with a dynamic
-          lookup.</p>
+          <strong>File: variables.tf</strong>
           <div class="code-block">
-            provider "aws" { region = "us-east-1" } # 1. Ask AWS
-            for the latest Ubuntu AMI data "aws_ami" "ubuntu" {
-            most_recent = true filter { name = "name" values =
-            ["ubuntu/images/hvm-ssd/ubuntu-jammy-22.04-amd64-server-*"]
-            } filter { name = "virtualization-type" values =
-            ["hvm"] } owners = ["099720109477"] # Canonical (Ubuntu
-            Creator) } # 2. Use the result in the resource resource
-            "aws_instance" "web" { ami = data.aws_ami.ubuntu.id
-            instance_type = "t2.micro" tags = { Name =
-            var.instance_name } }
+            variable "instance_name" {<br>
+            &nbsp;&nbsp;description = "Name tag for the EC2 instance"<br>
+            &nbsp;&nbsp;type = string<br>
+            &nbsp;&nbsp;default = "My-Dynamic-Server"<br>
+            }
           </div>
         </div>
         <div class="lab-step">
-          <strong>Create outputs.tf:</strong>
-          <p class="c126">Tell Terraform to print the IP address
-          after creation.</p>
+          <strong>File: main.tf (Use Data Source):</strong>
+          <p class="c126">Replace the hardcoded AMI with a dynamic lookup.</p>
           <div class="code-block">
-            output "instance_id" { description = "ID of the EC2
-            instance" value = aws_instance.web.id } output
-            "public_ip" { description = "Public IP address of the
-            EC2 instance" value = aws_instance.web.public_ip }
+            provider "aws" {<br>
+            &nbsp;&nbsp;region = "us-east-1"<br>
+            }<br>
+            <br>
+            # Query AWS for the latest Ubuntu 22.04 AMI<br>
+            data "aws_ami" "ubuntu" {<br>
+            &nbsp;&nbsp;most_recent = true<br>
+            &nbsp;&nbsp;filter {<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;name = "name"<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;values = ["ubuntu/images/hvm-ssd/ubuntu-jammy-22.04-amd64-server-*"]<br>
+            &nbsp;&nbsp;}<br>
+            &nbsp;&nbsp;filter {<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;name = "virtualization-type"<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;values = ["hvm"]<br>
+            &nbsp;&nbsp;}<br>
+            &nbsp;&nbsp;owners = ["099720109477"]  # Canonical (Ubuntu Creator)<br>
+            }<br>
+            <br>
+            # Create the instance using the dynamic AMI<br>
+            resource "aws_instance" "web" {<br>
+            &nbsp;&nbsp;ami = data.aws_ami.ubuntu.id<br>
+            &nbsp;&nbsp;instance_type = "t3.micro"<br>
+            &nbsp;&nbsp;tags = {<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;Name = var.instance_name<br>
+            &nbsp;&nbsp;}<br>
+            }
+          </div>
+        </div>
+        <div class="lab-step">
+          <strong>File: outputs.tf</strong>
+          <p class="c126">Tell Terraform to print the IP address after creation.</p>
+          <div class="code-block">
+            output "instance_id" {<br>
+            &nbsp;&nbsp;description = "ID of the EC2 instance"<br>
+            &nbsp;&nbsp;value = aws_instance.web.id<br>
+            }<br>
+            <br>
+            output "public_ip" {<br>
+            &nbsp;&nbsp;description = "Public IP address of the EC2 instance"<br>
+            &nbsp;&nbsp;value = aws_instance.web.public_ip<br>
+            }
           </div>
         </div>
         <div class="lab-step">
@@ -21749,36 +21804,75 @@
       (Startup Scripts).</p>
       <div class="lab-steps">
         <div class="lab-step">
-          <strong>Create `security.tf`:</strong>
-          <p class="c126">Define a security group allowing HTTP
-          (80) and SSH (22).</p>
+          <strong>File: security.tf</strong>
+          <p class="c126">Define a security group allowing HTTP (80) and SSH (22).</p>
           <div class="code-block">
-            resource "aws_security_group" "web_sg" { name =
-            "allow_web_traffic" description = "Allow Web inbound
-            traffic" ingress { description = "HTTP" from_port = 80
-            to_port = 80 protocol = "tcp" cidr_blocks =
-            ["0.0.0.0/0"] } ingress { description = "SSH" from_port
-            = 22 to_port = 22 protocol = "tcp" cidr_blocks =
-            ["0.0.0.0/0"] } egress { from_port = 0 to_port = 0
-            protocol = "-1" # Allow all outbound cidr_blocks =
-            ["0.0.0.0/0"] } }
+            resource "aws_security_group" "web_sg" {<br>
+            &nbsp;&nbsp;name = "allow_web_traffic"<br>
+            &nbsp;&nbsp;description = "Allow Web inbound traffic"<br>
+            <br>
+            &nbsp;&nbsp;ingress {<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;description = "HTTP"<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;from_port = 80<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;to_port = 80<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;protocol = "tcp"<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;cidr_blocks = ["0.0.0.0/0"]<br>
+            &nbsp;&nbsp;}<br>
+            <br>
+            &nbsp;&nbsp;ingress {<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;description = "SSH"<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;from_port = 22<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;to_port = 22<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;protocol = "tcp"<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;cidr_blocks = ["0.0.0.0/0"]<br>
+            &nbsp;&nbsp;}<br>
+            <br>
+            &nbsp;&nbsp;egress {<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;description = "Allow all outbound"<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;from_port = 0<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;to_port = 0<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;protocol = "-1"<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;cidr_blocks = ["0.0.0.0/0"]<br>
+            &nbsp;&nbsp;}<br>
+            }
           </div>
         </div>
         <div class="lab-step">
-          <strong>Update `main.tf` with User Data:</strong>
-          <p class="c126">Modify your instance resource to use the
-          security group and install Apache on boot.</p>
+          <strong>File: main.tf (EC2 Instance with Dynamic AMI and User Data)</strong>
+          <p class="c126">Define the data source for the latest Ubuntu AMI and configure the instance.</p>
           <div class="code-block">
-            resource "aws_instance" "web" { ami =
-            data.aws_ami.ubuntu.id instance_type = "t2.micro" #
-            Attach the Security Group vpc_security_group_ids =
-            [aws_security_group.web_sg.id] # Startup Script (Bash)
-            user_data = &lt;&lt;-EOF #!/bin/bash sudo apt-get
-            update sudo apt-get install -y apache2 echo "
-            <h1>Deployed via Terraform</h1>" | sudo tee
-            /var/www/html/index.html sudo systemctl start apache2
-            sudo systemctl enable apache2 EOF tags = { Name =
-            "Terraform-Web-Server" } }
+            # Query AWS for the latest Ubuntu 22.04 LTS AMI<br>
+            data "aws_ami" "ubuntu" {<br>
+            &nbsp;&nbsp;most_recent = true<br>
+            &nbsp;&nbsp;filter {<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;name = "name"<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;values = ["ubuntu/images/hvm-ssd/ubuntu-jammy-22.04-amd64-server-*"]<br>
+            &nbsp;&nbsp;}<br>
+            &nbsp;&nbsp;filter {<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;name = "virtualization-type"<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;values = ["hvm"]<br>
+            &nbsp;&nbsp;}<br>
+            &nbsp;&nbsp;owners = ["099720109477"]  # Canonical<br>
+            }<br>
+            <br>
+            resource "aws_instance" "web" {<br>
+            &nbsp;&nbsp;ami = data.aws_ami.ubuntu.id<br>
+            &nbsp;&nbsp;instance_type = "t3.micro"<br>
+            &nbsp;&nbsp;vpc_security_group_ids = [aws_security_group.web_sg.id]<br>
+            <br>
+            &nbsp;&nbsp;user_data = &lt;&lt;-EOF<br>
+            #!/bin/bash<br>
+            sudo apt-get update<br>
+            sudo apt-get install -y apache2<br>
+            echo "&lt;h1&gt;Deployed via Terraform&lt;/h1&gt;" | sudo tee /var/www/html/index.html<br>
+            sudo systemctl start apache2<br>
+            sudo systemctl enable apache2<br>
+            EOF<br>
+            <br>
+            &nbsp;&nbsp;tags = {<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;Name = "Terraform-Web-Server"<br>
+            &nbsp;&nbsp;}<br>
+            }
           </div>
         </div>
         <div class="lab-step">
@@ -22270,7 +22364,7 @@
       <ul class="c128">
         <li><code>aws_region</code> (Default: us-east-1)</li>
         <li><code>vpc_cidr</code> (Default: 10.0.0.0/16)</li>
-        <li><code>instance_type</code> (Default: t2.micro)</li>
+        <li><code>instance_type</code> (Default: t3.micro)</li>
         <li><code>project_name</code> (Default: SkyLaunch)</li>
       </ul>
     </div>
@@ -22402,33 +22496,85 @@
         aws_subnet.public.id route_table_id =
         aws_route_table.public.id }
       </div>
-      <h4 class="c54">3. main.tf (Compute)</h4>
+      <h4 class="c54">File: main.tf (AWS Provider & Security Group)</h4>
       <div class="code-block">
-        provider "aws" { region = var.aws_region } # Find latest
-        Amazon Linux 2023 data "aws_ami" "amazon_linux" {
-        most_recent = true owners = ["amazon"] filter { name =
-        "name" values = ["al2023-ami-2023.*-x86_64"] } } resource
-        "aws_security_group" "web" { name =
-        "${var.project_name}-sg" description = "Allow HTTP" vpc_id
-        = aws_vpc.main.id ingress { from_port = 80 to_port = 80
-        protocol = "tcp" cidr_blocks = ["0.0.0.0/0"] } # Allow
-        outbound to install packages egress { from_port = 0 to_port
-        = 0 protocol = "-1" cidr_blocks = ["0.0.0.0/0"] } }
-        resource "aws_instance" "web" { ami =
-        data.aws_ami.amazon_linux.id instance_type = "t2.micro"
-        subnet_id = aws_subnet.public.id vpc_security_group_ids =
-        [aws_security_group.web.id] user_data = &lt;&lt;-EOF
-        #!/bin/bash yum update -y yum install -y httpd systemctl
-        start httpd systemctl enable httpd echo "
-        <h1>Welcome to SkyLaunch - Deployed by Terraform</h1>" &gt;
-        /var/www/html/index.html EOF tags = { Name =
-        "${var.project_name}-server" } }
+        provider "aws" {<br>
+        &nbsp;&nbsp;region = var.aws_region<br>
+        }<br>
+        <br>
+        resource "aws_security_group" "web" {<br>
+        &nbsp;&nbsp;name = "${var.project_name}-sg"<br>
+        &nbsp;&nbsp;description = "Allow HTTP and SSH"<br>
+        &nbsp;&nbsp;vpc_id = aws_vpc.main.id<br>
+        <br>
+        &nbsp;&nbsp;ingress {<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;description = "HTTP"<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;from_port = 80<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;to_port = 80<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;protocol = "tcp"<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;cidr_blocks = ["0.0.0.0/0"]<br>
+        &nbsp;&nbsp;}<br>
+        <br>
+        &nbsp;&nbsp;ingress {<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;description = "SSH"<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;from_port = 22<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;to_port = 22<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;protocol = "tcp"<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;cidr_blocks = ["0.0.0.0/0"]<br>
+        &nbsp;&nbsp;}<br>
+        <br>
+        &nbsp;&nbsp;egress {<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;description = "Allow all outbound"<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;from_port = 0<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;to_port = 0<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;protocol = "-1"<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;cidr_blocks = ["0.0.0.0/0"]<br>
+        &nbsp;&nbsp;}<br>
+        }
       </div>
-      <h4 class="c54">4. outputs.tf</h4>
+      <h4 class="c54">File: compute.tf (EC2 Instance with Dynamic AMI)</h4>
       <div class="code-block">
-        output "vpc_id" { value = aws_vpc.main.id } output
-        "website_url" { value =
-        "http://${aws_instance.web.public_ip}" }
+        # Query AWS for the latest Amazon Linux 2023 AMI<br>
+        data "aws_ami" "amazon_linux" {<br>
+        &nbsp;&nbsp;most_recent = true<br>
+        &nbsp;&nbsp;owners = ["amazon"]<br>
+        &nbsp;&nbsp;filter {<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;name = "name"<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;values = ["al2023-ami-2023.*-x86_64"]<br>
+        &nbsp;&nbsp;}<br>
+        }<br>
+        <br>
+        resource "aws_instance" "web" {<br>
+        &nbsp;&nbsp;ami = data.aws_ami.amazon_linux.id<br>
+        &nbsp;&nbsp;instance_type = "t3.micro"<br>
+        &nbsp;&nbsp;subnet_id = aws_subnet.public.id<br>
+        &nbsp;&nbsp;vpc_security_group_ids = [aws_security_group.web.id]<br>
+        <br>
+        &nbsp;&nbsp;user_data = &lt;&lt;-EOF<br>
+        #!/bin/bash<br>
+        yum update -y<br>
+        yum install -y httpd<br>
+        systemctl start httpd<br>
+        systemctl enable httpd<br>
+        echo "&lt;h1&gt;Welcome to SkyLaunch - Deployed by Terraform&lt;/h1&gt;" &gt; /var/www/html/index.html<br>
+        EOF<br>
+        <br>
+        &nbsp;&nbsp;tags = {<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;Name = "${var.project_name}-server"<br>
+        &nbsp;&nbsp;}<br>
+        }
+      </div>
+      <h4 class="c54">File: outputs.tf</h4>
+      <div class="code-block">
+        output "vpc_id" {<br>
+        &nbsp;&nbsp;description = "ID of the created VPC"<br>
+        &nbsp;&nbsp;value = aws_vpc.main.id<br>
+        }<br>
+        <br>
+        output "website_url" {<br>
+        &nbsp;&nbsp;description = "Public URL to access the web server"<br>
+        &nbsp;&nbsp;value = "http://${aws_instance.web.public_ip}"<br>
+        }
       </div>
     </div>
     <div class="warning-box c53">
@@ -22700,15 +22846,26 @@
       root module via `outputs`.</p>
     </div>
     <div class="code-block">
-      # Directory Structure root/ ├── main.tf # Calls the module
-      └── modules/ └── web_server/ # The Child Module ├── main.tf #
-      Defines aws_instance, aws_security_group ├── variables.tf #
-      Defines input: instance_type, ami_id └── outputs.tf # Defines
-      output: public_ip # Calling the Module (in root/main.tf)
-      module "frontend" { source = "./modules/web_server"
-      instance_type = "t2.micro" # Passing input ami_id =
-      "ami-0c55b159" } # Accessing the Output output "app_url" {
-      value = module.frontend.public_ip }
+      # Directory Structure<br>
+      root/<br>
+      ├── main.tf                 # Calls the module<br>
+      └── modules/<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;└── web_server/             # The Child Module<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;├── main.tf            # Defines aws_instance, aws_security_group<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;├── variables.tf       # Defines input: instance_type, ami_id<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└── outputs.tf          # Defines output: public_ip<br>
+      <br>
+      # Calling the Module (in root/main.tf)<br>
+      module "frontend" {<br>
+      &nbsp;&nbsp;source = "./modules/web_server"<br>
+      &nbsp;&nbsp;instance_type = "t3.micro"<br>
+      &nbsp;&nbsp;ami_id = data.aws_ami.ubuntu.id<br>
+      }<br>
+      <br>
+      # Accessing the Output<br>
+      output "app_url" {<br>
+      &nbsp;&nbsp;value = module.frontend.public_ip<br>
+      }
     </div>
     <h3 class="subsection-heading">11.2 Remote State &
     Collaboration</h3>
@@ -22884,13 +23041,23 @@
           <p class="c126">Now, use the module to create two servers
           in <code>lab1/main.tf</code>.</p>
           <div class="code-block">
-            provider "aws" { region = "us-east-1" } module
-            "marketing_server" { source = "./modules/web_server"
-            server_name = "marketing-prod" instance_type =
-            "t2.micro" } module "finance_server" { source =
-            "./modules/web_server" server_name = "finance-internal"
-            instance_type = "t2.micro" } output "marketing_ip" {
-            value = module.marketing_server.public_ip }
+            provider "aws" { region = "us-east-1" }<br>
+            <br>
+            module "marketing_server" {<br>
+            &nbsp;&nbsp;source = "./modules/web_server"<br>
+            &nbsp;&nbsp;server_name = "marketing-prod"<br>
+            &nbsp;&nbsp;instance_type = "t3.micro"<br>
+            }<br>
+            <br>
+            module "finance_server" {<br>
+            &nbsp;&nbsp;source = "./modules/web_server"<br>
+            &nbsp;&nbsp;server_name = "finance-internal"<br>
+            &nbsp;&nbsp;instance_type = "t3.micro"<br>
+            }<br>
+            <br>
+            output "marketing_ip" {<br>
+            &nbsp;&nbsp;value = module.marketing_server.public_ip<br>
+            }
           </div>
         </div>
         <div class="lab-step">
@@ -23554,7 +23721,7 @@
         <li>Resources:<br>
         - <strong>Security Group:</strong> Allow HTTP (80) from
         anywhere.<br>
-        - <strong>Launch Template:</strong> T2.micro, Amazon Linux
+        - <strong>Launch Template:</strong> T3.micro, Amazon Linux
         2, User Data installing Apache.<br>
         - <strong>Auto Scaling Group:</strong> Min 2, Max 4
         instances.</li>
@@ -23660,7 +23827,7 @@
       <div class="code-block">
         resource "aws_launch_template" "web" { name_prefix =
         "titan-web-" image_id = var.ami_id instance_type =
-        "t2.micro" user_data = base64encode(&lt;&lt;-EOF
+        "t3.micro" user_data = base64encode(&lt;&lt;-EOF
         #!/bin/bash yum install -y httpd systemctl start httpd echo
         "Hello from Titan" &gt; /var/www/html/index.html EOF )
         vpc_security_group_ids = [var.security_group_id] } resource
@@ -23685,7 +23852,7 @@
         module "compute" { source = "./modules/compute" vpc_id =
         module.network.vpc_id subnet_ids =
         module.network.public_subnet_ids security_group_id =
-        aws_security_group.web.id ami_id = "ami-0c7217cdde317cfec"
+        aws_security_group.web.id ami_id = data.aws_ami.amazon_linux.id  # Dynamic AMI lookup
         # Amazon Linux 2023 }
       </div>
     </div>
