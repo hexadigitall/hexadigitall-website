@@ -204,9 +204,23 @@
       .warning-box,
       .objectives-grid,
       .exercise-box {
-        page-break-inside: auto;
         overflow: visible !important;
         margin: 0.3cm 0;
+      }
+
+      /* Allow objectives grid to break across pages with block layout */
+      .objectives-grid {
+        display: block;
+        page-break-inside: auto;
+        break-inside: auto;
+      }
+
+      /* Allow individual objective cards to flow naturally across pages */
+      .objective-card {
+        display: block;
+        page-break-inside: auto;
+        break-inside: auto;
+        margin-bottom: 1rem;
       }
 
       /* Labs and code - allow breaks for long sections, preserve styling */
