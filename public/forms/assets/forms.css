@@ -317,3 +317,81 @@ button.secondary:hover, .btn-link.secondary:hover {
     page-break-inside: avoid;
   }
 }
+
+/* Navigation Bar Branding */
+.nav-bar {
+  background: white;
+  border-bottom: 2px solid #e5e7eb;
+  padding: 12px 30px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.nav-bar .logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: #1f2937;
+}
+
+.nav-bar .logo img {
+  height: 36px;
+  width: auto;
+}
+
+.nav-bar .back-link,
+.nav-bar .home-link {
+  display: inline-block;
+  padding: 8px 16px;
+  background: #f3f4f6;
+  border-radius: 6px;
+  text-decoration: none;
+  color: #4b5563;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.nav-bar .back-link:hover,
+.nav-bar .home-link:hover {
+  background: #e5e7eb;
+  color: #1f2937;
+}
+
+/* Breadcrumb Navigation */
+.breadcrumb {
+  padding: 14px 30px;
+  background: white;
+  border-bottom: 1px solid #e5e7eb;
+  font-size: 0.9rem;
+  color: #4b5563;
+}
+
+.breadcrumb a {
+  color: #667eea;
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.breadcrumb a:hover {
+  text-decoration: underline;
+  color: #764ba2;
+}
+
+.breadcrumb span {
+  color: #9ca3af;
+  margin: 0 8px;
+}
+
+.breadcrumb strong {
+  color: #1f2937;
+  font-weight: 600;
+}

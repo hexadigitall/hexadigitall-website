@@ -462,7 +462,15 @@ function CompleteServicePage(props: CompleteServicePageProps) {
           serviceId={selectedIndividualService.id}
           serviceName={selectedIndividualService.name}
           serviceType="individual"
-          tier={undefined}
+          tier={{
+            id: selectedIndividualService.id,
+            name: selectedIndividualService.name,
+            price: selectedIndividualService.price,
+            description: selectedIndividualService.description,
+            features: selectedIndividualService.features,
+            deliveryTime: selectedIndividualService.deliveryTime,
+            popular: false
+          }}
           onClose={() => {
             setShowRequestFlow(false);
             setSelectedIndividualService(null);

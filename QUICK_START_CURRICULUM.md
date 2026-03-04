@@ -88,7 +88,7 @@ Review this document before your first session to get familiar with the
 journey ahead. We're excited to have you!
 
 Best regards,
-HexaDigitall Team
+Hexadigitall Technologies Team
 ```
 
 ## Customize for New Courses

@@ -131,7 +131,7 @@ node scripts/fetch-course-curriculum-data.mjs
 
 ### Visual Design
 - **Professional**: Enterprise-grade design suitable for corporate training
-- **Branded**: Reflects HexaDigitall's identity
+- **Branded**: Reflects Hexadigitall Technologies's identity
 - **Accessible**: High contrast, readable fonts, clear hierarchy
 - **Printable**: Optimized for both screen and print
 
@@ -268,10 +268,10 @@ For questions about:
 
 ## 📜 License
 
-© 2026 HexaDigitall - All rights reserved
+© 2026 Hexadigitall Technologies - All rights reserved
 
 ---
 
 **Created**: January 2026  
 **Last Updated**: January 12, 2026  
-**Maintained By**: HexaDigitall Curriculum Team
+**Maintained By**: Hexadigitall Technologies Curriculum Team

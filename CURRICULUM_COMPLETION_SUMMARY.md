@@ -2,7 +2,7 @@
 
 ## ✅ What Was Created
 
-I've successfully built a comprehensive curriculum generation system for HexaDigitall with the following components:
+I've successfully built a comprehensive curriculum generation system for Hexadigitall Technologies with the following components:
 
 ### 1. **Sanity Data Fetcher Script**
 **File**: `scripts/fetch-course-curriculum-data.mjs`
@@ -249,7 +249,7 @@ These professional curricula will:
 - Set clear expectations
 - Reduce student anxiety about course difficulty
 - Increase enrollment confidence
-- Demonstrate HexaDigitall's commitment to quality education
+- Demonstrate Hexadigitall Technologies's commitment to quality education
 
 ---
 

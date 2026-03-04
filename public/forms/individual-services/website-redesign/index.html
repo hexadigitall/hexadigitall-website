@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Website Redesign - Service Intake Form | Hexadigitall</title>
+  <meta name="description" content="Complete your website redesign service intake form. Professional website transformation and modernization.">
+  <link rel="stylesheet" href="/forms/assets/forms.css">
+  <style>
+    /* Navigation */
+    nav {
+      background: white;
+      border-bottom: 2px solid #e5e7eb;
+      padding: 16px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    }
+
+    .logo-link {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+    }
+
+    .logo-link img {
+      height: 40px;
+      width: auto;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 32px;
+      align-items: center;
+    }
+
+    .nav-links a {
+      color: #4b5563;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 0.95rem;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover {
+      color: #667eea;
+    }
+
+    .nav-cta {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white !important;
+      padding: 10px 24px;
+      border-radius: 6px;
+      font-weight: 600;
+    }
+
+    .nav-cta:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+    }
+
+    /* Form Header */
+    .form-header {
+      text-align: center;
+      margin-bottom: 3rem;
+      padding: 2rem;
+      background: linear-gradient(135deg, rgba(59, 130, 246, 0.05) 0%, rgba(102, 126, 234, 0.05) 100%);
+      border-radius: 12px;
+    }
+
+    .form-header h1 {
+      font-size: 2.5rem;
+      color: #1f2937;
+      margin-bottom: 0.5rem;
+    }
+
+    .form-header p {
+      font-size: 1.1rem;
+      color: #6b7280;
+      margin-bottom: 1rem;
+    }
+
+    .price-badge {
+      display: inline-block;
+      background: linear-gradient(135deg, #3b82f6 0%, #667eea 100%);
+      color: white;
+      padding: 8px 20px;
+      border-radius: 20px;
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
+
+    /* Footer */
+    footer {
+      background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+      color: white;
+      padding: 4rem 2rem 2rem;
+      margin-top: 6rem;
+    }
+
+    .footer-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 3rem;
+      margin-bottom: 3rem;
+    }
+
+    .footer-section h3 {
+      color: #667eea;
+      margin-bottom: 1rem;
+      font-size: 1.1rem;
+    }
+
+    .footer-section ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .footer-section ul li {
+      margin-bottom: 0.5rem;
+    }
+
+    .footer-section a {
+      color: #94a3b8;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .footer-section a:hover {
+      color: #667eea;
+    }
+
+    .footer-bottom {
+      text-align: center;
+      padding-top: 2rem;
+      border-top: 1px solid #334155;
+      color: #94a3b8;
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation -->
+  <nav>
+    <a href="/" class="logo-link">
+      <img src="/hexadigitall-logo-transparent.png" alt="Hexadigitall">
+    </a>
+    <div class="nav-links">
+      <a href="/services">Services</a>
+      <a href="/courses">Courses</a>
+      <a href="/mentorships">Mentorship</a>
+      <a href="/about">About</a>
+      <a href="/contact" class="nav-cta">Contact</a>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="main-content">
+    <div class="form-header">
+      <h1>🌐 Website Redesign</h1>
+      <p>Transform your outdated website into a modern, high-performing digital experience</p>
+      <span class="price-badge">7-10 days delivery</span>
+    </div>
+
+    <form class="intake-form" id="websiteRedesignForm">
+      <!-- Client Information -->
+      <section class="form-section">
+        <h2>📋 Client Information</h2>
+        
+        <div class="form-group">
+          <label for="fullName">Full Name *</label>
+          <input type="text" id="fullName" name="fullName" required>
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email Address *</label>
+          <input type="email" id="email" name="email" required>
+        </div>
+
+        <div class="form-group">
+          <label for="phone">Phone Number *</label>
+          <input type="tel" id="phone" name="phone" required>
+        </div>
+
+        <div class="form-group">
+          <label for="company">Company/Business Name *</label>
+          <input type="text" id="company" name="company" required>
+        </div>
+      </section>
+
+      <!-- Current Website Information -->
+      <section class="form-section">
+        <h2>🔍 Current Website Information</h2>
+
+        <div class="form-group">
+          <label for="currentWebsite">Current Website URL *</label>
+          <input type="url" id="currentWebsite" name="currentWebsite" placeholder="https://www.yourwebsite.com" required>
+        </div>
+
+        <div class="form-group">
+          <label for="websitePlatform">What platform is your website currently on?</label>
+          <select id="websitePlatform" name="websitePlatform">
+            <option value="">Select platform...</option>
+            <option value="wordpress">WordPress</option>
+            <option value="wix">Wix</option>
+            <option value="squarespace">Squarespace</option>
+            <option value="shopify">Shopify</option>
+            <option value="custom">Custom Built</option>
+            <option value="static">Static HTML/CSS</option>
+            <option value="other">Other</option>
+            <option value="unknown">I don't know</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="mainIssues">What are the main issues with your current website? *</label>
+          <textarea id="mainIssues" name="mainIssues" rows="4" placeholder="E.g., Outdated design, slow loading, not mobile-friendly, poor SEO..." required></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="keepElements">What elements/sections do you want to keep from the current site?</label>
+          <textarea id="keepElements" name="keepElements" rows="3" placeholder="E.g., Logo, certain pages, specific content sections..."></textarea>
+        </div>
+      </section>
+
+      <!-- Redesign Goals -->
+      <section class="form-section">
+        <h2>🎯 Redesign Goals & Vision</h2>
+
+        <div class="form-group">
+          <label for="redesignGoals">What are your main goals for the redesign? *</label>
+          <div class="checkbox-group">
+            <label><input type="checkbox" name="goals" value="modern-design"> Modern, fresh design</label>
+            <label><input type="checkbox" name="goals" value="mobile-responsive"> Mobile responsiveness</label>
+            <label><input type="checkbox" name="goals" value="faster-loading"> Faster loading speed</label>
+            <label><input type="checkbox" name="goals" value="better-seo"> Better SEO performance</label>
+            <label><input type="checkbox" name="goals" value="improve-conversion"> Improve conversion rates</label>
+            <label><input type="checkbox" name="goals" value="better-ux"> Better user experience</label>
+            <label><input type="checkbox" name="goals" value="new-features"> Add new features/functionality</label>
+            <label><input type="checkbox" name="goals" value="rebrand"> Complete rebranding</label>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="targetAudience">Who is your target audience? *</label>
+          <textarea id="targetAudience" name="targetAudience" rows="3" placeholder="Describe your ideal customers/visitors..." required></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="designPreferences">Design style preferences</label>
+          <textarea id="designPreferences" name="designPreferences" rows="3" placeholder="E.g., Minimalist, Bold and colorful, Corporate/Professional, Creative..."></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="inspirationSites">Website inspiration (URLs of sites you like)</label>
+          <textarea id="inspirationSites" name="inspirationSites" rows="3" placeholder="Paste URLs of websites whose design you admire..."></textarea>
+        </div>
+      </section>
+
+      <!-- Content & Features -->
+      <section class="form-section">
+        <h2>📄 Content & Features</h2>
+
+        <div class="form-group">
+          <label for="contentReady">Do you have content ready (text, images, videos)? *</label>
+          <select id="contentReady" name="contentReady" required>
+            <option value="">Select...</option>
+            <option value="ready">Yes, all content is ready</option>
+            <option value="partial">Some content is ready</option>
+            <option value="need-help">No, I need help creating content</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="newFeatures">What new features do you want to add?</label>
+          <div class="checkbox-group">
+            <label><input type="checkbox" name="features" value="blog"> Blog</label>
+            <label><input type="checkbox" name="features" value="contact-form"> Contact forms</label>
+            <label><input type="checkbox" name="features" value="booking"> Booking/Appointment system</label>
+            <label><input type="checkbox" name="features" value="ecommerce"> E-commerce functionality</label>
+            <label><input type="checkbox" name="features" value="gallery"> Photo/Video gallery</label>
+            <label><input type="checkbox" name="features" value="testimonials"> Testimonials section</label>
+            <label><input type="checkbox" name="features" value="live-chat"> Live chat</label>
+            <label><input type="checkbox" name="features" value="other"> Other (specify in notes)</label>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="pageCount">Approximately how many pages will the redesigned site have?</label>
+          <select id="pageCount" name="pageCount">
+            <option value="">Select...</option>
+            <option value="1-5">1-5 pages</option>
+            <option value="6-10">6-10 pages</option>
+            <option value="11-20">11-20 pages</option>
+            <option value="20+">More than 20 pages</option>
+          </select>
+        </div>
+      </section>
+
+      <!-- Technical Requirements -->
+      <section class="form-section">
+        <h2>⚙️ Technical Requirements</h2>
+
+        <div class="form-group">
+          <label for="hostingAccess">Do you have access to your website hosting?</label>
+          <select id="hostingAccess" name="hostingAccess">
+            <option value="">Select...</option>
+            <option value="yes">Yes, I have full access</option>
+            <option value="partial">Yes, but limited access</option>
+            <option value="no">No access</option>
+            <option value="unknown">I'm not sure</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="domainAccess">Do you have access to your domain registrar?</label>
+          <select id="domainAccess" name="domainAccess">
+            <option value="">Select...</option>
+            <option value="yes">Yes</option>
+            <option value="no">No</option>
+            <option value="unknown">I'm not sure</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="preferredPlatform">Preferred platform for the redesign</label>
+          <select id="preferredPlatform" name="preferredPlatform">
+            <option value="">No preference</option>
+            <option value="wordpress">WordPress</option>
+            <option value="nextjs">Next.js (Modern framework)</option>
+            <option value="webflow">Webflow</option>
+            <option value="shopify">Shopify (for e-commerce)</option>
+            <option value="current">Keep current platform</option>
+            <option value="recommend">Recommend best option</option>
+          </select>
+        </div>
+      </section>
+
+      <!-- Timeline & Additional Info -->
+      <section class="form-section">
+        <h2>⏰ Timeline & Additional Information</h2>
+
+        <div class="form-group">
+          <label for="urgency">How urgent is this project? *</label>
+          <select id="urgency" name="urgency" required>
+            <option value="">Select urgency...</option>
+            <option value="standard">Standard (7-10 days)</option>
+            <option value="rush">Rush (5-7 days - additional fee)</option>
+            <option value="urgent">Urgent (3-5 days - premium fee)</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="launchDate">Do you have a specific launch date in mind?</label>
+          <input type="date" id="launchDate" name="launchDate">
+        </div>
+
+        <div class="form-group">
+          <label for="additionalNotes">Additional notes or special requirements</label>
+          <textarea id="additionalNotes" name="additionalNotes" rows="4" placeholder="Any other information we should know..."></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="budget">Budget considerations</label>
+          <select id="budget" name="budget">
+            <option value="">Select...</option>
+            <option value="standard">Standard pricing ($599)</option>
+            <option value="extended">Extended features (+$200-500)</option>
+            <option value="premium">Premium redesign ($1000+)</option>
+            <option value="discuss">Let's discuss</option>
+          </select>
+        </div>
+      </section>
+
+      <!-- Submit Button -->
+      <div class="form-actions">
+        <button type="submit" class="btn-primary">Submit Redesign Request</button>
+      </div>
+    </form>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-content">
+      <div class="footer-section">
+        <h3>Quick Links</h3>
+        <ul>
+          <li><a href="/">Home</a></li>
+          <li><a href="/about">About Us</a></li>
+          <li><a href="/blog">Blog</a></li>
+          <li><a href="/contact">Contact</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-section">
+        <h3>Services</h3>
+        <ul>
+          <li><a href="/services">All Services</a></li>
+          <li><a href="/services#web-development">Web Development</a></li>
+          <li><a href="/services#branding">Branding</a></li>
+          <li><a href="/services#marketing">Marketing</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-section">
+        <h3>Learn</h3>
+        <ul>
+          <li><a href="/courses">Online Courses</a></li>
+          <li><a href="/mentorships">Mentorship</a></li>
+          <li><a href="/resources">Resources</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-section">
+        <h3>Connect</h3>
+        <ul>
+          <li><a href="https://twitter.com/hexadigitall" target="_blank">Twitter</a></li>
+          <li><a href="https://linkedin.com/company/hexadigitall" target="_blank">LinkedIn</a></li>
+          <li><a href="https://instagram.com/hexadigitall" target="_blank">Instagram</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>&copy; 2024 Hexadigitall. All rights reserved. Made with ❤️ in Nigeria</p>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('websiteRedesignForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const formData = new FormData(this);
+      const data = {
+        service: 'website-redesign',
+        timestamp: new Date().toISOString(),
+        clientInfo: {
+          fullName: formData.get('fullName'),
+          email: formData.get('email'),
+          phone: formData.get('phone'),
+          company: formData.get('company')
+        },
+        currentWebsite: {
+          url: formData.get('currentWebsite'),
+          platform: formData.get('websitePlatform'),
+          mainIssues: formData.get('mainIssues'),
+          keepElements: formData.get('keepElements')
+        },
+        redesignGoals: {
+          goals: formData.getAll('goals'),
+          targetAudience: formData.get('targetAudience'),
+          designPreferences: formData.get('designPreferences'),
+          inspirationSites: formData.get('inspirationSites')
+        },
+        contentFeatures: {
+          contentReady: formData.get('contentReady'),
+          newFeatures: formData.getAll('features'),
+          pageCount: formData.get('pageCount')
+        },
+        technical: {
+          hostingAccess: formData.get('hostingAccess'),
+          domainAccess: formData.get('domainAccess'),
+          preferredPlatform: formData.get('preferredPlatform')
+        },
+        timeline: {
+          urgency: formData.get('urgency'),
+          launchDate: formData.get('launchDate'),
+          additionalNotes: formData.get('additionalNotes'),
+          budget: formData.get('budget')
+        }
+      };
+
+      console.log('Website Redesign Form Submission:', data);
+      
+      // TODO: Send to backend API
+      // For now, show success message
+      alert('Thank you! Your website redesign request has been submitted. We\'ll contact you within 24 hours to discuss your project.');
+      
+      // Optional: Reset form
+      // this.reset();
+    });
+  </script>
+</body>
+</html>

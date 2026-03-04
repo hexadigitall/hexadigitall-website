@@ -32,6 +32,21 @@ const nextConfig: NextConfig = {
         source: '/forms/',
         destination: '/forms/index.html',
       },
+      // Individual services form
+      {
+        source: '/forms/individual-services',
+        destination: '/forms/individual-services/index.html',
+      },
+      {
+        source: '/forms/individual-services/',
+        destination: '/forms/individual-services/index.html',
+      },
+      // Catch-all for all nested form paths (with and without trailing slash)
+      {
+        source: '/forms/:path*',
+        destination: '/forms/:path*/index.html',
+      },
+      // Legacy old-style forms
       {
         source: '/forms/social-media',
         destination: '/forms/social-media/index.html',
@@ -39,22 +54,6 @@ const nextConfig: NextConfig = {
       {
         source: '/forms/social-media/',
         destination: '/forms/social-media/index.html',
-      },
-      {
-        source: '/forms/profile-and-portfolio/cv-resume-professional',
-        destination: '/forms/profile-and-portfolio/cv-resume-professional/index.html',
-      },
-      {
-        source: '/forms/profile-and-portfolio/cv-resume-professional/',
-        destination: '/forms/profile-and-portfolio/cv-resume-professional/index.html',
-      },
-      {
-        source: '/forms/profile-and-portfolio/linkedin-complete-makeover',
-        destination: '/forms/profile-and-portfolio/linkedin-complete-makeover/index.html',
-      },
-      {
-        source: '/forms/profile-and-portfolio/linkedin-complete-makeover/',
-        destination: '/forms/profile-and-portfolio/linkedin-complete-makeover/index.html',
       },
     ];
   },
