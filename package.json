@@ -62,10 +62,17 @@
     "react-icons": "^5.5.0",
     "react-parallax-tilt": "^1.7.310",
     "resend": "^6.0.3",
+    "rxjs": "^7.8.2",
     "styled-components": "^6.1.19"
   },
   "overrides": {
-    "simple-swizzle": "0.2.2"
+    "simple-swizzle": "0.2.2",
+    "@actions/http-client": {
+      "undici": "^6.23.0"
+    },
+    "@actions/github": {
+      "undici": "^6.23.0"
+    }
   },
   "optionalDependencies": {
     "sharp": "^0.33.4"

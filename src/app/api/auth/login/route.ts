@@ -53,6 +53,14 @@ export async function POST(request: NextRequest) {
       )
     }
 
+    // Check if pending approval (teacher accounts)
+    if (user.status === 'pending') {
+      return NextResponse.json(
+        { success: false, message: 'Your account is pending administrator approval. You will be notified once approved.' },
+        { status: 403 }
+      )
+    }
+
     // Verify password
     if (!user.passwordHash || !user.salt) {
       return NextResponse.json(

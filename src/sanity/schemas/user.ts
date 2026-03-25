@@ -56,6 +56,7 @@ export default defineType({
       options: {
         list: [
           { title: 'Active', value: 'active' },
+          { title: 'Pending Approval', value: 'pending' },
           { title: 'Suspended', value: 'suspended' },
         ],
       },

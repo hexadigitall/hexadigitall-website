@@ -1,12 +1,29 @@
 'use client'
 
-import { useState, FormEvent } from 'react'
+import { useState, FormEvent, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { BookOpenIcon, EyeIcon, EyeSlashIcon } from '@heroicons/react/24/outline'
 
 export default function StudentLoginPage() {
   const router = useRouter()
+  const [source, setSource] = useState('')
+  const [safeNext, setSafeNext] = useState('/student/dashboard')
+  const [justRegistered, setJustRegistered] = useState(false)
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search)
+    const nextParam = params.get('next') || ''
+    const sourceParam = params.get('source') || ''
+    setSource(sourceParam)
+    setSafeNext(nextParam.startsWith('/') ? nextParam : '/student/dashboard')
+    setJustRegistered(params.get('registered') === '1')
+  }, [])
+
+  const signupParams = new URLSearchParams()
+  if (source) signupParams.set('source', source)
+  if (safeNext.startsWith('/')) signupParams.set('next', safeNext)
+  const signupHref = signupParams.toString() ? `/student/signup?${signupParams.toString()}` : '/student/signup'
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [showPassword, setShowPassword] = useState(false)
@@ -37,7 +54,7 @@ export default function StudentLoginPage() {
         }))
         // Set cookie for middleware-based protection (24h)
         document.cookie = `admin_token=${data.token}; Path=/; Max-Age=86400; SameSite=Lax`;
-        router.push('/student/dashboard')
+        router.push(safeNext)
       } else {
         setError(data.message || 'Invalid credentials')
       }
@@ -59,6 +76,12 @@ export default function StudentLoginPage() {
             <h1 className="text-2xl font-bold text-gray-900">Student Login</h1>
             <p className="text-sm text-gray-600 mt-1">Access your learning dashboard</p>
           </div>
+
+          {justRegistered && (
+            <div className="mb-6 p-4 bg-green-50 border border-green-200 rounded-lg">
+              <p className="text-sm text-green-700">Account created! You can now sign in.</p>
+            </div>
+          )}
 
           {error && (
             <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg">
@@ -119,7 +142,13 @@ export default function StudentLoginPage() {
             </button>
           </form>
 
-          <div className="mt-6 space-y-2 text-center">
+          <div className="mt-6 space-y-3 text-center">
+            <p className="text-sm text-gray-600">
+              Don&apos;t have an account?{' '}
+              <Link href={signupHref} className="text-purple-600 hover:text-purple-700 font-medium">
+                Sign up
+              </Link>
+            </p>
             <Link
               href="/courses"
               className="block text-sm text-gray-600 hover:text-purple-600 transition-colors"
@@ -127,10 +156,10 @@ export default function StudentLoginPage() {
               Browse Courses
             </Link>
             <Link
-              href="/admin/login"
+              href="/teacher/login"
               className="block text-sm text-gray-600 hover:text-purple-600 transition-colors"
             >
-              Admin or Teacher? Sign in here
+              Teacher? Sign in here
             </Link>
           </div>
         </div>

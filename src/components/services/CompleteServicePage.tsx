@@ -463,10 +463,12 @@ function CompleteServicePage(props: CompleteServicePageProps) {
           serviceName={selectedIndividualService.name}
           serviceType="individual"
           tier={{
-            id: selectedIndividualService.id,
+            _key: selectedIndividualService.id,
             name: selectedIndividualService.name,
             price: selectedIndividualService.price,
-            description: selectedIndividualService.description,
+            currency: 'USD',
+            billing: 'project',
+            tier: 'basic',
             features: selectedIndividualService.features,
             deliveryTime: selectedIndividualService.deliveryTime,
             popular: false

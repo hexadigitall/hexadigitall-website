@@ -1,6 +1,7 @@
 "use client"
 
 import { useState, useRef, useEffect, useMemo } from 'react';
+import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
 import CoursePaymentModal from '@/components/courses/CoursePaymentModal';
 import CourseCard, { Course } from '@/components/courses/CourseCard';
@@ -206,6 +207,37 @@ export default function CoursesPageContentEnhanced({ initialSchools = [] }: Cour
       </div>
 
       <div className="container mx-auto px-4">
+        <div className="relative z-20 -mt-16 mb-10 rounded-2xl border border-blue-100 bg-white/95 p-5 shadow-lg backdrop-blur sm:p-6">
+          <div className="flex flex-wrap items-start justify-between gap-4">
+            <div className="max-w-2xl">
+              <h2 className="text-lg font-semibold text-gray-900">One student account for both paths</h2>
+              <p className="mt-1 text-sm text-gray-600">
+                Join from courses or mentorships using the same student account. If you start with mentorship and later
+                enroll in a full course, your account access is upgraded automatically.
+              </p>
+            </div>
+            <div className="flex flex-wrap gap-2">
+              <Link
+                href="/student/signup?source=courses&next=/courses"
+                className="inline-flex items-center justify-center rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-primary/90"
+              >
+                Student sign up
+              </Link>
+              <Link
+                href="/student/login?source=courses&next=/courses"
+                className="inline-flex items-center justify-center rounded-lg border border-gray-300 px-4 py-2 text-sm font-semibold text-gray-700 transition-colors hover:border-gray-400"
+              >
+                Student sign in
+              </Link>
+              <Link
+                href="/mentorships"
+                className="inline-flex items-center justify-center rounded-lg border border-amber-300 px-4 py-2 text-sm font-semibold text-amber-800 transition-colors hover:border-amber-400"
+              >
+                Need mentorship only?
+              </Link>
+            </div>
+          </div>
+        </div>
         
         {/* 2. EXPANDABLE SEARCH INTERFACE (Clean UI) */}
         <div className="flex justify-center mb-12 relative z-20 -mt-20">

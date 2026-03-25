@@ -429,6 +429,34 @@ export default async function CoursePage(props: Props) {
                                     <p className="text-sm text-gray-600">Login and enroll (or be assigned) to access downloadable materials.</p>
                                 )}
                             </div>
+
+                            <div className="mt-6 rounded-xl border border-blue-200 bg-blue-50/60 p-5">
+                                <h3 className="text-base font-semibold text-gray-900">New here?</h3>
+                                <p className="mt-2 text-sm text-gray-700">
+                                    Use one student account for courses and mentorships. If you start with mentorship,
+                                    this same account will be upgraded when you enroll in a full course.
+                                </p>
+                                <div className="mt-4 flex flex-wrap gap-2">
+                                    <a
+                                        href="/student/signup?source=course-detail&next=/courses"
+                                        className="inline-flex items-center justify-center rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-primary/90"
+                                    >
+                                        Student sign up
+                                    </a>
+                                    <a
+                                        href="/student/login?source=course-detail&next=/courses"
+                                        className="inline-flex items-center justify-center rounded-lg border border-gray-300 bg-white px-4 py-2 text-sm font-semibold text-gray-700 transition-colors hover:border-gray-400"
+                                    >
+                                        Student sign in
+                                    </a>
+                                    <a
+                                        href="/mentorships"
+                                        className="inline-flex items-center justify-center rounded-lg border border-amber-300 bg-white px-4 py-2 text-sm font-semibold text-amber-800 transition-colors hover:border-amber-400"
+                                    >
+                                        Mentorship only
+                                    </a>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

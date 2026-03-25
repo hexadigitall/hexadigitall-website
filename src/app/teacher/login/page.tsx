@@ -119,6 +119,21 @@ export default function TeacherLoginPage() {
             </button>
           </form>
 
+          <div className="mt-6 space-y-3 text-center">
+            <p className="text-sm text-gray-600">
+              Don&apos;t have an account?{' '}
+              <Link href="/teacher/signup" className="text-primary hover:text-primary/80 font-medium">
+                Apply to teach
+              </Link>
+            </p>
+            <Link
+              href="/student/login"
+              className="block text-sm text-gray-600 hover:text-primary transition-colors"
+            >
+              Student? Sign in here
+            </Link>
+          </div>
+
           <div className="mt-6 text-center">
             <Link
               href="/admin/login"
