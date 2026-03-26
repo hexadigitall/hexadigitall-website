@@ -30,6 +30,7 @@ interface FormSubmission {
   subject?: string
   message?: string
   formData?: Record<string, unknown>
+  attachments?: Array<{ name?: string; url?: string; type?: string; size?: number }>
   submittedAt: string
   ipAddress?: string
   userAgent?: string
@@ -50,6 +51,7 @@ export default function SubmissionsPage() {
   const [campaignFilter, setCampaignFilter] = useState('all')
   const [sourceFilter, setSourceFilter] = useState('all')
   const [serviceFilter, setServiceFilter] = useState('all')
+  const [submissionsError, setSubmissionsError] = useState<string | null>(null)
 
   useEffect(() => {
     const checkAuth = async () => {
@@ -79,13 +81,20 @@ export default function SubmissionsPage() {
 
   const fetchSubmissions = async () => {
     try {
-      const response = await fetch('/api/admin/submissions')
+      const response = await fetch(`/api/admin/submissions?t=${Date.now()}`, {
+        cache: 'no-store',
+        headers: { 'Cache-Control': 'no-store' },
+      })
       const data = await response.json()
       if (data.success) {
         setSubmissions(data.submissions)
+        setSubmissionsError(null)
+      } else {
+        throw new Error(data?.error || 'Failed to fetch submissions')
       }
     } catch (error) {
       console.error('Failed to fetch submissions:', error)
+      setSubmissionsError('Submissions could not be loaded. Please refresh.')
     } finally {
       setLoading(false)
     }
@@ -109,15 +118,18 @@ export default function SubmissionsPage() {
 
   const exportData = () => {
     const csv = [
-      ['Date', 'Type', 'Name', 'Email', 'Phone', 'Status', 'Message'],
+      ['Date', 'Type', 'Service', 'Name', 'Email', 'Phone', 'Status', 'Subject', 'Message', 'Attachments'],
       ...submissions.map(s => [
         new Date(s.submittedAt).toLocaleDateString(),
         s.type,
+        s.service || '',
         s.name || '',
         s.email || '',
         s.phone || '',
         s.status,
+        s.subject || '',
         s.message || '',
+        (s.attachments || []).map((a) => a.url || a.name || '').join(' | '),
       ]),
     ]
       .map(row => row.map(cell => `"${cell}"`).join(','))
@@ -128,6 +140,15 @@ export default function SubmissionsPage() {
     const a = document.createElement('a')
     a.href = url
     a.download = `submissions-${new Date().toISOString().split('T')[0]}.csv`
+    a.click()
+  }
+
+  const exportJson = () => {
+    const blob = new Blob([JSON.stringify(submissions, null, 2)], { type: 'application/json' })
+    const url = URL.createObjectURL(blob)
+    const a = document.createElement('a')
+    a.href = url
+    a.download = `submissions-${new Date().toISOString().split('T')[0]}.json`
     a.click()
   }
 
@@ -186,13 +207,22 @@ export default function SubmissionsPage() {
             </div>
 
             <div className="w-full sm:w-auto">
-              <button
-                onClick={exportData}
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-3 sm:px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors"
-              >
-                <ArrowDownTrayIcon className="h-5 w-5" />
-                <span>Export CSV</span>
-              </button>
+              <div className="flex flex-col sm:flex-row gap-2">
+                <button
+                  onClick={exportData}
+                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-3 sm:px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors"
+                >
+                  <ArrowDownTrayIcon className="h-5 w-5" />
+                  <span>Export CSV</span>
+                </button>
+                <button
+                  onClick={exportJson}
+                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-3 sm:px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors"
+                >
+                  <ArrowDownTrayIcon className="h-5 w-5" />
+                  <span>Export JSON</span>
+                </button>
+              </div>
             </div>
           </div>
         </div>
@@ -200,6 +230,11 @@ export default function SubmissionsPage() {
       <AdminNavbar />
 
       <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-4 sm:py-6 md:py-8">
+        {submissionsError && (
+          <div className="mb-4 rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
+            {submissionsError}
+          </div>
+        )}
         {/* Filters */}
         <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-3 sm:p-4 md:p-6 mb-4 md:mb-6">
           <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-3 md:gap-4">
@@ -283,8 +318,12 @@ export default function SubmissionsPage() {
                   <p className="text-xs text-gray-600 truncate">{s.email}</p>
                   {s.city && <p className="text-xs text-gray-600 truncate">City: {s.city}</p>}
                   {s.service && <p className="text-xs text-gray-600 truncate">Service: {s.service}</p>}
+                  {s.subject && <p className="text-xs text-gray-600 truncate">Subject: {s.subject}</p>}
                   {s.campaignName && <p className="text-xs text-gray-600 truncate">Campaign: {s.campaignName}</p>}
                   {s.campaignSource && <p className="text-xs text-gray-600 truncate">Source: {s.campaignSource}</p>}
+                  {(s.attachments || []).length > 0 && (
+                    <p className="text-xs text-gray-600 truncate">Attachments: {s.attachments?.length} file(s)</p>
+                  )}
                 </div>
                 {s.message && (
                   <p className="mt-2 text-sm text-gray-700 line-clamp-2">{s.message}</p>
@@ -330,6 +369,7 @@ export default function SubmissionsPage() {
                   <th className="px-3 md:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider whitespace-nowrap">Contact</th>
                   <th className="hidden lg:table-cell px-3 md:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider whitespace-nowrap">Campaign</th>
                   <th className="hidden lg:table-cell px-3 md:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider whitespace-nowrap">Message</th>
+                  <th className="px-3 md:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider whitespace-nowrap">Attachments</th>
                   <th className="px-3 md:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider whitespace-nowrap">Status</th>
                   <th className="px-3 md:px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider whitespace-nowrap">Actions</th>
                 </tr>
@@ -337,7 +377,7 @@ export default function SubmissionsPage() {
               <tbody className="divide-y divide-gray-200">
                 {filteredSubmissions.length === 0 ? (
                   <tr>
-                    <td colSpan={6} className="px-4 md:px-6 py-8 md:py-12 text-center text-gray-500">No submissions found</td>
+                    <td colSpan={8} className="px-4 md:px-6 py-8 md:py-12 text-center text-gray-500">No submissions found</td>
                   </tr>
                 ) : (
                   filteredSubmissions.map((submission) => (
@@ -352,6 +392,9 @@ export default function SubmissionsPage() {
                         <div className="text-xs md:text-sm font-medium text-gray-900 truncate">{submission.name}</div>
                         <div className="text-xs md:text-sm text-gray-500 truncate">{submission.email}</div>
                         <div className="text-[11px] text-gray-500 truncate">{submission.city || '—'} • {submission.service || '—'}</div>
+                        {submission.subject && (
+                          <div className="text-[11px] text-gray-500 truncate">Subject: {submission.subject}</div>
+                        )}
                       </td>
                       <td className="hidden lg:table-cell px-3 md:px-6 py-3 md:py-4 max-w-xs">
                         <div className="text-sm text-gray-900 truncate">{submission.campaignName || '—'}</div>
@@ -359,6 +402,9 @@ export default function SubmissionsPage() {
                       </td>
                       <td className="hidden lg:table-cell px-3 md:px-6 py-3 md:py-4 max-w-xs">
                         <p className="text-sm text-gray-900 truncate">{submission.message}</p>
+                      </td>
+                      <td className="px-3 md:px-6 py-3 md:py-4 whitespace-nowrap text-xs text-gray-600">
+                        {(submission.attachments || []).length > 0 ? `${submission.attachments?.length} file(s)` : '—'}
                       </td>
                       <td className="px-3 md:px-6 py-3 md:py-4 whitespace-nowrap">
                         <StatusBadge status={submission.status} />

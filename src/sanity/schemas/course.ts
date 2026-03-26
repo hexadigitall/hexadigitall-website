@@ -98,6 +98,37 @@ export default defineType({
       })
     }),
 
+    // Optional mentorship-only pricing overrides
+    defineField({
+      name: 'mentorshipHourlyRateUSD',
+      title: 'Mentorship-Only Rate (USD)',
+      type: 'number',
+      description: 'Optional lower hourly rate for mentorship-only subscriptions. Leave empty to auto-discount.',
+      hidden: ({ parent }) => parent?.courseType !== 'live',
+      validation: (Rule) => Rule.custom((value, context) => {
+        const parent = context?.parent as CourseParent;
+        if (parent?.courseType !== 'live') return true;
+        if (!value) return true;
+        if (value > 87.5) return 'Maximum rate is $87.5/hr';
+        return true;
+      })
+    }),
+    defineField({
+      name: 'mentorshipHourlyRateNGN',
+      title: 'Mentorship-Only Rate (NGN)',
+      type: 'number',
+      description: 'Optional lower NGN rate for mentorship-only subscriptions. Leave empty to auto-discount.',
+      hidden: ({ parent }) => parent?.courseType !== 'live',
+      validation: (Rule) => Rule.custom((value, context) => {
+        const parent = context?.parent as CourseParent;
+        if (parent?.courseType !== 'live') return true;
+        if (!value) return true;
+        if (value > 70000) return 'Maximum rate is ₦70,000/hr';
+        if (!Number.isInteger(value)) return 'NGN rate must be a whole number';
+        return true;
+      })
+    }),
+
     // Simplified scheduling constraints
     defineField({
       name: 'billingType',

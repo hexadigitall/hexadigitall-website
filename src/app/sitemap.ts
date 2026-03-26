@@ -98,6 +98,18 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.7,
     },
     {
+      url: `${baseUrl}/mentorships`,
+      lastModified: new Date(),
+      changeFrequency: 'weekly' as const,
+      priority: 0.7,
+    },
+    {
+      url: `${baseUrl}/mentorships/courses`,
+      lastModified: new Date(),
+      changeFrequency: 'weekly' as const,
+      priority: 0.7,
+    },
+    {
       url: `${baseUrl}/blog`,
       lastModified: new Date(),
       changeFrequency: 'daily' as const,
@@ -137,6 +149,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.7,
   }));
 
+  const mentorshipRoutes = courses.map((course: { slug: string; _updatedAt: string }) => ({
+    url: `${baseUrl}/mentorships/courses/${course.slug}`,
+    lastModified: new Date(course._updatedAt),
+    changeFrequency: 'monthly' as const,
+    priority: 0.7,
+  }));
+
   // Add dynamic blog post pages
   const blogRoutes = posts.map((post: { slug: string; _updatedAt: string }) => ({
     url: `${baseUrl}/blog/${post.slug}`,
@@ -150,5 +169,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ...staticRoutes,
     ...courseRoutes,
     ...blogRoutes,
+    ...mentorshipRoutes,
   ];
 }

@@ -57,6 +57,7 @@ interface CoursePaymentModalProps {
   isOpen: boolean
   onClose: () => void
   course: Course
+  successPath?: string
 }
 
 const COURSE_PAYMENT_PLANS: PaymentPlan[] = [
@@ -89,7 +90,8 @@ const COURSE_PAYMENT_PLANS: PaymentPlan[] = [
 export function CoursePaymentModal({
   isOpen,
   onClose,
-  course
+  course,
+  successPath = '/enrollment-success'
 }: CoursePaymentModalProps) {
   const { formatPrice, formatPriceWithDiscount, currentCurrency, getLocalDiscountMessage, convertPrice } = useCurrency()
   const [selectedPaymentPlan, setSelectedPaymentPlan] = useState<PaymentPlan>(COURSE_PAYMENT_PLANS[0])
@@ -254,7 +256,7 @@ export function CoursePaymentModal({
       if (result.success) {
         // Subscription created successfully
         alert('Subscription created successfully! Your 7-day trial has begun.')
-        window.location.href = `/enrollment-success?subscription_id=${result.subscription.id}&course_id=${course._id}&type=subscription`
+        window.location.href = `${successPath}?subscription_id=${result.subscription.id}&course_id=${course._id}&type=subscription`
       } else if (result.requiresAction && result.clientSecret) {
         // Payment method setup required - integrate with Stripe Elements for 3D Secure verification
         alert('Payment method setup required. Please complete the payment setup to activate your subscription.')

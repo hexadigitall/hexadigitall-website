@@ -116,6 +116,12 @@ const Header = () => {
 
             <Link href="/portfolio" className="hover:text-primary transition-colors">Portfolio</Link>
             <Link href="/courses" className="hover:text-primary transition-colors">Courses</Link>
+            <Link
+              href="/mentorships"
+              className="rounded-full border border-primary/20 bg-primary/5 px-3 py-1 font-semibold text-primary transition-colors hover:border-primary/40 hover:bg-primary/10"
+            >
+              Mentorships
+            </Link>
             <Link href="/blog" className="hover:text-primary transition-colors">Blog</Link>
             <Link href="/faq" className="hover:text-primary transition-colors">FAQs</Link>
           </div>
@@ -169,6 +175,12 @@ const Header = () => {
               
               <Link href="/portfolio" className="text-sm font-medium hover:text-secondary transition-colors whitespace-nowrap">Portfolio</Link>
               <Link href="/courses" className="text-sm font-medium hover:text-secondary transition-colors whitespace-nowrap">Courses</Link>
+              <Link
+                href="/mentorships"
+                className="text-sm font-semibold text-primary border border-primary/20 bg-primary/5 px-3 py-1 rounded-full hover:bg-primary/10 transition-colors whitespace-nowrap"
+              >
+                Mentorships
+              </Link>
             </div>
             
             <div className="flex items-center space-x-1.5 xl:space-x-2">
@@ -255,6 +267,13 @@ const Header = () => {
                 </div>
 
                 <Link href="/courses" onClick={closeMobileMenus} className="block text-sm py-1.5 text-darkText hover:text-secondary font-medium transition-colors">Courses</Link>
+                <Link
+                  href="/mentorships"
+                  onClick={closeMobileMenus}
+                  className="block text-sm py-2 px-3 rounded-lg border border-primary/15 bg-primary/5 text-primary font-semibold hover:bg-primary/10 transition-colors"
+                >
+                  Mentorships
+                </Link>
                 <Link href="/blog" onClick={closeMobileMenus} className="block text-sm py-1.5 text-darkText hover:text-secondary font-medium transition-colors">Blog</Link>
                 
                 {/* Action Area (Bottom) - Compacted Spacing */}

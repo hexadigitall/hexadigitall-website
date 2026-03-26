@@ -42,6 +42,8 @@ export default function AdminDashboard() {
   const [notificationsOpen, setNotificationsOpen] = useState(false)
   const [notificationsLoading, setNotificationsLoading] = useState(false)
   const [hasUnread, setHasUnread] = useState(false)
+  const [dashboardError, setDashboardError] = useState<string | null>(null)
+  const [notificationsError, setNotificationsError] = useState<string | null>(null)
 
     useEffect(() => {
       const checkAuth = async () => {
@@ -79,25 +81,40 @@ export default function AdminDashboard() {
 
     const fetchDashboardData = async () => {
       try {
-        const response = await fetch('/api/admin/dashboard')
+        const response = await fetch(`/api/admin/dashboard?t=${Date.now()}`, {
+          cache: 'no-store',
+          headers: { 'Cache-Control': 'no-store' },
+        })
         const data = await response.json()
+        if (!response.ok || !data?.success) {
+          throw new Error(data?.error || 'Failed to fetch dashboard data')
+        }
         setStats(data.stats)
+        setDashboardError(null)
       } catch (error) {
         console.error('Failed to fetch dashboard data:', error)
+        setDashboardError('Dashboard data is not available. Please refresh.')
       }
     }
 
     const fetchNotifications = async () => {
       setNotificationsLoading(true)
       try {
-        const res = await fetch('/api/admin/submissions?status=new&limit=5')
+        const res = await fetch(`/api/admin/submissions?status=new&limit=5&t=${Date.now()}`, {
+          cache: 'no-store',
+          headers: { 'Cache-Control': 'no-store' },
+        })
         const data = await res.json()
         if (data.success && Array.isArray(data.submissions)) {
           setNotifications(data.submissions)
           setHasUnread(data.submissions.length > 0)
+          setNotificationsError(null)
+        } else {
+          throw new Error(data?.error || 'Failed to fetch notifications')
         }
       } catch (error) {
         console.error('Failed to fetch notifications:', error)
+        setNotificationsError('Notifications are not available.')
       } finally {
         setNotificationsLoading(false)
       }
@@ -193,6 +210,11 @@ export default function AdminDashboard() {
                         </div>
                       </div>
                       <div className="overflow-y-auto divide-y divide-gray-100 flex-1">
+                        {notificationsError && (
+                          <div className="px-4 py-3 text-sm text-red-600">
+                            {notificationsError}
+                          </div>
+                        )}
                         {notificationsLoading && (
                           <div className="px-4 py-3 text-sm text-gray-500">Loading...</div>
                         )}
@@ -249,6 +271,11 @@ export default function AdminDashboard() {
         <AdminNavbar />
 
         <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-4 sm:py-8">
+          {dashboardError && (
+            <div className="mb-4 rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
+              {dashboardError}
+            </div>
+          )}
           {/* Quick Stats */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 md:gap-6 mb-4 sm:mb-6 md:mb-8">
             <StatCard
