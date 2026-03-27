@@ -26,7 +26,9 @@ export function middleware(request: NextRequest) {
   if (
     pathname === '/admin/login' ||
     pathname === '/teacher/login' ||
-    pathname === '/student/login'
+    pathname === '/teacher/signup' ||
+    pathname === '/student/login' ||
+    pathname === '/student/signup'
   ) {
     return NextResponse.next()
   }
