@@ -29,6 +29,7 @@ export function middleware(request: NextRequest) {
     pathname === '/teacher/login' ||
     pathname === '/teacher/signup' ||
     pathname === '/student/login' ||
+    pathname === '/student/oauth-success' ||
     pathname === '/student/signup'
   ) {
     return NextResponse.next()

@@ -11,7 +11,8 @@ async function getUserByUsername(username: string) {
     role,
     passwordHash,
     salt,
-    status
+    status,
+    emailVerified
   }`
   return client.fetch(query, { username })
 }
@@ -57,6 +58,14 @@ export async function POST(request: NextRequest) {
     if (user.status === 'pending') {
       return NextResponse.json(
         { success: false, message: 'Your account is pending administrator approval. You will be notified once approved.' },
+        { status: 403 }
+      )
+    }
+
+    // New signups must verify email first
+    if (user.emailVerified === false) {
+      return NextResponse.json(
+        { success: false, message: 'Please verify your email before signing in.' },
         { status: 403 }
       )
     }

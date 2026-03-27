@@ -53,7 +53,9 @@ export default function StudentSignupPage() {
       const data = await res.json()
 
       if (res.ok && data.success) {
-        router.push(loginHref)
+        const loginUrl = new URL(loginHref, window.location.origin)
+        loginUrl.searchParams.set('registered', '1')
+        router.push(`${loginUrl.pathname}?${loginUrl.searchParams.toString()}`)
       } else {
         setError(data.message || 'Registration failed. Please try again.')
       }

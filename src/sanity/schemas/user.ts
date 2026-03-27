@@ -68,6 +68,47 @@ export default defineType({
       type: 'datetime',
       initialValue: () => new Date().toISOString(),
     }),
+    defineField({
+      name: 'emailVerified',
+      title: 'Email Verified',
+      type: 'boolean',
+      initialValue: false,
+    }),
+    defineField({
+      name: 'emailVerifiedAt',
+      title: 'Email Verified At',
+      type: 'datetime',
+      hidden: true,
+    }),
+    defineField({
+      name: 'emailVerificationTokenHash',
+      title: 'Email Verification Token Hash',
+      type: 'string',
+      hidden: true,
+    }),
+    defineField({
+      name: 'emailVerificationExpiresAt',
+      title: 'Email Verification Expires At',
+      type: 'datetime',
+      hidden: true,
+    }),
+    defineField({
+      name: 'oauthProvider',
+      title: 'OAuth Provider',
+      type: 'string',
+      options: {
+        list: [
+          { title: 'Google', value: 'google' },
+          { title: 'GitHub', value: 'github' },
+        ],
+      },
+    }),
+    defineField({
+      name: 'oauthProviderId',
+      title: 'OAuth Provider ID',
+      type: 'string',
+      hidden: true,
+    }),
   ],
   preview: {
     select: {

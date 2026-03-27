@@ -58,11 +58,12 @@ export default function TeacherSignupPage() {
             </div>
             <h1 className="text-2xl font-bold text-gray-900 mb-3">Application Submitted!</h1>
             <p className="text-gray-600 mb-6">
-              Your teacher account request has been received. An administrator will review your application and you&apos;ll receive confirmation once approved.
+              Your teacher account request has been received. Verify your email first, then an administrator will review your application and confirm when approved.
             </p>
             <div className="bg-amber-50 border border-amber-200 rounded-lg p-4 text-left mb-6">
               <p className="text-sm text-amber-800 font-medium">What happens next?</p>
               <ul className="mt-2 space-y-1 text-sm text-amber-700 list-disc list-inside">
+                <li>Check your email and click the verification link</li>
                 <li>Admin reviews your application</li>
                 <li>Your account is activated upon approval</li>
                 <li>Sign in at the teacher login page once approved</li>

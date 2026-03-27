@@ -1,15 +1,18 @@
 'use client'
 
 import { useState, FormEvent, useEffect } from 'react'
-import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { BookOpenIcon, EyeIcon, EyeSlashIcon } from '@heroicons/react/24/outline'
+import { signIn } from 'next-auth/react'
+
+const GOOGLE_OAUTH_ENABLED = process.env.NEXT_PUBLIC_GOOGLE_OAUTH_ENABLED === 'true'
+const GITHUB_OAUTH_ENABLED = process.env.NEXT_PUBLIC_GITHUB_OAUTH_ENABLED === 'true'
 
 export default function StudentLoginPage() {
-  const router = useRouter()
   const [source, setSource] = useState('')
   const [safeNext, setSafeNext] = useState('/student/dashboard')
   const [justRegistered, setJustRegistered] = useState(false)
+  const [emailVerifiedStatus, setEmailVerifiedStatus] = useState<'none' | 'success' | 'error'>('none')
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search)
@@ -18,6 +21,9 @@ export default function StudentLoginPage() {
     setSource(sourceParam)
     setSafeNext(nextParam.startsWith('/') ? nextParam : '/student/dashboard')
     setJustRegistered(params.get('registered') === '1')
+    const verifiedParam = params.get('verified')
+    if (verifiedParam === '1') setEmailVerifiedStatus('success')
+    if (verifiedParam === '0') setEmailVerifiedStatus('error')
   }, [])
 
   const signupParams = new URLSearchParams()
@@ -29,6 +35,11 @@ export default function StudentLoginPage() {
   const [showPassword, setShowPassword] = useState(false)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
+
+  const handleOAuth = async (provider: 'google' | 'github') => {
+    setError('')
+    await signIn(provider, { callbackUrl: '/student/oauth-success' })
+  }
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault()
@@ -79,7 +90,19 @@ export default function StudentLoginPage() {
 
           {justRegistered && (
             <div className="mb-6 p-4 bg-green-50 border border-green-200 rounded-lg">
-              <p className="text-sm text-green-700">Account created! You can now sign in.</p>
+              <p className="text-sm text-green-700">Account created. Please verify your email before signing in.</p>
+            </div>
+          )}
+
+          {emailVerifiedStatus === 'success' && (
+            <div className="mb-6 p-4 bg-green-50 border border-green-200 rounded-lg">
+              <p className="text-sm text-green-700">Email verified successfully. You can now sign in.</p>
+            </div>
+          )}
+
+          {emailVerifiedStatus === 'error' && (
+            <div className="mb-6 p-4 bg-amber-50 border border-amber-200 rounded-lg">
+              <p className="text-sm text-amber-700">Verification link is invalid or expired. Please request support to resend verification.</p>
             </div>
           )}
 
@@ -141,6 +164,37 @@ export default function StudentLoginPage() {
               {loading ? 'Signing in...' : 'Sign In'}
             </button>
           </form>
+
+          {(GOOGLE_OAUTH_ENABLED || GITHUB_OAUTH_ENABLED) && (
+            <>
+              <div className="my-6 flex items-center gap-3">
+                <div className="h-px flex-1 bg-gray-200" />
+                <span className="text-xs font-medium uppercase tracking-wide text-gray-500">or continue with</span>
+                <div className="h-px flex-1 bg-gray-200" />
+              </div>
+
+              <div className="space-y-3">
+                {GOOGLE_OAUTH_ENABLED && (
+                  <button
+                    type="button"
+                    onClick={() => void handleOAuth('google')}
+                    className="w-full py-3 border border-gray-300 bg-white text-gray-800 font-medium rounded-lg hover:bg-gray-50 transition-colors"
+                  >
+                    Continue with Google
+                  </button>
+                )}
+                {GITHUB_OAUTH_ENABLED && (
+                  <button
+                    type="button"
+                    onClick={() => void handleOAuth('github')}
+                    className="w-full py-3 border border-gray-300 bg-white text-gray-800 font-medium rounded-lg hover:bg-gray-50 transition-colors"
+                  >
+                    Continue with GitHub
+                  </button>
+                )}
+              </div>
+            </>
+          )}
 
           <div className="mt-6 space-y-3 text-center">
             <p className="text-sm text-gray-600">
