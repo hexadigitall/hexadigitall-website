@@ -54,18 +54,18 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    // Check if pending approval (teacher accounts)
-    if (user.status === 'pending') {
-      return NextResponse.json(
-        { success: false, message: 'Your account is pending administrator approval. You will be notified once approved.' },
-        { status: 403 }
-      )
-    }
-
     // New signups must verify email first
     if (user.emailVerified === false) {
       return NextResponse.json(
         { success: false, message: 'Please verify your email before signing in.' },
+        { status: 403 }
+      )
+    }
+
+    // Teacher accounts remain blocked until admin approval
+    if (user.status === 'pending') {
+      return NextResponse.json(
+        { success: false, message: 'Your account is pending administrator approval. You will be notified once approved.' },
         { status: 403 }
       )
     }
