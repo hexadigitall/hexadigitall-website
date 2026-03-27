@@ -5,8 +5,9 @@ function decodeToken(token: string) {
   try {
     // Use atob for Edge runtime compatibility
     // Token is base64-encoded JSON
-     
-    const json = atob(token)
+
+    const normalizedToken = token.includes('%') ? decodeURIComponent(token) : token
+    const json = atob(normalizedToken)
     return JSON.parse(json) as { userId?: string; username?: string; role?: string; timestamp?: number }
   } catch {
     return null

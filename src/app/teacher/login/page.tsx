@@ -35,9 +35,9 @@ export default function TeacherLoginPage() {
           role: data.role,
           userId: data.userId,
         }))
-        // Set cookie for middleware-based protection (24h)
-        document.cookie = `admin_token=${data.token}; Path=/; Max-Age=86400; SameSite=Lax`;
-        router.push('/teacher/dashboard')
+        // Cookie is also set by the server response. Keep client set as a fallback.
+        document.cookie = `admin_token=${encodeURIComponent(data.token)}; Path=/; Max-Age=86400; SameSite=Lax`
+        window.location.assign('/teacher/dashboard')
       } else {
         setError(data.message || 'Invalid credentials')
       }

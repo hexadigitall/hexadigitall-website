@@ -95,7 +95,7 @@ export async function POST(request: NextRequest) {
       timestamp: Date.now(),
     })).toString('base64')
 
-    return NextResponse.json({
+    const response = NextResponse.json({
       success: true,
       token: sessionToken,
       userId: user._id,
@@ -104,6 +104,16 @@ export async function POST(request: NextRequest) {
       name: user.name,
       email: user.email,
     })
+
+    response.cookies.set('admin_token', sessionToken, {
+      path: '/',
+      maxAge: 60 * 60 * 24,
+      sameSite: 'lax',
+      secure: process.env.NODE_ENV === 'production',
+      httpOnly: false,
+    })
+
+    return response
   } catch (error) {
     console.error('Login error:', error)
     return NextResponse.json(
