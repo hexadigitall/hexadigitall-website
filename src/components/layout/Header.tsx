@@ -10,6 +10,9 @@ import { getWhatsAppLink, getGeneralInquiryMessage } from '@/lib/whatsapp';
 const Header = () => {
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isServicesOpen, setServicesOpen] = useState(false);
+  const [isExploreOpen, setExploreOpen] = useState(false);
+  const [isCompanyOpen, setCompanyOpen] = useState(false);
+  const [isAccountOpen, setAccountOpen] = useState(false);
   const [isMobileServicesOpen, setMobileServicesOpen] = useState(false);
 
   // Service links array
@@ -25,6 +28,13 @@ const Header = () => {
   const closeMobileMenus = () => {
     setMobileMenuOpen(false);
     setMobileServicesOpen(false);
+  };
+
+  const closeDesktopMenus = () => {
+    setServicesOpen(false);
+    setExploreOpen(false);
+    setCompanyOpen(false);
+    setAccountOpen(false);
   };
 
   const handleWhatsAppClick = () => {
@@ -43,14 +53,14 @@ const Header = () => {
 
     const handleClickOutside = (event: MouseEvent) => {
       const target = event.target as Element;
-      if (!target.closest('.services-dropdown')) {
-        setServicesOpen(false);
+      if (!target.closest('.nav-dropdown')) {
+        closeDesktopMenus();
       }
     };
 
     const handleEscape = (event: KeyboardEvent) => {
       if (event.key === 'Escape') {
-        setServicesOpen(false);
+        closeDesktopMenus();
         setMobileServicesOpen(false);
         setMobileMenuOpen(false);
       }
@@ -85,10 +95,8 @@ const Header = () => {
 
           {/* Desktop Navigation */}
           <div className="hidden lg:flex items-center space-x-6">
-            <Link href="/about" className="hover:text-primary transition-colors">About</Link>
-            
             {/* Services Dropdown */}
-            <div className="relative services-dropdown">
+            <div className="relative nav-dropdown">
               <button 
                 onClick={() => setServicesOpen(!isServicesOpen)}
                 onKeyDown={(e) => e.key === 'Enter' && setServicesOpen(!isServicesOpen)}
@@ -114,19 +122,87 @@ const Header = () => {
               </div>
             </div>
 
-            <Link href="/portfolio" className="hover:text-primary transition-colors">Portfolio</Link>
-            <Link href="/courses" className="hover:text-primary transition-colors">Courses</Link>
-            <Link
-              href="/mentorships"
-              className="rounded-full border border-primary/20 bg-primary/5 px-3 py-1 font-semibold text-primary transition-colors hover:border-primary/40 hover:bg-primary/10"
-            >
-              Mentorships
-            </Link>
-            <Link href="/blog" className="hover:text-primary transition-colors">Blog</Link>
-            <Link href="/faq" className="hover:text-primary transition-colors">FAQs</Link>
+            <div className="relative nav-dropdown">
+              <button
+                onClick={() => setExploreOpen(!isExploreOpen)}
+                onKeyDown={(e) => e.key === 'Enter' && setExploreOpen(!isExploreOpen)}
+                className="inline-flex items-center hover:text-secondary transition-colors"
+                aria-expanded={isExploreOpen}
+                aria-haspopup="true"
+                aria-label="Explore menu"
+              >
+                Explore
+                <svg className={`ml-1 h-5 w-5 transition-transform duration-200 ${isExploreOpen ? 'rotate-180' : ''}`} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                  <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
+                </svg>
+              </button>
+              <div className={`absolute left-0 lg:left-auto lg:right-0 bg-white shadow-lg rounded-md mt-2 w-56 z-50 transition-all duration-200 ${isExploreOpen ? 'opacity-100 visible translate-y-0' : 'opacity-0 invisible -translate-y-2'}`}>
+                <Link href="/courses" className="block px-4 py-2.5 text-sm text-darkText hover:bg-lightGray transition-colors" onClick={closeDesktopMenus}>
+                  Courses
+                </Link>
+                <Link href="/mentorships" className="block px-4 py-2.5 text-sm text-primary font-semibold hover:bg-lightGray transition-colors" onClick={closeDesktopMenus}>
+                  Mentorships
+                </Link>
+                <Link href="/portfolio" className="block px-4 py-2.5 text-sm text-darkText hover:bg-lightGray transition-colors" onClick={closeDesktopMenus}>
+                  Portfolio
+                </Link>
+              </div>
+            </div>
+
+            <div className="relative nav-dropdown">
+              <button
+                onClick={() => setCompanyOpen(!isCompanyOpen)}
+                onKeyDown={(e) => e.key === 'Enter' && setCompanyOpen(!isCompanyOpen)}
+                className="inline-flex items-center hover:text-secondary transition-colors"
+                aria-expanded={isCompanyOpen}
+                aria-haspopup="true"
+                aria-label="Company menu"
+              >
+                Company
+                <svg className={`ml-1 h-5 w-5 transition-transform duration-200 ${isCompanyOpen ? 'rotate-180' : ''}`} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                  <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
+                </svg>
+              </button>
+              <div className={`absolute left-0 lg:left-auto lg:right-0 bg-white shadow-lg rounded-md mt-2 w-48 z-50 transition-all duration-200 ${isCompanyOpen ? 'opacity-100 visible translate-y-0' : 'opacity-0 invisible -translate-y-2'}`}>
+                <Link href="/about" className="block px-4 py-2.5 text-sm text-darkText hover:bg-lightGray transition-colors" onClick={closeDesktopMenus}>
+                  About
+                </Link>
+                <Link href="/blog" className="block px-4 py-2.5 text-sm text-darkText hover:bg-lightGray transition-colors" onClick={closeDesktopMenus}>
+                  Blog
+                </Link>
+                <Link href="/faq" className="block px-4 py-2.5 text-sm text-darkText hover:bg-lightGray transition-colors" onClick={closeDesktopMenus}>
+                  FAQs
+                </Link>
+              </div>
+            </div>
           </div>
           
           <div className="hidden lg:flex items-center space-x-4">
+            <div className="relative nav-dropdown">
+              <button
+                onClick={() => setAccountOpen(!isAccountOpen)}
+                className="inline-flex items-center text-sm font-semibold text-primary hover:text-primary/80 transition-colors"
+                aria-expanded={isAccountOpen}
+                aria-haspopup="true"
+                aria-label="Account menu"
+              >
+                Account
+                <svg className={`ml-1 h-4 w-4 transition-transform duration-200 ${isAccountOpen ? 'rotate-180' : ''}`} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                  <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
+                </svg>
+              </button>
+              <div className={`absolute right-0 bg-white shadow-lg rounded-md mt-2 w-52 z-50 transition-all duration-200 ${isAccountOpen ? 'opacity-100 visible translate-y-0' : 'opacity-0 invisible -translate-y-2'}`}>
+                <Link href="/student/login" className="block px-4 py-2.5 text-sm text-darkText hover:bg-lightGray transition-colors" onClick={closeDesktopMenus}>
+                  Student Login
+                </Link>
+                <Link href="/teacher/login" className="block px-4 py-2.5 text-sm text-darkText hover:bg-lightGray transition-colors" onClick={closeDesktopMenus}>
+                  Teacher Login
+                </Link>
+                <Link href="/teacher/signup" className="block px-4 py-2.5 text-sm font-semibold text-primary hover:bg-lightGray transition-colors" onClick={closeDesktopMenus}>
+                  Apply to Teach
+                </Link>
+              </div>
+            </div>
             <CurrencySwitcher />
             
             {/* Desktop WhatsApp Icon */}
@@ -147,10 +223,8 @@ const Header = () => {
           {/* Tablet Navigation */}
           <div className="hidden md:flex lg:hidden items-center justify-between flex-1 ml-4">
             <div className="flex items-center space-x-3 xl:space-x-4">
-              <Link href="/about" className="text-sm font-medium hover:text-secondary transition-colors whitespace-nowrap">About</Link>
-              
               {/* Services Dropdown Tablet */}
-              <div className="relative services-dropdown">
+              <div className="relative nav-dropdown">
                 <button 
                   id="services-button"
                   onClick={() => setServicesOpen(!isServicesOpen)}
@@ -172,18 +246,77 @@ const Header = () => {
                   ))}
                 </div>
               </div>
-              
-              <Link href="/portfolio" className="text-sm font-medium hover:text-secondary transition-colors whitespace-nowrap">Portfolio</Link>
-              <Link href="/courses" className="text-sm font-medium hover:text-secondary transition-colors whitespace-nowrap">Courses</Link>
-              <Link
-                href="/mentorships"
-                className="text-sm font-semibold text-primary border border-primary/20 bg-primary/5 px-3 py-1 rounded-full hover:bg-primary/10 transition-colors whitespace-nowrap"
-              >
-                Mentorships
-              </Link>
+
+              <div className="relative nav-dropdown">
+                <button
+                  onClick={() => setExploreOpen(!isExploreOpen)}
+                  className="inline-flex items-center text-sm font-medium hover:text-secondary transition-colors whitespace-nowrap"
+                >
+                  Explore
+                  <svg className={`ml-1 h-3 w-3 transition-transform duration-200 ${isExploreOpen ? 'rotate-180' : ''}`} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                    <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
+                  </svg>
+                </button>
+                <div className={`absolute left-0 xl:left-auto xl:right-0 bg-white shadow-lg rounded-md mt-2 w-56 z-50 transition-all duration-200 ${isExploreOpen ? 'opacity-100 visible translate-y-0' : 'opacity-0 invisible -translate-y-2'}`}>
+                  <Link href="/courses" className="block px-4 py-2.5 text-sm text-darkText hover:bg-lightGray transition-colors whitespace-nowrap" onClick={closeDesktopMenus}>
+                    Courses
+                  </Link>
+                  <Link href="/mentorships" className="block px-4 py-2.5 text-sm text-primary font-semibold hover:bg-lightGray transition-colors whitespace-nowrap" onClick={closeDesktopMenus}>
+                    Mentorships
+                  </Link>
+                  <Link href="/portfolio" className="block px-4 py-2.5 text-sm text-darkText hover:bg-lightGray transition-colors whitespace-nowrap" onClick={closeDesktopMenus}>
+                    Portfolio
+                  </Link>
+                </div>
+              </div>
+
+              <div className="relative nav-dropdown">
+                <button
+                  onClick={() => setCompanyOpen(!isCompanyOpen)}
+                  className="inline-flex items-center text-sm font-medium hover:text-secondary transition-colors whitespace-nowrap"
+                >
+                  Company
+                  <svg className={`ml-1 h-3 w-3 transition-transform duration-200 ${isCompanyOpen ? 'rotate-180' : ''}`} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                    <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
+                  </svg>
+                </button>
+                <div className={`absolute left-0 xl:left-auto xl:right-0 bg-white shadow-lg rounded-md mt-2 w-48 z-50 transition-all duration-200 ${isCompanyOpen ? 'opacity-100 visible translate-y-0' : 'opacity-0 invisible -translate-y-2'}`}>
+                  <Link href="/about" className="block px-4 py-2.5 text-sm text-darkText hover:bg-lightGray transition-colors whitespace-nowrap" onClick={closeDesktopMenus}>
+                    About
+                  </Link>
+                  <Link href="/blog" className="block px-4 py-2.5 text-sm text-darkText hover:bg-lightGray transition-colors whitespace-nowrap" onClick={closeDesktopMenus}>
+                    Blog
+                  </Link>
+                  <Link href="/faq" className="block px-4 py-2.5 text-sm text-darkText hover:bg-lightGray transition-colors whitespace-nowrap" onClick={closeDesktopMenus}>
+                    FAQs
+                  </Link>
+                </div>
+              </div>
             </div>
             
             <div className="flex items-center space-x-1.5 xl:space-x-2">
+              <div className="relative nav-dropdown">
+                <button
+                  onClick={() => setAccountOpen(!isAccountOpen)}
+                  className="inline-flex items-center text-xs font-semibold text-primary hover:text-primary/80 transition-colors whitespace-nowrap"
+                >
+                  Account
+                  <svg className={`ml-1 h-3 w-3 transition-transform duration-200 ${isAccountOpen ? 'rotate-180' : ''}`} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                    <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
+                  </svg>
+                </button>
+                <div className={`absolute right-0 bg-white shadow-lg rounded-md mt-2 w-52 z-50 transition-all duration-200 ${isAccountOpen ? 'opacity-100 visible translate-y-0' : 'opacity-0 invisible -translate-y-2'}`}>
+                  <Link href="/student/login" className="block px-4 py-2.5 text-sm text-darkText hover:bg-lightGray transition-colors" onClick={closeDesktopMenus}>
+                    Student Login
+                  </Link>
+                  <Link href="/teacher/login" className="block px-4 py-2.5 text-sm text-darkText hover:bg-lightGray transition-colors" onClick={closeDesktopMenus}>
+                    Teacher Login
+                  </Link>
+                  <Link href="/teacher/signup" className="block px-4 py-2.5 text-sm font-semibold text-primary hover:bg-lightGray transition-colors" onClick={closeDesktopMenus}>
+                    Apply to Teach
+                  </Link>
+                </div>
+              </div>
                <button 
                 onClick={handleWhatsAppClick}
                 className="text-green-600 hover:text-green-700 p-1.5"
@@ -275,6 +408,9 @@ const Header = () => {
                   Mentorships
                 </Link>
                 <Link href="/blog" onClick={closeMobileMenus} className="block text-sm py-1.5 text-darkText hover:text-secondary font-medium transition-colors">Blog</Link>
+                <Link href="/student/login" onClick={closeMobileMenus} className="block text-sm py-1.5 text-darkText hover:text-secondary font-medium transition-colors">Student Login</Link>
+                <Link href="/teacher/login" onClick={closeMobileMenus} className="block text-sm py-1.5 text-darkText hover:text-secondary font-medium transition-colors">Teacher Login</Link>
+                <Link href="/teacher/signup" onClick={closeMobileMenus} className="block text-sm py-1.5 text-primary font-semibold hover:text-primary/80 transition-colors">Apply to Teach</Link>
                 
                 {/* Action Area (Bottom) - Compacted Spacing */}
                 <div className="pt-2 mt-1 border-t border-gray-100">

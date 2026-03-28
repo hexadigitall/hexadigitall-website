@@ -3,6 +3,11 @@ import Google from 'next-auth/providers/google'
 import GitHub from 'next-auth/providers/github'
 import { client, writeClient } from '@/sanity/client'
 
+const googleClientId = process.env.AUTH_GOOGLE_ID || process.env.GOOGLE_CLIENT_ID || ''
+const googleClientSecret = process.env.AUTH_GOOGLE_SECRET || process.env.GOOGLE_CLIENT_SECRET || ''
+const githubClientId = process.env.AUTH_GITHUB_ID || process.env.GITHUB_CLIENT_ID || ''
+const githubClientSecret = process.env.AUTH_GITHUB_SECRET || process.env.GITHUB_CLIENT_SECRET || ''
+
 type ExistingUser = {
   _id: string
   username: string
@@ -36,23 +41,24 @@ async function getUniqueUsername(seed: string): Promise<string> {
 
 export const { handlers, auth } = NextAuth({
   providers: [
-    ...(process.env.AUTH_GOOGLE_ID && process.env.AUTH_GOOGLE_SECRET
+    ...(googleClientId && googleClientSecret
       ? [
           Google({
-            clientId: process.env.AUTH_GOOGLE_ID,
-            clientSecret: process.env.AUTH_GOOGLE_SECRET,
+            clientId: googleClientId,
+            clientSecret: googleClientSecret,
           }),
         ]
       : []),
-    ...(process.env.AUTH_GITHUB_ID && process.env.AUTH_GITHUB_SECRET
+    ...(githubClientId && githubClientSecret
       ? [
           GitHub({
-            clientId: process.env.AUTH_GITHUB_ID,
-            clientSecret: process.env.AUTH_GITHUB_SECRET,
+            clientId: githubClientId,
+            clientSecret: githubClientSecret,
           }),
         ]
       : []),
   ],
+  secret: process.env.AUTH_SECRET || process.env.NEXTAUTH_SECRET,
   trustHost: true,
   pages: {
     signIn: '/student/login',

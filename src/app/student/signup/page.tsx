@@ -4,6 +4,7 @@ import { useState, FormEvent, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { BookOpenIcon, EyeIcon, EyeSlashIcon } from '@heroicons/react/24/outline'
+import { signIn, getProviders } from 'next-auth/react'
 
 export default function StudentSignupPage() {
   const router = useRouter()
@@ -31,6 +32,27 @@ export default function StudentSignupPage() {
   const [showConfirm, setShowConfirm] = useState(false)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
+  const [oauthProviders, setOauthProviders] = useState<{ google: boolean; github: boolean }>({
+    google: false,
+    github: false,
+  })
+
+  useEffect(() => {
+    const loadProviders = async () => {
+      const providers = await getProviders()
+      setOauthProviders({
+        google: Boolean(providers?.google),
+        github: Boolean(providers?.github),
+      })
+    }
+
+    void loadProviders()
+  }, [])
+
+  const handleOAuthSignup = async (provider: 'google' | 'github') => {
+    setError('')
+    await signIn(provider, { callbackUrl: '/student/oauth-success' })
+  }
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault()
@@ -187,6 +209,39 @@ export default function StudentSignupPage() {
               {loading ? 'Creating Account...' : 'Create Account'}
             </button>
           </form>
+
+          <>
+            <div className="my-6 flex items-center gap-3">
+              <div className="h-px flex-1 bg-gray-200" />
+              <span className="text-xs font-medium uppercase tracking-wide text-gray-500">or sign up with</span>
+              <div className="h-px flex-1 bg-gray-200" />
+            </div>
+
+            <div className="space-y-3">
+              <button
+                type="button"
+                disabled={!oauthProviders.google}
+                onClick={() => void handleOAuthSignup('google')}
+                className="w-full py-3 border border-gray-300 bg-white text-gray-800 font-medium rounded-lg hover:bg-gray-50 transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
+              >
+                Continue with Google
+              </button>
+              <button
+                type="button"
+                disabled={!oauthProviders.github}
+                onClick={() => void handleOAuthSignup('github')}
+                className="w-full py-3 border border-gray-300 bg-white text-gray-800 font-medium rounded-lg hover:bg-gray-50 transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
+              >
+                Continue with GitHub
+              </button>
+            </div>
+
+            {(!oauthProviders.google || !oauthProviders.github) && (
+              <p className="mt-3 text-xs text-amber-700 bg-amber-50 border border-amber-200 rounded-lg px-3 py-2">
+                One or more social providers are temporarily unavailable. If this persists, check OAuth provider credentials in deployment settings.
+              </p>
+            )}
+          </>
 
           <div className="mt-6 text-center">
             <p className="text-sm text-gray-600">

@@ -3,10 +3,7 @@
 import { useState, FormEvent, useEffect } from 'react'
 import Link from 'next/link'
 import { BookOpenIcon, EyeIcon, EyeSlashIcon } from '@heroicons/react/24/outline'
-import { signIn } from 'next-auth/react'
-
-const GOOGLE_OAUTH_ENABLED = process.env.NEXT_PUBLIC_GOOGLE_OAUTH_ENABLED === 'true'
-const GITHUB_OAUTH_ENABLED = process.env.NEXT_PUBLIC_GITHUB_OAUTH_ENABLED === 'true'
+import { signIn, getProviders } from 'next-auth/react'
 
 export default function StudentLoginPage() {
   const [source, setSource] = useState('')
@@ -35,6 +32,22 @@ export default function StudentLoginPage() {
   const [showPassword, setShowPassword] = useState(false)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
+  const [oauthProviders, setOauthProviders] = useState<{ google: boolean; github: boolean }>({
+    google: false,
+    github: false,
+  })
+
+  useEffect(() => {
+    const loadProviders = async () => {
+      const providers = await getProviders()
+      setOauthProviders({
+        google: Boolean(providers?.google),
+        github: Boolean(providers?.github),
+      })
+    }
+
+    void loadProviders()
+  }, [])
 
   const handleOAuth = async (provider: 'google' | 'github') => {
     setError('')
@@ -165,36 +178,38 @@ export default function StudentLoginPage() {
             </button>
           </form>
 
-          {(GOOGLE_OAUTH_ENABLED || GITHUB_OAUTH_ENABLED) && (
-            <>
-              <div className="my-6 flex items-center gap-3">
-                <div className="h-px flex-1 bg-gray-200" />
-                <span className="text-xs font-medium uppercase tracking-wide text-gray-500">or continue with</span>
-                <div className="h-px flex-1 bg-gray-200" />
-              </div>
+          <>
+            <div className="my-6 flex items-center gap-3">
+              <div className="h-px flex-1 bg-gray-200" />
+              <span className="text-xs font-medium uppercase tracking-wide text-gray-500">or continue with</span>
+              <div className="h-px flex-1 bg-gray-200" />
+            </div>
 
-              <div className="space-y-3">
-                {GOOGLE_OAUTH_ENABLED && (
-                  <button
-                    type="button"
-                    onClick={() => void handleOAuth('google')}
-                    className="w-full py-3 border border-gray-300 bg-white text-gray-800 font-medium rounded-lg hover:bg-gray-50 transition-colors"
-                  >
-                    Continue with Google
-                  </button>
-                )}
-                {GITHUB_OAUTH_ENABLED && (
-                  <button
-                    type="button"
-                    onClick={() => void handleOAuth('github')}
-                    className="w-full py-3 border border-gray-300 bg-white text-gray-800 font-medium rounded-lg hover:bg-gray-50 transition-colors"
-                  >
-                    Continue with GitHub
-                  </button>
-                )}
-              </div>
-            </>
-          )}
+            <div className="space-y-3">
+              <button
+                type="button"
+                disabled={!oauthProviders.google}
+                onClick={() => void handleOAuth('google')}
+                className="w-full py-3 border border-gray-300 bg-white text-gray-800 font-medium rounded-lg hover:bg-gray-50 transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
+              >
+                Continue with Google
+              </button>
+              <button
+                type="button"
+                disabled={!oauthProviders.github}
+                onClick={() => void handleOAuth('github')}
+                className="w-full py-3 border border-gray-300 bg-white text-gray-800 font-medium rounded-lg hover:bg-gray-50 transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
+              >
+                Continue with GitHub
+              </button>
+            </div>
+
+            {(!oauthProviders.google || !oauthProviders.github) && (
+              <p className="mt-3 text-xs text-amber-700 bg-amber-50 border border-amber-200 rounded-lg px-3 py-2">
+                One or more social providers are temporarily unavailable. If this persists, check OAuth provider credentials in deployment settings.
+              </p>
+            )}
+          </>
 
           <div className="mt-6 space-y-3 text-center">
             <p className="text-sm text-gray-600">
