@@ -24,6 +24,12 @@ const Header = () => {
     { href: "/services/mentoring-and-consulting", label: "Mentoring & Consulting" },
   ];
 
+  const desktopMenuTriggerClass = "inline-flex items-center rounded-full px-3 py-2 text-sm font-medium text-darkText transition-colors hover:bg-lightGray hover:text-secondary";
+  const tabletMenuTriggerClass = "inline-flex items-center rounded-full px-2.5 py-1.5 text-sm font-medium text-darkText transition-colors hover:bg-lightGray hover:text-secondary whitespace-nowrap";
+  const dropdownPanelBaseClass = "absolute bg-white/95 backdrop-blur-sm shadow-xl rounded-2xl border border-gray-200 mt-2 z-50 transition-all duration-200";
+  const dropdownItemClass = "block px-4 py-2.5 text-sm text-darkText hover:bg-lightGray transition-colors";
+  const dropdownHighlightItemClass = "block px-4 py-2.5 text-sm font-semibold text-primary hover:bg-lightGray transition-colors";
+
   // Helper function to close all mobile menus
   const closeMobileMenus = () => {
     setMobileMenuOpen(false);
@@ -94,13 +100,13 @@ const Header = () => {
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden lg:flex items-center space-x-6">
+          <div className="hidden lg:flex items-center space-x-3 rounded-full border border-gray-200 bg-white/80 px-2 py-1 shadow-sm backdrop-blur-sm">
             {/* Services Dropdown */}
             <div className="relative nav-dropdown">
               <button 
                 onClick={() => setServicesOpen(!isServicesOpen)}
                 onKeyDown={(e) => e.key === 'Enter' && setServicesOpen(!isServicesOpen)}
-                className="inline-flex items-center hover:text-secondary transition-colors"
+                className={desktopMenuTriggerClass}
                 aria-expanded={isServicesOpen}
                 aria-haspopup="true"
                 aria-label="Services menu"
@@ -110,12 +116,12 @@ const Header = () => {
                   <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
                 </svg>
               </button>
-              <div className={`absolute left-0 lg:left-auto lg:right-0 bg-white shadow-lg rounded-md mt-2 w-60 z-50 transition-all duration-200 ${isServicesOpen ? 'opacity-100 visible translate-y-0' : 'opacity-0 invisible -translate-y-2'}`} role="menu" aria-labelledby="services-button">
-                <Link href="/services" className="block px-4 py-3 text-sm font-medium text-primary border-b border-gray-100 hover:bg-lightGray" onClick={() => setServicesOpen(false)}>
+              <div className={`absolute left-0 lg:left-auto lg:right-0 w-64 ${dropdownPanelBaseClass} ${isServicesOpen ? 'opacity-100 visible translate-y-0' : 'opacity-0 invisible -translate-y-2'}`} role="menu" aria-labelledby="services-button">
+                <Link href="/services" className="block px-4 py-3 text-sm font-medium text-primary border-b border-gray-100 hover:bg-lightGray rounded-t-2xl" onClick={() => setServicesOpen(false)}>
                   All Services
                 </Link>
                 {serviceLinks.map((link) => (
-                  <Link key={link.href} href={link.href} className="block px-4 py-2 text-sm text-darkText hover:bg-lightGray transition-colors" onClick={() => setServicesOpen(false)}>
+                  <Link key={link.href} href={link.href} className={dropdownItemClass} onClick={() => setServicesOpen(false)}>
                     {link.label}
                   </Link>
                 ))}
@@ -126,7 +132,7 @@ const Header = () => {
               <button
                 onClick={() => setExploreOpen(!isExploreOpen)}
                 onKeyDown={(e) => e.key === 'Enter' && setExploreOpen(!isExploreOpen)}
-                className="inline-flex items-center hover:text-secondary transition-colors"
+                className={desktopMenuTriggerClass}
                 aria-expanded={isExploreOpen}
                 aria-haspopup="true"
                 aria-label="Explore menu"
@@ -136,14 +142,14 @@ const Header = () => {
                   <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
                 </svg>
               </button>
-              <div className={`absolute left-0 lg:left-auto lg:right-0 bg-white shadow-lg rounded-md mt-2 w-56 z-50 transition-all duration-200 ${isExploreOpen ? 'opacity-100 visible translate-y-0' : 'opacity-0 invisible -translate-y-2'}`}>
-                <Link href="/courses" className="block px-4 py-2.5 text-sm text-darkText hover:bg-lightGray transition-colors" onClick={closeDesktopMenus}>
+              <div className={`absolute left-0 lg:left-auto lg:right-0 w-56 ${dropdownPanelBaseClass} ${isExploreOpen ? 'opacity-100 visible translate-y-0' : 'opacity-0 invisible -translate-y-2'}`}>
+                <Link href="/courses" className={dropdownItemClass} onClick={closeDesktopMenus}>
                   Courses
                 </Link>
-                <Link href="/mentorships" className="block px-4 py-2.5 text-sm text-primary font-semibold hover:bg-lightGray transition-colors" onClick={closeDesktopMenus}>
+                <Link href="/mentorships" className={dropdownHighlightItemClass} onClick={closeDesktopMenus}>
                   Mentorships
                 </Link>
-                <Link href="/portfolio" className="block px-4 py-2.5 text-sm text-darkText hover:bg-lightGray transition-colors" onClick={closeDesktopMenus}>
+                <Link href="/portfolio" className={dropdownItemClass} onClick={closeDesktopMenus}>
                   Portfolio
                 </Link>
               </div>
@@ -153,7 +159,7 @@ const Header = () => {
               <button
                 onClick={() => setCompanyOpen(!isCompanyOpen)}
                 onKeyDown={(e) => e.key === 'Enter' && setCompanyOpen(!isCompanyOpen)}
-                className="inline-flex items-center hover:text-secondary transition-colors"
+                className={desktopMenuTriggerClass}
                 aria-expanded={isCompanyOpen}
                 aria-haspopup="true"
                 aria-label="Company menu"
@@ -163,25 +169,25 @@ const Header = () => {
                   <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
                 </svg>
               </button>
-              <div className={`absolute left-0 lg:left-auto lg:right-0 bg-white shadow-lg rounded-md mt-2 w-48 z-50 transition-all duration-200 ${isCompanyOpen ? 'opacity-100 visible translate-y-0' : 'opacity-0 invisible -translate-y-2'}`}>
-                <Link href="/about" className="block px-4 py-2.5 text-sm text-darkText hover:bg-lightGray transition-colors" onClick={closeDesktopMenus}>
+              <div className={`absolute left-0 lg:left-auto lg:right-0 w-48 ${dropdownPanelBaseClass} ${isCompanyOpen ? 'opacity-100 visible translate-y-0' : 'opacity-0 invisible -translate-y-2'}`}>
+                <Link href="/about" className={dropdownItemClass} onClick={closeDesktopMenus}>
                   About
                 </Link>
-                <Link href="/blog" className="block px-4 py-2.5 text-sm text-darkText hover:bg-lightGray transition-colors" onClick={closeDesktopMenus}>
+                <Link href="/blog" className={dropdownItemClass} onClick={closeDesktopMenus}>
                   Blog
                 </Link>
-                <Link href="/faq" className="block px-4 py-2.5 text-sm text-darkText hover:bg-lightGray transition-colors" onClick={closeDesktopMenus}>
+                <Link href="/faq" className={dropdownItemClass} onClick={closeDesktopMenus}>
                   FAQs
                 </Link>
               </div>
             </div>
           </div>
           
-          <div className="hidden lg:flex items-center space-x-4">
+          <div className="hidden lg:flex items-center space-x-3">
             <div className="relative nav-dropdown">
               <button
                 onClick={() => setAccountOpen(!isAccountOpen)}
-                className="inline-flex items-center text-sm font-semibold text-primary hover:text-primary/80 transition-colors"
+                className="inline-flex items-center rounded-full border border-primary/20 bg-primary/5 px-3 py-2 text-sm font-semibold text-primary transition-colors hover:border-primary/40 hover:bg-primary/10"
                 aria-expanded={isAccountOpen}
                 aria-haspopup="true"
                 aria-label="Account menu"
@@ -191,14 +197,14 @@ const Header = () => {
                   <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
                 </svg>
               </button>
-              <div className={`absolute right-0 bg-white shadow-lg rounded-md mt-2 w-52 z-50 transition-all duration-200 ${isAccountOpen ? 'opacity-100 visible translate-y-0' : 'opacity-0 invisible -translate-y-2'}`}>
-                <Link href="/student/login" className="block px-4 py-2.5 text-sm text-darkText hover:bg-lightGray transition-colors" onClick={closeDesktopMenus}>
+              <div className={`absolute right-0 w-52 ${dropdownPanelBaseClass} ${isAccountOpen ? 'opacity-100 visible translate-y-0' : 'opacity-0 invisible -translate-y-2'}`}>
+                <Link href="/student/login" className={dropdownItemClass} onClick={closeDesktopMenus}>
                   Student Login
                 </Link>
-                <Link href="/teacher/login" className="block px-4 py-2.5 text-sm text-darkText hover:bg-lightGray transition-colors" onClick={closeDesktopMenus}>
+                <Link href="/teacher/login" className={dropdownItemClass} onClick={closeDesktopMenus}>
                   Teacher Login
                 </Link>
-                <Link href="/teacher/signup" className="block px-4 py-2.5 text-sm font-semibold text-primary hover:bg-lightGray transition-colors" onClick={closeDesktopMenus}>
+                <Link href="/teacher/signup" className={dropdownHighlightItemClass} onClick={closeDesktopMenus}>
                   Apply to Teach
                 </Link>
               </div>
@@ -222,25 +228,25 @@ const Header = () => {
 
           {/* Tablet Navigation */}
           <div className="hidden md:flex lg:hidden items-center justify-between flex-1 ml-4">
-            <div className="flex items-center space-x-3 xl:space-x-4">
+            <div className="flex items-center space-x-2 rounded-full border border-gray-200 bg-white/80 px-2 py-1 shadow-sm backdrop-blur-sm">
               {/* Services Dropdown Tablet */}
               <div className="relative nav-dropdown">
                 <button 
                   id="services-button"
                   onClick={() => setServicesOpen(!isServicesOpen)}
-                  className="inline-flex items-center text-sm font-medium hover:text-secondary transition-colors whitespace-nowrap"
+                  className={tabletMenuTriggerClass}
                 >
                   Services
                   <svg className={`ml-1 h-3 w-3 transition-transform duration-200 ${isServicesOpen ? 'rotate-180' : ''}`} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                     <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
                   </svg>
                 </button>
-                <div className={`absolute left-0 xl:left-auto xl:right-0 bg-white shadow-lg rounded-md mt-2 w-72 z-50 transition-all duration-200 ${isServicesOpen ? 'opacity-100 visible translate-y-0' : 'opacity-0 invisible -translate-y-2'}`}>
-                  <Link href="/services" className="block px-4 py-3 text-sm font-medium text-primary border-b border-gray-100 hover:bg-lightGray whitespace-nowrap" onClick={() => setServicesOpen(false)}>
+                <div className={`absolute left-0 xl:left-auto xl:right-0 w-72 ${dropdownPanelBaseClass} ${isServicesOpen ? 'opacity-100 visible translate-y-0' : 'opacity-0 invisible -translate-y-2'}`}>
+                  <Link href="/services" className="block px-4 py-3 text-sm font-medium text-primary border-b border-gray-100 hover:bg-lightGray whitespace-nowrap rounded-t-2xl" onClick={() => setServicesOpen(false)}>
                     All Services
                   </Link>
                   {serviceLinks.map((link) => (
-                    <Link key={link.href} href={link.href} className="block px-4 py-2.5 text-sm text-darkText hover:bg-lightGray transition-colors whitespace-nowrap" onClick={() => setServicesOpen(false)}>
+                    <Link key={link.href} href={link.href} className={`${dropdownItemClass} whitespace-nowrap`} onClick={() => setServicesOpen(false)}>
                       {link.label}
                     </Link>
                   ))}
@@ -250,21 +256,21 @@ const Header = () => {
               <div className="relative nav-dropdown">
                 <button
                   onClick={() => setExploreOpen(!isExploreOpen)}
-                  className="inline-flex items-center text-sm font-medium hover:text-secondary transition-colors whitespace-nowrap"
+                  className={tabletMenuTriggerClass}
                 >
                   Explore
                   <svg className={`ml-1 h-3 w-3 transition-transform duration-200 ${isExploreOpen ? 'rotate-180' : ''}`} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                     <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
                   </svg>
                 </button>
-                <div className={`absolute left-0 xl:left-auto xl:right-0 bg-white shadow-lg rounded-md mt-2 w-56 z-50 transition-all duration-200 ${isExploreOpen ? 'opacity-100 visible translate-y-0' : 'opacity-0 invisible -translate-y-2'}`}>
-                  <Link href="/courses" className="block px-4 py-2.5 text-sm text-darkText hover:bg-lightGray transition-colors whitespace-nowrap" onClick={closeDesktopMenus}>
+                <div className={`absolute left-0 xl:left-auto xl:right-0 w-56 ${dropdownPanelBaseClass} ${isExploreOpen ? 'opacity-100 visible translate-y-0' : 'opacity-0 invisible -translate-y-2'}`}>
+                  <Link href="/courses" className={`${dropdownItemClass} whitespace-nowrap`} onClick={closeDesktopMenus}>
                     Courses
                   </Link>
-                  <Link href="/mentorships" className="block px-4 py-2.5 text-sm text-primary font-semibold hover:bg-lightGray transition-colors whitespace-nowrap" onClick={closeDesktopMenus}>
+                  <Link href="/mentorships" className={`${dropdownHighlightItemClass} whitespace-nowrap`} onClick={closeDesktopMenus}>
                     Mentorships
                   </Link>
-                  <Link href="/portfolio" className="block px-4 py-2.5 text-sm text-darkText hover:bg-lightGray transition-colors whitespace-nowrap" onClick={closeDesktopMenus}>
+                  <Link href="/portfolio" className={`${dropdownItemClass} whitespace-nowrap`} onClick={closeDesktopMenus}>
                     Portfolio
                   </Link>
                 </div>
@@ -273,21 +279,21 @@ const Header = () => {
               <div className="relative nav-dropdown">
                 <button
                   onClick={() => setCompanyOpen(!isCompanyOpen)}
-                  className="inline-flex items-center text-sm font-medium hover:text-secondary transition-colors whitespace-nowrap"
+                  className={tabletMenuTriggerClass}
                 >
                   Company
                   <svg className={`ml-1 h-3 w-3 transition-transform duration-200 ${isCompanyOpen ? 'rotate-180' : ''}`} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                     <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
                   </svg>
                 </button>
-                <div className={`absolute left-0 xl:left-auto xl:right-0 bg-white shadow-lg rounded-md mt-2 w-48 z-50 transition-all duration-200 ${isCompanyOpen ? 'opacity-100 visible translate-y-0' : 'opacity-0 invisible -translate-y-2'}`}>
-                  <Link href="/about" className="block px-4 py-2.5 text-sm text-darkText hover:bg-lightGray transition-colors whitespace-nowrap" onClick={closeDesktopMenus}>
+                <div className={`absolute left-0 xl:left-auto xl:right-0 w-48 ${dropdownPanelBaseClass} ${isCompanyOpen ? 'opacity-100 visible translate-y-0' : 'opacity-0 invisible -translate-y-2'}`}>
+                  <Link href="/about" className={`${dropdownItemClass} whitespace-nowrap`} onClick={closeDesktopMenus}>
                     About
                   </Link>
-                  <Link href="/blog" className="block px-4 py-2.5 text-sm text-darkText hover:bg-lightGray transition-colors whitespace-nowrap" onClick={closeDesktopMenus}>
+                  <Link href="/blog" className={`${dropdownItemClass} whitespace-nowrap`} onClick={closeDesktopMenus}>
                     Blog
                   </Link>
-                  <Link href="/faq" className="block px-4 py-2.5 text-sm text-darkText hover:bg-lightGray transition-colors whitespace-nowrap" onClick={closeDesktopMenus}>
+                  <Link href="/faq" className={`${dropdownItemClass} whitespace-nowrap`} onClick={closeDesktopMenus}>
                     FAQs
                   </Link>
                 </div>
@@ -298,21 +304,21 @@ const Header = () => {
               <div className="relative nav-dropdown">
                 <button
                   onClick={() => setAccountOpen(!isAccountOpen)}
-                  className="inline-flex items-center text-xs font-semibold text-primary hover:text-primary/80 transition-colors whitespace-nowrap"
+                  className="inline-flex items-center rounded-full border border-primary/20 bg-primary/5 px-2.5 py-1.5 text-xs font-semibold text-primary transition-colors hover:border-primary/40 hover:bg-primary/10 whitespace-nowrap"
                 >
                   Account
                   <svg className={`ml-1 h-3 w-3 transition-transform duration-200 ${isAccountOpen ? 'rotate-180' : ''}`} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                     <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
                   </svg>
                 </button>
-                <div className={`absolute right-0 bg-white shadow-lg rounded-md mt-2 w-52 z-50 transition-all duration-200 ${isAccountOpen ? 'opacity-100 visible translate-y-0' : 'opacity-0 invisible -translate-y-2'}`}>
-                  <Link href="/student/login" className="block px-4 py-2.5 text-sm text-darkText hover:bg-lightGray transition-colors" onClick={closeDesktopMenus}>
+                <div className={`absolute right-0 w-52 ${dropdownPanelBaseClass} ${isAccountOpen ? 'opacity-100 visible translate-y-0' : 'opacity-0 invisible -translate-y-2'}`}>
+                  <Link href="/student/login" className={dropdownItemClass} onClick={closeDesktopMenus}>
                     Student Login
                   </Link>
-                  <Link href="/teacher/login" className="block px-4 py-2.5 text-sm text-darkText hover:bg-lightGray transition-colors" onClick={closeDesktopMenus}>
+                  <Link href="/teacher/login" className={dropdownItemClass} onClick={closeDesktopMenus}>
                     Teacher Login
                   </Link>
-                  <Link href="/teacher/signup" className="block px-4 py-2.5 text-sm font-semibold text-primary hover:bg-lightGray transition-colors" onClick={closeDesktopMenus}>
+                  <Link href="/teacher/signup" className={dropdownHighlightItemClass} onClick={closeDesktopMenus}>
                     Apply to Teach
                   </Link>
                 </div>
