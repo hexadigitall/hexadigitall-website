@@ -11,7 +11,6 @@ import { ContactCTA } from '@/components/ui/CTAButton'
 import { StartingAtPriceDisplay } from '@/components/ui/PriceDisplay'
 import { ServiceRequestFlow, ServiceCategory } from '@/components/services/ServiceRequestFlow'
 import { SparklesIcon } from '@heroicons/react/24/outline'
-import Breadcrumb from '@/components/ui/Breadcrumb'
 import StartupFunnel from '@/components/marketing/StartupFunnel'
 import { getWhatsAppLink } from '@/lib/whatsapp' 
 import { trackEvent } from '@/lib/analytics'
@@ -25,11 +24,11 @@ interface ServicesPageClientProps {
 }
 
 const PEOPLE_IMAGES = {
-  primary: '/assets/images/people/front-view-happy-woman-calling-out.jpg',
-  excitedMan: '/assets/images/people/african-american-man-wearing-yellow-t-shirt-excited.jpg',
+  primary: '/assets/images/people/front-view-happy-woman-calling-out-hero.webp',
+  excitedMan: '/assets/images/people/portrait-cool-man-with-sunglasses-dancing-smiling-alt-chip.webp',
   playfulWoman:
-    '/assets/images/people/surprised-playful-touched-good-looking-african-american-woman-glasses-stylish-brown-t-shirt-clasping-hands-smiling-from-joy-excitement-liking-great-show.jpg',
-  dancingMan: '/assets/images/people/portrait-cool-man-with-sunglasses-dancing-smiling.jpg',
+    '/assets/images/people/surprised-playful-touched-good-looking-african-american-woman-glasses-chip.webp',
+  dancingMan: '/assets/images/people/portrait-cool-man-with-sunglasses-dancing-smiling-chip.webp',
 }
 
 export default function ServicesPageClient({ initialData }: ServicesPageClientProps) {
@@ -137,12 +136,12 @@ export default function ServicesPageClient({ initialData }: ServicesPageClientPr
 
   const renderHero = () => {
     return (
-      <div className="relative w-full overflow-hidden mb-12 mt-4 rounded-[2rem] bg-slate-950 text-white shadow-2xl">
+      <div className="relative w-full overflow-hidden mb-12 rounded-b-[2rem] bg-slate-950 text-white shadow-2xl">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_12%_22%,rgba(243,178,77,0.38),transparent_34%),radial-gradient(circle_at_78%_18%,rgba(7,89,133,0.22),transparent_28%),radial-gradient(circle_at_82%_78%,rgba(6,109,127,0.40),transparent_42%),linear-gradient(120deg,#03101c_0%,#0A4D68_52%,#062738_100%)]" />
         <div className="absolute inset-0 opacity-20 [background-image:linear-gradient(rgba(255,255,255,0.08)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.08)_1px,transparent_1px)] [background-size:40px_40px]" />
         <div className="absolute inset-y-0 right-0 w-full lg:w-1/2 bg-gradient-to-l from-white/8 to-transparent" />
 
-        <div className="relative container mx-auto px-6 py-10 sm:py-12 lg:py-16">
+        <div className="relative container mx-auto px-6 pt-28 pb-10 sm:pt-32 sm:pb-12 lg:pt-36 lg:pb-16">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-4 items-center">
             <div className="max-w-2xl">
               <p className="inline-flex items-center rounded-full border border-white/20 bg-white/10 px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.16em] text-slate-100 sm:text-xs">
@@ -252,13 +251,7 @@ export default function ServicesPageClient({ initialData }: ServicesPageClientPr
 
   return (
     <div className="bg-slate-50">
-        
-        {/* --- 1. BREADCRUMBS (Tight Gap: pt-20) --- */}
-        <div className="pt-20 pb-0 container mx-auto px-6">
-           <Breadcrumb items={[{ label: 'Services' }]} className="text-gray-600" />
-        </div>
-
-        {/* --- 2. HERO SECTION --- */}
+        {/* --- 1. HERO SECTION --- */}
         {renderHero()}
 
         <div className="container mx-auto px-6 pb-20">
