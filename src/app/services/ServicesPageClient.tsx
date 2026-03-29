@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
+import Image from 'next/image'
 import { useCurrency } from '@/contexts/CurrencyContext'
 import { SERVICE_PRICING } from '@/lib/currency'
 import { DiscountBanner } from '@/components/ui/DiscountBanner'
@@ -13,6 +14,7 @@ import { SparklesIcon } from '@heroicons/react/24/outline'
 import Breadcrumb from '@/components/ui/Breadcrumb'
 import StartupFunnel from '@/components/marketing/StartupFunnel'
 import { getWhatsAppLink } from '@/lib/whatsapp' 
+import { trackEvent } from '@/lib/analytics'
 
 interface ServicesPageClientProps {
   initialData?: {
@@ -22,10 +24,27 @@ interface ServicesPageClientProps {
   }
 }
 
+type HeroVariant = 'control' | 'a' | 'b'
+
+const HERO_EXPERIMENT_KEY = 'exp.servicesHero.v2'
+
+const PEOPLE_IMAGES = {
+  primary: '/assets/images/people/front-view-happy-woman-calling-out.jpg',
+  excitedMan: '/assets/images/people/african-american-man-wearing-yellow-t-shirt-excited.jpg',
+  playfulWoman:
+    '/assets/images/people/surprised-playful-touched-good-looking-african-american-woman-glasses-stylish-brown-t-shirt-clasping-hands-smiling-from-joy-excitement-liking-great-show.jpg',
+  dancingMan: '/assets/images/people/portrait-cool-man-with-sunglasses-dancing-smiling.jpg',
+}
+
+const isHeroVariant = (value: string | null): value is HeroVariant =>
+  value === 'control' || value === 'a' || value === 'b'
+
 export default function ServicesPageClient({ initialData }: ServicesPageClientProps) {
   const { getLocalDiscountMessage, currentCurrency, convertPrice } = useCurrency()
   const discountMessage = getLocalDiscountMessage()
   const [selectedService, setSelectedService] = useState<ServiceCategory | null>(null)
+  const [heroVariant, setHeroVariant] = useState<HeroVariant>('control')
+  const [heroVariantResolved, setHeroVariantResolved] = useState(false)
   const router = useRouter()
   
   // 1. Resolve Banner Data
@@ -109,6 +128,255 @@ export default function ServicesPageClient({ initialData }: ServicesPageClientPr
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
+  useEffect(() => {
+    if (typeof window === 'undefined') return
+
+    const params = new URLSearchParams(window.location.search)
+    const forcedVariant = params.get('hero')
+
+    if (isHeroVariant(forcedVariant)) {
+      setHeroVariant(forcedVariant)
+      localStorage.setItem(HERO_EXPERIMENT_KEY, forcedVariant)
+      setHeroVariantResolved(true)
+      return
+    }
+
+    const storedVariant = localStorage.getItem(HERO_EXPERIMENT_KEY)
+    if (isHeroVariant(storedVariant)) {
+      setHeroVariant(storedVariant)
+      setHeroVariantResolved(true)
+      return
+    }
+
+    const assignedVariant: HeroVariant =
+      Math.random() < 0.34 ? 'control' : Math.random() < 0.5 ? 'a' : 'b'
+
+    setHeroVariant(assignedVariant)
+    localStorage.setItem(HERO_EXPERIMENT_KEY, assignedVariant)
+    setHeroVariantResolved(true)
+  }, [])
+
+  useEffect(() => {
+    if (!heroVariantResolved) return
+
+    trackEvent('services_hero_variant_impression', {
+      event_category: 'ab_test',
+      event_label: `services_hero_${heroVariant}`,
+      experiment_id: 'services_hero_v2',
+      variant: heroVariant,
+      page: '/services',
+    })
+  }, [heroVariantResolved, heroVariant])
+
+  const trackHeroCta = (ctaName: string) => {
+    trackEvent('services_hero_cta_click', {
+      event_category: 'ab_test',
+      event_label: ctaName,
+      experiment_id: 'services_hero_v2',
+      variant: heroVariant,
+      page: '/services',
+    })
+  }
+
+  const renderHero = () => {
+    if (heroVariant === 'a') {
+      return (
+        <div className="relative w-full overflow-hidden mb-12 mt-4 rounded-[2rem] bg-slate-950 text-white shadow-2xl">
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_15%_25%,rgba(255,203,104,0.35),transparent_40%),radial-gradient(circle_at_80%_80%,rgba(6,109,127,0.35),transparent_50%),linear-gradient(120deg,#041225_0%,#0A4D68_55%,#032534_100%)]" />
+          <div className="absolute inset-0 opacity-30 [background-image:linear-gradient(rgba(255,255,255,0.08)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.08)_1px,transparent_1px)] [background-size:36px_36px]" />
+
+          <div className="relative container mx-auto px-6 py-12 md:py-16 lg:py-18">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-6 items-center">
+              <div>
+                <p className="inline-flex items-center rounded-full border border-white/25 bg-white/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.14em] text-slate-100">
+                  Welcoming and Results-Driven Services
+                </p>
+                <h1 className="mt-5 text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-[1.05]">
+                  Build with confidence.
+                  <span className="block text-amber-300">Grow with the right partner.</span>
+                </h1>
+                <p className="mt-5 max-w-xl text-base sm:text-lg text-slate-100/95 leading-relaxed">
+                  From business plans to websites, social growth, and mentorship, we help you launch, scale, and stand out with a clear path.
+                </p>
+
+                <div className="mt-8 flex flex-col sm:flex-row gap-3">
+                  <Link
+                    href="/services/custom-build"
+                    onClick={() => trackHeroCta('start_project')}
+                    className="inline-flex items-center justify-center rounded-xl bg-amber-300 px-6 py-3 text-sm font-bold text-slate-900 shadow-lg hover:bg-amber-200 transition-colors"
+                  >
+                    Start Your Project
+                  </Link>
+                  <Link
+                    href="#packages"
+                    onClick={() => trackHeroCta('explore_packages')}
+                    className="inline-flex items-center justify-center rounded-xl border border-white/35 bg-white/10 px-6 py-3 text-sm font-semibold text-white hover:bg-white/20 transition-colors"
+                  >
+                    Explore Packages
+                  </Link>
+                </div>
+
+                <div className="mt-5 flex flex-wrap items-center gap-3 text-xs sm:text-sm">
+                  <span className="rounded-full border border-white/20 bg-white/10 px-3 py-1.5 text-slate-100">
+                    Prices in: <strong>{currentCurrency.flag} {currentCurrency.code}</strong>
+                  </span>
+                  {discountMessage && (
+                    <span className="inline-flex items-center gap-2 rounded-full border border-emerald-300/40 bg-emerald-400/20 px-3 py-1.5 text-emerald-50">
+                      <SparklesIcon className="h-4 w-4" aria-hidden="true" />
+                      {discountMessage}
+                    </span>
+                  )}
+                </div>
+              </div>
+
+              <div className="relative flex items-center justify-center min-h-[320px] sm:min-h-[420px]">
+                <div className="absolute w-[84%] h-[84%] rounded-full border border-white/25" />
+                <div className="absolute w-[62%] h-[62%] rounded-full border border-white/15" />
+
+                <div className="relative w-64 h-64 sm:w-80 sm:h-80 rounded-full overflow-hidden ring-8 ring-white/25 shadow-2xl">
+                  <Image
+                    src={PEOPLE_IMAGES.primary}
+                    alt="Smiling team member"
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 768px) 16rem, 20rem"
+                    priority
+                  />
+                </div>
+
+                <div className="absolute top-7 left-2 sm:left-10 w-20 h-20 sm:w-24 sm:h-24 rounded-full overflow-hidden ring-4 ring-amber-300/70 shadow-xl animate-float">
+                  <Image src={PEOPLE_IMAGES.excitedMan} alt="Happy client" fill className="object-cover" sizes="96px" />
+                </div>
+
+                <div className="absolute bottom-4 right-4 sm:right-10 w-16 h-16 sm:w-20 sm:h-20 rounded-full overflow-hidden ring-4 ring-sky-300/70 shadow-xl animate-float">
+                  <Image src={PEOPLE_IMAGES.dancingMan} alt="Celebrating client" fill className="object-cover" sizes="80px" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )
+    }
+
+    if (heroVariant === 'b') {
+      return (
+        <div className="relative w-full overflow-hidden mb-12 mt-4 rounded-[2rem] border border-slate-200 bg-gradient-to-br from-[#eef7fb] via-white to-[#fff6e9] shadow-xl">
+          <div className="absolute -top-16 -left-16 h-64 w-64 rounded-full bg-[#0A4D68]/10 blur-3xl" />
+          <div className="absolute -bottom-20 right-0 h-72 w-72 rounded-full bg-[#F3B24D]/20 blur-3xl" />
+
+          <div className="relative container mx-auto px-6 py-10 md:py-14">
+            <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 items-center">
+              <div className="lg:col-span-2 grid grid-cols-2 gap-4">
+                <div className="col-span-2 rounded-3xl overflow-hidden shadow-lg border border-white/70 bg-white h-52 sm:h-64 relative">
+                  <Image
+                    src={PEOPLE_IMAGES.playfulWoman}
+                    alt="Delighted customer"
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 1024px) 100vw, 40vw"
+                    priority
+                  />
+                </div>
+
+                <div className="rounded-2xl overflow-hidden shadow-md border border-white/80 bg-white h-32 sm:h-40 relative">
+                  <Image src={PEOPLE_IMAGES.dancingMan} alt="Happy customer" fill className="object-cover" sizes="160px" />
+                </div>
+
+                <div className="rounded-2xl border border-slate-200 bg-white/95 p-4 shadow-md flex flex-col justify-center">
+                  <p className="text-xs uppercase tracking-[0.12em] text-secondary font-semibold">Trusted Support</p>
+                  <p className="mt-2 text-sm text-darkText font-medium leading-relaxed">
+                    Friendly collaboration from idea to delivery, tailored to your goals.
+                  </p>
+                </div>
+              </div>
+
+              <div className="lg:col-span-3">
+                <p className="inline-flex items-center rounded-full border border-primary/20 bg-primary/5 px-4 py-2 text-xs font-semibold uppercase tracking-[0.13em] text-primary">
+                  Services That Feel Personal
+                </p>
+                <h1 className="mt-4 text-4xl sm:text-5xl font-extrabold tracking-tight leading-[1.05] text-slate-900">
+                  Your vision deserves a
+                  <span className="text-secondary"> warm, expert team.</span>
+                </h1>
+                <p className="mt-4 max-w-2xl text-base sm:text-lg leading-relaxed text-slate-700">
+                  Choose complete packages, custom builds, or individual services. We make complex work feel clear and approachable on every step.
+                </p>
+
+                <div className="mt-7 flex flex-col sm:flex-row gap-3">
+                  <Link
+                    href="#packages"
+                    onClick={() => trackHeroCta('browse_packages')}
+                    className="inline-flex items-center justify-center rounded-xl bg-primary px-6 py-3 text-sm font-bold text-white shadow-lg hover:bg-secondary transition-colors"
+                  >
+                    Browse Packages
+                  </Link>
+                  <Link
+                    href="/services/build-bundle"
+                    onClick={() => trackHeroCta('build_bundle')}
+                    className="inline-flex items-center justify-center rounded-xl border border-primary/30 bg-white px-6 py-3 text-sm font-semibold text-primary hover:bg-primary/5 transition-colors"
+                  >
+                    Build Your Bundle
+                  </Link>
+                </div>
+
+                <div className="mt-5 flex flex-wrap items-center gap-3 text-xs sm:text-sm">
+                  <span className="rounded-full border border-slate-300 bg-white/80 px-3 py-1.5 text-slate-700">
+                    Prices in: <strong>{currentCurrency.flag} {currentCurrency.code}</strong>
+                  </span>
+                  {discountMessage && (
+                    <span className="inline-flex items-center gap-2 rounded-full border border-emerald-300 bg-emerald-50 px-3 py-1.5 text-emerald-700">
+                      <SparklesIcon className="h-4 w-4" aria-hidden="true" />
+                      {discountMessage}
+                    </span>
+                  )}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )
+    }
+
+    return (
+      <div className="relative h-[500px] md:h-[400px] w-full overflow-hidden mb-12 flex items-center justify-center mt-4">
+        {/* Background Image */}
+        <div
+          className="absolute inset-0 w-full h-full z-0"
+          style={{
+            backgroundImage: `url('${bannerImage}')`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            backgroundRepeat: 'no-repeat',
+          }}
+        />
+
+        {/* Transparent Glass Card */}
+        <div className="container mx-auto px-4 relative z-10 flex justify-center">
+          <div className="max-w-4xl w-full bg-black/20 backdrop-blur-md border border-white/20 rounded-3xl p-8 md:p-10 text-center shadow-2xl">
+            <h1 className="text-3xl md:text-5xl font-bold mb-4 tracking-tight text-white drop-shadow-lg">{pageTitle}</h1>
+            <p className="text-lg md:text-xl text-gray-100 max-w-2xl mx-auto leading-relaxed drop-shadow-md font-medium">
+              {pageDescription}
+            </p>
+
+            {/* Currency Info */}
+            <div className="mt-6 flex flex-col sm:flex-row items-center justify-center gap-4">
+              <div className="flex items-center space-x-2 text-sm text-gray-100 font-medium">
+                <span>Prices shown in:</span>
+                <span className="font-bold text-white">{currentCurrency.flag} {currentCurrency.code}</span>
+              </div>
+              {discountMessage && (
+                <div className="inline-flex items-center space-x-2 bg-green-500/30 border border-green-400/50 text-white px-4 py-2 rounded-full text-sm font-bold backdrop-blur-md shadow-sm">
+                  <SparklesIcon className="h-4 w-4" aria-hidden="true" />
+                  <span>{discountMessage}</span>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      </div>
+    )
+  }
+
   return (
     <div className="bg-slate-50">
         
@@ -117,45 +385,39 @@ export default function ServicesPageClient({ initialData }: ServicesPageClientPr
            <Breadcrumb items={[{ label: 'Services' }]} className="text-gray-600" />
         </div>
 
-        {/* --- 2. HERO SECTION (High Transparency Dark Glass) --- */}
-        <div className="relative h-[500px] md:h-[400px] w-full overflow-hidden mb-12 flex items-center justify-center mt-4">
-          {/* Background Image */}
-          <div 
-            className="absolute inset-0 w-full h-full z-0"
-            style={{
-              backgroundImage: `url('${bannerImage}')`,
-              backgroundSize: 'cover',
-              backgroundPosition: 'center',
-              backgroundRepeat: 'no-repeat'
-            }}
-          />
-          
-          {/* Transparent Glass Card */}
-          <div className="container mx-auto px-4 relative z-10 flex justify-center">
-             <div className="max-w-4xl w-full bg-black/20 backdrop-blur-md border border-white/20 rounded-3xl p-8 md:p-10 text-center shadow-2xl">
-                <h1 className="text-3xl md:text-5xl font-bold mb-4 tracking-tight text-white drop-shadow-lg">
-                  {pageTitle}
-                </h1>
-                <p className="text-lg md:text-xl text-gray-100 max-w-2xl mx-auto leading-relaxed drop-shadow-md font-medium">
-                  {pageDescription}
-                </p>
-
-                {/* Currency Info */}
-                <div className="mt-6 flex flex-col sm:flex-row items-center justify-center gap-4">
-                  <div className="flex items-center space-x-2 text-sm text-gray-100 font-medium">
-                    <span>Prices shown in:</span>
-                    <span className="font-bold text-white">{currentCurrency.flag} {currentCurrency.code}</span>
-                  </div>
-                  {discountMessage && (
-                    <div className="inline-flex items-center space-x-2 bg-green-500/30 border border-green-400/50 text-white px-4 py-2 rounded-full text-sm font-bold backdrop-blur-md shadow-sm">
-                      <SparklesIcon className="h-4 w-4" aria-hidden="true" />
-                      <span>{discountMessage}</span>
-                    </div>
-                  )}
-                </div>
-             </div>
+        {/* Hero Variant Compare Controls */}
+        <div className="container mx-auto px-6 mt-4">
+          <div className="inline-flex items-center gap-2 rounded-full border border-gray-200 bg-white px-3 py-2 text-xs sm:text-sm shadow-sm">
+            <span className="font-semibold text-gray-600 uppercase tracking-wide">Hero Compare</span>
+            <Link
+              href="/services?hero=control"
+              className={`rounded-full px-3 py-1.5 font-semibold transition-colors ${
+                heroVariant === 'control' ? 'bg-primary text-white' : 'text-gray-600 hover:bg-gray-100'
+              }`}
+            >
+              Current
+            </Link>
+            <Link
+              href="/services?hero=a"
+              className={`rounded-full px-3 py-1.5 font-semibold transition-colors ${
+                heroVariant === 'a' ? 'bg-primary text-white' : 'text-gray-600 hover:bg-gray-100'
+              }`}
+            >
+              A
+            </Link>
+            <Link
+              href="/services?hero=b"
+              className={`rounded-full px-3 py-1.5 font-semibold transition-colors ${
+                heroVariant === 'b' ? 'bg-primary text-white' : 'text-gray-600 hover:bg-gray-100'
+              }`}
+            >
+              B
+            </Link>
           </div>
         </div>
+
+        {/* --- 2. HERO SECTION (A/B with current control) --- */}
+        {renderHero()}
 
         <div className="container mx-auto px-6 pb-20">
           
