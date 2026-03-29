@@ -66,6 +66,14 @@ export default function ServicesPageClient({ initialData }: ServicesPageClientPr
     }
   ]
 
+  const serviceCategories = [
+    { title: 'Business Plan & Logo Design', desc: 'Complete business planning, branding, and strategic consulting services', href: '/services/business-plan-and-logo-design', icon: '📋', color: 'from-blue-500 to-indigo-500' },
+    { title: 'Web & Mobile Development', desc: 'Professional websites, mobile apps, and digital solutions', href: '/services/web-and-mobile-software-development', icon: '🌐', color: 'from-green-500 to-teal-500' },
+    { title: 'Social Media Marketing', desc: 'Digital marketing, SEO, and social media management', href: '/services/social-media-advertising-and-marketing', icon: '📈', color: 'from-pink-500 to-red-500' },
+    { title: 'Profile & Portfolio Building', desc: 'Professional portfolios, CV design, and personal branding', href: '/services/profile-and-portfolio-building', icon: '👤', color: 'from-purple-500 to-violet-500' },
+    { title: 'Mentoring & Consulting', desc: 'Strategic consulting, mentorship, and business guidance', href: '/services/mentoring-and-consulting', icon: '🎯', color: 'from-orange-500 to-amber-500' }
+  ]
+
   const openPackageModal = (pkg: typeof featuredPackages[0]) => {
     const serviceCategory: ServiceCategory = {
       _id: pkg.categorySlug,
@@ -260,10 +268,7 @@ export default function ServicesPageClient({ initialData }: ServicesPageClientPr
 
           {/* --- 3. SERVICE PATH SELECTOR --- */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto mb-16">
-            <Link 
-              href="#packages" 
-              className="group p-8 bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-xl hover:border-blue-200 transition-all duration-300 flex flex-col items-center text-center"
-            >
+            <div className="group p-8 bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-xl hover:border-blue-200 transition-all duration-300 flex flex-col items-center text-center">
               <div className="text-5xl mb-4 transform group-hover:scale-110 transition-transform duration-300">📦</div>
               <h3 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-blue-600 transition-colors">
                 Tiered Packages
@@ -271,10 +276,24 @@ export default function ServicesPageClient({ initialData }: ServicesPageClientPr
               <p className="text-gray-600 mb-4 leading-relaxed">
                 Complete solutions (Basic/Standard/Premium) for full projects like websites, business plans, or marketing campaigns.
               </p>
-              <div className="mt-auto text-blue-600 font-bold text-sm flex items-center justify-center">
-                Browse Packages <span className="ml-2">→</span>
-              </div>
-            </Link>
+
+              <details className="mt-auto w-full max-w-xs relative">
+                <summary className="list-none cursor-pointer text-blue-600 font-bold text-sm flex items-center justify-center gap-2 rounded-lg border border-blue-200 bg-blue-50 py-2.5 px-4 hover:bg-blue-100 transition-colors">
+                  Select Category <span>▾</span>
+                </summary>
+                <div className="absolute left-1/2 z-20 mt-2 w-full -translate-x-1/2 rounded-xl border border-gray-200 bg-white shadow-xl text-left overflow-hidden">
+                  {serviceCategories.map((category) => (
+                    <Link
+                      key={`selector-${category.href}`}
+                      href={category.href}
+                      className="block px-4 py-2.5 text-sm font-medium text-gray-700 hover:bg-gray-50 hover:text-primary transition-colors"
+                    >
+                      {category.title}
+                    </Link>
+                  ))}
+                </div>
+              </details>
+            </div>
 
             <Link 
               href="/services/custom-build" 
@@ -314,13 +333,7 @@ export default function ServicesPageClient({ initialData }: ServicesPageClientPr
           {/* --- 4. CATEGORY CARDS --- */}
           <div className="mb-20" id="packages">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {[
-                { title: 'Business Plan & Logo Design', desc: 'Complete business planning, branding, and strategic consulting services', href: '/services/business-plan-and-logo-design', icon: '📋', color: 'from-blue-500 to-indigo-500' },
-                { title: 'Web & Mobile Development', desc: 'Professional websites, mobile apps, and digital solutions', href: '/services/web-and-mobile-software-development', icon: '🌐', color: 'from-green-500 to-teal-500' },
-                { title: 'Social Media Marketing', desc: 'Digital marketing, SEO, and social media management', href: '/services/social-media-advertising-and-marketing', icon: '📈', color: 'from-pink-500 to-red-500' },
-                { title: 'Profile & Portfolio Building', desc: 'Professional portfolios, CV design, and personal branding', href: '/services/profile-and-portfolio-building', icon: '👤', color: 'from-purple-500 to-violet-500' },
-                { title: 'Mentoring & Consulting', desc: 'Strategic consulting, mentorship, and business guidance', href: '/services/mentoring-and-consulting', icon: '🎯', color: 'from-orange-500 to-amber-500' }
-              ].map((category) => (
+              {serviceCategories.map((category) => (
                 <article key={category.href} className="group relative bg-white rounded-2xl p-8 shadow-sm hover:shadow-xl transition-all duration-300 text-center h-full flex flex-col border border-gray-100 hover:border-gray-200">
                    <Link href={category.href} className="absolute inset-0 z-0" aria-label={`Explore ${category.title}`} />
                    <div className={`w-16 h-16 bg-gradient-to-r ${category.color} rounded-2xl flex items-center justify-center mx-auto mb-6 text-white text-2xl group-hover:scale-110 group-hover:rotate-3 transition-transform duration-300 shadow-md`}>
