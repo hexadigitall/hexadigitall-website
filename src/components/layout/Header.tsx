@@ -377,6 +377,35 @@ const Header = () => {
         {/* MOBILE MENU OVERLAY & BACKDROP */}
         {isMobileMenuOpen && (
           <>
+            {/* Fixed Mobile Menu Top Bar (always visible with close affordance) */}
+            <div
+              className="fixed top-0 left-0 right-0 bg-white shadow-md border-b border-gray-100 z-[60] md:hidden"
+              style={{ height: `${headerHeight}px` }}
+            >
+              <div className="h-full container mx-auto px-4 sm:px-6 flex items-center justify-between">
+                <Link href="/" className="flex items-center" onClick={closeMobileMenus} aria-label="Go to homepage">
+                  <Image
+                    src="/hexadigitall-logo-transparent.png"
+                    alt="Hexadigitall Logo"
+                    width={150}
+                    height={50}
+                    className="h-8 w-auto"
+                    priority
+                  />
+                </Link>
+
+                <button
+                  onClick={closeMobileMenus}
+                  aria-label="Close mobile menu"
+                  className="p-2 text-darkText hover:text-primary transition-colors"
+                >
+                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </button>
+              </div>
+            </div>
+
             {/* The Backdrop: Catches clicks outside the menu */}
             <div 
               className="fixed inset-0 bg-black/30 backdrop-blur-sm z-40 md:hidden"
