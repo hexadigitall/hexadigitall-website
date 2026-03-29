@@ -313,13 +313,6 @@ export default function ServicesPageClient({ initialData }: ServicesPageClientPr
 
           {/* --- 4. CATEGORY CARDS --- */}
           <div className="mb-20" id="packages">
-            <div className="text-center mb-10">
-              <h2 className="text-3xl font-bold text-gray-900 mb-4">📦 Tiered Package Categories</h2>
-              <p className="text-gray-600 max-w-2xl mx-auto">
-                Browse complete project packages organized by category. Each offers Basic, Standard, and Premium tiers.
-              </p>
-            </div>
-            
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {[
                 { title: 'Business Plan & Logo Design', desc: 'Complete business planning, branding, and strategic consulting services', href: '/services/business-plan-and-logo-design', icon: '📋', color: 'from-blue-500 to-indigo-500' },
