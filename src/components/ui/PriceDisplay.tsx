@@ -64,10 +64,10 @@ export function PriceDisplay({
       {showUrgency && isLocalCurrency() && (
         <div className="flex flex-col items-center justify-center mb-3 gap-2">
           <span className={`bg-gradient-to-r from-red-500 to-red-600 text-white rounded-full font-bold animate-pulse shadow-lg ${styles.badge}`}>
-            🔥 MEGA {priceInfo.discountPercentage}% OFF - LIMITED TIME!
+            🇳🇬 NGN Local Pricing
           </span>
-          <span className="bg-green-500 text-white px-3 py-1 rounded-full text-xs font-bold">
-            🇳🇬 Nigerian Launch Special - Ends Jan 31, 2026
+          <span className="bg-green-600 text-white px-3 py-1 rounded-full text-xs font-bold">
+            Nigerian clients can pay in Naira
           </span>
         </div>
       )}

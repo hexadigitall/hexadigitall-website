@@ -49,7 +49,7 @@ export default function Step3Summary({
   const addOnsPrice = selectedAddOns.reduce((sum, addon) => sum + addon.price, 0);
   const totalPrice = corePrice + addOnsPrice;
 
-  // Apply Nigerian launch special discount (50% off) if applicable using shared currency context logic
+  // Apply NGN-specific pricing adjustment if active using shared currency context logic
   const discountActive = isLocalCurrency() && currentCurrency.code === 'NGN' && isLaunchSpecialActive();
   const discountedCorePrice = discountActive ? corePrice * 0.5 : corePrice;
   const discountedAddOnsPrice = discountActive ? addOnsPrice * 0.5 : addOnsPrice;

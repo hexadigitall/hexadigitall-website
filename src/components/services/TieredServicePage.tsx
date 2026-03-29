@@ -96,10 +96,9 @@ export default function TieredServicePage({
             {/* Discount Banner */}
             {discountMessage && (
               <div className="mb-8 flex justify-center">
-                <div className="inline-flex items-center space-x-2 bg-gradient-to-r from-orange-500 to-pink-500 px-6 py-3 rounded-full text-sm font-bold text-white shadow-lg">
+                <div className="inline-flex items-center space-x-2 bg-gradient-to-r from-green-600 to-emerald-600 px-6 py-3 rounded-full text-sm font-bold text-white shadow-lg">
                   <span>🇳🇬</span>
-                  <span>NIGERIAN LAUNCH SPECIAL - 50% OFF ALL PACKAGES!</span>
-                  <span>🔥</span>
+                  <span>Nigerian Local Pricing Available</span>
                 </div>
               </div>
             )}

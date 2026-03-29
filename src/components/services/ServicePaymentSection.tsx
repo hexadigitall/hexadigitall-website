@@ -42,16 +42,15 @@ export default function ServicePaymentSection({
       {/* Call to Action with Payment Options */}
       <div className="mt-12 bg-gradient-to-r from-primary/5 to-accent/5 border border-primary/10 rounded-2xl p-8">
         
-        {/* Nigerian Launch Special Banner */}
+        {/* Nigerian local pricing banner */}
         {discountMessage && (
           <div className="text-center mb-8">
-            <div className="inline-flex items-center space-x-2 bg-gradient-to-r from-green-500 to-green-600 text-white px-6 py-3 rounded-full text-sm font-bold mb-4 animate-pulse shadow-lg">
+            <div className="inline-flex items-center space-x-2 bg-gradient-to-r from-green-600 to-emerald-600 text-white px-6 py-3 rounded-full text-sm font-bold mb-4 shadow-lg">
               <span>🇳🇬</span>
-              <span>NIGERIAN LAUNCH SPECIAL: 50% OFF!</span>
-              <span>🔥</span>
+              <span>Nigerian Local Pricing</span>
             </div>
             <p className="text-green-800 font-medium">
-              Limited time offer for Nigerian clients - ends January 31, 2026
+              Nigerian clients can pay directly in Naira with local-rate pricing.
             </p>
           </div>
         )}

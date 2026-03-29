@@ -9,7 +9,7 @@ jest.mock('@/contexts/CurrencyContext', () => ({
     currentCurrency: { code: 'NGN', symbol: '₦', name: 'Nigerian Naira', flag: '🇳🇬' },
     convertPrice: (price: number) => price, // identity for test
     isLocalCurrency: () => true,
-    isLaunchSpecialActive: () => true,
+    isLaunchSpecialActive: () => false,
   })
 }));
 
@@ -20,7 +20,7 @@ const mockAddOns = [
 ];
 
 describe('Discount logic', () => {
-  it('applies 50% discount to core and addons in Step3Summary (NGN)', () => {
+  it('does not apply launch discount in Step3Summary when special is inactive', () => {
     render(
       <Step3Summary
         coreType="web"
@@ -29,14 +29,11 @@ describe('Discount logic', () => {
         onReset={() => {}}
       />
     );
-    // Core 1999 -> 999.5 => rounds to 1000
-    // Add-ons 300 -> 150
-    // Total 2299 -> 1149.5 => rounds to 1150
-    // Verify discount was applied (check for discount indicator text)
-    expect(screen.getByText(/50% launch discount applied/i)).toBeInTheDocument();
+    // Verify discount indicator is not shown after launch special expiry
+    expect(screen.queryByText(/launch discount applied/i)).not.toBeInTheDocument();
   });
 
-  it('applies discount to UnifiedServiceRequestFlow base price', () => {
+  it('shows regular NGN price in UnifiedServiceRequestFlow when launch special is inactive', () => {
     render(
       <UnifiedServiceRequestFlow
         serviceId="tier-1"
@@ -55,11 +52,11 @@ describe('Discount logic', () => {
         onClose={() => {}}
       />
     );
-    // Discounted price should show ₦500
+    // Regular price should show ₦1000
     // Use getAllByText to handle multiple matches, verify at least one exists
     const priceElements = screen.getAllByText((_: string, element: Element | null) => {
       const text = element?.textContent || '';
-      return text.includes('₦') && text.includes('500');
+      return text.includes('₦') && text.includes('1000');
     });
     expect(priceElements.length).toBeGreaterThan(0);
   });

@@ -127,7 +127,7 @@ export default function TierSelectionModal({
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
           {orderedTiers.map((tier) => {
             const isSelected = selectedTierKey === tier._key
-            // Apply Nigerian launch special discount (50% off) if applicable
+            // Apply NGN-specific pricing adjustment if active
             const discountedPrice = (isLocalCurrency() && currentCurrency.code === 'NGN' && isLaunchSpecialActive()) 
               ? tier.price * 0.5 
               : tier.price

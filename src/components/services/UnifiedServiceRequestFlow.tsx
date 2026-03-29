@@ -43,7 +43,7 @@ export default function UnifiedServiceRequestFlow({
   })
   const [formErrors, setFormErrors] = useState<Record<string, string>>({})
 
-  // Apply Nigerian launch special discount (50% off) if applicable - for NGN users only
+  // Apply NGN-specific pricing adjustment if active
   const discountedBasePrice = (isLocalCurrency() && currentCurrency.code === 'NGN' && isLaunchSpecialActive()) 
     ? basePrice * 0.5 
     : basePrice
@@ -52,7 +52,7 @@ export default function UnifiedServiceRequestFlow({
   const addOnsTotal = Array.from(selectedAddOns).reduce((sum, key) => {
     const addon = availableAddOns.find(a => a._key === key)
     const addonPrice = addon?.price || 0
-    // Apply discount to add-ons as well for NGN users
+    // Apply same NGN pricing adjustment to add-ons if active
     const discountedAddonPrice = (isLocalCurrency() && currentCurrency.code === 'NGN' && isLaunchSpecialActive())
       ? addonPrice * 0.5
       : addonPrice

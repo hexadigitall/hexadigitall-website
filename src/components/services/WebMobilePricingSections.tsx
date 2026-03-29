@@ -170,10 +170,9 @@ export default function WebMobilePricingSections() {
         
         {/* Nigerian Discount Highlight */}
         {isLocalCurrency() && (
-          <div className="mt-6 inline-flex items-center space-x-2 bg-green-500 text-white px-4 py-2 rounded-full text-sm font-bold animate-pulse">
+          <div className="mt-6 inline-flex items-center space-x-2 bg-green-600 text-white px-4 py-2 rounded-full text-sm font-bold">
             <span>🇳🇬</span>
-            <span>50% OFF for Nigerian Clients!</span>
-            <span>🔥</span>
+            <span>Nigerian local pricing available</span>
           </div>
         )}
       </div>
