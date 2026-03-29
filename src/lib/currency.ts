@@ -231,15 +231,12 @@ class CurrencyService {
   }
 
   isLaunchSpecialActive(): boolean {
-    // Launch special runs until January 31, 2026
-    const endDate = new Date('2026-01-31T23:59:59Z');
-    return new Date() < endDate;
+    // Launch special ended January 31, 2026 — permanently inactive
+    return false;
   }
 
   getLocalDiscountMessage(): string | null {
-    if (this.isLocalCurrency() && this.isLaunchSpecialActive()) {
-      return "🇳🇬 50% OFF Launch Special - Limited Time for Nigerian clients!";
-    } else if (this.isLocalCurrency()) {
+    if (this.isLocalCurrency()) {
       return "🇳🇬 Special rates for Nigerian clients - Pay in Naira!";
     }
     return null;

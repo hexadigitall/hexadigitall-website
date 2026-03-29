@@ -6,7 +6,6 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { useCurrency } from '@/contexts/CurrencyContext'
 import { SERVICE_PRICING } from '@/lib/currency'
-import { DiscountBanner } from '@/components/ui/DiscountBanner'
 import { ContactCTA } from '@/components/ui/CTAButton'
 import { StartingAtPriceDisplay } from '@/components/ui/PriceDisplay'
 import { ServiceRequestFlow, ServiceCategory } from '@/components/services/ServiceRequestFlow'
@@ -264,8 +263,6 @@ export default function ServicesPageClient({ initialData }: ServicesPageClientPr
 
         <div className="container mx-auto px-6 pb-20">
           
-          <DiscountBanner size="md" showCountdown={true} showSpots={true} className="mb-12 shadow-lg" />
-
           {/* --- 3. SERVICE PATH SELECTOR --- */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto mb-16">
             <div className="group p-8 bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-xl hover:border-blue-200 transition-all duration-300 flex flex-col items-center text-center">

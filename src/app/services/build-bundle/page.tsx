@@ -9,7 +9,6 @@ import {
   IndividualService 
 } from '@/data/individualServices';
 import Breadcrumb from '@/components/ui/Breadcrumb';
-import { DiscountBanner } from '@/components/ui/DiscountBanner';
 
 // Category configuration with icons
 const CATEGORIES = [
@@ -24,7 +23,7 @@ const CATEGORIES = [
 
 function BundleBuilderContent() {
   const searchParams = useSearchParams();
-  const { currentCurrency, convertPrice, isLocalCurrency, isLaunchSpecialActive } = useCurrency();
+  const { currentCurrency, convertPrice, isLocalCurrency } = useCurrency();
   const [activeCategory, setActiveCategory] = useState('all');
   const [selectedItems, setSelectedItems] = useState<IndividualService[]>([]);
 
@@ -35,9 +34,6 @@ function BundleBuilderContent() {
       setActiveCategory(categoryParam);
     }
   }, [searchParams]);
-
-  const discountActive = isLocalCurrency() && currentCurrency.code === 'NGN' && isLaunchSpecialActive();
-  const discountMultiplier = discountActive ? 0.5 : 1;
 
   // Filter services based on active tab
   const displayedServices = useMemo(() => {
@@ -56,7 +52,7 @@ function BundleBuilderContent() {
 
   // Calculate Total
   const totalUSD = selectedItems.reduce((sum, item) => sum + item.price, 0);
-  const convertedTotal = Math.round(convertPrice(totalUSD * discountMultiplier, currentCurrency.code));
+  const convertedTotal = Math.round(convertPrice(totalUSD, currentCurrency.code));
 
   const [isProcessing, setIsProcessing] = useState(false);
   const [checkoutError, setCheckoutError] = useState<string | null>(null);
@@ -167,13 +163,6 @@ function BundleBuilderContent() {
       <div className="container mx-auto px-4 -mt-8">
         <div className="bg-white rounded-2xl shadow-xl border border-gray-100 overflow-hidden">
           
-          {/* Discount Banner */}
-          {discountActive && (
-            <div className="border-b border-gray-200">
-              <DiscountBanner size="sm" showCountdown={false} showSpots={false} />
-            </div>
-          )}
-
           {/* Category Tabs */}
           <div className="flex overflow-x-auto border-b border-gray-200 scrollbar-hide bg-gray-50/50 gap-1 sm:gap-2 snap-x snap-mandatory -mx-4 px-4">
             {CATEGORIES.map(cat => (
@@ -208,7 +197,6 @@ function BundleBuilderContent() {
             {displayedServices.map((service) => {
               const isSelected = selectedItems.some(i => i.id === service.id);
               const basePrice = Math.round(convertPrice(service.price, currentCurrency.code));
-              const discountedPrice = Math.round(convertPrice(service.price * discountMultiplier, currentCurrency.code));
 
               return (
                 <div 
@@ -247,20 +235,9 @@ function BundleBuilderContent() {
                     {/* Pricing */}
                     <div>
                       <div className="text-xs text-gray-500 mb-1">${service.price}</div>
-                      {discountActive ? (
-                        <div className="space-y-0.5">
-                          <div className="text-sm text-gray-400 line-through">
-                            {currentCurrency.symbol}{basePrice.toLocaleString()}
-                          </div>
-                          <div className="text-xl font-bold text-green-600">
-                            {currentCurrency.symbol}{discountedPrice.toLocaleString()}
-                          </div>
-                        </div>
-                      ) : (
-                        <div className="text-xl font-bold text-blue-600">
-                          {currentCurrency.symbol}{basePrice.toLocaleString()}
-                        </div>
-                      )}
+                      <div className="text-xl font-bold text-blue-600">
+                        {currentCurrency.symbol}{basePrice.toLocaleString()}
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -316,9 +293,7 @@ function BundleBuilderContent() {
                     ≈ ${totalUSD.toLocaleString()} USD
                   </span>
                 </div>
-                {discountActive && (
-                  <p className="text-xs text-green-600 font-semibold">🎉 50% Launch Discount Applied</p>
-                )}
+
               </div>
               <button 
                 onClick={openCheckoutModal}
