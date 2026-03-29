@@ -25,10 +25,10 @@ interface ServicesPageClientProps {
 
 const PEOPLE_IMAGES = {
   primary: '/assets/images/people/front-view-happy-woman-calling-out-hero.webp',
-  excitedMan: '/assets/images/people/front-view-happy-woman-calling-out-chip.webp',
+  excitedMan: '/assets/images/people/african-american-man-wearing-red-sweater-excited-chip.webp',
   playfulWoman:
     '/assets/images/people/surprised-playful-touched-good-looking-african-american-woman-glasses-chip.webp',
-  dancingMan: '/assets/images/people/portrait-cool-man-with-sunglasses-dancing-smiling-chip.webp',
+  dancingMan: '/assets/images/people/portrait-cool-man-with-sunglasses-dancing-smiling-alt-chip.webp',
 }
 
 export default function ServicesPageClient({ initialData }: ServicesPageClientProps) {
@@ -225,7 +225,7 @@ export default function ServicesPageClient({ initialData }: ServicesPageClientPr
               </div>
 
               <div className="absolute top-5 left-0 sm:left-8 w-20 h-20 sm:w-24 sm:h-24 rounded-full overflow-hidden ring-4 ring-amber-300/70 shadow-xl animate-float">
-                <Image src={PEOPLE_IMAGES.excitedMan} alt="Happy client" fill className="object-cover object-[center_12%]" sizes="96px" />
+                <Image src={PEOPLE_IMAGES.excitedMan} alt="Happy client" fill className="object-cover object-[center_18%]" sizes="96px" />
               </div>
 
               <div className="absolute bottom-4 left-5 hidden sm:block w-24 h-24 lg:w-28 lg:h-28 rounded-full overflow-hidden ring-4 ring-white/50 shadow-xl animate-float">
@@ -233,7 +233,7 @@ export default function ServicesPageClient({ initialData }: ServicesPageClientPr
               </div>
 
               <div className="absolute bottom-8 right-2 sm:right-8 w-16 h-16 sm:w-20 sm:h-20 rounded-full overflow-hidden ring-4 ring-sky-300/70 shadow-xl animate-float">
-                <Image src={PEOPLE_IMAGES.dancingMan} alt="Celebrating client" fill className="object-cover object-[center_18%]" sizes="80px" />
+                <Image src={PEOPLE_IMAGES.dancingMan} alt="Celebrating client" fill className="object-cover object-[center_20%]" sizes="80px" />
               </div>
 
               <div className="absolute right-0 top-1/2 hidden lg:block w-52 -translate-y-1/2 rounded-2xl border border-white/15 bg-white/10 p-4 shadow-xl backdrop-blur-md">
