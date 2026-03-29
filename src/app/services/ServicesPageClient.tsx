@@ -32,7 +32,7 @@ const PEOPLE_IMAGES = {
 }
 
 export default function ServicesPageClient({ initialData }: ServicesPageClientProps) {
-  const { getLocalDiscountMessage, currentCurrency } = useCurrency()
+  const { getLocalDiscountMessage, currentCurrency, convertPrice } = useCurrency()
   const discountMessage = getLocalDiscountMessage()
   const [selectedService, setSelectedService] = useState<ServiceCategory | null>(null)
   const router = useRouter()
