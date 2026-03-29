@@ -179,6 +179,7 @@ export default function StudentDashboardPage() {
 
   const nextPayment = getNextPaymentDue()
   const activeCount = enrollments.filter(e => e.status === 'active').length
+  const studentDisplayName = student?.name || student?.username || 'Student'
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -187,11 +188,9 @@ export default function StudentDashboardPage() {
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-4">
               <h1 className="text-2xl font-bold bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
-                Student Dashboard
+                {studentDisplayName} Dashboard
               </h1>
-              {student?.name && (
-                <span className="text-sm text-gray-600">Welcome, {student.name}</span>
-              )}
+              <span className="text-sm text-gray-600">Student Workspace</span>
             </div>
             <button
               onClick={handleLogout}

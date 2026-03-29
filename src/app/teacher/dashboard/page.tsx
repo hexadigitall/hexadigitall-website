@@ -146,6 +146,8 @@ export default function TeacherDashboardPage() {
     )
   }
 
+  const teacherDisplayName = teacher?.name || teacher?.username || 'Teacher'
+
   return (
     <div className="min-h-screen bg-gray-50">
       <header className="bg-white shadow-sm border-b border-gray-200 sticky top-0 z-10">
@@ -153,11 +155,9 @@ export default function TeacherDashboardPage() {
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-4">
               <h1 className="text-2xl font-bold bg-gradient-to-r from-primary to-purple-600 bg-clip-text text-transparent">
-                Teacher Dashboard
+                {teacherDisplayName} Dashboard
               </h1>
-              {teacher?.name && (
-                <span className="text-sm text-gray-600">Welcome, {teacher.name}</span>
-              )}
+              <span className="text-sm text-gray-600">Teacher Workspace</span>
             </div>
             <button
               onClick={handleLogout}
