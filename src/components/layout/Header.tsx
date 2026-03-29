@@ -3,7 +3,7 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import CurrencySwitcher from '@/components/ui/CurrencySwitcher';
 import { getWhatsAppLink, getGeneralInquiryMessage } from '@/lib/whatsapp';
 
@@ -14,6 +14,8 @@ const Header = () => {
   const [isCompanyOpen, setCompanyOpen] = useState(false);
   const [isAccountOpen, setAccountOpen] = useState(false);
   const [isMobileServicesOpen, setMobileServicesOpen] = useState(false);
+  const [headerHeight, setHeaderHeight] = useState(72);
+  const headerRef = useRef<HTMLElement>(null);
 
   // Service links array
   const serviceLinks = [
@@ -50,6 +52,24 @@ const Header = () => {
   };
 
   useEffect(() => {
+    const updateHeaderHeight = () => {
+      if (headerRef.current) {
+        setHeaderHeight(Math.ceil(headerRef.current.getBoundingClientRect().height));
+      }
+    };
+
+    updateHeaderHeight();
+
+    window.addEventListener('resize', updateHeaderHeight);
+    window.addEventListener('orientationchange', updateHeaderHeight);
+
+    return () => {
+      window.removeEventListener('resize', updateHeaderHeight);
+      window.removeEventListener('orientationchange', updateHeaderHeight);
+    };
+  }, []);
+
+  useEffect(() => {
     // Lock body scroll when mobile menu is open
     if (isMobileMenuOpen) {
       document.body.style.overflow = 'hidden';
@@ -84,7 +104,7 @@ const Header = () => {
 
   return (
     <>
-      <header className="bg-white shadow-md sticky top-0 z-50">
+      <header ref={headerRef} className="bg-white shadow-md sticky top-0 z-50">
         <nav className="container mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center min-h-[72px] relative">
           {/* Logo */}
           <Link href="/" className="flex items-center space-x-2 flex-shrink-0" onClick={closeMobileMenus}>
@@ -360,13 +380,16 @@ const Header = () => {
             {/* The Backdrop: Catches clicks outside the menu */}
             <div 
               className="fixed inset-0 bg-black/30 backdrop-blur-sm z-40 md:hidden"
-              style={{ top: '72px' }} 
+              style={{ top: `${headerHeight}px` }} 
               onClick={closeMobileMenus}
               aria-hidden="true"
             ></div>
 
             {/* The Menu Panel: Floats over content */}
-            <div className="absolute top-full left-0 w-full bg-white z-50 shadow-xl border-t border-gray-100 md:hidden animate-in slide-in-from-top-2 duration-200 overflow-y-auto max-h-[calc(100vh-72px)]">
+            <div
+              className="fixed left-0 right-0 bg-white z-50 shadow-xl border-t border-gray-100 md:hidden animate-in slide-in-from-top-2 duration-200 overflow-y-auto"
+              style={{ top: `${headerHeight}px`, maxHeight: `calc(100dvh - ${headerHeight}px)` }}
+            >
               <div className="px-4 sm:px-6 pb-4 pt-3 flex flex-col space-y-1">
                 
                 {/* 1. Quick Access Row (About | Portfolio | FAQ) */}
