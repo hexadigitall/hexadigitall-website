@@ -11,6 +11,7 @@ import {
   UsersIcon,
   ArrowDownTrayIcon,
   ArrowRightOnRectangleIcon,
+  CameraIcon,
 } from '@heroicons/react/24/outline'
 
 interface Course {
@@ -140,8 +141,8 @@ export default function TeacherDashboardPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-50">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary" />
+      <div className="min-h-screen flex items-center justify-center bg-[#f5f5f7]">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-teal-600" />
       </div>
     )
   }
@@ -149,75 +150,150 @@ export default function TeacherDashboardPage() {
   const teacherDisplayName = teacher?.name || teacher?.username || 'Teacher'
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <header className="bg-white shadow-sm border-b border-gray-200 sticky top-0 z-10">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-4">
-              <h1 className="text-2xl font-bold bg-gradient-to-r from-primary to-purple-600 bg-clip-text text-transparent">
-                {teacherDisplayName} Dashboard
-              </h1>
-              <span className="text-sm text-gray-600">Teacher Workspace</span>
+    <div className="min-h-screen bg-[#f5f5f7]">
+
+      {/* Top nav */}
+      <nav className="bg-white border-b border-gray-100 sticky top-0 z-10 shadow-sm">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-14 flex items-center justify-between">
+          <Link href="/" className="text-sm font-bold text-gray-900 tracking-tight">
+            Hexadigitall
+          </Link>
+          <button
+            onClick={handleLogout}
+            className="flex items-center gap-2 text-sm text-gray-500 hover:text-gray-900 transition-colors"
+          >
+            <ArrowRightOnRectangleIcon className="h-4 w-4" />
+            Sign out
+          </button>
+        </div>
+      </nav>
+
+      {/* Profile hero */}
+      <div className="bg-gradient-to-br from-teal-900 via-teal-800 to-cyan-900 relative overflow-hidden">
+        <div className="absolute inset-0 pointer-events-none">
+          <div className="absolute -top-24 -right-24 w-96 h-96 rounded-full bg-white/5" />
+          <div className="absolute -bottom-32 -left-20 w-72 h-72 rounded-full bg-white/5" />
+          <div className="absolute top-1/2 left-1/3 w-48 h-48 rounded-full bg-white/[0.03] -translate-y-1/2" />
+        </div>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 relative">
+          <div className="flex flex-col sm:flex-row items-center sm:items-end gap-6">
+
+            {/* Avatar with camera hover hint */}
+            <div className="relative group shrink-0 cursor-pointer" title="Profile photo">
+              <div className="w-24 h-24 rounded-2xl bg-white/15 backdrop-blur-sm border border-white/30 flex items-center justify-center shadow-2xl overflow-hidden">
+                <span className="text-4xl font-bold text-white group-hover:opacity-0 transition-opacity duration-200 select-none">
+                  {teacherDisplayName.charAt(0).toUpperCase()}
+                </span>
+                <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-200 bg-black/20">
+                  <CameraIcon className="h-8 w-8 text-white/80" />
+                </div>
+              </div>
+              <div className="absolute -bottom-1 -right-1 w-5 h-5 bg-blue-400 rounded-full border-2 border-teal-900 shadow" />
             </div>
-            <button
-              onClick={handleLogout}
-              className="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded-lg transition-colors"
-            >
-              <ArrowRightOnRectangleIcon className="h-5 w-5" />
-              Logout
-            </button>
+
+            {/* Name & role */}
+            <div className="text-center sm:text-left">
+              <h1 className="text-3xl sm:text-4xl font-bold text-white tracking-tight leading-none">
+                {teacherDisplayName}
+              </h1>
+              <div className="flex items-center justify-center sm:justify-start gap-2 mt-2.5">
+                <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-white/20 text-white border border-white/20 backdrop-blur-sm">
+                  Instructor
+                </span>
+                {teacher?.username && (
+                  <span className="text-sm text-teal-300">@{teacher.username}</span>
+                )}
+              </div>
+            </div>
+
+            <div className="flex-1 hidden sm:block" />
+
+            {/* Inline hero stats */}
+            <div className="flex items-center gap-8 text-center">
+              <div>
+                <p className="text-3xl font-bold text-white">{courses.length}</p>
+                <p className="text-xs text-teal-300 uppercase tracking-widest mt-0.5">Courses</p>
+              </div>
+              <div className="h-10 w-px bg-white/20" />
+              <div>
+                <p className="text-3xl font-bold text-white">{students.length}</p>
+                <p className="text-xs text-teal-300 uppercase tracking-widest mt-0.5">Students</p>
+              </div>
+            </div>
+
           </div>
         </div>
-      </header>
+      </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
-        {/* Stats */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <StatCard icon={<AcademicCapIcon className="h-6 w-6" />} title="Courses Taught" value={courses.length} color="blue" />
-          <StatCard icon={<UsersIcon className="h-6 w-6" />} title="Total Students" value={students.length} color="purple" />
-          <StatCard icon={<UsersIcon className="h-6 w-6" />} title="Active Enrollments" value={students.filter(s => s.status === 'active').length} color="green" />
+      {/* Page content */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-10">
+
+        {/* Stat cards */}
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <StatCard icon={<AcademicCapIcon className="h-5 w-5" />} title="Courses Taught" value={courses.length} color="teal" />
+          <StatCard icon={<UsersIcon className="h-5 w-5" />} title="Total Students" value={students.length} color="blue" />
+          <StatCard icon={<UsersIcon className="h-5 w-5" />} title="Active Enrollments" value={students.filter(s => s.status === 'active').length} color="purple" />
         </div>
 
         {/* My Courses */}
         <section>
-          <h2 className="text-xl font-bold text-gray-900 mb-4">My Courses</h2>
+          <div className="mb-6">
+            <h2 className="text-xl font-bold text-gray-900">My Courses</h2>
+            <p className="text-sm text-gray-500 mt-0.5">{courses.length} course{courses.length !== 1 ? 's' : ''} assigned</p>
+          </div>
           {courses.length === 0 ? (
-            <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-8 text-center">
-              <AcademicCapIcon className="h-12 w-12 text-gray-400 mx-auto mb-3" />
-              <p className="text-gray-600">No courses assigned yet. Contact admin to get assigned.</p>
+            <div className="bg-white rounded-2xl border border-gray-100 p-12 text-center shadow-sm">
+              <div className="w-16 h-16 bg-teal-50 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                <AcademicCapIcon className="h-8 w-8 text-teal-400" />
+              </div>
+              <h3 className="text-lg font-semibold text-gray-900 mb-2">No courses assigned</h3>
+              <p className="text-gray-500 text-sm">Contact admin to get assigned to courses.</p>
             </div>
           ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
               {courses.map((course) => (
-                <div key={course._id} className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden hover:shadow-md transition-shadow">
-                  {course.mainImage && (
-                    <div className="relative h-48 w-full">
+                <div
+                  key={course._id}
+                  className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden hover:shadow-md hover:-translate-y-0.5 transition-all duration-200"
+                >
+                  {course.mainImage ? (
+                    <div className="relative h-44 w-full">
                       <Image
                         src={urlFor(course.mainImage).width(600).height(400).url()}
                         alt={course.title}
                         fill
                         className="object-cover"
                       />
-                    </div>
-                  )}
-                  <div className="p-6">
-                    <div className="flex items-start justify-between mb-3">
-                      <div>
-                        <h3 className="text-lg font-semibold text-gray-900 mb-1">{course.title}</h3>
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
+                      <div className="absolute bottom-3 left-4">
                         {course.level && (
-                          <span className="inline-flex px-2 py-1 text-xs font-medium rounded-full bg-blue-100 text-blue-800 capitalize">
+                          <span className="inline-flex px-2 py-0.5 text-xs font-medium rounded-full bg-white/90 text-gray-800 capitalize">
                             {course.level}
                           </span>
                         )}
                       </div>
                     </div>
-                    <p className="text-sm text-gray-600 mb-4 line-clamp-2">{course.description}</p>
-                    
+                  ) : (
+                    <div className="h-16 bg-gradient-to-r from-teal-600 to-cyan-600 relative">
+                      <div className="absolute bottom-3 left-4">
+                        {course.level && (
+                          <span className="inline-flex px-2 py-0.5 text-xs font-medium rounded-full bg-white/20 text-white capitalize">
+                            {course.level}
+                          </span>
+                        )}
+                      </div>
+                    </div>
+                  )}
+                  <div className="p-5">
+                    <h3 className="text-base font-bold text-gray-900 mb-2">{course.title}</h3>
+                    {course.description && (
+                      <p className="text-sm text-gray-500 mb-4 line-clamp-2">{course.description}</p>
+                    )}
                     <div className="space-y-2 mb-4">
                       {course.contentPdf && (
                         <button
                           onClick={() => downloadPdf(course.contentPdf, `${course.title}-content.pdf`)}
-                          className="w-full flex items-center justify-center gap-2 px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors text-sm"
+                          className="w-full flex items-center justify-center gap-2 px-4 py-2.5 bg-teal-600 text-white rounded-xl hover:bg-teal-700 transition-colors text-xs font-semibold"
                         >
                           <ArrowDownTrayIcon className="h-4 w-4" />
                           Download Course Content
@@ -226,17 +302,16 @@ export default function TeacherDashboardPage() {
                       {course.roadmapPdf && (
                         <button
                           onClick={() => downloadPdf(course.roadmapPdf, `${course.title}-roadmap.pdf`)}
-                          className="w-full flex items-center justify-center gap-2 px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors text-sm"
+                          className="w-full flex items-center justify-center gap-2 px-4 py-2.5 bg-teal-50 text-teal-700 rounded-xl hover:bg-teal-100 transition-colors text-xs font-semibold border border-teal-100"
                         >
                           <ArrowDownTrayIcon className="h-4 w-4" />
                           Download Roadmap
                         </button>
                       )}
                     </div>
-                    
-                    <div className="pt-4 border-t border-gray-200">
-                      <p className="text-sm text-gray-600">
-                        <span className="font-medium">{course.enrollmentCount || 0}</span> enrolled students
+                    <div className="pt-3 border-t border-gray-100">
+                      <p className="text-xs text-gray-400">
+                        <span className="font-semibold text-gray-700">{course.enrollmentCount || 0}</span> enrolled students
                       </p>
                     </div>
                   </div>
@@ -248,42 +323,59 @@ export default function TeacherDashboardPage() {
 
         {/* My Students */}
         <section>
-          <h2 className="text-xl font-bold text-gray-900 mb-4">My Students</h2>
+          <div className="mb-6">
+            <h2 className="text-xl font-bold text-gray-900">My Students</h2>
+            <p className="text-sm text-gray-500 mt-0.5">
+              {students.filter(s => s.status === 'active').length} active · {students.length} total
+            </p>
+          </div>
           {students.length === 0 ? (
-            <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-8 text-center">
-              <UsersIcon className="h-12 w-12 text-gray-400 mx-auto mb-3" />
-              <p className="text-gray-600">No students enrolled yet.</p>
+            <div className="bg-white rounded-2xl border border-gray-100 p-12 text-center shadow-sm">
+              <div className="w-16 h-16 bg-blue-50 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                <UsersIcon className="h-8 w-8 text-blue-400" />
+              </div>
+              <h3 className="text-lg font-semibold text-gray-900 mb-2">No students yet</h3>
+              <p className="text-gray-500 text-sm">Students will appear here once they enroll in your courses.</p>
             </div>
           ) : (
-            <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
+            <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
               <div className="overflow-x-auto">
-                <table className="min-w-full divide-y divide-gray-200">
-                  <thead className="bg-gray-50">
-                    <tr>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Student</th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Course</th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Status</th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Enrolled</th>
+                <table className="min-w-full">
+                  <thead>
+                    <tr className="border-b border-gray-100">
+                      <th className="px-6 py-4 text-left text-xs font-semibold text-gray-400 uppercase tracking-widest">Student</th>
+                      <th className="px-6 py-4 text-left text-xs font-semibold text-gray-400 uppercase tracking-widest">Course</th>
+                      <th className="px-6 py-4 text-left text-xs font-semibold text-gray-400 uppercase tracking-widest">Status</th>
+                      <th className="px-6 py-4 text-left text-xs font-semibold text-gray-400 uppercase tracking-widest">Enrolled</th>
                     </tr>
                   </thead>
-                  <tbody className="bg-white divide-y divide-gray-200">
+                  <tbody className="divide-y divide-gray-50">
                     {students.map((student) => (
-                      <tr key={student._id} className="hover:bg-gray-50">
+                      <tr key={student._id} className="hover:bg-gray-50/50 transition-colors">
                         <td className="px-6 py-4">
-                          <div>
-                            <p className="text-sm font-medium text-gray-900">{student.studentName}</p>
-                            <p className="text-xs text-gray-500">{student.studentEmail}</p>
+                          <div className="flex items-center gap-3">
+                            <div className="w-8 h-8 rounded-xl bg-teal-100 flex items-center justify-center shrink-0">
+                              <span className="text-xs font-bold text-teal-700">
+                                {student.studentName?.charAt(0)?.toUpperCase() || '?'}
+                              </span>
+                            </div>
+                            <div>
+                              <p className="text-sm font-semibold text-gray-900">{student.studentName}</p>
+                              <p className="text-xs text-gray-400">{student.studentEmail}</p>
+                            </div>
                           </div>
                         </td>
-                        <td className="px-6 py-4 text-sm text-gray-900">{student.course?.title || 'N/A'}</td>
+                        <td className="px-6 py-4 text-sm text-gray-600">{student.course?.title || '—'}</td>
                         <td className="px-6 py-4">
-                          <span className={`inline-flex px-2 py-1 text-xs font-medium rounded-full ${
-                            student.status === 'active' ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800'
+                          <span className={`inline-flex px-2.5 py-1 text-xs font-semibold rounded-full ${
+                            student.status === 'active'
+                              ? 'bg-emerald-100 text-emerald-700'
+                              : 'bg-gray-100 text-gray-600'
                           }`}>
                             {student.status}
                           </span>
                         </td>
-                        <td className="px-6 py-4 text-sm text-gray-600">
+                        <td className="px-6 py-4 text-sm text-gray-500">
                           {new Date(student.enrolledAt).toLocaleDateString()}
                         </td>
                       </tr>
@@ -300,21 +392,23 @@ export default function TeacherDashboardPage() {
 }
 
 function StatCard({ icon, title, value, color }: { icon: React.ReactNode; title: string; value: number; color: string }) {
-  const colors: Record<string, string> = {
-    blue: 'bg-blue-500',
-    purple: 'bg-purple-500',
-    green: 'bg-green-500',
+  const gradients: Record<string, string> = {
+    teal: 'from-teal-600 via-teal-700 to-cyan-800',
+    blue: 'from-blue-500 to-indigo-600',
+    purple: 'from-violet-600 to-purple-700',
+    green: 'from-emerald-500 to-teal-600',
   }
 
   return (
-    <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-      <div className="flex items-center space-x-3 mb-2">
-        <div className={`p-2 rounded-lg ${colors[color] || colors.blue} text-white`}>
+    <div className={`relative bg-gradient-to-br ${gradients[color] || gradients.teal} rounded-2xl p-5 shadow-sm overflow-hidden`}>
+      <div className="absolute top-0 right-0 w-24 h-24 rounded-full bg-white/10 -translate-y-8 translate-x-8" />
+      <div className="flex items-center gap-3 mb-3">
+        <div className="p-2 bg-white/20 rounded-xl text-white">
           {icon}
         </div>
-        <h3 className="text-sm font-medium text-gray-600">{title}</h3>
+        <h3 className="text-sm font-semibold text-white/80">{title}</h3>
       </div>
-      <p className="text-3xl font-bold text-gray-900">{value}</p>
+      <p className="text-3xl font-bold text-white">{value}</p>
     </div>
   )
 }

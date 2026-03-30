@@ -12,6 +12,7 @@ import {
   CreditCardIcon,
   ArrowDownTrayIcon,
   ArrowRightOnRectangleIcon,
+  CameraIcon,
 } from '@heroicons/react/24/outline'
 
 interface Enrollment {
@@ -171,7 +172,7 @@ export default function StudentDashboardPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-50">
+      <div className="min-h-screen flex items-center justify-center bg-[#f5f5f7]">
         <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-purple-600" />
       </div>
     )
@@ -182,187 +183,287 @@ export default function StudentDashboardPage() {
   const studentDisplayName = student?.name || student?.username || 'Student'
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <header className="bg-white shadow-sm border-b border-gray-200 sticky top-0 z-10">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-4">
-              <h1 className="text-2xl font-bold bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
-                {studentDisplayName} Dashboard
-              </h1>
-              <span className="text-sm text-gray-600">Student Workspace</span>
+    <div className="min-h-screen bg-[#f5f5f7]">
+
+      {/* Top nav */}
+      <nav className="bg-white border-b border-gray-100 sticky top-0 z-10 shadow-sm">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-14 flex items-center justify-between">
+          <Link href="/" className="text-sm font-bold text-gray-900 tracking-tight">
+            Hexadigitall
+          </Link>
+          <button
+            onClick={handleLogout}
+            className="flex items-center gap-2 text-sm text-gray-500 hover:text-gray-900 transition-colors"
+          >
+            <ArrowRightOnRectangleIcon className="h-4 w-4" />
+            Sign out
+          </button>
+        </div>
+      </nav>
+
+      {/* Profile hero */}
+      <div className="bg-gradient-to-br from-violet-900 via-purple-800 to-indigo-900 relative overflow-hidden">
+        <div className="absolute inset-0 pointer-events-none">
+          <div className="absolute -top-24 -right-24 w-96 h-96 rounded-full bg-white/5" />
+          <div className="absolute -bottom-32 -left-20 w-72 h-72 rounded-full bg-white/5" />
+          <div className="absolute top-1/2 left-1/3 w-48 h-48 rounded-full bg-white/[0.03] -translate-y-1/2" />
+        </div>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 relative">
+          <div className="flex flex-col sm:flex-row items-center sm:items-end gap-6">
+
+            {/* Avatar with camera hover hint */}
+            <div className="relative group shrink-0 cursor-pointer" title="Profile photo">
+              <div className="w-24 h-24 rounded-2xl bg-white/15 backdrop-blur-sm border border-white/30 flex items-center justify-center shadow-2xl overflow-hidden">
+                <span className="text-4xl font-bold text-white group-hover:opacity-0 transition-opacity duration-200 select-none">
+                  {studentDisplayName.charAt(0).toUpperCase()}
+                </span>
+                <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-200 bg-black/20">
+                  <CameraIcon className="h-8 w-8 text-white/80" />
+                </div>
+              </div>
+              <div className="absolute -bottom-1 -right-1 w-5 h-5 bg-emerald-400 rounded-full border-2 border-violet-900 shadow" />
             </div>
-            <button
-              onClick={handleLogout}
-              className="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded-lg transition-colors"
-            >
-              <ArrowRightOnRectangleIcon className="h-5 w-5" />
-              Logout
-            </button>
+
+            {/* Name & role */}
+            <div className="text-center sm:text-left">
+              <h1 className="text-3xl sm:text-4xl font-bold text-white tracking-tight leading-none">
+                {studentDisplayName}
+              </h1>
+              <div className="flex items-center justify-center sm:justify-start gap-2 mt-2.5">
+                <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-white/20 text-white border border-white/20 backdrop-blur-sm">
+                  Student
+                </span>
+                {student?.username && (
+                  <span className="text-sm text-purple-300">@{student.username}</span>
+                )}
+              </div>
+            </div>
+
+            <div className="flex-1 hidden sm:block" />
+
+            {/* Inline hero stats */}
+            <div className="flex items-center gap-8 text-center">
+              <div>
+                <p className="text-3xl font-bold text-white">{activeCount}</p>
+                <p className="text-xs text-purple-300 uppercase tracking-widest mt-0.5">Active</p>
+              </div>
+              <div className="h-10 w-px bg-white/20" />
+              <div>
+                <p className="text-3xl font-bold text-white">{enrollments.length}</p>
+                <p className="text-xs text-purple-300 uppercase tracking-widest mt-0.5">Enrolled</p>
+              </div>
+            </div>
+
           </div>
         </div>
-      </header>
+      </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
-        {/* Stats */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      {/* Page content */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-10">
+
+        {/* Stat cards */}
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
           <StatCard
-            icon={<BookOpenIcon className="h-6 w-6" />}
+            icon={<BookOpenIcon className="h-5 w-5" />}
             title="Active Courses"
             value={activeCount.toString()}
             color="purple"
           />
           <StatCard
-            icon={<CalendarIcon className="h-6 w-6" />}
+            icon={<CalendarIcon className="h-5 w-5" />}
             title="Next Payment"
-            value={nextPayment ? nextPayment.toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) : 'N/A'}
+            value={nextPayment ? nextPayment.toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) : '—'}
             color="blue"
           />
-          <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-            <div className="flex items-center space-x-3 mb-3">
-              <div className="p-2 rounded-lg bg-green-500 text-white">
-                <CreditCardIcon className="h-6 w-6" />
+          <div className="relative bg-gradient-to-br from-emerald-500 to-teal-600 rounded-2xl p-5 shadow-sm overflow-hidden">
+            <div className="absolute top-0 right-0 w-24 h-24 rounded-full bg-white/10 -translate-y-8 translate-x-8" />
+            <div className="flex items-center gap-3 mb-4">
+              <div className="p-2 bg-white/20 rounded-xl">
+                <CreditCardIcon className="h-5 w-5 text-white" />
               </div>
-              <h3 className="text-sm font-medium text-gray-600">Make Payment</h3>
+              <h3 className="text-sm font-semibold text-white/90">Billing</h3>
             </div>
             <Link
               href="/courses"
-              className="inline-flex items-center justify-center px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-colors text-sm font-medium"
+              className="inline-flex items-center px-4 py-2 bg-white text-emerald-700 rounded-xl hover:bg-emerald-50 transition-colors text-sm font-semibold shadow-sm"
             >
               Renew Subscription
             </Link>
           </div>
         </div>
 
-        {/* My Courses */}
+        {/* Courses section */}
         <section>
-          <h2 className="text-xl font-bold text-gray-900 mb-4">My Enrolled Courses</h2>
+          <div className="flex items-center justify-between mb-6">
+            <div>
+              <h2 className="text-xl font-bold text-gray-900">My Enrolled Courses</h2>
+              <p className="text-sm text-gray-500 mt-0.5">
+                {enrollments.length} course{enrollments.length !== 1 ? 's' : ''} total
+              </p>
+            </div>
+            <Link
+              href="/courses"
+              className="text-sm font-medium text-purple-600 hover:text-purple-700 transition-colors"
+            >
+              Browse more →
+            </Link>
+          </div>
+
           {enrollments.length === 0 ? (
-            <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-8 text-center">
-              <BookOpenIcon className="h-12 w-12 text-gray-400 mx-auto mb-3" />
-              <p className="text-gray-600 mb-4">You haven&apos;t enrolled in any courses yet.</p>
+            <div className="bg-white rounded-2xl border border-gray-100 p-12 text-center shadow-sm">
+              <div className="w-16 h-16 bg-purple-50 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                <BookOpenIcon className="h-8 w-8 text-purple-400" />
+              </div>
+              <h3 className="text-lg font-semibold text-gray-900 mb-2">No courses yet</h3>
+              <p className="text-gray-500 mb-6 text-sm max-w-xs mx-auto">
+                Enroll in your first course to get started on your learning journey.
+              </p>
               <Link
                 href="/courses"
-                className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-purple-600 to-blue-600 text-white rounded-lg hover:from-purple-700 hover:to-blue-700 transition-colors font-medium"
+                className="inline-flex items-center px-5 py-2.5 bg-gradient-to-r from-purple-600 to-indigo-600 text-white rounded-xl hover:from-purple-700 hover:to-indigo-700 transition-all font-medium text-sm shadow-sm"
               >
                 Browse Courses
               </Link>
             </div>
           ) : (
-            <div className="space-y-6">
-              {/* Subscription Cards for Active Courses */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                {enrollments
-                  .filter(e => e.status === 'active' && e.expiryDate && e.monthlyAmount)
-                  .map((enrollment) => (
-                    <SubscriptionCard
-                      key={enrollment._id}
-                      enrollmentId={enrollment._id}
-                      expiryDate={enrollment.expiryDate || ''}
-                      monthlyAmount={enrollment.monthlyAmount || 0}
-                      paymentStatus={enrollment.paymentStatus || enrollment.status}
-                      courseTitle={enrollment.course?.title}
-                      courseSlug={enrollment.course?.slug?.current}
-                    />
-                  ))}
-              </div>
+            <div className="space-y-8">
 
-              {/* Course Cards */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                {enrollments.map((enrollment) => (
-                  <div key={enrollment._id} className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden hover:shadow-md transition-shadow">
-                    {enrollment.course?.mainImage && (
-                      <div className="relative h-48 w-full">
-                        <Image
-                          src={urlFor(enrollment.course.mainImage).width(600).height(400).url()}
-                          alt={enrollment.course.title}
-                          fill
-                          className="object-cover"
+              {/* Active subscription cards */}
+              {enrollments.filter(e => e.status === 'active' && e.expiryDate && e.monthlyAmount).length > 0 && (
+                <div>
+                  <p className="text-xs font-semibold text-gray-400 uppercase tracking-widest mb-3">Active Subscriptions</p>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    {enrollments
+                      .filter(e => e.status === 'active' && e.expiryDate && e.monthlyAmount)
+                      .map((enrollment) => (
+                        <SubscriptionCard
+                          key={enrollment._id}
+                          enrollmentId={enrollment._id}
+                          expiryDate={enrollment.expiryDate || ''}
+                          monthlyAmount={enrollment.monthlyAmount || 0}
+                          paymentStatus={enrollment.paymentStatus || enrollment.status}
+                          courseTitle={enrollment.course?.title}
+                          courseSlug={enrollment.course?.slug?.current}
                         />
-                      </div>
-                    )}
-                    <div className="p-6">
-                      <div className="flex items-start justify-between mb-3">
-                        <div>
-                          <h3 className="text-lg font-semibold text-gray-900 mb-1">
-                            {enrollment.course?.title || 'Course'}
-                          </h3>
-                          <div className="flex items-center gap-2">
+                      ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Course cards */}
+              <div>
+                <p className="text-xs font-semibold text-gray-400 uppercase tracking-widest mb-3">All Courses</p>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                  {enrollments.map((enrollment) => (
+                    <div
+                      key={enrollment._id}
+                      className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden hover:shadow-md hover:-translate-y-0.5 transition-all duration-200"
+                    >
+                      {enrollment.course?.mainImage ? (
+                        <div className="relative h-44 w-full">
+                          <Image
+                            src={urlFor(enrollment.course.mainImage).width(600).height(400).url()}
+                            alt={enrollment.course.title}
+                            fill
+                            className="object-cover"
+                          />
+                          <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
+                          <div className="absolute bottom-3 left-4 flex gap-1.5">
                             {enrollment.course?.level && (
-                              <span className="inline-flex px-2 py-1 text-xs font-medium rounded-full bg-blue-100 text-blue-800 capitalize">
+                              <span className="inline-flex px-2 py-0.5 text-xs font-medium rounded-full bg-white/90 text-gray-800 capitalize">
                                 {enrollment.course.level}
                               </span>
                             )}
-                            <span className={`inline-flex px-2 py-1 text-xs font-medium rounded-full ${
-                              enrollment.status === 'active' ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800'
+                            <span className={`inline-flex px-2 py-0.5 text-xs font-medium rounded-full capitalize ${
+                              enrollment.status === 'active'
+                                ? 'bg-emerald-500/90 text-white'
+                                : 'bg-gray-500/80 text-white'
                             }`}>
                               {enrollment.status}
                             </span>
                           </div>
                         </div>
-                      </div>
-                      
-                      <p className="text-sm text-gray-600 mb-4 line-clamp-2">
-                        {enrollment.course?.description}
-                      </p>
-                      
-                      {enrollment.teacher && (
-                        <p className="text-xs text-gray-500 mb-4">
-                          Instructor: <span className="font-medium text-gray-700">{enrollment.teacher.name || enrollment.teacher.email}</span>
-                        </p>
+                      ) : (
+                        <div className="h-16 bg-gradient-to-r from-purple-600 to-indigo-600 relative">
+                          <div className="absolute bottom-3 left-4 flex gap-1.5">
+                            {enrollment.course?.level && (
+                              <span className="inline-flex px-2 py-0.5 text-xs font-medium rounded-full bg-white/20 text-white capitalize">
+                                {enrollment.course.level}
+                              </span>
+                            )}
+                          </div>
+                        </div>
                       )}
-                      
-                      <div className="space-y-2 mb-4">
-                        {enrollment.course?.contentPdf && (
-                          <button
-                            onClick={() => downloadPdf(enrollment.course?.contentPdf, `${enrollment.course?.title || 'course'}-content.pdf`)}
-                            className="w-full flex items-center justify-center gap-2 px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors text-sm"
-                          >
-                            <ArrowDownTrayIcon className="h-4 w-4" />
-                            Download Course Content
-                          </button>
-                        )}
-                        {enrollment.course?.roadmapPdf && (
-                          <button
-                            onClick={() => downloadPdf(enrollment.course?.roadmapPdf, `${enrollment.course?.title || 'course'}-roadmap.pdf`)}
-                            className="w-full flex items-center justify-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-sm"
-                          >
-                            <ArrowDownTrayIcon className="h-4 w-4" />
-                            Download Roadmap
-                          </button>
-                        )}
-                      </div>
 
-                      <div className="pt-4 border-t border-gray-200">
-                        <div className="text-sm text-gray-600 mb-3">
-                          <p>Enrolled: {new Date(enrollment.enrolledAt).toLocaleDateString()}</p>
-                          {enrollment.monthlyAmount && (
-                            <p className="mt-1">Monthly: ₦{enrollment.monthlyAmount.toLocaleString()}</p>
-                          )}
-                          {enrollment.totalPrice && (
-                            <p className="mt-1">Total: ₦{enrollment.totalPrice.toLocaleString()}</p>
-                          )}
+                      <div className="p-5">
+                        <h3 className="text-base font-bold text-gray-900 mb-0.5">
+                          {enrollment.course?.title || 'Course'}
+                        </h3>
+                        {enrollment.teacher && (
+                          <p className="text-xs text-gray-400 mb-3">
+                            with{' '}
+                            <span className="font-medium text-gray-600">
+                              {enrollment.teacher.name || enrollment.teacher.email}
+                            </span>
+                          </p>
+                        )}
+                        {enrollment.course?.description && (
+                          <p className="text-sm text-gray-500 mb-4 line-clamp-2">
+                            {enrollment.course.description}
+                          </p>
+                        )}
+
+                        <div className="flex items-center justify-between text-xs text-gray-400 mb-4 pb-4 border-b border-gray-100">
+                          <span>Enrolled {new Date(enrollment.enrolledAt).toLocaleDateString()}</span>
                           {enrollment.expiryDate && (
-                            <p className="mt-1 font-medium text-blue-600">
-                              Expires: {new Date(enrollment.expiryDate).toLocaleDateString()}
-                            </p>
+                            <span className="text-indigo-600 font-medium">
+                              Expires {new Date(enrollment.expiryDate).toLocaleDateString()}
+                            </span>
                           )}
                         </div>
 
-                        {enrollment.status === 'active' && enrollment.courseType === 'live' && enrollment.monthlyAmount && (
-                          <button
-                            onClick={() => handlePayment(enrollment)}
-                            disabled={paymentLoading === enrollment._id}
-                            className="w-full flex items-center justify-center gap-2 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors text-sm font-medium disabled:opacity-50 disabled:cursor-not-allowed"
-                          >
-                            <CreditCardIcon className="h-4 w-4" />
-                            {paymentLoading === enrollment._id ? 'Processing...' : 'Pay Now'}
-                          </button>
-                        )}
+                        <div className="space-y-2">
+                          {enrollment.course?.contentPdf && (
+                            <button
+                              onClick={() => downloadPdf(enrollment.course?.contentPdf, `${enrollment.course?.title || 'course'}-content.pdf`)}
+                              className="w-full flex items-center justify-center gap-2 px-4 py-2.5 bg-purple-600 text-white rounded-xl hover:bg-purple-700 transition-colors text-xs font-semibold"
+                            >
+                              <ArrowDownTrayIcon className="h-4 w-4" />
+                              Course Content PDF
+                            </button>
+                          )}
+                          {enrollment.course?.roadmapPdf && (
+                            <button
+                              onClick={() => downloadPdf(enrollment.course?.roadmapPdf, `${enrollment.course?.title || 'course'}-roadmap.pdf`)}
+                              className="w-full flex items-center justify-center gap-2 px-4 py-2.5 bg-indigo-50 text-indigo-700 rounded-xl hover:bg-indigo-100 transition-colors text-xs font-semibold border border-indigo-100"
+                            >
+                              <ArrowDownTrayIcon className="h-4 w-4" />
+                              Roadmap PDF
+                            </button>
+                          )}
+                          {enrollment.monthlyAmount && (
+                            <p className="text-xs text-gray-400 text-center pt-1">
+                              ₦{enrollment.monthlyAmount.toLocaleString()}/month
+                              {enrollment.totalPrice ? ` · ₦${enrollment.totalPrice.toLocaleString()} total` : ''}
+                            </p>
+                          )}
+                          {enrollment.status === 'active' && enrollment.courseType === 'live' && enrollment.monthlyAmount && (
+                            <button
+                              onClick={() => handlePayment(enrollment)}
+                              disabled={paymentLoading === enrollment._id}
+                              className="w-full flex items-center justify-center gap-2 px-4 py-2.5 bg-emerald-600 text-white rounded-xl hover:bg-emerald-700 transition-colors text-xs font-semibold disabled:opacity-50 disabled:cursor-not-allowed"
+                            >
+                              <CreditCardIcon className="h-4 w-4" />
+                              {paymentLoading === enrollment._id
+                                ? 'Processing...'
+                                : `Pay ₦${enrollment.monthlyAmount.toLocaleString()}`}
+                            </button>
+                          )}
+                        </div>
                       </div>
                     </div>
-                  </div>
-                ))}
+                  ))}
+                </div>
               </div>
             </div>
           )}
@@ -373,21 +474,22 @@ export default function StudentDashboardPage() {
 }
 
 function StatCard({ icon, title, value, color }: { icon: React.ReactNode; title: string; value: string; color: string }) {
-  const colors: Record<string, string> = {
-    purple: 'bg-purple-500',
-    blue: 'bg-blue-500',
-    green: 'bg-green-500',
+  const gradients: Record<string, string> = {
+    purple: 'from-violet-600 via-purple-600 to-indigo-700',
+    blue: 'from-blue-500 to-indigo-600',
+    green: 'from-emerald-500 to-teal-600',
   }
 
   return (
-    <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-      <div className="flex items-center space-x-3 mb-2">
-        <div className={`p-2 rounded-lg ${colors[color] || colors.purple} text-white`}>
+    <div className={`relative bg-gradient-to-br ${gradients[color] || gradients.purple} rounded-2xl p-5 shadow-sm overflow-hidden`}>
+      <div className="absolute top-0 right-0 w-24 h-24 rounded-full bg-white/10 -translate-y-8 translate-x-8" />
+      <div className="flex items-center gap-3 mb-3">
+        <div className="p-2 bg-white/20 rounded-xl text-white">
           {icon}
         </div>
-        <h3 className="text-sm font-medium text-gray-600">{title}</h3>
+        <h3 className="text-sm font-semibold text-white/80">{title}</h3>
       </div>
-      <p className="text-3xl font-bold text-gray-900">{value}</p>
+      <p className="text-3xl font-bold text-white">{value}</p>
     </div>
   )
 }
