@@ -33,9 +33,7 @@ export default function TeacherLoginPage() {
   const handleOAuth = async (provider: 'google' | 'github') => {
     setError('')
     setOauthLoading(provider)
-    // No intent flag — this is a sign-in, not a new application
-    localStorage.removeItem('teacher_oauth_intent')
-    await signIn(provider, { callbackUrl: '/teacher/oauth-success' })
+    await signIn(provider, { callbackUrl: '/teacher/oauth-success?intent=signin' })
     setOauthLoading(null)
   }
 

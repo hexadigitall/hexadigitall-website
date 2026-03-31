@@ -81,11 +81,14 @@ export async function POST(request: NextRequest) {
     const salt = generateSalt()
     const passwordHash = hashWithSalt(password, salt)
 
-    // Students are active immediately; teachers require admin approval
-    const status = role === 'teacher' ? 'pending' : 'active'
-    const { rawToken, tokenHash, expiresAt } = createVerificationToken()
+    // Students are active immediately; teachers require admin approval.
+    // Teachers are considered verified at registration to avoid a dead-end flow
+    // when verification email delivery is not configured.
+    const isTeacher = role === 'teacher'
+    const status = isTeacher ? 'pending' : 'active'
+    const verification = isTeacher ? null : createVerificationToken()
 
-    await writeClient.create({
+    const userDoc: Record<string, unknown> = {
       _type: 'user',
       name: name.trim(),
       username: username.trim().toLowerCase(),
@@ -94,48 +97,54 @@ export async function POST(request: NextRequest) {
       passwordHash,
       salt,
       status,
-      emailVerified: false,
-      emailVerificationTokenHash: tokenHash,
-      emailVerificationExpiresAt: expiresAt,
+      emailVerified: isTeacher,
       createdAt: new Date().toISOString(),
-    })
+    }
+    if (verification) {
+      userDoc.emailVerificationTokenHash = verification.tokenHash
+      userDoc.emailVerificationExpiresAt = verification.expiresAt
+    }
 
-    const origin = new URL(request.url).origin
-    const verificationUrl = `${origin}/api/auth/verify-email?token=${rawToken}`
+    await writeClient.create(userDoc)
 
-    const emailResult = await emailService.sendEmail({
-      to: email.trim().toLowerCase(),
-      from: process.env.FROM_EMAIL || 'info@hexadigitall.com',
-      replyTo: process.env.CONTACT_FORM_RECIPIENT_EMAIL || 'info@hexadigitall.com',
-      subject: 'Verify your email address - Hexadigitall',
-      html: `
-        <div style="font-family: Arial, sans-serif; max-width: 620px; margin: 0 auto;">
-          <h2 style="color: #0A4D68; margin-bottom: 8px;">Verify your email address</h2>
-          <p style="color: #1f2937; font-size: 15px; line-height: 1.6;">
-            Hello ${name.trim()}, please verify your email to activate sign in for your Hexadigitall account.
-          </p>
-          <p style="margin: 24px 0;">
-            <a href="${verificationUrl}" style="background: #0A4D68; color: #ffffff; text-decoration: none; padding: 12px 18px; border-radius: 8px; display: inline-block; font-weight: 600;">
-              Verify Email
-            </a>
-          </p>
-          <p style="color: #6b7280; font-size: 13px; line-height: 1.5;">
-            This link expires in 24 hours. If you did not create this account, you can safely ignore this message.
-          </p>
-        </div>
-      `,
-    })
+    if (verification) {
+      const origin = new URL(request.url).origin
+      const verificationUrl = `${origin}/api/auth/verify-email?token=${verification.rawToken}`
 
-    if (!emailResult.success) {
-      console.error('Verification email send failed:', emailResult.error)
+      const emailResult = await emailService.sendEmail({
+        to: email.trim().toLowerCase(),
+        from: process.env.FROM_EMAIL || 'info@hexadigitall.com',
+        replyTo: process.env.CONTACT_FORM_RECIPIENT_EMAIL || 'info@hexadigitall.com',
+        subject: 'Verify your email address - Hexadigitall',
+        html: `
+          <div style="font-family: Arial, sans-serif; max-width: 620px; margin: 0 auto;">
+            <h2 style="color: #0A4D68; margin-bottom: 8px;">Verify your email address</h2>
+            <p style="color: #1f2937; font-size: 15px; line-height: 1.6;">
+              Hello ${name.trim()}, please verify your email to activate sign in for your Hexadigitall account.
+            </p>
+            <p style="margin: 24px 0;">
+              <a href="${verificationUrl}" style="background: #0A4D68; color: #ffffff; text-decoration: none; padding: 12px 18px; border-radius: 8px; display: inline-block; font-weight: 600;">
+                Verify Email
+              </a>
+            </p>
+            <p style="color: #6b7280; font-size: 13px; line-height: 1.5;">
+              This link expires in 24 hours. If you did not create this account, you can safely ignore this message.
+            </p>
+          </div>
+        `,
+      })
+
+      if (!emailResult.success) {
+        console.error('Verification email send failed:', emailResult.error)
+      }
     }
 
     return NextResponse.json({
       success: true,
-      requiresEmailVerification: true,
+      requiresEmailVerification: !isTeacher,
       status,
       message: role === 'teacher'
-        ? 'Your teacher account was created. Verify your email first, then wait for administrator approval.'
+        ? 'Your teacher application has been submitted and is pending administrator approval.'
         : 'Account created. Check your email and verify before signing in.',
     })
   } catch (error) {

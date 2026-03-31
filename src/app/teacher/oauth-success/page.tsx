@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
+import { useSearchParams } from 'next/navigation'
 import { CheckCircleIcon, ClockIcon } from '@heroicons/react/24/outline'
 
 type Phase = 'loading' | 'pending' | 'approved' | 'error'
@@ -9,20 +10,20 @@ type Phase = 'loading' | 'pending' | 'approved' | 'error'
 export default function TeacherOAuthSuccessPage() {
   const [phase, setPhase] = useState<Phase>('loading')
   const [errorMsg, setErrorMsg] = useState('')
+  const searchParams = useSearchParams()
 
   useEffect(() => {
     let mounted = true
 
     const complete = async () => {
       try {
-        const intent = localStorage.getItem('teacher_oauth_intent')
+        const intent = searchParams.get('intent')
         const isSignup = intent === 'signup'
 
         if (isSignup) {
           // New teacher applicant — claim/convert the fresh OAuth account
           const res = await fetch('/api/auth/teacher-oauth-claim', { method: 'POST' })
           const data = await res.json()
-          localStorage.removeItem('teacher_oauth_intent')
 
           if (!res.ok) {
             if (mounted) {
@@ -71,7 +72,7 @@ export default function TeacherOAuthSuccessPage() {
 
     void complete()
     return () => { mounted = false }
-  }, [])
+  }, [searchParams])
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-teal-50 via-cyan-50 to-white px-4">
