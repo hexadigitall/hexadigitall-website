@@ -121,7 +121,7 @@ export async function PATCH(request: NextRequest) {
 
       const emailResult = await emailService.sendEmail({
         to: updatedUser.email,
-        from: process.env.FROM_EMAIL || 'info@hexadigitall.com',
+        from: process.env.FROM_EMAIL || (process.env.RESEND_API_KEY ? 'onboarding@resend.dev' : 'info@hexadigitall.com'),
         replyTo: process.env.CONTACT_FORM_RECIPIENT_EMAIL || 'info@hexadigitall.com',
         subject: isApproved
           ? 'Your teacher account has been approved - Hexadigitall'
