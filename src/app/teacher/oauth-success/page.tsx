@@ -44,10 +44,22 @@ export default function TeacherOAuthSuccessPage() {
         if (!res.ok || !data.success) {
           if (data.pending) {
             setPhase('pending')
-          } else {
-            setErrorMsg(data.message || 'Sign in failed.')
-            setPhase('error')
+            return
           }
+
+          // Recovery path: older OAuth redirects may lose intent.
+          // If this looks like a new student OAuth account, try claim flow.
+          if (!isSignup && typeof data.message === 'string' && data.message.includes('registered as a student')) {
+            const claimRes = await fetch('/api/auth/teacher-oauth-claim', { method: 'POST' })
+            const claimData = await claimRes.json()
+            if (claimRes.ok && claimData.success) {
+              setPhase('pending')
+              return
+            }
+          }
+
+          setErrorMsg(data.message || 'Sign in failed.')
+          setPhase('error')
           return
         }
 

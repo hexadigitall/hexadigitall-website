@@ -122,8 +122,12 @@ export const { handlers, auth } = NextAuth({
       return true
     },
     async redirect({ url, baseUrl }) {
-      if (url.includes('/teacher/oauth-success')) {
-        return `${baseUrl}/teacher/oauth-success`
+      // Preserve callback query params (e.g., intent=signup) for OAuth flows.
+      if (url.startsWith('/')) {
+        return `${baseUrl}${url}`
+      }
+      if (url.startsWith(baseUrl)) {
+        return url
       }
       return `${baseUrl}/student/oauth-success`
     },
