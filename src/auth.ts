@@ -79,7 +79,8 @@ export const { handlers, auth } = NextAuth({
 
       if (existing) {
         if (existing.status === 'suspended') return false
-        if (existing.role === 'teacher') return false
+        // Teachers (pending or active) are allowed through OAuth
+        // The /teacher/oauth-success page handles pending vs approved state
 
         const patch: Record<string, unknown> = {
           emailVerified: true,
@@ -120,7 +121,10 @@ export const { handlers, auth } = NextAuth({
 
       return true
     },
-    async redirect({ baseUrl }) {
+    async redirect({ url, baseUrl }) {
+      if (url.includes('/teacher/oauth-success')) {
+        return `${baseUrl}/teacher/oauth-success`
+      }
       return `${baseUrl}/student/oauth-success`
     },
   },
