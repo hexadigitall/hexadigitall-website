@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
-import { useSearchParams } from 'next/navigation'
 import { CheckCircleIcon, ClockIcon } from '@heroicons/react/24/outline'
 
 type Phase = 'loading' | 'pending' | 'approved' | 'error'
@@ -10,14 +9,14 @@ type Phase = 'loading' | 'pending' | 'approved' | 'error'
 export default function TeacherOAuthSuccessPage() {
   const [phase, setPhase] = useState<Phase>('loading')
   const [errorMsg, setErrorMsg] = useState('')
-  const searchParams = useSearchParams()
 
   useEffect(() => {
     let mounted = true
 
     const complete = async () => {
       try {
-        const intent = searchParams.get('intent')
+        const params = new URLSearchParams(window.location.search)
+        const intent = params.get('intent')
         const isSignup = intent === 'signup'
 
         if (isSignup) {
@@ -72,7 +71,7 @@ export default function TeacherOAuthSuccessPage() {
 
     void complete()
     return () => { mounted = false }
-  }, [searchParams])
+  }, [])
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-teal-50 via-cyan-50 to-white px-4">

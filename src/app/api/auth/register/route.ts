@@ -88,7 +88,7 @@ export async function POST(request: NextRequest) {
     const status = isTeacher ? 'pending' : 'active'
     const verification = isTeacher ? null : createVerificationToken()
 
-    const userDoc: Record<string, unknown> = {
+    const userDoc: { _type: 'user'; [key: string]: unknown } = {
       _type: 'user',
       name: name.trim(),
       username: username.trim().toLowerCase(),
