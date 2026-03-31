@@ -36,6 +36,7 @@ export default function TeacherSignupPage() {
   const handleOAuth = async (provider: 'google' | 'github') => {
     setError('')
     setOauthLoading(provider)
+    document.cookie = 'teacher_oauth_intent=signup; Path=/; Max-Age=600; SameSite=Lax'
     await signIn(provider, { callbackUrl: '/teacher/oauth-success?intent=signup' })
     setOauthLoading(null)
   }

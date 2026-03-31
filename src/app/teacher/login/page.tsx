@@ -33,6 +33,7 @@ export default function TeacherLoginPage() {
   const handleOAuth = async (provider: 'google' | 'github') => {
     setError('')
     setOauthLoading(provider)
+    document.cookie = 'teacher_oauth_intent=signin; Path=/; Max-Age=600; SameSite=Lax'
     await signIn(provider, { callbackUrl: '/teacher/oauth-success?intent=signin' })
     setOauthLoading(null)
   }

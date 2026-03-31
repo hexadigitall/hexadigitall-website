@@ -24,7 +24,7 @@ export async function GET(req: NextRequest, { params }: { params: Promise<{ id: 
       `*[_type == "course"] | order(title asc) {
         _id,
         title,
-        slug,
+        "slug": slug.current,
         description
       }`
     )

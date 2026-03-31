@@ -9,29 +9,74 @@ type Phase = 'loading' | 'pending' | 'approved' | 'error'
 export default function TeacherOAuthSuccessPage() {
   const [phase, setPhase] = useState<Phase>('loading')
   const [errorMsg, setErrorMsg] = useState('')
+  const [infoMsg, setInfoMsg] = useState('')
 
   useEffect(() => {
     let mounted = true
 
     const complete = async () => {
       try {
+        document.cookie = 'teacher_oauth_intent=; Path=/; Max-Age=0; SameSite=Lax'
         const params = new URLSearchParams(window.location.search)
         const intent = params.get('intent')
+        const status = params.get('status')
+        const error = params.get('error')
         const isSignup = intent === 'signup'
 
+        if (isSignup && status === 'pending') {
+          setInfoMsg('Your application has already been submitted and is pending administrator approval. You will receive an email when your account is approved.')
+          setPhase('pending')
+          return
+        }
+
+        if (isSignup && error === 'teacher-exists') {
+          setErrorMsg('A teacher account with this email already exists. Sign in instead or use a different Google or GitHub account.')
+          setPhase('error')
+          return
+        }
+
+        if (isSignup && error === 'account-exists') {
+          setErrorMsg('An account with this email already exists. Sign in instead or use a different Google or GitHub account to apply as a teacher.')
+          setPhase('error')
+          return
+        }
+
+        if (error === 'not-teacher') {
+          setErrorMsg('This account already exists, but it is not a teacher account. Use the correct login page or sign in with a different account.')
+          setPhase('error')
+          return
+        }
+
+        if (error === 'no-account') {
+          setErrorMsg('No teacher account exists for this email yet. Apply to teach first, then sign in after approval.')
+          setPhase('error')
+          return
+        }
+
+        if (error === 'suspended') {
+          setErrorMsg('This account is suspended. Please contact support for help.')
+          setPhase('error')
+          return
+        }
+
         if (isSignup) {
-          // New teacher applicant — claim/convert the fresh OAuth account
           const res = await fetch('/api/auth/teacher-oauth-claim', { method: 'POST' })
           const data = await res.json()
 
-          if (!res.ok) {
+          if (!res.ok || !data.success) {
             if (mounted) {
               setErrorMsg(data.message || 'Could not complete your application.')
               setPhase('error')
             }
             return
           }
-          if (mounted) setPhase('pending')
+          if (mounted) {
+            setInfoMsg(
+              data.message ||
+              'Your application has been submitted and is now pending administrator approval. You will receive an email when your account is approved.'
+            )
+            setPhase('pending')
+          }
           return
         }
 
@@ -43,6 +88,7 @@ export default function TeacherOAuthSuccessPage() {
 
         if (!res.ok || !data.success) {
           if (data.pending) {
+            setInfoMsg(data.message || 'Your teacher account is still pending administrator approval. You will receive an email when your account is approved.')
             setPhase('pending')
             return
           }
@@ -53,6 +99,10 @@ export default function TeacherOAuthSuccessPage() {
             const claimRes = await fetch('/api/auth/teacher-oauth-claim', { method: 'POST' })
             const claimData = await claimRes.json()
             if (claimRes.ok && claimData.success) {
+              setInfoMsg(
+                claimData.message ||
+                'Your application has been submitted and is now pending administrator approval. You will receive an email when your account is approved.'
+              )
               setPhase('pending')
               return
             }
@@ -104,14 +154,14 @@ export default function TeacherOAuthSuccessPage() {
             </div>
             <h1 className="text-2xl font-bold text-gray-900 mb-3">Application Submitted!</h1>
             <p className="text-gray-600 mb-6">
-              Your teacher account has been registered and is awaiting administrator approval.
-              You will be able to sign in once your account is activated.
+              {infoMsg || 'Your teacher account has been registered and is awaiting administrator approval. You will be able to sign in once your account is activated.'}
             </p>
             <div className="bg-amber-50 border border-amber-200 rounded-xl p-4 text-left mb-6">
               <p className="text-sm font-semibold text-amber-800 mb-2">What happens next?</p>
               <ul className="space-y-1 text-sm text-amber-700 list-disc list-inside">
                 <li>Admin reviews your application</li>
                 <li>Your account is activated upon approval</li>
+                <li>You will receive an approval email at your account email address</li>
                 <li>Sign in with the same Google / GitHub account once approved</li>
               </ul>
             </div>

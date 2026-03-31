@@ -1,6 +1,7 @@
 import NextAuth from 'next-auth'
 import Google from 'next-auth/providers/google'
 import GitHub from 'next-auth/providers/github'
+import { cookies } from 'next/headers'
 import { client, writeClient } from '@/sanity/client'
 
 const googleClientId = process.env.AUTH_GOOGLE_ID || process.env.GOOGLE_CLIENT_ID || ''
@@ -72,15 +73,37 @@ export const { handlers, auth } = NextAuth({
       if (!user.email) return false
 
       const email = user.email.trim().toLowerCase()
+      const cookieStore = await cookies()
+      const teacherOauthIntent = cookieStore.get('teacher_oauth_intent')?.value
+      const isTeacherSignup = teacherOauthIntent === 'signup'
+      const isTeacherSignin = teacherOauthIntent === 'signin'
       const existing = await client.fetch<ExistingUser | null>(
         `*[_type == "user" && email == $email][0]{ _id, username, role, status, emailVerified }`,
         { email }
       )
 
       if (existing) {
-        if (existing.status === 'suspended') return false
-        // Teachers (pending or active) are allowed through OAuth
-        // The /teacher/oauth-success page handles pending vs approved state
+        if (existing.status === 'suspended') {
+          if (isTeacherSignup || isTeacherSignin) {
+            return `/teacher/oauth-success?intent=${isTeacherSignup ? 'signup' : 'signin'}&error=suspended`
+          }
+          return false
+        }
+
+        if (isTeacherSignup) {
+          if (existing.role === 'teacher') {
+            if (existing.status === 'pending') {
+              return '/teacher/oauth-success?intent=signup&status=pending'
+            }
+            return '/teacher/oauth-success?intent=signup&error=teacher-exists'
+          }
+
+          return '/teacher/oauth-success?intent=signup&error=account-exists'
+        }
+
+        if (isTeacherSignin && existing.role !== 'teacher') {
+          return '/teacher/oauth-success?intent=signin&error=not-teacher'
+        }
 
         const patch: Record<string, unknown> = {
           emailVerified: true,
@@ -103,6 +126,29 @@ export const { handlers, auth } = NextAuth({
 
       const fallbackName = user.name || email.split('@')[0] || 'Student'
       const username = await getUniqueUsername(email.split('@')[0] || fallbackName)
+
+      if (isTeacherSignin) {
+        return '/teacher/oauth-success?intent=signin&error=no-account'
+      }
+
+      if (isTeacherSignup) {
+        await writeClient.create({
+          _type: 'user',
+          name: fallbackName,
+          username,
+          email,
+          role: 'teacher',
+          status: 'pending',
+          emailVerified: true,
+          emailVerifiedAt: new Date().toISOString(),
+          oauthProvider: account?.provider,
+          oauthProviderId: account?.providerAccountId,
+          ...(user.image ? { profilePhotoUrl: user.image } : {}),
+          createdAt: new Date().toISOString(),
+        })
+
+        return true
+      }
 
       await writeClient.create({
         _type: 'user',
