@@ -11,6 +11,7 @@ type DbUser = {
   name?: string
   email?: string
   emailVerified?: boolean
+  profilePhotoUrl?: string
 }
 
 export async function POST() {
@@ -22,7 +23,7 @@ export async function POST() {
   }
 
   const user = await client.fetch<DbUser | null>(
-    `*[_type == "user" && email == $email][0]{ _id, username, role, status, name, email, emailVerified }`,
+    `*[_type == "user" && email == $email][0]{ _id, username, role, status, name, email, emailVerified, profilePhotoUrl }`,
     { email }
   )
 
@@ -57,8 +58,7 @@ export async function POST() {
     username: user.username,
     role: user.role,
     name: user.name,
-    email: user.email,
-  })
+    email: user.email,    profilePhotoUrl: user.profilePhotoUrl,  })
 
   response.cookies.set('admin_token', sessionToken, {
     path: '/',

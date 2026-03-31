@@ -96,11 +96,11 @@ export async function GET(request: NextRequest) {
       if (hoursSinceLogin < 24) {
         // If token contains userId, verify user still exists and not suspended
         if (decoded.userId) {
-          const user = await client.fetch(`*[_type == "user" && _id == $id][0]{_id, username, name, role, status}`, { id: decoded.userId })
+          const user = await client.fetch(`*[_type == "user" && _id == $id][0]{_id, username, name, profilePhotoUrl, role, status}`, { id: decoded.userId })
           if (!user || user.status === 'suspended') {
             return NextResponse.json({ authenticated: false }, { status: 401 })
           }
-          return NextResponse.json({ authenticated: true, username: user.username, name: user.name, role: user.role })
+          return NextResponse.json({ authenticated: true, username: user.username, name: user.name, profilePhotoUrl: user.profilePhotoUrl, role: user.role })
         }
         // Legacy env token
         return NextResponse.json({ authenticated: true, username: decoded.username, name: decoded.name, role: decoded.role || 'admin' })

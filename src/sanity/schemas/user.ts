@@ -93,6 +93,12 @@ export default defineType({
       hidden: true,
     }),
     defineField({
+      name: 'profilePhotoUrl',
+      title: 'Profile Photo URL',
+      type: 'string',
+      description: 'URL of profile photo (from OAuth provider or uploaded)',
+    }),
+    defineField({
       name: 'oauthProvider',
       title: 'OAuth Provider',
       type: 'string',

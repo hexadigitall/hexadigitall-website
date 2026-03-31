@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import Image from 'next/image'
@@ -56,6 +56,9 @@ export default function TeacherDashboardPage() {
   const [teacher, setTeacher] = useState<{ username: string; name?: string } | null>(null)
   const [courses, setCourses] = useState<Course[]>([])
   const [students, setStudents] = useState<Student[]>([])
+  const [photoUrl, setPhotoUrl] = useState<string | null>(null)
+  const [photoUploading, setPhotoUploading] = useState(false)
+  const photoInputRef = useRef<HTMLInputElement>(null)
 
   useEffect(() => {
     const checkAuth = async () => {
@@ -76,6 +79,7 @@ export default function TeacherDashboardPage() {
 
         const sessionData = JSON.parse(session)
         setTeacher({ username: sessionData.username, name: data.name || sessionData.name })
+        setPhotoUrl(data.profilePhotoUrl || null)
 
         // Fetch courses and students
         await Promise.all([fetchCourses(token), fetchStudents(token)])
@@ -126,6 +130,34 @@ export default function TeacherDashboardPage() {
     router.push('/teacher/login')
   }
 
+  const handlePhotoUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0]
+    if (!file) return
+    const token = localStorage.getItem('admin_token')
+    if (!token) return
+    setPhotoUploading(true)
+    try {
+      const formData = new FormData()
+      formData.append('photo', file)
+      const res = await fetch('/api/user/profile-photo', {
+        method: 'POST',
+        headers: { Authorization: `Bearer ${token}` },
+        body: formData,
+      })
+      const data = await res.json()
+      if (res.ok && data.url) {
+        setPhotoUrl(data.url)
+      } else {
+        alert(data.error || 'Upload failed. Please try again.')
+      }
+    } catch {
+      alert('Upload failed. Please try again.')
+    } finally {
+      setPhotoUploading(false)
+      if (photoInputRef.current) photoInputRef.current.value = ''
+    }
+  }
+
   const downloadPdf = (pdfAsset?: { asset: { url?: string; _ref: string } }, filename?: string) => {
     if (!pdfAsset?.asset?.url && !pdfAsset?.asset?._ref) return
     
@@ -162,18 +194,38 @@ export default function TeacherDashboardPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 relative">
           <div className="flex flex-col sm:flex-row items-center sm:items-end gap-6">
 
-            {/* Avatar with camera hover hint */}
-            <div className="relative group shrink-0 cursor-pointer" title="Profile photo">
+            {/* Avatar — click to upload */}
+            <div
+              className="relative group shrink-0 cursor-pointer"
+              title="Click to change profile photo"
+              onClick={() => !photoUploading && photoInputRef.current?.click()}
+            >
               <div className="w-24 h-24 rounded-2xl bg-white/15 backdrop-blur-sm border border-white/30 flex items-center justify-center shadow-2xl overflow-hidden">
-                <span className="text-4xl font-bold text-white group-hover:opacity-0 transition-opacity duration-200 select-none">
-                  {teacherDisplayName.charAt(0).toUpperCase()}
-                </span>
-                <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-200 bg-black/20">
-                  <CameraIcon className="h-8 w-8 text-white/80" />
+                {photoUrl ? (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img src={photoUrl} alt={teacherDisplayName} className="w-full h-full object-cover" />
+                ) : (
+                  <span className="text-4xl font-bold text-white select-none">
+                    {teacherDisplayName.charAt(0).toUpperCase()}
+                  </span>
+                )}
+                <div className={`absolute inset-0 flex items-center justify-center transition-opacity duration-200 bg-black/30 ${
+                  photoUploading ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'
+                }`}>
+                  {photoUploading
+                    ? <div className="w-6 h-6 border-2 border-white/50 border-t-white rounded-full animate-spin" />
+                    : <CameraIcon className="h-7 w-7 text-white/90" />}
                 </div>
               </div>
               <div className="absolute -bottom-1 -right-1 w-5 h-5 bg-blue-400 rounded-full border-2 border-teal-900 shadow" />
             </div>
+            <input
+              ref={photoInputRef}
+              type="file"
+              accept="image/jpeg,image/jpg,image/png,image/webp"
+              className="hidden"
+              onChange={handlePhotoUpload}
+            />
 
             {/* Name & role */}
             <div className="text-center sm:text-left">

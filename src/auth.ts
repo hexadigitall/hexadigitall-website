@@ -92,6 +92,9 @@ export const { handlers, auth } = NextAuth({
         if (account?.providerAccountId) {
           patch.oauthProviderId = account.providerAccountId
         }
+        if (user.image) {
+          patch.profilePhotoUrl = user.image
+        }
 
         await writeClient.patch(existing._id).set(patch).unset(['emailVerificationTokenHash', 'emailVerificationExpiresAt']).commit()
         return true
@@ -111,6 +114,7 @@ export const { handlers, auth } = NextAuth({
         emailVerifiedAt: new Date().toISOString(),
         oauthProvider: account?.provider,
         oauthProviderId: account?.providerAccountId,
+        ...(user.image ? { profilePhotoUrl: user.image } : {}),
         createdAt: new Date().toISOString(),
       })
 
