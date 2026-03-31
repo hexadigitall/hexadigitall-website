@@ -23,7 +23,7 @@ interface User {
   email: string
   name?: string
   role: 'admin' | 'teacher' | 'student'
-  status: 'active' | 'suspended'
+  status: 'active' | 'suspended' | 'pending'
   createdAt?: string
 }
 
@@ -36,6 +36,13 @@ const roleOptions: Array<{ label: string; value: User['role'] }> = [
 const statusColors: Record<User['status'], string> = {
   active: 'bg-green-100 text-green-800',
   suspended: 'bg-red-100 text-red-700',
+  pending: 'bg-amber-100 text-amber-800',
+}
+
+const statusLabels: Record<User['status'], string> = {
+  active: 'Active',
+  suspended: 'Suspended',
+  pending: 'Pending Approval',
 }
 
 export default function AdminUsersPage() {
@@ -558,8 +565,8 @@ export default function AdminUsersPage() {
                           </div>
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap">
-                          <span className={`px-3 py-1 rounded-full text-xs font-medium ${statusColors[user.status]}`}>
-                            {user.status === 'active' ? 'Active' : 'Suspended'}
+                          <span className={`px-3 py-1 rounded-full text-xs font-medium ${statusColors[user.status] ?? 'bg-gray-100 text-gray-700'}`}>
+                            {statusLabels[user.status] ?? user.status}
                           </span>
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
@@ -567,24 +574,36 @@ export default function AdminUsersPage() {
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
                           <div className="flex flex-wrap gap-2">
-                            <button
-                              type="button"
-                              onClick={() => handleStatusToggle(user)}
-                              disabled={savingId === user._id}
-                              className="inline-flex items-center space-x-1 text-sm text-gray-700 hover:text-gray-900 disabled:opacity-50"
-                            >
-                              {user.status === 'active' ? (
-                                <>
-                                  <NoSymbolIcon className="h-4 w-4" />
-                                  <span>Suspend</span>
-                                </>
-                              ) : (
-                                <>
-                                  <CheckBadgeIcon className="h-4 w-4" />
-                                  <span>Activate</span>
-                                </>
-                              )}
-                            </button>
+                            {user.status === 'pending' && user.role === 'teacher' ? (
+                              <button
+                                type="button"
+                                onClick={() => handleStatusToggle(user)}
+                                disabled={savingId === user._id}
+                                className="inline-flex items-center space-x-1 text-sm text-amber-700 hover:text-amber-900 font-medium disabled:opacity-50"
+                              >
+                                <CheckBadgeIcon className="h-4 w-4" />
+                                <span>Approve</span>
+                              </button>
+                            ) : (
+                              <button
+                                type="button"
+                                onClick={() => handleStatusToggle(user)}
+                                disabled={savingId === user._id || (user.username === currentUser && user.role === 'admin')}
+                                className="inline-flex items-center space-x-1 text-sm text-gray-700 hover:text-gray-900 disabled:opacity-50"
+                              >
+                                {user.status === 'active' ? (
+                                  <>
+                                    <NoSymbolIcon className="h-4 w-4" />
+                                    <span>Suspend</span>
+                                  </>
+                                ) : (
+                                  <>
+                                    <CheckBadgeIcon className="h-4 w-4" />
+                                    <span>Activate</span>
+                                  </>
+                                )}
+                              </button>
+                            )}
                             <button
                               type="button"
                               onClick={() => handleResetPassword(user)}

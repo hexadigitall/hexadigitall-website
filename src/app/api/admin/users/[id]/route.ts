@@ -5,7 +5,7 @@ import { requireAdmin } from '@/lib/adminAuth'
 import { emailService } from '@/lib/email'
 
 const allowedRoles = new Set(['admin', 'teacher', 'student'])
-const allowedStatuses = new Set(['active', 'suspended'])
+const allowedStatuses = new Set(['active', 'suspended', 'pending'])
 
 function hashWithSalt(password: string, salt: string) {
   return crypto.createHash('sha256').update(password + salt).digest('hex')
@@ -109,11 +109,13 @@ export async function PATCH(request: NextRequest) {
       { id: userId }
     )
 
-    // Notify teachers whenever admin changes account status.
+    // Notify teachers whenever admin approves (pending→active) or suspends their account.
+    const effectiveRole = (role as string | undefined) ?? existing.role
+    const isTeacherAccount = effectiveRole === 'teacher'
+    const statusChanged = typeof status === 'string' && existing.status !== status
     if (
-      typeof status === 'string' &&
-      existing.role === 'teacher' &&
-      existing.status !== status &&
+      isTeacherAccount &&
+      statusChanged &&
       updatedUser?.email
     ) {
       const isApproved = status === 'active'
