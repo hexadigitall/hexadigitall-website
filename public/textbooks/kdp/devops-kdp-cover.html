@@ -87,8 +87,23 @@
     /* ── TOP SECTION ── */
     .cover-top {
       display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 0.22in;
+    }
+
+    .brand-lockup {
+      display: flex;
       flex-direction: column;
       align-items: flex-start;
+      gap: 0.12in;
+    }
+
+    .brand-logo {
+      width: 1.42in;
+      height: auto;
+      filter: brightness(0) invert(1);
+      opacity: 0.96;
     }
 
     .publisher-line {
@@ -98,7 +113,6 @@
       letter-spacing: 3px;
       text-transform: uppercase;
       color: #2dd4bf;
-      margin-bottom: 0.16in;
     }
 
     .series-badge {
@@ -108,36 +122,67 @@
       font-weight: 600;
       letter-spacing: 1.5px;
       text-transform: uppercase;
-      color: rgba(255,255,255,0.75);
+      color: rgba(255,255,255,0.78);
       border: 1px solid rgba(45,212,191,0.45);
       padding: 3px 10px;
       border-radius: 20px;
-      margin-bottom: 0.22in;
+    }
+
+    .qr-panel {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.04in;
+      background: rgba(255,255,255,0.98);
+      padding: 0.06in;
+      border-radius: 12px;
+      box-shadow: 0 16px 28px rgba(2, 6, 23, 0.34);
+    }
+
+    .qr-label {
+      font-family: 'Inter', sans-serif;
+      font-size: 5.2pt;
+      font-weight: 700;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      color: #0f172a;
+      text-align: center;
+    }
+
+    .qr-panel img {
+      display: block;
+      width: 0.8in;
+      height: 0.8in;
+      border-radius: 6px;
     }
 
     /* ── CENTRAL ART BLOCK ── */
     .cover-art {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
+      display: grid;
+      grid-template-columns: minmax(0, 1.35fr) minmax(0, 0.95fr);
+      gap: 0.24in;
+      align-items: center;
       flex: 1;
-      padding-top: 0.18in;
+      padding-top: 0.12in;
     }
 
-    /* ASCII-art style terminal diagram */
+    .cover-copy {
+      min-width: 0;
+    }
+
     .terminal-art {
       font-family: 'JetBrains Mono', monospace;
-      font-size: 6.5pt;
+      font-size: 6.1pt;
       line-height: 1.35;
       color: rgba(45,212,191,0.72);
       white-space: pre;
       letter-spacing: 0;
-      margin-bottom: 0.3in;
+      margin-bottom: 0.24in;
       text-shadow: 0 0 8px rgba(45,212,191,0.4);
     }
 
     .cover-title-block {
-      margin-bottom: 0.2in;
+      margin-bottom: 0.18in;
     }
 
     .cover-label {
@@ -152,9 +197,9 @@
 
     h1 {
       font-family: 'Space Grotesk', sans-serif;
-      font-size: 28pt;
+      font-size: 26pt;
       font-weight: 700;
-      line-height: 1.12;
+      line-height: 1.08;
       color: #ffffff;
       text-shadow: 0 2px 20px rgba(0,0,0,0.5);
       margin: 0;
@@ -166,25 +211,23 @@
 
     .cover-subtitle {
       font-family: 'Inter', sans-serif;
-      font-size: 10pt;
+      font-size: 9.5pt;
       font-weight: 500;
-      color: rgba(255,255,255,0.75);
+      color: rgba(255,255,255,0.76);
       margin-top: 0.1in;
-      letter-spacing: 0.5px;
+      letter-spacing: 0.4px;
     }
 
-    /* ── DIVIDER ── */
     .cover-rule {
       width: 0.5in;
       height: 2px;
       background: linear-gradient(90deg, #2dd4bf 0%, rgba(45,212,191,0.2) 100%);
-      margin: 0.22in 0;
+      margin: 0.18in 0;
     }
 
-    /* ── METADATA STRIP ── */
     .meta-strip {
       display: flex;
-      gap: 0.18in;
+      gap: 0.16in;
       flex-wrap: wrap;
     }
 
@@ -196,18 +239,70 @@
 
     .meta-label {
       font-family: 'Inter', sans-serif;
-      font-size: 5.5pt;
+      font-size: 5.4pt;
       font-weight: 700;
       letter-spacing: 1.5px;
       text-transform: uppercase;
       color: rgba(45,212,191,0.8);
     }
+
     .meta-value {
       font-family: 'Inter', sans-serif;
       font-size: 8pt;
       font-weight: 600;
-      color: rgba(255,255,255,0.9);
+      color: rgba(255,255,255,0.92);
       margin-top: 1px;
+    }
+
+    .cover-visual {
+      align-self: stretch;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+    }
+
+    .image-frame {
+      position: relative;
+      width: 100%;
+      padding: 0.08in;
+      border-radius: 18px;
+      background: linear-gradient(145deg, rgba(255,255,255,0.2), rgba(45,212,191,0.18));
+      box-shadow: 0 20px 36px rgba(2, 6, 23, 0.34);
+    }
+
+    .image-frame::after {
+      content: "";
+      position: absolute;
+      inset: 0.08in;
+      border: 1px solid rgba(255,255,255,0.16);
+      border-radius: 14px;
+      pointer-events: none;
+    }
+
+    .cover-course-image {
+      display: block;
+      width: 100%;
+      aspect-ratio: 0.88;
+      object-fit: cover;
+      object-position: center;
+      border-radius: 14px;
+    }
+
+    .image-caption {
+      position: absolute;
+      left: 0.18in;
+      right: 0.18in;
+      bottom: 0.18in;
+      padding: 0.08in 0.1in;
+      border-radius: 10px;
+      background: rgba(15, 23, 42, 0.82);
+      backdrop-filter: blur(6px);
+      font-size: 6pt;
+      font-weight: 700;
+      letter-spacing: 1.3px;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.9);
+      text-align: center;
     }
 
     /* ── BOTTOM SECTION ── */
@@ -219,7 +314,6 @@
       align-items: flex-end;
     }
 
-    .publisher-block {}
     .publisher-name {
       font-family: 'Space Grotesk', sans-serif;
       font-size: 10pt;
@@ -257,16 +351,21 @@
 
     <div class="cover-inner">
 
-      <!-- TOP -->
       <div class="cover-top">
-        <div class="publisher-line">Hexadigitall Technologies</div>
-        <div class="series-badge">Core Track Series</div>
+        <div class="brand-lockup">
+          <img src="../../hexadigitall-logo-transparent.svg" alt="Hexadigitall Technologies" class="brand-logo">
+          <div class="publisher-line">Hexadigitall Technologies</div>
+          <div class="series-badge">Core Track Series</div>
+        </div>
+        <div class="qr-panel">
+          <div class="qr-label">Scan for Course Details</div>
+          <img src="https://api.qrserver.com/v1/create-qr-code/?size=120x120&amp;data=https://www.hexadigitall.com/courses/devops-engineering-cloud-infrastructure" alt="Course QR Code">
+        </div>
       </div>
 
-      <!-- ART + TITLE -->
       <div class="cover-art">
-
-        <div class="terminal-art">┌──────────────────────────────────────────────────┐
+        <div class="cover-copy">
+          <div class="terminal-art">┌──────────────────────────────────────────────────┐
 │  $ kubectl get nodes --all-namespaces            │
 │  NAME          STATUS   ROLES    AGE   VERSION   │
 │  master-01     Ready    control  42d   v1.29.0   │
@@ -278,30 +377,38 @@
 │          └────── rollback ────┘                  │
 └──────────────────────────────────────────────────┘</div>
 
-        <div class="cover-title-block">
-          <div class="cover-label">Official Course Textbook</div>
-          <h1>DevOps Engineering<br>&amp; <span class="accent">Cloud</span><br>Infrastructure</h1>
-          <div class="cover-subtitle">Core Track — 20-Week Comprehensive Programme</div>
+          <div class="cover-title-block">
+            <div class="cover-label">Official Course Textbook</div>
+            <h1>DevOps Engineering<br>&amp; <span class="accent">Cloud</span><br>Infrastructure</h1>
+            <div class="cover-subtitle">Core Track — 20-Week Comprehensive Programme</div>
+          </div>
+
+          <div class="cover-rule"></div>
+
+          <div class="meta-strip">
+            <div class="meta-chip">
+              <span class="meta-label">Duration</span>
+              <span class="meta-value">20 Weeks</span>
+            </div>
+            <div class="meta-chip">
+              <span class="meta-label">Level</span>
+              <span class="meta-value">Advanced</span>
+            </div>
+            <div class="meta-chip">
+              <span class="meta-label">Track</span>
+              <span class="meta-value">Core Track</span>
+            </div>
+            <div class="meta-chip">
+              <span class="meta-label">Prerequisites</span>
+              <span class="meta-value">Required</span>
+            </div>
+          </div>
         </div>
 
-        <div class="cover-rule"></div>
-
-        <div class="meta-strip">
-          <div class="meta-chip">
-            <span class="meta-label">Duration</span>
-            <span class="meta-value">20 Weeks</span>
-          </div>
-          <div class="meta-chip">
-            <span class="meta-label">Level</span>
-            <span class="meta-value">Advanced</span>
-          </div>
-          <div class="meta-chip">
-            <span class="meta-label">Track</span>
-            <span class="meta-value">Core Track</span>
-          </div>
-          <div class="meta-chip">
-            <span class="meta-label">Edition</span>
-            <span class="meta-value">First, 2026</span>
+        <div class="cover-visual">
+          <div class="image-frame">
+            <img src="../../assets/images/courses/devops-engineering-cloud-infrastructure.jpg" alt="DevOps Engineering Course" class="cover-course-image">
+            <div class="image-caption">Course Image from Original Textbook Cover</div>
           </div>
         </div>
       </div>

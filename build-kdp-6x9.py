@@ -3,13 +3,35 @@
 Transform the DevOps textbook for KDP 6x9 paperback format.
 Outputs: public/textbooks/kdp/devops-kdp-6x9.html
 """
-import re, sys
+import re
 from pathlib import Path
 
 SRC  = Path(__file__).parent / "public/textbooks/devops-engineering-cloud-infrastructure-core-textbook.html"
 DEST = Path(__file__).parent / "public/textbooks/kdp/devops-kdp-6x9.html"
 
 html = SRC.read_text(encoding="utf-8")
+
+
+def strip_section_by_markers(text: str, start_marker: str, end_marker: str) -> str:
+  start = text.find(start_marker)
+  end = text.find(end_marker)
+  if start == -1 or end == -1 or end <= start:
+    return text
+  return text[:start] + text[end:]
+
+
+# Remove the original front and back covers from the source textbook.
+# KDP uploads need the manuscript interior only; covers are generated separately.
+html = strip_section_by_markers(
+  html,
+  "  <!-- ===== COVER PAGE ===== -->",
+  "  <!-- ===== COPYRIGHT PAGE ===== -->",
+)
+html = strip_section_by_markers(
+  html,
+  "    <!-- ===== BACK COVER PAGE ===== -->",
+  "    <script>",
+)
 
 # ── 1. Update <title> ───────────────────────────────────────────────────────
 html = html.replace(
