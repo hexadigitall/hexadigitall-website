@@ -32,6 +32,7 @@ export default function TeacherLoginPage() {
         localStorage.setItem('admin_token', data.token)
         localStorage.setItem('admin_session', JSON.stringify({
           username: data.username,
+          name: data.name,
           role: data.role,
           userId: data.userId,
         }))
