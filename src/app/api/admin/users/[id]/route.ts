@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import crypto from 'crypto'
 import { client, writeClient } from '@/sanity/client'
 import { requireAdmin } from '@/lib/adminAuth'
+import { emailService } from '@/lib/email'
 
 const allowedRoles = new Set(['admin', 'teacher', 'student'])
 const allowedStatuses = new Set(['active', 'suspended'])
@@ -41,7 +42,7 @@ export async function PATCH(request: NextRequest) {
     }
 
     const existing = await client.fetch(
-      '*[_type == "user" && _id == $id][0]{ _id }',
+      '*[_type == "user" && _id == $id][0]{ _id, role, status, name, email }',
       { id: userId }
     )
 
@@ -107,6 +108,53 @@ export async function PATCH(request: NextRequest) {
       '*[_type == "user" && _id == $id][0]{ _id, username, email, name, role, status, createdAt }',
       { id: userId }
     )
+
+    // Notify teachers whenever admin changes account status.
+    if (
+      typeof status === 'string' &&
+      existing.role === 'teacher' &&
+      existing.status !== status &&
+      updatedUser?.email
+    ) {
+      const isApproved = status === 'active'
+      const greetingName = updatedUser.name || updatedUser.username || 'there'
+
+      const emailResult = await emailService.sendEmail({
+        to: updatedUser.email,
+        from: process.env.FROM_EMAIL || 'info@hexadigitall.com',
+        replyTo: process.env.CONTACT_FORM_RECIPIENT_EMAIL || 'info@hexadigitall.com',
+        subject: isApproved
+          ? 'Your teacher account has been approved - Hexadigitall'
+          : 'Your teacher account status was updated - Hexadigitall',
+        html: isApproved
+          ? `
+            <div style="font-family: Arial, sans-serif; max-width: 620px; margin: 0 auto;">
+              <h2 style="color: #0A4D68; margin-bottom: 8px;">Your teacher account is approved</h2>
+              <p style="color: #1f2937; font-size: 15px; line-height: 1.6;">
+                Hello ${greetingName}, your teacher account has been approved by an administrator.
+              </p>
+              <p style="color: #1f2937; font-size: 15px; line-height: 1.6;">
+                You can now sign in at <a href="${process.env.NEXT_PUBLIC_SITE_URL || 'https://www.hexadigitall.com'}/teacher/login">Teacher Login</a>.
+              </p>
+            </div>
+          `
+          : `
+            <div style="font-family: Arial, sans-serif; max-width: 620px; margin: 0 auto;">
+              <h2 style="color: #0A4D68; margin-bottom: 8px;">Teacher account status update</h2>
+              <p style="color: #1f2937; font-size: 15px; line-height: 1.6;">
+                Hello ${greetingName}, your teacher account is currently not active.
+              </p>
+              <p style="color: #1f2937; font-size: 15px; line-height: 1.6;">
+                If you believe this is a mistake, please contact support.
+              </p>
+            </div>
+          `,
+      })
+
+      if (!emailResult.success) {
+        console.error('Teacher status email failed:', emailResult.error)
+      }
+    }
 
     return NextResponse.json({ success: true, user: updatedUser })
   } catch (error) {
