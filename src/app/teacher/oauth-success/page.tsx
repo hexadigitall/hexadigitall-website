@@ -8,6 +8,7 @@ type Phase = 'loading' | 'pending' | 'approved' | 'error'
 
 export default function TeacherOAuthSuccessPage() {
   const [phase, setPhase] = useState<Phase>('loading')
+  const [isSigninIntent, setIsSigninIntent] = useState(false)
   const [errorMsg, setErrorMsg] = useState('')
   const [infoMsg, setInfoMsg] = useState('')
 
@@ -22,6 +23,7 @@ export default function TeacherOAuthSuccessPage() {
         const status = params.get('status')
         const error = params.get('error')
         const isSignup = intent === 'signup'
+        if (!isSignup) setIsSigninIntent(true)
 
         if (isSignup && status === 'pending') {
           setInfoMsg('Your application has already been submitted and is pending administrator approval. You will receive an email when your account is approved.')
@@ -142,7 +144,9 @@ export default function TeacherOAuthSuccessPage() {
         {phase === 'loading' && (
           <>
             <div className="w-12 h-12 border-4 border-teal-200 border-t-teal-600 rounded-full animate-spin mx-auto mb-6" />
-            <h1 className="text-xl font-bold text-gray-900 mb-2">Processing your application…</h1>
+            <h1 className="text-xl font-bold text-gray-900 mb-2">
+              {isSigninIntent ? 'Signing you in…' : 'Processing your application…'}
+            </h1>
             <p className="text-sm text-gray-500">Please wait a moment.</p>
           </>
         )}
