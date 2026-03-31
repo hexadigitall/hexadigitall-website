@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>DevOps Engineering &amp; Cloud Infrastructure — Kindle Cover</title>
+
+  <!--
+    ══════════════════════════════════════════════════════════════════════
+    KINDLE COVER SPECIFICATIONS
+    ──────────────────────────────────────────────────────────────────────
+    KDP minimum: 2,560 px (height) × 1,600 px (width), ratio 1.6:1 (h:w)
+    Recommended: 2,560 × 1,600 px at 72 DPI (or higher)
+    At 300 DPI equivalent: 8.533in × 5.333in
+
+    This HTML renders at 5.333in × 8.533in.
+    Export to PNG at 300 DPI → 1600 × 2560 px  ✓
+
+    To export with Puppeteer:
+      puppeteer: { width: '5.333in', height: '8.533in' }
+    To export with WeasyPrint:
+      weasyprint devops-kindle-cover.html devops-kindle-cover.png \
+        --media-type=print
+    ══════════════════════════════════════════════════════════════════════
+  -->
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    @page {
+      size: 5.333in 8.533in;
+      margin: 0;
+    }
+
+    * {
+      box-sizing: border-box;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+      margin: 0; padding: 0;
+    }
+
+    body {
+      width: 5.333in;
+      height: 8.533in;
+      overflow: hidden;
+      font-family: 'Inter', sans-serif;
+    }
+
+    /* ── COVER SHELL ── */
+    .cover {
+      position: relative;
+      width: 5.333in;
+      height: 8.533in;
+      overflow: hidden;
+      background:
+        radial-gradient(ellipse at 80% 8%,  rgba(45,212,191,0.28) 0%, transparent 50%),
+        radial-gradient(ellipse at 12% 92%, rgba(102,126,234,0.3) 0%, transparent 52%),
+        radial-gradient(ellipse at 50% 50%, rgba(13,148,136,0.12) 0%, transparent 65%),
+        linear-gradient(160deg, #0a0f1e 0%, #0f172a 45%, #1e293b 75%, #0c1220 100%);
+    }
+
+    /* Grid texture */
+    .cover::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image:
+        repeating-linear-gradient(0deg,  transparent, transparent 39px, rgba(45,212,191,0.07) 39px, rgba(45,212,191,0.07) 40px),
+        repeating-linear-gradient(90deg, transparent, transparent 39px, rgba(45,212,191,0.07) 39px, rgba(45,212,191,0.07) 40px);
+    }
+
+    /* Glow orbs */
+    .glow-tr {
+      position: absolute;
+      top: -0.5in; right: -0.3in;
+      width: 2.2in; height: 2.2in;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(45,212,191,0.38) 0%, transparent 70%);
+    }
+    .glow-bl {
+      position: absolute;
+      bottom: -0.4in; left: -0.25in;
+      width: 1.8in; height: 1.8in;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(102,126,234,0.38) 0%, transparent 70%);
+    }
+    .glow-cr {
+      position: absolute;
+      top: 40%; right: -0.2in;
+      width: 1.4in; height: 1.4in;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(45,212,191,0.15) 0%, transparent 70%);
+    }
+
+    /* ── INNER CONTENT ── */
+    .inner {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 0.35in 0.35in 0.3in;
+    }
+
+    /* TOP */
+    .top {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.12in;
+    }
+    .publisher-line {
+      font-size: 7pt;
+      font-weight: 700;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: #2dd4bf;
+    }
+    .series-badge {
+      display: inline-block;
+      font-size: 6.5pt;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.72);
+      border: 1px solid rgba(45,212,191,0.4);
+      padding: 3px 10px;
+      border-radius: 20px;
+    }
+
+    /* ART BLOCK */
+    .art {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: center;
+      padding: 0.1in 0;
+    }
+
+    .terminal-art {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 5.5pt;
+      line-height: 1.35;
+      color: rgba(45,212,191,0.72);
+      white-space: pre;
+      letter-spacing: 0;
+      margin-bottom: 0.28in;
+      text-shadow: 0 0 8px rgba(45,212,191,0.4);
+    }
+
+    .label {
+      font-size: 6.5pt;
+      font-weight: 700;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: #2dd4bf;
+      margin-bottom: 0.1in;
+    }
+
+    h1 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 26pt;
+      font-weight: 700;
+      line-height: 1.12;
+      color: #fff;
+      text-shadow: 0 2px 20px rgba(0,0,0,0.5);
+      margin: 0;
+    }
+    h1 .accent { color: #2dd4bf; }
+
+    .subtitle {
+      font-size: 9pt;
+      font-weight: 500;
+      color: rgba(255,255,255,0.72);
+      margin-top: 0.1in;
+    }
+
+    .rule {
+      width: 0.45in;
+      height: 2px;
+      background: linear-gradient(90deg, #2dd4bf 0%, rgba(45,212,191,0.1) 100%);
+      margin: 0.18in 0;
+    }
+
+    .meta-strip {
+      display: flex;
+      gap: 0.16in;
+      flex-wrap: wrap;
+    }
+    .chip { display: flex; flex-direction: column; }
+    .chip-label {
+      font-size: 5pt;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: rgba(45,212,191,0.8);
+    }
+    .chip-value {
+      font-size: 7.5pt;
+      font-weight: 600;
+      color: rgba(255,255,255,0.9);
+      margin-top: 1px;
+    }
+
+    /* BOTTOM */
+    .bottom {
+      border-top: 1px solid rgba(45,212,191,0.22);
+      padding-top: 0.12in;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+    }
+    .pub-name {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 9pt;
+      font-weight: 700;
+      color: #fff;
+    }
+    .pub-url {
+      font-size: 6.5pt;
+      color: rgba(255,255,255,0.5);
+      margin-top: 2px;
+    }
+    .edition-yr {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 8.5pt;
+      font-weight: 600;
+      color: #2dd4bf;
+      text-align: right;
+    }
+    .edition-lbl {
+      font-size: 6.5pt;
+      color: rgba(255,255,255,0.5);
+      text-align: right;
+    }
+  </style>
+</head>
+<body>
+  <div class="cover">
+    <div class="glow-tr"></div>
+    <div class="glow-bl"></div>
+    <div class="glow-cr"></div>
+
+    <div class="inner">
+
+      <div class="top">
+        <div class="publisher-line">Hexadigitall Technologies</div>
+        <div class="series-badge">Core Track Series</div>
+      </div>
+
+      <div class="art">
+        <div class="terminal-art">┌────────────────────────────────────────┐
+│  $ kubectl get nodes                   │
+│  NAME        STATUS   ROLES    VERSION │
+│  master-01   Ready    control  v1.29   │
+│  worker-01   Ready    &lt;none&gt;   v1.29   │
+├────────────────────────────────────────┤
+│  CI ──▶ BUILD ──▶ TEST ──▶ PROD       │
+│          ↑              │              │
+│          └── rollback ──┘              │
+└────────────────────────────────────────┘</div>
+
+        <div class="label">Official Course Textbook</div>
+        <h1>DevOps<br>Engineering<br>&amp; <span class="accent">Cloud</span><br>Infrastructure</h1>
+        <div class="subtitle">Core Track — 20-Week Programme</div>
+
+        <div class="rule"></div>
+
+        <div class="meta-strip">
+          <div class="chip">
+            <span class="chip-label">Duration</span>
+            <span class="chip-value">20 Weeks</span>
+          </div>
+          <div class="chip">
+            <span class="chip-label">Level</span>
+            <span class="chip-value">Advanced</span>
+          </div>
+          <div class="chip">
+            <span class="chip-label">Track</span>
+            <span class="chip-value">Core Track</span>
+          </div>
+          <div class="chip">
+            <span class="chip-label">Edition</span>
+            <span class="chip-value">First, 2026</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="bottom">
+        <div>
+          <div class="pub-name">Hexadigitall Technologies</div>
+          <div class="pub-url">www.hexadigitall.com</div>
+        </div>
+        <div>
+          <div class="edition-lbl">First Edition</div>
+          <div class="edition-yr">2026</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</body>
+</html>
