@@ -21,6 +21,10 @@ function toSearchableText(book: BookSummary): string {
   return normalize(`${book.title} ${subtitle} ${authors} ${description} ${edition} ${slug}`)
 }
 
+function tokenize(value: string): string[] {
+  return value.split(/[^a-z0-9+#.\-]+/i).filter(Boolean)
+}
+
 function looseSubsequenceMatch(text: string, query: string): boolean {
   let textIndex = 0
   let queryIndex = 0
@@ -35,8 +39,13 @@ function looseSubsequenceMatch(text: string, query: string): boolean {
 
 function fuzzyMatch(text: string, query: string): boolean {
   if (!query) return true
-  if (text.includes(query)) return true
-  return looseSubsequenceMatch(text, query)
+
+  const tokens = tokenize(text)
+  if (tokens.some((token) => token.includes(query))) return true
+
+  // Keep typo tolerance, but only for meaningful queries and per-token matching.
+  if (query.length < 3) return false
+  return tokens.some((token) => looseSubsequenceMatch(token, query))
 }
 
 function escapeRegExp(value: string): string {
@@ -45,12 +54,21 @@ function escapeRegExp(value: string): string {
 
 function highlightText(text: string, query: string) {
   if (!query.trim()) return text
-  const safeQuery = escapeRegExp(query.trim())
-  const regex = new RegExp(`(${safeQuery})`, 'ig')
+
+  const terms = query
+    .trim()
+    .split(/\s+/)
+    .filter(Boolean)
+    .map((term) => escapeRegExp(term))
+    .sort((a, b) => b.length - a.length)
+
+  if (terms.length === 0) return text
+
+  const regex = new RegExp(`(${terms.join('|')})`, 'ig')
   const parts = text.split(regex)
 
   return parts.map((part, index) => {
-    if (part.toLowerCase() === query.trim().toLowerCase()) {
+    if (terms.some((term) => part.toLowerCase() === term.toLowerCase())) {
       return (
         <mark key={`${part}-${index}`} className="bg-yellow-100 text-inherit px-0.5 rounded">
           {part}
