@@ -314,11 +314,11 @@ export default function ServicesPageClient({ initialData }: ServicesPageClientPr
 
               <div ref={orbitLaneRef} className="orbit-lane">
                 <div ref={gateTopRef} className="orbit-gate orbit-gate-live w-16 h-16 sm:w-20 sm:h-20 rounded-full overflow-hidden ring-4 ring-white/60 shadow-xl">
-                  <Image src={PEOPLE_IMAGES.primary} alt="Orbit gate top" fill className="object-cover" sizes="80px" />
+                  <Image src={PEOPLE_IMAGES.playfulWoman} alt="Orbit gate top" fill className="object-cover object-[center_15%]" sizes="80px" />
                 </div>
 
                 <div ref={gateBottomRef} className="orbit-gate orbit-gate-live w-16 h-16 sm:w-20 sm:h-20 rounded-full overflow-hidden ring-4 ring-white/60 shadow-xl">
-                  <Image src={PEOPLE_IMAGES.primary} alt="Orbit gate bottom" fill className="object-cover" sizes="80px" />
+                  <Image src={PEOPLE_IMAGES.playfulWoman} alt="Orbit gate bottom" fill className="object-cover object-[center_15%]" sizes="80px" />
                 </div>
 
                 <div ref={chipLeftRef} className="orbit-chip orbit-chip-live w-20 h-20 sm:w-24 sm:h-24 rounded-full overflow-hidden ring-4 ring-amber-300/70 shadow-xl">
