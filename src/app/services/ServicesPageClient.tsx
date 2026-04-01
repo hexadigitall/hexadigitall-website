@@ -192,7 +192,7 @@ export default function ServicesPageClient({ initialData }: ServicesPageClientPr
       const rightThetaBottom = Math.atan2(yBottom, xRightContact)
 
       const leftTheta = leftThetaTop + (leftThetaBottom - leftThetaTop) * s
-      const rightTheta = rightThetaTop + (rightThetaBottom - rightThetaTop) * s
+      const rightTheta = rightThetaTop + (rightThetaBottom - rightThetaTop) * (1 - s)
 
       const leftX = leftOrbitRadius * Math.cos(leftTheta)
       const leftY = leftOrbitRadius * Math.sin(leftTheta)
