@@ -22,10 +22,18 @@ async function getDynamicRoutes() {
       }`
     ).catch(() => []); // Graceful failure if no posts
 
-    return { courses: courses || [], posts: posts || [] };
+    // Fetch books
+    const books = await client.fetch(
+      groq`*[_type == "book" && defined(slug.current)]{
+        "slug": slug.current,
+        _updatedAt
+      }`
+    ).catch(() => []);
+
+    return { courses: courses || [], posts: posts || [], books: books || [] };
   } catch (error) {
     console.error('Error fetching dynamic routes for sitemap:', error);
-    return { courses: [], posts: [] };
+    return { courses: [], posts: [], books: [] };
   }
 }
 
@@ -34,7 +42,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const currentDate = new Date();
   
   // Get dynamic content
-  const { courses, posts } = await getDynamicRoutes();
+  const { courses, posts, books } = await getDynamicRoutes();
   
   const staticRoutes = [
     {
@@ -128,6 +136,24 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.6,
     },
     {
+      url: `${baseUrl}/store`,
+      lastModified: new Date(),
+      changeFrequency: 'weekly' as const,
+      priority: 0.8,
+    },
+    {
+      url: `${baseUrl}/errata`,
+      lastModified: new Date(),
+      changeFrequency: 'weekly' as const,
+      priority: 0.6,
+    },
+    {
+      url: `${baseUrl}/resources`,
+      lastModified: new Date(),
+      changeFrequency: 'weekly' as const,
+      priority: 0.7,
+    },
+    {
       url: `${baseUrl}/privacy-policy`,
       lastModified: new Date(),
       changeFrequency: 'yearly' as const,
@@ -164,11 +190,34 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.6,
   }));
 
+  // Add dynamic book-related pages
+  const bookRoutes = books.flatMap((book: { slug: string; _updatedAt: string }) => [
+    {
+      url: `${baseUrl}/store/${book.slug}`,
+      lastModified: new Date(book._updatedAt),
+      changeFrequency: 'monthly' as const,
+      priority: 0.8,
+    },
+    {
+      url: `${baseUrl}/errata/${book.slug}`,
+      lastModified: new Date(book._updatedAt),
+      changeFrequency: 'weekly' as const,
+      priority: 0.6,
+    },
+    {
+      url: `${baseUrl}/resources/${book.slug}`,
+      lastModified: new Date(book._updatedAt),
+      changeFrequency: 'weekly' as const,
+      priority: 0.7,
+    },
+  ]);
+
   // Combine all routes
   return [
     ...staticRoutes,
     ...courseRoutes,
     ...blogRoutes,
     ...mentorshipRoutes,
+    ...bookRoutes,
   ];
 }
