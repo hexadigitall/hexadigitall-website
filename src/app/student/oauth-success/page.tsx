@@ -11,12 +11,23 @@ export default function StudentOAuthSuccessPage() {
   useEffect(() => {
     let mounted = true
 
+    const getCookieValue = (name: string): string | null => {
+      const value = `; ${document.cookie}`
+      const parts = value.split(`; ${name}=`)
+      if (parts.length === 2) {
+        return parts.pop()?.split(';').shift() || null
+      }
+      return null
+    }
+
     const completeOauthLogin = async () => {
       try {
-        document.cookie = 'student_oauth_intent=; Path=/; Max-Age=0; SameSite=Lax'
+        const intentCookie = getCookieValue('student_oauth_intent')
         const params = new URLSearchParams(window.location.search)
-        const intentParam = params.get('intent')
+        const intentParam = params.get('intent') || intentCookie
         const errorParam = params.get('error')
+
+        document.cookie = 'student_oauth_intent=; Path=/; Max-Age=0; SameSite=Lax'
 
         if (intentParam === 'signup') {
           setIntent('signup')
