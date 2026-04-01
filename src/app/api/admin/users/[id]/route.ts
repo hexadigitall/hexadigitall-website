@@ -212,6 +212,30 @@ export async function DELETE(request: NextRequest) {
       )
     }
 
+    // If this is a teacher account, remove strong references first so Sanity delete can succeed.
+    if (existing.role === 'teacher') {
+      const courses = await client.fetch<Array<{ _id: string; assignedTeachers?: Array<{ _ref: string }> }>>(
+        '*[_type == "course" && references($id)]{ _id, assignedTeachers }',
+        { id: userId }
+      )
+
+      await Promise.all(
+        courses.map((course) => {
+          const remainingTeachers = (course.assignedTeachers || []).filter((teacherRef) => teacherRef._ref !== userId)
+          return writeClient.patch(course._id).set({ assignedTeachers: remainingTeachers }).commit()
+        })
+      )
+
+      const enrollments = await client.fetch<Array<{ _id: string }>>(
+        '*[_type == "enrollment" && teacherId._ref == $id]{ _id }',
+        { id: userId }
+      )
+
+      await Promise.all(
+        enrollments.map((enrollment) => writeClient.patch(enrollment._id).unset(['teacherId']).commit())
+      )
+    }
+
     await writeClient.delete(userId)
 
     return NextResponse.json({ 
