@@ -35,6 +35,14 @@ export interface ContactFormData {
   service?: string;
 }
 
+function normalizeSingleEmail(value: string | undefined, fallback: string) {
+  if (!value) {
+    return fallback;
+  }
+  const first = value.split(',')[0]?.trim();
+  return first || fallback;
+}
+
 class EmailService {
   private provider: 'resend' | 'sendgrid' | 'nodemailer' | 'webhook';
   private resend?: Resend;
@@ -80,13 +88,22 @@ class EmailService {
     }
 
     try {
+      const from = normalizeSingleEmail(
+        options.from || process.env.FROM_EMAIL,
+        'info@hexadigitall.com'
+      );
+      const replyTo = normalizeSingleEmail(
+        options.replyTo || process.env.CONTACT_FORM_RECIPIENT_EMAIL,
+        'info@hexadigitall.com'
+      );
+
       const result = await this.resend.emails.send({
-        from: options.from || process.env.FROM_EMAIL || 'info@hexadigitall.com',
+        from,
         to: options.to,
         subject: options.subject,
         html: options.html,
         // Always ensure replies go to a working email address
-        replyTo: options.replyTo || process.env.CONTACT_FORM_RECIPIENT_EMAIL || 'info@hexadigitall.com',
+        replyTo,
         attachments: options.attachments,
       });
 
