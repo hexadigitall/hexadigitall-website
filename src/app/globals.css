@@ -421,18 +421,35 @@
     animation: float 6s ease-in-out infinite;
   }
 
-  .animate-chip-orbit {
-    animation: chipOrbitUpright 7s ease-in-out infinite;
+  .orbit-shell {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
   }
 
-  .animate-chip-orbit-delayed {
-    animation: chipOrbitUpright 8.5s ease-in-out infinite;
-    animation-delay: -1.5s;
+  .orbit-track {
+    position: relative;
+    width: 0;
+    height: 0;
+    animation: orbitSpin var(--orbit-duration, 24s) linear infinite;
+    animation-delay: var(--orbit-delay, 0s);
   }
 
-  .animate-chip-orbit-slow {
-    animation: chipOrbitUpright 9.5s ease-in-out infinite reverse;
-    animation-delay: -0.8s;
+  .orbit-track-reverse {
+    animation-direction: reverse;
+  }
+
+  .orbit-body {
+    transform: translateX(var(--orbit-radius, 10rem));
+    animation: orbitCounterSpin var(--orbit-duration, 24s) linear infinite;
+    animation-delay: var(--orbit-delay, 0s);
+  }
+
+  .animate-hero-pulse {
+    animation: heroPulse 8s ease-in-out infinite;
   }
   
   .animate-glow {
@@ -486,21 +503,40 @@
     }
   }
 
-  @keyframes chipOrbitUpright {
+  @keyframes orbitSpin {
     0% {
-      transform: rotate(0deg) translateY(-8px) rotate(0deg);
-    }
-    25% {
-      transform: rotate(90deg) translateY(-8px) rotate(-90deg);
-    }
-    50% {
-      transform: rotate(180deg) translateY(-8px) rotate(-180deg);
-    }
-    75% {
-      transform: rotate(270deg) translateY(-8px) rotate(-270deg);
+      transform: rotate(0deg);
     }
     100% {
-      transform: rotate(360deg) translateY(-8px) rotate(-360deg);
+      transform: rotate(360deg);
+    }
+  }
+
+  @keyframes orbitCounterSpin {
+    0% {
+      transform: translateX(var(--orbit-radius, 10rem)) rotate(0deg);
+    }
+    100% {
+      transform: translateX(var(--orbit-radius, 10rem)) rotate(-360deg);
+    }
+  }
+
+  @keyframes heroPulse {
+    0%, 72%, 100% {
+      transform: scale(1);
+      box-shadow: 0 25px 80px rgba(0, 0, 0, 0.35);
+    }
+    75% {
+      transform: scale(1.018);
+      box-shadow: 0 28px 92px rgba(56, 189, 248, 0.22);
+    }
+    79% {
+      transform: scale(0.996);
+      box-shadow: 0 24px 78px rgba(0, 0, 0, 0.32);
+    }
+    83% {
+      transform: scale(1.012);
+      box-shadow: 0 26px 88px rgba(45, 212, 191, 0.2);
     }
   }
   
