@@ -455,23 +455,26 @@
   }
 
   .orbit-pendulum-left {
-    animation: leftSemicirclePendulum 12s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite alternate;
+    animation: none;
   }
 
   .orbit-pendulum-right {
-    animation: rightSemicirclePendulum 12s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite alternate;
+    animation: none;
   }
 
   .orbit-chip {
-    transform: translateY(calc(-1 * var(--orbit-radius, 10rem)));
+    position: absolute;
+    left: 0;
+    top: 0;
+    transform: translate(0, calc(-1 * var(--orbit-radius, 10rem)));
   }
 
   .orbit-chip-left {
-    animation: chipCounterLeft 12s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite alternate;
+    animation: orbitLeftBounce 12s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
   }
 
   .orbit-chip-right {
-    animation: chipCounterRight 12s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite alternate;
+    animation: orbitRightBounce 12s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
   }
 
   .animate-hero-pulse {
@@ -529,62 +532,62 @@
     }
   }
 
-  @keyframes leftSemicirclePendulum {
+  @keyframes orbitLeftBounce {
     0% {
-      transform: rotate(0deg);
+      transform: translate(calc(-1 * (var(--gate-radius, 2.5rem) + var(--chip-left-radius, 3rem))), calc(-1 * var(--orbit-radius, 10rem))) scale(1.01);
+    }
+    25% {
+      transform: translate(calc(-1 * var(--orbit-radius, 10rem)), 0) scale(1);
+    }
+    50% {
+      transform: translate(calc(-1 * (var(--gate-radius, 2.5rem) + var(--chip-left-radius, 3rem))), var(--orbit-radius, 10rem)) scale(1.01);
+    }
+    75% {
+      transform: translate(calc(-1 * var(--orbit-radius, 10rem)), 0) scale(1);
     }
     100% {
-      transform: rotate(-180deg);
+      transform: translate(calc(-1 * (var(--gate-radius, 2.5rem) + var(--chip-left-radius, 3rem))), calc(-1 * var(--orbit-radius, 10rem))) scale(1.01);
     }
   }
 
-  @keyframes rightSemicirclePendulum {
+  @keyframes orbitRightBounce {
     0% {
-      transform: rotate(0deg);
+      transform: translate(calc(var(--gate-radius, 2.5rem) + var(--chip-right-radius, 2.5rem)), calc(-1 * var(--orbit-radius, 10rem))) scale(1.01);
+    }
+    25% {
+      transform: translate(var(--orbit-radius, 10rem), 0) scale(1);
+    }
+    50% {
+      transform: translate(calc(var(--gate-radius, 2.5rem) + var(--chip-right-radius, 2.5rem)), var(--orbit-radius, 10rem)) scale(1.01);
+    }
+    75% {
+      transform: translate(var(--orbit-radius, 10rem), 0) scale(1);
     }
     100% {
-      transform: rotate(180deg);
-    }
-  }
-
-  @keyframes chipCounterLeft {
-    0% {
-      transform: translateY(calc(-1 * var(--orbit-radius, 10rem))) rotate(0deg);
-    }
-    100% {
-      transform: translateY(calc(-1 * var(--orbit-radius, 10rem))) rotate(180deg);
-    }
-  }
-
-  @keyframes chipCounterRight {
-    0% {
-      transform: translateY(calc(-1 * var(--orbit-radius, 10rem))) rotate(0deg);
-    }
-    100% {
-      transform: translateY(calc(-1 * var(--orbit-radius, 10rem))) rotate(-180deg);
+      transform: translate(calc(var(--gate-radius, 2.5rem) + var(--chip-right-radius, 2.5rem)), calc(-1 * var(--orbit-radius, 10rem))) scale(1.01);
     }
   }
 
   @keyframes gateTopBlink {
-    0%, 8% {
+    0%, 12% {
       opacity: 1;
     }
-    15%, 85% {
+    18%, 84% {
       opacity: 0;
     }
-    92%, 100% {
+    90%, 100% {
       opacity: 1;
     }
   }
 
   @keyframes gateBottomBlink {
-    0%, 40% {
+    0%, 41% {
       opacity: 0;
     }
-    47%, 56% {
+    47%, 60% {
       opacity: 1;
     }
-    63%, 100% {
+    66%, 100% {
       opacity: 0;
     }
   }

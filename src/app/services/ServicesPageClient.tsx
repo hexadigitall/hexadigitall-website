@@ -231,7 +231,15 @@ export default function ServicesPageClient({ initialData }: ServicesPageClientPr
                 />
               </div>
 
-              <div className="orbit-lane" style={{ ['--orbit-radius' as string]: 'clamp(7.75rem, 26vw, 10.5rem)' }}>
+              <div
+                className="orbit-lane"
+                style={{
+                  ['--orbit-radius' as string]: 'clamp(9rem, 31vw, 12.5rem)',
+                  ['--gate-radius' as string]: 'clamp(2rem, 6vw, 2.5rem)',
+                  ['--chip-left-radius' as string]: 'clamp(2.5rem, 7vw, 3rem)',
+                  ['--chip-right-radius' as string]: 'clamp(2rem, 6vw, 2.5rem)'
+                }}
+              >
                 <div className="orbit-gate orbit-gate-top w-16 h-16 sm:w-20 sm:h-20 rounded-full overflow-hidden ring-4 ring-white/60 shadow-xl">
                   <Image src={PEOPLE_IMAGES.primary} alt="Orbit gate top" fill className="object-cover" sizes="80px" />
                 </div>
