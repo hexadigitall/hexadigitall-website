@@ -499,7 +499,7 @@
   }
 
   .animate-hero-pulse {
-    animation: heroPulse 8s ease-in-out infinite;
+    animation: heroPulse 16s ease-in-out infinite;
   }
   
   .animate-glow {
@@ -614,36 +614,72 @@
   }
 
   @keyframes heroPulse {
-    0%, 100% {
+    /* Prime heartbeat pulse (0-15%) */
+    0% {
       transform: scale(1);
       box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3),
                   0 0 0 0 rgba(56, 189, 248, 0);
     }
-    18%, 45% {
-      transform: scale(0.998);
-      box-shadow: 0 22px 70px rgba(0, 0, 0, 0.32),
-                  0 0 0 4px rgba(56, 189, 248, 0.08);
+    12% {
+      transform: scale(1.04);
+      box-shadow: 0 30px 100px rgba(56, 189, 248, 0.35),
+                  0 0 0 14px rgba(56, 189, 248, 0.15),
+                  0 0 0 20px rgba(45, 212, 191, 0.08);
     }
-    28% {
-      transform: scale(1.032);
-      box-shadow: 0 28px 92px rgba(56, 189, 248, 0.25),
-                  0 0 0 12px rgba(56, 189, 248, 0.12),
-                  0 0 0 16px rgba(45, 212, 191, 0.06);
-    }
-    35% {
-      transform: scale(0.985);
+    /* First reverberation ripple */
+    18% {
+      transform: scale(0.98);
       box-shadow: 0 24px 80px rgba(0, 0, 0, 0.3),
-                  0 0 0 8px rgba(56, 189, 248, 0.06);
+                  0 0 0 10px rgba(56, 189, 248, 0.08);
     }
-    52% {
-      transform: scale(1.018);
-      box-shadow: 0 26px 85px rgba(45, 212, 191, 0.2),
-                  0 0 0 10px rgba(45, 212, 191, 0.08);
+    /* Second reverberation */
+    24% {
+      transform: scale(1.015);
+      box-shadow: 0 25px 85px rgba(45, 212, 191, 0.18),
+                  0 0 0 8px rgba(45, 212, 191, 0.05);
     }
-    68% {
+    /* Third reverberation fades */
+    30% {
       transform: scale(0.992);
-      box-shadow: 0 23px 72px rgba(0, 0, 0, 0.32),
-                  0 0 0 6px rgba(56, 189, 248, 0.05);
+      box-shadow: 0 22px 70px rgba(0, 0, 0, 0.32),
+                  0 0 0 4px rgba(56, 189, 248, 0.03);
+    }
+    /* Quiet zone 1 */
+    38%, 45% {
+      transform: scale(1);
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3),
+                  0 0 0 1px rgba(56, 189, 248, 0.01);
+    }
+    /* Secondary heartbeat pulse (45-55%) */
+    50% {
+      transform: scale(1.028);
+      box-shadow: 0 28px 90px rgba(56, 189, 248, 0.28),
+                  0 0 0 11px rgba(56, 189, 248, 0.1),
+                  0 0 0 16px rgba(45, 212, 191, 0.05);
+    }
+    /* Secondary reverberation */
+    56% {
+      transform: scale(0.985);
+      box-shadow: 0 23px 75px rgba(0, 0, 0, 0.3),
+                  0 0 0 7px rgba(56, 189, 248, 0.04);
+    }
+    /* Long decay zone */
+    65% {
+      transform: scale(1.008);
+      box-shadow: 0 24px 78px rgba(45, 212, 191, 0.15),
+                  0 0 0 5px rgba(45, 212, 191, 0.03);
+    }
+    /* Fade to silence */
+    78% {
+      transform: scale(0.995);
+      box-shadow: 0 21px 65px rgba(0, 0, 0, 0.28),
+                  0 0 0 2px rgba(56, 189, 248, 0.01);
+    }
+    /* Return to rest */
+    100% {
+      transform: scale(1);
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3),
+                  0 0 0 0 rgba(56, 189, 248, 0);
     }
   }
   
