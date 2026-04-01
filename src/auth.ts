@@ -75,8 +75,11 @@ export const { handlers, auth } = NextAuth({
       const email = user.email.trim().toLowerCase()
       const cookieStore = await cookies()
       const teacherOauthIntent = cookieStore.get('teacher_oauth_intent')?.value
+      const studentOauthIntent = cookieStore.get('student_oauth_intent')?.value
       const isTeacherSignup = teacherOauthIntent === 'signup'
       const isTeacherSignin = teacherOauthIntent === 'signin'
+      const isStudentSignup = studentOauthIntent === 'signup'
+      const isStudentSignin = studentOauthIntent === 'signin'
       const existing = await client.fetch<ExistingUser | null>(
         `*[_type == "user" && email == $email][0]{ _id, username, role, status, emailVerified }`,
         { email }
@@ -103,6 +106,14 @@ export const { handlers, auth } = NextAuth({
 
         if (isTeacherSignin && existing.role !== 'teacher') {
           return '/teacher/oauth-success?intent=signin&error=not-teacher'
+        }
+
+        if (isStudentSignup) {
+          return '/student/oauth-success?intent=signup&error=account-exists'
+        }
+
+        if (isStudentSignin && existing.role !== 'student') {
+          return '/student/oauth-success?intent=signin&error=not-student'
         }
 
         const patch: Record<string, unknown> = {
@@ -148,6 +159,10 @@ export const { handlers, auth } = NextAuth({
         })
 
         return true
+      }
+
+      if (isStudentSignin) {
+        return '/student/oauth-success?intent=signin&error=no-account'
       }
 
       await writeClient.create({
