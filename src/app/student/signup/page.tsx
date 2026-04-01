@@ -51,7 +51,9 @@ export default function StudentSignupPage() {
 
   const handleOAuthSignup = async (provider: 'google' | 'github') => {
     setError('')
-    await signIn(provider, { callbackUrl: '/student/oauth-success' })
+    localStorage.setItem('student_oauth_intent', 'signup')
+    document.cookie = 'student_oauth_intent=signup; Path=/; Max-Age=600; SameSite=Lax'
+    await signIn(provider, { callbackUrl: '/student/oauth-success?intent=signup' })
   }
 
   const handleSubmit = async (e: FormEvent) => {

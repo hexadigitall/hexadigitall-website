@@ -23,10 +23,12 @@ export default function StudentOAuthSuccessPage() {
     const completeOauthLogin = async () => {
       try {
         const intentCookie = getCookieValue('student_oauth_intent')
+        const intentStorage = localStorage.getItem('student_oauth_intent')
         const params = new URLSearchParams(window.location.search)
-        const intentParam = params.get('intent') || intentCookie
+        const intentParam = params.get('intent') || intentCookie || intentStorage
         const errorParam = params.get('error')
 
+        localStorage.removeItem('student_oauth_intent')
         document.cookie = 'student_oauth_intent=; Path=/; Max-Age=0; SameSite=Lax'
 
         if (intentParam === 'signup') {

@@ -121,9 +121,10 @@ export async function PATCH(request: NextRequest) {
       const isApproved = status === 'active'
       const greetingName = updatedUser.name || updatedUser.username || 'there'
 
-      const emailResult = await emailService.sendEmail({
+      const preferredFrom = process.env.FROM_EMAIL || (process.env.RESEND_API_KEY ? 'onboarding@resend.dev' : 'info@hexadigitall.com')
+      const emailPayload = {
         to: updatedUser.email,
-        from: process.env.FROM_EMAIL || (process.env.RESEND_API_KEY ? 'onboarding@resend.dev' : 'info@hexadigitall.com'),
+        from: preferredFrom,
         replyTo: process.env.CONTACT_FORM_RECIPIENT_EMAIL || 'info@hexadigitall.com',
         subject: isApproved
           ? 'Your teacher account has been approved - Hexadigitall'
@@ -151,7 +152,15 @@ export async function PATCH(request: NextRequest) {
               </p>
             </div>
           `,
-      })
+      }
+
+      let emailResult = await emailService.sendEmail(emailPayload)
+      if (!emailResult.success && process.env.RESEND_API_KEY && preferredFrom !== 'onboarding@resend.dev') {
+        emailResult = await emailService.sendEmail({
+          ...emailPayload,
+          from: 'onboarding@resend.dev',
+        })
+      }
 
       if (!emailResult.success) {
         console.error('Teacher status email failed:', emailResult.error)
