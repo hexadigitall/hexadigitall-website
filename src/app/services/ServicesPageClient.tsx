@@ -231,46 +231,23 @@ export default function ServicesPageClient({ initialData }: ServicesPageClientPr
                 />
               </div>
 
-              <div className="orbit-shell">
-                <div
-                  className="orbit-track"
-                  style={{
-                    ['--orbit-radius' as string]: 'clamp(7rem, 28vw, 10.5rem)',
-                    ['--orbit-duration' as string]: '22s',
-                    ['--orbit-delay' as string]: '-1.5s'
-                  }}
-                >
-                  <div className="orbit-body w-20 h-20 sm:w-24 sm:h-24 rounded-full overflow-hidden ring-4 ring-amber-300/70 shadow-xl">
+              <div className="orbit-lane" style={{ ['--orbit-radius' as string]: 'clamp(7.75rem, 26vw, 10.5rem)' }}>
+                <div className="orbit-gate orbit-gate-top w-16 h-16 sm:w-20 sm:h-20 rounded-full overflow-hidden ring-4 ring-white/60 shadow-xl">
+                  <Image src={PEOPLE_IMAGES.primary} alt="Orbit gate top" fill className="object-cover" sizes="80px" />
+                </div>
+
+                <div className="orbit-gate orbit-gate-bottom w-16 h-16 sm:w-20 sm:h-20 rounded-full overflow-hidden ring-4 ring-white/60 shadow-xl">
+                  <Image src={PEOPLE_IMAGES.primary} alt="Orbit gate bottom" fill className="object-cover" sizes="80px" />
+                </div>
+
+                <div className="orbit-pendulum orbit-pendulum-left">
+                  <div className="orbit-chip orbit-chip-left w-20 h-20 sm:w-24 sm:h-24 rounded-full overflow-hidden ring-4 ring-amber-300/70 shadow-xl">
                     <Image src={PEOPLE_IMAGES.excitedMan} alt="Happy client" fill className="object-cover object-[center_18%]" sizes="96px" />
                   </div>
                 </div>
-              </div>
 
-              <div className="orbit-shell hidden sm:flex">
-                <div
-                  className="orbit-track orbit-track-reverse"
-                  style={{
-                    ['--orbit-radius' as string]: 'clamp(6.5rem, 24vw, 9rem)',
-                    ['--orbit-duration' as string]: '28s',
-                    ['--orbit-delay' as string]: '-9s'
-                  }}
-                >
-                  <div className="orbit-body w-24 h-24 lg:w-28 lg:h-28 rounded-full overflow-hidden ring-4 ring-white/50 shadow-xl">
-                    <Image src={PEOPLE_IMAGES.playfulWoman} alt="Excited customer" fill className="object-cover object-[center_15%]" sizes="112px" />
-                  </div>
-                </div>
-              </div>
-
-              <div className="orbit-shell">
-                <div
-                  className="orbit-track"
-                  style={{
-                    ['--orbit-radius' as string]: 'clamp(8.5rem, 31vw, 12rem)',
-                    ['--orbit-duration' as string]: '34s',
-                    ['--orbit-delay' as string]: '-15s'
-                  }}
-                >
-                  <div className="orbit-body w-16 h-16 sm:w-20 sm:h-20 rounded-full overflow-hidden ring-4 ring-sky-300/70 shadow-xl">
+                <div className="orbit-pendulum orbit-pendulum-right">
+                  <div className="orbit-chip orbit-chip-right w-16 h-16 sm:w-20 sm:h-20 rounded-full overflow-hidden ring-4 ring-sky-300/70 shadow-xl">
                     <Image src={PEOPLE_IMAGES.dancingMan} alt="Celebrating client" fill className="object-cover object-[center_20%]" sizes="80px" />
                   </div>
                 </div>

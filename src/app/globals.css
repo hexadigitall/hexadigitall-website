@@ -421,7 +421,7 @@
     animation: float 6s ease-in-out infinite;
   }
 
-  .orbit-shell {
+  .orbit-lane {
     position: absolute;
     inset: 0;
     display: flex;
@@ -430,22 +430,48 @@
     pointer-events: none;
   }
 
-  .orbit-track {
+  .orbit-gate {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, calc(-1 * var(--orbit-radius, 10rem)));
+    opacity: 0;
+  }
+
+  .orbit-gate-top {
+    animation: gateTopBlink 12s ease-in-out infinite;
+  }
+
+  .orbit-gate-bottom {
+    transform: translate(-50%, var(--orbit-radius, 10rem));
+    animation: gateBottomBlink 12s ease-in-out infinite;
+  }
+
+  .orbit-pendulum {
     position: relative;
     width: 0;
     height: 0;
-    animation: orbitSpin var(--orbit-duration, 24s) linear infinite;
-    animation-delay: var(--orbit-delay, 0s);
+    transform-origin: center;
   }
 
-  .orbit-track-reverse {
-    animation-direction: reverse;
+  .orbit-pendulum-left {
+    animation: leftSemicirclePendulum 12s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite alternate;
   }
 
-  .orbit-body {
-    transform: translateX(var(--orbit-radius, 10rem));
-    animation: orbitCounterSpin var(--orbit-duration, 24s) linear infinite;
-    animation-delay: var(--orbit-delay, 0s);
+  .orbit-pendulum-right {
+    animation: rightSemicirclePendulum 12s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite alternate;
+  }
+
+  .orbit-chip {
+    transform: translateY(calc(-1 * var(--orbit-radius, 10rem)));
+  }
+
+  .orbit-chip-left {
+    animation: chipCounterLeft 12s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite alternate;
+  }
+
+  .orbit-chip-right {
+    animation: chipCounterRight 12s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite alternate;
   }
 
   .animate-hero-pulse {
@@ -503,21 +529,63 @@
     }
   }
 
-  @keyframes orbitSpin {
+  @keyframes leftSemicirclePendulum {
     0% {
       transform: rotate(0deg);
     }
     100% {
-      transform: rotate(360deg);
+      transform: rotate(-180deg);
     }
   }
 
-  @keyframes orbitCounterSpin {
+  @keyframes rightSemicirclePendulum {
     0% {
-      transform: translateX(var(--orbit-radius, 10rem)) rotate(0deg);
+      transform: rotate(0deg);
     }
     100% {
-      transform: translateX(var(--orbit-radius, 10rem)) rotate(-360deg);
+      transform: rotate(180deg);
+    }
+  }
+
+  @keyframes chipCounterLeft {
+    0% {
+      transform: translateY(calc(-1 * var(--orbit-radius, 10rem))) rotate(0deg);
+    }
+    100% {
+      transform: translateY(calc(-1 * var(--orbit-radius, 10rem))) rotate(180deg);
+    }
+  }
+
+  @keyframes chipCounterRight {
+    0% {
+      transform: translateY(calc(-1 * var(--orbit-radius, 10rem))) rotate(0deg);
+    }
+    100% {
+      transform: translateY(calc(-1 * var(--orbit-radius, 10rem))) rotate(-180deg);
+    }
+  }
+
+  @keyframes gateTopBlink {
+    0%, 8% {
+      opacity: 1;
+    }
+    15%, 85% {
+      opacity: 0;
+    }
+    92%, 100% {
+      opacity: 1;
+    }
+  }
+
+  @keyframes gateBottomBlink {
+    0%, 40% {
+      opacity: 0;
+    }
+    47%, 56% {
+      opacity: 1;
+    }
+    63%, 100% {
+      opacity: 0;
     }
   }
 
