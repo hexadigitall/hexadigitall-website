@@ -168,7 +168,7 @@ class EmailService {
 
   private async sendWithConsole(options: EmailOptions) {
     console.log('=== EMAIL SIMULATION (Development Mode) ===');
-    console.log(`From: ${options.from || 'noreply@hexadigitall.com'}`);
+    console.log(`From: ${options.from || 'no-reply@hexadigitall.com'}`);
     console.log(`To: ${Array.isArray(options.to) ? options.to.join(', ') : options.to}`);
     console.log(`Subject: ${options.subject}`);
     console.log(`Reply-To: ${options.replyTo || 'N/A'}`);

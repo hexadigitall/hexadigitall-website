@@ -81,7 +81,7 @@ export async function POST(req: NextRequest) {
       to: adminEmail,
       subject: 'New Custom Build Request - Hexadigitall',
       html: buildAdminHtml(data),
-      from: process.env.FROM_EMAIL || 'noreply@hexadigitall.com',
+      from: process.env.FROM_EMAIL || 'no-reply@hexadigitall.com',
       replyTo: data.email,
     })
 
