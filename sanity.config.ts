@@ -22,6 +22,8 @@ import analyticsEvent from "./src/sanity/schemas/analyticsEvent";
 import servicesPage from "./src/sanity/schemas/servicesPage";
 import pageOgAssets from "./src/sanity/schemas/pageOgAssets";
 import book from "./src/sanity/schemas/book";
+import bookReleaseSubscriber from "./src/sanity/schemas/bookReleaseSubscriber";
+import { deskStructure } from "./src/sanity/deskStructure";
 
 console.log("✅ Loading all schemas including servicesPage");
 
@@ -34,7 +36,7 @@ export default defineConfig({
   title: "Hexadigitall Content Studio",
   projectId,
   dataset,
-  plugins: [structureTool(), visionTool()],
+  plugins: [structureTool({ structure: deskStructure }), visionTool()],
   schema: {
     types: [
       // ✅ ADD IT TO THE ARRAY
@@ -58,6 +60,7 @@ export default defineConfig({
       analyticsEvent,
       pageOgAssets,
       book,
+      bookReleaseSubscriber,
     ],
   },
 });

@@ -4,6 +4,7 @@ import { notFound } from 'next/navigation'
 import Image from 'next/image'
 import Link from 'next/link'
 import { getBookBySlug, getAllBookSlugs, type ErrataItem } from '@/lib/book-queries'
+import ErrataDetailClient from '@/app/errata/[slug]/ErrataDetailClient'
 
 export const dynamic = 'force-dynamic'
 
@@ -108,49 +109,7 @@ export default async function ErrataPage({ params }: Props) {
 
       {/* Errata list */}
       {errata.length > 0 ? (
-        <section className="mb-16">
-          <div className="space-y-4">
-            {errata.map((item) => (
-              <article key={item._key} className="p-5 rounded-2xl border border-gray-100 bg-white shadow-sm">
-                <div className="flex flex-wrap items-center gap-2 mb-3">
-                  {item.page && (
-                    <span className="text-xs font-mono bg-gray-100 text-gray-600 px-2 py-0.5 rounded">
-                      p.{item.page}
-                    </span>
-                  )}
-                  {item.location && (
-                    <span className="text-sm text-gray-500">{item.location}</span>
-                  )}
-                  <span className={`ml-auto text-xs px-2 py-0.5 rounded-full font-medium ${SEVERITY_STYLES[item.severity]?.badge ?? 'bg-gray-100 text-gray-600'}`}>
-                    {SEVERITY_STYLES[item.severity]?.label ?? item.severity}
-                  </span>
-                  {item.fixedInEdition && (
-                    <span className="text-xs bg-green-100 text-green-700 px-2 py-0.5 rounded-full">
-                      Fixed in {item.fixedInEdition}
-                    </span>
-                  )}
-                </div>
-
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
-                  <div>
-                    <p className="text-xs font-semibold text-red-400 uppercase tracking-wider mb-1">Incorrect</p>
-                    <p className="text-gray-700 bg-red-50 rounded-lg p-3 font-mono text-xs leading-relaxed whitespace-pre-wrap">{item.original}</p>
-                  </div>
-                  <div>
-                    <p className="text-xs font-semibold text-green-500 uppercase tracking-wider mb-1">Correction</p>
-                    <p className="text-gray-700 bg-green-50 rounded-lg p-3 font-mono text-xs leading-relaxed whitespace-pre-wrap">{item.correction}</p>
-                  </div>
-                </div>
-
-                {item.reportedAt && (
-                  <p className="text-xs text-gray-400 mt-3">
-                    Reported {new Date(item.reportedAt).toLocaleDateString('en-NG', { year: 'numeric', month: 'long', day: 'numeric' })}
-                  </p>
-                )}
-              </article>
-            ))}
-          </div>
-        </section>
+        <ErrataDetailClient errata={errata} />
       ) : (
         <section className="mb-16 text-center py-16 text-gray-500">
           <p className="text-4xl mb-3">✅</p>

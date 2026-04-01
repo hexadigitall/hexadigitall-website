@@ -4,6 +4,7 @@ import { notFound } from 'next/navigation'
 import Image from 'next/image'
 import Link from 'next/link'
 import { getBookBySlug, getAllBookSlugs, type ResourceItem } from '@/lib/book-queries'
+import ResourcesDetailClient from '@/app/resources/[slug]/ResourcesDetailClient'
 
 export const dynamic = 'force-dynamic'
 
@@ -74,20 +75,6 @@ export default async function ResourcesPage({ params }: Props) {
   const instructorResources = resources.filter((r) => r.gated)
   const coverUrl = book.coverImage?.asset?.url
 
-  // Group public resources by chapter
-  const byChapter = publicResources.reduce((acc, r) => {
-    const key = r.chapter ? `Chapter ${r.chapter}` : 'General'
-    if (!acc[key]) acc[key] = []
-    acc[key].push(r)
-    return acc
-  }, {} as Record<string, ResourceItem[]>)
-
-  const chapters = Object.keys(byChapter).sort((a, b) => {
-    if (a === 'General') return -1
-    if (b === 'General') return 1
-    return parseInt(a.replace('Chapter ', '')) - parseInt(b.replace('Chapter ', ''))
-  })
-
   return (
     <main className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
 
@@ -136,45 +123,7 @@ export default async function ResourcesPage({ params }: Props) {
 
       {/* Public resources by chapter */}
       {publicResources.length > 0 ? (
-        <section className="mb-16 space-y-10">
-          {chapters.map((chapterKey) => (
-            <div key={chapterKey}>
-              <h2 className="text-base font-bold text-darkText mb-4 border-b border-gray-100 pb-2">
-                {chapterKey}
-              </h2>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                {byChapter[chapterKey].map((resource) => {
-                  const downloadUrl = resource.url ?? resource.file?.asset?.url
-                  return (
-                    <div key={resource._key} className="p-4 rounded-2xl border border-gray-100 bg-white shadow-sm hover:shadow-md transition-shadow">
-                      <div className="flex items-start gap-3">
-                        <span className="text-2xl flex-shrink-0">{TYPE_ICONS[resource.type] ?? '📁'}</span>
-                        <div className="flex-1 min-w-0">
-                          <p className="font-semibold text-sm text-darkText">{resource.title}</p>
-                          <p className="text-xs text-gray-400 mt-0.5">{TYPE_LABELS[resource.type] ?? resource.type}</p>
-                          {resource.description && (
-                            <p className="text-xs text-gray-500 mt-2 leading-relaxed">{resource.description}</p>
-                          )}
-                        </div>
-                      </div>
-
-                      {downloadUrl && (
-                        <a
-                          href={downloadUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="mt-3 inline-flex items-center gap-1.5 text-xs font-semibold text-white bg-primary px-3 py-1.5 rounded-lg hover:bg-primary/90 transition-colors"
-                        >
-                          {resource.type === 'code' ? '↗ Open Repository' : resource.type === 'video' ? '▶ Watch' : '↓ Download'}
-                        </a>
-                      )}
-                    </div>
-                  )
-                })}
-              </div>
-            </div>
-          ))}
-        </section>
+        <ResourcesDetailClient resources={publicResources} />
       ) : (
         <section className="mb-16 text-center py-16 text-gray-500">
           <p className="text-4xl mb-3">📁</p>

@@ -5,6 +5,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { PortableText } from '@portabletext/react'
 import { getBookBySlug, getAllBookSlugs, type BookDetail, type SalesLink } from '@/lib/book-queries'
+import ReleaseNotifyForm from '@/app/store/[slug]/ReleaseNotifyForm'
 
 export const dynamic = 'force-dynamic'
 
@@ -260,20 +261,7 @@ export default async function BookPage({ params }: Props) {
 
             {/* Notify form anchor for coming soon */}
             {book.status === 'coming_soon' && (
-              <div id="notify" className="p-4 bg-amber-50 border border-amber-200 rounded-xl">
-                <p className="font-semibold text-amber-800 mb-1">This book is coming soon</p>
-                <p className="text-sm text-amber-700">
-                  Enroll in the{' '}
-                  {book.relatedCourse ? (
-                    <Link href={`/courses/${book.relatedCourse.slug.current}`} className="underline font-medium">
-                      companion course
-                    </Link>
-                  ) : (
-                    <Link href="/courses" className="underline font-medium">related course</Link>
-                  )}{' '}
-                  and we&apos;ll let you know when the textbook is available.
-                </p>
-              </div>
+              <ReleaseNotifyForm slug={slug} title={book.title} />
             )}
           </div>
         </div>

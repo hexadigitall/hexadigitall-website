@@ -20,6 +20,7 @@ import serviceStatistics from './serviceStatistics'
 import servicesPage from './servicesPage' // 👈 IMPORTED HERE
 import pageOgAssets from './pageOgAssets'
 import book from './book'
+import bookReleaseSubscriber from './bookReleaseSubscriber'
 
 // Objects (if any, though most seem to be documents based on your file list)
 // ...
@@ -45,5 +46,6 @@ export const schema: { types: SchemaTypeDefinition[] } = {
     servicesPage, // 👈 ADDED HERE
     pageOgAssets,
     book,
+    bookReleaseSubscriber,
   ],
 }

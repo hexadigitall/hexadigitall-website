@@ -10,6 +10,7 @@ interface StoreCatalogProps {
 }
 
 type StatusFilter = 'all' | 'available' | 'coming_soon'
+type LevelFilter = 'all' | 'beginner' | 'intermediate' | 'advanced' | 'all_levels'
 
 function normalize(value: string): string {
   return value.toLowerCase().trim()
@@ -52,12 +53,15 @@ export default function StoreCatalog({ books }: StoreCatalogProps) {
 
   const [query, setQuery] = useState(searchParams.get('q') ?? '')
   const [status, setStatus] = useState<StatusFilter>((searchParams.get('status') as StatusFilter) || 'all')
+  const [level, setLevel] = useState<LevelFilter>((searchParams.get('level') as LevelFilter) || 'all')
 
   useEffect(() => {
     const nextQ = searchParams.get('q') ?? ''
     const nextStatus = (searchParams.get('status') as StatusFilter) || 'all'
+    const nextLevel = (searchParams.get('level') as LevelFilter) || 'all'
     setQuery(nextQ)
     setStatus(nextStatus)
+    setLevel(nextLevel)
   }, [searchParams])
 
   useEffect(() => {
@@ -75,9 +79,15 @@ export default function StoreCatalog({ books }: StoreCatalogProps) {
       params.delete('status')
     }
 
+    if (level !== 'all') {
+      params.set('level', level)
+    } else {
+      params.delete('level')
+    }
+
     const next = params.toString()
     router.replace(next ? `${pathname}?${next}` : pathname, { scroll: false })
-  }, [query, status, pathname, router])
+  }, [query, status, level, pathname, router])
 
   const normalizedQuery = normalize(query)
 
@@ -86,15 +96,21 @@ export default function StoreCatalog({ books }: StoreCatalogProps) {
     return books.filter((book) => book.status === status)
   }, [books, status])
 
+  const levelFilteredBooks = useMemo(() => {
+    if (level === 'all') return statusFilteredBooks
+    if (level === 'all_levels') return statusFilteredBooks.filter((book) => book.level === 'all')
+    return statusFilteredBooks.filter((book) => book.level === level)
+  }, [statusFilteredBooks, level])
+
   const filteredBooks = useMemo(() => {
-    if (!normalizedQuery) return statusFilteredBooks
+    if (!normalizedQuery) return levelFilteredBooks
 
     const terms = normalizedQuery.split(/\s+/).filter(Boolean)
-    return statusFilteredBooks.filter((book) => {
+    return levelFilteredBooks.filter((book) => {
       const searchable = toSearchableText(book)
       return terms.every((term) => fuzzyMatch(searchable, term))
     })
-  }, [statusFilteredBooks, normalizedQuery])
+  }, [levelFilteredBooks, normalizedQuery])
 
   useEffect(() => {
     const onKeyDown = (event: KeyboardEvent) => {
@@ -185,6 +201,64 @@ export default function StoreCatalog({ books }: StoreCatalogProps) {
             }`}
           >
             Coming Soon
+          </button>
+        </div>
+
+        <div className="mt-3 flex flex-wrap gap-2">
+          <button
+            type="button"
+            onClick={() => setLevel('all')}
+            className={`rounded-full px-3 py-1.5 text-xs font-semibold transition-colors ${
+              level === 'all'
+                ? 'bg-secondary text-white'
+                : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+            }`}
+          >
+            All Levels
+          </button>
+          <button
+            type="button"
+            onClick={() => setLevel('beginner')}
+            className={`rounded-full px-3 py-1.5 text-xs font-semibold transition-colors ${
+              level === 'beginner'
+                ? 'bg-secondary text-white'
+                : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+            }`}
+          >
+            Beginner
+          </button>
+          <button
+            type="button"
+            onClick={() => setLevel('intermediate')}
+            className={`rounded-full px-3 py-1.5 text-xs font-semibold transition-colors ${
+              level === 'intermediate'
+                ? 'bg-secondary text-white'
+                : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+            }`}
+          >
+            Intermediate
+          </button>
+          <button
+            type="button"
+            onClick={() => setLevel('advanced')}
+            className={`rounded-full px-3 py-1.5 text-xs font-semibold transition-colors ${
+              level === 'advanced'
+                ? 'bg-secondary text-white'
+                : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+            }`}
+          >
+            Advanced
+          </button>
+          <button
+            type="button"
+            onClick={() => setLevel('all_levels')}
+            className={`rounded-full px-3 py-1.5 text-xs font-semibold transition-colors ${
+              level === 'all_levels'
+                ? 'bg-secondary text-white'
+                : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+            }`}
+          >
+            Mixed / All
           </button>
         </div>
 
