@@ -248,16 +248,12 @@ export default function ServicesPageClient({ initialData }: ServicesPageClientPr
                   <Image src={PEOPLE_IMAGES.primary} alt="Orbit gate bottom" fill className="object-cover" sizes="80px" />
                 </div>
 
-                <div className="orbit-pendulum orbit-pendulum-left">
-                  <div className="orbit-chip orbit-chip-left w-20 h-20 sm:w-24 sm:h-24 rounded-full overflow-hidden ring-4 ring-amber-300/70 shadow-xl">
-                    <Image src={PEOPLE_IMAGES.excitedMan} alt="Happy client" fill className="object-cover object-[center_18%]" sizes="96px" />
-                  </div>
+                <div className="orbit-chip orbit-chip-left w-20 h-20 sm:w-24 sm:h-24 rounded-full overflow-hidden ring-4 ring-amber-300/70 shadow-xl">
+                  <Image src={PEOPLE_IMAGES.excitedMan} alt="Happy client" fill className="object-cover object-[center_18%]" sizes="96px" />
                 </div>
 
-                <div className="orbit-pendulum orbit-pendulum-right">
-                  <div className="orbit-chip orbit-chip-right w-16 h-16 sm:w-20 sm:h-20 rounded-full overflow-hidden ring-4 ring-sky-300/70 shadow-xl">
-                    <Image src={PEOPLE_IMAGES.dancingMan} alt="Celebrating client" fill className="object-cover object-[center_20%]" sizes="80px" />
-                  </div>
+                <div className="orbit-chip orbit-chip-right w-16 h-16 sm:w-20 sm:h-20 rounded-full overflow-hidden ring-4 ring-sky-300/70 shadow-xl">
+                  <Image src={PEOPLE_IMAGES.dancingMan} alt="Celebrating client" fill className="object-cover object-[center_20%]" sizes="80px" />
                 </div>
               </div>
 

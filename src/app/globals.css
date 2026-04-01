@@ -428,13 +428,50 @@
     align-items: center;
     justify-content: center;
     pointer-events: none;
+    --a-radius: 8rem;
+    --b-radius: 2rem;
+    --gate-y: 10rem;
+    --left-contact-x: 4.5rem;
+    --right-contact-x: 4rem;
+    --left-far-x: 11rem;
+    --right-far-x: 10.75rem;
+    --left-mid-y: 6rem;
+    --right-mid-y: 5.8rem;
+  }
+
+  @media (min-width: 640px) {
+    .orbit-lane {
+      --a-radius: 10rem;
+      --b-radius: 2.5rem;
+      --gate-y: 12.5rem;
+      --left-contact-x: 5.5rem;
+      --right-contact-x: 5rem;
+      --left-far-x: 13.6rem;
+      --right-far-x: 13.2rem;
+      --left-mid-y: 7.6rem;
+      --right-mid-y: 7.3rem;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .orbit-lane {
+      --a-radius: 12rem;
+      --b-radius: 2.5rem;
+      --gate-y: 14.5rem;
+      --left-contact-x: 5.5rem;
+      --right-contact-x: 5rem;
+      --left-far-x: 15.5rem;
+      --right-far-x: 15.2rem;
+      --left-mid-y: 8.9rem;
+      --right-mid-y: 8.6rem;
+    }
   }
 
   .orbit-gate {
     position: absolute;
     left: 50%;
     top: 50%;
-    transform: translate(-50%, calc(-1 * var(--orbit-radius, 10rem)));
+    transform: translate(-50%, calc(-1 * var(--gate-y)));
     opacity: 0;
   }
 
@@ -443,38 +480,22 @@
   }
 
   .orbit-gate-bottom {
-    transform: translate(-50%, var(--orbit-radius, 10rem));
+    transform: translate(-50%, var(--gate-y));
     animation: gateBottomBlink 12s ease-in-out infinite;
-  }
-
-  .orbit-pendulum {
-    position: relative;
-    width: 0;
-    height: 0;
-    transform-origin: center;
-  }
-
-  .orbit-pendulum-left {
-    animation: none;
-  }
-
-  .orbit-pendulum-right {
-    animation: none;
   }
 
   .orbit-chip {
     position: absolute;
-    left: 0;
-    top: 0;
-    transform: translate(0, calc(-1 * var(--orbit-radius, 10rem)));
+    left: 50%;
+    top: 50%;
   }
 
   .orbit-chip-left {
-    animation: orbitLeftBounce 12s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
+    animation: orbitLeftBounce 12s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite alternate;
   }
 
   .orbit-chip-right {
-    animation: orbitRightBounce 12s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
+    animation: orbitRightBounce 12s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite alternate;
   }
 
   .animate-hero-pulse {
@@ -534,37 +555,37 @@
 
   @keyframes orbitLeftBounce {
     0% {
-      transform: translate(calc(-1 * (var(--gate-radius, 2.5rem) + var(--chip-left-radius, 3rem))), calc(-1 * var(--orbit-radius, 10rem))) scale(1.01);
+      transform: translate(calc(-1 * var(--left-contact-x)), calc(-1 * var(--gate-y))) scale(1.01);
     }
     25% {
-      transform: translate(calc(-1 * var(--orbit-radius, 10rem)), 0) scale(1);
+      transform: translate(calc(-1 * var(--left-far-x)), calc(-1 * var(--left-mid-y))) scale(1);
     }
     50% {
-      transform: translate(calc(-1 * (var(--gate-radius, 2.5rem) + var(--chip-left-radius, 3rem))), var(--orbit-radius, 10rem)) scale(1.01);
+      transform: translate(calc(-1 * var(--left-far-x)), 0) scale(1);
     }
     75% {
-      transform: translate(calc(-1 * var(--orbit-radius, 10rem)), 0) scale(1);
+      transform: translate(calc(-1 * var(--left-far-x)), var(--left-mid-y)) scale(1);
     }
     100% {
-      transform: translate(calc(-1 * (var(--gate-radius, 2.5rem) + var(--chip-left-radius, 3rem))), calc(-1 * var(--orbit-radius, 10rem))) scale(1.01);
+      transform: translate(calc(-1 * var(--left-contact-x)), var(--gate-y)) scale(1.01);
     }
   }
 
   @keyframes orbitRightBounce {
     0% {
-      transform: translate(calc(var(--gate-radius, 2.5rem) + var(--chip-right-radius, 2.5rem)), calc(-1 * var(--orbit-radius, 10rem))) scale(1.01);
+      transform: translate(var(--right-contact-x), calc(-1 * var(--gate-y))) scale(1.01);
     }
     25% {
-      transform: translate(var(--orbit-radius, 10rem), 0) scale(1);
+      transform: translate(var(--right-far-x), calc(-1 * var(--right-mid-y))) scale(1);
     }
     50% {
-      transform: translate(calc(var(--gate-radius, 2.5rem) + var(--chip-right-radius, 2.5rem)), var(--orbit-radius, 10rem)) scale(1.01);
+      transform: translate(var(--right-far-x), 0) scale(1);
     }
     75% {
-      transform: translate(var(--orbit-radius, 10rem), 0) scale(1);
+      transform: translate(var(--right-far-x), var(--right-mid-y)) scale(1);
     }
     100% {
-      transform: translate(calc(var(--gate-radius, 2.5rem) + var(--chip-right-radius, 2.5rem)), calc(-1 * var(--orbit-radius, 10rem))) scale(1.01);
+      transform: translate(var(--right-contact-x), var(--gate-y)) scale(1.01);
     }
   }
 
