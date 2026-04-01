@@ -1,9 +1,9 @@
 // src/app/errata/page.tsx
 import type { Metadata } from 'next'
 import Link from 'next/link'
-import Image from 'next/image'
 import Banner from '@/components/common/Banner'
 import { getAllBooks } from '@/lib/book-queries'
+import ErrataCatalog from '@/app/errata/ErrataCatalog'
 
 export const dynamic = 'force-dynamic'
 
@@ -58,36 +58,7 @@ export default async function ErrataIndexPage() {
 
         {/* Book list */}
         {booksWithErrata.length > 0 ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {booksWithErrata.map((book) => {
-              const coverUrl = book.coverImage?.asset?.url
-              return (
-                <Link
-                  key={book._id}
-                  href={`/errata/${book.slug.current}`}
-                  className="group flex gap-4 p-4 rounded-2xl border border-gray-100 bg-white shadow-sm hover:shadow-md hover:border-primary/20 transition-all duration-200"
-                >
-                  {/* Mini cover */}
-                  <div className="relative w-14 flex-shrink-0 rounded-lg overflow-hidden" style={{ aspectRatio: '3/4' }}>
-                    {coverUrl ? (
-                      <Image src={coverUrl} alt={book.title} fill sizes="56px" className="object-cover" />
-                    ) : (
-                      <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-secondary/10 flex items-center justify-center text-xl">📘</div>
-                    )}
-                  </div>
-
-                  {/* Info */}
-                  <div className="flex-1 min-w-0">
-                    <p className="font-bold text-sm text-darkText group-hover:text-primary transition-colors line-clamp-2">
-                      {book.title}
-                    </p>
-                    {book.edition && <p className="text-xs text-gray-400 mt-0.5">{book.edition}</p>}
-                    <p className="text-xs text-secondary mt-2 font-medium">View corrections →</p>
-                  </div>
-                </Link>
-              )
-            })}
-          </div>
+          <ErrataCatalog books={booksWithErrata} />
         ) : (
           <div className="text-center py-20 text-gray-500">
             <p className="text-3xl mb-4">📚</p>
