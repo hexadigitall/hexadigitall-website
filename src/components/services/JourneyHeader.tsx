@@ -46,7 +46,7 @@ export default function JourneyHeader({ currentStage, hideNavigation = false }: 
   const currentIndex = stages.findIndex(s => s.id === currentStage)
 
   return (
-    <div className="sticky top-[56px] sm:top-[80px] z-30 bg-gradient-to-r from-slate-50 to-blue-50 border-b border-gray-200 shadow-sm">
+    <div className="sticky top-[72px] lg:top-[80px] z-40 bg-gradient-to-r from-slate-50 to-blue-50 border-b border-gray-200 shadow-sm">
       <div className="container mx-auto px-2 sm:px-6 py-2 sm:py-4">
         {/* Journey visualization - scrollable on mobile */}
         <div className="overflow-x-auto scrollbar-hide -mx-2 px-2">

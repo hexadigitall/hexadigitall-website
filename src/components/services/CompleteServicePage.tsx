@@ -189,7 +189,7 @@ function CompleteServicePage(props: CompleteServicePageProps) {
   return (
     <div className="min-h-screen bg-slate-50">
       <JourneyHeader currentStage={getJourneyStage(serviceType)} />
-      <div className="relative pt-32 pb-24 overflow-hidden text-white">
+      <div className="relative pt-16 sm:pt-20 pb-16 sm:pb-20 overflow-hidden text-white">
         {bannerBackgroundImage && (
           <div
             className="absolute inset-0 w-full h-full z-0"

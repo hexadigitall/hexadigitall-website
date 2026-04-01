@@ -11,7 +11,7 @@ export default function MentorshipLandingPage() {
           <div className="absolute bottom-[-20%] right-[-10%] h-80 w-80 rounded-full bg-teal-400 blur-[160px]" />
         </div>
 
-        <div className="relative mx-auto max-w-6xl px-6 pb-20 pt-24">
+        <div className="relative mx-auto max-w-6xl px-6 pb-14 pt-14">
           <div className="max-w-3xl">
             <div className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-white">
               Mentorship-only plans

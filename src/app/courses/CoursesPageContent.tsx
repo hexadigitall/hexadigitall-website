@@ -154,7 +154,7 @@ export default function CoursesPageContentEnhanced({ initialSchools = [] }: Cour
     <div className="min-h-screen bg-gray-50 pb-20 font-sans">
       
       {/* 1. IMMERSIVE HEADER SECTION */}
-      <div className="relative bg-primary text-white pt-24 pb-32 md:pb-24 overflow-hidden mb-16">
+      <div className="relative bg-primary text-white pt-16 pb-20 md:pb-16 overflow-hidden mb-16">
         {/* Abstract Background Pattern */}
         <div className="absolute inset-0 opacity-10 pointer-events-none">
           <div className="absolute top-0 left-0 w-96 h-96 bg-accent rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2" />
