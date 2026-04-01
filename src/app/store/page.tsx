@@ -1,7 +1,7 @@
 // src/app/store/page.tsx
 import type { Metadata } from 'next'
 import { getAllBooks, type BookSummary } from '@/lib/book-queries'
-import BookCard from '@/app/store/BookCard'
+import StoreCatalog from '@/app/store/StoreCatalog'
 import Banner from '@/components/common/Banner'
 import Link from 'next/link'
 
@@ -28,20 +28,8 @@ export const metadata: Metadata = {
   alternates: { canonical: `${BASE_URL}/store` },
 }
 
-// ── Status badge helpers ──────────────────────────────────────────────────────
-
-const STATUS_LABELS: Record<string, string> = {
-  available: 'Available Now',
-  coming_soon: 'Coming Soon',
-  out_of_stock: 'Out of Stock',
-  discontinued: 'Discontinued',
-}
-
 export default async function StorePage() {
   const books = await getAllBooks()
-
-  const available = books.filter((b) => b.status === 'available')
-  const upcoming = books.filter((b) => b.status === 'coming_soon')
 
   return (
     <>
@@ -69,33 +57,7 @@ export default async function StorePage() {
           </p>
         </section>
 
-        {/* Available books */}
-        {available.length > 0 && (
-          <section className="mb-16">
-            <h3 className="text-xl font-semibold text-darkText mb-6 border-b border-gray-200 pb-2">
-              Available Now
-            </h3>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
-              {available.map((book) => (
-                <BookCard key={book._id} book={book} />
-              ))}
-            </div>
-          </section>
-        )}
-
-        {/* Coming soon books */}
-        {upcoming.length > 0 && (
-          <section className="mb-16">
-            <h3 className="text-xl font-semibold text-darkText mb-6 border-b border-gray-200 pb-2">
-              Coming Soon
-            </h3>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
-              {upcoming.map((book) => (
-                <BookCard key={book._id} book={book} />
-              ))}
-            </div>
-          </section>
-        )}
+        <StoreCatalog books={books} />
 
         {/* Empty state */}
         {books.length === 0 && (
