@@ -187,7 +187,7 @@ export default function ServicesPageClient({ initialData }: ServicesPageClientPr
       const rightOrbitRadius = Math.hypot(xRightContact, yTop)
 
       const leftY = yTop + (yBottom - yTop) * s
-      const rightY = yTop + (yBottom - yTop) * (1 - s)
+      const rightY = yTop + (yBottom - yTop) * s
 
       const leftX = -Math.sqrt(Math.max(0, leftOrbitRadius * leftOrbitRadius - leftY * leftY))
       const rightX = Math.sqrt(Math.max(0, rightOrbitRadius * rightOrbitRadius - rightY * rightY))
