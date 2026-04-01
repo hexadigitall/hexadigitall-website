@@ -54,6 +54,7 @@ export default function TeacherDashboardPage() {
   const router = useRouter()
   const [loading, setLoading] = useState(true)
   const [teacher, setTeacher] = useState<{ username: string; name?: string } | null>(null)
+  const [sessionRole, setSessionRole] = useState<string | null>(null)
   const [courses, setCourses] = useState<Course[]>([])
   const [students, setStudents] = useState<Student[]>([])
   const [photoUrl, setPhotoUrl] = useState<string | null>(null)
@@ -76,6 +77,7 @@ export default function TeacherDashboardPage() {
         if (!data.role || (data.role !== 'teacher' && data.role !== 'admin')) {
           return router.push('/teacher/login')
         }
+        setSessionRole(data.role)
 
         const sessionData = JSON.parse(session)
         setTeacher({ username: sessionData.username, name: data.name || sessionData.name })
@@ -244,6 +246,16 @@ export default function TeacherDashboardPage() {
 
             <div className="flex-1 hidden sm:block" />
 
+            {sessionRole === 'admin' && (
+              <Link
+                href="/admin/dashboard"
+                className="hidden sm:inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-white/10 hover:bg-white/15 text-white text-sm font-medium border border-white/15 backdrop-blur-sm transition-colors"
+              >
+                <ArrowLeftIcon className="h-4 w-4" />
+                Back to Admin
+              </Link>
+            )}
+
             <button
               onClick={handleLogout}
               className="hidden sm:inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-white/10 hover:bg-white/15 text-white text-sm font-medium border border-white/15 backdrop-blur-sm transition-colors"
@@ -270,6 +282,15 @@ export default function TeacherDashboardPage() {
       </div>
 
       <div className="sm:hidden px-4 pt-4">
+        {sessionRole === 'admin' && (
+          <Link
+            href="/admin/dashboard"
+            className="mb-3 w-full inline-flex items-center justify-center gap-2 px-4 py-3 rounded-2xl bg-white text-gray-700 text-sm font-medium border border-gray-200 shadow-sm"
+          >
+            <ArrowLeftIcon className="h-4 w-4" />
+            Back to Admin
+          </Link>
+        )}
         <button
           onClick={handleLogout}
           className="w-full inline-flex items-center justify-center gap-2 px-4 py-3 rounded-2xl bg-white text-gray-700 text-sm font-medium border border-gray-200 shadow-sm"

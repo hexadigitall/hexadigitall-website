@@ -347,15 +347,15 @@ export default function AdminDashboard() {
               color="gray"
             />
             <NavCard
-              title="Teacher Portal"
-              description="Manage courses and students you teach"
+              title="Preview Teacher Dashboard"
+              description="Open the teacher experience as admin"
               icon={<UserCircleIcon className="h-8 w-8" />}
               href="/teacher/dashboard"
               color="blue"
             />
             <NavCard
-              title="Student Portal"
-              description="View your enrolled courses and progress"
+              title="Preview Student Dashboard"
+              description="Open the student experience as admin"
               icon={<UserCircleIcon className="h-8 w-8" />}
               href="/student/dashboard"
               color="purple"
