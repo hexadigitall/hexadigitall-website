@@ -186,18 +186,11 @@ export default function ServicesPageClient({ initialData }: ServicesPageClientPr
       const leftOrbitRadius = Math.hypot(xLeftContact, yTop)
       const rightOrbitRadius = Math.hypot(xRightContact, yTop)
 
-      const leftThetaTop = Math.atan2(yTop, xLeftContact)
-      const leftThetaBottom = Math.atan2(yBottom, xLeftContact)
-      const rightThetaTop = Math.atan2(yTop, xRightContact)
-      const rightThetaBottom = Math.atan2(yBottom, xRightContact)
+      const leftY = yTop + (yBottom - yTop) * s
+      const rightY = yTop + (yBottom - yTop) * (1 - s)
 
-      const leftTheta = leftThetaTop + (leftThetaBottom - leftThetaTop) * s
-      const rightTheta = rightThetaTop + (rightThetaBottom - rightThetaTop) * (1 - s)
-
-      const leftX = leftOrbitRadius * Math.cos(leftTheta)
-      const leftY = leftOrbitRadius * Math.sin(leftTheta)
-      const rightX = rightOrbitRadius * Math.cos(rightTheta)
-      const rightY = rightOrbitRadius * Math.sin(rightTheta)
+      const leftX = -Math.sqrt(Math.max(0, leftOrbitRadius * leftOrbitRadius - leftY * leftY))
+      const rightX = Math.sqrt(Math.max(0, rightOrbitRadius * rightOrbitRadius - rightY * rightY))
 
       c.style.transform = `translate(-50%, -50%) translate(${leftX.toFixed(2)}px, ${leftY.toFixed(2)}px)`
       d.style.transform = `translate(-50%, -50%) translate(${rightX.toFixed(2)}px, ${rightY.toFixed(2)}px)`
