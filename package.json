@@ -9,6 +9,12 @@
   "scripts": {
     "og:generate": "node scripts/generate-og-images.mjs",
     "og:generate:courses": "node scripts/generate-og-course-images.mjs",
+    "kdp:build:manuscripts": "python3 build-kdp-6x9.py && python3 build-kdp-6x9-hardcover.py",
+    "kdp:export:manuscripts": "node scripts/export-kdp-manuscripts.mjs",
+    "kdp:pdf": "npm run kdp:build:manuscripts && npm run kdp:export:manuscripts",
+    "kdp:build:manuscripts:teacher": "python3 build-kdp-6x9-teacher.py && python3 build-kdp-6x9-hardcover-teacher.py",
+    "kdp:export:manuscripts:teacher": "node scripts/export-kdp-manuscripts-teacher.mjs",
+    "kdp:pdf:teacher": "npm run kdp:build:manuscripts:teacher && npm run kdp:export:manuscripts:teacher",
     "dev": "next dev --turbopack",
     "dev:fast": "cross-env NODE_ENV=development next dev --turbopack --experimental-https",
     "build": "next build",
