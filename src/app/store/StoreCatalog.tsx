@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import type { BookSummary } from '@/lib/book-queries'
 import BookCard from '@/app/store/BookCard'
@@ -13,6 +13,26 @@ type StatusFilter = 'all' | 'available' | 'coming_soon'
 
 function normalize(value: string): string {
   return value.toLowerCase().trim()
+}
+
+function looseSubsequenceMatch(text: string, query: string): boolean {
+  let textIndex = 0
+  let queryIndex = 0
+
+  while (textIndex < text.length && queryIndex < query.length) {
+    if (text[textIndex] === query[queryIndex]) {
+      queryIndex += 1
+    }
+    textIndex += 1
+  }
+
+  return queryIndex === query.length
+}
+
+function fuzzyMatch(text: string, query: string): boolean {
+  if (!query) return true
+  if (text.includes(query)) return true
+  return looseSubsequenceMatch(text, query)
 }
 
 function toSearchableText(book: BookSummary): string {
@@ -28,6 +48,7 @@ export default function StoreCatalog({ books }: StoreCatalogProps) {
   const searchParams = useSearchParams()
   const router = useRouter()
   const pathname = usePathname()
+  const searchInputRef = useRef<HTMLInputElement | null>(null)
 
   const [query, setQuery] = useState(searchParams.get('q') ?? '')
   const [status, setStatus] = useState<StatusFilter>((searchParams.get('status') as StatusFilter) || 'all')
@@ -66,9 +87,39 @@ export default function StoreCatalog({ books }: StoreCatalogProps) {
   }, [books, status])
 
   const filteredBooks = useMemo(() => {
-    if (!normalizedQuery) return books
-    return statusFilteredBooks.filter((book) => toSearchableText(book).includes(normalizedQuery))
-  }, [statusFilteredBooks, normalizedQuery, books])
+    if (!normalizedQuery) return statusFilteredBooks
+
+    const terms = normalizedQuery.split(/\s+/).filter(Boolean)
+    return statusFilteredBooks.filter((book) => {
+      const searchable = toSearchableText(book)
+      return terms.every((term) => fuzzyMatch(searchable, term))
+    })
+  }, [statusFilteredBooks, normalizedQuery])
+
+  useEffect(() => {
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key !== '/') return
+
+      const target = event.target as HTMLElement | null
+      if (target) {
+        const tag = target.tagName
+        const isEditable =
+          tag === 'INPUT' ||
+          tag === 'TEXTAREA' ||
+          tag === 'SELECT' ||
+          target.isContentEditable
+
+        if (isEditable) return
+      }
+
+      event.preventDefault()
+      searchInputRef.current?.focus()
+      searchInputRef.current?.select()
+    }
+
+    window.addEventListener('keydown', onKeyDown)
+    return () => window.removeEventListener('keydown', onKeyDown)
+  }, [])
 
   const available = filteredBooks.filter((b) => b.status === 'available')
   const upcoming = filteredBooks.filter((b) => b.status === 'coming_soon')
@@ -81,6 +132,7 @@ export default function StoreCatalog({ books }: StoreCatalogProps) {
         </label>
         <div className="relative">
           <input
+            ref={searchInputRef}
             id="store-search"
             type="search"
             value={query}
@@ -138,6 +190,9 @@ export default function StoreCatalog({ books }: StoreCatalogProps) {
 
         <p className="mt-2 text-xs text-gray-500">
           Showing {filteredBooks.length} of {books.length} textbook{books.length !== 1 ? 's' : ''}
+        </p>
+        <p className="mt-1 text-xs text-gray-400">
+          Tip: Press / anywhere on this page to jump to search.
         </p>
       </section>
 
