@@ -4,6 +4,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import type { BookSummary } from '@/lib/book-queries'
+import type { ReactNode } from 'react'
 
 const STATUS_STYLES: Record<string, string> = {
   available: 'bg-green-100 text-green-700',
@@ -36,7 +37,30 @@ const PLATFORM_LABELS: Record<string, string> = {
   other: 'Buy',
 }
 
-export default function BookCard({ book }: { book: BookSummary }) {
+function escapeRegExp(value: string): string {
+  return value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+}
+
+function highlightText(text: string, query: string): ReactNode {
+  if (!query.trim()) return text
+
+  const safeQuery = escapeRegExp(query.trim())
+  const regex = new RegExp(`(${safeQuery})`, 'ig')
+  const parts = text.split(regex)
+
+  return parts.map((part, index) => {
+    if (part.toLowerCase() === query.trim().toLowerCase()) {
+      return (
+        <mark key={`${part}-${index}`} className="bg-yellow-100 text-inherit px-0.5 rounded">
+          {part}
+        </mark>
+      )
+    }
+    return <span key={`${part}-${index}`}>{part}</span>
+  })
+}
+
+export default function BookCard({ book, highlightTerm = '' }: { book: BookSummary; highlightTerm?: string }) {
   const coverUrl = book.coverImage?.asset?.url
   const primaryLink = book.salesLinks?.find((l) => l.platform.startsWith('amazon')) ?? book.salesLinks?.[0]
   const lowestNGN = book.salesLinks?.map((l) => l.priceNGN).filter(Boolean).sort((a, b) => a! - b!)[0]
@@ -70,11 +94,11 @@ export default function BookCard({ book }: { book: BookSummary }) {
       <div className="flex flex-col flex-1 p-4 gap-3">
         <div>
           <Link href={`/store/${book.slug.current}`} className="hover:text-primary transition-colors">
-            <h3 className="font-bold text-darkText text-sm leading-snug line-clamp-2">{book.title}</h3>
+            <h3 className="font-bold text-darkText text-sm leading-snug line-clamp-2">{highlightText(book.title, highlightTerm)}</h3>
           </Link>
-          {book.subtitle && <p className="text-xs text-gray-400 mt-0.5 line-clamp-1">{book.subtitle}</p>}
+          {book.subtitle && <p className="text-xs text-gray-400 mt-0.5 line-clamp-1">{highlightText(book.subtitle, highlightTerm)}</p>}
           {book.authors && book.authors.length > 0 && (
-            <p className="text-xs text-gray-500 mt-1">{book.authors.join(', ')}</p>
+            <p className="text-xs text-gray-500 mt-1">{highlightText(book.authors.join(', '), highlightTerm)}</p>
           )}
         </div>
 

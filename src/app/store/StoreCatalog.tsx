@@ -1,12 +1,15 @@
 'use client'
 
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
+import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import type { BookSummary } from '@/lib/book-queries'
 import BookCard from '@/app/store/BookCard'
 
 interface StoreCatalogProps {
   books: BookSummary[]
 }
+
+type StatusFilter = 'all' | 'available' | 'coming_soon'
 
 function normalize(value: string): string {
   return value.toLowerCase().trim()
@@ -22,14 +25,50 @@ function toSearchableText(book: BookSummary): string {
 }
 
 export default function StoreCatalog({ books }: StoreCatalogProps) {
-  const [query, setQuery] = useState('')
+  const searchParams = useSearchParams()
+  const router = useRouter()
+  const pathname = usePathname()
+
+  const [query, setQuery] = useState(searchParams.get('q') ?? '')
+  const [status, setStatus] = useState<StatusFilter>((searchParams.get('status') as StatusFilter) || 'all')
+
+  useEffect(() => {
+    const nextQ = searchParams.get('q') ?? ''
+    const nextStatus = (searchParams.get('status') as StatusFilter) || 'all'
+    setQuery(nextQ)
+    setStatus(nextStatus)
+  }, [searchParams])
+
+  useEffect(() => {
+    const params = new URLSearchParams()
+
+    if (query.trim()) {
+      params.set('q', query.trim())
+    } else {
+      params.delete('q')
+    }
+
+    if (status !== 'all') {
+      params.set('status', status)
+    } else {
+      params.delete('status')
+    }
+
+    const next = params.toString()
+    router.replace(next ? `${pathname}?${next}` : pathname, { scroll: false })
+  }, [query, status, pathname, router])
 
   const normalizedQuery = normalize(query)
 
+  const statusFilteredBooks = useMemo(() => {
+    if (status === 'all') return books
+    return books.filter((book) => book.status === status)
+  }, [books, status])
+
   const filteredBooks = useMemo(() => {
     if (!normalizedQuery) return books
-    return books.filter((book) => toSearchableText(book).includes(normalizedQuery))
-  }, [books, normalizedQuery])
+    return statusFilteredBooks.filter((book) => toSearchableText(book).includes(normalizedQuery))
+  }, [statusFilteredBooks, normalizedQuery, books])
 
   const available = filteredBooks.filter((b) => b.status === 'available')
   const upcoming = filteredBooks.filter((b) => b.status === 'coming_soon')
@@ -60,6 +99,43 @@ export default function StoreCatalog({ books }: StoreCatalogProps) {
             </button>
           )}
         </div>
+
+        <div className="mt-3 flex flex-wrap gap-2">
+          <button
+            type="button"
+            onClick={() => setStatus('all')}
+            className={`rounded-full px-3 py-1.5 text-xs font-semibold transition-colors ${
+              status === 'all'
+                ? 'bg-primary text-white'
+                : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+            }`}
+          >
+            All
+          </button>
+          <button
+            type="button"
+            onClick={() => setStatus('available')}
+            className={`rounded-full px-3 py-1.5 text-xs font-semibold transition-colors ${
+              status === 'available'
+                ? 'bg-primary text-white'
+                : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+            }`}
+          >
+            Available
+          </button>
+          <button
+            type="button"
+            onClick={() => setStatus('coming_soon')}
+            className={`rounded-full px-3 py-1.5 text-xs font-semibold transition-colors ${
+              status === 'coming_soon'
+                ? 'bg-primary text-white'
+                : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+            }`}
+          >
+            Coming Soon
+          </button>
+        </div>
+
         <p className="mt-2 text-xs text-gray-500">
           Showing {filteredBooks.length} of {books.length} textbook{books.length !== 1 ? 's' : ''}
         </p>
@@ -72,7 +148,7 @@ export default function StoreCatalog({ books }: StoreCatalogProps) {
           </h3>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
             {available.map((book) => (
-              <BookCard key={book._id} book={book} />
+              <BookCard key={book._id} book={book} highlightTerm={query} />
             ))}
           </div>
         </section>
@@ -85,7 +161,7 @@ export default function StoreCatalog({ books }: StoreCatalogProps) {
           </h3>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
             {upcoming.map((book) => (
-              <BookCard key={book._id} book={book} />
+              <BookCard key={book._id} book={book} highlightTerm={query} />
             ))}
           </div>
         </section>
