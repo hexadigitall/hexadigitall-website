@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import Image from 'next/image'
@@ -35,6 +35,12 @@ export default function ServicesPageClient({ initialData }: ServicesPageClientPr
   const discountMessage = getLocalDiscountMessage()
   const [selectedService, setSelectedService] = useState<ServiceCategory | null>(null)
   const router = useRouter()
+  const orbitLaneRef = useRef<HTMLDivElement | null>(null)
+  const orbitARef = useRef<HTMLDivElement | null>(null)
+  const gateTopRef = useRef<HTMLDivElement | null>(null)
+  const gateBottomRef = useRef<HTMLDivElement | null>(null)
+  const chipLeftRef = useRef<HTMLDivElement | null>(null)
+  const chipRightRef = useRef<HTMLDivElement | null>(null)
   
   // 1. Resolve Banner Data
   const pageTitle = initialData?.title || 'Our Services';
@@ -141,6 +147,88 @@ export default function ServicesPageClient({ initialData }: ServicesPageClientPr
     })
   }
 
+  useEffect(() => {
+    const lane = orbitLaneRef.current
+    const a = orbitARef.current
+    const bTop = gateTopRef.current
+    const bBottom = gateBottomRef.current
+    const c = chipLeftRef.current
+    const d = chipRightRef.current
+    if (!lane || !a || !bTop || !bBottom || !c || !d) return
+
+    let rafId = 0
+    let dims = { aR: 0, bR: 0, cR: 0, dR: 0 }
+
+    const measure = () => {
+      dims = {
+        aR: a.offsetWidth / 2,
+        bR: bTop.offsetWidth / 2,
+        cR: c.offsetWidth / 2,
+        dR: d.offsetWidth / 2,
+      }
+    }
+
+    const periodMs = 16000
+    const smoothStep = (x: number) => x * x * (3 - 2 * x)
+    const clamp01 = (x: number) => Math.max(0, Math.min(1, x))
+
+    const animate = (time: number) => {
+      const phase = (time % periodMs) / periodMs
+      const tri = phase <= 0.5 ? phase * 2 : (1 - phase) * 2
+      const s = smoothStep(tri)
+
+      // Tangent condition: center distance equals sum of radii.
+      const yTop = -(dims.aR + dims.bR)
+      const yBottom = dims.aR + dims.bR
+      const xLeftContact = -(dims.bR + dims.cR)
+      const xRightContact = dims.bR + dims.dR
+
+      const leftOrbitRadius = Math.hypot(xLeftContact, yTop)
+      const rightOrbitRadius = Math.hypot(xRightContact, yTop)
+
+      const leftThetaTop = Math.atan2(yTop, xLeftContact)
+      const leftThetaBottom = Math.atan2(yBottom, xLeftContact)
+      const rightThetaTop = Math.atan2(yTop, xRightContact)
+      const rightThetaBottom = Math.atan2(yBottom, xRightContact)
+
+      const leftTheta = leftThetaTop + (leftThetaBottom - leftThetaTop) * s
+      const rightTheta = rightThetaTop + (rightThetaBottom - rightThetaTop) * s
+
+      const leftX = leftOrbitRadius * Math.cos(leftTheta)
+      const leftY = leftOrbitRadius * Math.sin(leftTheta)
+      const rightX = rightOrbitRadius * Math.cos(rightTheta)
+      const rightY = rightOrbitRadius * Math.sin(rightTheta)
+
+      c.style.transform = `translate(-50%, -50%) translate(${leftX.toFixed(2)}px, ${leftY.toFixed(2)}px)`
+      d.style.transform = `translate(-50%, -50%) translate(${rightX.toFixed(2)}px, ${rightY.toFixed(2)}px)`
+
+      const nearTop = clamp01(1 - Math.abs(s - 0) / 0.18)
+      const nearBottom = clamp01(1 - Math.abs(s - 1) / 0.18)
+
+      bTop.style.transform = `translate(-50%, -50%) translate(0px, ${yTop.toFixed(2)}px)`
+      bBottom.style.transform = `translate(-50%, -50%) translate(0px, ${yBottom.toFixed(2)}px)`
+      bTop.style.opacity = nearTop.toFixed(3)
+      bBottom.style.opacity = nearBottom.toFixed(3)
+
+      rafId = window.requestAnimationFrame(animate)
+    }
+
+    measure()
+    const resizeObserver = new ResizeObserver(() => measure())
+    resizeObserver.observe(lane)
+    resizeObserver.observe(a)
+    resizeObserver.observe(bTop)
+    resizeObserver.observe(c)
+    resizeObserver.observe(d)
+
+    rafId = window.requestAnimationFrame(animate)
+
+    return () => {
+      window.cancelAnimationFrame(rafId)
+      resizeObserver.disconnect()
+    }
+  }, [])
+
   const renderHero = () => {
     return (
       <div className="relative w-full overflow-hidden mb-12 rounded-b-[2rem] bg-slate-950 text-white shadow-2xl">
@@ -220,7 +308,7 @@ export default function ServicesPageClient({ initialData }: ServicesPageClientPr
               <div className="absolute h-[68%] w-[68%] rounded-full border border-white/12" />
               <div className="absolute h-[48%] w-[48%] rounded-full border border-white/10" />
 
-              <div className="relative h-64 w-64 sm:h-80 sm:w-80 lg:h-[24rem] lg:w-[24rem] rounded-full overflow-hidden ring-8 ring-white/18 shadow-[0_25px_80px_rgba(0,0,0,0.35)] animate-hero-pulse">
+              <div ref={orbitARef} className="relative h-64 w-64 sm:h-80 sm:w-80 lg:h-[24rem] lg:w-[24rem] rounded-full overflow-hidden ring-8 ring-white/18 shadow-[0_25px_80px_rgba(0,0,0,0.35)] animate-hero-pulse">
                 <Image
                   src={PEOPLE_IMAGES.primary}
                   alt="Smiling team member"
@@ -231,28 +319,20 @@ export default function ServicesPageClient({ initialData }: ServicesPageClientPr
                 />
               </div>
 
-              <div
-                className="orbit-lane"
-                style={{
-                  ['--orbit-radius' as string]: 'clamp(9rem, 31vw, 12.5rem)',
-                  ['--gate-radius' as string]: 'clamp(2rem, 6vw, 2.5rem)',
-                  ['--chip-left-radius' as string]: 'clamp(2.5rem, 7vw, 3rem)',
-                  ['--chip-right-radius' as string]: 'clamp(2rem, 6vw, 2.5rem)'
-                }}
-              >
-                <div className="orbit-gate orbit-gate-top w-16 h-16 sm:w-20 sm:h-20 rounded-full overflow-hidden ring-4 ring-white/60 shadow-xl">
+              <div ref={orbitLaneRef} className="orbit-lane">
+                <div ref={gateTopRef} className="orbit-gate orbit-gate-live w-16 h-16 sm:w-20 sm:h-20 rounded-full overflow-hidden ring-4 ring-white/60 shadow-xl">
                   <Image src={PEOPLE_IMAGES.primary} alt="Orbit gate top" fill className="object-cover" sizes="80px" />
                 </div>
 
-                <div className="orbit-gate orbit-gate-bottom w-16 h-16 sm:w-20 sm:h-20 rounded-full overflow-hidden ring-4 ring-white/60 shadow-xl">
+                <div ref={gateBottomRef} className="orbit-gate orbit-gate-live w-16 h-16 sm:w-20 sm:h-20 rounded-full overflow-hidden ring-4 ring-white/60 shadow-xl">
                   <Image src={PEOPLE_IMAGES.primary} alt="Orbit gate bottom" fill className="object-cover" sizes="80px" />
                 </div>
 
-                <div className="orbit-chip orbit-chip-left w-20 h-20 sm:w-24 sm:h-24 rounded-full overflow-hidden ring-4 ring-amber-300/70 shadow-xl">
+                <div ref={chipLeftRef} className="orbit-chip orbit-chip-live w-20 h-20 sm:w-24 sm:h-24 rounded-full overflow-hidden ring-4 ring-amber-300/70 shadow-xl">
                   <Image src={PEOPLE_IMAGES.excitedMan} alt="Happy client" fill className="object-cover object-[center_18%]" sizes="96px" />
                 </div>
 
-                <div className="orbit-chip orbit-chip-right w-16 h-16 sm:w-20 sm:h-20 rounded-full overflow-hidden ring-4 ring-sky-300/70 shadow-xl">
+                <div ref={chipRightRef} className="orbit-chip orbit-chip-live w-16 h-16 sm:w-20 sm:h-20 rounded-full overflow-hidden ring-4 ring-sky-300/70 shadow-xl">
                   <Image src={PEOPLE_IMAGES.dancingMan} alt="Celebrating client" fill className="object-cover object-[center_20%]" sizes="80px" />
                 </div>
               </div>
