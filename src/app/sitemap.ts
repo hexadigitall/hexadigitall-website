@@ -106,6 +106,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.7,
     },
     {
+      url: `${baseUrl}/curriculums`,
+      lastModified: new Date(),
+      changeFrequency: 'weekly' as const,
+      priority: 0.7,
+    },
+    {
       url: `${baseUrl}/mentorships`,
       lastModified: new Date(),
       changeFrequency: 'weekly' as const,
@@ -175,6 +181,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.7,
   }));
 
+  const curriculumRoutes = courses.map((course: { slug: string; _updatedAt: string }) => ({
+    url: `${baseUrl}/courses/${course.slug}/curriculum`,
+    lastModified: new Date(course._updatedAt),
+    changeFrequency: 'monthly' as const,
+    priority: 0.7,
+  }));
+
   const mentorshipRoutes = courses.map((course: { slug: string; _updatedAt: string }) => ({
     url: `${baseUrl}/mentorships/courses/${course.slug}`,
     lastModified: new Date(course._updatedAt),
@@ -216,6 +229,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   return [
     ...staticRoutes,
     ...courseRoutes,
+    ...curriculumRoutes,
     ...blogRoutes,
     ...mentorshipRoutes,
     ...bookRoutes,

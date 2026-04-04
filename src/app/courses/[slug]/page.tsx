@@ -397,6 +397,14 @@ export default async function CoursePage(props: Props) {
                             {/* Materials Section (Protected) */}
                             <div className="mt-6 bg-white rounded-xl shadow-sm border border-gray-200 p-5">
                                 <h3 className="text-base font-semibold text-gray-900 mb-3">Course Materials</h3>
+                                <div className="mb-3">
+                                    <a
+                                        href={`/courses/${slug}/curriculum`}
+                                        className="inline-flex w-full items-center justify-center gap-2 px-4 py-2 border border-blue-200 text-blue-700 rounded-lg hover:border-blue-300 hover:bg-blue-50 transition-colors text-sm"
+                                    >
+                                        View Public Curriculum
+                                    </a>
+                                </div>
                                 {hasAccess ? (
                                     <div className="space-y-2">
                                         {course.contentPdf?.asset?._ref && (
