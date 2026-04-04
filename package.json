@@ -68,6 +68,8 @@
   },
   "overrides": {
     "simple-swizzle": "0.2.2",
+    "lodash": "4.18.0",
+    "lodash-es": "4.18.0",
     "@actions/http-client": {
       "undici": "^6.23.0"
     },
