@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Advanced JavaScript Mastery - Course Curriculum</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&amp;family=Space+Grotesk:wght@500;600;700&amp;display=swap" rel="stylesheet"/>
+<style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --primary-color: #0078D4;
+            --secondary-color: #50E6FF;
+            --dark-blue: #002050;
+            --text-dark: #1F1F1F;
+            --text-light: #605E5C;
+            --bg-light: #F5F5F5;
+            --bg-white: #FFFFFF;
+            --border-color: #EDEBE9;
+        }
+        body { font-family: 'Inter', sans-serif; line-height: 1.6; color: var(--text-dark); background: var(--bg-white); font-size: 14px; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 40px; }
+        .brand-bar { display: flex; align-items: center; justify-content: space-between; gap: 20px; border: 1px solid var(--border-color); border-radius: 12px; padding: 16px 20px; margin-bottom: 20px; box-shadow: 0 4px 18px rgba(0, 32, 80, 0.08); }
+        .brand-meta { display: flex; align-items: center; gap: 16px; }
+        .brand-meta img { width: 60px; height: auto; }
+        .brand-name { font-family: 'Space Grotesk', sans-serif; font-size: 18px; font-weight: 700; color: var(--dark-blue); }
+        .brand-link { color: var(--primary-color); font-weight: 600; text-decoration: none; }
+        .qr-block { display: flex; align-items: center; gap: 12px; background: var(--bg-light); padding: 10px 14px; border-radius: 10px; border: 1px solid var(--border-color); }
+        .qr-block img { width: 86px; height: 86px; }
+        .qr-text { font-size: 12px; color: var(--text-light); max-width: 220px; line-height: 1.5; }
+        .course-hero { background: linear-gradient(135deg, #E8F4FD 0%, #F5F9FF 100%); border: 1px solid var(--border-color); border-radius: 12px; padding: 18px; margin-bottom: 24px; display: grid; grid-template-columns: 1fr 320px; gap: 20px; align-items: center; box-shadow: 0 6px 18px rgba(0, 32, 80, 0.08); }
+        .course-hero img { width: 100%; border-radius: 12px; border: 1px solid var(--border-color); }
+        .course-hero h2 { font-family: 'Space Grotesk', sans-serif; color: var(--dark-blue); margin-bottom: 10px; font-size: 22px; }
+        .header { background: linear-gradient(135deg, var(--dark-blue) 0%, var(--primary-color) 100%); color: white; padding: 60px 40px; border-radius: 12px; margin-bottom: 40px; box-shadow: 0 10px 30px rgba(0, 120, 212, 0.2); }
+        .header h1 { font-family: 'Space Grotesk', sans-serif; font-size: 42px; font-weight: 700; margin-bottom: 16px; letter-spacing: -0.5px; }
+        .header .subtitle { font-size: 18px; opacity: 0.95; margin-bottom: 24px; }
+        .course-meta { display: flex; flex-wrap: wrap; gap: 24px; margin-top: 32px; }
+        .meta-item { display: flex; align-items: center; gap: 8px; background: rgba(255, 255, 255, 0.15); padding: 12px 20px; border-radius: 8px; }
+        .section { margin-bottom: 48px; break-inside: avoid; }
+        .section-title { font-family: 'Space Grotesk', sans-serif; font-size: 28px; color: var(--dark-blue); margin-bottom: 24px; padding-bottom: 12px; border-bottom: 3px solid var(--primary-color); display: flex; align-items: center; gap: 12px; }
+        .section-title::before { content: ''; width: 6px; height: 32px; background: linear-gradient(180deg, var(--primary-color), var(--secondary-color)); border-radius: 3px; }
+        .card { background: var(--bg-white); border: 1px solid var(--border-color); border-radius: 10px; padding: 24px; margin-bottom: 16px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05); }
+        .card ul { margin-left: 20px; }
+        .card li { margin: 6px 0; }
+        .roadmap-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+        .roadmap-card { border: 1px solid var(--border-color); border-radius: 12px; padding: 18px; background: linear-gradient(135deg, #F8FBFF 0%, #FFFFFF 100%); }
+        .roadmap-card h4 { color: var(--dark-blue); font-size: 18px; margin-bottom: 6px; }
+        .roadmap-card p { color: var(--text-light); font-size: 13px; margin-bottom: 10px; }
+        .roadmap-card ul { margin-left: 18px; }
+        .week-block { border: 1px solid var(--border-color); border-left: 6px solid var(--primary-color); border-radius: 12px; padding: 16px; margin-bottom: 14px; }
+        .week-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+        .week-number { font-weight: 700; color: var(--dark-blue); }
+        .week-duration { font-size: 12px; color: var(--text-light); }
+        .week-topic { color: var(--primary-color); font-family: 'Space Grotesk', sans-serif; font-size: 18px; margin-bottom: 10px; }
+        .week-content ul { margin-left: 20px; }
+        .week-content li { margin: 6px 0; }
+        .project-card { border: 1px solid var(--border-color); border-radius: 10px; padding: 16px; margin-bottom: 12px; background: linear-gradient(135deg, #f3f8ff 0%, #ffffff 100%); }
+        .project-card h4 { color: var(--dark-blue); margin-bottom: 8px; }
+        .project-card p { color: var(--text-light); margin-bottom: 8px; }
+        .project-card ul { margin-left: 20px; }
+        .footer { margin-top: 24px; padding-top: 16px; border-top: 1px solid var(--border-color); color: var(--text-light); font-size: 12px; }
+        @media (max-width: 900px) {
+            .course-hero { grid-template-columns: 1fr; }
+            .roadmap-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+
+
+
+<style id="curriculum-ui-normalization">
+:root { --primary-color:#0b5cab; --secondary-color:#5bb3ff; --dark-blue:#0d2a4a; --text-dark:#132235; --text-light:#4f637b; --bg-white:#ffffff; --bg-light:#f4f8fc; --border-color:#d9e5f2; }
+body { font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif; color:var(--text-dark); background:radial-gradient(circle at top right,#f7fbff 0%,#ffffff 45%); }
+h1,h2,h3,h4,.section-title,.week-topic,.week-number,.brand-name { font-family:'Space Grotesk','Inter',sans-serif; letter-spacing:-0.01em; }
+.section { margin-bottom:44px; }
+.card,.week-block,.project-card { border-radius:12px; border:1px solid var(--border-color); box-shadow:0 4px 16px rgba(13,42,74,0.06); }
+.welcome-section { background:linear-gradient(135deg,#eef6ff 0%,#f9fcff 100%); border-left:5px solid var(--primary-color); padding:28px; border-radius:12px; margin-bottom:36px; }
+.project-card { background:linear-gradient(135deg,#eef5ff 0%,#ffffff 60%); padding:20px; margin-bottom:14px; }
+.project-card h4 { color:var(--dark-blue); margin-bottom:8px; }
+.project-card p { color:var(--text-light); margin-bottom:10px; }
+.project-card ul { margin-left:18px; }
+.project-card li { margin:6px 0; }
+</style>
+<style id="curriculum-theme-override">
+:root { --primary-color:hsl(40 70% 42%); --secondary-color:hsl(64 82% 62%); --dark-blue:hsl(40 48% 18%); --text-dark:hsl(40 32% 14%); --text-light:hsl(40 18% 38%); --border-color:hsl(40 38% 86%); --bg-light:hsl(220 45% 97%); --theme-hero-a:hsl(40 85% 96%); --theme-hero-b:hsl(64 90% 98%); }
+body { background:radial-gradient(circle at 8% 0%, color-mix(in srgb, var(--theme-hero-a) 72%, white), #ffffff 46%); }
+.course-hero { background:linear-gradient(135deg,var(--theme-hero-a) 0%,var(--theme-hero-b) 100%); }
+.header { background:linear-gradient(135deg,color-mix(in srgb, var(--dark-blue) 90%, black), var(--primary-color)); }
+.section-title::before { background:linear-gradient(180deg,var(--primary-color),var(--secondary-color)); }
+.week-block { border-left:6px solid var(--primary-color); }
+</style>
+<style id="curriculum-contrast-fix">
+/* Final readability layer: resolves conflicting text/background and font overrides */
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif !important;
+  color: var(--text-dark) !important;
+  background-color: #ffffff;
+}
+h1, h2, h3, h4, .section-title, .week-topic, .week-number, .brand-name {
+  font-family: 'Space Grotesk', 'Inter', sans-serif !important;
+}
+
+/* Ensure light surfaces always use dark text */
+.container,
+.section,
+.card,
+.week-block,
+.week-column,
+.project-card,
+.welcome-section,
+.resource-item,
+.roadmap-card,
+.info-box {
+  color: var(--text-dark);
+}
+
+/* Keep hero as light panel with dark readable text */
+.course-hero,
+.course-hero h1,
+.course-hero h2,
+.course-hero h3,
+.course-hero h4,
+.course-hero p,
+.course-hero li,
+.course-hero span,
+.course-hero a {
+  color: var(--text-dark) !important;
+}
+
+/* Normalize dark surfaces so white text always has contrast */
+.brand-bar,
+.header,
+.footer {
+  background: linear-gradient(135deg, color-mix(in srgb, var(--dark-blue) 92%, black), var(--primary-color)) !important;
+}
+
+.header,
+.header h1,
+.header h2,
+.header h3,
+.header h4,
+.header p,
+.header li,
+.header span,
+.header strong,
+.header a,
+.brand-bar,
+.brand-bar h1,
+.brand-bar h2,
+.brand-bar h3,
+.brand-bar h4,
+.brand-bar p,
+.brand-bar li,
+.brand-bar span,
+.brand-bar strong,
+.brand-bar a,
+.footer,
+.footer h1,
+.footer h2,
+.footer h3,
+.footer h4,
+.footer p,
+.footer li,
+.footer span,
+.footer strong,
+.footer a {
+  color: #ffffff !important;
+}
+
+.brand-bar .brand-link,
+.brand-bar .qr-text,
+.footer p {
+  color: rgba(255, 255, 255, 0.92) !important;
+}
+
+/* Meta chips: readable in both dark and light contexts */
+.meta-item {
+  color: var(--text-dark);
+}
+.header .meta-item {
+  color: #ffffff !important;
+  background: rgba(255,255,255,0.16) !important;
+}
+
+/* Links and list readability */
+a { color: var(--primary-color); }
+a:hover { opacity: 0.9; }
+li { color: inherit; }
+
+.section-title,
+.week-topic,
+.project-card h4,
+.card h3,
+.welcome-section h2 {
+  opacity: 1 !important;
+}
+</style>
+<style id="curriculum-brandbar-contrast-fix">
+/* Brand bar readability fix */
+.brand-bar {
+  background: linear-gradient(135deg, color-mix(in srgb, var(--dark-blue) 88%, black), var(--primary-color)) !important;
+  border-color: color-mix(in srgb, var(--primary-color) 35%, white) !important;
+}
+.brand-bar .brand-name,
+.brand-bar .brand-link,
+.brand-bar .qr-text,
+.brand-bar .brand-text,
+.brand-bar .brand-meta,
+.brand-bar a,
+.brand-bar p,
+.brand-bar span,
+.brand-bar strong {
+  color: #ffffff !important;
+}
+.brand-bar .brand-link {
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.brand-bar .qr-block {
+  background: rgba(255,255,255,0.16) !important;
+  border-color: rgba(255,255,255,0.35) !important;
+}
+.brand-bar .qr-text {
+  opacity: 0.95;
+}
+</style>
+</head>
+<body>
+<div class="container">
+<div class="brand-bar">
+<div class="brand-meta">
+<img alt="Hexadigitall logo" src="../hexadigitall-logo-transparent.png"/>
+<div>
+<div class="brand-name">Hexadigitall Academy (Hexadigitall Technologies)</div>
+<a class="brand-link" href="https://www.hexadigitall.com">www.hexadigitall.com</a>
+</div>
+</div>
+<div class="qr-block">
+<img alt="Course QR Code" src="https://api.qrserver.com/v1/create-qr-code/?size=120x120&amp;data=https://www.hexadigitall.com/courses/advanced-javascript-mastery"/>
+<div class="qr-text">Scan to view the course page, enrollment options, and mentorship details.</div>
+</div>
+</div>
+<div class="course-hero">
+<div>
+<h2>Course Snapshot</h2>
+<p>Advanced JS: async/await, modules, patterns, performance, tooling, and clean code.</p>
+</div>
+<img alt="Advanced JavaScript Mastery" onerror="this.style.display='none'" src="../assets/images/courses/frontend-mastery-with-react-next-js.jpg"/>
+</div>
+<div class="header">
+<h1>Advanced JavaScript Mastery</h1>
+<p class="subtitle">A professionally structured weekly curriculum aligned to the level, tooling, and delivery expectations of this course.</p>
+<div class="course-meta">
+<div class="meta-item"><strong>Duration:</strong> 12 Weeks</div>
+<div class="meta-item"><strong>Level:</strong> Advanced</div>
+<div class="meta-item"><strong>Study Time:</strong> 2 hours/week + labs</div>
+</div>
+</div>
+        <!-- Welcome Section -->
+        <section class="welcome-section">
+            <h2>Welcome to Advanced JavaScript Mastery! 🎓</h2>
+            <p>This curriculum is designed to take you from core understanding to confident delivery through weekly applied practice, measurable outcomes, and portfolio evidence.</p>
+            <p>Each week builds progressively with practical tasks, implementation checkpoints, and reflection points so you can convert knowledge into repeatable professional performance.</p>
+            <p><strong>Your success is our priority.</strong> Stay consistent with weekly execution, document your work, and use feedback loops to continuously improve your delivery quality.</p>
+        </section>
+
+<div class="section">
+<h2 class="section-title">Prerequisites</h2>
+<div class="card">
+<ul><li>Programming language proficiency with solid grasp of data structures, algorithms, and design patterns</li><li>Version control mastery: Git workflows, code review, merge conflict resolution, and collaborative development</li><li>Testing fundamentals: unit testing, test-driven development, mocking, and test coverage analysis</li><li>Debugging and profiling skills: breakpoint debugging, performance flame graphs, and memory analysis</li></ul>
+</div>
+</div>
+<div class="section">
+<h2 class="section-title">Learning Outcomes</h2>
+<div class="card">
+<ul><li>Closures, prototypes, and prototype chain</li><li>Async/await, Promises, and callbacks</li><li>Modules and ES6+ features</li><li>Design patterns and best practices</li><li>Performance profiling and optimization</li><li>Testing and debugging techniques</li></ul>
+</div>
+</div>
+        <!-- Complementary Courses -->
+        <section class="section">
+            <h2 class="section-title">Recommended Complementary Courses</h2>
+            <div class="card">
+                <ul>
+                    <li>Pair this curriculum with a related foundation or advanced specialization to strengthen adjacent skill areas.</li>
+                    <li>Select one systems-focused and one delivery-focused course to improve both implementation depth and execution speed.</li>
+                    <li>Use complementary study tracks to broaden portfolio evidence and improve interview and project readiness.</li>
+                </ul>
+            </div>
+        </section>
+
+<div class="section">
+<h2 class="section-title">Essential Learning Resources</h2>
+<div class="card">
+<ul><li>Language-specific style guides, design patterns reference, and debugging tools inventory</li><li>Testing frameworks, mock libraries, and performance profiling instructions for your tech stack</li><li>Refactoring patterns, security best practices, and code quality tooling configurations</li></ul>
+</div>
+</div>
+<div class="section">
+<h2 class="section-title">Your Learning Roadmap</h2>
+<div class="roadmap-grid">
+<div class="roadmap-card"><h4>Foundation</h4><p>Weeks 1-3</p><ul><li>Early Weeks: Language fundamentals, testing basics, and design patterns</li><li>Middle Weeks: Advanced architectures, performance optimization, and debugging</li><li>Late Weeks: Production systems, scalability, and cross-platform deployment</li></ul></div><div class="roadmap-card"><h4>Build</h4><p>Weeks 4-6</p><ul><li>Promises, Async or Await, and Event Loop Internals</li><li>Error Handling, Retries, and Async Control Flow</li><li>ES Modules, Bundling, and Code Organization</li></ul></div><div class="roadmap-card"><h4>Integration</h4><p>Weeks 7-9</p><ul><li>Functional Patterns and Immutability Basics</li><li>Design Patterns in Modern JavaScript</li><li>DOM Performance and Rendering Costs</li></ul></div><div class="roadmap-card"><h4>Capstone</h4><p>Weeks 10-12</p><ul><li>Profiling, Memory Leaks, and Optimization</li><li>Testing JavaScript with Unit and Integration Approaches</li><li>Capstone: Architect and Optimize a Complex JavaScript Application</li></ul></div>
+</div>
+</div>
+<div class="section">
+<h2 class="section-title">Detailed Weekly Curriculum</h2>
+<div class="week-block">
+<div class="week-header">
+<span class="week-number">Week 1</span>
+<span class="week-duration">2 hours/week + labs</span>
+</div>
+<div class="week-topic">Execution Context, Scope Chain, and Closures</div>
+<div class="week-content">
+<ul><li>Analyze the principles of Execution Context, Scope Chain, and Closures and link them to course outcomes at advanced depth with architecture-level decision quality.</li><li>Evaluate Execution Context, Scope Chain, and Closures in a guided scenario using realistic tools, constraints, and quality gates.</li><li>Design trade-offs, risks, and decision points for Execution Context, Scope Chain, and Closures, then record rationale for stakeholder review.</li><li>Justify a portfolio-ready engineering implementation dossier for Execution Context, Scope Chain, and Closures with measurable success criteria and next actions.</li><li>Track measurable progress using rubric scores, defect/risk trends, and evidence completeness each week.</li><li>Run a short retrospective focused on what to retain, improve, and scale into the following week.</li><li>Incorporate peer or mentor feedback and revise the week deliverable to professional publication quality.</li><li>Publish the week output into your cumulative portfolio with concise outcome narrative and proof artifacts.</li></ul>
+</div>
+</div>
+<div class="week-block">
+<div class="week-header">
+<span class="week-number">Week 2</span>
+<span class="week-duration">2 hours/week + labs</span>
+</div>
+<div class="week-topic">Objects, Prototypes, and Inheritance Patterns</div>
+<div class="week-content">
+<ul><li>Analyze the principles of Objects, Prototypes, and Inheritance Patterns and link them to course outcomes at advanced depth with architecture-level decision quality.</li><li>Evaluate Objects, Prototypes, and Inheritance Patterns in a guided scenario using realistic tools, constraints, and quality gates.</li><li>Design trade-offs, risks, and decision points for Objects, Prototypes, and Inheritance Patterns, then record rationale for stakeholder review.</li><li>Justify a portfolio-ready engineering implementation dossier for Objects, Prototypes, and Inheritance Patterns with measurable success criteria and next actions.</li><li>Track measurable progress using rubric scores, defect/risk trends, and evidence completeness each week.</li><li>Run a short retrospective focused on what to retain, improve, and scale into the following week.</li><li>Incorporate peer or mentor feedback and revise the week deliverable to professional publication quality.</li><li>Publish the week output into your cumulative portfolio with concise outcome narrative and proof artifacts.</li></ul>
+</div>
+</div>
+<div class="week-block">
+<div class="week-header">
+<span class="week-number">Week 3</span>
+<span class="week-duration">2 hours/week + labs</span>
+</div>
+<div class="week-topic">this, bind, call, apply, and Function Invocation</div>
+<div class="week-content">
+<ul><li>Analyze the principles of this, bind, call, apply, and Function Invocation and link them to course outcomes at advanced depth with architecture-level decision quality.</li><li>Evaluate this, bind, call, apply, and Function Invocation in a guided scenario using realistic tools, constraints, and quality gates.</li><li>Design trade-offs, risks, and decision points for this, bind, call, apply, and Function Invocation, then record rationale for stakeholder review.</li><li>Justify a portfolio-ready engineering implementation dossier for this, bind, call, apply, and Function Invocation with measurable success criteria and next actions.</li><li>Track measurable progress using rubric scores, defect/risk trends, and evidence completeness each week.</li><li>Run a short retrospective focused on what to retain, improve, and scale into the following week.</li><li>Incorporate peer or mentor feedback and revise the week deliverable to professional publication quality.</li><li>Publish the week output into your cumulative portfolio with concise outcome narrative and proof artifacts.</li></ul>
+</div>
+</div>
+<div class="week-block">
+<div class="week-header">
+<span class="week-number">Week 4</span>
+<span class="week-duration">2 hours/week + labs</span>
+</div>
+<div class="week-topic">Promises, Async or Await, and Event Loop Internals</div>
+<div class="week-content">
+<ul><li>Analyze the principles of Promises, Async or Await, and Event Loop Internals and link them to course outcomes at advanced depth with architecture-level decision quality.</li><li>Evaluate Promises, Async or Await, and Event Loop Internals in a guided scenario using realistic tools, constraints, and quality gates.</li><li>Design trade-offs, risks, and decision points for Promises, Async or Await, and Event Loop Internals, then record rationale for stakeholder review.</li><li>Justify a portfolio-ready engineering implementation dossier for Promises, Async or Await, and Event Loop Internals with measurable success criteria and next actions.</li><li>Track measurable progress using rubric scores, defect/risk trends, and evidence completeness each week.</li><li>Run a short retrospective focused on what to retain, improve, and scale into the following week.</li><li>Incorporate peer or mentor feedback and revise the week deliverable to professional publication quality.</li><li>Publish the week output into your cumulative portfolio with concise outcome narrative and proof artifacts.</li></ul>
+</div>
+</div>
+<div class="week-block">
+<div class="week-header">
+<span class="week-number">Week 5</span>
+<span class="week-duration">2 hours/week + labs</span>
+</div>
+<div class="week-topic">Error Handling, Retries, and Async Control Flow</div>
+<div class="week-content">
+<ul><li>Evaluate the principles of Error Handling, Retries, and Async Control Flow and link them to course outcomes at advanced depth with architecture-level decision quality.</li><li>Design Error Handling, Retries, and Async Control Flow in a guided scenario using realistic tools, constraints, and quality gates.</li><li>Optimize trade-offs, risks, and decision points for Error Handling, Retries, and Async Control Flow, then record rationale for stakeholder review.</li><li>Justify a portfolio-ready engineering implementation dossier for Error Handling, Retries, and Async Control Flow with measurable success criteria and next actions.</li><li>Track measurable progress using rubric scores, defect/risk trends, and evidence completeness each week.</li><li>Run a short retrospective focused on what to retain, improve, and scale into the following week.</li><li>Incorporate peer or mentor feedback and revise the week deliverable to professional publication quality.</li><li>Publish the week output into your cumulative portfolio with concise outcome narrative and proof artifacts.</li></ul>
+</div>
+</div>
+<div class="week-block">
+<div class="week-header">
+<span class="week-number">Week 6</span>
+<span class="week-duration">2 hours/week + labs</span>
+</div>
+<div class="week-topic">ES Modules, Bundling, and Code Organization</div>
+<div class="week-content">
+<ul><li>Evaluate the principles of ES Modules, Bundling, and Code Organization and link them to course outcomes at advanced depth with architecture-level decision quality.</li><li>Design ES Modules, Bundling, and Code Organization in a guided scenario using realistic tools, constraints, and quality gates.</li><li>Optimize trade-offs, risks, and decision points for ES Modules, Bundling, and Code Organization, then record rationale for stakeholder review.</li><li>Justify a portfolio-ready engineering implementation dossier for ES Modules, Bundling, and Code Organization with measurable success criteria and next actions.</li><li>Track measurable progress using rubric scores, defect/risk trends, and evidence completeness each week.</li><li>Run a short retrospective focused on what to retain, improve, and scale into the following week.</li><li>Incorporate peer or mentor feedback and revise the week deliverable to professional publication quality.</li><li>Publish the week output into your cumulative portfolio with concise outcome narrative and proof artifacts.</li></ul>
+</div>
+</div>
+<div class="week-block">
+<div class="week-header">
+<span class="week-number">Week 7</span>
+<span class="week-duration">2 hours/week + labs</span>
+</div>
+<div class="week-topic">Functional Patterns and Immutability Basics</div>
+<div class="week-content">
+<ul><li>Evaluate the principles of Functional Patterns and Immutability Basics and link them to course outcomes at advanced depth with architecture-level decision quality.</li><li>Design Functional Patterns and Immutability Basics in a guided scenario using realistic tools, constraints, and quality gates.</li><li>Optimize trade-offs, risks, and decision points for Functional Patterns and Immutability Basics, then record rationale for stakeholder review.</li><li>Justify a portfolio-ready engineering implementation dossier for Functional Patterns and Immutability Basics with measurable success criteria and next actions.</li><li>Track measurable progress using rubric scores, defect/risk trends, and evidence completeness each week.</li><li>Run a short retrospective focused on what to retain, improve, and scale into the following week.</li><li>Incorporate peer or mentor feedback and revise the week deliverable to professional publication quality.</li><li>Publish the week output into your cumulative portfolio with concise outcome narrative and proof artifacts.</li></ul>
+</div>
+</div>
+<div class="week-block">
+<div class="week-header">
+<span class="week-number">Week 8</span>
+<span class="week-duration">2 hours/week + labs</span>
+</div>
+<div class="week-topic">Design Patterns in Modern JavaScript</div>
+<div class="week-content">
+<ul><li>Evaluate the principles of Design Patterns in Modern JavaScript and link them to course outcomes at advanced depth with architecture-level decision quality.</li><li>Design Design Patterns in Modern JavaScript in a guided scenario using realistic tools, constraints, and quality gates.</li><li>Optimize trade-offs, risks, and decision points for Design Patterns in Modern JavaScript, then record rationale for stakeholder review.</li><li>Justify a portfolio-ready engineering implementation dossier for Design Patterns in Modern JavaScript with measurable success criteria and next actions.</li><li>Track measurable progress using rubric scores, defect/risk trends, and evidence completeness each week.</li><li>Run a short retrospective focused on what to retain, improve, and scale into the following week.</li><li>Incorporate peer or mentor feedback and revise the week deliverable to professional publication quality.</li><li>Publish the week output into your cumulative portfolio with concise outcome narrative and proof artifacts.</li></ul>
+</div>
+</div>
+<div class="week-block">
+<div class="week-header">
+<span class="week-number">Week 9</span>
+<span class="week-duration">2 hours/week + labs</span>
+</div>
+<div class="week-topic">DOM Performance and Rendering Costs</div>
+<div class="week-content">
+<ul><li>Design the principles of DOM Performance and Rendering Costs and link them to course outcomes at advanced depth with architecture-level decision quality.</li><li>Optimize DOM Performance and Rendering Costs in a guided scenario using realistic tools, constraints, and quality gates.</li><li>Architect trade-offs, risks, and decision points for DOM Performance and Rendering Costs, then record rationale for stakeholder review.</li><li>Defend a portfolio-ready engineering implementation dossier for DOM Performance and Rendering Costs with measurable success criteria and next actions.</li><li>Track measurable progress using rubric scores, defect/risk trends, and evidence completeness each week.</li><li>Run a short retrospective focused on what to retain, improve, and scale into the following week.</li><li>Incorporate peer or mentor feedback and revise the week deliverable to professional publication quality.</li><li>Publish the week output into your cumulative portfolio with concise outcome narrative and proof artifacts.</li></ul>
+</div>
+</div>
+<div class="week-block">
+<div class="week-header">
+<span class="week-number">Week 10</span>
+<span class="week-duration">2 hours/week + labs</span>
+</div>
+<div class="week-topic">Profiling, Memory Leaks, and Optimization</div>
+<div class="week-content">
+<ul><li>Design the principles of Profiling, Memory Leaks, and Optimization and link them to course outcomes at advanced depth with architecture-level decision quality.</li><li>Optimize Profiling, Memory Leaks, and Optimization in a guided scenario using realistic tools, constraints, and quality gates.</li><li>Architect trade-offs, risks, and decision points for Profiling, Memory Leaks, and Optimization, then record rationale for stakeholder review.</li><li>Defend a portfolio-ready engineering implementation dossier for Profiling, Memory Leaks, and Optimization with measurable success criteria and next actions.</li><li>Track measurable progress using rubric scores, defect/risk trends, and evidence completeness each week.</li><li>Run a short retrospective focused on what to retain, improve, and scale into the following week.</li><li>Incorporate peer or mentor feedback and revise the week deliverable to professional publication quality.</li><li>Publish the week output into your cumulative portfolio with concise outcome narrative and proof artifacts.</li></ul>
+</div>
+</div>
+<div class="week-block">
+<div class="week-header">
+<span class="week-number">Week 11</span>
+<span class="week-duration">2 hours/week + labs</span>
+</div>
+<div class="week-topic">Testing JavaScript with Unit and Integration Approaches</div>
+<div class="week-content">
+<ul><li>Design the principles of Testing JavaScript with Unit and Integration Approaches and link them to course outcomes at advanced depth with architecture-level decision quality.</li><li>Optimize Testing JavaScript with Unit and Integration Approaches in a guided scenario using realistic tools, constraints, and quality gates.</li><li>Architect trade-offs, risks, and decision points for Testing JavaScript with Unit and Integration Approaches, then record rationale for stakeholder review.</li><li>Defend a portfolio-ready engineering implementation dossier for Testing JavaScript with Unit and Integration Approaches with measurable success criteria and next actions.</li><li>Track measurable progress using rubric scores, defect/risk trends, and evidence completeness each week.</li><li>Run a short retrospective focused on what to retain, improve, and scale into the following week.</li><li>Incorporate peer or mentor feedback and revise the week deliverable to professional publication quality.</li><li>Publish the week output into your cumulative portfolio with concise outcome narrative and proof artifacts.</li></ul>
+</div>
+</div>
+<div class="week-block">
+<div class="week-header">
+<span class="week-number">Week 12</span>
+<span class="week-duration">2 hours/week + labs</span>
+</div>
+<div class="week-topic">Capstone: Architect and Optimize a Complex JavaScript Application</div>
+<div class="week-content">
+<ul><li>Design the principles of Capstone: Architect and Optimize a Complex JavaScript Application and link them to course outcomes at advanced depth with architecture-level decision quality.</li><li>Optimize Capstone: Architect and Optimize a Complex JavaScript Application in a guided scenario using realistic tools, constraints, and quality gates.</li><li>Architect trade-offs, risks, and decision points for Capstone: Architect and Optimize a Complex JavaScript Application, then record rationale for stakeholder review.</li><li>Defend a portfolio-ready engineering implementation dossier for Capstone: Architect and Optimize a Complex JavaScript Application with measurable success criteria and next actions.</li><li>Track measurable progress using rubric scores, defect/risk trends, and evidence completeness each week.</li><li>Run a short retrospective focused on what to retain, improve, and scale into the following week.</li><li>Incorporate peer or mentor feedback and revise the week deliverable to professional publication quality.</li><li>Publish the week output into your cumulative portfolio with concise outcome narrative and proof artifacts.</li></ul>
+</div>
+</div>
+</div>
+<div class="section">
+<h2 class="section-title">Capstone Projects</h2>
+<div class="project-card"><h4>Project 1: Async Data Workflow Engine</h4><p>Build a resilient asynchronous module that handles concurrency, retries, and cancellation patterns.</p><ul><li>Promise orchestration and error-boundary implementation</li><li>Structured logging and failure simulation results</li><li>Technical notes on event loop and queue behavior</li></ul></div><div class="project-card"><h4>Project 2: Modular JavaScript Architecture Refactor</h4><p>Refactor a medium-sized codebase using modules, patterns, and immutability principles.</p><ul><li>Pattern selection rationale and architecture diagram</li><li>Performance improvements with measured outcomes</li><li>Test suite covering critical module behavior</li></ul></div><div class="project-card"><h4>Project 3: Final Advanced JavaScript Capstone</h4><p>Deliver a complex JavaScript application that demonstrates architecture, performance, and testing maturity.</p><ul><li>End-to-end implementation with production-style structure</li><li>Profiling evidence and optimization decisions</li><li>Technical defense deck and implementation roadmap</li></ul></div>
+</div>
+<div class="section">
+<h2 class="section-title">Study Tips</h2>
+<div class="card">
+<ul><li>Reserve two weekly deep-work sessions for code quality review, refactoring, and cross-browser/platform testing.</li><li>Maintain a technical debt ledger tracking complexity hotspots, test gaps, and performance bottlenecks requiring attention.</li><li>Run weekly code review discussions, learning from peer feedback and measuring code quality metrics (coverage, maintainability index, cyclomatic complexity).</li></ul>
+</div>
+</div>
+        <!-- Study Tips -->
+        <section class="section">
+            <h2 class="section-title">Study Tips for Success</h2>
+            <div class="card">
+                <ul>
+                    <li>Protect consistent weekly practice time and complete hands-on work before moving to the next topic.</li>
+                    <li>Document implementation decisions, trade-offs, and lessons learned after each weekly deliverable.</li>
+                    <li>Review feedback quickly and ship an improved revision within the same week to reinforce retention.</li>
+                    <li>Track measurable progress with checklists, test evidence, and milestone outcomes.</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- About Course -->
+        <section class="section">
+            <h2 class="section-title">About Advanced JavaScript Mastery</h2>
+            <div class="card">
+                <p>This curriculum is structured to build practical capability, consistent delivery discipline, and portfolio-ready outcomes in Advanced JavaScript Mastery. It combines conceptual understanding with applied execution so learners can perform confidently in real project environments.</p>
+            </div>
+        </section>
+
+<div class="footer">
+<p>© 2026 Hexadigitall Academy (Hexadigitall Technologies). Curriculum authored for Advanced JavaScript Mastery.</p>
+</div>
+</div>
+</body>
+</html>

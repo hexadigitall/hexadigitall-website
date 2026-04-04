@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cloud Security Architect Roadmap | 2026</title>
+    <style>
+        /* --- 1. CORE RESET & VARIABLES --- */
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        :root {
+            --brand-navy: #0f172a;
+            --brand-blue: #2563eb;
+            --accent-red: #be123c;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --bg-light: #f8fafc;
+            --border: #e2e8f0;
+        }
+
+        body { 
+            font-family: 'Inter', -apple-system, system-ui, sans-serif; 
+            background: var(--bg-light); 
+            color: var(--text-main);
+            line-height: 1.6;
+            padding: 20px;
+            overflow-x: hidden;
+        }
+
+        /* --- 2. THE MASTER WRAPPER --- */
+        #roadmap-root {
+            width: 100%;
+            max-width: 950px;
+            margin: 0 auto;
+            background: #ffffff;
+            padding: clamp(1.5rem, 5vw, 3.5rem);
+            border-radius: 4px;
+            border-top: 12px solid var(--brand-navy);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 3rem;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 2rem;
+        }
+
+        .header h1 { 
+            font-size: clamp(1.5rem, 6vw, 2.25rem); 
+            color: var(--brand-navy); 
+            letter-spacing: -0.05em;
+            text-transform: uppercase;
+        }
+
+        .header p { 
+            font-size: 1rem; 
+            color: var(--brand-blue); 
+            font-weight: 600; 
+            margin-top: 0.5rem; 
+        }
+
+        /* --- 3. EXHAUSTIVE GRID SYSTEM --- */
+        .phase { margin-bottom: 3rem; }
+        
+        .phase-title {
+            font-size: 1.1rem;
+            font-weight: 800;
+            color: var(--brand-navy);
+            margin-bottom: 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            display: flex;
+            align-items: center;
+            border-left: 4px solid var(--brand-blue);
+            padding-left: 15px;
+        }
+
+        .grid {
+            display: grid;
+            /* Adaptive grid: 1 col on mobile, 2 col on tablet/desktop */
+            grid-template-columns: repeat(auto-fit, minmax(min(100%, 400px), 1fr));
+            gap: 1.5rem;
+        }
+
+        .card {
+            border: 1px solid var(--border);
+            padding: 1.5rem;
+            border-radius: 8px;
+            background: #fff;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            position: relative;
+            page-break-inside: avoid;
+        }
+
+        .card:hover { border-color: var(--brand-blue); }
+
+        .card h4 { 
+            color: var(--accent-red); 
+            font-size: 1.1rem; 
+            font-weight: 700;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .card p { font-size: 0.9rem; color: var(--text-muted); }
+
+        .skill-tag {
+            font-size: 0.7rem;
+            background: #f1f5f9;
+            color: var(--brand-navy);
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-weight: 600;
+        }
+
+        /* --- 4. ACTION CONTROLS --- */
+        .actions {
+            max-width: 950px;
+            margin: 0 auto 1.5rem auto;
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .btn-print {
+            background: var(--brand-navy);
+            color: white;
+            padding: 12px 28px;
+            border: none;
+            border-radius: 6px;
+            font-weight: 700;
+            cursor: pointer;
+            font-size: 1rem;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+        }
+
+        /* --- 5. PRINT PREVIEW & MOBILE OVERRIDES --- */
+        @media screen and (max-width: 500px) {
+            body { padding: 10px; }
+            #roadmap-root { padding: 1.5rem; border-radius: 0; }
+        }
+
+        @media print {
+            .actions { display: none !important; }
+            body { background: white; padding: 0; }
+            #roadmap-root { 
+                box-shadow: none; 
+                border: none;
+                width: 100%; 
+                padding: 10mm; 
+            }
+            .grid { 
+                grid-template-columns: 1fr 1fr !important; 
+                gap: 20px;
+            }
+            -webkit-print-color-adjust: exact !important;
+            print-color-adjust: exact !important;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="actions">
+        <button class="btn-print" onclick="window.print()">Open Print Preview</button>
+    </div>
+
+    <div id="roadmap-root">
+        <div class="header">
+            <h1>Cloud Security Engineer</h1>
+            <p>Infrastructure Defense & Security-as-Code Roadmap</p>
+        </div>
+
+        <div class="phase">
+            <h2 class="phase-title">01. Identity & Access Governance</h2>
+            <div class="grid">
+                <div class="card">
+                    <h4>Zero Trust Architecture <span class="skill-tag">Core</span></h4>
+                    <p>Moving beyond perimeters to verify every request. Implementing Identity-Aware Proxies and micro-segmentation.</p>
+                </div>
+                <div class="card">
+                    <h4>Advanced IAM Engineering <span class="skill-tag">Core</span></h4>
+                    <p>Complex Permission Boundaries, Attribute-Based Access Control (ABAC), and JIT (Just-In-Time) access elevating.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="phase">
+            <h2 class="phase-title">02. Infrastructure Protection (IaC Security)</h2>
+            <div class="grid">
+                <div class="card">
+                    <h4>Policy as Code (OPA/Rego) <span class="skill-tag">Essential</span></h4>
+                    <p>Writing declarative security policies to enforce compliance across Terraform and Kubernetes deployments.</p>
+                </div>
+                <div class="card">
+                    <h4>Shift-Left Scanning <span class="skill-tag">Essential</span></h4>
+                    <p>Integrating Checkov, Tfsec, and KICS into GitOps pipelines to block insecure resource provisioning.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="phase">
+            <h2 class="phase-title">03. Secrets & Data Security</h2>
+            <div class="grid">
+                <div class="card">
+                    <h4>Vault & Secret Orchestration <span class="skill-tag">Expert</span></h4>
+                    <p>Deploying HashiCorp Vault for dynamic secrets, encryption engines, and lifecycle rotation of service credentials.</p>
+                </div>
+                <div class="card">
+                    <h4>Data Sovereignty & Encryption <span class="skill-tag">Expert</span></h4>
+                    <p>Managing KMS Key Policies, Hardware Security Modules (HSM), and envelope encryption at scale.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="phase">
+            <h2 class="phase-title">04. Supply Chain & Workload Security</h2>
+            <div class="grid">
+                <div class="card">
+                    <h4>Container Integrity <span class="skill-tag">Specialist</span></h4>
+                    <p>Implementing Image Signing (Cosign), SBOM generation, and runtime threat detection with Falco.</p>
+                </div>
+                <div class="card">
+                    <h4>Threat Modeling & Auditing <span class="skill-tag">Specialist</span></h4>
+                    <p>Conducting STRIDE assessments and automating continuous compliance auditing (AWS Config/Azure Policy).</p>
+                </div>
+            </div>
+        </div>
+
+        <footer style="text-align: center; margin-top: 3rem; font-size: 0.9rem; border-top: 2px solid var(--bg-light); padding-top: 1.5rem;">
+            <a href="https://hexadigitall.com" style="color: var(--brand-blue); text-decoration: none; font-weight: 700;">HEXADIGITALL.COM</a>
+            <p style="color: var(--text-muted); font-size: 0.75rem; margin-top: 5px;">Enterprise Security Engineering & Cloud Architecture &copy; 2026</p>
+        </footer>
+    </div>
+
+</body>
+</html>

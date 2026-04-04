@@ -1,13 +1,14 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Linux Administration & Shell Scripting Pro - Course Curriculum</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
-    <style>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Linux Administration &amp; Shell Scripting Pro - Course Curriculum</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&amp;family=JetBrains+Mono:wght@400;500;600;700&amp;family=Space+Grotesk:wght@500;600;700&amp;display=swap" rel="stylesheet"/>
+<style>
         * {
             margin: 0;
             padding: 0;
@@ -783,436 +784,510 @@
             margin: 15mm 12mm;
         }
     </style>
+
+
+
+<style id="curriculum-ui-normalization">
+:root { --primary-color:#0b5cab; --secondary-color:#5bb3ff; --dark-blue:#0d2a4a; --text-dark:#132235; --text-light:#4f637b; --bg-white:#ffffff; --bg-light:#f4f8fc; --border-color:#d9e5f2; }
+body { font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif; color:var(--text-dark); background:radial-gradient(circle at top right,#f7fbff 0%,#ffffff 45%); }
+h1,h2,h3,h4,.section-title,.week-topic,.week-number,.brand-name { font-family:'Space Grotesk','Inter',sans-serif; letter-spacing:-0.01em; }
+.section { margin-bottom:44px; }
+.card,.week-block,.project-card { border-radius:12px; border:1px solid var(--border-color); box-shadow:0 4px 16px rgba(13,42,74,0.06); }
+.welcome-section { background:linear-gradient(135deg,#eef6ff 0%,#f9fcff 100%); border-left:5px solid var(--primary-color); padding:28px; border-radius:12px; margin-bottom:36px; }
+.project-card { background:linear-gradient(135deg,#eef5ff 0%,#ffffff 60%); padding:20px; margin-bottom:14px; }
+.project-card h4 { color:var(--dark-blue); margin-bottom:8px; }
+.project-card p { color:var(--text-light); margin-bottom:10px; }
+.project-card ul { margin-left:18px; }
+.project-card li { margin:6px 0; }
+</style>
+<style id="curriculum-theme-override">
+:root { --primary-color:hsl(21 70% 42%); --secondary-color:hsl(45 82% 62%); --dark-blue:hsl(21 48% 18%); --text-dark:hsl(21 32% 14%); --text-light:hsl(21 18% 38%); --border-color:hsl(21 38% 86%); --bg-light:hsl(201 45% 97%); --theme-hero-a:hsl(21 85% 96%); --theme-hero-b:hsl(45 90% 98%); }
+body { background:radial-gradient(circle at 8% 0%, color-mix(in srgb, var(--theme-hero-a) 72%, white), #ffffff 46%); }
+.course-hero { background:linear-gradient(135deg,var(--theme-hero-a) 0%,var(--theme-hero-b) 100%); }
+.header { background:linear-gradient(135deg,color-mix(in srgb, var(--dark-blue) 90%, black), var(--primary-color)); }
+.section-title::before { background:linear-gradient(180deg,var(--primary-color),var(--secondary-color)); }
+.week-block { border-left:6px solid var(--primary-color); }
+</style>
+<style id="curriculum-contrast-fix">
+/* Final readability layer: resolves conflicting text/background and font overrides */
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif !important;
+  color: var(--text-dark) !important;
+  background-color: #ffffff;
+}
+h1, h2, h3, h4, .section-title, .week-topic, .week-number, .brand-name {
+  font-family: 'Space Grotesk', 'Inter', sans-serif !important;
+}
+
+/* Ensure light surfaces always use dark text */
+.container,
+.section,
+.card,
+.week-block,
+.week-column,
+.project-card,
+.welcome-section,
+.resource-item,
+.roadmap-card,
+.info-box {
+  color: var(--text-dark);
+}
+
+/* Keep hero as light panel with dark readable text */
+.course-hero,
+.course-hero h1,
+.course-hero h2,
+.course-hero h3,
+.course-hero h4,
+.course-hero p,
+.course-hero li,
+.course-hero span,
+.course-hero a {
+  color: var(--text-dark) !important;
+}
+
+/* Normalize dark surfaces so white text always has contrast */
+.brand-bar,
+.header,
+.footer {
+  background: linear-gradient(135deg, color-mix(in srgb, var(--dark-blue) 92%, black), var(--primary-color)) !important;
+}
+
+.header,
+.header h1,
+.header h2,
+.header h3,
+.header h4,
+.header p,
+.header li,
+.header span,
+.header strong,
+.header a,
+.brand-bar,
+.brand-bar h1,
+.brand-bar h2,
+.brand-bar h3,
+.brand-bar h4,
+.brand-bar p,
+.brand-bar li,
+.brand-bar span,
+.brand-bar strong,
+.brand-bar a,
+.footer,
+.footer h1,
+.footer h2,
+.footer h3,
+.footer h4,
+.footer p,
+.footer li,
+.footer span,
+.footer strong,
+.footer a {
+  color: #ffffff !important;
+}
+
+.brand-bar .brand-link,
+.brand-bar .qr-text,
+.footer p {
+  color: rgba(255, 255, 255, 0.92) !important;
+}
+
+/* Meta chips: readable in both dark and light contexts */
+.meta-item {
+  color: var(--text-dark);
+}
+.header .meta-item {
+  color: #ffffff !important;
+  background: rgba(255,255,255,0.16) !important;
+}
+
+/* Links and list readability */
+a { color: var(--primary-color); }
+a:hover { opacity: 0.9; }
+li { color: inherit; }
+
+.section-title,
+.week-topic,
+.project-card h4,
+.card h3,
+.welcome-section h2 {
+  opacity: 1 !important;
+}
+</style>
+<style id="curriculum-brandbar-contrast-fix">
+/* Brand bar readability fix */
+.brand-bar {
+  background: linear-gradient(135deg, color-mix(in srgb, var(--dark-blue) 88%, black), var(--primary-color)) !important;
+  border-color: color-mix(in srgb, var(--primary-color) 35%, white) !important;
+}
+.brand-bar .brand-name,
+.brand-bar .brand-link,
+.brand-bar .qr-text,
+.brand-bar .brand-text,
+.brand-bar .brand-meta,
+.brand-bar a,
+.brand-bar p,
+.brand-bar span,
+.brand-bar strong {
+  color: #ffffff !important;
+}
+.brand-bar .brand-link {
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.brand-bar .qr-block {
+  background: rgba(255,255,255,0.16) !important;
+  border-color: rgba(255,255,255,0.35) !important;
+}
+.brand-bar .qr-text {
+  opacity: 0.95;
+}
+</style>
 </head>
 <body>
-    <div class="container">
-        <div class="brand-bar">
-            <div class="brand-meta">
-                <img src="../hexadigitall-logo-transparent.png" alt="Hexadigitall Technologies logo">
-                <div class="brand-text">
-                    <span class="brand-name">Hexadigitall Technologies</span>
-                    <a class="brand-link" href="https://hexadigitall.com" target="_blank" rel="noopener">https://hexadigitall.com</a>
-                </div>
-            </div>
-            <div class="qr-block">
-                <img src="https://api.qrserver.com/v1/create-qr-code/?size=240x240&data=https%3A%2F%2Fwww.hexadigitall.com%2Fcourses%2Flinux-administration-shell-scripting" alt="QR code to the Linux Administration & Shell Scripting Pro course page">
-                <div class="qr-text">
+<div class="container">
+<div class="brand-bar">
+<div class="brand-meta">
+<img alt="Hexadigitall Technologies logo" src="../hexadigitall-logo-transparent.png"/>
+<div class="brand-text">
+<span class="brand-name">Hexadigitall Technologies</span>
+<a class="brand-link" href="https://hexadigitall.com" rel="noopener" target="_blank">https://hexadigitall.com</a>
+</div>
+</div>
+<div class="qr-block">
+<img alt="QR code to the Linux Administration &amp; Shell Scripting Pro course page" src="https://api.qrserver.com/v1/create-qr-code/?size=240x240&amp;data=https%3A%2F%2Fwww.hexadigitall.com%2Fcourses%2Flinux-administration-shell-scripting"/>
+<div class="qr-text">
                     Scan to open this course page, enroll, and access live updates.
                 </div>
-            </div>
-        </div>
-        <div class="course-hero">
-            <div>
-                <h2>Course Snapshot</h2>
-                <p>Master the Linux command line, automation, and shell scripting with real-world labs and DevOps-ready skills.</p>
-            </div>
-            <img src="../og-images/linux-administration-shell-scripting-pro.jpg" alt="Linux Administration & Shell Scripting Pro course cover image">
-        </div>
-        <!-- Header -->
-        <header class="header">
-            <h1>Linux Administration & Shell Scripting Pro</h1>
-            <div class="subtitle">Master the Command Line & Become a Linux Power User</div>
-            <div class="course-meta">
-                <div class="meta-item">
-                    <strong>Duration:</strong> 10 Weeks
+</div>
+</div>
+<div class="course-hero">
+<div>
+<h2>Course Snapshot</h2>
+<p>Master the Linux command line, automation, and shell scripting with real-world labs and DevOps-ready skills.</p>
+</div>
+<img alt="Linux Administration &amp; Shell Scripting Pro course cover image" src="../assets/images/courses/linux-administration-shell-scripting-pro.jpg"/>
+</div>
+<!-- Header -->
+<header class="header">
+<h1>Linux Administration &amp; Shell Scripting Pro</h1>
+<div class="subtitle">Master the Command Line &amp; Become a Linux Power User</div>
+<div class="course-meta">
+<div class="meta-item">
+<strong>Duration:</strong> 10 Weeks
                 </div>
-                <div class="meta-item">
-                    <strong>Level:</strong> Intermediate
+<div class="meta-item">
+<strong>Level:</strong> Intermediate
                 </div>
-                <div class="meta-item">
-                    <strong>Study Time:</strong> 5 hours/week
+<div class="meta-item">
+<strong>Study Time:</strong> 5 hours/week
                 </div>
-                <div class="meta-item">
-                    <strong>School:</strong> Cloud & DevOps
+<div class="meta-item">
+<strong>School:</strong> Cloud &amp; DevOps
                 </div>
-                <div class="meta-item">
-                    <strong>Modules:</strong> 5
+<div class="meta-item">
+<strong>Modules:</strong> 5
                 </div>
-                <div class="meta-item">
-                    <strong>Lessons:</strong> 25
+<div class="meta-item">
+<strong>Lessons:</strong> 25
                 </div>
-            </div>
-        </header>
-
-        <!-- Welcome Section -->
-        <section class="welcome-section">
-            <h2>Welcome to Linux Mastery! 🐧</h2>
-            <p>
-                Welcome to your comprehensive journey into Linux administration and shell scripting! This 10-week intensive 
-                program is designed to transform you from a Linux user into a proficient system administrator and automation expert.
-            </p>
-            <p>
-                Linux powers over 96% of the world's top 1 million web servers, and shell scripting is the backbone of 
-                automation in DevOps, cloud computing, and system administration. By mastering these skills, you'll open 
-                doors to countless career opportunities in the tech industry.
-            </p>
-            <p>
+</div>
+</header>
+<!-- Welcome Section -->
+<section class="welcome-section">
+<h2>Welcome to Linux Mastery! 🐧</h2>
+<p>This curriculum for Linux Administration &amp; Shell Scripting Pro follows a Bloom-aligned progression from practical foundations to measurable professional outcomes, with weekly evidence, labs, and portfolio outputs matched to intermediate expectations.</p>
+<p>Each week advances from comprehension and application toward evaluation and creation, ensuring progressive learning and capstone readiness.</p>
+<p>
                 Throughout this course, you'll dive deep into Linux system administration, master the command line, 
                 write powerful shell scripts, and learn automation techniques used by industry professionals. 
                 You'll work on real-world scenarios, complete hands-on labs, and build a portfolio of practical scripts.
             </p>
-            <p>
-                <strong>Get ready to unlock the power of Linux!</strong> This course emphasizes practical, hands-on learning 
+<p>
+<strong>Get ready to unlock the power of Linux!</strong> This course emphasizes practical, hands-on learning 
                 with 5 modules covering 25 comprehensive lessons. By the end, you'll be confident managing Linux systems 
                 and automating complex workflows.
             </p>
-        </section>
-
-        <!-- Prerequisites Section -->
-        <section class="section">
-            <h2 class="section-title">Prerequisites & What You Should Know</h2>
-            <div class="card">
-                <h3>Before Starting This Course</h3>
-                <ul class="checklist">
-                    <li>Basic computer literacy and familiarity with using computers</li>
-                    <li>Understanding of file systems and directory structures</li>
-                    <li>Basic text editing skills (using any text editor)</li>
-                    <li>Fundamental programming concepts (variables, loops, conditionals) - helpful but not required</li>
-                    <li>Willingness to work with command-line interfaces</li>
-                    <li>Access to a computer (Windows, Mac, or Linux) for lab practice</li>
-                </ul>
-            </div>
-
-            <div class="info-box">
-                <strong>💡 Getting Started:</strong>
+</section>
+<!-- Prerequisites Section -->
+<section class="section">
+<h2 class="section-title">Prerequisites &amp; What You Should Know</h2>
+<div class="card">
+<h3>Before Starting This Course</h3>
+<ul class="checklist">
+<li>Basic computer literacy and familiarity with using computers</li>
+<li>Understanding of file systems and directory structures</li>
+<li>Basic text editing skills (using any text editor)</li>
+<li>Fundamental programming concepts (variables, loops, conditionals) - helpful but not required</li>
+<li>Willingness to work with command-line interfaces</li>
+<li>Access to a computer (Windows, Mac, or Linux) for lab practice</li>
+</ul>
+</div>
+<div class="info-box">
+<strong>💡 Getting Started:</strong>
                 You'll need a Linux environment for hands-on practice. We recommend using VirtualBox with Ubuntu, 
                 Windows Subsystem for Linux (WSL2), or a cloud instance (AWS EC2, Azure VM). Setup instructions 
                 will be provided in Week 1.
             </div>
-        </section>
-
-        <!-- Complementary Courses -->
-        <section class="section">
-            <h2 class="section-title">Recommended Complementary Courses</h2>
-            <div class="resource-grid">
-                <div class="resource-item">
-                    <h4>DevOps Engineering & Kubernetes</h4>
-                    <p style="font-size: 13px; color: var(--text-light); margin-top: 8px;">
+</section>
+<!-- Complementary Courses -->
+<section class="section">
+<h2 class="section-title">Recommended Complementary Courses</h2>
+<div class="resource-grid">
+<div class="resource-item">
+<h4>DevOps Engineering &amp; Kubernetes</h4>
+<p style="font-size: 13px; color: var(--text-light); margin-top: 8px;">
                         Apply your Linux skills to container orchestration and DevOps workflows.
                     </p>
-                </div>
-                <div class="resource-item">
-                    <h4>Python for Data Science</h4>
-                    <p style="font-size: 13px; color: var(--text-light); margin-top: 8px;">
+</div>
+<div class="resource-item">
+<h4>Python for Data Science</h4>
+<p style="font-size: 13px; color: var(--text-light); margin-top: 8px;">
                         Complement shell scripting with Python for advanced automation tasks.
                     </p>
-                </div>
-                <div class="resource-item">
-                    <h4>Cloud Infrastructure Deployment</h4>
-                    <p style="font-size: 13px; color: var(--text-light); margin-top: 8px;">
+</div>
+<div class="resource-item">
+<h4>Cloud Infrastructure Deployment</h4>
+<p style="font-size: 13px; color: var(--text-light); margin-top: 8px;">
                         Learn to deploy and manage Linux systems in cloud environments.
                     </p>
-                </div>
-                <div class="resource-item">
-                    <h4>Network Security Administration</h4>
-                    <p style="font-size: 13px; color: var(--text-light); margin-top: 8px;">
+</div>
+<div class="resource-item">
+<h4>Network Security Administration</h4>
+<p style="font-size: 13px; color: var(--text-light); margin-top: 8px;">
                         Secure your Linux systems with advanced networking and security practices.
                     </p>
-                </div>
-            </div>
-        </section>
-
-        <!-- Learning Resources -->
-        <section class="section">
-            <h2 class="section-title">Essential Learning Resources</h2>
-            
-            <div class="card">
-                <h3>📚 Free Resources</h3>
-                <div class="resource-grid">
-                    <div class="resource-item">
-                        <h4>Linux Journey</h4>
-                        <a href="https://linuxjourney.com" target="_blank">linuxjourney.com</a>
-                        <span class="badge badge-free">Free</span>
-                    </div>
-                    <div class="resource-item">
-                        <h4>The Linux Documentation Project</h4>
-                        <a href="https://tldp.org" target="_blank">tldp.org</a>
-                        <span class="badge badge-free">Free</span>
-                    </div>
-                    <div class="resource-item">
-                        <h4>GNU Bash Manual</h4>
-                        <a href="https://www.gnu.org/software/bash/manual/" target="_blank">gnu.org/software/bash/manual</a>
-                        <span class="badge badge-free">Free</span>
-                    </div>
-                    <div class="resource-item">
-                        <h4>Linux Command Library</h4>
-                        <a href="https://linuxcommandlibrary.com" target="_blank">linuxcommandlibrary.com</a>
-                        <span class="badge badge-free">Free</span>
-                    </div>
-                    <div class="resource-item">
-                        <h4>ExplainShell</h4>
-                        <a href="https://explainshell.com" target="_blank">explainshell.com</a>
-                        <span class="badge badge-free">Free</span>
-                    </div>
-                    <div class="resource-item">
-                        <h4>Ubuntu Official Docs</h4>
-                        <a href="https://help.ubuntu.com" target="_blank">help.ubuntu.com</a>
-                        <span class="badge badge-free">Free</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="card">
-                <h3>💎 Recommended Paid Resources</h3>
-                <div class="resource-grid">
-                    <div class="resource-item">
-                        <h4>Linux Academy / A Cloud Guru</h4>
-                        <a href="https://acloudguru.com/browse-training?vendors%5B%5D=linux" target="_blank">acloudguru.com/linux</a>
-                        <span class="badge badge-paid">Paid</span>
-                    </div>
-                    <div class="resource-item">
-                        <h4>The Linux Command Line (Book)</h4>
-                        <a href="https://www.amazon.com/Linux-Command-Line-Complete-Introduction/dp/1593279523" target="_blank">By William Shotts</a>
-                        <span class="badge badge-paid">Paid</span>
-                    </div>
-                    <div class="resource-item">
-                        <h4>UNIX and Linux System Administration</h4>
-                        <a href="https://www.admin.com" target="_blank">By Evi Nemeth et al.</a>
-                        <span class="badge badge-paid">Paid</span>
-                    </div>
-                    <div class="resource-item">
-                        <h4>Linux Foundation Training</h4>
-                        <a href="https://training.linuxfoundation.org" target="_blank">training.linuxfoundation.org</a>
-                        <span class="badge badge-paid">Paid</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="card">
-                <h3>🛠️ Essential Tools to Install</h3>
-                <div class="resource-grid">
-                    <div class="resource-item">
-                        <h4>Visual Studio Code</h4>
-                        <p style="font-size: 13px; margin-top: 8px;">Text editor with excellent shell script support</p>
-                    </div>
-                    <div class="resource-item">
-                        <h4>VirtualBox or VMware</h4>
-                        <p style="font-size: 13px; margin-top: 8px;">For running Linux virtual machines</p>
-                    </div>
-                    <div class="resource-item">
-                        <h4>PuTTY or Terminal</h4>
-                        <p style="font-size: 13px; margin-top: 8px;">SSH client for remote server access</p>
-                    </div>
-                    <div class="resource-item">
-                        <h4>ShellCheck</h4>
-                        <p style="font-size: 13px; margin-top: 8px;">Shell script static analysis tool</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Learning Roadmap -->
-        <section class="section">
-            <h2 class="section-title">Your Learning Roadmap</h2>
-            <div class="card">
-                <div class="roadmap">
-                    <div class="roadmap-item">
-                        <h4>Phase 1: Linux Fundamentals (Weeks 1-2)</h4>
-                        <p>Master the Linux file system, basic commands, and essential system navigation.</p>
-                    </div>
-                    <div class="roadmap-item">
-                        <h4>Phase 2: User & File Management (Weeks 3-4)</h4>
-                        <p>Learn user administration, permissions, and advanced file operations.</p>
-                    </div>
-                    <div class="roadmap-item">
-                        <h4>Phase 3: Shell Scripting Basics (Weeks 5-6)</h4>
-                        <p>Write your first shell scripts with variables, conditionals, and loops.</p>
-                    </div>
-                    <div class="roadmap-item">
-                        <h4>Phase 4: Advanced Administration (Weeks 7-8)</h4>
-                        <p>Manage processes, services, networking, and system monitoring.</p>
-                    </div>
-                    <div class="roadmap-item">
-                        <h4>Phase 5: Automation & Projects (Weeks 9-10)</h4>
-                        <p>Build advanced automation scripts and complete capstone projects.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Skills You'll Gain -->
-        <section class="section">
-            <h2 class="section-title">Skills You'll Master</h2>
-            <div class="card">
-                <div class="skills-grid">
-                    <div class="skill-badge">Linux Command Line</div>
-                    <div class="skill-badge">Bash Scripting</div>
-                    <div class="skill-badge">File System Management</div>
-                    <div class="skill-badge">User Administration</div>
-                    <div class="skill-badge">Process Management</div>
-                    <div class="skill-badge">Package Management</div>
-                    <div class="skill-badge">System Monitoring</div>
-                    <div class="skill-badge">Network Configuration</div>
-                    <div class="skill-badge">Automation</div>
-                    <div class="skill-badge">Cron Jobs & Scheduling</div>
-                    <div class="skill-badge">Text Processing (sed, awk)</div>
-                    <div class="skill-badge">Log Analysis</div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Weekly Curriculum -->
-        <section class="section">
-            <h2 class="section-title">Detailed Weekly Curriculum</h2>
-
-            <!-- Week 1 -->
-            <div class="week-block">
-                <div class="week-header">
-                    <span class="week-number">Week 1</span>
-                    <span class="week-duration">5 hours</span>
-                </div>
-                <div class="week-topic">Linux Fundamentals & System Architecture</div>
-                <div class="week-content">
-                    <ul>
-                        <li>Introduction to Linux and its distributions</li>
-                        <li>Linux architecture and kernel overview</li>
-                        <li>Setting up your Linux environment (VirtualBox/WSL)</li>
-                        <li>Navigating the file system (pwd, cd, ls)</li>
-                        <li>Understanding the Linux directory structure (/, /home, /etc, /var)</li>
-                        <li>Basic command structure and getting help (man, --help)</li>
-                    </ul>
-                    <div class="lab-section">
-                        <h4>🔬 Hands-On Lab</h4>
-                        <ul>
-                            <li>Install Ubuntu Linux (virtual machine or dual boot)</li>
-                            <li>Practice navigating the file system</li>
-                            <li>Create directory structure for course materials</li>
-                            <li>Explore man pages and command documentation</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Week 2 -->
-            <div class="week-block">
-                <div class="week-header">
-                    <span class="week-number">Week 2</span>
-                    <span class="week-duration">5 hours</span>
-                </div>
-                <div class="week-topic">Essential Commands & File Operations</div>
-                <div class="week-content">
-                    <ul>
-                        <li>File and directory operations (cp, mv, rm, mkdir, rmdir)</li>
-                        <li>Viewing file contents (cat, less, more, head, tail)</li>
-                        <li>Searching and finding files (find, locate, which, whereis)</li>
-                        <li>Text editors (nano, vim basics)</li>
-                        <li>File compression and archiving (tar, gzip, zip)</li>
-                        <li>Wildcards and globbing patterns</li>
-                    </ul>
-                    <div class="lab-section">
-                        <h4>🔬 Hands-On Lab</h4>
-                        <ul>
-                            <li>Organize project directories with proper structure</li>
-                            <li>Create, move, and delete files efficiently</li>
-                            <li>Practice with vim text editor</li>
-                            <li>Archive and compress project files</li>
-                        </ul>
-                    </div>
-                    <div class="code-example">
+</div>
+</div>
+</section>
+<!-- Learning Resources -->
+<section class="section">
+<h2 class="section-title">Essential Learning Resources</h2>
+<div class="card">
+<h3>📚 Free Resources</h3>
+<div class="resource-grid">
+<div class="resource-item">
+<h4>Linux Journey</h4>
+<a href="https://linuxjourney.com" target="_blank">linuxjourney.com</a>
+<span class="badge badge-free">Free</span>
+</div>
+<div class="resource-item">
+<h4>The Linux Documentation Project</h4>
+<a href="https://tldp.org" target="_blank">tldp.org</a>
+<span class="badge badge-free">Free</span>
+</div>
+<div class="resource-item">
+<h4>GNU Bash Manual</h4>
+<a href="https://www.gnu.org/software/bash/manual/" target="_blank">gnu.org/software/bash/manual</a>
+<span class="badge badge-free">Free</span>
+</div>
+<div class="resource-item">
+<h4>Linux Command Library</h4>
+<a href="https://linuxcommandlibrary.com" target="_blank">linuxcommandlibrary.com</a>
+<span class="badge badge-free">Free</span>
+</div>
+<div class="resource-item">
+<h4>ExplainShell</h4>
+<a href="https://explainshell.com" target="_blank">explainshell.com</a>
+<span class="badge badge-free">Free</span>
+</div>
+<div class="resource-item">
+<h4>Ubuntu Official Docs</h4>
+<a href="https://help.ubuntu.com" target="_blank">help.ubuntu.com</a>
+<span class="badge badge-free">Free</span>
+</div>
+</div>
+</div>
+<div class="card">
+<h3>💎 Recommended Paid Resources</h3>
+<div class="resource-grid">
+<div class="resource-item">
+<h4>Linux Academy / A Cloud Guru</h4>
+<a href="https://acloudguru.com/browse-training?vendors%5B%5D=linux" target="_blank">acloudguru.com/linux</a>
+<span class="badge badge-paid">Paid</span>
+</div>
+<div class="resource-item">
+<h4>The Linux Command Line (Book)</h4>
+<a href="https://www.amazon.com/Linux-Command-Line-Complete-Introduction/dp/1593279523" target="_blank">By William Shotts</a>
+<span class="badge badge-paid">Paid</span>
+</div>
+<div class="resource-item">
+<h4>UNIX and Linux System Administration</h4>
+<a href="https://www.admin.com" target="_blank">By Evi Nemeth et al.</a>
+<span class="badge badge-paid">Paid</span>
+</div>
+<div class="resource-item">
+<h4>Linux Foundation Training</h4>
+<a href="https://training.linuxfoundation.org" target="_blank">training.linuxfoundation.org</a>
+<span class="badge badge-paid">Paid</span>
+</div>
+</div>
+</div>
+<div class="card">
+<h3>🛠️ Essential Tools to Install</h3>
+<div class="resource-grid">
+<div class="resource-item">
+<h4>Visual Studio Code</h4>
+<p style="font-size: 13px; margin-top: 8px;">Text editor with excellent shell script support</p>
+</div>
+<div class="resource-item">
+<h4>VirtualBox or VMware</h4>
+<p style="font-size: 13px; margin-top: 8px;">For running Linux virtual machines</p>
+</div>
+<div class="resource-item">
+<h4>PuTTY or Terminal</h4>
+<p style="font-size: 13px; margin-top: 8px;">SSH client for remote server access</p>
+</div>
+<div class="resource-item">
+<h4>ShellCheck</h4>
+<p style="font-size: 13px; margin-top: 8px;">Shell script static analysis tool</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Learning Roadmap -->
+<section class="section">
+<h2 class="section-title">Your Learning Roadmap</h2>
+<div class="card">
+<div class="roadmap">
+<div class="roadmap-item">
+<h4>Phase 1: Linux Fundamentals (Weeks 1-2)</h4>
+<p>Master the Linux file system, basic commands, and essential system navigation.</p>
+</div>
+<div class="roadmap-item">
+<h4>Phase 2: User &amp; File Management (Weeks 3-4)</h4>
+<p>Learn user administration, permissions, and advanced file operations.</p>
+</div>
+<div class="roadmap-item">
+<h4>Phase 3: Shell Scripting Basics (Weeks 5-6)</h4>
+<p>Write your first shell scripts with variables, conditionals, and loops.</p>
+</div>
+<div class="roadmap-item">
+<h4>Phase 4: Advanced Administration (Weeks 7-8)</h4>
+<p>Manage processes, services, networking, and system monitoring.</p>
+</div>
+<div class="roadmap-item">
+<h4>Phase 5: Automation &amp; Projects (Weeks 9-10)</h4>
+<p>Build advanced automation scripts and complete capstone projects.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Skills You'll Gain -->
+<section class="section">
+<h2 class="section-title">Skills You'll Master</h2>
+<div class="card">
+<div class="skills-grid">
+<div class="skill-badge">Linux Command Line</div>
+<div class="skill-badge">Bash Scripting</div>
+<div class="skill-badge">File System Management</div>
+<div class="skill-badge">User Administration</div>
+<div class="skill-badge">Process Management</div>
+<div class="skill-badge">Package Management</div>
+<div class="skill-badge">System Monitoring</div>
+<div class="skill-badge">Network Configuration</div>
+<div class="skill-badge">Automation</div>
+<div class="skill-badge">Cron Jobs &amp; Scheduling</div>
+<div class="skill-badge">Text Processing (sed, awk)</div>
+<div class="skill-badge">Log Analysis</div>
+</div>
+</div>
+</section>
+<!-- Weekly Curriculum -->
+<section class="section">
+<h2 class="section-title">Detailed Weekly Curriculum</h2>
+<!-- Week 1 -->
+<div class="week-block">
+<div class="week-header">
+<span class="week-number">Week 1</span>
+<span class="week-duration">5 hours</span>
+</div>
+<div class="week-topic">Linux Fundamentals &amp; System Architecture</div>
+<div class="week-content">
+<ul><li>Understand the principles of Linux Fundamentals &amp; System Architecture and link them to course outcomes through progressive practical delivery milestones.</li><li>Apply Linux Fundamentals &amp; System Architecture in a guided scenario using realistic tools, constraints, and quality gates.</li><li>Analyze trade-offs, risks, and decision points for Linux Fundamentals &amp; System Architecture, then record rationale for stakeholder review.</li><li>Document a portfolio-ready delivery strategy memo for Linux Fundamentals &amp; System Architecture with measurable success criteria and next actions.</li><li>Track measurable progress using rubric scores, defect/risk trends, and evidence completeness each week.</li><li>Run a short retrospective focused on what to retain, improve, and scale into the following week.</li></ul>
+<div class="lab-section">
+<h4>🔬 Hands-On Lab</h4>
+<ul><li>Produce a complete Linux Fundamentals & System Architecture prototype from brief to high-fidelity handoff artifacts.</li><li>Run usability/visual QA for Linux Fundamentals & System Architecture and apply iteration changes from feedback.</li><li>Deliver export-ready assets, source files, and implementation notes for Linux Fundamentals & System Architecture.</li></ul>
+</div>
+</div>
+</div>
+<!-- Week 2 -->
+<div class="week-block">
+<div class="week-header">
+<span class="week-number">Week 2</span>
+<span class="week-duration">5 hours</span>
+</div>
+<div class="week-topic">Essential Commands &amp; File Operations</div>
+<div class="week-content">
+<ul><li>Understand the principles of Essential Commands &amp; File Operations and link them to course outcomes through progressive practical delivery milestones.</li><li>Apply Essential Commands &amp; File Operations in a guided scenario using realistic tools, constraints, and quality gates.</li><li>Analyze trade-offs, risks, and decision points for Essential Commands &amp; File Operations, then record rationale for stakeholder review.</li><li>Document a portfolio-ready delivery strategy memo for Essential Commands &amp; File Operations with measurable success criteria and next actions.</li><li>Track measurable progress using rubric scores, defect/risk trends, and evidence completeness each week.</li><li>Run a short retrospective focused on what to retain, improve, and scale into the following week.</li></ul>
+<div class="lab-section">
+<h4>🔬 Hands-On Lab</h4>
+<ul><li>Design and execute a concrete Essential Commands & File Operations build in Linux Administration & Shell Scripting Pro with a clear acceptance checklist.</li><li>Validate Essential Commands & File Operations with objective tests and quality controls before review.</li><li>Deliver Essential Commands & File Operations artifacts with reproducible steps and operational notes.</li></ul>
+</div>
+<div class="code-example">
 <span class="comment"># Example commands from this week</span>
 find /home -name "*.log" -type f
 tar -czf backup.tar.gz /home/user/documents
 grep -r "error" /var/log/
                     </div>
-                </div>
-            </div>
-
-            <!-- Week 3 -->
-            <div class="week-block">
-                <div class="week-header">
-                    <span class="week-number">Week 3</span>
-                    <span class="week-duration">5 hours</span>
-                </div>
-                <div class="week-topic">User & Group Management, Permissions</div>
-                <div class="week-content">
-                    <ul>
-                        <li>Understanding Linux users and groups</li>
-                        <li>Creating and managing users (useradd, usermod, userdel)</li>
-                        <li>Group management (groupadd, groupmod)</li>
-                        <li>File permissions and ownership (chmod, chown, chgrp)</li>
-                        <li>Understanding permission modes (rwx, numeric notation)</li>
-                        <li>Special permissions (SUID, SGID, sticky bit)</li>
-                        <li>Access Control Lists (ACLs)</li>
-                    </ul>
-                    <div class="lab-section">
-                        <h4>🔬 Hands-On Lab</h4>
-                        <ul>
-                            <li>Create users and groups for a development team</li>
-                            <li>Set appropriate file permissions for projects</li>
-                            <li>Practice with chmod numeric and symbolic notation</li>
-                            <li>Implement shared directories with proper permissions</li>
-                        </ul>
-                    </div>
-                    <div class="code-example">
+</div>
+</div>
+<!-- Week 3 -->
+<div class="week-block">
+<div class="week-header">
+<span class="week-number">Week 3</span>
+<span class="week-duration">5 hours</span>
+</div>
+<div class="week-topic">User &amp; Group Management, Permissions</div>
+<div class="week-content">
+<ul><li>Understand the principles of User &amp; Group Management, Permissions and link them to course outcomes through progressive practical delivery milestones.</li><li>Apply User &amp; Group Management, Permissions in a guided scenario using realistic tools, constraints, and quality gates.</li><li>Analyze trade-offs, risks, and decision points for User &amp; Group Management, Permissions, then record rationale for stakeholder review.</li><li>Document a portfolio-ready delivery strategy memo for User &amp; Group Management, Permissions with measurable success criteria and next actions.</li><li>Track measurable progress using rubric scores, defect/risk trends, and evidence completeness each week.</li><li>Run a short retrospective focused on what to retain, improve, and scale into the following week.</li><li>Incorporate peer or mentor feedback and revise the week deliverable to professional publication quality.</li></ul>
+<div class="lab-section">
+<h4>🔬 Hands-On Lab</h4>
+<ul><li>Design and execute a concrete User & Group Management, Permissions build in Linux Administration & Shell Scripting Pro with a clear acceptance checklist.</li><li>Validate User & Group Management, Permissions with objective tests and quality controls before review.</li><li>Deliver User & Group Management, Permissions artifacts with reproducible steps and operational notes.</li></ul>
+</div>
+<div class="code-example">
 <span class="comment"># User and permission commands</span>
 sudo useradd -m -s /bin/bash john
 sudo chmod 755 /var/www/html
 sudo chown -R www-data:www-data /var/www
                     </div>
-                </div>
-            </div>
-
-            <!-- Week 4 -->
-            <div class="week-block">
-                <div class="week-header">
-                    <span class="week-number">Week 4</span>
-                    <span class="week-duration">5 hours</span>
-                </div>
-                <div class="week-topic">Package Management & Software Installation</div>
-                <div class="week-content">
-                    <ul>
-                        <li>Understanding package managers (apt, yum, dnf)</li>
-                        <li>Installing, updating, and removing packages</li>
-                        <li>Repository management</li>
-                        <li>Compiling software from source</li>
-                        <li>Dependency resolution</li>
-                        <li>Snap and Flatpak package systems</li>
-                    </ul>
-                    <div class="lab-section">
-                        <h4>🔬 Hands-On Lab</h4>
-                        <ul>
-                            <li>Install development tools and libraries</li>
-                            <li>Manage repositories and update system</li>
-                            <li>Compile and install software from source</li>
-                            <li>Set up local package repository</li>
-                        </ul>
-                    </div>
-                    <div class="code-example">
+</div>
+</div>
+<!-- Week 4 -->
+<div class="week-block">
+<div class="week-header">
+<span class="week-number">Week 4</span>
+<span class="week-duration">5 hours</span>
+</div>
+<div class="week-topic">Package Management &amp; Software Installation</div>
+<div class="week-content">
+<ul><li>Understand the principles of Package Management &amp; Software Installation and link them to course outcomes through progressive practical delivery milestones.</li><li>Apply Package Management &amp; Software Installation in a guided scenario using realistic tools, constraints, and quality gates.</li><li>Analyze trade-offs, risks, and decision points for Package Management &amp; Software Installation, then record rationale for stakeholder review.</li><li>Document a portfolio-ready delivery strategy memo for Package Management &amp; Software Installation with measurable success criteria and next actions.</li><li>Track measurable progress using rubric scores, defect/risk trends, and evidence completeness each week.</li><li>Run a short retrospective focused on what to retain, improve, and scale into the following week.</li></ul>
+<div class="lab-section">
+<h4>🔬 Hands-On Lab</h4>
+<ul><li>Design and execute a concrete Package Management & Software Installation build in Linux Administration & Shell Scripting Pro with a clear acceptance checklist.</li><li>Validate Package Management & Software Installation with objective tests and quality controls before review.</li><li>Deliver Package Management & Software Installation artifacts with reproducible steps and operational notes.</li></ul>
+</div>
+<div class="code-example">
 <span class="comment"># Package management examples</span>
-sudo apt update && sudo apt upgrade
+sudo apt update &amp;&amp; sudo apt upgrade
 sudo apt install nginx mysql-server
 sudo apt-cache search python | grep dev
                     </div>
-                </div>
-            </div>
-
-            <!-- Week 5 -->
-            <div class="week-block">
-                <div class="week-header">
-                    <span class="week-number">Week 5</span>
-                    <span class="week-duration">5 hours</span>
-                </div>
-                <div class="week-topic">Introduction to Shell Scripting</div>
-                <div class="week-content">
-                    <ul>
-                        <li>What is a shell script and why use it?</li>
-                        <li>Creating and executing your first script</li>
-                        <li>Shebang (#!/bin/bash) and script interpreters</li>
-                        <li>Variables and environment variables</li>
-                        <li>Command substitution and arithmetic operations</li>
-                        <li>Reading user input</li>
-                        <li>Script debugging basics (set -x, set -e)</li>
-                    </ul>
-                    <div class="lab-section">
-                        <h4>🔬 Hands-On Lab</h4>
-                        <ul>
-                            <li>Write a system information script</li>
-                            <li>Create a backup script with user input</li>
-                            <li>Build a calculator script</li>
-                            <li>Practice variable manipulation</li>
-                        </ul>
-                    </div>
-                    <div class="code-example">
+</div>
+</div>
+<!-- Week 5 -->
+<div class="week-block">
+<div class="week-header">
+<span class="week-number">Week 5</span>
+<span class="week-duration">5 hours</span>
+</div>
+<div class="week-topic">Introduction to Shell Scripting</div>
+<div class="week-content">
+<ul><li>Apply the principles of Introduction to Shell Scripting and link them to course outcomes through progressive practical delivery milestones.</li><li>Analyze Introduction to Shell Scripting in a guided scenario using realistic tools, constraints, and quality gates.</li><li>Evaluate trade-offs, risks, and decision points for Introduction to Shell Scripting, then record rationale for stakeholder review.</li><li>Justify a portfolio-ready delivery strategy memo for Introduction to Shell Scripting with measurable success criteria and next actions.</li><li>Track measurable progress using rubric scores, defect/risk trends, and evidence completeness each week.</li><li>Run a short retrospective focused on what to retain, improve, and scale into the following week.</li><li>Incorporate peer or mentor feedback and revise the week deliverable to professional publication quality.</li></ul>
+<div class="lab-section">
+<h4>🔬 Hands-On Lab</h4>
+<ul><li>Design and execute a concrete Introduction to Shell Scripting build in Linux Administration & Shell Scripting Pro with a clear acceptance checklist.</li><li>Validate Introduction to Shell Scripting with objective tests and quality controls before review.</li><li>Deliver Introduction to Shell Scripting artifacts with reproducible steps and operational notes.</li></ul>
+</div>
+<div class="code-example">
 <span class="comment">#!/bin/bash</span>
 <span class="comment"># Simple backup script</span>
 <span class="keyword">echo</span> <span class="string">"Enter directory to backup:"</span>
@@ -1220,362 +1295,124 @@ sudo apt-cache search python | grep dev
 BACKUP_FILE=<span class="string">"backup_$(date +%Y%m%d).tar.gz"</span>
 tar -czf $BACKUP_FILE $SOURCE_DIR
 <span class="keyword">echo</span> <span class="string">"Backup created: $BACKUP_FILE"</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Week 6 -->
-            <div class="week-block">
-                <div class="week-header">
-                    <span class="week-number">Week 6</span>
-                    <span class="week-duration">5 hours</span>
-                </div>
-                <div class="week-topic">Control Structures & Functions</div>
-                <div class="week-content">
-                    <ul>
-                        <li>Conditional statements (if, else, elif)</li>
-                        <li>Test conditions and comparison operators</li>
-                        <li>Case statements</li>
-                        <li>Loops (for, while, until)</li>
-                        <li>Loop control (break, continue)</li>
-                        <li>Creating and using functions</li>
-                        <li>Function parameters and return values</li>
-                    </ul>
-                    <div class="lab-section">
-                        <h4>🔬 Hands-On Lab</h4>
-                        <ul>
-                            <li>Build a menu-driven system admin script</li>
-                            <li>Create a file processor with loops</li>
-                            <li>Write reusable functions library</li>
-                            <li>Develop a log file analyzer</li>
-                        </ul>
-                    </div>
-                    <div class="code-example">
+</div>
+</div>
+</div>
+<!-- Week 6 -->
+<div class="week-block">
+<div class="week-header">
+<span class="week-number">Week 6</span>
+<span class="week-duration">5 hours</span>
+</div>
+<div class="week-topic">Control Structures &amp; Functions</div>
+<div class="week-content">
+<ul><li>Apply the principles of Control Structures &amp; Functions and link them to course outcomes through progressive practical delivery milestones.</li><li>Analyze Control Structures &amp; Functions in a guided scenario using realistic tools, constraints, and quality gates.</li><li>Evaluate trade-offs, risks, and decision points for Control Structures &amp; Functions, then record rationale for stakeholder review.</li><li>Justify a portfolio-ready delivery strategy memo for Control Structures &amp; Functions with measurable success criteria and next actions.</li><li>Track measurable progress using rubric scores, defect/risk trends, and evidence completeness each week.</li><li>Run a short retrospective focused on what to retain, improve, and scale into the following week.</li><li>Incorporate peer or mentor feedback and revise the week deliverable to professional publication quality.</li></ul>
+<div class="lab-section">
+<h4>🔬 Hands-On Lab</h4>
+<ul><li>Design and execute a concrete Control Structures & Functions build in Linux Administration & Shell Scripting Pro with a clear acceptance checklist.</li><li>Validate Control Structures & Functions with objective tests and quality controls before review.</li><li>Deliver Control Structures & Functions artifacts with reproducible steps and operational notes.</li></ul>
+</div>
+<div class="code-example">
 <span class="comment">#!/bin/bash</span>
 <span class="comment"># Function to check if service is running</span>
 check_service() {
     <span class="keyword">if</span> systemctl is-active --quiet <span class="string">"$1"</span>; <span class="keyword">then</span>
-        <span class="keyword">echo</span> <span class="string">"$1 is running"</span>
-    <span class="keyword">else</span>
-        <span class="keyword">echo</span> <span class="string">"$1 is NOT running"</span>
-    <span class="keyword">fi</span>
+<span class="keyword">echo</span> <span class="string">"$1 is running"</span>
+<span class="keyword">else</span>
+<span class="keyword">echo</span> <span class="string">"$1 is NOT running"</span>
+<span class="keyword">fi</span>
 }
 check_service nginx
                     </div>
-                </div>
-            </div>
-
-            <!-- Week 7 -->
-            <div class="week-block">
-                <div class="week-header">
-                    <span class="week-number">Week 7</span>
-                    <span class="week-duration">5 hours</span>
-                </div>
-                <div class="week-topic">Process & Service Management</div>
-                <div class="week-content">
-                    <ul>
-                        <li>Understanding processes and PIDs</li>
-                        <li>Process management (ps, top, htop, kill)</li>
-                        <li>Background and foreground processes</li>
-                        <li>Job control (jobs, bg, fg)</li>
-                        <li>System services and daemons</li>
-                        <li>Systemd service management</li>
-                        <li>Creating custom systemd services</li>
-                    </ul>
-                    <div class="lab-section">
-                        <h4>🔬 Hands-On Lab</h4>
-                        <ul>
-                            <li>Monitor system processes and resources</li>
-                            <li>Manage running services (start, stop, restart)</li>
-                            <li>Create a custom systemd service</li>
-                            <li>Write a process monitoring script</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Week 8 -->
-            <div class="week-block">
-                <div class="week-header">
-                    <span class="week-number">Week 8</span>
-                    <span class="week-duration">5 hours</span>
-                </div>
-                <div class="week-topic">Advanced Text Processing & Networking</div>
-                <div class="week-content">
-                    <ul>
-                        <li>Text processing with grep, sed, and awk</li>
-                        <li>Regular expressions for pattern matching</li>
-                        <li>Stream editing and text transformation</li>
-                        <li>Network configuration basics</li>
-                        <li>Network troubleshooting (ping, netstat, ss, ip)</li>
-                        <li>SSH and remote server management</li>
-                        <li>Firewall basics (ufw, iptables)</li>
-                    </ul>
-                    <div class="lab-section">
-                        <h4>🔬 Hands-On Lab</h4>
-                        <ul>
-                            <li>Parse and analyze log files with sed/awk</li>
-                            <li>Write a log monitoring script</li>
-                            <li>Configure network interfaces</li>
-                            <li>Set up SSH key authentication</li>
-                        </ul>
-                    </div>
-                    <div class="code-example">
+</div>
+</div>
+<!-- Week 7 -->
+<div class="week-block">
+<div class="week-header">
+<span class="week-number">Week 7</span>
+<span class="week-duration">5 hours</span>
+</div>
+<div class="week-topic">Process &amp; Service Management</div>
+<div class="week-content">
+<ul><li>Apply the principles of Process &amp; Service Management and link them to course outcomes through progressive practical delivery milestones.</li><li>Analyze Process &amp; Service Management in a guided scenario using realistic tools, constraints, and quality gates.</li><li>Evaluate trade-offs, risks, and decision points for Process &amp; Service Management, then record rationale for stakeholder review.</li><li>Justify a portfolio-ready delivery strategy memo for Process &amp; Service Management with measurable success criteria and next actions.</li><li>Track measurable progress using rubric scores, defect/risk trends, and evidence completeness each week.</li><li>Run a short retrospective focused on what to retain, improve, and scale into the following week.</li><li>Incorporate peer or mentor feedback and revise the week deliverable to professional publication quality.</li></ul>
+<div class="lab-section">
+<h4>🔬 Hands-On Lab</h4>
+<ul><li>Design and execute a concrete Process & Service Management build in Linux Administration & Shell Scripting Pro with a clear acceptance checklist.</li><li>Validate Process & Service Management with objective tests and quality controls before review.</li><li>Deliver Process & Service Management artifacts with reproducible steps and operational notes.</li></ul>
+</div>
+</div>
+</div>
+<!-- Week 8 -->
+<div class="week-block">
+<div class="week-header">
+<span class="week-number">Week 8</span>
+<span class="week-duration">5 hours</span>
+</div>
+<div class="week-topic">Advanced Text Processing &amp; Networking</div>
+<div class="week-content">
+<ul><li>Analyze the principles of Advanced Text Processing &amp; Networking and link them to course outcomes through progressive practical delivery milestones.</li><li>Evaluate Advanced Text Processing &amp; Networking in a guided scenario using realistic tools, constraints, and quality gates.</li><li>Create trade-offs, risks, and decision points for Advanced Text Processing &amp; Networking, then record rationale for stakeholder review.</li><li>Defend a portfolio-ready delivery strategy memo for Advanced Text Processing &amp; Networking with measurable success criteria and next actions.</li><li>Track measurable progress using rubric scores, defect/risk trends, and evidence completeness each week.</li><li>Run a short retrospective focused on what to retain, improve, and scale into the following week.</li><li>Incorporate peer or mentor feedback and revise the week deliverable to professional publication quality.</li></ul>
+<div class="lab-section">
+<h4>🔬 Hands-On Lab</h4>
+<ul><li>Implement a working Advanced Text Processing & Networking topology with explicit segmentation and traffic intent.</li><li>Validate allowed and denied flows for Advanced Text Processing & Networking with repeatable connectivity tests.</li><li>Document fault scenarios and recovery steps for Advanced Text Processing & Networking operations.</li></ul>
+</div>
+<div class="code-example">
 <span class="comment"># Text processing examples</span>
 grep -E <span class="string">'ERROR|FATAL'</span> /var/log/syslog
 sed <span class="string">'s/old/new/g'</span> file.txt
 awk <span class="string">'{print $1, $3}'</span> data.txt
                     </div>
-                </div>
-            </div>
-
-            <!-- Week 9 -->
-            <div class="week-block">
-                <div class="week-header">
-                    <span class="week-number">Week 9</span>
-                    <span class="week-duration">5 hours</span>
-                </div>
-                <div class="week-topic">System Monitoring & Automation</div>
-                <div class="week-content">
-                    <ul>
-                        <li>System performance monitoring</li>
-                        <li>Disk usage and management (df, du)</li>
-                        <li>Log management and rotation</li>
-                        <li>Cron jobs and task scheduling</li>
-                        <li>At and batch commands</li>
-                        <li>System backup strategies</li>
-                        <li>Automated maintenance scripts</li>
-                    </ul>
-                    <div class="lab-section">
-                        <h4>🔬 Hands-On Lab</h4>
-                        <ul>
-                            <li>Set up automated backups with cron</li>
-                            <li>Create disk space monitoring script</li>
-                            <li>Implement log rotation</li>
-                            <li>Build system health check script</li>
-                        </ul>
-                    </div>
-                    <div class="code-example">
+</div>
+</div>
+<!-- Week 9 -->
+<div class="week-block">
+<div class="week-header">
+<span class="week-number">Week 9</span>
+<span class="week-duration">5 hours</span>
+</div>
+<div class="week-topic">System Monitoring &amp; Automation</div>
+<div class="week-content">
+<ul><li>Analyze the principles of System Monitoring &amp; Automation and link them to course outcomes through progressive practical delivery milestones.</li><li>Evaluate System Monitoring &amp; Automation in a guided scenario using realistic tools, constraints, and quality gates.</li><li>Create trade-offs, risks, and decision points for System Monitoring &amp; Automation, then record rationale for stakeholder review.</li><li>Defend a portfolio-ready delivery strategy memo for System Monitoring &amp; Automation with measurable success criteria and next actions.</li><li>Track measurable progress using rubric scores, defect/risk trends, and evidence completeness each week.</li><li>Run a short retrospective focused on what to retain, improve, and scale into the following week.</li><li>Incorporate peer or mentor feedback and revise the week deliverable to professional publication quality.</li></ul>
+<div class="lab-section">
+<h4>🔬 Hands-On Lab</h4>
+<ul><li>Design and execute a concrete System Monitoring & Automation build in Linux Administration & Shell Scripting Pro with a clear acceptance checklist.</li><li>Validate System Monitoring & Automation with objective tests and quality controls before review.</li><li>Deliver System Monitoring & Automation artifacts with reproducible steps and operational notes.</li></ul>
+</div>
+<div class="code-example">
 <span class="comment"># Crontab example for daily backup at 2 AM</span>
 0 2 * * * /home/user/scripts/backup.sh
 <span class="comment"># Every hour log cleanup</span>
 0 * * * * find /var/log -name "*.log" -mtime +7 -delete
                     </div>
-                </div>
-            </div>
-
-            <!-- Week 10 -->
-            <div class="week-block">
-                <div class="week-header">
-                    <span class="week-number">Week 10</span>
-                    <span class="week-duration">5 hours</span>
-                </div>
-                <div class="week-topic">Advanced Scripting & Capstone Projects</div>
-                <div class="week-content">
-                    <ul>
-                        <li>Error handling and exit codes</li>
-                        <li>Script best practices and style guidelines</li>
-                        <li>Script optimization techniques</li>
-                        <li>Working with APIs and web data (curl, wget)</li>
-                        <li>Database interaction from scripts</li>
-                        <li>Security considerations in scripts</li>
-                        <li>Capstone project presentations</li>
-                    </ul>
-                    <div class="lab-section">
-                        <h4>🔬 Hands-On Lab</h4>
-                        <ul>
-                            <li>Complete capstone project (see below)</li>
-                            <li>Code review and optimization</li>
-                            <li>Document your scripts professionally</li>
-                            <li>Build a personal script library</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Capstone Projects -->
-        <section class="section">
-            <h2 class="section-title">Capstone Projects</h2>
-
-            <div class="project-card">
-                <h4>Project 1: Automated Server Setup & Configuration Script</h4>
-                <p>
-                    Create a comprehensive bash script that automates the initial setup of a Linux server, 
-                    including user creation, security hardening, software installation, and service configuration.
-                </p>
-                <div class="project-objectives">
-                    <strong>Requirements:</strong>
-                    <ul style="margin-top: 8px;">
-                        <li>Menu-driven interface for different setup options</li>
-                        <li>Automatic security updates configuration</li>
-                        <li>Firewall setup with ufw</li>
-                        <li>SSH hardening (key-only auth, custom port)</li>
-                        <li>Install and configure LAMP/LEMP stack</li>
-                        <li>Error handling and logging</li>
-                        <li>Idempotent execution (can run multiple times safely)</li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="project-card">
-                <h4>Project 2: System Monitoring & Alerting Dashboard</h4>
-                <p>
-                    Build a comprehensive monitoring solution that tracks system resources, sends alerts, 
-                    and generates reports. Include email notifications for critical issues.
-                </p>
-                <div class="project-objectives">
-                    <strong>Requirements:</strong>
-                    <ul style="margin-top: 8px;">
-                        <li>Monitor CPU, memory, disk usage, and network</li>
-                        <li>Alert on threshold violations</li>
-                        <li>Generate daily/weekly reports</li>
-                        <li>Log analysis and anomaly detection</li>
-                        <li>Service health checks</li>
-                        <li>HTML dashboard generation</li>
-                        <li>Email notifications using sendmail or SMTP</li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="project-card">
-                <h4>Project 3: Automated Backup & Disaster Recovery System</h4>
-                <p>
-                    Develop a robust backup solution that handles incremental backups, retention policies, 
-                    compression, encryption, and automated restoration testing.
-                </p>
-                <div class="project-objectives">
-                    <strong>Requirements:</strong>
-                    <ul style="margin-top: 8px;">
-                        <li>Full and incremental backup support</li>
-                        <li>Configurable retention policies</li>
-                        <li>Compression and encryption</li>
-                        <li>Remote backup (rsync/scp to remote server)</li>
-                        <li>Backup verification and integrity checks</li>
-                        <li>Restoration script with rollback capability</li>
-                        <li>Email reports on backup success/failure</li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="project-card">
-                <h4>Project 4: Log Analysis & Security Audit Tool</h4>
-                <p>
-                    Create an advanced log processing tool that analyzes system logs for security threats, 
-                    performance issues, and generates actionable insights.
-                </p>
-                <div class="project-objectives">
-                    <strong>Requirements:</strong>
-                    <ul style="margin-top: 8px;">
-                        <li>Parse multiple log formats (/var/log/*)</li>
-                        <li>Detect failed login attempts</li>
-                        <li>Identify unusual patterns or anomalies</li>
-                        <li>Generate security audit reports</li>
-                        <li>Export results to CSV/JSON</li>
-                        <li>Integration with fail2ban or similar tools</li>
-                        <li>Scheduled execution via cron</li>
-                    </ul>
-                </div>
-            </div>
-        </section>
-
-        <!-- Study Tips -->
-        <section class="section">
-            <h2 class="section-title">Study Tips for Success</h2>
-            <div class="card">
-                <ul class="checklist">
-                    <li>Practice daily - even 30 minutes of command-line practice helps!</li>
-                    <li>Set up your own Linux environment (VM or WSL) for experimentation</li>
-                    <li>Read other people's scripts on GitHub to learn different approaches</li>
-                    <li>Always test scripts in a safe environment before production use</li>
-                    <li>Use version control (Git) for your scripts</li>
-                    <li>Document your code with comments - your future self will thank you</li>
-                    <li>Break complex problems into smaller, manageable functions</li>
-                    <li>Learn to read error messages - they're your friends!</li>
-                    <li>Join Linux communities (r/linux, Stack Overflow, Linux forums)</li>
-                    <li>Keep a personal "cheat sheet" of frequently used commands</li>
-                    <li>Experiment and break things - it's the best way to learn!</li>
-                </ul>
-            </div>
-        </section>
-
-        <!-- Best Practices -->
-        <section class="section">
-            <h2 class="section-title">Shell Scripting Best Practices</h2>
-            <div class="card">
-                <h3>Professional Standards</h3>
-                <ul class="checklist">
-                    <li>Always use proper shebang (#!/bin/bash)</li>
-                    <li>Set error handling (set -e, set -u, set -o pipefail)</li>
-                    <li>Quote your variables ("$variable") to prevent word splitting</li>
-                    <li>Use meaningful variable names (BACKUP_DIR vs d)</li>
-                    <li>Comment complex logic and non-obvious code</li>
-                    <li>Check command exit codes ($?)</li>
-                    <li>Validate user input before processing</li>
-                    <li>Use functions to organize code and avoid repetition</li>
-                    <li>Test scripts with ShellCheck for potential issues</li>
-                    <li>Log important actions and errors</li>
-                </ul>
-            </div>
-        </section>
-
-        <!-- Career Paths -->
-        <section class="section">
-            <h2 class="section-title">Career Opportunities</h2>
-            <div class="resource-grid">
-                <div class="resource-item">
-                    <h4>Linux System Administrator</h4>
-                    <p style="font-size: 13px; color: var(--text-light); margin-top: 8px;">
-                        Manage and maintain Linux servers, automate tasks, and ensure system reliability.
-                    </p>
-                </div>
-                <div class="resource-item">
-                    <h4>DevOps Engineer</h4>
-                    <p style="font-size: 13px; color: var(--text-light); margin-top: 8px;">
-                        Use shell scripting for CI/CD pipelines, infrastructure automation, and deployment.
-                    </p>
-                </div>
-                <div class="resource-item">
-                    <h4>Site Reliability Engineer (SRE)</h4>
-                    <p style="font-size: 13px; color: var(--text-light); margin-top: 8px;">
-                        Ensure system reliability through automation, monitoring, and incident response.
-                    </p>
-                </div>
-                <div class="resource-item">
-                    <h4>Cloud Engineer</h4>
-                    <p style="font-size: 13px; color: var(--text-light); margin-top: 8px;">
-                        Manage cloud infrastructure with Linux-based systems and automation scripts.
-                    </p>
-                </div>
-                <div class="resource-item">
-                    <h4>Security Engineer</h4>
-                    <p style="font-size: 13px; color: var(--text-light); margin-top: 8px;">
-                        Use shell scripting for security audits, log analysis, and vulnerability scanning.
-                    </p>
-                </div>
-                <div class="resource-item">
-                    <h4>Backend Developer</h4>
-                    <p style="font-size: 13px; color: var(--text-light); margin-top: 8px;">
-                        Leverage Linux and scripting skills for server-side application development.
-                    </p>
-                </div>
-            </div>
-        </section>
-
-        <!-- Footer -->
-        <footer class="footer">
-            <h3 style="margin-bottom: 20px; font-size: 24px;">Let's Master Linux Together! 🚀</h3>
-            <p>You're about to embark on an exciting journey into the world of Linux and automation.</p>
-            <p>Remember: Every expert was once a beginner. Stay curious, practice consistently, and embrace the command line!</p>
-            <p style="margin-top: 24px; font-size: 14px; font-family: 'JetBrains Mono', monospace;">
-                $ sudo apt install success<br>
-                $ chmod +x your_career.sh<br>
+</div>
+</div>
+<!-- Week 10 -->
+<div class="week-block">
+<div class="week-header">
+<span class="week-number">Week 10</span>
+<span class="week-duration">5 hours</span>
+</div>
+<div class="week-topic">Advanced Scripting &amp; Capstone Projects</div>
+<div class="week-content">
+<ul><li>Analyze the principles of Advanced Scripting &amp; Capstone Projects and link them to course outcomes through progressive practical delivery milestones.</li><li>Evaluate Advanced Scripting &amp; Capstone Projects in a guided scenario using realistic tools, constraints, and quality gates.</li><li>Create trade-offs, risks, and decision points for Advanced Scripting &amp; Capstone Projects, then record rationale for stakeholder review.</li><li>Defend a portfolio-ready delivery strategy memo for Advanced Scripting &amp; Capstone Projects with measurable success criteria and next actions.</li><li>Track measurable progress using rubric scores, defect/risk trends, and evidence completeness each week.</li><li>Run a short retrospective focused on what to retain, improve, and scale into the following week.</li><li>Incorporate peer or mentor feedback and revise the week deliverable to professional publication quality.</li></ul>
+<div class="lab-section">
+<h4>🔬 Hands-On Lab</h4>
+<ul><li>Design and execute a concrete Advanced Scripting & Capstone Projects build in Linux Administration & Shell Scripting Pro with a clear acceptance checklist.</li><li>Validate Advanced Scripting & Capstone Projects with objective tests and quality controls before review.</li><li>Deliver Advanced Scripting & Capstone Projects artifacts with reproducible steps and operational notes.</li></ul>
+</div>
+</div>
+</div>
+</section>
+<!-- Capstone Projects -->
+<section class="section">
+<h2 class="section-title">Capstone Projects</h2><div class="project-card"><h4>Project 1: Linux Administration & Shell Scripting Pro Foundation Build</h4><p>Deliver a concrete foundation implementation covering the first phase of the curriculum.</p><ul><li>Implement and validate Linux Fundamentals & System Architecture.</li><li>Integrate Essential Commands & File Operations with reusable workflow standards.</li><li>Publish evidence for User & Group Management, Permissions with test and quality artifacts.</li></ul></div><div class="project-card"><h4>Project 2: Linux Administration & Shell Scripting Pro Integrated Systems Build</h4><p>Combine mid-program competencies into a production-style integrated workflow.</p><ul><li>Build an end-to-end flow around Package Management & Software Installation and Introduction to Shell Scripting.</li><li>Add controls, observability, and rollback paths for reliability.</li><li>Document architecture decisions and trade-offs tied to Control Structures & Functions.</li></ul></div><div class="project-card"><h4>Project 3: Linux Administration & Shell Scripting Pro Capstone Delivery</h4><p>Ship a portfolio-ready capstone with measurable outcomes and stakeholder-ready presentation.</p><ul><li>Deliver a complete implementation centered on Process & Service Management.</li><li>Validate readiness for Advanced Text Processing & Networking using objective acceptance checks.</li><li>Present final defense and roadmap based on System Monitoring & Automation outcomes.</li></ul></div><footer class="footer">
+<h3 style="margin-bottom: 20px; font-size: 24px;">Let's Master Linux Together! 🚀</h3>
+<p>You're about to embark on an exciting journey into the world of Linux and automation.</p>
+<p>Remember: Every expert was once a beginner. Stay curious, practice consistently, and embrace the command line!</p>
+<p style="margin-top: 24px; font-size: 14px; font-family: 'JetBrains Mono', monospace;">
+                $ sudo apt install success<br/>
+                $ chmod +x your_career.sh<br/>
                 $ ./your_career.sh --execute
             </p>
-            <p style="margin-top: 32px; font-size: 12px; opacity: 0.7;">
-                © 2026 Hexadigitall Technologies | School of Cloud & DevOps
+<p style="margin-top: 32px; font-size: 12px; opacity: 0.7;">
+                © 2026 Hexadigitall Technologies | School of Cloud &amp; DevOps
             </p>
-        </footer>
-    </div>
+</footer>
+</div>
 </body>
 </html>

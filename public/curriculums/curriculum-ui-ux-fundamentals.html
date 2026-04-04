@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>UI/UX Design Fundamentals - Course Curriculum</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&amp;family=Space+Grotesk:wght@500;600;700&amp;display=swap" rel="stylesheet"/>
+<style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --primary-color: #0078D4;
+            --secondary-color: #50E6FF;
+            --dark-blue: #002050;
+            --text-dark: #1F1F1F;
+            --text-light: #605E5C;
+            --bg-light: #F5F5F5;
+            --bg-white: #FFFFFF;
+            --border-color: #EDEBE9;
+        }
+        body { font-family: 'Inter', sans-serif; line-height: 1.6; color: var(--text-dark); background: var(--bg-white); font-size: 14px; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 40px; }
+        .brand-bar { display: flex; align-items: center; justify-content: space-between; gap: 20px; border: 1px solid var(--border-color); border-radius: 12px; padding: 16px 20px; margin-bottom: 20px; box-shadow: 0 4px 18px rgba(0, 32, 80, 0.08); }
+        .brand-meta { display: flex; align-items: center; gap: 16px; }
+        .brand-meta img { width: 60px; height: auto; }
+        .brand-name { font-family: 'Space Grotesk', sans-serif; font-size: 18px; font-weight: 700; color: var(--dark-blue); }
+        .brand-link { color: var(--primary-color); font-weight: 600; text-decoration: none; }
+        .qr-block { display: flex; align-items: center; gap: 12px; background: var(--bg-light); padding: 10px 14px; border-radius: 10px; border: 1px solid var(--border-color); }
+        .qr-block img { width: 86px; height: 86px; }
+        .qr-text { font-size: 12px; color: var(--text-light); max-width: 220px; line-height: 1.5; }
+        .course-hero { background: linear-gradient(135deg, #E8F4FD 0%, #F5F9FF 100%); border: 1px solid var(--border-color); border-radius: 12px; padding: 18px; margin-bottom: 24px; display: grid; grid-template-columns: 1fr 320px; gap: 20px; align-items: center; box-shadow: 0 6px 18px rgba(0, 32, 80, 0.08); }
+        .course-hero img { width: 100%; border-radius: 12px; border: 1px solid var(--border-color); }
+        .course-hero h2 { font-family: 'Space Grotesk', sans-serif; color: var(--dark-blue); margin-bottom: 10px; font-size: 22px; }
+        .header { background: linear-gradient(135deg, var(--dark-blue) 0%, var(--primary-color) 100%); color: white; padding: 60px 40px; border-radius: 12px; margin-bottom: 40px; box-shadow: 0 10px 30px rgba(0, 120, 212, 0.2); }
+        .header h1 { font-family: 'Space Grotesk', sans-serif; font-size: 42px; font-weight: 700; margin-bottom: 16px; letter-spacing: -0.5px; }
+        .header .subtitle { font-size: 18px; opacity: 0.95; margin-bottom: 24px; }
+        .course-meta { display: flex; flex-wrap: wrap; gap: 24px; margin-top: 32px; }
+        .meta-item { display: flex; align-items: center; gap: 8px; background: rgba(255, 255, 255, 0.15); padding: 12px 20px; border-radius: 8px; }
+        .section { margin-bottom: 48px; break-inside: avoid; }
+        .section-title { font-family: 'Space Grotesk', sans-serif; font-size: 28px; color: var(--dark-blue); margin-bottom: 24px; padding-bottom: 12px; border-bottom: 3px solid var(--primary-color); display: flex; align-items: center; gap: 12px; }
+        .section-title::before { content: ''; width: 6px; height: 32px; background: linear-gradient(180deg, var(--primary-color), var(--secondary-color)); border-radius: 3px; }
+        .card { background: var(--bg-white); border: 1px solid var(--border-color); border-radius: 10px; padding: 24px; margin-bottom: 16px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05); }
+        .card ul { margin-left: 20px; }
+        .card li { margin: 6px 0; }
+        .roadmap-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+        .roadmap-card { border: 1px solid var(--border-color); border-radius: 12px; padding: 18px; background: linear-gradient(135deg, #F8FBFF 0%, #FFFFFF 100%); }
+        .roadmap-card h4 { color: var(--dark-blue); font-size: 18px; margin-bottom: 6px; }
+        .roadmap-card p { color: var(--text-light); font-size: 13px; margin-bottom: 10px; }
+        .roadmap-card ul { margin-left: 18px; }
+        .week-block { border: 1px solid var(--border-color); border-left: 6px solid var(--primary-color); border-radius: 12px; padding: 16px; margin-bottom: 14px; }
+        .week-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+        .week-number { font-weight: 700; color: var(--dark-blue); }
+        .week-duration { font-size: 12px; color: var(--text-light); }
+        .week-topic { color: var(--primary-color); font-family: 'Space Grotesk', sans-serif; font-size: 18px; margin-bottom: 10px; }
+        .week-content ul { margin-left: 20px; }
+        .week-content li { margin: 6px 0; }
+        .project-card { border: 1px solid var(--border-color); border-radius: 10px; padding: 16px; margin-bottom: 12px; background: linear-gradient(135deg, #f3f8ff 0%, #ffffff 100%); }
+        .project-card h4 { color: var(--dark-blue); margin-bottom: 8px; }
+        .project-card p { color: var(--text-light); margin-bottom: 8px; }
+        .project-card ul { margin-left: 20px; }
+        .footer { margin-top: 24px; padding-top: 16px; border-top: 1px solid var(--border-color); color: var(--text-light); font-size: 12px; }
+        @media (max-width: 900px) {
+            .course-hero { grid-template-columns: 1fr; }
+            .roadmap-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+
+
+
+<style id="curriculum-ui-normalization">
+:root { --primary-color:#0b5cab; --secondary-color:#5bb3ff; --dark-blue:#0d2a4a; --text-dark:#132235; --text-light:#4f637b; --bg-white:#ffffff; --bg-light:#f4f8fc; --border-color:#d9e5f2; }
+body { font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif; color:var(--text-dark); background:radial-gradient(circle at top right,#f7fbff 0%,#ffffff 45%); }
+h1,h2,h3,h4,.section-title,.week-topic,.week-number,.brand-name { font-family:'Space Grotesk','Inter',sans-serif; letter-spacing:-0.01em; }
+.section { margin-bottom:44px; }
+.card,.week-block,.project-card { border-radius:12px; border:1px solid var(--border-color); box-shadow:0 4px 16px rgba(13,42,74,0.06); }
+.welcome-section { background:linear-gradient(135deg,#eef6ff 0%,#f9fcff 100%); border-left:5px solid var(--primary-color); padding:28px; border-radius:12px; margin-bottom:36px; }
+.project-card { background:linear-gradient(135deg,#eef5ff 0%,#ffffff 60%); padding:20px; margin-bottom:14px; }
+.project-card h4 { color:var(--dark-blue); margin-bottom:8px; }
+.project-card p { color:var(--text-light); margin-bottom:10px; }
+.project-card ul { margin-left:18px; }
+.project-card li { margin:6px 0; }
+</style>
+<style id="curriculum-theme-override">
+:root { --primary-color:hsl(353 70% 42%); --secondary-color:hsl(17 82% 62%); --dark-blue:hsl(353 48% 18%); --text-dark:hsl(353 32% 14%); --text-light:hsl(353 18% 38%); --border-color:hsl(353 38% 86%); --bg-light:hsl(173 45% 97%); --theme-hero-a:hsl(353 85% 96%); --theme-hero-b:hsl(17 90% 98%); }
+body { background:radial-gradient(circle at 8% 0%, color-mix(in srgb, var(--theme-hero-a) 72%, white), #ffffff 46%); }
+.course-hero { background:linear-gradient(135deg,var(--theme-hero-a) 0%,var(--theme-hero-b) 100%); }
+.header { background:linear-gradient(135deg,color-mix(in srgb, var(--dark-blue) 90%, black), var(--primary-color)); }
+.section-title::before { background:linear-gradient(180deg,var(--primary-color),var(--secondary-color)); }
+.week-block { border-left:6px solid var(--primary-color); }
+</style>
+<style id="curriculum-contrast-fix">
+/* Final readability layer: resolves conflicting text/background and font overrides */
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif !important;
+  color: var(--text-dark) !important;
+  background-color: #ffffff;
+}
+h1, h2, h3, h4, .section-title, .week-topic, .week-number, .brand-name {
+  font-family: 'Space Grotesk', 'Inter', sans-serif !important;
+}
+
+/* Ensure light surfaces always use dark text */
+.container,
+.section,
+.card,
+.week-block,
+.week-column,
+.project-card,
+.welcome-section,
+.resource-item,
+.roadmap-card,
+.info-box {
+  color: var(--text-dark);
+}
+
+/* Keep hero as light panel with dark readable text */
+.course-hero,
+.course-hero h1,
+.course-hero h2,
+.course-hero h3,
+.course-hero h4,
+.course-hero p,
+.course-hero li,
+.course-hero span,
+.course-hero a {
+  color: var(--text-dark) !important;
+}
+
+/* Normalize dark surfaces so white text always has contrast */
+.brand-bar,
+.header,
+.footer {
+  background: linear-gradient(135deg, color-mix(in srgb, var(--dark-blue) 92%, black), var(--primary-color)) !important;
+}
+
+.header,
+.header h1,
+.header h2,
+.header h3,
+.header h4,
+.header p,
+.header li,
+.header span,
+.header strong,
+.header a,
+.brand-bar,
+.brand-bar h1,
+.brand-bar h2,
+.brand-bar h3,
+.brand-bar h4,
+.brand-bar p,
+.brand-bar li,
+.brand-bar span,
+.brand-bar strong,
+.brand-bar a,
+.footer,
+.footer h1,
+.footer h2,
+.footer h3,
+.footer h4,
+.footer p,
+.footer li,
+.footer span,
+.footer strong,
+.footer a {
+  color: #ffffff !important;
+}
+
+.brand-bar .brand-link,
+.brand-bar .qr-text,
+.footer p {
+  color: rgba(255, 255, 255, 0.92) !important;
+}
+
+/* Meta chips: readable in both dark and light contexts */
+.meta-item {
+  color: var(--text-dark);
+}
+.header .meta-item {
+  color: #ffffff !important;
+  background: rgba(255,255,255,0.16) !important;
+}
+
+/* Links and list readability */
+a { color: var(--primary-color); }
+a:hover { opacity: 0.9; }
+li { color: inherit; }
+
+.section-title,
+.week-topic,
+.project-card h4,
+.card h3,
+.welcome-section h2 {
+  opacity: 1 !important;
+}
+</style>
+<style id="curriculum-brandbar-contrast-fix">
+/* Brand bar readability fix */
+.brand-bar {
+  background: linear-gradient(135deg, color-mix(in srgb, var(--dark-blue) 88%, black), var(--primary-color)) !important;
+  border-color: color-mix(in srgb, var(--primary-color) 35%, white) !important;
+}
+.brand-bar .brand-name,
+.brand-bar .brand-link,
+.brand-bar .qr-text,
+.brand-bar .brand-text,
+.brand-bar .brand-meta,
+.brand-bar a,
+.brand-bar p,
+.brand-bar span,
+.brand-bar strong {
+  color: #ffffff !important;
+}
+.brand-bar .brand-link {
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.brand-bar .qr-block {
+  background: rgba(255,255,255,0.16) !important;
+  border-color: rgba(255,255,255,0.35) !important;
+}
+.brand-bar .qr-text {
+  opacity: 0.95;
+}
+</style>
+</head>
+<body>
+<div class="container">
+<div class="brand-bar">
+<div class="brand-meta">
+<img alt="Hexadigitall logo" src="../hexadigitall-logo-transparent.png"/>
+<div>
+<div class="brand-name">Hexadigitall Academy (Hexadigitall Technologies)</div>
+<a class="brand-link" href="https://www.hexadigitall.com">www.hexadigitall.com</a>
+</div>
+</div>
+<div class="qr-block">
+<img alt="Course QR Code" src="https://api.qrserver.com/v1/create-qr-code/?size=120x120&amp;data=https://www.hexadigitall.com/courses/ui-ux-fundamentals"/>
+<div class="qr-text">Scan to view the course page, enrollment options, and mentorship details.</div>
+</div>
+</div>
+<div class="course-hero">
+<div>
+<h2>Course Snapshot</h2>
+<p>Learn user-centered design principles. Master Figma, wireframing, prototyping, and creating interfaces users love.</p>
+</div>
+<img alt="UI/UX Design Fundamentals" onerror="this.style.display='none'" src="../assets/images/courses/product-design-ui-ux-professional-bootcamp.jpg"/>
+</div>
+<div class="header">
+<h1>UI/UX Design Fundamentals</h1>
+<p class="subtitle">A professionally structured weekly curriculum aligned to the level, tooling, and delivery expectations of this course.</p>
+<div class="course-meta">
+<div class="meta-item"><strong>Duration:</strong> 12 Weeks</div>
+<div class="meta-item"><strong>Level:</strong> Beginner</div>
+<div class="meta-item"><strong>Study Time:</strong> 4 hours/week + labs</div>
+</div>
+</div>
+        <!-- Welcome Section -->
+        <section class="welcome-section">
+            <h2>Welcome to UI/UX Design Fundamentals! 🎓</h2>
+            <p>This curriculum is designed to take you from core understanding to confident delivery through weekly applied practice, measurable outcomes, and portfolio evidence.</p>
+            <p>Each week builds progressively with practical tasks, implementation checkpoints, and reflection points so you can convert knowledge into repeatable professional performance.</p>
+            <p><strong>Your success is our priority.</strong> Stay consistent with weekly execution, document your work, and use feedback loops to continuously improve your delivery quality.</p>
+        </section>
+
+<div class="section">
+<h2 class="section-title">Prerequisites</h2>
+<div class="card">
+<ul><li>Visual hierarchy fundamentals: contrast, alignment, whitespace, and intentional typography choices</li><li>Color theory application: psychology, accessibility standards, and palette cohesiveness</li><li>Wireframing and prototyping experience with tools like Figma, Adobe XD, or Sketch</li><li>Understanding of responsive design, breakpoints, and mobile-first composition strategies</li></ul>
+</div>
+</div>
+<div class="section">
+<h2 class="section-title">Learning Outcomes</h2>
+<div class="card">
+<ul><li>Hands-on projects to build practical skills</li><li>Industry best practices and workflows</li><li>Tools and frameworks used by professionals</li><li>Guidance to build a job-ready portfolio</li><li>Mentorship and feedback for faster growth</li></ul>
+</div>
+</div>
+        <!-- Complementary Courses -->
+        <section class="section">
+            <h2 class="section-title">Recommended Complementary Courses</h2>
+            <div class="card">
+                <ul>
+                    <li>Pair this curriculum with a related foundation or advanced specialization to strengthen adjacent skill areas.</li>
+                    <li>Select one systems-focused and one delivery-focused course to improve both implementation depth and execution speed.</li>
+                    <li>Use complementary study tracks to broaden portfolio evidence and improve interview and project readiness.</li>
+                </ul>
+            </div>
+        </section>
+
+<div class="section">
+<h2 class="section-title">Essential Learning Resources</h2>
+<div class="card">
+<ul><li>Design system templates, component libraries, and accessibility audit checklists</li><li>Figma starter kits with typography scales, color systems, and responsive breakpoints</li><li>Usability testing scripts and design critique frameworks</li></ul>
+</div>
+</div>
+<div class="section">
+<h2 class="section-title">Your Learning Roadmap</h2>
+<div class="roadmap-grid">
+<div class="roadmap-card"><h4>Foundation</h4><p>Weeks 1-3</p><ul><li>Early Weeks: Design fundamentals, visual hierarchy, and component basics</li><li>Middle Weeks: Design systems, accessibility standards, and interaction patterns</li><li>Late Weeks: Portfolio building, stakeholder communication, and design leadership</li></ul></div><div class="roadmap-card"><h4>Build</h4><p>Weeks 4-6</p><ul><li>Information Architecture and User Flows</li><li>Wireframing Low-Fidelity Screens</li><li>Visual Hierarchy, Layout, and UI Principles</li></ul></div><div class="roadmap-card"><h4>Integration</h4><p>Weeks 7-9</p><ul><li>Color, Typography, and Component Basics</li><li>Prototyping in Figma</li><li>Usability Testing and Insight Synthesis</li></ul></div><div class="roadmap-card"><h4>Capstone</h4><p>Weeks 10-12</p><ul><li>Iteration, Feedback, and Design Decisions</li><li>Building a Small Design System Starter</li><li>Capstone: From Research to Interactive Prototype</li></ul></div>
+</div>
+</div>
+<div class="section">
+<h2 class="section-title">Detailed Weekly Curriculum</h2>
+<div class="week-block">
+<div class="week-header">
+<span class="week-number">Week 1</span>
+<span class="week-duration">4 hours/week + labs</span>
+</div>
+<div class="week-topic">UX Foundations, User Needs, and Problem Framing</div>
+<div class="week-content">
+<ul><li>Identify the principles of UX Foundations, User Needs, and Problem Framing and link them to course outcomes through structured core competency milestones.</li><li>Explain UX Foundations, User Needs, and Problem Framing in a guided scenario using realistic tools, constraints, and quality gates.</li><li>Apply trade-offs, risks, and decision points for UX Foundations, User Needs, and Problem Framing, then record rationale for stakeholder review.</li><li>Document a portfolio-ready design system case study for UX Foundations, User Needs, and Problem Framing with measurable success criteria and next actions.</li><li>Track measurable progress using rubric scores, defect/risk trends, and evidence completeness each week.</li><li>Run a short retrospective focused on what to retain, improve, and scale into the following week.</li><li>Incorporate peer or mentor feedback and revise the week deliverable to professional publication quality.</li><li>Publish the week output into your cumulative portfolio with concise outcome narrative and proof artifacts.</li></ul>
+</div>
+</div>
+<div class="week-block">
+<div class="week-header">
+<span class="week-number">Week 2</span>
+<span class="week-duration">4 hours/week + labs</span>
+</div>
+<div class="week-topic">User Research Methods and Interview Basics</div>
+<div class="week-content">
+<ul><li>Identify the principles of User Research Methods and Interview Basics and link them to course outcomes through structured core competency milestones.</li><li>Explain User Research Methods and Interview Basics in a guided scenario using realistic tools, constraints, and quality gates.</li><li>Apply trade-offs, risks, and decision points for User Research Methods and Interview Basics, then record rationale for stakeholder review.</li><li>Document a portfolio-ready design system case study for User Research Methods and Interview Basics with measurable success criteria and next actions.</li><li>Track measurable progress using rubric scores, defect/risk trends, and evidence completeness each week.</li><li>Run a short retrospective focused on what to retain, improve, and scale into the following week.</li><li>Incorporate peer or mentor feedback and revise the week deliverable to professional publication quality.</li><li>Publish the week output into your cumulative portfolio with concise outcome narrative and proof artifacts.</li></ul>
+</div>
+</div>
+<div class="week-block">
+<div class="week-header">
+<span class="week-number">Week 3</span>
+<span class="week-duration">4 hours/week + labs</span>
+</div>
+<div class="week-topic">Personas, Journeys, and Problem Statements</div>
+<div class="week-content">
+<ul><li>Identify the principles of Personas, Journeys, and Problem Statements and link them to course outcomes through structured core competency milestones.</li><li>Explain Personas, Journeys, and Problem Statements in a guided scenario using realistic tools, constraints, and quality gates.</li><li>Apply trade-offs, risks, and decision points for Personas, Journeys, and Problem Statements, then record rationale for stakeholder review.</li><li>Document a portfolio-ready design system case study for Personas, Journeys, and Problem Statements with measurable success criteria and next actions.</li><li>Track measurable progress using rubric scores, defect/risk trends, and evidence completeness each week.</li><li>Run a short retrospective focused on what to retain, improve, and scale into the following week.</li><li>Incorporate peer or mentor feedback and revise the week deliverable to professional publication quality.</li><li>Publish the week output into your cumulative portfolio with concise outcome narrative and proof artifacts.</li></ul>
+</div>
+</div>
+<div class="week-block">
+<div class="week-header">
+<span class="week-number">Week 4</span>
+<span class="week-duration">4 hours/week + labs</span>
+</div>
+<div class="week-topic">Information Architecture and User Flows</div>
+<div class="week-content">
+<ul><li>Identify the principles of Information Architecture and User Flows and link them to course outcomes through structured core competency milestones.</li><li>Explain Information Architecture and User Flows in a guided scenario using realistic tools, constraints, and quality gates.</li><li>Apply trade-offs, risks, and decision points for Information Architecture and User Flows, then record rationale for stakeholder review.</li><li>Document a portfolio-ready design system case study for Information Architecture and User Flows with measurable success criteria and next actions.</li><li>Track measurable progress using rubric scores, defect/risk trends, and evidence completeness each week.</li><li>Run a short retrospective focused on what to retain, improve, and scale into the following week.</li><li>Incorporate peer or mentor feedback and revise the week deliverable to professional publication quality.</li><li>Publish the week output into your cumulative portfolio with concise outcome narrative and proof artifacts.</li></ul>
+</div>
+</div>
+<div class="week-block">
+<div class="week-header">
+<span class="week-number">Week 5</span>
+<span class="week-duration">4 hours/week + labs</span>
+</div>
+<div class="week-topic">Wireframing Low-Fidelity Screens</div>
+<div class="week-content">
+<ul><li>Apply the principles of Wireframing Low-Fidelity Screens and link them to course outcomes through structured core competency milestones.</li><li>Analyze Wireframing Low-Fidelity Screens in a guided scenario using realistic tools, constraints, and quality gates.</li><li>Evaluate trade-offs, risks, and decision points for Wireframing Low-Fidelity Screens, then record rationale for stakeholder review.</li><li>Document a portfolio-ready design system case study for Wireframing Low-Fidelity Screens with measurable success criteria and next actions.</li><li>Track measurable progress using rubric scores, defect/risk trends, and evidence completeness each week.</li><li>Run a short retrospective focused on what to retain, improve, and scale into the following week.</li><li>Incorporate peer or mentor feedback and revise the week deliverable to professional publication quality.</li><li>Publish the week output into your cumulative portfolio with concise outcome narrative and proof artifacts.</li></ul>
+</div>
+</div>
+<div class="week-block">
+<div class="week-header">
+<span class="week-number">Week 6</span>
+<span class="week-duration">4 hours/week + labs</span>
+</div>
+<div class="week-topic">Visual Hierarchy, Layout, and UI Principles</div>
+<div class="week-content">
+<ul><li>Apply the principles of Visual Hierarchy, Layout, and UI Principles and link them to course outcomes through structured core competency milestones.</li><li>Analyze Visual Hierarchy, Layout, and UI Principles in a guided scenario using realistic tools, constraints, and quality gates.</li><li>Evaluate trade-offs, risks, and decision points for Visual Hierarchy, Layout, and UI Principles, then record rationale for stakeholder review.</li><li>Document a portfolio-ready design system case study for Visual Hierarchy, Layout, and UI Principles with measurable success criteria and next actions.</li><li>Track measurable progress using rubric scores, defect/risk trends, and evidence completeness each week.</li><li>Run a short retrospective focused on what to retain, improve, and scale into the following week.</li><li>Incorporate peer or mentor feedback and revise the week deliverable to professional publication quality.</li><li>Publish the week output into your cumulative portfolio with concise outcome narrative and proof artifacts.</li></ul>
+</div>
+</div>
+<div class="week-block">
+<div class="week-header">
+<span class="week-number">Week 7</span>
+<span class="week-duration">4 hours/week + labs</span>
+</div>
+<div class="week-topic">Color, Typography, and Component Basics</div>
+<div class="week-content">
+<ul><li>Apply the principles of Color, Typography, and Component Basics and link them to course outcomes through structured core competency milestones.</li><li>Analyze Color, Typography, and Component Basics in a guided scenario using realistic tools, constraints, and quality gates.</li><li>Evaluate trade-offs, risks, and decision points for Color, Typography, and Component Basics, then record rationale for stakeholder review.</li><li>Document a portfolio-ready design system case study for Color, Typography, and Component Basics with measurable success criteria and next actions.</li><li>Track measurable progress using rubric scores, defect/risk trends, and evidence completeness each week.</li><li>Run a short retrospective focused on what to retain, improve, and scale into the following week.</li><li>Incorporate peer or mentor feedback and revise the week deliverable to professional publication quality.</li><li>Publish the week output into your cumulative portfolio with concise outcome narrative and proof artifacts.</li></ul>
+</div>
+</div>
+<div class="week-block">
+<div class="week-header">
+<span class="week-number">Week 8</span>
+<span class="week-duration">4 hours/week + labs</span>
+</div>
+<div class="week-topic">Prototyping in Figma</div>
+<div class="week-content">
+<ul><li>Apply the principles of Prototyping in Figma and link them to course outcomes through structured core competency milestones.</li><li>Analyze Prototyping in Figma in a guided scenario using realistic tools, constraints, and quality gates.</li><li>Evaluate trade-offs, risks, and decision points for Prototyping in Figma, then record rationale for stakeholder review.</li><li>Document a portfolio-ready design system case study for Prototyping in Figma with measurable success criteria and next actions.</li><li>Track measurable progress using rubric scores, defect/risk trends, and evidence completeness each week.</li><li>Run a short retrospective focused on what to retain, improve, and scale into the following week.</li><li>Incorporate peer or mentor feedback and revise the week deliverable to professional publication quality.</li><li>Publish the week output into your cumulative portfolio with concise outcome narrative and proof artifacts.</li></ul>
+</div>
+</div>
+<div class="week-block">
+<div class="week-header">
+<span class="week-number">Week 9</span>
+<span class="week-duration">4 hours/week + labs</span>
+</div>
+<div class="week-topic">Usability Testing and Insight Synthesis</div>
+<div class="week-content">
+<ul><li>Analyze the principles of Usability Testing and Insight Synthesis and link them to course outcomes through structured core competency milestones.</li><li>Evaluate Usability Testing and Insight Synthesis in a guided scenario using realistic tools, constraints, and quality gates.</li><li>Create trade-offs, risks, and decision points for Usability Testing and Insight Synthesis, then record rationale for stakeholder review.</li><li>Defend a portfolio-ready design system case study for Usability Testing and Insight Synthesis with measurable success criteria and next actions.</li><li>Track measurable progress using rubric scores, defect/risk trends, and evidence completeness each week.</li><li>Run a short retrospective focused on what to retain, improve, and scale into the following week.</li><li>Incorporate peer or mentor feedback and revise the week deliverable to professional publication quality.</li><li>Publish the week output into your cumulative portfolio with concise outcome narrative and proof artifacts.</li></ul>
+</div>
+</div>
+<div class="week-block">
+<div class="week-header">
+<span class="week-number">Week 10</span>
+<span class="week-duration">4 hours/week + labs</span>
+</div>
+<div class="week-topic">Iteration, Feedback, and Design Decisions</div>
+<div class="week-content">
+<ul><li>Analyze the principles of Iteration, Feedback, and Design Decisions and link them to course outcomes through structured core competency milestones.</li><li>Evaluate Iteration, Feedback, and Design Decisions in a guided scenario using realistic tools, constraints, and quality gates.</li><li>Create trade-offs, risks, and decision points for Iteration, Feedback, and Design Decisions, then record rationale for stakeholder review.</li><li>Defend a portfolio-ready design system case study for Iteration, Feedback, and Design Decisions with measurable success criteria and next actions.</li><li>Track measurable progress using rubric scores, defect/risk trends, and evidence completeness each week.</li><li>Run a short retrospective focused on what to retain, improve, and scale into the following week.</li><li>Incorporate peer or mentor feedback and revise the week deliverable to professional publication quality.</li><li>Publish the week output into your cumulative portfolio with concise outcome narrative and proof artifacts.</li></ul>
+</div>
+</div>
+<div class="week-block">
+<div class="week-header">
+<span class="week-number">Week 11</span>
+<span class="week-duration">4 hours/week + labs</span>
+</div>
+<div class="week-topic">Building a Small Design System Starter</div>
+<div class="week-content">
+<ul><li>Analyze the principles of Building a Small Design System Starter and link them to course outcomes through structured core competency milestones.</li><li>Evaluate Building a Small Design System Starter in a guided scenario using realistic tools, constraints, and quality gates.</li><li>Create trade-offs, risks, and decision points for Building a Small Design System Starter, then record rationale for stakeholder review.</li><li>Defend a portfolio-ready design system case study for Building a Small Design System Starter with measurable success criteria and next actions.</li><li>Track measurable progress using rubric scores, defect/risk trends, and evidence completeness each week.</li><li>Run a short retrospective focused on what to retain, improve, and scale into the following week.</li><li>Incorporate peer or mentor feedback and revise the week deliverable to professional publication quality.</li><li>Publish the week output into your cumulative portfolio with concise outcome narrative and proof artifacts.</li></ul>
+</div>
+</div>
+<div class="week-block">
+<div class="week-header">
+<span class="week-number">Week 12</span>
+<span class="week-duration">4 hours/week + labs</span>
+</div>
+<div class="week-topic">Capstone: From Research to Interactive Prototype</div>
+<div class="week-content">
+<ul><li>Analyze the principles of Capstone: From Research to Interactive Prototype and link them to course outcomes through structured core competency milestones.</li><li>Evaluate Capstone: From Research to Interactive Prototype in a guided scenario using realistic tools, constraints, and quality gates.</li><li>Create trade-offs, risks, and decision points for Capstone: From Research to Interactive Prototype, then record rationale for stakeholder review.</li><li>Defend a portfolio-ready design system case study for Capstone: From Research to Interactive Prototype with measurable success criteria and next actions.</li><li>Track measurable progress using rubric scores, defect/risk trends, and evidence completeness each week.</li><li>Run a short retrospective focused on what to retain, improve, and scale into the following week.</li><li>Incorporate peer or mentor feedback and revise the week deliverable to professional publication quality.</li><li>Publish the week output into your cumulative portfolio with concise outcome narrative and proof artifacts.</li></ul>
+</div>
+</div>
+</div>
+<div class="section">
+<h2 class="section-title">Capstone Projects</h2>
+<div class="project-card"><h4>Project 1: User Flow and Wireframe Foundation</h4><p>Research a target user problem and deliver validated IA, flow diagrams, and low-fidelity wireframes for a core product journey.</p><ul><li>Research insight summary and problem framing</li><li>Annotated flow and wireframe set</li><li>Usability risk assessment checklist</li></ul></div><div class="project-card"><h4>Project 2: UI System and Prototype Iteration</h4><p>Create a visual system with reusable components, then apply it to an interactive prototype refined through testing feedback.</p><ul><li>Design token and component starter kit</li><li>Interactive prototype with key states</li><li>Iteration log based on usability findings</li></ul></div><div class="project-card"><h4>Project 3: Capstone: Research-to-Prototype Case Study</h4><p>Deliver a portfolio-ready case study that connects user research, design decisions, testing insights, and final handoff artifacts.</p><ul><li>End-to-end UX process documentation</li><li>Final polished prototype and supporting files</li><li>Presentation narrative with outcomes and next steps</li></ul></div>
+</div>
+<div class="section">
+<h2 class="section-title">Study Tips</h2>
+<div class="card">
+<ul><li>Allocate two weekly blocks for design critique, usability testing observations, and component refinement.</li><li>Maintain a component inventory tracking reuse rates, accessibility audit findings, and visual consistency improvements.</li><li>Conduct weekly design reviews measuring against accessibility standards (WCAG 2.1), performance impact, and engineering feasibility.</li></ul>
+</div>
+</div>
+        <!-- Study Tips -->
+        <section class="section">
+            <h2 class="section-title">Study Tips for Success</h2>
+            <div class="card">
+                <ul>
+                    <li>Protect consistent weekly practice time and complete hands-on work before moving to the next topic.</li>
+                    <li>Document implementation decisions, trade-offs, and lessons learned after each weekly deliverable.</li>
+                    <li>Review feedback quickly and ship an improved revision within the same week to reinforce retention.</li>
+                    <li>Track measurable progress with checklists, test evidence, and milestone outcomes.</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- About Course -->
+        <section class="section">
+            <h2 class="section-title">About UI/UX Design Fundamentals</h2>
+            <div class="card">
+                <p>This curriculum is structured to build practical capability, consistent delivery discipline, and portfolio-ready outcomes in UI/UX Design Fundamentals. It combines conceptual understanding with applied execution so learners can perform confidently in real project environments.</p>
+            </div>
+        </section>
+
+<div class="footer">
+<p>© 2026 Hexadigitall Academy (Hexadigitall Technologies). Curriculum authored for UI/UX Design Fundamentals.</p>
+</div>
+</div>
+</body>
+</html>

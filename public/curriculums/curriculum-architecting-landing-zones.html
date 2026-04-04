@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Architecting Landing Zones - Course Curriculum</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root { --primary-color:#0078D4; --dark-blue:#002050; --text-dark:#1F1F1F; --text-light:#605E5C; --bg-light:#F5F5F5; --bg-white:#FFFFFF; --border-color:#EDEBE9; }
+        body { font-family:'Inter',sans-serif; line-height:1.6; color:var(--text-dark); background:var(--bg-white); font-size:14px; }
+        .container { max-width:1200px; margin:0 auto; padding:40px; }
+        .brand-bar { display:flex; align-items:center; justify-content:space-between; gap:20px; border:1px solid var(--border-color); border-radius:12px; padding:16px 20px; margin-bottom:20px; box-shadow:0 4px 18px rgba(0,32,80,.08); }
+        .brand-meta { display:flex; align-items:center; gap:16px; }
+        .brand-meta img { width:60px; }
+        .brand-name { font-family:'Space Grotesk',sans-serif; font-size:18px; font-weight:700; color:var(--dark-blue); }
+        .brand-link { color:var(--primary-color); font-weight:600; text-decoration:none; }
+        .qr-block { display:flex; align-items:center; gap:12px; background:var(--bg-light); padding:10px 14px; border-radius:10px; border:1px solid var(--border-color); }
+        .qr-block img { width:86px; height:86px; }
+        .qr-text { font-size:12px; color:var(--text-light); max-width:220px; }
+        .course-hero { background:linear-gradient(135deg,#E8F4FD 0%,#F5F9FF 100%); border:1px solid var(--border-color); border-radius:12px; padding:18px; margin-bottom:24px; display:grid; grid-template-columns:1fr 320px; gap:20px; align-items:center; }
+        .course-hero img { width:100%; border-radius:12px; border:1px solid var(--border-color); }
+        .course-hero h2 { font-family:'Space Grotesk',sans-serif; color:var(--dark-blue); margin-bottom:10px; font-size:22px; }
+        .header { background:linear-gradient(135deg,var(--dark-blue) 0%,var(--primary-color) 100%); color:white; padding:60px 40px; border-radius:12px; margin-bottom:40px; }
+        .header h1 { font-family:'Space Grotesk',sans-serif; font-size:40px; margin-bottom:12px; }
+        .subtitle { font-size:18px; opacity:.95; margin-bottom:16px; }
+        .course-meta { display:flex; flex-wrap:wrap; gap:16px; margin-top:16px; }
+        .meta-item { background:rgba(255,255,255,.15); padding:10px 14px; border-radius:8px; }
+        .section { margin-bottom:46px; }
+        .section-title { font-family:'Space Grotesk',sans-serif; font-size:28px; color:var(--dark-blue); margin-bottom:22px; padding-bottom:10px; border-bottom:3px solid var(--primary-color); }
+        .card { border:1px solid var(--border-color); border-radius:10px; padding:22px; }
+        .card ul { margin-left:20px; }
+        .card li { margin:6px 0; }
+        .week-block { border:1px solid var(--border-color); border-left:6px solid var(--primary-color); border-radius:12px; padding:16px; margin-bottom:14px; }
+        .week-header { display:flex; justify-content:space-between; margin-bottom:10px; }
+        .week-topic { color:var(--primary-color); font-family:'Space Grotesk',sans-serif; font-size:18px; margin-bottom:10px; }
+        .week-content { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:12px; }
+        .week-column { background:#f8fbff; border:1px solid var(--border-color); border-radius:8px; padding:10px; }
+        .week-column h4 { font-size:13px; color:var(--dark-blue); margin-bottom:8px; }
+        .week-column ul { margin-left:16px; }
+        .week-column li { font-size:13px; margin:5px 0; }
+        .project-card { border:1px solid var(--border-color); border-radius:10px; padding:16px; margin-bottom:12px; background:linear-gradient(135deg,#f3f8ff 0%,#fff 100%); }
+        .project-card h4 { color:var(--dark-blue); margin-bottom:8px; }
+        .project-card p { color:var(--text-light); margin-bottom:8px; }
+        .project-card ul { margin-left:20px; }
+        .footer { border-top:1px solid var(--border-color); margin-top:24px; padding-top:16px; color:var(--text-light); font-size:12px; }
+        @media (max-width:900px){ .course-hero{grid-template-columns:1fr;} .week-content{grid-template-columns:1fr;} }
+    </style>
+
+
+
+<style id="curriculum-ui-normalization">
+:root { --primary-color:#0b5cab; --secondary-color:#5bb3ff; --dark-blue:#0d2a4a; --text-dark:#132235; --text-light:#4f637b; --bg-white:#ffffff; --bg-light:#f4f8fc; --border-color:#d9e5f2; }
+body { font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif; color:var(--text-dark); background:radial-gradient(circle at top right,#f7fbff 0%,#ffffff 45%); }
+h1,h2,h3,h4,.section-title,.week-topic,.week-number,.brand-name { font-family:'Space Grotesk','Inter',sans-serif; letter-spacing:-0.01em; }
+.section { margin-bottom:44px; }
+.card,.week-block,.project-card { border-radius:12px; border:1px solid var(--border-color); box-shadow:0 4px 16px rgba(13,42,74,0.06); }
+.welcome-section { background:linear-gradient(135deg,#eef6ff 0%,#f9fcff 100%); border-left:5px solid var(--primary-color); padding:28px; border-radius:12px; margin-bottom:36px; }
+.project-card { background:linear-gradient(135deg,#eef5ff 0%,#ffffff 60%); padding:20px; margin-bottom:14px; }
+.project-card h4 { color:var(--dark-blue); margin-bottom:8px; }
+.project-card p { color:var(--text-light); margin-bottom:10px; }
+.project-card ul { margin-left:18px; }
+.project-card li { margin:6px 0; }
+</style>
+<style id="curriculum-theme-override">
+:root { --primary-color:hsl(107 70% 42%); --secondary-color:hsl(131 82% 62%); --dark-blue:hsl(107 48% 18%); --text-dark:hsl(107 32% 14%); --text-light:hsl(107 18% 38%); --border-color:hsl(107 38% 86%); --bg-light:hsl(287 45% 97%); --theme-hero-a:hsl(107 85% 96%); --theme-hero-b:hsl(131 90% 98%); }
+body { background:radial-gradient(circle at 8% 0%, color-mix(in srgb, var(--theme-hero-a) 72%, white), #ffffff 46%); }
+.course-hero { background:linear-gradient(135deg,var(--theme-hero-a) 0%,var(--theme-hero-b) 100%); }
+.header { background:linear-gradient(135deg,color-mix(in srgb, var(--dark-blue) 90%, black), var(--primary-color)); }
+.section-title::before { background:linear-gradient(180deg,var(--primary-color),var(--secondary-color)); }
+.week-block { border-left:6px solid var(--primary-color); }
+</style>
+<style id="curriculum-contrast-fix">
+/* Final readability layer: resolves conflicting text/background and font overrides */
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif !important;
+  color: var(--text-dark) !important;
+  background-color: #ffffff;
+}
+h1, h2, h3, h4, .section-title, .week-topic, .week-number, .brand-name {
+  font-family: 'Space Grotesk', 'Inter', sans-serif !important;
+}
+
+/* Ensure light surfaces always use dark text */
+.container,
+.section,
+.card,
+.week-block,
+.week-column,
+.project-card,
+.welcome-section,
+.resource-item,
+.roadmap-card,
+.info-box {
+  color: var(--text-dark);
+}
+
+/* Keep hero as light panel with dark readable text */
+.course-hero,
+.course-hero h1,
+.course-hero h2,
+.course-hero h3,
+.course-hero h4,
+.course-hero p,
+.course-hero li,
+.course-hero span,
+.course-hero a {
+  color: var(--text-dark) !important;
+}
+
+/* Normalize dark surfaces so white text always has contrast */
+.brand-bar,
+.header,
+.footer {
+  background: linear-gradient(135deg, color-mix(in srgb, var(--dark-blue) 92%, black), var(--primary-color)) !important;
+}
+
+.header,
+.header h1,
+.header h2,
+.header h3,
+.header h4,
+.header p,
+.header li,
+.header span,
+.header strong,
+.header a,
+.brand-bar,
+.brand-bar h1,
+.brand-bar h2,
+.brand-bar h3,
+.brand-bar h4,
+.brand-bar p,
+.brand-bar li,
+.brand-bar span,
+.brand-bar strong,
+.brand-bar a,
+.footer,
+.footer h1,
+.footer h2,
+.footer h3,
+.footer h4,
+.footer p,
+.footer li,
+.footer span,
+.footer strong,
+.footer a {
+  color: #ffffff !important;
+}
+
+.brand-bar .brand-link,
+.brand-bar .qr-text,
+.footer p {
+  color: rgba(255, 255, 255, 0.92) !important;
+}
+
+/* Meta chips: readable in both dark and light contexts */
+.meta-item {
+  color: var(--text-dark);
+}
+.header .meta-item {
+  color: #ffffff !important;
+  background: rgba(255,255,255,0.16) !important;
+}
+
+/* Links and list readability */
+a { color: var(--primary-color); }
+a:hover { opacity: 0.9; }
+li { color: inherit; }
+
+.section-title,
+.week-topic,
+.project-card h4,
+.card h3,
+.welcome-section h2 {
+  opacity: 1 !important;
+}
+</style>
+<style id="curriculum-brandbar-contrast-fix">
+/* Brand bar readability fix */
+.brand-bar {
+  background: linear-gradient(135deg, color-mix(in srgb, var(--dark-blue) 88%, black), var(--primary-color)) !important;
+  border-color: color-mix(in srgb, var(--primary-color) 35%, white) !important;
+}
+.brand-bar .brand-name,
+.brand-bar .brand-link,
+.brand-bar .qr-text,
+.brand-bar .brand-text,
+.brand-bar .brand-meta,
+.brand-bar a,
+.brand-bar p,
+.brand-bar span,
+.brand-bar strong {
+  color: #ffffff !important;
+}
+.brand-bar .brand-link {
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.brand-bar .qr-block {
+  background: rgba(255,255,255,0.16) !important;
+  border-color: rgba(255,255,255,0.35) !important;
+}
+.brand-bar .qr-text {
+  opacity: 0.95;
+}
+</style>
+</head>
+<body>
+    <div class="container">
+        <div class="brand-bar">
+            <div class="brand-meta">
+                <img src="../hexadigitall-logo-transparent.png" alt="Hexadigitall logo">
+                <div>
+                    <div class="brand-name">Hexadigitall Academy (Hexadigitall Technologies)</div>
+                    <a class="brand-link" href="https://www.hexadigitall.com">www.hexadigitall.com</a>
+                </div>
+            </div>
+            <div class="qr-block">
+                <img src="https://api.qrserver.com/v1/create-qr-code/?size=120x120&data=https://www.hexadigitall.com/courses/architecting-landing-zones" alt="Course QR Code">
+                <div class="qr-text">Scan for course page, admissions, and mentorship details.</div>
+            </div>
+        </div>
+
+        <div class="course-hero">
+            <div>
+                <h2>Course Snapshot</h2>
+                <p>Design, implement, and operate enterprise-grade cloud landing zones with governance, security, networking, and operational excellence baked in from day one.</p>
+            </div>
+            <img src="../assets/images/courses/architecting-landing-zones.jpg" alt="Architecting Landing Zones" onerror="this.style.display='none'">
+        </div>
+
+        <div class="header">
+            <h1>Architecting Landing Zones</h1>
+            <p class="subtitle">Detailed course-specific weekly curriculum built for professional competency and portfolio delivery.</p>
+            <div class="course-meta">
+                <div class="meta-item"><strong>Duration:</strong> 14 Weeks</div>
+                <div class="meta-item"><strong>Level:</strong> Advanced</div>
+                <div class="meta-item"><strong>Study Time:</strong> 2 hours/week + labs</div>
+                <div class="meta-item"><strong>School:</strong> Cloud &amp; DevOps</div>
+            </div>
+        </div>
+
+        <section class="welcome-section">
+            <h2>Welcome to Architecting Landing Zones! 🎓</h2>
+            <p>This 14-week advanced curriculum is designed for cloud engineers and platform teams responsible for building enterprise landing zones that are secure, governable, and scalable from day one.</p>
+            <p>You will move from strategy and architecture through identity, networking, policy-as-code, observability, compliance, and onboarding operations, producing practical deliverables each week that mirror real platform engineering work.</p>
+            <p><strong>Your success is our priority.</strong> By the end of this course, you will be able to design and deliver a production-ready landing zone with clear governance controls, operational guardrails, and audit-ready documentation.</p>
+        </section>
+
+        <div class="section">
+            <h2 class="section-title">Prerequisites & What You Should Know</h2>
+            <div class="card"><ul><li>Working knowledge of cloud fundamentals and virtual networking.</li><li>Basic understanding of IAM concepts and policy-based access control.</li><li>Comfort with infrastructure automation concepts and CLI-based workflows.</li><li>Readiness to document architecture decisions and operational runbooks.</li></ul></div>
+        </div>
+
+        <section class="section">
+            <h2 class="section-title">Recommended Complementary Courses</h2>
+            <div class="card">
+                <ul>
+                    <li><strong>Enterprise Cloud Solutions Architect:</strong> Extend landing zone patterns into enterprise-wide platform governance and multi-account architecture strategy.</li>
+                    <li><strong>DevOps Engineering &amp; Cloud Infrastructure:</strong> Operationalize your platform design with CI/CD, Kubernetes, Terraform, and delivery automation.</li>
+                    <li><strong>Advanced Ansible Automation:</strong> Add configuration and lifecycle automation for platform services and baseline controls.</li>
+                    <li><strong>Azure Security Technologies (AZ-500):</strong> Deepen identity, network, and workload security controls that underpin secure landing zones.</li>
+                </ul>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2 class="section-title">Essential Learning Resources</h2>
+            <div class="card">
+                <ul>
+                    <li>Microsoft Cloud Adoption Framework and Azure Landing Zone reference architecture.</li>
+                    <li>AWS multi-account and control tower governance guidance for cross-cloud comparison.</li>
+                    <li>Terraform documentation for policy checks, modules, and remote state controls.</li>
+                    <li>Well-Architected frameworks and platform engineering operating model references.</li>
+                </ul>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2 class="section-title">Your Learning Roadmap</h2>
+            <div class="card">
+                <ul>
+                    <li><strong>Weeks 1-3 (Foundation):</strong> Strategy, identity model, and hierarchy design.</li>
+                    <li><strong>Weeks 4-6 (Platform Core):</strong> Networking blueprint, hybrid integration, and security baselines.</li>
+                    <li><strong>Weeks 7-10 (Operations):</strong> Observability, FinOps controls, IaC modules, and platform CI/CD.</li>
+                    <li><strong>Weeks 11-14 (Governance to Delivery):</strong> Workload onboarding, compliance, resilience, and capstone defense.</li>
+                </ul>
+            </div>
+        </section>
+
+        <div class="section">
+            <h2 class="section-title">Learning Outcomes</h2>
+            <div class="card"><ul><li>Design enterprise landing zone architecture aligned to governance and security standards.</li><li>Implement identity, networking, policy, and observability foundations for cloud platforms.</li><li>Operationalize platform changes with IaC and CI/CD guardrails.</li><li>Onboard workloads using standardized platform contracts and controls.</li><li>Produce audit-ready evidence and resilience plans for production operations.</li></ul></div>
+        </div>
+
+        <div class="section">
+            <h2 class="section-title">Detailed Weekly Curriculum</h2>
+
+            <div class="week-block">
+                <div class="week-header">
+                    <span class="week-number">Week 1</span>
+                    <span class="week-duration">2 hours + labs</span>
+                </div>
+                <div class="week-topic">The "Why" of Landing Zones</div>
+                <div class="week-content">
+                    <div class="week-column">
+                        <h4>Concept Scope</h4>
+                        <ul>
+                            <li>Cloud adoption framework phases and landing zone operating model.</li><li>Business, security, and compliance drivers translated to platform requirements.</li><li>Reference architecture decisions for enterprise foundations.</li>
+                        </ul>
+                    </div>
+                    <div class="week-column">
+                        <h4>Hands-On Scope</h4>
+                        <ul><li>Initialize textbook-aligned repository structure (docs + projects/week-01-foundations).</li><li>Document pre-landing-zone risks and blast-radius constraints in baseline assessment.</li><li>Create first architecture decision record for landing-zone adoption.</li></ul>
+                    </div>
+                    <div class="week-column">
+                        <h4>Expected Deliverables</h4>
+                        <ul><li>Week-01 baseline package and folder evidence.</li><li>Current-state risk assessment report.</li><li>Landing-zone rationale ADR.</li></ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="week-block">
+                <div class="week-header">
+                    <span class="week-number">Week 2</span>
+                    <span class="week-duration">2 hours + labs</span>
+                </div>
+                <div class="week-topic">Identity at Scale</div>
+                <div class="week-content">
+                    <div class="week-column">
+                        <h4>Concept Scope</h4>
+                        <ul>
+                            <li>Identity source-of-truth and tenant design principles.</li><li>Privileged access model, role separation, and break-glass strategy.</li><li>RBAC policy inheritance across management hierarchy.</li>
+                        </ul>
+                    </div>
+                    <div class="week-column">
+                        <h4>Hands-On Scope</h4>
+                        <ul><li>Design identity hierarchy and role boundaries for platform/security/workload teams.</li><li>Implement least-privilege mappings and privileged access workflow.</li><li>Validate inheritance and exception handling across scopes.</li></ul>
+                    </div>
+                    <div class="week-column">
+                        <h4>Expected Deliverables</h4>
+                        <ul><li>Identity/RBAC model and role matrix.</li><li>Privileged workflow evidence bundle.</li><li>Access validation report with exceptions log.</li></ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="week-block">
+                <div class="week-header">
+                    <span class="week-number">Week 3</span>
+                    <span class="week-duration">2 hours + labs</span>
+                </div>
+                <div class="week-topic">Governance & Guardrails</div>
+                <div class="week-content">
+                    <div class="week-column">
+                        <h4>Concept Scope</h4>
+                        <ul>
+                            <li>Management group strategy for platform, landing, and sandbox scopes.</li><li>Subscription/account segmentation by environment and business domain.</li><li>Policy inheritance and scope boundaries.</li>
+                        </ul>
+                    </div>
+                    <div class="week-column">
+                        <h4>Hands-On Scope</h4>
+                        <ul><li>Define governance guardrails for naming, tagging, region, and service use.</li><li>Apply policies at hierarchy scopes and test inheritance behavior.</li><li>Simulate violations and verify deny/audit controls.</li></ul>
+                    </div>
+                    <div class="week-column">
+                        <h4>Expected Deliverables</h4>
+                        <ul><li>Guardrail policy catalog and scope map.</li><li>Policy inheritance test evidence.</li><li>Violation simulation and remediation log.</li></ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="week-block">
+                <div class="week-header">
+                    <span class="week-number">Week 4</span>
+                    <span class="week-duration">2 hours + labs</span>
+                </div>
+                <div class="week-topic">Hub-and-Spoke Networking</div>
+                <div class="week-content">
+                    <div class="week-column">
+                        <h4>Concept Scope</h4>
+                        <ul>
+                            <li>Hub-spoke or transit architecture trade-offs.</li><li>Address space planning, segmentation, and overlapping CIDR risks.</li><li>Ingress/egress and east-west traffic controls.</li>
+                        </ul>
+                    </div>
+                    <div class="week-column">
+                        <h4>Hands-On Scope</h4>
+                        <ul><li>Design hub-and-spoke network architecture with segmentation boundaries.</li><li>Implement routing, firewall, and DNS patterns for shared/workload planes.</li><li>Validate connectivity and isolation across traffic paths.</li></ul>
+                    </div>
+                    <div class="week-column">
+                        <h4>Expected Deliverables</h4>
+                        <ul><li>Network topology blueprint and CIDR plan.</li><li>Routing/firewall implementation artifacts.</li><li>Connectivity/isolation validation matrix.</li></ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="week-block">
+                <div class="week-header">
+                    <span class="week-number">Week 5</span>
+                    <span class="week-duration">2 hours + labs</span>
+                </div>
+                <div class="week-topic">Shared VPCs & Private Link</div>
+                <div class="week-content">
+                    <div class="week-column">
+                        <h4>Concept Scope</h4>
+                        <ul>
+                            <li>Site-to-site and private connectivity patterns.</li><li>DNS, identity, and trust boundaries in hybrid designs.</li><li>Failover patterns for branch and on-prem integration.</li>
+                        </ul>
+                    </div>
+                    <div class="week-column">
+                        <h4>Hands-On Scope</h4>
+                        <ul><li>Implement shared network services and private endpoint exposure model.</li><li>Disable unnecessary public paths and enforce private access.</li><li>Test cross-account/subscription private connectivity and DNS resolution.</li></ul>
+                    </div>
+                    <div class="week-column">
+                        <h4>Expected Deliverables</h4>
+                        <ul><li>Shared service network architecture package.</li><li>Private endpoint configuration evidence.</li><li>Private connectivity validation report.</li></ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="week-block">
+                <div class="week-header">
+                    <span class="week-number">Week 6</span>
+                    <span class="week-duration">2 hours + labs</span>
+                </div>
+                <div class="week-topic">Centralized Security</div>
+                <div class="week-content">
+                    <div class="week-column">
+                        <h4>Concept Scope</h4>
+                        <ul>
+                            <li>Guardrails using policy frameworks and control objectives.</li><li>Security baseline controls for compute, data, and networking.</li><li>Policy lifecycle management and exception handling.</li>
+                        </ul>
+                    </div>
+                    <div class="week-column">
+                        <h4>Hands-On Scope</h4>
+                        <ul><li>Deploy centralized security controls across all landing-zone scopes.</li><li>Aggregate findings and prioritize remediation by severity and ownership.</li><li>Re-test and close critical findings with evidence.</li></ul>
+                    </div>
+                    <div class="week-column">
+                        <h4>Expected Deliverables</h4>
+                        <ul><li>Central security baseline checklist.</li><li>Findings triage board with SLAs.</li><li>Critical remediation closure report.</li></ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="week-block">
+                <div class="week-header">
+                    <span class="week-number">Week 7</span>
+                    <span class="week-duration">2 hours + labs</span>
+                </div>
+                <div class="week-topic">Centralized Logging</div>
+                <div class="week-content">
+                    <div class="week-column">
+                        <h4>Concept Scope</h4>
+                        <ul>
+                            <li>Platform telemetry architecture and log taxonomy.</li><li>Centralized monitoring, alerting, and correlation strategy.</li><li>Detection engineering principles for platform signals.</li>
+                        </ul>
+                    </div>
+                    <div class="week-column">
+                        <h4>Hands-On Scope</h4>
+                        <ul><li>Implement centralized logging pipeline with retention and access controls.</li><li>Normalize identity/network/workload telemetry for investigations.</li><li>Create and test detections for high-risk admin/network events.</li></ul>
+                    </div>
+                    <div class="week-column">
+                        <h4>Expected Deliverables</h4>
+                        <ul><li>Logging architecture and retention policy doc.</li><li>Normalized schema/parser configuration set.</li><li>Detection query library with sample alerts.</li></ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="week-block">
+                <div class="week-header">
+                    <span class="week-number">Week 8</span>
+                    <span class="week-duration">2 hours + labs</span>
+                </div>
+                <div class="week-topic">The Account Factory</div>
+                <div class="week-content">
+                    <div class="week-column">
+                        <h4>Concept Scope</h4>
+                        <ul>
+                            <li>Resource governance standards and mandatory metadata.</li><li>Budget controls, chargeback/showback model.</li><li>Cost anomaly detection and optimization loops.</li>
+                        </ul>
+                    </div>
+                    <div class="week-column">
+                        <h4>Hands-On Scope</h4>
+                        <ul><li>Automate account/subscription provisioning with baseline controls at creation.</li><li>Implement request-approval workflow and SLA tracking.</li><li>Validate policy/tag compliance of provisioned environments.</li></ul>
+                    </div>
+                    <div class="week-column">
+                        <h4>Expected Deliverables</h4>
+                        <ul><li>Account factory automation workflow package.</li><li>Approval and SLA evidence records.</li><li>Provisioning compliance validation output.</li></ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="week-block">
+                <div class="week-header">
+                    <span class="week-number">Week 9</span>
+                    <span class="week-duration">2 hours + labs</span>
+                </div>
+                <div class="week-topic">Account Customizations</div>
+                <div class="week-content">
+                    <div class="week-column">
+                        <h4>Concept Scope</h4>
+                        <ul>
+                            <li>IaC module design for reusable platform components.</li><li>State management and environment promotion strategy.</li><li>Secure secrets and configuration management in IaC.</li>
+                        </ul>
+                    </div>
+                    <div class="week-column">
+                        <h4>Hands-On Scope</h4>
+                        <ul><li>Build reusable account customization modules for baseline standards.</li><li>Apply customizations to multiple environments consistently.</li><li>Detect and remediate drift across customized accounts.</li></ul>
+                    </div>
+                    <div class="week-column">
+                        <h4>Expected Deliverables</h4>
+                        <ul><li>Customization module repository and version notes.</li><li>Multi-environment rollout evidence.</li><li>Drift remediation report.</li></ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="week-block">
+                <div class="week-header">
+                    <span class="week-number">Week 10</span>
+                    <span class="week-duration">2 hours + labs</span>
+                </div>
+                <div class="week-topic">Deep Dive: AFT</div>
+                <div class="week-content">
+                    <div class="week-column">
+                        <h4>Concept Scope</h4>
+                        <ul>
+                            <li>Release flow for platform changes and guardrails.</li><li>Automated validation, approvals, and rollback standards.</li><li>Change management governance for platform teams.</li>
+                        </ul>
+                    </div>
+                    <div class="week-column">
+                        <h4>Hands-On Scope</h4>
+                        <ul><li>Configure AFT pipeline with approvals and quality gates for account provisioning.</li><li>Automate post-provision baseline modules and compliance checks.</li><li>Run full onboarding flow from request to compliant account state.</li></ul>
+                    </div>
+                    <div class="week-column">
+                        <h4>Expected Deliverables</h4>
+                        <ul><li>AFT pipeline config and workflow diagram.</li><li>Baseline deployment execution logs and gate outcomes.</li><li>End-to-end onboarding report with remediation notes.</li></ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="week-block">
+                <div class="week-header">
+                    <span class="week-number">Week 11</span>
+                    <span class="week-duration">2 hours + labs</span>
+                </div>
+                <div class="week-topic">Standardization & Blueprints</div>
+                <div class="week-content">
+                    <div class="week-column">
+                        <h4>Concept Scope</h4>
+                        <ul>
+                            <li>Landing zone onboarding process for new product teams.</li><li>Shared services, platform contracts, and ownership boundaries.</li><li>Security and networking onboarding controls.</li>
+                        </ul>
+                    </div>
+                    <div class="week-column">
+                        <h4>Hands-On Scope</h4>
+                        <ul><li>Define standardized blueprints for recurring workload onboarding patterns.</li><li>Encode mandatory controls and optional extensions per blueprint tier.</li><li>Pilot blueprint onboarding and capture feedback for refinement.</li></ul>
+                    </div>
+                    <div class="week-column">
+                        <h4>Expected Deliverables</h4>
+                        <ul><li>Blueprint catalog with control mappings.</li><li>Template implementation package.</li><li>Pilot onboarding evaluation notes.</li></ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="week-block">
+                <div class="week-header">
+                    <span class="week-number">Week 12</span>
+                    <span class="week-duration">2 hours + labs</span>
+                </div>
+                <div class="week-topic">Landing Zone Drift & Lifecycle Management</div>
+                <div class="week-content">
+                    <div class="week-column">
+                        <h4>Concept Scope</h4>
+                        <ul>
+                            <li>Mapping technical controls to regulatory requirements.</li><li>Audit evidence collection and control attestation model.</li><li>Continuous compliance monitoring architecture.</li>
+                        </ul>
+                    </div>
+                    <div class="week-column">
+                        <h4>Hands-On Scope</h4>
+                        <ul><li>Implement drift detection across identity, policy, and network baselines.</li><li>Plan lifecycle upgrades/deprecations with governance approvals.</li><li>Execute controlled remediation and verify post-change stability.</li></ul>
+                    </div>
+                    <div class="week-column">
+                        <h4>Expected Deliverables</h4>
+                        <ul><li>Drift detection dashboard and alert rules.</li><li>Lifecycle change calendar with approvals.</li><li>Remediation execution and validation logs.</li></ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="week-block">
+                <div class="week-header">
+                    <span class="week-number">Week 13</span>
+                    <span class="week-duration">2 hours + labs</span>
+                </div>
+                <div class="week-topic">State Management & Scaling Strategies</div>
+                <div class="week-content">
+                    <div class="week-column">
+                        <h4>Concept Scope</h4>
+                        <ul>
+                            <li>Resilience objectives (RTO/RPO) for platform services.</li><li>Cross-region and backup strategy for landing zone components.</li><li>Incident escalation and recovery governance.</li>
+                        </ul>
+                    </div>
+                    <div class="week-column">
+                        <h4>Hands-On Scope</h4>
+                        <ul><li>Design scalable remote-state isolation strategy for multi-team operations.</li><li>Optimize pipeline concurrency and dependency orchestration.</li><li>Stress-test parallel rollout safety and state integrity.</li></ul>
+                    </div>
+                    <div class="week-column">
+                        <h4>Expected Deliverables</h4>
+                        <ul><li>State management architecture and guardrails.</li><li>Pipeline scaling configuration evidence.</li><li>Parallel rollout simulation report.</li></ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="week-block">
+                <div class="week-header">
+                    <span class="week-number">Week 14</span>
+                    <span class="week-duration">2 hours + labs</span>
+                </div>
+                <div class="week-topic">Final Project: The Corporate Handover</div>
+                <div class="week-content">
+                    <div class="week-column">
+                        <h4>Concept Scope</h4>
+                        <ul>
+                            <li>End-to-end landing zone architecture defense.</li><li>Governance, security, observability, and operations integration.</li><li>Executive communication of platform value and risks.</li>
+                        </ul>
+                    </div>
+                    <div class="week-column">
+                        <h4>Hands-On Scope</h4>
+                        <ul><li>Assemble final corporate handover package (architecture, controls, operations).</li><li>Conduct executive walkthrough and technical defense using portfolio evidence.</li><li>Complete transition checklist with ownership transfer sign-off.</li></ul>
+                    </div>
+                    <div class="week-column">
+                        <h4>Expected Deliverables</h4>
+                        <ul><li>Corporate handover dossier and runbooks.</li><li>Executive walkthrough deck and Q&A transcript.</li><li>Transition sign-off record and next-phase roadmap.</li></ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2 class="section-title">Capstone Projects</h2><div class="project-card"><h4>Project 1: Landing Zone Specialist Curriculum Foundation Build</h4><p>Deliver a concrete foundation implementation covering the first phase of the curriculum.</p><ul><li>Implement and validate The "Why" of Landing Zones.</li><li>Integrate Identity at Scale with reusable workflow standards.</li><li>Publish evidence for Governance & Guardrails with test and quality artifacts.</li></ul></div><div class="project-card"><h4>Project 2: Landing Zone Specialist Curriculum Integrated Systems Build</h4><p>Combine mid-program competencies into a production-style integrated workflow.</p><ul><li>Build an end-to-end flow around Shared VPCs & Private Link and Centralized Security.</li><li>Add controls, observability, and rollback paths for reliability.</li><li>Document architecture decisions and trade-offs tied to Centralized Logging.</li></ul></div><div class="project-card"><h4>Project 3: Landing Zone Specialist Curriculum Capstone Delivery</h4><p>Ship a portfolio-ready capstone with measurable outcomes and stakeholder-ready presentation.</p><ul><li>Deliver a complete implementation centered on Standardization & Blueprints.</li><li>Validate readiness for Landing Zone Drift & Lifecycle Management using objective acceptance checks.</li><li>Present final defense and roadmap based on State Management & Scaling Strategies outcomes.</li></ul></div></div>
+
+        <section class="section">
+            <h2 class="section-title">Study Tips for Success</h2>
+            <div class="card">
+                <ul>
+                    <li>Maintain an architecture decision record (ADR) for every key platform trade-off.</li>
+                    <li>Validate every governance control with evidence, not assumption.</li>
+                    <li>Treat documentation as a first-class deliverable, especially runbooks and onboarding guides.</li>
+                    <li>Use weekly retrospectives to refine naming, policy, and environment standards.</li>
+                    <li>Practice presenting design decisions to both technical and executive stakeholders.</li>
+                </ul>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2 class="section-title">About This Course</h2>
+            <div class="card">
+                <p>The Landing Zone Specialist Curriculum focuses on enterprise cloud platform foundations. It is built for engineers who must establish secure, compliant, and scalable cloud environments that support multiple product teams without sacrificing governance.</p>
+            </div>
+            <div class="card" style="margin-top: 16px;">
+                <ul>
+                    <li><strong>Best fit roles:</strong> Cloud Platform Engineer, Landing Zone Architect, Cloud Governance Engineer, Enterprise Infrastructure Engineer.</li>
+                    <li><strong>Primary outcome:</strong> Deliver a production-grade landing zone blueprint and implementation package.</li>
+                    <li><strong>Portfolio value:</strong> Architecture artifacts, policy baselines, onboarding playbooks, and resilience evidence.</li>
+                </ul>
+            </div>
+        </section>
+
+        <div class="footer">
+            <p>&copy; 2026 Hexadigitall Academy (Hexadigitall Technologies). Landing Zone Specialist Curriculum curriculum.</p>
+        </div>
+    </div>
+</body>
+</html>

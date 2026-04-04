@@ -131,8 +131,8 @@ async function exportManuscript(browser, job) {
   try {
     await page.setViewport({ width: 1200, height: 1600, deviceScaleFactor: 1 });
     await page.goto(pathToFileURL(job.input).href, {
-      waitUntil: 'networkidle0',
-      timeout: 180000,
+      waitUntil: 'domcontentloaded',
+      timeout: 0,
     });
 
     await applyTwemojiSvgFallback(page);
@@ -171,6 +171,7 @@ async function exportManuscript(browser, job) {
 async function main() {
   const browser = await puppeteer.launch({
     headless: 'new',
+    protocolTimeout: 900000,
     args: ['--no-sandbox', '--disable-setuid-sandbox'],
   });
 

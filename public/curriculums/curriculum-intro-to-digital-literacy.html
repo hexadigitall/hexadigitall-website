@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Intro to Digital Literacy - Course Curriculum</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&amp;family=Space+Grotesk:wght@500;600;700&amp;display=swap" rel="stylesheet"/>
+<style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --primary-color: #0078D4;
+            --secondary-color: #50E6FF;
+            --dark-blue: #002050;
+            --text-dark: #1F1F1F;
+            --text-light: #605E5C;
+            --bg-light: #F5F5F5;
+            --bg-white: #FFFFFF;
+            --border-color: #EDEBE9;
+        }
+        body { font-family: 'Inter', sans-serif; line-height: 1.6; color: var(--text-dark); background: var(--bg-white); font-size: 14px; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 40px; }
+        .brand-bar { display: flex; align-items: center; justify-content: space-between; gap: 20px; border: 1px solid var(--border-color); border-radius: 12px; padding: 16px 20px; margin-bottom: 20px; box-shadow: 0 4px 18px rgba(0, 32, 80, 0.08); }
+        .brand-meta { display: flex; align-items: center; gap: 16px; }
+        .brand-meta img { width: 60px; height: auto; }
+        .brand-name { font-family: 'Space Grotesk', sans-serif; font-size: 18px; font-weight: 700; color: var(--dark-blue); }
+        .brand-link { color: var(--primary-color); font-weight: 600; text-decoration: none; }
+        .qr-block { display: flex; align-items: center; gap: 12px; background: var(--bg-light); padding: 10px 14px; border-radius: 10px; border: 1px solid var(--border-color); }
+        .qr-block img { width: 86px; height: 86px; }
+        .qr-text { font-size: 12px; color: var(--text-light); max-width: 220px; line-height: 1.5; }
+        .course-hero { background: linear-gradient(135deg, #E8F4FD 0%, #F5F9FF 100%); border: 1px solid var(--border-color); border-radius: 12px; padding: 18px; margin-bottom: 24px; display: grid; grid-template-columns: 1fr 320px; gap: 20px; align-items: center; box-shadow: 0 6px 18px rgba(0, 32, 80, 0.08); }
+        .course-hero img { width: 100%; border-radius: 12px; border: 1px solid var(--border-color); }
+        .course-hero h2 { font-family: 'Space Grotesk', sans-serif; color: var(--dark-blue); margin-bottom: 10px; font-size: 22px; }
+        .header { background: linear-gradient(135deg, var(--dark-blue) 0%, var(--primary-color) 100%); color: white; padding: 60px 40px; border-radius: 12px; margin-bottom: 40px; box-shadow: 0 10px 30px rgba(0, 120, 212, 0.2); }
+        .header h1 { font-family: 'Space Grotesk', sans-serif; font-size: 42px; font-weight: 700; margin-bottom: 16px; letter-spacing: -0.5px; }
+        .header .subtitle { font-size: 18px; opacity: 0.95; margin-bottom: 24px; }
+        .course-meta { display: flex; flex-wrap: wrap; gap: 24px; margin-top: 32px; }
+        .meta-item { display: flex; align-items: center; gap: 8px; background: rgba(255, 255, 255, 0.15); padding: 12px 20px; border-radius: 8px; }
+        .section { margin-bottom: 48px; break-inside: avoid; }
+        .section-title { font-family: 'Space Grotesk', sans-serif; font-size: 28px; color: var(--dark-blue); margin-bottom: 24px; padding-bottom: 12px; border-bottom: 3px solid var(--primary-color); display: flex; align-items: center; gap: 12px; }
+        .section-title::before { content: ''; width: 6px; height: 32px; background: linear-gradient(180deg, var(--primary-color), var(--secondary-color)); border-radius: 3px; }
+        .card { background: var(--bg-white); border: 1px solid var(--border-color); border-radius: 10px; padding: 24px; margin-bottom: 16px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05); }
+        .card ul { margin-left: 20px; }
+        .card li { margin: 6px 0; }
+        .roadmap-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+        .roadmap-card { border: 1px solid var(--border-color); border-radius: 12px; padding: 18px; background: linear-gradient(135deg, #F8FBFF 0%, #FFFFFF 100%); }
+        .roadmap-card h4 { color: var(--dark-blue); font-size: 18px; margin-bottom: 6px; }
+        .roadmap-card p { color: var(--text-light); font-size: 13px; margin-bottom: 10px; }
+        .roadmap-card ul { margin-left: 18px; }
+        .week-block { border: 1px solid var(--border-color); border-left: 6px solid var(--primary-color); border-radius: 12px; padding: 16px; margin-bottom: 14px; }
+        .week-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+        .week-number { font-weight: 700; color: var(--dark-blue); }
+        .week-duration { font-size: 12px; color: var(--text-light); }
+        .week-topic { color: var(--primary-color); font-family: 'Space Grotesk', sans-serif; font-size: 18px; margin-bottom: 10px; }
+        .week-content ul { margin-left: 20px; }
+        .week-content li { margin: 6px 0; }
+        .project-card { border: 1px solid var(--border-color); border-radius: 10px; padding: 16px; margin-bottom: 12px; background: linear-gradient(135deg, #f3f8ff 0%, #ffffff 100%); }
+        .project-card h4 { color: var(--dark-blue); margin-bottom: 8px; }
+        .project-card p { color: var(--text-light); margin-bottom: 8px; }
+        .project-card ul { margin-left: 20px; }
+        .footer { margin-top: 24px; padding-top: 16px; border-top: 1px solid var(--border-color); color: var(--text-light); font-size: 12px; }
+        @media (max-width: 900px) {
+            .course-hero { grid-template-columns: 1fr; }
+            .roadmap-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+
+
+
+<style id="curriculum-ui-normalization">
+:root { --primary-color:#0b5cab; --secondary-color:#5bb3ff; --dark-blue:#0d2a4a; --text-dark:#132235; --text-light:#4f637b; --bg-white:#ffffff; --bg-light:#f4f8fc; --border-color:#d9e5f2; }
+body { font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif; color:var(--text-dark); background:radial-gradient(circle at top right,#f7fbff 0%,#ffffff 45%); }
+h1,h2,h3,h4,.section-title,.week-topic,.week-number,.brand-name { font-family:'Space Grotesk','Inter',sans-serif; letter-spacing:-0.01em; }
+.section { margin-bottom:44px; }
+.card,.week-block,.project-card { border-radius:12px; border:1px solid var(--border-color); box-shadow:0 4px 16px rgba(13,42,74,0.06); }
+.welcome-section { background:linear-gradient(135deg,#eef6ff 0%,#f9fcff 100%); border-left:5px solid var(--primary-color); padding:28px; border-radius:12px; margin-bottom:36px; }
+.project-card { background:linear-gradient(135deg,#eef5ff 0%,#ffffff 60%); padding:20px; margin-bottom:14px; }
+.project-card h4 { color:var(--dark-blue); margin-bottom:8px; }
+.project-card p { color:var(--text-light); margin-bottom:10px; }
+.project-card ul { margin-left:18px; }
+.project-card li { margin:6px 0; }
+</style>
+<style id="curriculum-theme-override">
+:root { --primary-color:hsl(105 70% 42%); --secondary-color:hsl(129 82% 62%); --dark-blue:hsl(105 48% 18%); --text-dark:hsl(105 32% 14%); --text-light:hsl(105 18% 38%); --border-color:hsl(105 38% 86%); --bg-light:hsl(285 45% 97%); --theme-hero-a:hsl(105 85% 96%); --theme-hero-b:hsl(129 90% 98%); }
+body { background:radial-gradient(circle at 8% 0%, color-mix(in srgb, var(--theme-hero-a) 72%, white), #ffffff 46%); }
+.course-hero { background:linear-gradient(135deg,var(--theme-hero-a) 0%,var(--theme-hero-b) 100%); }
+.header { background:linear-gradient(135deg,color-mix(in srgb, var(--dark-blue) 90%, black), var(--primary-color)); }
+.section-title::before { background:linear-gradient(180deg,var(--primary-color),var(--secondary-color)); }
+.week-block { border-left:6px solid var(--primary-color); }
+</style>
+<style id="curriculum-contrast-fix">
+/* Final readability layer: resolves conflicting text/background and font overrides */
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif !important;
+  color: var(--text-dark) !important;
+  background-color: #ffffff;
+}
+h1, h2, h3, h4, .section-title, .week-topic, .week-number, .brand-name {
+  font-family: 'Space Grotesk', 'Inter', sans-serif !important;
+}
+
+/* Ensure light surfaces always use dark text */
+.container,
+.section,
+.card,
+.week-block,
+.week-column,
+.project-card,
+.welcome-section,
+.resource-item,
+.roadmap-card,
+.info-box {
+  color: var(--text-dark);
+}
+
+/* Keep hero as light panel with dark readable text */
+.course-hero,
+.course-hero h1,
+.course-hero h2,
+.course-hero h3,
+.course-hero h4,
+.course-hero p,
+.course-hero li,
+.course-hero span,
+.course-hero a {
+  color: var(--text-dark) !important;
+}
+
+/* Normalize dark surfaces so white text always has contrast */
+.brand-bar,
+.header,
+.footer {
+  background: linear-gradient(135deg, color-mix(in srgb, var(--dark-blue) 92%, black), var(--primary-color)) !important;
+}
+
+.header,
+.header h1,
+.header h2,
+.header h3,
+.header h4,
+.header p,
+.header li,
+.header span,
+.header strong,
+.header a,
+.brand-bar,
+.brand-bar h1,
+.brand-bar h2,
+.brand-bar h3,
+.brand-bar h4,
+.brand-bar p,
+.brand-bar li,
+.brand-bar span,
+.brand-bar strong,
+.brand-bar a,
+.footer,
+.footer h1,
+.footer h2,
+.footer h3,
+.footer h4,
+.footer p,
+.footer li,
+.footer span,
+.footer strong,
+.footer a {
+  color: #ffffff !important;
+}
+
+.brand-bar .brand-link,
+.brand-bar .qr-text,
+.footer p {
+  color: rgba(255, 255, 255, 0.92) !important;
+}
+
+/* Meta chips: readable in both dark and light contexts */
+.meta-item {
+  color: var(--text-dark);
+}
+.header .meta-item {
+  color: #ffffff !important;
+  background: rgba(255,255,255,0.16) !important;
+}
+
+/* Links and list readability */
+a { color: var(--primary-color); }
+a:hover { opacity: 0.9; }
+li { color: inherit; }
+
+.section-title,
+.week-topic,
+.project-card h4,
+.card h3,
+.welcome-section h2 {
+  opacity: 1 !important;
+}
+</style>
+<style id="curriculum-brandbar-contrast-fix">
+/* Brand bar readability fix */
+.brand-bar {
+  background: linear-gradient(135deg, color-mix(in srgb, var(--dark-blue) 88%, black), var(--primary-color)) !important;
+  border-color: color-mix(in srgb, var(--primary-color) 35%, white) !important;
+}
+.brand-bar .brand-name,
+.brand-bar .brand-link,
+.brand-bar .qr-text,
+.brand-bar .brand-text,
+.brand-bar .brand-meta,
+.brand-bar a,
+.brand-bar p,
+.brand-bar span,
+.brand-bar strong {
+  color: #ffffff !important;
+}
+.brand-bar .brand-link {
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.brand-bar .qr-block {
+  background: rgba(255,255,255,0.16) !important;
+  border-color: rgba(255,255,255,0.35) !important;
+}
+.brand-bar .qr-text {
+  opacity: 0.95;
+}
+</style>
+</head>
+<body>
+<div class="container">
+<div class="brand-bar">
+<div class="brand-meta">
+<img alt="Hexadigitall logo" src="../hexadigitall-logo-transparent.png"/>
+<div>
+<div class="brand-name">Hexadigitall Academy (Hexadigitall Technologies)</div>
+<a class="brand-link" href="https://www.hexadigitall.com">www.hexadigitall.com</a>
+</div>
+</div>
+<div class="qr-block">
+<img alt="Course QR Code" src="https://api.qrserver.com/v1/create-qr-code/?size=120x120&amp;data=https://www.hexadigitall.com/courses/intro-to-digital-literacy"/>
+<div class="qr-text">Scan to view the course page, enrollment options, and mentorship details.</div>
+</div>
+</div>
+<div class="course-hero">
+<div>
+<h2>Course Snapshot</h2>
+<p>Master basic computer skills, internet navigation, and digital productivity tools.</p>
+</div>
+<img alt="Intro to Digital Literacy" onerror="this.style.display='none'" src="../assets/images/courses/course-coding.jpg"/>
+</div>
+<div class="header">
+<h1>Intro to Digital Literacy</h1>
+<p class="subtitle">A professionally structured weekly curriculum aligned to the level, tooling, and delivery expectations of this course.</p>
+<div class="course-meta">
+<div class="meta-item"><strong>Duration:</strong> 12 Weeks</div>
+<div class="meta-item"><strong>Level:</strong> Beginner</div>
+<div class="meta-item"><strong>Study Time:</strong> 2 hours/week + labs</div>
+</div>
+</div>
+        <!-- Welcome Section -->
+        <section class="welcome-section">
+            <h2>Welcome to Intro to Digital Literacy! 🎓</h2>
+            <p>This curriculum is designed to take you from core understanding to confident delivery through weekly applied practice, measurable outcomes, and portfolio evidence.</p>
+            <p>Each week builds progressively with practical tasks, implementation checkpoints, and reflection points so you can convert knowledge into repeatable professional performance.</p>
+            <p><strong>Your success is our priority.</strong> Stay consistent with weekly execution, document your work, and use feedback loops to continuously improve your delivery quality.</p>
+        </section>
+
+<div class="section">
+<h2 class="section-title">Prerequisites</h2>
+<div class="card">
+<ul><li>Project management fundamentals: scope definition, stakeholder communication, and timeline estimation accuracy</li><li>Business analysis skills: requirements gathering, user story crafting, and acceptance criteria specification</li><li>Process mapping and workflow redesign experience with focus on efficiency and stakeholder value</li><li>Familiarity with project management tools (Jira, Asana, Monday) and kanban board optimization</li></ul>
+</div>
+</div>
+<div class="section">
+<h2 class="section-title">Learning Outcomes</h2>
+<div class="card">
+<ul><li>Computer basics and operating systems</li><li>Internet and browser fundamentals</li><li>Email and communication tools</li><li>Productivity software (docs, sheets)</li><li>Online safety and privacy</li></ul>
+</div>
+</div>
+        <!-- Complementary Courses -->
+        <section class="section">
+            <h2 class="section-title">Recommended Complementary Courses</h2>
+            <div class="card">
+                <ul>
+                    <li>Pair this curriculum with a related foundation or advanced specialization to strengthen adjacent skill areas.</li>
+                    <li>Select one systems-focused and one delivery-focused course to improve both implementation depth and execution speed.</li>
+                    <li>Use complementary study tracks to broaden portfolio evidence and improve interview and project readiness.</li>
+                </ul>
+            </div>
+        </section>
+
+<div class="section">
+<h2 class="section-title">Essential Learning Resources</h2>
+<div class="card">
+<ul><li>Project Charter template, WBS examples, and stakeholder analysis worksheets</li><li>Risk register, change log, and lessons learned repository templates</li><li>ROI calculation models, benefits tracking dashboards, and governance frameworks</li></ul>
+</div>
+</div>
+<div class="section">
+<h2 class="section-title">Your Learning Roadmap</h2>
+<div class="roadmap-grid">
+<div class="roadmap-card"><h4>Foundation</h4><p>Weeks 1-3</p><ul><li>Early Weeks: Project fundamentals, planning, and stakeholder management</li><li>Middle Weeks: Execution excellence, risk management, and adaptive strategies</li><li>Late Weeks: Delivery validation, lessons learned, and strategic impact</li></ul></div><div class="roadmap-card"><h4>Build</h4><p>Weeks 4-6</p><ul><li>Email Setup, Etiquette, and Attachment Handling</li><li>Documents, Spreadsheets, and Presentations Basics</li><li>Cloud Storage and File Sharing Workflows</li></ul></div><div class="roadmap-card"><h4>Integration</h4><p>Weeks 7-9</p><ul><li>Video Calls, Chat Tools, and Remote Collaboration</li><li>Passwords, Privacy, and Online Safety</li><li>Downloading, Installing, and Updating Software</li></ul></div><div class="roadmap-card"><h4>Capstone</h4><p>Weeks 10-12</p><ul><li>Troubleshooting Common Device and App Issues</li><li>Organizing Work with Folders, Notes, and Calendars</li><li>Capstone: Complete a Real-World Digital Office Task Set</li></ul></div>
+</div>
+</div>
+<div class="section">
+<h2 class="section-title">Detailed Weekly Curriculum</h2>
+<div class="week-block">
+<div class="week-header">
+<span class="week-number">Week 1</span>
+<span class="week-duration">2 hours/week + labs</span>
+</div>
+<div class="week-topic">Computer Hardware, Operating Systems, and File Management</div>
+<div class="week-content">
+<ul><li>Identify the principles of Computer Hardware, Operating Systems, and File Management and link them to course outcomes with scaffolded guidance and beginner-safe checkpoints.</li><li>Explain Computer Hardware, Operating Systems, and File Management in a guided scenario using realistic tools, constraints, and quality gates.</li><li>Apply trade-offs, risks, and decision points for Computer Hardware, Operating Systems, and File Management, then record rationale for stakeholder review.</li><li>Document a portfolio-ready delivery strategy memo for Computer Hardware, Operating Systems, and File Management with measurable success criteria and next actions.</li><li>Track measurable progress using rubric scores, defect/risk trends, and evidence completeness each week.</li><li>Run a short retrospective focused on what to retain, improve, and scale into the following week.</li><li>Incorporate peer or mentor feedback and revise the week deliverable to professional publication quality.</li><li>Publish the week output into your cumulative portfolio with concise outcome narrative and proof artifacts.</li></ul>
+</div>
+</div>
+<div class="week-block">
+<div class="week-header">
+<span class="week-number">Week 2</span>
+<span class="week-duration">2 hours/week + labs</span>
+</div>
+<div class="week-topic">Keyboard Shortcuts and Basic Productivity Habits</div>
+<div class="week-content">
+<ul><li>Identify the principles of Keyboard Shortcuts and Basic Productivity Habits and link them to course outcomes with scaffolded guidance and beginner-safe checkpoints.</li><li>Explain Keyboard Shortcuts and Basic Productivity Habits in a guided scenario using realistic tools, constraints, and quality gates.</li><li>Apply trade-offs, risks, and decision points for Keyboard Shortcuts and Basic Productivity Habits, then record rationale for stakeholder review.</li><li>Document a portfolio-ready delivery strategy memo for Keyboard Shortcuts and Basic Productivity Habits with measurable success criteria and next actions.</li><li>Track measurable progress using rubric scores, defect/risk trends, and evidence completeness each week.</li><li>Run a short retrospective focused on what to retain, improve, and scale into the following week.</li><li>Incorporate peer or mentor feedback and revise the week deliverable to professional publication quality.</li><li>Publish the week output into your cumulative portfolio with concise outcome narrative and proof artifacts.</li></ul>
+</div>
+</div>
+<div class="week-block">
+<div class="week-header">
+<span class="week-number">Week 3</span>
+<span class="week-duration">2 hours/week + labs</span>
+</div>
+<div class="week-topic">Internet Browsers, Search, and Web Safety</div>
+<div class="week-content">
+<ul><li>Identify the principles of Internet Browsers, Search, and Web Safety and link them to course outcomes with scaffolded guidance and beginner-safe checkpoints.</li><li>Explain Internet Browsers, Search, and Web Safety in a guided scenario using realistic tools, constraints, and quality gates.</li><li>Apply trade-offs, risks, and decision points for Internet Browsers, Search, and Web Safety, then record rationale for stakeholder review.</li><li>Document a portfolio-ready delivery strategy memo for Internet Browsers, Search, and Web Safety with measurable success criteria and next actions.</li><li>Track measurable progress using rubric scores, defect/risk trends, and evidence completeness each week.</li><li>Run a short retrospective focused on what to retain, improve, and scale into the following week.</li><li>Incorporate peer or mentor feedback and revise the week deliverable to professional publication quality.</li><li>Publish the week output into your cumulative portfolio with concise outcome narrative and proof artifacts.</li></ul>
+</div>
+</div>
+<div class="week-block">
+<div class="week-header">
+<span class="week-number">Week 4</span>
+<span class="week-duration">2 hours/week + labs</span>
+</div>
+<div class="week-topic">Email Setup, Etiquette, and Attachment Handling</div>
+<div class="week-content">
+<ul><li>Identify the principles of Email Setup, Etiquette, and Attachment Handling and link them to course outcomes with scaffolded guidance and beginner-safe checkpoints.</li><li>Explain Email Setup, Etiquette, and Attachment Handling in a guided scenario using realistic tools, constraints, and quality gates.</li><li>Apply trade-offs, risks, and decision points for Email Setup, Etiquette, and Attachment Handling, then record rationale for stakeholder review.</li><li>Document a portfolio-ready delivery strategy memo for Email Setup, Etiquette, and Attachment Handling with measurable success criteria and next actions.</li><li>Track measurable progress using rubric scores, defect/risk trends, and evidence completeness each week.</li><li>Run a short retrospective focused on what to retain, improve, and scale into the following week.</li><li>Incorporate peer or mentor feedback and revise the week deliverable to professional publication quality.</li><li>Publish the week output into your cumulative portfolio with concise outcome narrative and proof artifacts.</li></ul>
+</div>
+</div>
+<div class="week-block">
+<div class="week-header">
+<span class="week-number">Week 5</span>
+<span class="week-duration">2 hours/week + labs</span>
+</div>
+<div class="week-topic">Documents, Spreadsheets, and Presentations Basics</div>
+<div class="week-content">
+<ul><li>Apply the principles of Documents, Spreadsheets, and Presentations Basics and link them to course outcomes with scaffolded guidance and beginner-safe checkpoints.</li><li>Analyze Documents, Spreadsheets, and Presentations Basics in a guided scenario using realistic tools, constraints, and quality gates.</li><li>Evaluate trade-offs, risks, and decision points for Documents, Spreadsheets, and Presentations Basics, then record rationale for stakeholder review.</li><li>Document a portfolio-ready delivery strategy memo for Documents, Spreadsheets, and Presentations Basics with measurable success criteria and next actions.</li><li>Track measurable progress using rubric scores, defect/risk trends, and evidence completeness each week.</li><li>Run a short retrospective focused on what to retain, improve, and scale into the following week.</li><li>Incorporate peer or mentor feedback and revise the week deliverable to professional publication quality.</li><li>Publish the week output into your cumulative portfolio with concise outcome narrative and proof artifacts.</li></ul>
+</div>
+</div>
+<div class="week-block">
+<div class="week-header">
+<span class="week-number">Week 6</span>
+<span class="week-duration">2 hours/week + labs</span>
+</div>
+<div class="week-topic">Cloud Storage and File Sharing Workflows</div>
+<div class="week-content">
+<ul><li>Apply the principles of Cloud Storage and File Sharing Workflows and link them to course outcomes with scaffolded guidance and beginner-safe checkpoints.</li><li>Analyze Cloud Storage and File Sharing Workflows in a guided scenario using realistic tools, constraints, and quality gates.</li><li>Evaluate trade-offs, risks, and decision points for Cloud Storage and File Sharing Workflows, then record rationale for stakeholder review.</li><li>Document a portfolio-ready delivery strategy memo for Cloud Storage and File Sharing Workflows with measurable success criteria and next actions.</li><li>Track measurable progress using rubric scores, defect/risk trends, and evidence completeness each week.</li><li>Run a short retrospective focused on what to retain, improve, and scale into the following week.</li><li>Incorporate peer or mentor feedback and revise the week deliverable to professional publication quality.</li><li>Publish the week output into your cumulative portfolio with concise outcome narrative and proof artifacts.</li></ul>
+</div>
+</div>
+<div class="week-block">
+<div class="week-header">
+<span class="week-number">Week 7</span>
+<span class="week-duration">2 hours/week + labs</span>
+</div>
+<div class="week-topic">Video Calls, Chat Tools, and Remote Collaboration</div>
+<div class="week-content">
+<ul><li>Apply the principles of Video Calls, Chat Tools, and Remote Collaboration and link them to course outcomes with scaffolded guidance and beginner-safe checkpoints.</li><li>Analyze Video Calls, Chat Tools, and Remote Collaboration in a guided scenario using realistic tools, constraints, and quality gates.</li><li>Evaluate trade-offs, risks, and decision points for Video Calls, Chat Tools, and Remote Collaboration, then record rationale for stakeholder review.</li><li>Document a portfolio-ready delivery strategy memo for Video Calls, Chat Tools, and Remote Collaboration with measurable success criteria and next actions.</li><li>Track measurable progress using rubric scores, defect/risk trends, and evidence completeness each week.</li><li>Run a short retrospective focused on what to retain, improve, and scale into the following week.</li><li>Incorporate peer or mentor feedback and revise the week deliverable to professional publication quality.</li><li>Publish the week output into your cumulative portfolio with concise outcome narrative and proof artifacts.</li></ul>
+</div>
+</div>
+<div class="week-block">
+<div class="week-header">
+<span class="week-number">Week 8</span>
+<span class="week-duration">2 hours/week + labs</span>
+</div>
+<div class="week-topic">Passwords, Privacy, and Online Safety</div>
+<div class="week-content">
+<ul><li>Apply the principles of Passwords, Privacy, and Online Safety and link them to course outcomes with scaffolded guidance and beginner-safe checkpoints.</li><li>Analyze Passwords, Privacy, and Online Safety in a guided scenario using realistic tools, constraints, and quality gates.</li><li>Evaluate trade-offs, risks, and decision points for Passwords, Privacy, and Online Safety, then record rationale for stakeholder review.</li><li>Document a portfolio-ready delivery strategy memo for Passwords, Privacy, and Online Safety with measurable success criteria and next actions.</li><li>Track measurable progress using rubric scores, defect/risk trends, and evidence completeness each week.</li><li>Run a short retrospective focused on what to retain, improve, and scale into the following week.</li><li>Incorporate peer or mentor feedback and revise the week deliverable to professional publication quality.</li><li>Publish the week output into your cumulative portfolio with concise outcome narrative and proof artifacts.</li></ul>
+</div>
+</div>
+<div class="week-block">
+<div class="week-header">
+<span class="week-number">Week 9</span>
+<span class="week-duration">2 hours/week + labs</span>
+</div>
+<div class="week-topic">Downloading, Installing, and Updating Software</div>
+<div class="week-content">
+<ul><li>Analyze the principles of Downloading, Installing, and Updating Software and link them to course outcomes with scaffolded guidance and beginner-safe checkpoints.</li><li>Evaluate Downloading, Installing, and Updating Software in a guided scenario using realistic tools, constraints, and quality gates.</li><li>Create trade-offs, risks, and decision points for Downloading, Installing, and Updating Software, then record rationale for stakeholder review.</li><li>Defend a portfolio-ready delivery strategy memo for Downloading, Installing, and Updating Software with measurable success criteria and next actions.</li><li>Track measurable progress using rubric scores, defect/risk trends, and evidence completeness each week.</li><li>Run a short retrospective focused on what to retain, improve, and scale into the following week.</li><li>Incorporate peer or mentor feedback and revise the week deliverable to professional publication quality.</li><li>Publish the week output into your cumulative portfolio with concise outcome narrative and proof artifacts.</li></ul>
+</div>
+</div>
+<div class="week-block">
+<div class="week-header">
+<span class="week-number">Week 10</span>
+<span class="week-duration">2 hours/week + labs</span>
+</div>
+<div class="week-topic">Troubleshooting Common Device and App Issues</div>
+<div class="week-content">
+<ul><li>Analyze the principles of Troubleshooting Common Device and App Issues and link them to course outcomes with scaffolded guidance and beginner-safe checkpoints.</li><li>Evaluate Troubleshooting Common Device and App Issues in a guided scenario using realistic tools, constraints, and quality gates.</li><li>Create trade-offs, risks, and decision points for Troubleshooting Common Device and App Issues, then record rationale for stakeholder review.</li><li>Defend a portfolio-ready delivery strategy memo for Troubleshooting Common Device and App Issues with measurable success criteria and next actions.</li><li>Track measurable progress using rubric scores, defect/risk trends, and evidence completeness each week.</li><li>Run a short retrospective focused on what to retain, improve, and scale into the following week.</li><li>Incorporate peer or mentor feedback and revise the week deliverable to professional publication quality.</li><li>Publish the week output into your cumulative portfolio with concise outcome narrative and proof artifacts.</li></ul>
+</div>
+</div>
+<div class="week-block">
+<div class="week-header">
+<span class="week-number">Week 11</span>
+<span class="week-duration">2 hours/week + labs</span>
+</div>
+<div class="week-topic">Organizing Work with Folders, Notes, and Calendars</div>
+<div class="week-content">
+<ul><li>Analyze the principles of Organizing Work with Folders, Notes, and Calendars and link them to course outcomes with scaffolded guidance and beginner-safe checkpoints.</li><li>Evaluate Organizing Work with Folders, Notes, and Calendars in a guided scenario using realistic tools, constraints, and quality gates.</li><li>Create trade-offs, risks, and decision points for Organizing Work with Folders, Notes, and Calendars, then record rationale for stakeholder review.</li><li>Defend a portfolio-ready delivery strategy memo for Organizing Work with Folders, Notes, and Calendars with measurable success criteria and next actions.</li><li>Track measurable progress using rubric scores, defect/risk trends, and evidence completeness each week.</li><li>Run a short retrospective focused on what to retain, improve, and scale into the following week.</li><li>Incorporate peer or mentor feedback and revise the week deliverable to professional publication quality.</li><li>Publish the week output into your cumulative portfolio with concise outcome narrative and proof artifacts.</li></ul>
+</div>
+</div>
+<div class="week-block">
+<div class="week-header">
+<span class="week-number">Week 12</span>
+<span class="week-duration">2 hours/week + labs</span>
+</div>
+<div class="week-topic">Capstone: Complete a Real-World Digital Office Task Set</div>
+<div class="week-content">
+<ul><li>Analyze the principles of Capstone: Complete a Real-World Digital Office Task Set and link them to course outcomes with scaffolded guidance and beginner-safe checkpoints.</li><li>Evaluate Capstone: Complete a Real-World Digital Office Task Set in a guided scenario using realistic tools, constraints, and quality gates.</li><li>Create trade-offs, risks, and decision points for Capstone: Complete a Real-World Digital Office Task Set, then record rationale for stakeholder review.</li><li>Defend a portfolio-ready delivery strategy memo for Capstone: Complete a Real-World Digital Office Task Set with measurable success criteria and next actions.</li><li>Track measurable progress using rubric scores, defect/risk trends, and evidence completeness each week.</li><li>Run a short retrospective focused on what to retain, improve, and scale into the following week.</li><li>Incorporate peer or mentor feedback and revise the week deliverable to professional publication quality.</li><li>Publish the week output into your cumulative portfolio with concise outcome narrative and proof artifacts.</li></ul>
+</div>
+</div>
+</div>
+<div class="section">
+<h2 class="section-title">Capstone Projects</h2>
+<div class="project-card"><h4>Project 1: Digital Office Essentials Drill</h4><p>Execute a structured set of office tasks covering files, email, and document creation with consistent quality and organization.</p><ul><li>Task completion evidence pack</li><li>Organization and quality checklist</li><li>Error prevention and correction log</li></ul></div><div class="project-card"><h4>Project 2: Remote Collaboration Workflow Simulation</h4><p>Run a full collaboration scenario using cloud sharing, video meeting tools, chat communication, and follow-up documentation.</p><ul><li>Collaboration workflow artifact set</li><li>Permission and sharing validation notes</li><li>Meeting-to-action tracking output</li></ul></div><div class="project-card"><h4>Project 3: Capstone: Real-World Digital Task Portfolio</h4><p>Deliver a portfolio of practical digital office tasks demonstrating productivity, safety, troubleshooting, and repeatable workflow discipline.</p><ul><li>Complete capstone deliverables bundle</li><li>Process guide and self-audit results</li><li>Presentation-ready walkthrough summary</li></ul></div>
+</div>
+<div class="section">
+<h2 class="section-title">Study Tips</h2>
+<div class="card">
+<ul><li>Block two weekly hours for stakeholder interviews, requirement refinement, and process flow documentation.</li><li>Maintain a project retrospective log capturing what worked, what didn't, and explicit process improvements for subsequent projects.</li><li>Conduct weekly status reviews with stakeholder feedback loops, adjusting scope and timeline based on market signals and priority changes.</li></ul>
+</div>
+</div>
+        <!-- Study Tips -->
+        <section class="section">
+            <h2 class="section-title">Study Tips for Success</h2>
+            <div class="card">
+                <ul>
+                    <li>Protect consistent weekly practice time and complete hands-on work before moving to the next topic.</li>
+                    <li>Document implementation decisions, trade-offs, and lessons learned after each weekly deliverable.</li>
+                    <li>Review feedback quickly and ship an improved revision within the same week to reinforce retention.</li>
+                    <li>Track measurable progress with checklists, test evidence, and milestone outcomes.</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- About Course -->
+        <section class="section">
+            <h2 class="section-title">About Intro to Digital Literacy</h2>
+            <div class="card">
+                <p>This curriculum is structured to build practical capability, consistent delivery discipline, and portfolio-ready outcomes in Intro to Digital Literacy. It combines conceptual understanding with applied execution so learners can perform confidently in real project environments.</p>
+            </div>
+        </section>
+
+<div class="footer">
+<p>© 2026 Hexadigitall Academy (Hexadigitall Technologies). Curriculum authored for Intro to Digital Literacy.</p>
+</div>
+</div>
+</body>
+</html>

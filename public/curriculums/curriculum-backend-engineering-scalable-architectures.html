@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Backend Engineering: Scalable Architectures - Course Curriculum</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&amp;family=Space+Grotesk:wght@500;600;700&amp;display=swap" rel="stylesheet"/>
+<style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --primary-color: #0078D4;
+            --secondary-color: #50E6FF;
+            --dark-blue: #002050;
+            --text-dark: #1F1F1F;
+            --text-light: #605E5C;
+            --bg-light: #F5F5F5;
+            --bg-white: #FFFFFF;
+            --border-color: #EDEBE9;
+        }
+        body { font-family: 'Inter', sans-serif; line-height: 1.6; color: var(--text-dark); background: var(--bg-white); font-size: 14px; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 40px; }
+        .brand-bar { display: flex; align-items: center; justify-content: space-between; gap: 20px; border: 1px solid var(--border-color); border-radius: 12px; padding: 16px 20px; margin-bottom: 20px; box-shadow: 0 4px 18px rgba(0, 32, 80, 0.08); }
+        .brand-meta { display: flex; align-items: center; gap: 16px; }
+        .brand-meta img { width: 60px; height: auto; }
+        .brand-name { font-family: 'Space Grotesk', sans-serif; font-size: 18px; font-weight: 700; color: var(--dark-blue); }
+        .brand-link { color: var(--primary-color); font-weight: 600; text-decoration: none; }
+        .qr-block { display: flex; align-items: center; gap: 12px; background: var(--bg-light); padding: 10px 14px; border-radius: 10px; border: 1px solid var(--border-color); }
+        .qr-block img { width: 86px; height: 86px; }
+        .qr-text { font-size: 12px; color: var(--text-light); max-width: 220px; line-height: 1.5; }
+        .course-hero { background: linear-gradient(135deg, #E8F4FD 0%, #F5F9FF 100%); border: 1px solid var(--border-color); border-radius: 12px; padding: 18px; margin-bottom: 24px; display: grid; grid-template-columns: 1fr 320px; gap: 20px; align-items: center; box-shadow: 0 6px 18px rgba(0, 32, 80, 0.08); }
+        .course-hero img { width: 100%; border-radius: 12px; border: 1px solid var(--border-color); }
+        .course-hero h2 { font-family: 'Space Grotesk', sans-serif; color: var(--dark-blue); margin-bottom: 10px; font-size: 22px; }
+        .header { background: linear-gradient(135deg, var(--dark-blue) 0%, var(--primary-color) 100%); color: white; padding: 60px 40px; border-radius: 12px; margin-bottom: 40px; box-shadow: 0 10px 30px rgba(0, 120, 212, 0.2); }
+        .header h1 { font-family: 'Space Grotesk', sans-serif; font-size: 42px; font-weight: 700; margin-bottom: 16px; letter-spacing: -0.5px; }
+        .header .subtitle { font-size: 18px; opacity: 0.95; margin-bottom: 24px; }
+        .course-meta { display: flex; flex-wrap: wrap; gap: 24px; margin-top: 32px; }
+        .meta-item { display: flex; align-items: center; gap: 8px; background: rgba(255, 255, 255, 0.15); padding: 12px 20px; border-radius: 8px; }
+        .section { margin-bottom: 48px; break-inside: avoid; }
+        .section-title { font-family: 'Space Grotesk', sans-serif; font-size: 28px; color: var(--dark-blue); margin-bottom: 24px; padding-bottom: 12px; border-bottom: 3px solid var(--primary-color); display: flex; align-items: center; gap: 12px; }
+        .section-title::before { content: ''; width: 6px; height: 32px; background: linear-gradient(180deg, var(--primary-color), var(--secondary-color)); border-radius: 3px; }
+        .card { background: var(--bg-white); border: 1px solid var(--border-color); border-radius: 10px; padding: 24px; margin-bottom: 16px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05); }
+        .card ul { margin-left: 20px; }
+        .card li { margin: 6px 0; }
+        .roadmap-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+        .roadmap-card { border: 1px solid var(--border-color); border-radius: 12px; padding: 18px; background: linear-gradient(135deg, #F8FBFF 0%, #FFFFFF 100%); }
+        .roadmap-card h4 { color: var(--dark-blue); font-size: 18px; margin-bottom: 6px; }
+        .roadmap-card p { color: var(--text-light); font-size: 13px; margin-bottom: 10px; }
+        .roadmap-card ul { margin-left: 18px; }
+        .week-block { border: 1px solid var(--border-color); border-left: 6px solid var(--primary-color); border-radius: 12px; padding: 16px; margin-bottom: 14px; }
+        .week-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+        .week-number { font-weight: 700; color: var(--dark-blue); }
+        .week-duration { font-size: 12px; color: var(--text-light); }
+        .week-topic { color: var(--primary-color); font-family: 'Space Grotesk', sans-serif; font-size: 18px; margin-bottom: 10px; }
+        .week-content ul { margin-left: 20px; }
+        .week-content li { margin: 6px 0; }
+        .project-card { border: 1px solid var(--border-color); border-radius: 10px; padding: 16px; margin-bottom: 12px; background: linear-gradient(135deg, #f3f8ff 0%, #ffffff 100%); }
+        .project-card h4 { color: var(--dark-blue); margin-bottom: 8px; }
+        .project-card p { color: var(--text-light); margin-bottom: 8px; }
+        .project-card ul { margin-left: 20px; }
+        .footer { margin-top: 24px; padding-top: 16px; border-top: 1px solid var(--border-color); color: var(--text-light); font-size: 12px; }
+        @media (max-width: 900px) {
+            .course-hero { grid-template-columns: 1fr; }
+            .roadmap-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+
+
+
+<style id="curriculum-ui-normalization">
+:root { --primary-color:#0b5cab; --secondary-color:#5bb3ff; --dark-blue:#0d2a4a; --text-dark:#132235; --text-light:#4f637b; --bg-white:#ffffff; --bg-light:#f4f8fc; --border-color:#d9e5f2; }
+body { font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif; color:var(--text-dark); background:radial-gradient(circle at top right,#f7fbff 0%,#ffffff 45%); }
+h1,h2,h3,h4,.section-title,.week-topic,.week-number,.brand-name { font-family:'Space Grotesk','Inter',sans-serif; letter-spacing:-0.01em; }
+.section { margin-bottom:44px; }
+.card,.week-block,.project-card { border-radius:12px; border:1px solid var(--border-color); box-shadow:0 4px 16px rgba(13,42,74,0.06); }
+.welcome-section { background:linear-gradient(135deg,#eef6ff 0%,#f9fcff 100%); border-left:5px solid var(--primary-color); padding:28px; border-radius:12px; margin-bottom:36px; }
+.project-card { background:linear-gradient(135deg,#eef5ff 0%,#ffffff 60%); padding:20px; margin-bottom:14px; }
+.project-card h4 { color:var(--dark-blue); margin-bottom:8px; }
+.project-card p { color:var(--text-light); margin-bottom:10px; }
+.project-card ul { margin-left:18px; }
+.project-card li { margin:6px 0; }
+</style>
+<style id="curriculum-theme-override">
+:root { --primary-color:hsl(141 70% 42%); --secondary-color:hsl(165 82% 62%); --dark-blue:hsl(141 48% 18%); --text-dark:hsl(141 32% 14%); --text-light:hsl(141 18% 38%); --border-color:hsl(141 38% 86%); --bg-light:hsl(321 45% 97%); --theme-hero-a:hsl(141 85% 96%); --theme-hero-b:hsl(165 90% 98%); }
+body { background:radial-gradient(circle at 8% 0%, color-mix(in srgb, var(--theme-hero-a) 72%, white), #ffffff 46%); }
+.course-hero { background:linear-gradient(135deg,var(--theme-hero-a) 0%,var(--theme-hero-b) 100%); }
+.header { background:linear-gradient(135deg,color-mix(in srgb, var(--dark-blue) 90%, black), var(--primary-color)); }
+.section-title::before { background:linear-gradient(180deg,var(--primary-color),var(--secondary-color)); }
+.week-block { border-left:6px solid var(--primary-color); }
+</style>
+<style id="curriculum-contrast-fix">
+/* Final readability layer: resolves conflicting text/background and font overrides */
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif !important;
+  color: var(--text-dark) !important;
+  background-color: #ffffff;
+}
+h1, h2, h3, h4, .section-title, .week-topic, .week-number, .brand-name {
+  font-family: 'Space Grotesk', 'Inter', sans-serif !important;
+}
+
+/* Ensure light surfaces always use dark text */
+.container,
+.section,
+.card,
+.week-block,
+.week-column,
+.project-card,
+.welcome-section,
+.resource-item,
+.roadmap-card,
+.info-box {
+  color: var(--text-dark);
+}
+
+/* Keep hero as light panel with dark readable text */
+.course-hero,
+.course-hero h1,
+.course-hero h2,
+.course-hero h3,
+.course-hero h4,
+.course-hero p,
+.course-hero li,
+.course-hero span,
+.course-hero a {
+  color: var(--text-dark) !important;
+}
+
+/* Normalize dark surfaces so white text always has contrast */
+.brand-bar,
+.header,
+.footer {
+  background: linear-gradient(135deg, color-mix(in srgb, var(--dark-blue) 92%, black), var(--primary-color)) !important;
+}
+
+.header,
+.header h1,
+.header h2,
+.header h3,
+.header h4,
+.header p,
+.header li,
+.header span,
+.header strong,
+.header a,
+.brand-bar,
+.brand-bar h1,
+.brand-bar h2,
+.brand-bar h3,
+.brand-bar h4,
+.brand-bar p,
+.brand-bar li,
+.brand-bar span,
+.brand-bar strong,
+.brand-bar a,
+.footer,
+.footer h1,
+.footer h2,
+.footer h3,
+.footer h4,
+.footer p,
+.footer li,
+.footer span,
+.footer strong,
+.footer a {
+  color: #ffffff !important;
+}
+
+.brand-bar .brand-link,
+.brand-bar .qr-text,
+.footer p {
+  color: rgba(255, 255, 255, 0.92) !important;
+}
+
+/* Meta chips: readable in both dark and light contexts */
+.meta-item {
+  color: var(--text-dark);
+}
+.header .meta-item {
+  color: #ffffff !important;
+  background: rgba(255,255,255,0.16) !important;
+}
+
+/* Links and list readability */
+a { color: var(--primary-color); }
+a:hover { opacity: 0.9; }
+li { color: inherit; }
+
+.section-title,
+.week-topic,
+.project-card h4,
+.card h3,
+.welcome-section h2 {
+  opacity: 1 !important;
+}
+</style>
+<style id="curriculum-brandbar-contrast-fix">
+/* Brand bar readability fix */
+.brand-bar {
+  background: linear-gradient(135deg, color-mix(in srgb, var(--dark-blue) 88%, black), var(--primary-color)) !important;
+  border-color: color-mix(in srgb, var(--primary-color) 35%, white) !important;
+}
+.brand-bar .brand-name,
+.brand-bar .brand-link,
+.brand-bar .qr-text,
+.brand-bar .brand-text,
+.brand-bar .brand-meta,
+.brand-bar a,
+.brand-bar p,
+.brand-bar span,
+.brand-bar strong {
+  color: #ffffff !important;
+}
+.brand-bar .brand-link {
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.brand-bar .qr-block {
+  background: rgba(255,255,255,0.16) !important;
+  border-color: rgba(255,255,255,0.35) !important;
+}
+.brand-bar .qr-text {
+  opacity: 0.95;
+}
+</style>
+</head>
+<body>
+<div class="container">
+<div class="brand-bar">
+<div class="brand-meta">
+<img alt="Hexadigitall logo" src="../hexadigitall-logo-transparent.png"/>
+<div>
+<div class="brand-name">Hexadigitall Academy (Hexadigitall Technologies)</div>
+<a class="brand-link" href="https://www.hexadigitall.com">www.hexadigitall.com</a>
+</div>
+</div>
+<div class="qr-block">
+<img alt="Course QR Code" src="https://api.qrserver.com/v1/create-qr-code/?size=120x120&amp;data=https://www.hexadigitall.com/courses/backend-engineering-scalable-architectures"/>
+<div class="qr-text">Scan to view the course page, enrollment options, and mentorship details.</div>
+</div>
+</div>
+<div class="course-hero">
+<div>
+<h2>Course Snapshot</h2>
+<p>Design and build backend systems serving millions of requests. Master databases, APIs, caching, message queues, and microservices architecture patterns.</p>
+</div>
+<img alt="Backend Engineering: Scalable Architectures" onerror="this.style.display='none'" src="../assets/images/courses/backend-engineering.jpg"/>
+</div>
+<div class="header">
+<h1>Backend Engineering: Scalable Architectures</h1>
+<p class="subtitle">Design and build production backend systems — REST APIs, data modelling, caching, queues, microservices, observability, auth, and containerised deployment at scale.</p>
+<div class="course-meta">
+<div class="meta-item"><strong>Duration:</strong> 24 Weeks</div>
+<div class="meta-item"><strong>Level:</strong> advanced</div>
+<div class="meta-item"><strong>Study Time:</strong> 2 hours/week + labs</div>
+<div class="meta-item"><strong>School:</strong> Software Engineering</div>
+</div>
+</div>
+<!-- Welcome Section -->
+<section class="welcome-section">
+<h2>Welcome to Backend Engineering: Scalable Architectures! 🎓</h2>
+<p>This curriculum for Backend Engineering: Scalable Architectures follows a Bloom-aligned progression from practical foundations to measurable professional outcomes, with weekly evidence, labs, and portfolio outputs matched to advanced expectations.</p>
+<p>Each week advances from comprehension and application toward evaluation and creation, ensuring progressive learning and capstone readiness.</p>
+<p><strong>Your success is our priority.</strong> Senior backend engineers are among the most sought-after professionals in the industry. This course is explicitly built around the skills that hiring managers evaluate in backend technical interviews and on-the-job performance. You will graduate with a professionally curated portfolio that demonstrates scope, depth, and delivery quality. You will graduate with a professionally curated portfolio that demonstrates scope, depth, and delivery quality. You will graduate with a professionally curated portfolio that demonstrates scope, depth, and delivery quality. You will graduate with a professionally curated portfolio that demonstrates scope, depth, and delivery quality.</p>
+</section>
+<div class="section">
+<h2 class="section-title">Prerequisites</h2>
+<div class="card">
+<ul><li>Programming language proficiency with solid grasp of data structures, algorithms, and design patterns</li><li>Version control mastery: Git workflows, code review, merge conflict resolution, and collaborative development</li><li>Testing fundamentals: unit testing, test-driven development, mocking, and test coverage analysis</li><li>Debugging and profiling skills: breakpoint debugging, performance flame graphs, and memory analysis</li></ul>
+</div>
+</div>
+<!-- Complementary Courses -->
+<section class="section">
+<h2 class="section-title">Recommended Complementary Courses</h2>
+<div class="resource-grid">
+<div class="resource-item">
+<h4>System Design Interviews (Scalable Architecture)</h4>
+<p style="font-size: 13px; color: var(--text-light); margin-top: 8px;">Develop the architectural vocabulary and reasoning skills to design large-scale systems in interviews and on real engineering teams.</p>
+</div>
+<div class="resource-item">
+<h4>DevOps Engineering &amp; Cloud Infrastructure</h4>
+<p style="font-size: 13px; color: var(--text-light); margin-top: 8px;">Learn to deploy, operate, and observe the backend services you build — using containers, Kubernetes, CI/CD, and cloud-native infrastructure.</p>
+</div>
+<div class="resource-item">
+<h4>Advanced JavaScript Mastery</h4>
+<p style="font-size: 13px; color: var(--text-light); margin-top: 8px;">Deepen the JavaScript and TypeScript skills that power the Node.js backend services in this course.</p>
+</div>
+<div class="resource-item">
+<h4>Advanced Ansible Automation</h4>
+<p style="font-size: 13px; color: var(--text-light); margin-top: 8px;">Automate the provisioning and configuration of the infrastructure your backend services run on at the enterprise level.</p>
+</div>
+</div>
+</section>
+<div class="section">
+<h2 class="section-title">Learning Outcomes</h2>
+<div class="card">
+<ul><li>Hands-on projects to build practical skills</li><li>Industry best practices and workflows</li><li>Tools and frameworks used by professionals</li><li>Guidance to build a job-ready portfolio</li><li>Mentorship and feedback for faster growth</li></ul>
+</div>
+</div>
+<div class="section">
+<h2 class="section-title">Essential Learning Resources</h2>
+<div class="card">
+<ul><li>Language-specific style guides, design patterns reference, and debugging tools inventory</li><li>Testing frameworks, mock libraries, and performance profiling instructions for your tech stack</li><li>Refactoring patterns, security best practices, and code quality tooling configurations</li></ul>
+</div>
+</div>
+<div class="section">
+<h2 class="section-title">Your Learning Roadmap</h2>
+<div class="roadmap-grid">
+<div class="roadmap-card"><h4>Foundation</h4><p>Weeks 1-6</p><ul><li>Early Weeks: Language fundamentals, testing basics, and design patterns</li><li>Middle Weeks: Advanced architectures, performance optimization, and debugging</li><li>Late Weeks: Production systems, scalability, and cross-platform deployment</li></ul></div><div class="roadmap-card"><h4>Build</h4><p>Weeks 7-12</p><ul><li>Indexing, Query Tuning, and Data Access Patterns</li><li>Caching with Redis and HTTP Cache Strategies</li><li>Authentication, Sessions, JWT, and Access Control</li></ul></div><div class="roadmap-card"><h4>Integration</h4><p>Weeks 13-18</p><ul><li>Rate Limiting, Idempotency, and API Safety Controls</li><li>Transactions, Consistency, and Distributed Trade-Offs</li><li>Horizontal Scaling and Stateless Service Design</li></ul></div><div class="roadmap-card"><h4>Capstone</h4><p>Weeks 19-24</p><ul><li>CI/CD, Automated Testing, and Quality Gates</li><li>Security Hardening, Secrets, and Dependency Risk</li><li>Microservices Boundaries and Service Collaboration</li></ul></div>
+</div>
+</div>
+<div class="section">
+<h2 class="section-title">Detailed Weekly Curriculum</h2>
+<div class="week-block">
+<div class="week-header">
+<span class="week-number">Week 1</span>
+<span class="week-duration">2 hours/week + labs</span>
+</div>
+<div class="week-topic">Backend Architecture Fundamentals and Request Lifecycle</div>
+<div class="week-content">
+<ul><li>Analyze the principles of Backend Architecture Fundamentals and Request Lifecycle and link them to course outcomes at advanced depth with architecture-level decision quality.</li><li>Evaluate Backend Architecture Fundamentals and Request Lifecycle in a guided scenario using realistic tools, constraints, and quality gates.</li><li>Design trade-offs, risks, and decision points for Backend Architecture Fundamentals and Request Lifecycle, then record rationale for stakeholder review.</li><li>Justify a portfolio-ready engineering implementation dossier for Backend Architecture Fundamentals and Request Lifecycle with measurable success criteria and next actions.</li><li>Track measurable progress using rubric scores, defect/risk trends, and evidence completeness each week.</li><li>Run a short retrospective focused on what to retain, improve, and scale into the following week.</li><li>Incorporate peer or mentor feedback and revise the week deliverable to professional publication quality.</li><li>Publish the week output into your cumulative portfolio with concise outcome narrative and proof artifacts.</li></ul>
+</div>
+</div>
+<div class="week-block">
+<div class="week-header">
+<span class="week-number">Week 2</span>
+<span class="week-duration">2 hours/week + labs</span>
+</div>
+<div class="week-topic">API Design Principles and Resource Modeling</div>
+<div class="week-content">
+<ul><li>Analyze the principles of API Design Principles and Resource Modeling and link them to course outcomes at advanced depth with architecture-level decision quality.</li><li>Evaluate API Design Principles and Resource Modeling in a guided scenario using realistic tools, constraints, and quality gates.</li><li>Design trade-offs, risks, and decision points for API Design Principles and Resource Modeling, then record rationale for stakeholder review.</li><li>Justify a portfolio-ready engineering implementation dossier for API Design Principles and Resource Modeling with measurable success criteria and next actions.</li><li>Track measurable progress using rubric scores, defect/risk trends, and evidence completeness each week.</li><li>Run a short retrospective focused on what to retain, improve, and scale into the following week.</li><li>Incorporate peer or mentor feedback and revise the week deliverable to professional publication quality.</li><li>Publish the week output into your cumulative portfolio with concise outcome narrative and proof artifacts.</li></ul>
+</div>
+</div>
+<div class="week-block">
+<div class="week-header">
+<span class="week-number">Week 3</span>
+<span class="week-duration">2 hours/week + labs</span>
+</div>
+<div class="week-topic">REST Conventions, Validation, and Error Contracts</div>
+<div class="week-content">
+<ul><li>Analyze the principles of REST Conventions, Validation, and Error Contracts and link them to course outcomes at advanced depth with architecture-level decision quality.</li><li>Evaluate REST Conventions, Validation, and Error Contracts in a guided scenario using realistic tools, constraints, and quality gates.</li><li>Design trade-offs, risks, and decision points for REST Conventions, Validation, and Error Contracts, then record rationale for stakeholder review.</li><li>Justify a portfolio-ready engineering implementation dossier for REST Conventions, Validation, and Error Contracts with measurable success criteria and next actions.</li><li>Track measurable progress using rubric scores, defect/risk trends, and evidence completeness each week.</li><li>Run a short retrospective focused on what to retain, improve, and scale into the following week.</li><li>Incorporate peer or mentor feedback and revise the week deliverable to professional publication quality.</li><li>Publish the week output into your cumulative portfolio with concise outcome narrative and proof artifacts.</li></ul>
+</div>
+</div>
+<div class="week-block">
+<div class="week-header">
+<span class="week-number">Week 4</span>
+<span class="week-duration">2 hours/week + labs</span>
+</div>
+<div class="week-topic">Node.js Runtime, Event Loop, and Concurrency Basics</div>
+<div class="week-content">
+<ul><li>Analyze the principles of Node.js Runtime, Event Loop, and Concurrency Basics and link them to course outcomes at advanced depth with architecture-level decision quality.</li><li>Evaluate Node.js Runtime, Event Loop, and Concurrency Basics in a guided scenario using realistic tools, constraints, and quality gates.</li><li>Design trade-offs, risks, and decision points for Node.js Runtime, Event Loop, and Concurrency Basics, then record rationale for stakeholder review.</li><li>Justify a portfolio-ready engineering implementation dossier for Node.js Runtime, Event Loop, and Concurrency Basics with measurable success criteria and next actions.</li><li>Track measurable progress using rubric scores, defect/risk trends, and evidence completeness each week.</li><li>Run a short retrospective focused on what to retain, improve, and scale into the following week.</li><li>Incorporate peer or mentor feedback and revise the week deliverable to professional publication quality.</li><li>Publish the week output into your cumulative portfolio with concise outcome narrative and proof artifacts.</li></ul>
+</div>
+</div>
+<div class="week-block">
+<div class="week-header">
+<span class="week-number">Week 5</span>
+<span class="week-duration">2 hours/week + labs</span>
+</div>
+<div class="week-topic">Service Layer Design and Clean Project Structure</div>
+<div class="week-content">
+<ul><li>Analyze the principles of Service Layer Design and Clean Project Structure and link them to course outcomes at advanced depth with architecture-level decision quality.</li><li>Evaluate Service Layer Design and Clean Project Structure in a guided scenario using realistic tools, constraints, and quality gates.</li><li>Design trade-offs, risks, and decision points for Service Layer Design and Clean Project Structure, then record rationale for stakeholder review.</li><li>Justify a portfolio-ready engineering implementation dossier for Service Layer Design and Clean Project Structure with measurable success criteria and next actions.</li><li>Track measurable progress using rubric scores, defect/risk trends, and evidence completeness each week.</li><li>Run a short retrospective focused on what to retain, improve, and scale into the following week.</li><li>Incorporate peer or mentor feedback and revise the week deliverable to professional publication quality.</li><li>Publish the week output into your cumulative portfolio with concise outcome narrative and proof artifacts.</li></ul>
+</div>
+</div>
+<div class="week-block">
+<div class="week-header">
+<span class="week-number">Week 6</span>
+<span class="week-duration">2 hours/week + labs</span>
+</div>
+<div class="week-topic">Relational Modeling and Query Design</div>
+<div class="week-content">
+<ul><li>Analyze the principles of Relational Modeling and Query Design and link them to course outcomes at advanced depth with architecture-level decision quality.</li><li>Evaluate Relational Modeling and Query Design in a guided scenario using realistic tools, constraints, and quality gates.</li><li>Design trade-offs, risks, and decision points for Relational Modeling and Query Design, then record rationale for stakeholder review.</li><li>Justify a portfolio-ready engineering implementation dossier for Relational Modeling and Query Design with measurable success criteria and next actions.</li><li>Track measurable progress using rubric scores, defect/risk trends, and evidence completeness each week.</li><li>Run a short retrospective focused on what to retain, improve, and scale into the following week.</li><li>Incorporate peer or mentor feedback and revise the week deliverable to professional publication quality.</li><li>Publish the week output into your cumulative portfolio with concise outcome narrative and proof artifacts.</li></ul>
+</div>
+</div>
+<div class="week-block">
+<div class="week-header">
+<span class="week-number">Week 7</span>
+<span class="week-duration">2 hours/week + labs</span>
+</div>
+<div class="week-topic">Indexing, Query Tuning, and Data Access Patterns</div>
+<div class="week-content">
+<ul><li>Analyze the principles of Indexing, Query Tuning, and Data Access Patterns and link them to course outcomes at advanced depth with architecture-level decision quality.</li><li>Evaluate Indexing, Query Tuning, and Data Access Patterns in a guided scenario using realistic tools, constraints, and quality gates.</li><li>Design trade-offs, risks, and decision points for Indexing, Query Tuning, and Data Access Patterns, then record rationale for stakeholder review.</li><li>Justify a portfolio-ready engineering implementation dossier for Indexing, Query Tuning, and Data Access Patterns with measurable success criteria and next actions.</li><li>Track measurable progress using rubric scores, defect/risk trends, and evidence completeness each week.</li><li>Run a short retrospective focused on what to retain, improve, and scale into the following week.</li><li>Incorporate peer or mentor feedback and revise the week deliverable to professional publication quality.</li><li>Publish the week output into your cumulative portfolio with concise outcome narrative and proof artifacts.</li></ul>
+</div>
+</div>
+<div class="week-block">
+<div class="week-header">
+<span class="week-number">Week 8</span>
+<span class="week-duration">2 hours/week + labs</span>
+</div>
+<div class="week-topic">Caching with Redis and HTTP Cache Strategies</div>
+<div class="week-content">
+<ul><li>Analyze the principles of Caching with Redis and HTTP Cache Strategies and link them to course outcomes at advanced depth with architecture-level decision quality.</li><li>Evaluate Caching with Redis and HTTP Cache Strategies in a guided scenario using realistic tools, constraints, and quality gates.</li><li>Design trade-offs, risks, and decision points for Caching with Redis and HTTP Cache Strategies, then record rationale for stakeholder review.</li><li>Justify a portfolio-ready engineering implementation dossier for Caching with Redis and HTTP Cache Strategies with measurable success criteria and next actions.</li><li>Track measurable progress using rubric scores, defect/risk trends, and evidence completeness each week.</li><li>Run a short retrospective focused on what to retain, improve, and scale into the following week.</li><li>Incorporate peer or mentor feedback and revise the week deliverable to professional publication quality.</li><li>Publish the week output into your cumulative portfolio with concise outcome narrative and proof artifacts.</li></ul>
+</div>
+</div>
+<div class="week-block">
+<div class="week-header">
+<span class="week-number">Week 9</span>
+<span class="week-duration">2 hours/week + labs</span>
+</div>
+<div class="week-topic">Authentication, Sessions, JWT, and Access Control</div>
+<div class="week-content">
+<ul><li>Evaluate the principles of Authentication, Sessions, JWT, and Access Control and link them to course outcomes at advanced depth with architecture-level decision quality.</li><li>Design Authentication, Sessions, JWT, and Access Control in a guided scenario using realistic tools, constraints, and quality gates.</li><li>Optimize trade-offs, risks, and decision points for Authentication, Sessions, JWT, and Access Control, then record rationale for stakeholder review.</li><li>Justify a portfolio-ready engineering implementation dossier for Authentication, Sessions, JWT, and Access Control with measurable success criteria and next actions.</li><li>Track measurable progress using rubric scores, defect/risk trends, and evidence completeness each week.</li><li>Run a short retrospective focused on what to retain, improve, and scale into the following week.</li><li>Incorporate peer or mentor feedback and revise the week deliverable to professional publication quality.</li><li>Publish the week output into your cumulative portfolio with concise outcome narrative and proof artifacts.</li></ul>
+</div>
+</div>
+<div class="week-block">
+<div class="week-header">
+<span class="week-number">Week 10</span>
+<span class="week-duration">2 hours/week + labs</span>
+</div>
+<div class="week-topic">Background Jobs, Queues, and Event-Driven Workflows</div>
+<div class="week-content">
+<ul><li>Evaluate the principles of Background Jobs, Queues, and Event-Driven Workflows and link them to course outcomes at advanced depth with architecture-level decision quality.</li><li>Design Background Jobs, Queues, and Event-Driven Workflows in a guided scenario using realistic tools, constraints, and quality gates.</li><li>Optimize trade-offs, risks, and decision points for Background Jobs, Queues, and Event-Driven Workflows, then record rationale for stakeholder review.</li><li>Justify a portfolio-ready engineering implementation dossier for Background Jobs, Queues, and Event-Driven Workflows with measurable success criteria and next actions.</li><li>Track measurable progress using rubric scores, defect/risk trends, and evidence completeness each week.</li><li>Run a short retrospective focused on what to retain, improve, and scale into the following week.</li><li>Incorporate peer or mentor feedback and revise the week deliverable to professional publication quality.</li><li>Publish the week output into your cumulative portfolio with concise outcome narrative and proof artifacts.</li></ul>
+</div>
+</div>
+<div class="week-block">
+<div class="week-header">
+<span class="week-number">Week 11</span>
+<span class="week-duration">2 hours/week + labs</span>
+</div>
+<div class="week-topic">File Storage, Object Stores, and CDN Integration</div>
+<div class="week-content">
+<ul><li>Evaluate the principles of File Storage, Object Stores, and CDN Integration and link them to course outcomes at advanced depth with architecture-level decision quality.</li><li>Design File Storage, Object Stores, and CDN Integration in a guided scenario using realistic tools, constraints, and quality gates.</li><li>Optimize trade-offs, risks, and decision points for File Storage, Object Stores, and CDN Integration, then record rationale for stakeholder review.</li><li>Justify a portfolio-ready engineering implementation dossier for File Storage, Object Stores, and CDN Integration with measurable success criteria and next actions.</li><li>Track measurable progress using rubric scores, defect/risk trends, and evidence completeness each week.</li><li>Run a short retrospective focused on what to retain, improve, and scale into the following week.</li><li>Incorporate peer or mentor feedback and revise the week deliverable to professional publication quality.</li><li>Publish the week output into your cumulative portfolio with concise outcome narrative and proof artifacts.</li></ul>
+</div>
+</div>
+<div class="week-block">
+<div class="week-header">
+<span class="week-number">Week 12</span>
+<span class="week-duration">2 hours/week + labs</span>
+</div>
+<div class="week-topic">Structured Logs, Metrics, Traces, and Observability</div>
+<div class="week-content">
+<ul><li>Evaluate the principles of Structured Logs, Metrics, Traces, and Observability and link them to course outcomes at advanced depth with architecture-level decision quality.</li><li>Design Structured Logs, Metrics, Traces, and Observability in a guided scenario using realistic tools, constraints, and quality gates.</li><li>Optimize trade-offs, risks, and decision points for Structured Logs, Metrics, Traces, and Observability, then record rationale for stakeholder review.</li><li>Justify a portfolio-ready engineering implementation dossier for Structured Logs, Metrics, Traces, and Observability with measurable success criteria and next actions.</li><li>Track measurable progress using rubric scores, defect/risk trends, and evidence completeness each week.</li><li>Run a short retrospective focused on what to retain, improve, and scale into the following week.</li><li>Incorporate peer or mentor feedback and revise the week deliverable to professional publication quality.</li><li>Publish the week output into your cumulative portfolio with concise outcome narrative and proof artifacts.</li></ul>
+</div>
+</div>
+<div class="week-block">
+<div class="week-header">
+<span class="week-number">Week 13</span>
+<span class="week-duration">2 hours/week + labs</span>
+</div>
+<div class="week-topic">Rate Limiting, Idempotency, and API Safety Controls</div>
+<div class="week-content">
+<ul><li>Evaluate the principles of Rate Limiting, Idempotency, and API Safety Controls and link them to course outcomes at advanced depth with architecture-level decision quality.</li><li>Design Rate Limiting, Idempotency, and API Safety Controls in a guided scenario using realistic tools, constraints, and quality gates.</li><li>Optimize trade-offs, risks, and decision points for Rate Limiting, Idempotency, and API Safety Controls, then record rationale for stakeholder review.</li><li>Justify a portfolio-ready engineering implementation dossier for Rate Limiting, Idempotency, and API Safety Controls with measurable success criteria and next actions.</li><li>Track measurable progress using rubric scores, defect/risk trends, and evidence completeness each week.</li><li>Run a short retrospective focused on what to retain, improve, and scale into the following week.</li><li>Incorporate peer or mentor feedback and revise the week deliverable to professional publication quality.</li><li>Publish the week output into your cumulative portfolio with concise outcome narrative and proof artifacts.</li></ul>
+</div>
+</div>
+<div class="week-block">
+<div class="week-header">
+<span class="week-number">Week 14</span>
+<span class="week-duration">2 hours/week + labs</span>
+</div>
+<div class="week-topic">Transactions, Consistency, and Distributed Trade-Offs</div>
+<div class="week-content">
+<ul><li>Evaluate the principles of Transactions, Consistency, and Distributed Trade-Offs and link them to course outcomes at advanced depth with architecture-level decision quality.</li><li>Design Transactions, Consistency, and Distributed Trade-Offs in a guided scenario using realistic tools, constraints, and quality gates.</li><li>Optimize trade-offs, risks, and decision points for Transactions, Consistency, and Distributed Trade-Offs, then record rationale for stakeholder review.</li><li>Justify a portfolio-ready engineering implementation dossier for Transactions, Consistency, and Distributed Trade-Offs with measurable success criteria and next actions.</li><li>Track measurable progress using rubric scores, defect/risk trends, and evidence completeness each week.</li><li>Run a short retrospective focused on what to retain, improve, and scale into the following week.</li><li>Incorporate peer or mentor feedback and revise the week deliverable to professional publication quality.</li><li>Publish the week output into your cumulative portfolio with concise outcome narrative and proof artifacts.</li></ul>
+</div>
+</div>
+<div class="week-block">
+<div class="week-header">
+<span class="week-number">Week 15</span>
+<span class="week-duration">2 hours/week + labs</span>
+</div>
+<div class="week-topic">Horizontal Scaling and Stateless Service Design</div>
+<div class="week-content">
+<ul><li>Evaluate the principles of Horizontal Scaling and Stateless Service Design and link them to course outcomes at advanced depth with architecture-level decision quality.</li><li>Design Horizontal Scaling and Stateless Service Design in a guided scenario using realistic tools, constraints, and quality gates.</li><li>Optimize trade-offs, risks, and decision points for Horizontal Scaling and Stateless Service Design, then record rationale for stakeholder review.</li><li>Justify a portfolio-ready engineering implementation dossier for Horizontal Scaling and Stateless Service Design with measurable success criteria and next actions.</li><li>Track measurable progress using rubric scores, defect/risk trends, and evidence completeness each week.</li><li>Run a short retrospective focused on what to retain, improve, and scale into the following week.</li><li>Incorporate peer or mentor feedback and revise the week deliverable to professional publication quality.</li><li>Publish the week output into your cumulative portfolio with concise outcome narrative and proof artifacts.</li></ul>
+</div>
+</div>
+<div class="week-block">
+<div class="week-header">
+<span class="week-number">Week 16</span>
+<span class="week-duration">2 hours/week + labs</span>
+</div>
+<div class="week-topic">Messaging, Pub/Sub, and Asynchronous Integration</div>
+<div class="week-content">
+<ul><li>Evaluate the principles of Messaging, Pub/Sub, and Asynchronous Integration and link them to course outcomes at advanced depth with architecture-level decision quality.</li><li>Design Messaging, Pub/Sub, and Asynchronous Integration in a guided scenario using realistic tools, constraints, and quality gates.</li><li>Optimize trade-offs, risks, and decision points for Messaging, Pub/Sub, and Asynchronous Integration, then record rationale for stakeholder review.</li><li>Justify a portfolio-ready engineering implementation dossier for Messaging, Pub/Sub, and Asynchronous Integration with measurable success criteria and next actions.</li><li>Track measurable progress using rubric scores, defect/risk trends, and evidence completeness each week.</li><li>Run a short retrospective focused on what to retain, improve, and scale into the following week.</li><li>Incorporate peer or mentor feedback and revise the week deliverable to professional publication quality.</li><li>Publish the week output into your cumulative portfolio with concise outcome narrative and proof artifacts.</li></ul>
+</div>
+</div>
+<div class="week-block">
+<div class="week-header">
+<span class="week-number">Week 17</span>
+<span class="week-duration">2 hours/week + labs</span>
+</div>
+<div class="week-topic">Retries, Circuit Breakers, Timeouts, and Resilience</div>
+<div class="week-content">
+<ul><li>Design the principles of Retries, Circuit Breakers, Timeouts, and Resilience and link them to course outcomes at advanced depth with architecture-level decision quality.</li><li>Optimize Retries, Circuit Breakers, Timeouts, and Resilience in a guided scenario using realistic tools, constraints, and quality gates.</li><li>Architect trade-offs, risks, and decision points for Retries, Circuit Breakers, Timeouts, and Resilience, then record rationale for stakeholder review.</li><li>Defend a portfolio-ready engineering implementation dossier for Retries, Circuit Breakers, Timeouts, and Resilience with measurable success criteria and next actions.</li><li>Track measurable progress using rubric scores, defect/risk trends, and evidence completeness each week.</li><li>Run a short retrospective focused on what to retain, improve, and scale into the following week.</li><li>Incorporate peer or mentor feedback and revise the week deliverable to professional publication quality.</li><li>Publish the week output into your cumulative portfolio with concise outcome narrative and proof artifacts.</li></ul>
+</div>
+</div>
+<div class="week-block">
+<div class="week-header">
+<span class="week-number">Week 18</span>
+<span class="week-duration">2 hours/week + labs</span>
+</div>
+<div class="week-topic">Containerization and Deployment Basics for Services</div>
+<div class="week-content">
+<ul><li>Design the principles of Containerization and Deployment Basics for Services and link them to course outcomes at advanced depth with architecture-level decision quality.</li><li>Optimize Containerization and Deployment Basics for Services in a guided scenario using realistic tools, constraints, and quality gates.</li><li>Architect trade-offs, risks, and decision points for Containerization and Deployment Basics for Services, then record rationale for stakeholder review.</li><li>Defend a portfolio-ready engineering implementation dossier for Containerization and Deployment Basics for Services with measurable success criteria and next actions.</li><li>Track measurable progress using rubric scores, defect/risk trends, and evidence completeness each week.</li><li>Run a short retrospective focused on what to retain, improve, and scale into the following week.</li><li>Incorporate peer or mentor feedback and revise the week deliverable to professional publication quality.</li><li>Publish the week output into your cumulative portfolio with concise outcome narrative and proof artifacts.</li></ul>
+</div>
+</div>
+<div class="week-block">
+<div class="week-header">
+<span class="week-number">Week 19</span>
+<span class="week-duration">2 hours/week + labs</span>
+</div>
+<div class="week-topic">CI/CD, Automated Testing, and Quality Gates</div>
+<div class="week-content">
+<ul><li>Design the principles of CI/CD, Automated Testing, and Quality Gates and link them to course outcomes at advanced depth with architecture-level decision quality.</li><li>Optimize CI/CD, Automated Testing, and Quality Gates in a guided scenario using realistic tools, constraints, and quality gates.</li><li>Architect trade-offs, risks, and decision points for CI/CD, Automated Testing, and Quality Gates, then record rationale for stakeholder review.</li><li>Defend a portfolio-ready engineering implementation dossier for CI/CD, Automated Testing, and Quality Gates with measurable success criteria and next actions.</li><li>Track measurable progress using rubric scores, defect/risk trends, and evidence completeness each week.</li><li>Run a short retrospective focused on what to retain, improve, and scale into the following week.</li><li>Incorporate peer or mentor feedback and revise the week deliverable to professional publication quality.</li><li>Publish the week output into your cumulative portfolio with concise outcome narrative and proof artifacts.</li></ul>
+</div>
+</div>
+<div class="week-block">
+<div class="week-header">
+<span class="week-number">Week 20</span>
+<span class="week-duration">2 hours/week + labs</span>
+</div>
+<div class="week-topic">Security Hardening, Secrets, and Dependency Risk</div>
+<div class="week-content">
+<ul><li>Design the principles of Security Hardening, Secrets, and Dependency Risk and link them to course outcomes at advanced depth with architecture-level decision quality.</li><li>Optimize Security Hardening, Secrets, and Dependency Risk in a guided scenario using realistic tools, constraints, and quality gates.</li><li>Architect trade-offs, risks, and decision points for Security Hardening, Secrets, and Dependency Risk, then record rationale for stakeholder review.</li><li>Defend a portfolio-ready engineering implementation dossier for Security Hardening, Secrets, and Dependency Risk with measurable success criteria and next actions.</li><li>Track measurable progress using rubric scores, defect/risk trends, and evidence completeness each week.</li><li>Run a short retrospective focused on what to retain, improve, and scale into the following week.</li><li>Incorporate peer or mentor feedback and revise the week deliverable to professional publication quality.</li><li>Publish the week output into your cumulative portfolio with concise outcome narrative and proof artifacts.</li></ul>
+</div>
+</div>
+<div class="week-block">
+<div class="week-header">
+<span class="week-number">Week 21</span>
+<span class="week-duration">2 hours/week + labs</span>
+</div>
+<div class="week-topic">Microservices Boundaries and Service Collaboration</div>
+<div class="week-content">
+<ul><li>Design the principles of Microservices Boundaries and Service Collaboration and link them to course outcomes at advanced depth with architecture-level decision quality.</li><li>Optimize Microservices Boundaries and Service Collaboration in a guided scenario using realistic tools, constraints, and quality gates.</li><li>Architect trade-offs, risks, and decision points for Microservices Boundaries and Service Collaboration, then record rationale for stakeholder review.</li><li>Defend a portfolio-ready engineering implementation dossier for Microservices Boundaries and Service Collaboration with measurable success criteria and next actions.</li><li>Track measurable progress using rubric scores, defect/risk trends, and evidence completeness each week.</li><li>Run a short retrospective focused on what to retain, improve, and scale into the following week.</li><li>Incorporate peer or mentor feedback and revise the week deliverable to professional publication quality.</li><li>Publish the week output into your cumulative portfolio with concise outcome narrative and proof artifacts.</li></ul>
+</div>
+</div>
+<div class="week-block">
+<div class="week-header">
+<span class="week-number">Week 22</span>
+<span class="week-duration">2 hours/week + labs</span>
+</div>
+<div class="week-topic">Performance Profiling and Bottleneck Analysis</div>
+<div class="week-content">
+<ul><li>Design the principles of Performance Profiling and Bottleneck Analysis and link them to course outcomes at advanced depth with architecture-level decision quality.</li><li>Optimize Performance Profiling and Bottleneck Analysis in a guided scenario using realistic tools, constraints, and quality gates.</li><li>Architect trade-offs, risks, and decision points for Performance Profiling and Bottleneck Analysis, then record rationale for stakeholder review.</li><li>Defend a portfolio-ready engineering implementation dossier for Performance Profiling and Bottleneck Analysis with measurable success criteria and next actions.</li><li>Track measurable progress using rubric scores, defect/risk trends, and evidence completeness each week.</li><li>Run a short retrospective focused on what to retain, improve, and scale into the following week.</li><li>Incorporate peer or mentor feedback and revise the week deliverable to professional publication quality.</li><li>Publish the week output into your cumulative portfolio with concise outcome narrative and proof artifacts.</li></ul>
+</div>
+</div>
+<div class="week-block">
+<div class="week-header">
+<span class="week-number">Week 23</span>
+<span class="week-duration">2 hours/week + labs</span>
+</div>
+<div class="week-topic">Capstone Build: Scalable Backend Service</div>
+<div class="week-content">
+<ul><li>Design the principles of Capstone Build: Scalable Backend Service and link them to course outcomes at advanced depth with architecture-level decision quality.</li><li>Optimize Capstone Build: Scalable Backend Service in a guided scenario using realistic tools, constraints, and quality gates.</li><li>Architect trade-offs, risks, and decision points for Capstone Build: Scalable Backend Service, then record rationale for stakeholder review.</li><li>Defend a portfolio-ready engineering implementation dossier for Capstone Build: Scalable Backend Service with measurable success criteria and next actions.</li><li>Track measurable progress using rubric scores, defect/risk trends, and evidence completeness each week.</li><li>Run a short retrospective focused on what to retain, improve, and scale into the following week.</li><li>Incorporate peer or mentor feedback and revise the week deliverable to professional publication quality.</li><li>Publish the week output into your cumulative portfolio with concise outcome narrative and proof artifacts.</li></ul>
+</div>
+</div>
+<div class="week-block">
+<div class="week-header">
+<span class="week-number">Week 24</span>
+<span class="week-duration">2 hours/week + labs</span>
+</div>
+<div class="week-topic">Capstone Review, Operations Readiness, and Technical Defense</div>
+<div class="week-content">
+<ul><li>Design the principles of Capstone Review, Operations Readiness, and Technical Defense and link them to course outcomes at advanced depth with architecture-level decision quality.</li><li>Optimize Capstone Review, Operations Readiness, and Technical Defense in a guided scenario using realistic tools, constraints, and quality gates.</li><li>Architect trade-offs, risks, and decision points for Capstone Review, Operations Readiness, and Technical Defense, then record rationale for stakeholder review.</li><li>Defend a portfolio-ready engineering implementation dossier for Capstone Review, Operations Readiness, and Technical Defense with measurable success criteria and next actions.</li><li>Track measurable progress using rubric scores, defect/risk trends, and evidence completeness each week.</li><li>Run a short retrospective focused on what to retain, improve, and scale into the following week.</li><li>Incorporate peer or mentor feedback and revise the week deliverable to professional publication quality.</li><li>Publish the week output into your cumulative portfolio with concise outcome narrative and proof artifacts.</li></ul>
+</div>
+</div>
+</div>
+<div class="section">
+<h2 class="section-title">Capstone Projects</h2>
+<div class="project-card"><h4>Project 1: Resilient Service Core Implementation</h4><p>Develop a backend service module with robust API design, validation, and persistence behavior.</p><ul><li>Service implementation with contract tests and request/response schema validation</li><li>Database design notes with indexing and data integrity strategy</li><li>Decision memo documenting key architecture and reliability choices</li></ul></div><div class="project-card"><h4>Project 2: Scalability and Safety Controls Extension</h4><p>Extend the service with performance controls and operational safeguards for high-traffic scenarios.</p><ul><li>Rate limiting, caching, and async processing integration package</li><li>Load-test and failure-test evidence with remediation actions</li><li>Trade-off log for consistency, latency, and cost decisions</li></ul></div><div class="project-card"><h4>Project 3: Backend Architecture Defense and Handover</h4><p>Deliver a complete backend platform review package for operations handoff and technical defense.</p><ul><li>Operations-ready runbooks, SLO definitions, and observability dashboard set</li><li>Technical presentation explaining system boundaries, risks, and fallback plans</li><li>Roadmap with prioritized improvements for scale, security, and maintainability</li></ul></div>
+</div>
+<div class="section">
+<h2 class="section-title">Study Tips</h2>
+<div class="card">
+<ul><li>Reserve two weekly deep-work sessions for code quality review, refactoring, and cross-browser/platform testing.</li><li>Maintain a technical debt ledger tracking complexity hotspots, test gaps, and performance bottlenecks requiring attention.</li><li>Run weekly code review discussions, learning from peer feedback and measuring code quality metrics (coverage, maintainability index, cyclomatic complexity).</li></ul>
+</div>
+</div>
+<!-- About Section -->
+<section class="section">
+<h2 class="section-title">About This Course</h2>
+<div class="card">
+<h3>Course Overview</h3>
+<p style="margin-top: 12px; line-height: 1.8;">Backend Engineering: Scalable Architectures is built for developers who want to build systems that handle real load — not just working prototypes. The curriculum follows the engineering path from clean API design through data modelling, caching, async processing, observability, security hardening, and microservices — all grounded in Node.js and production tooling.</p>
+</div>
+<div class="info-box" style="margin-top: 24px;">
+<strong>Target Career Roles</strong>
+<ul style="margin-top: 12px; list-style: none;"><li style="padding: 6px 0;">• Senior Backend Engineer</li><li style="padding: 6px 0;">• Software Architect</li><li style="padding: 6px 0;">• Full Stack Engineer (Backend Focus)</li><li style="padding: 6px 0;">• Platform Engineer</li><li style="padding: 6px 0;">• API Engineering Lead</li></ul>
+</div>
+</section>
+        <!-- Study Tips -->
+        <section class="section">
+            <h2 class="section-title">Study Tips for Success</h2>
+            <div class="card">
+                <ul>
+                    <li>Protect consistent weekly practice time and complete hands-on work before moving to the next topic.</li>
+                    <li>Document implementation decisions, trade-offs, and lessons learned after each weekly deliverable.</li>
+                    <li>Review feedback quickly and ship an improved revision within the same week to reinforce retention.</li>
+                    <li>Track measurable progress with checklists, test evidence, and milestone outcomes.</li>
+                </ul>
+            </div>
+        </section>
+
+<div class="footer">
+<p>© 2026 Hexadigitall Academy (Hexadigitall Technologies). Curriculum authored for Backend Engineering: Scalable Architectures.</p>
+</div>
+</div>
+</body>
+</html>

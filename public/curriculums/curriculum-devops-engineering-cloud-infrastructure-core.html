@@ -1,0 +1,818 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DevOps Engineering &amp; Cloud Infrastructure (Core Track) - Course Curriculum</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root { --primary-color:#0078D4; --dark-blue:#002050; --text-dark:#1F1F1F; --text-light:#605E5C; --bg-light:#F5F5F5; --bg-white:#FFFFFF; --border-color:#EDEBE9; }
+        body { font-family:'Inter',sans-serif; line-height:1.6; color:var(--text-dark); background:var(--bg-white); font-size:14px; }
+        .container { max-width:1200px; margin:0 auto; padding:40px; }
+        .brand-bar { display:flex; align-items:center; justify-content:space-between; gap:20px; border:1px solid var(--border-color); border-radius:12px; padding:16px 20px; margin-bottom:20px; box-shadow:0 4px 18px rgba(0,32,80,.08); }
+        .brand-meta { display:flex; align-items:center; gap:16px; }
+        .brand-meta img { width:60px; }
+        .brand-name { font-family:'Space Grotesk',sans-serif; font-size:18px; font-weight:700; color:var(--dark-blue); }
+        .brand-link { color:var(--primary-color); font-weight:600; text-decoration:none; }
+        .qr-block { display:flex; align-items:center; gap:12px; background:var(--bg-light); padding:10px 14px; border-radius:10px; border:1px solid var(--border-color); }
+        .qr-block img { width:86px; height:86px; }
+        .qr-text { font-size:12px; color:var(--text-light); max-width:220px; }
+        .course-hero { background:linear-gradient(135deg,#E8F4FD 0%,#F5F9FF 100%); border:1px solid var(--border-color); border-radius:12px; padding:18px; margin-bottom:24px; display:grid; grid-template-columns:1fr 320px; gap:20px; align-items:center; }
+        .course-hero img { width:100%; border-radius:12px; border:1px solid var(--border-color); }
+        .course-hero h2 { font-family:'Space Grotesk',sans-serif; color:var(--dark-blue); margin-bottom:10px; font-size:22px; }
+        .header { background:linear-gradient(135deg,var(--dark-blue) 0%,var(--primary-color) 100%); color:white; padding:60px 40px; border-radius:12px; margin-bottom:40px; }
+        .header h1 { font-family:'Space Grotesk',sans-serif; font-size:40px; margin-bottom:12px; }
+        .subtitle { font-size:18px; opacity:.95; margin-bottom:16px; }
+        .course-meta { display:flex; flex-wrap:wrap; gap:16px; margin-top:16px; }
+        .meta-item { background:rgba(255,255,255,.15); padding:10px 14px; border-radius:8px; }
+        .section { margin-bottom:46px; }
+        .section-title { font-family:'Space Grotesk',sans-serif; font-size:28px; color:var(--dark-blue); margin-bottom:22px; padding-bottom:10px; border-bottom:3px solid var(--primary-color); }
+        .card { border:1px solid var(--border-color); border-radius:10px; padding:22px; }
+        .card ul { margin-left:20px; }
+        .card li { margin:6px 0; }
+        .week-block { border:1px solid var(--border-color); border-left:6px solid var(--primary-color); border-radius:12px; padding:16px; margin-bottom:14px; }
+        .week-header { display:flex; justify-content:space-between; margin-bottom:10px; }
+        .week-topic { color:var(--primary-color); font-family:'Space Grotesk',sans-serif; font-size:18px; margin-bottom:10px; }
+        .week-content { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:12px; }
+        .week-column { background:#f8fbff; border:1px solid var(--border-color); border-radius:8px; padding:10px; }
+        .week-column h4 { font-size:13px; color:var(--dark-blue); margin-bottom:8px; }
+        .week-column ul { margin-left:16px; }
+        .week-column li { font-size:13px; margin:5px 0; }
+        .project-card { border:1px solid var(--border-color); border-radius:10px; padding:16px; margin-bottom:12px; background:linear-gradient(135deg,#f3f8ff 0%,#fff 100%); }
+        .project-card h4 { color:var(--dark-blue); margin-bottom:8px; }
+        .project-card p { color:var(--text-light); margin-bottom:8px; }
+        .project-card ul { margin-left:20px; }
+        .footer { border-top:1px solid var(--border-color); margin-top:24px; padding-top:16px; color:var(--text-light); font-size:12px; }
+        @media (max-width:900px){ .course-hero{grid-template-columns:1fr;} .week-content{grid-template-columns:1fr;} }
+    </style>
+
+
+
+<style id="curriculum-ui-normalization">
+:root { --primary-color:#0b5cab; --secondary-color:#5bb3ff; --dark-blue:#0d2a4a; --text-dark:#132235; --text-light:#4f637b; --bg-white:#ffffff; --bg-light:#f4f8fc; --border-color:#d9e5f2; }
+body { font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif; color:var(--text-dark); background:radial-gradient(circle at top right,#f7fbff 0%,#ffffff 45%); }
+h1,h2,h3,h4,.section-title,.week-topic,.week-number,.brand-name { font-family:'Space Grotesk','Inter',sans-serif; letter-spacing:-0.01em; }
+.section { margin-bottom:44px; }
+.card,.week-block,.project-card { border-radius:12px; border:1px solid var(--border-color); box-shadow:0 4px 16px rgba(13,42,74,0.06); }
+.welcome-section { background:linear-gradient(135deg,#eef6ff 0%,#f9fcff 100%); border-left:5px solid var(--primary-color); padding:28px; border-radius:12px; margin-bottom:36px; }
+.project-card { background:linear-gradient(135deg,#eef5ff 0%,#ffffff 60%); padding:20px; margin-bottom:14px; }
+.project-card h4 { color:var(--dark-blue); margin-bottom:8px; }
+.project-card p { color:var(--text-light); margin-bottom:10px; }
+.project-card ul { margin-left:18px; }
+.project-card li { margin:6px 0; }
+</style>
+<style id="curriculum-theme-override">
+:root { --primary-color:hsl(281 70% 42%); --secondary-color:hsl(305 82% 62%); --dark-blue:hsl(281 48% 18%); --text-dark:hsl(281 32% 14%); --text-light:hsl(281 18% 38%); --border-color:hsl(281 38% 86%); --bg-light:hsl(101 45% 97%); --theme-hero-a:hsl(281 85% 96%); --theme-hero-b:hsl(305 90% 98%); }
+body { background:radial-gradient(circle at 8% 0%, color-mix(in srgb, var(--theme-hero-a) 72%, white), #ffffff 46%); }
+.course-hero { background:linear-gradient(135deg,var(--theme-hero-a) 0%,var(--theme-hero-b) 100%); }
+.header { background:linear-gradient(135deg,color-mix(in srgb, var(--dark-blue) 90%, black), var(--primary-color)); }
+.section-title::before { background:linear-gradient(180deg,var(--primary-color),var(--secondary-color)); }
+.week-block { border-left:6px solid var(--primary-color); }
+</style>
+<style id="curriculum-contrast-fix">
+/* Final readability layer: resolves conflicting text/background and font overrides */
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif !important;
+  color: var(--text-dark) !important;
+  background-color: #ffffff;
+}
+h1, h2, h3, h4, .section-title, .week-topic, .week-number, .brand-name {
+  font-family: 'Space Grotesk', 'Inter', sans-serif !important;
+}
+
+/* Ensure light surfaces always use dark text */
+.container,
+.section,
+.card,
+.week-block,
+.week-column,
+.project-card,
+.welcome-section,
+.resource-item,
+.roadmap-card,
+.info-box {
+  color: var(--text-dark);
+}
+
+/* Keep hero as light panel with dark readable text */
+.course-hero,
+.course-hero h1,
+.course-hero h2,
+.course-hero h3,
+.course-hero h4,
+.course-hero p,
+.course-hero li,
+.course-hero span,
+.course-hero a {
+  color: var(--text-dark) !important;
+}
+
+/* Normalize dark surfaces so white text always has contrast */
+.brand-bar,
+.header,
+.footer {
+  background: linear-gradient(135deg, color-mix(in srgb, var(--dark-blue) 92%, black), var(--primary-color)) !important;
+}
+
+.header,
+.header h1,
+.header h2,
+.header h3,
+.header h4,
+.header p,
+.header li,
+.header span,
+.header strong,
+.header a,
+.brand-bar,
+.brand-bar h1,
+.brand-bar h2,
+.brand-bar h3,
+.brand-bar h4,
+.brand-bar p,
+.brand-bar li,
+.brand-bar span,
+.brand-bar strong,
+.brand-bar a,
+.footer,
+.footer h1,
+.footer h2,
+.footer h3,
+.footer h4,
+.footer p,
+.footer li,
+.footer span,
+.footer strong,
+.footer a {
+  color: #ffffff !important;
+}
+
+.brand-bar .brand-link,
+.brand-bar .qr-text,
+.footer p {
+  color: rgba(255, 255, 255, 0.92) !important;
+}
+
+/* Meta chips: readable in both dark and light contexts */
+.meta-item {
+  color: var(--text-dark);
+}
+.header .meta-item {
+  color: #ffffff !important;
+  background: rgba(255,255,255,0.16) !important;
+}
+
+/* Links and list readability */
+a { color: var(--primary-color); }
+a:hover { opacity: 0.9; }
+li { color: inherit; }
+
+.section-title,
+.week-topic,
+.project-card h4,
+.card h3,
+.welcome-section h2 {
+  opacity: 1 !important;
+}
+</style>
+<style id="curriculum-brandbar-contrast-fix">
+/* Brand bar readability fix */
+.brand-bar {
+  background: linear-gradient(135deg, color-mix(in srgb, var(--dark-blue) 88%, black), var(--primary-color)) !important;
+  border-color: color-mix(in srgb, var(--primary-color) 35%, white) !important;
+}
+.brand-bar .brand-name,
+.brand-bar .brand-link,
+.brand-bar .qr-text,
+.brand-bar .brand-text,
+.brand-bar .brand-meta,
+.brand-bar a,
+.brand-bar p,
+.brand-bar span,
+.brand-bar strong {
+  color: #ffffff !important;
+}
+.brand-bar .brand-link {
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.brand-bar .qr-block {
+  background: rgba(255,255,255,0.16) !important;
+  border-color: rgba(255,255,255,0.35) !important;
+}
+.brand-bar .qr-text {
+  opacity: 0.95;
+}
+</style>
+</head>
+<body>
+    <div class="container">
+        <div class="brand-bar">
+            <div class="brand-meta">
+                <img src="../hexadigitall-logo-transparent.png" alt="Hexadigitall logo">
+                <div>
+                    <div class="brand-name">Hexadigitall Academy (Hexadigitall Technologies)</div>
+                    <a class="brand-link" href="https://www.hexadigitall.com">www.hexadigitall.com</a>
+                </div>
+            </div>
+            <div class="qr-block">
+                <img src="https://api.qrserver.com/v1/create-qr-code/?size=120x120&data=https://www.hexadigitall.com/courses/devops-engineering-cloud-infrastructure" alt="Course QR Code">
+                <div class="qr-text">Scan for course page, admissions, and mentorship details.</div>
+            </div>
+        </div>
+
+        <div class="course-hero">
+            <div>
+                <h2>Course Snapshot</h2>
+                <p>A professional 20-week track covering modern DevOps delivery, cloud infrastructure automation, Kubernetes operations, security, observability, and production-grade platform engineering.</p>
+            </div>
+            <img src="../assets/images/courses/devops-engineering-kubernetes-mastery.jpg" alt="DevOps Engineering &amp; Cloud Infrastructure (Core Track)" onerror="this.style.display='none'">
+        </div>
+
+        <div class="header">
+            <h1>DevOps Engineering &amp; Cloud Infrastructure (Core Track)</h1>
+            <p class="subtitle">Detailed course-specific weekly curriculum built for professional competency and portfolio delivery.</p>
+            <div class="course-meta">
+                <div class="meta-item"><strong>Duration:</strong> 20 Weeks</div>
+                <div class="meta-item"><strong>Level:</strong> Advanced</div>
+                <div class="meta-item"><strong>Study Time:</strong> 2 hours/week + labs</div>
+                <div class="meta-item"><strong>School:</strong> Cloud &amp; DevOps</div>
+            </div>
+        </div>
+
+        <section class="welcome-section">
+            <h2>Welcome to DevOps Engineering &amp; Cloud Infrastructure (Core Track)! 🎓</h2>
+            <p>This 20-week advanced track develops practical DevOps capability across CI/CD, container orchestration, infrastructure as code, secure delivery, observability, reliability engineering, and operational excellence.</p>
+            <p>You will complete production-style labs every week, progressively building an end-to-end platform that integrates pipeline automation, Kubernetes operations, Terraform workflows, security controls, and incident response playbooks.</p>
+            <p><strong>Your success is our priority.</strong> By graduation, you will be able to design, implement, and defend a production-ready DevOps platform aligned to modern engineering and governance expectations.</p>
+        </section>
+
+        <div class="section">
+            <h2 class="section-title">Prerequisites & What You Should Know</h2>
+            <div class="card"><ul><li>Linux administration fundamentals and command-line confidence.</li><li>Basic Git usage and understanding of software delivery workflows.</li><li>Introductory scripting ability (Bash or Python).</li><li>Commitment to weekly labs, project delivery, and technical documentation.</li></ul></div>
+        </div>
+
+        <section class="section">
+            <h2 class="section-title">Recommended Complementary Courses</h2>
+            <div class="card">
+                <ul>
+                    <li><strong>Advanced Ansible Automation:</strong> Scale your infrastructure and configuration management with repeatable automation patterns.</li>
+                    <li><strong>Enterprise Cloud Solutions Architect:</strong> Understand the architecture governance layer that informs enterprise DevOps platform design.</li>
+                    <li><strong>Linux Administration &amp; Shell Scripting Pro:</strong> Strengthen command-line and scripting fluency for pipeline and platform operations.</li>
+                    <li><strong>Azure Security Technologies (AZ-500):</strong> Deepen cloud-native security controls for identity, workloads, and network protection.</li>
+                </ul>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2 class="section-title">Essential Learning Resources</h2>
+            <div class="card">
+                <ul>
+                    <li>Kubernetes and Helm official documentation for workload orchestration and release management.</li>
+                    <li>Terraform language and provider documentation for module and state best practices.</li>
+                    <li>SRE and observability references for SLOs, alerting strategy, and incident handling.</li>
+                    <li>DevSecOps guidance for pipeline security, dependency scanning, and policy enforcement.</li>
+                </ul>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2 class="section-title">Your Learning Roadmap</h2>
+            <div class="card">
+                <ul>
+                    <li><strong>Weeks 1-5 (Delivery Foundations):</strong> Linux, Git strategy, CI fundamentals, and containerization.</li>
+                    <li><strong>Weeks 6-9 (Kubernetes Operations):</strong> Workloads, ingress, secrets, and Helm-based release patterns.</li>
+                    <li><strong>Weeks 10-16 (Platform Engineering):</strong> Terraform IaC, cloud deployment, release safety, observability, DevSecOps, and GitOps.</li>
+                    <li><strong>Weeks 17-20 (Reliability to Capstone):</strong> Incident operations, FinOps optimization, full platform build, and executive defense.</li>
+                </ul>
+            </div>
+        </section>
+
+        <div class="section">
+            <h2 class="section-title">Learning Outcomes</h2>
+            <div class="card"><ul><li>Build and operate CI/CD pipelines with reliability and security controls.</li><li>Containerize and orchestrate workloads using Docker and Kubernetes.</li><li>Provision and manage cloud infrastructure using Terraform and IaC patterns.</li><li>Implement observability, incident response, and reliability engineering practices.</li><li>Deliver end-to-end DevOps platform capstones with production-readiness evidence.</li></ul></div>
+        </div>
+
+        <div class="section">
+            <h2 class="section-title">Detailed Weekly Curriculum</h2>
+
+            <div class="week-block">
+                <div class="week-header">
+                    <span class="week-number">Week 1</span>
+                    <span class="week-duration">2 hours + labs</span>
+                </div>
+                <div class="week-topic">DevOps Foundations & CI/CD Overview</div>
+                <div class="week-content">
+                    <div class="week-column">
+                        <h4>Concept Scope</h4>
+                        <ul>
+                            <li>DevOps culture, CALMS principles, and value stream thinking.</li><li>Linux administration essentials for production environments.</li><li>Operational mindset for reliability and automation.</li>
+                        </ul>
+                    </div>
+                    <div class="week-column">
+                        <h4>Hands-On Scope</h4>
+                        <ul><li>Create the Week 1 textbook folder tree (preclass-notes, lab-01..lab-04, weekly-project).</li><li>Provision Linux + Git tooling and run first CI validation on pull request.</li><li>Troubleshoot a failed pipeline run and document root cause + fix.</li></ul>
+                    </div>
+                    <div class="week-column">
+                        <h4>Expected Deliverables</h4>
+                        <ul><li>Week-01 repo tree and README runbook.</li><li>CI run evidence with pass/fail logs.</li><li>Failure remediation note with corrected commit.</li></ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="week-block">
+                <div class="week-header">
+                    <span class="week-number">Week 2</span>
+                    <span class="week-duration">2 hours + labs</span>
+                </div>
+                <div class="week-topic">Docker Fundamentals & Containerization</div>
+                <div class="week-content">
+                    <div class="week-column">
+                        <h4>Concept Scope</h4>
+                        <ul>
+                            <li>Git workflows, branching strategy, and commit hygiene.</li><li>Repository governance and collaborative development patterns.</li><li>Pull request quality controls and review standards.</li>
+                        </ul>
+                    </div>
+                    <div class="week-column">
+                        <h4>Hands-On Scope</h4>
+                        <ul><li>Build a production Dockerfile and deterministic image build process.</li><li>Run compose-based local stack with health checks and environment controls.</li><li>Scan image vulnerabilities and remediate critical findings before publish.</li></ul>
+                    </div>
+                    <div class="week-column">
+                        <h4>Expected Deliverables</h4>
+                        <ul><li>Docker/compose package with run instructions.</li><li>Security scan report and remediation proof.</li><li>Tagged image artifact with runtime validation logs.</li></ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="week-block">
+                <div class="week-header">
+                    <span class="week-number">Week 3</span>
+                    <span class="week-duration">2 hours + labs</span>
+                </div>
+                <div class="week-topic">Advanced Docker & Multi-Container Applications</div>
+                <div class="week-content">
+                    <div class="week-column">
+                        <h4>Concept Scope</h4>
+                        <ul>
+                            <li>CI pipeline stages and quality gates.</li><li>Build reproducibility, dependency management, and test automation.</li><li>Pipeline failure diagnosis and remediation patterns.</li>
+                        </ul>
+                    </div>
+                    <div class="week-column">
+                        <h4>Hands-On Scope</h4>
+                        <ul><li>Assemble a multi-container app (API, cache, DB) with startup dependencies.</li><li>Configure network and persistence behavior across containers.</li><li>Run service-failure simulation and verify recovery + data integrity.</li></ul>
+                    </div>
+                    <div class="week-column">
+                        <h4>Expected Deliverables</h4>
+                        <ul><li>Multi-container topology and manifests.</li><li>Dependency and persistence validation logs.</li><li>Failure simulation report with corrective actions.</li></ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="week-block">
+                <div class="week-header">
+                    <span class="week-number">Week 4</span>
+                    <span class="week-duration">2 hours + labs</span>
+                </div>
+                <div class="week-topic">Container CI/CD & Automation</div>
+                <div class="week-content">
+                    <div class="week-column">
+                        <h4>Concept Scope</h4>
+                        <ul>
+                            <li>Container runtime model and image lifecycle.</li><li>Dockerfile best practices and multi-stage builds.</li><li>Image security and deterministic builds.</li>
+                        </ul>
+                    </div>
+                    <div class="week-column">
+                        <h4>Hands-On Scope</h4>
+                        <ul><li>Automate build-test-scan-publish stages for container releases.</li><li>Implement gated promotion from staging to production tags.</li><li>Execute rollback drill to a known-stable image.</li></ul>
+                    </div>
+                    <div class="week-column">
+                        <h4>Expected Deliverables</h4>
+                        <ul><li>CI/CD workflow with release gates.</li><li>Promotion history and approval evidence.</li><li>Rollback drill report with recovery timing.</li></ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="week-block">
+                <div class="week-header">
+                    <span class="week-number">Week 5</span>
+                    <span class="week-duration">2 hours + labs</span>
+                </div>
+                <div class="week-topic">Kubernetes Architecture & Core Concepts</div>
+                <div class="week-content">
+                    <div class="week-column">
+                        <h4>Concept Scope</h4>
+                        <ul>
+                            <li>Container networking modes and service communication.</li><li>Volume management and data durability patterns.</li><li>Runtime observability and debugging techniques.</li>
+                        </ul>
+                    </div>
+                    <div class="week-column">
+                        <h4>Hands-On Scope</h4>
+                        <ul><li>Deploy first workloads to Kubernetes and validate cluster readiness.</li><li>Create namespace and workload boundaries for platform/app services.</li><li>Troubleshoot one scheduling or image-pull issue end-to-end.</li></ul>
+                    </div>
+                    <div class="week-column">
+                        <h4>Expected Deliverables</h4>
+                        <ul><li>Kubernetes baseline manifest bundle.</li><li>Cluster readiness and deployment evidence.</li><li>Troubleshooting report with root cause.</li></ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="week-block">
+                <div class="week-header">
+                    <span class="week-number">Week 6</span>
+                    <span class="week-duration">2 hours + labs</span>
+                </div>
+                <div class="week-topic">Kubernetes Workloads & Configuration</div>
+                <div class="week-content">
+                    <div class="week-column">
+                        <h4>Concept Scope</h4>
+                        <ul>
+                            <li>Kubernetes control plane and worker node responsibilities.</li><li>Workload primitives: Deployments, ReplicaSets, and Pods.</li><li>Scheduling behavior and resource management.</li>
+                        </ul>
+                    </div>
+                    <div class="week-column">
+                        <h4>Hands-On Scope</h4>
+                        <ul><li>Implement ConfigMaps, Secrets, and probe strategy for workloads.</li><li>Run rolling updates and verify zero-downtime behavior.</li><li>Deploy stateful component and validate restart persistence.</li></ul>
+                    </div>
+                    <div class="week-column">
+                        <h4>Expected Deliverables</h4>
+                        <ul><li>Config and secret management manifests.</li><li>Rolling update validation logs.</li><li>Stateful persistence checklist and results.</li></ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="week-block">
+                <div class="week-header">
+                    <span class="week-number">Week 7</span>
+                    <span class="week-duration">2 hours + labs</span>
+                </div>
+                <div class="week-topic">Kubernetes Networking & Storage</div>
+                <div class="week-content">
+                    <div class="week-column">
+                        <h4>Concept Scope</h4>
+                        <ul>
+                            <li>Service discovery and traffic routing patterns.</li><li>Ingress controller fundamentals and path/host routing.</li><li>Network policies and segmentation controls.</li>
+                        </ul>
+                    </div>
+                    <div class="week-column">
+                        <h4>Hands-On Scope</h4>
+                        <ul><li>Configure Services, Ingress, and TLS routing for app exposure.</li><li>Provision PV/PVC workflows and validate storage behavior.</li><li>Apply NetworkPolicies and test allowed/blocked communication paths.</li></ul>
+                    </div>
+                    <div class="week-column">
+                        <h4>Expected Deliverables</h4>
+                        <ul><li>Ingress/service/TLS configuration pack.</li><li>Storage provisioning and durability evidence.</li><li>NetworkPolicy validation matrix.</li></ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="week-block">
+                <div class="week-header">
+                    <span class="week-number">Week 8</span>
+                    <span class="week-duration">2 hours + labs</span>
+                </div>
+                <div class="week-topic">Advanced Kubernetes Patterns</div>
+                <div class="week-content">
+                    <div class="week-column">
+                        <h4>Concept Scope</h4>
+                        <ul>
+                            <li>ConfigMaps, Secrets, and secure configuration workflows.</li><li>StatefulSets and persistent volume claims.</li><li>Operational considerations for stateful workloads.</li>
+                        </ul>
+                    </div>
+                    <div class="week-column">
+                        <h4>Hands-On Scope</h4>
+                        <ul><li>Apply HPA, anti-affinity, and PDB resilience controls.</li><li>Run controlled failure scenarios to test self-healing.</li><li>Tune resource requests/limits from observed metrics.</li></ul>
+                    </div>
+                    <div class="week-column">
+                        <h4>Expected Deliverables</h4>
+                        <ul><li>Resilience and scaling manifest set.</li><li>Failure simulation incident log.</li><li>Resource tuning report with before/after metrics.</li></ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="week-block">
+                <div class="week-header">
+                    <span class="week-number">Week 9</span>
+                    <span class="week-duration">2 hours + labs</span>
+                </div>
+                <div class="week-topic">Helm & Kubernetes Package Management</div>
+                <div class="week-content">
+                    <div class="week-column">
+                        <h4>Concept Scope</h4>
+                        <ul>
+                            <li>Helm chart structure and templating strategy.</li><li>Values management across environments.</li><li>Chart testing and release lifecycle.</li>
+                        </ul>
+                    </div>
+                    <div class="week-column">
+                        <h4>Hands-On Scope</h4>
+                        <ul><li>Package workloads as Helm charts with env-specific values files.</li><li>Publish versioned charts and deploy through release flow.</li><li>Execute chart upgrade + rollback safety test.</li></ul>
+                    </div>
+                    <div class="week-column">
+                        <h4>Expected Deliverables</h4>
+                        <ul><li>Helm chart repo with version history.</li><li>Environment values and release notes.</li><li>Upgrade/rollback validation evidence.</li></ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="week-block">
+                <div class="week-header">
+                    <span class="week-number">Week 10</span>
+                    <span class="week-duration">2 hours + labs</span>
+                </div>
+                <div class="week-topic">Infrastructure as Code with Terraform</div>
+                <div class="week-content">
+                    <div class="week-column">
+                        <h4>Concept Scope</h4>
+                        <ul>
+                            <li>Terraform workflow, state, and dependency graph.</li><li>Provider configuration and module decomposition.</li><li>Idempotent infrastructure delivery principles.</li>
+                        </ul>
+                    </div>
+                    <div class="week-column">
+                        <h4>Hands-On Scope</h4>
+                        <ul><li>Provision core infrastructure using modular Terraform code.</li><li>Configure remote state backend with locking and access controls.</li><li>Run validated plan/apply workflow with approvals.</li></ul>
+                    </div>
+                    <div class="week-column">
+                        <h4>Expected Deliverables</h4>
+                        <ul><li>Terraform module set and documentation.</li><li>State backend/locking configuration evidence.</li><li>Plan/apply logs with approval trace.</li></ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="week-block">
+                <div class="week-header">
+                    <span class="week-number">Week 11</span>
+                    <span class="week-duration">2 hours + labs</span>
+                </div>
+                <div class="week-topic">Advanced Terraform & Cloud Provisioning</div>
+                <div class="week-content">
+                    <div class="week-column">
+                        <h4>Concept Scope</h4>
+                        <ul>
+                            <li>Remote state backends and locking strategy.</li><li>Reusable module design for platform teams.</li><li>Environment promotion and drift management.</li>
+                        </ul>
+                    </div>
+                    <div class="week-column">
+                        <h4>Hands-On Scope</h4>
+                        <ul><li>Refactor Terraform modules for multi-environment reuse.</li><li>Run drift detection and controlled remediation workflow.</li><li>Add policy-as-code checks to block unsafe plans.</li></ul>
+                    </div>
+                    <div class="week-column">
+                        <h4>Expected Deliverables</h4>
+                        <ul><li>Reusable module composition examples.</li><li>Drift remediation log and impact summary.</li><li>Policy gate outcomes and exceptions register.</li></ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="week-block">
+                <div class="week-header">
+                    <span class="week-number">Week 12</span>
+                    <span class="week-duration">2 hours + labs</span>
+                </div>
+                <div class="week-topic">GitOps & Advanced CI/CD</div>
+                <div class="week-content">
+                    <div class="week-column">
+                        <h4>Concept Scope</h4>
+                        <ul>
+                            <li>Core cloud services for compute, storage, and networking.</li><li>IAM and least-privilege deployment controls.</li><li>Reliability and scalability design decisions.</li>
+                        </ul>
+                    </div>
+                    <div class="week-column">
+                        <h4>Hands-On Scope</h4>
+                        <ul><li>Deploy GitOps controller and repository-driven sync model.</li><li>Implement PR-based promotion with approvals and policy checks.</li><li>Trigger and observe automated drift reconciliation.</li></ul>
+                    </div>
+                    <div class="week-column">
+                        <h4>Expected Deliverables</h4>
+                        <ul><li>GitOps repo structure and app definitions.</li><li>Promotion PR history and sync evidence.</li><li>Drift/reconciliation incident report.</li></ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="week-block">
+                <div class="week-header">
+                    <span class="week-number">Week 13</span>
+                    <span class="week-duration">2 hours + labs</span>
+                </div>
+                <div class="week-topic">Monitoring, Logging & Observability</div>
+                <div class="week-content">
+                    <div class="week-column">
+                        <h4>Concept Scope</h4>
+                        <ul>
+                            <li>Release strategies: blue/green, canary, and rolling updates.</li><li>Environment promotion and deployment approvals.</li><li>Rollback strategy and release risk management.</li>
+                        </ul>
+                    </div>
+                    <div class="week-column">
+                        <h4>Hands-On Scope</h4>
+                        <ul><li>Instrument services with metrics, logs, and traces.</li><li>Define SLI/SLO targets and configure alerting thresholds.</li><li>Perform outage RCA using telemetry correlation.</li></ul>
+                    </div>
+                    <div class="week-column">
+                        <h4>Expected Deliverables</h4>
+                        <ul><li>Observability dashboards and alert rules.</li><li>SLO definition and threshold rationale.</li><li>RCA document with corrective actions.</li></ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="week-block">
+                <div class="week-header">
+                    <span class="week-number">Week 14</span>
+                    <span class="week-duration">2 hours + labs</span>
+                </div>
+                <div class="week-topic">Advanced CI/CD Pipeline Engineering</div>
+                <div class="week-content">
+                    <div class="week-column">
+                        <h4>Concept Scope</h4>
+                        <ul>
+                            <li>Observability pillars and telemetry architecture.</li><li>Prometheus/Grafana and centralized log pipelines.</li><li>SLO/SLI/SLA model and alert tuning.</li>
+                        </ul>
+                    </div>
+                    <div class="week-column">
+                        <h4>Hands-On Scope</h4>
+                        <ul><li>Build reusable multi-stage pipelines and template libraries.</li><li>Enable artifact signing/provenance controls and approvals.</li><li>Optimize pipeline runtime with cache/selective execution.</li></ul>
+                    </div>
+                    <div class="week-column">
+                        <h4>Expected Deliverables</h4>
+                        <ul><li>Pipeline template library and usage notes.</li><li>Artifact signing/provenance evidence.</li><li>Pipeline optimization benchmark report.</li></ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="week-block">
+                <div class="week-header">
+                    <span class="week-number">Week 15</span>
+                    <span class="week-duration">2 hours + labs</span>
+                </div>
+                <div class="week-topic">Advanced Deployment Strategies</div>
+                <div class="week-content">
+                    <div class="week-column">
+                        <h4>Concept Scope</h4>
+                        <ul>
+                            <li>Shift-left security in CI/CD pipelines.</li><li>SAST, dependency scanning, and secret detection.</li><li>Runtime security controls and policy enforcement.</li>
+                        </ul>
+                    </div>
+                    <div class="week-column">
+                        <h4>Hands-On Scope</h4>
+                        <ul><li>Implement blue/green and canary deployment paths.</li><li>Configure automated rollback on error threshold breach.</li><li>Run deployment game day to validate safety controls.</li></ul>
+                    </div>
+                    <div class="week-column">
+                        <h4>Expected Deliverables</h4>
+                        <ul><li>Deployment strategy manifests and runbook.</li><li>Rollback trigger and execution evidence.</li><li>Game day findings and action backlog.</li></ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="week-block">
+                <div class="week-header">
+                    <span class="week-number">Week 16</span>
+                    <span class="week-duration">2 hours + labs</span>
+                </div>
+                <div class="week-topic">Service Mesh & Advanced Networking</div>
+                <div class="week-content">
+                    <div class="week-column">
+                        <h4>Concept Scope</h4>
+                        <ul>
+                            <li>GitOps operating model and desired state reconciliation.</li><li>ArgoCD/Flux workflow and sync policies.</li><li>Operational governance for platform teams.</li>
+                        </ul>
+                    </div>
+                    <div class="week-column">
+                        <h4>Hands-On Scope</h4>
+                        <ul><li>Deploy service mesh and enforce mTLS between services.</li><li>Apply retries/timeouts/circuit-breakers for unstable dependencies.</li><li>Measure service path latency and failure propagation.</li></ul>
+                    </div>
+                    <div class="week-column">
+                        <h4>Expected Deliverables</h4>
+                        <ul><li>Service mesh policy configuration bundle.</li><li>Traffic policy validation outputs.</li><li>Service communication topology and latency report.</li></ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="week-block">
+                <div class="week-header">
+                    <span class="week-number">Week 17</span>
+                    <span class="week-duration">2 hours + labs</span>
+                </div>
+                <div class="week-topic">Advanced Observability & SRE Practices</div>
+                <div class="week-content">
+                    <div class="week-column">
+                        <h4>Concept Scope</h4>
+                        <ul>
+                            <li>SRE practices, error budgets, and reliability metrics.</li><li>Incident command workflow and communication standards.</li><li>Root cause analysis and corrective action planning.</li>
+                        </ul>
+                    </div>
+                    <div class="week-column">
+                        <h4>Hands-On Scope</h4>
+                        <ul><li>Run incident simulation with on-call roles and timelines.</li><li>Track MTTR and error-budget impact during response.</li><li>Execute postmortem and implement prioritized fixes.</li></ul>
+                    </div>
+                    <div class="week-column">
+                        <h4>Expected Deliverables</h4>
+                        <ul><li>Incident response runbook updates.</li><li>Simulation metrics and MTTR report.</li><li>Postmortem with verified follow-up actions.</li></ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="week-block">
+                <div class="week-header">
+                    <span class="week-number">Week 18</span>
+                    <span class="week-duration">2 hours + labs</span>
+                </div>
+                <div class="week-topic">DevSecOps & Security</div>
+                <div class="week-content">
+                    <div class="week-column">
+                        <h4>Concept Scope</h4>
+                        <ul>
+                            <li>Cost visibility, allocation, and optimization strategies.</li><li>Performance tuning methodology and bottleneck analysis.</li><li>Capacity planning and scaling economics.</li>
+                        </ul>
+                    </div>
+                    <div class="week-column">
+                        <h4>Hands-On Scope</h4>
+                        <ul><li>Embed SAST/dependency/container checks in CI pipelines.</li><li>Implement secrets management and least-privilege runtime access.</li><li>Map threat scenarios to control implementations and test closure.</li></ul>
+                    </div>
+                    <div class="week-column">
+                        <h4>Expected Deliverables</h4>
+                        <ul><li>Security pipeline execution evidence.</li><li>Secrets/RBAC control implementation records.</li><li>Threat-model artifact with remediation tracking.</li></ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="week-block">
+                <div class="week-header">
+                    <span class="week-number">Week 19</span>
+                    <span class="week-duration">2 hours + labs</span>
+                </div>
+                <div class="week-topic">Production Optimization & Cost Management</div>
+                <div class="week-content">
+                    <div class="week-column">
+                        <h4>Concept Scope</h4>
+                        <ul>
+                            <li>Architect an end-to-end DevOps platform solution.</li><li>Integrate CI/CD, IaC, observability, and security controls.</li><li>Prepare production-readiness evidence and governance assets.</li>
+                        </ul>
+                    </div>
+                    <div class="week-column">
+                        <h4>Hands-On Scope</h4>
+                        <ul><li>Baseline cost and performance by service/environment.</li><li>Apply rightsizing/scaling optimizations without SLO regression.</li><li>Configure budget controls and anomaly alerting.</li></ul>
+                    </div>
+                    <div class="week-column">
+                        <h4>Expected Deliverables</h4>
+                        <ul><li>Cost baseline dashboard and optimization plan.</li><li>Performance/cost comparison report.</li><li>Budget guardrail and alert-response runbook.</li></ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="week-block">
+                <div class="week-header">
+                    <span class="week-number">Week 20</span>
+                    <span class="week-duration">2 hours + labs</span>
+                </div>
+                <div class="week-topic">Capstone Project & Production Deployment</div>
+                <div class="week-content">
+                    <div class="week-column">
+                        <h4>Concept Scope</h4>
+                        <ul>
+                            <li>Operational hardening and resilience validation.</li><li>Executive communication of architecture trade-offs and risk posture.</li><li>Final technical defense and roadmap recommendations.</li>
+                        </ul>
+                    </div>
+                    <div class="week-column">
+                        <h4>Hands-On Scope</h4>
+                        <ul><li>Deliver complete capstone release from IaC provisioning to production deployment.</li><li>Execute final production readiness review (security, resilience, observability, recovery).</li><li>Present architecture and operations defense with evidence-backed decisions.</li></ul>
+                    </div>
+                    <div class="week-column">
+                        <h4>Expected Deliverables</h4>
+                        <ul><li>Capstone repository with IaC, CI/CD, and deployment assets.</li><li>Readiness dossier with validation artifacts and sign-off checklist.</li><li>Executive presentation deck and technical Q&A record.</li></ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2 class="section-title">Capstone Projects</h2><div class="project-card"><h4>Project 1: DevOps Engineering & Cloud Infrastructure (Core Track) Foundation Build</h4><p>Deliver a concrete foundation implementation covering the first phase of the curriculum.</p><ul><li>Implement and validate DevOps Foundations & CI/CD Overview.</li><li>Integrate Docker Fundamentals & Containerization with reusable workflow standards.</li><li>Publish evidence for Advanced Docker & Multi-Container Applications with test and quality artifacts.</li></ul></div><div class="project-card"><h4>Project 2: DevOps Engineering & Cloud Infrastructure (Core Track) Integrated Systems Build</h4><p>Combine mid-program competencies into a production-style integrated workflow.</p><ul><li>Build an end-to-end flow around Kubernetes Networking & Storage and Advanced Kubernetes Patterns.</li><li>Add controls, observability, and rollback paths for reliability.</li><li>Document architecture decisions and trade-offs tied to Helm & Kubernetes Package Management.</li></ul></div><div class="project-card"><h4>Project 3: DevOps Engineering & Cloud Infrastructure (Core Track) Capstone Delivery</h4><p>Ship a portfolio-ready capstone with measurable outcomes and stakeholder-ready presentation.</p><ul><li>Deliver a complete implementation centered on Advanced Observability & SRE Practices.</li><li>Validate readiness for DevSecOps & Security using objective acceptance checks.</li><li>Present final defense and roadmap based on Production Optimization & Cost Management outcomes.</li></ul></div></div>
+
+        <section class="section">
+            <h2 class="section-title">Study Tips for Success</h2>
+            <div class="card">
+                <ul>
+                    <li>Keep every lab reproducible with scripts, versioned configs, and clear run instructions.</li>
+                    <li>Measure quality continuously: pipeline reliability, deployment lead time, MTTR, and error budget health.</li>
+                    <li>Build security and policy checks early in each workflow rather than adding them at the end.</li>
+                    <li>Maintain post-incident notes and remediation logs to strengthen reliability habits.</li>
+                    <li>Treat every capstone milestone like a real production readiness review.</li>
+                </ul>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2 class="section-title">About This Course</h2>
+            <div class="card">
+                <p>DevOps Engineering &amp; Cloud Infrastructure (Core Track) is a delivery-focused curriculum for engineers who want to own platform reliability, automation, and secure software delivery end to end. It emphasizes practical implementation over theory, with each phase producing real artifacts used by modern platform teams.</p>
+            </div>
+            <div class="card" style="margin-top: 16px;">
+                <ul>
+                    <li><strong>Best fit roles:</strong> DevOps Engineer, Platform Engineer, Site Reliability Engineer, Cloud Infrastructure Engineer.</li>
+                    <li><strong>Primary outcome:</strong> Deliver a complete DevOps platform capstone with CI/CD, IaC, Kubernetes, observability, and security evidence.</li>
+                    <li><strong>Portfolio value:</strong> Production-style pipelines, IaC modules, incident runbooks, and platform operations documentation.</li>
+                </ul>
+            </div>
+        </section>
+
+        <div class="footer">
+            <p>&copy; 2026 Hexadigitall Academy (Hexadigitall Technologies). DevOps Engineering &amp; Cloud Infrastructure (Core Track) curriculum.</p>
+        </div>
+    </div>
+</body>
+</html>

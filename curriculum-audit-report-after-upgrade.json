@@ -1,0 +1,2707 @@
+{
+  "generatedAt": "2026-04-02T21:26:44.935Z",
+  "summary": {
+    "total": 127,
+    "meets": 34,
+    "fallsShort": 93,
+    "severe": 0,
+    "medium": 0,
+    "light": 93
+  },
+  "pass": [
+    {
+      "file": "curriculum-advanced-ansible-automation.html",
+      "weekCount": 20,
+      "durationWeeks": 20,
+      "detailPerWeek": 10.2,
+      "shortcomings": [],
+      "meets": true
+    },
+    {
+      "file": "curriculum-advanced-javascript-mastery.html",
+      "weekCount": 12,
+      "durationWeeks": 12,
+      "detailPerWeek": 11.33,
+      "shortcomings": [],
+      "meets": true
+    },
+    {
+      "file": "curriculum-ai-engineering-mlops.html",
+      "weekCount": 24,
+      "durationWeeks": 24,
+      "detailPerWeek": 10,
+      "shortcomings": [],
+      "meets": true
+    },
+    {
+      "file": "curriculum-architecting-landing-zones.html",
+      "weekCount": 14,
+      "durationWeeks": 14,
+      "detailPerWeek": 10.71,
+      "shortcomings": [],
+      "meets": true
+    },
+    {
+      "file": "curriculum-aws-certified-solutions-architect.html",
+      "weekCount": 16,
+      "durationWeeks": 16,
+      "detailPerWeek": 10.75,
+      "shortcomings": [],
+      "meets": true
+    },
+    {
+      "file": "curriculum-azure-security-technologies-az-500.html",
+      "weekCount": 16,
+      "durationWeeks": 16,
+      "detailPerWeek": 10.25,
+      "shortcomings": [],
+      "meets": true
+    },
+    {
+      "file": "curriculum-backend-engineering-scalable-architectures.html",
+      "weekCount": 24,
+      "durationWeeks": 24,
+      "detailPerWeek": 10,
+      "shortcomings": [],
+      "meets": true
+    },
+    {
+      "file": "curriculum-css-fundamentals.html",
+      "weekCount": 12,
+      "durationWeeks": 12,
+      "detailPerWeek": 11.33,
+      "shortcomings": [],
+      "meets": true
+    },
+    {
+      "file": "curriculum-devops-engineering-cloud-infrastructure-core.html",
+      "weekCount": 20,
+      "durationWeeks": 20,
+      "detailPerWeek": 10.4,
+      "shortcomings": [],
+      "meets": true
+    },
+    {
+      "file": "curriculum-devops-engineering-cloud-infrastructure.html",
+      "weekCount": 20,
+      "durationWeeks": 20,
+      "detailPerWeek": 10.4,
+      "shortcomings": [],
+      "meets": true
+    },
+    {
+      "file": "curriculum-enterprise-cloud-solutions-architect.html",
+      "weekCount": 24,
+      "durationWeeks": 24,
+      "detailPerWeek": 10,
+      "shortcomings": [],
+      "meets": true
+    },
+    {
+      "file": "curriculum-frontend-engineering-react-next-js-mastery.html",
+      "weekCount": 24,
+      "durationWeeks": 24,
+      "detailPerWeek": 10.17,
+      "shortcomings": [],
+      "meets": true
+    },
+    {
+      "file": "curriculum-full-stack-web-development.html",
+      "weekCount": 16,
+      "durationWeeks": 16,
+      "detailPerWeek": 10.75,
+      "shortcomings": [],
+      "meets": true
+    },
+    {
+      "file": "curriculum-git-github-beginners.html",
+      "weekCount": 12,
+      "durationWeeks": 12,
+      "detailPerWeek": 11.33,
+      "shortcomings": [],
+      "meets": true
+    },
+    {
+      "file": "curriculum-html-fundamentals.html",
+      "weekCount": 12,
+      "durationWeeks": 12,
+      "detailPerWeek": 11.33,
+      "shortcomings": [],
+      "meets": true
+    },
+    {
+      "file": "curriculum-intro-to-algorithms-problem-solving.html",
+      "weekCount": 12,
+      "durationWeeks": 12,
+      "detailPerWeek": 11.33,
+      "shortcomings": [],
+      "meets": true
+    },
+    {
+      "file": "curriculum-intro-to-cloud-computing.html",
+      "weekCount": 12,
+      "durationWeeks": 12,
+      "detailPerWeek": 11.33,
+      "shortcomings": [],
+      "meets": true
+    },
+    {
+      "file": "curriculum-intro-to-coding.html",
+      "weekCount": 12,
+      "durationWeeks": 12,
+      "detailPerWeek": 11.33,
+      "shortcomings": [],
+      "meets": true
+    },
+    {
+      "file": "curriculum-intro-to-cybersecurity.html",
+      "weekCount": 12,
+      "durationWeeks": 12,
+      "detailPerWeek": 11.33,
+      "shortcomings": [],
+      "meets": true
+    },
+    {
+      "file": "curriculum-intro-to-data-ai.html",
+      "weekCount": 12,
+      "durationWeeks": 12,
+      "detailPerWeek": 11.33,
+      "shortcomings": [],
+      "meets": true
+    },
+    {
+      "file": "curriculum-intro-to-design.html",
+      "weekCount": 12,
+      "durationWeeks": 12,
+      "detailPerWeek": 11.33,
+      "shortcomings": [],
+      "meets": true
+    },
+    {
+      "file": "curriculum-intro-to-digital-literacy.html",
+      "weekCount": 12,
+      "durationWeeks": 12,
+      "detailPerWeek": 11.33,
+      "shortcomings": [],
+      "meets": true
+    },
+    {
+      "file": "curriculum-intro-to-digital-marketing.html",
+      "weekCount": 12,
+      "durationWeeks": 12,
+      "detailPerWeek": 11.33,
+      "shortcomings": [],
+      "meets": true
+    },
+    {
+      "file": "curriculum-intro-to-digital-media-buying.html",
+      "weekCount": 12,
+      "durationWeeks": 12,
+      "detailPerWeek": 11.33,
+      "shortcomings": [],
+      "meets": true
+    },
+    {
+      "file": "curriculum-intro-to-leadership-management.html",
+      "weekCount": 12,
+      "durationWeeks": 12,
+      "detailPerWeek": 11.33,
+      "shortcomings": [],
+      "meets": true
+    },
+    {
+      "file": "curriculum-intro-to-networking-infrastructure.html",
+      "weekCount": 12,
+      "durationWeeks": 12,
+      "detailPerWeek": 11.33,
+      "shortcomings": [],
+      "meets": true
+    },
+    {
+      "file": "curriculum-javascript-fundamentals.html",
+      "weekCount": 12,
+      "durationWeeks": 12,
+      "detailPerWeek": 11.33,
+      "shortcomings": [],
+      "meets": true
+    },
+    {
+      "file": "curriculum-javascript-only-projects.html",
+      "weekCount": 12,
+      "durationWeeks": 12,
+      "detailPerWeek": 11.33,
+      "shortcomings": [],
+      "meets": true
+    },
+    {
+      "file": "curriculum-react-essentials-bootcamp.html",
+      "weekCount": 12,
+      "durationWeeks": 12,
+      "detailPerWeek": 11.33,
+      "shortcomings": [],
+      "meets": true
+    },
+    {
+      "file": "curriculum-react-native-mobile-dev.html",
+      "weekCount": 12,
+      "durationWeeks": 12,
+      "detailPerWeek": 11.33,
+      "shortcomings": [],
+      "meets": true
+    },
+    {
+      "file": "curriculum-system-design-interviews.html",
+      "weekCount": 24,
+      "durationWeeks": 24,
+      "detailPerWeek": 10,
+      "shortcomings": [],
+      "meets": true
+    },
+    {
+      "file": "curriculum-ui-ux-fundamentals.html",
+      "weekCount": 12,
+      "durationWeeks": 12,
+      "detailPerWeek": 11.33,
+      "shortcomings": [],
+      "meets": true
+    },
+    {
+      "file": "curriculum-ui-ux-product-design.html",
+      "weekCount": 12,
+      "durationWeeks": 12,
+      "detailPerWeek": 11.33,
+      "shortcomings": [],
+      "meets": true
+    },
+    {
+      "file": "curriculum-uiux-quick-start-for-developers.html",
+      "weekCount": 12,
+      "durationWeeks": 12,
+      "detailPerWeek": 11.33,
+      "shortcomings": [],
+      "meets": true
+    }
+  ],
+  "fail": [
+    {
+      "file": "curriculum-adobe-creative-cloud-suite.html",
+      "weekCount": 12,
+      "durationWeeks": 12,
+      "detailPerWeek": 0,
+      "shortcomings": [
+        "No dedicated Detailed Weekly Curriculum section",
+        "Low per-week detail density (0.0 list items/week)",
+        "Missing Prerequisites section",
+        "Missing Learning Outcomes/Objectives section"
+      ],
+      "meets": false
+    },
+    {
+      "file": "curriculum-adsense-101-approval-blueprint.html",
+      "weekCount": 12,
+      "durationWeeks": 12,
+      "detailPerWeek": 0,
+      "shortcomings": [
+        "No dedicated Detailed Weekly Curriculum section",
+        "Low per-week detail density (0.0 list items/week)",
+        "Missing Prerequisites section",
+        "Missing Learning Outcomes/Objectives section",
+        "Missing Projects/Capstone section"
+      ],
+      "meets": false
+    },
+    {
+      "file": "curriculum-adsense-arbitrage-pro.html",
+      "weekCount": 14,
+      "durationWeeks": 14,
+      "detailPerWeek": 0,
+      "shortcomings": [
+        "No dedicated Detailed Weekly Curriculum section",
+        "Low per-week detail density (0.0 list items/week)",
+        "Missing Prerequisites section",
+        "Missing Learning Outcomes/Objectives section"
+      ],
+      "meets": false
+    },
+    {
+      "file": "curriculum-adsense-traffic-revenue.html",
+      "weekCount": 14,
+      "durationWeeks": 14,
+      "detailPerWeek": 0,
+      "shortcomings": [
+        "No dedicated Detailed Weekly Curriculum section",
+        "Low per-week detail density (0.0 list items/week)",
+        "Missing Prerequisites section",
+        "Missing Learning Outcomes/Objectives section"
+      ],
+      "meets": false
+    },
+    {
+      "file": "curriculum-advanced-backend-nodejs.html",
+      "weekCount": 14,
+      "durationWeeks": 14,
+      "detailPerWeek": 0,
+      "shortcomings": [
+        "No dedicated Detailed Weekly Curriculum section",
+        "Low per-week detail density (0.0 list items/week)",
+        "Missing Prerequisites section",
+        "Missing Learning Outcomes/Objectives section"
+      ],
+      "meets": false
+    },
+    {
+      "file": "curriculum-advanced-css-mastery.html",
+      "weekCount": 12,
+      "durationWeeks": 12,
+      "detailPerWeek": 0,
+      "shortcomings": [
+        "No dedicated Detailed Weekly Curriculum section",
+        "Low per-week detail density (0.0 list items/week)",
+        "Missing Prerequisites section",
+        "Missing Learning Outcomes/Objectives section"
+      ],
+      "meets": false
+    },
+    {
+      "file": "curriculum-advanced-excel-business.html",
+      "weekCount": 14,
+      "durationWeeks": 14,
+      "detailPerWeek": 0,
+      "shortcomings": [
+        "No dedicated Detailed Weekly Curriculum section",
+        "Low per-week detail density (0.0 list items/week)",
+        "Missing Prerequisites section",
+        "Missing Learning Outcomes/Objectives section"
+      ],
+      "meets": false
+    },
+    {
+      "file": "curriculum-advanced-seo-mastery.html",
+      "weekCount": 20,
+      "durationWeeks": 20,
+      "detailPerWeek": 0,
+      "shortcomings": [
+        "No dedicated Detailed Weekly Curriculum section",
+        "Low per-week detail density (0.0 list items/week)",
+        "Missing Prerequisites section",
+        "Missing Learning Outcomes/Objectives section"
+      ],
+      "meets": false
+    },
+    {
+      "file": "curriculum-advanced-ui-ux.html",
+      "weekCount": 20,
+      "durationWeeks": 20,
+      "detailPerWeek": 0,
+      "shortcomings": [
+        "No dedicated Detailed Weekly Curriculum section",
+        "Low per-week detail density (0.0 list items/week)",
+        "Missing Prerequisites section",
+        "Missing Learning Outcomes/Objectives section"
+      ],
+      "meets": false
+    },
+    {
+      "file": "curriculum-agile-project-management-essentials.html",
+      "weekCount": 12,
+      "durationWeeks": 12,
+      "detailPerWeek": 0,
+      "shortcomings": [
+        "No dedicated Detailed Weekly Curriculum section",
+        "Low per-week detail density (0.0 list items/week)",
+        "Missing Prerequisites section",
+        "Missing Learning Outcomes/Objectives section"
+      ],
+      "meets": false
+    },
+    {
+      "file": "curriculum-ai-engineering-llms.html",
+      "weekCount": 16,
+      "durationWeeks": 16,
+      "detailPerWeek": 0,
+      "shortcomings": [
+        "No dedicated Detailed Weekly Curriculum section",
+        "Low per-week detail density (0.0 list items/week)",
+        "Missing Prerequisites section",
+        "Missing Learning Outcomes/Objectives section"
+      ],
+      "meets": false
+    },
+    {
+      "file": "curriculum-amazon-retail-media-networks.html",
+      "weekCount": 14,
+      "durationWeeks": 14,
+      "detailPerWeek": 0,
+      "shortcomings": [
+        "No dedicated Detailed Weekly Curriculum section",
+        "Low per-week detail density (0.0 list items/week)",
+        "Missing Prerequisites section",
+        "Missing Learning Outcomes/Objectives section"
+      ],
+      "meets": false
+    },
+    {
+      "file": "curriculum-application-security-appsec-specialist.html",
+      "weekCount": 24,
+      "durationWeeks": 24,
+      "detailPerWeek": 0,
+      "shortcomings": [
+        "No dedicated Detailed Weekly Curriculum section",
+        "Low per-week detail density (0.0 list items/week)",
+        "Missing Prerequisites section",
+        "Missing Learning Outcomes/Objectives section"
+      ],
+      "meets": false
+    },
+    {
+      "file": "curriculum-applied-machine-learning.html",
+      "weekCount": 16,
+      "durationWeeks": 16,
+      "detailPerWeek": 0,
+      "shortcomings": [
+        "No dedicated Detailed Weekly Curriculum section",
+        "Low per-week detail density (0.0 list items/week)",
+        "Missing Prerequisites section",
+        "Missing Learning Outcomes/Objectives section"
+      ],
+      "meets": false
+    },
+    {
+      "file": "curriculum-archicad-professional.html",
+      "weekCount": 16,
+      "durationWeeks": 16,
+      "detailPerWeek": 0,
+      "shortcomings": [
+        "No dedicated Detailed Weekly Curriculum section",
+        "Low per-week detail density (0.0 list items/week)",
+        "Missing Prerequisites section",
+        "Missing Learning Outcomes/Objectives section"
+      ],
+      "meets": false
+    },
+    {
+      "file": "curriculum-autocad-masterclass.html",
+      "weekCount": 12,
+      "durationWeeks": 12,
+      "detailPerWeek": 0,
+      "shortcomings": [
+        "No dedicated Detailed Weekly Curriculum section",
+        "Low per-week detail density (0.0 list items/week)",
+        "Missing Prerequisites section",
+        "Missing Learning Outcomes/Objectives section"
+      ],
+      "meets": false
+    },
+    {
+      "file": "curriculum-aws-crash-course-for-beginners.html",
+      "weekCount": 12,
+      "durationWeeks": 12,
+      "detailPerWeek": 0,
+      "shortcomings": [
+        "No dedicated Detailed Weekly Curriculum section",
+        "Low per-week detail density (0.0 list items/week)",
+        "Missing Prerequisites section",
+        "Missing Learning Outcomes/Objectives section"
+      ],
+      "meets": false
+    },
+    {
+      "file": "curriculum-backend-development-crash-course.html",
+      "weekCount": 16,
+      "durationWeeks": 16,
+      "detailPerWeek": 0,
+      "shortcomings": [
+        "No dedicated Detailed Weekly Curriculum section",
+        "Low per-week detail density (0.0 list items/week)",
+        "Missing Prerequisites section",
+        "Missing Learning Outcomes/Objectives section"
+      ],
+      "meets": false
+    },
+    {
+      "file": "curriculum-business-intelligence-analytics.html",
+      "weekCount": 16,
+      "durationWeeks": 16,
+      "detailPerWeek": 0,
+      "shortcomings": [
+        "No dedicated Detailed Weekly Curriculum section",
+        "Low per-week detail density (0.0 list items/week)",
+        "Missing Prerequisites section",
+        "Missing Learning Outcomes/Objectives section"
+      ],
+      "meets": false
+    },
+    {
+      "file": "curriculum-business-writing.html",
+      "weekCount": 12,
+      "durationWeeks": 12,
+      "detailPerWeek": 0,
+      "shortcomings": [
+        "No dedicated Detailed Weekly Curriculum section",
+        "Low per-week detail density (0.0 list items/week)",
+        "Missing Prerequisites section",
+        "Missing Learning Outcomes/Objectives section"
+      ],
+      "meets": false
+    },
+    {
+      "file": "curriculum-c-sharp-net-core.html",
+      "weekCount": 12,
+      "durationWeeks": 12,
+      "detailPerWeek": 0,
+      "shortcomings": [
+        "No dedicated Detailed Weekly Curriculum section",
+        "Low per-week detail density (0.0 list items/week)",
+        "Missing Prerequisites section",
+        "Missing Learning Outcomes/Objectives section"
+      ],
+      "meets": false
+    },
+    {
+      "file": "curriculum-canva-for-ad-creatives.html",
+      "weekCount": 12,
+      "durationWeeks": 12,
+      "detailPerWeek": 0,
+      "shortcomings": [
+        "No dedicated Detailed Weekly Curriculum section",
+        "Low per-week detail density (0.0 list items/week)",
+        "Missing Prerequisites section",
+        "Missing Learning Outcomes/Objectives section"
+      ],
+      "meets": false
+    },
+    {
+      "file": "curriculum-ccna-networking.html",
+      "weekCount": 12,
+      "durationWeeks": 12,
+      "detailPerWeek": 0,
+      "shortcomings": [
+        "No dedicated Detailed Weekly Curriculum section",
+        "Low per-week detail density (0.0 list items/week)",
+        "Missing Prerequisites section",
+        "Missing Learning Outcomes/Objectives section"
+      ],
+      "meets": false
+    },
+    {
+      "file": "curriculum-certified-scrum-master-csm.html",
+      "weekCount": 16,
+      "durationWeeks": 16,
+      "detailPerWeek": 0,
+      "shortcomings": [
+        "No dedicated Detailed Weekly Curriculum section",
+        "Low per-week detail density (0.0 list items/week)",
+        "Missing Prerequisites section",
+        "Missing Learning Outcomes/Objectives section"
+      ],
+      "meets": false
+    },
+    {
+      "file": "curriculum-cissp-certification-prep.html",
+      "weekCount": 24,
+      "durationWeeks": 24,
+      "detailPerWeek": 0,
+      "shortcomings": [
+        "No dedicated Detailed Weekly Curriculum section",
+        "Low per-week detail density (0.0 list items/week)",
+        "Missing Prerequisites section",
+        "Missing Learning Outcomes/Objectives section"
+      ],
+      "meets": false
+    },
+    {
+      "file": "curriculum-cloud-infrastructure-strategy.html",
+      "weekCount": 12,
+      "durationWeeks": 12,
+      "detailPerWeek": 0,
+      "shortcomings": [
+        "No dedicated Detailed Weekly Curriculum section",
+        "Low per-week detail density (0.0 list items/week)",
+        "Missing Prerequisites section",
+        "Missing Learning Outcomes/Objectives section"
+      ],
+      "meets": false
+    },
+    {
+      "file": "curriculum-competitive-programming.html",
+      "weekCount": 12,
+      "durationWeeks": 12,
+      "detailPerWeek": 0,
+      "shortcomings": [
+        "No dedicated Detailed Weekly Curriculum section",
+        "Low per-week detail density (0.0 list items/week)",
+        "Missing Prerequisites section",
+        "Missing Learning Outcomes/Objectives section"
+      ],
+      "meets": false
+    },
+    {
+      "file": "curriculum-computer-hardware-engineering.html",
+      "weekCount": 12,
+      "durationWeeks": 12,
+      "detailPerWeek": 0,
+      "shortcomings": [
+        "No dedicated Detailed Weekly Curriculum section",
+        "Low per-week detail density (0.0 list items/week)",
+        "Missing Prerequisites section",
+        "Missing Learning Outcomes/Objectives section"
+      ],
+      "meets": false
+    },
+    {
+      "file": "curriculum-content-writing-copywriting.html",
+      "weekCount": 14,
+      "durationWeeks": 14,
+      "detailPerWeek": 0,
+      "shortcomings": [
+        "No dedicated Detailed Weekly Curriculum section",
+        "Low per-week detail density (0.0 list items/week)",
+        "Missing Prerequisites section",
+        "Missing Learning Outcomes/Objectives section"
+      ],
+      "meets": false
+    },
+    {
+      "file": "curriculum-copywriting-crash-course.html",
+      "weekCount": 12,
+      "durationWeeks": 12,
+      "detailPerWeek": 0,
+      "shortcomings": [
+        "No dedicated Detailed Weekly Curriculum section",
+        "Low per-week detail density (0.0 list items/week)",
+        "Missing Prerequisites section",
+        "Missing Learning Outcomes/Objectives section"
+      ],
+      "meets": false
+    },
+    {
+      "file": "curriculum-copywriting-for-direct-response.html",
+      "weekCount": 14,
+      "durationWeeks": 14,
+      "detailPerWeek": 0,
+      "shortcomings": [
+        "No dedicated Detailed Weekly Curriculum section",
+        "Low per-week detail density (0.0 list items/week)",
+        "Missing Prerequisites section",
+        "Missing Learning Outcomes/Objectives section"
+      ],
+      "meets": false
+    },
+    {
+      "file": "curriculum-css-only-projects.html",
+      "weekCount": 12,
+      "durationWeeks": 12,
+      "detailPerWeek": 2,
+      "shortcomings": [
+        "No dedicated Detailed Weekly Curriculum section",
+        "Low per-week detail density (2.0 list items/week)",
+        "Missing Prerequisites section",
+        "Missing Learning Outcomes/Objectives section"
+      ],
+      "meets": false
+    },
+    {
+      "file": "curriculum-cybersecurity-fundamentals-network-systems-defense.html",
+      "weekCount": 12,
+      "durationWeeks": 12,
+      "detailPerWeek": 0,
+      "shortcomings": [
+        "No dedicated Detailed Weekly Curriculum section",
+        "Low per-week detail density (0.0 list items/week)",
+        "Missing Prerequisites section",
+        "Missing Learning Outcomes/Objectives section"
+      ],
+      "meets": false
+    },
+    {
+      "file": "curriculum-data-analysis-fast-track.html",
+      "weekCount": 12,
+      "durationWeeks": 12,
+      "detailPerWeek": 0,
+      "shortcomings": [
+        "No dedicated Detailed Weekly Curriculum section",
+        "Low per-week detail density (0.0 list items/week)",
+        "Missing Prerequisites section",
+        "Missing Learning Outcomes/Objectives section"
+      ],
+      "meets": false
+    },
+    {
+      "file": "curriculum-devops-kubernetes-mastery.html",
+      "weekCount": 16,
+      "durationWeeks": 16,
+      "detailPerWeek": 0,
+      "shortcomings": [
+        "No dedicated Detailed Weekly Curriculum section",
+        "Low per-week detail density (0.0 list items/week)",
+        "Missing Prerequisites section",
+        "Missing Learning Outcomes/Objectives section"
+      ],
+      "meets": false
+    },
+    {
+      "file": "curriculum-devsecops-engineering-automating-security.html",
+      "weekCount": 24,
+      "durationWeeks": 24,
+      "detailPerWeek": 0,
+      "shortcomings": [
+        "No dedicated Detailed Weekly Curriculum section",
+        "Low per-week detail density (0.0 list items/week)",
+        "Missing Prerequisites section",
+        "Missing Learning Outcomes/Objectives section"
+      ],
+      "meets": false
+    },
+    {
+      "file": "curriculum-digital-literacy-computer-operations.html",
+      "weekCount": 12,
+      "durationWeeks": 12,
+      "detailPerWeek": 0,
+      "shortcomings": [
+        "No dedicated Detailed Weekly Curriculum section",
+        "Low per-week detail density (0.0 list items/week)",
+        "Missing Prerequisites section",
+        "Missing Learning Outcomes/Objectives section"
+      ],
+      "meets": false
+    },
+    {
+      "file": "curriculum-digital-marketing-small-business.html",
+      "weekCount": 12,
+      "durationWeeks": 12,
+      "detailPerWeek": 0,
+      "shortcomings": [
+        "No dedicated Detailed Weekly Curriculum section",
+        "Low per-week detail density (0.0 list items/week)",
+        "Missing Prerequisites section",
+        "Missing Learning Outcomes/Objectives section"
+      ],
+      "meets": false
+    },
+    {
+      "file": "curriculum-dsa-fundamentals.html",
+      "weekCount": 12,
+      "durationWeeks": 12,
+      "detailPerWeek": 0,
+      "shortcomings": [
+        "No dedicated Detailed Weekly Curriculum section",
+        "Low per-week detail density (0.0 list items/week)",
+        "Missing Prerequisites section",
+        "Missing Learning Outcomes/Objectives section"
+      ],
+      "meets": false
+    },
+    {
+      "file": "curriculum-enterprise-security-risk.html",
+      "weekCount": 12,
+      "durationWeeks": 12,
+      "detailPerWeek": 0,
+      "shortcomings": [
+        "No dedicated Detailed Weekly Curriculum section",
+        "Low per-week detail density (0.0 list items/week)",
+        "Missing Prerequisites section",
+        "Missing Learning Outcomes/Objectives section"
+      ],
+      "meets": false
+    },
+    {
+      "file": "curriculum-ethical-hacking-beginners.html",
+      "weekCount": 12,
+      "durationWeeks": 12,
+      "detailPerWeek": 0,
+      "shortcomings": [
+        "No dedicated Detailed Weekly Curriculum section",
+        "Low per-week detail density (0.0 list items/week)",
+        "Missing Prerequisites section",
+        "Missing Learning Outcomes/Objectives section",
+        "Missing Projects/Capstone section"
+      ],
+      "meets": false
+    },
+    {
+      "file": "curriculum-ethical-hacking-fast-track.html",
+      "weekCount": 12,
+      "durationWeeks": 12,
+      "detailPerWeek": 0,
+      "shortcomings": [
+        "No dedicated Detailed Weekly Curriculum section",
+        "Low per-week detail density (0.0 list items/week)",
+        "Missing Prerequisites section",
+        "Missing Learning Outcomes/Objectives section",
+        "Missing Projects/Capstone section"
+      ],
+      "meets": false
+    },
+    {
+      "file": "curriculum-ethical-hacking-penetration-testing.html",
+      "weekCount": 20,
+      "durationWeeks": 20,
+      "detailPerWeek": 0,
+      "shortcomings": [
+        "No dedicated Detailed Weekly Curriculum section",
+        "Low per-week detail density (0.0 list items/week)",
+        "Missing Prerequisites section",
+        "Missing Learning Outcomes/Objectives section"
+      ],
+      "meets": false
+    },
+    {
+      "file": "curriculum-executive-agile-leadership.html",
+      "weekCount": 14,
+      "durationWeeks": 14,
+      "detailPerWeek": 0,
+      "shortcomings": [
+        "No dedicated Detailed Weekly Curriculum section",
+        "Low per-week detail density (0.0 list items/week)",
+        "Missing Prerequisites section",
+        "Missing Learning Outcomes/Objectives section"
+      ],
+      "meets": false
+    },
+    {
+      "file": "curriculum-executive-presentation-public-speaking.html",
+      "weekCount": 14,
+      "durationWeeks": 14,
+      "detailPerWeek": 0,
+      "shortcomings": [
+        "No dedicated Detailed Weekly Curriculum section",
+        "Low per-week detail density (0.0 list items/week)",
+        "Missing Prerequisites section",
+        "Missing Learning Outcomes/Objectives section"
+      ],
+      "meets": false
+    },
+    {
+      "file": "curriculum-full-stack-jumpstart-mern.html",
+      "weekCount": 14,
+      "durationWeeks": 14,
+      "detailPerWeek": 0,
+      "shortcomings": [
+        "No dedicated Detailed Weekly Curriculum section",
+        "Low per-week detail density (0.0 list items/week)",
+        "Missing Prerequisites section",
+        "Missing Learning Outcomes/Objectives section"
+      ],
+      "meets": false
+    },
+    {
+      "file": "curriculum-google-analytics-4-mastery.html",
+      "weekCount": 20,
+      "durationWeeks": 20,
+      "detailPerWeek": 0,
+      "shortcomings": [
+        "No dedicated Detailed Weekly Curriculum section",
+        "Low per-week detail density (0.0 list items/week)",
+        "Missing Prerequisites section",
+        "Missing Learning Outcomes/Objectives section"
+      ],
+      "meets": false
+    },
+    {
+      "file": "curriculum-google-search-ads-boot-camp.html",
+      "weekCount": 12,
+      "durationWeeks": 12,
+      "detailPerWeek": 0,
+      "shortcomings": [
+        "No dedicated Detailed Weekly Curriculum section",
+        "Low per-week detail density (0.0 list items/week)",
+        "Missing Prerequisites section",
+        "Missing Learning Outcomes/Objectives section"
+      ],
+      "meets": false
+    },
+    {
+      "file": "curriculum-graphic-design-crash-course.html",
+      "weekCount": 12,
+      "durationWeeks": 12,
+      "detailPerWeek": 0,
+      "shortcomings": [
+        "No dedicated Detailed Weekly Curriculum section",
+        "Low per-week detail density (0.0 list items/week)",
+        "Missing Prerequisites section",
+        "Missing Learning Outcomes/Objectives section"
+      ],
+      "meets": false
+    },
+    {
+      "file": "curriculum-graphic-design-essentials.html",
+      "weekCount": 12,
+      "durationWeeks": 12,
+      "detailPerWeek": 0,
+      "shortcomings": [
+        "No dedicated Detailed Weekly Curriculum section",
+        "Low per-week detail density (0.0 list items/week)",
+        "Missing Prerequisites section",
+        "Missing Learning Outcomes/Objectives section"
+      ],
+      "meets": false
+    },
+    {
+      "file": "curriculum-integrated-digital-marketing.html",
+      "weekCount": 14,
+      "durationWeeks": 14,
+      "detailPerWeek": 0,
+      "shortcomings": [
+        "No dedicated Detailed Weekly Curriculum section",
+        "Low per-week detail density (0.0 list items/week)",
+        "Missing Prerequisites section",
+        "Missing Learning Outcomes/Objectives section"
+      ],
+      "meets": false
+    },
+    {
+      "file": "curriculum-intro-to-professional-writing.html",
+      "weekCount": 12,
+      "durationWeeks": 12,
+      "detailPerWeek": 0,
+      "shortcomings": [
+        "No dedicated Detailed Weekly Curriculum section",
+        "Low per-week detail density (0.0 list items/week)",
+        "Missing Prerequisites section",
+        "Missing Learning Outcomes/Objectives section"
+      ],
+      "meets": false
+    },
+    {
+      "file": "curriculum-intro-to-software-development.html",
+      "weekCount": 12,
+      "durationWeeks": 12,
+      "detailPerWeek": 0,
+      "shortcomings": [
+        "No dedicated Detailed Weekly Curriculum section",
+        "Low per-week detail density (0.0 list items/week)",
+        "Missing Prerequisites section",
+        "Missing Learning Outcomes/Objectives section"
+      ],
+      "meets": false
+    },
+    {
+      "file": "curriculum-java-enterprise-development.html",
+      "weekCount": 12,
+      "durationWeeks": 12,
+      "detailPerWeek": 0,
+      "shortcomings": [
+        "No dedicated Detailed Weekly Curriculum section",
+        "Low per-week detail density (0.0 list items/week)",
+        "Missing Prerequisites section",
+        "Missing Learning Outcomes/Objectives section"
+      ],
+      "meets": false
+    },
+    {
+      "file": "curriculum-kubernetes-quick-start.html",
+      "weekCount": 14,
+      "durationWeeks": 14,
+      "detailPerWeek": 0,
+      "shortcomings": [
+        "No dedicated Detailed Weekly Curriculum section",
+        "Low per-week detail density (0.0 list items/week)",
+        "Missing Prerequisites section",
+        "Missing Learning Outcomes/Objectives section"
+      ],
+      "meets": false
+    },
+    {
+      "file": "curriculum-leetcode-interview-prep.html",
+      "weekCount": 12,
+      "durationWeeks": 12,
+      "detailPerWeek": 0,
+      "shortcomings": [
+        "No dedicated Detailed Weekly Curriculum section",
+        "Low per-week detail density (0.0 list items/week)",
+        "Missing Prerequisites section",
+        "Missing Learning Outcomes/Objectives section",
+        "Missing Projects/Capstone section"
+      ],
+      "meets": false
+    },
+    {
+      "file": "curriculum-linux-administration-shell-scripting.html",
+      "weekCount": 14,
+      "durationWeeks": 14,
+      "detailPerWeek": 0,
+      "shortcomings": [
+        "No dedicated Detailed Weekly Curriculum section",
+        "Low per-week detail density (0.0 list items/week)",
+        "Missing Prerequisites section",
+        "Missing Learning Outcomes/Objectives section"
+      ],
+      "meets": false
+    },
+    {
+      "file": "curriculum-linux-shell-scripting.html",
+      "weekCount": 10,
+      "durationWeeks": 10,
+      "detailPerWeek": 16.2,
+      "shortcomings": [
+        "Missing Learning Outcomes/Objectives section"
+      ],
+      "meets": false
+    },
+    {
+      "file": "curriculum-machine-learning-crash-course.html",
+      "weekCount": 14,
+      "durationWeeks": 14,
+      "detailPerWeek": 0,
+      "shortcomings": [
+        "No dedicated Detailed Weekly Curriculum section",
+        "Low per-week detail density (0.0 list items/week)",
+        "Missing Prerequisites section",
+        "Missing Learning Outcomes/Objectives section"
+      ],
+      "meets": false
+    },
+    {
+      "file": "curriculum-meta-ads-for-local-business.html",
+      "weekCount": 12,
+      "durationWeeks": 12,
+      "detailPerWeek": 0,
+      "shortcomings": [
+        "No dedicated Detailed Weekly Curriculum section",
+        "Low per-week detail density (0.0 list items/week)",
+        "Missing Prerequisites section"
+      ],
+      "meets": false
+    },
+    {
+      "file": "curriculum-microsoft-365-ai-integration.html",
+      "weekCount": 14,
+      "durationWeeks": 14,
+      "detailPerWeek": 0,
+      "shortcomings": [
+        "No dedicated Detailed Weekly Curriculum section",
+        "Low per-week detail density (0.0 list items/week)",
+        "Missing Prerequisites section",
+        "Missing Learning Outcomes/Objectives section"
+      ],
+      "meets": false
+    },
+    {
+      "file": "curriculum-microsoft-access-business-apps.html",
+      "weekCount": 12,
+      "durationWeeks": 12,
+      "detailPerWeek": 0,
+      "shortcomings": [
+        "No dedicated Detailed Weekly Curriculum section",
+        "Low per-week detail density (0.0 list items/week)",
+        "Missing Prerequisites section",
+        "Missing Learning Outcomes/Objectives section"
+      ],
+      "meets": false
+    },
+    {
+      "file": "curriculum-microsoft-cybersecurity-architect-sc-100.html",
+      "weekCount": 20,
+      "durationWeeks": 20,
+      "detailPerWeek": 0,
+      "shortcomings": [
+        "No dedicated Detailed Weekly Curriculum section",
+        "Low per-week detail density (0.0 list items/week)",
+        "Missing Prerequisites section",
+        "Missing Learning Outcomes/Objectives section"
+      ],
+      "meets": false
+    },
+    {
+      "file": "curriculum-mobile-app-development-quick-start.html",
+      "weekCount": 16,
+      "durationWeeks": 16,
+      "detailPerWeek": 0,
+      "shortcomings": [
+        "No dedicated Detailed Weekly Curriculum section",
+        "Low per-week detail density (0.0 list items/week)",
+        "Missing Prerequisites section",
+        "Missing Learning Outcomes/Objectives section"
+      ],
+      "meets": false
+    },
+    {
+      "file": "curriculum-mobile-engineering-cross-platform-development.html",
+      "weekCount": 20,
+      "durationWeeks": 20,
+      "detailPerWeek": 0,
+      "shortcomings": [
+        "No dedicated Detailed Weekly Curriculum section",
+        "Low per-week detail density (0.0 list items/week)",
+        "Missing Prerequisites section",
+        "Missing Learning Outcomes/Objectives section"
+      ],
+      "meets": false
+    },
+    {
+      "file": "curriculum-motion-graphics-vfx.html",
+      "weekCount": 14,
+      "durationWeeks": 14,
+      "detailPerWeek": 0,
+      "shortcomings": [
+        "No dedicated Detailed Weekly Curriculum section",
+        "Low per-week detail density (0.0 list items/week)",
+        "Missing Prerequisites section",
+        "Missing Learning Outcomes/Objectives section"
+      ],
+      "meets": false
+    },
+    {
+      "file": "curriculum-network-security-admin.html",
+      "weekCount": 12,
+      "durationWeeks": 12,
+      "detailPerWeek": 0,
+      "shortcomings": [
+        "No dedicated Detailed Weekly Curriculum section",
+        "Low per-week detail density (0.0 list items/week)",
+        "Missing Prerequisites section",
+        "Missing Learning Outcomes/Objectives section"
+      ],
+      "meets": false
+    },
+    {
+      "file": "curriculum-network-security-essentials.html",
+      "weekCount": 14,
+      "durationWeeks": 14,
+      "detailPerWeek": 0,
+      "shortcomings": [
+        "No dedicated Detailed Weekly Curriculum section",
+        "Low per-week detail density (0.0 list items/week)",
+        "Missing Prerequisites section",
+        "Missing Learning Outcomes/Objectives section"
+      ],
+      "meets": false
+    },
+    {
+      "file": "curriculum-nosql-cloud-database-architecture.html",
+      "weekCount": 16,
+      "durationWeeks": 16,
+      "detailPerWeek": 0,
+      "shortcomings": [
+        "No dedicated Detailed Weekly Curriculum section",
+        "Low per-week detail density (0.0 list items/week)",
+        "Missing Prerequisites section",
+        "Missing Learning Outcomes/Objectives section"
+      ],
+      "meets": false
+    },
+    {
+      "file": "curriculum-personal-branding.html",
+      "weekCount": 12,
+      "durationWeeks": 12,
+      "detailPerWeek": 0,
+      "shortcomings": [
+        "No dedicated Detailed Weekly Curriculum section",
+        "Low per-week detail density (0.0 list items/week)",
+        "Missing Prerequisites section",
+        "Missing Learning Outcomes/Objectives section"
+      ],
+      "meets": false
+    },
+    {
+      "file": "curriculum-pmp-certification-prep.html",
+      "weekCount": 12,
+      "durationWeeks": 12,
+      "detailPerWeek": 0,
+      "shortcomings": [
+        "No dedicated Detailed Weekly Curriculum section",
+        "Low per-week detail density (0.0 list items/week)",
+        "Missing Prerequisites section",
+        "Missing Learning Outcomes/Objectives section"
+      ],
+      "meets": false
+    },
+    {
+      "file": "curriculum-product-management-quick-start.html",
+      "weekCount": 14,
+      "durationWeeks": 14,
+      "detailPerWeek": 0,
+      "shortcomings": [
+        "No dedicated Detailed Weekly Curriculum section",
+        "Low per-week detail density (0.0 list items/week)",
+        "Missing Prerequisites section",
+        "Missing Learning Outcomes/Objectives section"
+      ],
+      "meets": false
+    },
+    {
+      "file": "curriculum-product-strategy-lean-startup.html",
+      "weekCount": 14,
+      "durationWeeks": 14,
+      "detailPerWeek": 0,
+      "shortcomings": [
+        "No dedicated Detailed Weekly Curriculum section",
+        "Low per-week detail density (0.0 list items/week)",
+        "Missing Prerequisites section",
+        "Missing Learning Outcomes/Objectives section"
+      ],
+      "meets": false
+    },
+    {
+      "file": "curriculum-professional-data-engineering.html",
+      "weekCount": 24,
+      "durationWeeks": 24,
+      "detailPerWeek": 0,
+      "shortcomings": [
+        "No dedicated Detailed Weekly Curriculum section",
+        "Low per-week detail density (0.0 list items/week)",
+        "Missing Prerequisites section",
+        "Missing Learning Outcomes/Objectives section"
+      ],
+      "meets": false
+    },
+    {
+      "file": "curriculum-professional-office-365.html",
+      "weekCount": 12,
+      "durationWeeks": 12,
+      "detailPerWeek": 0,
+      "shortcomings": [
+        "No dedicated Detailed Weekly Curriculum section",
+        "Low per-week detail density (0.0 list items/week)",
+        "Missing Prerequisites section",
+        "Missing Learning Outcomes/Objectives section"
+      ],
+      "meets": false
+    },
+    {
+      "file": "curriculum-programmatic-advertising-rtb.html",
+      "weekCount": 14,
+      "durationWeeks": 14,
+      "detailPerWeek": 0,
+      "shortcomings": [
+        "No dedicated Detailed Weekly Curriculum section",
+        "Low per-week detail density (0.0 list items/week)",
+        "Missing Prerequisites section",
+        "Missing Learning Outcomes/Objectives section"
+      ],
+      "meets": false
+    },
+    {
+      "file": "curriculum-programming-data-management.html",
+      "weekCount": 14,
+      "durationWeeks": 14,
+      "detailPerWeek": 0,
+      "shortcomings": [
+        "No dedicated Detailed Weekly Curriculum section",
+        "Low per-week detail density (0.0 list items/week)",
+        "Missing Prerequisites section",
+        "Missing Learning Outcomes/Objectives section"
+      ],
+      "meets": false
+    },
+    {
+      "file": "curriculum-python-data-science-analytics.html",
+      "weekCount": 12,
+      "durationWeeks": 12,
+      "detailPerWeek": 0,
+      "shortcomings": [
+        "No dedicated Detailed Weekly Curriculum section",
+        "Low per-week detail density (0.0 list items/week)",
+        "Missing Prerequisites section",
+        "Missing Learning Outcomes/Objectives section"
+      ],
+      "meets": false
+    },
+    {
+      "file": "curriculum-rapid-app-development-low-code.html",
+      "weekCount": 12,
+      "durationWeeks": 12,
+      "detailPerWeek": 0,
+      "shortcomings": [
+        "No dedicated Detailed Weekly Curriculum section",
+        "Low per-week detail density (0.0 list items/week)",
+        "Missing Prerequisites section",
+        "Missing Learning Outcomes/Objectives section"
+      ],
+      "meets": false
+    },
+    {
+      "file": "curriculum-security-operations-analyst-sc-200.html",
+      "weekCount": 14,
+      "durationWeeks": 14,
+      "detailPerWeek": 0,
+      "shortcomings": [
+        "No dedicated Detailed Weekly Curriculum section",
+        "Low per-week detail density (0.0 list items/week)",
+        "Missing Prerequisites section",
+        "Missing Learning Outcomes/Objectives section"
+      ],
+      "meets": false
+    },
+    {
+      "file": "curriculum-seo-fast-track-rank-on-google.html",
+      "weekCount": 12,
+      "durationWeeks": 12,
+      "detailPerWeek": 0,
+      "shortcomings": [
+        "No dedicated Detailed Weekly Curriculum section",
+        "Low per-week detail density (0.0 list items/week)",
+        "Missing Prerequisites section",
+        "Missing Learning Outcomes/Objectives section"
+      ],
+      "meets": false
+    },
+    {
+      "file": "curriculum-server-side-tracking-capi.html",
+      "weekCount": 14,
+      "durationWeeks": 14,
+      "detailPerWeek": 0,
+      "shortcomings": [
+        "No dedicated Detailed Weekly Curriculum section",
+        "Low per-week detail density (0.0 list items/week)",
+        "Missing Prerequisites section",
+        "Missing Learning Outcomes/Objectives section"
+      ],
+      "meets": false
+    },
+    {
+      "file": "curriculum-social-media-community-growth.html",
+      "weekCount": 14,
+      "durationWeeks": 14,
+      "detailPerWeek": 0,
+      "shortcomings": [
+        "No dedicated Detailed Weekly Curriculum section",
+        "Low per-week detail density (0.0 list items/week)",
+        "Missing Prerequisites section",
+        "Missing Learning Outcomes/Objectives section"
+      ],
+      "meets": false
+    },
+    {
+      "file": "curriculum-social-media-marketing-accelerator.html",
+      "weekCount": 12,
+      "durationWeeks": 12,
+      "detailPerWeek": 0,
+      "shortcomings": [
+        "No dedicated Detailed Weekly Curriculum section",
+        "Low per-week detail density (0.0 list items/week)",
+        "Missing Prerequisites section",
+        "Missing Learning Outcomes/Objectives section"
+      ],
+      "meets": false
+    },
+    {
+      "file": "curriculum-sql-relational-database-design.html",
+      "weekCount": 12,
+      "durationWeeks": 12,
+      "detailPerWeek": 0,
+      "shortcomings": [
+        "No dedicated Detailed Weekly Curriculum section",
+        "Low per-week detail density (0.0 list items/week)",
+        "Missing Prerequisites section",
+        "Missing Learning Outcomes/Objectives section"
+      ],
+      "meets": false
+    },
+    {
+      "file": "curriculum-technical-writing-api-docs.html",
+      "weekCount": 12,
+      "durationWeeks": 12,
+      "detailPerWeek": 0,
+      "shortcomings": [
+        "No dedicated Detailed Weekly Curriculum section",
+        "Low per-week detail density (0.0 list items/week)",
+        "Missing Prerequisites section",
+        "Missing Learning Outcomes/Objectives section"
+      ],
+      "meets": false
+    },
+    {
+      "file": "curriculum-technical-writing-essentials.html",
+      "weekCount": 12,
+      "durationWeeks": 12,
+      "detailPerWeek": 0,
+      "shortcomings": [
+        "No dedicated Detailed Weekly Curriculum section",
+        "Low per-week detail density (0.0 list items/week)",
+        "Missing Prerequisites section",
+        "Missing Learning Outcomes/Objectives section"
+      ],
+      "meets": false
+    },
+    {
+      "file": "curriculum-technical-writing.html",
+      "weekCount": 14,
+      "durationWeeks": 14,
+      "detailPerWeek": 0,
+      "shortcomings": [
+        "No dedicated Detailed Weekly Curriculum section",
+        "Low per-week detail density (0.0 list items/week)",
+        "Missing Prerequisites section",
+        "Missing Learning Outcomes/Objectives section"
+      ],
+      "meets": false
+    },
+    {
+      "file": "curriculum-tiktok-reels-ad-strategy.html",
+      "weekCount": 14,
+      "durationWeeks": 14,
+      "detailPerWeek": 0,
+      "shortcomings": [
+        "No dedicated Detailed Weekly Curriculum section",
+        "Low per-week detail density (0.0 list items/week)",
+        "Missing Prerequisites section"
+      ],
+      "meets": false
+    },
+    {
+      "file": "curriculum-vector-graphics-mastery-coreldraw.html",
+      "weekCount": 14,
+      "durationWeeks": 14,
+      "detailPerWeek": 0,
+      "shortcomings": [
+        "No dedicated Detailed Weekly Curriculum section",
+        "Low per-week detail density (0.0 list items/week)",
+        "Missing Prerequisites section",
+        "Missing Learning Outcomes/Objectives section"
+      ],
+      "meets": false
+    },
+    {
+      "file": "curriculum-visual-brand-design.html",
+      "weekCount": 14,
+      "durationWeeks": 14,
+      "detailPerWeek": 0,
+      "shortcomings": [
+        "No dedicated Detailed Weekly Curriculum section",
+        "Low per-week detail density (0.0 list items/week)",
+        "Missing Prerequisites section",
+        "Missing Learning Outcomes/Objectives section"
+      ],
+      "meets": false
+    },
+    {
+      "file": "curriculum-visual-communication-infographics.html",
+      "weekCount": 12,
+      "durationWeeks": 12,
+      "detailPerWeek": 0,
+      "shortcomings": [
+        "No dedicated Detailed Weekly Curriculum section",
+        "Low per-week detail density (0.0 list items/week)",
+        "Missing Prerequisites section",
+        "Missing Learning Outcomes/Objectives section"
+      ],
+      "meets": false
+    },
+    {
+      "file": "curriculum-youtube-ads-manager.html",
+      "weekCount": 16,
+      "durationWeeks": 16,
+      "detailPerWeek": 0,
+      "shortcomings": [
+        "No dedicated Detailed Weekly Curriculum section",
+        "Low per-week detail density (0.0 list items/week)",
+        "Missing Prerequisites section",
+        "Missing Learning Outcomes/Objectives section"
+      ],
+      "meets": false
+    }
+  ],
+  "severe": [],
+  "medium": [],
+  "light": [
+    {
+      "file": "curriculum-adobe-creative-cloud-suite.html",
+      "weekCount": 12,
+      "durationWeeks": 12,
+      "detailPerWeek": 0,
+      "shortcomings": [
+        "No dedicated Detailed Weekly Curriculum section",
+        "Low per-week detail density (0.0 list items/week)",
+        "Missing Prerequisites section",
+        "Missing Learning Outcomes/Objectives section"
+      ],
+      "meets": false
+    },
+    {
+      "file": "curriculum-adsense-101-approval-blueprint.html",
+      "weekCount": 12,
+      "durationWeeks": 12,
+      "detailPerWeek": 0,
+      "shortcomings": [
+        "No dedicated Detailed Weekly Curriculum section",
+        "Low per-week detail density (0.0 list items/week)",
+        "Missing Prerequisites section",
+        "Missing Learning Outcomes/Objectives section",
+        "Missing Projects/Capstone section"
+      ],
+      "meets": false
+    },
+    {
+      "file": "curriculum-adsense-arbitrage-pro.html",
+      "weekCount": 14,
+      "durationWeeks": 14,
+      "detailPerWeek": 0,
+      "shortcomings": [
+        "No dedicated Detailed Weekly Curriculum section",
+        "Low per-week detail density (0.0 list items/week)",
+        "Missing Prerequisites section",
+        "Missing Learning Outcomes/Objectives section"
+      ],
+      "meets": false
+    },
+    {
+      "file": "curriculum-adsense-traffic-revenue.html",
+      "weekCount": 14,
+      "durationWeeks": 14,
+      "detailPerWeek": 0,
+      "shortcomings": [
+        "No dedicated Detailed Weekly Curriculum section",
+        "Low per-week detail density (0.0 list items/week)",
+        "Missing Prerequisites section",
+        "Missing Learning Outcomes/Objectives section"
+      ],
+      "meets": false
+    },
+    {
+      "file": "curriculum-advanced-backend-nodejs.html",
+      "weekCount": 14,
+      "durationWeeks": 14,
+      "detailPerWeek": 0,
+      "shortcomings": [
+        "No dedicated Detailed Weekly Curriculum section",
+        "Low per-week detail density (0.0 list items/week)",
+        "Missing Prerequisites section",
+        "Missing Learning Outcomes/Objectives section"
+      ],
+      "meets": false
+    },
+    {
+      "file": "curriculum-advanced-css-mastery.html",
+      "weekCount": 12,
+      "durationWeeks": 12,
+      "detailPerWeek": 0,
+      "shortcomings": [
+        "No dedicated Detailed Weekly Curriculum section",
+        "Low per-week detail density (0.0 list items/week)",
+        "Missing Prerequisites section",
+        "Missing Learning Outcomes/Objectives section"
+      ],
+      "meets": false
+    },
+    {
+      "file": "curriculum-advanced-excel-business.html",
+      "weekCount": 14,
+      "durationWeeks": 14,
+      "detailPerWeek": 0,
+      "shortcomings": [
+        "No dedicated Detailed Weekly Curriculum section",
+        "Low per-week detail density (0.0 list items/week)",
+        "Missing Prerequisites section",
+        "Missing Learning Outcomes/Objectives section"
+      ],
+      "meets": false
+    },
+    {
+      "file": "curriculum-advanced-seo-mastery.html",
+      "weekCount": 20,
+      "durationWeeks": 20,
+      "detailPerWeek": 0,
+      "shortcomings": [
+        "No dedicated Detailed Weekly Curriculum section",
+        "Low per-week detail density (0.0 list items/week)",
+        "Missing Prerequisites section",
+        "Missing Learning Outcomes/Objectives section"
+      ],
+      "meets": false
+    },
+    {
+      "file": "curriculum-advanced-ui-ux.html",
+      "weekCount": 20,
+      "durationWeeks": 20,
+      "detailPerWeek": 0,
+      "shortcomings": [
+        "No dedicated Detailed Weekly Curriculum section",
+        "Low per-week detail density (0.0 list items/week)",
+        "Missing Prerequisites section",
+        "Missing Learning Outcomes/Objectives section"
+      ],
+      "meets": false
+    },
+    {
+      "file": "curriculum-agile-project-management-essentials.html",
+      "weekCount": 12,
+      "durationWeeks": 12,
+      "detailPerWeek": 0,
+      "shortcomings": [
+        "No dedicated Detailed Weekly Curriculum section",
+        "Low per-week detail density (0.0 list items/week)",
+        "Missing Prerequisites section",
+        "Missing Learning Outcomes/Objectives section"
+      ],
+      "meets": false
+    },
+    {
+      "file": "curriculum-ai-engineering-llms.html",
+      "weekCount": 16,
+      "durationWeeks": 16,
+      "detailPerWeek": 0,
+      "shortcomings": [
+        "No dedicated Detailed Weekly Curriculum section",
+        "Low per-week detail density (0.0 list items/week)",
+        "Missing Prerequisites section",
+        "Missing Learning Outcomes/Objectives section"
+      ],
+      "meets": false
+    },
+    {
+      "file": "curriculum-amazon-retail-media-networks.html",
+      "weekCount": 14,
+      "durationWeeks": 14,
+      "detailPerWeek": 0,
+      "shortcomings": [
+        "No dedicated Detailed Weekly Curriculum section",
+        "Low per-week detail density (0.0 list items/week)",
+        "Missing Prerequisites section",
+        "Missing Learning Outcomes/Objectives section"
+      ],
+      "meets": false
+    },
+    {
+      "file": "curriculum-application-security-appsec-specialist.html",
+      "weekCount": 24,
+      "durationWeeks": 24,
+      "detailPerWeek": 0,
+      "shortcomings": [
+        "No dedicated Detailed Weekly Curriculum section",
+        "Low per-week detail density (0.0 list items/week)",
+        "Missing Prerequisites section",
+        "Missing Learning Outcomes/Objectives section"
+      ],
+      "meets": false
+    },
+    {
+      "file": "curriculum-applied-machine-learning.html",
+      "weekCount": 16,
+      "durationWeeks": 16,
+      "detailPerWeek": 0,
+      "shortcomings": [
+        "No dedicated Detailed Weekly Curriculum section",
+        "Low per-week detail density (0.0 list items/week)",
+        "Missing Prerequisites section",
+        "Missing Learning Outcomes/Objectives section"
+      ],
+      "meets": false
+    },
+    {
+      "file": "curriculum-archicad-professional.html",
+      "weekCount": 16,
+      "durationWeeks": 16,
+      "detailPerWeek": 0,
+      "shortcomings": [
+        "No dedicated Detailed Weekly Curriculum section",
+        "Low per-week detail density (0.0 list items/week)",
+        "Missing Prerequisites section",
+        "Missing Learning Outcomes/Objectives section"
+      ],
+      "meets": false
+    },
+    {
+      "file": "curriculum-autocad-masterclass.html",
+      "weekCount": 12,
+      "durationWeeks": 12,
+      "detailPerWeek": 0,
+      "shortcomings": [
+        "No dedicated Detailed Weekly Curriculum section",
+        "Low per-week detail density (0.0 list items/week)",
+        "Missing Prerequisites section",
+        "Missing Learning Outcomes/Objectives section"
+      ],
+      "meets": false
+    },
+    {
+      "file": "curriculum-aws-crash-course-for-beginners.html",
+      "weekCount": 12,
+      "durationWeeks": 12,
+      "detailPerWeek": 0,
+      "shortcomings": [
+        "No dedicated Detailed Weekly Curriculum section",
+        "Low per-week detail density (0.0 list items/week)",
+        "Missing Prerequisites section",
+        "Missing Learning Outcomes/Objectives section"
+      ],
+      "meets": false
+    },
+    {
+      "file": "curriculum-backend-development-crash-course.html",
+      "weekCount": 16,
+      "durationWeeks": 16,
+      "detailPerWeek": 0,
+      "shortcomings": [
+        "No dedicated Detailed Weekly Curriculum section",
+        "Low per-week detail density (0.0 list items/week)",
+        "Missing Prerequisites section",
+        "Missing Learning Outcomes/Objectives section"
+      ],
+      "meets": false
+    },
+    {
+      "file": "curriculum-business-intelligence-analytics.html",
+      "weekCount": 16,
+      "durationWeeks": 16,
+      "detailPerWeek": 0,
+      "shortcomings": [
+        "No dedicated Detailed Weekly Curriculum section",
+        "Low per-week detail density (0.0 list items/week)",
+        "Missing Prerequisites section",
+        "Missing Learning Outcomes/Objectives section"
+      ],
+      "meets": false
+    },
+    {
+      "file": "curriculum-business-writing.html",
+      "weekCount": 12,
+      "durationWeeks": 12,
+      "detailPerWeek": 0,
+      "shortcomings": [
+        "No dedicated Detailed Weekly Curriculum section",
+        "Low per-week detail density (0.0 list items/week)",
+        "Missing Prerequisites section",
+        "Missing Learning Outcomes/Objectives section"
+      ],
+      "meets": false
+    },
+    {
+      "file": "curriculum-c-sharp-net-core.html",
+      "weekCount": 12,
+      "durationWeeks": 12,
+      "detailPerWeek": 0,
+      "shortcomings": [
+        "No dedicated Detailed Weekly Curriculum section",
+        "Low per-week detail density (0.0 list items/week)",
+        "Missing Prerequisites section",
+        "Missing Learning Outcomes/Objectives section"
+      ],
+      "meets": false
+    },
+    {
+      "file": "curriculum-canva-for-ad-creatives.html",
+      "weekCount": 12,
+      "durationWeeks": 12,
+      "detailPerWeek": 0,
+      "shortcomings": [
+        "No dedicated Detailed Weekly Curriculum section",
+        "Low per-week detail density (0.0 list items/week)",
+        "Missing Prerequisites section",
+        "Missing Learning Outcomes/Objectives section"
+      ],
+      "meets": false
+    },
+    {
+      "file": "curriculum-ccna-networking.html",
+      "weekCount": 12,
+      "durationWeeks": 12,
+      "detailPerWeek": 0,
+      "shortcomings": [
+        "No dedicated Detailed Weekly Curriculum section",
+        "Low per-week detail density (0.0 list items/week)",
+        "Missing Prerequisites section",
+        "Missing Learning Outcomes/Objectives section"
+      ],
+      "meets": false
+    },
+    {
+      "file": "curriculum-certified-scrum-master-csm.html",
+      "weekCount": 16,
+      "durationWeeks": 16,
+      "detailPerWeek": 0,
+      "shortcomings": [
+        "No dedicated Detailed Weekly Curriculum section",
+        "Low per-week detail density (0.0 list items/week)",
+        "Missing Prerequisites section",
+        "Missing Learning Outcomes/Objectives section"
+      ],
+      "meets": false
+    },
+    {
+      "file": "curriculum-cissp-certification-prep.html",
+      "weekCount": 24,
+      "durationWeeks": 24,
+      "detailPerWeek": 0,
+      "shortcomings": [
+        "No dedicated Detailed Weekly Curriculum section",
+        "Low per-week detail density (0.0 list items/week)",
+        "Missing Prerequisites section",
+        "Missing Learning Outcomes/Objectives section"
+      ],
+      "meets": false
+    },
+    {
+      "file": "curriculum-cloud-infrastructure-strategy.html",
+      "weekCount": 12,
+      "durationWeeks": 12,
+      "detailPerWeek": 0,
+      "shortcomings": [
+        "No dedicated Detailed Weekly Curriculum section",
+        "Low per-week detail density (0.0 list items/week)",
+        "Missing Prerequisites section",
+        "Missing Learning Outcomes/Objectives section"
+      ],
+      "meets": false
+    },
+    {
+      "file": "curriculum-competitive-programming.html",
+      "weekCount": 12,
+      "durationWeeks": 12,
+      "detailPerWeek": 0,
+      "shortcomings": [
+        "No dedicated Detailed Weekly Curriculum section",
+        "Low per-week detail density (0.0 list items/week)",
+        "Missing Prerequisites section",
+        "Missing Learning Outcomes/Objectives section"
+      ],
+      "meets": false
+    },
+    {
+      "file": "curriculum-computer-hardware-engineering.html",
+      "weekCount": 12,
+      "durationWeeks": 12,
+      "detailPerWeek": 0,
+      "shortcomings": [
+        "No dedicated Detailed Weekly Curriculum section",
+        "Low per-week detail density (0.0 list items/week)",
+        "Missing Prerequisites section",
+        "Missing Learning Outcomes/Objectives section"
+      ],
+      "meets": false
+    },
+    {
+      "file": "curriculum-content-writing-copywriting.html",
+      "weekCount": 14,
+      "durationWeeks": 14,
+      "detailPerWeek": 0,
+      "shortcomings": [
+        "No dedicated Detailed Weekly Curriculum section",
+        "Low per-week detail density (0.0 list items/week)",
+        "Missing Prerequisites section",
+        "Missing Learning Outcomes/Objectives section"
+      ],
+      "meets": false
+    },
+    {
+      "file": "curriculum-copywriting-crash-course.html",
+      "weekCount": 12,
+      "durationWeeks": 12,
+      "detailPerWeek": 0,
+      "shortcomings": [
+        "No dedicated Detailed Weekly Curriculum section",
+        "Low per-week detail density (0.0 list items/week)",
+        "Missing Prerequisites section",
+        "Missing Learning Outcomes/Objectives section"
+      ],
+      "meets": false
+    },
+    {
+      "file": "curriculum-copywriting-for-direct-response.html",
+      "weekCount": 14,
+      "durationWeeks": 14,
+      "detailPerWeek": 0,
+      "shortcomings": [
+        "No dedicated Detailed Weekly Curriculum section",
+        "Low per-week detail density (0.0 list items/week)",
+        "Missing Prerequisites section",
+        "Missing Learning Outcomes/Objectives section"
+      ],
+      "meets": false
+    },
+    {
+      "file": "curriculum-css-only-projects.html",
+      "weekCount": 12,
+      "durationWeeks": 12,
+      "detailPerWeek": 2,
+      "shortcomings": [
+        "No dedicated Detailed Weekly Curriculum section",
+        "Low per-week detail density (2.0 list items/week)",
+        "Missing Prerequisites section",
+        "Missing Learning Outcomes/Objectives section"
+      ],
+      "meets": false
+    },
+    {
+      "file": "curriculum-cybersecurity-fundamentals-network-systems-defense.html",
+      "weekCount": 12,
+      "durationWeeks": 12,
+      "detailPerWeek": 0,
+      "shortcomings": [
+        "No dedicated Detailed Weekly Curriculum section",
+        "Low per-week detail density (0.0 list items/week)",
+        "Missing Prerequisites section",
+        "Missing Learning Outcomes/Objectives section"
+      ],
+      "meets": false
+    },
+    {
+      "file": "curriculum-data-analysis-fast-track.html",
+      "weekCount": 12,
+      "durationWeeks": 12,
+      "detailPerWeek": 0,
+      "shortcomings": [
+        "No dedicated Detailed Weekly Curriculum section",
+        "Low per-week detail density (0.0 list items/week)",
+        "Missing Prerequisites section",
+        "Missing Learning Outcomes/Objectives section"
+      ],
+      "meets": false
+    },
+    {
+      "file": "curriculum-devops-kubernetes-mastery.html",
+      "weekCount": 16,
+      "durationWeeks": 16,
+      "detailPerWeek": 0,
+      "shortcomings": [
+        "No dedicated Detailed Weekly Curriculum section",
+        "Low per-week detail density (0.0 list items/week)",
+        "Missing Prerequisites section",
+        "Missing Learning Outcomes/Objectives section"
+      ],
+      "meets": false
+    },
+    {
+      "file": "curriculum-devsecops-engineering-automating-security.html",
+      "weekCount": 24,
+      "durationWeeks": 24,
+      "detailPerWeek": 0,
+      "shortcomings": [
+        "No dedicated Detailed Weekly Curriculum section",
+        "Low per-week detail density (0.0 list items/week)",
+        "Missing Prerequisites section",
+        "Missing Learning Outcomes/Objectives section"
+      ],
+      "meets": false
+    },
+    {
+      "file": "curriculum-digital-literacy-computer-operations.html",
+      "weekCount": 12,
+      "durationWeeks": 12,
+      "detailPerWeek": 0,
+      "shortcomings": [
+        "No dedicated Detailed Weekly Curriculum section",
+        "Low per-week detail density (0.0 list items/week)",
+        "Missing Prerequisites section",
+        "Missing Learning Outcomes/Objectives section"
+      ],
+      "meets": false
+    },
+    {
+      "file": "curriculum-digital-marketing-small-business.html",
+      "weekCount": 12,
+      "durationWeeks": 12,
+      "detailPerWeek": 0,
+      "shortcomings": [
+        "No dedicated Detailed Weekly Curriculum section",
+        "Low per-week detail density (0.0 list items/week)",
+        "Missing Prerequisites section",
+        "Missing Learning Outcomes/Objectives section"
+      ],
+      "meets": false
+    },
+    {
+      "file": "curriculum-dsa-fundamentals.html",
+      "weekCount": 12,
+      "durationWeeks": 12,
+      "detailPerWeek": 0,
+      "shortcomings": [
+        "No dedicated Detailed Weekly Curriculum section",
+        "Low per-week detail density (0.0 list items/week)",
+        "Missing Prerequisites section",
+        "Missing Learning Outcomes/Objectives section"
+      ],
+      "meets": false
+    },
+    {
+      "file": "curriculum-enterprise-security-risk.html",
+      "weekCount": 12,
+      "durationWeeks": 12,
+      "detailPerWeek": 0,
+      "shortcomings": [
+        "No dedicated Detailed Weekly Curriculum section",
+        "Low per-week detail density (0.0 list items/week)",
+        "Missing Prerequisites section",
+        "Missing Learning Outcomes/Objectives section"
+      ],
+      "meets": false
+    },
+    {
+      "file": "curriculum-ethical-hacking-beginners.html",
+      "weekCount": 12,
+      "durationWeeks": 12,
+      "detailPerWeek": 0,
+      "shortcomings": [
+        "No dedicated Detailed Weekly Curriculum section",
+        "Low per-week detail density (0.0 list items/week)",
+        "Missing Prerequisites section",
+        "Missing Learning Outcomes/Objectives section",
+        "Missing Projects/Capstone section"
+      ],
+      "meets": false
+    },
+    {
+      "file": "curriculum-ethical-hacking-fast-track.html",
+      "weekCount": 12,
+      "durationWeeks": 12,
+      "detailPerWeek": 0,
+      "shortcomings": [
+        "No dedicated Detailed Weekly Curriculum section",
+        "Low per-week detail density (0.0 list items/week)",
+        "Missing Prerequisites section",
+        "Missing Learning Outcomes/Objectives section",
+        "Missing Projects/Capstone section"
+      ],
+      "meets": false
+    },
+    {
+      "file": "curriculum-ethical-hacking-penetration-testing.html",
+      "weekCount": 20,
+      "durationWeeks": 20,
+      "detailPerWeek": 0,
+      "shortcomings": [
+        "No dedicated Detailed Weekly Curriculum section",
+        "Low per-week detail density (0.0 list items/week)",
+        "Missing Prerequisites section",
+        "Missing Learning Outcomes/Objectives section"
+      ],
+      "meets": false
+    },
+    {
+      "file": "curriculum-executive-agile-leadership.html",
+      "weekCount": 14,
+      "durationWeeks": 14,
+      "detailPerWeek": 0,
+      "shortcomings": [
+        "No dedicated Detailed Weekly Curriculum section",
+        "Low per-week detail density (0.0 list items/week)",
+        "Missing Prerequisites section",
+        "Missing Learning Outcomes/Objectives section"
+      ],
+      "meets": false
+    },
+    {
+      "file": "curriculum-executive-presentation-public-speaking.html",
+      "weekCount": 14,
+      "durationWeeks": 14,
+      "detailPerWeek": 0,
+      "shortcomings": [
+        "No dedicated Detailed Weekly Curriculum section",
+        "Low per-week detail density (0.0 list items/week)",
+        "Missing Prerequisites section",
+        "Missing Learning Outcomes/Objectives section"
+      ],
+      "meets": false
+    },
+    {
+      "file": "curriculum-full-stack-jumpstart-mern.html",
+      "weekCount": 14,
+      "durationWeeks": 14,
+      "detailPerWeek": 0,
+      "shortcomings": [
+        "No dedicated Detailed Weekly Curriculum section",
+        "Low per-week detail density (0.0 list items/week)",
+        "Missing Prerequisites section",
+        "Missing Learning Outcomes/Objectives section"
+      ],
+      "meets": false
+    },
+    {
+      "file": "curriculum-google-analytics-4-mastery.html",
+      "weekCount": 20,
+      "durationWeeks": 20,
+      "detailPerWeek": 0,
+      "shortcomings": [
+        "No dedicated Detailed Weekly Curriculum section",
+        "Low per-week detail density (0.0 list items/week)",
+        "Missing Prerequisites section",
+        "Missing Learning Outcomes/Objectives section"
+      ],
+      "meets": false
+    },
+    {
+      "file": "curriculum-google-search-ads-boot-camp.html",
+      "weekCount": 12,
+      "durationWeeks": 12,
+      "detailPerWeek": 0,
+      "shortcomings": [
+        "No dedicated Detailed Weekly Curriculum section",
+        "Low per-week detail density (0.0 list items/week)",
+        "Missing Prerequisites section",
+        "Missing Learning Outcomes/Objectives section"
+      ],
+      "meets": false
+    },
+    {
+      "file": "curriculum-graphic-design-crash-course.html",
+      "weekCount": 12,
+      "durationWeeks": 12,
+      "detailPerWeek": 0,
+      "shortcomings": [
+        "No dedicated Detailed Weekly Curriculum section",
+        "Low per-week detail density (0.0 list items/week)",
+        "Missing Prerequisites section",
+        "Missing Learning Outcomes/Objectives section"
+      ],
+      "meets": false
+    },
+    {
+      "file": "curriculum-graphic-design-essentials.html",
+      "weekCount": 12,
+      "durationWeeks": 12,
+      "detailPerWeek": 0,
+      "shortcomings": [
+        "No dedicated Detailed Weekly Curriculum section",
+        "Low per-week detail density (0.0 list items/week)",
+        "Missing Prerequisites section",
+        "Missing Learning Outcomes/Objectives section"
+      ],
+      "meets": false
+    },
+    {
+      "file": "curriculum-integrated-digital-marketing.html",
+      "weekCount": 14,
+      "durationWeeks": 14,
+      "detailPerWeek": 0,
+      "shortcomings": [
+        "No dedicated Detailed Weekly Curriculum section",
+        "Low per-week detail density (0.0 list items/week)",
+        "Missing Prerequisites section",
+        "Missing Learning Outcomes/Objectives section"
+      ],
+      "meets": false
+    },
+    {
+      "file": "curriculum-intro-to-professional-writing.html",
+      "weekCount": 12,
+      "durationWeeks": 12,
+      "detailPerWeek": 0,
+      "shortcomings": [
+        "No dedicated Detailed Weekly Curriculum section",
+        "Low per-week detail density (0.0 list items/week)",
+        "Missing Prerequisites section",
+        "Missing Learning Outcomes/Objectives section"
+      ],
+      "meets": false
+    },
+    {
+      "file": "curriculum-intro-to-software-development.html",
+      "weekCount": 12,
+      "durationWeeks": 12,
+      "detailPerWeek": 0,
+      "shortcomings": [
+        "No dedicated Detailed Weekly Curriculum section",
+        "Low per-week detail density (0.0 list items/week)",
+        "Missing Prerequisites section",
+        "Missing Learning Outcomes/Objectives section"
+      ],
+      "meets": false
+    },
+    {
+      "file": "curriculum-java-enterprise-development.html",
+      "weekCount": 12,
+      "durationWeeks": 12,
+      "detailPerWeek": 0,
+      "shortcomings": [
+        "No dedicated Detailed Weekly Curriculum section",
+        "Low per-week detail density (0.0 list items/week)",
+        "Missing Prerequisites section",
+        "Missing Learning Outcomes/Objectives section"
+      ],
+      "meets": false
+    },
+    {
+      "file": "curriculum-kubernetes-quick-start.html",
+      "weekCount": 14,
+      "durationWeeks": 14,
+      "detailPerWeek": 0,
+      "shortcomings": [
+        "No dedicated Detailed Weekly Curriculum section",
+        "Low per-week detail density (0.0 list items/week)",
+        "Missing Prerequisites section",
+        "Missing Learning Outcomes/Objectives section"
+      ],
+      "meets": false
+    },
+    {
+      "file": "curriculum-leetcode-interview-prep.html",
+      "weekCount": 12,
+      "durationWeeks": 12,
+      "detailPerWeek": 0,
+      "shortcomings": [
+        "No dedicated Detailed Weekly Curriculum section",
+        "Low per-week detail density (0.0 list items/week)",
+        "Missing Prerequisites section",
+        "Missing Learning Outcomes/Objectives section",
+        "Missing Projects/Capstone section"
+      ],
+      "meets": false
+    },
+    {
+      "file": "curriculum-linux-administration-shell-scripting.html",
+      "weekCount": 14,
+      "durationWeeks": 14,
+      "detailPerWeek": 0,
+      "shortcomings": [
+        "No dedicated Detailed Weekly Curriculum section",
+        "Low per-week detail density (0.0 list items/week)",
+        "Missing Prerequisites section",
+        "Missing Learning Outcomes/Objectives section"
+      ],
+      "meets": false
+    },
+    {
+      "file": "curriculum-linux-shell-scripting.html",
+      "weekCount": 10,
+      "durationWeeks": 10,
+      "detailPerWeek": 16.2,
+      "shortcomings": [
+        "Missing Learning Outcomes/Objectives section"
+      ],
+      "meets": false
+    },
+    {
+      "file": "curriculum-machine-learning-crash-course.html",
+      "weekCount": 14,
+      "durationWeeks": 14,
+      "detailPerWeek": 0,
+      "shortcomings": [
+        "No dedicated Detailed Weekly Curriculum section",
+        "Low per-week detail density (0.0 list items/week)",
+        "Missing Prerequisites section",
+        "Missing Learning Outcomes/Objectives section"
+      ],
+      "meets": false
+    },
+    {
+      "file": "curriculum-meta-ads-for-local-business.html",
+      "weekCount": 12,
+      "durationWeeks": 12,
+      "detailPerWeek": 0,
+      "shortcomings": [
+        "No dedicated Detailed Weekly Curriculum section",
+        "Low per-week detail density (0.0 list items/week)",
+        "Missing Prerequisites section"
+      ],
+      "meets": false
+    },
+    {
+      "file": "curriculum-microsoft-365-ai-integration.html",
+      "weekCount": 14,
+      "durationWeeks": 14,
+      "detailPerWeek": 0,
+      "shortcomings": [
+        "No dedicated Detailed Weekly Curriculum section",
+        "Low per-week detail density (0.0 list items/week)",
+        "Missing Prerequisites section",
+        "Missing Learning Outcomes/Objectives section"
+      ],
+      "meets": false
+    },
+    {
+      "file": "curriculum-microsoft-access-business-apps.html",
+      "weekCount": 12,
+      "durationWeeks": 12,
+      "detailPerWeek": 0,
+      "shortcomings": [
+        "No dedicated Detailed Weekly Curriculum section",
+        "Low per-week detail density (0.0 list items/week)",
+        "Missing Prerequisites section",
+        "Missing Learning Outcomes/Objectives section"
+      ],
+      "meets": false
+    },
+    {
+      "file": "curriculum-microsoft-cybersecurity-architect-sc-100.html",
+      "weekCount": 20,
+      "durationWeeks": 20,
+      "detailPerWeek": 0,
+      "shortcomings": [
+        "No dedicated Detailed Weekly Curriculum section",
+        "Low per-week detail density (0.0 list items/week)",
+        "Missing Prerequisites section",
+        "Missing Learning Outcomes/Objectives section"
+      ],
+      "meets": false
+    },
+    {
+      "file": "curriculum-mobile-app-development-quick-start.html",
+      "weekCount": 16,
+      "durationWeeks": 16,
+      "detailPerWeek": 0,
+      "shortcomings": [
+        "No dedicated Detailed Weekly Curriculum section",
+        "Low per-week detail density (0.0 list items/week)",
+        "Missing Prerequisites section",
+        "Missing Learning Outcomes/Objectives section"
+      ],
+      "meets": false
+    },
+    {
+      "file": "curriculum-mobile-engineering-cross-platform-development.html",
+      "weekCount": 20,
+      "durationWeeks": 20,
+      "detailPerWeek": 0,
+      "shortcomings": [
+        "No dedicated Detailed Weekly Curriculum section",
+        "Low per-week detail density (0.0 list items/week)",
+        "Missing Prerequisites section",
+        "Missing Learning Outcomes/Objectives section"
+      ],
+      "meets": false
+    },
+    {
+      "file": "curriculum-motion-graphics-vfx.html",
+      "weekCount": 14,
+      "durationWeeks": 14,
+      "detailPerWeek": 0,
+      "shortcomings": [
+        "No dedicated Detailed Weekly Curriculum section",
+        "Low per-week detail density (0.0 list items/week)",
+        "Missing Prerequisites section",
+        "Missing Learning Outcomes/Objectives section"
+      ],
+      "meets": false
+    },
+    {
+      "file": "curriculum-network-security-admin.html",
+      "weekCount": 12,
+      "durationWeeks": 12,
+      "detailPerWeek": 0,
+      "shortcomings": [
+        "No dedicated Detailed Weekly Curriculum section",
+        "Low per-week detail density (0.0 list items/week)",
+        "Missing Prerequisites section",
+        "Missing Learning Outcomes/Objectives section"
+      ],
+      "meets": false
+    },
+    {
+      "file": "curriculum-network-security-essentials.html",
+      "weekCount": 14,
+      "durationWeeks": 14,
+      "detailPerWeek": 0,
+      "shortcomings": [
+        "No dedicated Detailed Weekly Curriculum section",
+        "Low per-week detail density (0.0 list items/week)",
+        "Missing Prerequisites section",
+        "Missing Learning Outcomes/Objectives section"
+      ],
+      "meets": false
+    },
+    {
+      "file": "curriculum-nosql-cloud-database-architecture.html",
+      "weekCount": 16,
+      "durationWeeks": 16,
+      "detailPerWeek": 0,
+      "shortcomings": [
+        "No dedicated Detailed Weekly Curriculum section",
+        "Low per-week detail density (0.0 list items/week)",
+        "Missing Prerequisites section",
+        "Missing Learning Outcomes/Objectives section"
+      ],
+      "meets": false
+    },
+    {
+      "file": "curriculum-personal-branding.html",
+      "weekCount": 12,
+      "durationWeeks": 12,
+      "detailPerWeek": 0,
+      "shortcomings": [
+        "No dedicated Detailed Weekly Curriculum section",
+        "Low per-week detail density (0.0 list items/week)",
+        "Missing Prerequisites section",
+        "Missing Learning Outcomes/Objectives section"
+      ],
+      "meets": false
+    },
+    {
+      "file": "curriculum-pmp-certification-prep.html",
+      "weekCount": 12,
+      "durationWeeks": 12,
+      "detailPerWeek": 0,
+      "shortcomings": [
+        "No dedicated Detailed Weekly Curriculum section",
+        "Low per-week detail density (0.0 list items/week)",
+        "Missing Prerequisites section",
+        "Missing Learning Outcomes/Objectives section"
+      ],
+      "meets": false
+    },
+    {
+      "file": "curriculum-product-management-quick-start.html",
+      "weekCount": 14,
+      "durationWeeks": 14,
+      "detailPerWeek": 0,
+      "shortcomings": [
+        "No dedicated Detailed Weekly Curriculum section",
+        "Low per-week detail density (0.0 list items/week)",
+        "Missing Prerequisites section",
+        "Missing Learning Outcomes/Objectives section"
+      ],
+      "meets": false
+    },
+    {
+      "file": "curriculum-product-strategy-lean-startup.html",
+      "weekCount": 14,
+      "durationWeeks": 14,
+      "detailPerWeek": 0,
+      "shortcomings": [
+        "No dedicated Detailed Weekly Curriculum section",
+        "Low per-week detail density (0.0 list items/week)",
+        "Missing Prerequisites section",
+        "Missing Learning Outcomes/Objectives section"
+      ],
+      "meets": false
+    },
+    {
+      "file": "curriculum-professional-data-engineering.html",
+      "weekCount": 24,
+      "durationWeeks": 24,
+      "detailPerWeek": 0,
+      "shortcomings": [
+        "No dedicated Detailed Weekly Curriculum section",
+        "Low per-week detail density (0.0 list items/week)",
+        "Missing Prerequisites section",
+        "Missing Learning Outcomes/Objectives section"
+      ],
+      "meets": false
+    },
+    {
+      "file": "curriculum-professional-office-365.html",
+      "weekCount": 12,
+      "durationWeeks": 12,
+      "detailPerWeek": 0,
+      "shortcomings": [
+        "No dedicated Detailed Weekly Curriculum section",
+        "Low per-week detail density (0.0 list items/week)",
+        "Missing Prerequisites section",
+        "Missing Learning Outcomes/Objectives section"
+      ],
+      "meets": false
+    },
+    {
+      "file": "curriculum-programmatic-advertising-rtb.html",
+      "weekCount": 14,
+      "durationWeeks": 14,
+      "detailPerWeek": 0,
+      "shortcomings": [
+        "No dedicated Detailed Weekly Curriculum section",
+        "Low per-week detail density (0.0 list items/week)",
+        "Missing Prerequisites section",
+        "Missing Learning Outcomes/Objectives section"
+      ],
+      "meets": false
+    },
+    {
+      "file": "curriculum-programming-data-management.html",
+      "weekCount": 14,
+      "durationWeeks": 14,
+      "detailPerWeek": 0,
+      "shortcomings": [
+        "No dedicated Detailed Weekly Curriculum section",
+        "Low per-week detail density (0.0 list items/week)",
+        "Missing Prerequisites section",
+        "Missing Learning Outcomes/Objectives section"
+      ],
+      "meets": false
+    },
+    {
+      "file": "curriculum-python-data-science-analytics.html",
+      "weekCount": 12,
+      "durationWeeks": 12,
+      "detailPerWeek": 0,
+      "shortcomings": [
+        "No dedicated Detailed Weekly Curriculum section",
+        "Low per-week detail density (0.0 list items/week)",
+        "Missing Prerequisites section",
+        "Missing Learning Outcomes/Objectives section"
+      ],
+      "meets": false
+    },
+    {
+      "file": "curriculum-rapid-app-development-low-code.html",
+      "weekCount": 12,
+      "durationWeeks": 12,
+      "detailPerWeek": 0,
+      "shortcomings": [
+        "No dedicated Detailed Weekly Curriculum section",
+        "Low per-week detail density (0.0 list items/week)",
+        "Missing Prerequisites section",
+        "Missing Learning Outcomes/Objectives section"
+      ],
+      "meets": false
+    },
+    {
+      "file": "curriculum-security-operations-analyst-sc-200.html",
+      "weekCount": 14,
+      "durationWeeks": 14,
+      "detailPerWeek": 0,
+      "shortcomings": [
+        "No dedicated Detailed Weekly Curriculum section",
+        "Low per-week detail density (0.0 list items/week)",
+        "Missing Prerequisites section",
+        "Missing Learning Outcomes/Objectives section"
+      ],
+      "meets": false
+    },
+    {
+      "file": "curriculum-seo-fast-track-rank-on-google.html",
+      "weekCount": 12,
+      "durationWeeks": 12,
+      "detailPerWeek": 0,
+      "shortcomings": [
+        "No dedicated Detailed Weekly Curriculum section",
+        "Low per-week detail density (0.0 list items/week)",
+        "Missing Prerequisites section",
+        "Missing Learning Outcomes/Objectives section"
+      ],
+      "meets": false
+    },
+    {
+      "file": "curriculum-server-side-tracking-capi.html",
+      "weekCount": 14,
+      "durationWeeks": 14,
+      "detailPerWeek": 0,
+      "shortcomings": [
+        "No dedicated Detailed Weekly Curriculum section",
+        "Low per-week detail density (0.0 list items/week)",
+        "Missing Prerequisites section",
+        "Missing Learning Outcomes/Objectives section"
+      ],
+      "meets": false
+    },
+    {
+      "file": "curriculum-social-media-community-growth.html",
+      "weekCount": 14,
+      "durationWeeks": 14,
+      "detailPerWeek": 0,
+      "shortcomings": [
+        "No dedicated Detailed Weekly Curriculum section",
+        "Low per-week detail density (0.0 list items/week)",
+        "Missing Prerequisites section",
+        "Missing Learning Outcomes/Objectives section"
+      ],
+      "meets": false
+    },
+    {
+      "file": "curriculum-social-media-marketing-accelerator.html",
+      "weekCount": 12,
+      "durationWeeks": 12,
+      "detailPerWeek": 0,
+      "shortcomings": [
+        "No dedicated Detailed Weekly Curriculum section",
+        "Low per-week detail density (0.0 list items/week)",
+        "Missing Prerequisites section",
+        "Missing Learning Outcomes/Objectives section"
+      ],
+      "meets": false
+    },
+    {
+      "file": "curriculum-sql-relational-database-design.html",
+      "weekCount": 12,
+      "durationWeeks": 12,
+      "detailPerWeek": 0,
+      "shortcomings": [
+        "No dedicated Detailed Weekly Curriculum section",
+        "Low per-week detail density (0.0 list items/week)",
+        "Missing Prerequisites section",
+        "Missing Learning Outcomes/Objectives section"
+      ],
+      "meets": false
+    },
+    {
+      "file": "curriculum-technical-writing-api-docs.html",
+      "weekCount": 12,
+      "durationWeeks": 12,
+      "detailPerWeek": 0,
+      "shortcomings": [
+        "No dedicated Detailed Weekly Curriculum section",
+        "Low per-week detail density (0.0 list items/week)",
+        "Missing Prerequisites section",
+        "Missing Learning Outcomes/Objectives section"
+      ],
+      "meets": false
+    },
+    {
+      "file": "curriculum-technical-writing-essentials.html",
+      "weekCount": 12,
+      "durationWeeks": 12,
+      "detailPerWeek": 0,
+      "shortcomings": [
+        "No dedicated Detailed Weekly Curriculum section",
+        "Low per-week detail density (0.0 list items/week)",
+        "Missing Prerequisites section",
+        "Missing Learning Outcomes/Objectives section"
+      ],
+      "meets": false
+    },
+    {
+      "file": "curriculum-technical-writing.html",
+      "weekCount": 14,
+      "durationWeeks": 14,
+      "detailPerWeek": 0,
+      "shortcomings": [
+        "No dedicated Detailed Weekly Curriculum section",
+        "Low per-week detail density (0.0 list items/week)",
+        "Missing Prerequisites section",
+        "Missing Learning Outcomes/Objectives section"
+      ],
+      "meets": false
+    },
+    {
+      "file": "curriculum-tiktok-reels-ad-strategy.html",
+      "weekCount": 14,
+      "durationWeeks": 14,
+      "detailPerWeek": 0,
+      "shortcomings": [
+        "No dedicated Detailed Weekly Curriculum section",
+        "Low per-week detail density (0.0 list items/week)",
+        "Missing Prerequisites section"
+      ],
+      "meets": false
+    },
+    {
+      "file": "curriculum-vector-graphics-mastery-coreldraw.html",
+      "weekCount": 14,
+      "durationWeeks": 14,
+      "detailPerWeek": 0,
+      "shortcomings": [
+        "No dedicated Detailed Weekly Curriculum section",
+        "Low per-week detail density (0.0 list items/week)",
+        "Missing Prerequisites section",
+        "Missing Learning Outcomes/Objectives section"
+      ],
+      "meets": false
+    },
+    {
+      "file": "curriculum-visual-brand-design.html",
+      "weekCount": 14,
+      "durationWeeks": 14,
+      "detailPerWeek": 0,
+      "shortcomings": [
+        "No dedicated Detailed Weekly Curriculum section",
+        "Low per-week detail density (0.0 list items/week)",
+        "Missing Prerequisites section",
+        "Missing Learning Outcomes/Objectives section"
+      ],
+      "meets": false
+    },
+    {
+      "file": "curriculum-visual-communication-infographics.html",
+      "weekCount": 12,
+      "durationWeeks": 12,
+      "detailPerWeek": 0,
+      "shortcomings": [
+        "No dedicated Detailed Weekly Curriculum section",
+        "Low per-week detail density (0.0 list items/week)",
+        "Missing Prerequisites section",
+        "Missing Learning Outcomes/Objectives section"
+      ],
+      "meets": false
+    },
+    {
+      "file": "curriculum-youtube-ads-manager.html",
+      "weekCount": 16,
+      "durationWeeks": 16,
+      "detailPerWeek": 0,
+      "shortcomings": [
+        "No dedicated Detailed Weekly Curriculum section",
+        "Low per-week detail density (0.0 list items/week)",
+        "Missing Prerequisites section",
+        "Missing Learning Outcomes/Objectives section"
+      ],
+      "meets": false
+    }
+  ]
+}
