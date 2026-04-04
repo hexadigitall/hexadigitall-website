@@ -4,6 +4,7 @@ import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import { client } from '@/sanity/client'
 import { findCurriculumForCourseSlug } from '@/lib/curriculum-utils'
+import CurriculumEmbed from '@/app/courses/[slug]/curriculum/CurriculumEmbed'
 
 export const dynamic = 'force-dynamic'
 
@@ -89,16 +90,9 @@ export default async function CourseCurriculumPage({ params }: Props) {
       </header>
 
       {match ? (
-        <section className="space-y-4">
-          <div className="flex flex-wrap gap-2">
-            <a
-              href={match.asset.htmlPath}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-white hover:bg-primary/90"
-            >
-              Open Curriculum in New Tab
-            </a>
+        <>
+          <CurriculumEmbed title={course.title} htmlUrl={match.asset.htmlPath} />
+          <div>
             <Link
               href={`/courses/${slug}`}
               className="inline-flex items-center rounded-lg border border-gray-200 px-4 py-2 text-sm font-semibold text-gray-700 hover:border-gray-300"
@@ -106,15 +100,7 @@ export default async function CourseCurriculumPage({ params }: Props) {
               Back to Course
             </Link>
           </div>
-
-          <div className="overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm">
-            <iframe
-              title={`${course.title} curriculum`}
-              src={match.asset.htmlPath}
-              className="w-full min-h-[75vh]"
-            />
-          </div>
-        </section>
+        </>
       ) : (
         <section className="rounded-2xl border border-dashed border-gray-300 bg-gray-50 p-8 text-center">
           <p className="text-lg font-semibold text-gray-800">Curriculum file not mapped yet for this course.</p>
