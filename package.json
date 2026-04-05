@@ -35,7 +35,8 @@
     "migrate:dry-run": "cross-env DRY_RUN=true ts-node scripts/migrate-services.ts",
     "migrate:dry-run:compiled": "tsc --project scripts/tsconfig.json --outDir .build-scripts && node .build-scripts/migrate-services-dryrun.js",
     "migrate:courses": "node scripts/migrate-courses-regional.js",
-    "migrate:courses:validate": "node scripts/validate-migration-readiness.js"
+    "migrate:courses:validate": "node scripts/validate-migration-readiness.js",
+    "curriculum:import": "node scripts/import-curriculums-to-sanity.mjs"
   },
   "dependencies": {
     "@esbuild/linux-x64": "^0.25.9",

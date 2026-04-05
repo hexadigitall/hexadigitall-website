@@ -55,6 +55,13 @@ export async function GET(request: NextRequest) {
       monthlyAmount,
       totalPrice,
       nextPaymentDue,
+      curriculumPdf {
+        asset->{
+          _ref,
+          url,
+          originalFilename
+        }
+      },
       "course": courseId->{
         _id,
         title,

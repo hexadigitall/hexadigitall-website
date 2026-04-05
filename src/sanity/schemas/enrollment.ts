@@ -255,6 +255,27 @@ export default defineType({
       ],
       description: 'Track all monthly renewal payments',
     }),
+    defineField({
+      name: 'curriculumPdf',
+      title: 'Saved Curriculum PDF',
+      type: 'file',
+      options: {
+        accept: '.pdf',
+      },
+      description: 'Stable PDF snapshot of the curriculum generated for this enrollment',
+    }),
+    defineField({
+      name: 'curriculumPdfGeneratedAt',
+      title: 'Curriculum PDF Generated At',
+      type: 'datetime',
+      readOnly: true,
+    }),
+    defineField({
+      name: 'curriculumSlugSnapshot',
+      title: 'Curriculum Slug Snapshot',
+      type: 'string',
+      readOnly: true,
+    }),
   ],
   preview: {
     select: {

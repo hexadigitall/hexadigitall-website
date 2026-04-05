@@ -3,8 +3,8 @@ import { groq } from 'next-sanity'
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import { client } from '@/sanity/client'
-import { findCurriculumForCourseSlug } from '@/lib/curriculum-utils'
-import CurriculumEmbed from '@/app/courses/[slug]/curriculum/CurriculumEmbed'
+import type { CurriculumDocument } from '@/lib/curriculum-types'
+import CurriculumDocumentView from '@/components/curriculum/CurriculumDocumentView'
 
 export const dynamic = 'force-dynamic'
 
@@ -20,6 +20,45 @@ interface CourseLite {
   slug: { current: string }
   summary?: string
   description?: string
+}
+
+async function getCurriculumByCourseSlug(slug: string): Promise<CurriculumDocument | null> {
+  try {
+    return await client.fetch<CurriculumDocument | null>(
+      groq`*[_type == "curriculum" && course->slug.current == $slug][0]{
+        _id,
+        title,
+        slug,
+        summary,
+        heroSummary,
+        heroTags,
+        duration,
+        level,
+        studyTime,
+        schoolName,
+        welcomeTitle,
+        welcomeMessages,
+        prerequisites,
+        complementaryCourses,
+        essentialResources,
+        learningRoadmap,
+        weeks,
+        capstoneProjects,
+        sourceHtmlFile,
+        importedAt,
+        "course": course->{
+          _id,
+          title,
+          slug,
+          summary,
+          description
+        }
+      }`,
+      { slug }
+    )
+  } catch {
+    return null
+  }
 }
 
 async function getCourseBySlug(slug: string): Promise<CourseLite | null> {
@@ -68,7 +107,7 @@ export default async function CourseCurriculumPage({ params }: Props) {
 
   if (!course) notFound()
 
-  const match = await findCurriculumForCourseSlug(slug)
+  const curriculum = await getCurriculumByCourseSlug(slug)
 
   return (
     <main className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
@@ -89,23 +128,13 @@ export default async function CourseCurriculumPage({ params }: Props) {
         </p>
       </header>
 
-      {match ? (
-        <>
-          <CurriculumEmbed title={course.title} htmlUrl={match.asset.htmlPath} courseSlug={slug} />
-          <div>
-            <Link
-              href={`/courses/${slug}`}
-              className="inline-flex items-center rounded-lg border border-gray-200 px-4 py-2 text-sm font-semibold text-gray-700 hover:border-gray-300"
-            >
-              Back to Course
-            </Link>
-          </div>
-        </>
+      {curriculum ? (
+        <CurriculumDocumentView curriculum={curriculum} />
       ) : (
         <section className="rounded-2xl border border-dashed border-gray-300 bg-gray-50 p-8 text-center">
-          <p className="text-lg font-semibold text-gray-800">Curriculum file not mapped yet for this course.</p>
+          <p className="text-lg font-semibold text-gray-800">Curriculum is not available in the new content system yet.</p>
           <p className="text-sm text-gray-600 mt-2">
-            We are standardizing curriculum URLs. Check back soon, or contact support for the latest syllabus copy.
+            We are migrating curriculum documents into Sanity for direct rendering and printable PDF delivery. Check back soon, or contact support for the latest syllabus copy.
           </p>
           <div className="mt-4 flex flex-wrap justify-center gap-2">
             <Link

@@ -5,6 +5,7 @@ import post from './post'
 import user from './user'
 import category from './serviceCategory' // Assuming this is your category schema
 import course from './course'
+import curriculum from './curriculum'
 import school from './school'
 import service from './service' // Individual service
 import project from './project'
@@ -31,6 +32,7 @@ export const schema: { types: SchemaTypeDefinition[] } = {
     user,
     category,
     course,
+    curriculum,
     school,
     service,
     project,

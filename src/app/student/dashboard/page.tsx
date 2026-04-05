@@ -26,6 +26,7 @@ interface Enrollment {
   totalPrice?: number
   nextPaymentDue?: string
   paymentStatus?: string
+  curriculumPdf?: { asset: { _ref: string; url?: string; originalFilename?: string } }
   course?: {
     _id: string
     title: string
@@ -51,6 +52,7 @@ export default function StudentDashboardPage() {
   const [sessionRole, setSessionRole] = useState<string | null>(null)
   const [enrollments, setEnrollments] = useState<Enrollment[]>([])
   const [paymentLoading, setPaymentLoading] = useState<string | null>(null)
+  const [curriculumLoading, setCurriculumLoading] = useState<string | null>(null)
   const [photoUrl, setPhotoUrl] = useState<string | null>(null)
   const [photoUploading, setPhotoUploading] = useState(false)
   const photoInputRef = useRef<HTMLInputElement>(null)
@@ -190,6 +192,65 @@ export default function StudentDashboardPage() {
       alert('Failed to initiate payment. Please try again.')
     } finally {
       setPaymentLoading(null)
+    }
+  }
+
+  const handleCurriculumPdf = async (enrollment: Enrollment) => {
+    if (enrollment.curriculumPdf?.asset?.url) {
+      downloadPdf(enrollment.curriculumPdf, `${enrollment.course?.title || 'course'}-curriculum.pdf`)
+      return
+    }
+
+    const token = localStorage.getItem('admin_token')
+    if (!token) {
+      router.push('/student/login')
+      return
+    }
+
+    setCurriculumLoading(enrollment._id)
+
+    try {
+      const res = await fetch('/api/student/curriculum-pdf', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ enrollmentId: enrollment._id }),
+      })
+
+      const data = await res.json()
+      if (!res.ok || !data.url) {
+        throw new Error(data.message || 'Failed to generate curriculum PDF')
+      }
+
+      setEnrollments((current) =>
+        current.map((item) =>
+          item._id === enrollment._id
+            ? {
+                ...item,
+                curriculumPdf: {
+                  asset: {
+                    _ref: item.curriculumPdf?.asset._ref || '',
+                    url: data.url,
+                    originalFilename: data.filename,
+                  },
+                },
+              }
+            : item
+        )
+      )
+
+      const a = document.createElement('a')
+      a.href = data.url
+      a.download = data.filename || `${enrollment.course?.title || 'course'}-curriculum.pdf`
+      a.target = '_blank'
+      a.click()
+    } catch (error) {
+      console.error('Failed to prepare curriculum PDF:', error)
+      alert('Failed to prepare curriculum PDF. Please try again.')
+    } finally {
+      setCurriculumLoading(null)
     }
   }
 
@@ -499,6 +560,26 @@ export default function StudentDashboardPage() {
                         </div>
 
                         <div className="space-y-2">
+                          {enrollment.course?.slug?.current && (
+                            <Link
+                              href={`/courses/${enrollment.course.slug.current}/curriculum`}
+                              className="w-full flex items-center justify-center gap-2 px-4 py-2.5 bg-slate-900 text-white rounded-xl hover:bg-slate-800 transition-colors text-xs font-semibold"
+                            >
+                              View Curriculum
+                            </Link>
+                          )}
+                          <button
+                            onClick={() => handleCurriculumPdf(enrollment)}
+                            disabled={curriculumLoading === enrollment._id}
+                            className="w-full flex items-center justify-center gap-2 px-4 py-2.5 bg-emerald-600 text-white rounded-xl hover:bg-emerald-700 transition-colors text-xs font-semibold disabled:opacity-50 disabled:cursor-not-allowed"
+                          >
+                            <ArrowDownTrayIcon className="h-4 w-4" />
+                            {curriculumLoading === enrollment._id
+                              ? 'Preparing Curriculum PDF...'
+                              : enrollment.curriculumPdf?.asset?.url
+                                ? 'Saved Curriculum PDF'
+                                : 'Generate Curriculum PDF'}
+                          </button>
                           {enrollment.course?.contentPdf && (
                             <button
                               onClick={() => downloadPdf(enrollment.course?.contentPdf, `${enrollment.course?.title || 'course'}-content.pdf`)}
