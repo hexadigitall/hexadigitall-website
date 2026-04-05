@@ -42,6 +42,13 @@ export async function generatePdfFallback(curriculum: CurriculumDocument): Promi
   const fontRegular = await pdf.embedFont(StandardFonts.Helvetica)
   const fontBold = await pdf.embedFont(StandardFonts.HelveticaBold)
 
+  const sanitizeText = (value: string): string =>
+    value
+      .normalize('NFKD')
+      .replace(/[^\u0000-\u00FF]/g, '')
+      .replace(/\s+/g, ' ')
+      .trim()
+
   const pageSize: [number, number] = [595.28, 841.89] // A4 points
   const margin = 40
   const lineHeight = 15
@@ -50,9 +57,12 @@ export async function generatePdfFallback(curriculum: CurriculumDocument): Promi
   let y = page.getHeight() - margin
 
   const drawWrappedText = (text: string, size = 11, bold = false) => {
+    const safeText = sanitizeText(text)
+    if (!safeText) return
+
     const font = bold ? fontBold : fontRegular
     const maxWidth = page.getWidth() - margin * 2
-    const words = text.split(/\s+/).filter(Boolean)
+    const words = safeText.split(/\s+/).filter(Boolean)
     let line = ''
 
     for (const word of words) {
@@ -83,11 +93,14 @@ export async function generatePdfFallback(curriculum: CurriculumDocument): Promi
   }
 
   const drawHeading = (text: string, size = 16) => {
+    const safeText = sanitizeText(text)
+    if (!safeText) return
+
     if (y < margin + 36) {
       page = pdf.addPage(pageSize)
       y = page.getHeight() - margin
     }
-    page.drawText(text, { x: margin, y, size, font: fontBold, color: rgb(0.03, 0.25, 0.37) })
+    page.drawText(safeText, { x: margin, y, size, font: fontBold, color: rgb(0.03, 0.25, 0.37) })
     y -= size + 8
   }
 
