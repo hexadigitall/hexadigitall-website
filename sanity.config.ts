@@ -23,12 +23,11 @@ import servicesPage from "./src/sanity/schemas/servicesPage";
 import pageOgAssets from "./src/sanity/schemas/pageOgAssets";
 import book from "./src/sanity/schemas/book";
 import bookReleaseSubscriber from "./src/sanity/schemas/bookReleaseSubscriber";
+import curriculum from "./src/sanity/schemas/curriculum";
 import { deskStructure } from "./src/sanity/deskStructure";
 
-console.log("✅ Loading all schemas including servicesPage");
-
-const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID!;
-const dataset = process.env.NEXT_PUBLIC_SANITY_DATASET!;
+const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || "puzezel0";
+const dataset = process.env.NEXT_PUBLIC_SANITY_DATASET || "production";
 
 export default defineConfig({
   basePath: "/studio",
@@ -42,6 +41,7 @@ export default defineConfig({
       // ✅ ADD IT TO THE ARRAY
       servicesPage, 
       course,
+      curriculum,
       school,
       enrollment,
       pendingEnrollment,
