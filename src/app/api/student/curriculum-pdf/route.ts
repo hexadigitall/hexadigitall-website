@@ -3,7 +3,7 @@ import { groq } from 'next-sanity'
 import { client, writeClient } from '@/sanity/client'
 import type { CurriculumDocument } from '@/lib/curriculum-types'
 import { renderCurriculumPdfHtml } from '@/lib/curriculum-pdf'
-import { generatePdfFromHtml } from '@/lib/pdf-generator'
+import { generatePdfFallback, generatePdfFromHtml } from '@/lib/pdf-generator'
 
 async function verifyAuth(request: NextRequest) {
   const authHeader = request.headers.get('authorization')
@@ -125,7 +125,15 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ success: false, message: 'Curriculum not found' }, { status: 404 })
     }
 
-    const pdfBuffer = Buffer.from(await generatePdfFromHtml(renderCurriculumPdfHtml(curriculum)))
+    let generatedPdf: Uint8Array
+    try {
+      generatedPdf = await generatePdfFromHtml(renderCurriculumPdfHtml(curriculum))
+    } catch (error) {
+      console.warn('Primary curriculum PDF generation failed, using fallback:', error)
+      generatedPdf = await generatePdfFallback(curriculum)
+    }
+
+    const pdfBuffer = Buffer.from(generatedPdf)
     const safeCourseSlug = enrollment.course.slug.current.replace(/[^a-z0-9-]/gi, '-').toLowerCase()
     const filename = `${safeCourseSlug}-curriculum.pdf`
 

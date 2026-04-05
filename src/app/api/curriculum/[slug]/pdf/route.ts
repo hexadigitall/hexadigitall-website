@@ -3,7 +3,7 @@ import { groq } from 'next-sanity'
 import { client } from '@/sanity/client'
 import type { CurriculumDocument } from '@/lib/curriculum-types'
 import { renderCurriculumPdfHtml } from '@/lib/curriculum-pdf'
-import { generatePdfFromHtml } from '@/lib/pdf-generator'
+import { generatePdfFallback, generatePdfFromHtml } from '@/lib/pdf-generator'
 
 type Params = {
   slug: string
@@ -59,13 +59,18 @@ export async function GET(request: NextRequest, context: { params: Promise<Param
       pdfBuffer = await generatePdfFromHtml(html)
     } catch (error) {
       console.warn('Puppeteer PDF generation failed:', error)
-      return NextResponse.json(
-        {
-          error: 'PDF generation service temporarily unavailable',
-          message: 'Please try again shortly.',
-        },
-        { status: 503 }
-      )
+      try {
+        pdfBuffer = await generatePdfFallback(curriculum)
+      } catch (fallbackError) {
+        console.error('Fallback PDF generation failed:', fallbackError)
+        return NextResponse.json(
+          {
+            error: 'PDF generation service temporarily unavailable',
+            message: 'Please try again shortly.',
+          },
+          { status: 503 }
+        )
+      }
     }
 
     if (!pdfBuffer) {
