@@ -91,7 +91,7 @@ export default async function CourseCurriculumPage({ params }: Props) {
 
       {match ? (
         <>
-          <CurriculumEmbed title={course.title} htmlUrl={match.asset.htmlPath} />
+          <CurriculumEmbed title={course.title} htmlUrl={match.asset.htmlPath} courseSlug={slug} />
           <div>
             <Link
               href={`/courses/${slug}`}
