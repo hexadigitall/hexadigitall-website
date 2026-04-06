@@ -9,33 +9,41 @@ function escapeHtml(value: string): string {
     .replaceAll("'", '&#39;')
 }
 
+function formatDate(value: Date): string {
+  return new Intl.DateTimeFormat('en-NG', {
+    year: 'numeric',
+    month: 'long',
+    day: '2-digit',
+  }).format(value)
+}
+
 function renderList(items?: string[]): string {
   if (!items?.length) return ''
 
   return `<ul>${items
-    .map((item) => `<li><span class="bullet"></span><span>${escapeHtml(item)}</span></li>`)
+    .map((item) => `<li><span class="dot"></span><span>${escapeHtml(item)}</span></li>`)
     .join('')}</ul>`
 }
 
 function renderWeek(week: CurriculumWeek): string {
   return `
-    <article class="week-card">
-      <div class="week-head">
+    <article class="week">
+      <div class="head">
         <div>
           <div class="eyebrow">Week ${week.weekNumber}</div>
           <h4>${escapeHtml(week.topic)}</h4>
         </div>
-        ${week.duration ? `<div class="chip">${escapeHtml(week.duration)}</div>` : ''}
+        ${week.duration ? `<span class="chip">${escapeHtml(week.duration)}</span>` : ''}
       </div>
       ${week.outcomes?.length ? `<section><h5>Learning Outcomes</h5>${renderList(week.outcomes)}</section>` : ''}
-      ${week.labItems?.length ? `<section class="lab-box"><h5>${escapeHtml(week.labTitle || 'Lab Exercise')}</h5>${renderList(week.labItems)}</section>` : ''}
+      ${week.labItems?.length ? `<section class="lab"><h5>${escapeHtml(week.labTitle || 'Lab Exercise')}</h5>${renderList(week.labItems)}</section>` : ''}
     </article>
   `
 }
 
 function renderProject(project: CurriculumProject): string {
   return `
-    <article class="project-card">
+    <article class="card">
       <h4>${escapeHtml(project.title)}</h4>
       ${project.description ? `<p>${escapeHtml(project.description)}</p>` : ''}
       ${renderList(project.deliverables)}
@@ -45,10 +53,10 @@ function renderProject(project: CurriculumProject): string {
 
 export function renderCurriculumPdfHtml(curriculum: CurriculumDocument): string {
   const summary = curriculum.heroSummary || curriculum.summary || curriculum.course?.summary || curriculum.course?.description || ''
-  const heroTags = curriculum.heroTags?.map((tag) => `<span class="tag">${escapeHtml(tag)}</span>`).join('') || ''
+  const heroTags = curriculum.heroTags?.map((tag) => `<span class="chip">${escapeHtml(tag)}</span>`).join('') || ''
   const welcome = curriculum.welcomeMessages?.map((message) => `<p>${escapeHtml(message)}</p>`).join('') || ''
   const complementary = curriculum.complementaryCourses?.map((item) => `
-    <article class="small-card">
+    <article class="card">
       <h4>${escapeHtml(item.title)}</h4>
       ${item.description ? `<p>${escapeHtml(item.description)}</p>` : ''}
     </article>
@@ -64,189 +72,328 @@ export function renderCurriculumPdfHtml(curriculum: CurriculumDocument): string 
   <title>${escapeHtml(curriculum.title)} Curriculum</title>
   <style>
     :root {
-      --ink: #0f172a;
-      --muted: #475569;
-      --line: #dbe4ee;
-      --surface: #ffffff;
-      --surface-alt: #f8fafc;
-      --accent: #0f766e;
-      --accent-soft: #ecfeff;
+      --ink: #0f1b36;
+      --soft: #334155;
+      --line: #d6e2f3;
+      --bg: #f7fbff;
+      --brand: #1d4ed8;
+      --brand2: #0f2e84;
+      --accent: #0ea5e9;
     }
+
     * { box-sizing: border-box; }
     body {
       margin: 0;
-      font-family: Inter, Arial, sans-serif;
       color: var(--ink);
-      background: white;
-      line-height: 1.55;
+      font: 14px/1.56 Lato, 'Segoe UI', Arial, sans-serif;
+      background: #fff;
     }
-    .page {
-      width: 100%;
-      max-width: 1080px;
-      margin: 0 auto;
-      padding: 28px;
+
+    h1, h2, h3, h4, h5, .eyebrow {
+      font-family: Montserrat, 'Segoe UI', Arial, sans-serif;
+      margin: 0;
+      color: var(--ink);
     }
-    .hero {
-      background: linear-gradient(135deg, #0f172a 0%, #155e75 56%, #ffffff 56%, #ffffff 100%);
-      border: 1px solid var(--line);
-      border-radius: 24px;
+
+    p { margin: 0 0 8px; color: var(--soft); }
+
+    .cover {
+      min-height: 270mm;
+      padding: 22mm;
+      background:
+        radial-gradient(circle at 10% 16%, rgba(95, 160, 255, 0.28), rgba(95, 160, 255, 0) 34%),
+        linear-gradient(145deg, #0b1633 0%, #123984 55%, #1f63c8 100%);
+      color: #fff;
+      page-break-after: always;
+      position: relative;
       overflow: hidden;
-      margin-bottom: 24px;
     }
-    .hero-grid {
-      display: grid;
-      grid-template-columns: minmax(0, 1fr) 280px;
-      gap: 24px;
-      padding: 28px;
-      align-items: start;
-    }
-    .eyebrow {
-      font-size: 11px;
-      text-transform: uppercase;
-      letter-spacing: 0.24em;
-      font-weight: 700;
-      color: #0f766e;
-      margin-bottom: 10px;
-    }
-    .hero .eyebrow { color: rgba(255,255,255,0.84); }
-    h1, h2, h3, h4, h5 { margin: 0; }
-    .hero h1 {
-      color: white;
-      font-size: 34px;
-      line-height: 1.08;
-    }
-    .hero p {
-      color: rgba(255,255,255,0.88);
-      margin-top: 12px;
-      font-size: 15px;
-    }
-    .meta-card {
-      background: rgba(255,255,255,0.96);
-      border-radius: 20px;
-      padding: 18px;
-      border: 1px solid rgba(148,163,184,0.28);
-    }
-    .meta-card dl { margin: 0; display: grid; gap: 10px; }
-    .meta-card dt { font-size: 12px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--muted); }
-    .meta-card dd { margin: 4px 0 0; font-size: 14px; font-weight: 600; color: var(--ink); }
-    .tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
-    .tag, .chip {
-      display: inline-flex;
-      align-items: center;
+
+    .cover::after {
+      content: '';
+      position: absolute;
+      right: -45mm;
+      bottom: -55mm;
+      width: 190mm;
+      height: 190mm;
       border-radius: 999px;
-      padding: 6px 10px;
-      font-size: 11px;
-      font-weight: 700;
-      background: #ecfeff;
-      color: #115e59;
+      background: radial-gradient(circle, rgba(255, 255, 255, 0.22), rgba(255, 255, 255, 0) 70%);
     }
-    .section, .lead-box {
-      border: 1px solid var(--line);
-      border-radius: 22px;
-      background: var(--surface);
-      padding: 22px;
-      margin-bottom: 20px;
-    }
-    .lead-box {
-      background: linear-gradient(180deg, #effcfb 0%, #ffffff 100%);
-    }
-    .grid-2, .grid-3 {
-      display: grid;
-      gap: 16px;
-    }
-    .grid-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-    .grid-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-    .small-card, .project-card, .week-card {
-      border: 1px solid var(--line);
-      border-radius: 18px;
-      background: var(--surface-alt);
-      padding: 18px;
-      break-inside: avoid;
-    }
-    .week-card { background: var(--surface); margin-bottom: 14px; }
-    .week-head {
+
+    .brand {
       display: flex;
       justify-content: space-between;
-      gap: 18px;
-      align-items: start;
-      border-bottom: 1px solid #e8eef5;
-      padding-bottom: 14px;
-      margin-bottom: 16px;
+      align-items: center;
+      position: relative;
+      z-index: 1;
+      gap: 12px;
     }
-    h2 { font-size: 24px; margin-bottom: 14px; }
-    h3 { font-size: 21px; margin-bottom: 14px; }
-    h4 { font-size: 17px; margin-bottom: 10px; }
-    h5 {
+
+    .brand-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .logo {
+      width: 62px;
+      height: 62px;
+      object-fit: contain;
+      border: 1px solid rgba(255, 255, 255, 0.35);
+      border-radius: 14px;
+      background: rgba(255, 255, 255, 0.08);
+      padding: 6px;
+    }
+
+    .org {
       font-size: 12px;
+      letter-spacing: 0.14em;
       text-transform: uppercase;
-      letter-spacing: 0.18em;
-      color: var(--muted);
-      margin-bottom: 12px;
+      font-weight: 700;
     }
-    p { margin: 0 0 12px; }
-    ul { list-style: none; padding: 0; margin: 0; display: grid; gap: 10px; }
-    li { display: flex; gap: 10px; font-size: 14px; color: var(--ink); }
-    .bullet {
-      width: 9px;
-      height: 9px;
+
+    .badge {
+      font-size: 10px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      border: 1px solid rgba(255, 255, 255, 0.36);
+      border-radius: 999px;
+      padding: 6px 10px;
+      background: rgba(255, 255, 255, 0.1);
+      font-weight: 700;
+    }
+
+    .title {
+      margin-top: 34mm;
+      max-width: 160mm;
+      position: relative;
+      z-index: 1;
+    }
+
+    .title h1 {
+      font-size: 42px;
+      line-height: 1.08;
+      color: #fff;
+    }
+
+    .title p {
+      margin-top: 12px;
+      color: rgba(247, 251, 255, 0.92);
+      font-size: 15px;
+    }
+
+    .meta {
+      margin-top: 20mm;
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+      max-width: 170mm;
+      position: relative;
+      z-index: 1;
+    }
+
+    .meta article {
+      border: 1px solid rgba(255, 255, 255, 0.33);
+      border-radius: 12px;
+      padding: 10px;
+      background: rgba(7, 16, 42, 0.42);
+    }
+
+    .meta h5 {
+      color: rgba(240, 245, 255, 0.8);
+      font-size: 10px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+
+    .meta p {
+      color: #fff;
+      margin: 0;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .page {
+      max-width: 186mm;
+      margin: 0 auto;
+      padding: 12mm 0;
+    }
+
+    .hero {
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: linear-gradient(145deg, #eef5ff 0%, #fff 75%);
+      padding: 14px;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 62mm;
+      gap: 12px;
+      margin-bottom: 10px;
+    }
+
+    .eyebrow {
+      font-size: 10px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #244da8;
+      margin-bottom: 8px;
+    }
+
+    .hero h2 { font-size: 24px; line-height: 1.1; }
+    .hero .summary { margin-top: 9px; }
+
+    .mini {
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: #fff;
+      padding: 10px;
+    }
+
+    .mini dl { margin: 0; display: grid; gap: 7px; }
+    .mini dt { font-size: 10px; color: #5b667d; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 700; }
+    .mini dd { margin: 2px 0 0; font-weight: 700; font-size: 12px; color: #11264d; }
+
+    .chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+
+    .chip {
+      display: inline-flex;
+      border-radius: 999px;
+      padding: 4px 8px;
+      font-size: 10px;
+      font-weight: 700;
+      background: #e9f0ff;
+      color: #1f3f8f;
+      border: 1px solid #ccdafa;
+    }
+
+    .section, .lead, .card, .week {
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: #fff;
+      padding: 11px;
+      break-inside: avoid;
+    }
+
+    .lead { background: linear-gradient(180deg, #f4f8ff 0%, #fff 100%); margin-bottom: 9px; }
+
+    .grid2, .grid3 { display: grid; gap: 9px; }
+    .grid2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .grid3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+
+    .section { margin-bottom: 9px; }
+    .week { margin-bottom: 8px; }
+
+    .head {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      border-bottom: 1px solid #e6edf9;
+      padding-bottom: 8px;
+      margin-bottom: 8px;
+    }
+
+    h2 { font-size: 19px; margin-bottom: 8px; }
+    h3 { font-size: 17px; margin-bottom: 8px; }
+    h4 { font-size: 14px; margin-bottom: 7px; }
+    h5 { font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: #4a5e85; margin-bottom: 7px; }
+
+    ul { list-style: none; padding: 0; margin: 0; display: grid; gap: 7px; }
+    li { display: flex; gap: 8px; color: var(--soft); }
+
+    .dot {
+      width: 8px;
+      height: 8px;
       border-radius: 999px;
       background: var(--accent);
-      margin-top: 7px;
+      margin-top: 6px;
       flex: 0 0 auto;
     }
-    .lab-box {
-      background: var(--accent-soft);
-      border: 1px solid #bae6fd;
-      border-radius: 18px;
-      padding: 16px;
-      margin-top: 16px;
+
+    .lab {
+      margin-top: 8px;
+      background: #eff8ff;
+      border: 1px solid #cde8fb;
+      border-radius: 10px;
+      padding: 9px;
     }
+
+    .note {
+      margin-top: 10px;
+      border: 1px dashed #b9d0f5;
+      border-radius: 12px;
+      background: #f8fbff;
+      padding: 10px 11px;
+      font-size: 12px;
+      color: #1f3f8f;
+    }
+
     @media print {
-      @page {
-        size: A4;
-        margin: 12mm;
-      }
+      @page { size: A4; margin: 12mm; }
       .page { padding: 0; }
-      .section, .lead-box, .hero, .week-card, .project-card, .small-card { box-shadow: none; }
-      .week-card, .project-card, .small-card, .hero, .section, .lead-box { break-inside: avoid; }
     }
   </style>
 </head>
 <body>
-  <div class="page">
-    <section class="hero">
-      <div class="hero-grid">
-        <div>
-          <div class="eyebrow">Curriculum</div>
-          <h1>${escapeHtml(curriculum.title)}</h1>
-          ${summary ? `<p>${escapeHtml(summary)}</p>` : ''}
-        </div>
-        <aside class="meta-card">
-          <dl>
-            ${curriculum.duration ? `<div><dt>Duration</dt><dd>${escapeHtml(curriculum.duration)}</dd></div>` : ''}
-            ${curriculum.level ? `<div><dt>Level</dt><dd>${escapeHtml(curriculum.level)}</dd></div>` : ''}
-            ${curriculum.studyTime ? `<div><dt>Study Time</dt><dd>${escapeHtml(curriculum.studyTime)}</dd></div>` : ''}
-            ${curriculum.schoolName ? `<div><dt>School</dt><dd>${escapeHtml(curriculum.schoolName)}</dd></div>` : ''}
-          </dl>
-          ${heroTags ? `<div class="tags">${heroTags}</div>` : ''}
-        </aside>
+  <section class="cover">
+    <div class="brand">
+      <div class="brand-left">
+        <img class="logo" src="https://www.hexadigitall.com/hexadigitall-logo-transparent.png" alt="Hexadigitall logo" />
+        <div class="org">Hexadigitall Technologies</div>
       </div>
+      <div class="badge">Official Curriculum Guide</div>
+    </div>
+
+    <div class="title">
+      <h1>${escapeHtml(curriculum.title)}</h1>
+      ${summary ? `<p>${escapeHtml(summary)}</p>` : ''}
+    </div>
+
+    <div class="meta">
+      <article><h5>Duration</h5><p>${escapeHtml(curriculum.duration || 'TBD')}</p></article>
+      <article><h5>Level</h5><p>${escapeHtml(curriculum.level || 'TBD')}</p></article>
+      <article><h5>Study Time</h5><p>${escapeHtml(curriculum.studyTime || 'TBD')}</p></article>
+      <article><h5>School</h5><p>${escapeHtml(curriculum.schoolName || 'Hexadigitall')}</p></article>
+      <article><h5>Prepared On</h5><p>${escapeHtml(formatDate(new Date()))}</p></article>
+      <article><h5>Source</h5><p>${escapeHtml(curriculum.course?.title || 'Hexadigitall Curriculum')}</p></article>
+    </div>
+  </section>
+
+  <main class="page">
+    <section class="hero">
+      <div>
+        <div class="eyebrow">Program Snapshot</div>
+        <h2>${escapeHtml(curriculum.title)}</h2>
+        ${summary ? `<p class="summary">${escapeHtml(summary)}</p>` : ''}
+      </div>
+      <aside class="mini">
+        <dl>
+          ${curriculum.duration ? `<div><dt>Duration</dt><dd>${escapeHtml(curriculum.duration)}</dd></div>` : ''}
+          ${curriculum.level ? `<div><dt>Level</dt><dd>${escapeHtml(curriculum.level)}</dd></div>` : ''}
+          ${curriculum.studyTime ? `<div><dt>Study Time</dt><dd>${escapeHtml(curriculum.studyTime)}</dd></div>` : ''}
+          ${curriculum.schoolName ? `<div><dt>School</dt><dd>${escapeHtml(curriculum.schoolName)}</dd></div>` : ''}
+        </dl>
+        ${heroTags ? `<div class="chips">${heroTags}</div>` : ''}
+      </aside>
     </section>
 
-    ${welcome ? `<section class="lead-box">${curriculum.welcomeTitle ? `<h2>${escapeHtml(curriculum.welcomeTitle)}</h2>` : ''}${welcome}</section>` : ''}
+    ${welcome ? `<section class="lead">${curriculum.welcomeTitle ? `<h2>${escapeHtml(curriculum.welcomeTitle)}</h2>` : ''}${welcome}</section>` : ''}
 
     ${(curriculum.prerequisites?.length || curriculum.essentialResources?.length) ? `
-      <section class="grid-2">
+      <section class="grid2">
         ${curriculum.prerequisites?.length ? `<div class="section"><h3>Prerequisites</h3>${renderList(curriculum.prerequisites)}</div>` : ''}
         ${curriculum.essentialResources?.length ? `<div class="section"><h3>Essential Resources</h3>${renderList(curriculum.essentialResources)}</div>` : ''}
       </section>
     ` : ''}
 
-    ${curriculum.complementaryCourses?.length ? `<section class="section"><h3>Complementary Courses</h3><div class="grid-3">${complementary}</div></section>` : ''}
+    ${curriculum.complementaryCourses?.length ? `<section class="section"><h3>Complementary Courses</h3><div class="grid3">${complementary}</div></section>` : ''}
     ${curriculum.learningRoadmap?.length ? `<section class="section"><h3>Learning Roadmap</h3>${renderList(curriculum.learningRoadmap)}</section>` : ''}
     ${curriculum.weeks?.length ? `<section class="section"><h2>Detailed Weekly Curriculum</h2>${weeks}</section>` : ''}
-    ${curriculum.capstoneProjects?.length ? `<section class="section"><h2>Capstone Projects</h2><div class="grid-3">${projects}</div></section>` : ''}
-  </div>
+    ${curriculum.capstoneProjects?.length ? `<section class="section"><h2>Capstone Projects</h2><div class="grid3">${projects}</div></section>` : ''}
+
+    <section class="note">
+      This curriculum is an official Hexadigitall learning plan. Module sequencing and project details may be refined as industry requirements evolve.
+    </section>
+  </main>
 </body>
 </html>`
 }
