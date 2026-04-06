@@ -127,7 +127,9 @@ export async function POST(request: NextRequest) {
 
     let generatedPdf: Uint8Array
     try {
-      generatedPdf = await generatePdfFromHtml(renderCurriculumPdfHtml(curriculum))
+      generatedPdf = await generatePdfFromHtml(renderCurriculumPdfHtml(curriculum), {
+        title: curriculum.title,
+      })
     } catch (error) {
       console.warn('Primary curriculum PDF generation failed, using fallback:', error)
       generatedPdf = await generatePdfFallback(curriculum)

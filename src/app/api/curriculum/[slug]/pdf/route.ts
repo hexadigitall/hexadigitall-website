@@ -56,7 +56,7 @@ export async function GET(request: NextRequest, context: { params: Promise<Param
 
     try {
       const html = renderCurriculumPdfHtml(curriculum)
-      pdfBuffer = await generatePdfFromHtml(html)
+      pdfBuffer = await generatePdfFromHtml(html, { title: curriculum.title })
     } catch (error) {
       console.warn('Puppeteer PDF generation failed:', error)
       try {

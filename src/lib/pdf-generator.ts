@@ -1,8 +1,12 @@
 import { PDFDocument, StandardFonts, rgb } from 'pdf-lib'
 import type { CurriculumDocument } from '@/lib/curriculum-types'
 
-export async function generatePdfFromHtml(html: string): Promise<Uint8Array> {
-  let browser: { newPage: () => Promise<{ setContent: (value: string, options: { waitUntil: 'networkidle0' }) => Promise<void>; pdf: (options: { format: 'A4'; margin: { top: string; bottom: string; left: string; right: string }; printBackground: true; preferCSSPageSize: true }) => Promise<Uint8Array> }>; close: () => Promise<void> }
+interface PdfRenderOptions {
+  title?: string
+}
+
+export async function generatePdfFromHtml(html: string, options?: PdfRenderOptions): Promise<Uint8Array> {
+  let browser: { newPage: () => Promise<{ setContent: (value: string, options: { waitUntil: 'networkidle0' }) => Promise<void>; pdf: (options: { format: 'A4'; margin: { top: string; bottom: string; left: string; right: string }; printBackground: true; preferCSSPageSize: true; displayHeaderFooter: true; headerTemplate: string; footerTemplate: string }) => Promise<Uint8Array> }>; close: () => Promise<void> }
 
   if (process.env.VERCEL) {
     const chromium = (await import('@sparticuz/chromium')).default
@@ -26,11 +30,30 @@ export async function generatePdfFromHtml(html: string): Promise<Uint8Array> {
     const page = await browser.newPage()
     await page.setContent(html, { waitUntil: 'networkidle0' })
 
+    const title = (options?.title || 'Hexadigitall Curriculum').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+
+    const headerTemplate = `
+      <div style="width:100%; padding:0 12mm; font-size:8.8px; color:#1e3a8a; font-family:Arial, sans-serif; display:flex; align-items:center; justify-content:space-between;">
+        <span style="font-weight:700; letter-spacing:0.08em; text-transform:uppercase;">Hexadigitall</span>
+        <span style="opacity:0.85;">${title}</span>
+      </div>
+    `
+
+    const footerTemplate = `
+      <div style="width:100%; padding:0 12mm; font-size:8px; color:#4b5563; font-family:Arial, sans-serif; display:flex; align-items:center; justify-content:space-between;">
+        <span>Official Curriculum Document</span>
+        <span><span class="pageNumber"></span>/<span class="totalPages"></span></span>
+      </div>
+    `
+
     return await page.pdf({
       format: 'A4',
-      margin: { top: '12mm', bottom: '12mm', left: '12mm', right: '12mm' },
+      margin: { top: '14mm', bottom: '14mm', left: '12mm', right: '12mm' },
       printBackground: true,
       preferCSSPageSize: true,
+      displayHeaderFooter: true,
+      headerTemplate,
+      footerTemplate,
     })
   } finally {
     await browser.close()
