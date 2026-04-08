@@ -196,11 +196,6 @@ export default function StudentDashboardPage() {
   }
 
   const handleCurriculumPdf = async (enrollment: Enrollment) => {
-    if (enrollment.curriculumPdf?.asset?.url) {
-      downloadPdf(enrollment.curriculumPdf, `${enrollment.course?.title || 'course'}-curriculum.pdf`)
-      return
-    }
-
     const token = localStorage.getItem('admin_token')
     if (!token) {
       router.push('/student/login')
