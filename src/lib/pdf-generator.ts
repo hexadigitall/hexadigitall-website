@@ -1,6 +1,4 @@
 import { PDFDocument, StandardFonts, rgb } from 'pdf-lib'
-import fs from 'node:fs'
-import path from 'node:path'
 import type { CurriculumDocument } from '@/lib/curriculum-types'
 
 interface PdfRenderOptions {
@@ -67,15 +65,6 @@ export async function generatePdfFallback(curriculum: CurriculumDocument): Promi
   const pdf = await PDFDocument.create()
   const fontRegular = await pdf.embedFont(StandardFonts.Helvetica)
   const fontBold = await pdf.embedFont(StandardFonts.HelveticaBold)
-
-  let logoImage: Awaited<ReturnType<typeof pdf.embedPng>> | null = null
-  try {
-    const logoPath = path.join(process.cwd(), 'public', 'hexadigitall-logo-transparent.png')
-    const logoBytes = fs.readFileSync(logoPath)
-    logoImage = await pdf.embedPng(logoBytes)
-  } catch {
-    logoImage = null
-  }
 
   const sanitizeText = (value: string): string =>
     value
@@ -173,6 +162,26 @@ export async function generatePdfFallback(curriculum: CurriculumDocument): Promi
     color: coverBlue,
   })
 
+  page.drawRectangle({
+    x: page.getWidth() - margin - 76,
+    y: page.getHeight() - 110,
+    width: 76,
+    height: 76,
+    color: rgb(1, 1, 1),
+    opacity: 0.1,
+    borderColor: rgb(0.75, 0.87, 1),
+    borderWidth: 1,
+    borderOpacity: 0.55,
+  })
+
+  page.drawText('H', {
+    x: page.getWidth() - margin - 50,
+    y: page.getHeight() - 88,
+    size: 34,
+    font: fontBold,
+    color: rgb(0.5, 0.83, 1),
+  })
+
   page.drawText('Hexadigitall Technologies', {
     x: margin,
     y: page.getHeight() - 80,
@@ -180,18 +189,6 @@ export async function generatePdfFallback(curriculum: CurriculumDocument): Promi
     font: fontBold,
     color: rgb(1, 1, 1),
   })
-
-  if (logoImage) {
-    const targetWidth = 84
-    const scale = targetWidth / logoImage.width
-    const targetHeight = logoImage.height * scale
-    page.drawImage(logoImage, {
-      x: page.getWidth() - margin - targetWidth,
-      y: page.getHeight() - 104,
-      width: targetWidth,
-      height: targetHeight,
-    })
-  }
 
   const coverTitleLines = getWrappedLines(curriculum.title, 28, true, page.getWidth() - margin * 2)
   let coverTitleY = page.getHeight() - 160

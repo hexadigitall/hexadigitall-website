@@ -1,8 +1,4 @@
-import fs from 'node:fs'
-import path from 'node:path'
 import type { CurriculumDocument, CurriculumProject, CurriculumWeek } from '@/lib/curriculum-types'
-
-const assetCache = new Map<string, string>()
 
 function escapeHtml(value: string): string {
   return value
@@ -19,25 +15,6 @@ function formatDate(value: Date): string {
     month: 'long',
     day: '2-digit',
   }).format(value)
-}
-
-function toDataUri(publicPath: string, mimeType: string): string {
-  const cached = assetCache.get(publicPath)
-  if (cached) return cached
-
-  const absolutePath = path.join(process.cwd(), 'public', publicPath.replace(/^\//, ''))
-  const bytes = fs.readFileSync(absolutePath)
-  const encoded = `data:${mimeType};base64,${bytes.toString('base64')}`
-  assetCache.set(publicPath, encoded)
-  return encoded
-}
-
-function safeDataUri(publicPath: string, mimeType: string): string {
-  try {
-    return toDataUri(publicPath, mimeType)
-  } catch {
-    return ''
-  }
 }
 
 function renderList(items?: string[]): string {
@@ -75,10 +52,18 @@ function renderProject(project: CurriculumProject): string {
 }
 
 export function renderCurriculumPdfHtml(curriculum: CurriculumDocument): string {
-  const logoDataUri = safeDataUri('/hexadigitall-logo-transparent.png', 'image/png')
-  const montserratBold = safeDataUri('/fonts/montserrat-bold.woff2', 'font/woff2')
-  const latoRegular = safeDataUri('/fonts/lato-regular.woff2', 'font/woff2')
-  const latoBold = safeDataUri('/fonts/lato-bold.woff2', 'font/woff2')
+  const logoMarkup = `
+    <svg class="logo" viewBox="0 0 72 72" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Hexadigitall mark">
+      <defs>
+        <linearGradient id="hexadigitall-logo-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#7dd3fc" />
+          <stop offset="100%" stop-color="#2563eb" />
+        </linearGradient>
+      </defs>
+      <rect x="4" y="4" width="64" height="64" rx="18" fill="rgba(255,255,255,0.1)" stroke="rgba(255,255,255,0.32)" />
+      <path d="M24 18h10v18h4l10-18h10L47 36l12 18H48L38 38h-4v16H24V18Z" fill="url(#hexadigitall-logo-gradient)" />
+    </svg>
+  `
 
   const summary = curriculum.heroSummary || curriculum.summary || curriculum.course?.summary || curriculum.course?.description || ''
   const heroTags = curriculum.heroTags?.map((tag) => `<span class="tag">${escapeHtml(tag)}</span>`).join('') || ''
@@ -99,10 +84,6 @@ export function renderCurriculumPdfHtml(curriculum: CurriculumDocument): string 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>${escapeHtml(curriculum.title)} Curriculum</title>
   <style>
-    ${montserratBold ? `@font-face { font-family: 'MontserratPdf'; src: url('${montserratBold}') format('woff2'); font-weight: 700; font-style: normal; }` : ''}
-    ${latoRegular ? `@font-face { font-family: 'LatoPdf'; src: url('${latoRegular}') format('woff2'); font-weight: 400; font-style: normal; }` : ''}
-    ${latoBold ? `@font-face { font-family: 'LatoPdf'; src: url('${latoBold}') format('woff2'); font-weight: 700; font-style: normal; }` : ''}
-
     :root {
       --ink: #0f1b36;
       --muted: #334155;
@@ -115,14 +96,14 @@ export function renderCurriculumPdfHtml(curriculum: CurriculumDocument): string 
     * { box-sizing: border-box; }
     body {
       margin: 0;
-      font-family: 'LatoPdf', 'Segoe UI', Arial, sans-serif;
+      font-family: 'Aptos', 'Segoe UI', Arial, sans-serif;
       color: var(--ink);
       background: white;
       line-height: 1.55;
       font-size: 13.5px;
     }
     h1, h2, h3, h4, h5, .eyebrow {
-      font-family: 'MontserratPdf', 'Segoe UI', Arial, sans-serif;
+      font-family: 'Trebuchet MS', 'Segoe UI Semibold', Arial, sans-serif;
     }
     .cover {
       min-height: 270mm;
@@ -368,7 +349,7 @@ export function renderCurriculumPdfHtml(curriculum: CurriculumDocument): string 
   <section class="cover">
     <div class="brand">
       <div class="brand-left">
-        ${logoDataUri ? `<img class="logo" src="${logoDataUri}" alt="Hexadigitall logo" />` : ''}
+        ${logoMarkup}
         <div class="org">Hexadigitall Technologies</div>
       </div>
       <div class="badge">Official Curriculum Guide</div>
