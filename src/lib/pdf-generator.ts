@@ -11,12 +11,13 @@ export async function generatePdfFromHtml(html: string, options?: PdfRenderOptio
   if (process.env.VERCEL) {
     const chromium = (await import('@sparticuz/chromium')).default
     const puppeteerCore = await import('puppeteer-core')
+    const executablePath = process.env.PUPPETEER_EXECUTABLE_PATH || await chromium.executablePath()
 
     browser = await puppeteerCore.default.launch({
-      args: chromium.args,
+      args: [...chromium.args, '--font-render-hinting=none'],
       defaultViewport: chromium.defaultViewport,
-      executablePath: await chromium.executablePath(),
-      headless: chromium.headless,
+      executablePath,
+      headless: true,
     })
   } else {
     const puppeteer = await import('puppeteer')
@@ -73,86 +74,187 @@ export async function generatePdfFallback(curriculum: CurriculumDocument): Promi
       .trim()
 
   const pageSize: [number, number] = [595.28, 841.89] // A4 points
-  const margin = 40
+  const margin = 44
   const lineHeight = 15
+
+  const ink = rgb(0.07, 0.11, 0.21)
+  const soft = rgb(0.24, 0.31, 0.45)
+  const brandBlue = rgb(0.11, 0.31, 0.85)
+  const coverBlue = rgb(0.06, 0.18, 0.52)
+  const lightSurface = rgb(0.95, 0.97, 1)
+  const line = rgb(0.82, 0.88, 0.96)
 
   let page = pdf.addPage(pageSize)
   let y = page.getHeight() - margin
 
-  const drawWrappedText = (text: string, size = 11, bold = false) => {
+  const getWrappedLines = (text: string, size: number, bold = false, maxWidth = page.getWidth() - margin * 2): string[] => {
     const safeText = sanitizeText(text)
-    if (!safeText) return
-
+    if (!safeText) return []
     const font = bold ? fontBold : fontRegular
-    const maxWidth = page.getWidth() - margin * 2
     const words = safeText.split(/\s+/).filter(Boolean)
-    let line = ''
+    const lines: string[] = []
+    let lineText = ''
 
     for (const word of words) {
-      const candidate = line ? `${line} ${word}` : word
+      const candidate = lineText ? `${lineText} ${word}` : word
       const width = font.widthOfTextAtSize(candidate, size)
-
-      if (width > maxWidth && line) {
-        if (y < margin + lineHeight) {
-          page = pdf.addPage(pageSize)
-          y = page.getHeight() - margin
-        }
-        page.drawText(line, { x: margin, y, size, font, color: rgb(0.1, 0.12, 0.16) })
-        y -= lineHeight
-        line = word
+      if (width > maxWidth && lineText) {
+        lines.push(lineText)
+        lineText = word
       } else {
-        line = candidate
+        lineText = candidate
       }
     }
 
-    if (line) {
-      if (y < margin + lineHeight) {
-        page = pdf.addPage(pageSize)
-        y = page.getHeight() - margin
-      }
-      page.drawText(line, { x: margin, y, size, font, color: rgb(0.1, 0.12, 0.16) })
+    if (lineText) lines.push(lineText)
+    return lines
+  }
+
+  const ensureSpace = (required: number) => {
+    if (y < margin + required) {
+      page = pdf.addPage(pageSize)
+      y = page.getHeight() - margin
+    }
+  }
+
+  const drawWrappedText = (text: string, size = 11, bold = false, color = soft, indent = 0) => {
+    const lines = getWrappedLines(text, size, bold, page.getWidth() - margin * 2 - indent)
+    const font = bold ? fontBold : fontRegular
+
+    for (const lineText of lines) {
+      ensureSpace(lineHeight + 2)
+      page.drawText(lineText, { x: margin + indent, y, size, font, color })
       y -= lineHeight
     }
   }
 
-  const drawHeading = (text: string, size = 16) => {
-    const safeText = sanitizeText(text)
-    if (!safeText) return
+  const drawSectionHeader = (title: string) => {
+    const safeTitle = sanitizeText(title)
+    if (!safeTitle) return
 
-    if (y < margin + 36) {
-      page = pdf.addPage(pageSize)
-      y = page.getHeight() - margin
-    }
-    page.drawText(safeText, { x: margin, y, size, font: fontBold, color: rgb(0.03, 0.25, 0.37) })
-    y -= size + 8
+    ensureSpace(34)
+    const top = y + 8
+    page.drawRectangle({
+      x: margin,
+      y: top - 22,
+      width: page.getWidth() - margin * 2,
+      height: 22,
+      color: lightSurface,
+      borderColor: line,
+      borderWidth: 1,
+    })
+    page.drawText(safeTitle, {
+      x: margin + 10,
+      y: top - 15,
+      size: 11,
+      font: fontBold,
+      color: brandBlue,
+    })
+    y -= 24
   }
 
-  drawHeading(curriculum.title, 20)
-  if (curriculum.summary) drawWrappedText(curriculum.summary, 11)
-  y -= 6
+  // Branded cover page for the fallback path.
+  page.drawRectangle({
+    x: 0,
+    y: 0,
+    width: page.getWidth(),
+    height: page.getHeight(),
+    color: coverBlue,
+  })
 
-  if (curriculum.duration || curriculum.level || curriculum.studyTime || curriculum.schoolName) {
-    drawHeading('Course Snapshot', 14)
-    if (curriculum.duration) drawWrappedText(`Duration: ${curriculum.duration}`)
-    if (curriculum.level) drawWrappedText(`Level: ${curriculum.level}`)
-    if (curriculum.studyTime) drawWrappedText(`Study Time: ${curriculum.studyTime}`)
-    if (curriculum.schoolName) drawWrappedText(`School: ${curriculum.schoolName}`)
+  page.drawText('Hexadigitall Technologies', {
+    x: margin,
+    y: page.getHeight() - 80,
+    size: 12,
+    font: fontBold,
+    color: rgb(1, 1, 1),
+  })
+
+  const coverTitleLines = getWrappedLines(curriculum.title, 28, true, page.getWidth() - margin * 2)
+  let coverTitleY = page.getHeight() - 160
+  for (const lineText of coverTitleLines.slice(0, 4)) {
+    page.drawText(lineText, {
+      x: margin,
+      y: coverTitleY,
+      size: 28,
+      font: fontBold,
+      color: rgb(1, 1, 1),
+    })
+    coverTitleY -= 34
+  }
+
+  const summary = curriculum.heroSummary || curriculum.summary || curriculum.course?.summary || curriculum.course?.description
+  if (summary) {
+    const coverSummaryLines = getWrappedLines(summary, 12, false, page.getWidth() - margin * 2)
+    let coverSummaryY = coverTitleY - 10
+    for (const lineText of coverSummaryLines.slice(0, 6)) {
+      page.drawText(lineText, {
+        x: margin,
+        y: coverSummaryY,
+        size: 12,
+        font: fontRegular,
+        color: rgb(0.9, 0.94, 1),
+      })
+      coverSummaryY -= 17
+    }
+  }
+
+  const metaItems = [
+    `Duration: ${sanitizeText(curriculum.duration || 'TBD')}`,
+    `Level: ${sanitizeText(curriculum.level || 'TBD')}`,
+    `Study Time: ${sanitizeText(curriculum.studyTime || 'TBD')}`,
+    `School: ${sanitizeText(curriculum.schoolName || 'Hexadigitall')}`,
+  ]
+
+  let metaY = 150
+  for (const item of metaItems) {
+    page.drawText(item, {
+      x: margin,
+      y: metaY,
+      size: 11,
+      font: fontBold,
+      color: rgb(0.88, 0.93, 1),
+    })
+    metaY -= 20
+  }
+
+  page.drawText('Official Curriculum Guide', {
+    x: margin,
+    y: 58,
+    size: 10,
+    font: fontRegular,
+    color: rgb(0.86, 0.92, 1),
+  })
+
+  page = pdf.addPage(pageSize)
+  y = page.getHeight() - margin
+
+  drawSectionHeader('Program Snapshot')
+  if (summary) {
+    drawWrappedText(summary, 11, false, soft)
+    y -= 4
+  }
+
+  if (curriculum.heroTags?.length) {
+    drawWrappedText(`Focus Areas: ${curriculum.heroTags.map((tag) => sanitizeText(tag)).join(' | ')}`, 10, false, brandBlue)
     y -= 4
   }
 
   if (curriculum.welcomeMessages?.length) {
-    drawHeading(curriculum.welcomeTitle || 'Welcome', 14)
-    for (const paragraph of curriculum.welcomeMessages) {
-      drawWrappedText(paragraph)
+    drawSectionHeader(curriculum.welcomeTitle || 'Welcome')
+    for (const message of curriculum.welcomeMessages) {
+      drawWrappedText(message, 11, false, soft)
       y -= 2
     }
   }
 
   const drawListSection = (title: string, items?: string[]) => {
     if (!items?.length) return
-    drawHeading(title, 14)
-    for (const item of items) drawWrappedText(`- ${item}`)
-    y -= 4
+    drawSectionHeader(title)
+    for (const item of items) {
+      drawWrappedText(`- ${item}`, 11, false, soft)
+    }
+    y -= 3
   }
 
   drawListSection('Prerequisites', curriculum.prerequisites)
@@ -160,26 +262,48 @@ export async function generatePdfFallback(curriculum: CurriculumDocument): Promi
   drawListSection('Learning Roadmap', curriculum.learningRoadmap)
 
   if (curriculum.weeks?.length) {
-    drawHeading('Weekly Curriculum', 15)
+    drawSectionHeader('Weekly Curriculum')
     for (const week of curriculum.weeks) {
-      drawHeading(`Week ${week.weekNumber}: ${week.topic}`, 12)
-      if (week.duration) drawWrappedText(`Duration: ${week.duration}`)
-      for (const outcome of week.outcomes || []) drawWrappedText(`- ${outcome}`)
-      if (week.labItems?.length) {
-        drawWrappedText('Lab:')
-        for (const labItem of week.labItems) drawWrappedText(`- ${labItem}`)
+      const weekTitle = `Week ${week.weekNumber}: ${sanitizeText(week.topic)}`
+      ensureSpace(30)
+      page.drawText(weekTitle, {
+        x: margin,
+        y,
+        size: 12,
+        font: fontBold,
+        color: ink,
+      })
+      y -= 17
+
+      if (week.duration) {
+        drawWrappedText(`Duration: ${week.duration}`, 10, false, brandBlue)
       }
-      y -= 4
+
+      for (const outcome of week.outcomes || []) {
+        drawWrappedText(`- ${outcome}`, 11, false, soft, 10)
+      }
+
+      if (week.labItems?.length) {
+        drawWrappedText(sanitizeText(week.labTitle || 'Lab Exercise'), 10, true, brandBlue)
+        for (const labItem of week.labItems) {
+          drawWrappedText(`- ${labItem}`, 10, false, soft, 10)
+        }
+      }
+
+      y -= 6
     }
   }
 
   if (curriculum.capstoneProjects?.length) {
-    drawHeading('Capstone Projects', 15)
+    drawSectionHeader('Capstone Projects')
     for (const project of curriculum.capstoneProjects) {
-      drawHeading(project.title, 12)
-      if (project.description) drawWrappedText(project.description)
-      for (const item of project.deliverables || []) drawWrappedText(`- ${item}`)
-      y -= 4
+      ensureSpace(24)
+      drawWrappedText(project.title, 12, true, ink)
+      if (project.description) drawWrappedText(project.description, 11, false, soft)
+      for (const item of project.deliverables || []) {
+        drawWrappedText(`- ${item}`, 11, false, soft, 10)
+      }
+      y -= 5
     }
   }
 
