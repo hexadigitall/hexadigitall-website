@@ -1,4 +1,6 @@
 import { PDFDocument, StandardFonts, rgb } from 'pdf-lib'
+import fs from 'node:fs'
+import path from 'node:path'
 import type { CurriculumDocument } from '@/lib/curriculum-types'
 
 interface PdfRenderOptions {
@@ -65,6 +67,15 @@ export async function generatePdfFallback(curriculum: CurriculumDocument): Promi
   const pdf = await PDFDocument.create()
   const fontRegular = await pdf.embedFont(StandardFonts.Helvetica)
   const fontBold = await pdf.embedFont(StandardFonts.HelveticaBold)
+
+  let logoImage: Awaited<ReturnType<typeof pdf.embedPng>> | null = null
+  try {
+    const logoPath = path.join(process.cwd(), 'public', 'hexadigitall-logo-transparent.png')
+    const logoBytes = fs.readFileSync(logoPath)
+    logoImage = await pdf.embedPng(logoBytes)
+  } catch {
+    logoImage = null
+  }
 
   const sanitizeText = (value: string): string =>
     value
@@ -169,6 +180,18 @@ export async function generatePdfFallback(curriculum: CurriculumDocument): Promi
     font: fontBold,
     color: rgb(1, 1, 1),
   })
+
+  if (logoImage) {
+    const targetWidth = 84
+    const scale = targetWidth / logoImage.width
+    const targetHeight = logoImage.height * scale
+    page.drawImage(logoImage, {
+      x: page.getWidth() - margin - targetWidth,
+      y: page.getHeight() - 104,
+      width: targetWidth,
+      height: targetHeight,
+    })
+  }
 
   const coverTitleLines = getWrappedLines(curriculum.title, 28, true, page.getWidth() - margin * 2)
   let coverTitleY = page.getHeight() - 160
