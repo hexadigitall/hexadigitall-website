@@ -53,6 +53,7 @@ export async function GET(request: NextRequest, context: { params: Promise<Param
     }
 
     let pdfBuffer: Uint8Array | null = null
+    let rendererUsed: 'html' | 'fallback' = 'html'
 
     try {
       const html = renderCurriculumPdfHtml(curriculum)
@@ -61,6 +62,7 @@ export async function GET(request: NextRequest, context: { params: Promise<Param
       console.warn('Puppeteer PDF generation failed:', error)
       try {
         pdfBuffer = await generatePdfFallback(curriculum)
+        rendererUsed = 'fallback'
       } catch (fallbackError) {
         console.error('Fallback PDF generation failed:', fallbackError)
         return NextResponse.json(
@@ -90,6 +92,7 @@ export async function GET(request: NextRequest, context: { params: Promise<Param
         'Content-Disposition': `attachment; filename="${slug}-curriculum.pdf"`,
         'Content-Length': buffer.length.toString(),
         'Cache-Control': 'no-cache, no-store, must-revalidate',
+        'X-PDF-Renderer': rendererUsed,
       },
     })
   } catch (error) {
