@@ -33,14 +33,14 @@ export async function generatePdfFromHtml(html: string, options?: PdfRenderOptio
     const title = (options?.title || 'Hexadigitall Curriculum').replace(/</g, '&lt;').replace(/>/g, '&gt;')
 
     const headerTemplate = `
-      <div style="width:100%; padding:0 12mm; font-size:8.8px; color:#1e3a8a; font-family:Arial, sans-serif; display:flex; align-items:center; justify-content:space-between;">
-        <span style="font-weight:700; letter-spacing:0.08em; text-transform:uppercase;">Hexadigitall</span>
+      <div style="width:100%;padding:0 12mm;font-size:8.8px;color:#1e3a8a;font-family:Arial,sans-serif;display:flex;justify-content:space-between;align-items:center;">
+        <span style="font-weight:700;letter-spacing:0.08em;text-transform:uppercase;">Hexadigitall</span>
         <span style="opacity:0.85;">${title}</span>
       </div>
     `
 
     const footerTemplate = `
-      <div style="width:100%; padding:0 12mm; font-size:8px; color:#4b5563; font-family:Arial, sans-serif; display:flex; align-items:center; justify-content:space-between;">
+      <div style="width:100%;padding:0 12mm;font-size:8px;color:#4b5563;font-family:Arial,sans-serif;display:flex;justify-content:space-between;align-items:center;">
         <span>Official Curriculum Document</span>
         <span><span class="pageNumber"></span>/<span class="totalPages"></span></span>
       </div>
