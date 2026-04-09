@@ -53,16 +53,7 @@ function renderProject(project: CurriculumProject): string {
 
 export function renderCurriculumPdfHtml(curriculum: CurriculumDocument): string {
   const logoMarkup = `
-    <svg class="logo" viewBox="0 0 72 72" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Hexadigitall mark">
-      <defs>
-        <linearGradient id="hexadigitall-logo-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stop-color="#7dd3fc" />
-          <stop offset="100%" stop-color="#2563eb" />
-        </linearGradient>
-      </defs>
-      <rect x="4" y="4" width="64" height="64" rx="18" fill="rgba(255,255,255,0.1)" stroke="rgba(255,255,255,0.32)" />
-      <path d="M24 18h10v18h4l10-18h10L47 36l12 18H48L38 38h-4v16H24V18Z" fill="url(#hexadigitall-logo-gradient)" />
-    </svg>
+    <img class="logo" src="https://www.hexadigitall.com/hexadigitall-logo-transparent.svg" alt="Hexadigitall logo" />
   `
 
   const summary = curriculum.heroSummary || curriculum.summary || curriculum.course?.summary || curriculum.course?.description || ''
