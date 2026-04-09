@@ -147,8 +147,8 @@ const nextConfig: NextConfig = {
     },
   ],
 
-  // Keep heavy PDF/browser dependencies out of individual serverless bundles.
-  serverExternalPackages: ['fs', 'pdf-lib', 'puppeteer', 'puppeteer-core', '@sparticuz/chromium'],
+  // Keep Node built-ins external while allowing PDF runtime assets to be bundled.
+  serverExternalPackages: ['fs'],
 
   // Experimental features and performance optimizations
   experimental: {
