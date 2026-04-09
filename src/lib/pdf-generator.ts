@@ -15,7 +15,6 @@ export async function generatePdfFromHtml(html: string, options?: PdfRenderOptio
 
     browser = await puppeteerCore.default.launch({
       args: [...chromium.args, '--font-render-hinting=none'],
-      defaultViewport: chromium.defaultViewport,
       executablePath,
       headless: true,
     })
