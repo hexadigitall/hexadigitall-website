@@ -150,6 +150,11 @@ const nextConfig: NextConfig = {
   // Keep Node built-ins external while allowing PDF runtime assets to be bundled.
   serverExternalPackages: ['fs'],
 
+  outputFileTracingIncludes: {
+    '/api/curriculum/[slug]/pdf/route': ['./node_modules/@sparticuz/chromium/bin/**'],
+    '/api/student/curriculum-pdf/route': ['./node_modules/@sparticuz/chromium/bin/**'],
+  },
+
   // Experimental features and performance optimizations
   experimental: {
     // Enable optimized CSS
