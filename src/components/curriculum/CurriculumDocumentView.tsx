@@ -44,32 +44,32 @@ export default function CurriculumDocumentView({ curriculum, showActions = true 
       )}
 
       <section className="overflow-hidden rounded-[28px] border border-slate-200 bg-white shadow-[0_24px_80px_-40px_rgba(15,23,42,0.35)]">
-        <div className="border-b border-slate-200 bg-[linear-gradient(132deg,#0f172a_0%,#0f4366_52%,#0a5672_100%)] px-6 py-8 sm:px-10 lg:px-12">
-          <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_270px] lg:items-start">
-            <div className="space-y-5">
-              <div className="inline-flex rounded-full border border-white/40 bg-white/22 px-4 py-1 text-xs font-semibold uppercase tracking-[0.22em] text-white">
+        <div className="border-b border-slate-200 bg-[linear-gradient(132deg,#0b1329_0%,#0e3558_55%,#0d5770_100%)] px-6 py-8 sm:px-10 lg:px-12">
+          <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_290px] lg:items-start">
+            <div className="space-y-5 rounded-2xl border border-white/20 bg-slate-950/28 p-5 shadow-xl backdrop-blur-sm sm:p-6">
+              <div className="inline-flex rounded-full border border-white/45 bg-white/22 px-4 py-1 text-xs font-semibold uppercase tracking-[0.22em] text-white">
                 Curriculum
               </div>
               <div className="space-y-3">
                 <h2 className="max-w-4xl text-3xl font-semibold tracking-tight leading-tight text-white sm:text-4xl">
                   {curriculum.title}
                 </h2>
-                <p className="max-w-3xl text-sm leading-7 text-white/88 sm:text-base">
+                <p className="max-w-3xl text-sm leading-7 text-white/95 sm:text-base">
                   {curriculum.heroSummary || curriculum.summary || curriculum.course?.summary || curriculum.course?.description}
                 </p>
               </div>
             </div>
-            <div className="rounded-3xl border border-white/30 bg-white/96 p-5 shadow-lg backdrop-blur">
-              <div className="grid gap-3 text-sm text-slate-700">
-                {curriculum.duration && <div><span className="font-semibold text-slate-950">Duration:</span> {curriculum.duration}</div>}
-                {curriculum.level && <div><span className="font-semibold text-slate-950">Level:</span> {curriculum.level}</div>}
-                {curriculum.studyTime && <div><span className="font-semibold text-slate-950">Study Time:</span> {curriculum.studyTime}</div>}
-                {curriculum.schoolName && <div><span className="font-semibold text-slate-950">School:</span> {curriculum.schoolName}</div>}
+            <div className="rounded-3xl border border-white/30 bg-slate-950/45 p-5 shadow-2xl backdrop-blur-md">
+              <div className="grid gap-3 text-sm text-white/90">
+                {curriculum.duration && <div><span className="font-semibold text-cyan-100/85">Duration:</span> <span className="text-white">{curriculum.duration}</span></div>}
+                {curriculum.level && <div><span className="font-semibold text-cyan-100/85">Level:</span> <span className="text-white">{curriculum.level}</span></div>}
+                {curriculum.studyTime && <div><span className="font-semibold text-cyan-100/85">Study Time:</span> <span className="text-white">{curriculum.studyTime}</span></div>}
+                {curriculum.schoolName && <div><span className="font-semibold text-cyan-100/85">School:</span> <span className="text-white">{curriculum.schoolName}</span></div>}
               </div>
               {!!curriculum.heroTags?.length && (
                 <div className="mt-4 flex flex-wrap gap-2">
                   {curriculum.heroTags.map((tag, index) => (
-                    <span key={`${tag}-${index}`} className="rounded-full bg-cyan-50 px-3 py-1 text-xs font-medium text-cyan-700">
+                    <span key={`${tag}-${index}`} className="rounded-full border border-cyan-100/35 bg-white/90 px-3 py-1 text-xs font-semibold text-cyan-800">
                       {tag}
                     </span>
                   ))}
