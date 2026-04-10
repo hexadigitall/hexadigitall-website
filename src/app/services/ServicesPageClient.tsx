@@ -227,7 +227,7 @@ export default function ServicesPageClient({ initialData }: ServicesPageClientPr
       <div className="relative w-full overflow-hidden mb-12 rounded-b-[2rem] bg-slate-950 text-white shadow-2xl">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_12%_22%,rgba(243,178,77,0.38),transparent_34%),radial-gradient(circle_at_78%_18%,rgba(7,89,133,0.22),transparent_28%),radial-gradient(circle_at_82%_78%,rgba(6,109,127,0.40),transparent_42%),linear-gradient(120deg,#03101c_0%,#0A4D68_52%,#062738_100%)]" />
         <div className="absolute inset-0 opacity-20 [background-image:linear-gradient(rgba(255,255,255,0.08)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.08)_1px,transparent_1px)] [background-size:40px_40px]" />
-        <div className="absolute inset-y-0 right-0 w-full lg:w-1/2 bg-gradient-to-l from-white/8 to-transparent" />
+        <div className="absolute inset-y-0 right-0 w-full lg:w-1/2 bg-gradient-to-l from-slate-950/35 via-slate-900/10 to-transparent" />
 
         <div className="relative container mx-auto px-6 pt-16 pb-10 sm:pt-20 sm:pb-12 lg:pt-24 lg:pb-16">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-4 items-center">
@@ -330,9 +330,9 @@ export default function ServicesPageClient({ initialData }: ServicesPageClientPr
                 </div>
               </div>
 
-              <div className="absolute right-0 top-1/2 hidden lg:block w-52 -translate-y-1/2 rounded-2xl border border-white/15 bg-white/10 p-4 shadow-xl backdrop-blur-md">
-                <p className="text-[11px] uppercase tracking-[0.16em] text-white/70">Why teams choose us</p>
-                <p className="mt-2 text-sm leading-relaxed text-white/95">
+              <div className="absolute right-2 top-1/2 hidden lg:block w-60 -translate-y-1/2 rounded-2xl border border-white/30 bg-slate-900/55 p-5 shadow-2xl backdrop-blur-md">
+                <p className="text-[11px] uppercase tracking-[0.18em] text-slate-200/90">Why teams choose us</p>
+                <p className="mt-2 text-[15px] leading-8 text-white">
                   Clear guidance, practical execution, and warm communication from discovery to delivery.
                 </p>
               </div>

@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useRef, useEffect, useMemo } from 'react';
+import { useState, useRef, useEffect, useMemo, useDeferredValue } from 'react';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
 import CoursePaymentModal from '@/components/courses/CoursePaymentModal';
@@ -95,6 +95,7 @@ export default function CoursesPageContentEnhanced({ initialSchools = [] }: Cour
   const [searchQuery, setSearchQuery] = useState('');
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const searchInputRef = useRef<HTMLInputElement>(null);
+  const deferredSearchQuery = useDeferredValue(searchQuery);
   
   // Refs
   const mobileContainerRef = useRef<HTMLDivElement>(null);
@@ -107,19 +108,43 @@ export default function CoursesPageContentEnhanced({ initialSchools = [] }: Cour
   const prevSchool = schools[activeIndex - 1];
   const nextSchool = schools[activeIndex + 1];
 
-  // 🔍 SEARCH LOGIC
-  const filteredCourses = useMemo(() => {
-    if (!searchQuery.trim()) return null;
-    return schools.flatMap(school => 
-      school.courses.map(course => ({
-        ...course,
-        schoolName: school.title
-      }))
-    ).filter(course => 
-      course.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      course.description?.toLowerCase().includes(searchQuery.toLowerCase())
+  const searchableCourses = useMemo(() => {
+    return schools.flatMap((school) =>
+      school.courses.map((course) => {
+        const title = (course.title || '').toLowerCase();
+        const description = (course.description || '').toLowerCase();
+        const schoolName = (school.title || '').toLowerCase();
+        return {
+          ...course,
+          schoolName: school.title,
+          _searchBlob: `${title} ${description} ${schoolName}`,
+          _titleLower: title,
+        };
+      })
     );
-  }, [searchQuery, schools]);
+  }, [schools]);
+
+  // 🔍 SEARCH LOGIC (deferred + ranked for better desktop UX and scalability)
+  const filteredCourses = useMemo(() => {
+    const query = deferredSearchQuery.trim().toLowerCase();
+    if (!query) return null;
+
+    const tokens = query.split(/\s+/).filter(Boolean);
+    const matches = searchableCourses.filter((course) =>
+      tokens.every((token) => course._searchBlob.includes(token))
+    );
+
+    return matches
+      .sort((a, b) => {
+        const aStarts = a._titleLower.startsWith(query) ? 1 : 0;
+        const bStarts = b._titleLower.startsWith(query) ? 1 : 0;
+        if (aStarts !== bStarts) return bStarts - aStarts;
+        const aIdx = a._titleLower.indexOf(query);
+        const bIdx = b._titleLower.indexOf(query);
+        return (aIdx === -1 ? 9999 : aIdx) - (bIdx === -1 ? 9999 : bIdx);
+      })
+      .slice(0, 48);
+  }, [deferredSearchQuery, searchableCourses]);
 
   // Focus Input when opened
   useEffect(() => {
@@ -240,7 +265,7 @@ export default function CoursesPageContentEnhanced({ initialSchools = [] }: Cour
         </div>
         
         {/* 2. EXPANDABLE SEARCH INTERFACE (Clean UI) */}
-        <div className="flex justify-center mb-12 relative z-20 sm:-mt-20">
+        <div className="flex justify-center md:justify-end mb-12 relative z-10">
           <AnimatePresence mode="wait">
             {!isSearchOpen ? (
               /* --- STATE A: FLOATING ICON BUTTON --- */
@@ -253,10 +278,10 @@ export default function CoursesPageContentEnhanced({ initialSchools = [] }: Cour
                 exit={{ scale: 0.8, opacity: 0 }}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="group flex items-center justify-center gap-3 bg-white text-gray-600 px-8 py-4 rounded-full shadow-2xl hover:shadow-primary/20 border border-white/50 backdrop-blur-sm transition-all cursor-pointer"
+                className="group flex items-center justify-center gap-3 bg-white text-gray-600 px-6 py-3.5 rounded-full shadow-lg hover:shadow-primary/20 border border-gray-200 transition-all cursor-pointer"
               >
                 <IoSearchOutline className="text-2xl text-primary group-hover:scale-110 transition-transform" />
-                <span className="font-semibold text-lg text-gray-700">Find a Course</span>
+                <span className="font-semibold text-base md:text-lg text-gray-700">Find a Course</span>
               </motion.button>
             ) : (
               /* --- STATE B: EXPANDED SEARCH BAR --- */
@@ -264,19 +289,19 @@ export default function CoursesPageContentEnhanced({ initialSchools = [] }: Cour
                 key="search-bar"
                 layoutId="search-container"
                 initial={{ width: 60, opacity: 0 }}
-                animate={{ width: "100%", maxWidth: "672px", opacity: 1 }}
+                animate={{ width: "100%", maxWidth: "760px", opacity: 1 }}
                 exit={{ width: 60, opacity: 0 }}
-                className="relative bg-white rounded-2xl shadow-2xl overflow-hidden ring-1 ring-gray-100"
+                className="relative bg-white rounded-2xl shadow-xl overflow-hidden ring-1 ring-gray-200"
               >
                 <div className="relative flex items-center">
                   <IoSearchOutline className="absolute left-6 text-gray-400 text-xl" />
                   <input
                     ref={searchInputRef}
                     type="text"
-                    placeholder="Search for 'React', 'Design', or 'Security'..."
+                    placeholder="Search for React, Design, Security, or school name..."
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
-                    className="w-full pl-14 pr-14 py-5 border-none outline-none text-lg text-gray-800 placeholder-gray-400 bg-transparent"
+                    className="w-full pl-14 pr-14 py-4.5 border-none outline-none text-base md:text-lg text-gray-800 placeholder-gray-400 bg-transparent"
                   />
                   
                   {/* Close/Collapse Button */}

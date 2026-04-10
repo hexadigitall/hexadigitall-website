@@ -44,22 +44,22 @@ export default function CurriculumDocumentView({ curriculum, showActions = true 
       )}
 
       <section className="overflow-hidden rounded-[28px] border border-slate-200 bg-white shadow-[0_24px_80px_-40px_rgba(15,23,42,0.35)]">
-        <div className="border-b border-slate-200 bg-[linear-gradient(135deg,#0f172a_0%,#155e75_48%,#f8fafc_48%,#ffffff_100%)] px-6 py-8 sm:px-10 lg:px-12">
-          <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_240px] lg:items-start">
+        <div className="border-b border-slate-200 bg-[radial-gradient(circle_at_12%_18%,rgba(56,189,248,0.26),transparent_36%),linear-gradient(132deg,#0f172a_0%,#0f4366_52%,#0a5672_100%)] px-6 py-8 sm:px-10 lg:px-12">
+          <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_270px] lg:items-start">
             <div className="space-y-5">
-              <div className="inline-flex rounded-full border border-white/30 bg-white/10 px-4 py-1 text-xs font-semibold uppercase tracking-[0.22em] text-white/90">
+              <div className="inline-flex rounded-full border border-white/35 bg-white/15 px-4 py-1 text-xs font-semibold uppercase tracking-[0.22em] text-white/95">
                 Curriculum
               </div>
               <div className="space-y-3">
-                <h2 className="max-w-4xl text-3xl font-semibold tracking-tight text-white sm:text-4xl">
+                <h2 className="max-w-4xl text-3xl font-semibold tracking-tight leading-tight text-white sm:text-4xl">
                   {curriculum.title}
                 </h2>
-                <p className="max-w-3xl text-sm leading-7 text-white/85 sm:text-base">
+                <p className="max-w-3xl text-sm leading-7 text-slate-100/95 sm:text-base">
                   {curriculum.heroSummary || curriculum.summary || curriculum.course?.summary || curriculum.course?.description}
                 </p>
               </div>
             </div>
-            <div className="rounded-3xl border border-slate-200 bg-white/95 p-5 backdrop-blur">
+            <div className="rounded-3xl border border-white/30 bg-white/96 p-5 shadow-lg backdrop-blur">
               <div className="grid gap-3 text-sm text-slate-700">
                 {curriculum.duration && <div><span className="font-semibold text-slate-950">Duration:</span> {curriculum.duration}</div>}
                 {curriculum.level && <div><span className="font-semibold text-slate-950">Level:</span> {curriculum.level}</div>}
