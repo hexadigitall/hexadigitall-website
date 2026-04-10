@@ -265,7 +265,7 @@ export default function CoursesPageContentEnhanced({ initialSchools = [] }: Cour
         </div>
         
         {/* 2. EXPANDABLE SEARCH INTERFACE (Clean UI) */}
-        <div className="flex justify-center md:justify-end mb-12 relative z-10">
+        <div className="flex justify-center mb-12 relative z-10">
           <AnimatePresence mode="wait">
             {!isSearchOpen ? (
               /* --- STATE A: FLOATING ICON BUTTON --- */

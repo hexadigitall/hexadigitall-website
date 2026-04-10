@@ -85,6 +85,10 @@ export function renderCurriculumPdfHtml(curriculum: CurriculumDocument): string 
       --accent-soft: #eff8ff;
     }
     * { box-sizing: border-box; }
+    html {
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
     body {
       margin: 0;
       font-family: 'Aptos', 'Segoe UI', Arial, sans-serif;
@@ -92,9 +96,13 @@ export function renderCurriculumPdfHtml(curriculum: CurriculumDocument): string 
       background: white;
       line-height: 1.55;
       font-size: 13.5px;
+      orphans: 3;
+      widows: 3;
     }
     h1, h2, h3, h4, h5, .eyebrow {
       font-family: 'Trebuchet MS', 'Segoe UI Semibold', Arial, sans-serif;
+      break-after: avoid;
+      page-break-after: avoid;
     }
     .cover {
       min-height: 270mm;
@@ -261,6 +269,8 @@ export function renderCurriculumPdfHtml(curriculum: CurriculumDocument): string 
       background: var(--surface);
       padding: 11px;
       margin-bottom: 9px;
+      break-inside: avoid;
+      page-break-inside: avoid;
     }
     .lead-box {
       background: linear-gradient(180deg, #f4f8ff 0%, #ffffff 100%);
@@ -328,11 +338,14 @@ export function renderCurriculumPdfHtml(curriculum: CurriculumDocument): string 
     @media print {
       @page {
         size: A4;
-        margin: 12mm;
+        margin: 14mm 12mm;
       }
-      .page { padding: 0; }
+      @page :first { margin-top: 0; }
+      .page { padding: 0; max-width: 100%; }
       .section, .lead-box, .hero, .week-card, .project-card, .small-card { box-shadow: none; }
-      .week-card, .project-card, .small-card, .hero, .section, .lead-box { break-inside: avoid; }
+      .week-card, .project-card, .small-card, .hero, .section, .lead-box { break-inside: avoid; page-break-inside: avoid; }
+      .section + .section { break-before: auto; }
+      h2.section-heading { break-before: page; page-break-before: always; }
     }
   </style>
 </head>
