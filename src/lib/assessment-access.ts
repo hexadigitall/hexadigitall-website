@@ -30,24 +30,40 @@ export async function verifyAssessmentAccess(
     return { allowed: true, studentName: user.name, studentEmail: user.email }
   }
 
-  const enrollment = await client.fetch<{
-    _id: string
-    studentName?: string
-    studentEmail?: string
-  } | null>(
-    `*[_type == "enrollment" && studentId._ref == $studentId && courseId->slug.current == $courseSlug && courseAccessGranted == true][0]{
-      _id,
-      studentName,
-      studentEmail
-    }`,
-    {
-      studentId: user._id,
-      courseSlug,
-    },
-  )
+  type EnrollmentResult = { _id: string; studentName?: string; studentEmail?: string } | null
+
+  // Primary path: match by linked studentId reference (fast and precise)
+  let enrollment: EnrollmentResult = null
+
+  if (user._id) {
+    enrollment = await client.fetch<EnrollmentResult>(
+      `*[_type == "enrollment" && studentId._ref == $studentId && courseId->slug.current == $courseSlug && courseAccessGranted == true][0]{
+        _id,
+        studentName,
+        studentEmail
+      }`,
+      { studentId: user._id, courseSlug },
+    )
+  }
+
+  // Fallback: match by email — covers enrollments created before account linking
+  // (e.g. admin-created or payment-webhook enrollments without a studentId ref)
+  if (!enrollment && user.email) {
+    enrollment = await client.fetch<EnrollmentResult>(
+      `*[_type == "enrollment" && lower(studentEmail) == lower($email) && courseId->slug.current == $courseSlug && courseAccessGranted == true][0]{
+        _id,
+        studentName,
+        studentEmail
+      }`,
+      { email: user.email, courseSlug },
+    )
+  }
 
   if (!enrollment) {
-    return { allowed: false, reason: 'Student enrollment for this course was not found.' }
+    return {
+      allowed: false,
+      reason: 'No active enrollment found for this course. Please contact your teacher or administrator.',
+    }
   }
 
   return {
