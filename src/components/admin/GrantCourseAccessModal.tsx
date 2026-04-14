@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { XMarkIcon, BookOpenIcon, CheckCircleIcon } from '@heroicons/react/24/outline'
+import { XMarkIcon, BookOpenIcon } from '@heroicons/react/24/outline'
 
 interface Course {
   _id: string
@@ -27,9 +27,9 @@ export default function GrantCourseAccessModal({
   const [courses, setCourses] = useState<Course[]>([])
   const [loading, setLoading] = useState(true)
   const [saving, setSaving] = useState(false)
-  const [selectedCourseId, setSelectedCourseId] = useState<string | null>(null)
+  const [assignedCourseIds, setAssignedCourseIds] = useState<Set<string>>(new Set())
+  const [selectedCourseIds, setSelectedCourseIds] = useState<Set<string>>(new Set())
   const [error, setError] = useState<string | null>(null)
-  const [successMessage, setSuccessMessage] = useState<string | null>(null)
 
   useEffect(() => {
     const loadCourses = async () => {
@@ -39,79 +39,83 @@ export default function GrantCourseAccessModal({
       setLoading(true)
       setError(null)
       try {
-        const res = await fetch('/api/admin/courses', {
+        const res = await fetch(`/api/admin/users/${userId}/enrollments`, {
           headers: { Authorization: `Bearer ${token}` },
         })
         const data = await res.json()
         if (res.ok) {
-          setCourses(data.courses || [])
+          setCourses(data.allCourses || [])
+          const assigned = new Set<string>(data.assignedCourseIds || [])
+          setAssignedCourseIds(assigned)
+          setSelectedCourseIds(new Set<string>(data.assignedCourseIds || []))
         } else {
-          setError(data.message || 'Failed to load courses')
+          setError(data.message || 'Failed to load student course access')
         }
       } catch {
-        setError('Failed to load courses')
+        setError('Failed to load student course access')
       } finally {
         setLoading(false)
       }
     }
 
     void loadCourses()
-  }, [])
+  }, [userId])
 
-  const handleGrant = async () => {
-    if (!selectedCourseId) return
+  const handleToggle = (courseId: string) => {
+    setSelectedCourseIds((prev) => {
+      const next = new Set(prev)
+      if (next.has(courseId)) {
+        next.delete(courseId)
+      } else {
+        next.add(courseId)
+      }
+      return next
+    })
+  }
 
+  const handleSave = async () => {
     const token = localStorage.getItem('admin_token')
     if (!token) return
 
     setSaving(true)
     setError(null)
-    setSuccessMessage(null)
 
     try {
-      const res = await fetch('/api/admin/enrollments', {
+      const res = await fetch(`/api/admin/users/${userId}/enrollments`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify({
-          userId,
-          courseId: selectedCourseId,
-          studentName: userName,
-          studentEmail: userEmail,
-        }),
+        body: JSON.stringify({ courseIds: Array.from(selectedCourseIds) }),
       })
       const data = await res.json()
       if (res.ok && data.success) {
-        const course = courses.find((c) => c._id === selectedCourseId)
-        setSuccessMessage(
-          data.message
-            ? data.message
-            : `Access granted to "${course?.title ?? 'course'}".`
-        )
         onSuccess()
-        setTimeout(onClose, 1500)
+        onClose()
       } else {
-        setError(data.message || 'Failed to grant access')
+        setError(data.message || 'Failed to update course access')
       }
     } catch {
-      setError('Failed to grant access')
+      setError('Failed to update course access')
     } finally {
       setSaving(false)
     }
   }
 
+  const hasChanges =
+    selectedCourseIds.size !== assignedCourseIds.size ||
+    Array.from(selectedCourseIds).some((courseId) => !assignedCourseIds.has(courseId))
+
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 p-4">
-      <div className="bg-white rounded-lg shadow-xl max-w-lg w-full max-h-[85vh] overflow-hidden flex flex-col">
-        {/* Header */}
+      <div className="bg-white rounded-lg shadow-xl max-w-2xl w-full max-h-[90vh] overflow-hidden flex flex-col">
         <div className="flex items-center justify-between px-6 py-4 border-b border-gray-200">
           <div className="flex items-center space-x-3">
             <BookOpenIcon className="h-6 w-6 text-primary" />
             <div>
-              <h2 className="text-lg font-semibold text-gray-900">Grant Course Access</h2>
-              <p className="text-sm text-gray-600">{userName}</p>
+              <h2 className="text-lg font-semibold text-gray-900">Manage Student Courses</h2>
+              <p className="text-sm text-gray-600">{userName} · {userEmail}</p>
             </div>
           </div>
           <button
@@ -131,15 +135,8 @@ export default function GrantCourseAccessModal({
             </div>
           )}
 
-          {successMessage && (
-            <div className="flex items-center gap-2 px-4 py-3 rounded-lg bg-green-50 border border-green-200 text-green-800 text-sm">
-              <CheckCircleIcon className="h-5 w-5 shrink-0" />
-              {successMessage}
-            </div>
-          )}
-
           <p className="text-sm text-gray-600">
-            Select a course to grant <span className="font-medium">{userName}</span> full access. An enrollment record will be created and course access will be immediately activated.
+            Check courses to grant access and uncheck courses to remove them from this student's account.
           </p>
 
           {loading ? (
@@ -149,43 +146,53 @@ export default function GrantCourseAccessModal({
           ) : courses.length === 0 ? (
             <p className="text-sm text-gray-500 text-center py-8">No courses found.</p>
           ) : (
-            <ul className="divide-y divide-gray-100 border border-gray-200 rounded-lg overflow-hidden">
+            <div className="space-y-2">
               {courses.map((course) => (
-                <li key={course._id}>
-                  <label className="flex items-center gap-3 px-4 py-3 hover:bg-gray-50 cursor-pointer">
-                    <input
-                      type="radio"
-                      name="course"
-                      value={course._id}
-                      checked={selectedCourseId === course._id}
-                      onChange={() => setSelectedCourseId(course._id)}
-                      className="accent-primary h-4 w-4"
-                    />
-                    <span className="text-sm text-gray-900">{course.title}</span>
-                  </label>
-                </li>
+                <label
+                  key={course._id}
+                  className={`flex items-start space-x-3 p-4 rounded-lg border-2 cursor-pointer transition-colors ${
+                    selectedCourseIds.has(course._id)
+                      ? 'border-primary bg-primary/5'
+                      : 'border-gray-200 hover:border-gray-300 hover:bg-gray-50'
+                  }`}
+                >
+                  <input
+                    type="checkbox"
+                    checked={selectedCourseIds.has(course._id)}
+                    onChange={() => handleToggle(course._id)}
+                    className="mt-1 h-4 w-4 text-primary focus:ring-primary border-gray-300 rounded"
+                  />
+                  <div className="flex-1 min-w-0">
+                    <div className="font-medium text-gray-900">{course.title}</div>
+                    <div className="text-xs text-gray-500 mt-1">{course.slug}</div>
+                  </div>
+                </label>
               ))}
-            </ul>
+            </div>
           )}
         </div>
 
-        {/* Footer */}
-        <div className="flex items-center justify-end gap-3 px-6 py-4 border-t border-gray-200">
-          <button
-            type="button"
-            onClick={onClose}
-            className="px-4 py-2 text-sm text-gray-700 hover:text-gray-900 border border-gray-300 rounded-lg hover:bg-gray-50"
-          >
-            Cancel
-          </button>
-          <button
-            type="button"
-            onClick={handleGrant}
-            disabled={!selectedCourseId || saving}
-            className="inline-flex items-center gap-2 px-4 py-2 bg-primary text-white text-sm rounded-lg hover:bg-primary/90 disabled:opacity-50 disabled:cursor-not-allowed"
-          >
-            {saving ? 'Granting...' : 'Grant Access'}
-          </button>
+        <div className="flex items-center justify-between gap-3 px-6 py-4 border-t border-gray-200">
+          <div className="text-sm text-gray-600">
+            {selectedCourseIds.size} course{selectedCourseIds.size !== 1 ? 's' : ''} selected
+          </div>
+          <div className="flex items-center gap-3">
+            <button
+              type="button"
+              onClick={onClose}
+              className="px-4 py-2 text-sm text-gray-700 hover:text-gray-900 border border-gray-300 rounded-lg hover:bg-gray-50"
+            >
+              Cancel
+            </button>
+            <button
+              type="button"
+              onClick={handleSave}
+              disabled={saving || !hasChanges}
+              className="inline-flex items-center gap-2 px-4 py-2 bg-primary text-white text-sm rounded-lg hover:bg-primary/90 disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              {saving ? 'Saving...' : 'Save Changes'}
+            </button>
+          </div>
         </div>
       </div>
     </div>

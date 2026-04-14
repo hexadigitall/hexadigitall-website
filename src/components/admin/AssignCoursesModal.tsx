@@ -133,6 +133,10 @@ export default function AssignCoursesModal({
             </div>
           )}
 
+          <p className="mb-4 text-sm text-gray-600">
+            Check courses to assign them to this teacher and uncheck courses to remove them.
+          </p>
+
           {loading ? (
             <div className="flex items-center justify-center py-12">
               <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary" />

@@ -47,7 +47,7 @@ export async function GET(request: NextRequest) {
     const userId = user._id || user.userId
 
     // Fetch enrollments for this student
-    const query = `*[_type == "enrollment" && studentId._ref == $userId]{
+    const query = `*[_type == "enrollment" && studentId._ref == $userId && courseAccessGranted == true]{
       _id,
       courseType,
       status,

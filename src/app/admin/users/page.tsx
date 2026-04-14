@@ -356,7 +356,7 @@ export default function AdminUsersPage() {
   }
 
   const handleGrantModalSuccess = () => {
-    setFeedback({ type: 'success', message: 'Course access granted successfully.' })
+    setFeedback({ type: 'success', message: 'Student course access updated.' })
   }
 
   if (loading) {
@@ -633,7 +633,7 @@ export default function AdminUsersPage() {
                                 className="inline-flex items-center space-x-1 text-sm text-primary hover:text-primary/80 disabled:opacity-50"
                               >
                                 <AcademicCapIcon className="h-4 w-4" />
-                                <span>Assign</span>
+                                <span>Manage Courses</span>
                               </button>
                             )}
                             {user.role === 'student' && (
@@ -644,7 +644,7 @@ export default function AdminUsersPage() {
                                 className="inline-flex items-center space-x-1 text-sm text-primary hover:text-primary/80 disabled:opacity-50"
                               >
                                 <AcademicCapIcon className="h-4 w-4" />
-                                <span>Grant Access</span>
+                                <span>Manage Courses</span>
                               </button>
                             )}
                             <button
