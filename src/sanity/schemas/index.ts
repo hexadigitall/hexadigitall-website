@@ -12,6 +12,7 @@ import project from './project'
 import serviceRequest from './serviceRequest'
 import enrollment from './enrollment'
 import pendingEnrollment from './pendingEnrollment'
+import assessmentAttempt from './assessmentAttempt'
 import formSubmission from './formSubmission'
 import faq from './faq'
 import testimonial from './testimonial'
@@ -39,6 +40,7 @@ export const schema: { types: SchemaTypeDefinition[] } = {
     serviceRequest,
     enrollment,
     pendingEnrollment,
+    assessmentAttempt,
     formSubmission,
     faq,
     testimonial,

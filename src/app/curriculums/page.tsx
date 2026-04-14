@@ -3,8 +3,6 @@ import Link from 'next/link'
 import { groq } from 'next-sanity'
 import Banner from '@/components/common/Banner'
 import { client } from '@/sanity/client'
-import { getFallbackCourseCategories } from '@/lib/fallback-data'
-import { findCurriculumForCourseSlug, getCurriculumAssets } from '@/lib/curriculum-utils'
 
 export const dynamic = 'force-dynamic'
 
@@ -15,6 +13,21 @@ interface CourseItem {
   title: string
   slug: { current: string }
   summary?: string
+}
+
+interface CurriculumHubItem {
+  _id: string
+  title: string
+  slug: { current: string }
+  summary?: string
+  level?: string
+  duration?: string
+  course?: {
+    _id: string
+    title: string
+    slug: { current: string }
+    summary?: string
+  }
 }
 
 export const metadata: Metadata = {
@@ -33,7 +46,7 @@ export const metadata: Metadata = {
 
 async function getAllCourses(): Promise<CourseItem[]> {
   try {
-    const courses = await client.fetch<CourseItem[]>(groq`
+    return await client.fetch<CourseItem[]>(groq`
       *[_type == "course" && defined(slug.current)] | order(title asc) {
         _id,
         title,
@@ -41,30 +54,47 @@ async function getAllCourses(): Promise<CourseItem[]> {
         summary
       }
     `)
-    if (courses?.length) return courses
   } catch {
-    // fall through to fallback data
+    return []
   }
+}
 
-  const fallback = await getFallbackCourseCategories() as Array<{ courses: CourseItem[] }>
-  return fallback.flatMap((school) => school.courses ?? [])
+async function getCurriculums(): Promise<CurriculumHubItem[]> {
+  try {
+    return await client.fetch<CurriculumHubItem[]>(groq`
+      *[_type == "curriculum" && defined(slug.current)] | order(coalesce(course->title, title) asc) {
+        _id,
+        title,
+        slug,
+        summary,
+        level,
+        duration,
+        "course": course->{
+          _id,
+          title,
+          slug,
+          summary
+        }
+      }
+    `)
+  } catch {
+    return []
+  }
 }
 
 export default async function CurriculumsIndexPage() {
-  const [courses, assets] = await Promise.all([
+  const [courses, curriculums] = await Promise.all([
     getAllCourses(),
-    getCurriculumAssets(),
+    getCurriculums(),
   ])
 
-  const rows = await Promise.all(
-    courses.map(async (course) => {
-      const match = await findCurriculumForCourseSlug(course.slug.current)
-      return { course, match }
-    })
+  const courseSlugsWithCurriculum = new Set(
+    curriculums
+      .map((curriculum) => curriculum.course?.slug?.current)
+      .filter((slug): slug is string => !!slug)
   )
 
-  const matched = rows.filter((row) => !!row.match)
-  const unmatched = rows.filter((row) => !row.match)
+  const unmatched = courses.filter((course) => !courseSlugsWithCurriculum.has(course.slug.current))
 
   return (
     <>
@@ -83,38 +113,52 @@ export default async function CurriculumsIndexPage() {
 
         <section className="mb-10 rounded-2xl border border-gray-100 bg-gray-50 p-5">
           <p className="text-sm text-gray-700">
-            <strong>{matched.length}</strong> of <strong>{courses.length}</strong> courses currently have mapped curriculum pages.
-            We also detected <strong>{assets.length}</strong> HTML curriculum files in the public curriculum library.
+            <strong>{curriculums.length}</strong> curriculum documents are currently available in Sanity for direct rendering.
+            <span className="hidden sm:inline"> </span>
+            <strong>{Math.max(courses.length - unmatched.length, 0)}</strong> of <strong>{courses.length}</strong> courses are currently mapped.
           </p>
         </section>
 
         <section className="mb-12">
           <h2 className="text-xl font-bold text-primary mb-4">Available Curriculums</h2>
-          {matched.length > 0 ? (
+          {curriculums.length > 0 ? (
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              {matched.map(({ course, match }) => (
-                <article key={course._id} className="rounded-2xl border border-gray-100 bg-white p-4 shadow-sm">
-                  <p className="font-semibold text-darkText">{course.title}</p>
-                  {course.summary && <p className="text-sm text-gray-500 mt-1 line-clamp-2">{course.summary}</p>}
+              {curriculums.map((curriculum) => {
+                const course = curriculum.course
+                const courseSlug = course?.slug?.current
+                const heading = course?.title || curriculum.title
+                const description = curriculum.summary || course?.summary
+
+                return (
+                <article key={curriculum._id} className="rounded-2xl border border-gray-100 bg-white p-4 shadow-sm">
+                  <p className="font-semibold text-darkText">{heading}</p>
+                  {description && <p className="text-sm text-gray-500 mt-1 line-clamp-2">{description}</p>}
+                  <div className="mt-2 flex flex-wrap gap-2 text-[11px] font-medium text-gray-500">
+                    {curriculum.level && <span className="rounded-full bg-gray-100 px-2 py-1">{curriculum.level}</span>}
+                    {curriculum.duration && <span className="rounded-full bg-gray-100 px-2 py-1">{curriculum.duration}</span>}
+                  </div>
                   <div className="mt-3 flex flex-wrap gap-2">
                     <Link
-                      href={`/courses/${course.slug.current}/curriculum`}
+                      href={courseSlug ? `/courses/${courseSlug}/curriculum` : '/curriculums'}
                       className="inline-flex items-center rounded-lg bg-primary px-3 py-2 text-xs font-semibold text-white hover:bg-primary/90"
                     >
                       View Curriculum
                     </Link>
-                    <Link
-                      href={`/courses/${course.slug.current}`}
-                      className="inline-flex items-center rounded-lg border border-gray-200 px-3 py-2 text-xs font-semibold text-gray-700 hover:border-gray-300"
-                    >
-                      View Course
-                    </Link>
+                    {courseSlug && (
+                      <Link
+                        href={`/courses/${courseSlug}`}
+                        className="inline-flex items-center rounded-lg border border-gray-200 px-3 py-2 text-xs font-semibold text-gray-700 hover:border-gray-300"
+                      >
+                        View Course
+                      </Link>
+                    )}
                   </div>
                 </article>
-              ))}
+                )
+              })}
             </div>
           ) : (
-            <p className="text-sm text-gray-500">No curriculum mappings found yet.</p>
+            <p className="text-sm text-gray-500">No curriculum documents found in Sanity yet.</p>
           )}
         </section>
 
@@ -122,7 +166,7 @@ export default async function CurriculumsIndexPage() {
           <section>
             <h2 className="text-xl font-bold text-primary mb-4">Courses Awaiting Curriculum Mapping</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-              {unmatched.map(({ course }) => (
+              {unmatched.map((course) => (
                 <article key={course._id} className="rounded-xl border border-dashed border-gray-200 bg-white p-4">
                   <p className="font-medium text-gray-800">{course.title}</p>
                   <p className="text-xs text-gray-500 mt-1">Slug: {course.slug.current}</p>

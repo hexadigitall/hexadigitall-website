@@ -405,6 +405,14 @@ export default async function CoursePage(props: Props) {
                                         View Public Curriculum
                                     </a>
                                 </div>
+                                <div className="mb-3">
+                                    <a
+                                        href={`/courses/${slug}/assessments`}
+                                        className="inline-flex w-full items-center justify-center gap-2 px-4 py-2 border border-slate-200 text-slate-700 rounded-lg hover:border-slate-300 hover:bg-slate-50 transition-colors text-sm"
+                                    >
+                                        Open Timed Assessments
+                                    </a>
+                                </div>
                                 {hasAccess ? (
                                     <div className="space-y-2">
                                         {course.contentPdf?.asset?._ref && (
