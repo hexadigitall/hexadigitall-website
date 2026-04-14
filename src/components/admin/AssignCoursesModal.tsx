@@ -17,6 +17,13 @@ interface AssignCoursesModalProps {
   onSuccess: () => void
 }
 
+interface AuditEntry {
+  courseTitle: string
+  action: 'assigned' | 'removed'
+  changedAt: string
+  changedByUsername: string
+}
+
 export default function AssignCoursesModal({
   teacherId,
   teacherName,
@@ -28,6 +35,7 @@ export default function AssignCoursesModal({
   const [courses, setCourses] = useState<Course[]>([])
   const [assignedCourseIds, setAssignedCourseIds] = useState<Set<string>>(new Set())
   const [selectedCourseIds, setSelectedCourseIds] = useState<Set<string>>(new Set())
+  const [recentAuditEntries, setRecentAuditEntries] = useState<AuditEntry[]>([])
   const [error, setError] = useState<string | null>(null)
 
   useEffect(() => {
@@ -50,6 +58,7 @@ export default function AssignCoursesModal({
         const assigned = new Set<string>(data.assignedCourseIds || [])
         setAssignedCourseIds(assigned)
         setSelectedCourseIds(new Set<string>(assigned))
+        setRecentAuditEntries(data.recentAuditEntries || [])
       } else {
         setError(data.message || 'Failed to load courses')
       }
@@ -136,6 +145,21 @@ export default function AssignCoursesModal({
           <p className="mb-4 text-sm text-gray-600">
             Check courses to assign them to this teacher and uncheck courses to remove them.
           </p>
+
+          {recentAuditEntries.length > 0 && (
+            <div className="mb-4 rounded-lg border border-slate-200 bg-slate-50 p-3">
+              <p className="text-xs font-semibold uppercase tracking-wide text-slate-600 mb-2">Recent Access Updates</p>
+              <div className="space-y-1">
+                {recentAuditEntries.slice(0, 4).map((entry, index) => (
+                  <p key={`${entry.courseTitle}-${entry.changedAt}-${index}`} className="text-xs text-slate-700">
+                    <span className="font-medium">{entry.courseTitle}</span> was {entry.action} by{' '}
+                    <span className="font-medium">{entry.changedByUsername}</span> on{' '}
+                    {new Date(entry.changedAt).toLocaleString()}
+                  </p>
+                ))}
+              </div>
+            </div>
+          )}
 
           {loading ? (
             <div className="flex items-center justify-center py-12">

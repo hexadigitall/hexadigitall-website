@@ -10,6 +10,22 @@ type EnrollmentRecord = {
   courseAccessGranted?: boolean
 }
 
+function buildAccessAuditEntry(
+  action: 'granted' | 'revoked',
+  courseId: string,
+  actor: { id?: string; username: string }
+) {
+  return {
+    _type: 'object',
+    _key: `${Date.now()}-${Math.random().toString(36).slice(2, 10)}`,
+    action,
+    courseId,
+    changedByUserId: actor.id || '',
+    changedByUsername: actor.username,
+    changedAt: new Date().toISOString(),
+  }
+}
+
 export async function GET(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   const auth = await requireAdmin(req)
   if (!auth.ok) return auth.response
@@ -46,7 +62,36 @@ export async function GET(req: NextRequest, { params }: { params: Promise<{ id: 
       .map((enrollment) => enrollment.courseId?._id)
       .filter((courseId): courseId is string => Boolean(courseId))
 
-    return NextResponse.json({ success: true, allCourses, assignedCourseIds })
+    const enrollmentsWithAudit = await client.fetch<
+      Array<{
+        courseTitle?: string
+        entries?: Array<{ action: 'granted' | 'revoked'; changedAt: string; changedByUsername?: string }>
+      }>
+    >(
+      `*[_type == "enrollment" && ((defined(studentId._ref) && studentId._ref == $studentId) || lower(studentEmail) == lower($studentEmail)) && defined(accessAuditTrail[0])] {
+        "courseTitle": courseId->title,
+        "entries": accessAuditTrail | order(changedAt desc)[0...5] {
+          action,
+          changedAt,
+          changedByUsername
+        }
+      }`,
+      { studentId, studentEmail: student.email || '' }
+    )
+
+    const recentAuditEntries = enrollmentsWithAudit
+      .flatMap((item) =>
+        (item.entries || []).map((entry) => ({
+          courseTitle: item.courseTitle || 'Unknown Course',
+          action: entry.action,
+          changedAt: entry.changedAt,
+          changedByUsername: entry.changedByUsername || 'admin',
+        }))
+      )
+      .sort((a, b) => new Date(b.changedAt).getTime() - new Date(a.changedAt).getTime())
+      .slice(0, 8)
+
+    return NextResponse.json({ success: true, allCourses, assignedCourseIds, recentAuditEntries })
   } catch (error) {
     console.error('Failed to fetch student enrollments:', error)
     return NextResponse.json({ message: 'Failed to fetch student enrollments' }, { status: 500 })
@@ -114,6 +159,8 @@ export async function POST(req: NextRequest, { params }: { params: Promise<{ id:
               writeClient
                 .patch(enrollment._id)
                 .set({ courseAccessGranted: false, paymentStatus: 'cancelled' })
+                .setIfMissing({ accessAuditTrail: [] })
+                .append('accessAuditTrail', [buildAccessAuditEntry('revoked', courseId, auth.user)])
                 .commit()
             )
           }
@@ -135,6 +182,8 @@ export async function POST(req: NextRequest, { params }: { params: Promise<{ id:
                 studentName: student.name || student.username,
                 studentEmail: student.email,
               })
+              .setIfMissing({ accessAuditTrail: [] })
+              .append('accessAuditTrail', [buildAccessAuditEntry('granted', courseId, auth.user)])
               .commit()
           )
         }
@@ -154,10 +203,14 @@ export async function POST(req: NextRequest, { params }: { params: Promise<{ id:
               courseAccessGranted: true,
               paymentStatus: 'completed',
             })
+            .setIfMissing({ accessAuditTrail: [] })
+            .append('accessAuditTrail', [buildAccessAuditEntry('granted', courseId, auth.user)])
             .commit()
         )
         continue
       }
+
+      const grantAuditEntry = buildAccessAuditEntry('granted', courseId, auth.user)
 
       updates.push(
         writeClient.create({
@@ -173,6 +226,7 @@ export async function POST(req: NextRequest, { params }: { params: Promise<{ id:
           enrolledAt: new Date().toISOString(),
           stripeSessionId: `admin-grant-${studentId}-${Date.now()}`,
           amount: 1,
+          accessAuditTrail: [grantAuditEntry],
         })
       )
     }

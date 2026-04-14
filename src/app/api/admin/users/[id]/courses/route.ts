@@ -37,7 +37,36 @@ export async function GET(req: NextRequest, { params }: { params: Promise<{ id: 
 
     const assignedCourseIds = assignedCourses.map((c: { _id: string }) => c._id)
 
-    return NextResponse.json({ success: true, allCourses, assignedCourseIds })
+    const coursesWithAudit = await client.fetch<
+      Array<{
+        title: string
+        entries?: Array<{ action: 'assigned' | 'removed'; changedAt: string; changedByUsername?: string }>
+      }>
+    >(
+      `*[_type == "course" && count(assignmentAuditTrail[teacherId == $teacherId]) > 0] {
+        title,
+        "entries": assignmentAuditTrail[teacherId == $teacherId] | order(changedAt desc)[0...5] {
+          action,
+          changedAt,
+          changedByUsername
+        }
+      }`,
+      { teacherId }
+    )
+
+    const recentAuditEntries = coursesWithAudit
+      .flatMap((item) =>
+        (item.entries || []).map((entry) => ({
+          courseTitle: item.title,
+          action: entry.action,
+          changedAt: entry.changedAt,
+          changedByUsername: entry.changedByUsername || 'admin',
+        }))
+      )
+      .sort((a, b) => new Date(b.changedAt).getTime() - new Date(a.changedAt).getTime())
+      .slice(0, 8)
+
+    return NextResponse.json({ success: true, allCourses, assignedCourseIds, recentAuditEntries })
   } catch (error) {
     console.error('Failed to fetch courses:', error)
     return NextResponse.json({ message: 'Failed to fetch courses' }, { status: 500 })
@@ -78,14 +107,40 @@ export async function POST(req: NextRequest, { params }: { params: Promise<{ id:
       const shouldHaveTeacher = courseIds.includes(course._id)
 
       if (shouldHaveTeacher && !hasTeacher) {
+        const auditEntry = {
+          _type: 'object',
+          _key: `${Date.now()}-${Math.random().toString(36).slice(2, 10)}`,
+          teacherId,
+          action: 'assigned',
+          changedByUserId: auth.user.id || '',
+          changedByUsername: auth.user.username,
+          changedAt: new Date().toISOString(),
+        }
+
         return writeClient
           .patch(course._id)
-          .setIfMissing({ assignedTeachers: [] })
+          .setIfMissing({ assignedTeachers: [], assignmentAuditTrail: [] })
           .append('assignedTeachers', [{ _type: 'reference', _ref: teacherId }])
+          .append('assignmentAuditTrail', [auditEntry])
           .commit()
       } else if (!shouldHaveTeacher && hasTeacher) {
         const updatedTeachers = currentTeachers.filter((t) => t._ref !== teacherId)
-        return writeClient.patch(course._id).set({ assignedTeachers: updatedTeachers }).commit()
+        const auditEntry = {
+          _type: 'object',
+          _key: `${Date.now()}-${Math.random().toString(36).slice(2, 10)}`,
+          teacherId,
+          action: 'removed',
+          changedByUserId: auth.user.id || '',
+          changedByUsername: auth.user.username,
+          changedAt: new Date().toISOString(),
+        }
+
+        return writeClient
+          .patch(course._id)
+          .set({ assignedTeachers: updatedTeachers })
+          .setIfMissing({ assignmentAuditTrail: [] })
+          .append('assignmentAuditTrail', [auditEntry])
+          .commit()
       }
       return null
     })

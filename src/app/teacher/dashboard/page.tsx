@@ -12,6 +12,7 @@ import {
   ArrowDownTrayIcon,
   ArrowRightOnRectangleIcon,
   CameraIcon,
+  ClipboardDocumentIcon,
 } from '@heroicons/react/24/outline'
 
 interface Course {
@@ -50,6 +51,34 @@ interface Student {
   }
 }
 
+interface AssessmentQuickCopyPanel {
+  courseTitle: string
+  courseSlug: string
+  assessments: Array<{
+    slug: string
+    title: string
+    phaseLabel: string
+    relativeUrl: string
+  }>
+}
+
+interface AssessmentAttemptSnapshot {
+  _id: string
+  courseSlug: string
+  courseTitle: string
+  assessmentSlug: string
+  assessmentTitle: string
+  phaseLabel: string
+  status: 'in_progress' | 'submitted' | 'expired'
+  scorePercent?: number
+  passed?: boolean
+  startedAt: string
+  submittedAt?: string
+  studentNameSnapshot?: string
+  studentEmailSnapshot?: string
+  resultCode?: string
+}
+
 export default function TeacherDashboardPage() {
   const router = useRouter()
   const [loading, setLoading] = useState(true)
@@ -57,6 +86,9 @@ export default function TeacherDashboardPage() {
   const [sessionRole, setSessionRole] = useState<string | null>(null)
   const [courses, setCourses] = useState<Course[]>([])
   const [students, setStudents] = useState<Student[]>([])
+  const [assessmentQuickCopyPanels, setAssessmentQuickCopyPanels] = useState<AssessmentQuickCopyPanel[]>([])
+  const [assessmentAttempts, setAssessmentAttempts] = useState<AssessmentAttemptSnapshot[]>([])
+  const [copyMessage, setCopyMessage] = useState<string | null>(null)
   const [photoUrl, setPhotoUrl] = useState<string | null>(null)
   const [photoUploading, setPhotoUploading] = useState(false)
   const photoInputRef = useRef<HTMLInputElement>(null)
@@ -84,7 +116,7 @@ export default function TeacherDashboardPage() {
         setPhotoUrl(data.profilePhotoUrl || null)
 
         // Fetch courses and students
-        await Promise.all([fetchCourses(token), fetchStudents(token)])
+        await Promise.all([fetchCourses(token), fetchStudents(token), fetchAssessments(token)])
       } catch (error) {
         console.error('Auth check failed:', error)
         router.push('/teacher/login')
@@ -121,6 +153,33 @@ export default function TeacherDashboardPage() {
       }
     } catch (error) {
       console.error('Failed to fetch students:', error)
+    }
+  }
+
+  const fetchAssessments = async (token: string) => {
+    try {
+      const res = await fetch('/api/teacher/assessments', {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      if (res.ok) {
+        const data = await res.json()
+        setAssessmentQuickCopyPanels(data.quickCopyPanels || [])
+        setAssessmentAttempts(data.attempts || [])
+      }
+    } catch (error) {
+      console.error('Failed to fetch teacher assessment data:', error)
+    }
+  }
+
+  const copyAssessmentLink = async (relativeUrl: string) => {
+    const absoluteUrl = `${window.location.origin}${relativeUrl}`
+    try {
+      await navigator.clipboard.writeText(absoluteUrl)
+      setCopyMessage('Assessment link copied.')
+      setTimeout(() => setCopyMessage(null), 2000)
+    } catch {
+      setCopyMessage('Failed to copy. Copy manually from browser URL.')
+      setTimeout(() => setCopyMessage(null), 2500)
     }
   }
 
@@ -452,6 +511,118 @@ export default function TeacherDashboardPage() {
                         </td>
                         <td className="px-6 py-4 text-sm text-gray-500">
                           {new Date(student.enrolledAt).toLocaleDateString()}
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          )}
+        </section>
+
+        {/* Assessment Quick Copy */}
+        <section>
+          <div className="mb-6">
+            <h2 className="text-xl font-bold text-gray-900">Phase Assessment Links</h2>
+            <p className="text-sm text-gray-500 mt-0.5">
+              Quick-copy URLs for your assigned course assessments
+            </p>
+          </div>
+
+          {copyMessage && (
+            <div className="mb-4 rounded-xl border border-teal-200 bg-teal-50 px-4 py-2 text-sm text-teal-800">
+              {copyMessage}
+            </div>
+          )}
+
+          {assessmentQuickCopyPanels.length === 0 ? (
+            <div className="bg-white rounded-2xl border border-gray-100 p-8 text-center shadow-sm text-gray-500">
+              No configured assessments found for your assigned courses.
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
+              {assessmentQuickCopyPanels.map((panel) => (
+                <div key={panel.courseSlug} className="bg-white rounded-2xl border border-gray-100 shadow-sm p-5">
+                  <h3 className="text-base font-semibold text-gray-900">{panel.courseTitle}</h3>
+                  <p className="text-xs text-gray-500 mt-1">/{panel.courseSlug}</p>
+                  <div className="mt-4 space-y-2">
+                    {panel.assessments.map((assessment) => (
+                      <div key={assessment.slug} className="flex items-center justify-between gap-3 rounded-lg border border-gray-100 px-3 py-2">
+                        <div>
+                          <p className="text-sm font-medium text-gray-900">{assessment.phaseLabel}</p>
+                          <p className="text-xs text-gray-500">{assessment.title}</p>
+                        </div>
+                        <button
+                          type="button"
+                          onClick={() => copyAssessmentLink(assessment.relativeUrl)}
+                          className="inline-flex items-center gap-1 rounded-lg border border-teal-200 bg-teal-50 px-3 py-1.5 text-xs font-medium text-teal-700 hover:bg-teal-100"
+                        >
+                          <ClipboardDocumentIcon className="h-4 w-4" />
+                          Copy URL
+                        </button>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+        </section>
+
+        {/* Assessment Attempts */}
+        <section>
+          <div className="mb-6">
+            <h2 className="text-xl font-bold text-gray-900">Assessment Attempts</h2>
+            <p className="text-sm text-gray-500 mt-0.5">Student attempt status and score snapshots</p>
+          </div>
+
+          {assessmentAttempts.length === 0 ? (
+            <div className="bg-white rounded-2xl border border-gray-100 p-8 text-center shadow-sm text-gray-500">
+              No assessment attempts yet.
+            </div>
+          ) : (
+            <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
+              <div className="overflow-x-auto">
+                <table className="min-w-full">
+                  <thead>
+                    <tr className="border-b border-gray-100">
+                      <th className="px-6 py-4 text-left text-xs font-semibold text-gray-400 uppercase tracking-widest">Student</th>
+                      <th className="px-6 py-4 text-left text-xs font-semibold text-gray-400 uppercase tracking-widest">Assessment</th>
+                      <th className="px-6 py-4 text-left text-xs font-semibold text-gray-400 uppercase tracking-widest">Status</th>
+                      <th className="px-6 py-4 text-left text-xs font-semibold text-gray-400 uppercase tracking-widest">Score</th>
+                      <th className="px-6 py-4 text-left text-xs font-semibold text-gray-400 uppercase tracking-widest">Submitted</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-gray-50">
+                    {assessmentAttempts.slice(0, 120).map((attempt) => (
+                      <tr key={attempt._id} className="hover:bg-gray-50/50 transition-colors">
+                        <td className="px-6 py-4">
+                          <p className="text-sm font-semibold text-gray-900">{attempt.studentNameSnapshot || 'Unknown Student'}</p>
+                          <p className="text-xs text-gray-400">{attempt.studentEmailSnapshot || 'No email snapshot'}</p>
+                        </td>
+                        <td className="px-6 py-4">
+                          <p className="text-sm font-medium text-gray-900">{attempt.phaseLabel}</p>
+                          <p className="text-xs text-gray-500">{attempt.courseTitle}</p>
+                        </td>
+                        <td className="px-6 py-4">
+                          <span className={`inline-flex px-2.5 py-1 text-xs font-semibold rounded-full ${
+                            attempt.status === 'submitted'
+                              ? 'bg-emerald-100 text-emerald-700'
+                              : attempt.status === 'in_progress'
+                                ? 'bg-amber-100 text-amber-700'
+                                : 'bg-gray-100 text-gray-600'
+                          }`}>
+                            {attempt.status.replace('_', ' ')}
+                          </span>
+                        </td>
+                        <td className="px-6 py-4 text-sm text-gray-600">
+                          {typeof attempt.scorePercent === 'number'
+                            ? `${attempt.scorePercent}%${attempt.passed ? ' (Pass)' : ' (Fail)'}`
+                            : 'Pending'}
+                        </td>
+                        <td className="px-6 py-4 text-sm text-gray-500">
+                          {attempt.submittedAt ? new Date(attempt.submittedAt).toLocaleString() : 'Not submitted'}
                         </td>
                       </tr>
                     ))}

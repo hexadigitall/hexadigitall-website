@@ -290,6 +290,34 @@ export default defineType({
         return true
       }),
     }),
+    defineField({
+      name: 'assignmentAuditTrail',
+      title: 'Assignment Audit Trail',
+      type: 'array',
+      of: [
+        {
+          type: 'object',
+          fields: [
+            defineField({ name: 'teacherId', title: 'Teacher ID', type: 'string' }),
+            defineField({
+              name: 'action',
+              title: 'Action',
+              type: 'string',
+              options: {
+                list: [
+                  { title: 'Assigned', value: 'assigned' },
+                  { title: 'Removed', value: 'removed' },
+                ],
+              },
+            }),
+            defineField({ name: 'changedByUserId', title: 'Changed By User ID', type: 'string' }),
+            defineField({ name: 'changedByUsername', title: 'Changed By Username', type: 'string' }),
+            defineField({ name: 'changedAt', title: 'Changed At', type: 'datetime' }),
+          ],
+        },
+      ],
+      description: 'Audit history for teacher course assignment updates',
+    }),
 
     // New fields for live course management
     defineField({

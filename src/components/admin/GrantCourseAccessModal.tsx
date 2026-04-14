@@ -17,6 +17,13 @@ interface GrantCourseAccessModalProps {
   onSuccess: () => void
 }
 
+interface AuditEntry {
+  courseTitle: string
+  action: 'granted' | 'revoked'
+  changedAt: string
+  changedByUsername: string
+}
+
 export default function GrantCourseAccessModal({
   userId,
   userName,
@@ -29,6 +36,7 @@ export default function GrantCourseAccessModal({
   const [saving, setSaving] = useState(false)
   const [assignedCourseIds, setAssignedCourseIds] = useState<Set<string>>(new Set())
   const [selectedCourseIds, setSelectedCourseIds] = useState<Set<string>>(new Set())
+  const [recentAuditEntries, setRecentAuditEntries] = useState<AuditEntry[]>([])
   const [error, setError] = useState<string | null>(null)
 
   useEffect(() => {
@@ -48,6 +56,7 @@ export default function GrantCourseAccessModal({
           const assigned = new Set<string>(data.assignedCourseIds || [])
           setAssignedCourseIds(assigned)
           setSelectedCourseIds(new Set<string>(data.assignedCourseIds || []))
+          setRecentAuditEntries(data.recentAuditEntries || [])
         } else {
           setError(data.message || 'Failed to load student course access')
         }
@@ -138,6 +147,21 @@ export default function GrantCourseAccessModal({
           <p className="text-sm text-gray-600">
             Check courses to grant access and uncheck courses to remove them from this student's account.
           </p>
+
+          {recentAuditEntries.length > 0 && (
+            <div className="rounded-lg border border-slate-200 bg-slate-50 p-3">
+              <p className="text-xs font-semibold uppercase tracking-wide text-slate-600 mb-2">Recent Access Updates</p>
+              <div className="space-y-1">
+                {recentAuditEntries.slice(0, 4).map((entry, index) => (
+                  <p key={`${entry.courseTitle}-${entry.changedAt}-${index}`} className="text-xs text-slate-700">
+                    <span className="font-medium">{entry.courseTitle}</span> was {entry.action} by{' '}
+                    <span className="font-medium">{entry.changedByUsername}</span> on{' '}
+                    {new Date(entry.changedAt).toLocaleString()}
+                  </p>
+                ))}
+              </div>
+            </div>
+          )}
 
           {loading ? (
             <div className="flex items-center justify-center py-8">

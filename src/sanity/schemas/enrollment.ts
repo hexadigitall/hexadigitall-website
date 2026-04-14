@@ -196,6 +196,34 @@ export default defineType({
       initialValue: false,
     }),
     defineField({
+      name: 'accessAuditTrail',
+      title: 'Access Audit Trail',
+      type: 'array',
+      of: [
+        {
+          type: 'object',
+          fields: [
+            defineField({
+              name: 'action',
+              title: 'Action',
+              type: 'string',
+              options: {
+                list: [
+                  { title: 'Granted', value: 'granted' },
+                  { title: 'Revoked', value: 'revoked' },
+                ],
+              },
+            }),
+            defineField({ name: 'courseId', title: 'Course ID', type: 'string' }),
+            defineField({ name: 'changedByUserId', title: 'Changed By User ID', type: 'string' }),
+            defineField({ name: 'changedByUsername', title: 'Changed By Username', type: 'string' }),
+            defineField({ name: 'changedAt', title: 'Changed At', type: 'datetime' }),
+          ],
+        },
+      ],
+      description: 'Audit history for manual access grants and revocations',
+    }),
+    defineField({
       name: 'certificateIssued',
       title: 'Certificate Issued',
       type: 'boolean',

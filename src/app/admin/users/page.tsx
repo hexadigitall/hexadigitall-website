@@ -26,6 +26,7 @@ interface User {
   role: 'admin' | 'teacher' | 'student'
   status: 'active' | 'suspended' | 'pending'
   createdAt?: string
+  assignedCourseCount?: number
 }
 
 const roleOptions: Array<{ label: string; value: User['role'] }> = [
@@ -547,7 +548,14 @@ export default function AdminUsersPage() {
                       <tr key={user._id} className="hover:bg-gray-50">
                         <td className="px-6 py-4 whitespace-nowrap">
                           <div className="text-sm font-medium text-gray-900">{user.name || user.username}</div>
-                          <div className="text-xs text-gray-500">{user.username}</div>
+                          <div className="flex items-center gap-2 mt-1">
+                            <div className="text-xs text-gray-500">{user.username}</div>
+                            {(user.role === 'teacher' || user.role === 'student') && (
+                              <span className="inline-flex items-center rounded-full bg-blue-50 px-2 py-0.5 text-[11px] font-medium text-blue-700 border border-blue-100">
+                                {user.assignedCourseCount ?? 0} assigned
+                              </span>
+                            )}
+                          </div>
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">{user.email}</td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
