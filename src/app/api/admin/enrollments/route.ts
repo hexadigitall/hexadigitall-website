@@ -113,9 +113,10 @@ export async function POST(request: NextRequest) {
     }
 
     // Create enrollment document
-    const enrollmentData: Record<string, unknown> = {
-      _type: 'enrollment',
-      courseId: { _type: 'reference', _ref: courseId },
+    const enrollmentData = {
+      _type: 'enrollment' as const,
+      courseId: { _type: 'reference' as const, _ref: courseId },
+      ...(userId ? { studentId: { _type: 'reference' as const, _ref: userId } } : {}),
       studentName,
       studentEmail,
       studentPhone: 'N/A',
@@ -125,10 +126,6 @@ export async function POST(request: NextRequest) {
       enrolledAt: new Date().toISOString(),
       stripeSessionId: `admin-grant-${Date.now()}`,
       amount: 1,
-    }
-
-    if (userId) {
-      enrollmentData.studentId = { _type: 'reference', _ref: userId }
     }
 
     const enrollment = await writeClient.create(enrollmentData)
