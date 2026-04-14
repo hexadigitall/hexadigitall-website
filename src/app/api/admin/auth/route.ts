@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import crypto from 'crypto'
-import { client } from '@/sanity/client'
+import { client, writeClient } from '@/sanity/client'
 
 // In production, store these in environment variables
 const ADMIN_USERNAME = process.env.ADMIN_USERNAME || 'admin'
@@ -55,14 +55,42 @@ export async function POST(request: NextRequest) {
 
     // 2) Fallback to env admin (legacy)
     if (username === ADMIN_USERNAME && hashPassword(password) === ADMIN_PASSWORD_HASH) {
+      // Ensure this admin has a Sanity user document so that userId-based
+      // token resolution works everywhere (assessments, dashboards, etc.)
+      let sanityUserId: string | null = null
+      try {
+        const existing = await client.fetch<{ _id: string } | null>(
+          `*[_type == "user" && username == $username][0]{ _id }`,
+          { username },
+        )
+        if (existing) {
+          sanityUserId = existing._id
+        } else {
+          // First login via env credentials — create the Sanity document
+          const created = await writeClient.create({
+            _type: 'user',
+            username,
+            name: 'Administrator',
+            role: 'admin',
+            status: 'active',
+            createdAt: new Date().toISOString(),
+          })
+          sanityUserId = created._id
+        }
+      } catch {
+        // Non-fatal — fall through with null userId (legacy behaviour)
+      }
+
       const token = generateToken()
-      const sessionToken = Buffer.from(JSON.stringify({
+      const sessionPayload: Record<string, unknown> = {
         token,
         username,
         role: 'admin',
         timestamp: Date.now(),
-      })).toString('base64')
+      }
+      if (sanityUserId) sessionPayload.userId = sanityUserId
 
+      const sessionToken = Buffer.from(JSON.stringify(sessionPayload)).toString('base64')
       return NextResponse.json({ success: true, token: sessionToken, username, role: 'admin' })
     }
 

@@ -33,6 +33,23 @@ export async function getSessionUserFromToken(token: string): Promise<SessionUse
     }
 
     if (!decoded.role || !decoded.username) return null
+
+    // No userId in token (legacy env-admin tokens) — try a Sanity lookup by username
+    // so that if a Sanity document now exists we get the real _id.
+    const userByUsername = await client.fetch<SessionUser | null>(
+      `*[_type == "user" && username == $username][0]{
+        _id,
+        username,
+        name,
+        email,
+        role,
+        status
+      }`,
+      { username: decoded.username },
+    )
+    if (userByUsername && userByUsername.status !== 'suspended') return userByUsername
+
+    // Final fallback — no Sanity document exists yet; return minimal session object
     return {
       _id: '',
       username: decoded.username,
