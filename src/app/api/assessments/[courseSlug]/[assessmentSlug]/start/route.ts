@@ -48,7 +48,7 @@ export async function POST(request: NextRequest, { params }: StartRouteParams) {
       return NextResponse.json({ success: false, message: access.reason || 'Access denied' }, { status: 403 })
     }
 
-    const latestAttempt = await client.fetch<{
+    type PreviousAttempt = {
       _id: string
       status: string
       startedAt: string
@@ -63,29 +63,32 @@ export async function POST(request: NextRequest, { params }: StartRouteParams) {
       timeSpentSeconds?: number
       resultCode?: string
       attemptNumber?: number
-    } | null>(
-      groq`*[_type == "assessmentAttempt" && studentId._ref == $studentId && courseSlug == $courseSlug && assessmentSlug == $assessmentSlug] | order(_createdAt desc)[0] {
-        _id,
-        status,
-        startedAt,
-        expiresAt,
-        submittedAt,
-        answers,
-        scoreRaw,
-        scorePercent,
-        passed,
-        passPercentage,
-        totalQuestions,
-        timeSpentSeconds,
-        resultCode,
-        attemptNumber
-      }`,
-      {
-        studentId: user._id,
-        courseSlug,
-        assessmentSlug,
-      },
-    )
+    } | null
+
+    // Only look up previous attempts when we have a real Sanity user _id.
+    // Legacy admin tokens can have _id = '' which makes the GROQ filter match nothing anyway,
+    // but we skip the round-trip entirely to avoid potential issues.
+    const latestAttempt: PreviousAttempt = user._id
+      ? await client.fetch<PreviousAttempt>(
+          groq`*[_type == "assessmentAttempt" && studentId._ref == $studentId && courseSlug == $courseSlug && assessmentSlug == $assessmentSlug] | order(_createdAt desc)[0] {
+            _id,
+            status,
+            startedAt,
+            expiresAt,
+            submittedAt,
+            answers,
+            scoreRaw,
+            scorePercent,
+            passed,
+            passPercentage,
+            totalQuestions,
+            timeSpentSeconds,
+            resultCode,
+            attemptNumber
+          }`,
+          { studentId: user._id, courseSlug, assessmentSlug },
+        )
+      : null
 
     const now = Date.now()
 
@@ -140,10 +143,9 @@ export async function POST(request: NextRequest, { params }: StartRouteParams) {
       assessmentSlug,
       assessmentTitle: assessment.title,
       phaseLabel: assessment.phaseLabel,
-      studentId: {
-        _type: 'reference',
-        _ref: user._id,
-      },
+      // Only write studentId reference when we have a valid Sanity document _id.
+      // Legacy admin tokens decoded without a userId yield _id = '' which Sanity rejects.
+      ...(user._id ? { studentId: { _type: 'reference', _ref: user._id } } : {}),
       enrollmentId: access.enrollmentId
         ? {
             _type: 'reference',
