@@ -6,6 +6,7 @@ import Link from 'next/link'
 import Breadcrumbs from '@/components/admin/Breadcrumbs'
 import AdminNavbar from '@/components/admin/AdminNavbar'
 import AssignCoursesModal from '@/components/admin/AssignCoursesModal'
+import GrantCourseAccessModal from '@/components/admin/GrantCourseAccessModal'
 import {
   ArrowLeftIcon,
   PlusIcon,
@@ -57,6 +58,8 @@ export default function AdminUsersPage() {
   const [roleEdits, setRoleEdits] = useState<Record<string, User['role']>>({})
   const [assignModalOpen, setAssignModalOpen] = useState(false)
   const [selectedTeacher, setSelectedTeacher] = useState<{ id: string; name: string } | null>(null)
+  const [grantAccessModalOpen, setGrantAccessModalOpen] = useState(false)
+  const [selectedStudent, setSelectedStudent] = useState<{ id: string; name: string; email: string } | null>(null)
   const [form, setForm] = useState({
     name: '',
     username: '',
@@ -347,6 +350,15 @@ export default function AdminUsersPage() {
     await loadUsers()
   }
 
+  const handleOpenGrantModal = (user: User) => {
+    setSelectedStudent({ id: user._id, name: user.name || user.username, email: user.email })
+    setGrantAccessModalOpen(true)
+  }
+
+  const handleGrantModalSuccess = () => {
+    setFeedback({ type: 'success', message: 'Course access granted successfully.' })
+  }
+
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gray-50">
@@ -624,6 +636,17 @@ export default function AdminUsersPage() {
                                 <span>Assign</span>
                               </button>
                             )}
+                            {user.role === 'student' && (
+                              <button
+                                type="button"
+                                onClick={() => handleOpenGrantModal(user)}
+                                disabled={savingId === user._id}
+                                className="inline-flex items-center space-x-1 text-sm text-primary hover:text-primary/80 disabled:opacity-50"
+                              >
+                                <AcademicCapIcon className="h-4 w-4" />
+                                <span>Grant Access</span>
+                              </button>
+                            )}
                             <button
                               type="button"
                               onClick={() => handleDeleteUser(user)}
@@ -651,6 +674,16 @@ export default function AdminUsersPage() {
           teacherName={selectedTeacher.name}
           onClose={() => setAssignModalOpen(false)}
           onSuccess={handleAssignModalSuccess}
+        />
+      )}
+
+      {grantAccessModalOpen && selectedStudent && (
+        <GrantCourseAccessModal
+          userId={selectedStudent.id}
+          userName={selectedStudent.name}
+          userEmail={selectedStudent.email}
+          onClose={() => setGrantAccessModalOpen(false)}
+          onSuccess={handleGrantModalSuccess}
         />
       )}
     </div>
