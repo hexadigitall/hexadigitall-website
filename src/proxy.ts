@@ -20,7 +20,7 @@ function isExpired(timestamp?: number) {
   return age > 24 * 60 * 60 * 1000
 }
 
-export function middleware(request: NextRequest) {
+export function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl
 
   // Allow login pages without auth
