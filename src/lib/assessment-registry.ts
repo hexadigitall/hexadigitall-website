@@ -5,11 +5,11 @@ import type {
   CourseAssessmentPublicQuestion,
 } from '@/lib/assessment-types'
 import { architectingLandingZonesAssessments } from '@/lib/course-assessments/architecting-landing-zones'
-import { devopsEngineeringAssessments } from '@/lib/course-assessments/devops-engineering-cloud-infrastructure'
+import { devopsEngineeringAssessments } from '@/lib/course-assessments/devops-engineering-cloud-infrastructure-core'
 
 const registry: Record<string, CourseAssessmentDefinition[]> = {
   'architecting-landing-zones': architectingLandingZonesAssessments,
-  'devops-engineering-cloud-infrastructure': devopsEngineeringAssessments,
+  'devops-engineering-cloud-infrastructure-core': devopsEngineeringAssessments,
 }
 
 export function getCourseAssessments(courseSlug: string): CourseAssessmentDefinition[] {

@@ -1,6 +1,6 @@
 import type { CourseAssessmentDefinition } from '@/lib/assessment-types'
 
-const courseSlug = 'devops-engineering-cloud-infrastructure'
+const courseSlug = 'devops-engineering-cloud-infrastructure-core'
 
 export const devopsEngineeringAssessments: CourseAssessmentDefinition[] = [
   {
