@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Architecting Landing Zones — KDP Hardcover Full Wrap</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --spine: 0.78in;
+      --total-width: 13.155in;
+      --height: 9.25in;
+      --panel-height: 9in;
+      --hinge: 0.0625in;
+      --bleed: 0.125in;
+    }
+    @page { size: 13.155in 9.25in; margin: 0; }
+    * { box-sizing: border-box; margin: 0; padding: 0; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    body { width: var(--total-width); height: var(--height); overflow: hidden; font-family: 'Inter', sans-serif; }
+    .wrap {
+      width: 100%; height: 100%; padding: 0 var(--bleed);
+      display: grid; grid-template-columns: 6in var(--hinge) var(--spine) var(--hinge) 6in;
+      background: linear-gradient(160deg, #06101d 0%, #0b2542 46%, #12324d 100%);
+      color: white;
+    }
+    .panel, .hinge, .spine { position: relative; margin: var(--bleed) 0; height: var(--panel-height); overflow: hidden; }
+    .panel::before, .hinge::before, .spine::before {
+      content: ''; position: absolute; inset: 0;
+      background-image: linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px);
+      background-size: 24px 24px;
+    }
+    .panel { padding: 0.42in 0.34in; }
+    .back h2, .front h1 { position: relative; z-index: 1; font-family: 'Space Grotesk', sans-serif; }
+    .back h2 { font-size: 17pt; line-height: 1.2; }
+    .back p, .back li, .front p { position: relative; z-index: 1; font-size: 8.8pt; line-height: 1.62; color: rgba(255,255,255,0.82); }
+    .back p { margin-top: 0.16in; }
+    .back ul { position: relative; z-index: 1; margin: 0.18in 0 0 0.18in; }
+    .back li { margin-bottom: 0.07in; }
+    .barcode { position: absolute; right: 0.34in; bottom: 0.36in; width: 1.55in; height: 0.95in; border: 1px dashed rgba(255,255,255,0.28); z-index: 1; }
+    .logo { position: relative; z-index: 1; width: 1.25in; filter: brightness(0) invert(1); }
+    .hero { position: relative; z-index: 1; margin-top: 0.28in; height: 2.55in; border-radius: 14px; overflow: hidden; }
+    .hero img { width: 100%; height: 100%; object-fit: cover; opacity: 0.72; }
+    .label { position: relative; z-index: 1; margin-top: 0.28in; color: #c5a059; font-size: 7.5pt; font-weight: 700; letter-spacing: 2.8px; text-transform: uppercase; }
+    .front h1 { position: relative; z-index: 1; margin-top: 0.1in; font-size: 24pt; line-height: 1.05; }
+    .front .meta { position: relative; z-index: 1; display: flex; gap: 8px; flex-wrap: wrap; margin-top: 0.2in; }
+    .front .meta span { border: 1px solid rgba(197,160,89,0.46); border-radius: 999px; padding: 5px 9px; font-size: 6.7pt; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: #f4dbad; }
+    .front .publisher { position: relative; z-index: 1; margin-top: auto; font-size: 8pt; color: rgba(255,255,255,0.78); }
+    .front .publisher strong { display: block; font-family: 'Space Grotesk', sans-serif; font-size: 10.5pt; color: white; }
+    .hinge { border-left: 1px solid rgba(255,255,255,0.08); border-right: 1px solid rgba(255,255,255,0.08); }
+    .spine { display: flex; align-items: center; justify-content: center; border-left: 1px solid rgba(255,255,255,0.08); border-right: 1px solid rgba(255,255,255,0.08); }
+    .spine .text { position: relative; z-index: 1; writing-mode: vertical-rl; transform: rotate(180deg); font-family: 'Space Grotesk', sans-serif; font-size: 11pt; letter-spacing: 1px; text-transform: uppercase; text-align: center; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <section class="panel back">
+      <h2>Build enterprise-ready cloud foundations.</h2>
+      <p>Architecting Landing Zones moves from account hierarchy design into secure networking, automated guardrails, account vending, drift control, and operational handover.</p>
+      <ul>
+        <li>AWS Organizations, OUs, SCPs, and identity patterns</li>
+        <li>Transit Gateway, shared services, and audit account design</li>
+        <li>AFT, Service Catalog, Config Rules, and remediation workflows</li>
+        <li>Documentation, compliance evidence, and day-two operations</li>
+      </ul>
+      <p>Built for engineers preparing to design or inherit multi-account cloud platforms in production.</p>
+      <div class="barcode"></div>
+    </section>
+    <section class="hinge"></section>
+    <section class="spine">
+      <div class="text">Architecting Landing Zones</div>
+    </section>
+    <section class="hinge"></section>
+    <section class="panel front">
+      <img class="logo" src="../../../hexadigitall-logo-transparent.svg" alt="Hexadigitall">
+      <div class="hero"><img src="../../../assets/images/courses/architecting-landing-zones.jpg" alt="Architecting Landing Zones"></div>
+      <div class="label">Advanced Cloud Infrastructure</div>
+      <h1>Architecting<br>Landing Zones</h1>
+      <p>Foundations to Production: enterprise governance, platform baselines, and secure multi-account operations.</p>
+      <div class="meta"><span>14 weeks</span><span>28 sessions</span><span>Hardcover</span></div>
+      <div class="publisher"><strong>Hexadigitall Technologies</strong>hexadigitall.com</div>
+    </section>
+  </div>
+</body>
+</html>
