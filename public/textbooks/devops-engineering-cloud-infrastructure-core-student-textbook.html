@@ -35,11 +35,24 @@
         background: #ffffff;
     }
 
+    :root {
+      --book-width: 152.4mm;
+      --book-height: 228.6mm;
+      --book-margin-top-bottom: 5.25mm;
+      --book-margin-outside: 4.25mm;
+      --book-margin-gutter: 6.25mm;
+      --book-content-padding-x: 2.5mm;
+      --book-content-padding-y: 6.5mm;
+    }
+
     /* ===== PAGE SETUP FOR PDF ===== */
     /* CSS counters for page numbers */
     @page {
-      size: A4;
-      margin: 10mm;
+      size: 152.4mm 228.6mm;
+      margin-top: var(--book-margin-top-bottom);
+      margin-bottom: var(--book-margin-top-bottom);
+      margin-left: var(--book-margin-gutter);
+      margin-right: var(--book-margin-outside);
       
       @bottom-right {
         content: counter(page);
@@ -54,6 +67,20 @@
         @bottom-right {
             content: none;
         }
+    }
+
+    @page :left {
+      margin-top: var(--book-margin-top-bottom);
+      margin-bottom: var(--book-margin-top-bottom);
+      margin-left: var(--book-margin-outside);
+      margin-right: var(--book-margin-gutter);
+    }
+
+    @page :right {
+      margin-top: var(--book-margin-top-bottom);
+      margin-bottom: var(--book-margin-top-bottom);
+      margin-left: var(--book-margin-gutter);
+      margin-right: var(--book-margin-outside);
     }
 
     /* ===== SIMPLIFIED PRINT OPTIMIZATION ===== */
@@ -84,8 +111,11 @@
 
       /* Page rules with page numbers */
       @page {
-        size: A4;
-        margin: 10mm;
+        size: 152.4mm 228.6mm;
+        margin-top: var(--book-margin-top-bottom);
+        margin-bottom: var(--book-margin-top-bottom);
+        margin-left: var(--book-margin-gutter);
+        margin-right: var(--book-margin-outside);
         
         @bottom-right {
           content: counter(page);
@@ -102,10 +132,77 @@
         }
       }
 
+      @page :left {
+        margin-top: var(--book-margin-top-bottom);
+        margin-bottom: var(--book-margin-top-bottom);
+        margin-left: var(--book-margin-outside);
+        margin-right: var(--book-margin-gutter);
+      }
+
+      @page :right {
+        margin-top: var(--book-margin-top-bottom);
+        margin-bottom: var(--book-margin-top-bottom);
+        margin-left: var(--book-margin-gutter);
+        margin-right: var(--book-margin-outside);
+      }
+
       @page cover {
-        size: A4;
+        size: 152.4mm 228.6mm;
         margin: 0;
         padding: 0;
+      }
+
+      /* Widen content on 6x9 pages by removing desktop-oriented fixed paddings */
+      .chapter,
+      .frontmatter-page,
+      .toc-page,
+      .copyright-page,
+      .week-intro {
+        width: 100% !important;
+        max-width: none !important;
+        margin: 0 !important;
+        padding: var(--book-content-padding-y) var(--book-content-padding-x) !important;
+      }
+
+      .week-cover {
+        width: 100% !important;
+        max-width: none !important;
+        margin: 0 !important;
+        padding: var(--book-content-padding-y) var(--book-content-padding-x) !important;
+        min-height: auto !important;
+      }
+
+      /* Force interior descendants to use full text measure on 6x9 pages. */
+      .chapter *,
+      .frontmatter-page *,
+      .toc-page *,
+      .copyright-page *,
+      .how-to-use-page *,
+      .methodology-page *,
+      .week-intro * {
+        max-width: none !important;
+      }
+
+      .chapter [style*="max-width"],
+      .frontmatter-page [style*="max-width"],
+      .toc-page [style*="max-width"],
+      .copyright-page [style*="max-width"],
+      .how-to-use-page [style*="max-width"],
+      .methodology-page [style*="max-width"],
+      .week-intro [style*="max-width"] {
+        max-width: none !important;
+      }
+
+      .week-intro,
+      .week-cover,
+      .chapter,
+      .frontmatter-page,
+      .toc-page,
+      .copyright-page,
+      .how-to-use-page,
+      .methodology-page {
+        padding-left: var(--book-content-padding-x) !important;
+        padding-right: var(--book-content-padding-x) !important;
       }
 
       /* Smart Page Breaks - Keep headers with content */
@@ -135,7 +232,7 @@
       /* Prevent orphaning bullet points */
       ul, ol {
         margin: 0.3cm 0;
-        padding-left: 1.2cm;
+        padding-left: 0.85cm;
         orphans: 2;
         widows: 2;
       }
@@ -180,21 +277,18 @@
       .lab-container,
       .lab-solution-container {
         overflow: visible !important;
-        page-break-inside: avoid;
-        break-inside: avoid-page;
+        page-break-inside: auto;
+        break-inside: auto;
         margin: 0.4cm 0;
         color: #2d3748;
       }
 
       .lab-step {
-        page-break-inside: avoid;
-        break-inside: avoid-page;
+        page-break-inside: auto;
+        break-inside: auto;
       }
 
       /* Keep code and visual artefacts together on one page when possible */
-      .code-block,
-      pre,
-      .output-block,
       .design-canvas,
       figure,
       svg,
@@ -207,6 +301,16 @@
       .topology-diagram {
         page-break-inside: avoid !important;
         break-inside: avoid-page !important;
+        page-break-before: auto;
+        page-break-after: auto;
+      }
+
+      /* Allow long code and output blocks to split across pages cleanly. */
+      .code-block,
+      pre,
+      .output-block {
+        page-break-inside: auto !important;
+        break-inside: auto !important;
         page-break-before: auto;
         page-break-after: auto;
       }
@@ -425,28 +529,79 @@
 
       .cover-page,
       .back-cover-page {
-        width: 210mm !important;
-        height: 297mm !important;
+        width: var(--book-width) !important;
+        height: var(--book-height) !important;
         margin: 0 !important;
         padding: 0 !important;
       }
     }
 
+    /* ===== SCREEN PREVIEW: constrain to 6x9 book proportions ===== */
+    @media screen {
+      body {
+        background: #e8e8e8;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 8mm;
+        padding: 8mm;
+      }
+
+      .cover-page,
+      .back-cover-page {
+        width: var(--book-width) !important;
+        height: var(--book-height) !important;
+        box-shadow: 0 4px 24px rgba(0,0,0,0.25);
+        overflow: hidden;
+      }
+
+      .chapter,
+      .frontmatter-page,
+      .toc-page,
+      .copyright-page,
+      .week-intro,
+      .how-to-use-page,
+      .methodology-page {
+        width: var(--book-width) !important;
+        max-width: var(--book-width) !important;
+        min-height: var(--book-height);
+        margin: 0 !important;
+        padding: var(--book-content-padding-y) var(--book-content-padding-x) !important;
+        box-shadow: 0 4px 24px rgba(0,0,0,0.18);
+        background: #fff;
+        box-sizing: border-box;
+      }
+
+      .week-cover {
+        width: var(--book-width) !important;
+        max-width: var(--book-width) !important;
+        min-height: var(--book-height);
+        margin: 0 !important;
+        padding: var(--book-content-padding-y) var(--book-content-padding-x) !important;
+        box-shadow: 0 4px 24px rgba(0,0,0,0.18);
+        box-sizing: border-box;
+      }
+    }
+
     /* ===== COVER PAGE STYLES ===== */
     .cover-page {
-        width: 210mm;
-        height: 297mm;
+      width: var(--book-width);
+      height: var(--book-height);
         background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
         margin: 0;
         padding: 0;
         page-break-after: always;
         page: cover;
         position: relative;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      break-inside: avoid-page;
     }
 
       .back-cover-page {
-        width: 210mm;
-        height: 297mm;
+        width: var(--book-width);
+        height: var(--book-height);
         margin: 0;
         padding: 0;
         page: cover;
@@ -657,15 +812,15 @@
       }
     
     .cover-header {
-        padding: 30px 50px;
+      padding: 11mm 10mm 5mm;
         display: flex;
         justify-content: space-between;
-        align-items: flex-start;
+      align-items: center;
         position: relative;
     }
 
     .cover-logo {
-        width: 180px;
+      width: 34mm;
         height: auto;
         -webkit-print-color-adjust: exact;
         print-color-adjust: exact;
@@ -677,16 +832,16 @@
 
     .cover-qr-label {
         color: rgba(255, 255, 255, 0.9);
-        font-size: 10px;
+      font-size: 9px;
         font-weight: 500;
-        margin-bottom: 4px;
+      margin-bottom: 3px;
         text-transform: uppercase;
         letter-spacing: 1px;
     }
 
     .cover-qr-code {
         background: white;
-        padding: 6px;
+      padding: 4px;
         border-radius: 8px;
         display: inline-block;
     }
@@ -703,52 +858,53 @@
 
     .cover-qr-code img {
         display: block;
-        width: 110px;
-        height: 110px;
+      width: 20mm;
+      height: 20mm;
     }
 
     .cover-main {
-        padding: 50px 20px 120px 20px;
+      padding: 4mm 8mm 6mm;
         text-align: center;
         position: relative;
         flex: 1;
+      overflow: hidden;
     }
 
     .cover-badge {
         background: rgba(255, 255, 255, 0.2);
         backdrop-filter: blur(10px);
         color: white;
-        padding: 8px 24px;
+      padding: 6px 16px;
         border-radius: 20px;
-        font-size: 13px;
+      font-size: 11px;
         font-weight: 600;
         text-transform: uppercase;
-        letter-spacing: 1.5px;
-        margin-bottom: 15px;
+      letter-spacing: 1.2px;
+      margin-bottom: 10px;
         border: 1px solid rgba(255, 255, 255, 0.3);
         display: inline-block;
     }
 
     .cover-title {
         font-family: 'Space Grotesk', sans-serif;
-        font-size: 42px;
+      font-size: 32px;
         font-weight: 700;
         color: white;
-        margin-bottom: 12px;
-        line-height: 1.2;
+      margin-bottom: 8px;
+      line-height: 1.15;
         text-shadow: 0 2px 20px rgba(0, 0, 0, 0.2);
     }
 
     .cover-subtitle {
-        font-size: 19px;
+      font-size: 15px;
         color: rgba(255, 255, 255, 0.95);
-        margin-bottom: 18px;
+      margin-bottom: 12px;
         font-weight: 500;
     }
 
     .cover-image-container {
-        margin: 20px auto;
-        max-width: 450px;
+      margin: 12px auto;
+      max-width: 320px;
         width: 100%;
     }
 
@@ -763,65 +919,63 @@
 
     .cover-meta {
         display: inline-flex;
-        gap: 20px;
-        margin-top: 20px;
+      gap: 14px;
+      margin-top: 12px;
         flex-wrap: wrap;
         justify-content: center;
         background: rgba(0, 0, 0, 0.18);
         border: 1px solid rgba(255, 255, 255, 0.25);
         border-radius: 16px;
-        padding: 16px 24px;
+      padding: 12px 14px;
         backdrop-filter: blur(6px);
     }
 
     .cover-meta-item {
         text-align: center;
-        min-width: 110px;
+      min-width: 82px;
     }
 
     .cover-meta-label {
-        font-size: 12px;
+      font-size: 10px;
         color: rgba(255, 255, 255, 1);
         text-transform: uppercase;
-        letter-spacing: 1px;
-        margin-bottom: 6px;
+      letter-spacing: 0.8px;
+      margin-bottom: 4px;
         font-weight: 600;
     }
 
     .cover-meta-value {
-        font-size: 17px;
+      font-size: 14px;
         color: rgba(255, 255, 255, 1);
         font-weight: 700;
     }
 
     .cover-footer {
-        padding: 24px 50px;
+      padding: 8mm 10mm 7mm;
         text-align: center;
         border-top: 1px solid rgba(255, 255, 255, 0.2);
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        right: 0;
+      margin-top: auto;
+      position: relative;
     }
 
     .cover-brand {
         font-family: 'Space Grotesk', sans-serif;
-        font-size: 17px;
+      font-size: 15px;
         color: white;
         font-weight: 600;
-        margin-bottom: 5px;
+      margin-bottom: 4px;
     }
 
     .cover-url {
-        font-size: 15px;
+      font-size: 13px;
         color: rgba(255, 255, 255, 0.9);
         font-weight: 500;
     }
 
     .cover-tagline {
-        font-size: 13px;
+      font-size: 11px;
         color: rgba(255, 255, 255, 0.7);
-        margin-top: 6px;
+      margin-top: 5px;
         font-style: italic;
     }
 
@@ -1210,10 +1364,37 @@
         margin: 0 auto;
     }
 
+    /* Normalize 6x9 text density across preview and print fallback paths. */
+    .chapter,
+    .frontmatter-page,
+    .toc-page,
+    .copyright-page,
+    .how-to-use-page,
+    .methodology-page,
+    .week-intro {
+      width: 100% !important;
+      max-width: none !important;
+      margin: 0 !important;
+      padding: calc(var(--book-content-padding-y) * 0.85) var(--book-content-padding-x) !important;
+      box-sizing: border-box;
+    }
+
+    .frontmatter-page > *,
+    .copyright-page > *,
+    .toc-page > * {
+      max-width: none !important;
+    }
+
+    /* Screen override is handled by @media screen block above */
+    /* Print override is handled by @media print block above */
+
     /* Front matter pages: no running page number */
     @page frontmatter {
-        size: A4;
-        margin: 10mm;
+      size: 152.4mm 228.6mm;
+      margin-top: var(--book-margin-top-bottom);
+      margin-bottom: var(--book-margin-top-bottom);
+      margin-left: var(--book-margin-gutter);
+      margin-right: var(--book-margin-outside);
         @bottom-right {
             content: none;
         }
@@ -1223,8 +1404,11 @@
     }
 
     @page main-first-page {
-        size: A4;
-        margin: 10mm;
+      size: 152.4mm 228.6mm;
+      margin-top: var(--book-margin-top-bottom);
+      margin-bottom: var(--book-margin-top-bottom);
+      margin-left: var(--book-margin-gutter);
+      margin-right: var(--book-margin-outside);
         counter-reset: page 1;
         @bottom-right {
             content: counter(page);
@@ -2254,6 +2438,42 @@
         page: main;
     }
 
+    /* ===== PAGED.JS SCREEN LAYOUT OVERRIDES ===== */
+    /* .pagedjs_area only exists after Paged.js has paged the document.
+       Using compound selectors (specificity 0-2-0) beats all single-class
+       rules (0-1-0) without needing !important, and !important here beats
+       the Normalize block's !important via higher specificity. */
+    .pagedjs_area .chapter,
+    .pagedjs_area .frontmatter-page,
+    .pagedjs_area .toc-page,
+    .pagedjs_area .copyright-page,
+    .pagedjs_area .how-to-use-page,
+    .pagedjs_area .methodology-page,
+    .pagedjs_area .week-intro,
+    .pagedjs_area .week-cover {
+      padding: var(--book-content-padding-y) var(--book-content-padding-x) !important;
+      max-width: none !important;
+      margin: 0 !important;
+      width: 100% !important;
+      box-sizing: border-box !important;
+    }
+
+    .pagedjs_area .week-cover {
+      min-height: auto !important;
+    }
+
+    .pagedjs_area .week-quote,
+    .pagedjs_area .lab-container,
+    .pagedjs_area .lab-solution-container {
+      max-width: none !important;
+      margin-left: 0 !important;
+      margin-right: 0 !important;
+    }
+
+    .pagedjs_area [style*="max-width"] {
+      max-width: none !important;
+    }
+
   </style>
   <style type="text/css">
   p.c190 {color: #4a5568; margin-top: 16px;}
@@ -2463,9 +2683,9 @@
       </div>
     </div>
     <div class="cover-main">
-      <div class="cover-badge">Official Course Textbook</div>
+      <div class="cover-badge">Official Student Textbook</div>
       <h1 class="cover-title">DevOps Engineering &amp;<br>Cloud Infrastructure</h1>
-      <div class="cover-subtitle">Core Track - Comprehensive Textbook</div>
+      <div class="cover-subtitle">Core Track - Student Edition</div>
       <div class="cover-image-container">
         <img src="../assets/images/courses/devops-engineering-cloud-infrastructure.jpg" alt="DevOps Engineering Course" class="cover-image">
       </div>
@@ -2524,10 +2744,7 @@
     Infrastructure</h1>
     <div class="copyright-content">
       <p><strong>Official Course Textbook - Core Track
-      Edition</strong></p>
-      <p><strong>ISBN:</strong> 978-0-000000-00-0 (Placeholder)
-      <br>
-      <strong>DOI:</strong> 10.0000/hexadigitall.devops.core (Placeholder)</p>
+      Student Edition</strong></p>
       <p><strong>First Edition, January 2026</strong></p>
       <div class="copyright-separator"></div>
       <p><strong>Published by:</strong><br>

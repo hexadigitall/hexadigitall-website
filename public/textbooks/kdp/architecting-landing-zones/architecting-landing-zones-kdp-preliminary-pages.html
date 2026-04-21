@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Architecting Landing Zones — Preliminary Pages</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --navy: #0b2542;
+      --gold: #c5a059;
+      --slate: #475569;
+      --border: #d8e1ea;
+    }
+    @page {
+      size: 6in 9in;
+      margin: 0.65in 0.48in;
+      @bottom-center { content: counter(page, lower-roman); font-family: 'Inter', sans-serif; font-size: 9pt; color: #64748b; }
+    }
+    @page :left { margin: 0.65in 0.78in 0.65in 0.44in; }
+    @page :right { margin: 0.65in 0.44in 0.65in 0.78in; }
+    @page titlepage { @bottom-center { content: ''; } }
+    * { box-sizing: border-box; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    body { margin: 0; font-family: 'Inter', sans-serif; color: var(--navy); }
+    .page { min-height: 7.7in; break-after: page; page-break-after: always; display: flex; flex-direction: column; }
+    .page:last-child { break-after: auto; page-break-after: auto; }
+    .titlepage { page: titlepage; justify-content: center; text-align: center; }
+    .series { color: var(--gold); font-size: 8pt; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; }
+    h1 { font-family: 'Space Grotesk', sans-serif; font-size: 25pt; line-height: 1.1; margin: 0.18in 0 0.1in; }
+    .subtitle { font-size: 11pt; color: var(--slate); }
+    .rule { width: 0.55in; height: 2px; background: var(--gold); margin: 0.3in auto; }
+    .meta { display: flex; justify-content: center; gap: 0.24in; flex-wrap: wrap; margin-top: 0.12in; }
+    .meta div { border: 1px solid var(--border); border-radius: 999px; padding: 6px 12px; font-size: 8pt; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; }
+    .publisher { margin-top: 0.45in; font-size: 10pt; color: var(--slate); }
+    .publisher strong { display: block; font-family: 'Space Grotesk', sans-serif; color: var(--navy); font-size: 12pt; }
+    h2 { font-family: 'Space Grotesk', sans-serif; font-size: 18pt; margin-bottom: 0.18in; }
+    p { font-size: 10pt; line-height: 1.7; margin: 0 0 0.14in; }
+    ul { margin: 0.1in 0 0 0.18in; padding: 0; }
+    li { margin-bottom: 0.08in; font-size: 10pt; line-height: 1.6; }
+    .small { font-size: 8.7pt; color: var(--slate); }
+    .callout { border-left: 3px solid var(--gold); background: #f8fafc; padding: 0.16in 0.18in; margin-top: 0.18in; }
+  </style>
+</head>
+<body>
+  <section class="page titlepage">
+    <div class="series">Advanced Cloud Infrastructure</div>
+    <h1>Architecting Landing Zones</h1>
+    <p class="subtitle">Foundations to Production</p>
+    <div class="rule"></div>
+    <div class="meta">
+      <div>14 weeks</div>
+      <div>28 sessions</div>
+      <div>Advanced</div>
+    </div>
+    <div class="publisher">
+      <strong>Hexadigitall Technologies</strong>
+      hexadigitall.com
+    </div>
+  </section>
+
+  <section class="page">
+    <h2>Copyright</h2>
+    <p><strong>© 2026 Hexadigitall Technologies.</strong> All rights reserved.</p>
+    <p>No part of this publication may be reproduced or transmitted without prior written permission of the publisher, except for brief quotations permitted by law.</p>
+    <p>This work covers enterprise cloud governance, networking, identity, and automation practices. Product names and trademarks remain the property of their respective owners.</p>
+    <p class="small">Course code: LZS-2026-ADV</p>
+    <p class="small">Publisher: Hexadigitall Technologies</p>
+    <p class="small">Edition set: Student and Teacher interior variants</p>
+  </section>
+
+  <section class="page">
+    <h2>How To Use This Book</h2>
+    <ul>
+      <li>Read each phase overview before starting the weekly build tasks.</li>
+      <li>Use the labs to implement governance, networking, and account vending patterns in code.</li>
+      <li>Keep architecture decisions, remediation notes, and handover evidence in version control.</li>
+      <li>Use the student edition for independent assessment practice and the teacher edition for answer validation.</li>
+    </ul>
+    <div class="callout">
+      <p><strong>Production caution:</strong> multi-account environments, transit gateways, and continuous assessment services can incur real cloud cost. Track spend and decommission nonessential resources after labs.</p>
+    </div>
+  </section>
+
+  <section class="page">
+    <h2>Publishing Note</h2>
+    <p>This preliminary-pages file is separate from the KDP interior manuscript so it can be revised independently during sales preparation, ISBN assignment, and final marketplace packaging.</p>
+    <p>Update ISBN, imprint, and barcode metadata here once final publication values are assigned.</p>
+  </section>
+</body>
+</html>

@@ -11,13 +11,13 @@ const rootDir = path.resolve(__dirname, '..');
 
 const manuscriptJobs = [
   {
-    input: path.join(rootDir, 'public/textbooks/kdp/devops-kdp-6x9-teacher.html'),
-    output: path.join(rootDir, 'public/textbooks/kdp/exports/pdf/devops-kdp-6x9-teacher.pdf'),
+    input: path.join(rootDir, 'public/textbooks/kdp/devops-engineering-cloud-infrastructure-core/devops-kdp-6x9-teacher.html'),
+    output: path.join(rootDir, 'public/textbooks/kdp/devops-engineering-cloud-infrastructure-core/pdfs/devops-kdp-6x9-teacher.pdf'),
     label: 'Teacher paperback manuscript',
   },
   {
-    input: path.join(rootDir, 'public/textbooks/kdp/devops-kdp-6x9-hardcover-teacher.html'),
-    output: path.join(rootDir, 'public/textbooks/kdp/exports/pdf/devops-kdp-6x9-hardcover-teacher.pdf'),
+    input: path.join(rootDir, 'public/textbooks/kdp/devops-engineering-cloud-infrastructure-core/devops-kdp-6x9-hardcover-teacher.html'),
+    output: path.join(rootDir, 'public/textbooks/kdp/devops-engineering-cloud-infrastructure-core/pdfs/devops-kdp-6x9-hardcover-teacher.pdf'),
     label: 'Teacher hardcover manuscript',
   },
 ];
