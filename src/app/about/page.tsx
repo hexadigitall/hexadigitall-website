@@ -69,12 +69,12 @@ export default function AboutPage() {
         </div>
       </section>
       
-      <section className="bg-white py-16 md:py-24">
+      <section className="bg-white dark:bg-slate-900 py-16 md:py-24">
         <div className="container mx-auto px-6 max-w-4xl">
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div>
               <h2 className="text-3xl font-bold font-heading mb-4">Our Story</h2>
-              <p className="text-darkText leading-relaxed">
+              <p className="text-darkText dark:text-slate-300 leading-relaxed">
                 Hexadigitall was founded on a simple observation: many brilliant entrepreneurs and businesses struggle to connect their vision with the right digital tools and strategies. We exist to bridge that gap. Our journey began with a passion for technology and a commitment to helping others succeed, evolving into a multi-disciplinary agency dedicated to providing holistic support.
               </p>
             </div>
@@ -90,18 +90,18 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <section className="bg-lightGray py-16 md:py-24">
+      <section className="bg-lightGray dark:bg-slate-800 py-16 md:py-24">
         <div className="container mx-auto px-6 max-w-5xl">
           <div className="grid md:grid-cols-2 gap-12 text-center">
             <div>
               <h3 className="text-2xl font-bold font-heading mb-3">Our Mission</h3>
-              <p className="text-darkText">
+              <p className="text-darkText dark:text-slate-300">
                 To empower entrepreneurs and businesses with the strategic, technical, and creative solutions they need to thrive in a digital-first world.
               </p>
             </div>
             <div>
               <h3 className="text-2xl font-bold font-heading mb-3">Our Vision</h3>
-              <p className="text-darkText">
+              <p className="text-darkText dark:text-slate-300">
                 To be the leading digital enablement partner for startups and SMEs in Nigeria and beyond, known for our integrated approach and unwavering commitment to client success.
               </p>
             </div>

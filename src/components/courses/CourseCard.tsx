@@ -87,7 +87,7 @@ export default function CourseCard({
   }
 
   return (
-    <article className="bg-white rounded-2xl overflow-hidden hover:scale-105 hover:shadow-2xl transition-all duration-300 group relative border border-gray-100 flex flex-col h-full">
+    <article className="bg-white dark:bg-slate-800 rounded-2xl overflow-hidden hover:scale-105 hover:shadow-2xl transition-all duration-300 group relative border border-gray-100 dark:border-slate-700 flex flex-col h-full">
       {/* 🔗 1. CLICKABLE IMAGE */}
       <Link href={`/courses/${safeSlug}`} className="relative aspect-video overflow-hidden block cursor-pointer">
         <Image
@@ -110,17 +110,17 @@ export default function CourseCard({
       <div className="p-6 flex flex-col flex-grow">
         {/* 🔗 2. CLICKABLE TITLE */}
         <Link href={`/courses/${safeSlug}`} className="block group-hover:text-primary transition-colors cursor-pointer">
-          <h3 className="text-xl font-bold text-gray-900 mb-2 line-clamp-2">
+          <h3 className="text-xl font-bold text-gray-900 dark:text-slate-100 mb-2 line-clamp-2">
             {safeTitle}
           </h3>
         </Link>
         
-        <p className="text-gray-600 text-sm mb-4 line-clamp-3 flex-grow">
+        <p className="text-gray-600 dark:text-slate-400 text-sm mb-4 line-clamp-3 flex-grow">
           {safeDescription}
         </p>
         
         {/* DURATION */}
-        <div className="flex items-center text-sm text-gray-500 mb-4 space-x-4">
+        <div className="flex items-center text-sm text-gray-500 dark:text-slate-400 mb-4 space-x-4">
           <div className="flex items-center">
             <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
             <span>{course.duration}</span>
@@ -136,13 +136,13 @@ export default function CourseCard({
               </div>
               <div className="text-primary font-bold text-xl">
                 {new Intl.NumberFormat('en-US', { style: 'currency', currency: displayPrice.currency, maximumFractionDigits: 0 }).format(displayPrice.price ?? 0)}
-                <span className="text-xs font-normal text-gray-500">/mo</span>
+                <span className="text-xs font-normal text-gray-500 dark:text-slate-400">/mo</span>
               </div>
             </div>
           ) : displayPrice?.priceInfo ? (
             <div className="space-y-0.5">
                {displayPrice.priceInfo.hasDiscount && (
-                <span className="text-gray-400 line-through text-sm block">
+                <span className="text-gray-400 dark:text-slate-500 line-through text-sm block">
                   {displayPrice.priceInfo.originalPrice}
                 </span>
               )}

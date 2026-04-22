@@ -353,7 +353,7 @@ export default async function CoursePage(props: Props) {
     };
     
     return (
-        <article className="bg-white">
+        <article className="bg-white dark:bg-slate-900">
             {/* Inject JSON-LD */}
             <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(courseJsonLd) }} />
             <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }} />
@@ -365,7 +365,7 @@ export default async function CoursePage(props: Props) {
                         { label: 'Courses', href: '/courses' },
                         { label: course.title }
                     ]}
-                    className="mb-2 text-gray-700 [&_a]:text-primary [&_svg]:text-primary/70"
+                    className="mb-2 text-gray-700 dark:text-slate-300 [&_a]:text-primary [&_svg]:text-primary/70"
                 />
             </div>
 
@@ -385,7 +385,7 @@ export default async function CoursePage(props: Props) {
                             // Type-cast body to avoid TS errors with PortableText
                             <PortableText value={course.body as Record<string, unknown>[]} />
                         ) : (
-                            <p className="text-gray-600 italic">No detailed description available.</p>
+                            <p className="text-gray-600 dark:text-slate-400 italic">No detailed description available.</p>
                         )}
                     </div>
 
@@ -395,8 +395,8 @@ export default async function CoursePage(props: Props) {
                             <CourseEnrollment course={courseEnrollmentData} />
                             
                             {/* Materials Section (Protected) */}
-                            <div className="mt-6 bg-white rounded-xl shadow-sm border border-gray-200 p-5">
-                                <h3 className="text-base font-semibold text-gray-900 mb-3">Course Materials</h3>
+                            <div className="mt-6 bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-gray-200 dark:border-slate-700 p-5">
+                                <h3 className="text-base font-semibold text-gray-900 dark:text-slate-100 mb-3">Course Materials</h3>
                                 <div className="mb-3">
                                     <a
                                         href={`/courses/${slug}/curriculum`}
@@ -438,17 +438,17 @@ export default async function CoursePage(props: Props) {
                                             </a>
                                         )}
                                         {!course.contentPdf?.asset?._ref && !course.roadmapPdf?.asset?._ref && (
-                                            <p className="text-sm text-gray-600">No materials available yet.</p>
+                                            <p className="text-sm text-gray-600 dark:text-slate-400">No materials available yet.</p>
                                         )}
                                     </div>
                                 ) : (
-                                    <p className="text-sm text-gray-600">Login and enroll (or be assigned) to access downloadable materials.</p>
+                                    <p className="text-sm text-gray-600 dark:text-slate-400">Login and enroll (or be assigned) to access downloadable materials.</p>
                                 )}
                             </div>
 
-                            <div className="mt-6 rounded-xl border border-blue-200 bg-blue-50/60 p-5">
-                                <h3 className="text-base font-semibold text-gray-900">New here?</h3>
-                                <p className="mt-2 text-sm text-gray-700">
+                            <div className="mt-6 rounded-xl border border-blue-200 dark:border-blue-900 bg-blue-50/60 dark:bg-blue-950/30 p-5">
+                                <h3 className="text-base font-semibold text-gray-900 dark:text-slate-100">New here?</h3>
+                                <p className="mt-2 text-sm text-gray-700 dark:text-slate-300">
                                     Use one student account for courses and mentorships. If you start with mentorship,
                                     this same account will be upgraded when you enroll in a full course.
                                 </p>
@@ -461,13 +461,13 @@ export default async function CoursePage(props: Props) {
                                     </a>
                                     <a
                                         href="/student/login?source=course-detail&next=/courses"
-                                        className="inline-flex items-center justify-center rounded-lg border border-gray-300 bg-white px-4 py-2 text-sm font-semibold text-gray-700 transition-colors hover:border-gray-400"
+                                        className="inline-flex items-center justify-center rounded-lg border border-gray-300 dark:border-slate-600 bg-white dark:bg-slate-800 px-4 py-2 text-sm font-semibold text-gray-700 dark:text-slate-300 transition-colors hover:border-gray-400 dark:hover:border-slate-500"
                                     >
                                         Student sign in
                                     </a>
                                     <a
                                         href="/mentorships"
-                                        className="inline-flex items-center justify-center rounded-lg border border-amber-300 bg-white px-4 py-2 text-sm font-semibold text-amber-800 transition-colors hover:border-amber-400"
+                                        className="inline-flex items-center justify-center rounded-lg border border-amber-300 bg-white dark:bg-slate-800 px-4 py-2 text-sm font-semibold text-amber-800 dark:text-amber-400 transition-colors hover:border-amber-400"
                                     >
                                         Mentorship only
                                     </a>

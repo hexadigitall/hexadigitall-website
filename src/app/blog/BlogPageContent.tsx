@@ -20,11 +20,11 @@ interface BlogPageContentProps {
 
 export default function BlogPageContent({ posts }: BlogPageContentProps) {
   return (
-    <section className="bg-white py-12 md:py-20">
+    <section className="bg-white dark:bg-slate-900 py-12 md:py-20">
       <div className="container mx-auto px-6 max-w-4xl">
         <div className="text-center mb-12">
           <h1 className="text-4xl md:text-5xl font-bold font-heading">Our Blog</h1>
-          <p className="mt-4 text-lg text-darkText">Insights on tech, business, and marketing.</p>
+          <p className="mt-4 text-lg text-darkText dark:text-slate-300">Insights on tech, business, and marketing.</p>
         </div>
         
         <div className="space-y-8">
@@ -33,7 +33,7 @@ export default function BlogPageContent({ posts }: BlogPageContentProps) {
               <Link 
                 key={post._id} 
                 href={`/blog/${post.slug.current}`}
-                className="block bg-gray-50 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 overflow-hidden"
+                className="block bg-gray-50 dark:bg-slate-800 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 overflow-hidden"
               >
                 {post.mainImage && (
                   <div className="relative h-48 w-full">
@@ -48,7 +48,7 @@ export default function BlogPageContent({ posts }: BlogPageContentProps) {
                   </div>
                 )}
                 <div className="p-8">
-                  <p className="text-sm text-gray-600 mb-2">
+                  <p className="text-sm text-gray-600 dark:text-slate-400 mb-2">
                     {new Date(post.publishedAt).toLocaleDateString('en-US', {
                       year: 'numeric', month: 'long', day: 'numeric'
                     })}
@@ -64,7 +64,7 @@ export default function BlogPageContent({ posts }: BlogPageContentProps) {
             ))
           ) : (
             <div className="text-center py-12">
-              <p className="text-lg text-darkText">No blog posts found. Check back soon for new content!</p>
+              <p className="text-lg text-darkText dark:text-slate-300">No blog posts found. Check back soon for new content!</p>
             </div>
           )}
         </div>

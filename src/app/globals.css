@@ -4,6 +4,39 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ============================================================
+   DARK MODE SEMANTIC TOKEN LAYER
+   All hard-coded light values should reference these tokens.
+   Phase B–E components migrate to dark: variants progressively.
+   ============================================================ */
+:root {
+  --color-bg-page:           #ffffff;
+  --color-bg-surface:        #F4F7F6;
+  --color-bg-nav:            rgba(255, 255, 255, 0.8);
+  --color-text-body:         #333333;
+  --color-text-heading:      #0A4D68;
+  --color-text-link:         #066d7f;
+  --color-border:            #e5e7eb;
+  --color-scrollbar-track:   #f1f5f9;
+  --color-scrollbar-thumb:   #0A4D68;
+  --color-scrollbar-hover:   #083344;
+  --color-focus-ring:        #0A4D68;
+}
+
+.dark {
+  --color-bg-page:           #0f172a;
+  --color-bg-surface:        #1e293b;
+  --color-bg-nav:            rgba(15, 23, 42, 0.9);
+  --color-text-body:         #e2e8f0;
+  --color-text-heading:      #7dd3fc;
+  --color-text-link:         #34d399;
+  --color-border:            #334155;
+  --color-scrollbar-track:   #1e293b;
+  --color-scrollbar-thumb:   #475569;
+  --color-scrollbar-hover:   #7dd3fc;
+  --color-focus-ring:        #7dd3fc;
+}
+
 @layer base {
   /* Root element overflow control */
   html, body {
@@ -18,14 +51,14 @@
   
   /* Accessibility: Better focus management */
   *:focus {
-    outline: 2px solid #0A4D68;
+    outline: 2px solid var(--color-focus-ring);
     outline-offset: 2px;
   }
   
   /* Accessibility: Hide scrollbar but keep functionality */
   * {
     scrollbar-width: thin;
-    scrollbar-color: #0A4D68 #f1f5f9;
+    scrollbar-color: var(--color-scrollbar-thumb) var(--color-scrollbar-track);
   }
   
   *::-webkit-scrollbar {
@@ -33,16 +66,16 @@
   }
   
   *::-webkit-scrollbar-track {
-    background: #f1f5f9;
+    background: var(--color-scrollbar-track);
   }
   
   *::-webkit-scrollbar-thumb {
-    background: #0A4D68;
+    background: var(--color-scrollbar-thumb);
     border-radius: 4px;
   }
   
   *::-webkit-scrollbar-thumb:hover {
-    background: #083344;
+    background: var(--color-scrollbar-hover);
   }
   
   /* Smooth scroll behavior */
@@ -58,12 +91,15 @@
   }
 
   body {
-    @apply font-body text-darkText;
+    @apply font-body;
+    color: var(--color-text-body);
+    background-color: var(--color-bg-page);
     line-height: 1.6;
   }
 
   h1, h2, h3, h4, h5, h6 {
-    @apply font-heading text-primary;
+    @apply font-heading;
+    color: var(--color-text-heading);
     line-height: 1.2;
   }
   
@@ -75,7 +111,8 @@
   
   /* Accessibility: Better link styles */
   a {
-    @apply text-secondary transition-colors duration-300;
+    @apply transition-colors duration-300;
+    color: var(--color-text-link);
   }
   
   a:hover, a:focus {
@@ -128,7 +165,11 @@
   
   /* Accessibility: Better form elements */
   input, textarea, select {
-    @apply border border-gray-300 rounded-md p-2 focus:ring-2 focus:ring-primary focus:border-transparent;
+    @apply rounded-md p-2 focus:ring-2 focus:border-transparent;
+    border: 1px solid var(--color-border);
+    background-color: var(--color-bg-surface);
+    color: var(--color-text-body);
+    --tw-ring-color: var(--color-focus-ring);
   }
   
   /* Accessibility: Animation preferences */

@@ -3,6 +3,7 @@ import type { Config } from "tailwindcss";
 import tailwindTypography from '@tailwindcss/typography';
 
 const config: Config = {
+  darkMode: 'class',
   // ✅ CRITICAL: This 'content' array must be correct.
   // It tells Tailwind to scan all .ts, .tsx, etc., files inside the 'src' folder.
   content: [

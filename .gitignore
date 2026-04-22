@@ -45,3 +45,12 @@ next-env.d.ts
 build.log
 
 .env*.local
+
+# Python artifacts
+.qa-venv/
+__pycache__/
+*.pyc
+*.pyo
+
+# Temp working files
+tmp/

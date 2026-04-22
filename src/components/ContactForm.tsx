@@ -50,7 +50,7 @@ export default function ContactForm() {
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
       <div>
-        <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">Name *</label>
+        <label htmlFor="name" className="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-2">Name *</label>
         <input 
           type="text" 
           name="name" 
@@ -59,12 +59,12 @@ export default function ContactForm() {
           onChange={handleInputChange}
           required 
           disabled={status === 'loading'}
-          className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-secondary focus:border-secondary disabled:opacity-50 disabled:bg-gray-50" 
+          className="w-full px-3 py-2 border border-gray-300 dark:border-slate-600 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-secondary focus:border-secondary disabled:opacity-50 disabled:bg-gray-50 dark:bg-slate-700 dark:text-slate-100 dark:disabled:bg-slate-800" 
         />
       </div>
       
       <div>
-        <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">Email *</label>
+        <label htmlFor="email" className="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-2">Email *</label>
         <input 
           type="email" 
           name="email" 
@@ -73,19 +73,19 @@ export default function ContactForm() {
           onChange={handleInputChange}
           required 
           disabled={status === 'loading'}
-          className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-secondary focus:border-secondary disabled:opacity-50 disabled:bg-gray-50" 
+          className="w-full px-3 py-2 border border-gray-300 dark:border-slate-600 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-secondary focus:border-secondary disabled:opacity-50 disabled:bg-gray-50 dark:bg-slate-700 dark:text-slate-100 dark:disabled:bg-slate-800" 
         />
       </div>
       
       <div>
-        <label htmlFor="service" className="block text-sm font-medium text-gray-700 mb-2">Service Interest (Optional)</label>
+        <label htmlFor="service" className="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-2">Service Interest (Optional)</label>
         <select 
           name="service" 
           id="service" 
           value={formData.service}
           onChange={handleInputChange}
           disabled={status === 'loading'}
-          className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-secondary focus:border-secondary disabled:opacity-50 disabled:bg-gray-50"
+          className="w-full px-3 py-2 border border-gray-300 dark:border-slate-600 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-secondary focus:border-secondary disabled:opacity-50 disabled:bg-gray-50 dark:bg-slate-700 dark:text-slate-100 dark:disabled:bg-slate-800"
         >
           <option value="">Select a service (optional)</option>
           <option value="Business Plan & Logo Design">Business Plan & Logo Design</option>
@@ -99,7 +99,7 @@ export default function ContactForm() {
       </div>
       
       <div>
-        <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-2">Your Message *</label>
+        <label htmlFor="message" className="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-2">Your Message *</label>
         <textarea 
           name="message" 
           id="message" 
@@ -109,7 +109,7 @@ export default function ContactForm() {
           required 
           disabled={status === 'loading'}
           placeholder="Tell us about your project or how we can help you..."
-          className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-secondary focus:border-secondary disabled:opacity-50 disabled:bg-gray-50"
+          className="w-full px-3 py-2 border border-gray-300 dark:border-slate-600 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-secondary focus:border-secondary disabled:opacity-50 disabled:bg-gray-50 dark:bg-slate-700 dark:text-slate-100 dark:disabled:bg-slate-800"
         />
       </div>
       

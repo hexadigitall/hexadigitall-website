@@ -72,11 +72,11 @@ export default function ContactPage() {
         }}
       />
       
-      <section className="bg-white py-12 md:py-20">
+      <section className="bg-white dark:bg-slate-900 py-12 md:py-20">
         <div className="container mx-auto px-6">
           {/* Breadcrumb Navigation */}
           <nav className="mb-8" aria-label="Breadcrumb">
-            <ol className="flex items-center space-x-2 text-sm text-gray-600">
+            <ol className="flex items-center space-x-2 text-sm text-gray-600 dark:text-slate-400">
               <li><Link href="/" className="hover:text-primary transition-colors">Home</Link></li>
               <li className="text-gray-400">/</li>
               <li className="text-primary font-medium" aria-current="page">Contact Us</li>
@@ -87,7 +87,7 @@ export default function ContactPage() {
             <h1 className="text-4xl md:text-5xl font-heading font-bold text-primary mb-4">
               Let&apos;s Start Your Digital Transformation
             </h1>
-            <p className="mt-4 text-lg text-darkText max-w-3xl mx-auto leading-relaxed">
+            <p className="mt-4 text-lg text-darkText dark:text-slate-300 max-w-3xl mx-auto leading-relaxed">
               Whether you have a fully-formed project or just the seed of an idea, we&apos;re here to help. Our expert team provides free consultations and responds within 24 hours.
             </p>
             <div className="flex flex-wrap justify-center items-center gap-6 mt-6 text-sm text-gray-600">
@@ -115,11 +115,11 @@ export default function ContactPage() {
             <div>
               <ContactForm />
             </div>
-            <div className="bg-lightGray p-8 rounded-lg">
+            <div className="bg-lightGray dark:bg-slate-800 p-8 rounded-lg">
               <h2 className="text-2xl font-bold font-heading text-primary mb-4">
                 Contact Information
               </h2>
-              <div className="space-y-6 text-darkText">
+              <div className="space-y-6 text-darkText dark:text-slate-300">
                 <div>
                   <h3 className="font-semibold text-primary mb-2">Email Us</h3>
                   <a href="mailto:hexadigitztech@gmail.com" className="flex items-center hover:text-secondary transition-colors">

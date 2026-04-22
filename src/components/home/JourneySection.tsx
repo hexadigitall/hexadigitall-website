@@ -84,11 +84,11 @@ export default function JourneySection({ className = "" }: { className?: string 
         <div className="text-center mb-12 md:mb-16">
           <h2 
             id="journey-heading"
-            className="text-3xl md:text-4xl font-bold font-heading text-gray-900 mb-4"
+            className="text-3xl md:text-4xl font-bold font-heading text-gray-900 dark:text-slate-100 mb-4"
           >
             Choose Your Next Step
           </h2>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+          <p className="text-lg text-gray-600 dark:text-slate-400 max-w-2xl mx-auto">
             We&apos;ll guide you to the right service for your stage — a friendly, experienced journey from idea to growth.
           </p>
         </div>
@@ -108,12 +108,12 @@ export default function JourneySection({ className = "" }: { className?: string 
               </div>
 
               {/* Title */}
-              <h3 className="text-xl md:text-2xl font-bold text-gray-900 mb-3 text-center">
+              <h3 className="text-xl md:text-2xl font-bold text-gray-900 dark:text-slate-100 mb-3 text-center">
                 {card.title}
               </h3>
 
               {/* Description */}
-              <p className="text-gray-600 text-center mb-6 flex-grow">
+              <p className="text-gray-600 dark:text-slate-400 text-center mb-6 flex-grow">
                 {card.description}
               </p>
 
@@ -132,7 +132,7 @@ export default function JourneySection({ className = "" }: { className?: string 
 
         {/* Optional: Additional CTA for Custom Solutions */}
         <div className="mt-12 md:mt-16 text-center">
-          <p className="text-gray-600 mb-4">
+          <p className="text-gray-600 dark:text-slate-400 mb-4">
             Don&apos;t fit into these boxes?
           </p>
           <Link

@@ -14,7 +14,8 @@ import GoogleAnalytics from '@/components/GoogleAnalytics';
 import AnalyticsTracker from '@/components/AnalyticsTracker';
 import SEOStructuredData from '@/components/SEOStructuredData';
 import { QuickContactFAB } from '@/components/ui/FloatingCTA';
-import StartupFunnelClient from '@/components/marketing/StartupFunnelClient'
+import StartupFunnelClient from '@/components/marketing/StartupFunnelClient';
+import { ThemeProvider } from '@/contexts/ThemeContext'
 
 // ✅ Enhanced metadata for SEO and accessibility
 export const metadata: Metadata = {
@@ -157,6 +158,9 @@ export default function RootLayout({
         {/* Web App Manifest */}
         <link rel="manifest" href="/manifest.json" />
         
+        {/* Anti-flash theme initialisation — must run before first paint */}
+        <script dangerouslySetInnerHTML={{ __html: `(function(){try{var t=localStorage.getItem('theme');if(t==='dark'||((!t||t==='system')&&window.matchMedia('(prefers-color-scheme:dark)').matches)){document.documentElement.classList.add('dark')}}catch(e){}})();` }} />
+
         {/* Safari Pinned Tab */}
         <link rel="mask-icon" href="/hexadigitall-logo.svg" color="#0A4D68" />
         
@@ -172,7 +176,7 @@ export default function RootLayout({
       </head>
       
       <body 
-        className="font-body bg-white text-darkText antialiased" 
+        className="font-body bg-white dark:bg-slate-900 text-darkText dark:text-slate-200 antialiased transition-colors duration-300" 
         suppressHydrationWarning={true}
       >
         {/* Skip to main content link for screen readers */}
@@ -183,6 +187,7 @@ export default function RootLayout({
           Skip to main content
         </a>
         
+        <ThemeProvider>
         <CurrencyProvider>
           <CustomBuildProvider>
             {/* Google Analytics */}
@@ -238,6 +243,7 @@ export default function RootLayout({
             />
           </CustomBuildProvider>
         </CurrencyProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

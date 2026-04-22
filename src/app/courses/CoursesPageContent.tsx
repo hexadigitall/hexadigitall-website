@@ -176,7 +176,7 @@ export default function CoursesPageContentEnhanced({ initialSchools = [] }: Cour
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 pb-20 font-sans">
+    <div className="min-h-screen bg-gray-50 dark:bg-slate-950 pb-20 font-sans">
       
       {/* 1. IMMERSIVE HEADER SECTION */}
       <div className="relative bg-primary text-white pt-16 pb-20 md:pb-16 overflow-hidden mb-16">
@@ -232,11 +232,11 @@ export default function CoursesPageContentEnhanced({ initialSchools = [] }: Cour
       </div>
 
       <div className="container mx-auto px-4">
-        <div className="relative z-20 -mt-16 mb-10 rounded-2xl border border-blue-100 bg-white/95 p-5 shadow-lg backdrop-blur sm:p-6">
+        <div className="relative z-20 -mt-16 mb-10 rounded-2xl border border-blue-100 dark:border-slate-700 bg-white/95 dark:bg-slate-800/95 p-5 shadow-lg backdrop-blur sm:p-6">
           <div className="flex flex-wrap items-start justify-between gap-4">
             <div className="max-w-2xl">
-              <h2 className="text-lg font-semibold text-gray-900">One student account for both paths</h2>
-              <p className="mt-1 text-sm text-gray-600">
+              <h2 className="text-lg font-semibold text-gray-900 dark:text-slate-100">One student account for both paths</h2>
+              <p className="mt-1 text-sm text-gray-600 dark:text-slate-400">
                 Join from courses or mentorships using the same student account. If you start with mentorship and later
                 enroll in a full course, your account access is upgraded automatically.
               </p>
@@ -250,7 +250,7 @@ export default function CoursesPageContentEnhanced({ initialSchools = [] }: Cour
               </Link>
               <Link
                 href="/student/login?source=courses&next=/courses"
-                className="inline-flex items-center justify-center rounded-lg border border-gray-300 px-4 py-2 text-sm font-semibold text-gray-700 transition-colors hover:border-gray-400"
+                className="inline-flex items-center justify-center rounded-lg border border-gray-300 dark:border-slate-600 px-4 py-2 text-sm font-semibold text-gray-700 dark:text-slate-300 transition-colors hover:border-gray-400 dark:hover:border-slate-500"
               >
                 Student sign in
               </Link>
@@ -278,10 +278,10 @@ export default function CoursesPageContentEnhanced({ initialSchools = [] }: Cour
                 exit={{ scale: 0.8, opacity: 0 }}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="group flex items-center justify-center gap-3 bg-white text-gray-600 px-6 py-3.5 rounded-full shadow-lg hover:shadow-primary/20 border border-gray-200 transition-all cursor-pointer"
+                className="group flex items-center justify-center gap-3 bg-white dark:bg-slate-800 text-gray-600 dark:text-slate-300 px-6 py-3.5 rounded-full shadow-lg hover:shadow-primary/20 border border-gray-200 dark:border-slate-700 transition-all cursor-pointer"
               >
                 <IoSearchOutline className="text-2xl text-primary group-hover:scale-110 transition-transform" />
-                <span className="font-semibold text-base md:text-lg text-gray-700">Find a Course</span>
+                <span className="font-semibold text-base md:text-lg text-gray-700 dark:text-slate-300">Find a Course</span>
               </motion.button>
             ) : (
               /* --- STATE B: EXPANDED SEARCH BAR --- */
@@ -291,23 +291,23 @@ export default function CoursesPageContentEnhanced({ initialSchools = [] }: Cour
                 initial={{ width: 60, opacity: 0 }}
                 animate={{ width: "100%", maxWidth: "760px", opacity: 1 }}
                 exit={{ width: 60, opacity: 0 }}
-                className="relative bg-white rounded-2xl shadow-xl overflow-hidden ring-1 ring-gray-200"
+                className="relative bg-white dark:bg-slate-800 rounded-2xl shadow-xl overflow-hidden ring-1 ring-gray-200 dark:ring-slate-700"
               >
                 <div className="relative flex items-center">
-                  <IoSearchOutline className="absolute left-6 text-gray-400 text-xl" />
+                  <IoSearchOutline className="absolute left-6 text-gray-400 dark:text-slate-500 text-xl" />
                   <input
                     ref={searchInputRef}
                     type="text"
                     placeholder="Search for React, Design, Security, or school name..."
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
-                    className="w-full pl-14 pr-14 py-4.5 border-none outline-none text-base md:text-lg text-gray-800 placeholder-gray-400 bg-transparent"
+                    className="w-full pl-14 pr-14 py-4.5 border-none outline-none text-base md:text-lg text-gray-800 dark:text-slate-100 placeholder-gray-400 dark:placeholder-slate-500 bg-transparent"
                   />
                   
                   {/* Close/Collapse Button */}
                   <button 
                     onClick={handleCloseSearch}
-                    className="absolute right-4 p-2 text-gray-400 hover:text-red-500 hover:bg-red-50 rounded-full transition-all"
+                    className="absolute right-4 p-2 text-gray-400 dark:text-slate-500 hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-full transition-all"
                     title="Close Search"
                   >
                     {searchQuery ? <IoCloseCircle size={24} /> : <IoCloseOutline size={24} />}
@@ -330,7 +330,7 @@ export default function CoursesPageContentEnhanced({ initialSchools = [] }: Cour
               className="min-h-[400px]"
             >
               <div className="flex items-center justify-between mb-8">
-                <h2 className="text-2xl font-bold text-gray-800">
+                <h2 className="text-2xl font-bold text-gray-800 dark:text-slate-200">
                   Found {filteredCourses?.length} results
                 </h2>
                 <button 
@@ -352,9 +352,9 @@ export default function CoursesPageContentEnhanced({ initialSchools = [] }: Cour
                   ))}
                 </div>
               ) : (
-                <div className="text-center py-20 bg-white rounded-3xl border border-dashed border-gray-200">
-                  <IoSearchOutline className="text-6xl text-gray-200 mx-auto mb-4" />
-                  <p className="text-gray-500 text-lg">No courses found matching "<span className="font-bold">{searchQuery}</span>"</p>
+                <div className="text-center py-20 bg-white dark:bg-slate-800 rounded-3xl border border-dashed border-gray-200 dark:border-slate-700">
+                  <IoSearchOutline className="text-6xl text-gray-200 dark:text-slate-700 mx-auto mb-4" />
+                  <p className="text-gray-500 dark:text-slate-400 text-lg">No courses found matching "<span className="font-bold">{searchQuery}</span>"</p>
                   <button 
                     onClick={() => setSearchQuery('')}
                     className="mt-4 text-primary font-bold hover:underline"
@@ -381,7 +381,7 @@ export default function CoursesPageContentEnhanced({ initialSchools = [] }: Cour
                   {prevSchool && (
                     <button 
                       onClick={() => setActiveSchoolId(prevSchool._id)}
-                      className="absolute left-0 lg:left-10 z-20 p-4 bg-white/90 backdrop-blur-sm rounded-full shadow-lg hover:bg-white text-gray-700 hover:text-primary transition-all hover:scale-110 border border-gray-100"
+                      className="absolute left-0 lg:left-10 z-20 p-4 bg-white/90 dark:bg-slate-800/90 backdrop-blur-sm rounded-full shadow-lg hover:bg-white dark:hover:bg-slate-700 text-gray-700 dark:text-slate-300 hover:text-primary transition-all hover:scale-110 border border-gray-100 dark:border-slate-700"
                     >
                       <IoChevronBack size={28} />
                     </button>
@@ -400,10 +400,10 @@ export default function CoursesPageContentEnhanced({ initialSchools = [] }: Cour
                           animate={{ opacity: 0.5, x: 0, scale: 0.85, zIndex: 0 }}
                           exit={{ opacity: 0, x: -100, scale: 0.8 }}
                           onClick={() => setActiveSchoolId(prevSchool._id)}
-                          className="cursor-pointer bg-white p-6 rounded-3xl border border-gray-200 shadow-md flex flex-col items-center justify-center text-center w-64 h-40 hover:opacity-80 transition-opacity grayscale"
+                          className="cursor-pointer bg-white dark:bg-slate-800 p-6 rounded-3xl border border-gray-200 dark:border-slate-700 shadow-md flex flex-col items-center justify-center text-center w-64 h-40 hover:opacity-80 transition-opacity grayscale"
                         >
-                          <span className="text-4xl text-gray-400 mb-2">{getSchoolIcon(prevSchool.title)}</span>
-                          <h3 className="font-bold text-gray-500 text-sm line-clamp-2">{prevSchool.title}</h3>
+                          <span className="text-4xl text-gray-400 dark:text-slate-500 mb-2">{getSchoolIcon(prevSchool.title)}</span>
+                          <h3 className="font-bold text-gray-500 dark:text-slate-400 text-sm line-clamp-2">{prevSchool.title}</h3>
                         </motion.div>
                       )}
 
@@ -448,10 +448,10 @@ export default function CoursesPageContentEnhanced({ initialSchools = [] }: Cour
                           animate={{ opacity: 0.5, x: 0, scale: 0.85, zIndex: 0 }}
                           exit={{ opacity: 0, x: 100, scale: 0.8 }}
                           onClick={() => setActiveSchoolId(nextSchool._id)}
-                          className="cursor-pointer bg-white p-6 rounded-3xl border border-gray-200 shadow-md flex flex-col items-center justify-center text-center w-64 h-40 hover:opacity-80 transition-opacity grayscale"
+                          className="cursor-pointer bg-white dark:bg-slate-800 p-6 rounded-3xl border border-gray-200 dark:border-slate-700 shadow-md flex flex-col items-center justify-center text-center w-64 h-40 hover:opacity-80 transition-opacity grayscale"
                         >
-                          <span className="text-4xl text-gray-400 mb-2">{getSchoolIcon(nextSchool.title)}</span>
-                          <h3 className="font-bold text-gray-500 text-sm line-clamp-2">{nextSchool.title}</h3>
+                          <span className="text-4xl text-gray-400 dark:text-slate-500 mb-2">{getSchoolIcon(nextSchool.title)}</span>
+                          <h3 className="font-bold text-gray-500 dark:text-slate-400 text-sm line-clamp-2">{nextSchool.title}</h3>
                         </motion.div>
                       )}
                     </AnimatePresence>
@@ -461,7 +461,7 @@ export default function CoursesPageContentEnhanced({ initialSchools = [] }: Cour
                   {nextSchool && (
                     <button 
                       onClick={() => setActiveSchoolId(nextSchool._id)}
-                      className="absolute right-0 lg:right-10 z-20 p-4 bg-white/90 backdrop-blur-sm rounded-full shadow-lg hover:bg-white text-gray-700 hover:text-primary transition-all hover:scale-110 border border-gray-100"
+                      className="absolute right-0 lg:right-10 z-20 p-4 bg-white/90 dark:bg-slate-800/90 backdrop-blur-sm rounded-full shadow-lg hover:bg-white dark:hover:bg-slate-700 text-gray-700 dark:text-slate-300 hover:text-primary transition-all hover:scale-110 border border-gray-100 dark:border-slate-700"
                     >
                       <IoChevronForward size={28} />
                     </button>
@@ -488,13 +488,13 @@ export default function CoursesPageContentEnhanced({ initialSchools = [] }: Cour
                           className={`snap-center shrink-0 w-[70vw] p-6 rounded-3xl transition-all duration-500 flex flex-col items-center justify-center text-center gap-3 border shadow-sm ${
                             isActive 
                               ? `bg-gradient-to-br ${theme.bg} scale-100 border-transparent shadow-xl ring-4 ring-white` 
-                              : 'bg-white scale-90 border-gray-100 opacity-60 grayscale'
+                              : 'bg-white dark:bg-slate-800 scale-90 border-gray-100 dark:border-slate-700 opacity-60 grayscale'
                           }`}
                         >
-                          <span className={`text-4xl ${isActive ? 'text-white' : 'text-gray-400'}`}>
+                          <span className={`text-4xl ${isActive ? 'text-white' : 'text-gray-400 dark:text-slate-500'}`}>
                             {getSchoolIcon(school.title)}
                           </span>
-                          <h3 className={`font-bold text-lg ${isActive ? 'text-white' : 'text-gray-700'}`}>
+                          <h3 className={`font-bold text-lg ${isActive ? 'text-white' : 'text-gray-700 dark:text-slate-300'}`}>
                             {school.title}
                           </h3>
                         </div>
@@ -518,8 +518,8 @@ export default function CoursesPageContentEnhanced({ initialSchools = [] }: Cour
                       className={`rounded-[3rem] p-6 md:p-10 bg-gradient-to-b ${activeTheme.lightBg} border ${activeTheme.borderColor} shadow-sm`}
                     >
                       <div className="mb-10 text-center max-w-3xl mx-auto">
-                        <h2 className="text-3xl font-bold text-gray-900 mb-4">{activeSchool.title}</h2>
-                        <p className="text-gray-600 text-lg leading-relaxed">{activeSchool.description}</p>
+                        <h2 className="text-3xl font-bold text-gray-900 dark:text-slate-100 mb-4">{activeSchool.title}</h2>
+                        <p className="text-gray-600 dark:text-slate-400 text-lg leading-relaxed">{activeSchool.description}</p>
                       </div>
 
                       {activeSchool.courses && activeSchool.courses.length > 0 ? (
@@ -539,16 +539,16 @@ export default function CoursesPageContentEnhanced({ initialSchools = [] }: Cour
                           ))}
                         </div>
                       ) : (
-                        <div className="flex flex-col items-center justify-center py-20 bg-white/50 rounded-3xl border-2 border-dashed border-gray-200">
-                            <IoSchoolOutline className="text-6xl text-gray-300 mb-4" />
-                            <p className="text-gray-500 text-lg font-medium">New courses coming soon to this school.</p>
+                        <div className="flex flex-col items-center justify-center py-20 bg-white/50 dark:bg-slate-800/50 rounded-3xl border-2 border-dashed border-gray-200 dark:border-slate-700">
+                            <IoSchoolOutline className="text-6xl text-gray-300 dark:text-slate-600 mb-4" />
+                            <p className="text-gray-500 dark:text-slate-400 text-lg font-medium">New courses coming soon to this school.</p>
                         </div>
                       )}
                     </motion.div>
                   ) : (
                     <div className="text-center py-20">
                       <div className="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
-                      <p className="mt-4 text-gray-500">Loading schools...</p>
+                      <p className="mt-4 text-gray-500 dark:text-slate-400">Loading schools...</p>
                     </div>
                   )}
                 </AnimatePresence>
