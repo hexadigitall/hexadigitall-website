@@ -98,11 +98,11 @@ export default function StudentOAuthSuccessPage() {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-purple-50 via-blue-50 to-white px-4">
-      <div className="w-full max-w-md bg-white rounded-2xl shadow-xl border border-gray-200 p-8 text-center">
+      <div className="w-full max-w-md bg-white dark:bg-slate-800 rounded-2xl shadow-xl border border-gray-200 dark:border-slate-700 p-8 text-center">
         {!error && signupCompleted ? (
           <>
-            <h1 className="text-2xl font-bold text-gray-900 mb-3">Sign Up Successful</h1>
-            <p className="text-gray-600 mb-6">
+            <h1 className="text-2xl font-bold text-gray-900 dark:text-slate-100 mb-3">Sign Up Successful</h1>
+            <p className="text-gray-600 dark:text-slate-400 mb-6">
               Your student account has been created successfully. Continue to sign in when you are ready.
             </p>
             <div className="flex flex-col sm:flex-row gap-3 justify-center">
@@ -114,7 +114,7 @@ export default function StudentOAuthSuccessPage() {
               </Link>
               <Link
                 href="/student/signup"
-                className="inline-flex items-center justify-center px-5 py-3 rounded-lg border border-gray-300 text-gray-700 font-medium hover:bg-gray-50 transition-colors"
+                className="inline-flex items-center justify-center px-5 py-3 rounded-lg border border-gray-300 dark:border-slate-600 text-gray-700 dark:text-slate-300 font-medium hover:bg-gray-50 dark:hover:bg-slate-700 transition-colors"
               >
                 Use Different Account
               </Link>
@@ -122,10 +122,10 @@ export default function StudentOAuthSuccessPage() {
           </>
         ) : !error ? (
           <>
-            <h1 className="text-2xl font-bold text-gray-900 mb-3">
+            <h1 className="text-2xl font-bold text-gray-900 dark:text-slate-100 mb-3">
               {intent === 'signup' ? 'Completing Sign Up...' : 'Completing Sign In...'}
             </h1>
-            <p className="text-gray-600">
+            <p className="text-gray-600 dark:text-slate-400">
               {intent === 'signup'
                 ? 'Please wait while we create your student account.'
                 : 'Please wait while we prepare your student dashboard.'}
@@ -133,7 +133,7 @@ export default function StudentOAuthSuccessPage() {
           </>
         ) : (
           <>
-            <h1 className="text-2xl font-bold text-gray-900 mb-3">
+            <h1 className="text-2xl font-bold text-gray-900 dark:text-slate-100 mb-3">
               {intent === 'signup' ? 'Sign Up Could Not Be Completed' : 'Sign In Could Not Be Completed'}
             </h1>
             <p className="text-sm text-red-700 mb-6">{error}</p>
@@ -146,7 +146,7 @@ export default function StudentOAuthSuccessPage() {
               </Link>
               <Link
                 href="/student/signup"
-                className="inline-flex items-center justify-center px-5 py-3 rounded-lg border border-gray-300 text-gray-700 font-medium hover:bg-gray-50 transition-colors"
+                className="inline-flex items-center justify-center px-5 py-3 rounded-lg border border-gray-300 dark:border-slate-600 text-gray-700 dark:text-slate-300 font-medium hover:bg-gray-50 dark:hover:bg-slate-700 transition-colors"
               >
                 Use Different Account
               </Link>

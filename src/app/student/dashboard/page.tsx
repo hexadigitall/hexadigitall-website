@@ -375,7 +375,7 @@ export default function StudentDashboardPage() {
         {sessionRole === 'admin' && (
           <Link
             href="/admin/dashboard"
-            className="mb-3 w-full inline-flex items-center justify-center gap-2 px-4 py-3 rounded-2xl bg-white text-gray-700 text-sm font-medium border border-gray-200 shadow-sm"
+            className="mb-3 w-full inline-flex items-center justify-center gap-2 px-4 py-3 rounded-2xl bg-white dark:bg-slate-800 text-gray-700 dark:text-slate-300 dark:text-slate-300 dark:text-slate-300 text-sm font-medium border border-gray-200 dark:border-slate-600 dark:border-slate-600 shadow-sm"
           >
             <ArrowLeftIcon className="h-4 w-4" />
             Back to Admin
@@ -383,7 +383,7 @@ export default function StudentDashboardPage() {
         )}
         <button
           onClick={handleLogout}
-          className="w-full inline-flex items-center justify-center gap-2 px-4 py-3 rounded-2xl bg-white text-gray-700 text-sm font-medium border border-gray-200 shadow-sm"
+          className="w-full inline-flex items-center justify-center gap-2 px-4 py-3 rounded-2xl bg-white dark:bg-slate-800 text-gray-700 dark:text-slate-300 dark:text-slate-300 dark:text-slate-300 text-sm font-medium border border-gray-200 dark:border-slate-600 dark:border-slate-600 shadow-sm"
         >
           <ArrowRightOnRectangleIcon className="h-4 w-4" />
           Sign out
@@ -417,7 +417,7 @@ export default function StudentDashboardPage() {
             </div>
             <Link
               href="/courses"
-              className="inline-flex items-center px-4 py-2 bg-white text-emerald-700 rounded-xl hover:bg-emerald-50 transition-colors text-sm font-semibold shadow-sm"
+              className="inline-flex items-center px-4 py-2 bg-white dark:bg-slate-700 text-emerald-700 dark:text-emerald-300 rounded-xl hover:bg-emerald-50 dark:hover:bg-slate-600 transition-colors text-sm font-semibold shadow-sm"
             >
               Renew Subscription
             </Link>
@@ -428,8 +428,8 @@ export default function StudentDashboardPage() {
         <section>
           <div className="flex items-center justify-between mb-6">
             <div>
-              <h2 className="text-xl font-bold text-gray-900">My Enrolled Courses</h2>
-              <p className="text-sm text-gray-500 mt-0.5">
+              <h2 className="text-xl font-bold text-gray-900 dark:text-slate-100 dark:text-slate-100">My Enrolled Courses</h2>
+              <p className="text-sm text-gray-500 dark:text-slate-400 mt-0.5">
                 {enrollments.length} course{enrollments.length !== 1 ? 's' : ''} total
               </p>
             </div>
@@ -442,12 +442,12 @@ export default function StudentDashboardPage() {
           </div>
 
           {enrollments.length === 0 ? (
-            <div className="bg-white rounded-2xl border border-gray-100 p-12 text-center shadow-sm">
+            <div className="bg-white dark:bg-slate-800 rounded-2xl border border-gray-100 dark:border-slate-700 dark:border-slate-700 dark:border-slate-700 p-12 text-center shadow-sm">
               <div className="w-16 h-16 bg-purple-50 rounded-2xl flex items-center justify-center mx-auto mb-4">
                 <BookOpenIcon className="h-8 w-8 text-purple-400" />
               </div>
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">No courses yet</h3>
-              <p className="text-gray-500 mb-6 text-sm max-w-xs mx-auto">
+              <h3 className="text-lg font-semibold text-gray-900 dark:text-slate-100 dark:text-slate-100 mb-2">No courses yet</h3>
+              <p className="text-gray-500 dark:text-slate-400 mb-6 text-sm max-w-xs mx-auto">
                 Enroll in your first course to get started on your learning journey.
               </p>
               <Link
@@ -489,7 +489,7 @@ export default function StudentDashboardPage() {
                   {enrollments.map((enrollment) => (
                     <div
                       key={enrollment._id}
-                      className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden hover:shadow-md hover:-translate-y-0.5 transition-all duration-200"
+                      className="bg-white dark:bg-slate-800 rounded-2xl border border-gray-100 dark:border-slate-700 dark:border-slate-700 dark:border-slate-700 shadow-sm overflow-hidden hover:shadow-md hover:-translate-y-0.5 transition-all duration-200"
                     >
                       {enrollment.course?.mainImage ? (
                         <div className="relative h-44 w-full">
@@ -502,7 +502,7 @@ export default function StudentDashboardPage() {
                           <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
                           <div className="absolute bottom-3 left-4 flex gap-1.5">
                             {enrollment.course?.level && (
-                              <span className="inline-flex px-2 py-0.5 text-xs font-medium rounded-full bg-white/90 text-gray-800 capitalize">
+                              <span className="inline-flex px-2 py-0.5 text-xs font-medium rounded-full bg-white/90 dark:bg-slate-700 text-gray-800 dark:text-slate-100 capitalize">
                                 {enrollment.course.level}
                               </span>
                             )}
@@ -528,24 +528,24 @@ export default function StudentDashboardPage() {
                       )}
 
                       <div className="p-5">
-                        <h3 className="text-base font-bold text-gray-900 mb-0.5">
+                        <h3 className="text-base font-bold text-gray-900 dark:text-slate-100 dark:text-slate-100 mb-0.5">
                           {enrollment.course?.title || 'Course'}
                         </h3>
                         {enrollment.teacher && (
                           <p className="text-xs text-gray-400 mb-3">
                             with{' '}
-                            <span className="font-medium text-gray-600">
+                            <span className="font-medium text-gray-600 dark:text-slate-400 dark:text-slate-400">
                               {enrollment.teacher.name || enrollment.teacher.email}
                             </span>
                           </p>
                         )}
                         {enrollment.course?.description && (
-                          <p className="text-sm text-gray-500 mb-4 line-clamp-2">
+                          <p className="text-sm text-gray-500 dark:text-slate-400 mb-4 line-clamp-2">
                             {enrollment.course.description}
                           </p>
                         )}
 
-                        <div className="flex items-center justify-between text-xs text-gray-400 mb-4 pb-4 border-b border-gray-100">
+                        <div className="flex items-center justify-between text-xs text-gray-400 mb-4 pb-4 border-b border-gray-100 dark:border-slate-700 dark:border-slate-700">
                           <span>Enrolled {new Date(enrollment.enrolledAt).toLocaleDateString()}</span>
                           {enrollment.expiryDate && (
                             <span className="text-indigo-600 font-medium">

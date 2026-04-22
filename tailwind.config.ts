@@ -19,6 +19,33 @@ const config: Config = {
         accent: '#92591B',    // Deep Orange (improved contrast with white)
         lightGray: '#F4F7F6',
         darkText: '#333333',
+
+        // ── Semantic tokens (auto-switch light ↔ dark via CSS vars) ──
+        // Usage: bg-surface-page, bg-surface-card, text-content-heading, etc.
+        surface: {
+          page:    'var(--color-bg-page)',
+          DEFAULT: 'var(--color-bg-surface)',
+          card:    'var(--color-bg-card)',
+          raised:  'var(--color-bg-raised)',
+          nav:     'var(--color-bg-nav)',
+        },
+        content: {
+          heading:   'var(--color-text-heading)',
+          DEFAULT:   'var(--color-text-body)',
+          secondary: 'var(--color-text-secondary)',
+          muted:     'var(--color-text-muted)',
+          link:      'var(--color-text-link)',
+        },
+        border: {
+          DEFAULT: 'var(--color-border)',
+          subtle:  'var(--color-border-subtle)',
+        },
+        input: {
+          bg:     'var(--color-input-bg)',
+          border: 'var(--color-input-border)',
+          text:   'var(--color-input-text)',
+        },
+
         // Modern gradient colors
         'gradient-start': '#667eea',
         'gradient-end': '#764ba2',

@@ -304,7 +304,7 @@ export default function CurriculumEmbed({ title, htmlUrl, courseSlug }: Curricul
           href={htmlUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center justify-center px-3 py-2 text-xs font-semibold rounded-lg border border-gray-200 text-gray-700 hover:border-gray-300 hover:bg-gray-50 transition-colors whitespace-nowrap"
+          className="inline-flex items-center justify-center px-3 py-2 text-xs font-semibold rounded-lg border border-gray-200 dark:border-slate-600 text-gray-700 dark:text-slate-300 hover:border-gray-300 hover:bg-gray-50 dark:hover:bg-slate-700 transition-colors whitespace-nowrap"
         >
           View HTML
         </a>
@@ -331,11 +331,11 @@ export default function CurriculumEmbed({ title, htmlUrl, courseSlug }: Curricul
         )}
 
         {!error && (
-          <div className="relative overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm w-full">
+          <div className="relative overflow-hidden rounded-2xl border border-gray-200 dark:border-slate-700 bg-white dark:bg-slate-800 shadow-sm w-full">
             {loading && (
-              <div className="absolute inset-0 flex items-center justify-center bg-white/70 z-10">
+              <div className="absolute inset-0 flex items-center justify-center bg-white/70 dark:bg-slate-800/70 z-10">
                 <div className="flex flex-col items-center gap-3">
-                  <div className="w-8 h-8 border-4 border-gray-200 border-t-primary rounded-full animate-spin" />
+                  <div className="w-8 h-8 border-4 border-gray-200 dark:border-slate-600 border-t-primary rounded-full animate-spin" />
                   <p className="text-xs text-gray-600 font-medium">Loading curriculum...</p>
                 </div>
               </div>

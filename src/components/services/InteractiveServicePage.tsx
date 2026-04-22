@@ -51,7 +51,7 @@ export default function InteractiveServicePage({ service, relatedServices }: { s
       {/* Main Content */}
       <div className="container mx-auto px-6 py-12">
         <div className="max-w-4xl mx-auto">
-          <div className="prose lg:prose-xl max-w-none">
+            <div className="prose lg:prose-xl dark:prose-invert max-w-none">
             <PortableText value={service.mainContent as Record<string, unknown>[]} />
           </div>
 

@@ -131,8 +131,8 @@ export default async function CourseCurriculumPage({ params }: Props) {
       {curriculum ? (
         <CurriculumDocumentView curriculum={curriculum} />
       ) : (
-        <section className="rounded-2xl border border-dashed border-gray-300 bg-gray-50 p-8 text-center">
-          <p className="text-lg font-semibold text-gray-800">Curriculum is not available in the new content system yet.</p>
+        <section className="rounded-2xl border border-dashed border-gray-300 dark:border-slate-600 bg-gray-50 dark:bg-slate-800 p-8 text-center">
+          <p className="text-lg font-semibold text-gray-800 dark:text-slate-200">Curriculum is not available in the new content system yet.</p>
           <p className="text-sm text-gray-600 mt-2">
             We are migrating curriculum documents into Sanity for direct rendering and printable PDF delivery. Check back soon, or contact support for the latest syllabus copy.
           </p>
@@ -145,7 +145,7 @@ export default async function CourseCurriculumPage({ params }: Props) {
             </Link>
             <Link
               href="/contact"
-              className="inline-flex items-center rounded-lg border border-gray-200 px-4 py-2 text-sm font-semibold text-gray-700 hover:border-gray-300"
+              className="inline-flex items-center rounded-lg border border-gray-200 dark:border-slate-600 px-4 py-2 text-sm font-semibold text-gray-700 dark:text-slate-300 hover:border-gray-300"
             >
               Contact Support
             </Link>

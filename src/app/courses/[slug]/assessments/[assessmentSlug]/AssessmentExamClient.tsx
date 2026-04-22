@@ -251,14 +251,14 @@ export default function AssessmentExamClient({
 
   return (
     <section className="space-y-6 print:space-y-3">
-      <header className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm print:border-0 print:shadow-none print:p-0">
+      <header className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 p-6 shadow-sm print:border-0 print:shadow-none print:p-0">
         <p className="text-xs font-semibold uppercase tracking-wider text-cyan-700">Professional Timed Assessment</p>
         <h1 className="mt-2 text-2xl font-bold text-slate-900">{assessment.title}</h1>
         <p className="mt-2 text-sm text-slate-600">{assessment.description}</p>
       </header>
 
       {stage === 'intro' && (
-        <article className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+        <article className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 p-6 shadow-sm">
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             <Metric label="Candidate" value={viewerName} />
             <Metric label="Questions" value={String(assessment.totalQuestions)} />
@@ -298,7 +298,7 @@ export default function AssessmentExamClient({
       )}
 
       {stage === 'exam' && attempt && (
-        <article className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+        <article className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 p-6 shadow-sm">
           <div className="mb-5 flex flex-wrap items-center justify-between gap-3 border-b border-slate-200 pb-4">
             <div>
               <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">Attempt #{attempt.attemptNumber}</p>
@@ -372,7 +372,7 @@ export default function AssessmentExamClient({
       )}
 
       {stage === 'result' && result && (
-        <article className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm print:border-0 print:shadow-none">
+        <article className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 p-6 shadow-sm print:border-0 print:shadow-none">
           <header className="border-b border-slate-200 pb-4 print:border-slate-300">
             <p className="text-xs font-semibold uppercase tracking-wider text-slate-500">Assessment Result</p>
             <h2 className="mt-2 text-2xl font-bold text-slate-900">{assessment.title}</h2>
@@ -422,7 +422,7 @@ export default function AssessmentExamClient({
 
 function Metric({ label, value, accent }: { label: string; value: string; accent?: string }) {
   return (
-    <div className="rounded-lg border border-slate-200 bg-white p-3">
+    <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 p-3">
       <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">{label}</p>
       <p className={`mt-1 text-sm font-semibold text-slate-900 ${accent || ''}`}>{value}</p>
     </div>

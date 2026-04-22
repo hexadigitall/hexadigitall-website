@@ -83,7 +83,7 @@ export default async function BlogPostPage(props: Props) {
   if (!post) notFound()
 
   return (
-    <article className="bg-white min-h-screen">
+    <article className="bg-white dark:bg-slate-900 min-h-screen">
       <div className="container mx-auto px-6 py-12 md:py-20 max-w-4xl">
         <Breadcrumb items={[{ label: 'Blog', href: '/blog' }, { label: post.title }]} />
         
@@ -91,14 +91,14 @@ export default async function BlogPostPage(props: Props) {
         <header className="mb-10 mt-8">
           <div className="flex flex-wrap gap-2 mb-6">
             {post.categories?.map((category: string) => (
-              <span key={category} className="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-xs font-bold uppercase tracking-wide">
+              <span key={category} className="px-3 py-1 bg-gray-100 dark:bg-slate-700 text-gray-700 dark:text-slate-300 rounded-full text-xs font-bold uppercase tracking-wide">
                 {category}
               </span>
             ))}
           </div>
-          <h1 className="text-3xl md:text-5xl font-bold text-gray-900 mb-6 leading-tight">{post.title}</h1>
+<h1 className="text-3xl md:text-5xl font-bold text-gray-900 dark:text-slate-100 mb-6 leading-tight">{post.title}</h1>
           
-          <div className="flex items-center justify-between border-t border-b border-gray-100 py-4">
+            <div className="flex items-center justify-between border-t border-b border-gray-100 dark:border-slate-700 py-4">
             <div className="flex items-center gap-3">
               {post.author?.image && (
                 <div className="relative w-10 h-10 rounded-full overflow-hidden">
@@ -106,7 +106,7 @@ export default async function BlogPostPage(props: Props) {
                 </div>
               )}
               <div>
-                <p className="text-sm font-bold text-gray-900">{post.author?.name || 'Hexadigitall Team'}</p>
+                  <p className="text-sm font-bold text-gray-900 dark:text-slate-100">{post.author?.name || 'Hexadigitall Team'}</p>
                 <p className="text-xs text-gray-500">
                   {new Date(post.publishedAt).toLocaleDateString('en-US', { dateStyle: 'long' })}
                 </p>
@@ -130,11 +130,11 @@ export default async function BlogPostPage(props: Props) {
         )}
 
         {/* Content */}
-        <div className="prose prose-lg prose-blue max-w-none text-gray-700">
+          <div className="prose prose-lg prose-blue dark:prose-invert max-w-none text-gray-700 dark:text-slate-300">
           <PortableText value={post.body} />
         </div>
         
-        <div className="mt-16 pt-8 border-t border-gray-200">
+          <div className="mt-16 pt-8 border-t border-gray-200 dark:border-slate-700">
           <Link href="/blog" className="text-primary font-semibold hover:underline">
             ← Back to All Posts
           </Link>

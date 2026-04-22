@@ -20,14 +20,14 @@ interface PortfolioPageContentProps {
 
 export default function PortfolioPageContent({ projects }: PortfolioPageContentProps) {
   return (
-    <section className="bg-white py-12 md:py-20">
+      <section className="bg-white dark:bg-slate-900 py-12 md:py-20">
       <div className="container mx-auto px-6">
         <div className="mb-6">
           <Breadcrumb items={[{ label: 'Portfolio' }]} />
         </div>
         <div className="text-center mb-16">
           <h1 className="text-4xl md:text-5xl font-bold font-heading">Proven Results, Powerful Partnerships</h1>
-          <p className="mt-4 text-lg text-darkText max-w-3xl mx-auto">
+            <p className="mt-4 text-lg text-darkText dark:text-slate-300 max-w-3xl mx-auto">
             We don&apos;t just build websites; we build growth engines. Explore a selection of our case studies that showcase our commitment to delivering tangible results and building lasting relationships with our clients.
           </p>
         </div>
@@ -37,7 +37,7 @@ export default function PortfolioPageContent({ projects }: PortfolioPageContentP
             <Link 
               key={project._id} 
               href={`/portfolio/${project.slug.current}`}
-              className="group block bg-gray-50 rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300"
+              className="group block bg-gray-50 dark:bg-slate-800 rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300"
             >
               {project.mainImage && (
                 <div className="relative h-56 w-full">

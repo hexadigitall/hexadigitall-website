@@ -329,14 +329,14 @@ export function CoursePaymentModal({
             )}
           </div>
           <div className="flex-1">
-            <h3 className="text-lg font-bold text-gray-900 mb-2">{course.title}</h3>
-            <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4 text-sm text-gray-600 mb-2">
+            <h3 className="text-lg font-bold text-gray-900 dark:text-slate-100 mb-2">{course.title}</h3>
+            <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4 text-sm text-gray-600 dark:text-slate-400 mb-2">
               <span><span className="sr-only">Instructor: </span>👨‍🏫 {course.instructor}</span>
               <span><span className="sr-only">Duration: </span>⏱️ {course.duration}</span>
               <span><span className="sr-only">Level: </span>📊 {course.level}</span>
               {isLiveCourse && <span className="bg-blue-100 text-blue-800 px-2 py-1 rounded-full text-xs font-medium">Live Sessions</span>}
             </div>
-            <p className="text-sm text-gray-600 line-clamp-2">{course.description}</p>
+            <p className="text-sm text-gray-600 dark:text-slate-400 line-clamp-2">{course.description}</p>
           </div>
         </div>
 
@@ -377,12 +377,12 @@ export function CoursePaymentModal({
         {/* What's Included */}
         {course.includes && course.includes.length > 0 && (
           <div>
-            <h4 className="font-semibold text-gray-900 mb-3">What&apos;s Included</h4>
+            <h4 className="font-semibold text-gray-900 dark:text-slate-100 mb-3">What&apos;s Included</h4>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
               {course.includes.map((item, index) => (
                 <div key={index} className="flex items-start space-x-2 text-sm">
                   <CheckIcon className="h-4 w-4 text-green-500 flex-shrink-0 mt-0.5" />
-                  <span className="text-gray-700">{item}</span>
+                  <span className="text-gray-700 dark:text-slate-300">{item}</span>
                 </div>
               ))}
             </div>
@@ -391,10 +391,10 @@ export function CoursePaymentModal({
 
         {/* Student Information */}
         <div>
-          <h4 className="font-semibold text-gray-900 mb-3">Student Information</h4>
+          <h4 className="font-semibold text-gray-900 dark:text-slate-100 mb-3">Student Information</h4>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-1">
                 Full Name *
               </label>
               <input
@@ -402,12 +402,12 @@ export function CoursePaymentModal({
                 required
                 value={studentDetails.fullName}
                 onChange={(e) => setStudentDetails({ ...studentDetails, fullName: e.target.value })}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary"
+                className="w-full px-3 py-2 border border-gray-300 dark:border-slate-600 dark:bg-slate-700 dark:text-slate-200 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary"
                 placeholder="Your full name"
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-1">
                 Email Address *
               </label>
               <input
@@ -415,12 +415,12 @@ export function CoursePaymentModal({
                 required
                 value={studentDetails.email}
                 onChange={(e) => setStudentDetails({ ...studentDetails, email: e.target.value })}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary"
+                className="w-full px-3 py-2 border border-gray-300 dark:border-slate-600 dark:bg-slate-700 dark:text-slate-200 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary"
                 placeholder="your.email@example.com"
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-1">
                 Phone Number *
               </label>
               <input
@@ -428,18 +428,18 @@ export function CoursePaymentModal({
                 required
                 value={studentDetails.phone}
                 onChange={(e) => setStudentDetails({ ...studentDetails, phone: e.target.value })}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary"
+                className="w-full px-3 py-2 border border-gray-300 dark:border-slate-600 dark:bg-slate-700 dark:text-slate-200 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary"
                 placeholder="+234 xxx xxx xxxx"
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-1">
                 Experience Level
               </label>
               <select
                 value={studentDetails.experience}
                 onChange={(e) => setStudentDetails({ ...studentDetails, experience: e.target.value })}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary"
+                className="w-full px-3 py-2 border border-gray-300 dark:border-slate-600 dark:bg-slate-700 dark:text-slate-200 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary"
               >
                 <option value="">Select your level</option>
                 <option value="beginner">Complete Beginner</option>
@@ -450,13 +450,13 @@ export function CoursePaymentModal({
             </div>
             {isLiveCourse && (
               <div className="md:col-span-2">
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-1">
                   Preferred Schedule (Optional)
                 </label>
                 <textarea
                   value={studentDetails.preferredSchedule}
                   onChange={(e) => setStudentDetails({ ...studentDetails, preferredSchedule: e.target.value })}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary"
+                  className="w-full px-3 py-2 border border-gray-300 dark:border-slate-600 dark:bg-slate-700 dark:text-slate-200 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary"
                   rows={2}
                   placeholder="e.g., Weekdays after 6 PM WAT, Weekends preferred"
                 />
@@ -468,7 +468,7 @@ export function CoursePaymentModal({
         {/* Payment Plan Selection - Only for legacy courses above threshold */}
         {!isLiveCourse && qualifiesForInstallments && (
           <div>
-            <h4 className="font-semibold text-gray-900 mb-3">Choose Payment Plan</h4>
+            <h4 className="font-semibold text-gray-900 dark:text-slate-100 mb-3">Choose Payment Plan</h4>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
               {COURSE_PAYMENT_PLANS.map((plan) => (
                 <div
@@ -476,19 +476,19 @@ export function CoursePaymentModal({
                   className={`border rounded-lg p-4 cursor-pointer transition-all duration-200 ${
                     selectedPaymentPlan.id === plan.id
                       ? 'border-primary ring-2 ring-primary/20 bg-primary/5'
-                      : 'border-gray-200 hover:border-gray-300'
+                      : 'border-gray-200 dark:border-slate-600 hover:border-gray-300 dark:hover:border-slate-500'
                   }`}
                   onClick={() => setSelectedPaymentPlan(plan)}
                 >
                   <div className="flex items-start justify-between mb-2">
-                    <h5 className="font-semibold text-gray-900 text-sm">{plan.name}</h5>
+                    <h5 className="font-semibold text-gray-900 dark:text-slate-100 text-sm">{plan.name}</h5>
                     {plan.id === 'split_2' && (
                       <span className="bg-green-100 text-green-800 text-xs font-medium px-2 py-1 rounded">
                         Popular
                       </span>
                     )}
                   </div>
-                  <p className="text-xs text-gray-600 mb-2">{plan.description}</p>
+                  <p className="text-xs text-gray-600 dark:text-slate-400 mb-2">{plan.description}</p>
                   
                   {plan.installments > 1 && (
                     <div className="text-xs text-gray-500">
@@ -511,13 +511,13 @@ export function CoursePaymentModal({
         )}
 
         {/* Order Summary */}
-        <div className="bg-gray-50 rounded-xl p-6">
-          <h4 className="text-lg font-semibold text-gray-900 mb-4">Order Summary</h4>
+        <div className="bg-gray-50 dark:bg-slate-800 rounded-xl p-6">
+          <h4 className="text-lg font-semibold text-gray-900 dark:text-slate-100 mb-4">Order Summary</h4>
           
           <div className="flex justify-between items-start mb-4">
             <div>
-              <h5 className="font-medium text-gray-900">{course.title}</h5>
-              <p className="text-sm text-gray-600">
+              <h5 className="font-medium text-gray-900 dark:text-slate-100">{course.title}</h5>
+              <p className="text-sm text-gray-600 dark:text-slate-400">
                 {isLiveCourse ? 'Live Mentoring Course (Monthly)' : 'Course Enrollment'}
               </p>
             </div>
@@ -645,7 +645,7 @@ export function CoursePaymentModal({
         <div className="flex space-x-4 pt-4 border-t">
           <button
             onClick={onClose}
-            className="flex-1 px-6 py-3 text-gray-700 bg-gray-100 hover:bg-gray-200 rounded-xl font-medium transition-colors"
+            className="flex-1 px-6 py-3 text-gray-700 dark:text-slate-300 bg-gray-100 dark:bg-slate-700 hover:bg-gray-200 dark:hover:bg-slate-600 rounded-xl font-medium transition-colors"
           >
             Cancel
           </button>

@@ -98,7 +98,7 @@ export default async function ErrataPage({ params }: Props) {
       {/* Summary stats */}
       {errata.length > 0 && (
         <div className="flex flex-wrap gap-3 mb-8">
-          <span className="text-sm font-semibold text-gray-700">{errata.length} correction{errata.length !== 1 ? 's' : ''} logged</span>
+          <span className="text-sm font-semibold text-gray-700 dark:text-slate-300">{errata.length} correction{errata.length !== 1 ? 's' : ''} logged</span>
           {Object.entries(counts).map(([sev, count]) => (
             <span key={sev} className={`text-xs px-2 py-1 rounded-full font-medium ${SEVERITY_STYLES[sev]?.badge ?? 'bg-gray-100 text-gray-600'}`}>
               {count} {SEVERITY_STYLES[sev]?.label ?? sev}
@@ -113,13 +113,13 @@ export default async function ErrataPage({ params }: Props) {
       ) : (
         <section className="mb-16 text-center py-16 text-gray-500">
           <p className="text-4xl mb-3">✅</p>
-          <p className="text-lg font-medium text-gray-700">No corrections logged yet for this edition.</p>
+          <p className="text-lg font-medium text-gray-700 dark:text-slate-400">No corrections logged yet for this edition.</p>
           <p className="text-sm mt-2">Found an error? Let us know using the form below.</p>
         </section>
       )}
 
       {/* Report form */}
-      <section id="report" className="bg-gray-50 rounded-2xl p-6 border border-gray-100">
+        <section id="report" className="bg-gray-50 dark:bg-slate-800 rounded-2xl p-6 border border-gray-100 dark:border-slate-700">
         <h2 className="text-xl font-bold text-primary mb-2">Report an Error</h2>
         <p className="text-sm text-gray-600 mb-5">
           Found something wrong in <strong>{book.title}</strong>? Fill in the details below and we&apos;ll investigate and log it here.

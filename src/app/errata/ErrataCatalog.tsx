@@ -146,7 +146,7 @@ export default function ErrataCatalog({ books }: { books: BookSummary[] }) {
   return (
     <>
       <section className="mb-10">
-        <label htmlFor="errata-search" className="block text-sm font-semibold text-darkText mb-2">
+          <label htmlFor="errata-search" className="block text-sm font-semibold text-darkText dark:text-slate-300 mb-2">
           Search textbooks for corrections
         </label>
         <div className="relative">
@@ -157,7 +157,7 @@ export default function ErrataCatalog({ books }: { books: BookSummary[] }) {
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Search by title, author, topic, or keyword"
-            className="w-full rounded-xl border border-gray-200 bg-white px-4 py-3 pr-28 text-sm focus:border-primary focus:ring-2 focus:ring-primary/20"
+              className="w-full rounded-xl border border-gray-200 dark:border-slate-600 bg-white dark:bg-slate-800 dark:text-slate-200 px-4 py-3 pr-28 text-sm focus:border-primary focus:ring-2 focus:ring-primary/20"
             aria-label="Search books for errata"
           />
           {query && (
@@ -185,7 +185,7 @@ export default function ErrataCatalog({ books }: { books: BookSummary[] }) {
               className={`rounded-full px-3 py-1.5 text-xs font-semibold transition-colors ${
                 status === item.id
                   ? 'bg-primary text-white'
-                  : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                    : 'bg-gray-100 dark:bg-slate-700 text-gray-600 dark:text-slate-300 hover:bg-gray-200 dark:hover:bg-slate-600'
               }`}
             >
               {item.label}
@@ -209,7 +209,7 @@ export default function ErrataCatalog({ books }: { books: BookSummary[] }) {
               <Link
                 key={book._id}
                 href={`/errata/${book.slug.current}`}
-                className="group flex gap-4 p-4 rounded-2xl border border-gray-100 bg-white shadow-sm hover:shadow-md hover:border-primary/20 transition-all duration-200"
+                className="group flex gap-4 p-4 rounded-2xl border border-gray-100 dark:border-slate-700 bg-white dark:bg-slate-800 shadow-sm hover:shadow-md hover:border-primary/20 transition-all duration-200"
               >
                 <div className="relative w-14 flex-shrink-0 rounded-lg overflow-hidden" style={{ aspectRatio: '3/4' }}>
                   {coverUrl ? (
@@ -220,7 +220,7 @@ export default function ErrataCatalog({ books }: { books: BookSummary[] }) {
                 </div>
 
                 <div className="flex-1 min-w-0">
-                  <p className="font-bold text-sm text-darkText group-hover:text-primary transition-colors line-clamp-2">
+                    <p className="font-bold text-sm text-darkText dark:text-slate-200 group-hover:text-primary transition-colors line-clamp-2">
                     {highlightText(book.title, query)}
                   </p>
                   {book.edition && <p className="text-xs text-gray-400 mt-0.5">{highlightText(book.edition, query)}</p>}
@@ -231,7 +231,7 @@ export default function ErrataCatalog({ books }: { books: BookSummary[] }) {
           })}
         </div>
       ) : (
-        <section className="text-center py-16 text-gray-500 border border-dashed border-gray-200 rounded-2xl">
+          <section className="text-center py-16 text-gray-500 dark:text-slate-400 border border-dashed border-gray-200 dark:border-slate-600 rounded-2xl">
           <p className="text-2xl mb-2">No books found</p>
           <p className="text-sm">Try a different keyword like DevOps, JavaScript, AWS, or Design.</p>
         </section>

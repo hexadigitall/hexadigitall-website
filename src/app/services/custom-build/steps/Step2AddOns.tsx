@@ -101,7 +101,7 @@ export default function Step2AddOns({
         <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold font-heading mb-4 text-primary">
           Add Optional Features
         </h2>
-        <p className="text-base sm:text-lg text-darkText/70">
+        <p className="text-base sm:text-lg text-darkText/70 dark:text-slate-400">
           Enhance your project with these optional add-ons. You can always add them later!
         </p>
       </div>
@@ -123,7 +123,7 @@ export default function Step2AddOns({
               className={`group relative text-left p-6 rounded-lg border-2 transition-all duration-300 ${
                 isSelected
                   ? 'border-accent bg-gradient-to-br from-accent/5 to-secondary/5 shadow-md'
-                  : 'border-gray-200 hover:border-accent/50 bg-white hover:shadow-sm'
+                  : 'border-gray-200 dark:border-slate-600 hover:border-accent/50 bg-white dark:bg-slate-800 hover:shadow-sm'
               }`}
               type="button"
               aria-pressed={isSelected}
@@ -132,7 +132,7 @@ export default function Step2AddOns({
               <div className={`absolute top-4 right-4 w-6 h-6 rounded-full border-2 flex items-center justify-center transition-all ${
                 isSelected
                   ? 'bg-accent border-accent text-white'
-                  : 'border-gray-300'
+                  : 'border-gray-300 dark:border-slate-600'
               }`}>
                 {isSelected && <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" /></svg>}
               </div>
@@ -140,18 +140,18 @@ export default function Step2AddOns({
               {/* Content */}
               <div className="pr-8">
                 <h3 className={`text-base sm:text-lg font-bold mb-1 transition-colors ${
-                  isSelected ? 'text-accent' : 'text-darkText'
+                  isSelected ? 'text-accent' : 'text-darkText dark:text-slate-200'
                 }`}>
                   {addonOption.name}
                 </h3>
-                <p className="text-xs sm:text-sm text-darkText/70 mb-4">
+                <p className="text-xs sm:text-sm text-darkText/70 dark:text-slate-400 mb-4">
                   {addonOption.description}
                 </p>
 
                 {/* Features */}
                 <ul className="space-y-1 mb-4">
                   {addonOption.features.map((feature, idx) => (
-                    <li key={idx} className="flex items-start gap-2 text-[10px] sm:text-xs text-darkText/70">
+                    <li key={idx} className="flex items-start gap-2 text-[10px] sm:text-xs text-darkText/70 dark:text-slate-400">
                       <span className="text-green-600 mt-0.5">•</span>
                       <span>{feature}</span>
                     </li>
@@ -172,17 +172,17 @@ export default function Step2AddOns({
       <div ref={liveRegionRef} aria-live="polite" className="bg-gradient-to-r from-primary/5 to-secondary/5 border-2 border-primary/20 rounded-lg p-4 sm:p-6 mb-8">
         <div className="flex items-center justify-between">
           <div>
-            <p className="text-sm text-darkText/70 mb-1">Additional Add-ons Selected</p>
+            <p className="text-sm text-darkText/70 dark:text-slate-400 mb-1">Additional Add-ons Selected</p>
             <p className="text-2xl sm:text-3xl font-bold text-primary">
               +{currentCurrency.symbol}{Math.round(convertedTotalAddOnPrice).toLocaleString()}
             </p>
-            <p className="text-xs text-darkText/60 mt-1">{currentCurrency.code}</p>
+            <p className="text-xs text-darkText/60 dark:text-slate-500 mt-1">{currentCurrency.code}</p>
           </div>
           <div className="text-right">
             <p className="text-3xl sm:text-4xl font-bold text-accent mb-1">
               {selectedAddOns.length}
             </p>
-            <p className="text-sm text-darkText/70">
+            <p className="text-sm text-darkText/70 dark:text-slate-400">
               {selectedAddOns.length === 1 ? 'add-on' : 'add-ons'}
             </p>
           </div>
@@ -193,7 +193,7 @@ export default function Step2AddOns({
       <div className="flex flex-col sm:flex-row gap-4">
         <button
           onClick={onBack}
-          className="flex-1 px-6 py-4 border-2 border-gray-300 rounded-lg font-semibold text-darkText hover:bg-gray-50 transition-colors"
+          className="flex-1 px-6 py-4 border-2 border-gray-300 dark:border-slate-600 rounded-lg font-semibold text-darkText dark:text-slate-300 hover:bg-gray-50 dark:hover:bg-slate-700 transition-colors"
         >
           ← Back
         </button>

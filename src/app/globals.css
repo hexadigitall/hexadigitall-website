@@ -10,13 +10,30 @@
    Phase B–E components migrate to dark: variants progressively.
    ============================================================ */
 :root {
-  --color-bg-page:           #ffffff;
-  --color-bg-surface:        #F4F7F6;
+  /* ── Backgrounds ─────────────────────────────────────────── */
+  --color-bg-page:           #ffffff;   /* outermost page bg          */
+  --color-bg-surface:        #F4F7F6;   /* subtle tinted section bg   */
+  --color-bg-card:           #ffffff;   /* card / panel bg            */
+  --color-bg-raised:         #f8fafc;   /* slightly elevated element  */
   --color-bg-nav:            rgba(255, 255, 255, 0.8);
-  --color-text-body:         #333333;
-  --color-text-heading:      #0A4D68;
+
+  /* ── Text ────────────────────────────────────────────────── */
+  --color-text-heading:      #0A4D68;   /* h1–h4                      */
+  --color-text-body:         #333333;   /* base paragraph text        */
+  --color-text-secondary:    #4b5563;   /* supporting / label text    */
+  --color-text-muted:        #6b7280;   /* placeholder / meta text    */
   --color-text-link:         #066d7f;
-  --color-border:            #e5e7eb;
+
+  /* ── Borders ─────────────────────────────────────────────── */
+  --color-border:            #e5e7eb;   /* default border             */
+  --color-border-subtle:     #f3f4f6;   /* hairline / inner divider   */
+
+  /* ── Form inputs ─────────────────────────────────────────── */
+  --color-input-bg:          #ffffff;
+  --color-input-border:      #d1d5db;
+  --color-input-text:        #111827;
+
+  /* ── Scrollbar / focus ───────────────────────────────────── */
   --color-scrollbar-track:   #f1f5f9;
   --color-scrollbar-thumb:   #0A4D68;
   --color-scrollbar-hover:   #083344;
@@ -24,13 +41,30 @@
 }
 
 .dark {
-  --color-bg-page:           #0f172a;
-  --color-bg-surface:        #1e293b;
+  /* ── Backgrounds ─────────────────────────────────────────── */
+  --color-bg-page:           #0f172a;   /* slate-950                  */
+  --color-bg-surface:        #1e293b;   /* slate-800                  */
+  --color-bg-card:           #1e293b;   /* slate-800                  */
+  --color-bg-raised:         #273549;   /* between slate-800/700      */
   --color-bg-nav:            rgba(15, 23, 42, 0.9);
-  --color-text-body:         #e2e8f0;
-  --color-text-heading:      #7dd3fc;
+
+  /* ── Text ────────────────────────────────────────────────── */
+  --color-text-heading:      #f1f5f9;   /* slate-100                  */
+  --color-text-body:         #e2e8f0;   /* slate-200                  */
+  --color-text-secondary:    #cbd5e1;   /* slate-300                  */
+  --color-text-muted:        #94a3b8;   /* slate-400                  */
   --color-text-link:         #34d399;
-  --color-border:            #334155;
+
+  /* ── Borders ─────────────────────────────────────────────── */
+  --color-border:            #334155;   /* slate-700                  */
+  --color-border-subtle:     #1e293b;   /* slate-800                  */
+
+  /* ── Form inputs ─────────────────────────────────────────── */
+  --color-input-bg:          #334155;   /* slate-700                  */
+  --color-input-border:      #475569;   /* slate-600                  */
+  --color-input-text:        #f1f5f9;   /* slate-100                  */
+
+  /* ── Scrollbar / focus ───────────────────────────────────── */
   --color-scrollbar-track:   #1e293b;
   --color-scrollbar-thumb:   #475569;
   --color-scrollbar-hover:   #7dd3fc;

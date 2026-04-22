@@ -24,8 +24,8 @@ export default function DivasTierPage() {
 
   if (!tier) {
     return (
-      <div className="min-h-screen flex flex-col items-center justify-center bg-gray-50 px-4 text-center">
-        <p className="text-lg font-semibold text-gray-800">Tier not found.</p>
+      <div className="min-h-screen flex flex-col items-center justify-center bg-gray-50 dark:bg-slate-900 px-4 text-center">
+        <p className="text-lg font-semibold text-gray-800 dark:text-slate-200">Tier not found.</p>
         <Link href="/" className="mt-3 text-primary hover:text-primary/80">Back home</Link>
       </div>
     )
@@ -81,14 +81,14 @@ export default function DivasTierPage() {
         <div className="flex items-center gap-3 mb-6">
           <button
             onClick={() => router.back()}
-            className="p-2 rounded-lg bg-white shadow-sm border border-gray-200 hover:bg-gray-50"
+            className="p-2 rounded-lg bg-white dark:bg-slate-800 shadow-sm border border-gray-200 dark:border-slate-700 hover:bg-gray-50 dark:hover:bg-slate-700"
           >
             <ArrowLeftIcon className="h-5 w-5 text-gray-600" />
           </button>
           <p className="text-sm text-gray-500">Diva&apos;s Kloset · {tier.name}</p>
         </div>
 
-        <div className="bg-white shadow-lg border border-gray-200 rounded-2xl overflow-hidden">
+        <div className="bg-white dark:bg-slate-800 shadow-lg border border-gray-200 dark:border-slate-700 rounded-2xl overflow-hidden">
           <div className="bg-gradient-to-r from-fuchsia-600 via-purple-600 to-indigo-600 text-white px-6 py-8">
             <p className="text-sm uppercase tracking-wide text-white/80">{tier.tagline}</p>
             <h1 className="text-3xl font-bold mt-2">{tier.name}</h1>
@@ -101,13 +101,13 @@ export default function DivasTierPage() {
 
           <div className="p-6 grid grid-cols-1 lg:grid-cols-3 gap-8">
             <div className="lg:col-span-2 space-y-4">
-              <h2 className="text-lg font-semibold text-gray-900">What you get</h2>
+              <h2 className="text-lg font-semibold text-gray-900 dark:text-slate-100">What you get</h2>
               <p className="text-gray-600">{tier.summary}</p>
               <ul className="space-y-3">
                 {tier.deliverables.map((item) => (
                   <li key={item} className="flex items-start gap-3">
                     <CheckCircleIcon className="h-5 w-5 text-emerald-500 mt-0.5" />
-                    <span className="text-gray-700">{item}</span>
+                    <span className="text-gray-700 dark:text-slate-300">{item}</span>
                   </li>
                 ))}
               </ul>
@@ -127,46 +127,46 @@ export default function DivasTierPage() {
               <div className="mt-4 text-sm text-gray-500">Need adjustments? Reply to this link—we can tweak scope or add-ons.</div>
             </div>
 
-            <div className="bg-gray-50 border border-gray-200 rounded-xl p-5 shadow-sm">
-              <h3 className="text-lg font-semibold text-gray-900">Checkout</h3>
+            <div className="bg-gray-50 dark:bg-slate-800 border border-gray-200 dark:border-slate-700 rounded-xl p-5 shadow-sm">
+              <h3 className="text-lg font-semibold text-gray-900 dark:text-slate-100">Checkout</h3>
               <p className="text-sm text-gray-600 mb-4">Enter your details to pay securely via Paystack.</p>
 
               <div className="space-y-3">
                 <div>
-                  <label className="text-sm text-gray-700">Name</label>
+                  <label className="text-sm text-gray-700 dark:text-slate-300">Name</label>
                   <input
                     type="text"
-                    className="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2 focus:ring-2 focus:ring-primary focus:border-transparent"
+                    className="mt-1 w-full rounded-lg border border-gray-300 dark:border-slate-600 dark:bg-slate-700 dark:text-slate-200 px-3 py-2 focus:ring-2 focus:ring-primary focus:border-transparent"
                     value={form.name}
                     onChange={(e) => setForm({ ...form, name: e.target.value })}
                     placeholder="Your full name"
                   />
                 </div>
                 <div>
-                  <label className="text-sm text-gray-700">Email</label>
+                  <label className="text-sm text-gray-700 dark:text-slate-300">Email</label>
                   <input
                     type="email"
-                    className="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2 focus:ring-2 focus:ring-primary focus:border-transparent"
+                    className="mt-1 w-full rounded-lg border border-gray-300 dark:border-slate-600 dark:bg-slate-700 dark:text-slate-200 px-3 py-2 focus:ring-2 focus:ring-primary focus:border-transparent"
                     value={form.email}
                     onChange={(e) => setForm({ ...form, email: e.target.value })}
                     placeholder="you@example.com"
                   />
                 </div>
                 <div>
-                  <label className="text-sm text-gray-700">Phone</label>
+                  <label className="text-sm text-gray-700 dark:text-slate-300">Phone</label>
                   <input
                     type="tel"
-                    className="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2 focus:ring-2 focus:ring-primary focus:border-transparent"
+                    className="mt-1 w-full rounded-lg border border-gray-300 dark:border-slate-600 dark:bg-slate-700 dark:text-slate-200 px-3 py-2 focus:ring-2 focus:ring-primary focus:border-transparent"
                     value={form.phone}
                     onChange={(e) => setForm({ ...form, phone: e.target.value })}
                     placeholder="e.g. +234..."
                   />
                 </div>
                 <div>
-                  <label className="text-sm text-gray-700">Company (optional)</label>
+                  <label className="text-sm text-gray-700 dark:text-slate-300">Company (optional)</label>
                   <input
                     type="text"
-                    className="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2 focus:ring-2 focus:ring-primary focus:border-transparent"
+                    className="mt-1 w-full rounded-lg border border-gray-300 dark:border-slate-600 dark:bg-slate-700 dark:text-slate-200 px-3 py-2 focus:ring-2 focus:ring-primary focus:border-transparent"
                     value={form.company}
                     onChange={(e) => setForm({ ...form, company: e.target.value })}
                     placeholder="Diva&apos;s Kloset"

@@ -95,13 +95,13 @@ export default function StudentLoginPage() {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-purple-50 via-blue-50 to-white px-4">
       <div className="w-full max-w-md">
-        <div className="bg-white rounded-2xl shadow-xl border border-gray-200 p-8">
+        <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-xl border border-gray-200 dark:border-slate-700 p-8">
           <div className="flex flex-col items-center mb-8">
             <div className="w-16 h-16 bg-gradient-to-br from-purple-500 to-blue-600 rounded-full flex items-center justify-center mb-4">
               <BookOpenIcon className="h-10 w-10 text-white" />
             </div>
-            <h1 className="text-2xl font-bold text-gray-900">Student Login</h1>
-            <p className="text-sm text-gray-600 mt-1">Access your learning dashboard</p>
+            <h1 className="text-2xl font-bold text-gray-900 dark:text-slate-100">Student Login</h1>
+            <p className="text-sm text-gray-600 dark:text-slate-400 mt-1">Access your learning dashboard</p>
           </div>
 
           {justRegistered && (
@@ -130,7 +130,7 @@ export default function StudentLoginPage() {
 
           <form onSubmit={handleSubmit} className="space-y-5">
             <div>
-              <label htmlFor="username" className="block text-sm font-medium text-gray-700 mb-2">
+              <label htmlFor="username" className="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-2">
                 Username
               </label>
               <input
@@ -139,13 +139,13 @@ export default function StudentLoginPage() {
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
                 required
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-colors"
+                className="w-full px-4 py-3 border border-gray-300 dark:border-slate-600 dark:bg-slate-700 dark:text-slate-200 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-colors"
                 placeholder="Enter your username"
               />
             </div>
 
             <div>
-              <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-2">
+              <label htmlFor="password" className="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-2">
                 Password
               </label>
               <div className="relative">
@@ -155,13 +155,13 @@ export default function StudentLoginPage() {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   required
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-colors pr-12"
+                  className="w-full px-4 py-3 border border-gray-300 dark:border-slate-600 dark:bg-slate-700 dark:text-slate-200 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-colors pr-12"
                   placeholder="Enter your password"
                 />
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 dark:text-slate-400 hover:text-gray-700 dark:hover:text-slate-300"
                 >
                   {showPassword ? (
                     <EyeSlashIcon className="h-5 w-5" />
@@ -193,7 +193,7 @@ export default function StudentLoginPage() {
                 type="button"
                 disabled={!oauthProviders.google}
                 onClick={() => void handleOAuth('google')}
-                className="w-full py-3 border border-gray-300 bg-white text-gray-800 font-medium rounded-lg hover:bg-gray-50 transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
+                className="w-full py-3 border border-gray-300 dark:border-slate-600 bg-white dark:bg-slate-700 text-gray-800 dark:text-slate-200 font-medium rounded-lg hover:bg-gray-50 dark:hover:bg-slate-600 transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
               >
                 Continue with Google
               </button>
@@ -201,7 +201,7 @@ export default function StudentLoginPage() {
                 type="button"
                 disabled={!oauthProviders.github}
                 onClick={() => void handleOAuth('github')}
-                className="w-full py-3 border border-gray-300 bg-white text-gray-800 font-medium rounded-lg hover:bg-gray-50 transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
+                className="w-full py-3 border border-gray-300 dark:border-slate-600 bg-white dark:bg-slate-700 text-gray-800 dark:text-slate-200 font-medium rounded-lg hover:bg-gray-50 dark:hover:bg-slate-600 transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
               >
                 Continue with GitHub
               </button>
@@ -215,7 +215,7 @@ export default function StudentLoginPage() {
           </>
 
           <div className="mt-6 space-y-3 text-center">
-            <p className="text-sm text-gray-600">
+            <p className="text-sm text-gray-600 dark:text-slate-400">
               Don&apos;t have an account?{' '}
               <Link href={signupHref} className="text-purple-600 hover:text-purple-700 font-medium">
                 Sign up
@@ -223,13 +223,13 @@ export default function StudentLoginPage() {
             </p>
             <Link
               href="/courses"
-              className="block text-sm text-gray-600 hover:text-purple-600 transition-colors"
+              className="block text-sm text-gray-600 dark:text-slate-400 hover:text-purple-600 transition-colors"
             >
               Browse Courses
             </Link>
             <Link
               href="/teacher/login"
-              className="block text-sm text-gray-600 hover:text-purple-600 transition-colors"
+              className="block text-sm text-gray-600 dark:text-slate-400 hover:text-purple-600 transition-colors"
             >
               Teacher? Sign in here
             </Link>

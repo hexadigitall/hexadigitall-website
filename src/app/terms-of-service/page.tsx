@@ -41,7 +41,7 @@ export default function TermsOfServicePage() {
         }}
       />
       
-      <div className="bg-white py-12 md:py-20">
+        <div className="bg-white dark:bg-slate-900 py-12 md:py-20">
         <div className="container mx-auto px-6 max-w-4xl">
           {/* Breadcrumb Navigation */}
           <nav className="mb-8" aria-label="Breadcrumb">
@@ -67,7 +67,7 @@ export default function TermsOfServicePage() {
           </div>
 
           {/* Content */}
-          <div className="prose prose-lg max-w-none">
+<div className="prose prose-lg dark:prose-invert max-w-none">
             
             {/* Introduction */}
             <section className="mb-8">

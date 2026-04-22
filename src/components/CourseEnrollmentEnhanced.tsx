@@ -217,7 +217,7 @@ export default function CourseEnrollmentEnhanced({ course }: { course: CourseEnr
   // Preview Step
   if (state.step === 'preview') {
     return (
-      <div className="bg-white rounded-xl shadow-lg overflow-hidden border border-gray-200">
+      <div className="bg-white dark:bg-slate-800 rounded-xl shadow-lg overflow-hidden border border-gray-200 dark:border-slate-700">
         {/* Course Image */}
         <div className="relative h-48 w-full">
           <Image 
@@ -271,7 +271,7 @@ export default function CourseEnrollmentEnhanced({ course }: { course: CourseEnr
                   // Show flexible pricing options
                   return (
                     <div className="space-y-2">
-                      <div className="text-lg font-semibold text-gray-900">Flexible Pricing</div>
+                      <div className="text-lg font-semibold text-gray-900 dark:text-slate-100">Flexible Pricing</div>
                       {course.sessionOptions.perSession && course.sessionPricing?.perSessionPrice && (
                         <div className="text-sm text-gray-600">
                           {formatPrice(course.sessionPricing.perSessionPrice)} per session
@@ -319,7 +319,7 @@ export default function CourseEnrollmentEnhanced({ course }: { course: CourseEnr
           {/* Session Options Preview */}
           {(course.sessionOptions.perSession || course.sessionOptions.hourly) && (
             <div className="mb-6">
-              <h4 className="font-semibold text-gray-900 mb-3">Learning Options:</h4>
+              <h4 className="font-semibold text-gray-900 dark:text-slate-100 mb-3">Learning Options:</h4>
               <div className="space-y-2">
                 {course.sessionOptions.perSession && (
                   <div className="flex items-center text-sm text-blue-600">
@@ -349,7 +349,7 @@ export default function CourseEnrollmentEnhanced({ course }: { course: CourseEnr
 
           {/* What's Included */}
           <div className="mb-6">
-            <h4 className="font-semibold text-gray-900 mb-3">What&apos;s Included:</h4>
+            <h4 className="font-semibold text-gray-900 dark:text-slate-100 mb-3">What&apos;s Included:</h4>
             <ul className="space-y-2">
               {course.includes.map((item, index) => (
                 <li key={index} className="flex items-start text-sm text-gray-600">
@@ -396,34 +396,34 @@ export default function CourseEnrollmentEnhanced({ course }: { course: CourseEnr
   // Session Customization Step
   if (state.step === 'customize') {
     return (
-      <div className="bg-white rounded-xl shadow-lg p-6 border border-gray-200">
+      <div className="bg-white dark:bg-slate-800 rounded-xl shadow-lg p-6 border border-gray-200 dark:border-slate-700">
         <div className="mb-6">
           <button 
             onClick={() => setState({ ...state, step: 'preview' })}
-            className="flex items-center text-gray-600 hover:text-gray-800 mb-4"
+            className="flex items-center text-gray-600 dark:text-slate-400 hover:text-gray-800 dark:hover:text-slate-300 mb-4"
           >
             <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
             </svg>
             Back to Course
           </button>
-          <h3 className="text-xl font-bold text-gray-900">Customize Your Learning Experience</h3>
+          <h3 className="text-xl font-bold text-gray-900 dark:text-slate-100">Customize Your Learning Experience</h3>
           <p className="text-gray-600">Choose how you&apos;d like to learn this course</p>
         </div>
 
         <div className="space-y-6">
           {/* Session Type Selection */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-3">Learning Format</label>
+            <label className="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-3">Learning Format</label>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               {course.sessionOptions.fixedPrice && (
                 <div 
                   className={`border-2 rounded-lg p-4 cursor-pointer ${
-                    sessionCustomization.sessionType === 'fixed' ? 'border-primary bg-primary/5' : 'border-gray-200'
+                    sessionCustomization.sessionType === 'fixed' ? 'border-primary bg-primary/5' : 'border-gray-200 dark:border-slate-600'
                   }`}
                   onClick={() => setSessionCustomization({ ...sessionCustomization, sessionType: 'fixed' })}
                 >
-                  <h4 className="font-semibold text-gray-900">Fixed Price Course</h4>
+                  <h4 className="font-semibold text-gray-900 dark:text-slate-100">Fixed Price Course</h4>
                   <p className="text-sm text-gray-600">Complete course with structured curriculum</p>
                   <div className="mt-2 text-lg font-bold text-primary">
                     {formatPrice(course.dollarPrice || course.price || 0)}
@@ -434,11 +434,11 @@ export default function CourseEnrollmentEnhanced({ course }: { course: CourseEnr
               {course.sessionOptions.perSession && course.sessionPricing?.perSessionPrice && (
                 <div 
                   className={`border-2 rounded-lg p-4 cursor-pointer ${
-                    sessionCustomization.sessionType === 'per_session' ? 'border-primary bg-primary/5' : 'border-gray-200'
+                    sessionCustomization.sessionType === 'per_session' ? 'border-primary bg-primary/5' : 'border-gray-200 dark:border-slate-600'
                   }`}
                   onClick={() => setSessionCustomization({ ...sessionCustomization, sessionType: 'per_session' })}
                 >
-                  <h4 className="font-semibold text-gray-900">Per-Session</h4>
+                  <h4 className="font-semibold text-gray-900 dark:text-slate-100">Per-Session</h4>
                   <p className="text-sm text-gray-600">Pay for individual sessions</p>
                   <div className="mt-2 text-lg font-bold text-primary">
                     {formatPrice(course.sessionPricing.perSessionPrice)} per session
@@ -449,11 +449,11 @@ export default function CourseEnrollmentEnhanced({ course }: { course: CourseEnr
               {course.sessionOptions.hourly && course.sessionPricing?.hourlyRate && (
                 <div 
                   className={`border-2 rounded-lg p-4 cursor-pointer ${
-                    sessionCustomization.sessionType === 'hourly' ? 'border-primary bg-primary/5' : 'border-gray-200'
+                    sessionCustomization.sessionType === 'hourly' ? 'border-primary bg-primary/5' : 'border-gray-200 dark:border-slate-600'
                   }`}
                   onClick={() => setSessionCustomization({ ...sessionCustomization, sessionType: 'hourly' })}
                 >
-                  <h4 className="font-semibold text-gray-900">Hourly Rate</h4>
+                  <h4 className="font-semibold text-gray-900 dark:text-slate-100">Hourly Rate</h4>
                   <p className="text-sm text-gray-600">Pay by the hour for flexible learning</p>
                   <div className="mt-2 text-lg font-bold text-primary">
                     {formatPrice(course.sessionPricing.hourlyRate)} per hour
@@ -466,7 +466,7 @@ export default function CourseEnrollmentEnhanced({ course }: { course: CourseEnr
           {/* Session/Hour Configuration */}
           {sessionCustomization.sessionType === 'per_session' && (
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Number of Sessions</label>
+              <label className="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-1">Number of Sessions</label>
               <input
                 type="number"
                 min="1"
@@ -476,7 +476,7 @@ export default function CourseEnrollmentEnhanced({ course }: { course: CourseEnr
                   ...sessionCustomization, 
                   numberOfSessions: parseInt(e.target.value) || 1 
                 })}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-accent focus:border-accent"
+                className="w-full px-3 py-2 border border-gray-300 dark:border-slate-600 dark:bg-slate-700 dark:text-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-accent focus:border-accent"
               />
               <p className="text-sm text-gray-500 mt-1">
                 Total: {formatPrice((sessionCustomization.numberOfSessions || 0) * (course.sessionPricing?.perSessionPrice || 0))}
@@ -486,7 +486,7 @@ export default function CourseEnrollmentEnhanced({ course }: { course: CourseEnr
 
           {sessionCustomization.sessionType === 'hourly' && (
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Total Hours</label>
+              <label className="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-1">Total Hours</label>
               <input
                 type="number"
                 min={course.sessionPricing?.minimumHours || 1}
@@ -496,7 +496,7 @@ export default function CourseEnrollmentEnhanced({ course }: { course: CourseEnr
                   ...sessionCustomization, 
                   totalHours: parseInt(e.target.value) || 1 
                 })}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-accent focus:border-accent"
+                className="w-full px-3 py-2 border border-gray-300 dark:border-slate-600 dark:bg-slate-700 dark:text-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-accent focus:border-accent"
               />
               <p className="text-sm text-gray-500 mt-1">
                 Total: {formatPrice((sessionCustomization.totalHours || 0) * (course.sessionPricing?.hourlyRate || 0))}
@@ -509,7 +509,7 @@ export default function CourseEnrollmentEnhanced({ course }: { course: CourseEnr
 
           {/* Schedule Preference */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-3">Schedule Preference</label>
+            <label className="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-3">Schedule Preference</label>
             <div className="grid grid-cols-3 gap-4">
               {['weekdays', 'weekends', 'flexible'].map((schedule) => (
                 <div key={schedule}>
@@ -530,7 +530,7 @@ export default function CourseEnrollmentEnhanced({ course }: { course: CourseEnr
                     className={`block w-full p-3 text-center rounded-lg border-2 cursor-pointer ${
                       sessionCustomization.schedule === schedule 
                         ? 'border-primary bg-primary/5 text-primary' 
-                        : 'border-gray-200 text-gray-700'
+                        : 'border-gray-200 dark:border-slate-600 text-gray-700 dark:text-slate-300'
                     }`}
                   >
                     {schedule.charAt(0).toUpperCase() + schedule.slice(1)}
@@ -542,7 +542,7 @@ export default function CourseEnrollmentEnhanced({ course }: { course: CourseEnr
 
           {/* Learning Intensity */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-3">Learning Intensity</label>
+            <label className="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-3">Learning Intensity</label>
             <div className="grid grid-cols-3 gap-4">
               {[
                 { value: 'standard', label: 'Standard', desc: '2-3 hours/week' },
@@ -567,7 +567,7 @@ export default function CourseEnrollmentEnhanced({ course }: { course: CourseEnr
                     className={`block w-full p-3 text-center rounded-lg border-2 cursor-pointer ${
                       sessionCustomization.intensity === intensity.value 
                         ? 'border-primary bg-primary/5 text-primary' 
-                        : 'border-gray-200 text-gray-700'
+                        : 'border-gray-200 dark:border-slate-600 text-gray-700 dark:text-slate-300'
                     }`}
                   >
                     <div className="font-semibold">{intensity.label}</div>
@@ -581,7 +581,7 @@ export default function CourseEnrollmentEnhanced({ course }: { course: CourseEnr
           {/* Total Price Display */}
           <div className="bg-blue-50 rounded-lg p-4">
             <div className="flex justify-between items-center">
-              <span className="font-semibold text-gray-900">Total Price:</span>
+              <span className="font-semibold text-gray-900 dark:text-slate-100">Total Price:</span>
               <span className="text-2xl font-bold text-primary">
                 {formatPrice(totalPrice)}
               </span>
@@ -593,7 +593,7 @@ export default function CourseEnrollmentEnhanced({ course }: { course: CourseEnr
             <button
               type="button"
               onClick={() => setState({ ...state, step: 'preview' })}
-              className="flex-1 py-3 px-6 border border-gray-300 text-gray-700 rounded-lg font-semibold hover:bg-gray-50 transition-colors"
+              className="flex-1 py-3 px-6 border border-gray-300 dark:border-slate-600 text-gray-700 dark:text-slate-300 rounded-lg font-semibold hover:bg-gray-50 dark:hover:bg-slate-700 transition-colors"
             >
               Back
             </button>
@@ -612,28 +612,28 @@ export default function CourseEnrollmentEnhanced({ course }: { course: CourseEnr
   // Student Details Step (enhanced)
   if (state.step === 'details') {
     return (
-      <div className="bg-white rounded-xl shadow-lg p-6 border border-gray-200">
+      <div className="bg-white dark:bg-slate-800 rounded-xl shadow-lg p-6 border border-gray-200 dark:border-slate-700">
         <div className="mb-6">
           <button 
             onClick={() => setState({ 
               ...state, 
               step: (course.sessionOptions.perSession || course.sessionOptions.hourly) ? 'customize' : 'preview' 
             })}
-            className="flex items-center text-gray-600 hover:text-gray-800 mb-4"
+            className="flex items-center text-gray-600 dark:text-slate-400 hover:text-gray-800 dark:hover:text-slate-300 mb-4"
           >
             <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
             </svg>
             Back
           </button>
-          <h3 className="text-xl font-bold text-gray-900">Student Information</h3>
+          <h3 className="text-xl font-bold text-gray-900 dark:text-slate-100">Student Information</h3>
           <p className="text-gray-600">Help us personalize your learning experience</p>
         </div>
 
         <form onSubmit={handleDetailsSubmit} className="space-y-4">
           <div className="grid md:grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-1">
                 Full Name *
               </label>
               <input
@@ -641,12 +641,12 @@ export default function CourseEnrollmentEnhanced({ course }: { course: CourseEnr
                 required
                 value={studentDetails.fullName}
                 onChange={(e) => setStudentDetails({ ...studentDetails, fullName: e.target.value })}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-accent focus:border-accent"
+                className="w-full px-3 py-2 border border-gray-300 dark:border-slate-600 dark:bg-slate-700 dark:text-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-accent focus:border-accent"
                 placeholder="Your full name"
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-1">
                 Email Address *
               </label>
               <input
@@ -654,14 +654,14 @@ export default function CourseEnrollmentEnhanced({ course }: { course: CourseEnr
                 required
                 value={studentDetails.email}
                 onChange={(e) => setStudentDetails({ ...studentDetails, email: e.target.value })}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-accent focus:border-accent"
+                className="w-full px-3 py-2 border border-gray-300 dark:border-slate-600 dark:bg-slate-700 dark:text-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-accent focus:border-accent"
                 placeholder="your.email@example.com"
               />
             </div>
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-1">
               Phone Number *
             </label>
             <input
@@ -669,20 +669,20 @@ export default function CourseEnrollmentEnhanced({ course }: { course: CourseEnr
               required
               value={studentDetails.phone}
               onChange={(e) => setStudentDetails({ ...studentDetails, phone: e.target.value })}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-accent focus:border-accent"
+              className="w-full px-3 py-2 border border-gray-300 dark:border-slate-600 dark:bg-slate-700 dark:text-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-accent focus:border-accent"
               placeholder="+234 xxx xxx xxxx"
             />
           </div>
 
           <div className="grid md:grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-1">
                 Experience Level
               </label>
               <select
                 value={studentDetails.experience}
                 onChange={(e) => setStudentDetails({ ...studentDetails, experience: e.target.value })}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-accent focus:border-accent"
+                className="w-full px-3 py-2 border border-gray-300 dark:border-slate-600 dark:bg-slate-700 dark:text-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-accent focus:border-accent"
               >
                 <option value="">Select your experience level</option>
                 <option value="beginner">Complete Beginner</option>
@@ -693,13 +693,13 @@ export default function CourseEnrollmentEnhanced({ course }: { course: CourseEnr
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-1">
                 Preferred Class Time
               </label>
               <select
                 value={studentDetails.preferredTime}
                 onChange={(e) => setStudentDetails({ ...studentDetails, preferredTime: e.target.value })}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-accent focus:border-accent"
+                className="w-full px-3 py-2 border border-gray-300 dark:border-slate-600 dark:bg-slate-700 dark:text-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-accent focus:border-accent"
               >
                 <option value="">Select preferred time</option>
                 <option value="morning">Morning (9AM - 12PM)</option>
@@ -711,14 +711,14 @@ export default function CourseEnrollmentEnhanced({ course }: { course: CourseEnr
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-1">
               Learning Goals (Optional)
             </label>
             <textarea
               value={studentDetails.goals}
               onChange={(e) => setStudentDetails({ ...studentDetails, goals: e.target.value })}
               rows={3}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-accent focus:border-accent"
+              className="w-full px-3 py-2 border border-gray-300 dark:border-slate-600 dark:bg-slate-700 dark:text-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-accent focus:border-accent"
               placeholder="What do you hope to achieve from this course?"
             />
           </div>
@@ -730,7 +730,7 @@ export default function CourseEnrollmentEnhanced({ course }: { course: CourseEnr
                 ...state, 
                 step: (course.sessionOptions.perSession || course.sessionOptions.hourly) ? 'customize' : 'preview' 
               })}
-              className="flex-1 py-3 px-6 border border-gray-300 text-gray-700 rounded-lg font-semibold hover:bg-gray-50 transition-colors"
+              className="flex-1 py-3 px-6 border border-gray-300 dark:border-slate-600 text-gray-700 dark:text-slate-300 rounded-lg font-semibold hover:bg-gray-50 dark:hover:bg-slate-700 transition-colors"
             >
               Back
             </button>
@@ -749,18 +749,18 @@ export default function CourseEnrollmentEnhanced({ course }: { course: CourseEnr
   // Payment Step (enhanced with session customization summary)
   if (state.step === 'payment') {
     return (
-      <div className="bg-white rounded-xl shadow-lg p-6 border border-gray-200">
+      <div className="bg-white dark:bg-slate-800 rounded-xl shadow-lg p-6 border border-gray-200 dark:border-slate-700">
         <div className="mb-6">
           <button 
             onClick={() => setState({ ...state, step: 'details' })}
-            className="flex items-center text-gray-600 hover:text-gray-800 mb-4"
+            className="flex items-center text-gray-600 dark:text-slate-400 hover:text-gray-800 dark:hover:text-slate-300 mb-4"
           >
             <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
             </svg>
             Back to Details
           </button>
-          <h3 className="text-xl font-bold text-gray-900">Enrollment Summary</h3>
+          <h3 className="text-xl font-bold text-gray-900 dark:text-slate-100">Enrollment Summary</h3>
         </div>
 
         {/* Order Summary */}
@@ -770,7 +770,7 @@ export default function CourseEnrollmentEnhanced({ course }: { course: CourseEnr
               <Image src={course.mainImage || '/digitall_partner.png'} alt={course.title} fill className="object-cover" />
             </div>
             <div className="flex-1">
-              <h4 className="font-semibold text-gray-900">{course.title}</h4>
+              <h4 className="font-semibold text-gray-900 dark:text-slate-100">{course.title}</h4>
               <p className="text-sm text-gray-600">{course.instructor}</p>
               <div className="mt-2 text-lg font-bold text-primary">
                 {formatPrice(totalPrice)}
@@ -782,7 +782,7 @@ export default function CourseEnrollmentEnhanced({ course }: { course: CourseEnr
         {/* Session Customization Summary */}
         {(course.sessionOptions.perSession || course.sessionOptions.hourly) && (
           <div className="border-t pt-4 mb-6">
-            <h4 className="font-semibold text-gray-900 mb-3">Learning Configuration</h4>
+            <h4 className="font-semibold text-gray-900 dark:text-slate-100 mb-3">Learning Configuration</h4>
             <div className="space-y-2 text-sm">
               <p><span className="text-gray-600">Format:</span> {
                 sessionCustomization.sessionType === 'fixed' ? 'Fixed Price Course' :
@@ -797,7 +797,7 @@ export default function CourseEnrollmentEnhanced({ course }: { course: CourseEnr
 
         {/* Student Info Summary */}
         <div className="border-t pt-4 mb-6">
-          <h4 className="font-semibold text-gray-900 mb-3">Student Information</h4>
+          <h4 className="font-semibold text-gray-900 dark:text-slate-100 mb-3">Student Information</h4>
           <div className="space-y-2 text-sm">
             <p><span className="text-gray-600">Name:</span> {studentDetails.fullName}</p>
             <p><span className="text-gray-600">Email:</span> {studentDetails.email}</p>
@@ -814,7 +814,7 @@ export default function CourseEnrollmentEnhanced({ course }: { course: CourseEnr
         {/* Payment Plan Selection - Only for courses above $200 */}
         {qualifiesForInstallments && (
           <div className="mb-6">
-            <h4 className="font-semibold text-gray-900 mb-3">Choose Payment Plan</h4>
+            <h4 className="font-semibold text-gray-900 dark:text-slate-100 mb-3">Choose Payment Plan</h4>
             <div className="space-y-3">
               {COURSE_PAYMENT_PLANS.map((plan) => {
                 const downPaymentAmount = (totalPrice * plan.downPayment / 100) + plan.processingFee;
@@ -826,12 +826,12 @@ export default function CourseEnrollmentEnhanced({ course }: { course: CourseEnr
                     className={`border rounded-lg p-4 cursor-pointer transition-all duration-200 ${
                       selectedPaymentPlan.id === plan.id
                         ? 'border-primary ring-2 ring-primary/20 bg-primary/5'
-                        : 'border-gray-200 hover:border-gray-300'
+                        : 'border-gray-200 dark:border-slate-600 hover:border-gray-300 dark:hover:border-slate-500'
                     }`}
                     onClick={() => setSelectedPaymentPlan(plan)}
                   >
                     <div className="flex items-start justify-between mb-2">
-                      <h5 className="font-semibold text-gray-900">{plan.name}</h5>
+                      <h5 className="font-semibold text-gray-900 dark:text-slate-100">{plan.name}</h5>
                       {plan.id === 'split_2' && (
                         <span className="bg-green-100 text-green-800 text-xs font-medium px-2 py-1 rounded">
                           Popular
@@ -945,7 +945,7 @@ export default function CourseEnrollmentEnhanced({ course }: { course: CourseEnr
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.728-.833-2.498 0L4.316 19c-.77.833.192 2.5 1.732 2.5z" />
             </svg>
           </div>
-          <h3 className="text-lg font-semibold text-gray-900 mb-2">Enrollment Failed</h3>
+          <h3 className="text-lg font-semibold text-gray-900 dark:text-slate-100 mb-2">Enrollment Failed</h3>
           <p className="text-gray-600 mb-6">{state.error}</p>
           <div className="flex gap-3">
             <button
@@ -956,7 +956,7 @@ export default function CourseEnrollmentEnhanced({ course }: { course: CourseEnr
             </button>
             <Link 
               href="/contact"
-              className="flex-1 py-2 px-4 border border-gray-300 text-gray-700 rounded-lg font-medium hover:bg-gray-50 text-center"
+              className="flex-1 py-2 px-4 border border-gray-300 dark:border-slate-600 text-gray-700 dark:text-slate-300 rounded-lg font-medium hover:bg-gray-50 dark:hover:bg-slate-700 text-center"
             >
               Contact Support
             </Link>

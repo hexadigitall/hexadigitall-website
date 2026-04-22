@@ -59,7 +59,7 @@ export default function Step1Core({ selectedCore, onCoreSelect }: Step1CoreProps
         <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold font-heading mb-3 sm:mb-4 text-primary">
           What Would You Like to Build?
         </h2>
-        <p className="text-base sm:text-lg text-darkText/70">
+        <p className="text-base sm:text-lg text-darkText/70 dark:text-slate-400">
           Select the core technology you need for your project.
         </p>
       </div>
@@ -72,7 +72,7 @@ export default function Step1Core({ selectedCore, onCoreSelect }: Step1CoreProps
             className={`group relative text-left p-4 sm:p-6 md:p-8 rounded-xl border-2 transition-all duration-300 min-h-[44px] ${
               selectedCore === option.id
                 ? 'border-primary bg-gradient-to-br from-primary/5 to-secondary/5 shadow-lg'
-                : 'border-gray-200 hover:border-primary/50 bg-white hover:shadow-md active:scale-[0.98]'
+                : 'border-gray-200 dark:border-slate-600 hover:border-primary/50 bg-white dark:bg-slate-800 hover:shadow-md active:scale-[0.98]'
             }`}
             aria-pressed={selectedCore === option.id}
             type="button"
@@ -89,20 +89,20 @@ export default function Step1Core({ selectedCore, onCoreSelect }: Step1CoreProps
 
             {/* Title */}
             <h3 className={`text-xl sm:text-2xl font-bold font-heading mb-2 transition-colors ${
-              selectedCore === option.id ? 'text-primary' : 'text-darkText'
+              selectedCore === option.id ? 'text-primary' : 'text-darkText dark:text-slate-200'
             }`}>
               {option.title}
             </h3>
 
             {/* Description */}
-            <p className="text-sm sm:text-base text-darkText/70 mb-4 sm:mb-6 min-h-[2.5rem] sm:min-h-[3rem]">
+            <p className="text-sm sm:text-base text-darkText/70 dark:text-slate-400 mb-4 sm:mb-6 min-h-[2.5rem] sm:min-h-[3rem]">
               {option.description}
             </p>
 
             {/* Features */}
             <div className="space-y-1.5 sm:space-y-2">
               {option.features.map((feature, idx) => (
-                <div key={idx} className="flex items-start gap-2 text-xs sm:text-sm text-darkText/70">
+                <div key={idx} className="flex items-start gap-2 text-xs sm:text-sm text-darkText/70 dark:text-slate-400">
                   <svg
                     className={`w-3 h-3 sm:w-4 sm:h-4 mt-0.5 flex-shrink-0 ${
                       selectedCore === option.id ? 'text-primary' : 'text-green-600'

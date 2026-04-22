@@ -81,7 +81,7 @@ const PLATFORM_LABELS: Record<string, string> = {
 }
 
 const SEVERITY_COLORS: Record<string, string> = {
-  minor: 'bg-gray-100 text-gray-600',
+  minor: 'bg-gray-100 dark:bg-slate-700 text-gray-600 dark:text-slate-300',
   content: 'bg-amber-100 text-amber-700',
   code: 'bg-blue-100 text-blue-700',
   critical: 'bg-red-100 text-red-700',
@@ -166,9 +166,9 @@ export default async function BookPage({ params }: Props) {
                 {STATUS_LABELS[book.status]}
               </span>
               <h1 className="text-3xl md:text-4xl font-bold text-primary leading-tight">{book.title}</h1>
-              {book.subtitle && <p className="text-lg text-gray-500 mt-1">{book.subtitle}</p>}
+              {book.subtitle && <p className="text-lg text-gray-500 dark:text-slate-400 mt-1">{book.subtitle}</p>}
               {book.authors && (
-                <p className="text-sm text-gray-600 mt-2">by {book.authors.join(', ')}</p>
+                <p className="text-sm text-gray-600 dark:text-slate-400 mt-2">by {book.authors.join(', ')}</p>
               )}
             </div>
 
@@ -177,38 +177,38 @@ export default async function BookPage({ params }: Props) {
               {book.edition && (
                 <>
                   <dt className="text-gray-400">Edition</dt>
-                  <dd className="col-span-1 font-medium text-darkText">{book.edition}</dd>
+                  <dd className="col-span-1 font-medium text-darkText dark:text-slate-200">{book.edition}</dd>
                 </>
               )}
               {book.level && (
                 <>
                   <dt className="text-gray-400">Level</dt>
-                  <dd className="font-medium text-darkText capitalize">{book.level.replace('_', ' ')}</dd>
+                  <dd className="font-medium text-darkText dark:text-slate-200 capitalize">{book.level.replace('_', ' ')}</dd>
                 </>
               )}
               {book.pageCount && (
                 <>
                   <dt className="text-gray-400">Pages</dt>
-                  <dd className="font-medium text-darkText">{book.pageCount}</dd>
+                  <dd className="font-medium text-darkText dark:text-slate-200">{book.pageCount}</dd>
                 </>
               )}
               {book.isbn && (
                 <>
                   <dt className="text-gray-400">ISBN</dt>
-                  <dd className="font-mono text-xs text-darkText">{book.isbn}</dd>
+                  <dd className="font-mono text-xs text-darkText dark:text-slate-300">{book.isbn}</dd>
                 </>
               )}
               {book.publishedAt && (
                 <>
                   <dt className="text-gray-400">Published</dt>
-                  <dd className="font-medium text-darkText">
+                  <dd className="font-medium text-darkText dark:text-slate-200">
                     {new Date(book.publishedAt).toLocaleDateString('en-NG', { year: 'numeric', month: 'long' })}
                   </dd>
                 </>
               )}
             </dl>
 
-            <p className="text-gray-600 leading-relaxed">{book.description}</p>
+<p className="text-gray-600 dark:text-slate-400 leading-relaxed">{book.description}</p>
 
             {/* Related course */}
             {book.relatedCourse && (
@@ -231,7 +231,7 @@ export default async function BookPage({ params }: Props) {
                 </Link>
               )}
               {hasErrata && (
-                <Link href={`/errata/${slug}`} className="inline-flex items-center gap-1.5 bg-gray-100 text-gray-600 px-3 py-1.5 rounded-full font-medium hover:bg-gray-200 transition-colors">
+                <Link href={`/errata/${slug}`} className="inline-flex items-center gap-1.5 bg-gray-100 dark:bg-slate-700 text-gray-600 dark:text-slate-300 px-3 py-1.5 rounded-full font-medium hover:bg-gray-200 dark:hover:bg-slate-600 transition-colors">
                   🔍 Corrections (Errata)
                 </Link>
               )}
@@ -270,7 +270,7 @@ export default async function BookPage({ params }: Props) {
         {book.longDescription && (
           <section className="mb-16 max-w-3xl">
             <h2 className="text-2xl font-bold text-primary mb-5">About This Book</h2>
-            <div className="prose prose-gray max-w-none">
+            <div className="prose prose-gray dark:prose-invert max-w-none">
               <PortableText value={book.longDescription as Record<string, unknown>[]} />
             </div>
           </section>
@@ -282,9 +282,9 @@ export default async function BookPage({ params }: Props) {
             <h2 className="text-2xl font-bold text-primary mb-5">Table of Contents</h2>
             <ol className="space-y-2">
               {book.tableOfContents.map((entry) => (
-                <li key={entry._key} className="flex items-baseline gap-3 py-2 border-b border-gray-100">
+                <li key={entry._key} className="flex items-baseline gap-3 py-2 border-b border-gray-100 dark:border-slate-700">
                   <span className="text-sm text-gray-400 w-6 text-right flex-shrink-0">{entry.chapter}.</span>
-                  <span className="text-gray-700 flex-1">{entry.title}</span>
+                  <span className="text-gray-700 dark:text-slate-300 flex-1">{entry.title}</span>
                   {entry.pages && <span className="text-xs text-gray-400 flex-shrink-0">p. {entry.pages}</span>}
                 </li>
               ))}
@@ -303,8 +303,8 @@ export default async function BookPage({ params }: Props) {
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
               {publicResources.slice(0, 3).map((r) => (
-                <div key={r._key} className="p-4 rounded-xl border border-gray-100 bg-white shadow-sm">
-                  <p className="font-semibold text-sm text-darkText">{r.title}</p>
+                <div key={r._key} className="p-4 rounded-xl border border-gray-100 dark:border-slate-700 bg-white dark:bg-slate-800 shadow-sm">
+                  <p className="font-semibold text-sm text-darkText dark:text-slate-200">{r.title}</p>
                   {r.description && <p className="text-xs text-gray-500 mt-1 line-clamp-2">{r.description}</p>}
                 </div>
               ))}
@@ -321,11 +321,11 @@ export default async function BookPage({ params }: Props) {
                 View all corrections →
               </Link>
             </div>
-            <p className="text-sm text-gray-600 max-w-xl">
+            <p className="text-sm text-gray-600 dark:text-slate-400 max-w-xl">
               We maintain a full list of corrections for this book. Found an error? Visit the errata page to report it.
             </p>
             <div className="mt-3">
-              <Link href={`/errata/${slug}`} className="inline-flex items-center gap-2 border border-gray-200 rounded-xl px-4 py-2 text-sm text-gray-600 hover:border-primary hover:text-primary transition-colors">
+              <Link href={`/errata/${slug}`} className="inline-flex items-center gap-2 border border-gray-200 dark:border-slate-600 rounded-xl px-4 py-2 text-sm text-gray-600 dark:text-slate-300 hover:border-primary hover:text-primary transition-colors">
                 🔍 View {book.errata?.length} correction{book.errata!.length !== 1 ? 's' : ''}
               </Link>
             </div>

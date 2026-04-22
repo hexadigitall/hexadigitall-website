@@ -62,7 +62,7 @@ export default async function CourseAssessmentsPage({ params }: Props) {
         <span className="font-medium text-slate-700">Assessments</span>
       </nav>
 
-      <header className="mb-8 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+      <header className="mb-8 rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 p-6 shadow-sm">
         <p className="mb-2 text-xs font-semibold uppercase tracking-wider text-cyan-700">Assessment Center</p>
         <h1 className="text-2xl font-bold text-slate-900 sm:text-3xl">{course.title} Professional Assessments</h1>
         <p className="mt-3 max-w-3xl text-sm text-slate-600">
@@ -77,7 +77,7 @@ export default async function CourseAssessmentsPage({ params }: Props) {
       ) : (
         <section className="grid gap-4 sm:grid-cols-2">
           {assessments.map((assessment) => (
-            <article key={assessment.slug} className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+            <article key={assessment.slug} className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 p-5 shadow-sm">
               <p className="text-xs font-semibold uppercase tracking-wide text-cyan-700">{assessment.phaseLabel}</p>
               <h2 className="mt-2 text-lg font-semibold text-slate-900">{assessment.title}</h2>
               <p className="mt-2 text-sm text-slate-600">{assessment.description}</p>

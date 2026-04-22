@@ -71,12 +71,12 @@ function DefaultErrorFallback({ error, reset }: DefaultErrorFallbackProps) {
 
   return (
     <div 
-      className="min-h-screen bg-gray-50 flex items-center justify-center px-4 py-12"
+      className="min-h-screen bg-gray-50 dark:bg-slate-900 flex items-center justify-center px-4 py-12"
       role="alert"
       aria-labelledby="error-title"
       aria-describedby="error-description"
     >
-      <div className="max-w-md w-full bg-white rounded-lg shadow-lg p-8 text-center">
+      <div className="max-w-md w-full bg-white dark:bg-slate-800 rounded-lg shadow-lg p-8 text-center">
         <div className="mb-6">
           <svg 
             className="mx-auto h-16 w-16 text-red-500" 
@@ -94,7 +94,7 @@ function DefaultErrorFallback({ error, reset }: DefaultErrorFallbackProps) {
           </svg>
         </div>
         
-        <h1 id="error-title" className="text-2xl font-bold text-gray-900 mb-4">
+        <h1 id="error-title" className="text-2xl font-bold text-gray-900 dark:text-slate-100 mb-4">
           Oops! Something went wrong
         </h1>
         
@@ -104,7 +104,7 @@ function DefaultErrorFallback({ error, reset }: DefaultErrorFallbackProps) {
 
         {process.env.NODE_ENV === 'development' && error && (
           <details className="mb-6 text-left">
-            <summary className="cursor-pointer text-sm font-medium text-gray-700 hover:text-gray-900">
+            <summary className="cursor-pointer text-sm font-medium text-gray-700 dark:text-slate-300 hover:text-gray-900">
               Error Details (Development Only)
             </summary>
             <div className="mt-2 p-4 bg-red-50 border border-red-200 rounded-md">
@@ -131,14 +131,14 @@ function DefaultErrorFallback({ error, reset }: DefaultErrorFallbackProps) {
           
           <Link
             href="/"
-            className="inline-flex items-center justify-center px-6 py-3 border border-gray-300 text-gray-700 rounded-md hover:bg-gray-50 transition-colors focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+            className="inline-flex items-center justify-center px-6 py-3 border border-gray-300 dark:border-slate-600 text-gray-700 dark:text-slate-300 rounded-md hover:bg-gray-50 dark:hover:bg-slate-700 transition-colors focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
             aria-label="Go back to homepage"
           >
             Go Home
           </Link>
         </div>
         
-        <div className="mt-8 pt-6 border-t border-gray-200">
+        <div className="mt-8 pt-6 border-t border-gray-200 dark:border-slate-700">
           <p className="text-sm text-gray-500">
             Need help?{' '}
             <Link

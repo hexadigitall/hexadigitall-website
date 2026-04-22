@@ -210,7 +210,7 @@ const CoursePricingCalculator = ({
   return (
     <div className={`glass card-enhanced p-6 space-y-6 ${className}`}>
       <div className="border-b border-white/20 pb-4">
-        <h3 className="text-lg font-semibold text-gray-900 mb-2">
+        <h3 className="text-lg font-semibold text-gray-900 dark:text-slate-100 mb-2">
           Customize Your Learning Schedule
         </h3>
         <p className="text-sm text-gray-600">
@@ -222,13 +222,13 @@ const CoursePricingCalculator = ({
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {/* Sessions Per Week */}
         <div className="space-y-3">
-          <label className="block text-sm font-medium text-gray-700">
+          <label className="block text-sm font-medium text-gray-700 dark:text-slate-300">
             Sessions per Week
           </label>
           <select 
             value={sessionsPerWeek} 
             onChange={handleSessionsChange}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary"
+            className="w-full px-3 py-2 border border-gray-300 dark:border-slate-600 dark:bg-slate-700 dark:text-slate-200 rounded-md shadow-sm focus:ring-primary focus:border-primary"
           >
             {sessionOptions.map(sessions => (
               <option key={sessions} value={sessions}>{sessions} session{sessions !== 1 ? 's' : ''}</option>
@@ -238,13 +238,13 @@ const CoursePricingCalculator = ({
 
         {/* Hours Per Session */}
         <div className="space-y-3">
-          <label className="block text-sm font-medium text-gray-700">
+          <label className="block text-sm font-medium text-gray-700 dark:text-slate-300">
             Hours per Session
           </label>
           <select 
             value={hoursPerSession} 
             onChange={handleHoursChange}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary"
+            className="w-full px-3 py-2 border border-gray-300 dark:border-slate-600 dark:bg-slate-700 dark:text-slate-200 rounded-md shadow-sm focus:ring-primary focus:border-primary"
           >
             {hourOptions.map(hours => (
               <option key={hours} value={hours}>{hours} hour{hours !== 1 ? 's' : ''}</option>
@@ -254,13 +254,13 @@ const CoursePricingCalculator = ({
 
         {/* Session Format */}
         <div className="space-y-3">
-          <label className="block text-sm font-medium text-gray-700">
+          <label className="block text-sm font-medium text-gray-700 dark:text-slate-300">
             Session Format
           </label>
           <select 
             value={sessionFormat} 
             onChange={handleFormatChange}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary"
+            className="w-full px-3 py-2 border border-gray-300 dark:border-slate-600 dark:bg-slate-700 dark:text-slate-200 rounded-md shadow-sm focus:ring-primary focus:border-primary"
           >
             <option value="one-on-one">One-on-One</option>
             <option value="small-group">Small Group (30% discount)</option>
@@ -293,7 +293,7 @@ const CoursePricingCalculator = ({
         <div className="space-y-4">
           {/* Calculation Summary */}
           <div className="glass rounded-lg p-4 space-y-3">
-            <h4 className="text-sm font-semibold text-gray-900">Monthly Billing Breakdown</h4>
+            <h4 className="text-sm font-semibold text-gray-900 dark:text-slate-100">Monthly Billing Breakdown</h4>
             <div className="space-y-2 text-sm">
               {Object.entries(billingCalculation.breakdown).map(([key, value]) => (
                 <div key={key} className="flex justify-between text-gray-600">
@@ -307,7 +307,7 @@ const CoursePricingCalculator = ({
           {/* Total Price Display */}
             <div className="border-t border-white/20 pt-4">
               <div className="flex justify-between items-center">
-                <span className="text-lg font-semibold text-gray-900">Monthly Total:</span>
+                <span className="text-lg font-semibold text-gray-900 dark:text-slate-100">Monthly Total:</span>
                 <span className="text-2xl font-bold text-primary">
                   {new Intl.NumberFormat(
                     billingCalculation.currency === 'NGN' ? 'en-NG' : 'en-US',

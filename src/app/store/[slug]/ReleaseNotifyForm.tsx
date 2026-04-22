@@ -53,7 +53,7 @@ export default function ReleaseNotifyForm({ slug, title }: ReleaseNotifyFormProp
           value={email}
           onChange={(event) => setEmail(event.target.value)}
           placeholder="you@example.com"
-          className="flex-1 rounded-lg border border-amber-200 px-3 py-2 text-sm bg-white focus:border-primary focus:ring-1 focus:ring-primary outline-none"
+          className="flex-1 rounded-lg border border-amber-200 dark:border-slate-600 px-3 py-2 text-sm bg-white dark:bg-slate-700 dark:text-slate-200 focus:border-primary focus:ring-1 focus:ring-primary outline-none"
           aria-label="Email for release notification"
         />
         <button

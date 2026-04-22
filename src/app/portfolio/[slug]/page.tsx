@@ -87,7 +87,7 @@ export default async function ProjectPage(props: Props) {
   if (!project) notFound()
 
   return (
-    <article className="bg-white min-h-screen">
+      <article className="bg-white dark:bg-slate-900 min-h-screen">
       <div className="container mx-auto px-6 py-12 md:py-20">
         <Breadcrumb items={[{ label: 'Portfolio', href: '/portfolio' }, { label: project.title }]} />
         
@@ -98,8 +98,8 @@ export default async function ProjectPage(props: Props) {
               {project.industry}
             </span>
           )}
-          <h1 className="text-4xl md:text-6xl font-bold text-gray-900 mb-6">{project.title}</h1>
-          <p className="text-xl text-gray-600 leading-relaxed">{project.description}</p>
+<h1 className="text-4xl md:text-6xl font-bold text-gray-900 dark:text-slate-100 mb-6">{project.title}</h1>
+            <p className="text-xl text-gray-600 dark:text-slate-400 leading-relaxed">{project.description}</p>
           
           <div className="flex justify-center gap-4 mt-8">
             {project.liveUrl && (
@@ -108,7 +108,7 @@ export default async function ProjectPage(props: Props) {
               </a>
             )}
             {project.githubUrl && (
-              <a href={project.githubUrl} target="_blank" rel="noopener noreferrer" className="px-6 py-3 border border-gray-300 text-gray-700 rounded-xl font-semibold hover:bg-gray-50 transition-colors">
+                <a href={project.githubUrl} target="_blank" rel="noopener noreferrer" className="px-6 py-3 border border-gray-300 dark:border-slate-600 text-gray-700 dark:text-slate-300 rounded-xl font-semibold hover:bg-gray-50 dark:hover:bg-slate-800 transition-colors">
                 View Code
               </a>
             )}
@@ -133,11 +133,11 @@ export default async function ProjectPage(props: Props) {
           {/* Sidebar / Metadata */}
           <div className="md:col-span-1 space-y-8">
             {project.technologies && (
-              <div className="bg-gray-50 p-6 rounded-2xl border border-gray-100">
-                <h3 className="font-bold text-gray-900 mb-4">Technologies</h3>
+                <div className="bg-gray-50 dark:bg-slate-800 p-6 rounded-2xl border border-gray-100 dark:border-slate-700">
+                  <h3 className="font-bold text-gray-900 dark:text-slate-100 mb-4">Technologies</h3>
                 <div className="flex flex-wrap gap-2">
                   {project.technologies.map((tech: string) => (
-                    <span key={tech} className="px-3 py-1 bg-white border border-gray-200 rounded-md text-sm text-gray-600">
+                      <span key={tech} className="px-3 py-1 bg-white dark:bg-slate-700 border border-gray-200 dark:border-slate-600 rounded-md text-sm text-gray-600 dark:text-slate-300">
                       {tech}
                     </span>
                   ))}
@@ -147,7 +147,7 @@ export default async function ProjectPage(props: Props) {
           </div>
 
           {/* Main Body */}
-          <div className="md:col-span-2 prose prose-lg prose-blue max-w-none">
+            <div className="md:col-span-2 prose prose-lg prose-blue dark:prose-invert max-w-none">
              {project.body ? (
                 <PortableText value={project.body} />
              ) : (
