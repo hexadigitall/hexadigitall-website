@@ -77,25 +77,25 @@ export default function AnalyticsPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-50">
+      <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-slate-950">
         <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
       </div>
     )
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 dark:bg-slate-950">
       {/* Header */}
-      <header className="bg-white shadow-sm border-b border-gray-200">
+      <header className="bg-white dark:bg-slate-900 shadow-sm border-b border-gray-200 dark:border-slate-700">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
           <div className="flex items-center space-x-4">
             <Link
               href="/admin/dashboard"
-              className="p-2 text-gray-400 hover:text-gray-600 rounded-lg hover:bg-gray-100"
+              className="p-2 text-gray-400 dark:text-slate-500 hover:text-gray-600 dark:text-slate-400 rounded-lg hover:bg-gray-100"
             >
               <ArrowLeftIcon className="h-5 w-5" />
             </Link>
-            <h1 className="text-2xl font-bold text-gray-900">Analytics Dashboard</h1>
+            <h1 className="text-2xl font-bold text-gray-900 dark:text-slate-100">Analytics Dashboard</h1>
             <div className="hidden md:block">
               <Breadcrumbs items={[
                 { label: 'Admin', href: '/admin/dashboard' },
@@ -110,94 +110,94 @@ export default function AnalyticsPage() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 md:gap-6 py-6 md:py-8">
           {/* Popular Pages */}
-          <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-4 md:p-6">
+          <div className="bg-white dark:bg-slate-900 rounded-lg shadow-sm border border-gray-200 dark:border-slate-700 p-4 md:p-6">
             <div className="flex items-center space-x-3 mb-6">
               <DocumentTextIcon className="h-6 w-6 text-blue-600" />
-              <h2 className="text-lg font-semibold text-gray-900">Popular Pages</h2>
+              <h2 className="text-lg font-semibold text-gray-900 dark:text-slate-100">Popular Pages</h2>
             </div>
             <div className="space-y-3">
               {data?.pageViews?.slice(0, 10).map((item, index) => (
-                <div key={index} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
-                  <span className="text-sm text-gray-700">{item.page}</span>
-                  <span className="text-sm font-semibold text-gray-900">{item.count} views</span>
+                <div key={index} className="flex items-center justify-between p-3 bg-gray-50 dark:bg-slate-950 rounded-lg">
+                  <span className="text-sm text-gray-700 dark:text-slate-300">{item.page}</span>
+                  <span className="text-sm font-semibold text-gray-900 dark:text-slate-100">{item.count} views</span>
                 </div>
-              )) || <p className="text-gray-500">No data available</p>}
+              )) || <p className="text-gray-500 dark:text-slate-500">No data available</p>}
             </div>
           </div>
 
           {/* Top Services */}
-          <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-4 md:p-6">
+          <div className="bg-white dark:bg-slate-900 rounded-lg shadow-sm border border-gray-200 dark:border-slate-700 p-4 md:p-6">
             <div className="flex items-center space-x-3 mb-6">
               <ChartBarIcon className="h-6 w-6 text-purple-600" />
-              <h2 className="text-lg font-semibold text-gray-900">Top Services</h2>
+              <h2 className="text-lg font-semibold text-gray-900 dark:text-slate-100">Top Services</h2>
             </div>
             <div className="space-y-3">
               {data?.topServices?.slice(0, 5).map((item, index) => (
-                <div key={index} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
-                  <span className="text-sm text-gray-700">{item.service}</span>
-                  <span className="text-sm font-semibold text-gray-900">{item.count} views</span>
+                <div key={index} className="flex items-center justify-between p-3 bg-gray-50 dark:bg-slate-950 rounded-lg">
+                  <span className="text-sm text-gray-700 dark:text-slate-300">{item.service}</span>
+                  <span className="text-sm font-semibold text-gray-900 dark:text-slate-100">{item.count} views</span>
                 </div>
-              )) || <p className="text-gray-500">No data available</p>}
+              )) || <p className="text-gray-500 dark:text-slate-500">No data available</p>}
             </div>
           </div>
 
           {/* Top Courses */}
-          <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-4 md:p-6">
+          <div className="bg-white dark:bg-slate-900 rounded-lg shadow-sm border border-gray-200 dark:border-slate-700 p-4 md:p-6">
             <div className="flex items-center space-x-3 mb-6">
               <UsersIcon className="h-6 w-6 text-green-600" />
-              <h2 className="text-lg font-semibold text-gray-900">Top Courses</h2>
+              <h2 className="text-lg font-semibold text-gray-900 dark:text-slate-100">Top Courses</h2>
             </div>
             <div className="space-y-3">
               {data?.topCourses?.slice(0, 5).map((item, index) => (
-                <div key={index} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
-                  <span className="text-sm text-gray-700">{item.course}</span>
-                  <span className="text-sm font-semibold text-gray-900">{item.count} views</span>
+                <div key={index} className="flex items-center justify-between p-3 bg-gray-50 dark:bg-slate-950 rounded-lg">
+                  <span className="text-sm text-gray-700 dark:text-slate-300">{item.course}</span>
+                  <span className="text-sm font-semibold text-gray-900 dark:text-slate-100">{item.count} views</span>
                 </div>
-              )) || <p className="text-gray-500">No data available</p>}
+              )) || <p className="text-gray-500 dark:text-slate-500">No data available</p>}
             </div>
           </div>
 
           {/* Event Types */}
-          <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-4 md:p-6">
+          <div className="bg-white dark:bg-slate-900 rounded-lg shadow-sm border border-gray-200 dark:border-slate-700 p-4 md:p-6">
             <div className="flex items-center space-x-3 mb-6">
               <CursorArrowRaysIcon className="h-6 w-6 text-orange-600" />
-              <h2 className="text-lg font-semibold text-gray-900">Event Types</h2>
+              <h2 className="text-lg font-semibold text-gray-900 dark:text-slate-100">Event Types</h2>
             </div>
             <div className="space-y-3">
               {data?.eventsByType?.map((item, index) => (
-                <div key={index} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
-                  <span className="text-sm text-gray-700 capitalize">{item.type.replace('_', ' ')}</span>
-                  <span className="text-sm font-semibold text-gray-900">{item.count}</span>
+                <div key={index} className="flex items-center justify-between p-3 bg-gray-50 dark:bg-slate-950 rounded-lg">
+                  <span className="text-sm text-gray-700 dark:text-slate-300 capitalize">{item.type.replace('_', ' ')}</span>
+                  <span className="text-sm font-semibold text-gray-900 dark:text-slate-100">{item.count}</span>
                 </div>
-              )) || <p className="text-gray-500">No data available</p>}
+              )) || <p className="text-gray-500 dark:text-slate-500">No data available</p>}
             </div>
           </div>
         </div>
 
         {/* Recent Events */}
-        <div className="mt-4 md:mt-6 bg-white rounded-lg shadow-sm border border-gray-200 p-4 md:p-6">
-          <h2 className="text-lg font-semibold text-gray-900 mb-4">Recent Events</h2>
+        <div className="mt-4 md:mt-6 bg-white dark:bg-slate-900 rounded-lg shadow-sm border border-gray-200 dark:border-slate-700 p-4 md:p-6">
+          <h2 className="text-lg font-semibold text-gray-900 dark:text-slate-100 mb-4">Recent Events</h2>
           <div className="overflow-x-auto">
             <table className="w-full">
-              <thead className="bg-gray-50 border-b border-gray-200">
+              <thead className="bg-gray-50 dark:bg-slate-950 border-b border-gray-200 dark:border-slate-700">
                 <tr>
-                  <th className="px-3 md:px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase whitespace-nowrap">Time</th>
-                  <th className="px-3 md:px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase whitespace-nowrap">Event</th>
-                  <th className="px-3 md:px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase whitespace-nowrap">Page</th>
-                  <th className="px-3 md:px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase whitespace-nowrap">Device</th>
+                  <th className="px-3 md:px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-slate-500 uppercase whitespace-nowrap">Time</th>
+                  <th className="px-3 md:px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-slate-500 uppercase whitespace-nowrap">Event</th>
+                  <th className="px-3 md:px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-slate-500 uppercase whitespace-nowrap">Page</th>
+                  <th className="px-3 md:px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-slate-500 uppercase whitespace-nowrap">Device</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-200">
                 {data?.recentEvents?.slice(0, 20).map((event, index) => (
                   <tr key={index}>
-                    <td className="px-3 md:px-4 py-3 text-xs md:text-sm text-gray-500">
+                    <td className="px-3 md:px-4 py-3 text-xs md:text-sm text-gray-500 dark:text-slate-500">
                       {new Date(event.timestamp).toLocaleTimeString()}
                     </td>
-                    <td className="px-3 md:px-4 py-3 text-xs md:text-sm text-gray-900">{event.eventName || event.eventType}</td>
-                    <td className="px-3 md:px-4 py-3 text-xs md:text-sm text-gray-700">{event.page}</td>
-                    <td className="px-3 md:px-4 py-3 text-xs md:text-sm text-gray-600">{event.deviceType}</td>
+                    <td className="px-3 md:px-4 py-3 text-xs md:text-sm text-gray-900 dark:text-slate-100">{event.eventName || event.eventType}</td>
+                    <td className="px-3 md:px-4 py-3 text-xs md:text-sm text-gray-700 dark:text-slate-300">{event.page}</td>
+                    <td className="px-3 md:px-4 py-3 text-xs md:text-sm text-gray-600 dark:text-slate-400">{event.deviceType}</td>
                   </tr>
-                )) || <tr><td colSpan={4} className="px-4 py-8 text-center text-gray-500 text-sm">No events yet</td></tr>}
+                )) || <tr><td colSpan={4} className="px-4 py-8 text-center text-gray-500 dark:text-slate-500 text-sm">No events yet</td></tr>}
               </tbody>
             </table>
           </div>

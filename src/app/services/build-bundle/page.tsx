@@ -129,7 +129,7 @@ function BundleBuilderContent() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 pb-32">
+    <div className="min-h-screen bg-gray-50 dark:bg-slate-950 pb-32">
       {/* Header */}
       <div className="bg-gradient-to-r from-blue-900 to-indigo-900 text-white py-12 md:py-16 px-6">
         <div className="container mx-auto">
@@ -161,18 +161,18 @@ function BundleBuilderContent() {
       </div>
 
       <div className="container mx-auto px-4 -mt-8">
-        <div className="bg-white rounded-2xl shadow-xl border border-gray-100 overflow-hidden">
+        <div className="bg-white dark:bg-slate-900 rounded-2xl shadow-xl border border-gray-100 overflow-hidden">
           
           {/* Category Tabs */}
-          <div className="flex overflow-x-auto border-b border-gray-200 scrollbar-hide bg-gray-50/50 gap-1 sm:gap-2 snap-x snap-mandatory -mx-4 px-4">
+          <div className="flex overflow-x-auto border-b border-gray-200 dark:border-slate-700 scrollbar-hide bg-gray-50 dark:bg-slate-950/50 gap-1 sm:gap-2 snap-x snap-mandatory -mx-4 px-4">
             {CATEGORIES.map(cat => (
               <button
                 key={cat.id}
                 onClick={() => setActiveCategory(cat.id)}
                 className={`px-4 sm:px-6 py-3 sm:py-4 text-xs sm:text-sm font-semibold whitespace-nowrap transition-all flex items-center gap-2 snap-start min-w-[140px] ${
                   activeCategory === cat.id 
-                    ? 'text-blue-600 border-b-[3px] border-blue-600 bg-white shadow-sm' 
-                    : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100'
+                    ? 'text-blue-600 border-b-[3px] border-blue-600 bg-white dark:bg-slate-900 shadow-sm' 
+                    : 'text-gray-600 dark:text-slate-400 hover:text-gray-900 dark:text-slate-100 hover:bg-gray-100'
                 }`}
               >
                 <span className="text-base sm:text-lg">{cat.icon}</span>
@@ -183,10 +183,10 @@ function BundleBuilderContent() {
           </div>
 
           {/* Active Category Description */}
-          <div className="px-8 py-4 bg-gray-50 border-b border-gray-200">
-            <p className="text-sm text-gray-600">
+          <div className="px-8 py-4 bg-gray-50 dark:bg-slate-950 border-b border-gray-200 dark:border-slate-700">
+            <p className="text-sm text-gray-600 dark:text-slate-400">
               {CATEGORIES.find(c => c.id === activeCategory)?.description}
-              <span className="ml-2 font-semibold text-gray-800">
+              <span className="ml-2 font-semibold text-gray-800 dark:text-slate-200">
                 ({displayedServices.length} service{displayedServices.length !== 1 ? 's' : ''} available)
               </span>
             </p>
@@ -205,7 +205,7 @@ function BundleBuilderContent() {
                   className={`cursor-pointer rounded-xl border-2 p-5 transition-all duration-200 relative group hover:-translate-y-1 ${
                     isSelected 
                       ? 'border-blue-500 bg-blue-50 shadow-lg ring-2 ring-blue-200 scale-[1.02]' 
-                      : 'border-gray-200 hover:border-blue-300 hover:shadow-xl hover:bg-blue-50/30'
+                      : 'border-gray-200 dark:border-slate-700 hover:border-blue-300 hover:shadow-xl hover:bg-blue-50/30'
                   }`}
                 >
                   {/* Selection Checkbox */}
@@ -220,12 +220,12 @@ function BundleBuilderContent() {
                   </div>
 
                   <div className="pr-8">
-                    <h3 className="font-bold text-gray-900 mb-1 group-hover:text-blue-600 transition-colors">
+                    <h3 className="font-bold text-gray-900 dark:text-slate-100 mb-1 group-hover:text-blue-600 transition-colors">
                       {service.name}
                     </h3>
-                    <p className="text-sm text-gray-600 mb-3 line-clamp-2">{service.description}</p>
+                    <p className="text-sm text-gray-600 dark:text-slate-400 mb-3 line-clamp-2">{service.description}</p>
                     
-                    <div className="flex items-center text-xs text-gray-400 mb-4">
+                    <div className="flex items-center text-xs text-gray-400 dark:text-slate-500 mb-4">
                       <svg className="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                       </svg>
@@ -234,7 +234,7 @@ function BundleBuilderContent() {
 
                     {/* Pricing */}
                     <div>
-                      <div className="text-xs text-gray-500 mb-1">${service.price}</div>
+                      <div className="text-xs text-gray-500 dark:text-slate-500 mb-1">${service.price}</div>
                       <div className="text-xl font-bold text-blue-600">
                         {currentCurrency.symbol}{basePrice.toLocaleString()}
                       </div>
@@ -247,7 +247,7 @@ function BundleBuilderContent() {
 
           {/* Empty State */}
           {displayedServices.length === 0 && (
-            <div className="p-12 text-center text-gray-500">
+            <div className="p-12 text-center text-gray-500 dark:text-slate-500">
               <p className="text-lg mb-2">No services in this category yet.</p>
               <p className="text-sm">Check back soon or browse other categories.</p>
             </div>
@@ -257,7 +257,7 @@ function BundleBuilderContent() {
 
       {/* Sticky Bottom Summary Bar */}
       {selectedItems.length > 0 && (
-        <div className="fixed bottom-0 left-0 right-0 bg-white border-t-2 border-blue-200 shadow-2xl p-3 sm:p-4 z-50 backdrop-blur-sm bg-white/95">
+        <div className="fixed bottom-0 left-0 right-0 bg-white dark:bg-slate-900 border-t-2 border-blue-200 shadow-2xl p-3 sm:p-4 z-50 backdrop-blur-sm bg-white dark:bg-slate-900/95">
           <div className="container mx-auto flex flex-col md:flex-row items-center justify-between gap-3 sm:gap-4">
             
             {/* Selected List Preview (Mobile Hidden) */}
@@ -284,12 +284,12 @@ function BundleBuilderContent() {
             {/* Total & CTA */}
             <div className="flex items-center gap-6 w-full md:w-auto justify-between">
               <div>
-                <p className="text-xs text-gray-500 uppercase font-bold">Bundle Total</p>
+                <p className="text-xs text-gray-500 dark:text-slate-500 uppercase font-bold">Bundle Total</p>
                 <div className="flex items-baseline gap-2">
-                  <span className="text-2xl font-bold text-gray-900">
+                  <span className="text-2xl font-bold text-gray-900 dark:text-slate-100">
                     {currentCurrency.symbol}{convertedTotal.toLocaleString()}
                   </span>
-                  <span className="text-sm text-gray-500">
+                  <span className="text-sm text-gray-500 dark:text-slate-500">
                     ≈ ${totalUSD.toLocaleString()} USD
                   </span>
                 </div>
@@ -310,28 +310,28 @@ function BundleBuilderContent() {
       {/* Explainer Section */}
       <div className="container mx-auto px-4 mt-12">
         <div className="bg-blue-50 border border-blue-200 rounded-2xl p-8">
-          <h2 className="text-2xl font-bold text-gray-900 mb-4">
+          <h2 className="text-2xl font-bold text-gray-900 dark:text-slate-100 mb-4">
             Why Use the Bundle Builder?
           </h2>
           <div className="grid md:grid-cols-3 gap-6">
             <div>
               <div className="text-3xl mb-2">🎯</div>
-              <h3 className="font-semibold text-gray-900 mb-1">Pay for What You Need</h3>
-              <p className="text-sm text-gray-600">
+              <h3 className="font-semibold text-gray-900 dark:text-slate-100 mb-1">Pay for What You Need</h3>
+              <p className="text-sm text-gray-600 dark:text-slate-400">
                 No rigid packages. Pick individual tasks from any category and create your perfect bundle.
               </p>
             </div>
             <div>
               <div className="text-3xl mb-2">💰</div>
-              <h3 className="font-semibold text-gray-900 mb-1">Transparent Pricing</h3>
-              <p className="text-sm text-gray-600">
+              <h3 className="font-semibold text-gray-900 dark:text-slate-100 mb-1">Transparent Pricing</h3>
+              <p className="text-sm text-gray-600 dark:text-slate-400">
                 Every service has a fixed price. Your total updates live—no surprises, no ranges.
               </p>
             </div>
             <div>
               <div className="text-3xl mb-2">⚡</div>
-              <h3 className="font-semibold text-gray-900 mb-1">Fast & Focused</h3>
-              <p className="text-sm text-gray-600">
+              <h3 className="font-semibold text-gray-900 dark:text-slate-100 mb-1">Fast & Focused</h3>
+              <p className="text-sm text-gray-600 dark:text-slate-400">
                 Perfect for specific needs: an audit, a logo, monthly support, or any combination.
               </p>
             </div>
@@ -342,13 +342,13 @@ function BundleBuilderContent() {
       {/* Checkout Modal */}
       {showEmailModal && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-2xl max-w-md w-full p-8 shadow-2xl">
-            <h3 className="text-2xl font-bold text-gray-900 mb-4">Complete Your Order</h3>
+          <div className="bg-white dark:bg-slate-900 rounded-2xl max-w-md w-full p-8 shadow-2xl">
+            <h3 className="text-2xl font-bold text-gray-900 dark:text-slate-100 mb-4">Complete Your Order</h3>
             
             {/* Order Summary */}
-            <div className="bg-gray-50 rounded-xl p-4 mb-6">
-              <div className="text-sm font-semibold text-gray-700 mb-2">Your Bundle:</div>
-              <ul className="space-y-1 text-sm text-gray-600 mb-3">
+            <div className="bg-gray-50 dark:bg-slate-950 rounded-xl p-4 mb-6">
+              <div className="text-sm font-semibold text-gray-700 dark:text-slate-300 mb-2">Your Bundle:</div>
+              <ul className="space-y-1 text-sm text-gray-600 dark:text-slate-400 mb-3">
                 {selectedItems.map(item => (
                   <li key={item.id} className="flex justify-between">
                     <span>{item.name}</span>
@@ -356,13 +356,13 @@ function BundleBuilderContent() {
                   </li>
                 ))}
               </ul>
-              <div className="border-t border-gray-200 pt-2 flex justify-between items-center">
-                <span className="font-bold text-gray-900">Total:</span>
+              <div className="border-t border-gray-200 dark:border-slate-700 pt-2 flex justify-between items-center">
+                <span className="font-bold text-gray-900 dark:text-slate-100">Total:</span>
                 <div className="text-right">
                   <div className="text-xl font-bold text-blue-600">
                     {currentCurrency.symbol}{convertedTotal.toLocaleString()}
                   </div>
-                  <div className="text-xs text-gray-500">≈ ${totalUSD.toLocaleString()} USD</div>
+                  <div className="text-xs text-gray-500 dark:text-slate-500">≈ ${totalUSD.toLocaleString()} USD</div>
                 </div>
               </div>
             </div>
@@ -370,7 +370,7 @@ function BundleBuilderContent() {
             {/* Email Form */}
             <div className="space-y-4 mb-6">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-1">
                   Email Address *
                 </label>
                 <input
@@ -383,7 +383,7 @@ function BundleBuilderContent() {
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-1">
                   Company / Project Name (Optional)
                 </label>
                 <input
@@ -411,7 +411,7 @@ function BundleBuilderContent() {
                   setCheckoutError(null);
                 }}
                 disabled={isProcessing}
-                className="flex-1 px-6 py-3 border border-gray-300 text-gray-700 font-semibold rounded-lg hover:bg-gray-50 disabled:opacity-50"
+                className="flex-1 px-6 py-3 border border-gray-300 text-gray-700 dark:text-slate-300 font-semibold rounded-lg hover:bg-gray-50 dark:bg-slate-950 disabled:opacity-50"
               >
                 Cancel
               </button>
@@ -442,7 +442,7 @@ function BundleBuilderContent() {
 
 export default function BuildYourBundlePage() {
   return (
-    <Suspense fallback={<div className="min-h-screen bg-gray-50 flex items-center justify-center"><div className="text-gray-600">Loading...</div></div>}>
+    <Suspense fallback={<div className="min-h-screen bg-gray-50 dark:bg-slate-950 flex items-center justify-center"><div className="text-gray-600 dark:text-slate-400">Loading...</div></div>}>
       <BundleBuilderContent />
     </Suspense>
   );

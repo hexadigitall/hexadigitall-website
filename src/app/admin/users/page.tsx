@@ -362,7 +362,7 @@ export default function AdminUsersPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-50">
+      <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-slate-950">
         <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary" />
       </div>
     )
@@ -373,20 +373,20 @@ export default function AdminUsersPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <header className="bg-white shadow-sm border-b border-gray-200">
+    <div className="min-h-screen bg-gray-50 dark:bg-slate-950">
+      <header className="bg-white dark:bg-slate-900 shadow-sm border-b border-gray-200 dark:border-slate-700">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-4">
               <Link
                 href="/admin/dashboard"
-                className="p-2 text-gray-400 hover:text-gray-600 rounded-lg hover:bg-gray-100"
+                className="p-2 text-gray-400 dark:text-slate-500 hover:text-gray-600 dark:text-slate-400 rounded-lg hover:bg-gray-100"
               >
                 <ArrowLeftIcon className="h-5 w-5" />
               </Link>
               <div>
-                <h1 className="text-2xl font-bold text-gray-900">Users</h1>
-                <p className="text-sm text-gray-600">Invite admins, teachers, and students.</p>
+                <h1 className="text-2xl font-bold text-gray-900 dark:text-slate-100">Users</h1>
+                <p className="text-sm text-gray-600 dark:text-slate-400">Invite admins, teachers, and students.</p>
               </div>
             </div>
             <div className="hidden md:block">
@@ -416,18 +416,18 @@ export default function AdminUsersPage() {
           </div>
         )}
 
-        <section className="bg-white rounded-lg shadow-sm border border-gray-200 p-4 md:p-6">
+        <section className="bg-white dark:bg-slate-900 rounded-lg shadow-sm border border-gray-200 dark:border-slate-700 p-4 md:p-6">
           <div className="flex items-center justify-between mb-4">
             <div className="flex items-center space-x-3">
               <UsersIcon className="h-6 w-6 text-primary" />
               <div>
-                <h2 className="text-lg font-semibold text-gray-900">Add user</h2>
-                <p className="text-sm text-gray-600">Create admin, teacher, or student accounts.</p>
+                <h2 className="text-lg font-semibold text-gray-900 dark:text-slate-100">Add user</h2>
+                <p className="text-sm text-gray-600 dark:text-slate-400">Create admin, teacher, or student accounts.</p>
               </div>
             </div>
             <button
               onClick={loadUsers}
-              className="text-sm text-gray-600 hover:text-gray-900"
+              className="text-sm text-gray-600 dark:text-slate-400 hover:text-gray-900 dark:text-slate-100"
               title="Refresh"
             >
               Refresh
@@ -436,7 +436,7 @@ export default function AdminUsersPage() {
 
           <form onSubmit={handleCreateUser} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Name</label>
+              <label className="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-1">Name</label>
               <input
                 type="text"
                 className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-primary focus:border-transparent"
@@ -446,7 +446,7 @@ export default function AdminUsersPage() {
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Username</label>
+              <label className="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-1">Username</label>
               <input
                 type="text"
                 className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-primary focus:border-transparent"
@@ -457,7 +457,7 @@ export default function AdminUsersPage() {
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Email</label>
+              <label className="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-1">Email</label>
               <input
                 type="email"
                 className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-primary focus:border-transparent"
@@ -468,7 +468,7 @@ export default function AdminUsersPage() {
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Role</label>
+              <label className="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-1">Role</label>
               <select
                 className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-primary focus:border-transparent"
                 value={form.role}
@@ -482,7 +482,7 @@ export default function AdminUsersPage() {
               </select>
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Status</label>
+              <label className="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-1">Status</label>
               <select
                 className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-primary focus:border-transparent"
                 value={form.status}
@@ -493,7 +493,7 @@ export default function AdminUsersPage() {
               </select>
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Password</label>
+              <label className="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-1">Password</label>
               <input
                 type="password"
                 className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-primary focus:border-transparent"
@@ -516,40 +516,40 @@ export default function AdminUsersPage() {
           </form>
         </section>
 
-        <section className="bg-white rounded-lg shadow-sm border border-gray-200">
-          <div className="flex items-center justify-between px-6 py-4 border-b border-gray-200">
+        <section className="bg-white dark:bg-slate-900 rounded-lg shadow-sm border border-gray-200 dark:border-slate-700">
+          <div className="flex items-center justify-between px-6 py-4 border-b border-gray-200 dark:border-slate-700">
             <div className="flex items-center space-x-3">
               <CheckBadgeIcon className="h-6 w-6 text-primary" />
-              <h2 className="text-lg font-semibold text-gray-900">User directory</h2>
+              <h2 className="text-lg font-semibold text-gray-900 dark:text-slate-100">User directory</h2>
             </div>
-            <span className="text-sm text-gray-600">{users.length} total</span>
+            <span className="text-sm text-gray-600 dark:text-slate-400">{users.length} total</span>
           </div>
 
           {isEmptyState ? (
-            <div className="p-6 text-center text-gray-500">No users yet. Create one above.</div>
+            <div className="p-6 text-center text-gray-500 dark:text-slate-500">No users yet. Create one above.</div>
           ) : (
             <div className="overflow-x-auto">
               <table className="min-w-full divide-y divide-gray-200">
-                <thead className="bg-gray-50">
+                <thead className="bg-gray-50 dark:bg-slate-950">
                   <tr>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">User</th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Email</th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Role</th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Created</th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-slate-500 uppercase tracking-wider">User</th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-slate-500 uppercase tracking-wider">Email</th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-slate-500 uppercase tracking-wider">Role</th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-slate-500 uppercase tracking-wider">Status</th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-slate-500 uppercase tracking-wider">Created</th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-slate-500 uppercase tracking-wider">Actions</th>
                   </tr>
                 </thead>
-                <tbody className="bg-white divide-y divide-gray-200">
+                <tbody className="bg-white dark:bg-slate-900 divide-y divide-gray-200">
                   {users.map((user) => {
                     const isSelf = currentUser ? user.username === currentUser : false
                     const roleValue = roleEdits[user._id] || user.role
                     return (
-                      <tr key={user._id} className="hover:bg-gray-50">
+                      <tr key={user._id} className="hover:bg-gray-50 dark:bg-slate-950">
                         <td className="px-6 py-4 whitespace-nowrap">
-                          <div className="text-sm font-medium text-gray-900">{user.name || user.username}</div>
+                          <div className="text-sm font-medium text-gray-900 dark:text-slate-100">{user.name || user.username}</div>
                           <div className="flex items-center gap-2 mt-1">
-                            <div className="text-xs text-gray-500">{user.username}</div>
+                            <div className="text-xs text-gray-500 dark:text-slate-500">{user.username}</div>
                             {(user.role === 'teacher' || user.role === 'student') && (
                               <span className="inline-flex items-center rounded-full bg-blue-50 px-2 py-0.5 text-[11px] font-medium text-blue-700 border border-blue-100">
                                 {user.assignedCourseCount ?? 0} assigned
@@ -557,8 +557,8 @@ export default function AdminUsersPage() {
                             )}
                           </div>
                         </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">{user.email}</td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600 dark:text-slate-400">{user.email}</td>
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600 dark:text-slate-400">
                           <div className="flex items-center space-x-2">
                             <select
                               value={roleValue}
@@ -585,14 +585,14 @@ export default function AdminUsersPage() {
                           </div>
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap">
-                          <span className={`px-3 py-1 rounded-full text-xs font-medium ${statusColors[user.status] ?? 'bg-gray-100 text-gray-700'}`}>
+                          <span className={`px-3 py-1 rounded-full text-xs font-medium ${statusColors[user.status] ?? 'bg-gray-100 text-gray-700 dark:text-slate-300'}`}>
                             {statusLabels[user.status] ?? user.status}
                           </span>
                         </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-slate-500">
                           {user.createdAt ? new Date(user.createdAt).toLocaleDateString() : '—'}
                         </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700 dark:text-slate-300">
                           <div className="flex flex-wrap gap-2">
                             {user.status === 'pending' && user.role === 'teacher' ? (
                               <button
@@ -609,7 +609,7 @@ export default function AdminUsersPage() {
                                 type="button"
                                 onClick={() => handleStatusToggle(user)}
                                 disabled={savingId === user._id || (user.username === currentUser && user.role === 'admin')}
-                                className="inline-flex items-center space-x-1 text-sm text-gray-700 hover:text-gray-900 disabled:opacity-50"
+                                className="inline-flex items-center space-x-1 text-sm text-gray-700 dark:text-slate-300 hover:text-gray-900 dark:text-slate-100 disabled:opacity-50"
                               >
                                 {user.status === 'active' ? (
                                   <>
@@ -628,7 +628,7 @@ export default function AdminUsersPage() {
                               type="button"
                               onClick={() => handleResetPassword(user)}
                               disabled={savingId === user._id}
-                              className="inline-flex items-center space-x-1 text-sm text-gray-700 hover:text-gray-900 disabled:opacity-50"
+                              className="inline-flex items-center space-x-1 text-sm text-gray-700 dark:text-slate-300 hover:text-gray-900 dark:text-slate-100 disabled:opacity-50"
                             >
                               <KeyIcon className="h-4 w-4" />
                               <span>Reset</span>

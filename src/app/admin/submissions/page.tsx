@@ -174,27 +174,27 @@ export default function SubmissionsPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-50">
+      <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-slate-950">
         <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
       </div>
     )
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 dark:bg-slate-950">
       {/* Header */}
-      <header className="bg-white shadow-sm border-b border-gray-200 sticky top-0 z-10">
+      <header className="bg-white dark:bg-slate-900 shadow-sm border-b border-gray-200 dark:border-slate-700 sticky top-0 z-10">
         <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-4">
           <div className="flex items-start sm:items-center justify-between gap-3 flex-wrap">
             <div className="flex items-center gap-3 min-w-0">
               <Link
                 href="/admin/dashboard"
-                className="p-2 text-gray-400 hover:text-gray-600 rounded-lg hover:bg-gray-100 flex-shrink-0"
+                className="p-2 text-gray-400 dark:text-slate-500 hover:text-gray-600 dark:text-slate-400 rounded-lg hover:bg-gray-100 flex-shrink-0"
               >
                 <ArrowLeftIcon className="h-5 w-5" />
               </Link>
               <div className="min-w-0">
-                <h1 className="text-xl sm:text-2xl font-bold text-gray-900 truncate">Form Submissions</h1>
+                <h1 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-slate-100 truncate">Form Submissions</h1>
                 <div className="hidden md:block">
                   <Breadcrumbs
                     items={[
@@ -217,7 +217,7 @@ export default function SubmissionsPage() {
                 </button>
                 <button
                   onClick={exportJson}
-                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-3 sm:px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors"
+                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-3 sm:px-4 py-2 bg-gray-100 text-gray-700 dark:text-slate-300 rounded-lg hover:bg-gray-200 transition-colors"
                 >
                   <ArrowDownTrayIcon className="h-5 w-5" />
                   <span>Export JSON</span>
@@ -236,10 +236,10 @@ export default function SubmissionsPage() {
           </div>
         )}
         {/* Filters */}
-        <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-3 sm:p-4 md:p-6 mb-4 md:mb-6">
+        <div className="bg-white dark:bg-slate-900 rounded-lg shadow-sm border border-gray-200 dark:border-slate-700 p-3 sm:p-4 md:p-6 mb-4 md:mb-6">
           <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-3 md:gap-4">
             <div className="flex items-center space-x-3">
-              <FunnelIcon className="h-5 w-5 text-gray-400" />
+              <FunnelIcon className="h-5 w-5 text-gray-400 dark:text-slate-500" />
               <div className="flex flex-wrap gap-2">
                 <FilterButton active={filter === 'all'} onClick={() => setFilter('all')}>
                   All
@@ -290,7 +290,7 @@ export default function SubmissionsPage() {
             </div>
 
             <div className="relative w-full md:w-auto">
-              <MagnifyingGlassIcon className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
+              <MagnifyingGlassIcon className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400 dark:text-slate-500" />
               <input
                 type="text"
                 placeholder="Search submissions..."
@@ -305,35 +305,35 @@ export default function SubmissionsPage() {
         {/* Mobile Cards */}
         <div className="md:hidden space-y-3">
           {filteredSubmissions.length === 0 ? (
-            <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-4 text-center text-gray-500">No submissions found</div>
+            <div className="bg-white dark:bg-slate-900 rounded-lg shadow-sm border border-gray-200 dark:border-slate-700 p-4 text-center text-gray-500 dark:text-slate-500">No submissions found</div>
           ) : (
             filteredSubmissions.map((s) => (
-              <div key={s._id} className="bg-white rounded-lg shadow-sm border border-gray-200 p-4">
+              <div key={s._id} className="bg-white dark:bg-slate-900 rounded-lg shadow-sm border border-gray-200 dark:border-slate-700 p-4">
                 <div className="flex items-center justify-between">
-                  <span className="text-xs text-gray-500">{new Date(s.submittedAt).toLocaleDateString()}</span>
+                  <span className="text-xs text-gray-500 dark:text-slate-500">{new Date(s.submittedAt).toLocaleDateString()}</span>
                   <span className="inline-flex px-2 py-1 text-xs font-medium rounded-full bg-blue-100 text-blue-800 capitalize">{s.type}</span>
                 </div>
                 <div className="mt-2">
-                  <p className="text-sm font-medium text-gray-900 truncate">{s.name}</p>
-                  <p className="text-xs text-gray-600 truncate">{s.email}</p>
-                  {s.city && <p className="text-xs text-gray-600 truncate">City: {s.city}</p>}
-                  {s.service && <p className="text-xs text-gray-600 truncate">Service: {s.service}</p>}
-                  {s.subject && <p className="text-xs text-gray-600 truncate">Subject: {s.subject}</p>}
-                  {s.campaignName && <p className="text-xs text-gray-600 truncate">Campaign: {s.campaignName}</p>}
-                  {s.campaignSource && <p className="text-xs text-gray-600 truncate">Source: {s.campaignSource}</p>}
+                  <p className="text-sm font-medium text-gray-900 dark:text-slate-100 truncate">{s.name}</p>
+                  <p className="text-xs text-gray-600 dark:text-slate-400 truncate">{s.email}</p>
+                  {s.city && <p className="text-xs text-gray-600 dark:text-slate-400 truncate">City: {s.city}</p>}
+                  {s.service && <p className="text-xs text-gray-600 dark:text-slate-400 truncate">Service: {s.service}</p>}
+                  {s.subject && <p className="text-xs text-gray-600 dark:text-slate-400 truncate">Subject: {s.subject}</p>}
+                  {s.campaignName && <p className="text-xs text-gray-600 dark:text-slate-400 truncate">Campaign: {s.campaignName}</p>}
+                  {s.campaignSource && <p className="text-xs text-gray-600 dark:text-slate-400 truncate">Source: {s.campaignSource}</p>}
                   {(s.attachments || []).length > 0 && (
-                    <p className="text-xs text-gray-600 truncate">Attachments: {s.attachments?.length} file(s)</p>
+                    <p className="text-xs text-gray-600 dark:text-slate-400 truncate">Attachments: {s.attachments?.length} file(s)</p>
                   )}
                 </div>
                 {s.message && (
-                  <p className="mt-2 text-sm text-gray-700 line-clamp-2">{s.message}</p>
+                  <p className="mt-2 text-sm text-gray-700 dark:text-slate-300 line-clamp-2">{s.message}</p>
                 )}
                 <div className="mt-3 flex items-center justify-between">
                   <StatusBadge status={s.status} />
                   <div className="flex items-center gap-2">
                     <Link
                       href={`/admin/submissions/${s._id}`}
-                      className="text-gray-600 hover:text-gray-900"
+                      className="text-gray-600 dark:text-slate-400 hover:text-gray-900 dark:text-slate-100"
                       title="View details"
                     >
                       <EyeIcon className="h-5 w-5" />
@@ -348,7 +348,7 @@ export default function SubmissionsPage() {
                         <CheckCircleIcon className="h-5 w-5" />
                       </button>
                     )}
-                    <button onClick={() => updateStatus(s._id, 'archived')} className="text-gray-600 hover:text-gray-900" title="Archive">
+                    <button onClick={() => updateStatus(s._id, 'archived')} className="text-gray-600 dark:text-slate-400 hover:text-gray-900 dark:text-slate-100" title="Archive">
                       <XCircleIcon className="h-5 w-5" />
                     </button>
                   </div>
@@ -359,51 +359,51 @@ export default function SubmissionsPage() {
         </div>
 
         {/* Desktop Table */}
-        <div className="hidden md:block bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
+        <div className="hidden md:block bg-white dark:bg-slate-900 rounded-lg shadow-sm border border-gray-200 dark:border-slate-700 overflow-hidden">
           <div className="overflow-x-auto">
             <table className="min-w-full">
-              <thead className="bg-gray-50 border-b border-gray-200">
+              <thead className="bg-gray-50 dark:bg-slate-950 border-b border-gray-200 dark:border-slate-700">
                 <tr>
-                  <th className="px-3 md:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider whitespace-nowrap">Date</th>
-                  <th className="px-3 md:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider whitespace-nowrap">Type</th>
-                  <th className="px-3 md:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider whitespace-nowrap">Contact</th>
-                  <th className="hidden lg:table-cell px-3 md:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider whitespace-nowrap">Campaign</th>
-                  <th className="hidden lg:table-cell px-3 md:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider whitespace-nowrap">Message</th>
-                  <th className="px-3 md:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider whitespace-nowrap">Attachments</th>
-                  <th className="px-3 md:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider whitespace-nowrap">Status</th>
-                  <th className="px-3 md:px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider whitespace-nowrap">Actions</th>
+                  <th className="px-3 md:px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-slate-500 uppercase tracking-wider whitespace-nowrap">Date</th>
+                  <th className="px-3 md:px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-slate-500 uppercase tracking-wider whitespace-nowrap">Type</th>
+                  <th className="px-3 md:px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-slate-500 uppercase tracking-wider whitespace-nowrap">Contact</th>
+                  <th className="hidden lg:table-cell px-3 md:px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-slate-500 uppercase tracking-wider whitespace-nowrap">Campaign</th>
+                  <th className="hidden lg:table-cell px-3 md:px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-slate-500 uppercase tracking-wider whitespace-nowrap">Message</th>
+                  <th className="px-3 md:px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-slate-500 uppercase tracking-wider whitespace-nowrap">Attachments</th>
+                  <th className="px-3 md:px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-slate-500 uppercase tracking-wider whitespace-nowrap">Status</th>
+                  <th className="px-3 md:px-6 py-3 text-right text-xs font-medium text-gray-500 dark:text-slate-500 uppercase tracking-wider whitespace-nowrap">Actions</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-200">
                 {filteredSubmissions.length === 0 ? (
                   <tr>
-                    <td colSpan={8} className="px-4 md:px-6 py-8 md:py-12 text-center text-gray-500">No submissions found</td>
+                    <td colSpan={8} className="px-4 md:px-6 py-8 md:py-12 text-center text-gray-500 dark:text-slate-500">No submissions found</td>
                   </tr>
                 ) : (
                   filteredSubmissions.map((submission) => (
-                    <tr key={submission._id} className="hover:bg-gray-50 border-b border-gray-100 last:border-b-0">
-                      <td className="px-3 md:px-6 py-3 md:py-4 whitespace-nowrap text-xs md:text-sm text-gray-500">
+                    <tr key={submission._id} className="hover:bg-gray-50 dark:bg-slate-950 border-b border-gray-100 last:border-b-0">
+                      <td className="px-3 md:px-6 py-3 md:py-4 whitespace-nowrap text-xs md:text-sm text-gray-500 dark:text-slate-500">
                         {new Date(submission.submittedAt).toLocaleDateString()}
                       </td>
                       <td className="px-3 md:px-6 py-3 md:py-4 whitespace-nowrap">
                         <span className="inline-flex px-2 py-1 text-xs font-medium rounded-full bg-blue-100 text-blue-800 capitalize">{submission.type}</span>
                       </td>
                       <td className="px-3 md:px-6 py-3 md:py-4 max-w-sm">
-                        <div className="text-xs md:text-sm font-medium text-gray-900 truncate">{submission.name}</div>
-                        <div className="text-xs md:text-sm text-gray-500 truncate">{submission.email}</div>
-                        <div className="text-[11px] text-gray-500 truncate">{submission.city || '—'} • {submission.service || '—'}</div>
+                        <div className="text-xs md:text-sm font-medium text-gray-900 dark:text-slate-100 truncate">{submission.name}</div>
+                        <div className="text-xs md:text-sm text-gray-500 dark:text-slate-500 truncate">{submission.email}</div>
+                        <div className="text-[11px] text-gray-500 dark:text-slate-500 truncate">{submission.city || '—'} • {submission.service || '—'}</div>
                         {submission.subject && (
-                          <div className="text-[11px] text-gray-500 truncate">Subject: {submission.subject}</div>
+                          <div className="text-[11px] text-gray-500 dark:text-slate-500 truncate">Subject: {submission.subject}</div>
                         )}
                       </td>
                       <td className="hidden lg:table-cell px-3 md:px-6 py-3 md:py-4 max-w-xs">
-                        <div className="text-sm text-gray-900 truncate">{submission.campaignName || '—'}</div>
-                        <div className="text-xs text-gray-500 truncate">Src: {submission.campaignSource || '—'} • Med: {submission.campaignMedium || '—'}</div>
+                        <div className="text-sm text-gray-900 dark:text-slate-100 truncate">{submission.campaignName || '—'}</div>
+                        <div className="text-xs text-gray-500 dark:text-slate-500 truncate">Src: {submission.campaignSource || '—'} • Med: {submission.campaignMedium || '—'}</div>
                       </td>
                       <td className="hidden lg:table-cell px-3 md:px-6 py-3 md:py-4 max-w-xs">
-                        <p className="text-sm text-gray-900 truncate">{submission.message}</p>
+                        <p className="text-sm text-gray-900 dark:text-slate-100 truncate">{submission.message}</p>
                       </td>
-                      <td className="px-3 md:px-6 py-3 md:py-4 whitespace-nowrap text-xs text-gray-600">
+                      <td className="px-3 md:px-6 py-3 md:py-4 whitespace-nowrap text-xs text-gray-600 dark:text-slate-400">
                         {(submission.attachments || []).length > 0 ? `${submission.attachments?.length} file(s)` : '—'}
                       </td>
                       <td className="px-3 md:px-6 py-3 md:py-4 whitespace-nowrap">
@@ -413,7 +413,7 @@ export default function SubmissionsPage() {
                         <div className="flex items-center justify-end gap-2">
                           <Link
                             href={`/admin/submissions/${submission._id}`}
-                            className="text-gray-600 hover:text-gray-900"
+                            className="text-gray-600 dark:text-slate-400 hover:text-gray-900 dark:text-slate-100"
                             title="View details"
                           >
                             <EyeIcon className="h-5 w-5" />
@@ -438,7 +438,7 @@ export default function SubmissionsPage() {
                           )}
                           <button
                             onClick={() => updateStatus(submission._id, 'archived')}
-                            className="text-gray-600 hover:text-gray-900"
+                            className="text-gray-600 dark:text-slate-400 hover:text-gray-900 dark:text-slate-100"
                             title="Archive"
                           >
                             <XCircleIcon className="h-5 w-5" />
@@ -468,7 +468,7 @@ function FilterButton({ active, onClick, children }: {
       className={`px-4 py-2 text-sm font-medium rounded-lg transition-colors ${
         active
           ? 'bg-primary text-white'
-          : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+          : 'bg-gray-100 text-gray-700 dark:text-slate-300 hover:bg-gray-200'
       }`}
     >
       {children}
@@ -481,11 +481,11 @@ function StatusBadge({ status }: { status: string }) {
     new: 'bg-yellow-100 text-yellow-800',
     'in-progress': 'bg-blue-100 text-blue-800',
     completed: 'bg-green-100 text-green-800',
-    archived: 'bg-gray-100 text-gray-800',
+    archived: 'bg-gray-100 text-gray-800 dark:text-slate-200',
   }
 
   return (
-    <span className={`inline-flex px-2 py-1 text-xs font-medium rounded-full ${styles[status] || 'bg-gray-100 text-gray-800'}`}>
+    <span className={`inline-flex px-2 py-1 text-xs font-medium rounded-full ${styles[status] || 'bg-gray-100 text-gray-800 dark:text-slate-200'}`}>
       {status}
     </span>
   )
