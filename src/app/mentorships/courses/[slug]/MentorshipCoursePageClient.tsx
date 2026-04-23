@@ -67,7 +67,7 @@ export default function MentorshipCoursePageClient({ course }: { course: Mentors
   const combinedIncludes = Array.from(new Set([...(course.includes || []), ...mentorshipIncludes]))
 
   return (
-    <main className="min-h-screen bg-slate-50">
+    <main className="min-h-screen bg-slate-50 dark:bg-slate-950">
       <section className="relative overflow-hidden bg-gradient-to-br from-slate-900 via-teal-900 to-amber-900">
         <div className="absolute inset-0 opacity-20">
           <div className="absolute left-[-10%] top-[-20%] h-72 w-72 rounded-full bg-amber-400 blur-[140px]" />
@@ -176,22 +176,22 @@ export default function MentorshipCoursePageClient({ course }: { course: Mentors
 
       <section className="mx-auto grid max-w-6xl gap-10 px-6 py-16 lg:grid-cols-[1.2fr_1fr]">
         <div>
-          <h2 className="text-3xl font-bold text-slate-900">What you receive each month</h2>
-          <p className="mt-3 text-slate-600">
+          <h2 className="text-3xl font-bold text-slate-900 dark:text-slate-100">What you receive each month</h2>
+          <p className="mt-3 text-slate-600 dark:text-slate-400">
             Mentorship follows the official Hexadigitall textbook structure. We grade the same assessments used in our
             live cohorts and guide you through portfolio deliverables.
           </p>
           <div className="mt-6 grid gap-4 md:grid-cols-2">
             {combinedIncludes.map((item) => (
-              <div key={item} className="rounded-xl border border-slate-200 bg-white p-4 text-sm text-slate-700">
+              <div key={item} className="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 p-4 text-sm text-slate-700 dark:text-slate-300">
                 {item}
               </div>
             ))}
           </div>
         </div>
 
-        <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
-          <h3 className="text-xl font-semibold text-slate-900">Mentorship setup flow</h3>
+        <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 p-6 shadow-sm">
+          <h3 className="text-xl font-semibold text-slate-900 dark:text-slate-100">Mentorship setup flow</h3>
           <div className="mt-5 space-y-4">
             {[
               'Complete mentorship enrollment and payment.',
@@ -203,31 +203,31 @@ export default function MentorshipCoursePageClient({ course }: { course: Mentors
                 <div className="flex h-8 w-8 items-center justify-center rounded-full bg-teal-600 text-xs font-semibold text-white">
                   {index + 1}
                 </div>
-                <p className="text-sm text-slate-600">{step}</p>
+                <p className="text-sm text-slate-600 dark:text-slate-400">{step}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      <section className="bg-white">
+      <section className="bg-white dark:bg-slate-900">
         <div className="mx-auto grid max-w-6xl gap-8 px-6 py-16 lg:grid-cols-[1fr_1fr]">
-          <div className="rounded-2xl border border-slate-200 bg-slate-50 p-6">
-            <h3 className="text-xl font-semibold text-slate-900">Built for portfolio outcomes</h3>
-            <p className="mt-3 text-sm text-slate-600">
+          <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 p-6">
+            <h3 className="text-xl font-semibold text-slate-900 dark:text-slate-100">Built for portfolio outcomes</h3>
+            <p className="mt-3 text-sm text-slate-600 dark:text-slate-400">
               We track every assignment against a portfolio milestone so your GitHub grows into a job-ready proof of
               work. Your mentor reviews README clarity, project structure, and deployment readiness.
             </p>
           </div>
-          <div className="rounded-2xl border border-slate-200 bg-slate-50 p-6">
-            <h3 className="text-xl font-semibold text-slate-900">Need the textbook?</h3>
-            <p className="mt-3 text-sm text-slate-600">
+          <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 p-6">
+            <h3 className="text-xl font-semibold text-slate-900 dark:text-slate-100">Need the textbook?</h3>
+            <p className="mt-3 text-sm text-slate-600 dark:text-slate-400">
               If you have not purchased the textbook yet, explore the full course details first and get the official
               materials from the Hexadigitall store.
             </p>
             <Link
               href={`/courses/${course.slug.current}`}
-              className="mt-5 inline-flex items-center justify-center rounded-lg border border-slate-300 px-4 py-2 text-sm font-semibold text-slate-700 transition-colors hover:border-slate-400"
+              className="mt-5 inline-flex items-center justify-center rounded-lg border border-slate-300 dark:border-slate-600 px-4 py-2 text-sm font-semibold text-slate-700 dark:text-slate-300 transition-colors hover:border-slate-400 dark:hover:border-slate-500 dark:hover:bg-slate-700"
             >
               Explore the full course
             </Link>

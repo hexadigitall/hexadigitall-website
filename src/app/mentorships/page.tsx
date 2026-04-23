@@ -4,7 +4,7 @@ export const dynamic = 'force-dynamic'
 
 export default function MentorshipLandingPage() {
   return (
-    <main className="min-h-screen bg-slate-50">
+    <main className="min-h-screen bg-slate-50 dark:bg-slate-950">
       <section className="relative overflow-hidden bg-gradient-to-br from-slate-900 via-teal-900 to-amber-900">
         <div className="absolute inset-0 opacity-20">
           <div className="absolute left-[-10%] top-[-20%] h-80 w-80 rounded-full bg-amber-400 blur-[160px]" />
@@ -44,8 +44,8 @@ export default function MentorshipLandingPage() {
       <section className="mx-auto max-w-6xl px-6 py-16">
         <div className="grid gap-10 lg:grid-cols-[1.1fr_1fr]">
           <div>
-            <h2 className="text-3xl font-bold text-slate-900">Why mentorship-only?</h2>
-            <p className="mt-3 text-slate-600">
+            <h2 className="text-3xl font-bold text-slate-900 dark:text-slate-100">Why mentorship-only?</h2>
+            <p className="mt-3 text-slate-600 dark:text-slate-400">
               The mentorship path mirrors our live cohort structure. You follow the same weekly schedule from the
               textbook while our mentors grade your assessments and guide your GitHub portfolio development.
             </p>
@@ -68,16 +68,16 @@ export default function MentorshipLandingPage() {
                   body: 'Mentor follow-ups keep you on pace with the textbook.'
                 }
               ].map((item) => (
-                <div key={item.title} className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
-                  <h3 className="text-lg font-semibold text-slate-900">{item.title}</h3>
-                  <p className="mt-2 text-sm text-slate-600">{item.body}</p>
+                <div key={item.title} className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 p-5 shadow-sm">
+                  <h3 className="text-lg font-semibold text-slate-900 dark:text-slate-100">{item.title}</h3>
+                  <p className="mt-2 text-sm text-slate-600 dark:text-slate-400">{item.body}</p>
                 </div>
               ))}
             </div>
           </div>
 
-          <div className="rounded-3xl border border-slate-200 bg-white p-8 shadow-sm">
-            <h3 className="text-xl font-semibold text-slate-900">Mentorship activation flow</h3>
+          <div className="rounded-3xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 p-8 shadow-sm">
+            <h3 className="text-xl font-semibold text-slate-900 dark:text-slate-100">Mentorship activation flow</h3>
             <div className="mt-6 space-y-4">
               {[
                 'Pick the mentorship course that matches your textbook.',
@@ -89,11 +89,11 @@ export default function MentorshipLandingPage() {
                   <div className="flex h-8 w-8 items-center justify-center rounded-full bg-teal-600 text-xs font-semibold text-white">
                     {index + 1}
                   </div>
-                  <p className="text-sm text-slate-600">{step}</p>
+                  <p className="text-sm text-slate-600 dark:text-slate-400">{step}</p>
                 </div>
               ))}
             </div>
-            <div className="mt-8 rounded-2xl border border-amber-200 bg-amber-50 p-5 text-sm text-slate-700">
+            <div className="mt-8 rounded-2xl border border-amber-200 dark:border-amber-800 bg-amber-50 dark:bg-amber-950/30 p-5 text-sm text-slate-700 dark:text-slate-300">
               Tip: Mentorship is highly recommended if you want graded feedback and portfolio validation, but you can
               still use the textbook independently if you choose.
             </div>
@@ -101,11 +101,11 @@ export default function MentorshipLandingPage() {
         </div>
       </section>
 
-      <section className="bg-white">
+      <section className="bg-white dark:bg-slate-900">
         <div className="mx-auto grid max-w-6xl gap-8 px-6 py-16 lg:grid-cols-[1fr_1fr]">
-          <div className="rounded-2xl border border-slate-200 bg-slate-50 p-6">
-            <h3 className="text-xl font-semibold text-slate-900">Bought a textbook already?</h3>
-            <p className="mt-3 text-sm text-slate-600">
+          <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 p-6">
+            <h3 className="text-xl font-semibold text-slate-900 dark:text-slate-100">Bought a textbook already?</h3>
+            <p className="mt-3 text-sm text-slate-600 dark:text-slate-400">
               Create your student account to activate mentorship access, track your progress, and manage your
               schedule. If you later enroll in a full course, your same account gets upgraded automatically.
             </p>
@@ -118,15 +118,15 @@ export default function MentorshipLandingPage() {
               </Link>
               <Link
                 href="/student/login?source=mentorships&next=/mentorships/courses"
-                className="inline-flex items-center justify-center rounded-lg border border-slate-300 px-4 py-2 text-sm font-semibold text-slate-700 transition-colors hover:border-slate-400"
+                className="inline-flex items-center justify-center rounded-lg border border-slate-300 dark:border-slate-600 px-4 py-2 text-sm font-semibold text-slate-700 dark:text-slate-300 transition-colors hover:border-slate-400 dark:hover:border-slate-500 dark:hover:bg-slate-700"
               >
                 I already have an account
               </Link>
             </div>
           </div>
-          <div className="rounded-2xl border border-slate-200 bg-slate-50 p-6">
-            <h3 className="text-xl font-semibold text-slate-900">Ready to start?</h3>
-            <p className="mt-3 text-sm text-slate-600">
+          <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 p-6">
+            <h3 className="text-xl font-semibold text-slate-900 dark:text-slate-100">Ready to start?</h3>
+            <p className="mt-3 text-sm text-slate-600 dark:text-slate-400">
               Explore mentorship offerings per course and choose the plan that matches your textbook purchase.
             </p>
             <div className="mt-5 flex flex-wrap gap-3">
@@ -138,7 +138,7 @@ export default function MentorshipLandingPage() {
               </Link>
               <Link
                 href="/courses"
-                className="inline-flex items-center justify-center rounded-lg border border-slate-300 px-4 py-2 text-sm font-semibold text-slate-700 transition-colors hover:border-slate-400"
+                className="inline-flex items-center justify-center rounded-lg border border-slate-300 dark:border-slate-600 px-4 py-2 text-sm font-semibold text-slate-700 dark:text-slate-300 transition-colors hover:border-slate-400 dark:hover:border-slate-500 dark:hover:bg-slate-700"
               >
                 Explore full courses
               </Link>

@@ -24,7 +24,7 @@ export default function MentorshipCoursesPageClient({ courses }: MentorshipCours
   }, [courses, query])
 
   return (
-    <main className="min-h-screen bg-slate-50">
+    <main className="min-h-screen bg-slate-50 dark:bg-slate-950">
       <section className="relative overflow-hidden bg-gradient-to-br from-teal-900 via-slate-900 to-amber-900">
         <div className="absolute inset-0 opacity-20">
           <div className="absolute left-0 top-0 h-72 w-72 rounded-full bg-teal-400 blur-[140px]" />
@@ -72,20 +72,20 @@ export default function MentorshipCoursesPageClient({ courses }: MentorshipCours
       <section className="mx-auto max-w-6xl px-6 py-14">
         <div className="grid gap-8 lg:grid-cols-[1.2fr_1fr]">
           <div>
-            <h2 className="text-2xl font-bold text-slate-900">Find your mentorship course</h2>
-            <p className="mt-2 text-slate-600">
+            <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-100">Find your mentorship course</h2>
+            <p className="mt-2 text-slate-600 dark:text-slate-400">
               Search by course name or level. Every mentorship includes assessment grading, portfolio reviews, and
               direct mentor support.
             </p>
           </div>
-          <div className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm">
-            <label className="text-xs font-semibold uppercase tracking-wide text-slate-500">Search</label>
+          <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 p-4 shadow-sm">
+            <label className="text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400">Search</label>
             <input
               type="search"
               value={query}
               onChange={(event) => setQuery(event.target.value)}
               placeholder="Try 'DevOps', 'Beginner', or 'Cloud'"
-              className="mt-2 w-full rounded-lg border border-slate-200 px-4 py-3 text-sm text-slate-700 focus:border-teal-500 focus:ring-teal-200"
+              className="mt-2 w-full rounded-lg border border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-700 px-4 py-3 text-sm text-slate-700 dark:text-slate-200 focus:border-teal-500 focus:ring-teal-200"
             />
           </div>
         </div>
@@ -97,17 +97,17 @@ export default function MentorshipCoursesPageClient({ courses }: MentorshipCours
         </div>
 
         {filteredCourses.length === 0 ? (
-          <div className="mt-12 rounded-2xl border border-dashed border-slate-300 bg-white p-8 text-center text-slate-600">
+          <div className="mt-12 rounded-2xl border border-dashed border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 p-8 text-center text-slate-600 dark:text-slate-400">
             No mentorship courses match that search yet. Try another keyword or browse all courses.
           </div>
         ) : null}
       </section>
 
-      <section className="bg-white">
+      <section className="bg-white dark:bg-slate-900">
         <div className="mx-auto grid max-w-6xl gap-8 px-6 py-16 lg:grid-cols-[1.2fr_1fr]">
           <div>
-            <h2 className="text-3xl font-bold text-slate-900">How the mentorship flow works</h2>
-            <p className="mt-3 text-slate-600">
+            <h2 className="text-3xl font-bold text-slate-900 dark:text-slate-100">How the mentorship flow works</h2>
+            <p className="mt-3 text-slate-600 dark:text-slate-400">
               We keep the process simple so learners who already bought the textbook can quickly activate support.
             </p>
             <div className="mt-8 space-y-4">
@@ -117,29 +117,29 @@ export default function MentorshipCoursesPageClient({ courses }: MentorshipCours
                 'Our team connects with you on WhatsApp and adds you to Google Classroom.',
                 'Submit weekly assessments and GitHub milestones for mentor review.'
               ].map((step, index) => (
-                <div key={step} className="flex items-start gap-4 rounded-xl border border-slate-200 bg-slate-50 p-4">
+                <div key={step} className="flex items-start gap-4 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 p-4">
                   <div className="flex h-9 w-9 items-center justify-center rounded-full bg-teal-600 text-sm font-semibold text-white">
                     {index + 1}
                   </div>
-                  <p className="text-sm text-slate-600">{step}</p>
+                  <p className="text-sm text-slate-600 dark:text-slate-400">{step}</p>
                 </div>
               ))}
             </div>
           </div>
-          <div className="rounded-2xl border border-slate-200 bg-gradient-to-br from-amber-50 via-white to-teal-50 p-8">
-            <h3 className="text-xl font-semibold text-slate-900">Built for independent learners</h3>
-            <p className="mt-3 text-sm text-slate-600">
+          <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-gradient-to-br from-amber-50 via-white to-teal-50 dark:from-slate-900 dark:via-slate-900 dark:to-slate-800 p-8">
+            <h3 className="text-xl font-semibold text-slate-900 dark:text-slate-100">Built for independent learners</h3>
+            <p className="mt-3 text-sm text-slate-600 dark:text-slate-400">
               This mentorship-only track is ideal if you bought the textbook from our bookstore or a vendor and still
               want structured grading, guidance, and accountability.
             </p>
-            <div className="mt-6 space-y-3 text-sm text-slate-600">
-              <div className="rounded-lg bg-white/80 p-4 shadow-sm">
+            <div className="mt-6 space-y-3 text-sm text-slate-600 dark:text-slate-400">
+              <div className="rounded-lg bg-white/80 dark:bg-slate-800/80 p-4 shadow-sm">
                 Weekly assessments graded by a Hexadigitall mentor.
               </div>
-              <div className="rounded-lg bg-white/80 p-4 shadow-sm">
+              <div className="rounded-lg bg-white/80 dark:bg-slate-800/80 p-4 shadow-sm">
                 Portfolio milestones tracked against the official course rubric.
               </div>
-              <div className="rounded-lg bg-white/80 p-4 shadow-sm">
+              <div className="rounded-lg bg-white/80 dark:bg-slate-800/80 p-4 shadow-sm">
                 Feedback loops that mirror the live-course experience.
               </div>
             </div>
