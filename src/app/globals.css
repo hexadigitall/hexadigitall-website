@@ -470,6 +470,29 @@
     background-color: var(--color-bg-raised);
   }
 
+  .dark .bg-lightGray:not([class*="dark:bg-"]),
+  .dark .bg-slate-50:not([class*="dark:bg-"]),
+  .dark .bg-slate-100:not([class*="dark:bg-"]) {
+    background-color: var(--color-bg-surface);
+  }
+
+  /* High-opacity white overlays should switch to dark glass in dark mode */
+  .dark .bg-white\/95:not([class*="dark:bg-"]) {
+    background-color: rgb(30 41 59 / 0.95);
+  }
+
+  .dark .bg-white\/90:not([class*="dark:bg-"]) {
+    background-color: rgb(30 41 59 / 0.9);
+  }
+
+  .dark .bg-white\/80:not([class*="dark:bg-"]) {
+    background-color: rgb(30 41 59 / 0.8);
+  }
+
+  .dark .bg-white\/70:not([class*="dark:bg-"]) {
+    background-color: rgb(30 41 59 / 0.7);
+  }
+
   .dark .text-gray-900:not([class*="dark:text-"]),
   .dark .text-gray-800:not([class*="dark:text-"]),
   .dark .text-darkText:not([class*="dark:text-"]) {
