@@ -207,11 +207,11 @@ export default function UnifiedServiceRequestFlow({
 
   return (
     <div className="fixed inset-0 z-[60] flex items-center justify-center p-4 bg-black/50 overflow-y-hidden" onClick={onClose}>
-      <div ref={dialogRef} tabIndex={-1} aria-modal="true" role="dialog" aria-label={`Service request flow for ${serviceName}`} className="bg-white rounded-2xl max-w-2xl w-full p-6 md:p-8 relative my-8 max-h-[90vh] overflow-y-auto outline-none" onClick={(e) => e.stopPropagation()}>
+      <div ref={dialogRef} tabIndex={-1} aria-modal="true" role="dialog" aria-label={`Service request flow for ${serviceName}`} className="bg-white dark:bg-slate-900 rounded-2xl max-w-2xl w-full p-6 md:p-8 relative my-8 max-h-[90vh] overflow-y-auto outline-none" onClick={(e) => e.stopPropagation()}>
         {/* Close Button */}
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center rounded-full hover:bg-gray-100"
+          className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 dark:text-slate-400 transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center rounded-full hover:bg-gray-100"
           aria-label="Close"
         >
           <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -243,7 +243,7 @@ export default function UnifiedServiceRequestFlow({
                   }`}>
                     {isPast ? '✓' : idx + 1}
                   </div>
-                  <p className="text-xs font-semibold text-gray-600 mt-2 capitalize">{step}</p>
+                  <p className="text-xs font-semibold text-gray-600 dark:text-slate-400 mt-2 capitalize">{step}</p>
                 </div>
               )
             })}
@@ -260,10 +260,10 @@ export default function UnifiedServiceRequestFlow({
         {/* Review Step */}
         {currentStep === 'review' && (
           <div>
-            <h2 ref={stepHeadingRef} tabIndex={-1} className="text-2xl font-bold text-gray-900 mb-6 focus:outline-none">Review Your Selection</h2>
+            <h2 ref={stepHeadingRef} tabIndex={-1} className="text-2xl font-bold text-gray-900 dark:text-slate-100 mb-6 focus:outline-none">Review Your Selection</h2>
             <div className="bg-blue-50 border-l-4 border-primary p-4 rounded mb-6">
-              <h3 className="font-semibold text-gray-900 mb-2">{serviceName}</h3>
-              <p className="text-sm text-gray-700 mb-3">{serviceType === 'tiered' ? `Tier: ${tier?.name}` : 'Individual Service'}</p>
+              <h3 className="font-semibold text-gray-900 dark:text-slate-100 mb-2">{serviceName}</h3>
+              <p className="text-sm text-gray-700 dark:text-slate-300 mb-3">{serviceType === 'tiered' ? `Tier: ${tier?.name}` : 'Individual Service'}</p>
               <div className="flex justify-between items-end">
                 <span className="text-lg font-bold text-primary">
                   {currentCurrency.symbol}{Math.round(convertedPrice).toLocaleString()}
@@ -274,7 +274,7 @@ export default function UnifiedServiceRequestFlow({
 
             {tier?.features && tier.features.length > 0 && (
               <div className="mb-6">
-                <h4 className="font-semibold text-gray-900 mb-3">Included Features</h4>
+                <h4 className="font-semibold text-gray-900 dark:text-slate-100 mb-3">Included Features</h4>
                 <ul className="space-y-2">
                   {tier.features.slice(0, 5).map((feature, idx) => {
                     const featureText = typeof feature === 'string' ? feature : feature?.title || ''
@@ -296,7 +296,7 @@ export default function UnifiedServiceRequestFlow({
         {/* Add-Ons Step (for customizable services) */}
         {currentStep === 'addons' && availableAddOns.length > 0 && (
           <div>
-            <h2 ref={stepHeadingRef} tabIndex={-1} className="text-2xl font-bold text-gray-900 mb-6 focus:outline-none">Customize Your Service</h2>
+            <h2 ref={stepHeadingRef} tabIndex={-1} className="text-2xl font-bold text-gray-900 dark:text-slate-100 mb-6 focus:outline-none">Customize Your Service</h2>
             <div className="space-y-3 mb-6">
               {availableAddOns.map(addon => {
                 const convertedAddonPrice = convertPrice(addon.price, currentCurrency.code)
@@ -326,7 +326,7 @@ export default function UnifiedServiceRequestFlow({
             </div>
 
             {/* Price Summary */}
-            <div ref={priceLiveRegionRef} aria-live="polite" className="bg-gray-50 p-4 rounded-lg mb-6">
+            <div ref={priceLiveRegionRef} aria-live="polite" className="bg-gray-50 dark:bg-slate-800/50 p-4 rounded-lg mb-6">
               <div className="flex justify-between mb-2">
                 <span className="text-gray-700">Base Price:</span>
                 <span className="font-semibold">{currentCurrency.symbol}{Math.round(convertedPrice).toLocaleString()}</span>
@@ -348,10 +348,10 @@ export default function UnifiedServiceRequestFlow({
         {/* Details Step */}
         {currentStep === 'details' && (
           <div>
-            <h2 ref={stepHeadingRef} tabIndex={-1} className="text-2xl font-bold text-gray-900 mb-6 focus:outline-none">Your Details</h2>
+            <h2 ref={stepHeadingRef} tabIndex={-1} className="text-2xl font-bold text-gray-900 dark:text-slate-100 mb-6 focus:outline-none">Your Details</h2>
             <div className="space-y-4">
               <div>
-                <label htmlFor="name" className="block text-sm font-semibold text-gray-700 mb-1">
+                <label htmlFor="name" className="block text-sm font-semibold text-gray-700 dark:text-slate-300 mb-1">
                   Full Name *
                 </label>
                 <input
@@ -368,7 +368,7 @@ export default function UnifiedServiceRequestFlow({
               </div>
 
               <div>
-                <label htmlFor="email" className="block text-sm font-semibold text-gray-700 mb-1">
+                <label htmlFor="email" className="block text-sm font-semibold text-gray-700 dark:text-slate-300 mb-1">
                   Email Address *
                 </label>
                 <input
@@ -385,7 +385,7 @@ export default function UnifiedServiceRequestFlow({
               </div>
 
               <div>
-                <label htmlFor="phone" className="block text-sm font-semibold text-gray-700 mb-1">
+                <label htmlFor="phone" className="block text-sm font-semibold text-gray-700 dark:text-slate-300 mb-1">
                   Phone Number *
                 </label>
                 <input
@@ -402,7 +402,7 @@ export default function UnifiedServiceRequestFlow({
               </div>
 
               <div>
-                <label htmlFor="company" className="block text-sm font-semibold text-gray-700 mb-1">
+                <label htmlFor="company" className="block text-sm font-semibold text-gray-700 dark:text-slate-300 mb-1">
                   Company / Business Name
                 </label>
                 <input
@@ -416,7 +416,7 @@ export default function UnifiedServiceRequestFlow({
               </div>
 
               <div>
-                <label htmlFor="details" className="block text-sm font-semibold text-gray-700 mb-1">
+                <label htmlFor="details" className="block text-sm font-semibold text-gray-700 dark:text-slate-300 mb-1">
                   Additional Details / Requirements
                 </label>
                 <textarea
@@ -436,11 +436,11 @@ export default function UnifiedServiceRequestFlow({
         {/* Payment Step */}
         {currentStep === 'payment' && (
           <div>
-            <h2 ref={stepHeadingRef} tabIndex={-1} className="text-2xl font-bold text-gray-900 mb-6 focus:outline-none">Order Summary & Payment</h2>
+            <h2 ref={stepHeadingRef} tabIndex={-1} className="text-2xl font-bold text-gray-900 dark:text-slate-100 mb-6 focus:outline-none">Order Summary & Payment</h2>
             
             {/* Order Summary */}
-            <div className="bg-gray-50 p-4 rounded-lg mb-6">
-              <h3 className="font-semibold text-gray-900 mb-4">Order Details</h3>
+            <div className="bg-gray-50 dark:bg-slate-800/50 p-4 rounded-lg mb-6">
+              <h3 className="font-semibold text-gray-900 dark:text-slate-100 mb-4">Order Details</h3>
               <div className="space-y-2 mb-4">
                 <div className="flex justify-between">
                   <span className="text-gray-700">{serviceName}</span>
@@ -469,12 +469,12 @@ export default function UnifiedServiceRequestFlow({
 
             {/* Customer Info Review */}
             <div className="bg-blue-50 p-4 rounded-lg mb-6 border border-blue-100">
-              <p className="text-sm text-gray-700 mb-2"><strong>Contact:</strong> {formData.name} ({formData.email})</p>
-              {formData.company && <p className="text-sm text-gray-700 mb-2"><strong>Company:</strong> {formData.company}</p>}
+              <p className="text-sm text-gray-700 dark:text-slate-300 mb-2"><strong>Contact:</strong> {formData.name} ({formData.email})</p>
+              {formData.company && <p className="text-sm text-gray-700 dark:text-slate-300 mb-2"><strong>Company:</strong> {formData.company}</p>}
               <p className="text-sm text-gray-700"><strong>Phone:</strong> {formData.phone}</p>
             </div>
 
-            <p className="text-xs text-gray-600 mb-6">
+            <p className="text-xs text-gray-600 dark:text-slate-400 mb-6">
               By clicking &quot;Complete Payment&quot; you agree to our Terms of Service and will be redirected to secure payment.
             </p>
 
@@ -491,7 +491,7 @@ export default function UnifiedServiceRequestFlow({
           {currentStep !== 'review' && (
             <button
               onClick={handleBack}
-              className="flex-1 min-h-[44px] border-2 border-gray-300 text-gray-700 py-3 px-6 rounded-xl font-semibold hover:border-gray-400 active:scale-95 transition-all"
+              className="flex-1 min-h-[44px] border-2 border-gray-300 text-gray-700 dark:text-slate-300 py-3 px-6 rounded-xl font-semibold hover:border-gray-400 active:scale-95 transition-all"
             >
               Back
             </button>

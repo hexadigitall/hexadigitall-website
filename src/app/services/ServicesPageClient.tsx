@@ -352,12 +352,12 @@ export default function ServicesPageClient({ initialData }: ServicesPageClientPr
           
           {/* --- 3. SERVICE PATH SELECTOR --- */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto mb-16">
-            <div className="group p-8 bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-xl hover:border-blue-200 transition-all duration-300 flex flex-col items-center text-center">
+            <div className="group p-8 bg-white dark:bg-slate-900 rounded-2xl border border-gray-100 shadow-sm hover:shadow-xl hover:border-blue-200 transition-all duration-300 flex flex-col items-center text-center">
               <div className="text-5xl mb-4 transform group-hover:scale-110 transition-transform duration-300">📦</div>
-              <h3 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-blue-600 transition-colors">
+              <h3 className="text-xl font-bold text-gray-900 dark:text-slate-100 mb-2 group-hover:text-blue-600 transition-colors">
                 Tiered Packages
               </h3>
-              <p className="text-gray-600 mb-4 leading-relaxed">
+              <p className="text-gray-600 dark:text-slate-400 mb-4 leading-relaxed">
                 Complete solutions (Basic/Standard/Premium) for full projects like websites, business plans, or marketing campaigns.
               </p>
 
@@ -365,12 +365,12 @@ export default function ServicesPageClient({ initialData }: ServicesPageClientPr
                 <summary className="list-none cursor-pointer text-blue-600 font-bold text-sm flex items-center justify-center gap-2 rounded-lg border border-blue-200 bg-blue-50 py-2.5 px-4 hover:bg-blue-100 transition-colors">
                   Select Category <span>▾</span>
                 </summary>
-                <div className="absolute left-1/2 z-20 mt-2 w-full -translate-x-1/2 rounded-xl border border-gray-200 bg-white shadow-xl text-left overflow-hidden">
+                <div className="absolute left-1/2 z-20 mt-2 w-full -translate-x-1/2 rounded-xl border border-gray-200 dark:border-slate-700 bg-white dark:bg-slate-900 shadow-xl text-left overflow-hidden">
                   {serviceCategories.map((category) => (
                     <Link
                       key={`selector-${category.href}`}
                       href={category.href}
-                      className="block px-4 py-2.5 text-sm font-medium text-gray-700 hover:bg-gray-50 hover:text-primary transition-colors"
+                      className="block px-4 py-2.5 text-sm font-medium text-gray-700 dark:text-slate-300 hover:bg-gray-50 dark:bg-slate-800/50 hover:text-primary transition-colors"
                     >
                       {category.title}
                     </Link>
@@ -384,10 +384,10 @@ export default function ServicesPageClient({ initialData }: ServicesPageClientPr
               className="group p-8 bg-gradient-to-br from-indigo-50 to-white rounded-2xl border border-indigo-100 shadow-sm hover:shadow-xl hover:border-indigo-300 transition-all duration-300 flex flex-col items-center text-center"
             >
               <div className="text-5xl mb-4 transform group-hover:scale-110 transition-transform duration-300">🧭</div>
-              <h3 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-indigo-600 transition-colors">
+              <h3 className="text-xl font-bold text-gray-900 dark:text-slate-100 mb-2 group-hover:text-indigo-600 transition-colors">
                 Custom Build Wizard
               </h3>
-              <p className="text-gray-600 mb-4 leading-relaxed">
+              <p className="text-gray-600 dark:text-slate-400 mb-4 leading-relaxed">
                 Configure your platform, features, and services with live pricing. Perfect for unique software needs.
               </p>
               <div className="mt-auto text-indigo-600 font-bold text-sm flex items-center justify-center">
@@ -397,13 +397,13 @@ export default function ServicesPageClient({ initialData }: ServicesPageClientPr
 
             <Link 
               href="/services/build-bundle" 
-              className="group p-8 bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-xl hover:border-green-200 transition-all duration-300 flex flex-col items-center text-center"
+              className="group p-8 bg-white dark:bg-slate-900 rounded-2xl border border-gray-100 shadow-sm hover:shadow-xl hover:border-green-200 transition-all duration-300 flex flex-col items-center text-center"
             >
               <div className="text-5xl mb-4 transform group-hover:scale-110 transition-transform duration-300">🛒</div>
-              <h3 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-green-600 transition-colors">
+              <h3 className="text-xl font-bold text-gray-900 dark:text-slate-100 mb-2 group-hover:text-green-600 transition-colors">
                 À La Carte Builder
               </h3>
-              <p className="text-gray-600 mb-4 leading-relaxed">
+              <p className="text-gray-600 dark:text-slate-400 mb-4 leading-relaxed">
                 Pick individual services (logo, audit, SEO, support) from any category and bundle them your way.
               </p>
               <div className="mt-auto text-green-600 font-bold text-sm flex items-center justify-center">
@@ -418,13 +418,13 @@ export default function ServicesPageClient({ initialData }: ServicesPageClientPr
           <div className="mb-20" id="packages">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {serviceCategories.map((category) => (
-                <article key={category.href} className="group relative bg-white rounded-2xl p-8 shadow-sm hover:shadow-xl transition-all duration-300 text-center h-full flex flex-col border border-gray-100 hover:border-gray-200">
+                <article key={category.href} className="group relative bg-white dark:bg-slate-900 rounded-2xl p-8 shadow-sm hover:shadow-xl transition-all duration-300 text-center h-full flex flex-col border border-gray-100 hover:border-gray-200">
                    <Link href={category.href} className="absolute inset-0 z-0" aria-label={`Explore ${category.title}`} />
                    <div className={`w-16 h-16 bg-gradient-to-r ${category.color} rounded-2xl flex items-center justify-center mx-auto mb-6 text-white text-2xl group-hover:scale-110 group-hover:rotate-3 transition-transform duration-300 shadow-md`}>
                       {category.icon}
                    </div>
-                   <h3 className="text-xl font-bold text-gray-900 mb-3 group-hover:text-primary transition-colors">{category.title}</h3>
-                   <p className="text-gray-600 text-sm leading-relaxed mb-6 flex-grow">{category.desc}</p>
+                   <h3 className="text-xl font-bold text-gray-900 dark:text-slate-100 mb-3 group-hover:text-primary transition-colors">{category.title}</h3>
+                   <p className="text-gray-600 dark:text-slate-400 text-sm leading-relaxed mb-6 flex-grow">{category.desc}</p>
                    
                    <div className="flex items-center justify-between mt-auto relative z-10 pt-4 border-t border-gray-50">
                      <button 
@@ -453,8 +453,8 @@ export default function ServicesPageClient({ initialData }: ServicesPageClientPr
           {/* --- 5. FEATURED PACKAGES --- */}
           <div className="mb-20">
             <div className="text-center mb-12">
-              <h2 className="text-3xl font-bold text-gray-900 mb-4">Featured Packages</h2>
-              <p className="text-gray-600 max-w-2xl mx-auto">
+              <h2 className="text-3xl font-bold text-gray-900 dark:text-slate-100 mb-4">Featured Packages</h2>
+              <p className="text-gray-600 dark:text-slate-400 max-w-2xl mx-auto">
                 Popular packages from our top service categories. Get started quickly with these proven solutions.
               </p>
             </div>
@@ -463,7 +463,7 @@ export default function ServicesPageClient({ initialData }: ServicesPageClientPr
               {featuredPackages.map((pkg) => (
                 <article 
                   key={pkg.id}
-                  className="bg-white rounded-2xl p-8 border border-gray-100 shadow-sm hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 relative overflow-hidden flex flex-col h-full"
+                  className="bg-white dark:bg-slate-900 rounded-2xl p-8 border border-gray-100 shadow-sm hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 relative overflow-hidden flex flex-col h-full"
                 >
                   {pkg.popular && (
                     <div className="absolute top-4 right-4 bg-gradient-to-r from-orange-500 to-pink-500 text-white px-3 py-1 rounded-full text-xs font-bold z-10 shadow-sm">
@@ -477,8 +477,8 @@ export default function ServicesPageClient({ initialData }: ServicesPageClientPr
                   </div>
                   
                   <div className="text-center mb-6">
-                    <h3 className="text-xl font-bold text-gray-900 mb-2">{pkg.name}</h3>
-                    <p className="text-gray-600 text-sm mb-4">{pkg.description}</p>
+                    <h3 className="text-xl font-bold text-gray-900 dark:text-slate-100 mb-2">{pkg.name}</h3>
+                    <p className="text-gray-600 dark:text-slate-400 text-sm mb-4">{pkg.description}</p>
                     <StartingAtPriceDisplay 
                       price={pkg.basePrice} 
                       size="lg" 
@@ -532,9 +532,9 @@ export default function ServicesPageClient({ initialData }: ServicesPageClientPr
             </div>
           </div>
 
-          <section className="mt-24 bg-white rounded-3xl p-8 md:p-12 text-center shadow-lg border border-gray-100">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Ready to Get Started?</h2>
-            <p className="text-lg text-gray-600 mb-8 max-w-2xl mx-auto">
+          <section className="mt-24 bg-white dark:bg-slate-900 rounded-3xl p-8 md:p-12 text-center shadow-lg border border-gray-100">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-slate-100 mb-4">Ready to Get Started?</h2>
+            <p className="text-lg text-gray-600 dark:text-slate-400 mb-8 max-w-2xl mx-auto">
               Choose from our specialized service categories or contact us for a custom solution.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
