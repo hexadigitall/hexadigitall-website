@@ -134,7 +134,7 @@ export default function CourseCard({
               <div className="inline-block bg-blue-100 text-blue-800 text-[10px] font-bold px-2 py-0.5 rounded-full mb-1">
                 MONTHLY SUBSCRIPTION
               </div>
-              <div className="text-primary font-bold text-xl">
+              <div className="text-primary dark:text-cyan-300 font-extrabold text-xl">
                 {new Intl.NumberFormat('en-US', { style: 'currency', currency: displayPrice.currency, maximumFractionDigits: 0 }).format(displayPrice.price ?? 0)}
                 <span className="text-xs font-normal text-gray-500 dark:text-slate-400">/mo</span>
               </div>
@@ -146,7 +146,7 @@ export default function CourseCard({
                   {displayPrice.priceInfo.originalPrice}
                 </span>
               )}
-              <span className="text-primary font-bold text-2xl">
+              <span className="text-primary dark:text-cyan-300 font-extrabold text-2xl">
                 {displayPrice.priceInfo.discountedPrice}
               </span>
             </div>

@@ -415,7 +415,7 @@ export default function CoursesPageContentEnhanced({ initialSchools = [] }: Cour
                           initial={{ opacity: 0, scale: 0.8 }}
                           animate={{ opacity: 1, scale: 1.1, zIndex: 10 }}
                           transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
-                          className={`relative w-80 h-52 rounded-3xl shadow-2xl flex flex-col items-center justify-center text-center p-6 cursor-default bg-gradient-to-br ${activeTheme.bg} ring-4 ring-white ring-offset-4 ring-offset-slate-50`}
+                          className={`relative w-80 h-52 rounded-3xl shadow-2xl flex flex-col items-center justify-center text-center p-6 cursor-default bg-gradient-to-br ${activeTheme.bg} ring-4 ring-slate-200 dark:ring-slate-600 ring-offset-4 ring-offset-slate-50 dark:ring-offset-slate-900`}
                         >
                           <motion.div 
                             initial={{ y: 10, opacity: 0 }}
@@ -470,8 +470,8 @@ export default function CoursesPageContentEnhanced({ initialSchools = [] }: Cour
 
                 {/* MOBILE CAROUSEL */}
                 <div className="md:hidden relative">
-                  <div className="absolute left-0 top-0 bottom-0 w-6 bg-gradient-to-r from-slate-50 to-transparent z-10 pointer-events-none" />
-                  <div className="absolute right-0 top-0 bottom-0 w-6 bg-gradient-to-l from-slate-50 to-transparent z-10 pointer-events-none" />
+                  <div className="absolute left-0 top-0 bottom-0 w-6 bg-gradient-to-r from-slate-50 dark:from-slate-900 to-transparent z-10 pointer-events-none" />
+                  <div className="absolute right-0 top-0 bottom-0 w-6 bg-gradient-to-l from-slate-50 dark:from-slate-900 to-transparent z-10 pointer-events-none" />
                   
                   <div 
                     ref={mobileContainerRef}
@@ -487,7 +487,7 @@ export default function CoursesPageContentEnhanced({ initialSchools = [] }: Cour
                           onClick={() => setActiveSchoolId(school._id)}
                           className={`snap-center shrink-0 w-[70vw] p-6 rounded-3xl transition-all duration-500 flex flex-col items-center justify-center text-center gap-3 border shadow-sm ${
                             isActive 
-                              ? `bg-gradient-to-br ${theme.bg} scale-100 border-transparent shadow-xl ring-4 ring-white` 
+                                ? `bg-gradient-to-br ${theme.bg} scale-100 border-transparent shadow-xl ring-4 ring-slate-200 dark:ring-slate-600` 
                               : 'bg-white dark:bg-slate-800 scale-90 border-gray-100 dark:border-slate-700 opacity-60 grayscale'
                           }`}
                         >
@@ -515,7 +515,7 @@ export default function CoursesPageContentEnhanced({ initialSchools = [] }: Cour
                       exit={{ opacity: 0 }}
                       transition={{ duration: 0.4 }}
                       // 🎨 HARMONY: Apply the light gradient theme here
-                      className={`rounded-[3rem] p-6 md:p-10 bg-gradient-to-b ${activeTheme.lightBg} border ${activeTheme.borderColor} shadow-sm`}
+                      className={`rounded-[3rem] p-6 md:p-10 bg-gradient-to-b ${activeTheme.lightBg} dark:from-slate-900 dark:via-slate-900 dark:to-slate-800 border ${activeTheme.borderColor} dark:border-slate-700 shadow-sm`}
                     >
                       <div className="mb-10 text-center max-w-3xl mx-auto">
                         <h2 className="text-3xl font-bold text-gray-900 dark:text-slate-100 mb-4">{activeSchool.title}</h2>

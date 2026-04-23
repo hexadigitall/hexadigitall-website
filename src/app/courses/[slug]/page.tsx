@@ -380,7 +380,7 @@ export default async function CoursePage(props: Props) {
             <div className="container mx-auto px-6 py-12">
                 <div className="grid lg:grid-cols-3 gap-12">
                     {/* Left Column: Course Body/Description */}
-                    <div className="lg:col-span-2 prose lg:prose-xl max-w-none">
+                    <div className="lg:col-span-2 prose lg:prose-xl dark:prose-invert max-w-none">
                         {course.body ? (
                             // Type-cast body to avoid TS errors with PortableText
                             <PortableText value={course.body as Record<string, unknown>[]} />
@@ -400,7 +400,7 @@ export default async function CoursePage(props: Props) {
                                 <div className="mb-3">
                                     <a
                                         href={`/courses/${slug}/curriculum`}
-                                        className="inline-flex w-full items-center justify-center gap-2 px-4 py-2 border border-blue-200 text-blue-700 rounded-lg hover:border-blue-300 hover:bg-blue-50 transition-colors text-sm"
+                                        className="inline-flex w-full items-center justify-center gap-2 px-4 py-2 border border-blue-200 dark:border-blue-800 text-blue-700 dark:text-blue-300 rounded-lg hover:border-blue-300 dark:hover:border-blue-700 hover:bg-blue-50 dark:hover:bg-blue-950/40 transition-colors text-sm"
                                     >
                                         View Public Curriculum
                                     </a>
@@ -408,7 +408,7 @@ export default async function CoursePage(props: Props) {
                                 <div className="mb-3">
                                     <a
                                         href={`/courses/${slug}/assessments`}
-                                        className="inline-flex w-full items-center justify-center gap-2 px-4 py-2 border border-slate-200 text-slate-700 rounded-lg hover:border-slate-300 hover:bg-slate-50 transition-colors text-sm"
+                                        className="inline-flex w-full items-center justify-center gap-2 px-4 py-2 border border-slate-200 dark:border-slate-600 text-slate-700 dark:text-slate-300 rounded-lg hover:border-slate-300 dark:hover:border-slate-500 hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors text-sm"
                                     >
                                         Open Timed Assessments
                                     </a>
@@ -467,7 +467,7 @@ export default async function CoursePage(props: Props) {
                                     </a>
                                     <a
                                         href="/mentorships"
-                                        className="inline-flex items-center justify-center rounded-lg border border-amber-300 bg-white dark:bg-slate-800 px-4 py-2 text-sm font-semibold text-amber-800 dark:text-amber-400 transition-colors hover:border-amber-400"
+                                        className="inline-flex items-center justify-center rounded-lg border border-amber-300 dark:border-amber-700 bg-white dark:bg-slate-800 px-4 py-2 text-sm font-semibold text-amber-800 dark:text-amber-300 transition-colors hover:border-amber-400 dark:hover:border-amber-600"
                                     >
                                         Mentorship only
                                     </a>
