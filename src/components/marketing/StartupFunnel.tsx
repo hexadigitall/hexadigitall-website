@@ -121,7 +121,7 @@ export default function StartupFunnel({ className, variant: propVariant }: { cla
       <div className="container mx-auto px-6 py-12">
         <div className="text-center mb-8">
           <h2 id="startup-funnel-heading" className="text-3xl font-bold">Choose your next step</h2>
-          <p className="text-gray-600 mt-2">We’ll guide you to the right service for your stage — a friendly, experienced tour.</p>
+          <p className="text-gray-600 dark:text-slate-400 mt-2">We’ll guide you to the right service for your stage — a friendly, experienced tour.</p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
@@ -130,7 +130,7 @@ export default function StartupFunnel({ className, variant: propVariant }: { cla
               key={site.id}
               href={site.href}
               data-funnel={site.id}
-              className="group block bg-white rounded-2xl p-6 shadow-sm hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-green-400 transition"
+              className="group block bg-white dark:bg-slate-900 rounded-2xl p-6 shadow-sm hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-green-400 transition"
               aria-label={copy[site.key].title}
             >
               <div className="flex flex-col h-full">
@@ -140,7 +140,7 @@ export default function StartupFunnel({ className, variant: propVariant }: { cla
                     <h3 className="text-lg font-semibold">{copy[site.key].title}</h3>
                   </div>
                 </div>
-                <p className="text-sm text-gray-600 mb-6 flex-1">{copy[site.key].description}</p>
+                <p className="text-sm text-gray-600 dark:text-slate-400 mb-6 flex-1">{copy[site.key].description}</p>
                 <div className="mt-auto">
                   <span className="inline-flex items-center px-4 py-2 bg-green-50 text-green-700 rounded-full text-sm font-medium">{copy[site.key].cta}</span>
                 </div>

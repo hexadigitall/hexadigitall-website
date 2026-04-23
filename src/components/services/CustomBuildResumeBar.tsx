@@ -41,7 +41,7 @@ export function CustomBuildResumeBar() {
       <div className="container mx-auto flex items-center justify-between gap-4">
         <div className="flex items-center gap-3 flex-1 min-w-0">
           <div className="flex-shrink-0">
-            <div className="w-2 h-2 bg-white/80 rounded-full animate-pulse"></div>
+            <div className="w-2 h-2 bg-white dark:bg-slate-900/80 rounded-full animate-pulse"></div>
           </div>
           <p className="text-sm font-medium truncate">
             Custom Build in Progress:{' '}
@@ -56,7 +56,7 @@ export function CustomBuildResumeBar() {
         <div className="flex items-center gap-2 flex-shrink-0">
           <Link
             href={`/services/custom-build?step=${state.step}${state.core ? `&core=${state.core}` : ''}${state.addOns.length > 0 ? `&addOns=${encodeURIComponent(JSON.stringify(state.addOns))}` : ''}`}
-            className="px-4 py-1.5 bg-white text-primary font-semibold rounded-lg hover:bg-white/95 transition-colors text-sm whitespace-nowrap"
+            className="px-4 py-1.5 bg-white dark:bg-slate-900 text-primary font-semibold rounded-lg hover:bg-white dark:bg-slate-900/95 transition-colors text-sm whitespace-nowrap"
           >
             Resume
           </Link>
@@ -70,7 +70,7 @@ export function CustomBuildResumeBar() {
               // (context will handle absence gracefully)
               setIsVisible(false);
             }}
-            className="px-2 py-1 hover:bg-white/20 rounded transition-colors text-sm"
+            className="px-2 py-1 hover:bg-white dark:bg-slate-900/20 rounded transition-colors text-sm"
             aria-label="Dismiss resume notification"
             type="button"
           >

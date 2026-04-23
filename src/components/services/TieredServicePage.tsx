@@ -83,7 +83,7 @@ export default function TieredServicePage({
       <JourneyHeader currentStage={journeyStage} />
 
       {/* Breadcrumb */}
-      <div className="bg-white border-b sticky top-[80px] z-20">
+      <div className="bg-white dark:bg-slate-900 border-b sticky top-[80px] z-20">
         <div className="container mx-auto px-6 py-4">
           <Breadcrumb items={breadcrumbs} />
         </div>
@@ -111,17 +111,17 @@ export default function TieredServicePage({
               <span>{journeyStage === 'idea' ? '💡 Idea Stage' : journeyStage === 'build' ? '🏗️ Build Stage' : '📈 Grow Stage'}</span>
             </div>
 
-            <h1 className="text-4xl md:text-5xl font-bold font-heading text-gray-900 mb-6">
+            <h1 className="text-4xl md:text-5xl font-bold font-heading text-gray-900 dark:text-slate-100 mb-6">
               {title}
             </h1>
 
-            <p className="text-xl text-gray-600 leading-relaxed mb-4">
+            <p className="text-xl text-gray-600 dark:text-slate-400 leading-relaxed mb-4">
               {description}
             </p>
 
             {/* Currency indicator */}
             <div className="mt-8">
-              <div className="inline-flex items-center space-x-2 text-sm text-gray-600">
+              <div className="inline-flex items-center space-x-2 text-sm text-gray-600 dark:text-slate-400">
                 <span>Prices shown in:</span>
                 <span className="font-semibold text-primary">
                   {currentCurrency.flag} {currentCurrency.code}
@@ -136,10 +136,10 @@ export default function TieredServicePage({
       <section className="py-16 md:py-20">
         <div className="container mx-auto px-6">
           <div className="mb-12 text-center">
-            <h2 className="text-3xl md:text-4xl font-bold font-heading text-gray-900 mb-4">
+            <h2 className="text-3xl md:text-4xl font-bold font-heading text-gray-900 dark:text-slate-100 mb-4">
               Choose Your Package
             </h2>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+            <p className="text-lg text-gray-600 dark:text-slate-400 max-w-2xl mx-auto">
               Each package includes three tiers: Basic for essentials, Standard for most needs, and Premium for advanced features.
             </p>
           </div>

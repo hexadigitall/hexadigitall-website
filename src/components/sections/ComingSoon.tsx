@@ -36,12 +36,12 @@ export default function ComingSoon({
         </div>
 
         {/* Title */}
-        <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+        <h1 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-slate-100 mb-4">
           {title}
         </h1>
 
         {/* Message */}
-        <p className="text-lg text-gray-600 mb-8">
+        <p className="text-lg text-gray-600 dark:text-slate-400 mb-8">
           {message}
         </p>
 

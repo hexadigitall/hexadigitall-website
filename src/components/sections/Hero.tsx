@@ -205,8 +205,8 @@ export default function Hero() {
                 min-h-[80px] sm:min-h-[100px]
                 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-white/50
                 ${activeStage.id === stage.id 
-                  ? 'bg-white/15 border-white shadow-xl scale-105' 
-                  : 'bg-white/5 border-white/20 hover:bg-white/10 hover:border-white/40'}
+                  ? 'bg-white dark:bg-slate-900/15 border-white shadow-xl scale-105' 
+                  : 'bg-white dark:bg-slate-900/5 border-white/20 hover:bg-white dark:bg-slate-900/10 hover:border-white/40'}
               `}
               aria-pressed={activeStage.id === stage.id}
               aria-label={`${stage.label} - ${stage.title}`}
@@ -264,7 +264,7 @@ export default function Hero() {
                   <Link 
                     href={activeStage.href}
                     prefetch={true}
-                    className="w-full sm:w-auto min-h-[48px] px-8 py-4 bg-white text-gray-900 font-bold rounded-full hover:scale-105 hover:shadow-xl transition-all duration-300 text-center"
+                    className="w-full sm:w-auto min-h-[48px] px-8 py-4 bg-white dark:bg-slate-900 text-gray-900 dark:text-slate-100 font-bold rounded-full hover:scale-105 hover:shadow-xl transition-all duration-300 text-center"
                   >
                     {activeStage.cta}
                   </Link>
@@ -272,7 +272,7 @@ export default function Hero() {
                   <Link
                     href="/contact"
                     prefetch={true}
-                    className="w-full sm:w-auto min-h-[48px] px-8 py-4 bg-white/10 backdrop-blur border border-white/30 text-white font-semibold rounded-full hover:bg-white/20 hover:border-white/50 transition-all duration-300 text-center"
+                    className="w-full sm:w-auto min-h-[48px] px-8 py-4 bg-white dark:bg-slate-900/10 backdrop-blur border border-white/30 text-white font-semibold rounded-full hover:bg-white dark:bg-slate-900/20 hover:border-white/50 transition-all duration-300 text-center"
                   >
                     Get Free Quote
                   </Link>

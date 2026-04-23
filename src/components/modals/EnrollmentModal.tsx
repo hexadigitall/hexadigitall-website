@@ -42,12 +42,12 @@ export default function EnrollmentModal({ course, schoolSlug, onClose }: Enrollm
   // Fallback UI while redirecting
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-      <div className="bg-white rounded-lg p-8 max-w-md">
+      <div className="bg-white dark:bg-slate-900 rounded-lg p-8 max-w-md">
         <h2 className="text-xl font-bold mb-2">Opening enrollment...</h2>
-        <p className="text-gray-600">Redirecting you to complete your enrollment.</p>
+        <p className="text-gray-600 dark:text-slate-400">Redirecting you to complete your enrollment.</p>
         <button
           onClick={onClose}
-          className="mt-4 text-sm text-gray-500 hover:text-gray-700 underline"
+          className="mt-4 text-sm text-gray-500 dark:text-slate-500 hover:text-gray-700 dark:text-slate-300 underline"
         >
           Cancel
         </button>

@@ -249,7 +249,7 @@ export default function DivasProposalClient({ companyName = 'Your Business' }: {
                 key={tier.key}
                 onClick={() => setSelectedTier(tier)}
                 className={`text-left rounded-2xl border-2 p-6 shadow-sm transition-all hover:-translate-y-1 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-pink-500/50 ${
-                  isSelected ? 'border-pink-600 shadow-xl bg-white' : 'border-slate-200 bg-white'
+                  isSelected ? 'border-pink-600 shadow-xl bg-white dark:bg-slate-900' : 'border-slate-200 bg-white dark:bg-slate-900'
                 } ${tier.popular ? 'relative ring-2 ring-purple-500/60' : ''}`}
               >
                 {tier.popular && (
@@ -283,7 +283,7 @@ export default function DivasProposalClient({ companyName = 'Your Business' }: {
 
         {selectedTier && (
           <div className="grid gap-8 md:grid-cols-5 items-start mb-10">
-            <div className="md:col-span-3 bg-white border border-slate-200 rounded-2xl p-6 shadow-sm">
+            <div className="md:col-span-3 bg-white dark:bg-slate-900 border border-slate-200 rounded-2xl p-6 shadow-sm">
               <h2 className="text-2xl font-bold text-slate-900 mb-3">{selectedTier.name}</h2>
               <p className="text-slate-600 mb-4 italic">{selectedTier.tagline}</p>
               
@@ -308,7 +308,7 @@ export default function DivasProposalClient({ companyName = 'Your Business' }: {
               </ul>
             </div>
 
-            <div className="md:col-span-2 bg-white border border-slate-200 rounded-2xl p-6 shadow-sm">
+            <div className="md:col-span-2 bg-white dark:bg-slate-900 border border-slate-200 rounded-2xl p-6 shadow-sm">
               <h3 className="text-xl font-bold text-slate-900 mb-4">Start with your details</h3>
               <div className="space-y-4">
                 <div>

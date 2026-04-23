@@ -70,7 +70,7 @@ export default function AdminSettingsPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-50">
+      <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-slate-800/50 dark:bg-slate-800/50 dark:bg-slate-800/50">
         <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary" />
       </div>
     )
@@ -78,14 +78,14 @@ export default function AdminSettingsPage() {
   if (!isAuthenticated) return null
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <header className="bg-white shadow-sm border-b border-gray-200">
+    <div className="min-h-screen bg-gray-50 dark:bg-slate-800/50 dark:bg-slate-800/50 dark:bg-slate-800/50">
+      <header className="bg-white dark:bg-slate-900 dark:bg-slate-900 dark:bg-slate-900 shadow-sm border-b border-gray-200 dark:border-slate-700 dark:border-slate-700 dark:border-slate-700">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
           <div className="flex items-center space-x-4">
-            <Link href="/admin/dashboard" className="p-2 text-gray-400 hover:text-gray-600 rounded-lg hover:bg-gray-100">
+            <Link href="/admin/dashboard" className="p-2 text-gray-400 dark:text-slate-500 dark:text-slate-500 dark:text-slate-500 hover:text-gray-600 dark:text-slate-400 dark:text-slate-400 dark:text-slate-400 rounded-lg hover:bg-gray-100 dark:bg-slate-800 dark:bg-slate-800 dark:bg-slate-800">
               <ArrowLeftIcon className="h-5 w-5" />
             </Link>
-            <h1 className="text-2xl font-bold text-gray-900">Admin Settings</h1>
+            <h1 className="text-2xl font-bold text-gray-900 dark:text-slate-100 dark:text-slate-100 dark:text-slate-100">Admin Settings</h1>
             <div className="hidden md:block">
               <Breadcrumbs items={[
                 { label: 'Admin', href: '/admin/dashboard' },
@@ -98,27 +98,27 @@ export default function AdminSettingsPage() {
       <AdminNavbar />
 
       <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
-        <section className="bg-white rounded-lg shadow-sm border border-gray-200 p-4 md:p-6">
+        <section className="bg-white dark:bg-slate-900 dark:bg-slate-900 dark:bg-slate-900 rounded-lg shadow-sm border border-gray-200 dark:border-slate-700 dark:border-slate-700 dark:border-slate-700 p-4 md:p-6">
           <div className="flex items-center space-x-3 mb-4">
             <ShieldCheckIcon className="h-6 w-6 text-primary" />
-            <h2 className="text-lg font-semibold text-gray-900">Security</h2>
+            <h2 className="text-lg font-semibold text-gray-900 dark:text-slate-100 dark:text-slate-100 dark:text-slate-100">Security</h2>
           </div>
-          <p className="text-sm text-gray-600 mb-6">Logged in as <span className="font-medium">{username}</span></p>
+          <p className="text-sm text-gray-600 dark:text-slate-400 dark:text-slate-400 dark:text-slate-400 mb-6">Logged in as <span className="font-medium">{username}</span></p>
 
           <form onSubmit={onSubmit} className="space-y-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Current password</label>
-              <input type="password" className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-primary focus:border-transparent"
+              <label className="block text-sm font-medium text-gray-700 dark:text-slate-300 dark:text-slate-300 dark:text-slate-300 mb-1">Current password</label>
+              <input type="password" className="w-full border border-gray-300 dark:border-slate-600 dark:border-slate-600 dark:border-slate-600 rounded-lg px-3 py-2 focus:ring-2 focus:ring-primary focus:border-transparent"
                 value={form.currentPassword} onChange={(e)=>setForm({...form, currentPassword: e.target.value})} placeholder="••••••••" />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">New password</label>
-              <input type="password" className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-primary focus:border-transparent"
+              <label className="block text-sm font-medium text-gray-700 dark:text-slate-300 dark:text-slate-300 dark:text-slate-300 mb-1">New password</label>
+              <input type="password" className="w-full border border-gray-300 dark:border-slate-600 dark:border-slate-600 dark:border-slate-600 rounded-lg px-3 py-2 focus:ring-2 focus:ring-primary focus:border-transparent"
                 value={form.newPassword} onChange={(e)=>setForm({...form, newPassword: e.target.value})} placeholder="At least 8 characters" />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Confirm new password</label>
-              <input type="password" className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-primary focus:border-transparent"
+              <label className="block text-sm font-medium text-gray-700 dark:text-slate-300 dark:text-slate-300 dark:text-slate-300 mb-1">Confirm new password</label>
+              <input type="password" className="w-full border border-gray-300 dark:border-slate-600 dark:border-slate-600 dark:border-slate-600 rounded-lg px-3 py-2 focus:ring-2 focus:ring-primary focus:border-transparent"
                 value={form.confirmPassword} onChange={(e)=>setForm({...form, confirmPassword: e.target.value})} placeholder="Repeat new password" />
             </div>
 

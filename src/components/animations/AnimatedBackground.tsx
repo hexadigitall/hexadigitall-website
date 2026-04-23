@@ -40,7 +40,7 @@ export default function AnimatedBackground({
         {particles.map((particle) => (
           <motion.div
             key={particle}
-            className="absolute w-1 h-1 bg-white/20 rounded-full"
+            className="absolute w-1 h-1 bg-white dark:bg-slate-900/20 rounded-full"
             initial={{
               x: Math.random() * window.innerWidth,
               y: Math.random() * window.innerHeight,

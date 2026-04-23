@@ -42,7 +42,7 @@ export default async function StorePage() {
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
 
         {/* Breadcrumb */}
-        <nav className="text-sm text-gray-500 mb-10">
+        <nav className="text-sm text-gray-500 dark:text-slate-500 mb-10">
           <Link href="/" className="hover:text-primary transition-colors">Home</Link>
           <span className="mx-2">/</span>
           <span className="text-primary font-medium">Store</span>
@@ -51,7 +51,7 @@ export default async function StorePage() {
         {/* Intro blurb */}
         <section className="mb-12 max-w-2xl">
           <h2 className="text-2xl font-bold text-primary mb-3">Our Textbooks</h2>
-          <p className="text-gray-600 leading-relaxed">
+          <p className="text-gray-600 dark:text-slate-400 leading-relaxed">
             Every book is written to accompany a Hexadigitall course. Purchase from Amazon or other platforms and
             return here for free companion resources, exercise files, and corrections.
           </p>
@@ -61,7 +61,7 @@ export default async function StorePage() {
 
         {/* Empty state */}
         {books.length === 0 && (
-          <div className="text-center py-24 text-gray-500">
+          <div className="text-center py-24 text-gray-500 dark:text-slate-500">
             <p className="text-3xl mb-4">📚</p>
             <p className="text-lg font-medium">Our first textbooks are on their way.</p>
             <p className="mt-2 text-sm">Check back soon or explore our courses while you wait.</p>

@@ -138,7 +138,7 @@ export default function WebMobilePricingSections() {
       case 'basic': return 'border-blue-200 bg-blue-50/50'
       case 'standard': return 'border-green-200 bg-green-50/50'
       case 'premium': return 'border-purple-200 bg-purple-50/50'
-      default: return 'border-gray-200 bg-gray-50/50'
+      default: return 'border-gray-200 dark:border-slate-700 bg-gray-50 dark:bg-slate-800/50/50'
     }
   }
 
@@ -181,7 +181,7 @@ export default function WebMobilePricingSections() {
         {packages.map((pkg, index) => (
           <div 
             key={index}
-            className={`bg-white rounded-2xl p-6 shadow-lg border-2 transition-all duration-300 hover:shadow-xl hover:-translate-y-1 ${getTierColor(pkg.tier, pkg.popular)}`}
+            className={`bg-white dark:bg-slate-900 rounded-2xl p-6 shadow-lg border-2 transition-all duration-300 hover:shadow-xl hover:-translate-y-1 ${getTierColor(pkg.tier, pkg.popular)}`}
           >
             {pkg.popular && (
               <div className="text-center mb-4">
@@ -192,8 +192,8 @@ export default function WebMobilePricingSections() {
             )}
             
             <div className="text-center mb-6">
-              <h4 className="text-xl font-bold text-gray-900 mb-2">{pkg.name}</h4>
-              <p className="text-gray-600 text-sm mb-4">{pkg.description}</p>
+              <h4 className="text-xl font-bold text-gray-900 dark:text-slate-100 mb-2">{pkg.name}</h4>
+              <p className="text-gray-600 dark:text-slate-400 text-sm mb-4">{pkg.description}</p>
               
               {/* Price Display */}
               <div className="mb-4">
@@ -209,7 +209,7 @@ export default function WebMobilePricingSections() {
             {/* Features */}
             <ul className="space-y-2 mb-6">
               {pkg.features.map((feature, featIndex) => (
-                <li key={featIndex} className="flex items-center text-sm text-gray-700">
+                <li key={featIndex} className="flex items-center text-sm text-gray-700 dark:text-slate-300">
                   <svg className="w-4 h-4 text-green-500 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
                     <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                   </svg>
@@ -245,8 +245,8 @@ export default function WebMobilePricingSections() {
             <span>🌍</span>
             <span>Web Development Packages</span>
           </div>
-          <h2 className="text-4xl font-bold text-gray-900 mb-4">Choose Your Web Solution</h2>
-          <p className="text-gray-600 max-w-3xl mx-auto text-lg">
+          <h2 className="text-4xl font-bold text-gray-900 dark:text-slate-100 mb-4">Choose Your Web Solution</h2>
+          <p className="text-gray-600 dark:text-slate-400 max-w-3xl mx-auto text-lg">
             From simple landing pages to complex e-commerce stores, we have the perfect web solution for your business needs.
           </p>
         </div>
@@ -263,8 +263,8 @@ export default function WebMobilePricingSections() {
             <span>📱</span>
             <span>Mobile App Development Packages</span>
           </div>
-          <h2 className="text-4xl font-bold text-gray-900 mb-4">Choose Your Mobile Solution</h2>
-          <p className="text-gray-600 max-w-3xl mx-auto text-lg">
+          <h2 className="text-4xl font-bold text-gray-900 dark:text-slate-100 mb-4">Choose Your Mobile Solution</h2>
+          <p className="text-gray-600 dark:text-slate-400 max-w-3xl mx-auto text-lg">
             Create powerful mobile apps that engage users and drive business growth across iOS and Android platforms.
           </p>
         </div>
@@ -277,8 +277,8 @@ export default function WebMobilePricingSections() {
   return (
     <div className="space-y-16">
       <div className="text-center">
-        <h2 className="text-4xl font-bold text-gray-900 mb-4">Detailed Service Packages</h2>
-        <p className="text-gray-600 max-w-3xl mx-auto text-lg">
+        <h2 className="text-4xl font-bold text-gray-900 dark:text-slate-100 mb-4">Detailed Service Packages</h2>
+        <p className="text-gray-600 dark:text-slate-400 max-w-3xl mx-auto text-lg">
           Explore our comprehensive packages for Web Development and Mobile App Development. 
           Each service is designed to deliver exceptional results at competitive prices.
         </p>

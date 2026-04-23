@@ -33,10 +33,10 @@ export default function CustomBuildPage() {
             </svg>
             Software Configurator
           </div>
-          <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-gray-900 mb-3">
+          <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-gray-900 dark:text-slate-100 mb-3">
             🧭 Custom Build Wizard
           </h1>
-          <p className="mt-3 text-base sm:text-lg text-gray-600 max-w-2xl mx-auto">
+          <p className="mt-3 text-base sm:text-lg text-gray-600 dark:text-slate-400 max-w-2xl mx-auto">
             Configure your platform, features, and services with live pricing. Perfect for unique software needs.
           </p>
         </div>

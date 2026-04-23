@@ -50,7 +50,7 @@ const ServiceCard = ({ icon, title, description, href, backgroundImage }: Servic
         </div>
         
         {/* Title */}
-        <h3 className="text-xl font-bold font-heading mb-3 text-gray-900 group-hover:text-primary transition-colors duration-300">
+        <h3 className="text-xl font-bold font-heading mb-3 text-gray-900 dark:text-slate-100 group-hover:text-primary transition-colors duration-300">
           {title}
         </h3>
         

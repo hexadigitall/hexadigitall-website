@@ -154,14 +154,14 @@ export default function StoreCatalog({ books }: StoreCatalogProps) {
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Search by title, author, topic, or keyword"
-            className="w-full rounded-xl border border-gray-200 bg-white px-4 py-3 pr-28 text-sm focus:border-primary focus:ring-2 focus:ring-primary/20"
+            className="w-full rounded-xl border border-gray-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-4 py-3 pr-28 text-sm focus:border-primary focus:ring-2 focus:ring-primary/20"
             aria-label="Search books"
           />
           {query && (
             <button
               type="button"
               onClick={() => setQuery('')}
-              className="absolute right-3 top-1/2 -translate-y-1/2 rounded-md bg-gray-100 px-3 py-1.5 text-xs font-medium text-gray-600 hover:bg-gray-200"
+              className="absolute right-3 top-1/2 -translate-y-1/2 rounded-md bg-gray-100 dark:bg-slate-800 px-3 py-1.5 text-xs font-medium text-gray-600 dark:text-slate-400 hover:bg-gray-200"
             >
               Clear
             </button>
@@ -175,7 +175,7 @@ export default function StoreCatalog({ books }: StoreCatalogProps) {
             className={`rounded-full px-3 py-1.5 text-xs font-semibold transition-colors ${
               status === 'all'
                 ? 'bg-primary text-white'
-                : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                : 'bg-gray-100 dark:bg-slate-800 text-gray-600 dark:text-slate-400 hover:bg-gray-200'
             }`}
           >
             All
@@ -186,7 +186,7 @@ export default function StoreCatalog({ books }: StoreCatalogProps) {
             className={`rounded-full px-3 py-1.5 text-xs font-semibold transition-colors ${
               status === 'available'
                 ? 'bg-primary text-white'
-                : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                : 'bg-gray-100 dark:bg-slate-800 text-gray-600 dark:text-slate-400 hover:bg-gray-200'
             }`}
           >
             Available
@@ -197,7 +197,7 @@ export default function StoreCatalog({ books }: StoreCatalogProps) {
             className={`rounded-full px-3 py-1.5 text-xs font-semibold transition-colors ${
               status === 'coming_soon'
                 ? 'bg-primary text-white'
-                : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                : 'bg-gray-100 dark:bg-slate-800 text-gray-600 dark:text-slate-400 hover:bg-gray-200'
             }`}
           >
             Coming Soon
@@ -211,7 +211,7 @@ export default function StoreCatalog({ books }: StoreCatalogProps) {
             className={`rounded-full px-3 py-1.5 text-xs font-semibold transition-colors ${
               level === 'all'
                 ? 'bg-secondary text-white'
-                : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                : 'bg-gray-100 dark:bg-slate-800 text-gray-600 dark:text-slate-400 hover:bg-gray-200'
             }`}
           >
             All Levels
@@ -222,7 +222,7 @@ export default function StoreCatalog({ books }: StoreCatalogProps) {
             className={`rounded-full px-3 py-1.5 text-xs font-semibold transition-colors ${
               level === 'beginner'
                 ? 'bg-secondary text-white'
-                : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                : 'bg-gray-100 dark:bg-slate-800 text-gray-600 dark:text-slate-400 hover:bg-gray-200'
             }`}
           >
             Beginner
@@ -233,7 +233,7 @@ export default function StoreCatalog({ books }: StoreCatalogProps) {
             className={`rounded-full px-3 py-1.5 text-xs font-semibold transition-colors ${
               level === 'intermediate'
                 ? 'bg-secondary text-white'
-                : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                : 'bg-gray-100 dark:bg-slate-800 text-gray-600 dark:text-slate-400 hover:bg-gray-200'
             }`}
           >
             Intermediate
@@ -244,7 +244,7 @@ export default function StoreCatalog({ books }: StoreCatalogProps) {
             className={`rounded-full px-3 py-1.5 text-xs font-semibold transition-colors ${
               level === 'advanced'
                 ? 'bg-secondary text-white'
-                : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                : 'bg-gray-100 dark:bg-slate-800 text-gray-600 dark:text-slate-400 hover:bg-gray-200'
             }`}
           >
             Advanced
@@ -255,24 +255,24 @@ export default function StoreCatalog({ books }: StoreCatalogProps) {
             className={`rounded-full px-3 py-1.5 text-xs font-semibold transition-colors ${
               level === 'all_levels'
                 ? 'bg-secondary text-white'
-                : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                : 'bg-gray-100 dark:bg-slate-800 text-gray-600 dark:text-slate-400 hover:bg-gray-200'
             }`}
           >
             Mixed / All
           </button>
         </div>
 
-        <p className="mt-2 text-xs text-gray-500">
+        <p className="mt-2 text-xs text-gray-500 dark:text-slate-500">
           Showing {filteredBooks.length} of {books.length} textbook{books.length !== 1 ? 's' : ''}
         </p>
-        <p className="mt-1 text-xs text-gray-400">
+        <p className="mt-1 text-xs text-gray-400 dark:text-slate-500">
           Tip: Press / anywhere on this page to jump to search.
         </p>
       </section>
 
       {available.length > 0 && (
         <section className="mb-16">
-          <h3 className="text-xl font-semibold text-darkText mb-6 border-b border-gray-200 pb-2">
+          <h3 className="text-xl font-semibold text-darkText mb-6 border-b border-gray-200 dark:border-slate-700 pb-2">
             Available Now
           </h3>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
@@ -285,7 +285,7 @@ export default function StoreCatalog({ books }: StoreCatalogProps) {
 
       {upcoming.length > 0 && (
         <section className="mb-16">
-          <h3 className="text-xl font-semibold text-darkText mb-6 border-b border-gray-200 pb-2">
+          <h3 className="text-xl font-semibold text-darkText mb-6 border-b border-gray-200 dark:border-slate-700 pb-2">
             Coming Soon
           </h3>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
@@ -297,7 +297,7 @@ export default function StoreCatalog({ books }: StoreCatalogProps) {
       )}
 
       {books.length > 0 && filteredBooks.length === 0 && (
-        <section className="text-center py-16 text-gray-500 border border-dashed border-gray-200 rounded-2xl">
+        <section className="text-center py-16 text-gray-500 dark:text-slate-500 border border-dashed border-gray-200 dark:border-slate-700 rounded-2xl">
           <p className="text-2xl mb-2">No books found</p>
           <p className="text-sm">Try a different keyword like DevOps, JavaScript, AWS, or Design.</p>
         </section>

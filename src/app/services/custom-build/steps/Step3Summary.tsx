@@ -89,7 +89,7 @@ export default function Step3Summary({
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 sm:gap-8 mb-8 sm:mb-12">
         {/* Core Solution */}
         <div className="lg:col-span-2">
-          <div className="bg-white border-2 border-gray-200 rounded-lg p-4 sm:p-6 md:p-8 mb-6">
+          <div className="bg-white dark:bg-slate-900 border-2 border-gray-200 dark:border-slate-700 rounded-lg p-4 sm:p-6 md:p-8 mb-6">
             <h3 className="text-xl sm:text-2xl font-bold font-heading text-primary mb-4">
               Core Solution
             </h3>
@@ -124,7 +124,7 @@ export default function Step3Summary({
                     const discountedAddonPrice = discountActive ? addon.price * 0.5 : addon.price;
                     const convertedAddonPrice = convertPrice(discountedAddonPrice, currentCurrency.code);
                     return (
-                      <div key={addon.id} className="flex items-center justify-between p-3 sm:p-4 bg-gray-50 rounded-lg border border-gray-200">
+                      <div key={addon.id} className="flex items-center justify-between p-3 sm:p-4 bg-gray-50 dark:bg-slate-800/50 rounded-lg border border-gray-200 dark:border-slate-700">
                         <div className="flex items-center gap-2 sm:gap-3">
                           <svg className="w-4 h-4 sm:w-5 sm:h-5 text-accent flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
                             <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
@@ -187,7 +187,7 @@ export default function Step3Summary({
             {/* Submit Button */}
             <button
               onClick={() => setShowPaymentFlow(true)}
-              className="w-full bg-white text-primary px-6 py-3 rounded-lg font-bold hover:bg-gray-50 transition-colors min-h-[44px]"
+              className="w-full bg-white dark:bg-slate-900 text-primary px-6 py-3 rounded-lg font-bold hover:bg-gray-50 dark:bg-slate-800/50 transition-colors min-h-[44px]"
             >
               Proceed to Payment
             </button>
@@ -203,7 +203,7 @@ export default function Step3Summary({
       <div className="flex flex-col sm:flex-row gap-4 mb-8">
         <button
           onClick={onBack}
-          className="flex-1 px-6 py-4 border-2 border-gray-300 rounded-lg font-semibold text-darkText hover:bg-gray-50 transition-colors min-h-[44px]"
+          className="flex-1 px-6 py-4 border-2 border-gray-300 dark:border-slate-600 rounded-lg font-semibold text-darkText hover:bg-gray-50 dark:bg-slate-800/50 transition-colors min-h-[44px]"
         >
           ← Back to Add-ons
         </button>

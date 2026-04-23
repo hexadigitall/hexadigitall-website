@@ -17,24 +17,24 @@ export default function CheckoutCancelPage() {
             </div>
           </div>
 
-          <h1 className="text-4xl font-bold text-gray-900 mb-4">Payment Cancelled</h1>
-          <p className="text-lg text-gray-700 mb-8">
+          <h1 className="text-4xl font-bold text-gray-900 dark:text-slate-100 mb-4">Payment Cancelled</h1>
+          <p className="text-lg text-gray-700 dark:text-slate-300 mb-8">
             Your payment was cancelled or could not be completed. No charges were made to your account.
           </p>
 
-          <div className="bg-gray-50 p-6 rounded-lg mb-8">
-            <h2 className="font-semibold text-gray-900 mb-4">What would you like to do?</h2>
-            <ul className="text-left space-y-3 text-gray-700">
+          <div className="bg-gray-50 dark:bg-slate-800/50 p-6 rounded-lg mb-8">
+            <h2 className="font-semibold text-gray-900 dark:text-slate-100 mb-4">What would you like to do?</h2>
+            <ul className="text-left space-y-3 text-gray-700 dark:text-slate-300">
               <li className="flex items-start">
-                <span className="text-gray-400 mr-3">•</span>
+                <span className="text-gray-400 dark:text-slate-500 mr-3">•</span>
                 <span>Review your selections and try again</span>
               </li>
               <li className="flex items-start">
-                <span className="text-gray-400 mr-3">•</span>
+                <span className="text-gray-400 dark:text-slate-500 mr-3">•</span>
                 <span>Contact us if you have questions about our services</span>
               </li>
               <li className="flex items-start">
-                <span className="text-gray-400 mr-3">•</span>
+                <span className="text-gray-400 dark:text-slate-500 mr-3">•</span>
                 <span>Explore other services that might interest you</span>
               </li>
             </ul>
@@ -56,7 +56,7 @@ export default function CheckoutCancelPage() {
             </Link>
             <Link
               href="/"
-              className="inline-block bg-gray-200 text-gray-800 px-8 py-3 rounded-lg font-semibold hover:bg-gray-300 transition-colors"
+              className="inline-block bg-gray-200 text-gray-800 dark:text-slate-200 px-8 py-3 rounded-lg font-semibold hover:bg-gray-300 transition-colors"
             >
               Back to Home
             </Link>

@@ -46,7 +46,7 @@ export default function JourneyHeader({ currentStage, hideNavigation = false }: 
   const currentIndex = stages.findIndex(s => s.id === currentStage)
 
   return (
-    <div className="sticky top-[72px] lg:top-[80px] z-40 bg-gradient-to-r from-slate-50 to-blue-50 border-b border-gray-200 shadow-sm">
+    <div className="sticky top-[72px] lg:top-[80px] z-40 bg-gradient-to-r from-slate-50 to-blue-50 border-b border-gray-200 dark:border-slate-700 shadow-sm">
       <div className="container mx-auto px-2 sm:px-6 py-2 sm:py-4">
         {/* Journey visualization - scrollable on mobile */}
         <div className="overflow-x-auto scrollbar-hide -mx-2 px-2">
@@ -58,8 +58,8 @@ export default function JourneyHeader({ currentStage, hideNavigation = false }: 
                   href={hideNavigation ? '#' : stage.href}
                   className={`relative group flex flex-col items-center gap-1 sm:gap-2 px-2 sm:px-4 py-2 sm:py-3 rounded-lg transition-all duration-300 flex-shrink-0 ${
                     currentIndex === index
-                      ? 'bg-white shadow-md border-2 border-primary'
-                      : 'hover:bg-white/50 border-2 border-transparent'
+                      ? 'bg-white dark:bg-slate-900 shadow-md border-2 border-primary'
+                      : 'hover:bg-white dark:bg-slate-900/50 border-2 border-transparent'
                   } ${hideNavigation ? 'cursor-default' : 'cursor-pointer'}`}
                   onClick={hideNavigation ? (e) => e.preventDefault() : undefined}
                 >
@@ -69,7 +69,7 @@ export default function JourneyHeader({ currentStage, hideNavigation = false }: 
                   {/* Label */}
                   <span
                     className={`text-[10px] sm:text-xs md:text-sm font-bold transition-colors ${
-                      currentIndex === index ? 'text-primary' : 'text-gray-600'
+                      currentIndex === index ? 'text-primary' : 'text-gray-600 dark:text-slate-400'
                     }`}
                   >
                     {stage.label}
@@ -96,7 +96,7 @@ export default function JourneyHeader({ currentStage, hideNavigation = false }: 
                     />
                     <span
                       className={`text-xs sm:text-lg font-bold transition-colors ${
-                        currentIndex > index ? 'text-green-600' : 'text-gray-400'
+                        currentIndex > index ? 'text-green-600' : 'text-gray-400 dark:text-slate-500'
                       }`}
                     >
                       →
@@ -116,7 +116,7 @@ export default function JourneyHeader({ currentStage, hideNavigation = false }: 
         {/* Progress description - hidden on very small screens */}
         {!hideNavigation && (
           <div className="hidden sm:flex flex-col items-center gap-2 mt-2 sm:mt-4">
-            <p className="text-center text-xs text-gray-600">
+            <p className="text-center text-xs text-gray-600 dark:text-slate-400">
               {currentIndex === 0 && '✨ Start here: Plan your business with a solid strategy'}
               {currentIndex === 1 && '🚀 Build your digital presence with a professional website'}
               {currentIndex === 2 && '📣 Scale your business with strategic marketing'}

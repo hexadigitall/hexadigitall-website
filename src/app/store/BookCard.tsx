@@ -9,7 +9,7 @@ import type { ReactNode } from 'react'
 const STATUS_STYLES: Record<string, string> = {
   available: 'bg-green-100 text-green-700',
   coming_soon: 'bg-amber-100 text-amber-700',
-  out_of_stock: 'bg-gray-100 text-gray-500',
+  out_of_stock: 'bg-gray-100 dark:bg-slate-800 text-gray-500 dark:text-slate-500',
   discontinued: 'bg-red-100 text-red-600',
 }
 
@@ -66,10 +66,10 @@ export default function BookCard({ book, highlightTerm = '' }: { book: BookSumma
   const lowestNGN = book.salesLinks?.map((l) => l.priceNGN).filter(Boolean).sort((a, b) => a! - b!)[0]
 
   return (
-    <article className="group flex flex-col bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-md transition-shadow duration-200">
+    <article className="group flex flex-col bg-white dark:bg-slate-900 rounded-2xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-md transition-shadow duration-200">
 
       {/* Cover */}
-      <Link href={`/store/${book.slug.current}`} className="block relative bg-gray-50" style={{ aspectRatio: '3/4' }}>
+      <Link href={`/store/${book.slug.current}`} className="block relative bg-gray-50 dark:bg-slate-800/50" style={{ aspectRatio: '3/4' }}>
         {coverUrl ? (
           <Image
             src={coverUrl}
@@ -96,9 +96,9 @@ export default function BookCard({ book, highlightTerm = '' }: { book: BookSumma
           <Link href={`/store/${book.slug.current}`} className="hover:text-primary transition-colors">
             <h3 className="font-bold text-darkText text-sm leading-snug line-clamp-2">{highlightText(book.title, highlightTerm)}</h3>
           </Link>
-          {book.subtitle && <p className="text-xs text-gray-400 mt-0.5 line-clamp-1">{highlightText(book.subtitle, highlightTerm)}</p>}
+          {book.subtitle && <p className="text-xs text-gray-400 dark:text-slate-500 mt-0.5 line-clamp-1">{highlightText(book.subtitle, highlightTerm)}</p>}
           {book.authors && book.authors.length > 0 && (
-            <p className="text-xs text-gray-500 mt-1">{highlightText(book.authors.join(', '), highlightTerm)}</p>
+            <p className="text-xs text-gray-500 dark:text-slate-500 mt-1">{highlightText(book.authors.join(', '), highlightTerm)}</p>
           )}
         </div>
 
@@ -110,7 +110,7 @@ export default function BookCard({ book, highlightTerm = '' }: { book: BookSumma
             </span>
           )}
           {book.edition && (
-            <span className="text-xs bg-gray-100 text-gray-500 px-2 py-0.5 rounded-full">
+            <span className="text-xs bg-gray-100 dark:bg-slate-800 text-gray-500 dark:text-slate-500 px-2 py-0.5 rounded-full">
               {book.edition}
             </span>
           )}

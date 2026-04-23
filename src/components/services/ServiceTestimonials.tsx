@@ -28,15 +28,15 @@ export default function ServiceTestimonials({ testimonials }: { testimonials?: T
       <h3 className="text-2xl font-bold mb-4">What our clients say</h3>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {unique.map((t) => (
-          <div key={t._id || t.client} className="bg-white border rounded-xl p-4 shadow-sm">
+          <div key={t._id || t.client} className="bg-white dark:bg-slate-900 border rounded-xl p-4 shadow-sm">
             {t.image?.asset?.url && (
               <div className="w-12 h-12 mb-3">
                 <img src={t.image.asset.url} alt={t.client || 'Client'} className="w-12 h-12 rounded-full object-cover" />
               </div>
             )}
-            <div className="text-sm text-gray-700 mb-2">{t.testimonial}</div>
-            <div className="text-sm font-medium text-gray-900">{t.client}{t.role ? ` — ${t.role}` : ''}</div>
-            {t.company && <div className="text-xs text-gray-500">{t.company}</div>}
+            <div className="text-sm text-gray-700 dark:text-slate-300 mb-2">{t.testimonial}</div>
+            <div className="text-sm font-medium text-gray-900 dark:text-slate-100">{t.client}{t.role ? ` — ${t.role}` : ''}</div>
+            {t.company && <div className="text-xs text-gray-500 dark:text-slate-500">{t.company}</div>}
           </div>
         ))}
       </div>

@@ -30,13 +30,13 @@ export default function AnimatedCard({
   const getVariantStyles = () => {
     switch (variant) {
       case 'glass':
-        return 'bg-white/10 backdrop-blur-xl border border-white/20 shadow-2xl'
+        return 'bg-white dark:bg-slate-900/10 backdrop-blur-xl border border-white/20 shadow-2xl'
       case 'neon':
         return 'bg-gray-900/80 border border-cyan-400/30 shadow-lg shadow-cyan-400/20 hover:shadow-cyan-400/40'
       case 'gradient':
         return 'bg-gradient-to-br from-blue-500/20 to-purple-600/20 backdrop-blur-sm border border-white/10'
       default:
-        return 'bg-white shadow-lg hover:shadow-xl border border-gray-200'
+        return 'bg-white dark:bg-slate-900 shadow-lg hover:shadow-xl border border-gray-200 dark:border-slate-700'
     }
   }
 

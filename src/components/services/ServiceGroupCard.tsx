@@ -44,24 +44,24 @@ export default function ServiceGroupCard({ group, onViewOptions }: ServiceGroupC
   const hasPopularTier = group.tiers?.some(t => t.popular)
 
   return (
-    <div className="group relative bg-white rounded-2xl border-2 border-gray-200 hover:border-primary/50 transition-all duration-300 hover:shadow-lg overflow-hidden">
+    <div className="group relative bg-white dark:bg-slate-900 rounded-2xl border-2 border-gray-200 dark:border-slate-700 hover:border-primary/50 transition-all duration-300 hover:shadow-lg overflow-hidden">
       {/* Gradient accent */}
       <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-primary to-secondary" />
 
       <div className="p-8">
         {/* Header */}
         <div className="mb-6">
-          <h3 className="text-2xl font-bold font-heading text-gray-900 mb-2 group-hover:text-primary transition-colors">
+          <h3 className="text-2xl font-bold font-heading text-gray-900 dark:text-slate-100 mb-2 group-hover:text-primary transition-colors">
             {group.name}
           </h3>
-          <p className="text-gray-600 text-sm line-clamp-2">
+          <p className="text-gray-600 dark:text-slate-400 text-sm line-clamp-2">
             {group.description}
           </p>
         </div>
 
         {/* Pricing highlight - Standardized border-radius */}
         <div className="mb-6 p-4 bg-gradient-to-br from-blue-50 to-indigo-50 rounded-xl border border-blue-100">
-          <p className="text-xs font-semibold text-gray-600 uppercase tracking-wide mb-1">
+          <p className="text-xs font-semibold text-gray-600 dark:text-slate-400 uppercase tracking-wide mb-1">
             Starting at
           </p>
           <div className="flex items-baseline gap-1">
@@ -69,7 +69,7 @@ export default function ServiceGroupCard({ group, onViewOptions }: ServiceGroupC
               {currentCurrency.symbol}
               {Math.round(convertedPrice).toLocaleString()}
             </span>
-            <span className="text-sm text-gray-600">
+            <span className="text-sm text-gray-600 dark:text-slate-400">
               {group.tiers?.[0]?.billing === 'monthly' ? '/month' : ''}
             </span>
           </div>
@@ -77,7 +77,7 @@ export default function ServiceGroupCard({ group, onViewOptions }: ServiceGroupC
 
         {/* Feature count & tier indicator */}
         <div className="mb-6 flex items-center justify-between text-sm">
-          <div className="flex items-center gap-2 text-gray-600">
+          <div className="flex items-center gap-2 text-gray-600 dark:text-slate-400">
             <svg
               className="w-4 h-4 text-green-600"
               fill="currentColor"
@@ -87,7 +87,7 @@ export default function ServiceGroupCard({ group, onViewOptions }: ServiceGroupC
             </svg>
             <span>{featureCount} Features included</span>
           </div>
-          <div className="flex items-center gap-2 text-gray-600">
+          <div className="flex items-center gap-2 text-gray-600 dark:text-slate-400">
             <svg
               className="w-4 h-4 text-blue-600"
               fill="currentColor"
@@ -128,7 +128,7 @@ export default function ServiceGroupCard({ group, onViewOptions }: ServiceGroupC
         </button>
 
         {/* Delivery time info */}
-        <p className="mt-4 text-center text-xs text-gray-500">
+        <p className="mt-4 text-center text-xs text-gray-500 dark:text-slate-500">
           📅 Delivery: {group.tiers?.[0]?.deliveryTime || 'Varies by tier'}
         </p>
       </div>

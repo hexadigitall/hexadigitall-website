@@ -119,23 +119,23 @@ export function Modal({
       <div
         ref={modalRef}
         className={`
-          relative w-full ${sizeClasses[size]} mx-auto bg-white rounded-2xl shadow-2xl
+          relative w-full ${sizeClasses[size]} mx-auto bg-white dark:bg-slate-900 dark:bg-slate-900 dark:bg-slate-900 rounded-2xl shadow-2xl
           flex flex-col
           ${className}
         `}
       >
         {/* Header */}
         {(title || showCloseButton) && (
-          <div className="flex-shrink-0 flex items-center justify-between p-6 border-b border-gray-200">
+          <div className="flex-shrink-0 flex items-center justify-between p-6 border-b border-gray-200 dark:border-slate-700 dark:border-slate-700 dark:border-slate-700">
             {title && (
-              <h2 id="modal-title" className="text-2xl font-bold text-gray-900">
+              <h2 id="modal-title" className="text-2xl font-bold text-gray-900 dark:text-slate-100 dark:text-slate-100 dark:text-slate-100">
                 {title}
               </h2>
             )}
             {showCloseButton && (
               <button
                 onClick={onClose}
-                className="p-2 text-gray-400 hover:text-gray-600 rounded-lg hover:bg-gray-100 transition-colors"
+                className="p-2 text-gray-400 dark:text-slate-500 dark:text-slate-500 dark:text-slate-500 hover:text-gray-600 dark:text-slate-400 dark:text-slate-400 dark:text-slate-400 rounded-lg hover:bg-gray-100 dark:bg-slate-800 dark:bg-slate-800 dark:bg-slate-800 transition-colors"
                 aria-label="Close modal"
               >
                 <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -191,12 +191,12 @@ export function ConfirmModal({
   return (
     <Modal isOpen={isOpen} onClose={onClose} title={title} size="sm">
       <div className="space-y-6">
-        <p className="text-gray-600 leading-relaxed">{message}</p>
+        <p className="text-gray-600 dark:text-slate-400 dark:text-slate-400 dark:text-slate-400 leading-relaxed">{message}</p>
         
         <div className="flex space-x-3 justify-end">
           <button
             onClick={onClose}
-            className="px-6 py-3 text-gray-700 bg-gray-100 hover:bg-gray-200 rounded-xl font-medium transition-colors"
+            className="px-6 py-3 text-gray-700 dark:text-slate-300 dark:text-slate-300 dark:text-slate-300 bg-gray-100 dark:bg-slate-800 dark:bg-slate-800 dark:bg-slate-800 hover:bg-gray-200 rounded-xl font-medium transition-colors"
           >
             {cancelText}
           </button>
@@ -233,7 +233,7 @@ export function InfoModal({
       <div className="space-y-4">
         {children}
         
-        <div className="flex justify-end pt-4 border-t border-gray-200">
+        <div className="flex justify-end pt-4 border-t border-gray-200 dark:border-slate-700 dark:border-slate-700 dark:border-slate-700">
           <button
             onClick={onClose}
             className="px-6 py-3 bg-primary text-white rounded-xl font-medium hover:bg-primary/90 transition-colors"

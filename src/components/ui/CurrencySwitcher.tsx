@@ -40,7 +40,7 @@ export default function CurrencySwitcher({
   if (isLoading || !currentCurrency) {
     return (
       <div className="flex items-center space-x-2 animate-pulse">
-        <GlobeAltIcon className="h-5 w-5 text-gray-400" />
+        <GlobeAltIcon className="h-5 w-5 text-gray-400 dark:text-slate-500 dark:text-slate-500 dark:text-slate-500" />
         <div className="h-4 w-12 bg-gray-200 rounded"></div>
       </div>
     );
@@ -57,15 +57,15 @@ export default function CurrencySwitcher({
         };
       case 'inline':
         return {
-          button: 'text-gray-600 hover:text-gray-900 text-sm border border-gray-300 rounded-md px-3 py-1.5',
-          dropdown: 'top-full mt-2 border-gray-200 bg-white shadow-lg',
-          item: 'text-gray-700 hover:text-gray-900 hover:bg-gray-50'
+          button: 'text-gray-600 dark:text-slate-400 dark:text-slate-400 dark:text-slate-400 hover:text-gray-900 dark:text-slate-100 dark:text-slate-100 dark:text-slate-100 text-sm border border-gray-300 dark:border-slate-600 dark:border-slate-600 dark:border-slate-600 rounded-md px-3 py-1.5',
+          dropdown: 'top-full mt-2 border-gray-200 dark:border-slate-700 dark:border-slate-700 dark:border-slate-700 bg-white dark:bg-slate-900 dark:bg-slate-900 dark:bg-slate-900 shadow-lg',
+          item: 'text-gray-700 dark:text-slate-300 dark:text-slate-300 dark:text-slate-300 hover:text-gray-900 dark:text-slate-100 dark:text-slate-100 dark:text-slate-100 hover:bg-gray-50 dark:bg-slate-800/50 dark:bg-slate-800/50 dark:bg-slate-800/50'
         };
       default: // header
         return {
-          button: 'text-gray-700 hover:text-blue-600 text-sm',
-          dropdown: 'top-full mt-2 border-gray-200 bg-white shadow-lg',
-          item: 'text-gray-700 hover:text-gray-900 hover:bg-gray-50'
+          button: 'text-gray-700 dark:text-slate-300 dark:text-slate-300 dark:text-slate-300 hover:text-blue-600 text-sm',
+          dropdown: 'top-full mt-2 border-gray-200 dark:border-slate-700 dark:border-slate-700 dark:border-slate-700 bg-white dark:bg-slate-900 dark:bg-slate-900 dark:bg-slate-900 shadow-lg',
+          item: 'text-gray-700 dark:text-slate-300 dark:text-slate-300 dark:text-slate-300 hover:text-gray-900 dark:text-slate-100 dark:text-slate-100 dark:text-slate-100 hover:bg-gray-50 dark:bg-slate-800/50 dark:bg-slate-800/50 dark:bg-slate-800/50'
         };
     }
   };
@@ -86,7 +86,7 @@ export default function CurrencySwitcher({
           <span className="text-sm">{currentCurrency.flag}</span>
           <span className="font-medium">{currentCurrency.code}</span>
           {showLabel && (
-            <span className="hidden sm:inline text-xs text-gray-500">
+            <span className="hidden sm:inline text-xs text-gray-500 dark:text-slate-500 dark:text-slate-500 dark:text-slate-500">
               ({currentCurrency.symbol})
             </span>
           )}

@@ -28,7 +28,7 @@ export default async function Page({ params }: { params: Promise<{ client: strin
   const { client } = await params
   const company = titleCaseFromSlug(client || 'your-business')
   return (
-    <Suspense fallback={<div className="p-10 text-center text-gray-600">Loading proposal…</div>}>
+    <Suspense fallback={<div className="p-10 text-center text-gray-600 dark:text-slate-400">Loading proposal…</div>}>
       <DivasProposalClient companyName={company} />
     </Suspense>
   )

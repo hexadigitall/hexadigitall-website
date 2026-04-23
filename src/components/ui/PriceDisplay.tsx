@@ -76,7 +76,7 @@ export function PriceDisplay({
       <div className="flex flex-col items-center">
         {/* Original Price (Struck Through) */}
         <div className="flex items-center space-x-2 mb-1">
-          <span className={`text-gray-500 line-through ${styles.original}`}>
+          <span className={`text-gray-500 dark:text-slate-500 dark:text-slate-500 dark:text-slate-500 line-through ${styles.original}`}>
             {priceInfo.originalPrice}
           </span>
           {showUrgency && (
@@ -150,7 +150,7 @@ export function CompactPriceDisplay({
       {/* Prices */}
       <div className="flex flex-col items-center">
         {priceInfo.hasDiscount && (
-          <span className="text-gray-500 line-through text-sm font-medium mb-1">
+          <span className="text-gray-500 dark:text-slate-500 dark:text-slate-500 dark:text-slate-500 line-through text-sm font-medium mb-1">
             {priceInfo.originalPrice}
           </span>
         )}
@@ -202,13 +202,13 @@ export function StartingAtPriceDisplay({
   
   return (
     <div className={`text-center ${className}`}>
-      <div className={`text-gray-600 ${styles.starting} mb-1 uppercase tracking-wide`}>
+      <div className={`text-gray-600 dark:text-slate-400 dark:text-slate-400 dark:text-slate-400 ${styles.starting} mb-1 uppercase tracking-wide`}>
         Starting at
       </div>
       
       {priceInfo.hasDiscount && showDiscount ? (
         <div className="flex flex-col items-center">
-          <span className={`text-gray-500 line-through text-sm mb-1`}>
+          <span className={`text-gray-500 dark:text-slate-500 dark:text-slate-500 dark:text-slate-500 line-through text-sm mb-1`}>
             {priceInfo.originalPrice}
           </span>
           <span className={`text-green-600 ${styles.price}`}>
@@ -224,7 +224,7 @@ export function StartingAtPriceDisplay({
         </span>
       )}
       
-      <div className="text-gray-500 text-xs mt-2">
+      <div className="text-gray-500 dark:text-slate-500 dark:text-slate-500 dark:text-slate-500 text-xs mt-2">
         *Final price depends on specific requirements
       </div>
     </div>
@@ -263,11 +263,11 @@ export function HeroPriceDisplay({
       </div>
       
       {/* Price Comparison */}
-      <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-4 sm:p-6 border border-white/20">
+      <div className="bg-white dark:bg-slate-900 dark:bg-slate-900 dark:bg-slate-900/10 backdrop-blur-sm rounded-2xl p-4 sm:p-6 border border-white/20">
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-4">
           <div className="text-center">
             <div className="text-gray-300 text-xs sm:text-sm mb-1">REGULAR PRICE:</div>
-            <div className="text-gray-400 line-through text-xl sm:text-3xl font-bold">
+            <div className="text-gray-400 dark:text-slate-500 dark:text-slate-500 dark:text-slate-500 line-through text-xl sm:text-3xl font-bold">
               {priceInfo.originalPrice}
             </div>
           </div>

@@ -69,25 +69,25 @@ export function DiscountBanner({
             Pay in Naira
           </span>
         </div>
-        <div className={`text-gray-700 font-medium text-center ${styles.subText}`}>
+        <div className={`text-gray-700 dark:text-slate-300 dark:text-slate-300 dark:text-slate-300 font-medium text-center ${styles.subText}`}>
           Nigerian clients only • Transparent local rates • No promo countdown
         </div>
       </div>
       <div className="mt-4 flex flex-col items-center justify-center gap-3">
-        <p className={`text-gray-700 text-center ${styles.subText}`}>
+        <p className={`text-gray-700 dark:text-slate-300 dark:text-slate-300 dark:text-slate-300 text-center ${styles.subText}`}>
           <span className="font-semibold text-green-700">💯 Supporting Nigerian businesses</span> with local pricing and flexible payment options
         </p>
         {(showCountdown || showSpots) && false && (
           <div className={`flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-4 ${styles.subText}`}>
             {showSpots && <SpotsRemaining className="" />}
-            {showSpots && showCountdown && <span className="hidden sm:inline text-gray-500">•</span>}
+            {showSpots && showCountdown && <span className="hidden sm:inline text-gray-500 dark:text-slate-500 dark:text-slate-500 dark:text-slate-500">•</span>}
             {showCountdown && (
               <CountdownTimer 
                 endDate={new Date('2026-01-31T23:59:59Z')} 
                 className=""
               />
             )}
-            <span className="hidden sm:inline text-gray-500">•</span>
+            <span className="hidden sm:inline text-gray-500 dark:text-slate-500 dark:text-slate-500 dark:text-slate-500">•</span>
             <span className="text-green-600 font-medium whitespace-nowrap">💳 Payment plans available</span>
           </div>
         )}

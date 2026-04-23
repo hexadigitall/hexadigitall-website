@@ -18,7 +18,7 @@ const links = [
 export default function AdminNavbar() {
   const pathname = usePathname()
   return (
-    <div className="border-t border-gray-200 bg-white">
+    <div className="border-t border-gray-200 dark:border-slate-700 dark:border-slate-700 dark:border-slate-700 bg-white dark:bg-slate-900 dark:bg-slate-900 dark:bg-slate-900">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Mobile-friendly horizontal scroll with snap */}
         <div className="flex items-center gap-2 overflow-x-auto snap-x snap-mandatory py-2 -mx-4 px-4">
@@ -31,7 +31,7 @@ export default function AdminNavbar() {
                 className={`px-3 py-2 text-sm rounded-lg whitespace-nowrap snap-start min-w-[120px] md:min-w-0 ${
                   active
                     ? 'bg-primary text-white'
-                    : 'text-gray-700 hover:bg-gray-100'
+                    : 'text-gray-700 dark:text-slate-300 dark:text-slate-300 dark:text-slate-300 hover:bg-gray-100 dark:bg-slate-800 dark:bg-slate-800 dark:bg-slate-800'
                 }`}
                 aria-current={active ? 'page' : undefined}
               >

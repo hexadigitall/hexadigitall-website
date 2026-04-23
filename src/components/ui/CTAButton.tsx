@@ -38,15 +38,15 @@ const getVariantClasses = (variant: string, glow?: boolean, animate?: boolean) =
   
   const variants = {
     primary: `bg-primary hover:bg-primary/90 text-white shadow-lg hover:shadow-xl border-transparent ${baseGlow} ${baseAnimate}`,
-    secondary: `bg-gray-100 hover:bg-gray-200 text-gray-900 border-gray-300 hover:border-gray-400 ${baseAnimate}`,
+    secondary: `bg-gray-100 dark:bg-slate-800 dark:bg-slate-800 dark:bg-slate-800 hover:bg-gray-200 text-gray-900 dark:text-slate-100 dark:text-slate-100 dark:text-slate-100 border-gray-300 dark:border-slate-600 dark:border-slate-600 dark:border-slate-600 hover:border-gray-400 ${baseAnimate}`,
     accent: `bg-accent hover:bg-accent/90 text-white shadow-lg hover:shadow-xl border-transparent ${baseGlow} ${baseAnimate}`,
     success: `bg-green-500 hover:bg-green-600 text-white shadow-lg hover:shadow-xl border-transparent ${baseGlow} ${baseAnimate}`,
     warning: `bg-yellow-500 hover:bg-yellow-600 text-white shadow-lg hover:shadow-xl border-transparent ${baseGlow} ${baseAnimate}`,
     danger: `bg-red-500 hover:bg-red-600 text-white shadow-lg hover:shadow-xl border-transparent ${baseGlow} ${baseAnimate}`,
     gradient: `bg-gradient-to-r from-gradient-start to-gradient-end hover:from-gradient-end hover:to-gradient-start text-white shadow-lg hover:shadow-2xl border-transparent animate-gradient-x ${baseGlow} ${baseAnimate}`,
-    premium: `bg-gradient-to-r from-premium-gradient-start to-premium-gradient-end hover:from-premium-gradient-end hover:to-premium-gradient-start text-gray-800 shadow-lg hover:shadow-2xl border-transparent animate-gradient-x ${baseAnimate}`,
+    premium: `bg-gradient-to-r from-premium-gradient-start to-premium-gradient-end hover:from-premium-gradient-end hover:to-premium-gradient-start text-gray-800 dark:text-slate-200 dark:text-slate-200 dark:text-slate-200 shadow-lg hover:shadow-2xl border-transparent animate-gradient-x ${baseAnimate}`,
     neon: `bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 hover:from-pink-500 hover:via-purple-500 hover:to-blue-500 text-white shadow-lg hover:shadow-2xl border-2 border-neon/50 hover:border-electric/50 animate-gradient-x ${baseGlow} ${baseAnimate}`,
-    glass: `bg-white/10 backdrop-blur-md border border-white/20 text-white hover:bg-white/20 hover:border-white/30 shadow-lg hover:shadow-xl ${baseAnimate}`,
+    glass: `bg-white dark:bg-slate-900 dark:bg-slate-900 dark:bg-slate-900/10 backdrop-blur-md border border-white/20 text-white hover:bg-white dark:bg-slate-900 dark:bg-slate-900 dark:bg-slate-900/20 hover:border-white/30 shadow-lg hover:shadow-xl ${baseAnimate}`,
   }
   return variants[variant as keyof typeof variants] || variants.primary
 }

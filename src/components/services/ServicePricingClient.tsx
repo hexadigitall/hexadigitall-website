@@ -29,7 +29,7 @@ export default function ServicePricingClient({ serviceSlug, serviceName }: Servi
   }
 
   return (
-    <div className="bg-gray-50 py-16">
+    <div className="bg-gray-50 dark:bg-slate-800/50 py-16">
       <div className="container mx-auto px-6">
         <PricingTiers 
           service={serviceType}

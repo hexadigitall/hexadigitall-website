@@ -30,7 +30,7 @@ export default function SchoolPageContent({ school }: SchoolPageContentProps) {
   };
 
   return (
-    <main className="min-h-screen bg-white">
+    <main className="min-h-screen bg-white dark:bg-slate-900">
       {/* Hero Section */}
       <section className="bg-gradient-to-r from-blue-600 to-blue-800 text-white py-20">
         <div className="container mx-auto px-4">
@@ -47,7 +47,7 @@ export default function SchoolPageContent({ school }: SchoolPageContentProps) {
       </section>
 
       {/* Courses Section */}
-      <section className="py-16 bg-gray-50">
+      <section className="py-16 bg-gray-50 dark:bg-slate-800/50">
         <div className="container mx-auto px-4">
           {school.courses && school.courses.length > 0 ? (
             <>
@@ -64,7 +64,7 @@ export default function SchoolPageContent({ school }: SchoolPageContentProps) {
             </>
           ) : (
             <div className="text-center py-12">
-              <p className="text-gray-500 text-lg italic">
+              <p className="text-gray-500 dark:text-slate-500 text-lg italic">
                 No courses available at this school yet.
               </p>
             </div>

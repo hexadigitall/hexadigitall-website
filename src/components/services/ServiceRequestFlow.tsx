@@ -208,18 +208,18 @@ export const ServiceRequestFlow: React.FC<ServiceRequestFlowProps> = ({
     >
       <div className="w-full max-w-4xl sm:max-w-5xl lg:max-w-6xl h-full flex items-center justify-center">
         <div
-          className="bg-white rounded-2xl shadow-2xl w-full h-[90vh] max-h-[90vh] flex flex-col overflow-hidden"
+          className="bg-white dark:bg-slate-900 rounded-2xl shadow-2xl w-full h-[90vh] max-h-[90vh] flex flex-col overflow-hidden"
         >
           {/* Header */}
-          <div className="flex-shrink-0 flex items-center justify-between p-4 sm:p-6 border-b border-gray-200">
+          <div className="flex-shrink-0 flex items-center justify-between p-4 sm:p-6 border-b border-gray-200 dark:border-slate-700">
             <div className="flex-1">
-              <h2 className="text-xl sm:text-2xl font-bold text-gray-900">{serviceCategory.title}</h2>
-              <p className="text-sm text-gray-600 mt-1 hidden sm:block truncate">{serviceCategory.description}</p>
+              <h2 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-slate-100">{serviceCategory.title}</h2>
+              <p className="text-sm text-gray-600 dark:text-slate-400 mt-1 hidden sm:block truncate">{serviceCategory.description}</p>
             </div>
             {onClose && (
               <button
                 onClick={onClose}
-                className="ml-4 p-2 text-gray-400 hover:text-gray-600 transition-colors flex-shrink-0"
+                className="ml-4 p-2 text-gray-400 dark:text-slate-500 hover:text-gray-600 dark:text-slate-400 transition-colors flex-shrink-0"
                 aria-label="Close"
               >
                 <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -238,15 +238,15 @@ export const ServiceRequestFlow: React.FC<ServiceRequestFlowProps> = ({
                     <div className={`flex items-center justify-center w-8 h-8 rounded-full text-sm font-medium transition-colors ${
                       currentStep >= step.number
                         ? 'bg-primary text-white'
-                        : 'bg-gray-200 text-gray-600'
+                        : 'bg-gray-200 text-gray-600 dark:text-slate-400'
                     }`}>
                       {step.number}
                     </div>
                     <div className="ml-2 hidden sm:block">
                       <div className={`text-sm font-medium transition-colors ${
-                        currentStep >= step.number ? 'text-primary' : 'text-gray-600'
+                        currentStep >= step.number ? 'text-primary' : 'text-gray-600 dark:text-slate-400'
                       }`}>{step.title}</div>
-                      <div className="text-xs text-gray-400 truncate">{step.description}</div>
+                      <div className="text-xs text-gray-400 dark:text-slate-500 truncate">{step.description}</div>
                     </div>
                   </div>
                   {index < steps.length - 1 && (

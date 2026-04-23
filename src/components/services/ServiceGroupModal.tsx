@@ -46,7 +46,7 @@ export const ServiceGroupModal: React.FC<ServiceGroupModalProps> = ({
       className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4"
       onClick={handleBackdropClick}
     >
-      <div className="w-full max-w-6xl max-h-[90vh] bg-white rounded-2xl shadow-2xl overflow-hidden">
+      <div className="w-full max-w-6xl max-h-[90vh] bg-white dark:bg-slate-900 rounded-2xl shadow-2xl overflow-hidden">
         {/* Header with Background */}
         <div 
           className="relative p-8 text-white"
@@ -77,7 +77,7 @@ export const ServiceGroupModal: React.FC<ServiceGroupModalProps> = ({
           {/* Header Content */}
           <div className="relative z-10">
             <div className="flex items-center mb-4">
-              <div className="w-16 h-16 bg-white/20 rounded-2xl flex items-center justify-center mr-4">
+              <div className="w-16 h-16 bg-white dark:bg-slate-900/20 rounded-2xl flex items-center justify-center mr-4">
                 {group.icon}
               </div>
               <div>
@@ -95,7 +95,7 @@ export const ServiceGroupModal: React.FC<ServiceGroupModalProps> = ({
             {group.packages.map((pkg) => (
               <div
                 key={pkg._key}
-                className="relative bg-white border-2 border-gray-200 rounded-2xl p-6 hover:border-primary/50 hover:shadow-lg transition-all duration-300 group"
+                className="relative bg-white dark:bg-slate-900 border-2 border-gray-200 dark:border-slate-700 rounded-2xl p-6 hover:border-primary/50 hover:shadow-lg transition-all duration-300 group"
               >
                 {/* Popular Badge */}
                 {pkg.popular && (
@@ -108,7 +108,7 @@ export const ServiceGroupModal: React.FC<ServiceGroupModalProps> = ({
 
                 {/* Package Header */}
                 <div className="text-center mb-6">
-                  <h3 className="text-xl font-bold text-gray-900 mb-2">{pkg.name}</h3>
+                  <h3 className="text-xl font-bold text-gray-900 dark:text-slate-100 mb-2">{pkg.name}</h3>
                   <div className="mb-4">
                     <StartingAtPriceDisplay 
                       price={pkg.price} 
@@ -116,7 +116,7 @@ export const ServiceGroupModal: React.FC<ServiceGroupModalProps> = ({
                       showDiscount={true}
                     />
                   </div>
-                  <p className="text-sm text-gray-600">
+                  <p className="text-sm text-gray-600 dark:text-slate-400">
                     Delivery: {pkg.deliveryTime}
                   </p>
                 </div>
@@ -129,11 +129,11 @@ export const ServiceGroupModal: React.FC<ServiceGroupModalProps> = ({
                         <svg className="w-4 h-4 text-green-500 mt-0.5 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
                           <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                         </svg>
-                        <span className="text-gray-700">{featureToText(feature)}</span>
+                        <span className="text-gray-700 dark:text-slate-300">{featureToText(feature)}</span>
                       </li>
                     ))}
                     {pkg.features.length > 5 && (
-                      <li className="text-sm text-gray-500 italic">
+                      <li className="text-sm text-gray-500 dark:text-slate-500 italic">
                         +{pkg.features.length - 5} more features...
                       </li>
                     )}
@@ -210,16 +210,16 @@ export const ServiceGroupCard: React.FC<ServiceGroupCardProps> = ({ group, onCli
             {group.icon}
           </div>
           <div>
-            <h3 className="text-2xl font-bold text-gray-900 group-hover:text-primary transition-colors">
+            <h3 className="text-2xl font-bold text-gray-900 dark:text-slate-100 group-hover:text-primary transition-colors">
               {group.name}
             </h3>
-            <p className="text-gray-600">
+            <p className="text-gray-600 dark:text-slate-400">
               {group.packages.length} packages available
             </p>
           </div>
         </div>
         
-        <p className="text-gray-700 mb-6 leading-relaxed">
+        <p className="text-gray-700 dark:text-slate-300 mb-6 leading-relaxed">
           {group.description}
         </p>
         

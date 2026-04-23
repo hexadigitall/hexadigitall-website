@@ -18,7 +18,7 @@ export default function Breadcrumb({ items, className = '' }: BreadcrumbProps) {
     <nav aria-label="Breadcrumb" className={`flex items-center space-x-2 text-sm ${className}`}>
       <Link
         href="/"
-        className="text-gray-500 hover:text-primary transition-colors flex items-center"
+        className="text-gray-500 dark:text-slate-500 dark:text-slate-500 dark:text-slate-500 hover:text-primary transition-colors flex items-center"
         aria-label="Home"
       >
         <HomeIcon className="h-4 w-4" />
@@ -29,16 +29,16 @@ export default function Breadcrumb({ items, className = '' }: BreadcrumbProps) {
         
         return (
           <div key={index} className="flex items-center space-x-2">
-            <ChevronRightIcon className="h-4 w-4 text-gray-400" />
+            <ChevronRightIcon className="h-4 w-4 text-gray-400 dark:text-slate-500 dark:text-slate-500 dark:text-slate-500" />
             {item.href && !isLast ? (
               <Link
                 href={item.href}
-                className="text-gray-500 hover:text-primary transition-colors"
+                className="text-gray-500 dark:text-slate-500 dark:text-slate-500 dark:text-slate-500 hover:text-primary transition-colors"
               >
                 {item.label}
               </Link>
             ) : (
-              <span className={isLast ? 'text-gray-900 font-medium' : 'text-gray-500'}>
+              <span className={isLast ? 'text-gray-900 dark:text-slate-100 dark:text-slate-100 dark:text-slate-100 font-medium' : 'text-gray-500 dark:text-slate-500 dark:text-slate-500 dark:text-slate-500'}>
                 {item.label}
               </span>
             )}

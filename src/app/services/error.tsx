@@ -9,13 +9,13 @@ export default function ServicesError({
   reset: () => void
 }) {
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4">
-      <div className="max-w-md w-full bg-white shadow-lg rounded-lg p-8 text-center">
+    <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-slate-800/50 px-4">
+      <div className="max-w-md w-full bg-white dark:bg-slate-900 shadow-lg rounded-lg p-8 text-center">
         <div className="text-6xl mb-4">🛠️</div>
-        <h2 className="text-2xl font-bold text-gray-900 mb-2">
+        <h2 className="text-2xl font-bold text-gray-900 dark:text-slate-100 mb-2">
           Service Page Error
         </h2>
-        <p className="text-gray-600 mb-6">
+        <p className="text-gray-600 dark:text-slate-400 mb-6">
           There was a problem loading this service page.
         </p>
         <div className="space-y-3">
@@ -27,13 +27,13 @@ export default function ServicesError({
           </button>
           <Link
             href="/services"
-            className="block w-full bg-gray-200 text-gray-900 px-6 py-3 rounded-lg font-semibold hover:bg-gray-300 transition-colors"
+            className="block w-full bg-gray-200 text-gray-900 dark:text-slate-100 px-6 py-3 rounded-lg font-semibold hover:bg-gray-300 transition-colors"
           >
             View All Services
           </Link>
           <Link
             href="/"
-            className="block w-full text-gray-600 px-6 py-2 hover:text-gray-900 transition-colors"
+            className="block w-full text-gray-600 dark:text-slate-400 px-6 py-2 hover:text-gray-900 dark:text-slate-100 transition-colors"
           >
             Go to Homepage
           </Link>

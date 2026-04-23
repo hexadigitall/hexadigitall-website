@@ -19,7 +19,7 @@ export const metadata: Metadata = generateSiteSEO({
 
 export default function DivasKlosetProposalPage() {
   return (
-    <Suspense fallback={<div className="p-10 text-center text-gray-600">Loading proposal…</div>}>
+    <Suspense fallback={<div className="p-10 text-center text-gray-600 dark:text-slate-400">Loading proposal…</div>}>
       <DivasProposalClient companyName="Diva's Kloset" />
     </Suspense>
   )

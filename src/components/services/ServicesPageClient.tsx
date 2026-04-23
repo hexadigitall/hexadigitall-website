@@ -17,10 +17,10 @@ interface ServicesPageClientProps {
 const ServicesPageClient: React.FC<ServicesPageClientProps> = ({ servicesPage }) => {
   if (!servicesPage) {
     return (
-      <section className="py-12 md:py-20 bg-white">
+      <section className="py-12 md:py-20 bg-white dark:bg-slate-900">
         <div className="container mx-auto px-6">
           <h1 className="text-4xl md:text-5xl font-bold font-heading mb-4">Our Services</h1>
-          <p className="text-lg text-gray-700 mb-8">Explore all our services, packages, and solutions.</p>
+          <p className="text-lg text-gray-700 dark:text-slate-300 mb-8">Explore all our services, packages, and solutions.</p>
         </div>
       </section>
     );
@@ -28,7 +28,7 @@ const ServicesPageClient: React.FC<ServicesPageClientProps> = ({ servicesPage })
   const bannerUrl = servicesPage?.bannerBackgroundImage?.asset?.url || null;
   const bannerAlt = servicesPage?.bannerBackgroundImage?.alt || servicesPage?.title || 'Services Banner';
   return (
-    <section className="py-12 md:py-20 bg-white">
+    <section className="py-12 md:py-20 bg-white dark:bg-slate-900">
       <div className="container mx-auto px-6">
         {bannerUrl ? (
           <div className="mb-8 rounded-lg overflow-hidden shadow-lg">
@@ -42,7 +42,7 @@ const ServicesPageClient: React.FC<ServicesPageClientProps> = ({ servicesPage })
         <h1 className="text-4xl md:text-5xl font-bold font-heading mb-4">
           {servicesPage.title || 'Our Services'}
         </h1>
-        <p className="text-lg text-gray-700 mb-8">
+        <p className="text-lg text-gray-700 dark:text-slate-300 mb-8">
           {servicesPage.description || 'Explore all our services, packages, and solutions.'}
         </p>
         {/* Add more UI here as needed */}

@@ -186,7 +186,7 @@ export default function JhemaProposalClient({ companyName = 'Your Business' }: {
                 key={tier.key}
                 onClick={() => setSelectedTier(tier)}
                 className={`text-left rounded-2xl border-2 p-6 shadow-sm transition-all hover:-translate-y-1 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-primary/50 ${
-                  isSelected ? 'border-primary shadow-xl bg-white' : 'border-slate-200 bg-white'
+                  isSelected ? 'border-primary shadow-xl bg-white dark:bg-slate-900' : 'border-slate-200 bg-white dark:bg-slate-900'
                 } ${tier.popular ? 'relative ring-2 ring-secondary/60' : ''}`}
               >
                 {tier.popular && (
@@ -224,7 +224,7 @@ export default function JhemaProposalClient({ companyName = 'Your Business' }: {
         </div>
 
         <div className="grid gap-8 md:grid-cols-5 items-start">
-          <div className="md:col-span-3 bg-white border border-slate-200 rounded-2xl p-6 shadow-sm">
+          <div className="md:col-span-3 bg-white dark:bg-slate-900 border border-slate-200 rounded-2xl p-6 shadow-sm">
             <h2 className="text-2xl font-bold text-slate-900 mb-3">What this includes</h2>
             <p className="text-slate-600 mb-6">Full e-commerce build with payments, logistics, and marketing automation baked in.</p>
             <ul className="space-y-3 text-slate-700">
@@ -237,7 +237,7 @@ export default function JhemaProposalClient({ companyName = 'Your Business' }: {
             </ul>
           </div>
 
-          <div className="md:col-span-2 bg-white border border-slate-200 rounded-2xl p-6 shadow-sm">
+          <div className="md:col-span-2 bg-white dark:bg-slate-900 border border-slate-200 rounded-2xl p-6 shadow-sm">
             <h3 className="text-xl font-bold text-slate-900 mb-4">Start with your details</h3>
             <div className="space-y-4">
               <div>

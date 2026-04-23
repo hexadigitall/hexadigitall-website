@@ -65,24 +65,24 @@ export function CampaignLeadForm({ campaignName, defaultService, heading = 'Book
   }
 
   return (
-    <div className="bg-white shadow-lg rounded-xl border border-gray-100 p-6 md:p-8">
+    <div className="bg-white dark:bg-slate-900 shadow-lg rounded-xl border border-gray-100 p-6 md:p-8">
       <h2 className="text-2xl font-bold text-primary mb-2">{heading}</h2>
-      <p className="text-sm text-gray-600 mb-6">Fill this form and we will schedule your consultation in the next business day.</p>
+      <p className="text-sm text-gray-600 dark:text-slate-400 mb-6">Fill this form and we will schedule your consultation in the next business day.</p>
       <form onSubmit={onSubmit} className="space-y-4">
         <div className="grid md:grid-cols-2 gap-4">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">Full Name *</label>
+            <label className="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-2">Full Name *</label>
             <input
               name="name"
               value={formData.name}
               onChange={onChange}
               required
               disabled={status === 'loading'}
-              className="w-full border border-gray-300 rounded-md px-3 py-2 focus:ring-2 focus:ring-secondary focus:border-secondary disabled:bg-gray-50"
+              className="w-full border border-gray-300 dark:border-slate-600 rounded-md px-3 py-2 focus:ring-2 focus:ring-secondary focus:border-secondary disabled:bg-gray-50 dark:bg-slate-800/50"
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">Email *</label>
+            <label className="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-2">Email *</label>
             <input
               name="email"
               type="email"
@@ -90,31 +90,31 @@ export function CampaignLeadForm({ campaignName, defaultService, heading = 'Book
               onChange={onChange}
               required
               disabled={status === 'loading'}
-              className="w-full border border-gray-300 rounded-md px-3 py-2 focus:ring-2 focus:ring-secondary focus:border-secondary disabled:bg-gray-50"
+              className="w-full border border-gray-300 dark:border-slate-600 rounded-md px-3 py-2 focus:ring-2 focus:ring-secondary focus:border-secondary disabled:bg-gray-50 dark:bg-slate-800/50"
             />
           </div>
         </div>
 
         <div className="grid md:grid-cols-2 gap-4">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">Phone (optional)</label>
+            <label className="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-2">Phone (optional)</label>
             <input
               name="phone"
               value={formData.phone}
               onChange={onChange}
               disabled={status === 'loading'}
-              className="w-full border border-gray-300 rounded-md px-3 py-2 focus:ring-2 focus:ring-secondary focus:border-secondary disabled:bg-gray-50"
+              className="w-full border border-gray-300 dark:border-slate-600 rounded-md px-3 py-2 focus:ring-2 focus:ring-secondary focus:border-secondary disabled:bg-gray-50 dark:bg-slate-800/50"
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">City *</label>
+            <label className="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-2">City *</label>
             <select
               name="city"
               value={formData.city}
               onChange={onChange}
               required
               disabled={status === 'loading'}
-              className="w-full border border-gray-300 rounded-md px-3 py-2 focus:ring-2 focus:ring-secondary focus:border-secondary disabled:bg-gray-50"
+              className="w-full border border-gray-300 dark:border-slate-600 rounded-md px-3 py-2 focus:ring-2 focus:ring-secondary focus:border-secondary disabled:bg-gray-50 dark:bg-slate-800/50"
             >
               <option value="">Select a city</option>
               {CITIES.map(city => (
@@ -126,14 +126,14 @@ export function CampaignLeadForm({ campaignName, defaultService, heading = 'Book
 
         <div className="grid md:grid-cols-2 gap-4">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">Service *</label>
+            <label className="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-2">Service *</label>
             <select
               name="service"
               value={formData.service}
               onChange={onChange}
               required
               disabled={status === 'loading'}
-              className="w-full border border-gray-300 rounded-md px-3 py-2 focus:ring-2 focus:ring-secondary focus:border-secondary disabled:bg-gray-50"
+              className="w-full border border-gray-300 dark:border-slate-600 rounded-md px-3 py-2 focus:ring-2 focus:ring-secondary focus:border-secondary disabled:bg-gray-50 dark:bg-slate-800/50"
             >
               <option value="">Select a service</option>
               <option value="Web Development">Web Development</option>
@@ -144,25 +144,25 @@ export function CampaignLeadForm({ campaignName, defaultService, heading = 'Book
             </select>
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">Campaign *</label>
+            <label className="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-2">Campaign *</label>
             <input
               name="campaignName"
               value={utm.campaignName}
               readOnly
-              className="w-full border border-gray-300 rounded-md px-3 py-2 bg-gray-50 text-gray-700"
+              className="w-full border border-gray-300 dark:border-slate-600 rounded-md px-3 py-2 bg-gray-50 dark:bg-slate-800/50 text-gray-700 dark:text-slate-300"
             />
           </div>
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">What do you need? (optional)</label>
+          <label className="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-2">What do you need? (optional)</label>
           <textarea
             name="message"
             value={formData.message}
             onChange={onChange}
             rows={3}
             disabled={status === 'loading'}
-            className="w-full border border-gray-300 rounded-md px-3 py-2 focus:ring-2 focus:ring-secondary focus:border-secondary disabled:bg-gray-50"
+            className="w-full border border-gray-300 dark:border-slate-600 rounded-md px-3 py-2 focus:ring-2 focus:ring-secondary focus:border-secondary disabled:bg-gray-50 dark:bg-slate-800/50"
             placeholder="Tell us about your project or goals..."
           />
         </div>

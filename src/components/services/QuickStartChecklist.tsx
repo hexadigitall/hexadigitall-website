@@ -186,9 +186,9 @@ export default function QuickStartChecklist({ serviceType, className = '' }: Qui
   const checklist = getChecklistForService(serviceType)
 
   return (
-    <div className={`bg-white rounded-xl shadow-md p-6 ${className}`}>
-      <h3 className="text-xl font-bold text-gray-900 mb-4">Quick Start Guide</h3>
-      <p className="text-gray-600 mb-6">Follow these steps to get your project started smoothly</p>
+    <div className={`bg-white dark:bg-slate-900 rounded-xl shadow-md p-6 ${className}`}>
+      <h3 className="text-xl font-bold text-gray-900 dark:text-slate-100 mb-4">Quick Start Guide</h3>
+      <p className="text-gray-600 dark:text-slate-400 mb-6">Follow these steps to get your project started smoothly</p>
       
       <div className="space-y-4">
         {checklist.map((item, index) => (
@@ -199,10 +199,10 @@ export default function QuickStartChecklist({ serviceType, className = '' }: Qui
               </div>
             </div>
             <div className="flex-1 min-w-0">
-              <h4 className="text-base font-semibold text-gray-900 mb-1">{item.title}</h4>
-              <p className="text-sm text-gray-600 mb-2">{item.description}</p>
+              <h4 className="text-base font-semibold text-gray-900 dark:text-slate-100 mb-1">{item.title}</h4>
+              <p className="text-sm text-gray-600 dark:text-slate-400 mb-2">{item.description}</p>
               {item.estimatedTime && (
-                <div className="flex items-center text-xs text-gray-500">
+                <div className="flex items-center text-xs text-gray-500 dark:text-slate-500">
                   <ClockIcon className="h-3 w-3 mr-1" />
                   <span>{item.estimatedTime}</span>
                 </div>
@@ -216,7 +216,7 @@ export default function QuickStartChecklist({ serviceType, className = '' }: Qui
       </div>
 
       <div className="mt-6 pt-6 border-t">
-        <p className="text-sm text-gray-600 text-center">
+        <p className="text-sm text-gray-600 dark:text-slate-400 text-center">
           Need help getting started? <a href="/contact" className="text-primary hover:underline font-medium">Contact our team</a>
         </p>
       </div>
