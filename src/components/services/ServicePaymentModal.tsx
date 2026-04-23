@@ -258,7 +258,7 @@ function ServicePaymentModal({
 
         {/* Package Selection */}
         <div className="space-y-4">
-          <h3 className="text-lg font-semibold text-gray-900">Choose Your Package</h3>
+          <h3 className="text-lg font-semibold text-gray-900 dark:text-slate-100">Choose Your Package</h3>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {packages.map((pkg) => (
               <div
@@ -266,7 +266,7 @@ function ServicePaymentModal({
                 className={`relative border rounded-xl p-6 cursor-pointer transition-all duration-200 ${
                   selectedPackage?.id === pkg.id
                     ? 'border-primary ring-2 ring-primary/20 bg-primary/5'
-                    : 'border-gray-200 hover:border-gray-300'
+                    : 'border-gray-200 dark:border-slate-700 hover:border-gray-300'
                 } ${pkg.popular ? 'ring-2 ring-orange-200 border-orange-300' : ''}`}
                 onClick={() => handlePackageSelect(pkg)}
               >
@@ -279,16 +279,16 @@ function ServicePaymentModal({
                 )}
 
                 <div className="text-center mb-4">
-                  <h4 className="text-lg font-bold text-gray-900 mb-2">{pkg.name}</h4>
+                  <h4 className="text-lg font-bold text-gray-900 dark:text-slate-100 mb-2">{pkg.name}</h4>
                   <div className="text-3xl font-bold text-primary mb-2">
                     {formatPrice(pkg.price, { applyNigerianDiscount: true })}
                   </div>
                   {currentCurrency.code !== 'NGN' && discountMessage && (
-                    <div className="text-sm text-gray-500">
+                    <div className="text-sm text-gray-500 dark:text-slate-500">
                       ≈ {formatPrice(pkg.price, { currency: 'NGN', applyNigerianDiscount: true })}
                     </div>
                   )}
-                  <p className="text-sm text-gray-600 mb-3">{pkg.description}</p>
+                  <p className="text-sm text-gray-600 dark:text-slate-400 mb-3">{pkg.description}</p>
                   <div className="text-xs text-blue-600 font-medium">
                     Delivery: {pkg.deliveryTime}
                   </div>
@@ -298,7 +298,7 @@ function ServicePaymentModal({
                   {pkg.features.map((feature, index) => (
                     <li key={index} className="flex items-start space-x-2 text-sm">
                       <CheckIcon className="h-4 w-4 text-green-500 flex-shrink-0 mt-0.5" />
-                      <span className="text-gray-700">{feature}</span>
+                      <span className="text-gray-700 dark:text-slate-300">{feature}</span>
                     </li>
                   ))}
                 </ul>
@@ -310,7 +310,7 @@ function ServicePaymentModal({
         {/* Payment Plan Selection - Only for services above $300 */}
         {qualifiesForInstallments && (
           <div className="space-y-4">
-            <h3 className="text-lg font-semibold text-gray-900">Choose Payment Plan</h3>
+            <h3 className="text-lg font-semibold text-gray-900 dark:text-slate-100">Choose Payment Plan</h3>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               {PAYMENT_PLANS.map((plan) => (
                 <div
@@ -318,24 +318,24 @@ function ServicePaymentModal({
                   className={`border rounded-lg p-4 cursor-pointer transition-all duration-200 ${
                     selectedPaymentPlan.id === plan.id
                       ? 'border-primary ring-2 ring-primary/20 bg-primary/5'
-                      : 'border-gray-200 hover:border-gray-300'
+                      : 'border-gray-200 dark:border-slate-700 hover:border-gray-300'
                   }`}
                   onClick={() => setSelectedPaymentPlan(plan)}
                 >
                   <div className="flex items-start justify-between mb-2">
-                    <h4 className="font-semibold text-gray-900">{plan.name}</h4>
+                    <h4 className="font-semibold text-gray-900 dark:text-slate-100">{plan.name}</h4>
                     {plan.id === 'split_2' && (
                       <span className="bg-green-100 text-green-800 text-xs font-medium px-2 py-1 rounded">
                         Popular
                       </span>
                     )}
                   </div>
-                  <p className="text-sm text-gray-600 mb-2">{plan.description}</p>
+                  <p className="text-sm text-gray-600 dark:text-slate-400 mb-2">{plan.description}</p>
                   
                   {selectedPackage && plan.installments > 1 && (() => {
                     const amounts = getPaymentAmounts(plan)
                     return (
-                      <div className="text-xs text-gray-500">
+                      <div className="text-xs text-gray-500 dark:text-slate-500">
                         Today: {formatPrice(amounts.downPayment, { applyNigerianDiscount: true })}
                         {plan.installments > 1 && (
                           <span className="block">
@@ -353,20 +353,20 @@ function ServicePaymentModal({
 
         {/* Selected Package Summary */}
         {selectedPackage && (
-          <div className="bg-gray-50 rounded-xl p-6">
-            <h4 className="text-lg font-semibold text-gray-900 mb-4">Order Summary</h4>
+          <div className="bg-gray-50 dark:bg-slate-800/50 rounded-xl p-6">
+            <h4 className="text-lg font-semibold text-gray-900 dark:text-slate-100 mb-4">Order Summary</h4>
             
             <div className="flex justify-between items-start mb-4">
               <div>
-                <h5 className="font-medium text-gray-900">{serviceTitle}</h5>
-                <p className="text-sm text-gray-600">{selectedPackage.name}</p>
+                <h5 className="font-medium text-gray-900 dark:text-slate-100">{serviceTitle}</h5>
+                <p className="text-sm text-gray-600 dark:text-slate-400">{selectedPackage.name}</p>
               </div>
               <div className="text-right">
                 <div className="text-lg font-bold text-primary">
                   {formatPrice(selectedPackage.price, { applyNigerianDiscount: true })}
                 </div>
                 {currentCurrency.code !== 'NGN' && discountMessage && (
-                  <div className="text-sm text-gray-500">
+                  <div className="text-sm text-gray-500 dark:text-slate-500">
                     Regular: {formatPrice(selectedPackage.price)}
                   </div>
                 )}
@@ -452,7 +452,7 @@ function ServicePaymentModal({
         <div className="flex space-x-4 pt-4 border-t">
           <button
             onClick={onClose}
-            className="flex-1 px-6 py-3 text-gray-700 bg-gray-100 hover:bg-gray-200 rounded-xl font-medium transition-colors"
+            className="flex-1 px-6 py-3 text-gray-700 dark:text-slate-300 bg-gray-100 hover:bg-gray-200 rounded-xl font-medium transition-colors"
           >
             Cancel
           </button>

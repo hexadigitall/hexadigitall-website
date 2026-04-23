@@ -81,10 +81,10 @@ export default function SubscriptionCard({
   })
 
   return (
-    <div className="bg-white rounded-lg shadow-md border border-gray-200 overflow-hidden">
+    <div className="bg-white dark:bg-slate-900 rounded-lg shadow-md border border-gray-200 dark:border-slate-700 overflow-hidden">
       <div className="p-6">
         <div className="flex items-center justify-between mb-4">
-           <h3 className="text-lg font-semibold text-gray-900" id="subscription-status-heading" role="heading" aria-level={3}>
+           <h3 className="text-lg font-semibold text-gray-900 dark:text-slate-100" id="subscription-status-heading" role="heading" aria-level={3}>
             Subscription Status
           </h3>
           {paymentStatus === 'active' && (
@@ -99,16 +99,16 @@ export default function SubscriptionCard({
           )}
         </div>
 
-        <p className="text-sm text-gray-600 mb-6">{courseTitle}</p>
+        <p className="text-sm text-gray-600 dark:text-slate-400 mb-6">{courseTitle}</p>
 
         {/* Expiry Date */}
-        <div className="flex items-start mb-4 pb-4 border-b border-gray-200">
-           <CalendarIcon className="w-5 h-5 text-gray-400 mr-3 mt-0.5 flex-shrink-0" aria-hidden="true" />
+        <div className="flex items-start mb-4 pb-4 border-b border-gray-200 dark:border-slate-700">
+           <CalendarIcon className="w-5 h-5 text-gray-400 dark:text-slate-500 mr-3 mt-0.5 flex-shrink-0" aria-hidden="true" />
           <div>
-            <p className="text-xs text-gray-500 uppercase tracking-wide">
+            <p className="text-xs text-gray-500 dark:text-slate-500 uppercase tracking-wide">
               Expiry Date
             </p>
-            <p className="text-sm font-medium text-gray-900">
+            <p className="text-sm font-medium text-gray-900 dark:text-slate-100">
               {formattedExpiry}
             </p>
           </div>
@@ -116,15 +116,15 @@ export default function SubscriptionCard({
 
         {/* Days Remaining */}
         {daysRemaining !== null && !isExpired && (
-          <div className="flex items-start mb-4 pb-4 border-b border-gray-200">
-             <ClockIcon className="w-5 h-5 text-gray-400 mr-3 mt-0.5 flex-shrink-0" aria-hidden="true" />
+          <div className="flex items-start mb-4 pb-4 border-b border-gray-200 dark:border-slate-700">
+             <ClockIcon className="w-5 h-5 text-gray-400 dark:text-slate-500 mr-3 mt-0.5 flex-shrink-0" aria-hidden="true" />
             <div>
-              <p className="text-xs text-gray-500 uppercase tracking-wide">
+              <p className="text-xs text-gray-500 dark:text-slate-500 uppercase tracking-wide">
                 Time Remaining
               </p>
               <p
                 className={`text-sm font-medium ${
-                  isExpiringSoon ? 'text-orange-600' : 'text-gray-900'
+                  isExpiringSoon ? 'text-orange-600' : 'text-gray-900 dark:text-slate-100'
                 }`}
               >
                 {daysRemaining} day{daysRemaining !== 1 ? 's' : ''} remaining
@@ -139,13 +139,13 @@ export default function SubscriptionCard({
         )}
 
         {/* Monthly Amount */}
-        <div className="flex items-start mb-6 pb-4 border-b border-gray-200">
-           <CreditCardIcon className="w-5 h-5 text-gray-400 mr-3 mt-0.5 flex-shrink-0" aria-hidden="true" />
+        <div className="flex items-start mb-6 pb-4 border-b border-gray-200 dark:border-slate-700">
+           <CreditCardIcon className="w-5 h-5 text-gray-400 dark:text-slate-500 mr-3 mt-0.5 flex-shrink-0" aria-hidden="true" />
           <div>
-            <p className="text-xs text-gray-500 uppercase tracking-wide">
+            <p className="text-xs text-gray-500 dark:text-slate-500 uppercase tracking-wide">
               Monthly Fee
             </p>
-            <p className="text-sm font-medium text-gray-900">
+            <p className="text-sm font-medium text-gray-900 dark:text-slate-100">
               ₦{monthlyAmount.toLocaleString()}
             </p>
           </div>
@@ -168,7 +168,7 @@ export default function SubscriptionCard({
           {!isExpired && (
             <Link
               href={courseSlug ? `/courses/${courseSlug}` : '/courses'}
-              className="block text-center bg-gray-100 hover:bg-gray-200 text-gray-900 font-semibold py-2 px-4 rounded-lg transition duration-200"
+              className="block text-center bg-gray-100 hover:bg-gray-200 text-gray-900 dark:text-slate-100 font-semibold py-2 px-4 rounded-lg transition duration-200"
                          aria-label={`Navigate to ${courseTitle} course details`}
             >
               View Course
@@ -191,10 +191,10 @@ export default function SubscriptionCard({
 
       {/* Progress Bar */}
       {!isExpired && daysRemaining !== null && (
-        <div className="bg-gray-50 px-6 py-4">
+        <div className="bg-gray-50 dark:bg-slate-800/50 px-6 py-4">
           <div className="flex items-center justify-between mb-2">
-            <span className="text-xs text-gray-600">Subscription Progress</span>
-            <span className="text-xs text-gray-600">
+            <span className="text-xs text-gray-600 dark:text-slate-400">Subscription Progress</span>
+            <span className="text-xs text-gray-600 dark:text-slate-400">
               {Math.max(0, Math.round((daysRemaining / 30) * 100))}%
             </span>
           </div>

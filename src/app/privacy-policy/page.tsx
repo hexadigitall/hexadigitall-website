@@ -40,13 +40,13 @@ export default function PrivacyPolicyPage() {
         }}
       />
       
-        <div className="bg-white dark:bg-slate-900 py-12 md:py-20">
+        <div className="bg-white dark:bg-slate-900 dark:bg-slate-900 py-12 md:py-20">
         <div className="container mx-auto px-6 max-w-4xl">
           {/* Breadcrumb Navigation */}
           <nav className="mb-8" aria-label="Breadcrumb">
-            <ol className="flex items-center space-x-2 text-sm text-gray-600 dark:text-slate-400">
+            <ol className="flex items-center space-x-2 text-sm text-gray-600 dark:text-slate-400 dark:text-slate-400">
               <li><Link href="/" className="hover:text-primary transition-colors">Home</Link></li>
-              <li className="text-gray-400 dark:text-slate-500">/</li>
+              <li className="text-gray-400 dark:text-slate-500 dark:text-slate-500">/</li>
               <li className="text-primary font-medium" aria-current="page">Privacy Policy</li>
             </ol>
           </nav>
@@ -56,10 +56,10 @@ export default function PrivacyPolicyPage() {
             <h1 className="text-4xl md:text-5xl font-bold font-heading text-primary mb-4">
               Privacy Policy
             </h1>
-            <p className="text-lg text-gray-600 dark:text-slate-400 max-w-2xl mx-auto">
+            <p className="text-lg text-gray-600 dark:text-slate-400 dark:text-slate-400 max-w-2xl mx-auto">
               Your privacy is important to us. This policy explains how we collect, use, and protect your personal information.
             </p>
-            <p className="text-sm text-gray-500 dark:text-slate-400 mt-4">
+            <p className="text-sm text-gray-500 dark:text-slate-500 dark:text-slate-400 mt-4">
               Last updated: {lastUpdated.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
             </p>
           </div>
@@ -82,8 +82,8 @@ export default function PrivacyPolicyPage() {
             <section className="mb-8">
               <h2 className="text-2xl font-bold font-heading text-primary mb-4">2. Information We Collect</h2>
               
-              <h3 className="text-xl font-semibold text-gray-800 dark:text-slate-100 mb-3">2.1 Personal Information</h3>
-              <p className="text-gray-700 dark:text-slate-300 leading-relaxed mb-4">
+              <h3 className="text-xl font-semibold text-gray-800 dark:text-slate-200 dark:text-slate-100 mb-3">2.1 Personal Information</h3>
+              <p className="text-gray-700 dark:text-slate-300 dark:text-slate-300 leading-relaxed mb-4">
                 We may collect personal information that you voluntarily provide to us when you:
               </p>
               <ul className="list-disc list-inside text-gray-700 dark:text-slate-300 mb-4 space-y-2">
@@ -95,8 +95,8 @@ export default function PrivacyPolicyPage() {
                 <li>Apply for jobs or submit portfolios</li>
               </ul>
 
-              <h3 className="text-xl font-semibold text-gray-800 dark:text-slate-100 mb-3">2.2 Technical Information</h3>
-              <p className="text-gray-700 dark:text-slate-300 leading-relaxed mb-4">
+              <h3 className="text-xl font-semibold text-gray-800 dark:text-slate-200 dark:text-slate-100 mb-3">2.2 Technical Information</h3>
+              <p className="text-gray-700 dark:text-slate-300 dark:text-slate-300 leading-relaxed mb-4">
                 We automatically collect certain information when you visit our website:
               </p>
               <ul className="list-disc list-inside text-gray-700 dark:text-slate-300 mb-4 space-y-2">
@@ -134,7 +134,7 @@ export default function PrivacyPolicyPage() {
                 We do not sell, trade, or rent your personal information to third parties. We may share your information in the following circumstances:
               </p>
 
-              <h3 className="text-xl font-semibold text-gray-800 dark:text-slate-100 mb-3">4.1 Service Providers</h3>
+              <h3 className="text-xl font-semibold text-gray-800 dark:text-slate-200 mb-3">4.1 Service Providers</h3>
               <p className="text-gray-700 dark:text-slate-300 leading-relaxed mb-4">
                 We may employ third-party companies and individuals to facilitate our services, including:
               </p>
@@ -146,7 +146,7 @@ export default function PrivacyPolicyPage() {
                 <li>Customer support tools</li>
               </ul>
 
-              <h3 className="text-xl font-semibold text-gray-800 dark:text-slate-100 mb-3">4.2 Legal Requirements</h3>
+              <h3 className="text-xl font-semibold text-gray-800 dark:text-slate-200 mb-3">4.2 Legal Requirements</h3>
               <p className="text-gray-700 dark:text-slate-300 leading-relaxed mb-4">
                 We may disclose your information if required by law or in response to valid legal requests, such as court orders or government investigations.
               </p>
@@ -179,7 +179,7 @@ export default function PrivacyPolicyPage() {
                 Our website uses cookies and similar technologies to enhance your browsing experience:
               </p>
 
-              <h3 className="text-xl font-semibold text-gray-800 dark:text-slate-100 mb-3">6.1 Types of Cookies We Use</h3>
+              <h3 className="text-xl font-semibold text-gray-800 dark:text-slate-200 mb-3">6.1 Types of Cookies We Use</h3>
               <ul className="list-disc list-inside text-gray-700 dark:text-slate-300 mb-4 space-y-2">
                 <li><strong>Essential Cookies:</strong> Required for website functionality</li>
                 <li><strong>Analytics Cookies:</strong> Help us understand website usage</li>
@@ -187,7 +187,7 @@ export default function PrivacyPolicyPage() {
                 <li><strong>Marketing Cookies:</strong> Used for targeted advertising (with your consent)</li>
               </ul>
 
-              <h3 className="text-xl font-semibold text-gray-800 dark:text-slate-100 mb-3">6.2 Managing Cookies</h3>
+              <h3 className="text-xl font-semibold text-gray-800 dark:text-slate-200 mb-3">6.2 Managing Cookies</h3>
               <p className="text-gray-700 dark:text-slate-300 leading-relaxed mb-4">
                 You can control cookies through your browser settings. However, disabling certain cookies may limit website functionality.
               </p>
@@ -271,9 +271,9 @@ export default function PrivacyPolicyPage() {
               <p className="text-gray-700 dark:text-slate-300 leading-relaxed mb-4">
                 If you have any questions about this Privacy Policy or our privacy practices, please contact us:
               </p>
-              <div className="bg-gray-50 p-6 rounded-lg">
+              <div className="bg-gray-50 dark:bg-slate-800/50 dark:bg-slate-800/50 p-6 rounded-lg">
                 <div className="space-y-2">
-                  <p className="text-gray-700">
+                  <p className="text-gray-700 dark:text-slate-300">
                     <strong>Hexadigitall</strong><br />
                     Email: <a href="mailto:privacy@hexadigitall.com" className="text-primary hover:text-secondary">privacy@hexadigitall.com</a><br />
                     General: <a href="mailto:hexadigitztech@gmail.com" className="text-primary hover:text-secondary">hexadigitztech@gmail.com</a><br />

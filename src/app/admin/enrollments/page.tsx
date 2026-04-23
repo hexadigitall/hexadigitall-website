@@ -54,7 +54,7 @@ const statusColors: Record<string, string> = {
   completed: 'bg-green-100 text-green-800',
   failed: 'bg-red-100 text-red-700',
   active: 'bg-blue-100 text-blue-800',
-  cancelled: 'bg-gray-100 text-gray-700',
+  cancelled: 'bg-gray-100 text-gray-700 dark:text-slate-300',
 }
 
 export default function AdminEnrollmentsPage() {
@@ -175,7 +175,7 @@ export default function AdminEnrollmentsPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-50">
+      <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-slate-800/50">
         <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary" />
       </div>
     )
@@ -186,20 +186,20 @@ export default function AdminEnrollmentsPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <header className="bg-white shadow-sm border-b border-gray-200">
+    <div className="min-h-screen bg-gray-50 dark:bg-slate-800/50">
+      <header className="bg-white dark:bg-slate-900 shadow-sm border-b border-gray-200 dark:border-slate-700">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-4">
               <Link
                 href="/admin/dashboard"
-                className="p-2 text-gray-400 hover:text-gray-600 rounded-lg hover:bg-gray-100"
+                className="p-2 text-gray-400 dark:text-slate-500 hover:text-gray-600 dark:text-slate-400 rounded-lg hover:bg-gray-100"
               >
                 <ArrowLeftIcon className="h-5 w-5" />
               </Link>
               <div>
-                <h1 className="text-2xl font-bold text-gray-900">Enrollments</h1>
-                <p className="text-sm text-gray-600">Manage course enrollments and teacher assignments</p>
+                <h1 className="text-2xl font-bold text-gray-900 dark:text-slate-100">Enrollments</h1>
+                <p className="text-sm text-gray-600 dark:text-slate-400">Manage course enrollments and teacher assignments</p>
               </div>
             </div>
             <div className="hidden md:block">
@@ -229,53 +229,53 @@ export default function AdminEnrollmentsPage() {
           </div>
         )}
 
-        <div className="bg-white rounded-lg shadow-sm border border-gray-200">
-          <div className="flex items-center justify-between px-6 py-4 border-b border-gray-200">
+        <div className="bg-white dark:bg-slate-900 rounded-lg shadow-sm border border-gray-200 dark:border-slate-700">
+          <div className="flex items-center justify-between px-6 py-4 border-b border-gray-200 dark:border-slate-700">
             <div className="flex items-center space-x-3">
               <AcademicCapIcon className="h-6 w-6 text-primary" />
-              <h2 className="text-lg font-semibold text-gray-900">All Enrollments</h2>
+              <h2 className="text-lg font-semibold text-gray-900 dark:text-slate-100">All Enrollments</h2>
             </div>
-            <span className="text-sm text-gray-600">{enrollments.length} total</span>
+            <span className="text-sm text-gray-600 dark:text-slate-400">{enrollments.length} total</span>
           </div>
 
           {enrollments.length === 0 ? (
-            <div className="p-4 md:p-6 text-center text-gray-500">No enrollments yet.</div>
+            <div className="p-4 md:p-6 text-center text-gray-500 dark:text-slate-500">No enrollments yet.</div>
           ) : (
             <div className="overflow-x-auto">
               <table className="min-w-full divide-y divide-gray-200">
-                <thead className="bg-gray-50">
+                <thead className="bg-gray-50 dark:bg-slate-800/50">
                   <tr>
-                      <th className="px-3 md:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider whitespace-nowrap">Student</th>
-                      <th className="px-3 md:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider whitespace-nowrap">Course</th>
-                      <th className="px-3 md:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider whitespace-nowrap">Type</th>
-                      <th className="px-3 md:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider whitespace-nowrap">Status</th>
-                      <th className="px-3 md:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider whitespace-nowrap">Enrolled</th>
-                      <th className="px-3 md:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider whitespace-nowrap">Teacher</th>
+                      <th className="px-3 md:px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-slate-500 uppercase tracking-wider whitespace-nowrap">Student</th>
+                      <th className="px-3 md:px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-slate-500 uppercase tracking-wider whitespace-nowrap">Course</th>
+                      <th className="px-3 md:px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-slate-500 uppercase tracking-wider whitespace-nowrap">Type</th>
+                      <th className="px-3 md:px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-slate-500 uppercase tracking-wider whitespace-nowrap">Status</th>
+                      <th className="px-3 md:px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-slate-500 uppercase tracking-wider whitespace-nowrap">Enrolled</th>
+                      <th className="px-3 md:px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-slate-500 uppercase tracking-wider whitespace-nowrap">Teacher</th>
                   </tr>
                 </thead>
-                <tbody className="bg-white divide-y divide-gray-200">
+                <tbody className="bg-white dark:bg-slate-900 divide-y divide-gray-200">
                   {enrollments.map((enrollment) => (
-                    <tr key={enrollment._id} className="hover:bg-gray-50">
+                    <tr key={enrollment._id} className="hover:bg-gray-50 dark:bg-slate-800/50">
                         <td className="px-3 md:px-6 py-3 md:py-4 whitespace-nowrap text-xs md:text-sm">
-                        <div className="text-sm font-medium text-gray-900">{enrollment.studentName}</div>
-                        <div className="text-xs text-gray-500">{enrollment.studentEmail}</div>
+                        <div className="text-sm font-medium text-gray-900 dark:text-slate-100">{enrollment.studentName}</div>
+                        <div className="text-xs text-gray-500 dark:text-slate-500">{enrollment.studentEmail}</div>
                       </td>
-                      <td className="px-3 md:px-6 py-3 md:py-4 text-xs md:text-sm text-gray-600 max-w-xs">
+                      <td className="px-3 md:px-6 py-3 md:py-4 text-xs md:text-sm text-gray-600 dark:text-slate-400 max-w-xs">
                         <span className="line-clamp-2">{enrollment.courseId?.title || 'Unknown'}</span>
                       </td>
-                      <td className="px-3 md:px-6 py-3 md:py-4 whitespace-nowrap text-xs md:text-sm text-gray-600">
+                      <td className="px-3 md:px-6 py-3 md:py-4 whitespace-nowrap text-xs md:text-sm text-gray-600 dark:text-slate-400">
                         {enrollment.courseType === 'live' ? '🎓 Live' : '📚 Self-paced'}
                       </td>
                       <td className="px-3 md:px-6 py-3 md:py-4 whitespace-nowrap">
                         <span
                           className={`px-2 md:px-3 py-1 rounded-full text-xs font-medium ${
-                            statusColors[enrollment.paymentStatus] || 'bg-gray-100 text-gray-700'
+                            statusColors[enrollment.paymentStatus] || 'bg-gray-100 text-gray-700 dark:text-slate-300'
                           }`}
                         >
                           {enrollment.paymentStatus}
                         </span>
                       </td>
-                      <td className="px-3 md:px-6 py-3 md:py-4 whitespace-nowrap text-xs md:text-sm text-gray-500">
+                      <td className="px-3 md:px-6 py-3 md:py-4 whitespace-nowrap text-xs md:text-sm text-gray-500 dark:text-slate-500">
                         {enrollment.enrolledAt ? new Date(enrollment.enrolledAt).toLocaleDateString('en-US', { year: '2-digit', month: 'short', day: 'numeric' }) : '—'}
                       </td>
                       <td className="px-3 md:px-6 py-3 md:py-4 text-xs md:text-sm">
@@ -303,7 +303,7 @@ export default function AdminEnrollmentsPage() {
                             </select>
                           )}
                           {enrollment.teacherId && (
-                            <div className="flex items-center space-x-1 text-xs text-gray-600">
+                            <div className="flex items-center space-x-1 text-xs text-gray-600 dark:text-slate-400">
                               <UserGroupIcon className="h-3 w-3 md:h-4 md:w-4" />
                               <span className="truncate">{enrollment.teacherId.name || enrollment.teacherId.username}</span>
                             </div>

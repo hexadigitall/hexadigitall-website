@@ -56,27 +56,27 @@ export default function ServicePaymentSection({
         )}
 
         <div className="text-center mb-8">
-          <h3 className="text-2xl md:text-3xl font-bold text-gray-900 mb-4">
+          <h3 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-slate-100 mb-4">
             Ready to Get Started?
           </h3>
-          <p className="text-gray-600 mb-6 max-w-2xl mx-auto text-lg">
+          <p className="text-gray-600 dark:text-slate-400 mb-6 max-w-2xl mx-auto text-lg">
             Choose your package and get started with {serviceTitle} today. 
             Professional service with transparent pricing and guaranteed delivery.
           </p>
           
           {/* Pricing Preview */}
-          <div className="bg-white rounded-2xl p-6 max-w-md mx-auto mb-8 shadow-sm border">
+          <div className="bg-white dark:bg-slate-900 rounded-2xl p-6 max-w-md mx-auto mb-8 shadow-sm border">
             <div className="text-center">
-              <p className="text-gray-600 mb-2">Starting from</p>
+              <p className="text-gray-600 dark:text-slate-400 mb-2">Starting from</p>
               <div className="text-4xl font-bold text-primary mb-2">
                 {formatPrice(startingPrice, { applyNigerianDiscount: true })}
               </div>
               {discountMessage && (
-                <div className="text-sm text-gray-500 line-through mb-2">
+                <div className="text-sm text-gray-500 dark:text-slate-500 line-through mb-2">
                   Regular: {formatPrice(startingPrice)}
                 </div>
               )}
-              <div className="text-sm text-gray-600">
+              <div className="text-sm text-gray-600 dark:text-slate-400">
                 Multiple packages available
               </div>
             </div>
@@ -108,31 +108,31 @@ export default function ServicePaymentSection({
 
         {/* Features List */}
         <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 max-w-4xl mx-auto">
-          <div className="flex items-center space-x-3 bg-white/50 rounded-lg p-4">
+          <div className="flex items-center space-x-3 bg-white dark:bg-slate-900/50 rounded-lg p-4">
             <div className="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center">
               <svg className="w-4 h-4 text-green-600" fill="currentColor" viewBox="0 0 20 20">
                 <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
               </svg>
             </div>
-            <span className="text-gray-700 font-medium">Money-back guarantee</span>
+            <span className="text-gray-700 dark:text-slate-300 font-medium">Money-back guarantee</span>
           </div>
           
-          <div className="flex items-center space-x-3 bg-white/50 rounded-lg p-4">
+          <div className="flex items-center space-x-3 bg-white dark:bg-slate-900/50 rounded-lg p-4">
             <div className="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center">
               <svg className="w-4 h-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
             </div>
-            <span className="text-gray-700 font-medium">Fast delivery</span>
+            <span className="text-gray-700 dark:text-slate-300 font-medium">Fast delivery</span>
           </div>
           
-          <div className="flex items-center space-x-3 bg-white/50 rounded-lg p-4">
+          <div className="flex items-center space-x-3 bg-white dark:bg-slate-900/50 rounded-lg p-4">
             <div className="w-8 h-8 bg-purple-100 rounded-full flex items-center justify-center">
               <svg className="w-4 h-4 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192L5.636 18.364M12 12h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
             </div>
-            <span className="text-gray-700 font-medium">24/7 support</span>
+            <span className="text-gray-700 dark:text-slate-300 font-medium">24/7 support</span>
           </div>
         </div>
 
@@ -145,14 +145,14 @@ export default function ServicePaymentSection({
             >
               ← View All Services
             </Link>
-            <span className="hidden sm:inline text-gray-400">•</span>
+            <span className="hidden sm:inline text-gray-400 dark:text-slate-500">•</span>
             <Link 
               href="/portfolio" 
               className="text-primary hover:text-primary/80 font-medium transition-colors"
             >
               View Our Work
             </Link>
-            <span className="hidden sm:inline text-gray-400">•</span>
+            <span className="hidden sm:inline text-gray-400 dark:text-slate-500">•</span>
             <Link 
               href="/about" 
               className="text-primary hover:text-primary/80 font-medium transition-colors"

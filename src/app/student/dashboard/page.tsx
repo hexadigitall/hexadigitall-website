@@ -279,9 +279,9 @@ export default function StudentDashboardPage() {
       {/* Profile hero */}
       <div className="bg-gradient-to-br from-violet-900 via-purple-800 to-indigo-900 relative overflow-hidden">
         <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute -top-24 -right-24 w-96 h-96 rounded-full bg-white/5" />
-          <div className="absolute -bottom-32 -left-20 w-72 h-72 rounded-full bg-white/5" />
-          <div className="absolute top-1/2 left-1/3 w-48 h-48 rounded-full bg-white/[0.03] -translate-y-1/2" />
+          <div className="absolute -top-24 -right-24 w-96 h-96 rounded-full bg-white dark:bg-slate-900/5" />
+          <div className="absolute -bottom-32 -left-20 w-72 h-72 rounded-full bg-white dark:bg-slate-900/5" />
+          <div className="absolute top-1/2 left-1/3 w-48 h-48 rounded-full bg-white dark:bg-slate-900/[0.03] -translate-y-1/2" />
         </div>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 relative">
           <div className="flex flex-col sm:flex-row items-center sm:items-end gap-6">
@@ -292,7 +292,7 @@ export default function StudentDashboardPage() {
               title="Click to change profile photo"
               onClick={() => !photoUploading && photoInputRef.current?.click()}
             >
-              <div className="w-24 h-24 rounded-2xl bg-white/15 backdrop-blur-sm border border-white/30 flex items-center justify-center shadow-2xl overflow-hidden">
+              <div className="w-24 h-24 rounded-2xl bg-white dark:bg-slate-900/15 backdrop-blur-sm border border-white/30 flex items-center justify-center shadow-2xl overflow-hidden">
                 {photoUrl ? (
                   // eslint-disable-next-line @next/next/no-img-element
                   <img src={photoUrl} alt={studentDisplayName} className="w-full h-full object-cover" />
@@ -325,7 +325,7 @@ export default function StudentDashboardPage() {
                 {studentDisplayName}
               </h1>
               <div className="flex items-center justify-center sm:justify-start gap-2 mt-2.5">
-                <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-white/20 text-white border border-white/20 backdrop-blur-sm">
+                <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-white dark:bg-slate-900/20 text-white border border-white/20 backdrop-blur-sm">
                   Student
                 </span>
                 {student?.username && (
@@ -339,7 +339,7 @@ export default function StudentDashboardPage() {
             {sessionRole === 'admin' && (
               <Link
                 href="/admin/dashboard"
-                className="hidden sm:inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-white/10 hover:bg-white/15 text-white text-sm font-medium border border-white/15 backdrop-blur-sm transition-colors"
+                className="hidden sm:inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-white dark:bg-slate-900/10 hover:bg-white dark:bg-slate-900/15 text-white text-sm font-medium border border-white/15 backdrop-blur-sm transition-colors"
               >
                 <ArrowLeftIcon className="h-4 w-4" />
                 Back to Admin
@@ -348,7 +348,7 @@ export default function StudentDashboardPage() {
 
             <button
               onClick={handleLogout}
-              className="hidden sm:inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-white/10 hover:bg-white/15 text-white text-sm font-medium border border-white/15 backdrop-blur-sm transition-colors"
+              className="hidden sm:inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-white dark:bg-slate-900/10 hover:bg-white dark:bg-slate-900/15 text-white text-sm font-medium border border-white/15 backdrop-blur-sm transition-colors"
             >
               <ArrowRightOnRectangleIcon className="h-4 w-4" />
               Sign out
@@ -360,7 +360,7 @@ export default function StudentDashboardPage() {
                 <p className="text-3xl font-bold text-white">{activeCount}</p>
                 <p className="text-xs text-purple-300 uppercase tracking-widest mt-0.5">Active</p>
               </div>
-              <div className="h-10 w-px bg-white/20" />
+              <div className="h-10 w-px bg-white dark:bg-slate-900/20" />
               <div>
                 <p className="text-3xl font-bold text-white">{enrollments.length}</p>
                 <p className="text-xs text-purple-300 uppercase tracking-widest mt-0.5">Enrolled</p>
@@ -375,7 +375,7 @@ export default function StudentDashboardPage() {
         {sessionRole === 'admin' && (
           <Link
             href="/admin/dashboard"
-            className="mb-3 w-full inline-flex items-center justify-center gap-2 px-4 py-3 rounded-2xl bg-white dark:bg-slate-800 text-gray-700 dark:text-slate-300 dark:text-slate-300 dark:text-slate-300 text-sm font-medium border border-gray-200 dark:border-slate-600 dark:border-slate-600 shadow-sm"
+            className="mb-3 w-full inline-flex items-center justify-center gap-2 px-4 py-3 rounded-2xl bg-white dark:bg-slate-900 dark:bg-slate-800 text-gray-700 dark:text-slate-300 dark:text-slate-300 dark:text-slate-300 dark:text-slate-300 text-sm font-medium border border-gray-200 dark:border-slate-700 dark:border-slate-600 dark:border-slate-600 shadow-sm"
           >
             <ArrowLeftIcon className="h-4 w-4" />
             Back to Admin
@@ -383,7 +383,7 @@ export default function StudentDashboardPage() {
         )}
         <button
           onClick={handleLogout}
-          className="w-full inline-flex items-center justify-center gap-2 px-4 py-3 rounded-2xl bg-white dark:bg-slate-800 text-gray-700 dark:text-slate-300 dark:text-slate-300 dark:text-slate-300 text-sm font-medium border border-gray-200 dark:border-slate-600 dark:border-slate-600 shadow-sm"
+          className="w-full inline-flex items-center justify-center gap-2 px-4 py-3 rounded-2xl bg-white dark:bg-slate-900 dark:bg-slate-800 text-gray-700 dark:text-slate-300 dark:text-slate-300 dark:text-slate-300 dark:text-slate-300 text-sm font-medium border border-gray-200 dark:border-slate-700 dark:border-slate-600 dark:border-slate-600 shadow-sm"
         >
           <ArrowRightOnRectangleIcon className="h-4 w-4" />
           Sign out
@@ -408,16 +408,16 @@ export default function StudentDashboardPage() {
             color="blue"
           />
           <div className="relative bg-gradient-to-br from-emerald-500 to-teal-600 rounded-2xl p-5 shadow-sm overflow-hidden">
-            <div className="absolute top-0 right-0 w-24 h-24 rounded-full bg-white/10 -translate-y-8 translate-x-8" />
+            <div className="absolute top-0 right-0 w-24 h-24 rounded-full bg-white dark:bg-slate-900/10 -translate-y-8 translate-x-8" />
             <div className="flex items-center gap-3 mb-4">
-              <div className="p-2 bg-white/20 rounded-xl">
+              <div className="p-2 bg-white dark:bg-slate-900/20 rounded-xl">
                 <CreditCardIcon className="h-5 w-5 text-white" />
               </div>
               <h3 className="text-sm font-semibold text-white/90">Billing</h3>
             </div>
             <Link
               href="/courses"
-              className="inline-flex items-center px-4 py-2 bg-white dark:bg-slate-700 text-emerald-700 dark:text-emerald-300 rounded-xl hover:bg-emerald-50 dark:hover:bg-slate-600 transition-colors text-sm font-semibold shadow-sm"
+              className="inline-flex items-center px-4 py-2 bg-white dark:bg-slate-900 dark:bg-slate-700 text-emerald-700 dark:text-emerald-300 rounded-xl hover:bg-emerald-50 dark:hover:bg-slate-600 transition-colors text-sm font-semibold shadow-sm"
             >
               Renew Subscription
             </Link>
@@ -428,8 +428,8 @@ export default function StudentDashboardPage() {
         <section>
           <div className="flex items-center justify-between mb-6">
             <div>
-              <h2 className="text-xl font-bold text-gray-900 dark:text-slate-100 dark:text-slate-100">My Enrolled Courses</h2>
-              <p className="text-sm text-gray-500 dark:text-slate-400 mt-0.5">
+              <h2 className="text-xl font-bold text-gray-900 dark:text-slate-100 dark:text-slate-100 dark:text-slate-100">My Enrolled Courses</h2>
+              <p className="text-sm text-gray-500 dark:text-slate-500 dark:text-slate-400 mt-0.5">
                 {enrollments.length} course{enrollments.length !== 1 ? 's' : ''} total
               </p>
             </div>
@@ -442,12 +442,12 @@ export default function StudentDashboardPage() {
           </div>
 
           {enrollments.length === 0 ? (
-            <div className="bg-white dark:bg-slate-800 rounded-2xl border border-gray-100 dark:border-slate-700 dark:border-slate-700 dark:border-slate-700 p-12 text-center shadow-sm">
+            <div className="bg-white dark:bg-slate-900 dark:bg-slate-800 rounded-2xl border border-gray-100 dark:border-slate-700 dark:border-slate-700 dark:border-slate-700 p-12 text-center shadow-sm">
               <div className="w-16 h-16 bg-purple-50 rounded-2xl flex items-center justify-center mx-auto mb-4">
                 <BookOpenIcon className="h-8 w-8 text-purple-400" />
               </div>
-              <h3 className="text-lg font-semibold text-gray-900 dark:text-slate-100 dark:text-slate-100 mb-2">No courses yet</h3>
-              <p className="text-gray-500 dark:text-slate-400 mb-6 text-sm max-w-xs mx-auto">
+              <h3 className="text-lg font-semibold text-gray-900 dark:text-slate-100 dark:text-slate-100 dark:text-slate-100 mb-2">No courses yet</h3>
+              <p className="text-gray-500 dark:text-slate-500 dark:text-slate-400 mb-6 text-sm max-w-xs mx-auto">
                 Enroll in your first course to get started on your learning journey.
               </p>
               <Link
@@ -463,7 +463,7 @@ export default function StudentDashboardPage() {
               {/* Active subscription cards */}
               {enrollments.filter(e => e.status === 'active' && e.expiryDate && e.monthlyAmount).length > 0 && (
                 <div>
-                  <p className="text-xs font-semibold text-gray-400 uppercase tracking-widest mb-3">Active Subscriptions</p>
+                  <p className="text-xs font-semibold text-gray-400 dark:text-slate-500 uppercase tracking-widest mb-3">Active Subscriptions</p>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     {enrollments
                       .filter(e => e.status === 'active' && e.expiryDate && e.monthlyAmount)
@@ -484,12 +484,12 @@ export default function StudentDashboardPage() {
 
               {/* Course cards */}
               <div>
-                <p className="text-xs font-semibold text-gray-400 uppercase tracking-widest mb-3">All Courses</p>
+                <p className="text-xs font-semibold text-gray-400 dark:text-slate-500 uppercase tracking-widest mb-3">All Courses</p>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                   {enrollments.map((enrollment) => (
                     <div
                       key={enrollment._id}
-                      className="bg-white dark:bg-slate-800 rounded-2xl border border-gray-100 dark:border-slate-700 dark:border-slate-700 dark:border-slate-700 shadow-sm overflow-hidden hover:shadow-md hover:-translate-y-0.5 transition-all duration-200"
+                      className="bg-white dark:bg-slate-900 dark:bg-slate-800 rounded-2xl border border-gray-100 dark:border-slate-700 dark:border-slate-700 dark:border-slate-700 shadow-sm overflow-hidden hover:shadow-md hover:-translate-y-0.5 transition-all duration-200"
                     >
                       {enrollment.course?.mainImage ? (
                         <div className="relative h-44 w-full">
@@ -502,14 +502,14 @@ export default function StudentDashboardPage() {
                           <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
                           <div className="absolute bottom-3 left-4 flex gap-1.5">
                             {enrollment.course?.level && (
-                              <span className="inline-flex px-2 py-0.5 text-xs font-medium rounded-full bg-white/90 dark:bg-slate-700 text-gray-800 dark:text-slate-100 capitalize">
+                              <span className="inline-flex px-2 py-0.5 text-xs font-medium rounded-full bg-white dark:bg-slate-900/90 dark:bg-slate-700 text-gray-800 dark:text-slate-200 dark:text-slate-100 capitalize">
                                 {enrollment.course.level}
                               </span>
                             )}
                             <span className={`inline-flex px-2 py-0.5 text-xs font-medium rounded-full capitalize ${
                               enrollment.status === 'active'
                                 ? 'bg-emerald-500/90 text-white'
-                                : 'bg-gray-500/80 text-white'
+                                : 'bg-gray-50 dark:bg-slate-800/500/80 text-white'
                             }`}>
                               {enrollment.status}
                             </span>
@@ -519,7 +519,7 @@ export default function StudentDashboardPage() {
                         <div className="h-16 bg-gradient-to-r from-purple-600 to-indigo-600 relative">
                           <div className="absolute bottom-3 left-4 flex gap-1.5">
                             {enrollment.course?.level && (
-                              <span className="inline-flex px-2 py-0.5 text-xs font-medium rounded-full bg-white/20 text-white capitalize">
+                              <span className="inline-flex px-2 py-0.5 text-xs font-medium rounded-full bg-white dark:bg-slate-900/20 text-white capitalize">
                                 {enrollment.course.level}
                               </span>
                             )}
@@ -528,24 +528,24 @@ export default function StudentDashboardPage() {
                       )}
 
                       <div className="p-5">
-                        <h3 className="text-base font-bold text-gray-900 dark:text-slate-100 dark:text-slate-100 mb-0.5">
+                        <h3 className="text-base font-bold text-gray-900 dark:text-slate-100 dark:text-slate-100 dark:text-slate-100 mb-0.5">
                           {enrollment.course?.title || 'Course'}
                         </h3>
                         {enrollment.teacher && (
-                          <p className="text-xs text-gray-400 mb-3">
+                          <p className="text-xs text-gray-400 dark:text-slate-500 mb-3">
                             with{' '}
-                            <span className="font-medium text-gray-600 dark:text-slate-400 dark:text-slate-400">
+                            <span className="font-medium text-gray-600 dark:text-slate-400 dark:text-slate-400 dark:text-slate-400">
                               {enrollment.teacher.name || enrollment.teacher.email}
                             </span>
                           </p>
                         )}
                         {enrollment.course?.description && (
-                          <p className="text-sm text-gray-500 dark:text-slate-400 mb-4 line-clamp-2">
+                          <p className="text-sm text-gray-500 dark:text-slate-500 dark:text-slate-400 mb-4 line-clamp-2">
                             {enrollment.course.description}
                           </p>
                         )}
 
-                        <div className="flex items-center justify-between text-xs text-gray-400 mb-4 pb-4 border-b border-gray-100 dark:border-slate-700 dark:border-slate-700">
+                        <div className="flex items-center justify-between text-xs text-gray-400 dark:text-slate-500 mb-4 pb-4 border-b border-gray-100 dark:border-slate-700 dark:border-slate-700">
                           <span>Enrolled {new Date(enrollment.enrolledAt).toLocaleDateString()}</span>
                           {enrollment.expiryDate && (
                             <span className="text-indigo-600 font-medium">
@@ -594,7 +594,7 @@ export default function StudentDashboardPage() {
                             </button>
                           )}
                           {enrollment.monthlyAmount && (
-                            <p className="text-xs text-gray-400 text-center pt-1">
+                            <p className="text-xs text-gray-400 dark:text-slate-500 text-center pt-1">
                               ₦{enrollment.monthlyAmount.toLocaleString()}/month
                               {enrollment.totalPrice ? ` · ₦${enrollment.totalPrice.toLocaleString()} total` : ''}
                             </p>
@@ -634,9 +634,9 @@ function StatCard({ icon, title, value, color }: { icon: React.ReactNode; title:
 
   return (
     <div className={`relative bg-gradient-to-br ${gradients[color] || gradients.purple} rounded-2xl p-5 shadow-sm overflow-hidden`}>
-      <div className="absolute top-0 right-0 w-24 h-24 rounded-full bg-white/10 -translate-y-8 translate-x-8" />
+      <div className="absolute top-0 right-0 w-24 h-24 rounded-full bg-white dark:bg-slate-900/10 -translate-y-8 translate-x-8" />
       <div className="flex items-center gap-3 mb-3">
-        <div className="p-2 bg-white/20 rounded-xl text-white">
+        <div className="p-2 bg-white dark:bg-slate-900/20 rounded-xl text-white">
           {icon}
         </div>
         <h3 className="text-sm font-semibold text-white/80">{title}</h3>

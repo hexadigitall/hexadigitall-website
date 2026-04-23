@@ -43,11 +43,11 @@ export default function CurriculumDocumentView({ curriculum, showActions = true 
         </div>
       )}
 
-      <section className="overflow-hidden rounded-[28px] border border-slate-200 bg-white shadow-[0_24px_80px_-40px_rgba(15,23,42,0.35)]">
+      <section className="overflow-hidden rounded-[28px] border border-slate-200 bg-white dark:bg-slate-900 shadow-[0_24px_80px_-40px_rgba(15,23,42,0.35)]">
         <div className="border-b border-slate-200 bg-[linear-gradient(132deg,#0b1329_0%,#0e3558_55%,#0d5770_100%)] px-6 py-8 sm:px-10 lg:px-12">
           <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_290px] lg:items-start">
             <div className="space-y-5 rounded-2xl border border-white/20 bg-slate-950/28 p-5 shadow-xl backdrop-blur-sm sm:p-6">
-              <div className="inline-flex rounded-full border border-white/45 bg-white/22 px-4 py-1 text-xs font-semibold uppercase tracking-[0.22em] text-white">
+              <div className="inline-flex rounded-full border border-white/45 bg-white dark:bg-slate-900/22 px-4 py-1 text-xs font-semibold uppercase tracking-[0.22em] text-white">
                 Curriculum
               </div>
               <div className="space-y-3">
@@ -69,7 +69,7 @@ export default function CurriculumDocumentView({ curriculum, showActions = true 
               {!!curriculum.heroTags?.length && (
                 <div className="mt-4 flex flex-wrap gap-2">
                   {curriculum.heroTags.map((tag, index) => (
-                    <span key={`${tag}-${index}`} className="rounded-full border border-cyan-100/35 bg-white/90 px-3 py-1 text-xs font-semibold text-cyan-800">
+                    <span key={`${tag}-${index}`} className="rounded-full border border-cyan-100/35 bg-white dark:bg-slate-900/90 px-3 py-1 text-xs font-semibold text-cyan-800">
                       {tag}
                     </span>
                   ))}
@@ -104,7 +104,7 @@ export default function CurriculumDocumentView({ curriculum, showActions = true 
             )}
 
             {!!curriculum.essentialResources?.length && (
-              <section className="rounded-[24px] border border-slate-200 bg-white p-6 sm:p-8">
+              <section className="rounded-[24px] border border-slate-200 bg-white dark:bg-slate-900 p-6 sm:p-8">
                 <h3 className="text-xl font-semibold tracking-tight text-slate-950">Essential Resources</h3>
                 <div className="mt-5">
                   <SectionList items={curriculum.essentialResources} />
@@ -114,7 +114,7 @@ export default function CurriculumDocumentView({ curriculum, showActions = true 
           </div>
 
           {!!curriculum.complementaryCourses?.length && (
-            <section className="rounded-[24px] border border-slate-200 bg-white p-6 sm:p-8">
+            <section className="rounded-[24px] border border-slate-200 bg-white dark:bg-slate-900 p-6 sm:p-8">
               <h3 className="text-xl font-semibold tracking-tight text-slate-950">Complementary Courses</h3>
               <div className="mt-5 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
                 {curriculum.complementaryCourses.map((item, index) => (
@@ -128,7 +128,7 @@ export default function CurriculumDocumentView({ curriculum, showActions = true 
           )}
 
           {!!curriculum.learningRoadmap?.length && (
-            <section className="rounded-[24px] border border-slate-200 bg-white p-6 sm:p-8">
+            <section className="rounded-[24px] border border-slate-200 bg-white dark:bg-slate-900 p-6 sm:p-8">
               <h3 className="text-xl font-semibold tracking-tight text-slate-950">Learning Roadmap</h3>
               <div className="mt-5">
                 <SectionList items={curriculum.learningRoadmap} />
@@ -144,7 +144,7 @@ export default function CurriculumDocumentView({ curriculum, showActions = true 
               </div>
               <div className="space-y-4">
                 {curriculum.weeks.map((week) => (
-                  <article key={week._key || `${week.weekNumber}-${week.topic}`} className="rounded-[24px] border border-slate-200 bg-white p-6 sm:p-8">
+                  <article key={week._key || `${week.weekNumber}-${week.topic}`} className="rounded-[24px] border border-slate-200 bg-white dark:bg-slate-900 p-6 sm:p-8">
                     <div className="flex flex-col gap-3 border-b border-slate-100 pb-4 sm:flex-row sm:items-start sm:justify-between">
                       <div>
                         <div className="text-xs font-semibold uppercase tracking-[0.22em] text-cyan-700">Week {week.weekNumber}</div>
@@ -183,7 +183,7 @@ export default function CurriculumDocumentView({ curriculum, showActions = true 
               <h3 className="text-2xl font-semibold tracking-tight text-slate-950">Capstone Projects</h3>
               <div className="mt-5 grid gap-4 xl:grid-cols-3">
                 {curriculum.capstoneProjects.map((project, index) => (
-                  <article key={`${project.title}-${index}`} className="rounded-2xl border border-slate-200 bg-white p-5">
+                  <article key={`${project.title}-${index}`} className="rounded-2xl border border-slate-200 bg-white dark:bg-slate-900 p-5">
                     <h4 className="text-base font-semibold text-slate-950">{project.title}</h4>
                     {project.description && <p className="mt-2 text-sm leading-6 text-slate-600">{project.description}</p>}
                     {!!project.deliverables?.length && (
