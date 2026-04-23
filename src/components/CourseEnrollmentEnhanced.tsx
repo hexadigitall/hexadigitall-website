@@ -217,7 +217,7 @@ export default function CourseEnrollmentEnhanced({ course }: { course: CourseEnr
   // Preview Step
   if (state.step === 'preview') {
     return (
-      <div className="bg-white dark:bg-slate-800 rounded-xl shadow-lg overflow-hidden border border-gray-200 dark:border-slate-700">
+      <div className="bg-white dark:bg-slate-900 dark:bg-slate-800 rounded-xl shadow-lg overflow-hidden border border-gray-200 dark:border-slate-700 dark:border-slate-700">
         {/* Course Image */}
         <div className="relative h-48 w-full">
           <Image 
@@ -252,7 +252,7 @@ export default function CourseEnrollmentEnhanced({ course }: { course: CourseEnr
                   if (priceInfo.hasDiscount) {
                     return (
                       <div className="space-y-1">
-                        <span className="text-lg text-gray-500 line-through block">
+                        <span className="text-lg text-gray-500 dark:text-slate-500 line-through block">
                           {priceInfo.originalPrice}
                         </span>
                         <span className="text-3xl font-bold text-green-600">
@@ -271,14 +271,14 @@ export default function CourseEnrollmentEnhanced({ course }: { course: CourseEnr
                   // Show flexible pricing options
                   return (
                     <div className="space-y-2">
-                      <div className="text-lg font-semibold text-gray-900 dark:text-slate-100">Flexible Pricing</div>
+                      <div className="text-lg font-semibold text-gray-900 dark:text-slate-100 dark:text-slate-100">Flexible Pricing</div>
                       {course.sessionOptions.perSession && course.sessionPricing?.perSessionPrice && (
-                        <div className="text-sm text-gray-600">
+                        <div className="text-sm text-gray-600 dark:text-slate-400">
                           {formatPrice(course.sessionPricing.perSessionPrice)} per session
                         </div>
                       )}
                       {course.sessionOptions.hourly && course.sessionPricing?.hourlyRate && (
-                        <div className="text-sm text-gray-600">
+                        <div className="text-sm text-gray-600 dark:text-slate-400">
                           {formatPrice(course.sessionPricing.hourlyRate)} per hour
                         </div>
                       )}
@@ -296,19 +296,19 @@ export default function CourseEnrollmentEnhanced({ course }: { course: CourseEnr
 
           {/* Course Info */}
           <div className="space-y-3 mb-6">
-            <div className="flex items-center text-sm text-gray-600">
+            <div className="flex items-center text-sm text-gray-600 dark:text-slate-400">
               <svg className="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
                 <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.414-1.414L11 9.586V6z" clipRule="evenodd" />
               </svg>
               Duration: {course.duration}
             </div>
-            <div className="flex items-center text-sm text-gray-600">
+            <div className="flex items-center text-sm text-gray-600 dark:text-slate-400">
               <svg className="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
                 <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
               Level: {course.level}
             </div>
-            <div className="flex items-center text-sm text-gray-600">
+            <div className="flex items-center text-sm text-gray-600 dark:text-slate-400">
               <svg className="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
                 <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3z" />
               </svg>
@@ -319,7 +319,7 @@ export default function CourseEnrollmentEnhanced({ course }: { course: CourseEnr
           {/* Session Options Preview */}
           {(course.sessionOptions.perSession || course.sessionOptions.hourly) && (
             <div className="mb-6">
-              <h4 className="font-semibold text-gray-900 dark:text-slate-100 mb-3">Learning Options:</h4>
+              <h4 className="font-semibold text-gray-900 dark:text-slate-100 dark:text-slate-100 mb-3">Learning Options:</h4>
               <div className="space-y-2">
                 {course.sessionOptions.perSession && (
                   <div className="flex items-center text-sm text-blue-600">
@@ -349,10 +349,10 @@ export default function CourseEnrollmentEnhanced({ course }: { course: CourseEnr
 
           {/* What's Included */}
           <div className="mb-6">
-            <h4 className="font-semibold text-gray-900 dark:text-slate-100 mb-3">What&apos;s Included:</h4>
+            <h4 className="font-semibold text-gray-900 dark:text-slate-100 dark:text-slate-100 mb-3">What&apos;s Included:</h4>
             <ul className="space-y-2">
               {course.includes.map((item, index) => (
-                <li key={index} className="flex items-start text-sm text-gray-600">
+                <li key={index} className="flex items-start text-sm text-gray-600 dark:text-slate-400">
                   <svg className="w-4 h-4 mr-2 mt-0.5 text-green-500 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
                     <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                   </svg>
@@ -369,7 +369,7 @@ export default function CourseEnrollmentEnhanced({ course }: { course: CourseEnr
             className={`w-full py-3 px-6 rounded-lg font-semibold transition-all duration-200 ${
               isAvailable
                 ? 'bg-accent hover:bg-accent/90 text-white shadow-lg hover:shadow-xl'
-                : 'bg-gray-300 text-gray-500 cursor-not-allowed'
+                : 'bg-gray-300 text-gray-500 dark:text-slate-500 cursor-not-allowed'
             }`}
           >
             {isAvailable ? (
@@ -381,7 +381,7 @@ export default function CourseEnrollmentEnhanced({ course }: { course: CourseEnr
 
           {/* Money-back guarantee */}
           <div className="mt-4 text-center">
-            <div className="flex items-center justify-center text-sm text-gray-600">
+            <div className="flex items-center justify-center text-sm text-gray-600 dark:text-slate-400">
               <svg className="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
                 <path fillRule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
               </svg>
@@ -396,35 +396,35 @@ export default function CourseEnrollmentEnhanced({ course }: { course: CourseEnr
   // Session Customization Step
   if (state.step === 'customize') {
     return (
-      <div className="bg-white dark:bg-slate-800 rounded-xl shadow-lg p-6 border border-gray-200 dark:border-slate-700">
+      <div className="bg-white dark:bg-slate-900 dark:bg-slate-800 rounded-xl shadow-lg p-6 border border-gray-200 dark:border-slate-700 dark:border-slate-700">
         <div className="mb-6">
           <button 
             onClick={() => setState({ ...state, step: 'preview' })}
-            className="flex items-center text-gray-600 dark:text-slate-400 hover:text-gray-800 dark:hover:text-slate-300 mb-4"
+            className="flex items-center text-gray-600 dark:text-slate-400 dark:text-slate-400 hover:text-gray-800 dark:text-slate-200 dark:hover:text-slate-300 mb-4"
           >
             <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
             </svg>
             Back to Course
           </button>
-          <h3 className="text-xl font-bold text-gray-900 dark:text-slate-100">Customize Your Learning Experience</h3>
-          <p className="text-gray-600">Choose how you&apos;d like to learn this course</p>
+          <h3 className="text-xl font-bold text-gray-900 dark:text-slate-100 dark:text-slate-100">Customize Your Learning Experience</h3>
+          <p className="text-gray-600 dark:text-slate-400">Choose how you&apos;d like to learn this course</p>
         </div>
 
         <div className="space-y-6">
           {/* Session Type Selection */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-3">Learning Format</label>
+            <label className="block text-sm font-medium text-gray-700 dark:text-slate-300 dark:text-slate-300 mb-3">Learning Format</label>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               {course.sessionOptions.fixedPrice && (
                 <div 
                   className={`border-2 rounded-lg p-4 cursor-pointer ${
-                    sessionCustomization.sessionType === 'fixed' ? 'border-primary bg-primary/5' : 'border-gray-200 dark:border-slate-600'
+                    sessionCustomization.sessionType === 'fixed' ? 'border-primary bg-primary/5' : 'border-gray-200 dark:border-slate-700 dark:border-slate-600'
                   }`}
                   onClick={() => setSessionCustomization({ ...sessionCustomization, sessionType: 'fixed' })}
                 >
-                  <h4 className="font-semibold text-gray-900 dark:text-slate-100">Fixed Price Course</h4>
-                  <p className="text-sm text-gray-600">Complete course with structured curriculum</p>
+                  <h4 className="font-semibold text-gray-900 dark:text-slate-100 dark:text-slate-100">Fixed Price Course</h4>
+                  <p className="text-sm text-gray-600 dark:text-slate-400">Complete course with structured curriculum</p>
                   <div className="mt-2 text-lg font-bold text-primary">
                     {formatPrice(course.dollarPrice || course.price || 0)}
                   </div>
@@ -434,12 +434,12 @@ export default function CourseEnrollmentEnhanced({ course }: { course: CourseEnr
               {course.sessionOptions.perSession && course.sessionPricing?.perSessionPrice && (
                 <div 
                   className={`border-2 rounded-lg p-4 cursor-pointer ${
-                    sessionCustomization.sessionType === 'per_session' ? 'border-primary bg-primary/5' : 'border-gray-200 dark:border-slate-600'
+                    sessionCustomization.sessionType === 'per_session' ? 'border-primary bg-primary/5' : 'border-gray-200 dark:border-slate-700 dark:border-slate-600'
                   }`}
                   onClick={() => setSessionCustomization({ ...sessionCustomization, sessionType: 'per_session' })}
                 >
-                  <h4 className="font-semibold text-gray-900 dark:text-slate-100">Per-Session</h4>
-                  <p className="text-sm text-gray-600">Pay for individual sessions</p>
+                  <h4 className="font-semibold text-gray-900 dark:text-slate-100 dark:text-slate-100">Per-Session</h4>
+                  <p className="text-sm text-gray-600 dark:text-slate-400">Pay for individual sessions</p>
                   <div className="mt-2 text-lg font-bold text-primary">
                     {formatPrice(course.sessionPricing.perSessionPrice)} per session
                   </div>
@@ -449,12 +449,12 @@ export default function CourseEnrollmentEnhanced({ course }: { course: CourseEnr
               {course.sessionOptions.hourly && course.sessionPricing?.hourlyRate && (
                 <div 
                   className={`border-2 rounded-lg p-4 cursor-pointer ${
-                    sessionCustomization.sessionType === 'hourly' ? 'border-primary bg-primary/5' : 'border-gray-200 dark:border-slate-600'
+                    sessionCustomization.sessionType === 'hourly' ? 'border-primary bg-primary/5' : 'border-gray-200 dark:border-slate-700 dark:border-slate-600'
                   }`}
                   onClick={() => setSessionCustomization({ ...sessionCustomization, sessionType: 'hourly' })}
                 >
-                  <h4 className="font-semibold text-gray-900 dark:text-slate-100">Hourly Rate</h4>
-                  <p className="text-sm text-gray-600">Pay by the hour for flexible learning</p>
+                  <h4 className="font-semibold text-gray-900 dark:text-slate-100 dark:text-slate-100">Hourly Rate</h4>
+                  <p className="text-sm text-gray-600 dark:text-slate-400">Pay by the hour for flexible learning</p>
                   <div className="mt-2 text-lg font-bold text-primary">
                     {formatPrice(course.sessionPricing.hourlyRate)} per hour
                   </div>
@@ -466,7 +466,7 @@ export default function CourseEnrollmentEnhanced({ course }: { course: CourseEnr
           {/* Session/Hour Configuration */}
           {sessionCustomization.sessionType === 'per_session' && (
             <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-1">Number of Sessions</label>
+              <label className="block text-sm font-medium text-gray-700 dark:text-slate-300 dark:text-slate-300 mb-1">Number of Sessions</label>
               <input
                 type="number"
                 min="1"
@@ -478,7 +478,7 @@ export default function CourseEnrollmentEnhanced({ course }: { course: CourseEnr
                 })}
                 className="w-full px-3 py-2 border border-gray-300 dark:border-slate-600 dark:bg-slate-700 dark:text-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-accent focus:border-accent"
               />
-              <p className="text-sm text-gray-500 mt-1">
+              <p className="text-sm text-gray-500 dark:text-slate-500 mt-1">
                 Total: {formatPrice((sessionCustomization.numberOfSessions || 0) * (course.sessionPricing?.perSessionPrice || 0))}
               </p>
             </div>
@@ -486,7 +486,7 @@ export default function CourseEnrollmentEnhanced({ course }: { course: CourseEnr
 
           {sessionCustomization.sessionType === 'hourly' && (
             <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-1">Total Hours</label>
+              <label className="block text-sm font-medium text-gray-700 dark:text-slate-300 dark:text-slate-300 mb-1">Total Hours</label>
               <input
                 type="number"
                 min={course.sessionPricing?.minimumHours || 1}
@@ -498,7 +498,7 @@ export default function CourseEnrollmentEnhanced({ course }: { course: CourseEnr
                 })}
                 className="w-full px-3 py-2 border border-gray-300 dark:border-slate-600 dark:bg-slate-700 dark:text-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-accent focus:border-accent"
               />
-              <p className="text-sm text-gray-500 mt-1">
+              <p className="text-sm text-gray-500 dark:text-slate-500 mt-1">
                 Total: {formatPrice((sessionCustomization.totalHours || 0) * (course.sessionPricing?.hourlyRate || 0))}
                 {course.sessionPricing?.minimumHours && (
                   <span> (Minimum {course.sessionPricing.minimumHours} hours)</span>
@@ -509,7 +509,7 @@ export default function CourseEnrollmentEnhanced({ course }: { course: CourseEnr
 
           {/* Schedule Preference */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-3">Schedule Preference</label>
+            <label className="block text-sm font-medium text-gray-700 dark:text-slate-300 dark:text-slate-300 mb-3">Schedule Preference</label>
             <div className="grid grid-cols-3 gap-4">
               {['weekdays', 'weekends', 'flexible'].map((schedule) => (
                 <div key={schedule}>
@@ -530,7 +530,7 @@ export default function CourseEnrollmentEnhanced({ course }: { course: CourseEnr
                     className={`block w-full p-3 text-center rounded-lg border-2 cursor-pointer ${
                       sessionCustomization.schedule === schedule 
                         ? 'border-primary bg-primary/5 text-primary' 
-                        : 'border-gray-200 dark:border-slate-600 text-gray-700 dark:text-slate-300'
+                        : 'border-gray-200 dark:border-slate-700 dark:border-slate-600 text-gray-700 dark:text-slate-300 dark:text-slate-300'
                     }`}
                   >
                     {schedule.charAt(0).toUpperCase() + schedule.slice(1)}
@@ -542,7 +542,7 @@ export default function CourseEnrollmentEnhanced({ course }: { course: CourseEnr
 
           {/* Learning Intensity */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-3">Learning Intensity</label>
+            <label className="block text-sm font-medium text-gray-700 dark:text-slate-300 dark:text-slate-300 mb-3">Learning Intensity</label>
             <div className="grid grid-cols-3 gap-4">
               {[
                 { value: 'standard', label: 'Standard', desc: '2-3 hours/week' },
@@ -567,11 +567,11 @@ export default function CourseEnrollmentEnhanced({ course }: { course: CourseEnr
                     className={`block w-full p-3 text-center rounded-lg border-2 cursor-pointer ${
                       sessionCustomization.intensity === intensity.value 
                         ? 'border-primary bg-primary/5 text-primary' 
-                        : 'border-gray-200 dark:border-slate-600 text-gray-700 dark:text-slate-300'
+                        : 'border-gray-200 dark:border-slate-700 dark:border-slate-600 text-gray-700 dark:text-slate-300 dark:text-slate-300'
                     }`}
                   >
                     <div className="font-semibold">{intensity.label}</div>
-                    <div className="text-xs text-gray-500">{intensity.desc}</div>
+                    <div className="text-xs text-gray-500 dark:text-slate-500">{intensity.desc}</div>
                   </label>
                 </div>
               ))}
@@ -581,7 +581,7 @@ export default function CourseEnrollmentEnhanced({ course }: { course: CourseEnr
           {/* Total Price Display */}
           <div className="bg-blue-50 rounded-lg p-4">
             <div className="flex justify-between items-center">
-              <span className="font-semibold text-gray-900 dark:text-slate-100">Total Price:</span>
+              <span className="font-semibold text-gray-900 dark:text-slate-100 dark:text-slate-100">Total Price:</span>
               <span className="text-2xl font-bold text-primary">
                 {formatPrice(totalPrice)}
               </span>
@@ -593,7 +593,7 @@ export default function CourseEnrollmentEnhanced({ course }: { course: CourseEnr
             <button
               type="button"
               onClick={() => setState({ ...state, step: 'preview' })}
-              className="flex-1 py-3 px-6 border border-gray-300 dark:border-slate-600 text-gray-700 dark:text-slate-300 rounded-lg font-semibold hover:bg-gray-50 dark:hover:bg-slate-700 transition-colors"
+              className="flex-1 py-3 px-6 border border-gray-300 dark:border-slate-600 text-gray-700 dark:text-slate-300 dark:text-slate-300 rounded-lg font-semibold hover:bg-gray-50 dark:bg-slate-800/50 dark:hover:bg-slate-700 transition-colors"
             >
               Back
             </button>
@@ -612,28 +612,28 @@ export default function CourseEnrollmentEnhanced({ course }: { course: CourseEnr
   // Student Details Step (enhanced)
   if (state.step === 'details') {
     return (
-      <div className="bg-white dark:bg-slate-800 rounded-xl shadow-lg p-6 border border-gray-200 dark:border-slate-700">
+      <div className="bg-white dark:bg-slate-900 dark:bg-slate-800 rounded-xl shadow-lg p-6 border border-gray-200 dark:border-slate-700 dark:border-slate-700">
         <div className="mb-6">
           <button 
             onClick={() => setState({ 
               ...state, 
               step: (course.sessionOptions.perSession || course.sessionOptions.hourly) ? 'customize' : 'preview' 
             })}
-            className="flex items-center text-gray-600 dark:text-slate-400 hover:text-gray-800 dark:hover:text-slate-300 mb-4"
+            className="flex items-center text-gray-600 dark:text-slate-400 dark:text-slate-400 hover:text-gray-800 dark:text-slate-200 dark:hover:text-slate-300 mb-4"
           >
             <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
             </svg>
             Back
           </button>
-          <h3 className="text-xl font-bold text-gray-900 dark:text-slate-100">Student Information</h3>
-          <p className="text-gray-600">Help us personalize your learning experience</p>
+          <h3 className="text-xl font-bold text-gray-900 dark:text-slate-100 dark:text-slate-100">Student Information</h3>
+          <p className="text-gray-600 dark:text-slate-400">Help us personalize your learning experience</p>
         </div>
 
         <form onSubmit={handleDetailsSubmit} className="space-y-4">
           <div className="grid md:grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-1">
+              <label className="block text-sm font-medium text-gray-700 dark:text-slate-300 dark:text-slate-300 mb-1">
                 Full Name *
               </label>
               <input
@@ -646,7 +646,7 @@ export default function CourseEnrollmentEnhanced({ course }: { course: CourseEnr
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-1">
+              <label className="block text-sm font-medium text-gray-700 dark:text-slate-300 dark:text-slate-300 mb-1">
                 Email Address *
               </label>
               <input
@@ -661,7 +661,7 @@ export default function CourseEnrollmentEnhanced({ course }: { course: CourseEnr
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-1">
+            <label className="block text-sm font-medium text-gray-700 dark:text-slate-300 dark:text-slate-300 mb-1">
               Phone Number *
             </label>
             <input
@@ -676,7 +676,7 @@ export default function CourseEnrollmentEnhanced({ course }: { course: CourseEnr
 
           <div className="grid md:grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-1">
+              <label className="block text-sm font-medium text-gray-700 dark:text-slate-300 dark:text-slate-300 mb-1">
                 Experience Level
               </label>
               <select
@@ -693,7 +693,7 @@ export default function CourseEnrollmentEnhanced({ course }: { course: CourseEnr
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-1">
+              <label className="block text-sm font-medium text-gray-700 dark:text-slate-300 dark:text-slate-300 mb-1">
                 Preferred Class Time
               </label>
               <select
@@ -711,7 +711,7 @@ export default function CourseEnrollmentEnhanced({ course }: { course: CourseEnr
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-1">
+            <label className="block text-sm font-medium text-gray-700 dark:text-slate-300 dark:text-slate-300 mb-1">
               Learning Goals (Optional)
             </label>
             <textarea
@@ -730,7 +730,7 @@ export default function CourseEnrollmentEnhanced({ course }: { course: CourseEnr
                 ...state, 
                 step: (course.sessionOptions.perSession || course.sessionOptions.hourly) ? 'customize' : 'preview' 
               })}
-              className="flex-1 py-3 px-6 border border-gray-300 dark:border-slate-600 text-gray-700 dark:text-slate-300 rounded-lg font-semibold hover:bg-gray-50 dark:hover:bg-slate-700 transition-colors"
+              className="flex-1 py-3 px-6 border border-gray-300 dark:border-slate-600 text-gray-700 dark:text-slate-300 dark:text-slate-300 rounded-lg font-semibold hover:bg-gray-50 dark:bg-slate-800/50 dark:hover:bg-slate-700 transition-colors"
             >
               Back
             </button>
@@ -749,29 +749,29 @@ export default function CourseEnrollmentEnhanced({ course }: { course: CourseEnr
   // Payment Step (enhanced with session customization summary)
   if (state.step === 'payment') {
     return (
-      <div className="bg-white dark:bg-slate-800 rounded-xl shadow-lg p-6 border border-gray-200 dark:border-slate-700">
+      <div className="bg-white dark:bg-slate-900 dark:bg-slate-800 rounded-xl shadow-lg p-6 border border-gray-200 dark:border-slate-700 dark:border-slate-700">
         <div className="mb-6">
           <button 
             onClick={() => setState({ ...state, step: 'details' })}
-            className="flex items-center text-gray-600 dark:text-slate-400 hover:text-gray-800 dark:hover:text-slate-300 mb-4"
+            className="flex items-center text-gray-600 dark:text-slate-400 dark:text-slate-400 hover:text-gray-800 dark:text-slate-200 dark:hover:text-slate-300 mb-4"
           >
             <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
             </svg>
             Back to Details
           </button>
-          <h3 className="text-xl font-bold text-gray-900 dark:text-slate-100">Enrollment Summary</h3>
+          <h3 className="text-xl font-bold text-gray-900 dark:text-slate-100 dark:text-slate-100">Enrollment Summary</h3>
         </div>
 
         {/* Order Summary */}
-        <div className="bg-gray-50 rounded-lg p-4 mb-6">
+        <div className="bg-gray-50 dark:bg-slate-800/50 rounded-lg p-4 mb-6">
           <div className="flex items-start gap-4">
             <div className="relative w-16 h-16 rounded-lg overflow-hidden">
               <Image src={course.mainImage || '/digitall_partner.png'} alt={course.title} fill className="object-cover" />
             </div>
             <div className="flex-1">
-              <h4 className="font-semibold text-gray-900 dark:text-slate-100">{course.title}</h4>
-              <p className="text-sm text-gray-600">{course.instructor}</p>
+              <h4 className="font-semibold text-gray-900 dark:text-slate-100 dark:text-slate-100">{course.title}</h4>
+              <p className="text-sm text-gray-600 dark:text-slate-400">{course.instructor}</p>
               <div className="mt-2 text-lg font-bold text-primary">
                 {formatPrice(totalPrice)}
               </div>
@@ -782,31 +782,31 @@ export default function CourseEnrollmentEnhanced({ course }: { course: CourseEnr
         {/* Session Customization Summary */}
         {(course.sessionOptions.perSession || course.sessionOptions.hourly) && (
           <div className="border-t pt-4 mb-6">
-            <h4 className="font-semibold text-gray-900 dark:text-slate-100 mb-3">Learning Configuration</h4>
+            <h4 className="font-semibold text-gray-900 dark:text-slate-100 dark:text-slate-100 mb-3">Learning Configuration</h4>
             <div className="space-y-2 text-sm">
-              <p><span className="text-gray-600">Format:</span> {
+              <p><span className="text-gray-600 dark:text-slate-400">Format:</span> {
                 sessionCustomization.sessionType === 'fixed' ? 'Fixed Price Course' :
                 sessionCustomization.sessionType === 'per_session' ? `${sessionCustomization.numberOfSessions} Sessions` :
                 `${sessionCustomization.totalHours} Hours`
               }</p>
-              <p><span className="text-gray-600">Schedule:</span> {sessionCustomization.schedule}</p>
-              <p><span className="text-gray-600">Intensity:</span> {sessionCustomization.intensity.replace('_', ' ')}</p>
+              <p><span className="text-gray-600 dark:text-slate-400">Schedule:</span> {sessionCustomization.schedule}</p>
+              <p><span className="text-gray-600 dark:text-slate-400">Intensity:</span> {sessionCustomization.intensity.replace('_', ' ')}</p>
             </div>
           </div>
         )}
 
         {/* Student Info Summary */}
         <div className="border-t pt-4 mb-6">
-          <h4 className="font-semibold text-gray-900 dark:text-slate-100 mb-3">Student Information</h4>
+          <h4 className="font-semibold text-gray-900 dark:text-slate-100 dark:text-slate-100 mb-3">Student Information</h4>
           <div className="space-y-2 text-sm">
-            <p><span className="text-gray-600">Name:</span> {studentDetails.fullName}</p>
-            <p><span className="text-gray-600">Email:</span> {studentDetails.email}</p>
-            <p><span className="text-gray-600">Phone:</span> {studentDetails.phone}</p>
+            <p><span className="text-gray-600 dark:text-slate-400">Name:</span> {studentDetails.fullName}</p>
+            <p><span className="text-gray-600 dark:text-slate-400">Email:</span> {studentDetails.email}</p>
+            <p><span className="text-gray-600 dark:text-slate-400">Phone:</span> {studentDetails.phone}</p>
             {studentDetails.experience && (
-              <p><span className="text-gray-600">Experience:</span> {studentDetails.experience}</p>
+              <p><span className="text-gray-600 dark:text-slate-400">Experience:</span> {studentDetails.experience}</p>
             )}
             {studentDetails.preferredTime && (
-              <p><span className="text-gray-600">Preferred Time:</span> {studentDetails.preferredTime}</p>
+              <p><span className="text-gray-600 dark:text-slate-400">Preferred Time:</span> {studentDetails.preferredTime}</p>
             )}
           </div>
         </div>
@@ -814,7 +814,7 @@ export default function CourseEnrollmentEnhanced({ course }: { course: CourseEnr
         {/* Payment Plan Selection - Only for courses above $200 */}
         {qualifiesForInstallments && (
           <div className="mb-6">
-            <h4 className="font-semibold text-gray-900 dark:text-slate-100 mb-3">Choose Payment Plan</h4>
+            <h4 className="font-semibold text-gray-900 dark:text-slate-100 dark:text-slate-100 mb-3">Choose Payment Plan</h4>
             <div className="space-y-3">
               {COURSE_PAYMENT_PLANS.map((plan) => {
                 const downPaymentAmount = (totalPrice * plan.downPayment / 100) + plan.processingFee;
@@ -826,22 +826,22 @@ export default function CourseEnrollmentEnhanced({ course }: { course: CourseEnr
                     className={`border rounded-lg p-4 cursor-pointer transition-all duration-200 ${
                       selectedPaymentPlan.id === plan.id
                         ? 'border-primary ring-2 ring-primary/20 bg-primary/5'
-                        : 'border-gray-200 dark:border-slate-600 hover:border-gray-300 dark:hover:border-slate-500'
+                        : 'border-gray-200 dark:border-slate-700 dark:border-slate-600 hover:border-gray-300 dark:hover:border-slate-500'
                     }`}
                     onClick={() => setSelectedPaymentPlan(plan)}
                   >
                     <div className="flex items-start justify-between mb-2">
-                      <h5 className="font-semibold text-gray-900 dark:text-slate-100">{plan.name}</h5>
+                      <h5 className="font-semibold text-gray-900 dark:text-slate-100 dark:text-slate-100">{plan.name}</h5>
                       {plan.id === 'split_2' && (
                         <span className="bg-green-100 text-green-800 text-xs font-medium px-2 py-1 rounded">
                           Popular
                         </span>
                       )}
                     </div>
-                    <p className="text-sm text-gray-600 mb-2">{plan.description}</p>
+                    <p className="text-sm text-gray-600 dark:text-slate-400 mb-2">{plan.description}</p>
                     
                     {plan.installments > 1 && (
-                      <div className="text-xs text-gray-500">
+                      <div className="text-xs text-gray-500 dark:text-slate-500">
                         <div>Today: {formatPrice(downPaymentAmount)}</div>
                         {remainingPayments > 0 && (
                           <div>Then: {plan.installments - 1} × {formatPrice(remainingPayments)}</div>
@@ -928,7 +928,7 @@ export default function CourseEnrollmentEnhanced({ course }: { course: CourseEnr
           )}
         </button>
 
-        <div className="mt-4 text-center text-sm text-gray-600">
+        <div className="mt-4 text-center text-sm text-gray-600 dark:text-slate-400">
           <p>Secure payment powered by Stripe • 30-day money-back guarantee</p>
         </div>
       </div>
@@ -938,15 +938,15 @@ export default function CourseEnrollmentEnhanced({ course }: { course: CourseEnr
   // Error Step
   if (state.step === 'error') {
     return (
-      <div className="bg-white rounded-xl shadow-lg p-6 border border-red-200">
+      <div className="bg-white dark:bg-slate-900 rounded-xl shadow-lg p-6 border border-red-200">
         <div className="text-center">
           <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
             <svg className="w-8 h-8 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.728-.833-2.498 0L4.316 19c-.77.833.192 2.5 1.732 2.5z" />
             </svg>
           </div>
-          <h3 className="text-lg font-semibold text-gray-900 dark:text-slate-100 mb-2">Enrollment Failed</h3>
-          <p className="text-gray-600 mb-6">{state.error}</p>
+          <h3 className="text-lg font-semibold text-gray-900 dark:text-slate-100 dark:text-slate-100 mb-2">Enrollment Failed</h3>
+          <p className="text-gray-600 dark:text-slate-400 mb-6">{state.error}</p>
           <div className="flex gap-3">
             <button
               onClick={() => setState({ ...state, step: 'payment', error: undefined })}
@@ -956,7 +956,7 @@ export default function CourseEnrollmentEnhanced({ course }: { course: CourseEnr
             </button>
             <Link 
               href="/contact"
-              className="flex-1 py-2 px-4 border border-gray-300 dark:border-slate-600 text-gray-700 dark:text-slate-300 rounded-lg font-medium hover:bg-gray-50 dark:hover:bg-slate-700 text-center"
+              className="flex-1 py-2 px-4 border border-gray-300 dark:border-slate-600 text-gray-700 dark:text-slate-300 dark:text-slate-300 rounded-lg font-medium hover:bg-gray-50 dark:bg-slate-800/50 dark:hover:bg-slate-700 text-center"
             >
               Contact Support
             </Link>

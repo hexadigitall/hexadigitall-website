@@ -34,10 +34,10 @@ const StickyServiceCTA = ({
   if (!isVisible) return null;
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 bg-white/95 backdrop-blur-md border-t border-gray-200 p-3 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.1)] z-50 md:hidden animate-in slide-in-from-bottom-full duration-300">
+    <div className="fixed bottom-0 left-0 right-0 bg-white dark:bg-slate-900/95 backdrop-blur-md border-t border-gray-200 dark:border-slate-700 p-3 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.1)] z-50 md:hidden animate-in slide-in-from-bottom-full duration-300">
       <div className="flex items-center justify-between gap-3 max-w-md mx-auto">
         <div className="flex flex-col">
-          <span className="text-[10px] uppercase tracking-wider text-gray-500 font-semibold">Starting at</span>
+          <span className="text-[10px] uppercase tracking-wider text-gray-500 dark:text-slate-500 font-semibold">Starting at</span>
           <span className="font-bold text-lg text-primary leading-tight">
             {new Intl.NumberFormat('en-NG', { style: 'currency', currency: currencyCode, maximumFractionDigits: 0 }).format(price)}
           </span>
@@ -267,7 +267,7 @@ export default function DynamicServicePage({
   return (
     <div className="min-h-screen bg-gradient-to-b from-slate-50 via-white to-blue-50 pb-20 md:pb-0">
       {/* Breadcrumb */}
-      <div className="bg-white border-b">
+      <div className="bg-white dark:bg-slate-900 border-b">
         <div className="container mx-auto px-6 py-4">
           <Breadcrumb items={[
             { label: 'Services', href: '/services' },
@@ -303,16 +303,16 @@ export default function DynamicServicePage({
               </svg>
               <span>{config.badge}</span>
             </div>
-            <h1 className="text-4xl md:text-5xl font-bold font-heading text-gray-900 mb-6">
+            <h1 className="text-4xl md:text-5xl font-bold font-heading text-gray-900 dark:text-slate-100 mb-6">
               {serviceCategory.title}
             </h1>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+            <p className="text-xl text-gray-600 dark:text-slate-400 max-w-3xl mx-auto leading-relaxed">
               {serviceCategory.description}
             </p>
             
             {/* Currency Info */}
             <div className="mt-8">
-              <div className="inline-flex items-center space-x-2 text-sm text-gray-600 mb-4">
+              <div className="inline-flex items-center space-x-2 text-sm text-gray-600 dark:text-slate-400 mb-4">
                 <span>Prices shown in:</span>
                 <span className="font-semibold text-primary">
                   {/* HYDRATION SAFE CURRENCY DISPLAY */}
@@ -327,8 +327,8 @@ export default function DynamicServicePage({
             <div className="mb-16">
               <div className="card-enhanced rounded-2xl p-8 text-center">
                 <div className="mb-6">
-                  <h2 className="text-2xl font-bold text-gray-900 mb-3">{config.individualTitle}</h2>
-                  <p className="text-gray-600">
+                  <h2 className="text-2xl font-bold text-gray-900 dark:text-slate-100 mb-3">{config.individualTitle}</h2>
+                  <p className="text-gray-600 dark:text-slate-400">
                     {config.individualDescription}
                   </p>
                 </div>
@@ -347,9 +347,9 @@ export default function DynamicServicePage({
                   <div className="space-y-6">
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                       {individualServices.map((service) => (
-                        <div key={service.id} className={`bg-white border-2 border-gray-200 rounded-xl p-6 hover:border-${config.accentColor}-400 hover:shadow-lg transition-all duration-300 flex flex-col h-full`}>
-                          <h3 className="font-bold text-gray-900 mb-2">{service.name}</h3>
-                          <p className="text-sm text-gray-600 mb-4 flex-grow">{service.description}</p>
+                        <div key={service.id} className={`bg-white dark:bg-slate-900 border-2 border-gray-200 dark:border-slate-700 rounded-xl p-6 hover:border-${config.accentColor}-400 hover:shadow-lg transition-all duration-300 flex flex-col h-full`}>
+                          <h3 className="font-bold text-gray-900 dark:text-slate-100 mb-2">{service.name}</h3>
+                          <p className="text-sm text-gray-600 dark:text-slate-400 mb-4 flex-grow">{service.description}</p>
                           
                           <div className="mb-4">
                             <StartingAtPriceDisplay 
@@ -357,12 +357,12 @@ export default function DynamicServicePage({
                               size="md" 
                               showDiscount={true}
                             />
-                            <p className="text-sm text-gray-500 mt-1">Delivery: {service.deliveryTime}</p>
+                            <p className="text-sm text-gray-500 dark:text-slate-500 mt-1">Delivery: {service.deliveryTime}</p>
                           </div>
 
                           <ul className="space-y-1 mb-6">
                             {service.features.slice(0, 4).map((feature, index) => (
-                              <li key={index} className="flex items-center text-xs text-gray-600">
+                              <li key={index} className="flex items-center text-xs text-gray-600 dark:text-slate-400">
                                 <svg className={`w-3 h-3 text-${config.accentColor}-500 mr-2 flex-shrink-0`} fill="currentColor" viewBox="0 0 20 20">
                                   <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                                 </svg>
@@ -406,7 +406,7 @@ export default function DynamicServicePage({
                     
                     <button
                       onClick={() => setShowIndividualServices(false)}
-                      className="text-gray-500 hover:text-gray-700 text-sm"
+                      className="text-gray-500 dark:text-slate-500 hover:text-gray-700 dark:text-slate-300 text-sm"
                     >
                       Hide Individual Services
                     </button>
@@ -419,8 +419,8 @@ export default function DynamicServicePage({
           {/* Service Packages */}
           <div className="mb-16">
             <div className="text-center mb-12">
-              <h2 className="text-3xl font-bold text-gray-900 mb-4">{config.packageTitle}</h2>
-              <p className="text-gray-600 max-w-2xl mx-auto">
+              <h2 className="text-3xl font-bold text-gray-900 dark:text-slate-100 mb-4">{config.packageTitle}</h2>
+              <p className="text-gray-600 dark:text-slate-400 max-w-2xl mx-auto">
                 {config.packageDescription}
               </p>
             </div>
@@ -441,7 +441,7 @@ export default function DynamicServicePage({
                   )}
                   
                   <div className="text-center mb-6">
-                    <h3 className="text-2xl font-bold text-gray-900 mb-2">{pkg.name}</h3>
+                    <h3 className="text-2xl font-bold text-gray-900 dark:text-slate-100 mb-2">{pkg.name}</h3>
                     <StartingAtPriceDisplay 
                       price={pkg.price} 
                       size="lg" 
@@ -455,11 +455,11 @@ export default function DynamicServicePage({
                         <svg className={`w-5 h-5 text-${config.accentColor}-500 mt-0.5 mr-3 flex-shrink-0`} fill="currentColor" viewBox="0 0 20 20">
                           <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                         </svg>
-                        <span className="text-gray-700 text-sm">{typeof feature === 'string' ? feature : (feature.title ?? feature.description ?? JSON.stringify(feature))}</span>
+                        <span className="text-gray-700 dark:text-slate-300 text-sm">{typeof feature === 'string' ? feature : (feature.title ?? feature.description ?? JSON.stringify(feature))}</span>
                       </li>
                     ))}
                     {(pkg.features?.length ?? 0) > 8 && (
-                      <li className="text-sm text-gray-500 italic pl-8">
+                      <li className="text-sm text-gray-500 dark:text-slate-500 italic pl-8">
                         +{(pkg.features?.length ?? 0) - 8} more features...
                       </li>
                     )}
@@ -485,15 +485,15 @@ export default function DynamicServicePage({
 
           {/* Stats Section */}
           <div className="text-center">
-            <h3 className="text-2xl font-bold text-gray-900 mb-8">{config.statsTitle}</h3>
+            <h3 className="text-2xl font-bold text-gray-900 dark:text-slate-100 mb-8">{config.statsTitle}</h3>
             <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
               {getStatsData().map((stat) => (
                 <div key={stat.title} className="card-enhanced rounded-xl p-6 text-center">
                   <div className={`w-12 h-12 ${stat.bgColor} rounded-xl flex items-center justify-center ${stat.textColor} mx-auto mb-4`}>
                     {stat.icon}
                   </div>
-                  <h4 className="font-bold text-gray-900 mb-2">{stat.title}</h4>
-                  <p className="text-gray-600 text-sm">{stat.description}</p>
+                  <h4 className="font-bold text-gray-900 dark:text-slate-100 mb-2">{stat.title}</h4>
+                  <p className="text-gray-600 dark:text-slate-400 text-sm">{stat.description}</p>
                 </div>
               ))}
             </div>

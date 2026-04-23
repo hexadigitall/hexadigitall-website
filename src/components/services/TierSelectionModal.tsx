@@ -73,10 +73,10 @@ export default function TierSelectionModal({
   if (!tiers || tiers.length === 0) {
     return (
       <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50">
-        <div className="bg-white rounded-2xl max-w-md w-full p-8 relative">
+        <div className="bg-white dark:bg-slate-900 rounded-2xl max-w-md w-full p-8 relative">
           <button
             onClick={onClose}
-            className="absolute top-4 right-4 text-gray-400 hover:text-gray-600"
+            className="absolute top-4 right-4 text-gray-400 dark:text-slate-500 hover:text-gray-600 dark:text-slate-400"
             aria-label="Close modal"
           >
             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -84,7 +84,7 @@ export default function TierSelectionModal({
             </svg>
           </button>
           <div className="text-center">
-            <p className="text-gray-600 mb-4">No pricing tiers available for this package.</p>
+            <p className="text-gray-600 dark:text-slate-400 mb-4">No pricing tiers available for this package.</p>
             <button
               onClick={onClose}
               className="inline-flex items-center px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors"
@@ -99,11 +99,11 @@ export default function TierSelectionModal({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 overflow-y-hidden" onClick={onClose}>
-      <div className="bg-white rounded-2xl max-w-6xl w-full p-6 md:p-8 relative my-8 max-h-[90vh] overflow-y-auto" onClick={(e) => e.stopPropagation()} style={{ display: showRequestFlow ? 'none' : 'block' }}>
+      <div className="bg-white dark:bg-slate-900 rounded-2xl max-w-6xl w-full p-6 md:p-8 relative my-8 max-h-[90vh] overflow-y-auto" onClick={(e) => e.stopPropagation()} style={{ display: showRequestFlow ? 'none' : 'block' }}>
         {/* Close Button */}
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 transition-colors z-10 min-h-[44px] min-w-[44px] flex items-center justify-center rounded-full hover:bg-gray-100"
+          className="absolute top-4 right-4 text-gray-400 dark:text-slate-500 hover:text-gray-600 dark:text-slate-400 transition-colors z-10 min-h-[44px] min-w-[44px] flex items-center justify-center rounded-full hover:bg-gray-100"
           aria-label="Close modal"
         >
           <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -113,11 +113,11 @@ export default function TierSelectionModal({
 
         {/* Header */}
         <div className="mb-8">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-2">
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-slate-100 mb-2">
             {packageGroup.name}
           </h2>
           {packageGroup.description && (
-            <p className="text-gray-600 text-lg">
+            <p className="text-gray-600 dark:text-slate-400 text-lg">
               {packageGroup.description}
             </p>
           )}
@@ -142,7 +142,7 @@ export default function TierSelectionModal({
                 className={`relative rounded-2xl p-6 cursor-pointer transition-all duration-300 border-2 ${
                   isSelected
                     ? 'border-primary bg-primary/5 shadow-xl scale-105'
-                    : 'border-gray-200 hover:border-primary/50 hover:shadow-lg'
+                    : 'border-gray-200 dark:border-slate-700 hover:border-primary/50 hover:shadow-lg'
                 } ${tier.popular ? 'ring-2 ring-secondary ring-offset-2' : ''}`}
               >
                 {/* Popular Badge */}
@@ -166,13 +166,13 @@ export default function TierSelectionModal({
                 )}
 
                 {/* Tier Name */}
-                <h3 className="text-xl font-bold text-gray-900 mb-2 pr-10">
+                <h3 className="text-xl font-bold text-gray-900 dark:text-slate-100 mb-2 pr-10">
                   {tier.name}
                 </h3>
 
                 {/* Subtitle - Best For */}
                 {tier.subtitle && (
-                  <p className="text-sm text-gray-600 mb-3 italic leading-snug pr-8">
+                  <p className="text-sm text-gray-600 dark:text-slate-400 mb-3 italic leading-snug pr-8">
                     {tier.subtitle}
                   </p>
                 )}
@@ -183,7 +183,7 @@ export default function TierSelectionModal({
                     {currentCurrency.symbol}
                     {Math.round(convertedPrice).toLocaleString()}
                   </div>
-                  <p className="text-sm text-gray-600 mt-2 font-medium">
+                  <p className="text-sm text-gray-600 dark:text-slate-400 mt-2 font-medium">
                     {tier.billing === 'one_time' && 'One-time payment'}
                     {tier.billing === 'monthly' && 'Per month (recurring)'}
                     {tier.billing === 'hourly' && 'Per hour'}
@@ -193,7 +193,7 @@ export default function TierSelectionModal({
 
                 {/* Delivery Time */}
                 {tier.deliveryTime && (
-                  <div className="mb-6 p-3 bg-blue-50 rounded-lg border border-blue-100 flex items-center text-sm text-gray-700">
+                  <div className="mb-6 p-3 bg-blue-50 rounded-lg border border-blue-100 flex items-center text-sm text-gray-700 dark:text-slate-300">
                     <svg className="w-4 h-4 mr-2.5 text-primary flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>
@@ -209,7 +209,7 @@ export default function TierSelectionModal({
                         ? feature 
                         : (feature && typeof feature === 'object' ? (feature.title || feature.description || '') : '')
                       return (
-                        <li key={idx} className="flex items-start text-sm text-gray-700 leading-snug">
+                        <li key={idx} className="flex items-start text-sm text-gray-700 dark:text-slate-300 leading-snug">
                           <svg className="w-4 h-4 text-secondary mr-2.5 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
                             <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                           </svg>
@@ -218,7 +218,7 @@ export default function TierSelectionModal({
                       )
                     })}
                     {(tier.features?.length || 0) > 5 && (
-                      <li className="flex items-start text-xs text-gray-500 italic pt-1">
+                      <li className="flex items-start text-xs text-gray-500 dark:text-slate-500 italic pt-1">
                         + {(tier.features?.length || 0) - 5} more features
                       </li>
                     )}
@@ -229,7 +229,7 @@ export default function TierSelectionModal({
                 <div className={`p-3 rounded-lg text-center text-xs font-semibold transition-colors ${
                   isSelected
                     ? 'bg-primary text-white'
-                    : 'bg-gray-100 text-gray-700'
+                    : 'bg-gray-100 text-gray-700 dark:text-slate-300'
                 }`}>
                   {isSelected ? '✓ Selected' : 'Select Plan'}
                 </div>
@@ -241,11 +241,11 @@ export default function TierSelectionModal({
         {/* Feature Comparison Table */}
         {orderedTiers.length > 1 && (
           <div className="mb-12 overflow-x-auto">
-            <h3 className="text-lg font-bold text-gray-900 mb-4">Compare Features</h3>
+            <h3 className="text-lg font-bold text-gray-900 dark:text-slate-100 mb-4">Compare Features</h3>
             <table className="w-full text-sm">
               <thead>
-                <tr className="border-b-2 border-gray-200">
-                  <th className="text-left py-3 px-4 font-bold text-gray-900">Feature</th>
+                <tr className="border-b-2 border-gray-200 dark:border-slate-700">
+                  <th className="text-left py-3 px-4 font-bold text-gray-900 dark:text-slate-100">Feature</th>
                   {orderedTiers.map(tier => {
                     const isSelected = selectedTierKey === tier._key
                     return (
@@ -254,7 +254,7 @@ export default function TierSelectionModal({
                         className={`text-center py-3 px-4 font-bold transition-all ${
                           isSelected 
                             ? 'text-primary bg-primary/10 border-l-4 border-r-4 border-primary' 
-                            : 'text-gray-900'
+                            : 'text-gray-900 dark:text-slate-100'
                         }`}
                       >
                         {tier.name}
@@ -273,8 +273,8 @@ export default function TierSelectionModal({
                     orderedTiers.flatMap(t => Array.from(featureSets[t._key] || new Set<string>()))
                   )
                 ).filter(Boolean).slice(0, 14).map((feature, idx) => (
-                  <tr key={idx} className={idx % 2 === 0 ? 'bg-gray-50' : ''}>
-                    <td className="py-3 px-4 text-gray-700 font-medium">{feature}</td>
+                  <tr key={idx} className={idx % 2 === 0 ? 'bg-gray-50 dark:bg-slate-800/50' : ''}>
+                    <td className="py-3 px-4 text-gray-700 dark:text-slate-300 font-medium">{feature}</td>
                     {orderedTiers.map(tier => {
                       const isSelected = selectedTierKey === tier._key
                       const hasFeature = (featureSets[tier._key] || new Set<string>()).has(feature)
@@ -323,14 +323,14 @@ export default function TierSelectionModal({
           </button>
           <button
             onClick={onClose}
-            className="flex-1 md:flex-auto min-h-[44px] border-2 border-gray-300 text-gray-700 py-3 px-6 rounded-xl font-semibold hover:border-gray-400 active:scale-95 transition-all"
+            className="flex-1 md:flex-auto min-h-[44px] border-2 border-gray-300 text-gray-700 dark:text-slate-300 py-3 px-6 rounded-xl font-semibold hover:border-gray-400 active:scale-95 transition-all"
           >
             Back
           </button>
         </div>
 
         {/* Currency Info */}
-        <div className="mt-6 text-center text-sm text-gray-500">
+        <div className="mt-6 text-center text-sm text-gray-500 dark:text-slate-500">
           Prices shown in {currentCurrency.flag} {currentCurrency.code}
         </div>
       </div>

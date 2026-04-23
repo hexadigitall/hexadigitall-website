@@ -184,7 +184,7 @@ export default function CustomBuildWizard() {
   }
 
   return (
-    <div className="bg-white rounded-2xl shadow-xl border border-slate-200">
+    <div className="bg-white dark:bg-slate-900 rounded-2xl shadow-xl border border-slate-200">
       {/* Breadcrumb Navigation */}
       <div className="px-4 sm:px-6 pt-4 border-b border-slate-100">
         <nav className="flex items-center gap-2 text-sm text-slate-600 mb-3">
