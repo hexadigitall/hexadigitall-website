@@ -20,15 +20,15 @@ export default function CancelPage() {
             <h2 className="mt-6 text-3xl font-bold font-heading text-gray-900 dark:text-slate-100">
             Checkout Cancelled
           </h2>
-          <p className="mt-2 text-sm text-gray-600">
+          <p className="mt-2 text-sm text-gray-600 dark:text-slate-400">
             Your checkout was cancelled and no payment was processed.
           </p>
         </div>
         
         <div className="mt-8 space-y-4">
             <div className="bg-white dark:bg-slate-800 p-6 rounded-lg shadow-md">
-            <h3 className="text-lg font-semibold font-heading mb-2">What happened?</h3>
-            <p className="text-sm text-gray-600 text-left">
+            <h3 className="text-lg font-semibold font-heading mb-2 text-gray-900 dark:text-slate-100">What happened?</h3>
+            <p className="text-sm text-gray-600 dark:text-slate-400 text-left">
               You cancelled the checkout process before completing your payment. 
               Your items are still in your cart if you&apos;d like to try again.
             </p>

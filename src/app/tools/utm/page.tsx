@@ -71,74 +71,74 @@ export default function UTMBuilderPage() {
   )
 
   return (
-    <div className="container mx-auto px-6 py-12">
+    <div className="container mx-auto px-6 py-12 text-gray-900 dark:text-slate-100">
       <h1 className="text-3xl font-bold mb-4">UTM Link Builder</h1>
-      <p className="text-gray-600 mb-8">Compose tracked links for campaigns with consistent parameters.</p>
+      <p className="text-gray-600 dark:text-slate-400 mb-8">Compose tracked links for campaigns with consistent parameters.</p>
 
       <div className="grid md:grid-cols-2 gap-8">
         <div>
           <label className="block text-sm font-medium mb-2">Base URL</label>
-          <select className="w-full border rounded p-2" value={baseUrl} onChange={e => setBaseUrl(e.target.value)}>
+          <select className="w-full border border-gray-300 dark:border-slate-600 bg-white dark:bg-slate-800 rounded p-2 text-gray-900 dark:text-slate-100" value={baseUrl} onChange={e => setBaseUrl(e.target.value)}>
             {PAGES.map(p => <option key={p.url} value={p.url}>{p.label} ({p.url})</option>)}
           </select>
 
           <div className="mt-4 grid grid-cols-2 gap-4">
             <div>
               <label className="block text-sm font-medium mb-2">Source</label>
-              <select className="w-full border rounded p-2" value={source} onChange={e => setSource(e.target.value)}>
+              <select className="w-full border border-gray-300 dark:border-slate-600 bg-white dark:bg-slate-800 rounded p-2 text-gray-900 dark:text-slate-100" value={source} onChange={e => setSource(e.target.value)}>
                 {PLATFORMS.map(p => <option key={p.key} value={p.key}>{p.label}</option>)}
               </select>
             </div>
             <div>
               <label className="block text-sm font-medium mb-2">Medium</label>
-              <input className="w-full border rounded p-2" value={medium} onChange={e => setMedium(e.target.value)} />
+              <input className="w-full border border-gray-300 dark:border-slate-600 bg-white dark:bg-slate-800 rounded p-2 text-gray-900 dark:text-slate-100" value={medium} onChange={e => setMedium(e.target.value)} />
             </div>
           </div>
 
           <div className="mt-4 grid grid-cols-2 gap-4">
             <div>
               <label className="block text-sm font-medium mb-2">Campaign</label>
-              <input className="w-full border rounded p-2" value={campaign} onChange={e => setCampaign(e.target.value)} />
+              <input className="w-full border border-gray-300 dark:border-slate-600 bg-white dark:bg-slate-800 rounded p-2 text-gray-900 dark:text-slate-100" value={campaign} onChange={e => setCampaign(e.target.value)} />
             </div>
             <div>
               <label className="block text-sm font-medium mb-2">Content (optional)</label>
-              <input className="w-full border rounded p-2" value={content} onChange={e => setContent(e.target.value)} />
+              <input className="w-full border border-gray-300 dark:border-slate-600 bg-white dark:bg-slate-800 rounded p-2 text-gray-900 dark:text-slate-100" value={content} onChange={e => setContent(e.target.value)} />
             </div>
           </div>
 
           <div className="mt-4">
             <label className="block text-sm font-medium mb-2">Term (optional)</label>
-            <input className="w-full border rounded p-2" value={term} onChange={e => setTerm(e.target.value)} />
+            <input className="w-full border border-gray-300 dark:border-slate-600 bg-white dark:bg-slate-800 rounded p-2 text-gray-900 dark:text-slate-100" value={term} onChange={e => setTerm(e.target.value)} />
           </div>
         </div>
 
         <div>
           <label className="block text-sm font-medium mb-2">Tracked URL</label>
-          <textarea className="w-full border rounded p-2 h-40" readOnly value={trackedUrl} />
-          <div className="mt-2 text-sm text-gray-500">Copy this and paste into your posts.</div>
+          <textarea className="w-full border border-gray-300 dark:border-slate-600 bg-white dark:bg-slate-800 rounded p-2 h-40 text-gray-900 dark:text-slate-100" readOnly value={trackedUrl} />
+          <div className="mt-2 text-sm text-gray-500 dark:text-slate-400">Copy this and paste into your posts.</div>
         </div>
       </div>
 
       <div className="mt-10">
         <h2 className="text-xl font-semibold mb-3">Campaign presets (7 cities × 4 services)</h2>
-        <p className="text-sm text-gray-600 mb-4">Links auto-use your current source/medium/campaign selections and set content=service, term=city.</p>
+        <p className="text-sm text-gray-600 dark:text-slate-400 mb-4">Links auto-use your current source/medium/campaign selections and set content=service, term=city.</p>
         <div className="grid md:grid-cols-2 gap-6">
-          <div className="space-y-3 max-h-80 overflow-y-auto border border-gray-200 rounded-md p-3 bg-gray-50">
+          <div className="space-y-3 max-h-80 overflow-y-auto border border-gray-200 dark:border-slate-700 rounded-md p-3 bg-gray-50 dark:bg-slate-800">
             {presetLinks.map((link) => (
               <div key={`${link.city}-${link.service}`} className="text-sm">
-                <div className="font-medium text-gray-900">{link.service} — {link.city}</div>
-                <div className="text-gray-600 break-all text-xs">{link.url}</div>
+                <div className="font-medium text-gray-900 dark:text-slate-100">{link.service} — {link.city}</div>
+                <div className="text-gray-600 dark:text-slate-400 break-all text-xs">{link.url}</div>
               </div>
             ))}
           </div>
           <div>
             <label className="block text-sm font-medium mb-2">Copy all presets</label>
             <textarea
-              className="w-full border rounded p-2 h-72 text-xs"
+              className="w-full border border-gray-300 dark:border-slate-600 bg-white dark:bg-slate-800 rounded p-2 h-72 text-xs text-gray-900 dark:text-slate-100"
               readOnly
               value={presetText}
             />
-            <div className="mt-2 text-sm text-gray-500">Paste into SOCIAL_SHARE_GUIDE or send to the team.</div>
+            <div className="mt-2 text-sm text-gray-500 dark:text-slate-400">Paste into SOCIAL_SHARE_GUIDE or send to the team.</div>
           </div>
         </div>
       </div>

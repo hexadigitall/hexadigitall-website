@@ -90,7 +90,7 @@ export default function ContactPage() {
             <p className="mt-4 text-lg text-darkText dark:text-slate-300 max-w-3xl mx-auto leading-relaxed">
               Whether you have a fully-formed project or just the seed of an idea, we&apos;re here to help. Our expert team provides free consultations and responds within 24 hours.
             </p>
-            <div className="flex flex-wrap justify-center items-center gap-6 mt-6 text-sm text-gray-600">
+            <div className="flex flex-wrap justify-center items-center gap-6 mt-6 text-sm text-gray-600 dark:text-slate-400">
               <div className="flex items-center">
                 <svg className="w-5 h-5 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
                   <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
@@ -156,7 +156,7 @@ export default function ContactPage() {
                     </svg>
                     <div>
                       <p>Monday - Friday: 8:00 AM - 6:00 PM</p>
-                      <p className="text-sm text-gray-600 mt-1">Weekend: By appointment</p>
+                      <p className="text-sm text-gray-600 dark:text-slate-400 mt-1">Weekend: By appointment</p>
                     </div>
                   </div>
                 </div>
