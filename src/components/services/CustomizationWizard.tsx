@@ -250,12 +250,12 @@ export default function CustomizationWizard() {
   }
 
   return (
-    <div className="bg-white">
+    <div className="bg-white dark:bg-slate-900">
       {/* Progress Bar */}
-      <div className="bg-gray-50 border-b px-6 py-4">
+      <div className="bg-gray-50 dark:bg-slate-800/50 border-b px-6 py-4">
         <div className="max-w-4xl mx-auto">
           <div className="flex items-center justify-between">
-            <h2 className="text-2xl font-bold text-gray-900">Custom Solution Builder</h2>
+            <h2 className="text-2xl font-bold text-gray-900 dark:text-slate-100">Custom Solution Builder</h2>
             <div className="flex items-center space-x-2">
               {['web', 'mobile', 'integration', 'recommendations'].map((step, index) => (
                 <div key={step} className="flex items-center">
@@ -264,7 +264,7 @@ export default function CustomizationWizard() {
                       ? 'bg-primary text-white' 
                       : currentStep === 'recommendations' || (currentStep === 'integration' && index < 2) || (currentStep === 'mobile' && index < 1)
                         ? 'bg-green-500 text-white'
-                        : 'bg-gray-200 text-gray-600'
+                        : 'bg-gray-200 text-gray-600 dark:text-slate-400'
                   }`}>
                     {currentStep === step || (currentStep === 'recommendations' && index < 3) || (currentStep === 'integration' && index < 2) || (currentStep === 'mobile' && index < 1) ? '✓' : index + 1}
                   </div>
@@ -284,24 +284,24 @@ export default function CustomizationWizard() {
 
       <div className="max-w-4xl mx-auto px-6 py-12">
         <div className="text-center mb-8">
-          <h3 className="text-3xl font-bold text-gray-900 mb-4">{getStepTitle()}</h3>
+          <h3 className="text-3xl font-bold text-gray-900 dark:text-slate-100 mb-4">{getStepTitle()}</h3>
           {currentStep === 'web' && (
-            <p className="text-gray-600 max-w-2xl mx-auto">
+            <p className="text-gray-600 dark:text-slate-400 max-w-2xl mx-auto">
               Select the web features you need. You can choose multiple options to create your perfect web presence.
             </p>
           )}
           {currentStep === 'mobile' && (
-            <p className="text-gray-600 max-w-2xl mx-auto">
+            <p className="text-gray-600 dark:text-slate-400 max-w-2xl mx-auto">
               Now choose your mobile app requirements. Pick the features that match your business needs.
             </p>
           )}
           {currentStep === 'integration' && (
-            <p className="text-gray-600 max-w-2xl mx-auto">
+            <p className="text-gray-600 dark:text-slate-400 max-w-2xl mx-auto">
               How integrated should your web and mobile solutions be? Choose the level that fits your needs.
             </p>
           )}
           {currentStep === 'recommendations' && (
-            <p className="text-gray-600 max-w-2xl mx-auto">
+            <p className="text-gray-600 dark:text-slate-400 max-w-2xl mx-auto">
               Based on your selections, here are our recommended packages tailored specifically for your needs.
             </p>
           )}
@@ -317,15 +317,15 @@ export default function CustomizationWizard() {
                   className={`border-2 rounded-2xl p-6 cursor-pointer transition-all duration-200 ${
                     selectedWebFeatures.includes(feature.id)
                       ? 'border-blue-500 bg-blue-50 shadow-lg'
-                      : 'border-gray-200 hover:border-blue-300 hover:shadow-md'
+                      : 'border-gray-200 dark:border-slate-700 hover:border-blue-300 hover:shadow-md'
                   }`}
                   onClick={() => toggleWebFeature(feature.id)}
                 >
                   <div className="flex items-start space-x-4">
                     <div className="text-3xl">{feature.icon}</div>
                     <div className="flex-1">
-                      <h4 className="text-lg font-bold text-gray-900 mb-2">{feature.name}</h4>
-                      <p className="text-gray-600 text-sm mb-3">{feature.description}</p>
+                      <h4 className="text-lg font-bold text-gray-900 dark:text-slate-100 mb-2">{feature.name}</h4>
+                      <p className="text-gray-600 dark:text-slate-400 text-sm mb-3">{feature.description}</p>
                       <PriceDisplay 
                         price={feature.basePrice} 
                         showDiscount={true}
@@ -357,15 +357,15 @@ export default function CustomizationWizard() {
                   className={`border-2 rounded-2xl p-6 cursor-pointer transition-all duration-200 ${
                     selectedMobileFeatures.includes(feature.id)
                       ? 'border-purple-500 bg-purple-50 shadow-lg'
-                      : 'border-gray-200 hover:border-purple-300 hover:shadow-md'
+                      : 'border-gray-200 dark:border-slate-700 hover:border-purple-300 hover:shadow-md'
                   }`}
                   onClick={() => toggleMobileFeature(feature.id)}
                 >
                   <div className="flex items-start space-x-4">
                     <div className="text-3xl">{feature.icon}</div>
                     <div className="flex-1">
-                      <h4 className="text-lg font-bold text-gray-900 mb-2">{feature.name}</h4>
-                      <p className="text-gray-600 text-sm mb-3">{feature.description}</p>
+                      <h4 className="text-lg font-bold text-gray-900 dark:text-slate-100 mb-2">{feature.name}</h4>
+                      <p className="text-gray-600 dark:text-slate-400 text-sm mb-3">{feature.description}</p>
                       <PriceDisplay 
                         price={feature.basePrice} 
                         showDiscount={true}
@@ -397,15 +397,15 @@ export default function CustomizationWizard() {
                   className={`border-2 rounded-2xl p-6 cursor-pointer transition-all duration-200 ${
                     selectedIntegration === option.id
                       ? 'border-green-500 bg-green-50 shadow-lg'
-                      : 'border-gray-200 hover:border-green-300 hover:shadow-md'
+                      : 'border-gray-200 dark:border-slate-700 hover:border-green-300 hover:shadow-md'
                   }`}
                   onClick={() => setSelectedIntegration(option.id)}
                 >
                   <div className="flex items-start space-x-4">
                     <div className="text-3xl">{option.icon}</div>
                     <div className="flex-1">
-                      <h4 className="text-lg font-bold text-gray-900 mb-2">{option.name}</h4>
-                      <p className="text-gray-600 text-sm mb-3">{option.description}</p>
+                      <h4 className="text-lg font-bold text-gray-900 dark:text-slate-100 mb-2">{option.name}</h4>
+                      <p className="text-gray-600 dark:text-slate-400 text-sm mb-3">{option.description}</p>
                       {option.additionalCost > 0 ? (
                         <div className="text-sm">
                           <span className="text-green-600 font-medium">+</span>
@@ -459,7 +459,7 @@ export default function CustomizationWizard() {
                     className={`border-2 rounded-3xl p-8 transition-all duration-300 hover:shadow-xl ${
                       recommendation.popular 
                         ? 'border-primary bg-primary/5 ring-2 ring-primary/20' 
-                        : 'border-gray-200 hover:border-primary/30'
+                        : 'border-gray-200 dark:border-slate-700 hover:border-primary/30'
                     }`}
                   >
                     {recommendation.popular && (
@@ -471,8 +471,8 @@ export default function CustomizationWizard() {
                     )}
 
                     <div className="text-center mb-6">
-                      <h3 className="text-2xl font-bold text-gray-900 mb-2">{recommendation.name}</h3>
-                      <p className="text-gray-600 mb-4">{recommendation.description}</p>
+                      <h3 className="text-2xl font-bold text-gray-900 dark:text-slate-100 mb-2">{recommendation.name}</h3>
+                      <p className="text-gray-600 dark:text-slate-400 mb-4">{recommendation.description}</p>
                       <div className="space-y-2">
                         <PriceDisplay 
                           price={recommendation.totalPrice} 
@@ -482,14 +482,14 @@ export default function CustomizationWizard() {
                         <p className="text-green-600 font-medium text-sm">
                           Save ${recommendation.savings} compared to separate purchases
                         </p>
-                        <p className="text-gray-600 text-sm">Timeline: {recommendation.timeline}</p>
+                        <p className="text-gray-600 dark:text-slate-400 text-sm">Timeline: {recommendation.timeline}</p>
                       </div>
                     </div>
 
                     <div className="space-y-4 mb-6">
                       <div>
-                        <h4 className="font-semibold text-gray-900 mb-2">Web Features:</h4>
-                        <ul className="text-sm text-gray-600 space-y-1">
+                        <h4 className="font-semibold text-gray-900 dark:text-slate-100 mb-2">Web Features:</h4>
+                        <ul className="text-sm text-gray-600 dark:text-slate-400 space-y-1">
                           {recommendation.webFeatures.map(feature => (
                             <li key={feature} className="flex items-center">
                               <svg className="w-4 h-4 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
@@ -502,8 +502,8 @@ export default function CustomizationWizard() {
                       </div>
 
                       <div>
-                        <h4 className="font-semibold text-gray-900 mb-2">Mobile Features:</h4>
-                        <ul className="text-sm text-gray-600 space-y-1">
+                        <h4 className="font-semibold text-gray-900 dark:text-slate-100 mb-2">Mobile Features:</h4>
+                        <ul className="text-sm text-gray-600 dark:text-slate-400 space-y-1">
                           {recommendation.mobileFeatures.map(feature => (
                             <li key={feature} className="flex items-center">
                               <svg className="w-4 h-4 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
@@ -516,8 +516,8 @@ export default function CustomizationWizard() {
                       </div>
 
                       <div>
-                        <h4 className="font-semibold text-gray-900 mb-2">Integration & Extras:</h4>
-                        <ul className="text-sm text-gray-600 space-y-1">
+                        <h4 className="font-semibold text-gray-900 dark:text-slate-100 mb-2">Integration & Extras:</h4>
+                        <ul className="text-sm text-gray-600 dark:text-slate-400 space-y-1">
                           {recommendation.integrationFeatures.map(feature => (
                             <li key={feature} className="flex items-center">
                               <svg className="w-4 h-4 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
@@ -557,8 +557,8 @@ export default function CustomizationWizard() {
             disabled={currentStep === 'web'}
             className={`px-6 py-3 rounded-lg font-medium transition-colors ${
               currentStep === 'web'
-                ? 'text-gray-400 cursor-not-allowed'
-                : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100'
+                ? 'text-gray-400 dark:text-slate-500 cursor-not-allowed'
+                : 'text-gray-600 dark:text-slate-400 hover:text-gray-900 dark:text-slate-100 hover:bg-gray-100'
             }`}
           >
             ← Previous
@@ -571,7 +571,7 @@ export default function CustomizationWizard() {
               className={`px-8 py-3 rounded-lg font-bold transition-all ${
                 canProceed()
                   ? 'bg-primary hover:bg-primary/90 text-white shadow-md hover:shadow-lg'
-                  : 'bg-gray-300 text-gray-500 cursor-not-allowed'
+                  : 'bg-gray-300 text-gray-500 dark:text-slate-500 cursor-not-allowed'
               }`}
             >
               {currentStep === 'integration' ? 'View Recommendations' : 'Next Step'} →

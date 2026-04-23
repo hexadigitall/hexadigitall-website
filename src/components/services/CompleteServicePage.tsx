@@ -81,10 +81,10 @@ const StickyServiceCTA = ({
   if (!isVisible) return null;
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 bg-white/95 backdrop-blur-md border-t border-gray-200 p-3 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.1)] z-[60] md:hidden animate-in slide-in-from-bottom-full duration-300">
+    <div className="fixed bottom-0 left-0 right-0 bg-white dark:bg-slate-900/95 backdrop-blur-md border-t border-gray-200 dark:border-slate-700 p-3 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.1)] z-[60] md:hidden animate-in slide-in-from-bottom-full duration-300">
       <div className="flex items-center justify-between gap-3 max-w-md mx-auto">
         <div className="flex flex-col">
-          <span className="text-[10px] uppercase tracking-wider text-gray-500 font-semibold">Starting at</span>
+          <span className="text-[10px] uppercase tracking-wider text-gray-500 dark:text-slate-500 font-semibold">Starting at</span>
           <span className="font-bold text-lg text-blue-600 leading-tight">
             {new Intl.NumberFormat('en-NG', { style: 'currency', currency: currencyCode, maximumFractionDigits: 0 }).format(price)}
           </span>
@@ -210,7 +210,7 @@ function CompleteServicePage(props: CompleteServicePageProps) {
           </div>
           <div className="max-w-4xl mx-auto text-center flex flex-col items-center">
             {categoryIcon && (
-              <span className="mb-4 inline-flex items-center justify-center w-16 h-16 rounded-full bg-white/20 border-2 border-white/30 text-4xl">
+              <span className="mb-4 inline-flex items-center justify-center w-16 h-16 rounded-full bg-white dark:bg-slate-900/20 border-2 border-white/30 text-4xl">
                 {categoryIcon}
               </span>
             )}
@@ -222,18 +222,18 @@ function CompleteServicePage(props: CompleteServicePageProps) {
       </div>
 
       {/* --- Sticky Tab Navigation --- */}
-      <div ref={tabNavRef} className="w-full bg-white z-30 shadow-sm sticky top-0 transition-all duration-200">
+      <div ref={tabNavRef} className="w-full bg-white dark:bg-slate-900 z-30 shadow-sm sticky top-0 transition-all duration-200">
         <div className="container mx-auto px-4 flex justify-center gap-2 py-2">
           <button
-            className={`px-4 py-2 rounded-full font-semibold text-sm transition-colors ${activeTab === 'individual' ? accentColors[accentColor].bg + ' text-white' : 'bg-gray-100 text-gray-700'}`}
+            className={`px-4 py-2 rounded-full font-semibold text-sm transition-colors ${activeTab === 'individual' ? accentColors[accentColor].bg + ' text-white' : 'bg-gray-100 text-gray-700 dark:text-slate-300'}`}
             onClick={() => { setActiveTab('individual'); scrollToSection('individual-services-section'); }}
           >Individual Services</button>
           <button
-            className={`px-4 py-2 rounded-full font-semibold text-sm transition-colors ${activeTab === 'bundle' ? accentColors[accentColor].bg + ' text-white' : 'bg-gray-100 text-gray-700'}`}
+            className={`px-4 py-2 rounded-full font-semibold text-sm transition-colors ${activeTab === 'bundle' ? accentColors[accentColor].bg + ' text-white' : 'bg-gray-100 text-gray-700 dark:text-slate-300'}`}
             onClick={() => { setActiveTab('bundle'); scrollToSection('build-bundle-section'); }}
           >Build Bundle</button>
           <button
-            className={`px-4 py-2 rounded-full font-semibold text-sm transition-colors ${activeTab === 'packages' ? accentColors[accentColor].bg + ' text-white' : 'bg-gray-100 text-gray-700'}`}
+            className={`px-4 py-2 rounded-full font-semibold text-sm transition-colors ${activeTab === 'packages' ? accentColors[accentColor].bg + ' text-white' : 'bg-gray-100 text-gray-700 dark:text-slate-300'}`}
             onClick={() => { setActiveTab('packages'); scrollToSection('package-groups-section'); }}
           >Complete Packages</button>
         </div>
@@ -241,16 +241,16 @@ function CompleteServicePage(props: CompleteServicePageProps) {
 
       {/* --- Package Groups Section --- */}
       <section id="package-groups-section" className="container mx-auto px-4 py-12">
-        <h2 className="text-2xl font-bold text-gray-900 mb-8 text-center">Choose a Package</h2>
+        <h2 className="text-2xl font-bold text-gray-900 dark:text-slate-100 mb-8 text-center">Choose a Package</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {packageGroups.map((group: ServicePackageGroup) => {
             const groupLowest = (group.tiers as ServicePackageTier[] || []).reduce((min: number, t: ServicePackageTier) => (t && typeof t.price === 'number' && t.price < min ? t.price : min), Infinity);
             // Removed unused groupPriceInfo
             return (
-              <div key={typeof group.key === 'string' ? group.key : group.key?.current || group.name} className="bg-white rounded-2xl shadow-md p-6 flex flex-col">
+              <div key={typeof group.key === 'string' ? group.key : group.key?.current || group.name} className="bg-white dark:bg-slate-900 rounded-2xl shadow-md p-6 flex flex-col">
                 <div className="mb-4">
-                  <h3 className="text-xl font-bold text-gray-900 mb-2">{group.name}</h3>
-                  <p className="text-gray-600 mb-4">{group.description}</p>
+                  <h3 className="text-xl font-bold text-gray-900 dark:text-slate-100 mb-2">{group.name}</h3>
+                  <p className="text-gray-600 dark:text-slate-400 mb-4">{group.description}</p>
                   {isFinite(groupLowest) && (
                     <StartingAtPriceDisplay price={groupLowest} size="md" showDiscount={true} />
                   )}
@@ -263,7 +263,7 @@ function CompleteServicePage(props: CompleteServicePageProps) {
                       featureText = (feature as { title?: string; description?: string }).title || (feature as { title?: string; description?: string }).description || '';
                     }
                     return (
-                      <li key={idx} className="flex items-center text-sm text-gray-600">
+                      <li key={idx} className="flex items-center text-sm text-gray-600 dark:text-slate-400">
                         <svg className={`w-4 h-4 text-${accentColor}-500 mr-2 flex-shrink-0`} fill="currentColor" viewBox="0 0 20 20">
                           <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                         </svg>
@@ -272,7 +272,7 @@ function CompleteServicePage(props: CompleteServicePageProps) {
                     );
                   })}
                   {(group.tiers?.[0]?.features?.length || 0) > 5 && (
-                    <li className="text-xs text-gray-400 italic">+{(group.tiers?.[0]?.features?.length || 0) - 5} more features</li>
+                    <li className="text-xs text-gray-400 dark:text-slate-500 italic">+{(group.tiers?.[0]?.features?.length || 0) - 5} more features</li>
                   )}
                 </ul>
                 <div className="flex gap-2 mt-auto">
@@ -295,7 +295,7 @@ function CompleteServicePage(props: CompleteServicePageProps) {
                   {/* Share button for this package/tier */}
                   {group.tiers?.[0]?.ogImage?.asset?.url && (
                     <button
-                      className="bg-gray-100 text-gray-700 rounded-xl py-3 px-4 hover:bg-gray-200 transition-colors flex items-center gap-2"
+                      className="bg-gray-100 text-gray-700 dark:text-slate-300 rounded-xl py-3 px-4 hover:bg-gray-200 transition-colors flex items-center gap-2"
                       onClick={() => setShareModal({
                         open: true,
                         title: `${group.name} – ${group.tiers?.[0]?.tier || ''}`,
@@ -318,13 +318,13 @@ function CompleteServicePage(props: CompleteServicePageProps) {
       {shareModal?.open && (
         <Dialog open={shareModal.open} onClose={() => setShareModal(null)} className="fixed z-[100] inset-0 flex items-center justify-center">
           <DialogBackdrop className="fixed inset-0 bg-black/40" />
-          <div className="relative bg-white rounded-2xl shadow-xl p-8 max-w-md w-full z-10 flex flex-col items-center">
+          <div className="relative bg-white dark:bg-slate-900 rounded-2xl shadow-xl p-8 max-w-md w-full z-10 flex flex-col items-center">
             {shareModal.ogImage && (
               <Image src={shareModal.ogImage} alt="Share preview" width={800} height={300} className="w-full h-48 object-cover rounded-xl mb-4 border" />
             )}
             <h3 className="text-lg font-bold mb-2 text-center">Share: {shareModal.title}</h3>
             <input
-              className="w-full border rounded px-3 py-2 mb-3 text-sm text-gray-700 bg-gray-100"
+              className="w-full border rounded px-3 py-2 mb-3 text-sm text-gray-700 dark:text-slate-300 bg-gray-100"
               value={shareModal.url}
               readOnly
               onFocus={e => e.target.select()}
@@ -334,7 +334,7 @@ function CompleteServicePage(props: CompleteServicePageProps) {
               onClick={() => { navigator.clipboard.writeText(shareModal.url); }}
             >Copy Link</button>
             <button
-              className="mt-4 text-gray-500 hover:text-gray-700 text-xs"
+              className="mt-4 text-gray-500 dark:text-slate-500 hover:text-gray-700 dark:text-slate-300 text-xs"
               onClick={() => setShareModal(null)}
             >Close</button>
           </div>
@@ -344,15 +344,15 @@ function CompleteServicePage(props: CompleteServicePageProps) {
       {/* --- Individual Services Section --- */}
       {individualServices && individualServices.length > 0 && (
         <section id="individual-services-section" className="container mx-auto px-4 py-12">
-          <h2 className="text-2xl font-bold text-gray-900 mb-8 text-center">Or Pick an Individual Service</h2>
+          <h2 className="text-2xl font-bold text-gray-900 dark:text-slate-100 mb-8 text-center">Or Pick an Individual Service</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {(showAllServices ? individualServices : individualServices.slice(0, INITIAL_SERVICES_LIMIT)).map((service) => (
-              <div key={service.name} className="bg-white rounded-2xl shadow-md p-6 flex flex-col">
-                <h3 className="text-lg font-bold text-gray-900 mb-2">{service.name}</h3>
-                <p className="text-gray-600 mb-4 flex-grow">{service.description}</p>
+              <div key={service.name} className="bg-white dark:bg-slate-900 rounded-2xl shadow-md p-6 flex flex-col">
+                <h3 className="text-lg font-bold text-gray-900 dark:text-slate-100 mb-2">{service.name}</h3>
+                <p className="text-gray-600 dark:text-slate-400 mb-4 flex-grow">{service.description}</p>
                 <div className="mb-4">
                   <StartingAtPriceDisplay price={service.price} size="sm" showDiscount={true} />
-                  <p className="text-xs text-gray-500 mt-1">Delivery: {service.deliveryTime}</p>
+                  <p className="text-xs text-gray-500 dark:text-slate-500 mt-1">Delivery: {service.deliveryTime}</p>
                 </div>
                 <ul className="space-y-1 mb-6">
                   {(service.features || []).slice(0, 4).map((feature, idx) => {
@@ -362,7 +362,7 @@ function CompleteServicePage(props: CompleteServicePageProps) {
                       featureText = (feature as { title?: string; description?: string }).title || (feature as { title?: string; description?: string }).description || '';
                     }
                     return (
-                      <li key={idx} className="flex items-center text-xs text-gray-600">
+                      <li key={idx} className="flex items-center text-xs text-gray-600 dark:text-slate-400">
                         <svg className={`w-3 h-3 text-${accentColor}-500 mr-2 flex-shrink-0`} fill="currentColor" viewBox="0 0 20 20">
                           <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                         </svg>
@@ -371,7 +371,7 @@ function CompleteServicePage(props: CompleteServicePageProps) {
                     );
                   })}
                   {(service.features?.length || 0) > 4 && (
-                    <li className="text-xs text-gray-400 italic">+{(service.features?.length || 0) - 4} more features</li>
+                    <li className="text-xs text-gray-400 dark:text-slate-500 italic">+{(service.features?.length || 0) - 4} more features</li>
                   )}
                 </ul>
                 <div className="flex gap-2 mt-auto">
@@ -402,7 +402,7 @@ function CompleteServicePage(props: CompleteServicePageProps) {
           {individualServices.length > INITIAL_SERVICES_LIMIT && !showAllServices && (
             <div className="flex justify-center mt-6">
               <button
-                className={`px-6 py-2 rounded-full font-semibold text-sm bg-gray-100 text-gray-700 hover:bg-gray-200 transition-colors`}
+                className={`px-6 py-2 rounded-full font-semibold text-sm bg-gray-100 text-gray-700 dark:text-slate-300 hover:bg-gray-200 transition-colors`}
                 onClick={() => setShowAllServices(true)}
               >
                 Show {individualServices.length - INITIAL_SERVICES_LIMIT} More
@@ -416,7 +416,7 @@ function CompleteServicePage(props: CompleteServicePageProps) {
         <div className="max-w-2xl mx-auto">
           <div className="bg-indigo-50 border border-indigo-200 rounded-2xl shadow-md p-8 flex flex-col items-center text-center">
             <h2 className="text-2xl font-bold text-indigo-700 mb-2">Global À La Carte Builder</h2>
-            <p className="text-gray-700 mb-4">Mix and match any services to create your own custom bundle. Get instant pricing and recommendations.</p>
+            <p className="text-gray-700 dark:text-slate-300 mb-4">Mix and match any services to create your own custom bundle. Get instant pricing and recommendations.</p>
             <Link href="/services/build-bundle" className="bg-indigo-600 text-white font-semibold rounded-xl py-3 px-6 hover:bg-indigo-700 transition-colors">Start Building</Link>
           </div>
         </div>

@@ -24,7 +24,7 @@ export default function DynamicServicePage({ data }: DynamicServicePageProps) {
   } = data;
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-white dark:bg-slate-900">
       {/* Hero Section */}
       <section className="bg-gradient-to-br from-blue-900 to-purple-800 text-white py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -37,13 +37,13 @@ export default function DynamicServicePage({ data }: DynamicServicePageProps) {
                 {description}
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
-                <Button size="lg" className="bg-white text-blue-900 hover:bg-gray-100">
+                <Button size="lg" className="bg-white dark:bg-slate-900 text-blue-900 hover:bg-gray-100">
                   Get Started Now
                 </Button>
                 <Button 
                   variant="outline" 
                   size="lg" 
-                  className="border-white text-white hover:bg-white hover:text-blue-900"
+                  className="border-white text-white hover:bg-white dark:bg-slate-900 hover:text-blue-900"
                 >
                   View Portfolio
                 </Button>
@@ -66,13 +66,13 @@ export default function DynamicServicePage({ data }: DynamicServicePageProps) {
 
       {/* Packages Section */}
       {packages && packages.length > 0 && (
-        <section className="py-20 bg-gray-50">
+        <section className="py-20 bg-gray-50 dark:bg-slate-800/50">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-16">
-              <h2 className="text-4xl font-bold text-gray-900 mb-4">
+              <h2 className="text-4xl font-bold text-gray-900 dark:text-slate-100 mb-4">
                 Choose Your Package
               </h2>
-              <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+              <p className="text-xl text-gray-600 dark:text-slate-400 max-w-3xl mx-auto">
                 Select the perfect plan that fits your needs and budget
               </p>
             </div>
@@ -81,7 +81,7 @@ export default function DynamicServicePage({ data }: DynamicServicePageProps) {
                 {packages.map((pkg) => (
                 <div
                   key={pkg._key ?? pkg.name}
-                  className={`bg-white rounded-xl shadow-lg p-8 relative ${
+                  className={`bg-white dark:bg-slate-900 rounded-xl shadow-lg p-8 relative ${
                       pkg.popular ? 'border-2 border-blue-500 transform scale-105' : ''
                   }`}
                 >
@@ -94,7 +94,7 @@ export default function DynamicServicePage({ data }: DynamicServicePageProps) {
                   )}
                   
                   <div className="text-center mb-8">
-                    <h3 className="text-2xl font-bold text-gray-900 mb-4">
+                    <h3 className="text-2xl font-bold text-gray-900 dark:text-slate-100 mb-4">
                       {pkg.name}
                     </h3>
                     <div className="mb-4">
@@ -102,13 +102,13 @@ export default function DynamicServicePage({ data }: DynamicServicePageProps) {
                         ${pkg.price}
                       </span>
                       {pkg.originalPrice && pkg.originalPrice > pkg.price && (
-                        <span className="text-lg text-gray-500 line-through ml-2">
+                        <span className="text-lg text-gray-500 dark:text-slate-500 line-through ml-2">
                           ${pkg.originalPrice}
                         </span>
                       )}
                     </div>
                     {pkg.description && (
-                      <p className="text-gray-600">{pkg.description}</p>
+                      <p className="text-gray-600 dark:text-slate-400">{pkg.description}</p>
                     )}
                   </div>
 
@@ -116,7 +116,7 @@ export default function DynamicServicePage({ data }: DynamicServicePageProps) {
                     {pkg.features?.map((feature, idx) => (
                       <li key={idx} className="flex items-start">
                         <IoCheckmark className="h-5 w-5 text-green-500 mr-3 mt-0.5 flex-shrink-0" />
-                        <span className="text-gray-700">
+                        <span className="text-gray-700 dark:text-slate-300">
                           {typeof feature === 'string'
                             ? feature
                             : feature?.title || feature?.description || JSON.stringify(feature)}
@@ -144,10 +144,10 @@ export default function DynamicServicePage({ data }: DynamicServicePageProps) {
         <section className="py-20">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-16">
-              <h2 className="text-4xl font-bold text-gray-900 mb-4">
+              <h2 className="text-4xl font-bold text-gray-900 dark:text-slate-100 mb-4">
                 What&apos;s Included
               </h2>
-              <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+              <p className="text-xl text-gray-600 dark:text-slate-400 max-w-3xl mx-auto">
                 Comprehensive features designed to deliver exceptional results
               </p>
             </div>
@@ -158,10 +158,10 @@ export default function DynamicServicePage({ data }: DynamicServicePageProps) {
                   <div className="bg-blue-100 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
                     <IoCheckmark className="h-8 w-8 text-blue-600" />
                   </div>
-                  <h3 className="text-xl font-semibold text-gray-900 mb-2">
+                  <h3 className="text-xl font-semibold text-gray-900 dark:text-slate-100 mb-2">
                     {typeof feature === 'string' ? feature : feature?.title}
                   </h3>
-                  <p className="text-gray-600">
+                  <p className="text-gray-600 dark:text-slate-400">
                     {typeof feature === 'string' ? '' : feature?.description}
                   </p>
                 </div>
@@ -173,13 +173,13 @@ export default function DynamicServicePage({ data }: DynamicServicePageProps) {
 
       {/* Process Steps Section */}
       {processSteps && processSteps.length > 0 && (
-        <section className="py-20 bg-gray-50">
+        <section className="py-20 bg-gray-50 dark:bg-slate-800/50">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-16">
-              <h2 className="text-4xl font-bold text-gray-900 mb-4">
+              <h2 className="text-4xl font-bold text-gray-900 dark:text-slate-100 mb-4">
                 Our Process
               </h2>
-              <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+              <p className="text-xl text-gray-600 dark:text-slate-400 max-w-3xl mx-auto">
                 Step-by-step approach to delivering exceptional results
               </p>
             </div>
@@ -190,10 +190,10 @@ export default function DynamicServicePage({ data }: DynamicServicePageProps) {
                   <div className="bg-blue-600 text-white rounded-full w-12 h-12 flex items-center justify-center mx-auto mb-4 text-xl font-bold">
                     {index + 1}
                   </div>
-                  <h3 className="text-lg font-semibold text-gray-900 mb-2">
+                  <h3 className="text-lg font-semibold text-gray-900 dark:text-slate-100 mb-2">
                     {step?.title}
                   </h3>
-                  <p className="text-gray-600 text-sm">
+                  <p className="text-gray-600 dark:text-slate-400 text-sm">
                     {step?.description}
                   </p>
                 </div>
@@ -208,10 +208,10 @@ export default function DynamicServicePage({ data }: DynamicServicePageProps) {
         <section className="py-20">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-16">
-              <h2 className="text-4xl font-bold text-gray-900 mb-4">
+              <h2 className="text-4xl font-bold text-gray-900 dark:text-slate-100 mb-4">
                 What We Need From You
               </h2>
-              <p className="text-xl text-gray-600">
+              <p className="text-xl text-gray-600 dark:text-slate-400">
                 To get started, please prepare the following information
               </p>
             </div>
@@ -221,7 +221,7 @@ export default function DynamicServicePage({ data }: DynamicServicePageProps) {
                 {requirements.map((requirement, index) => (
                   <li key={index} className="flex items-start">
                     <IoCheckmark className="h-5 w-5 text-blue-600 mr-3 mt-0.5 flex-shrink-0" />
-                    <span className="text-gray-800">{requirement}</span>
+                    <span className="text-gray-800 dark:text-slate-200">{requirement}</span>
                   </li>
                 ))}
               </ul>
@@ -232,24 +232,24 @@ export default function DynamicServicePage({ data }: DynamicServicePageProps) {
 
       {/* FAQs Section */}
       {faq && faq.length > 0 && (
-        <section className="py-20 bg-gray-50">
+        <section className="py-20 bg-gray-50 dark:bg-slate-800/50">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-16">
-              <h2 className="text-4xl font-bold text-gray-900 mb-4">
+              <h2 className="text-4xl font-bold text-gray-900 dark:text-slate-100 mb-4">
                 Frequently Asked Questions
               </h2>
-              <p className="text-xl text-gray-600">
+              <p className="text-xl text-gray-600 dark:text-slate-400">
                 Get answers to common questions about our services
               </p>
             </div>
 
             <div className="space-y-6">
               {faq.map((faqItem, index) => (
-                <div key={index} className="bg-white rounded-lg shadow-md p-6">
-                  <h3 className="text-lg font-semibold text-gray-900 mb-3">
+                <div key={index} className="bg-white dark:bg-slate-900 rounded-lg shadow-md p-6">
+                  <h3 className="text-lg font-semibold text-gray-900 dark:text-slate-100 mb-3">
                     {faqItem.question}
                   </h3>
-                  <p className="text-gray-700">
+                  <p className="text-gray-700 dark:text-slate-300">
                     {faqItem.answer}
                   </p>
                 </div>
@@ -269,13 +269,13 @@ export default function DynamicServicePage({ data }: DynamicServicePageProps) {
             Let&apos;s discuss your project and create something amazing together
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button size="lg" className="bg-white text-blue-900 hover:bg-gray-100">
+            <Button size="lg" className="bg-white dark:bg-slate-900 text-blue-900 hover:bg-gray-100">
               Start Your Project
             </Button>
             <Button 
               variant="outline" 
               size="lg"
-              className="border-white text-white hover:bg-white hover:text-blue-900"
+              className="border-white text-white hover:bg-white dark:bg-slate-900 hover:text-blue-900"
             >
               <Link href="/contact">
                 Contact Us

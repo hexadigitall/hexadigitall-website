@@ -302,10 +302,10 @@ export default function EnhancedServiceWizard({ onClose, onComplete, initialServ
 
   return (
     <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4 overflow-y-auto">
-      <div className="bg-white rounded-2xl shadow-2xl max-w-4xl w-full max-h-[90vh] flex flex-col">
+      <div className="bg-white dark:bg-slate-900 rounded-2xl shadow-2xl max-w-4xl w-full max-h-[90vh] flex flex-col">
         {/* Header */}
         <div className="px-6 py-4 border-b flex items-center justify-between">
-          <h2 className="text-2xl font-bold text-gray-900">
+          <h2 className="text-2xl font-bold text-gray-900 dark:text-slate-100">
             {quoteType === 'web' ? 'Get Web Development Quote' :
              quoteType === 'mobile' ? 'Get Mobile App Quote' :
              quoteType === 'complete' ? 'Get Complete Solution Quote' :
@@ -320,20 +320,20 @@ export default function EnhancedServiceWizard({ onClose, onComplete, initialServ
         </div>
 
         {/* Progress Bar */}
-        <div className="px-6 py-4 border-b bg-gray-50">
+        <div className="px-6 py-4 border-b bg-gray-50 dark:bg-slate-800/50">
           <div className="flex items-center justify-between">
             {steps.map((step, index) => (
               <div key={step.id} className="flex items-center">
-                <div className={`flex items-center ${index < currentStepIndex ? 'text-green-600' : index === currentStepIndex ? 'text-primary' : 'text-gray-400'}`}>
+                <div className={`flex items-center ${index < currentStepIndex ? 'text-green-600' : index === currentStepIndex ? 'text-primary' : 'text-gray-400 dark:text-slate-500'}`}>
                   <div className={`w-8 h-8 rounded-full flex items-center justify-center border-2 ${
                     index < currentStepIndex ? 'bg-green-600 border-green-600' :
                     index === currentStepIndex ? 'bg-primary border-primary' :
-                    'bg-white border-gray-300'
+                    'bg-white dark:bg-slate-900 border-gray-300'
                   }`}>
                     {index < currentStepIndex ? (
                       <CheckIcon className="h-5 w-5 text-white" />
                     ) : (
-                      <span className={index === currentStepIndex ? 'text-white font-semibold' : 'text-gray-500'}>
+                      <span className={index === currentStepIndex ? 'text-white font-semibold' : 'text-gray-500 dark:text-slate-500'}>
                         {step.number}
                       </span>
                     )}
@@ -362,12 +362,12 @@ export default function EnhancedServiceWizard({ onClose, onComplete, initialServ
                     className={`p-6 rounded-xl border-2 transition-all text-left ${
                       selectedService === service.id
                         ? 'border-primary bg-primary/5'
-                        : 'border-gray-200 hover:border-primary/50'
+                        : 'border-gray-200 dark:border-slate-700 hover:border-primary/50'
                     }`}
                   >
                     <div className="text-4xl mb-3">{service.icon}</div>
-                    <h4 className="font-bold text-gray-900 mb-2">{service.name}</h4>
-                    <p className="text-sm text-gray-600 mb-3">{service.description}</p>
+                    <h4 className="font-bold text-gray-900 dark:text-slate-100 mb-2">{service.name}</h4>
+                    <p className="text-sm text-gray-600 dark:text-slate-400 mb-3">{service.description}</p>
                     <p className="text-sm font-semibold text-primary">
                       From {formatPrice(service.basePrice)}
                     </p>
@@ -390,7 +390,7 @@ export default function EnhancedServiceWizard({ onClose, onComplete, initialServ
                 {requirements[selectedService]?.map(req => (
                   <label
                     key={req.id}
-                    className="flex items-center p-4 rounded-lg border border-gray-200 hover:bg-gray-50 cursor-pointer transition-colors"
+                    className="flex items-center p-4 rounded-lg border border-gray-200 dark:border-slate-700 hover:bg-gray-50 dark:bg-slate-800/50 cursor-pointer transition-colors"
                   >
                     <input
                       type="checkbox"
@@ -398,11 +398,11 @@ export default function EnhancedServiceWizard({ onClose, onComplete, initialServ
                       onChange={() => toggleRequirement(req.id)}
                       className="h-5 w-5 text-primary focus:ring-primary border-gray-300 rounded"
                     />
-                    <span className="ml-3 flex-1 font-medium text-gray-900">{req.label}</span>
+                    <span className="ml-3 flex-1 font-medium text-gray-900 dark:text-slate-100">{req.label}</span>
                     <span className={`text-xs px-2 py-1 rounded ${
                       req.category === 'essential' 
                         ? 'bg-primary/10 text-primary' 
-                        : 'bg-gray-100 text-gray-600'
+                        : 'bg-gray-100 text-gray-600 dark:text-slate-400'
                     }`}>
                       {req.category}
                     </span>
@@ -424,11 +424,11 @@ export default function EnhancedServiceWizard({ onClose, onComplete, initialServ
                     className={`p-6 rounded-xl border-2 transition-all text-left ${
                       selectedUsage === level.id
                         ? 'border-primary bg-primary/5'
-                        : 'border-gray-200 hover:border-primary/50'
+                        : 'border-gray-200 dark:border-slate-700 hover:border-primary/50'
                     }`}
                   >
-                    <h4 className="font-bold text-gray-900 mb-2">{level.name}</h4>
-                    <p className="text-sm text-gray-600">{level.description}</p>
+                    <h4 className="font-bold text-gray-900 dark:text-slate-100 mb-2">{level.name}</h4>
+                    <p className="text-sm text-gray-600 dark:text-slate-400">{level.description}</p>
                   </button>
                 ))}
               </div>
@@ -439,12 +439,12 @@ export default function EnhancedServiceWizard({ onClose, onComplete, initialServ
           {currentStep === 'integrations' && (
             <div>
               <h3 className="text-xl font-bold mb-4">Additional Integrations</h3>
-              <p className="text-gray-600 mb-6">Select any third-party services you need to integrate (optional)</p>
+              <p className="text-gray-600 dark:text-slate-400 mb-6">Select any third-party services you need to integrate (optional)</p>
               <div className="space-y-3">
                 {integrations.map(integration => (
                   <label
                     key={integration.id}
-                    className="flex items-start p-4 rounded-lg border border-gray-200 hover:bg-gray-50 cursor-pointer transition-colors"
+                    className="flex items-start p-4 rounded-lg border border-gray-200 dark:border-slate-700 hover:bg-gray-50 dark:bg-slate-800/50 cursor-pointer transition-colors"
                   >
                     <input
                       type="checkbox"
@@ -453,10 +453,10 @@ export default function EnhancedServiceWizard({ onClose, onComplete, initialServ
                       className="h-5 w-5 mt-0.5 text-primary focus:ring-primary border-gray-300 rounded"
                     />
                     <div className="ml-3 flex-1">
-                      <div className="font-medium text-gray-900">{integration.name}</div>
-                      <div className="text-sm text-gray-600">{integration.description}</div>
+                      <div className="font-medium text-gray-900 dark:text-slate-100">{integration.name}</div>
+                      <div className="text-sm text-gray-600 dark:text-slate-400">{integration.description}</div>
                     </div>
-                    <span className="text-sm font-semibold text-gray-900">
+                    <span className="text-sm font-semibold text-gray-900 dark:text-slate-100">
                       +{formatPrice(integration.price)}
                     </span>
                   </label>
@@ -469,7 +469,7 @@ export default function EnhancedServiceWizard({ onClose, onComplete, initialServ
           {currentStep === 'recommendations' && (
             <div>
               <h3 className="text-xl font-bold mb-4">Recommended Packages</h3>
-              <p className="text-gray-600 mb-6">Select the package that best fits your needs:</p>
+              <p className="text-gray-600 dark:text-slate-400 mb-6">Select the package that best fits your needs:</p>
               <div className="space-y-4">
                 {generateRecommendations().map(rec => (
                   <div
@@ -480,7 +480,7 @@ export default function EnhancedServiceWizard({ onClose, onComplete, initialServ
                         ? 'border-primary bg-primary/10 ring-2 ring-primary' 
                         : rec.recommended 
                           ? 'border-primary bg-primary/5 hover:bg-primary/10' 
-                          : 'border-gray-200 hover:border-gray-300'
+                          : 'border-gray-200 dark:border-slate-700 hover:border-gray-300'
                     }`}
                   >
                     <div className="flex items-start justify-between mb-3">
@@ -501,21 +501,21 @@ export default function EnhancedServiceWizard({ onClose, onComplete, initialServ
                         )}
                       </div>
                     </div>
-                    <h4 className="text-xl font-bold text-gray-900 mb-2">{rec.name}</h4>
-                    <p className="text-gray-600 mb-4">{rec.description}</p>
+                    <h4 className="text-xl font-bold text-gray-900 dark:text-slate-100 mb-2">{rec.name}</h4>
+                    <p className="text-gray-600 dark:text-slate-400 mb-4">{rec.description}</p>
                     <div className="flex items-baseline gap-4 mb-4">
-                      <div className="text-3xl font-bold text-gray-900">
+                      <div className="text-3xl font-bold text-gray-900 dark:text-slate-100">
                         <PriceDisplay price={rec.totalPrice} size="lg" />
                       </div>
-                      <div className="text-sm text-gray-600">
+                      <div className="text-sm text-gray-600 dark:text-slate-400">
                         Timeline: {rec.timeline}
                       </div>
                     </div>
                     <div className="space-y-2">
-                      <p className="text-sm font-semibold text-gray-900">Includes:</p>
+                      <p className="text-sm font-semibold text-gray-900 dark:text-slate-100">Includes:</p>
                       <ul className="space-y-1">
                         {rec.features.map((feature, idx) => (
-                          <li key={idx} className="text-sm text-gray-600 flex items-center">
+                          <li key={idx} className="text-sm text-gray-600 dark:text-slate-400 flex items-center">
                             <CheckIcon className="h-4 w-4 text-green-600 mr-2 flex-shrink-0" />
                             {feature}
                           </li>
@@ -536,29 +536,29 @@ export default function EnhancedServiceWizard({ onClose, onComplete, initialServ
                 {/* Selected Package Info */}
                 {selectedRecommendation && (
                   <div className="mb-6">
-                    <p className="text-sm text-gray-600 mb-2">Selected Package:</p>
-                    <h4 className="text-2xl font-bold text-gray-900 mb-4">
+                    <p className="text-sm text-gray-600 dark:text-slate-400 mb-2">Selected Package:</p>
+                    <h4 className="text-2xl font-bold text-gray-900 dark:text-slate-100 mb-4">
                       {generateRecommendations().find(r => r.id === selectedRecommendation)?.name}
                     </h4>
                   </div>
                 )}
                 
                 <div className="text-center mb-6">
-                  <p className="text-gray-600 mb-2">Estimated Project Cost</p>
-                  <div className="text-5xl font-bold text-gray-900 mb-2">
+                  <p className="text-gray-600 dark:text-slate-400 mb-2">Estimated Project Cost</p>
+                  <div className="text-5xl font-bold text-gray-900 dark:text-slate-100 mb-2">
                     <PriceDisplay price={
                       generateRecommendations().find(r => r.id === selectedRecommendation)?.totalPrice || calculateEstimate()
                     } size="lg" />
                   </div>
-                  <p className="text-sm text-gray-500">
+                  <p className="text-sm text-gray-500 dark:text-slate-500">
                     Timeline: {generateRecommendations().find(r => r.id === selectedRecommendation)?.timeline || 'TBD'}
                   </p>
                 </div>
 
                 {/* What happens next */}
-                <div className="bg-white rounded-lg p-4 mb-6 text-left">
-                  <p className="font-semibold text-gray-900 mb-2">What happens next?</p>
-                  <ul className="space-y-2 text-sm text-gray-600">
+                <div className="bg-white dark:bg-slate-900 rounded-lg p-4 mb-6 text-left">
+                  <p className="font-semibold text-gray-900 dark:text-slate-100 mb-2">What happens next?</p>
+                  <ul className="space-y-2 text-sm text-gray-600 dark:text-slate-400">
                     <li className="flex items-start">
                       <CheckIcon className="h-5 w-5 text-green-600 mr-2 flex-shrink-0 mt-0.5" />
                       <span>Fill out a quick contact form with your details</span>
@@ -602,7 +602,7 @@ export default function EnhancedServiceWizard({ onClose, onComplete, initialServ
         </div>
 
         {/* Footer Navigation */}
-        <div className="px-6 py-4 border-t bg-gray-50 flex items-center justify-between">
+        <div className="px-6 py-4 border-t bg-gray-50 dark:bg-slate-800/50 flex items-center justify-between">
           <button
             onClick={prevStep}
             disabled={currentStepIndex === 0}
