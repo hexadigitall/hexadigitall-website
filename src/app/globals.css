@@ -453,6 +453,45 @@
 }
 
 @layer utilities {
+  /*
+   * Dark mode compatibility bridge:
+   * Any remaining legacy light classes automatically map to dark values
+   * unless the element already defines an explicit dark:* override.
+   */
+  .dark .bg-white:not([class*="dark:bg-"]) {
+    background-color: var(--color-bg-card);
+  }
+
+  .dark .bg-gray-50:not([class*="dark:bg-"]) {
+    background-color: var(--color-bg-surface);
+  }
+
+  .dark .bg-gray-100:not([class*="dark:bg-"]) {
+    background-color: var(--color-bg-raised);
+  }
+
+  .dark .text-gray-900:not([class*="dark:text-"]),
+  .dark .text-gray-800:not([class*="dark:text-"]),
+  .dark .text-darkText:not([class*="dark:text-"]) {
+    color: var(--color-text-heading);
+  }
+
+  .dark .text-gray-700:not([class*="dark:text-"]),
+  .dark .text-gray-600:not([class*="dark:text-"]) {
+    color: var(--color-text-secondary);
+  }
+
+  .dark .text-gray-500:not([class*="dark:text-"]),
+  .dark .text-gray-400:not([class*="dark:text-"]) {
+    color: var(--color-text-muted);
+  }
+
+  .dark .border-gray-300:not([class*="dark:border-"]),
+  .dark .border-gray-200:not([class*="dark:border-"]),
+  .dark .border-gray-100:not([class*="dark:border-"]) {
+    border-color: var(--color-border);
+  }
+
   /* Responsive spacing utilities */
   .container-padding {
     @apply px-4 sm:px-6 lg:px-8;
