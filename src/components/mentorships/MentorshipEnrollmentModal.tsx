@@ -282,13 +282,13 @@ export function MentorshipEnrollmentModal({
       <div className="space-y-6">
         {/* Nigerian discount banner */}
         {discountMessage && !isLiveCourse && (
-          <div className="bg-gradient-to-r from-green-50 to-green-100 border border-green-200 rounded-xl p-4">
+          <div className="bg-gradient-to-r from-green-50 to-green-100 dark:from-green-950/30 dark:to-green-900/20 border border-green-200 dark:border-green-800 rounded-xl p-4">
             <div className="flex items-center space-x-2 text-green-800">
               <span>🇳🇬</span>
               <span className="font-medium">Nigerian Launch Special: 50% OFF!</span>
               <span>🔥</span>
             </div>
-            <p className="text-green-700 text-sm mt-1">
+            <p className="text-green-700 dark:text-green-300 text-sm mt-1">
               Special pricing for Nigerian clients - limited time offer!
             </p>
           </div>
@@ -296,13 +296,13 @@ export function MentorshipEnrollmentModal({
 
         {/* Live Course Info Banner */}
         {isLiveCourse && (
-          <div className="bg-gradient-to-r from-blue-50 to-purple-50 border border-blue-200 rounded-xl p-4">
+          <div className="bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-950/30 dark:to-indigo-950/30 border border-blue-200 dark:border-blue-800 rounded-xl p-4">
             <div className="flex items-center space-x-2 text-blue-800">
               <span>🎓</span>
               <span className="font-medium">Live Mentorship Subscription</span>
               <span>✨</span>
             </div>
-            <p className="text-blue-700 text-sm mt-1">
+            <p className="text-blue-700 dark:text-blue-300 text-sm mt-1">
               Mentorship-only enrollment with flexible scheduling, monthly billing, and graded weekly deliverables.
             </p>
           </div>
@@ -329,14 +329,14 @@ export function MentorshipEnrollmentModal({
             )}
           </div>
           <div className="flex-1">
-            <h3 className="text-lg font-bold text-gray-900 mb-2">{course.title}</h3>
-            <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4 text-sm text-gray-600 mb-2">
+            <h3 className="text-lg font-bold text-gray-900 dark:text-gray-100 mb-2">{course.title}</h3>
+            <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4 text-sm text-gray-600 dark:text-gray-400 mb-2">
               <span><span className="sr-only">Instructor: </span>👨‍🏫 {course.instructor}</span>
               <span><span className="sr-only">Duration: </span>⏱️ {course.duration}</span>
               <span><span className="sr-only">Level: </span>📊 {course.level}</span>
-              {isLiveCourse && <span className="bg-blue-100 text-blue-800 px-2 py-1 rounded-full text-xs font-medium">Live Sessions</span>}
+              {isLiveCourse && <span className="bg-blue-100 dark:bg-blue-900/40 text-blue-800 dark:text-blue-300 px-2 py-1 rounded-full text-xs font-medium">Live Sessions</span>}
             </div>
-            <p className="text-sm text-gray-600 line-clamp-2">{course.description}</p>
+            <p className="text-sm text-gray-600 dark:text-gray-400 line-clamp-2">{course.description}</p>
           </div>
         </div>
 
@@ -355,20 +355,20 @@ export function MentorshipEnrollmentModal({
 
         {/* Course Details */}
         {course.curriculum && (
-          <div className="bg-blue-50 rounded-xl p-4">
-            <h4 className="font-semibold text-blue-900 mb-2">Mentorship Structure</h4>
+          <div className="bg-blue-50 dark:bg-blue-950/25 rounded-xl p-4">
+            <h4 className="font-semibold text-blue-900 dark:text-blue-200 mb-2">Mentorship Structure</h4>
             <div className="grid grid-cols-2 md:grid-cols-3 gap-3 text-sm">
               <div className="flex items-center space-x-2">
                 <span className="w-2 h-2 bg-blue-500 rounded-full"></span>
-                <span>{course.curriculum.modules} Modules</span>
+                <span className="text-slate-700 dark:text-slate-300">{course.curriculum.modules} Modules</span>
               </div>
               <div className="flex items-center space-x-2">
                 <span className="w-2 h-2 bg-blue-500 rounded-full"></span>
-                <span>{course.curriculum.lessons} Lessons</span>
+                <span className="text-slate-700 dark:text-slate-300">{course.curriculum.lessons} Lessons</span>
               </div>
               <div className="flex items-center space-x-2">
                 <span className="w-2 h-2 bg-blue-500 rounded-full"></span>
-                <span>Certificate Included</span>
+                <span className="text-slate-700 dark:text-slate-300">Certificate Included</span>
               </div>
             </div>
           </div>
@@ -377,12 +377,12 @@ export function MentorshipEnrollmentModal({
         {/* What's Included */}
         {course.includes && course.includes.length > 0 && (
           <div>
-            <h4 className="font-semibold text-gray-900 mb-3">What&apos;s Included</h4>
+            <h4 className="font-semibold text-gray-900 dark:text-gray-100 mb-3">What&apos;s Included</h4>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
               {course.includes.map((item, index) => (
                 <div key={index} className="flex items-start space-x-2 text-sm">
                   <CheckIcon className="h-4 w-4 text-green-500 flex-shrink-0 mt-0.5" />
-                  <span className="text-gray-700">{item}</span>
+                  <span className="text-gray-700 dark:text-gray-300">{item}</span>
                 </div>
               ))}
             </div>
@@ -391,10 +391,10 @@ export function MentorshipEnrollmentModal({
 
         {/* Learner Information */}
         <div>
-          <h4 className="font-semibold text-gray-900 mb-3">Learner Information</h4>
+          <h4 className="font-semibold text-gray-900 dark:text-gray-100 mb-3">Learner Information</h4>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                 Full Name *
               </label>
               <input
@@ -402,12 +402,12 @@ export function MentorshipEnrollmentModal({
                 required
                 value={studentDetails.fullName}
                 onChange={(e) => setStudentDetails({ ...studentDetails, fullName: e.target.value })}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary"
+                className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-slate-800 text-gray-900 dark:text-gray-100 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary"
                 placeholder="Your full name"
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                 Email Address *
               </label>
               <input
@@ -415,12 +415,12 @@ export function MentorshipEnrollmentModal({
                 required
                 value={studentDetails.email}
                 onChange={(e) => setStudentDetails({ ...studentDetails, email: e.target.value })}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary"
+                className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-slate-800 text-gray-900 dark:text-gray-100 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary"
                 placeholder="your.email@example.com"
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                 Phone Number *
               </label>
               <input
@@ -428,18 +428,18 @@ export function MentorshipEnrollmentModal({
                 required
                 value={studentDetails.phone}
                 onChange={(e) => setStudentDetails({ ...studentDetails, phone: e.target.value })}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary"
+                className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-slate-800 text-gray-900 dark:text-gray-100 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary"
                 placeholder="+234 xxx xxx xxxx"
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                 Experience Level
               </label>
               <select
                 value={studentDetails.experience}
                 onChange={(e) => setStudentDetails({ ...studentDetails, experience: e.target.value })}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary"
+                className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-slate-800 text-gray-900 dark:text-gray-100 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary"
               >
                 <option value="">Select your level</option>
                 <option value="beginner">Beginner (new to this path)</option>
@@ -450,13 +450,13 @@ export function MentorshipEnrollmentModal({
             </div>
             {isLiveCourse && (
               <div className="md:col-span-2">
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                   Preferred Mentorship Schedule (Optional)
                 </label>
                 <textarea
                   value={studentDetails.preferredSchedule}
                   onChange={(e) => setStudentDetails({ ...studentDetails, preferredSchedule: e.target.value })}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary"
+                  className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-slate-800 text-gray-900 dark:text-gray-100 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary"
                   rows={2}
                   placeholder="e.g., Weekdays after 6 PM WAT, weekend sessions, preferred time zone"
                 />
@@ -468,30 +468,30 @@ export function MentorshipEnrollmentModal({
         {/* Payment Plan Selection - Only for legacy courses above threshold */}
         {!isLiveCourse && qualifiesForInstallments && (
           <div>
-            <h4 className="font-semibold text-gray-900 mb-3">Choose Payment Plan</h4>
+            <h4 className="font-semibold text-gray-900 dark:text-gray-100 mb-3">Choose Payment Plan</h4>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
               {COURSE_PAYMENT_PLANS.map((plan) => (
                 <div
                   key={plan.id}
                   className={`border rounded-lg p-4 cursor-pointer transition-all duration-200 ${
                     selectedPaymentPlan.id === plan.id
-                      ? 'border-primary ring-2 ring-primary/20 bg-primary/5'
-                      : 'border-gray-200 hover:border-gray-300'
+                      ? 'border-primary ring-2 ring-primary/20 bg-primary/5 dark:bg-primary/15'
+                      : 'border-gray-200 dark:border-gray-700 hover:border-gray-300 dark:hover:border-gray-600'
                   }`}
                   onClick={() => setSelectedPaymentPlan(plan)}
                 >
                   <div className="flex items-start justify-between mb-2">
-                    <h5 className="font-semibold text-gray-900 text-sm">{plan.name}</h5>
+                    <h5 className="font-semibold text-gray-900 dark:text-gray-100 text-sm">{plan.name}</h5>
                     {plan.id === 'split_2' && (
-                      <span className="bg-green-100 text-green-800 text-xs font-medium px-2 py-1 rounded">
+                      <span className="bg-green-100 dark:bg-green-900/40 text-green-800 dark:text-green-300 text-xs font-medium px-2 py-1 rounded">
                         Popular
                       </span>
                     )}
                   </div>
-                  <p className="text-xs text-gray-600 mb-2">{plan.description}</p>
+                  <p className="text-xs text-gray-600 dark:text-gray-400 mb-2">{plan.description}</p>
                   
                   {plan.installments > 1 && (
-                    <div className="text-xs text-gray-500">
+                    <div className="text-xs text-gray-500 dark:text-gray-400">
                       <div>Today: {useLegacyDollarPrice 
                         ? formatPrice((legacyCoursePrice * plan.downPayment / 100) + plan.processingFee, { applyNigerianDiscount: true })
                         : `₦${((legacyCoursePrice * plan.downPayment / 100) + (plan.processingFee * 1650)).toLocaleString()}`
@@ -511,13 +511,13 @@ export function MentorshipEnrollmentModal({
         )}
 
         {/* Order Summary */}
-        <div className="bg-gray-50 rounded-xl p-6">
-          <h4 className="text-lg font-semibold text-gray-900 mb-4">Order Summary</h4>
+        <div className="bg-gray-50 dark:bg-slate-800 rounded-xl p-6">
+          <h4 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4">Order Summary</h4>
           
           <div className="flex justify-between items-start mb-4">
             <div>
-              <h5 className="font-medium text-gray-900">{course.title}</h5>
-              <p className="text-sm text-gray-600">
+              <h5 className="font-medium text-gray-900 dark:text-gray-100">{course.title}</h5>
+              <p className="text-sm text-gray-600 dark:text-gray-400">
                 {isLiveCourse ? 'Live Mentorship Subscription (Monthly)' : 'Mentorship Enrollment'}
               </p>
             </div>
@@ -529,7 +529,7 @@ export function MentorshipEnrollmentModal({
                     currency: pricingConfiguration.currency,
                     minimumFractionDigits: 0
                   }).format(pricingConfiguration.totalMonthlyPrice)}
-                  <span className="text-sm font-normal text-gray-600">/month</span>
+                  <span className="text-sm font-normal text-gray-600 dark:text-gray-400">/month</span>
                 </div>
               ) : course.dollarPrice && course.dollarPrice > 0 ? (
                 <div>
@@ -539,7 +539,7 @@ export function MentorshipEnrollmentModal({
                     if (priceInfo.hasDiscount) {
                       return (
                         <div>
-                          <div className="text-sm text-gray-500 line-through">
+                          <div className="text-sm text-gray-500 dark:text-gray-400 line-through">
                             {priceInfo.originalPrice}
                           </div>
                           <div className="text-lg font-bold text-green-600">
@@ -568,7 +568,7 @@ export function MentorshipEnrollmentModal({
                     if (priceInfo.hasDiscount) {
                       return (
                         <div>
-                          <div className="text-sm text-gray-500 line-through">
+                          <div className="text-sm text-gray-500 dark:text-gray-400 line-through">
                             {priceInfo.originalPrice}
                           </div>
                           <div className="text-lg font-bold text-green-600">
@@ -596,15 +596,15 @@ export function MentorshipEnrollmentModal({
 
           {!isLiveCourse && qualifiesForInstallments && selectedPaymentPlan.installments > 1 && (
             <div className="border-t pt-4">
-              <div className="bg-blue-50 rounded-lg p-3">
+              <div className="bg-blue-50 dark:bg-blue-950/25 rounded-lg p-3">
                 <div className="flex items-center justify-between mb-2">
-                  <span className="text-sm font-medium text-blue-900">Payment Plan:</span>
-                  <span className="text-sm text-blue-700">{selectedPaymentPlan.name}</span>
+                  <span className="text-sm font-medium text-blue-900 dark:text-blue-200">Payment Plan:</span>
+                  <span className="text-sm text-blue-700 dark:text-blue-300">{selectedPaymentPlan.name}</span>
                 </div>
                 
-                <div className="bg-blue-100 rounded p-2">
+                <div className="bg-blue-100 dark:bg-blue-900/35 rounded p-2">
                   <div className="flex justify-between items-center">
-                    <span className="text-sm text-blue-700 font-medium">Today&apos;s Payment:</span>
+                    <span className="text-sm text-blue-700 dark:text-blue-300 font-medium">Today&apos;s Payment:</span>
                     <span className="text-sm font-bold text-green-600">
                       {useLegacyDollarPrice 
                         ? formatPrice((legacyCoursePrice * selectedPaymentPlan.downPayment / 100) + selectedPaymentPlan.processingFee, { applyNigerianDiscount: true })
@@ -612,17 +612,17 @@ export function MentorshipEnrollmentModal({
                       }
                     </span>
                   </div>
-                  <div className="text-xs text-blue-600 mt-1">
+                  <div className="text-xs text-blue-600 dark:text-blue-300 mt-1">
                     Includes {selectedPaymentPlan.downPayment}% of course + processing fee
                   </div>
                 </div>
                 
                 {selectedPaymentPlan.installments > 1 && (
                   <div className="flex justify-between mt-2">
-                    <span className="text-sm text-blue-700">
+                    <span className="text-sm text-blue-700 dark:text-blue-300">
                       Remaining {selectedPaymentPlan.installments - 1} payments:
                     </span>
-                    <span className="text-sm font-medium text-blue-600">
+                    <span className="text-sm font-medium text-blue-600 dark:text-blue-300">
                       {useLegacyDollarPrice
                         ? formatPrice((legacyCoursePrice * (100 - selectedPaymentPlan.downPayment) / 100) / (selectedPaymentPlan.installments - 1), { applyNigerianDiscount: true })
                         : `₦${((legacyCoursePrice * (100 - selectedPaymentPlan.downPayment) / 100) / (selectedPaymentPlan.installments - 1)).toLocaleString()}`
@@ -642,10 +642,10 @@ export function MentorshipEnrollmentModal({
         </div>
 
         {/* Action Buttons */}
-        <div className="flex space-x-4 pt-4 border-t">
+        <div className="flex space-x-4 pt-4 border-t border-gray-200 dark:border-gray-700">
           <button
             onClick={onClose}
-            className="flex-1 px-6 py-3 text-gray-700 bg-gray-100 hover:bg-gray-200 rounded-xl font-medium transition-colors"
+            className="flex-1 px-6 py-3 text-gray-700 dark:text-gray-300 bg-gray-100 dark:bg-slate-700 hover:bg-gray-200 dark:hover:bg-slate-600 rounded-xl font-medium transition-colors"
           >
             Cancel
           </button>
@@ -669,14 +669,14 @@ export function MentorshipEnrollmentModal({
         </div>
 
         {/* Additional Info */}
-        <div className="bg-blue-50 border border-blue-200 rounded-xl p-4">
+        <div className="bg-blue-50 dark:bg-blue-950/25 border border-blue-200 dark:border-blue-800 rounded-xl p-4">
           <div className="flex items-start space-x-3">
             <div className="w-5 h-5 bg-blue-500 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
               <CheckIcon className="h-3 w-3 text-white" />
             </div>
-            <div className="text-sm text-blue-800">
+            <div className="text-sm text-blue-800 dark:text-blue-200">
               <p className="font-medium mb-1">What happens after enrollment?</p>
-              <ul className="space-y-1 text-blue-700">
+              <ul className="space-y-1 text-blue-700 dark:text-blue-300">
                 {isLiveCourse ? (
                   <>
                     <li>• We&apos;ll contact you within 24 hours to confirm your mentorship onboarding</li>
