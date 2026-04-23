@@ -76,10 +76,10 @@ export default async function ResourcesPage({ params }: Props) {
   const coverUrl = book.coverImage?.asset?.url
 
   return (
-    <main className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 text-gray-900 dark:text-slate-100">
+    <main className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 text-gray-900 dark:text-slate-100 dark:text-slate-100">
 
       {/* Breadcrumb */}
-      <nav className="text-sm text-gray-500 dark:text-slate-400 mb-8">
+      <nav className="text-sm text-gray-500 dark:text-slate-500 dark:text-slate-400 mb-8">
         <Link href="/" className="hover:text-primary transition-colors">Home</Link>
         <span className="mx-2">/</span>
         <Link href="/resources" className="hover:text-primary transition-colors">Resources</Link>
@@ -98,9 +98,9 @@ export default async function ResourcesPage({ params }: Props) {
           <h1 className="text-2xl md:text-3xl font-bold text-primary leading-tight">
             Companion Resources
           </h1>
-          <p className="text-gray-600 dark:text-slate-400 mt-1">
+          <p className="text-gray-600 dark:text-slate-400 dark:text-slate-400 mt-1">
             for <strong>{book.title}</strong>
-            {book.edition && <span className="text-gray-400 dark:text-slate-500"> · {book.edition}</span>}
+            {book.edition && <span className="text-gray-400 dark:text-slate-500 dark:text-slate-500"> · {book.edition}</span>}
           </p>
           <div className="flex gap-3 mt-3">
             <Link href={`/store/${slug}`} className="text-xs text-secondary hover:underline">← Back to book</Link>
@@ -114,9 +114,9 @@ export default async function ResourcesPage({ params }: Props) {
       {/* Summary */}
       {resources.length > 0 && (
         <div className="flex flex-wrap gap-4 mb-10 text-sm">
-          <span className="text-gray-600 dark:text-slate-400">{publicResources.length} student resource{publicResources.length !== 1 ? 's' : ''}</span>
+          <span className="text-gray-600 dark:text-slate-400 dark:text-slate-400">{publicResources.length} student resource{publicResources.length !== 1 ? 's' : ''}</span>
           {instructorResources.length > 0 && (
-            <span className="text-gray-600 dark:text-slate-400">{instructorResources.length} instructor resource{instructorResources.length !== 1 ? 's' : ''}</span>
+            <span className="text-gray-600 dark:text-slate-400 dark:text-slate-400">{instructorResources.length} instructor resource{instructorResources.length !== 1 ? 's' : ''}</span>
           )}
         </div>
       )}
@@ -125,9 +125,9 @@ export default async function ResourcesPage({ params }: Props) {
       {publicResources.length > 0 ? (
         <ResourcesDetailClient resources={publicResources} />
       ) : (
-        <section className="mb-16 text-center py-16 text-gray-500 dark:text-slate-400">
+        <section className="mb-16 text-center py-16 text-gray-500 dark:text-slate-500 dark:text-slate-400">
           <p className="text-4xl mb-3">📁</p>
-          <p className="text-lg font-medium text-gray-700 dark:text-slate-300">Resources for this book are coming soon.</p>
+          <p className="text-lg font-medium text-gray-700 dark:text-slate-300 dark:text-slate-300">Resources for this book are coming soon.</p>
           <p className="text-sm mt-2">Check back after purchase — files are added as the book is used in courses.</p>
         </section>
       )}
@@ -168,7 +168,7 @@ export default async function ResourcesPage({ params }: Props) {
                 name="name"
                 required
                 placeholder="Dr. Ngozi Ibrahim"
-                className="w-full rounded-lg border border-amber-200 dark:border-amber-700 px-3 py-2 text-sm bg-white dark:bg-slate-800 text-gray-900 dark:text-slate-100 focus:border-primary focus:ring-1 focus:ring-primary outline-none"
+                className="w-full rounded-lg border border-amber-200 px-3 py-2 text-sm bg-white dark:bg-slate-900 focus:border-primary focus:ring-1 focus:ring-primary outline-none"
               />
             </div>
 
@@ -179,7 +179,7 @@ export default async function ResourcesPage({ params }: Props) {
                 name="email"
                 required
                 placeholder="you@university.edu.ng"
-                className="w-full rounded-lg border border-amber-200 dark:border-amber-700 px-3 py-2 text-sm bg-white dark:bg-slate-800 text-gray-900 dark:text-slate-100 focus:border-primary focus:ring-1 focus:ring-primary outline-none"
+                className="w-full rounded-lg border border-amber-200 px-3 py-2 text-sm bg-white dark:bg-slate-900 focus:border-primary focus:ring-1 focus:ring-primary outline-none"
               />
             </div>
 
@@ -190,7 +190,7 @@ export default async function ResourcesPage({ params }: Props) {
                 name="institution"
                 required
                 placeholder="University of Calabar"
-                className="w-full rounded-lg border border-amber-200 dark:border-amber-700 px-3 py-2 text-sm bg-white dark:bg-slate-800 text-gray-900 dark:text-slate-100 focus:border-primary focus:ring-1 focus:ring-primary outline-none"
+                className="w-full rounded-lg border border-amber-200 px-3 py-2 text-sm bg-white dark:bg-slate-900 focus:border-primary focus:ring-1 focus:ring-primary outline-none"
               />
             </div>
 
@@ -201,7 +201,7 @@ export default async function ResourcesPage({ params }: Props) {
                 name="role"
                 required
                 placeholder="Lecturer, Computer Science Dept."
-                className="w-full rounded-lg border border-amber-200 dark:border-amber-700 px-3 py-2 text-sm bg-white dark:bg-slate-800 text-gray-900 dark:text-slate-100 focus:border-primary focus:ring-1 focus:ring-primary outline-none"
+                className="w-full rounded-lg border border-amber-200 px-3 py-2 text-sm bg-white dark:bg-slate-900 focus:border-primary focus:ring-1 focus:ring-primary outline-none"
               />
             </div>
 
@@ -212,7 +212,7 @@ export default async function ResourcesPage({ params }: Props) {
                 required
                 rows={3}
                 placeholder="e.g. Prescribed text for CSC302, approx. 45 students per session"
-                className="w-full rounded-lg border border-amber-200 dark:border-amber-700 px-3 py-2 text-sm bg-white dark:bg-slate-800 text-gray-900 dark:text-slate-100 focus:border-primary focus:ring-1 focus:ring-primary outline-none resize-none"
+                className="w-full rounded-lg border border-amber-200 px-3 py-2 text-sm bg-white dark:bg-slate-900 focus:border-primary focus:ring-1 focus:ring-primary outline-none resize-none"
               />
             </div>
 
@@ -235,7 +235,7 @@ export default async function ResourcesPage({ params }: Props) {
             <span className="text-3xl">🎓</span>
             <div>
               <h3 className="font-bold text-primary mb-1">Want guided instruction?</h3>
-              <p className="text-sm text-gray-600 dark:text-slate-400 mb-3">
+              <p className="text-sm text-gray-600 dark:text-slate-400 dark:text-slate-400 mb-3">
                 This book accompanies the <strong>{book.relatedCourse.title}</strong> course on Hexadigitall — 
                 with live mentoring, Q&amp;A, and structured pacing.
               </p>

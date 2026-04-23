@@ -38,7 +38,7 @@ export default async function ErrataIndexPage() {
       <main className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
 
         {/* Breadcrumb */}
-        <nav className="text-sm text-gray-500 mb-10">
+        <nav className="text-sm text-gray-500 dark:text-slate-500 mb-10">
           <Link href="/" className="hover:text-primary transition-colors">Home</Link>
           <span className="mx-2">/</span>
           <span className="text-primary font-medium">Errata</span>
@@ -47,11 +47,11 @@ export default async function ErrataIndexPage() {
         {/* Intro */}
         <section className="mb-12 max-w-2xl">
           <h2 className="text-2xl font-bold text-primary mb-3">Why we publish errata</h2>
-          <p className="text-gray-600 leading-relaxed mb-3">
+          <p className="text-gray-600 dark:text-slate-400 leading-relaxed mb-3">
             No printed book is perfect. When errors are found — whether by our team or eagle-eyed readers —
             we log them here with the exact correction. This page is updated with every reported error.
           </p>
-          <p className="text-gray-600 leading-relaxed">
+          <p className="text-gray-600 dark:text-slate-400 leading-relaxed">
             Select a book below to see corrections for that edition, or to report an error you have found.
           </p>
         </section>
@@ -60,7 +60,7 @@ export default async function ErrataIndexPage() {
         {booksWithErrata.length > 0 ? (
           <ErrataCatalog books={booksWithErrata} />
         ) : (
-          <div className="text-center py-20 text-gray-500">
+          <div className="text-center py-20 text-gray-500 dark:text-slate-500">
             <p className="text-3xl mb-4">📚</p>
             <p className="text-lg font-medium">No books published yet.</p>
             <Link href="/store" className="mt-4 inline-block text-sm text-primary underline">Visit the store</Link>

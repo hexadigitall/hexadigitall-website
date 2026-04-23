@@ -4,7 +4,7 @@ import { useMemo, useState } from 'react'
 import type { ErrataItem } from '@/lib/book-queries'
 
 const SEVERITY_STYLES: Record<string, { badge: string; label: string }> = {
-  minor: { badge: 'bg-gray-100 text-gray-600', label: 'Typo / Minor' },
+  minor: { badge: 'bg-gray-100 dark:bg-slate-800 text-gray-600 dark:text-slate-400', label: 'Typo / Minor' },
   content: { badge: 'bg-amber-100 text-amber-700', label: 'Content Error' },
   code: { badge: 'bg-blue-100 text-blue-700', label: 'Code Error' },
   critical: { badge: 'bg-red-100 text-red-700', label: 'Critical' },
@@ -50,7 +50,7 @@ export default function ErrataDetailClient({ errata }: ErrataDetailClientProps) 
 
   return (
     <section className="mb-16">
-        <div className="rounded-2xl border border-gray-100 dark:border-slate-700 bg-gray-50 dark:bg-slate-800 p-4 mb-6">
+        <div className="rounded-2xl border border-gray-100 dark:border-slate-700 bg-gray-50 dark:bg-slate-800/50 dark:bg-slate-800 p-4 mb-6">
           <label htmlFor="errata-search" className="block text-sm font-semibold text-darkText dark:text-slate-300 mb-2">
           Search corrections
         </label>
@@ -60,14 +60,14 @@ export default function ErrataDetailClient({ errata }: ErrataDetailClientProps) 
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           placeholder="Search by page, chapter, incorrect text, or correction"
-              className="w-full rounded-xl border border-gray-200 dark:border-slate-600 bg-white dark:bg-slate-700 dark:text-slate-200 px-4 py-3 text-sm focus:border-primary focus:ring-2 focus:ring-primary/20"
+              className="w-full rounded-xl border border-gray-200 dark:border-slate-700 dark:border-slate-600 bg-white dark:bg-slate-900 dark:bg-slate-700 dark:text-slate-200 px-4 py-3 text-sm focus:border-primary focus:ring-2 focus:ring-primary/20"
         />
         <div className="mt-3 flex flex-wrap gap-2">
           <button
             type="button"
             onClick={() => setSeverity('all')}
             className={`rounded-full px-3 py-1.5 text-xs font-semibold transition-colors ${
-                severity === 'all' ? 'bg-primary text-white' : 'bg-white dark:bg-slate-700 text-gray-600 dark:text-slate-300 hover:bg-gray-100 dark:hover:bg-slate-600'
+                severity === 'all' ? 'bg-primary text-white' : 'bg-white dark:bg-slate-900 dark:bg-slate-700 text-gray-600 dark:text-slate-400 dark:text-slate-300 hover:bg-gray-100 dark:bg-slate-800 dark:hover:bg-slate-600'
             }`}
           >
             All
@@ -76,7 +76,7 @@ export default function ErrataDetailClient({ errata }: ErrataDetailClientProps) 
             type="button"
             onClick={() => setSeverity('minor')}
             className={`rounded-full px-3 py-1.5 text-xs font-semibold transition-colors ${
-                severity === 'minor' ? 'bg-primary text-white' : 'bg-white dark:bg-slate-700 text-gray-600 dark:text-slate-300 hover:bg-gray-100 dark:hover:bg-slate-600'
+                severity === 'minor' ? 'bg-primary text-white' : 'bg-white dark:bg-slate-900 dark:bg-slate-700 text-gray-600 dark:text-slate-400 dark:text-slate-300 hover:bg-gray-100 dark:bg-slate-800 dark:hover:bg-slate-600'
             }`}
           >
             Minor
@@ -85,7 +85,7 @@ export default function ErrataDetailClient({ errata }: ErrataDetailClientProps) 
             type="button"
             onClick={() => setSeverity('content')}
             className={`rounded-full px-3 py-1.5 text-xs font-semibold transition-colors ${
-                severity === 'content' ? 'bg-primary text-white' : 'bg-white dark:bg-slate-700 text-gray-600 dark:text-slate-300 hover:bg-gray-100 dark:hover:bg-slate-600'
+                severity === 'content' ? 'bg-primary text-white' : 'bg-white dark:bg-slate-900 dark:bg-slate-700 text-gray-600 dark:text-slate-400 dark:text-slate-300 hover:bg-gray-100 dark:bg-slate-800 dark:hover:bg-slate-600'
             }`}
           >
             Content
@@ -94,7 +94,7 @@ export default function ErrataDetailClient({ errata }: ErrataDetailClientProps) 
             type="button"
             onClick={() => setSeverity('code')}
             className={`rounded-full px-3 py-1.5 text-xs font-semibold transition-colors ${
-                severity === 'code' ? 'bg-primary text-white' : 'bg-white dark:bg-slate-700 text-gray-600 dark:text-slate-300 hover:bg-gray-100 dark:hover:bg-slate-600'
+                severity === 'code' ? 'bg-primary text-white' : 'bg-white dark:bg-slate-900 dark:bg-slate-700 text-gray-600 dark:text-slate-400 dark:text-slate-300 hover:bg-gray-100 dark:bg-slate-800 dark:hover:bg-slate-600'
             }`}
           >
             Code
@@ -103,13 +103,13 @@ export default function ErrataDetailClient({ errata }: ErrataDetailClientProps) 
             type="button"
             onClick={() => setSeverity('critical')}
             className={`rounded-full px-3 py-1.5 text-xs font-semibold transition-colors ${
-                severity === 'critical' ? 'bg-primary text-white' : 'bg-white dark:bg-slate-700 text-gray-600 dark:text-slate-300 hover:bg-gray-100 dark:hover:bg-slate-600'
+                severity === 'critical' ? 'bg-primary text-white' : 'bg-white dark:bg-slate-900 dark:bg-slate-700 text-gray-600 dark:text-slate-400 dark:text-slate-300 hover:bg-gray-100 dark:bg-slate-800 dark:hover:bg-slate-600'
             }`}
           >
             Critical
           </button>
         </div>
-        <p className="mt-2 text-xs text-gray-500">
+        <p className="mt-2 text-xs text-gray-500 dark:text-slate-500">
           Showing {filteredErrata.length} of {errata.length} correction{errata.length !== 1 ? 's' : ''}
         </p>
       </div>
@@ -117,17 +117,17 @@ export default function ErrataDetailClient({ errata }: ErrataDetailClientProps) 
       {filteredErrata.length > 0 ? (
         <div className="space-y-4">
           {filteredErrata.map((item) => (
-              <article key={item._key} className="p-5 rounded-2xl border border-gray-100 dark:border-slate-700 bg-white dark:bg-slate-800 shadow-sm">
+              <article key={item._key} className="p-5 rounded-2xl border border-gray-100 dark:border-slate-700 bg-white dark:bg-slate-900 dark:bg-slate-800 shadow-sm">
               <div className="flex flex-wrap items-center gap-2 mb-3">
                 {item.page && (
-                  <span className="text-xs font-mono bg-gray-100 text-gray-600 px-2 py-0.5 rounded">
+                  <span className="text-xs font-mono bg-gray-100 dark:bg-slate-800 text-gray-600 dark:text-slate-400 px-2 py-0.5 rounded">
                     p.{item.page}
                   </span>
                 )}
                 {item.location && (
-                  <span className="text-sm text-gray-500">{item.location}</span>
+                  <span className="text-sm text-gray-500 dark:text-slate-500">{item.location}</span>
                 )}
-                <span className={`ml-auto text-xs px-2 py-0.5 rounded-full font-medium ${SEVERITY_STYLES[item.severity]?.badge ?? 'bg-gray-100 text-gray-600'}`}>
+                <span className={`ml-auto text-xs px-2 py-0.5 rounded-full font-medium ${SEVERITY_STYLES[item.severity]?.badge ?? 'bg-gray-100 dark:bg-slate-800 text-gray-600 dark:text-slate-400'}`}>
                   {SEVERITY_STYLES[item.severity]?.label ?? item.severity}
                 </span>
                 {item.fixedInEdition && (
@@ -140,16 +140,16 @@ export default function ErrataDetailClient({ errata }: ErrataDetailClientProps) 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
                 <div>
                   <p className="text-xs font-semibold text-red-400 uppercase tracking-wider mb-1">Incorrect</p>
-                    <p className="text-gray-700 dark:text-slate-300 bg-red-50 dark:bg-red-950/30 rounded-lg p-3 font-mono text-xs leading-relaxed whitespace-pre-wrap">{item.original}</p>
+                    <p className="text-gray-700 dark:text-slate-300 dark:text-slate-300 bg-red-50 dark:bg-red-950/30 rounded-lg p-3 font-mono text-xs leading-relaxed whitespace-pre-wrap">{item.original}</p>
                 </div>
                 <div>
                   <p className="text-xs font-semibold text-green-500 uppercase tracking-wider mb-1">Correction</p>
-                    <p className="text-gray-700 dark:text-slate-300 bg-green-50 dark:bg-green-950/30 rounded-lg p-3 font-mono text-xs leading-relaxed whitespace-pre-wrap">{item.correction}</p>
+                    <p className="text-gray-700 dark:text-slate-300 dark:text-slate-300 bg-green-50 dark:bg-green-950/30 rounded-lg p-3 font-mono text-xs leading-relaxed whitespace-pre-wrap">{item.correction}</p>
                 </div>
               </div>
 
               {item.reportedAt && (
-                <p className="text-xs text-gray-400 mt-3">
+                <p className="text-xs text-gray-400 dark:text-slate-500 mt-3">
                   Reported {new Date(item.reportedAt).toLocaleDateString('en-NG', { year: 'numeric', month: 'long', day: 'numeric' })}
                 </p>
               )}
@@ -157,7 +157,7 @@ export default function ErrataDetailClient({ errata }: ErrataDetailClientProps) 
           ))}
         </div>
       ) : (
-          <div className="text-center py-12 text-gray-500 dark:text-slate-400 border border-dashed border-gray-200 dark:border-slate-600 rounded-2xl bg-white dark:bg-slate-800">
+          <div className="text-center py-12 text-gray-500 dark:text-slate-500 dark:text-slate-400 border border-dashed border-gray-200 dark:border-slate-700 dark:border-slate-600 rounded-2xl bg-white dark:bg-slate-900 dark:bg-slate-800">
           <p className="text-2xl mb-2">No matching corrections</p>
           <p className="text-sm">Try changing the search term or severity filter.</p>
         </div>

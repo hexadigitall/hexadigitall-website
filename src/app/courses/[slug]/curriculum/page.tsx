@@ -111,7 +111,7 @@ export default async function CourseCurriculumPage({ params }: Props) {
 
   return (
     <main className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
-      <nav className="text-sm text-gray-500 mb-6">
+      <nav className="text-sm text-gray-500 dark:text-slate-500 mb-6">
         <Link href="/" className="hover:text-primary transition-colors">Home</Link>
         <span className="mx-2">/</span>
         <Link href="/courses" className="hover:text-primary transition-colors">Courses</Link>
@@ -123,7 +123,7 @@ export default async function CourseCurriculumPage({ params }: Props) {
 
       <header className="mb-6">
         <h1 className="text-2xl md:text-3xl font-bold text-primary">{course.title} Curriculum</h1>
-        <p className="text-gray-600 mt-2 max-w-3xl">
+        <p className="text-gray-600 dark:text-slate-400 mt-2 max-w-3xl">
           Public curriculum preview for visitors and enrolled students. Use this page to evaluate module scope, outcomes, and learning path.
         </p>
       </header>
@@ -131,9 +131,9 @@ export default async function CourseCurriculumPage({ params }: Props) {
       {curriculum ? (
         <CurriculumDocumentView curriculum={curriculum} />
       ) : (
-        <section className="rounded-2xl border border-dashed border-gray-300 dark:border-slate-600 bg-gray-50 dark:bg-slate-800 p-8 text-center">
-          <p className="text-lg font-semibold text-gray-800 dark:text-slate-200">Curriculum is not available in the new content system yet.</p>
-          <p className="text-sm text-gray-600 mt-2">
+        <section className="rounded-2xl border border-dashed border-gray-300 dark:border-slate-600 dark:border-slate-600 bg-gray-50 dark:bg-slate-800/50 dark:bg-slate-800 p-8 text-center">
+          <p className="text-lg font-semibold text-gray-800 dark:text-slate-200 dark:text-slate-200">Curriculum is not available in the new content system yet.</p>
+          <p className="text-sm text-gray-600 dark:text-slate-400 mt-2">
             We are migrating curriculum documents into Sanity for direct rendering and printable PDF delivery. Check back soon, or contact support for the latest syllabus copy.
           </p>
           <div className="mt-4 flex flex-wrap justify-center gap-2">
@@ -145,7 +145,7 @@ export default async function CourseCurriculumPage({ params }: Props) {
             </Link>
             <Link
               href="/contact"
-              className="inline-flex items-center rounded-lg border border-gray-200 dark:border-slate-600 px-4 py-2 text-sm font-semibold text-gray-700 dark:text-slate-300 hover:border-gray-300"
+              className="inline-flex items-center rounded-lg border border-gray-200 dark:border-slate-700 dark:border-slate-600 px-4 py-2 text-sm font-semibold text-gray-700 dark:text-slate-300 dark:text-slate-300 hover:border-gray-300 dark:border-slate-600"
             >
               Contact Support
             </Link>

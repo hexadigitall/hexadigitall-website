@@ -88,7 +88,7 @@ export default function ResourcesDetailClient({ resources }: ResourcesDetailClie
 
   return (
     <section className="mb-16">
-      <div className="rounded-2xl border border-gray-100 dark:border-slate-700 bg-gray-50 dark:bg-slate-800 p-4 mb-6">
+      <div className="rounded-2xl border border-gray-100 dark:border-slate-700 bg-gray-50 dark:bg-slate-800/50 dark:bg-slate-800 p-4 mb-6">
         <label htmlFor="resources-search" className="block text-sm font-semibold text-darkText dark:text-slate-300 mb-2">
           Search resources
         </label>
@@ -98,7 +98,7 @@ export default function ResourcesDetailClient({ resources }: ResourcesDetailClie
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           placeholder="Search by title, description, type, or chapter"
-          className="w-full rounded-xl border border-gray-200 dark:border-slate-600 bg-white dark:bg-slate-700 dark:text-slate-200 px-4 py-3 text-sm focus:border-primary focus:ring-2 focus:ring-primary/20"
+          className="w-full rounded-xl border border-gray-200 dark:border-slate-700 dark:border-slate-600 bg-white dark:bg-slate-900 dark:bg-slate-700 dark:text-slate-200 px-4 py-3 text-sm focus:border-primary focus:ring-2 focus:ring-primary/20"
         />
 
         <div className="mt-3 flex flex-wrap gap-2">
@@ -106,7 +106,7 @@ export default function ResourcesDetailClient({ resources }: ResourcesDetailClie
             type="button"
             onClick={() => setType('all')}
             className={`rounded-full px-3 py-1.5 text-xs font-semibold transition-colors ${
-              type === 'all' ? 'bg-primary text-white' : 'bg-white dark:bg-slate-700 text-gray-600 dark:text-slate-300 hover:bg-gray-100 dark:hover:bg-slate-600'
+              type === 'all' ? 'bg-primary text-white' : 'bg-white dark:bg-slate-900 dark:bg-slate-700 text-gray-600 dark:text-slate-400 dark:text-slate-300 hover:bg-gray-100 dark:bg-slate-800 dark:hover:bg-slate-600'
             }`}
           >
             All Types
@@ -117,7 +117,7 @@ export default function ResourcesDetailClient({ resources }: ResourcesDetailClie
               type="button"
               onClick={() => setType(resourceType)}
               className={`rounded-full px-3 py-1.5 text-xs font-semibold transition-colors ${
-                type === resourceType ? 'bg-primary text-white' : 'bg-white dark:bg-slate-700 text-gray-600 dark:text-slate-300 hover:bg-gray-100 dark:hover:bg-slate-600'
+                type === resourceType ? 'bg-primary text-white' : 'bg-white dark:bg-slate-900 dark:bg-slate-700 text-gray-600 dark:text-slate-400 dark:text-slate-300 hover:bg-gray-100 dark:bg-slate-800 dark:hover:bg-slate-600'
               }`}
             >
               {TYPE_LABELS[resourceType]}
@@ -131,7 +131,7 @@ export default function ResourcesDetailClient({ resources }: ResourcesDetailClie
               type="button"
               onClick={() => setChapter('all')}
               className={`rounded-full px-3 py-1.5 text-xs font-semibold transition-colors ${
-                chapter === 'all' ? 'bg-secondary text-white' : 'bg-white dark:bg-slate-700 text-gray-600 dark:text-slate-300 hover:bg-gray-100 dark:hover:bg-slate-600'
+                chapter === 'all' ? 'bg-secondary text-white' : 'bg-white dark:bg-slate-900 dark:bg-slate-700 text-gray-600 dark:text-slate-400 dark:text-slate-300 hover:bg-gray-100 dark:bg-slate-800 dark:hover:bg-slate-600'
               }`}
             >
               All Chapters
@@ -142,7 +142,7 @@ export default function ResourcesDetailClient({ resources }: ResourcesDetailClie
                 type="button"
                 onClick={() => setChapter(chapterNumber)}
                 className={`rounded-full px-3 py-1.5 text-xs font-semibold transition-colors ${
-                  chapter === chapterNumber ? 'bg-secondary text-white' : 'bg-white dark:bg-slate-700 text-gray-600 dark:text-slate-300 hover:bg-gray-100 dark:hover:bg-slate-600'
+                  chapter === chapterNumber ? 'bg-secondary text-white' : 'bg-white dark:bg-slate-900 dark:bg-slate-700 text-gray-600 dark:text-slate-400 dark:text-slate-300 hover:bg-gray-100 dark:bg-slate-800 dark:hover:bg-slate-600'
                 }`}
               >
                 Chapter {chapterNumber}
@@ -151,7 +151,7 @@ export default function ResourcesDetailClient({ resources }: ResourcesDetailClie
           </div>
         )}
 
-        <p className="mt-2 text-xs text-gray-500">
+        <p className="mt-2 text-xs text-gray-500 dark:text-slate-500">
           Showing {filteredResources.length} of {resources.length} resource{resources.length !== 1 ? 's' : ''}
         </p>
       </div>
@@ -167,14 +167,14 @@ export default function ResourcesDetailClient({ resources }: ResourcesDetailClie
                 {grouped[chapterKey].map((resource) => {
                   const downloadUrl = resource.url ?? resource.file?.asset?.url
                   return (
-                    <div key={resource._key} className="p-4 rounded-2xl border border-gray-100 dark:border-slate-700 bg-white dark:bg-slate-800 shadow-sm hover:shadow-md transition-shadow">
+                    <div key={resource._key} className="p-4 rounded-2xl border border-gray-100 dark:border-slate-700 bg-white dark:bg-slate-900 dark:bg-slate-800 shadow-sm hover:shadow-md transition-shadow">
                       <div className="flex items-start gap-3">
                         <span className="text-2xl flex-shrink-0">{TYPE_ICONS[resource.type] ?? '📁'}</span>
                         <div className="flex-1 min-w-0">
                           <p className="font-semibold text-sm text-darkText dark:text-slate-200">{resource.title}</p>
-                          <p className="text-xs text-gray-400 mt-0.5">{TYPE_LABELS[resource.type] ?? resource.type}</p>
+                          <p className="text-xs text-gray-400 dark:text-slate-500 mt-0.5">{TYPE_LABELS[resource.type] ?? resource.type}</p>
                           {resource.description && (
-                            <p className="text-xs text-gray-500 mt-2 leading-relaxed">{resource.description}</p>
+                            <p className="text-xs text-gray-500 dark:text-slate-500 mt-2 leading-relaxed">{resource.description}</p>
                           )}
                         </div>
                       </div>
@@ -197,7 +197,7 @@ export default function ResourcesDetailClient({ resources }: ResourcesDetailClie
           ))}
         </div>
       ) : (
-        <div className="text-center py-12 text-gray-500 dark:text-slate-400 border border-dashed border-gray-200 dark:border-slate-600 rounded-2xl bg-white dark:bg-slate-800">
+        <div className="text-center py-12 text-gray-500 dark:text-slate-500 dark:text-slate-400 border border-dashed border-gray-200 dark:border-slate-700 dark:border-slate-600 rounded-2xl bg-white dark:bg-slate-900 dark:bg-slate-800">
           <p className="text-2xl mb-2">No matching resources</p>
           <p className="text-sm">Try changing chapter or resource type filters.</p>
         </div>
