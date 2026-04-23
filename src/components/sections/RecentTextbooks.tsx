@@ -11,14 +11,14 @@ export default async function RecentTextbooks() {
   if (recentBooks.length === 0) return null
 
   return (
-    <section className="py-16 md:py-20 bg-gradient-to-br from-sky-50 via-white to-emerald-50 border-y border-sky-100/60">
+    <section className="py-16 md:py-20 bg-gradient-to-br from-sky-50 via-white to-emerald-50 dark:from-slate-950 dark:via-slate-900 dark:to-slate-900 border-y border-sky-100/60 dark:border-slate-800">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-8">
           <div>
-            <p className="text-xs font-semibold tracking-[0.18em] text-secondary uppercase">Textbook Store</p>
-            <h2 className="mt-2 text-2xl md:text-3xl font-bold text-darkText">Recently Added Textbooks</h2>
+            <p className="text-xs font-semibold tracking-[0.18em] text-secondary dark:text-cyan-300 uppercase">Textbook Store</p>
+            <h2 className="mt-2 text-2xl md:text-3xl font-bold text-darkText dark:text-slate-100">Recently Added Textbooks</h2>
           </div>
-          <Link href="/store" className="text-sm font-semibold text-primary hover:underline">
+          <Link href="/store" className="text-sm font-semibold text-primary dark:text-cyan-300 hover:underline">
             Browse all textbooks →
           </Link>
         </div>

@@ -90,7 +90,7 @@ const Testimonials = async () => {
   testimonials = dedupe(testimonials).slice(0, 6);
 
   return (
-    <section className="relative py-16 md:py-24 bg-gradient-to-br from-slate-50 via-blue-50 to-purple-50 overflow-hidden">
+    <section className="relative py-16 md:py-24 bg-gradient-to-br from-slate-50 via-blue-50 to-purple-50 dark:from-slate-950 dark:via-slate-900 dark:to-slate-900 overflow-hidden">
       {/* Background decorative elements */}
       <div className="absolute inset-0 overflow-hidden">
         <div className="absolute top-1/4 left-1/4 w-72 h-72 bg-gradient-to-r from-blue-400/20 to-purple-400/20 rounded-full blur-3xl animate-pulse-slow"></div>
@@ -102,7 +102,7 @@ const Testimonials = async () => {
           <h2 className="text-3xl md:text-4xl font-bold font-heading mb-4 bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent">
             What Our Clients Say
           </h2>
-          <p className="text-lg text-darkText max-w-2xl mx-auto leading-relaxed">
+          <p className="text-lg text-darkText dark:text-slate-300 max-w-2xl mx-auto leading-relaxed">
             Real feedback from partners we&apos;ve helped succeed in their digital journey.
           </p>
         </div>
@@ -121,7 +121,7 @@ const Testimonials = async () => {
                 {/* Quote */}
                 <div className="mb-6">
                   <div className="text-4xl text-secondary mb-3 opacity-50">&ldquo;</div>
-                  <p className="text-darkText italic leading-relaxed text-base">
+                  <p className="text-darkText dark:text-slate-200 italic leading-relaxed text-base">
                     {testimonial.quote}
                   </p>
                 </div>
@@ -159,7 +159,7 @@ const Testimonials = async () => {
                   
                   <div className="flex-1">
                     <p className="font-bold text-primary font-heading">{testimonial.authorName}</p>
-                    <p className="text-sm text-gray-600">{testimonial.authorCompany}</p>
+                    <p className="text-sm text-gray-600 dark:text-slate-400">{testimonial.authorCompany}</p>
                   </div>
                 </div>
               </div>
@@ -169,7 +169,7 @@ const Testimonials = async () => {
         
         {/* Call to action */}
         <div className="text-center mt-12">
-          <p className="text-lg text-darkText mb-4">Ready to join our success stories?</p>
+          <p className="text-lg text-darkText dark:text-slate-300 mb-4">Ready to join our success stories?</p>
           <Link 
             href="/courses" 
             className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-secondary to-primary text-white font-semibold rounded-lg hover:from-primary hover:to-secondary transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-xl"
