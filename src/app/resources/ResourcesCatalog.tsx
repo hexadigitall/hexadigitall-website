@@ -164,7 +164,7 @@ export default function ResourcesCatalog({ books }: { books: BookSummary[] }) {
             <button
               type="button"
               onClick={() => setQuery('')}
-              className="absolute right-3 top-1/2 -translate-y-1/2 rounded-md bg-gray-100 px-3 py-1.5 text-xs font-medium text-gray-600 hover:bg-gray-200"
+              className="absolute right-3 top-1/2 -translate-y-1/2 rounded-md bg-gray-100 dark:bg-slate-700 px-3 py-1.5 text-xs font-medium text-gray-600 dark:text-slate-300 hover:bg-gray-200 dark:hover:bg-slate-600"
             >
               Clear
             </button>
@@ -185,7 +185,7 @@ export default function ResourcesCatalog({ books }: { books: BookSummary[] }) {
               className={`rounded-full px-3 py-1.5 text-xs font-semibold transition-colors ${
                 status === item.id
                   ? 'bg-primary text-white'
-                  : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                  : 'bg-gray-100 dark:bg-slate-700 text-gray-600 dark:text-slate-300 hover:bg-gray-200 dark:hover:bg-slate-600'
               }`}
             >
               {item.label}
@@ -193,10 +193,10 @@ export default function ResourcesCatalog({ books }: { books: BookSummary[] }) {
           ))}
         </div>
 
-        <p className="mt-2 text-xs text-gray-500">
+        <p className="mt-2 text-xs text-gray-500 dark:text-slate-400">
           Showing {filteredBooks.length} of {books.length} textbook{books.length !== 1 ? 's' : ''}
         </p>
-        <p className="mt-1 text-xs text-gray-400">
+        <p className="mt-1 text-xs text-gray-400 dark:text-slate-500">
           Tip: Press / anywhere on this page to jump to search.
         </p>
       </section>
@@ -223,7 +223,7 @@ export default function ResourcesCatalog({ books }: { books: BookSummary[] }) {
                   <p className="font-bold text-sm text-darkText dark:text-slate-200 group-hover:text-primary transition-colors line-clamp-2">
                     {highlightText(book.title, query)}
                   </p>
-                  {book.edition && <p className="text-xs text-gray-400 mt-0.5">{highlightText(book.edition, query)}</p>}
+                  {book.edition && <p className="text-xs text-gray-400 dark:text-slate-500 mt-0.5">{highlightText(book.edition, query)}</p>}
                   <p className="text-xs text-secondary mt-2 font-medium">View resources →</p>
                 </div>
               </Link>

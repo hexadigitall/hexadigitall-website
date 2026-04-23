@@ -76,10 +76,10 @@ export default async function ResourcesPage({ params }: Props) {
   const coverUrl = book.coverImage?.asset?.url
 
   return (
-    <main className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <main className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 text-gray-900 dark:text-slate-100">
 
       {/* Breadcrumb */}
-      <nav className="text-sm text-gray-500 mb-8">
+      <nav className="text-sm text-gray-500 dark:text-slate-400 mb-8">
         <Link href="/" className="hover:text-primary transition-colors">Home</Link>
         <span className="mx-2">/</span>
         <Link href="/resources" className="hover:text-primary transition-colors">Resources</Link>
@@ -98,9 +98,9 @@ export default async function ResourcesPage({ params }: Props) {
           <h1 className="text-2xl md:text-3xl font-bold text-primary leading-tight">
             Companion Resources
           </h1>
-          <p className="text-gray-600 mt-1">
+          <p className="text-gray-600 dark:text-slate-400 mt-1">
             for <strong>{book.title}</strong>
-            {book.edition && <span className="text-gray-400"> · {book.edition}</span>}
+            {book.edition && <span className="text-gray-400 dark:text-slate-500"> · {book.edition}</span>}
           </p>
           <div className="flex gap-3 mt-3">
             <Link href={`/store/${slug}`} className="text-xs text-secondary hover:underline">← Back to book</Link>
@@ -114,9 +114,9 @@ export default async function ResourcesPage({ params }: Props) {
       {/* Summary */}
       {resources.length > 0 && (
         <div className="flex flex-wrap gap-4 mb-10 text-sm">
-          <span className="text-gray-600">{publicResources.length} student resource{publicResources.length !== 1 ? 's' : ''}</span>
+          <span className="text-gray-600 dark:text-slate-400">{publicResources.length} student resource{publicResources.length !== 1 ? 's' : ''}</span>
           {instructorResources.length > 0 && (
-            <span className="text-gray-600">{instructorResources.length} instructor resource{instructorResources.length !== 1 ? 's' : ''}</span>
+            <span className="text-gray-600 dark:text-slate-400">{instructorResources.length} instructor resource{instructorResources.length !== 1 ? 's' : ''}</span>
           )}
         </div>
       )}
@@ -125,18 +125,18 @@ export default async function ResourcesPage({ params }: Props) {
       {publicResources.length > 0 ? (
         <ResourcesDetailClient resources={publicResources} />
       ) : (
-        <section className="mb-16 text-center py-16 text-gray-500">
+        <section className="mb-16 text-center py-16 text-gray-500 dark:text-slate-400">
           <p className="text-4xl mb-3">📁</p>
-          <p className="text-lg font-medium text-gray-700">Resources for this book are coming soon.</p>
+          <p className="text-lg font-medium text-gray-700 dark:text-slate-300">Resources for this book are coming soon.</p>
           <p className="text-sm mt-2">Check back after purchase — files are added as the book is used in courses.</p>
         </section>
       )}
 
       {/* Instructor resources */}
       {instructorResources.length > 0 && (
-        <section id="instructor" className="mb-16 bg-amber-50 border border-amber-200 rounded-2xl p-6">
-          <h2 className="text-xl font-bold text-amber-800 mb-2">🔐 Instructor Resources</h2>
-          <p className="text-sm text-amber-700 mb-5 max-w-xl">
+        <section id="instructor" className="mb-16 bg-amber-50 dark:bg-amber-950/20 border border-amber-200 dark:border-amber-800 rounded-2xl p-6">
+          <h2 className="text-xl font-bold text-amber-800 dark:text-amber-300 mb-2">🔐 Instructor Resources</h2>
+          <p className="text-sm text-amber-700 dark:text-amber-300 mb-5 max-w-xl">
             The following resources are available to verified lecturers and instructors only.
             Complete the short form below to request access. We typically respond within 1–2 business days.
           </p>
@@ -144,10 +144,10 @@ export default async function ResourcesPage({ params }: Props) {
           {/* List of gated items (names only — no links) */}
           <ul className="mb-6 space-y-2">
             {instructorResources.map((r) => (
-              <li key={r._key} className="flex items-center gap-2 text-sm text-amber-800">
+              <li key={r._key} className="flex items-center gap-2 text-sm text-amber-800 dark:text-amber-200">
                 <span>{TYPE_ICONS[r.type] ?? '📁'}</span>
                 <span>{r.title}</span>
-                <span className="text-xs text-amber-500">({TYPE_LABELS[r.type] ?? r.type})</span>
+                <span className="text-xs text-amber-500 dark:text-amber-400">({TYPE_LABELS[r.type] ?? r.type})</span>
               </li>
             ))}
           </ul>
@@ -162,57 +162,57 @@ export default async function ResourcesPage({ params }: Props) {
             <input type="hidden" name="bookSlug" value={slug} />
 
             <div>
-              <label className="block text-xs font-semibold text-amber-900 mb-1">Full Name</label>
+              <label className="block text-xs font-semibold text-amber-900 dark:text-amber-200 mb-1">Full Name</label>
               <input
                 type="text"
                 name="name"
                 required
                 placeholder="Dr. Ngozi Ibrahim"
-                className="w-full rounded-lg border border-amber-200 px-3 py-2 text-sm bg-white focus:border-primary focus:ring-1 focus:ring-primary outline-none"
+                className="w-full rounded-lg border border-amber-200 dark:border-amber-700 px-3 py-2 text-sm bg-white dark:bg-slate-800 text-gray-900 dark:text-slate-100 focus:border-primary focus:ring-1 focus:ring-primary outline-none"
               />
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-amber-900 mb-1">Institutional Email</label>
+              <label className="block text-xs font-semibold text-amber-900 dark:text-amber-200 mb-1">Institutional Email</label>
               <input
                 type="email"
                 name="email"
                 required
                 placeholder="you@university.edu.ng"
-                className="w-full rounded-lg border border-amber-200 px-3 py-2 text-sm bg-white focus:border-primary focus:ring-1 focus:ring-primary outline-none"
+                className="w-full rounded-lg border border-amber-200 dark:border-amber-700 px-3 py-2 text-sm bg-white dark:bg-slate-800 text-gray-900 dark:text-slate-100 focus:border-primary focus:ring-1 focus:ring-primary outline-none"
               />
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-amber-900 mb-1">Institution / University</label>
+              <label className="block text-xs font-semibold text-amber-900 dark:text-amber-200 mb-1">Institution / University</label>
               <input
                 type="text"
                 name="institution"
                 required
                 placeholder="University of Calabar"
-                className="w-full rounded-lg border border-amber-200 px-3 py-2 text-sm bg-white focus:border-primary focus:ring-1 focus:ring-primary outline-none"
+                className="w-full rounded-lg border border-amber-200 dark:border-amber-700 px-3 py-2 text-sm bg-white dark:bg-slate-800 text-gray-900 dark:text-slate-100 focus:border-primary focus:ring-1 focus:ring-primary outline-none"
               />
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-amber-900 mb-1">Role / Department</label>
+              <label className="block text-xs font-semibold text-amber-900 dark:text-amber-200 mb-1">Role / Department</label>
               <input
                 type="text"
                 name="role"
                 required
                 placeholder="Lecturer, Computer Science Dept."
-                className="w-full rounded-lg border border-amber-200 px-3 py-2 text-sm bg-white focus:border-primary focus:ring-1 focus:ring-primary outline-none"
+                className="w-full rounded-lg border border-amber-200 dark:border-amber-700 px-3 py-2 text-sm bg-white dark:bg-slate-800 text-gray-900 dark:text-slate-100 focus:border-primary focus:ring-1 focus:ring-primary outline-none"
               />
             </div>
 
             <div className="sm:col-span-2">
-              <label className="block text-xs font-semibold text-amber-900 mb-1">How will you use this textbook?</label>
+              <label className="block text-xs font-semibold text-amber-900 dark:text-amber-200 mb-1">How will you use this textbook?</label>
               <textarea
                 name="usage"
                 required
                 rows={3}
                 placeholder="e.g. Prescribed text for CSC302, approx. 45 students per session"
-                className="w-full rounded-lg border border-amber-200 px-3 py-2 text-sm bg-white focus:border-primary focus:ring-1 focus:ring-primary outline-none resize-none"
+                className="w-full rounded-lg border border-amber-200 dark:border-amber-700 px-3 py-2 text-sm bg-white dark:bg-slate-800 text-gray-900 dark:text-slate-100 focus:border-primary focus:ring-1 focus:ring-primary outline-none resize-none"
               />
             </div>
 
@@ -235,7 +235,7 @@ export default async function ResourcesPage({ params }: Props) {
             <span className="text-3xl">🎓</span>
             <div>
               <h3 className="font-bold text-primary mb-1">Want guided instruction?</h3>
-              <p className="text-sm text-gray-600 mb-3">
+              <p className="text-sm text-gray-600 dark:text-slate-400 mb-3">
                 This book accompanies the <strong>{book.relatedCourse.title}</strong> course on Hexadigitall — 
                 with live mentoring, Q&amp;A, and structured pacing.
               </p>

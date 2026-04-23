@@ -42,10 +42,10 @@ export async function generateStaticParams() {
 // ── Helpers ───────────────────────────────────────────────────────────────────
 
 const SEVERITY_STYLES: Record<string, { badge: string; label: string }> = {
-  minor: { badge: 'bg-gray-100 text-gray-600', label: 'Typo / Minor' },
-  content: { badge: 'bg-amber-100 text-amber-700', label: 'Content Error' },
-  code: { badge: 'bg-blue-100 text-blue-700', label: 'Code Error' },
-  critical: { badge: 'bg-red-100 text-red-700', label: 'Critical' },
+  minor: { badge: 'bg-gray-100 dark:bg-slate-700 text-gray-600 dark:text-slate-300', label: 'Typo / Minor' },
+  content: { badge: 'bg-amber-100 dark:bg-amber-900/40 text-amber-700 dark:text-amber-300', label: 'Content Error' },
+  code: { badge: 'bg-blue-100 dark:bg-blue-900/40 text-blue-700 dark:text-blue-300', label: 'Code Error' },
+  critical: { badge: 'bg-red-100 dark:bg-red-900/40 text-red-700 dark:text-red-300', label: 'Critical' },
 }
 
 // ── Page ──────────────────────────────────────────────────────────────────────
@@ -65,10 +65,10 @@ export default async function ErrataPage({ params }: Props) {
   }, {} as Record<string, number>)
 
   return (
-    <main className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <main className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 text-gray-900 dark:text-slate-100">
 
       {/* Breadcrumb */}
-      <nav className="text-sm text-gray-500 mb-8">
+      <nav className="text-sm text-gray-500 dark:text-slate-400 mb-8">
         <Link href="/" className="hover:text-primary transition-colors">Home</Link>
         <span className="mx-2">/</span>
         <Link href="/errata" className="hover:text-primary transition-colors">Errata</Link>
@@ -85,7 +85,7 @@ export default async function ErrataPage({ params }: Props) {
         )}
         <div>
           <h1 className="text-2xl md:text-3xl font-bold text-primary leading-tight">{book.title}</h1>
-          {book.edition && <p className="text-sm text-gray-500 mt-1">{book.edition}</p>}
+          {book.edition && <p className="text-sm text-gray-500 dark:text-slate-400 mt-1">{book.edition}</p>}
           <div className="flex gap-3 mt-3">
             <Link href={`/store/${slug}`} className="text-xs text-secondary hover:underline">← Back to book</Link>
             {(book.resources?.length ?? 0) > 0 && (
@@ -100,7 +100,7 @@ export default async function ErrataPage({ params }: Props) {
         <div className="flex flex-wrap gap-3 mb-8">
           <span className="text-sm font-semibold text-gray-700 dark:text-slate-300">{errata.length} correction{errata.length !== 1 ? 's' : ''} logged</span>
           {Object.entries(counts).map(([sev, count]) => (
-            <span key={sev} className={`text-xs px-2 py-1 rounded-full font-medium ${SEVERITY_STYLES[sev]?.badge ?? 'bg-gray-100 text-gray-600'}`}>
+            <span key={sev} className={`text-xs px-2 py-1 rounded-full font-medium ${SEVERITY_STYLES[sev]?.badge ?? 'bg-gray-100 dark:bg-slate-700 text-gray-600 dark:text-slate-300'}`}>
               {count} {SEVERITY_STYLES[sev]?.label ?? sev}
             </span>
           ))}
@@ -111,7 +111,7 @@ export default async function ErrataPage({ params }: Props) {
       {errata.length > 0 ? (
         <ErrataDetailClient errata={errata} />
       ) : (
-        <section className="mb-16 text-center py-16 text-gray-500">
+        <section className="mb-16 text-center py-16 text-gray-500 dark:text-slate-400">
           <p className="text-4xl mb-3">✅</p>
           <p className="text-lg font-medium text-gray-700 dark:text-slate-400">No corrections logged yet for this edition.</p>
           <p className="text-sm mt-2">Found an error? Let us know using the form below.</p>
@@ -121,7 +121,7 @@ export default async function ErrataPage({ params }: Props) {
       {/* Report form */}
         <section id="report" className="bg-gray-50 dark:bg-slate-800 rounded-2xl p-6 border border-gray-100 dark:border-slate-700">
         <h2 className="text-xl font-bold text-primary mb-2">Report an Error</h2>
-        <p className="text-sm text-gray-600 mb-5">
+        <p className="text-sm text-gray-600 dark:text-slate-400 mb-5">
           Found something wrong in <strong>{book.title}</strong>? Fill in the details below and we&apos;ll investigate and log it here.
         </p>
         <form
@@ -133,66 +133,66 @@ export default async function ErrataPage({ params }: Props) {
           <input type="hidden" name="bookSlug" value={slug} />
 
           <div className="sm:col-span-2">
-            <label className="block text-xs font-semibold text-gray-700 mb-1">Your Name</label>
+            <label className="block text-xs font-semibold text-gray-700 dark:text-slate-300 mb-1">Your Name</label>
             <input
               type="text"
               name="name"
               required
               placeholder="e.g. Amara Okonkwo"
-              className="w-full rounded-lg border border-gray-200 px-3 py-2 text-sm focus:border-primary focus:ring-1 focus:ring-primary outline-none"
+              className="w-full rounded-lg border border-gray-200 dark:border-slate-600 bg-white dark:bg-slate-900 text-gray-900 dark:text-slate-100 px-3 py-2 text-sm focus:border-primary focus:ring-1 focus:ring-primary outline-none"
             />
           </div>
 
           <div className="sm:col-span-2">
-            <label className="block text-xs font-semibold text-gray-700 mb-1">Your Email</label>
+            <label className="block text-xs font-semibold text-gray-700 dark:text-slate-300 mb-1">Your Email</label>
             <input
               type="email"
               name="email"
               required
               placeholder="you@example.com"
-              className="w-full rounded-lg border border-gray-200 px-3 py-2 text-sm focus:border-primary focus:ring-1 focus:ring-primary outline-none"
+              className="w-full rounded-lg border border-gray-200 dark:border-slate-600 bg-white dark:bg-slate-900 text-gray-900 dark:text-slate-100 px-3 py-2 text-sm focus:border-primary focus:ring-1 focus:ring-primary outline-none"
             />
           </div>
 
           <div>
-            <label className="block text-xs font-semibold text-gray-700 mb-1">Page Number</label>
+            <label className="block text-xs font-semibold text-gray-700 dark:text-slate-300 mb-1">Page Number</label>
             <input
               type="number"
               name="page"
               placeholder="e.g. 42"
-              className="w-full rounded-lg border border-gray-200 px-3 py-2 text-sm focus:border-primary focus:ring-1 focus:ring-primary outline-none"
+              className="w-full rounded-lg border border-gray-200 dark:border-slate-600 bg-white dark:bg-slate-900 text-gray-900 dark:text-slate-100 px-3 py-2 text-sm focus:border-primary focus:ring-1 focus:ring-primary outline-none"
             />
           </div>
 
           <div>
-            <label className="block text-xs font-semibold text-gray-700 mb-1">Location / Chapter</label>
+            <label className="block text-xs font-semibold text-gray-700 dark:text-slate-300 mb-1">Location / Chapter</label>
             <input
               type="text"
               name="location"
               placeholder='e.g. "Chapter 3, Exercise 2"'
-              className="w-full rounded-lg border border-gray-200 px-3 py-2 text-sm focus:border-primary focus:ring-1 focus:ring-primary outline-none"
+              className="w-full rounded-lg border border-gray-200 dark:border-slate-600 bg-white dark:bg-slate-900 text-gray-900 dark:text-slate-100 px-3 py-2 text-sm focus:border-primary focus:ring-1 focus:ring-primary outline-none"
             />
           </div>
 
           <div className="sm:col-span-2">
-            <label className="block text-xs font-semibold text-gray-700 mb-1">What it says (incorrect text)</label>
+            <label className="block text-xs font-semibold text-gray-700 dark:text-slate-300 mb-1">What it says (incorrect text)</label>
             <textarea
               name="original"
               required
               rows={3}
               placeholder="Copy the incorrect text here..."
-              className="w-full rounded-lg border border-gray-200 px-3 py-2 text-sm focus:border-primary focus:ring-1 focus:ring-primary outline-none resize-none"
+              className="w-full rounded-lg border border-gray-200 dark:border-slate-600 bg-white dark:bg-slate-900 text-gray-900 dark:text-slate-100 px-3 py-2 text-sm focus:border-primary focus:ring-1 focus:ring-primary outline-none resize-none"
             />
           </div>
 
           <div className="sm:col-span-2">
-            <label className="block text-xs font-semibold text-gray-700 mb-1">What it should say</label>
+            <label className="block text-xs font-semibold text-gray-700 dark:text-slate-300 mb-1">What it should say</label>
             <textarea
               name="correction"
               required
               rows={3}
               placeholder="What do you think the correct version should be?"
-              className="w-full rounded-lg border border-gray-200 px-3 py-2 text-sm focus:border-primary focus:ring-1 focus:ring-primary outline-none resize-none"
+              className="w-full rounded-lg border border-gray-200 dark:border-slate-600 bg-white dark:bg-slate-900 text-gray-900 dark:text-slate-100 px-3 py-2 text-sm focus:border-primary focus:ring-1 focus:ring-primary outline-none resize-none"
             />
           </div>
 
