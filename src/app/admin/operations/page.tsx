@@ -77,9 +77,9 @@ type OperationsPayload = {
 }
 
 const severityStyles: Record<Severity, string> = {
-  ok: 'bg-emerald-50 text-emerald-700 border-emerald-100',
-  warning: 'bg-amber-50 text-amber-700 border-amber-100',
-  critical: 'bg-red-50 text-red-700 border-red-100',
+  ok: 'bg-emerald-50 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-300 border-emerald-100 dark:border-emerald-800',
+  warning: 'bg-amber-50 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300 border-amber-100 dark:border-amber-800',
+  critical: 'bg-red-50 dark:bg-red-900/30 text-red-700 dark:text-red-300 border-red-100 dark:border-red-800',
 }
 
 export default function AdminOperationsPage() {
@@ -202,19 +202,19 @@ export default function AdminOperationsPage() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <header className="bg-white shadow-sm border-b border-gray-200">
+      <header className="bg-white shadow-sm border-b border-gray-200 dark:border-slate-700">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-4">
               <Link
                 href="/admin/dashboard"
-                className="p-2 text-gray-400 hover:text-gray-600 rounded-lg hover:bg-gray-100"
+                className="p-2 text-gray-400 hover:text-gray-600 dark:text-slate-400 rounded-lg hover:bg-gray-100"
               >
                 <ArrowLeftIcon className="h-5 w-5" />
               </Link>
               <div>
-                <h1 className="text-2xl font-bold text-gray-900">Operations Console</h1>
-                <p className="text-sm text-gray-600">Unified view of teacher loads, student access, course assignment, and assessment attempts.</p>
+                <h1 className="text-2xl font-bold text-gray-900 dark:text-slate-100">Operations Console</h1>
+                <p className="text-sm text-gray-600 dark:text-slate-400">Unified view of teacher loads, student access, course assignment, and assessment attempts.</p>
               </div>
             </div>
             <div className="hidden md:block">
@@ -247,10 +247,10 @@ export default function AdminOperationsPage() {
               <MetricCard label="Assessment Attempts" value={String(data.metrics.assessmentAttemptsTracked)} icon={<ChartBarIcon className="h-5 w-5" />} />
             </div>
 
-            <section className="bg-white rounded-lg shadow-sm border border-gray-200 p-4 md:p-6">
+            <section className="bg-white dark:bg-slate-900 rounded-lg shadow-sm border border-gray-200 dark:border-slate-700 p-4 md:p-6">
               <div className="flex items-center gap-2 mb-4">
                 <ExclamationTriangleIcon className="h-5 w-5 text-amber-500" />
-                <h2 className="text-lg font-semibold text-gray-900">Operational Alerts</h2>
+                <h2 className="text-lg font-semibold text-gray-900 dark:text-slate-100">Operational Alerts</h2>
               </div>
               <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3">
                 {data.alerts.map((alert) => (
@@ -262,8 +262,8 @@ export default function AdminOperationsPage() {
               </div>
             </section>
 
-            <section className="bg-white rounded-lg shadow-sm border border-gray-200">
-              <div className="px-6 py-4 border-b border-gray-200 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+            <section className="bg-white dark:bg-slate-900 rounded-lg shadow-sm border border-gray-200 dark:border-slate-700">
+              <div className="px-6 py-4 border-b border-gray-200 dark:border-slate-700 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
                 <div className="flex gap-2 flex-wrap">
                   {[
                     { key: 'teachers', label: 'Teachers' },
@@ -297,22 +297,22 @@ export default function AdminOperationsPage() {
                   <table className="min-w-full divide-y divide-gray-200">
                     <thead className="bg-gray-50">
                       <tr>
-                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Teacher</th>
-                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
-                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Assigned Courses</th>
-                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Active Students</th>
+                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-slate-500 uppercase tracking-wider">Teacher</th>
+                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-slate-500 uppercase tracking-wider">Status</th>
+                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-slate-500 uppercase tracking-wider">Assigned Courses</th>
+                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-slate-500 uppercase tracking-wider">Active Students</th>
                       </tr>
                     </thead>
                     <tbody className="bg-white divide-y divide-gray-200">
                       {filteredTeachers.map((teacher) => (
                         <tr key={teacher._id} className="hover:bg-gray-50">
                           <td className="px-6 py-4">
-                            <div className="text-sm font-medium text-gray-900">{teacher.name}</div>
-                            <div className="text-xs text-gray-500">{teacher.email}</div>
+                            <div className="text-sm font-medium text-gray-900 dark:text-slate-100">{teacher.name}</div>
+                            <div className="text-xs text-gray-500 dark:text-slate-500">{teacher.email}</div>
                           </td>
-                          <td className="px-6 py-4 text-sm text-gray-600">{teacher.status}</td>
-                          <td className="px-6 py-4 text-sm text-gray-600">{teacher.assignedCourseCount}</td>
-                          <td className="px-6 py-4 text-sm text-gray-600">{teacher.activeStudentCount}</td>
+                          <td className="px-6 py-4 text-sm text-gray-600 dark:text-slate-400">{teacher.status}</td>
+                          <td className="px-6 py-4 text-sm text-gray-600 dark:text-slate-400">{teacher.assignedCourseCount}</td>
+                          <td className="px-6 py-4 text-sm text-gray-600 dark:text-slate-400">{teacher.activeStudentCount}</td>
                         </tr>
                       ))}
                     </tbody>
@@ -323,22 +323,22 @@ export default function AdminOperationsPage() {
                   <table className="min-w-full divide-y divide-gray-200">
                     <thead className="bg-gray-50">
                       <tr>
-                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Student</th>
-                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
-                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Assigned Courses</th>
-                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Courses</th>
+                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-slate-500 uppercase tracking-wider">Student</th>
+                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-slate-500 uppercase tracking-wider">Status</th>
+                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-slate-500 uppercase tracking-wider">Assigned Courses</th>
+                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-slate-500 uppercase tracking-wider">Courses</th>
                       </tr>
                     </thead>
                     <tbody className="bg-white divide-y divide-gray-200">
                       {filteredStudents.map((student) => (
                         <tr key={student._id} className="hover:bg-gray-50">
                           <td className="px-6 py-4">
-                            <div className="text-sm font-medium text-gray-900">{student.name}</div>
-                            <div className="text-xs text-gray-500">{student.email}</div>
+                            <div className="text-sm font-medium text-gray-900 dark:text-slate-100">{student.name}</div>
+                            <div className="text-xs text-gray-500 dark:text-slate-500">{student.email}</div>
                           </td>
-                          <td className="px-6 py-4 text-sm text-gray-600">{student.status}</td>
-                          <td className="px-6 py-4 text-sm text-gray-600">{student.assignedCourseCount}</td>
-                          <td className="px-6 py-4 text-sm text-gray-600 max-w-md">
+                          <td className="px-6 py-4 text-sm text-gray-600 dark:text-slate-400">{student.status}</td>
+                          <td className="px-6 py-4 text-sm text-gray-600 dark:text-slate-400">{student.assignedCourseCount}</td>
+                          <td className="px-6 py-4 text-sm text-gray-600 dark:text-slate-400 max-w-md">
                             <div className="line-clamp-2">{student.courses.join(', ') || '—'}</div>
                           </td>
                         </tr>
@@ -351,22 +351,22 @@ export default function AdminOperationsPage() {
                   <table className="min-w-full divide-y divide-gray-200">
                     <thead className="bg-gray-50">
                       <tr>
-                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Course</th>
-                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Type</th>
-                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Assigned Teachers</th>
-                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Active Students</th>
+                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-slate-500 uppercase tracking-wider">Course</th>
+                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-slate-500 uppercase tracking-wider">Type</th>
+                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-slate-500 uppercase tracking-wider">Assigned Teachers</th>
+                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-slate-500 uppercase tracking-wider">Active Students</th>
                       </tr>
                     </thead>
                     <tbody className="bg-white divide-y divide-gray-200">
                       {filteredCourses.map((course) => (
                         <tr key={course._id} className="hover:bg-gray-50">
                           <td className="px-6 py-4">
-                            <div className="text-sm font-medium text-gray-900">{course.title}</div>
-                            <div className="text-xs text-gray-500">/{course.slug}</div>
+                            <div className="text-sm font-medium text-gray-900 dark:text-slate-100">{course.title}</div>
+                            <div className="text-xs text-gray-500 dark:text-slate-500">/{course.slug}</div>
                           </td>
-                          <td className="px-6 py-4 text-sm text-gray-600">{course.courseType}</td>
-                          <td className="px-6 py-4 text-sm text-gray-600">{course.assignedTeacherCount}</td>
-                          <td className="px-6 py-4 text-sm text-gray-600">{course.activeStudentCount}</td>
+                          <td className="px-6 py-4 text-sm text-gray-600 dark:text-slate-400">{course.courseType}</td>
+                          <td className="px-6 py-4 text-sm text-gray-600 dark:text-slate-400">{course.assignedTeacherCount}</td>
+                          <td className="px-6 py-4 text-sm text-gray-600 dark:text-slate-400">{course.activeStudentCount}</td>
                         </tr>
                       ))}
                     </tbody>
@@ -377,29 +377,29 @@ export default function AdminOperationsPage() {
                   <table className="min-w-full divide-y divide-gray-200">
                     <thead className="bg-gray-50">
                       <tr>
-                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Student</th>
-                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Assessment</th>
-                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
-                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Score</th>
-                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Submitted</th>
+                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-slate-500 uppercase tracking-wider">Student</th>
+                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-slate-500 uppercase tracking-wider">Assessment</th>
+                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-slate-500 uppercase tracking-wider">Status</th>
+                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-slate-500 uppercase tracking-wider">Score</th>
+                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-slate-500 uppercase tracking-wider">Submitted</th>
                       </tr>
                     </thead>
                     <tbody className="bg-white divide-y divide-gray-200">
                       {filteredAttempts.map((attempt) => (
                         <tr key={attempt._id} className="hover:bg-gray-50">
                           <td className="px-6 py-4">
-                            <div className="text-sm font-medium text-gray-900">{attempt.studentName}</div>
-                            <div className="text-xs text-gray-500">{attempt.studentEmail || 'No email snapshot'}</div>
+                            <div className="text-sm font-medium text-gray-900 dark:text-slate-100">{attempt.studentName}</div>
+                            <div className="text-xs text-gray-500 dark:text-slate-500">{attempt.studentEmail || 'No email snapshot'}</div>
                           </td>
                           <td className="px-6 py-4">
-                            <div className="text-sm font-medium text-gray-900">{attempt.phaseLabel}</div>
-                            <div className="text-xs text-gray-500">{attempt.courseTitle}</div>
+                            <div className="text-sm font-medium text-gray-900 dark:text-slate-100">{attempt.phaseLabel}</div>
+                            <div className="text-xs text-gray-500 dark:text-slate-500">{attempt.courseTitle}</div>
                           </td>
-                          <td className="px-6 py-4 text-sm text-gray-600">{attempt.status}</td>
-                          <td className="px-6 py-4 text-sm text-gray-600">
+                          <td className="px-6 py-4 text-sm text-gray-600 dark:text-slate-400">{attempt.status}</td>
+                          <td className="px-6 py-4 text-sm text-gray-600 dark:text-slate-400">
                             {attempt.scorePercent === null ? 'Pending' : `${attempt.scorePercent}%`}
                           </td>
-                          <td className="px-6 py-4 text-sm text-gray-500">
+                          <td className="px-6 py-4 text-sm text-gray-500 dark:text-slate-500">
                             {attempt.submittedAt ? new Date(attempt.submittedAt).toLocaleString() : '—'}
                           </td>
                         </tr>
@@ -418,12 +418,12 @@ export default function AdminOperationsPage() {
 
 function MetricCard({ label, value, icon }: { label: string; value: string; icon: React.ReactNode }) {
   return (
-    <div className="bg-white rounded-lg border border-gray-200 shadow-sm p-4">
+    <div className="bg-white dark:bg-slate-900 rounded-lg border border-gray-200 dark:border-slate-700 shadow-sm p-4">
       <div className="flex items-center justify-between">
-        <p className="text-sm text-gray-500">{label}</p>
+        <p className="text-sm text-gray-500 dark:text-slate-500">{label}</p>
         <div className="text-primary">{icon}</div>
       </div>
-      <p className="mt-2 text-2xl font-bold text-gray-900">{value}</p>
+      <p className="mt-2 text-2xl font-bold text-gray-900 dark:text-slate-100">{value}</p>
     </div>
   )
 }

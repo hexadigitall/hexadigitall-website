@@ -275,11 +275,11 @@ export default function SubmissionDetailPage() {
   if (!submission) {
     return (
       <div className="min-h-screen bg-gray-50">
-        <header className="bg-white shadow-sm border-b border-gray-200">
+        <header className="bg-white shadow-sm border-b border-gray-200 dark:border-slate-700">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
             <Link
               href="/admin/submissions"
-              className="p-2 text-gray-400 hover:text-gray-600 rounded-lg hover:bg-gray-100 inline-block"
+              className="p-2 text-gray-400 hover:text-gray-600 dark:text-slate-400 rounded-lg hover:bg-gray-100 inline-block"
             >
               <ArrowLeftIcon className="h-5 w-5" />
             </Link>
@@ -287,7 +287,7 @@ export default function SubmissionDetailPage() {
         </header>
         <AdminNavbar />
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-          <p className="text-gray-500">Submission not found</p>
+          <p className="text-gray-500 dark:text-slate-500">Submission not found</p>
         </div>
       </div>
     )
@@ -295,16 +295,16 @@ export default function SubmissionDetailPage() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <header className="bg-white shadow-sm border-b border-gray-200">
+      <header className="bg-white shadow-sm border-b border-gray-200 dark:border-slate-700">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
           <div className="flex items-center justify-between">
             <Link
               href="/admin/submissions"
-              className="p-2 text-gray-400 hover:text-gray-600 rounded-lg hover:bg-gray-100"
+              className="p-2 text-gray-400 hover:text-gray-600 dark:text-slate-400 rounded-lg hover:bg-gray-100"
             >
               <ArrowLeftIcon className="h-5 w-5" />
             </Link>
-            <h1 className="text-2xl font-bold text-gray-900">Submission Details</h1>
+            <h1 className="text-2xl font-bold text-gray-900 dark:text-slate-100">Submission Details</h1>
             <div className="w-10"></div>
           </div>
         </div>
@@ -326,24 +326,24 @@ export default function SubmissionDetailPage() {
         )}
 
         {/* Contact Info Card */}
-        <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
-          <h2 className="text-lg font-semibold text-gray-900 mb-4">Contact Information</h2>
+        <div className="bg-white dark:bg-slate-900 rounded-lg shadow-sm border border-gray-200 dark:border-slate-700 p-6">
+          <h2 className="text-lg font-semibold text-gray-900 dark:text-slate-100 mb-4">Contact Information</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
-              <label className="block text-xs font-medium text-gray-600 uppercase">Name</label>
-              <p className="text-sm text-gray-900 mt-1">{submission.name || '—'}</p>
+              <label className="block text-xs font-medium text-gray-600 dark:text-slate-400 uppercase">Name</label>
+              <p className="text-sm text-gray-900 dark:text-slate-100 mt-1">{submission.name || '—'}</p>
             </div>
             <div>
-              <label className="block text-xs font-medium text-gray-600 uppercase">Email</label>
-              <p className="text-sm text-gray-900 mt-1">
+              <label className="block text-xs font-medium text-gray-600 dark:text-slate-400 uppercase">Email</label>
+              <p className="text-sm text-gray-900 dark:text-slate-100 mt-1">
                 <a href={`mailto:${submission.email}`} className="text-primary hover:underline">
                   {submission.email || '—'}
                 </a>
               </p>
             </div>
             <div>
-              <label className="block text-xs font-medium text-gray-600 uppercase">Phone</label>
-              <p className="text-sm text-gray-900 mt-1">
+              <label className="block text-xs font-medium text-gray-600 dark:text-slate-400 uppercase">Phone</label>
+              <p className="text-sm text-gray-900 dark:text-slate-100 mt-1">
                 {submission.phone ? (
                   <a href={`tel:${submission.phone}`} className="text-primary hover:underline">
                     {submission.phone}
@@ -354,34 +354,34 @@ export default function SubmissionDetailPage() {
               </p>
             </div>
             <div>
-              <label className="block text-xs font-medium text-gray-600 uppercase">Company</label>
-              <p className="text-sm text-gray-900 mt-1">{submission.company || '—'}</p>
+              <label className="block text-xs font-medium text-gray-600 dark:text-slate-400 uppercase">Company</label>
+              <p className="text-sm text-gray-900 dark:text-slate-100 mt-1">{submission.company || '—'}</p>
             </div>
           </div>
         </div>
 
         {/* Submission Details Card */}
-        <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
-          <h2 className="text-lg font-semibold text-gray-900 mb-4">Submission Details</h2>
+        <div className="bg-white dark:bg-slate-900 rounded-lg shadow-sm border border-gray-200 dark:border-slate-700 p-6">
+          <h2 className="text-lg font-semibold text-gray-900 dark:text-slate-100 mb-4">Submission Details</h2>
           <div className="space-y-4">
             <div>
-              <label className="block text-xs font-medium text-gray-600 uppercase">Type</label>
-              <p className="text-sm text-gray-900 mt-1 capitalize">{submission.type}</p>
+              <label className="block text-xs font-medium text-gray-600 dark:text-slate-400 uppercase">Type</label>
+              <p className="text-sm text-gray-900 dark:text-slate-100 mt-1 capitalize">{submission.type}</p>
             </div>
             <div>
-              <label className="block text-xs font-medium text-gray-600 uppercase">Subject</label>
-              <p className="text-sm text-gray-900 mt-1">{submission.subject || '—'}</p>
+              <label className="block text-xs font-medium text-gray-600 dark:text-slate-400 uppercase">Subject</label>
+              <p className="text-sm text-gray-900 dark:text-slate-100 mt-1">{submission.subject || '—'}</p>
             </div>
             <div>
-              <label className="block text-xs font-medium text-gray-600 uppercase">Message</label>
-              <p className="text-sm text-gray-900 mt-1 whitespace-pre-wrap">{submission.message || '—'}</p>
+              <label className="block text-xs font-medium text-gray-600 dark:text-slate-400 uppercase">Message</label>
+              <p className="text-sm text-gray-900 dark:text-slate-100 mt-1 whitespace-pre-wrap">{submission.message || '—'}</p>
             </div>
           </div>
         </div>
 
         {/* Export Actions */}
-        <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
-          <h2 className="text-lg font-semibold text-gray-900 mb-4">Export</h2>
+        <div className="bg-white dark:bg-slate-900 rounded-lg shadow-sm border border-gray-200 dark:border-slate-700 p-6">
+          <h2 className="text-lg font-semibold text-gray-900 dark:text-slate-100 mb-4">Export</h2>
           <div className="flex flex-wrap gap-3">
             <button
               onClick={() => exportSubmission('csv')}
@@ -418,8 +418,8 @@ export default function SubmissionDetailPage() {
 
         {/* Attachments */}
         {submission.attachments && submission.attachments.length > 0 && (
-          <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
-            <h2 className="text-lg font-semibold text-gray-900 mb-4">Attachments</h2>
+          <div className="bg-white dark:bg-slate-900 rounded-lg shadow-sm border border-gray-200 dark:border-slate-700 p-6">
+            <h2 className="text-lg font-semibold text-gray-900 dark:text-slate-100 mb-4">Attachments</h2>
             <div className="space-y-3">
               {submission.attachments.map((attachment, index) => (
                 <div key={`${attachment.url}-${index}`}>
@@ -431,7 +431,7 @@ export default function SubmissionDetailPage() {
                   >
                     {attachment.name || 'Attachment'}
                   </a>
-                  <div className="text-xs text-gray-500">
+                  <div className="text-xs text-gray-500 dark:text-slate-500">
                     {attachment.type || 'file'}
                     {attachment.size ? ` • ${Math.round(attachment.size / 1024)} KB` : ''}
                   </div>
@@ -443,22 +443,22 @@ export default function SubmissionDetailPage() {
 
         {/* Additional Form Data */}
         {submission.formData && (submission.formData.fields || submission.formData.raw) && (
-          <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
-            <h2 className="text-lg font-semibold text-gray-900 mb-4">Additional Information</h2>
+          <div className="bg-white dark:bg-slate-900 rounded-lg shadow-sm border border-gray-200 dark:border-slate-700 p-6">
+            <h2 className="text-lg font-semibold text-gray-900 dark:text-slate-100 mb-4">Additional Information</h2>
             <div className="space-y-4">
               {submission.formData.fields && submission.formData.fields.length > 0 ? (
                 submission.formData.fields.map((field, index) => (
                   <div key={`${field.key}-${index}`}>
-                    <label className="block text-xs font-medium text-gray-600 uppercase">
+                    <label className="block text-xs font-medium text-gray-600 dark:text-slate-400 uppercase">
                       {field.key || 'Field'}
                     </label>
-                    <p className="text-sm text-gray-900 mt-1 whitespace-pre-wrap">
+                    <p className="text-sm text-gray-900 dark:text-slate-100 mt-1 whitespace-pre-wrap">
                       {field.value || '—'}
                     </p>
                   </div>
                 ))
               ) : (
-                <pre className="text-xs text-gray-600 whitespace-pre-wrap">
+                <pre className="text-xs text-gray-600 dark:text-slate-400 whitespace-pre-wrap">
                   {submission.formData.raw || '—'}
                 </pre>
               )}
@@ -467,33 +467,33 @@ export default function SubmissionDetailPage() {
         )}
 
         {/* Technical Details */}
-        <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
-          <h2 className="text-lg font-semibold text-gray-900 mb-4">Technical Information</h2>
+        <div className="bg-white dark:bg-slate-900 rounded-lg shadow-sm border border-gray-200 dark:border-slate-700 p-6">
+          <h2 className="text-lg font-semibold text-gray-900 dark:text-slate-100 mb-4">Technical Information</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
             <div>
-              <label className="block text-xs font-medium text-gray-600 uppercase">Submitted At</label>
-              <p className="text-gray-900 mt-1">
+              <label className="block text-xs font-medium text-gray-600 dark:text-slate-400 uppercase">Submitted At</label>
+              <p className="text-gray-900 dark:text-slate-100 mt-1">
                 {new Date(submission.submittedAt).toLocaleString()}
               </p>
             </div>
             <div>
-              <label className="block text-xs font-medium text-gray-600 uppercase">IP Address</label>
-              <p className="text-gray-900 mt-1 font-mono text-xs">{submission.ipAddress || '—'}</p>
+              <label className="block text-xs font-medium text-gray-600 dark:text-slate-400 uppercase">IP Address</label>
+              <p className="text-gray-900 dark:text-slate-100 mt-1 font-mono text-xs">{submission.ipAddress || '—'}</p>
             </div>
             <div className="md:col-span-2">
-              <label className="block text-xs font-medium text-gray-600 uppercase">User Agent</label>
-              <p className="text-gray-900 mt-1 font-mono text-xs break-all">{submission.userAgent || '—'}</p>
+              <label className="block text-xs font-medium text-gray-600 dark:text-slate-400 uppercase">User Agent</label>
+              <p className="text-gray-900 dark:text-slate-100 mt-1 font-mono text-xs break-all">{submission.userAgent || '—'}</p>
             </div>
             <div className="md:col-span-2">
-              <label className="block text-xs font-medium text-gray-600 uppercase">Referrer</label>
-              <p className="text-gray-900 mt-1 font-mono text-xs break-all">{submission.referrer || '—'}</p>
+              <label className="block text-xs font-medium text-gray-600 dark:text-slate-400 uppercase">Referrer</label>
+              <p className="text-gray-900 dark:text-slate-100 mt-1 font-mono text-xs break-all">{submission.referrer || '—'}</p>
             </div>
           </div>
         </div>
 
         {/* Status & Actions */}
-        <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
-          <h2 className="text-lg font-semibold text-gray-900 mb-4">Status & Actions</h2>
+        <div className="bg-white dark:bg-slate-900 rounded-lg shadow-sm border border-gray-200 dark:border-slate-700 p-6">
+          <h2 className="text-lg font-semibold text-gray-900 dark:text-slate-100 mb-4">Status & Actions</h2>
           <div className="flex flex-wrap gap-3">
             <button
               onClick={() => updateStatus('new')}
