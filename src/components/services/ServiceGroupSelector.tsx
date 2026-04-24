@@ -301,7 +301,7 @@ export const ServiceGroupSelector: React.FC = () => {
                     </button>
                     <button
                       onClick={buildCustomPackage}
-                      className="px-6 py-2 bg-indigo-50 dark:bg-indigo-950/200 text-white rounded-lg hover:bg-indigo-600 transition-colors font-semibold"
+                      className="px-6 py-2 bg-indigo-500 dark:bg-indigo-600 text-white rounded-lg hover:bg-indigo-600 dark:hover:bg-indigo-700 transition-colors font-semibold"
                     >
                       Create Package
                     </button>

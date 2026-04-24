@@ -256,18 +256,18 @@ export default function ServicesPageClient({ initialData }: ServicesPageClientPr
                 <Link
                   href="#packages"
                   onClick={() => trackHeroCta('explore_packages')}
-                  className="inline-flex items-center justify-center rounded-xl border border-white/30 bg-white dark:bg-slate-900/10 px-6 py-3 text-sm font-semibold text-white hover:bg-white dark:bg-slate-900/18 transition-colors"
+                  className="inline-flex items-center justify-center rounded-xl border border-white/30 bg-white/10 px-6 py-3 text-sm font-semibold text-white hover:bg-white/20 transition-colors"
                 >
                   Explore Packages
                 </Link>
               </div>
 
               <div className="mt-6 flex flex-wrap gap-2.5 text-xs sm:text-sm">
-                <span className="rounded-full border border-white/18 bg-white dark:bg-slate-900/10 px-3 py-1.5 text-slate-100">
+                <span className="rounded-full border border-white/18 bg-white/10 px-3 py-1.5 text-slate-100">
                   Prices in: <strong>{currentCurrency.flag} {currentCurrency.code}</strong>
                 </span>
-                <span className="rounded-full border border-white/18 bg-white dark:bg-slate-900/10 px-3 py-1.5 text-slate-100">Custom builds available</span>
-                <span className="rounded-full border border-white/18 bg-white dark:bg-slate-900/10 px-3 py-1.5 text-slate-100">Packages and one-off support</span>
+                <span className="rounded-full border border-white/18 bg-white/10 px-3 py-1.5 text-slate-100">Custom builds available</span>
+                <span className="rounded-full border border-white/18 bg-white/10 px-3 py-1.5 text-slate-100">Packages and one-off support</span>
                 {discountMessage && (
                   <span className="inline-flex items-center gap-2 rounded-full border border-emerald-300/35 bg-emerald-400/18 px-3 py-1.5 text-emerald-50">
                     <SparklesIcon className="h-4 w-4" aria-hidden="true" />
@@ -277,19 +277,19 @@ export default function ServicesPageClient({ initialData }: ServicesPageClientPr
               </div>
 
               <div className="mt-6 grid grid-cols-2 sm:grid-cols-4 gap-3 text-left">
-                <div className="rounded-2xl border border-white/12 bg-white dark:bg-slate-900/8 px-4 py-3 backdrop-blur-sm">
+                <div className="rounded-2xl border border-white/12 bg-white/10 px-4 py-3 backdrop-blur-sm">
                   <p className="text-[11px] uppercase tracking-[0.14em] text-white/65">Planning</p>
                   <p className="mt-1 text-sm font-semibold text-white">Business & brand</p>
                 </div>
-                <div className="rounded-2xl border border-white/12 bg-white dark:bg-slate-900/8 px-4 py-3 backdrop-blur-sm">
+                <div className="rounded-2xl border border-white/12 bg-white/10 px-4 py-3 backdrop-blur-sm">
                   <p className="text-[11px] uppercase tracking-[0.14em] text-white/65">Build</p>
                   <p className="mt-1 text-sm font-semibold text-white">Web & mobile</p>
                 </div>
-                <div className="rounded-2xl border border-white/12 bg-white dark:bg-slate-900/8 px-4 py-3 backdrop-blur-sm">
+                <div className="rounded-2xl border border-white/12 bg-white/10 px-4 py-3 backdrop-blur-sm">
                   <p className="text-[11px] uppercase tracking-[0.14em] text-white/65">Grow</p>
                   <p className="mt-1 text-sm font-semibold text-white">Marketing support</p>
                 </div>
-                <div className="rounded-2xl border border-white/12 bg-white dark:bg-slate-900/8 px-4 py-3 backdrop-blur-sm">
+                <div className="rounded-2xl border border-white/12 bg-white/10 px-4 py-3 backdrop-blur-sm">
                   <p className="text-[11px] uppercase tracking-[0.14em] text-white/65">Guide</p>
                   <p className="mt-1 text-sm font-semibold text-white">Mentoring help</p>
                 </div>

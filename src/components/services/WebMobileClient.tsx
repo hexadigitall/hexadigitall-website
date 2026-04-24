@@ -400,7 +400,7 @@ export default function WebMobileClient({
                                 popular: false
                               }]
                             })}
-                            className="w-full bg-green-50 dark:bg-green-950/200 text-white py-2 px-4 rounded-lg hover:bg-green-600 transition-colors font-medium"
+                            className="w-full bg-green-500 dark:bg-green-600 text-white py-2 px-4 rounded-lg hover:bg-green-600 dark:hover:bg-green-700 transition-colors font-medium"
                           >
                             Select This Service
                           </button>

@@ -292,7 +292,7 @@ export default function StudentDashboardPage() {
               title="Click to change profile photo"
               onClick={() => !photoUploading && photoInputRef.current?.click()}
             >
-              <div className="w-24 h-24 rounded-2xl bg-white dark:bg-slate-900/15 backdrop-blur-sm border border-white/30 flex items-center justify-center shadow-2xl overflow-hidden">
+              <div className="w-24 h-24 rounded-2xl bg-white/15 backdrop-blur-sm border border-white/30 flex items-center justify-center shadow-2xl overflow-hidden">
                 {photoUrl ? (
                   // eslint-disable-next-line @next/next/no-img-element
                   <img src={photoUrl} alt={studentDisplayName} className="w-full h-full object-cover" />
@@ -325,7 +325,7 @@ export default function StudentDashboardPage() {
                 {studentDisplayName}
               </h1>
               <div className="flex items-center justify-center sm:justify-start gap-2 mt-2.5">
-                <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-white dark:bg-slate-900/20 text-white border border-white/20 backdrop-blur-sm">
+                <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-white/20 text-white border border-white/20 backdrop-blur-sm">
                   Student
                 </span>
                 {student?.username && (
@@ -519,7 +519,7 @@ export default function StudentDashboardPage() {
                         <div className="h-16 bg-gradient-to-r from-purple-600 to-indigo-600 relative">
                           <div className="absolute bottom-3 left-4 flex gap-1.5">
                             {enrollment.course?.level && (
-                              <span className="inline-flex px-2 py-0.5 text-xs font-medium rounded-full bg-white dark:bg-slate-900/20 text-white capitalize">
+                              <span className="inline-flex px-2 py-0.5 text-xs font-medium rounded-full bg-white/20 text-white capitalize">
                                 {enrollment.course.level}
                               </span>
                             )}
@@ -636,7 +636,7 @@ function StatCard({ icon, title, value, color }: { icon: React.ReactNode; title:
     <div className={`relative bg-gradient-to-br ${gradients[color] || gradients.purple} rounded-2xl p-5 shadow-sm overflow-hidden`}>
       <div className="absolute top-0 right-0 w-24 h-24 rounded-full bg-white dark:bg-slate-900/10 -translate-y-8 translate-x-8" />
       <div className="flex items-center gap-3 mb-3">
-        <div className="p-2 bg-white dark:bg-slate-900/20 rounded-xl text-white">
+        <div className="p-2 bg-white/20 rounded-xl text-white">
           {icon}
         </div>
         <h3 className="text-sm font-semibold text-white/80">{title}</h3>

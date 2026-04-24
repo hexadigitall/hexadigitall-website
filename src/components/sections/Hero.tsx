@@ -272,7 +272,7 @@ export default function Hero() {
                   <Link
                     href="/contact"
                     prefetch={true}
-                    className="w-full sm:w-auto min-h-[48px] px-8 py-4 bg-white dark:bg-slate-900/10 backdrop-blur border border-white/30 text-white font-semibold rounded-full hover:bg-white dark:bg-slate-900/20 hover:border-white/50 transition-all duration-300 text-center"
+                    className="w-full sm:w-auto min-h-[48px] px-8 py-4 bg-white/10 backdrop-blur border border-white/30 text-white font-semibold rounded-full hover:bg-white/20 hover:border-white/50 transition-all duration-300 text-center"
                   >
                     Get Free Quote
                   </Link>

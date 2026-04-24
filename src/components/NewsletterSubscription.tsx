@@ -61,7 +61,7 @@ export default function NewsletterSubscription({
             onChange={(e) => setEmail(e.target.value)}
             placeholder={placeholder}
             disabled={status === 'loading'}
-            className="w-full px-4 py-2 bg-white dark:bg-slate-900/10 border border-white/20 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent transition-colors duration-300 disabled:opacity-50"
+            className="w-full px-4 py-2 bg-white dark:bg-slate-900/10 border border-white/20 rounded-lg text-gray-900 dark:text-white placeholder-gray-400 focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent transition-colors duration-300 disabled:opacity-50"
             aria-label="Email address for newsletter subscription"
           />
           {status === 'loading' && (

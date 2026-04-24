@@ -47,7 +47,7 @@ export default function CurriculumDocumentView({ curriculum, showActions = true 
         <div className="border-b border-slate-200 bg-[linear-gradient(132deg,#0b1329_0%,#0e3558_55%,#0d5770_100%)] px-6 py-8 sm:px-10 lg:px-12">
           <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_290px] lg:items-start">
             <div className="space-y-5 rounded-2xl border border-white/20 bg-slate-950/28 p-5 shadow-xl backdrop-blur-sm sm:p-6">
-              <div className="inline-flex rounded-full border border-white/45 bg-white dark:bg-slate-900 dark:bg-slate-900/22 px-4 py-1 text-xs font-semibold uppercase tracking-[0.22em] text-white">
+              <div className="inline-flex rounded-full border border-white/45 bg-white/20 px-4 py-1 text-xs font-semibold uppercase tracking-[0.22em] text-white">
                 Curriculum
               </div>
               <div className="space-y-3">

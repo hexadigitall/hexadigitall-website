@@ -258,7 +258,7 @@ function ServicePaymentModal({
 
         {/* Package Selection */}
         <div className="space-y-4">
-          <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 dark:text-slate-100">Choose Your Package</h3>
+          <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 dark:text-gray-100 dark:text-gray-100 dark:text-slate-100">Choose Your Package</h3>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {packages.map((pkg) => (
               <div
@@ -272,24 +272,24 @@ function ServicePaymentModal({
               >
                 {pkg.popular && (
                   <div className="absolute -top-3 left-1/2 -translate-x-1/2">
-                    <span className="bg-orange-50 dark:bg-orange-950/200 text-white px-3 py-1 rounded-full text-xs font-medium">
+                    <span className="bg-orange-500 dark:bg-orange-600 text-white px-3 py-1 rounded-full text-xs font-medium">
                       Most Popular
                     </span>
                   </div>
                 )}
 
                 <div className="text-center mb-4">
-                  <h4 className="text-lg font-bold text-gray-900 dark:text-gray-100 dark:text-slate-100 mb-2">{pkg.name}</h4>
+                  <h4 className="text-lg font-bold text-gray-900 dark:text-gray-100 dark:text-gray-100 dark:text-gray-100 dark:text-slate-100 mb-2">{pkg.name}</h4>
                   <div className="text-3xl font-bold text-primary mb-2">
                     {formatPrice(pkg.price, { applyNigerianDiscount: true })}
                   </div>
                   {currentCurrency.code !== 'NGN' && discountMessage && (
-                    <div className="text-sm text-gray-500 dark:text-slate-500 dark:text-slate-400">
+                    <div className="text-sm text-gray-500 dark:text-slate-500 dark:text-slate-400 dark:text-slate-400 dark:text-slate-400">
                       ≈ {formatPrice(pkg.price, { currency: 'NGN', applyNigerianDiscount: true })}
                     </div>
                   )}
                   <p className="text-sm text-gray-600 dark:text-slate-400 mb-3">{pkg.description}</p>
-                  <div className="text-xs text-blue-600 dark:text-blue-400 font-medium">
+                  <div className="text-xs text-blue-600 dark:text-blue-400 dark:text-blue-400 dark:text-blue-400 font-medium">
                     Delivery: {pkg.deliveryTime}
                   </div>
                 </div>
@@ -298,7 +298,7 @@ function ServicePaymentModal({
                   {pkg.features.map((feature, index) => (
                     <li key={index} className="flex items-start space-x-2 text-sm">
                       <CheckIcon className="h-4 w-4 text-green-500 flex-shrink-0 mt-0.5" />
-                      <span className="text-gray-700 dark:text-gray-300 dark:text-slate-300">{feature}</span>
+                      <span className="text-gray-700 dark:text-gray-300 dark:text-gray-300 dark:text-gray-300 dark:text-slate-300">{feature}</span>
                     </li>
                   ))}
                 </ul>
@@ -310,7 +310,7 @@ function ServicePaymentModal({
         {/* Payment Plan Selection - Only for services above $300 */}
         {qualifiesForInstallments && (
           <div className="space-y-4">
-            <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 dark:text-slate-100">Choose Payment Plan</h3>
+            <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 dark:text-gray-100 dark:text-gray-100 dark:text-slate-100">Choose Payment Plan</h3>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               {PAYMENT_PLANS.map((plan) => (
                 <div
@@ -323,7 +323,7 @@ function ServicePaymentModal({
                   onClick={() => setSelectedPaymentPlan(plan)}
                 >
                   <div className="flex items-start justify-between mb-2">
-                    <h4 className="font-semibold text-gray-900 dark:text-gray-100 dark:text-slate-100">{plan.name}</h4>
+                    <h4 className="font-semibold text-gray-900 dark:text-gray-100 dark:text-gray-100 dark:text-gray-100 dark:text-slate-100">{plan.name}</h4>
                     {plan.id === 'split_2' && (
                       <span className="bg-green-100 text-green-800 text-xs font-medium px-2 py-1 rounded">
                         Popular
@@ -335,7 +335,7 @@ function ServicePaymentModal({
                   {selectedPackage && plan.installments > 1 && (() => {
                     const amounts = getPaymentAmounts(plan)
                     return (
-                      <div className="text-xs text-gray-500 dark:text-slate-500 dark:text-slate-400">
+                      <div className="text-xs text-gray-500 dark:text-slate-500 dark:text-slate-400 dark:text-slate-400 dark:text-slate-400">
                         Today: {formatPrice(amounts.downPayment, { applyNigerianDiscount: true })}
                         {plan.installments > 1 && (
                           <span className="block">
@@ -354,11 +354,11 @@ function ServicePaymentModal({
         {/* Selected Package Summary */}
         {selectedPackage && (
           <div className="bg-gray-50 dark:bg-slate-800/50 rounded-xl p-6">
-            <h4 className="text-lg font-semibold text-gray-900 dark:text-gray-100 dark:text-slate-100 mb-4">Order Summary</h4>
+            <h4 className="text-lg font-semibold text-gray-900 dark:text-gray-100 dark:text-gray-100 dark:text-gray-100 dark:text-slate-100 mb-4">Order Summary</h4>
             
             <div className="flex justify-between items-start mb-4">
               <div>
-                <h5 className="font-medium text-gray-900 dark:text-gray-100 dark:text-slate-100">{serviceTitle}</h5>
+                <h5 className="font-medium text-gray-900 dark:text-gray-100 dark:text-gray-100 dark:text-gray-100 dark:text-slate-100">{serviceTitle}</h5>
                 <p className="text-sm text-gray-600 dark:text-slate-400">{selectedPackage.name}</p>
               </div>
               <div className="text-right">
@@ -366,7 +366,7 @@ function ServicePaymentModal({
                   {formatPrice(selectedPackage.price, { applyNigerianDiscount: true })}
                 </div>
                 {currentCurrency.code !== 'NGN' && discountMessage && (
-                  <div className="text-sm text-gray-500 dark:text-slate-500 dark:text-slate-400">
+                  <div className="text-sm text-gray-500 dark:text-slate-500 dark:text-slate-400 dark:text-slate-400 dark:text-slate-400">
                     Regular: {formatPrice(selectedPackage.price)}
                   </div>
                 )}
@@ -396,31 +396,31 @@ function ServicePaymentModal({
                     </span>
                   </div>
                   
-                  <div className="bg-blue-50 dark:bg-blue-950/20 rounded-lg p-3">
+                  <div className="bg-blue-50 dark:bg-blue-950/20 dark:bg-blue-950/20 dark:bg-blue-950/20 dark:bg-blue-950/20 rounded-lg p-3">
                     <div className="flex items-center justify-between mb-2">
-                      <span className="text-sm font-medium text-blue-900 dark:text-blue-300">Payment Plan:</span>
-                      <span className="text-sm text-blue-700 dark:text-blue-400">{selectedPaymentPlan.name}</span>
+                      <span className="text-sm font-medium text-blue-900 dark:text-blue-300 dark:text-blue-300 dark:text-blue-300 dark:text-blue-300">Payment Plan:</span>
+                      <span className="text-sm text-blue-700 dark:text-blue-400 dark:text-blue-400 dark:text-blue-400">{selectedPaymentPlan.name}</span>
                     </div>
                     
                     <div className="space-y-2">
                       <div className="bg-blue-100 rounded p-2">
                         <div className="flex justify-between items-center">
-                          <span className="text-sm text-blue-700 dark:text-blue-400 font-medium">1st Payment (Today):</span>
-                          <span className="text-sm font-bold text-green-600 dark:text-green-400">
+                          <span className="text-sm text-blue-700 dark:text-blue-400 dark:text-blue-400 dark:text-blue-400 font-medium">1st Payment (Today):</span>
+                          <span className="text-sm font-bold text-green-600 dark:text-green-400 dark:text-green-400 dark:text-green-400">
                             {formatPrice(getPaymentAmounts().downPayment, { applyNigerianDiscount: true })}
                           </span>
                         </div>
-                        <div className="text-xs text-blue-600 dark:text-blue-400 mt-1">
+                        <div className="text-xs text-blue-600 dark:text-blue-400 dark:text-blue-400 dark:text-blue-400 mt-1">
                           Includes {selectedPaymentPlan.downPayment}% of service + processing fee
                         </div>
                       </div>
                       
                       {selectedPaymentPlan.installments > 1 && (
                         <div className="flex justify-between">
-                          <span className="text-sm text-blue-700 dark:text-blue-400">
+                          <span className="text-sm text-blue-700 dark:text-blue-400 dark:text-blue-400 dark:text-blue-400">
                             Remaining {selectedPaymentPlan.installments - 1} payments:
                           </span>
-                          <span className="text-sm font-medium text-blue-600 dark:text-blue-400">
+                          <span className="text-sm font-medium text-blue-600 dark:text-blue-400 dark:text-blue-400 dark:text-blue-400">
                             {formatPrice(getPaymentAmounts().remaining, { applyNigerianDiscount: true })} each
                           </span>
                         </div>
@@ -438,7 +438,7 @@ function ServicePaymentModal({
                     </span>
                   </div>
                   {discountMessage && (
-                    <div className="text-sm text-green-600 dark:text-green-400 text-right mt-1">
+                    <div className="text-sm text-green-600 dark:text-green-400 dark:text-green-400 dark:text-green-400 text-right mt-1">
                       You save {formatPrice(selectedPackage.price * 0.5)}!
                     </div>
                   )}
@@ -452,7 +452,7 @@ function ServicePaymentModal({
         <div className="flex space-x-4 pt-4 border-t">
           <button
             onClick={onClose}
-            className="flex-1 px-6 py-3 text-gray-700 dark:text-gray-300 dark:text-slate-300 bg-gray-100 hover:bg-gray-200 rounded-xl font-medium transition-colors"
+            className="flex-1 px-6 py-3 text-gray-700 dark:text-gray-300 dark:text-gray-300 dark:text-gray-300 dark:text-slate-300 bg-gray-100 hover:bg-gray-200 rounded-xl font-medium transition-colors"
           >
             Cancel
           </button>
@@ -504,14 +504,14 @@ function ServicePaymentModal({
         </div>
 
         {/* Additional Info */}
-        <div className="bg-blue-50 dark:bg-blue-950/20 border border-blue-200 dark:border-blue-900/50 rounded-xl p-4">
+        <div className="bg-blue-50 dark:bg-blue-950/20 dark:bg-blue-950/20 dark:bg-blue-950/20 dark:bg-blue-950/20 border border-blue-200 dark:border-blue-900/50 dark:border-blue-900/50 dark:border-blue-900/50 dark:border-blue-900/50 rounded-xl p-4">
           <div className="flex items-start space-x-3">
-            <div className="w-5 h-5 bg-blue-50 dark:bg-blue-950/200 dark:bg-blue-600 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+            <div className="w-5 h-5 bg-blue-50 dark:bg-blue-950/20 dark:bg-blue-950/20 dark:bg-blue-950/200 dark:bg-blue-600 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
               <CheckIcon className="h-3 w-3 text-white" />
             </div>
             <div className="text-sm text-blue-800">
               <p className="font-medium mb-1">What happens after purchase?</p>
-              <ul className="space-y-1 text-blue-700 dark:text-blue-400">
+              <ul className="space-y-1 text-blue-700 dark:text-blue-400 dark:text-blue-400 dark:text-blue-400">
                 <li>• You&apos;ll receive an email confirmation immediately</li>
                 <li>• Our team will contact you within 24 hours to discuss your project</li>
                 <li>• We&apos;ll begin work after finalizing the project requirements</li>
