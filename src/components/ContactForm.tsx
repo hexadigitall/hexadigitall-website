@@ -50,7 +50,7 @@ export default function ContactForm() {
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
       <div>
-        <label htmlFor="name" className="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-2">Name *</label>
+        <label htmlFor="name" className="block text-sm font-medium text-gray-700 dark:text-gray-300 dark:text-slate-300 mb-2">Name *</label>
         <input 
           type="text" 
           name="name" 
@@ -64,7 +64,7 @@ export default function ContactForm() {
       </div>
       
       <div>
-        <label htmlFor="email" className="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-2">Email *</label>
+        <label htmlFor="email" className="block text-sm font-medium text-gray-700 dark:text-gray-300 dark:text-slate-300 mb-2">Email *</label>
         <input 
           type="email" 
           name="email" 
@@ -78,7 +78,7 @@ export default function ContactForm() {
       </div>
       
       <div>
-        <label htmlFor="service" className="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-2">Service Interest (Optional)</label>
+        <label htmlFor="service" className="block text-sm font-medium text-gray-700 dark:text-gray-300 dark:text-slate-300 mb-2">Service Interest (Optional)</label>
         <select 
           name="service" 
           id="service" 
@@ -99,7 +99,7 @@ export default function ContactForm() {
       </div>
       
       <div>
-        <label htmlFor="message" className="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-2">Your Message *</label>
+        <label htmlFor="message" className="block text-sm font-medium text-gray-700 dark:text-gray-300 dark:text-slate-300 mb-2">Your Message *</label>
         <textarea 
           name="message" 
           id="message" 
@@ -134,7 +134,7 @@ export default function ContactForm() {
       </div>
       
       {message && (
-        <div className={`p-4 rounded-lg ${status === 'error' ? 'bg-red-50 border border-red-200' : 'bg-green-50 border border-green-200'}`}>
+        <div className={`p-4 rounded-lg ${status === 'error' ? 'bg-red-50 border border-red-200' : 'bg-green-50 dark:bg-green-950/20 border border-green-200'}`}>
           <p className={`text-center ${status === 'error' ? 'text-red-700' : 'text-green-700'}`}>
             {message}
           </p>
