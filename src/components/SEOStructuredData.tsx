@@ -16,7 +16,7 @@ export default function SEOStructuredData() {
     "url": "https://hexadigitall.com",
     "logo": "https://hexadigitall.com/digitall_partner.png",
     "image": "https://hexadigitall.com/digitall_partner.png",
-    "description": "Your all-in-one digital partner in Nigeria, turning ideas into reality. Expert web development, digital marketing, and business planning services.",
+    "description": "Your all-in-one global digital partner, turning ideas into reality. Expert web development, digital marketing, and business planning services.",
     "address": {
       "@type": "PostalAddress",
       "streetAddress": "Lagos",

@@ -26,7 +26,7 @@ export const metadata: Metadata = {
     default: 'Hexadigitall | Business Planning, Web Dev & Digital Marketing',
     template: '%s | Hexadigitall'
   },
-  description: 'Your all-in-one digital partner in Nigeria, turning ideas into reality. Expert web development, digital marketing, and business planning services.',
+  description: 'Your all-in-one global digital partner, turning ideas into reality. Expert web development, digital marketing, and business planning services.',
   keywords: ['web development', 'digital marketing', 'business planning', 'Nigeria', 'technology', 'courses'],
   authors: [{ name: 'Hexadigitall Team' }],
   creator: 'Hexadigitall',
@@ -48,7 +48,7 @@ export const metadata: Metadata = {
     url: 'https://hexadigitall.com',
     siteName: 'Hexadigitall',
     title: 'Hexadigitall | Business Planning, Web Dev & Digital Marketing',
-    description: 'Your all-in-one digital partner in Nigeria, turning ideas into reality.',
+    description: 'Your all-in-one global digital partner, turning ideas into reality.',
     images: [{
       url: '/digitall_partner.png', // This will now work thanks to metadataBase
       width: 1200,

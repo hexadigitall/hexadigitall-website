@@ -5,7 +5,7 @@ export const organizationStructuredData = {
   "@type": "Organization",
   "name": "Hexadigitall",
   "alternateName": "Hexadigitall Nigeria",
-  "description": "Your all-in-one digital partner in Nigeria, providing business planning, web development, digital marketing, and consulting services.",
+  "description": "Your all-in-one global digital partner, providing business planning, web development, digital marketing, and consulting services.",
   "url": "https://hexadigitall.com",
   "logo": "https://hexadigitall.com/hexadigitall-logo-transparent.png",
   "image": "https://hexadigitall.com/digitall_partner.png",
