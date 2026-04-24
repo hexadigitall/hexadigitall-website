@@ -396,9 +396,9 @@ function ServicePaymentModal({
                     </span>
                   </div>
                   
-                  <div className="bg-blue-50 rounded-lg p-3">
+                  <div className="bg-blue-50 dark:bg-blue-950/20 rounded-lg p-3">
                     <div className="flex items-center justify-between mb-2">
-                      <span className="text-sm font-medium text-blue-900">Payment Plan:</span>
+                      <span className="text-sm font-medium text-blue-900 dark:text-blue-300">Payment Plan:</span>
                       <span className="text-sm text-blue-700">{selectedPaymentPlan.name}</span>
                     </div>
                     
@@ -504,9 +504,9 @@ function ServicePaymentModal({
         </div>
 
         {/* Additional Info */}
-        <div className="bg-blue-50 border border-blue-200 rounded-xl p-4">
+        <div className="bg-blue-50 dark:bg-blue-950/20 border border-blue-200 dark:border-blue-900/50 rounded-xl p-4">
           <div className="flex items-start space-x-3">
-            <div className="w-5 h-5 bg-blue-500 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+            <div className="w-5 h-5 bg-blue-500 dark:bg-blue-600 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
               <CheckIcon className="h-3 w-3 text-white" />
             </div>
             <div className="text-sm text-blue-800">

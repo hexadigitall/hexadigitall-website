@@ -261,7 +261,7 @@ export default function UnifiedServiceRequestFlow({
         {currentStep === 'review' && (
           <div>
             <h2 ref={stepHeadingRef} tabIndex={-1} className="text-2xl font-bold text-gray-900 dark:text-slate-100 dark:text-slate-100 mb-6 focus:outline-none">Review Your Selection</h2>
-            <div className="bg-blue-50 border-l-4 border-primary p-4 rounded mb-6">
+            <div className="bg-blue-50 dark:bg-blue-950/20 border-l-4 border-primary dark:border-primary/70 p-4 rounded mb-6">
               <h3 className="font-semibold text-gray-900 dark:text-slate-100 dark:text-slate-100 mb-2">{serviceName}</h3>
               <p className="text-sm text-gray-700 dark:text-slate-300 dark:text-slate-300 mb-3">{serviceType === 'tiered' ? `Tier: ${tier?.name}` : 'Individual Service'}</p>
               <div className="flex justify-between items-end">
@@ -468,7 +468,7 @@ export default function UnifiedServiceRequestFlow({
             </div>
 
             {/* Customer Info Review */}
-            <div className="bg-blue-50 p-4 rounded-lg mb-6 border border-blue-100">
+            <div className="bg-blue-50 dark:bg-blue-950/20 p-4 rounded-lg mb-6 border border-blue-100 dark:border-blue-900/50">
               <p className="text-sm text-gray-700 dark:text-slate-300 dark:text-slate-300 mb-2"><strong>Contact:</strong> {formData.name} ({formData.email})</p>
               {formData.company && <p className="text-sm text-gray-700 dark:text-slate-300 dark:text-slate-300 mb-2"><strong>Company:</strong> {formData.company}</p>}
               <p className="text-sm text-gray-700 dark:text-slate-300"><strong>Phone:</strong> {formData.phone}</p>

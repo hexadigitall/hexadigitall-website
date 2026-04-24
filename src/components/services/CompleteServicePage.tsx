@@ -404,10 +404,10 @@ function CompleteServicePage(props: CompleteServicePageProps) {
       {/* --- Build Bundle CTA Card --- */}
       <section id="build-bundle-section" className="container mx-auto px-4 py-12">
         <div className="max-w-2xl mx-auto">
-          <div className="bg-indigo-50 border border-indigo-200 rounded-2xl shadow-md p-8 flex flex-col items-center text-center">
-            <h2 className="text-2xl font-bold text-indigo-700 mb-2">Global À La Carte Builder</h2>
+          <div className="bg-indigo-50 dark:bg-indigo-950/20 border border-indigo-200 dark:border-indigo-800/50 rounded-2xl shadow-md p-8 flex flex-col items-center text-center">
+            <h2 className="text-2xl font-bold text-indigo-700 dark:text-indigo-400 mb-2">Global À La Carte Builder</h2>
             <p className="text-gray-700 dark:text-slate-300 mb-4">Mix and match any services to create your own custom bundle. Get instant pricing and recommendations.</p>
-            <Link href="/services/build-bundle" className="bg-indigo-600 text-white font-semibold rounded-xl py-3 px-6 hover:bg-indigo-700 transition-colors">Start Building</Link>
+            <Link href="/services/build-bundle" className="bg-indigo-600 text-white font-semibold rounded-xl py-3 px-6 hover:bg-indigo-700 dark:hover:bg-indigo-600 transition-colors">Start Building</Link>
           </div>
         </div>
       </section>

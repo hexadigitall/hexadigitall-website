@@ -81,7 +81,7 @@ export default function SuccessModal({
         )}
 
         {/* What's Next Section */}
-        <div className="bg-blue-50 border border-blue-100 rounded-lg p-4 mb-6 text-left">
+        <div className="bg-blue-50 dark:bg-blue-950/20 border border-blue-100 dark:border-blue-900/50 rounded-lg p-4 mb-6 text-left">
           <h3 className="font-semibold text-gray-900 dark:text-slate-100 mb-3">What happens next?</h3>
           <ul className="space-y-2 text-sm text-gray-700 dark:text-slate-300">
             {type === 'quote' && (

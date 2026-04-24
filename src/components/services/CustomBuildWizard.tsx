@@ -233,8 +233,8 @@ export default function CustomBuildWizard() {
                   onClick={() => setSelectedPlatform(platform.id)}
                   className={`p-6 rounded-xl border-2 text-left transition ${
                     selectedPlatform === platform.id
-                      ? 'border-blue-600 ring-2 ring-blue-200 bg-blue-50'
-                      : 'border-slate-200 hover:border-slate-400'
+                      ? 'border-blue-600 ring-2 ring-blue-200 dark:ring-blue-900/50 bg-blue-50 dark:bg-blue-950/20'
+                      : 'border-slate-200 dark:border-slate-700 hover:border-slate-400 dark:hover:border-slate-600'
                   }`}
                 >
                   <div className="flex justify-between items-start mb-3">
@@ -291,8 +291,8 @@ export default function CustomBuildWizard() {
                   key={feature.id}
                   className={`p-4 rounded-xl border-2 cursor-pointer transition ${
                     selectedFeatures.includes(feature.id)
-                      ? 'border-blue-600 bg-blue-50'
-                      : 'border-slate-200 hover:border-slate-400'
+                      ? 'border-blue-600 bg-blue-50 dark:bg-blue-950/20'
+                      : 'border-slate-200 dark:border-slate-700 hover:border-slate-400 dark:hover:border-slate-600'
                   }`}
                 >
                   <div className="flex items-start gap-3">
@@ -345,8 +345,8 @@ export default function CustomBuildWizard() {
                   key={addon.id}
                   className={`p-4 rounded-xl border-2 cursor-pointer transition ${
                     selectedAddons.includes(addon.id)
-                      ? 'border-blue-600 bg-blue-50'
-                      : 'border-slate-200 hover:border-slate-400'
+                      ? 'border-blue-600 bg-blue-50 dark:bg-blue-950/20'
+                      : 'border-slate-200 dark:border-slate-700 hover:border-slate-400 dark:hover:border-slate-600'
                   }`}
                 >
                   <div className="flex items-start gap-3">
@@ -552,9 +552,9 @@ export default function CustomBuildWizard() {
 
         {/* Live Price Display (Sticky) */}
         {step < 5 && selectedPlatform && (
-          <div className="mt-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-xl">
+          <div className="mt-6 p-4 bg-blue-50 dark:bg-blue-950/20 border-2 border-blue-200 dark:border-blue-900/50 rounded-xl">
             <div className="flex justify-between items-center">
-              <div className="text-sm font-semibold text-slate-700">Your Build Total:</div>
+              <div className="text-sm font-semibold text-slate-700 dark:text-slate-300">Your Build Total:</div>
               <div className="text-right">
                 <div className="text-2xl font-bold text-blue-600">
                   {currentCurrency.symbol}{priceBreakdown.convertedTotal.toLocaleString()}

@@ -193,7 +193,7 @@ export default function TierSelectionModal({
 
                 {/* Delivery Time */}
                 {tier.deliveryTime && (
-                  <div className="mb-6 p-3 bg-blue-50 rounded-lg border border-blue-100 flex items-center text-sm text-gray-700 dark:text-slate-300">
+                  <div className="mb-6 p-3 bg-blue-50 dark:bg-blue-950/20 rounded-lg border border-blue-100 dark:border-blue-900/50 flex items-center text-sm text-gray-700 dark:text-slate-300">
                     <svg className="w-4 h-4 mr-2.5 text-primary flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>

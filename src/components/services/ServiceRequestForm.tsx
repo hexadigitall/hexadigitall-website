@@ -189,7 +189,7 @@ export const ServiceRequestForm: React.FC<ServiceRequestFormProps> = ({
 
           {/* Service Requirements Info */}
           {serviceCategory.requirements && serviceCategory.requirements.length > 0 && (
-            <div className="bg-blue-50 rounded-lg p-6">
+            <div className="bg-blue-50 dark:bg-blue-950/20 rounded-lg p-6">
               <h4 className="text-lg font-semibold text-gray-900 dark:text-slate-100 mb-4">
                 What We&apos;ll Need From You
               </h4>
