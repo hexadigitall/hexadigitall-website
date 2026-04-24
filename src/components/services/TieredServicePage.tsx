@@ -3,7 +3,6 @@
 import React, { useState } from 'react'
 import ServiceGroupCard from '@/components/services/ServiceGroupCard'
 import TierSelectionModal from '@/components/services/TierSelectionModal'
-import JourneyHeader from '@/components/services/JourneyHeader'
 import { ServiceRequestFlow, ServiceCategory as LegacyServiceCategory } from '@/components/services/ServiceRequestFlow'
 import Breadcrumb from '@/components/ui/Breadcrumb'
 import { useCurrency } from '@/contexts/CurrencyContext'
@@ -79,9 +78,6 @@ export default function TieredServicePage({
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-slate-50 via-white to-blue-50">
-      {/* Journey Navigation */}
-      <JourneyHeader currentStage={journeyStage} />
-
       {/* Breadcrumb */}
       <div className="bg-white dark:bg-slate-900 border-b sticky top-[80px] z-20">
         <div className="container mx-auto px-6 py-4">

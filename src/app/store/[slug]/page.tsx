@@ -81,7 +81,7 @@ const PLATFORM_LABELS: Record<string, string> = {
 }
 
 const SEVERITY_COLORS: Record<string, string> = {
-  minor: 'bg-gray-100 dark:bg-slate-700 text-gray-600 dark:text-slate-300',
+  minor: 'bg-gray-100 text-gray-600',
   content: 'bg-amber-100 text-amber-700',
   code: 'bg-blue-100 text-blue-700',
   critical: 'bg-red-100 text-red-700',
@@ -177,31 +177,31 @@ export default async function BookPage({ params }: Props) {
               {book.edition && (
                 <>
                   <dt className="text-gray-400">Edition</dt>
-                  <dd className="col-span-1 font-medium text-darkText dark:text-slate-200">{book.edition}</dd>
+                  <dd className="col-span-1 font-medium text-darkText">{book.edition}</dd>
                 </>
               )}
               {book.level && (
                 <>
                   <dt className="text-gray-400">Level</dt>
-                  <dd className="font-medium text-darkText dark:text-slate-200 capitalize">{book.level.replace('_', ' ')}</dd>
+                  <dd className="font-medium text-darkText capitalize">{book.level.replace('_', ' ')}</dd>
                 </>
               )}
               {book.pageCount && (
                 <>
                   <dt className="text-gray-400">Pages</dt>
-                  <dd className="font-medium text-darkText dark:text-slate-200">{book.pageCount}</dd>
+                  <dd className="font-medium text-darkText">{book.pageCount}</dd>
                 </>
               )}
               {book.isbn && (
                 <>
                   <dt className="text-gray-400">ISBN</dt>
-                  <dd className="font-mono text-xs text-darkText dark:text-slate-300">{book.isbn}</dd>
+                  <dd className="font-mono text-xs text-darkText">{book.isbn}</dd>
                 </>
               )}
               {book.publishedAt && (
                 <>
                   <dt className="text-gray-400">Published</dt>
-                  <dd className="font-medium text-darkText dark:text-slate-200">
+                  <dd className="font-medium text-darkText">
                     {new Date(book.publishedAt).toLocaleDateString('en-NG', { year: 'numeric', month: 'long' })}
                   </dd>
                 </>
@@ -284,7 +284,7 @@ export default async function BookPage({ params }: Props) {
               {book.tableOfContents.map((entry) => (
                 <li key={entry._key} className="flex items-baseline gap-3 py-2 border-b border-gray-100 dark:border-slate-700">
                   <span className="text-sm text-gray-400 w-6 text-right flex-shrink-0">{entry.chapter}.</span>
-                  <span className="text-gray-700 dark:text-slate-300 flex-1">{entry.title}</span>
+                  <span className="text-gray-700 flex-1">{entry.title}</span>
                   {entry.pages && <span className="text-xs text-gray-400 flex-shrink-0">p. {entry.pages}</span>}
                 </li>
               ))}
@@ -304,7 +304,7 @@ export default async function BookPage({ params }: Props) {
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
               {publicResources.slice(0, 3).map((r) => (
                 <div key={r._key} className="p-4 rounded-xl border border-gray-100 dark:border-slate-700 bg-white dark:bg-slate-800 shadow-sm">
-                  <p className="font-semibold text-sm text-darkText dark:text-slate-200">{r.title}</p>
+                  <p className="font-semibold text-sm text-darkText">{r.title}</p>
                   {r.description && <p className="text-xs text-gray-500 mt-1 line-clamp-2">{r.description}</p>}
                 </div>
               ))}
@@ -321,11 +321,11 @@ export default async function BookPage({ params }: Props) {
                 View all corrections →
               </Link>
             </div>
-            <p className="text-sm text-gray-600 dark:text-slate-400 max-w-xl">
+            <p className="text-sm text-gray-600 max-w-xl">
               We maintain a full list of corrections for this book. Found an error? Visit the errata page to report it.
             </p>
             <div className="mt-3">
-              <Link href={`/errata/${slug}`} className="inline-flex items-center gap-2 border border-gray-200 dark:border-slate-600 rounded-xl px-4 py-2 text-sm text-gray-600 dark:text-slate-300 hover:border-primary hover:text-primary transition-colors">
+              <Link href={`/errata/${slug}`} className="inline-flex items-center gap-2 border border-gray-200 rounded-xl px-4 py-2 text-sm text-gray-600 hover:border-primary hover:text-primary transition-colors">
                 🔍 View {book.errata?.length} correction{book.errata!.length !== 1 ? 's' : ''}
               </Link>
             </div>

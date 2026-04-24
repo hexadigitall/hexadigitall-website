@@ -213,8 +213,8 @@ function ServiceRequestSuccessContent() {
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
             </svg>
             <div>
-              <h3 className="text-lg font-semibold text-blue-900 dark:text-blue-300 mb-2">Need to Get in Touch?</h3>
-              <p className="text-blue-800 dark:text-blue-200 mb-4">
+              <h3 className="text-lg font-semibold text-blue-900 mb-2">Need to Get in Touch?</h3>
+              <p className="text-blue-800 mb-4">
                 If you have any questions about your project or need to provide additional information, 
                 don&apos;t hesitate to contact us.
               </p>
@@ -246,7 +246,7 @@ function ServiceRequestSuccessContent() {
         <div className="mt-8 flex flex-col sm:flex-row gap-4 justify-center">
           <Link
             href="/"
-            className="inline-flex items-center justify-center px-6 py-3 border dark:border-slate-600 border-gray-300 rounded-lg text-gray-700 dark:text-slate-300 hover:bg-gray-50 dark:hover:bg-slate-700 transition-colors"
+            className="inline-flex items-center justify-center px-6 py-3 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors"
           >
             <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m0 0v-6a1 1 0 011-1h2a1 1 0 011 1v6m3 0a1 1 0 001-1V10M9 21h6" />
@@ -270,11 +270,11 @@ function ServiceRequestSuccessContent() {
 
 function LoadingFallback() {
   return (
-    <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
-      <div className="bg-white rounded-lg shadow-lg p-8 max-w-md w-full text-center">
+    <div className="min-h-screen bg-gray-50 dark:bg-slate-950 flex items-center justify-center p-4">
+      <div className="bg-white dark:bg-slate-900 rounded-lg shadow-lg p-8 max-w-md w-full text-center">
         <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-primary mx-auto mb-4"></div>
-        <h2 className="text-xl font-semibold text-gray-900 mb-2">Loading</h2>
-        <p className="text-gray-600">Please wait...</p>
+        <h2 className="text-xl font-semibold text-gray-900 dark:text-slate-100 mb-2">Loading</h2>
+        <p className="text-gray-600 dark:text-slate-400">Please wait...</p>
       </div>
     </div>
   )

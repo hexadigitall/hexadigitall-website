@@ -5,7 +5,6 @@ import React, { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Dialog, DialogBackdrop } from '@headlessui/react';
-import JourneyHeader from '@/components/services/JourneyHeader';
 import type { ServicePackageGroup, ServicePackageTier } from '@/types/service';
 
 import type { IndividualService } from '@/data/individualServices';
@@ -46,14 +45,6 @@ const accentColors = {
 }
 
 const INITIAL_SERVICES_LIMIT = 3;
-
-// --- Helper: Determine Journey Stage ---
-const getJourneyStage = (serviceType: string): 'idea' | 'build' | 'grow' => {
-  const type = serviceType.toLowerCase();
-  if (['business', 'consulting', 'branding'].includes(type)) return 'idea';
-  if (['marketing', 'social'].includes(type)) return 'grow';
-  return 'build'; // Default for 'web', 'profile', 'app'
-};
 
 // --- Helper Component: Sticky CTA for Mobile ---
 const StickyServiceCTA = ({ 
@@ -188,7 +179,6 @@ function CompleteServicePage(props: CompleteServicePageProps) {
 
   return (
     <div className="min-h-screen bg-slate-50">
-      <JourneyHeader currentStage={getJourneyStage(serviceType)} />
       <div className="relative pt-16 sm:pt-20 pb-16 sm:pb-20 overflow-hidden text-white">
         {bannerBackgroundImage && (
           <div
