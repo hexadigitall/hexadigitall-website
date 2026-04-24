@@ -98,13 +98,13 @@ export default function StudentSignupPage() {
             <div className="w-16 h-16 bg-gradient-to-br from-purple-500 to-blue-600 rounded-full flex items-center justify-center mb-4">
               <BookOpenIcon className="h-10 w-10 text-white" />
             </div>
-            <h1 className="text-2xl font-bold text-gray-900 dark:text-slate-100">Create Student Account</h1>
+            <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100 dark:text-slate-100">Create Student Account</h1>
             <p className="text-sm text-gray-600 dark:text-slate-400 mt-1">Start your learning journey today</p>
           </div>
 
           {error && (
-            <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg">
-              <p className="text-sm text-red-700">{error}</p>
+            <div className="mb-6 p-4 bg-red-50 dark:bg-red-950/20 border border-red-200 dark:border-red-900/50 rounded-lg">
+              <p className="text-sm text-red-700 dark:text-red-400">{error}</p>
             </div>
           )}
 
@@ -119,7 +119,7 @@ export default function StudentSignupPage() {
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 required
-                className="w-full px-4 py-3 border border-gray-300 dark:border-slate-600 dark:bg-slate-700 dark:text-slate-200 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-colors"
+                className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 dark:border-slate-600 dark:bg-slate-700 dark:text-slate-200 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-colors"
                 placeholder="Your full name"
               />
             </div>
@@ -134,10 +134,10 @@ export default function StudentSignupPage() {
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
                 required
-                className="w-full px-4 py-3 border border-gray-300 dark:border-slate-600 dark:bg-slate-700 dark:text-slate-200 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-colors"
+                className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 dark:border-slate-600 dark:bg-slate-700 dark:text-slate-200 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-colors"
                 placeholder="Choose a username"
               />
-              <p className="mt-1 text-xs text-gray-500">3–30 characters, letters, numbers, and underscores only.</p>
+              <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">3–30 characters, letters, numbers, and underscores only.</p>
             </div>
 
             <div>
@@ -150,7 +150,7 @@ export default function StudentSignupPage() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
-                className="w-full px-4 py-3 border border-gray-300 dark:border-slate-600 dark:bg-slate-700 dark:text-slate-200 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-colors"
+                className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 dark:border-slate-600 dark:bg-slate-700 dark:text-slate-200 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-colors"
                 placeholder="you@example.com"
               />
             </div>
@@ -166,13 +166,13 @@ export default function StudentSignupPage() {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   required
-                  className="w-full px-4 py-3 border border-gray-300 dark:border-slate-600 dark:bg-slate-700 dark:text-slate-200 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-colors pr-12"
+                  className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 dark:border-slate-600 dark:bg-slate-700 dark:text-slate-200 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-colors pr-12"
                   placeholder="At least 8 characters"
                 />
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 dark:text-slate-400 hover:text-gray-700 dark:hover:text-slate-300"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 dark:text-slate-400 hover:text-gray-700 dark:text-gray-300 dark:hover:text-slate-300"
                 >
                   {showPassword ? <EyeSlashIcon className="h-5 w-5" /> : <EyeIcon className="h-5 w-5" />}
                 </button>
@@ -190,13 +190,13 @@ export default function StudentSignupPage() {
                   value={confirmPassword}
                   onChange={(e) => setConfirmPassword(e.target.value)}
                   required
-                  className="w-full px-4 py-3 border border-gray-300 dark:border-slate-600 dark:bg-slate-700 dark:text-slate-200 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-colors pr-12"
+                  className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 dark:border-slate-600 dark:bg-slate-700 dark:text-slate-200 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-colors pr-12"
                   placeholder="Re-enter your password"
                 />
                 <button
                   type="button"
                   onClick={() => setShowConfirm(!showConfirm)}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 dark:text-slate-400 hover:text-gray-700 dark:hover:text-slate-300"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 dark:text-slate-400 hover:text-gray-700 dark:text-gray-300 dark:hover:text-slate-300"
                 >
                   {showConfirm ? <EyeSlashIcon className="h-5 w-5" /> : <EyeIcon className="h-5 w-5" />}
                 </button>
@@ -215,7 +215,7 @@ export default function StudentSignupPage() {
           <>
             <div className="my-6 flex items-center gap-3">
               <div className="h-px flex-1 bg-gray-200" />
-              <span className="text-xs font-medium uppercase tracking-wide text-gray-500">or sign up with</span>
+              <span className="text-xs font-medium uppercase tracking-wide text-gray-500 dark:text-gray-400">or sign up with</span>
               <div className="h-px flex-1 bg-gray-200" />
             </div>
 
@@ -224,7 +224,7 @@ export default function StudentSignupPage() {
                 type="button"
                 disabled={!oauthProviders.google}
                 onClick={() => void handleOAuthSignup('google')}
-                className="w-full py-3 border border-gray-300 dark:border-slate-600 bg-white dark:bg-slate-700 text-gray-800 dark:text-slate-200 font-medium rounded-lg hover:bg-gray-50 dark:hover:bg-slate-600 transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
+                className="w-full py-3 border border-gray-300 dark:border-gray-600 dark:border-slate-600 bg-white dark:bg-slate-700 text-gray-800 dark:text-gray-200 dark:text-slate-200 font-medium rounded-lg hover:bg-gray-50 dark:bg-gray-800/50 dark:hover:bg-slate-600 transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
               >
                 Continue with Google
               </button>
@@ -232,14 +232,14 @@ export default function StudentSignupPage() {
                 type="button"
                 disabled={!oauthProviders.github}
                 onClick={() => void handleOAuthSignup('github')}
-                className="w-full py-3 border border-gray-300 dark:border-slate-600 bg-white dark:bg-slate-700 text-gray-800 dark:text-slate-200 font-medium rounded-lg hover:bg-gray-50 dark:hover:bg-slate-600 transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
+                className="w-full py-3 border border-gray-300 dark:border-gray-600 dark:border-slate-600 bg-white dark:bg-slate-700 text-gray-800 dark:text-gray-200 dark:text-slate-200 font-medium rounded-lg hover:bg-gray-50 dark:bg-gray-800/50 dark:hover:bg-slate-600 transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
               >
                 Continue with GitHub
               </button>
             </div>
 
             {(!oauthProviders.google || !oauthProviders.github) && (
-              <p className="mt-3 text-xs text-amber-700 bg-amber-50 border border-amber-200 rounded-lg px-3 py-2">
+              <p className="mt-3 text-xs text-amber-700 dark:text-amber-400 bg-amber-50 dark:bg-amber-950/20 border border-amber-200 rounded-lg px-3 py-2">
                 One or more social providers are temporarily unavailable. If this persists, check Auth.js and OAuth provider credentials in deployment settings.
               </p>
             )}
@@ -248,14 +248,14 @@ export default function StudentSignupPage() {
           <div className="mt-6 text-center">
             <p className="text-sm text-gray-600 dark:text-slate-400">
               Already have an account?{' '}
-              <Link href={loginHref} className="text-purple-600 hover:text-purple-700 font-medium">
+              <Link href={loginHref} className="text-purple-600 hover:text-purple-700 dark:text-purple-400 font-medium">
                 Sign in
               </Link>
             </p>
           </div>
         </div>
 
-        <p className="text-center text-xs text-gray-500 mt-6">
+        <p className="text-center text-xs text-gray-500 dark:text-gray-400 mt-6">
           © {new Date().getFullYear()} Hexadigitall. All rights reserved.
         </p>
       </div>

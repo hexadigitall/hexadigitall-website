@@ -144,10 +144,10 @@ export default function TeacherOAuthSuccessPage() {
         {phase === 'loading' && (
           <>
             <div className="w-12 h-12 border-4 border-teal-200 border-t-teal-600 rounded-full animate-spin mx-auto mb-6" />
-            <h1 className="text-xl font-bold text-gray-900 dark:text-slate-100 mb-2">
+            <h1 className="text-xl font-bold text-gray-900 dark:text-gray-100 dark:text-slate-100 mb-2">
               {isSigninIntent ? 'Signing you in…' : 'Processing your application…'}
             </h1>
-            <p className="text-sm text-gray-500">Please wait a moment.</p>
+            <p className="text-sm text-gray-500 dark:text-gray-400">Please wait a moment.</p>
           </>
         )}
 
@@ -156,13 +156,13 @@ export default function TeacherOAuthSuccessPage() {
             <div className="w-16 h-16 bg-gradient-to-br from-amber-400 to-orange-500 rounded-full flex items-center justify-center mx-auto mb-6">
               <ClockIcon className="h-9 w-9 text-white" />
             </div>
-            <h1 className="text-2xl font-bold text-gray-900 dark:text-slate-100 mb-3">Application Submitted!</h1>
+            <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100 dark:text-slate-100 mb-3">Application Submitted!</h1>
             <p className="text-gray-600 dark:text-slate-400 mb-6">
               {infoMsg || 'Your teacher account has been registered and is awaiting administrator approval. You will be able to sign in once your account is activated.'}
             </p>
-            <div className="bg-amber-50 border border-amber-200 rounded-xl p-4 text-left mb-6">
-              <p className="text-sm font-semibold text-amber-800 mb-2">What happens next?</p>
-              <ul className="space-y-1 text-sm text-amber-700 list-disc list-inside">
+            <div className="bg-amber-50 dark:bg-amber-950/20 border border-amber-200 rounded-xl p-4 text-left mb-6">
+              <p className="text-sm font-semibold text-amber-800 dark:text-amber-300 mb-2">What happens next?</p>
+              <ul className="space-y-1 text-sm text-amber-700 dark:text-amber-400 list-disc list-inside">
                 <li>Admin reviews your application</li>
                 <li>Your account is activated upon approval</li>
                 <li>You will receive an approval email at your account email address</li>
@@ -183,8 +183,8 @@ export default function TeacherOAuthSuccessPage() {
             <div className="w-16 h-16 bg-gradient-to-br from-teal-500 to-cyan-600 rounded-full flex items-center justify-center mx-auto mb-6">
               <CheckCircleIcon className="h-9 w-9 text-white" />
             </div>
-            <h1 className="text-2xl font-bold text-gray-900 dark:text-slate-100 mb-2">Signing you in…</h1>
-            <p className="text-sm text-gray-500">Redirecting to your dashboard.</p>
+            <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100 dark:text-slate-100 mb-2">Signing you in…</h1>
+            <p className="text-sm text-gray-500 dark:text-gray-400">Redirecting to your dashboard.</p>
           </>
         )}
 
@@ -193,8 +193,8 @@ export default function TeacherOAuthSuccessPage() {
             <div className="w-14 h-14 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-6">
               <span className="text-2xl">✕</span>
             </div>
-            <h1 className="text-xl font-bold text-gray-900 dark:text-slate-100 mb-3">Something went wrong</h1>
-            <p className="text-sm text-red-700 mb-6">{errorMsg}</p>
+            <h1 className="text-xl font-bold text-gray-900 dark:text-gray-100 dark:text-slate-100 mb-3">Something went wrong</h1>
+            <p className="text-sm text-red-700 dark:text-red-400 mb-6">{errorMsg}</p>
             <div className="space-y-3">
               <Link
                 href="/teacher/signup"
@@ -204,7 +204,7 @@ export default function TeacherOAuthSuccessPage() {
               </Link>
               <Link
                 href="/teacher/login"
-                className="block w-full py-3 border border-gray-300 dark:border-slate-600 text-gray-700 dark:text-slate-300 font-medium rounded-xl hover:bg-gray-50 dark:hover:bg-slate-700 transition-colors"
+                className="block w-full py-3 border border-gray-300 dark:border-gray-600 dark:border-slate-600 text-gray-700 dark:text-slate-300 font-medium rounded-xl hover:bg-gray-50 dark:bg-gray-800/50 dark:hover:bg-slate-700 transition-colors"
               >
                 Teacher Login
               </Link>

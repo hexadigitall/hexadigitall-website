@@ -143,7 +143,7 @@ export default function AdminDashboard() {
 
     if (loading) {
       return (
-        <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-slate-800/50">
+        <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-800/50 dark:bg-slate-800/50">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
         </div>
       )
@@ -154,7 +154,7 @@ export default function AdminDashboard() {
     }
 
     return (
-      <div className="min-h-screen bg-gray-50 dark:bg-slate-800/50">
+      <div className="min-h-screen bg-gray-50 dark:bg-gray-800/50 dark:bg-slate-800/50">
         {/* Header */}
         <header className="bg-white dark:bg-slate-900 shadow-sm border-b border-gray-200 dark:border-slate-700 sticky top-0 z-10">
           <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
@@ -182,22 +182,22 @@ export default function AdminDashboard() {
                         markNotificationsRead(notifications.map((n) => n._id))
                       }
                     }}
-                    className="p-2 text-gray-500 dark:text-slate-500 hover:text-gray-700 dark:text-slate-300 relative rounded-lg hover:bg-gray-100"
+                    className="p-2 text-gray-500 dark:text-slate-400 dark:text-slate-400 hover:text-gray-700 dark:text-slate-300 relative rounded-lg hover:bg-gray-100 dark:bg-gray-700"
                     aria-haspopup="true"
                     aria-expanded={notificationsOpen}
                   >
                     <BellIcon className="h-6 w-6" />
-                    {hasUnread && <span className="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full" />}
+                    {hasUnread && <span className="absolute top-1 right-1 w-2 h-2 bg-red-50 dark:bg-red-950/200 rounded-full" />}
                   </button>
 
                   {notificationsOpen && (
                     <div className="absolute inset-x-2 sm:inset-auto left-1/2 -translate-x-1/2 sm:left-auto sm:right-0 mt-2 w-[92vw] sm:w-80 bg-white dark:bg-slate-900 shadow-lg border border-gray-200 dark:border-slate-700 rounded-lg z-50 overflow-hidden max-h-96 flex flex-col">
                       <div className="flex items-center justify-between px-4 py-3 border-b border-gray-100">
-                        <span className="text-sm font-semibold text-gray-900 dark:text-slate-100">Notifications</span>
+                        <span className="text-sm font-semibold text-gray-900 dark:text-gray-100 dark:text-slate-100">Notifications</span>
                         <div className="flex items-center gap-2">
                           <button
                             onClick={() => markNotificationsRead(notifications.map((n) => n._id))}
-                            className="text-xs text-gray-500 dark:text-slate-500 hover:text-gray-700 dark:text-slate-300"
+                            className="text-xs text-gray-500 dark:text-slate-400 dark:text-slate-400 hover:text-gray-700 dark:text-slate-300"
                           >
                             Mark all read
                           </button>
@@ -211,25 +211,25 @@ export default function AdminDashboard() {
                       </div>
                       <div className="overflow-y-auto divide-y divide-gray-100 flex-1">
                         {notificationsError && (
-                          <div className="px-4 py-3 text-sm text-red-600">
+                          <div className="px-4 py-3 text-sm text-red-600 dark:text-red-400">
                             {notificationsError}
                           </div>
                         )}
                         {notificationsLoading && (
-                          <div className="px-4 py-3 text-sm text-gray-500 dark:text-slate-500">Loading...</div>
+                          <div className="px-4 py-3 text-sm text-gray-500 dark:text-slate-400 dark:text-slate-400">Loading...</div>
                         )}
                         {!notificationsLoading && notifications.length === 0 && (
-                          <div className="px-4 py-4 text-sm text-gray-500 dark:text-slate-500">No new submissions.</div>
+                          <div className="px-4 py-4 text-sm text-gray-500 dark:text-slate-400 dark:text-slate-400">No new submissions.</div>
                         )}
                         {!notificationsLoading && notifications.map((item) => (
-                          <div key={item._id} className="px-4 py-3 hover:bg-gray-50 dark:bg-slate-800/50">
+                          <div key={item._id} className="px-4 py-3 hover:bg-gray-50 dark:bg-gray-800/50 dark:bg-slate-800/50">
                             <div className="flex items-start justify-between">
                               <div>
-                                <p className="text-sm font-semibold text-gray-900 dark:text-slate-100">{item.name || 'Unknown sender'}</p>
-                                <p className="text-xs text-gray-500 dark:text-slate-500">{item.email || 'No email'}</p>
-                                <p className="text-xs text-gray-500 dark:text-slate-500 mt-1 capitalize">{item.type}</p>
+                                <p className="text-sm font-semibold text-gray-900 dark:text-gray-100 dark:text-slate-100">{item.name || 'Unknown sender'}</p>
+                                <p className="text-xs text-gray-500 dark:text-slate-400 dark:text-slate-400">{item.email || 'No email'}</p>
+                                <p className="text-xs text-gray-500 dark:text-slate-400 dark:text-slate-400 mt-1 capitalize">{item.type}</p>
                               </div>
-                              <div className="text-right text-xs text-gray-500 dark:text-slate-500 whitespace-nowrap">
+                              <div className="text-right text-xs text-gray-500 dark:text-slate-400 dark:text-slate-400 whitespace-nowrap">
                                 {new Date(item.submittedAt).toLocaleDateString()}
                               </div>
                             </div>
@@ -252,13 +252,13 @@ export default function AdminDashboard() {
                 </div>
 
                 <div className="hidden sm:flex items-center gap-2 border-l pl-2 sm:pl-3">
-                  <UserCircleIcon className="h-6 w-6 sm:h-8 sm:w-8 text-gray-400 dark:text-slate-500 flex-shrink-0" />
+                  <UserCircleIcon className="h-6 w-6 sm:h-8 sm:w-8 text-gray-400 dark:text-slate-400 flex-shrink-0" />
                   <span className="text-xs sm:text-sm font-medium text-gray-700 dark:text-slate-300 truncate">{adminUser}</span>
                 </div>
 
                 <button
                   onClick={handleLogout}
-                  className="flex items-center gap-1 sm:gap-2 px-2 sm:px-3 py-1.5 sm:py-2 text-xs sm:text-sm text-gray-700 dark:text-slate-300 hover:bg-gray-100 rounded-lg transition-colors flex-shrink-0"
+                  className="flex items-center gap-1 sm:gap-2 px-2 sm:px-3 py-1.5 sm:py-2 text-xs sm:text-sm text-gray-700 dark:text-slate-300 hover:bg-gray-100 dark:bg-gray-700 rounded-lg transition-colors flex-shrink-0"
                   title="Logout"
                 >
                   <ArrowRightOnRectangleIcon className="h-4 w-4 sm:h-5 sm:w-5" />
@@ -272,7 +272,7 @@ export default function AdminDashboard() {
 
         <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-4 sm:py-8">
           {dashboardError && (
-            <div className="mb-4 rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
+            <div className="mb-4 rounded-lg border border-red-200 dark:border-red-900/50 bg-red-50 dark:bg-red-950/20 px-4 py-3 text-sm text-red-700 dark:text-red-400">
               {dashboardError}
             </div>
           )}
@@ -362,7 +362,7 @@ export default function AdminDashboard() {
             />
           </div>
 
-          <h2 className="text-base sm:text-lg font-semibold text-gray-900 dark:text-slate-100 mb-3 sm:mb-4 mt-6">Recent Activity</h2>
+          <h2 className="text-base sm:text-lg font-semibold text-gray-900 dark:text-gray-100 dark:text-slate-100 mb-3 sm:mb-4 mt-6">Recent Activity</h2>
           <div className="space-y-3 sm:space-y-4">
             <ActivityItem
               title="New contact form submission"
@@ -393,10 +393,10 @@ function StatCard({ title, value, change, icon, color }: {
   color: string
 }) {
   const colorClasses: Record<string, string> = {
-    blue: 'bg-blue-500',
-    green: 'bg-green-500',
-    purple: 'bg-purple-500',
-    orange: 'bg-orange-500',
+    blue: 'bg-blue-50 dark:bg-blue-950/200',
+    green: 'bg-green-50 dark:bg-green-950/200',
+    purple: 'bg-purple-50 dark:bg-purple-950/200',
+    orange: 'bg-orange-50 dark:bg-orange-950/200',
   }
 
   return (
@@ -405,10 +405,10 @@ function StatCard({ title, value, change, icon, color }: {
         <div className={`p-2 sm:p-3 rounded-lg ${colorClasses[color] || colorClasses.blue} text-white`}>
           {icon}
         </div>
-        <span className="text-xs sm:text-sm font-medium text-green-600">{change}</span>
+        <span className="text-xs sm:text-sm font-medium text-green-600 dark:text-green-400">{change}</span>
       </div>
       <h3 className="text-xs sm:text-sm font-medium text-gray-600 dark:text-slate-400 mb-1">{title}</h3>
-      <p className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-slate-100">{value}</p>
+      <p className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-gray-100 dark:text-slate-100">{value}</p>
     </div>
   )
 }
@@ -435,12 +435,12 @@ function NavCard({ title, description, icon, href, count, color }: {
             {icon}
           </div>
           {count !== undefined && (
-            <span className="px-2 sm:px-3 py-0.5 sm:py-1 bg-red-100 text-red-600 text-xs sm:text-sm font-medium rounded-full flex-shrink-0">
+            <span className="px-2 sm:px-3 py-0.5 sm:py-1 bg-red-100 text-red-600 dark:text-red-400 text-xs sm:text-sm font-medium rounded-full flex-shrink-0">
               {count} new
             </span>
           )}
         </div>
-        <h3 className="text-base sm:text-lg font-semibold text-gray-900 dark:text-slate-100 mb-1 sm:mb-2 line-clamp-2">{title}</h3>
+        <h3 className="text-base sm:text-lg font-semibold text-gray-900 dark:text-gray-100 dark:text-slate-100 mb-1 sm:mb-2 line-clamp-2">{title}</h3>
         <p className="text-xs sm:text-sm text-gray-600 dark:text-slate-400 line-clamp-2">{description}</p>
       </div>
     </Link>
@@ -453,11 +453,11 @@ function ActivityItem({ title, time, user }: {
   user: string
 }) {
   return (
-    <div className="flex items-center gap-3 p-3 sm:p-4 bg-gray-50 dark:bg-slate-800/50 rounded-lg">
-      <div className="w-2 h-2 bg-blue-500 rounded-full flex-shrink-0"></div>
+    <div className="flex items-center gap-3 p-3 sm:p-4 bg-gray-50 dark:bg-gray-800/50 dark:bg-slate-800/50 rounded-lg">
+      <div className="w-2 h-2 bg-blue-50 dark:bg-blue-950/200 rounded-full flex-shrink-0"></div>
       <div className="flex-1 min-w-0">
-        <p className="text-xs sm:text-sm font-medium text-gray-900 dark:text-slate-100 truncate">{title}</p>
-        <p className="text-xs text-gray-500 dark:text-slate-500 truncate">
+        <p className="text-xs sm:text-sm font-medium text-gray-900 dark:text-gray-100 dark:text-slate-100 truncate">{title}</p>
+        <p className="text-xs text-gray-500 dark:text-slate-400 dark:text-slate-400 truncate">
           {user} • {time}
         </p>
       </div>

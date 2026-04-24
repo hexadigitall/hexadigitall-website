@@ -49,7 +49,7 @@ export default function AdminLogin() {
       <div className="absolute inset-0 bg-black/20"></div>
       
       <div className="relative w-full max-w-md">
-        <div className="bg-white dark:bg-slate-900 dark:bg-slate-900 dark:bg-slate-900/95 backdrop-blur-md rounded-2xl shadow-2xl p-8">
+        <div className="bg-white dark:bg-slate-900/95 backdrop-blur-md rounded-2xl shadow-2xl p-8">
           {/* Logo */}
           <div className="flex justify-center mb-8">
             <div className="relative w-32 h-32">
@@ -62,22 +62,22 @@ export default function AdminLogin() {
             </div>
           </div>
 
-          <h1 className="text-3xl font-bold text-center text-gray-900 dark:text-slate-100 dark:text-slate-100 dark:text-slate-100 mb-2">
+          <h1 className="text-3xl font-bold text-center text-gray-900 dark:text-gray-100 dark:text-slate-100 mb-2">
             Admin Portal
           </h1>
-          <p className="text-center text-gray-600 dark:text-slate-400 dark:text-slate-400 dark:text-slate-400 mb-8">
+          <p className="text-center text-gray-600 dark:text-slate-400 mb-8">
             Sign in to access your dashboard
           </p>
 
           {error && (
-            <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg text-red-700 text-sm">
+            <div className="mb-6 p-4 bg-red-50 dark:bg-red-950/20 border border-red-200 dark:border-red-900/50 rounded-lg text-red-700 dark:text-red-400 text-sm">
               {error}
             </div>
           )}
 
           <form onSubmit={handleSubmit} className="space-y-6">
             <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-slate-300 dark:text-slate-300 dark:text-slate-300 mb-2">
+              <label className="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-2">
                 Username
               </label>
               <input
@@ -85,13 +85,13 @@ export default function AdminLogin() {
                 required
                 value={credentials.username}
                 onChange={(e) => setCredentials({ ...credentials, username: e.target.value })}
-                className="w-full px-4 py-3 border border-gray-300 dark:border-slate-600 dark:border-slate-600 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-colors"
+                className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-colors"
                 placeholder="Enter your username"
               />
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-slate-300 dark:text-slate-300 dark:text-slate-300 mb-2">
+              <label className="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-2">
                 Password
               </label>
               <input
@@ -99,7 +99,7 @@ export default function AdminLogin() {
                 required
                 value={credentials.password}
                 onChange={(e) => setCredentials({ ...credentials, password: e.target.value })}
-                className="w-full px-4 py-3 border border-gray-300 dark:border-slate-600 dark:border-slate-600 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-colors"
+                className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-colors"
                 placeholder="Enter your password"
               />
             </div>
@@ -113,8 +113,8 @@ export default function AdminLogin() {
             </button>
           </form>
 
-          <div className="mt-8 pt-6 border-t border-gray-200 dark:border-slate-700 dark:border-slate-700 dark:border-slate-700">
-            <p className="text-center text-sm text-gray-500 dark:text-slate-500 dark:text-slate-500 dark:text-slate-500">
+          <div className="mt-8 pt-6 border-t border-gray-200 dark:border-slate-700">
+            <p className="text-center text-sm text-gray-500 dark:text-slate-400 dark:text-slate-400 dark:text-slate-400 dark:text-slate-400">
               Protected admin area • Unauthorized access is prohibited
             </p>
           </div>
