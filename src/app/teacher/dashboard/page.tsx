@@ -234,7 +234,7 @@ export default function TeacherDashboardPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-[#f5f5f7]">
+      <div className="min-h-screen flex items-center justify-center bg-[#f5f5f7] dark:bg-slate-950">
         <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-teal-600" />
       </div>
     )
@@ -243,10 +243,10 @@ export default function TeacherDashboardPage() {
   const teacherDisplayName = teacher?.name || teacher?.username || 'Teacher'
 
   return (
-    <div className="min-h-screen bg-[#f5f5f7]">
+    <div className="min-h-screen bg-[#f5f5f7] dark:bg-slate-950">
 
       {/* Profile hero */}
-      <div className="bg-gradient-to-br from-teal-900 via-teal-800 to-cyan-900 relative overflow-hidden">
+      <div className="bg-gradient-to-br from-teal-900 via-teal-800 to-cyan-900 dark:from-slate-950 dark:via-teal-950 dark:to-slate-900 relative overflow-hidden">
         <div className="absolute inset-0 pointer-events-none">
           <div className="absolute -top-24 -right-24 w-96 h-96 rounded-full bg-white dark:bg-slate-900/5" />
           <div className="absolute -bottom-32 -left-20 w-72 h-72 rounded-full bg-white dark:bg-slate-900/5" />
@@ -308,7 +308,7 @@ export default function TeacherDashboardPage() {
             {sessionRole === 'admin' && (
               <Link
                 href="/admin/dashboard"
-                className="hidden sm:inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-white dark:bg-slate-900/10 hover:bg-white dark:bg-slate-900/15 text-white text-sm font-medium border border-white/15 backdrop-blur-sm transition-colors"
+                className="hidden sm:inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-white/10 hover:bg-white/20 text-white text-sm font-medium border border-white/15 backdrop-blur-sm transition-colors"
               >
                 <ArrowLeftIcon className="h-4 w-4" />
                 Back to Admin
@@ -317,7 +317,7 @@ export default function TeacherDashboardPage() {
 
             <button
               onClick={handleLogout}
-              className="hidden sm:inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-white dark:bg-slate-900/10 hover:bg-white dark:bg-slate-900/15 text-white text-sm font-medium border border-white/15 backdrop-blur-sm transition-colors"
+              className="hidden sm:inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-white/10 hover:bg-white/20 text-white text-sm font-medium border border-white/15 backdrop-blur-sm transition-colors"
             >
               <ArrowRightOnRectangleIcon className="h-4 w-4" />
               Sign out
@@ -372,16 +372,16 @@ export default function TeacherDashboardPage() {
         {/* My Courses */}
         <section>
           <div className="mb-6">
-            <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100 dark:text-slate-100">My Courses</h2>
-            <p className="text-sm text-gray-500 dark:text-slate-400 dark:text-slate-400 mt-0.5">{courses.length} course{courses.length !== 1 ? 's' : ''} assigned</p>
+            <h2 className="text-xl font-bold text-gray-900 dark:text-slate-100">My Courses</h2>
+            <p className="text-sm text-gray-500 dark:text-slate-400 mt-0.5">{courses.length} course{courses.length !== 1 ? 's' : ''} assigned</p>
           </div>
           {courses.length === 0 ? (
             <div className="bg-white dark:bg-slate-800 rounded-2xl border border-gray-100 dark:border-slate-700 p-12 text-center shadow-sm">
               <div className="w-16 h-16 bg-teal-50 rounded-2xl flex items-center justify-center mx-auto mb-4">
                 <AcademicCapIcon className="h-8 w-8 text-teal-400" />
               </div>
-              <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 dark:text-slate-100 mb-2">No courses assigned</h3>
-              <p className="text-gray-500 dark:text-slate-400 dark:text-slate-400 text-sm">Contact admin to get assigned to courses.</p>
+              <h3 className="text-lg font-semibold text-gray-900 dark:text-slate-100 mb-2">No courses assigned</h3>
+              <p className="text-gray-500 dark:text-slate-400 text-sm">Contact admin to get assigned to courses.</p>
             </div>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
@@ -419,9 +419,9 @@ export default function TeacherDashboardPage() {
                     </div>
                   )}
                   <div className="p-5">
-                    <h3 className="text-base font-bold text-gray-900 dark:text-gray-100 dark:text-slate-100 mb-2">{course.title}</h3>
+                    <h3 className="text-base font-bold text-gray-900 dark:text-slate-100 mb-2">{course.title}</h3>
                     {course.description && (
-                      <p className="text-sm text-gray-500 dark:text-slate-400 dark:text-slate-400 mb-4 line-clamp-2">{course.description}</p>
+                      <p className="text-sm text-gray-500 dark:text-slate-400 mb-4 line-clamp-2">{course.description}</p>
                     )}
                     <div className="space-y-2 mb-4">
                       {course.contentPdf && (
@@ -458,8 +458,8 @@ export default function TeacherDashboardPage() {
         {/* My Students */}
         <section>
           <div className="mb-6">
-            <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100 dark:text-slate-100">My Students</h2>
-            <p className="text-sm text-gray-500 dark:text-slate-400 dark:text-slate-400 mt-0.5">
+            <h2 className="text-xl font-bold text-gray-900 dark:text-slate-100">My Students</h2>
+            <p className="text-sm text-gray-500 dark:text-slate-400 mt-0.5">
               {students.filter(s => s.status === 'active').length} active · {students.length} total
             </p>
           </div>
@@ -468,8 +468,8 @@ export default function TeacherDashboardPage() {
               <div className="w-16 h-16 bg-blue-50 dark:bg-blue-950/20 rounded-2xl flex items-center justify-center mx-auto mb-4">
                 <UsersIcon className="h-8 w-8 text-blue-400" />
               </div>
-              <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 dark:text-slate-100 mb-2">No students yet</h3>
-              <p className="text-gray-500 dark:text-slate-400 dark:text-slate-400 text-sm">Students will appear here once they enroll in your courses.</p>
+              <h3 className="text-lg font-semibold text-gray-900 dark:text-slate-100 mb-2">No students yet</h3>
+              <p className="text-gray-500 dark:text-slate-400 text-sm">Students will appear here once they enroll in your courses.</p>
             </div>
           ) : (
             <div className="bg-white dark:bg-slate-800 rounded-2xl border border-gray-100 dark:border-slate-700 shadow-sm overflow-hidden">
@@ -483,9 +483,9 @@ export default function TeacherDashboardPage() {
                       <th className="px-6 py-4 text-left text-xs font-semibold text-gray-400 dark:text-slate-400 uppercase tracking-widest">Enrolled</th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-gray-50">
+                  <tbody className="divide-y divide-gray-50 dark:divide-slate-800">
                     {students.map((student) => (
-                      <tr key={student._id} className="hover:bg-gray-50 dark:bg-gray-800/50 dark:bg-slate-800/50/50 transition-colors">
+                      <tr key={student._id} className="hover:bg-gray-50 dark:hover:bg-slate-800/60 transition-colors">
                         <td className="px-6 py-4">
                           <div className="flex items-center gap-3">
                             <div className="w-8 h-8 rounded-xl bg-teal-100 flex items-center justify-center shrink-0">
@@ -494,7 +494,7 @@ export default function TeacherDashboardPage() {
                               </span>
                             </div>
                             <div>
-                              <p className="text-sm font-semibold text-gray-900 dark:text-gray-100 dark:text-slate-100">{student.studentName}</p>
+                              <p className="text-sm font-semibold text-gray-900 dark:text-slate-100">{student.studentName}</p>
                               <p className="text-xs text-gray-400 dark:text-slate-400">{student.studentEmail}</p>
                             </div>
                           </div>
@@ -509,7 +509,7 @@ export default function TeacherDashboardPage() {
                             {student.status}
                           </span>
                         </td>
-                        <td className="px-6 py-4 text-sm text-gray-500 dark:text-slate-400 dark:text-slate-400">
+                        <td className="px-6 py-4 text-sm text-gray-500 dark:text-slate-400">
                           {new Date(student.enrolledAt).toLocaleDateString()}
                         </td>
                       </tr>
@@ -524,8 +524,8 @@ export default function TeacherDashboardPage() {
         {/* Assessment Quick Copy */}
         <section>
           <div className="mb-6">
-            <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100 dark:text-slate-100">Phase Assessment Links</h2>
-            <p className="text-sm text-gray-500 dark:text-slate-400 dark:text-slate-400 mt-0.5">
+            <h2 className="text-xl font-bold text-gray-900 dark:text-slate-100">Phase Assessment Links</h2>
+            <p className="text-sm text-gray-500 dark:text-slate-400 mt-0.5">
               Quick-copy URLs for your assigned course assessments
             </p>
           </div>
@@ -537,21 +537,21 @@ export default function TeacherDashboardPage() {
           )}
 
           {assessmentQuickCopyPanels.length === 0 ? (
-            <div className="bg-white dark:bg-slate-800 rounded-2xl border border-gray-100 dark:border-slate-700 p-8 text-center shadow-sm text-gray-500 dark:text-slate-400 dark:text-slate-400">
+            <div className="bg-white dark:bg-slate-900 rounded-2xl border border-gray-100 dark:border-slate-700 p-8 text-center shadow-sm text-gray-500 dark:text-slate-400">
               No configured assessments found for your assigned courses.
             </div>
           ) : (
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
               {assessmentQuickCopyPanels.map((panel) => (
-                <div key={panel.courseSlug} className="bg-white dark:bg-slate-800 rounded-2xl border border-gray-100 dark:border-slate-700 shadow-sm p-5">
-                  <h3 className="text-base font-semibold text-gray-900 dark:text-gray-100 dark:text-slate-100">{panel.courseTitle}</h3>
-                  <p className="text-xs text-gray-500 dark:text-slate-400 dark:text-slate-400 mt-1">/{panel.courseSlug}</p>
+                <div key={panel.courseSlug} className="bg-white dark:bg-slate-900 rounded-2xl border border-gray-100 dark:border-slate-700 shadow-sm p-5">
+                  <h3 className="text-base font-semibold text-gray-900 dark:text-slate-100">{panel.courseTitle}</h3>
+                  <p className="text-xs text-gray-500 dark:text-slate-400 mt-1">/{panel.courseSlug}</p>
                   <div className="mt-4 space-y-2">
                     {panel.assessments.map((assessment) => (
                       <div key={assessment.slug} className="flex items-center justify-between gap-3 rounded-lg border border-gray-100 dark:border-slate-700 px-3 py-2">
                         <div>
-                          <p className="text-sm font-medium text-gray-900 dark:text-gray-100 dark:text-slate-100">{assessment.phaseLabel}</p>
-                          <p className="text-xs text-gray-500 dark:text-slate-400 dark:text-slate-400">{assessment.title}</p>
+                          <p className="text-sm font-medium text-gray-900 dark:text-slate-100">{assessment.phaseLabel}</p>
+                          <p className="text-xs text-gray-500 dark:text-slate-400">{assessment.title}</p>
                         </div>
                         <button
                           type="button"
@@ -573,12 +573,12 @@ export default function TeacherDashboardPage() {
         {/* Assessment Attempts */}
         <section>
           <div className="mb-6">
-            <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100 dark:text-slate-100">Assessment Attempts</h2>
-            <p className="text-sm text-gray-500 dark:text-slate-400 dark:text-slate-400 mt-0.5">Student attempt status and score snapshots</p>
+            <h2 className="text-xl font-bold text-gray-900 dark:text-slate-100">Assessment Attempts</h2>
+            <p className="text-sm text-gray-500 dark:text-slate-400 mt-0.5">Student attempt status and score snapshots</p>
           </div>
 
           {assessmentAttempts.length === 0 ? (
-            <div className="bg-white dark:bg-slate-800 rounded-2xl border border-gray-100 dark:border-slate-700 p-8 text-center shadow-sm text-gray-500 dark:text-slate-400 dark:text-slate-400">
+            <div className="bg-white dark:bg-slate-900 rounded-2xl border border-gray-100 dark:border-slate-700 p-8 text-center shadow-sm text-gray-500 dark:text-slate-400">
               No assessment attempts yet.
             </div>
           ) : (
@@ -594,16 +594,16 @@ export default function TeacherDashboardPage() {
                       <th className="px-6 py-4 text-left text-xs font-semibold text-gray-400 dark:text-slate-400 uppercase tracking-widest">Submitted</th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-gray-50">
+                  <tbody className="divide-y divide-gray-50 dark:divide-slate-800">
                     {assessmentAttempts.slice(0, 120).map((attempt) => (
-                      <tr key={attempt._id} className="hover:bg-gray-50 dark:bg-gray-800/50 dark:bg-slate-800/50/50 transition-colors">
+                      <tr key={attempt._id} className="hover:bg-gray-50 dark:hover:bg-slate-800/60 transition-colors">
                         <td className="px-6 py-4">
-                          <p className="text-sm font-semibold text-gray-900 dark:text-gray-100 dark:text-slate-100">{attempt.studentNameSnapshot || 'Unknown Student'}</p>
+                          <p className="text-sm font-semibold text-gray-900 dark:text-slate-100">{attempt.studentNameSnapshot || 'Unknown Student'}</p>
                           <p className="text-xs text-gray-400 dark:text-slate-400">{attempt.studentEmailSnapshot || 'No email snapshot'}</p>
                         </td>
                         <td className="px-6 py-4">
-                          <p className="text-sm font-medium text-gray-900 dark:text-gray-100 dark:text-slate-100">{attempt.phaseLabel}</p>
-                          <p className="text-xs text-gray-500 dark:text-slate-400 dark:text-slate-400">{attempt.courseTitle}</p>
+                          <p className="text-sm font-medium text-gray-900 dark:text-slate-100">{attempt.phaseLabel}</p>
+                          <p className="text-xs text-gray-500 dark:text-slate-400">{attempt.courseTitle}</p>
                         </td>
                         <td className="px-6 py-4">
                           <span className={`inline-flex px-2.5 py-1 text-xs font-semibold rounded-full ${
@@ -621,7 +621,7 @@ export default function TeacherDashboardPage() {
                             ? `${attempt.scorePercent}%${attempt.passed ? ' (Pass)' : ' (Fail)'}`
                             : 'Pending'}
                         </td>
-                        <td className="px-6 py-4 text-sm text-gray-500 dark:text-slate-400 dark:text-slate-400">
+                        <td className="px-6 py-4 text-sm text-gray-500 dark:text-slate-400">
                           {attempt.submittedAt ? new Date(attempt.submittedAt).toLocaleString() : 'Not submitted'}
                         </td>
                       </tr>

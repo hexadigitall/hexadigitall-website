@@ -263,7 +263,7 @@ export default function StudentDashboardPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-[#f5f5f7]">
+      <div className="min-h-screen flex items-center justify-center bg-[#f5f5f7] dark:bg-slate-950">
         <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-purple-600" />
       </div>
     )
@@ -274,10 +274,10 @@ export default function StudentDashboardPage() {
   const studentDisplayName = student?.name || student?.username || 'Student'
 
   return (
-    <div className="min-h-screen bg-[#f5f5f7]">
+    <div className="min-h-screen bg-[#f5f5f7] dark:bg-slate-950">
 
       {/* Profile hero */}
-      <div className="bg-gradient-to-br from-violet-900 via-purple-800 to-indigo-900 relative overflow-hidden">
+      <div className="bg-gradient-to-br from-violet-900 via-purple-800 to-indigo-900 dark:from-slate-950 dark:via-indigo-950 dark:to-slate-900 relative overflow-hidden">
         <div className="absolute inset-0 pointer-events-none">
           <div className="absolute -top-24 -right-24 w-96 h-96 rounded-full bg-white dark:bg-slate-900/5" />
           <div className="absolute -bottom-32 -left-20 w-72 h-72 rounded-full bg-white dark:bg-slate-900/5" />
@@ -339,7 +339,7 @@ export default function StudentDashboardPage() {
             {sessionRole === 'admin' && (
               <Link
                 href="/admin/dashboard"
-                className="hidden sm:inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-white dark:bg-slate-900/10 hover:bg-white dark:bg-slate-900/15 text-white text-sm font-medium border border-white/15 backdrop-blur-sm transition-colors"
+                className="hidden sm:inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-white/10 hover:bg-white/20 text-white text-sm font-medium border border-white/15 backdrop-blur-sm transition-colors"
               >
                 <ArrowLeftIcon className="h-4 w-4" />
                 Back to Admin
@@ -348,7 +348,7 @@ export default function StudentDashboardPage() {
 
             <button
               onClick={handleLogout}
-              className="hidden sm:inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-white dark:bg-slate-900/10 hover:bg-white dark:bg-slate-900/15 text-white text-sm font-medium border border-white/15 backdrop-blur-sm transition-colors"
+              className="hidden sm:inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-white/10 hover:bg-white/20 text-white text-sm font-medium border border-white/15 backdrop-blur-sm transition-colors"
             >
               <ArrowRightOnRectangleIcon className="h-4 w-4" />
               Sign out
@@ -417,7 +417,7 @@ export default function StudentDashboardPage() {
             </div>
             <Link
               href="/courses"
-              className="inline-flex items-center px-4 py-2 bg-white dark:bg-slate-900 dark:bg-slate-700 text-emerald-700 dark:text-emerald-300 rounded-xl hover:bg-emerald-50 dark:bg-emerald-950/20 dark:hover:bg-slate-600 transition-colors text-sm font-semibold shadow-sm"
+              className="inline-flex items-center px-4 py-2 bg-white dark:bg-slate-900 text-emerald-700 dark:text-emerald-300 rounded-xl hover:bg-emerald-50 dark:hover:bg-emerald-950/20 transition-colors text-sm font-semibold shadow-sm"
             >
               Renew Subscription
             </Link>
@@ -428,8 +428,8 @@ export default function StudentDashboardPage() {
         <section>
           <div className="flex items-center justify-between mb-6">
             <div>
-              <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100 dark:text-slate-100">My Enrolled Courses</h2>
-              <p className="text-sm text-gray-500 dark:text-slate-400 dark:text-slate-400 mt-0.5">
+              <h2 className="text-xl font-bold text-gray-900 dark:text-slate-100">My Enrolled Courses</h2>
+              <p className="text-sm text-gray-500 dark:text-slate-400 mt-0.5">
                 {enrollments.length} course{enrollments.length !== 1 ? 's' : ''} total
               </p>
             </div>
@@ -446,8 +446,8 @@ export default function StudentDashboardPage() {
               <div className="w-16 h-16 bg-purple-50 dark:bg-purple-950/20 rounded-2xl flex items-center justify-center mx-auto mb-4">
                 <BookOpenIcon className="h-8 w-8 text-purple-400" />
               </div>
-              <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 dark:text-slate-100 mb-2">No courses yet</h3>
-              <p className="text-gray-500 dark:text-slate-400 dark:text-slate-400 mb-6 text-sm max-w-xs mx-auto">
+              <h3 className="text-lg font-semibold text-gray-900 dark:text-slate-100 mb-2">No courses yet</h3>
+              <p className="text-gray-500 dark:text-slate-400 mb-6 text-sm max-w-xs mx-auto">
                 Enroll in your first course to get started on your learning journey.
               </p>
               <Link
@@ -508,8 +508,8 @@ export default function StudentDashboardPage() {
                             )}
                             <span className={`inline-flex px-2 py-0.5 text-xs font-medium rounded-full capitalize ${
                               enrollment.status === 'active'
-                                ? 'bg-emerald-50 dark:bg-emerald-950/200/90 text-white'
-                                : 'bg-gray-50 dark:bg-gray-800/50 dark:bg-slate-800/500/80 text-white'
+                                ? 'bg-emerald-100 dark:bg-emerald-900/40 text-emerald-700 dark:text-emerald-300'
+                                : 'bg-gray-100 dark:bg-slate-800 text-gray-700 dark:text-slate-300'
                             }`}>
                               {enrollment.status}
                             </span>
@@ -528,7 +528,7 @@ export default function StudentDashboardPage() {
                       )}
 
                       <div className="p-5">
-                        <h3 className="text-base font-bold text-gray-900 dark:text-gray-100 dark:text-slate-100 mb-0.5">
+                        <h3 className="text-base font-bold text-gray-900 dark:text-slate-100 mb-0.5">
                           {enrollment.course?.title || 'Course'}
                         </h3>
                         {enrollment.teacher && (
@@ -540,7 +540,7 @@ export default function StudentDashboardPage() {
                           </p>
                         )}
                         {enrollment.course?.description && (
-                          <p className="text-sm text-gray-500 dark:text-slate-400 dark:text-slate-400 mb-4 line-clamp-2">
+                          <p className="text-sm text-gray-500 dark:text-slate-400 mb-4 line-clamp-2">
                             {enrollment.course.description}
                           </p>
                         )}

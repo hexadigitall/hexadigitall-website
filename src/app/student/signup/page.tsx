@@ -91,14 +91,14 @@ export default function StudentSignupPage() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-purple-50 via-blue-50 to-white px-4 py-10">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-purple-50 via-blue-50 to-white dark:from-slate-950 dark:via-indigo-950/40 dark:to-slate-900 px-4 py-10">
       <div className="w-full max-w-md">
         <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-xl border border-gray-200 dark:border-slate-700 p-8">
           <div className="flex flex-col items-center mb-8">
             <div className="w-16 h-16 bg-gradient-to-br from-purple-500 to-blue-600 rounded-full flex items-center justify-center mb-4">
               <BookOpenIcon className="h-10 w-10 text-white" />
             </div>
-            <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100 dark:text-slate-100">Create Student Account</h1>
+            <h1 className="text-2xl font-bold text-gray-900 dark:text-slate-100">Create Student Account</h1>
             <p className="text-sm text-gray-600 dark:text-slate-400 mt-1">Start your learning journey today</p>
           </div>
 
