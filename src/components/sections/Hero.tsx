@@ -205,8 +205,8 @@ export default function Hero() {
                 min-h-[80px] sm:min-h-[100px]
                 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-white/50
                 ${activeStage.id === stage.id 
-                  ? 'bg-white dark:bg-slate-900/15 border-white shadow-xl scale-105' 
-                  : 'bg-white dark:bg-slate-900/5 border-white/20 hover:bg-white dark:bg-slate-900/10 hover:border-white/40'}
+                  ? 'bg-white/20 border-white shadow-xl scale-105' 
+                  : 'bg-white/10 border-white/20 hover:bg-white/15 hover:border-white/40'}
               `}
               aria-pressed={activeStage.id === stage.id}
               aria-label={`${stage.label} - ${stage.title}`}

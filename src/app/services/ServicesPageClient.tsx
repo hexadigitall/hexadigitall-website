@@ -232,7 +232,7 @@ export default function ServicesPageClient({ initialData }: ServicesPageClientPr
         <div className="relative container mx-auto px-6 pt-16 pb-10 sm:pt-20 sm:pb-12 lg:pt-24 lg:pb-16">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-4 items-center">
             <div className="max-w-2xl">
-              <p className="inline-flex items-center rounded-full border border-white/20 bg-white dark:bg-slate-900/10 px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.16em] text-slate-100 sm:text-xs">
+              <p className="inline-flex items-center rounded-full border border-white/20 bg-white/10 px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.16em] text-white sm:text-xs">
                 Welcoming, Expert-Led Digital Services
               </p>
 
