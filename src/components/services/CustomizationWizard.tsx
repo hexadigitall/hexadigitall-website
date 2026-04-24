@@ -263,7 +263,7 @@ export default function CustomizationWizard() {
                     currentStep === step 
                       ? 'bg-primary text-white' 
                       : currentStep === 'recommendations' || (currentStep === 'integration' && index < 2) || (currentStep === 'mobile' && index < 1)
-                        ? 'bg-green-50 dark:bg-green-950/200 text-white'
+                        ? 'bg-green-100 dark:bg-green-900/40 text-green-700 dark:text-green-300'
                         : 'bg-gray-200 text-gray-600 dark:text-slate-400'
                   }`}>
                     {currentStep === step || (currentStep === 'recommendations' && index < 3) || (currentStep === 'integration' && index < 2) || (currentStep === 'mobile' && index < 1) ? '✓' : index + 1}
@@ -271,7 +271,7 @@ export default function CustomizationWizard() {
                   {index < 3 && (
                     <div className={`w-8 h-0.5 ${
                       (currentStep === 'recommendations' && index < 3) || (currentStep === 'integration' && index < 2) || (currentStep === 'mobile' && index < 1)
-                        ? 'bg-green-50 dark:bg-green-950/200' 
+                        ? 'bg-green-100 dark:bg-green-900/40' 
                         : 'bg-gray-200'
                     }`} />
                   )}

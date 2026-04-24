@@ -135,10 +135,10 @@ export default function WebMobilePricingSections() {
   const getTierColor = (tier: string, popular: boolean) => {
     if (popular) return 'border-primary ring-2 ring-primary/20 bg-primary/5'
     switch (tier) {
-      case 'basic': return 'border-blue-200 dark:border-blue-900/50 bg-blue-50 dark:bg-blue-950/20/50'
-      case 'standard': return 'border-green-200 bg-green-50 dark:bg-green-950/20/50'
-      case 'premium': return 'border-purple-200 bg-purple-50 dark:bg-purple-950/20/50'
-      default: return 'border-gray-200 dark:border-slate-700 bg-gray-50 dark:bg-slate-800/50/50'
+      case 'basic': return 'border-blue-200 dark:border-blue-900/50 bg-blue-50 dark:bg-blue-950/20'
+      case 'standard': return 'border-green-200 bg-green-50 dark:bg-green-950/20'
+      case 'premium': return 'border-purple-200 bg-purple-50 dark:bg-purple-950/20'
+      default: return 'border-gray-200 dark:border-slate-700 bg-gray-50 dark:bg-slate-800/50'
     }
   }
 
@@ -149,14 +149,14 @@ export default function WebMobilePricingSections() {
         border: 'border-blue-200 dark:border-blue-900/50',
         title: 'text-blue-900 dark:text-blue-300',
         subtitle: 'text-blue-700 dark:text-blue-400',
-        button: 'bg-blue-50 dark:bg-blue-950/200 hover:bg-blue-600'
+        button: 'bg-blue-500 dark:bg-blue-600 hover:bg-blue-600 dark:hover:bg-blue-700'
       },
       purple: {
         bg: 'bg-gradient-to-br from-purple-50 to-white',
         border: 'border-purple-200', 
         title: 'text-purple-900',
         subtitle: 'text-purple-700',
-        button: 'bg-purple-50 dark:bg-purple-950/200 hover:bg-purple-600'
+        button: 'bg-purple-500 dark:bg-purple-600 hover:bg-purple-600 dark:hover:bg-purple-700'
       }
     }
     

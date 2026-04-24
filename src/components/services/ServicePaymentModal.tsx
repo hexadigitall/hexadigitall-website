@@ -504,14 +504,14 @@ function ServicePaymentModal({
         </div>
 
         {/* Additional Info */}
-        <div className="bg-blue-50 dark:bg-blue-950/20 dark:bg-blue-950/20 dark:bg-blue-950/20 dark:bg-blue-950/20 border border-blue-200 dark:border-blue-900/50 dark:border-blue-900/50 dark:border-blue-900/50 dark:border-blue-900/50 rounded-xl p-4">
+        <div className="bg-blue-50 dark:bg-blue-950/20 border border-blue-200 dark:border-blue-900/50 rounded-xl p-4">
           <div className="flex items-start space-x-3">
-            <div className="w-5 h-5 bg-blue-50 dark:bg-blue-950/20 dark:bg-blue-950/20 dark:bg-blue-950/200 dark:bg-blue-600 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+            <div className="w-5 h-5 bg-blue-600 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
               <CheckIcon className="h-3 w-3 text-white" />
             </div>
             <div className="text-sm text-blue-800">
               <p className="font-medium mb-1">What happens after purchase?</p>
-              <ul className="space-y-1 text-blue-700 dark:text-blue-400 dark:text-blue-400 dark:text-blue-400">
+              <ul className="space-y-1 text-blue-700 dark:text-blue-400">
                 <li>• You&apos;ll receive an email confirmation immediately</li>
                 <li>• Our team will contact you within 24 hours to discuss your project</li>
                 <li>• We&apos;ll begin work after finalizing the project requirements</li>

@@ -94,7 +94,7 @@ export default function NewsletterSubscription({
         <div className={`mt-3 p-3 rounded-lg text-sm ${
           status === 'error' 
             ? 'bg-red-500/10 border border-red-500/20 text-red-200' 
-            : 'bg-green-50 dark:bg-green-950/200/10 border border-green-500/20 text-green-200'
+            : 'bg-green-50 dark:bg-green-950/20 border border-green-500/20 text-green-700 dark:text-green-300'
         }`}>
           {message}
         </div>

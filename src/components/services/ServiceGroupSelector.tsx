@@ -249,7 +249,7 @@ export const ServiceGroupSelector: React.FC = () => {
                         </div>
                         <div className={`w-6 h-6 rounded-full border-2 flex items-center justify-center ml-3 ${
                           isSelected 
-                            ? 'border-indigo-500 bg-indigo-50 dark:bg-indigo-950/200 text-white' 
+                            ? 'border-indigo-500 bg-indigo-500 dark:bg-indigo-600 text-white' 
                             : 'border-gray-300'
                         }`}>
                           {isSelected && (
