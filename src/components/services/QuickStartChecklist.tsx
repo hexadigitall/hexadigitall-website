@@ -187,7 +187,7 @@ export default function QuickStartChecklist({ serviceType, className = '' }: Qui
 
   return (
     <div className={`bg-white dark:bg-slate-900 rounded-xl shadow-md p-6 ${className}`}>
-      <h3 className="text-xl font-bold text-gray-900 dark:text-slate-100 mb-4">Quick Start Guide</h3>
+      <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100 dark:text-slate-100 mb-4">Quick Start Guide</h3>
       <p className="text-gray-600 dark:text-slate-400 mb-6">Follow these steps to get your project started smoothly</p>
       
       <div className="space-y-4">
@@ -199,10 +199,10 @@ export default function QuickStartChecklist({ serviceType, className = '' }: Qui
               </div>
             </div>
             <div className="flex-1 min-w-0">
-              <h4 className="text-base font-semibold text-gray-900 dark:text-slate-100 mb-1">{item.title}</h4>
+              <h4 className="text-base font-semibold text-gray-900 dark:text-gray-100 dark:text-slate-100 mb-1">{item.title}</h4>
               <p className="text-sm text-gray-600 dark:text-slate-400 mb-2">{item.description}</p>
               {item.estimatedTime && (
-                <div className="flex items-center text-xs text-gray-500 dark:text-slate-500">
+                <div className="flex items-center text-xs text-gray-500 dark:text-slate-500 dark:text-slate-400">
                   <ClockIcon className="h-3 w-3 mr-1" />
                   <span>{item.estimatedTime}</span>
                 </div>

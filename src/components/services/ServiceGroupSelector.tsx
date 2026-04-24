@@ -82,7 +82,7 @@ export const ServiceGroupSelector: React.FC = () => {
 
       {/* Custom Package Builder CTA */}
       <div className="bg-gradient-to-r from-indigo-50 to-purple-50 rounded-2xl p-8 mb-12 text-center">
-        <h3 className="text-2xl font-bold text-gray-900 dark:text-slate-100 mb-4">
+        <h3 className="text-2xl font-bold text-gray-900 dark:text-gray-100 dark:text-slate-100 mb-4">
           Need Something Different?
         </h3>
         <p className="text-gray-600 dark:text-slate-400 mb-6 max-w-2xl mx-auto">
@@ -102,7 +102,7 @@ export const ServiceGroupSelector: React.FC = () => {
 
       {/* Recommended Bundles */}
       <div className="mb-12">
-        <h3 className="text-2xl font-bold text-gray-900 dark:text-slate-100 mb-8 text-center">
+        <h3 className="text-2xl font-bold text-gray-900 dark:text-gray-100 dark:text-slate-100 mb-8 text-center">
           Popular Bundle Packages
         </h3>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -119,18 +119,18 @@ export const ServiceGroupSelector: React.FC = () => {
                 </div>
               )}
               
-              <h4 className="text-xl font-bold text-gray-900 dark:text-slate-100 mb-2">{bundle.name}</h4>
+              <h4 className="text-xl font-bold text-gray-900 dark:text-gray-100 dark:text-slate-100 mb-2">{bundle.name}</h4>
               <p className="text-gray-600 dark:text-slate-400 mb-6">{bundle.description}</p>
               
               <div className="flex items-center justify-between mb-6">
                 <div>
                   <div className="flex items-baseline space-x-2">
                     <StartingAtPriceDisplay price={bundle.bundlePrice} size="md" showDiscount={true} />
-                    <span className="text-sm text-gray-500 dark:text-slate-500 line-through">
+                    <span className="text-sm text-gray-500 dark:text-slate-500 dark:text-slate-400 line-through">
                       ${bundle.originalPrice}
                     </span>
                   </div>
-                  <p className="text-sm text-green-600 font-medium">
+                  <p className="text-sm text-green-600 dark:text-green-400 font-medium">
                     Save ${bundle.savings} ({Math.round(bundle.savings / bundle.originalPrice * 100)}% off)
                   </p>
                 </div>
@@ -142,7 +142,7 @@ export const ServiceGroupSelector: React.FC = () => {
                     <svg className="w-4 h-4 text-green-500 mt-0.5 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
                       <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                     </svg>
-                    <span className="text-gray-700 dark:text-slate-300">{feature}</span>
+                    <span className="text-gray-700 dark:text-gray-300 dark:text-slate-300">{feature}</span>
                   </li>
                 ))}
               </ul>
@@ -157,15 +157,15 @@ export const ServiceGroupSelector: React.FC = () => {
 
       {/* Custom Package Display */}
       {customPackage && (
-        <div className="bg-green-50 rounded-2xl p-8 mb-12 border-2 border-green-200">
+        <div className="bg-green-50 dark:bg-green-950/20 rounded-2xl p-8 mb-12 border-2 border-green-200">
           <h3 className="text-2xl font-bold text-green-800 mb-4">Your Custom Package</h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             <div>
-              <h4 className="font-semibold text-gray-900 dark:text-slate-100 mb-4">Selected Services:</h4>
+              <h4 className="font-semibold text-gray-900 dark:text-gray-100 dark:text-slate-100 mb-4">Selected Services:</h4>
               <ul className="space-y-2">
                 {customPackage.services.map((service, index) => (
                   <li key={index} className="flex justify-between items-center">
-                    <span className="text-gray-700 dark:text-slate-300">{service.name}</span>
+                    <span className="text-gray-700 dark:text-gray-300 dark:text-slate-300">{service.name}</span>
                     <span className="font-semibold">${service.price}</span>
                   </li>
                 ))}
@@ -173,7 +173,7 @@ export const ServiceGroupSelector: React.FC = () => {
             </div>
             <div className="text-center md:text-right">
               <div className="mb-4">
-                <div className="text-2xl font-bold text-green-600">
+                <div className="text-2xl font-bold text-green-600 dark:text-green-400">
                   Total: ${customPackage.totalPrice}
                 </div>
                 <div className="text-sm text-gray-600 dark:text-slate-400">
@@ -186,7 +186,7 @@ export const ServiceGroupSelector: React.FC = () => {
                 </button>
                 <button 
                   onClick={() => setCustomPackage(null)}
-                  className="w-full md:w-auto bg-gray-200 text-gray-700 dark:text-slate-300 px-6 py-3 rounded-xl font-semibold hover:bg-gray-300 transition-colors ml-0 md:ml-3"
+                  className="w-full md:w-auto bg-gray-200 text-gray-700 dark:text-gray-300 dark:text-slate-300 px-6 py-3 rounded-xl font-semibold hover:bg-gray-300 transition-colors ml-0 md:ml-3"
                 >
                   Modify Package
                 </button>
@@ -212,12 +212,12 @@ export const ServiceGroupSelector: React.FC = () => {
           <div className="w-full max-w-6xl max-h-[90vh] bg-white dark:bg-slate-900 rounded-2xl shadow-2xl overflow-hidden">
             <div className="p-6 border-b border-gray-200 dark:border-slate-700 flex items-center justify-between">
               <div>
-                <h2 className="text-2xl font-bold text-gray-900 dark:text-slate-100">Build Your Custom Package</h2>
+                <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100 dark:text-slate-100">Build Your Custom Package</h2>
                 <p className="text-gray-600 dark:text-slate-400">Select individual services to create your perfect package</p>
               </div>
               <button
                 onClick={() => setShowCustomBuilder(false)}
-                className="p-2 text-gray-400 dark:text-slate-500 hover:text-gray-600 dark:text-slate-400 transition-colors"
+                className="p-2 text-gray-400 dark:text-slate-500 dark:text-slate-400 hover:text-gray-600 dark:text-slate-400 transition-colors"
               >
                 <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -237,19 +237,19 @@ export const ServiceGroupSelector: React.FC = () => {
                       key={service.id}
                       className={`border-2 rounded-xl p-6 cursor-pointer transition-all duration-300 ${
                         isSelected 
-                          ? 'border-indigo-500 bg-indigo-50 shadow-lg' 
+                          ? 'border-indigo-500 bg-indigo-50 dark:bg-indigo-950/20 shadow-lg' 
                           : 'border-gray-200 dark:border-slate-700 hover:border-indigo-300 hover:shadow-md'
                       }`}
                       onClick={() => handleAddToCustomPackage(service)}
                     >
                       <div className="flex items-start justify-between mb-4">
                         <div className="flex-1">
-                          <h3 className="font-bold text-gray-900 dark:text-slate-100 mb-2">{service.name}</h3>
+                          <h3 className="font-bold text-gray-900 dark:text-gray-100 dark:text-slate-100 mb-2">{service.name}</h3>
                           <p className="text-sm text-gray-600 dark:text-slate-400 mb-3">{service.description}</p>
                         </div>
                         <div className={`w-6 h-6 rounded-full border-2 flex items-center justify-center ml-3 ${
                           isSelected 
-                            ? 'border-indigo-500 bg-indigo-500 text-white' 
+                            ? 'border-indigo-500 bg-indigo-50 dark:bg-indigo-950/200 text-white' 
                             : 'border-gray-300'
                         }`}>
                           {isSelected && (
@@ -262,7 +262,7 @@ export const ServiceGroupSelector: React.FC = () => {
                       
                       <div className="flex items-center justify-between mb-4">
                         <StartingAtPriceDisplay price={service.price} size="sm" showDiscount={true} />
-                        <span className="text-sm text-gray-500 dark:text-slate-500">{service.deliveryTime}</span>
+                        <span className="text-sm text-gray-500 dark:text-slate-500 dark:text-slate-400">{service.deliveryTime}</span>
                       </div>
                       
                       <ul className="space-y-1">
@@ -288,20 +288,20 @@ export const ServiceGroupSelector: React.FC = () => {
                     <p className="text-sm text-gray-600 dark:text-slate-400">
                       {selectedServices.length} service{selectedServices.length !== 1 ? 's' : ''} selected
                     </p>
-                    <p className="text-2xl font-bold text-gray-900 dark:text-slate-100">
+                    <p className="text-2xl font-bold text-gray-900 dark:text-gray-100 dark:text-slate-100">
                       Total: ${selectedServices.reduce((sum, s) => sum + s.price, 0)}
                     </p>
                   </div>
                   <div className="space-x-3">
                     <button
                       onClick={() => setSelectedServices([])}
-                      className="px-4 py-2 bg-gray-200 text-gray-700 dark:text-slate-300 rounded-lg hover:bg-gray-300 transition-colors"
+                      className="px-4 py-2 bg-gray-200 text-gray-700 dark:text-gray-300 dark:text-slate-300 rounded-lg hover:bg-gray-300 transition-colors"
                     >
                       Clear All
                     </button>
                     <button
                       onClick={buildCustomPackage}
-                      className="px-6 py-2 bg-indigo-500 text-white rounded-lg hover:bg-indigo-600 transition-colors font-semibold"
+                      className="px-6 py-2 bg-indigo-50 dark:bg-indigo-950/200 text-white rounded-lg hover:bg-indigo-600 transition-colors font-semibold"
                     >
                       Create Package
                     </button>

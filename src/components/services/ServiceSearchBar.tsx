@@ -40,7 +40,7 @@ export default function ServiceSearchBar({
       <div className="flex flex-col sm:flex-row gap-4">
         {/* Search Input */}
         <div className="flex-1 relative">
-          <MagnifyingGlassIcon className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400 dark:text-slate-500" />
+          <MagnifyingGlassIcon className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400 dark:text-slate-500 dark:text-slate-400" />
           <input
             type="text"
             value={searchQuery}
@@ -77,7 +77,7 @@ export default function ServiceSearchBar({
       {/* Mobile Filters Dropdown */}
       {showFilters && (
         <div className="sm:hidden mt-4 p-4 border border-gray-200 dark:border-slate-700 rounded-lg bg-white dark:bg-slate-900">
-          <label className="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-2">
+          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 dark:text-slate-300 mb-2">
             Category
           </label>
           <select

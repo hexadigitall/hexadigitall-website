@@ -67,10 +67,10 @@ export const ServicePackageSelection: React.FC<ServicePackageSelectionProps> = (
 
   const getTierColor = (tier: string) => {
     switch (tier) {
-      case 'basic': return 'border-blue-200 bg-blue-50'
-      case 'standard': return 'border-green-200 bg-green-50'
-      case 'premium': return 'border-purple-200 bg-purple-50 ring-2 ring-purple-200'
-      case 'enterprise': return 'border-orange-200 bg-orange-50'
+      case 'basic': return 'border-blue-200 dark:border-blue-900/50 bg-blue-50 dark:bg-blue-950/20'
+      case 'standard': return 'border-green-200 bg-green-50 dark:bg-green-950/20'
+      case 'premium': return 'border-purple-200 bg-purple-50 dark:bg-purple-950/20 ring-2 ring-purple-200'
+      case 'enterprise': return 'border-orange-200 bg-orange-50 dark:bg-orange-950/20'
       default: return 'border-gray-200 dark:border-slate-700 bg-gray-50 dark:bg-slate-800/50'
     }
   }
@@ -152,7 +152,7 @@ export const ServicePackageSelection: React.FC<ServicePackageSelectionProps> = (
   return (
     <div className="p-6">
       <div className="mb-8">
-        <h3 className="text-2xl font-bold text-gray-900 dark:text-slate-100 mb-2">Choose Your Package</h3>
+        <h3 className="text-2xl font-bold text-gray-900 dark:text-gray-100 dark:text-slate-100 mb-2">Choose Your Package</h3>
         <p className="text-gray-600 dark:text-slate-400">Select the service package that best fits your needs.</p>
       </div>
 
@@ -179,14 +179,14 @@ export const ServicePackageSelection: React.FC<ServicePackageSelectionProps> = (
             {/* ⚡ WHATSAPP BUTTON (Top Right Corner) */}
             <button 
               onClick={(e) => handlePackageWhatsApp(pkg, e)}
-              className="absolute top-4 right-4 text-green-600 hover:text-green-700 hover:bg-green-50 p-1.5 rounded-full transition-colors z-10"
+              className="absolute top-4 right-4 text-green-600 dark:text-green-400 hover:text-green-700 hover:bg-green-50 dark:bg-green-950/20 p-1.5 rounded-full transition-colors z-10"
               title="I want to pay for this on WhatsApp"
             >
               <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
             </button>
 
             <div className="flex items-center justify-between mb-4">
-              <h4 className="text-xl font-bold text-gray-900 dark:text-slate-100 pr-8">{pkg.name}</h4>
+              <h4 className="text-xl font-bold text-gray-900 dark:text-gray-100 dark:text-slate-100 pr-8">{pkg.name}</h4>
               <span className={`px-2 py-1 rounded-full text-xs font-medium ${getTierBadgeColor(pkg.tier)}`}>
                 {pkg.tier.charAt(0).toUpperCase() + pkg.tier.slice(1)}
               </span>
@@ -194,7 +194,7 @@ export const ServicePackageSelection: React.FC<ServicePackageSelectionProps> = (
 
             <div className="mb-4">
               <div className="flex items-baseline">
-                <span className="text-3xl font-bold text-gray-900 dark:text-slate-100">
+                <span className="text-3xl font-bold text-gray-900 dark:text-gray-100 dark:text-slate-100">
                   {formatPrice(pkg.price, pkg.currency)}
                 </span>
                 <span className="ml-2 text-gray-600 dark:text-slate-400">
@@ -217,7 +217,7 @@ export const ServicePackageSelection: React.FC<ServicePackageSelectionProps> = (
                   <svg className="w-5 h-5 text-green-500 mr-3 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
                     <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                   </svg>
-                  <span className="text-gray-700 dark:text-slate-300">{featureToText(feature as string | { title?: string; description?: string } | undefined)}</span>
+                  <span className="text-gray-700 dark:text-gray-300 dark:text-slate-300">{featureToText(feature as string | { title?: string; description?: string } | undefined)}</span>
                 </li>
               ))}
             </ul>
@@ -238,7 +238,7 @@ export const ServicePackageSelection: React.FC<ServicePackageSelectionProps> = (
       {/* Add-ons Section */}
       {selectedPackage?.addOns && selectedPackage.addOns.length > 0 && (
         <div className="mb-8">
-          <h4 className="text-xl font-bold text-gray-900 dark:text-slate-100 mb-4">Available Add-ons</h4>
+          <h4 className="text-xl font-bold text-gray-900 dark:text-gray-100 dark:text-slate-100 mb-4">Available Add-ons</h4>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {selectedPackage.addOns.map((addOn) => (
               <div
@@ -253,7 +253,7 @@ export const ServicePackageSelection: React.FC<ServicePackageSelectionProps> = (
                 <div className="flex items-start justify-between">
                   <div className="flex-1">
                     <div className="flex items-center">
-                      <h5 className="font-semibold text-gray-900 dark:text-slate-100">{addOn.name}</h5>
+                      <h5 className="font-semibold text-gray-900 dark:text-gray-100 dark:text-slate-100">{addOn.name}</h5>
                       <span className="ml-2 font-bold text-primary">
                         +{formatPrice(addOn.price, selectedPackage.currency)}
                       </span>
@@ -283,7 +283,7 @@ export const ServicePackageSelection: React.FC<ServicePackageSelectionProps> = (
       {/* Payment Plan Selection */}
       {selectedPackage && (
         <div className="mb-8">
-          <h4 className="text-xl font-bold text-gray-900 dark:text-slate-100 mb-4">Choose Your Payment Plan</h4>
+          <h4 className="text-xl font-bold text-gray-900 dark:text-gray-100 dark:text-slate-100 mb-4">Choose Your Payment Plan</h4>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
             {PAYMENT_PLANS.map((plan) => {
               const isSelected = selectedPaymentPlan.id === plan.id
@@ -312,7 +312,7 @@ export const ServicePackageSelection: React.FC<ServicePackageSelectionProps> = (
                   }}
                 >
                   <div className="flex items-start justify-between mb-2">
-                    <h5 className="font-semibold text-gray-900 dark:text-slate-100">{plan.name}</h5>
+                    <h5 className="font-semibold text-gray-900 dark:text-gray-100 dark:text-slate-100">{plan.name}</h5>
                     {plan.processingFee > 0 && (
                       <span className="text-xs bg-yellow-100 text-yellow-800 px-2 py-1 rounded">
                         +{formatPrice(plan.processingFee)} fee
@@ -322,7 +322,7 @@ export const ServicePackageSelection: React.FC<ServicePackageSelectionProps> = (
                   <p className="text-sm text-gray-600 dark:text-slate-400 mb-3">{plan.description}</p>
                   
                   {plan.installments > 1 && (
-                    <div className="text-xs text-gray-500 dark:text-slate-500">
+                    <div className="text-xs text-gray-500 dark:text-slate-500 dark:text-slate-400">
                       <div>Down: {plan.downPayment}%</div>
                       <div>{plan.installments - 1} payments</div>
                     </div>
@@ -344,8 +344,8 @@ export const ServicePackageSelection: React.FC<ServicePackageSelectionProps> = (
           
           {/* Payment Breakdown */}
           {selectedPaymentPlan.installments > 1 && (
-            <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 transition-all duration-300">
-              <h5 className="font-semibold text-blue-900 mb-3 flex items-center">
+            <div className="bg-blue-50 dark:bg-blue-950/20 border border-blue-200 dark:border-blue-900/50 rounded-lg p-4 transition-all duration-300">
+              <h5 className="font-semibold text-blue-900 dark:text-blue-300 mb-3 flex items-center">
                 <span className="mr-2">💰</span>
                 Payment Breakdown
               </h5>
@@ -354,35 +354,35 @@ export const ServicePackageSelection: React.FC<ServicePackageSelectionProps> = (
                 return (
                   <div className="space-y-2 text-sm">
                     <div className="flex justify-between">
-                      <span className="text-blue-700">Service Total:</span>
+                      <span className="text-blue-700 dark:text-blue-400">Service Total:</span>
                       <span className="font-medium">{formatPrice(breakdown.subtotalUSD)}</span>
                     </div>
                     {breakdown.processingFeeUSD > 0 && (
                       <div className="flex justify-between">
-                        <span className="text-blue-700">Processing Fee:</span>
+                        <span className="text-blue-700 dark:text-blue-400">Processing Fee:</span>
                         <span className="font-medium">{formatPrice(breakdown.processingFeeUSD)}</span>
                       </div>
                     )}
-                    <div className="flex justify-between border-t border-blue-200 pt-2">
-                      <span className="text-blue-700 font-medium">Grand Total:</span>
+                    <div className="flex justify-between border-t border-blue-200 dark:border-blue-900/50 pt-2">
+                      <span className="text-blue-700 dark:text-blue-400 font-medium">Grand Total:</span>
                       <span className="font-bold">{formatPrice(breakdown.totalWithFeeUSD)}</span>
                     </div>
-                    <div className="mt-3 pt-3 border-t border-blue-200 bg-blue-100 rounded p-2">
-                      <div className="text-xs text-blue-600 mb-2 font-medium">Payment Schedule:</div>
+                    <div className="mt-3 pt-3 border-t border-blue-200 dark:border-blue-900/50 bg-blue-100 rounded p-2">
+                      <div className="text-xs text-blue-600 dark:text-blue-400 mb-2 font-medium">Payment Schedule:</div>
                       <div className="flex justify-between">
-                        <span className="text-blue-700 font-medium">1st Payment (Today):</span>
-                        <span className="font-bold text-green-600">{formatPrice(breakdown.downPaymentAmountUSD)}</span>
+                        <span className="text-blue-700 dark:text-blue-400 font-medium">1st Payment (Today):</span>
+                        <span className="font-bold text-green-600 dark:text-green-400">{formatPrice(breakdown.downPaymentAmountUSD)}</span>
                       </div>
-                      <div className="text-xs text-blue-600 mt-1">
+                      <div className="text-xs text-blue-600 dark:text-blue-400 mt-1">
                         Includes {selectedPaymentPlan.downPayment}% of service + processing fee
                       </div>
                       {breakdown.monthlyPaymentUSD > 0 && (
                         <div>
                           <div className="flex justify-between mt-2">
-                            <span className="text-blue-700">Remaining {selectedPaymentPlan.installments - 1} payments:</span>
+                            <span className="text-blue-700 dark:text-blue-400">Remaining {selectedPaymentPlan.installments - 1} payments:</span>
                             <span className="font-medium">{formatPrice(breakdown.monthlyPaymentUSD)} each</span>
                           </div>
-                          <div className="text-xs text-blue-600 mt-1">
+                          <div className="text-xs text-blue-600 dark:text-blue-400 mt-1">
                             Total remaining: {formatPrice(breakdown.remainingAmountUSD)}
                           </div>
                         </div>
@@ -401,7 +401,7 @@ export const ServicePackageSelection: React.FC<ServicePackageSelectionProps> = (
         <div className="border-t pt-6">
           <div className="flex items-center justify-between mb-4">
             <div>
-              <h4 className="text-lg font-semibold text-gray-900 dark:text-slate-100">Package Summary</h4>
+              <h4 className="text-lg font-semibold text-gray-900 dark:text-gray-100 dark:text-slate-100">Package Summary</h4>
               <p className="text-gray-600 dark:text-slate-400">
                 {selectedPackage.name} 
                 {selectedAddOns.length > 0 && ` + ${selectedAddOns.length} add-on${selectedAddOns.length > 1 ? 's' : ''}`}
@@ -420,12 +420,12 @@ export const ServicePackageSelection: React.FC<ServicePackageSelectionProps> = (
                 </div>
               ) : (
                 <div>
-                  <div className="text-lg font-bold text-green-600">
+                  <div className="text-lg font-bold text-green-600 dark:text-green-400">
                     {formatPrice(calculatePaymentBreakdown().downPaymentAmountUSD)}
                   </div>
                   <div className="text-sm text-gray-600 dark:text-slate-400">Down payment</div>
                   {calculatePaymentBreakdown().monthlyPaymentUSD > 0 && (
-                    <div className="text-sm text-gray-500 dark:text-slate-500 mt-1">
+                    <div className="text-sm text-gray-500 dark:text-slate-500 dark:text-slate-400 mt-1">
                       Then {formatPrice(calculatePaymentBreakdown().monthlyPaymentUSD)}/month
                     </div>
                   )}

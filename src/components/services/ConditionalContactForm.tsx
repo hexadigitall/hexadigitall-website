@@ -66,7 +66,7 @@ export default function ConditionalContactForm({
 
   return (
     <div className="bg-white dark:bg-slate-900 rounded-xl shadow-lg p-6 max-w-2xl w-full">
-      <h2 className="text-2xl font-bold text-gray-900 dark:text-slate-100 mb-6">Get in Touch</h2>
+      <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100 dark:text-slate-100 mb-6">Get in Touch</h2>
 
       {/* Form Type Selector */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 mb-6">
@@ -75,7 +75,7 @@ export default function ConditionalContactForm({
           className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
             formType === 'quote'
               ? 'bg-primary text-white'
-              : 'bg-gray-100 text-gray-700 dark:text-slate-300 hover:bg-gray-200'
+              : 'bg-gray-100 text-gray-700 dark:text-gray-300 dark:text-slate-300 hover:bg-gray-200'
           }`}
         >
           Get Quote
@@ -85,7 +85,7 @@ export default function ConditionalContactForm({
           className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
             formType === 'project'
               ? 'bg-primary text-white'
-              : 'bg-gray-100 text-gray-700 dark:text-slate-300 hover:bg-gray-200'
+              : 'bg-gray-100 text-gray-700 dark:text-gray-300 dark:text-slate-300 hover:bg-gray-200'
           }`}
         >
           Start Project
@@ -95,7 +95,7 @@ export default function ConditionalContactForm({
           className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
             formType === 'callback'
               ? 'bg-primary text-white'
-              : 'bg-gray-100 text-gray-700 dark:text-slate-300 hover:bg-gray-200'
+              : 'bg-gray-100 text-gray-700 dark:text-gray-300 dark:text-slate-300 hover:bg-gray-200'
           }`}
         >
           Request Callback
@@ -105,7 +105,7 @@ export default function ConditionalContactForm({
           className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
             formType === 'general'
               ? 'bg-primary text-white'
-              : 'bg-gray-100 text-gray-700 dark:text-slate-300 hover:bg-gray-200'
+              : 'bg-gray-100 text-gray-700 dark:text-gray-300 dark:text-slate-300 hover:bg-gray-200'
           }`}
         >
           General Inquiry
@@ -117,7 +117,7 @@ export default function ConditionalContactForm({
         {/* Common Fields */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
-            <label className="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-2">
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 dark:text-slate-300 mb-2">
               Full Name *
             </label>
             <input
@@ -129,7 +129,7 @@ export default function ConditionalContactForm({
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-2">
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 dark:text-slate-300 mb-2">
               Email *
             </label>
             <input
@@ -144,7 +144,7 @@ export default function ConditionalContactForm({
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
-            <label className="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-2">
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 dark:text-slate-300 mb-2">
               Phone *
             </label>
             <input
@@ -156,7 +156,7 @@ export default function ConditionalContactForm({
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-2">
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 dark:text-slate-300 mb-2">
               Company (Optional)
             </label>
             <input
@@ -172,7 +172,7 @@ export default function ConditionalContactForm({
         {(formType === 'quote' || formType === 'project') && (
           <>
             <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-2">
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 dark:text-slate-300 mb-2">
                 Project Type *
               </label>
               <select
@@ -193,7 +193,7 @@ export default function ConditionalContactForm({
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-2">
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 dark:text-slate-300 mb-2">
                   Budget Range
                 </label>
                 <select
@@ -209,7 +209,7 @@ export default function ConditionalContactForm({
                 </select>
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-2">
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 dark:text-slate-300 mb-2">
                   Timeline
                 </label>
                 <select
@@ -230,7 +230,7 @@ export default function ConditionalContactForm({
         {/* Callback-specific fields */}
         {formType === 'callback' && (
           <div>
-            <label className="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-2">
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 dark:text-slate-300 mb-2">
               Preferred Call Time
             </label>
             <select
@@ -248,7 +248,7 @@ export default function ConditionalContactForm({
 
         {/* Message */}
         <div>
-          <label className="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-2">
+          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 dark:text-slate-300 mb-2">
             {formType === 'quote' || formType === 'project' 
               ? 'Project Details *' 
               : 'Message *'}
@@ -270,7 +270,7 @@ export default function ConditionalContactForm({
         {/* File Upload (for quote and project) */}
         {(formType === 'quote' || formType === 'project') && (
           <div>
-            <label className="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-2">
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 dark:text-slate-300 mb-2">
               Attachments (Optional)
             </label>
             <div className="border-2 border-dashed border-gray-300 rounded-lg p-4 text-center">
@@ -286,11 +286,11 @@ export default function ConditionalContactForm({
                 htmlFor="file-upload"
                 className="cursor-pointer flex flex-col items-center"
               >
-                <PaperClipIcon className="h-8 w-8 text-gray-400 dark:text-slate-500 mb-2" />
+                <PaperClipIcon className="h-8 w-8 text-gray-400 dark:text-slate-500 dark:text-slate-400 mb-2" />
                 <span className="text-sm text-gray-600 dark:text-slate-400">
                   Click to upload files or drag and drop
                 </span>
-                <span className="text-xs text-gray-500 dark:text-slate-500 mt-1">
+                <span className="text-xs text-gray-500 dark:text-slate-500 dark:text-slate-400 mt-1">
                   PDF, DOC, JPG, PNG (max 10MB)
                 </span>
               </label>
@@ -302,11 +302,11 @@ export default function ConditionalContactForm({
                     key={index}
                     className="flex items-center justify-between p-2 bg-gray-50 dark:bg-slate-800/50 rounded"
                   >
-                    <span className="text-sm text-gray-700 dark:text-slate-300 truncate">{file.name}</span>
+                    <span className="text-sm text-gray-700 dark:text-gray-300 dark:text-slate-300 truncate">{file.name}</span>
                     <button
                       type="button"
                       onClick={() => removeFile(index)}
-                      className="text-red-600 hover:text-red-800 text-sm"
+                      className="text-red-600 dark:text-red-400 hover:text-red-800 text-sm"
                     >
                       Remove
                     </button>

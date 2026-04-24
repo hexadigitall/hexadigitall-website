@@ -23,7 +23,7 @@ export default function ServiceCaseStudies({ caseStudies }: { caseStudies?: Case
           <div key={c._id || c.title} className="bg-white dark:bg-slate-900 border rounded-xl p-4 shadow-sm">
             <h4 className="font-semibold text-lg mb-1">{c.title}</h4>
             {c.client?.name && <div className="text-sm text-gray-600 dark:text-slate-400 mb-2">{c.client.name} — {c.client.industry}</div>}
-            <p className="text-sm text-gray-700 dark:text-slate-300 mb-3">{(c.challenge || '').slice(0, 180)}{(c.challenge || '').length > 180 ? '...' : ''}</p>
+            <p className="text-sm text-gray-700 dark:text-gray-300 dark:text-gray-300 dark:text-slate-300 mb-3">{(c.challenge || '').slice(0, 180)}{(c.challenge || '').length > 180 ? '...' : ''}</p>
             <div className="flex items-center justify-between">
               <Link href={c.slug?.current ? `/case-studies/${c.slug.current}` : '#'} className="text-primary font-medium">Read case study</Link>
               {c.featured && <span className="text-xs bg-yellow-100 text-yellow-800 px-2 py-1 rounded">Featured</span>}

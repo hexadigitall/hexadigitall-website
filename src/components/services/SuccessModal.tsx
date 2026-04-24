@@ -59,11 +59,11 @@ export default function SuccessModal({
       <div className="bg-white dark:bg-slate-900 rounded-2xl shadow-2xl max-w-md w-full p-8 text-center">
         {/* Success Icon */}
         <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
-          <CheckCircleIcon className="h-12 w-12 text-green-600" />
+          <CheckCircleIcon className="h-12 w-12 text-green-600 dark:text-green-400" />
         </div>
 
         {/* Title */}
-        <h2 className="text-2xl font-bold text-gray-900 dark:text-slate-100 mb-4">
+        <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100 dark:text-slate-100 mb-4">
           {content.title}
         </h2>
 
@@ -76,14 +76,14 @@ export default function SuccessModal({
         {orderNumber && (
           <div className="bg-gray-50 dark:bg-slate-800/50 rounded-lg p-4 mb-6">
             <p className="text-sm text-gray-600 dark:text-slate-400 mb-1">Reference Number</p>
-            <p className="text-xl font-bold text-gray-900 dark:text-slate-100">{orderNumber}</p>
+            <p className="text-xl font-bold text-gray-900 dark:text-gray-100 dark:text-slate-100">{orderNumber}</p>
           </div>
         )}
 
         {/* What's Next Section */}
         <div className="bg-blue-50 dark:bg-blue-950/20 border border-blue-100 dark:border-blue-900/50 rounded-lg p-4 mb-6 text-left">
-          <h3 className="font-semibold text-gray-900 dark:text-slate-100 mb-3">What happens next?</h3>
-          <ul className="space-y-2 text-sm text-gray-700 dark:text-slate-300">
+          <h3 className="font-semibold text-gray-900 dark:text-gray-100 dark:text-slate-100 mb-3">What happens next?</h3>
+          <ul className="space-y-2 text-sm text-gray-700 dark:text-gray-300 dark:text-slate-300">
             {type === 'quote' && (
               <>
                 <li className="flex items-start">
@@ -166,7 +166,7 @@ export default function SuccessModal({
             
             <button
               onClick={onClose}
-              className="w-full px-6 py-3 bg-gray-100 dark:bg-slate-800 text-gray-900 dark:text-slate-100 rounded-lg hover:bg-gray-200 transition-colors font-semibold"
+              className="w-full px-6 py-3 bg-gray-100 dark:bg-slate-800 text-gray-900 dark:text-gray-100 dark:text-slate-100 rounded-lg hover:bg-gray-200 transition-colors font-semibold"
             >
               Close
             </button>

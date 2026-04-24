@@ -64,7 +64,7 @@ export default function PackageComparison({
     <div className="space-y-6">
       {/* Compare Mode Toggle */}
       <div className="flex items-center justify-between">
-        <h3 className="text-2xl font-bold text-gray-900 dark:text-slate-100">Choose Your Package</h3>
+        <h3 className="text-2xl font-bold text-gray-900 dark:text-gray-100 dark:text-slate-100">Choose Your Package</h3>
         <button
           onClick={() => setCompareMode(!compareMode)}
           className="px-4 py-2 text-sm font-medium text-primary hover:bg-primary/10 rounded-lg transition-colors"
@@ -75,8 +75,8 @@ export default function PackageComparison({
 
       {/* Package Selection for Compare Mode */}
       {compareMode && (
-        <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
-          <p className="text-sm text-gray-700 dark:text-slate-300 mb-3">
+        <div className="bg-blue-50 dark:bg-blue-950/20 border border-blue-200 dark:border-blue-900/50 rounded-lg p-4">
+          <p className="text-sm text-gray-700 dark:text-gray-300 dark:text-slate-300 mb-3">
             Select up to 3 packages to compare (
             <span className="font-semibold">{selectedPackages.length}/3</span> selected)
           </p>
@@ -89,7 +89,7 @@ export default function PackageComparison({
                 className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
                   selectedPackages.includes(pkg.id)
                     ? 'bg-primary text-white'
-                    : 'bg-white dark:bg-slate-900 text-gray-700 dark:text-slate-300 hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed'
+                    : 'bg-white dark:bg-slate-900 text-gray-700 dark:text-gray-300 dark:text-slate-300 hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed'
                 }`}
               >
                 {pkg.name}
@@ -116,25 +116,25 @@ export default function PackageComparison({
               )}
 
               <div className="p-6">
-                <h4 className="text-xl font-bold text-gray-900 dark:text-slate-100 mb-2">{pkg.name}</h4>
+                <h4 className="text-xl font-bold text-gray-900 dark:text-gray-100 dark:text-slate-100 mb-2">{pkg.name}</h4>
                 <p className="text-gray-600 dark:text-slate-400 text-sm mb-4">{pkg.description}</p>
 
                 <div className="mb-6">
-                  <div className="text-3xl font-bold text-gray-900 dark:text-slate-100">
+                  <div className="text-3xl font-bold text-gray-900 dark:text-gray-100 dark:text-slate-100">
                     <PriceDisplay price={pkg.price} size="lg" />
                   </div>
-                  <p className="text-sm text-gray-500 dark:text-slate-500">One-time payment</p>
+                  <p className="text-sm text-gray-500 dark:text-slate-500 dark:text-slate-400">One-time payment</p>
                 </div>
 
                 <ul className="space-y-3 mb-6">
                   {pkg.features.slice(0, 5).map((feature, idx) => (
                     <li key={idx} className="flex items-start text-sm">
-                      <CheckIcon className="h-5 w-5 text-green-600 mr-2 flex-shrink-0 mt-0.5" />
-                      <span className="text-gray-700 dark:text-slate-300">{feature}</span>
+                      <CheckIcon className="h-5 w-5 text-green-600 dark:text-green-400 mr-2 flex-shrink-0 mt-0.5" />
+                      <span className="text-gray-700 dark:text-gray-300 dark:text-slate-300">{feature}</span>
                     </li>
                   ))}
                   {pkg.features.length > 5 && (
-                    <li className="text-sm text-gray-500 dark:text-slate-500 italic">
+                    <li className="text-sm text-gray-500 dark:text-slate-500 dark:text-slate-400 italic">
                       +{pkg.features.length - 5} more features
                     </li>
                   )}
@@ -145,7 +145,7 @@ export default function PackageComparison({
                   className={`w-full px-6 py-3 rounded-lg font-semibold transition-colors ${
                     pkg.popular
                       ? 'bg-primary text-white hover:bg-primary/90'
-                      : 'bg-gray-100 text-gray-900 dark:text-slate-100 hover:bg-gray-200'
+                      : 'bg-gray-100 text-gray-900 dark:text-gray-100 dark:text-slate-100 hover:bg-gray-200'
                   }`}
                 >
                   Select Package
@@ -162,7 +162,7 @@ export default function PackageComparison({
           <table className="w-full bg-white dark:bg-slate-900 rounded-xl shadow-lg overflow-hidden">
             <thead className="bg-gray-50 dark:bg-slate-800/50">
               <tr>
-                <th className="px-6 py-4 text-left text-sm font-semibold text-gray-900 dark:text-slate-100">
+                <th className="px-6 py-4 text-left text-sm font-semibold text-gray-900 dark:text-gray-100 dark:text-slate-100">
                   Feature
                 </th>
                 {packagesToCompare.map(pkg => (
@@ -172,7 +172,7 @@ export default function PackageComparison({
                       pkg.popular ? 'bg-primary/5' : ''
                     }`}
                   >
-                    <div className="font-bold text-gray-900 dark:text-slate-100">{pkg.name}</div>
+                    <div className="font-bold text-gray-900 dark:text-gray-100 dark:text-slate-100">{pkg.name}</div>
                     <div className="text-2xl font-bold text-primary mt-2">
                       {formatPrice(pkg.price)}
                     </div>
@@ -188,7 +188,7 @@ export default function PackageComparison({
             <tbody className="divide-y divide-gray-200">
               {allFeatures.map((feature, idx) => (
                 <tr key={idx} className="hover:bg-gray-50 dark:bg-slate-800/50">
-                  <td className="px-6 py-4 text-sm text-gray-700 dark:text-slate-300">{feature}</td>
+                  <td className="px-6 py-4 text-sm text-gray-700 dark:text-gray-300 dark:text-slate-300">{feature}</td>
                   {packagesToCompare.map(pkg => {
                     const status = hasFeature(pkg, feature)
                     return (
@@ -199,13 +199,13 @@ export default function PackageComparison({
                         }`}
                       >
                         {status === true && (
-                          <CheckIcon className="h-6 w-6 text-green-600 mx-auto" />
+                          <CheckIcon className="h-6 w-6 text-green-600 dark:text-green-400 mx-auto" />
                         )}
                         {status === 'not-included' && (
                           <XMarkIcon className="h-6 w-6 text-gray-300 mx-auto" />
                         )}
                         {status === false && (
-                          <span className="text-gray-400 dark:text-slate-500">-</span>
+                          <span className="text-gray-400 dark:text-slate-500 dark:text-slate-400">-</span>
                         )}
                       </td>
                     )
@@ -213,7 +213,7 @@ export default function PackageComparison({
                 </tr>
               ))}
               <tr className="bg-gray-50 dark:bg-slate-800/50">
-                <td className="px-6 py-4 font-semibold text-gray-900 dark:text-slate-100">Select Package</td>
+                <td className="px-6 py-4 font-semibold text-gray-900 dark:text-gray-100 dark:text-slate-100">Select Package</td>
                 {packagesToCompare.map(pkg => (
                   <td key={pkg.id} className="px-6 py-4 text-center">
                     <button
@@ -221,7 +221,7 @@ export default function PackageComparison({
                       className={`px-6 py-2 rounded-lg font-semibold transition-colors ${
                         pkg.popular
                           ? 'bg-primary text-white hover:bg-primary/90'
-                          : 'bg-gray-200 text-gray-900 dark:text-slate-100 hover:bg-gray-300'
+                          : 'bg-gray-200 text-gray-900 dark:text-gray-100 dark:text-slate-100 hover:bg-gray-300'
                       }`}
                     >
                       Select
@@ -235,7 +235,7 @@ export default function PackageComparison({
       )}
 
       {compareMode && selectedPackages.length === 0 && (
-        <div className="text-center py-12 text-gray-500 dark:text-slate-500">
+        <div className="text-center py-12 text-gray-500 dark:text-slate-500 dark:text-slate-400">
           <p>Select packages above to compare features</p>
         </div>
       )}

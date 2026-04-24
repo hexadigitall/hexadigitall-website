@@ -255,7 +255,7 @@ export default function CustomizationWizard() {
       <div className="bg-gray-50 dark:bg-slate-800/50 border-b px-6 py-4">
         <div className="max-w-4xl mx-auto">
           <div className="flex items-center justify-between">
-            <h2 className="text-2xl font-bold text-gray-900 dark:text-slate-100">Custom Solution Builder</h2>
+            <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100 dark:text-slate-100">Custom Solution Builder</h2>
             <div className="flex items-center space-x-2">
               {['web', 'mobile', 'integration', 'recommendations'].map((step, index) => (
                 <div key={step} className="flex items-center">
@@ -263,7 +263,7 @@ export default function CustomizationWizard() {
                     currentStep === step 
                       ? 'bg-primary text-white' 
                       : currentStep === 'recommendations' || (currentStep === 'integration' && index < 2) || (currentStep === 'mobile' && index < 1)
-                        ? 'bg-green-500 text-white'
+                        ? 'bg-green-50 dark:bg-green-950/200 text-white'
                         : 'bg-gray-200 text-gray-600 dark:text-slate-400'
                   }`}>
                     {currentStep === step || (currentStep === 'recommendations' && index < 3) || (currentStep === 'integration' && index < 2) || (currentStep === 'mobile' && index < 1) ? '✓' : index + 1}
@@ -271,7 +271,7 @@ export default function CustomizationWizard() {
                   {index < 3 && (
                     <div className={`w-8 h-0.5 ${
                       (currentStep === 'recommendations' && index < 3) || (currentStep === 'integration' && index < 2) || (currentStep === 'mobile' && index < 1)
-                        ? 'bg-green-500' 
+                        ? 'bg-green-50 dark:bg-green-950/200' 
                         : 'bg-gray-200'
                     }`} />
                   )}
@@ -284,7 +284,7 @@ export default function CustomizationWizard() {
 
       <div className="max-w-4xl mx-auto px-6 py-12">
         <div className="text-center mb-8">
-          <h3 className="text-3xl font-bold text-gray-900 dark:text-slate-100 mb-4">{getStepTitle()}</h3>
+          <h3 className="text-3xl font-bold text-gray-900 dark:text-gray-100 dark:text-slate-100 mb-4">{getStepTitle()}</h3>
           {currentStep === 'web' && (
             <p className="text-gray-600 dark:text-slate-400 max-w-2xl mx-auto">
               Select the web features you need. You can choose multiple options to create your perfect web presence.
@@ -316,7 +316,7 @@ export default function CustomizationWizard() {
                   key={feature.id}
                   className={`border-2 rounded-2xl p-6 cursor-pointer transition-all duration-200 ${
                     selectedWebFeatures.includes(feature.id)
-                      ? 'border-blue-500 bg-blue-50 shadow-lg'
+                      ? 'border-blue-500 bg-blue-50 dark:bg-blue-950/20 shadow-lg'
                       : 'border-gray-200 dark:border-slate-700 hover:border-blue-300 hover:shadow-md'
                   }`}
                   onClick={() => toggleWebFeature(feature.id)}
@@ -324,7 +324,7 @@ export default function CustomizationWizard() {
                   <div className="flex items-start space-x-4">
                     <div className="text-3xl">{feature.icon}</div>
                     <div className="flex-1">
-                      <h4 className="text-lg font-bold text-gray-900 dark:text-slate-100 mb-2">{feature.name}</h4>
+                      <h4 className="text-lg font-bold text-gray-900 dark:text-gray-100 dark:text-slate-100 mb-2">{feature.name}</h4>
                       <p className="text-gray-600 dark:text-slate-400 text-sm mb-3">{feature.description}</p>
                       <PriceDisplay 
                         price={feature.basePrice} 
@@ -334,7 +334,7 @@ export default function CustomizationWizard() {
                     </div>
                     <div className={`w-6 h-6 rounded-full border-2 flex items-center justify-center ${
                       selectedWebFeatures.includes(feature.id)
-                        ? 'border-blue-500 bg-blue-500'
+                        ? 'border-blue-500 bg-blue-50 dark:bg-blue-950/200'
                         : 'border-gray-300'
                     }`}>
                       {selectedWebFeatures.includes(feature.id) && (
@@ -356,7 +356,7 @@ export default function CustomizationWizard() {
                   key={feature.id}
                   className={`border-2 rounded-2xl p-6 cursor-pointer transition-all duration-200 ${
                     selectedMobileFeatures.includes(feature.id)
-                      ? 'border-purple-500 bg-purple-50 shadow-lg'
+                      ? 'border-purple-500 bg-purple-50 dark:bg-purple-950/20 shadow-lg'
                       : 'border-gray-200 dark:border-slate-700 hover:border-purple-300 hover:shadow-md'
                   }`}
                   onClick={() => toggleMobileFeature(feature.id)}
@@ -364,7 +364,7 @@ export default function CustomizationWizard() {
                   <div className="flex items-start space-x-4">
                     <div className="text-3xl">{feature.icon}</div>
                     <div className="flex-1">
-                      <h4 className="text-lg font-bold text-gray-900 dark:text-slate-100 mb-2">{feature.name}</h4>
+                      <h4 className="text-lg font-bold text-gray-900 dark:text-gray-100 dark:text-slate-100 mb-2">{feature.name}</h4>
                       <p className="text-gray-600 dark:text-slate-400 text-sm mb-3">{feature.description}</p>
                       <PriceDisplay 
                         price={feature.basePrice} 
@@ -374,7 +374,7 @@ export default function CustomizationWizard() {
                     </div>
                     <div className={`w-6 h-6 rounded-full border-2 flex items-center justify-center ${
                       selectedMobileFeatures.includes(feature.id)
-                        ? 'border-purple-500 bg-purple-500'
+                        ? 'border-purple-500 bg-purple-50 dark:bg-purple-950/200'
                         : 'border-gray-300'
                     }`}>
                       {selectedMobileFeatures.includes(feature.id) && (
@@ -396,7 +396,7 @@ export default function CustomizationWizard() {
                   key={option.id}
                   className={`border-2 rounded-2xl p-6 cursor-pointer transition-all duration-200 ${
                     selectedIntegration === option.id
-                      ? 'border-green-500 bg-green-50 shadow-lg'
+                      ? 'border-green-500 bg-green-50 dark:bg-green-950/20 shadow-lg'
                       : 'border-gray-200 dark:border-slate-700 hover:border-green-300 hover:shadow-md'
                   }`}
                   onClick={() => setSelectedIntegration(option.id)}
@@ -404,11 +404,11 @@ export default function CustomizationWizard() {
                   <div className="flex items-start space-x-4">
                     <div className="text-3xl">{option.icon}</div>
                     <div className="flex-1">
-                      <h4 className="text-lg font-bold text-gray-900 dark:text-slate-100 mb-2">{option.name}</h4>
+                      <h4 className="text-lg font-bold text-gray-900 dark:text-gray-100 dark:text-slate-100 mb-2">{option.name}</h4>
                       <p className="text-gray-600 dark:text-slate-400 text-sm mb-3">{option.description}</p>
                       {option.additionalCost > 0 ? (
                         <div className="text-sm">
-                          <span className="text-green-600 font-medium">+</span>
+                          <span className="text-green-600 dark:text-green-400 font-medium">+</span>
                           <PriceDisplay 
                             price={option.additionalCost} 
                             showDiscount={true}
@@ -416,12 +416,12 @@ export default function CustomizationWizard() {
                           />
                         </div>
                       ) : (
-                        <span className="text-green-600 font-medium text-sm">Included at no extra cost</span>
+                        <span className="text-green-600 dark:text-green-400 font-medium text-sm">Included at no extra cost</span>
                       )}
                     </div>
                     <div className={`w-6 h-6 rounded-full border-2 flex items-center justify-center ${
                       selectedIntegration === option.id
-                        ? 'border-green-500 bg-green-500'
+                        ? 'border-green-500 bg-green-50 dark:bg-green-950/200'
                         : 'border-gray-300'
                     }`}>
                       {selectedIntegration === option.id && (
@@ -471,7 +471,7 @@ export default function CustomizationWizard() {
                     )}
 
                     <div className="text-center mb-6">
-                      <h3 className="text-2xl font-bold text-gray-900 dark:text-slate-100 mb-2">{recommendation.name}</h3>
+                      <h3 className="text-2xl font-bold text-gray-900 dark:text-gray-100 dark:text-slate-100 mb-2">{recommendation.name}</h3>
                       <p className="text-gray-600 dark:text-slate-400 mb-4">{recommendation.description}</p>
                       <div className="space-y-2">
                         <PriceDisplay 
@@ -479,7 +479,7 @@ export default function CustomizationWizard() {
                           showDiscount={true}
                           size="lg"
                         />
-                        <p className="text-green-600 font-medium text-sm">
+                        <p className="text-green-600 dark:text-green-400 font-medium text-sm">
                           Save ${recommendation.savings} compared to separate purchases
                         </p>
                         <p className="text-gray-600 dark:text-slate-400 text-sm">Timeline: {recommendation.timeline}</p>
@@ -488,7 +488,7 @@ export default function CustomizationWizard() {
 
                     <div className="space-y-4 mb-6">
                       <div>
-                        <h4 className="font-semibold text-gray-900 dark:text-slate-100 mb-2">Web Features:</h4>
+                        <h4 className="font-semibold text-gray-900 dark:text-gray-100 dark:text-slate-100 mb-2">Web Features:</h4>
                         <ul className="text-sm text-gray-600 dark:text-slate-400 space-y-1">
                           {recommendation.webFeatures.map(feature => (
                             <li key={feature} className="flex items-center">
@@ -502,7 +502,7 @@ export default function CustomizationWizard() {
                       </div>
 
                       <div>
-                        <h4 className="font-semibold text-gray-900 dark:text-slate-100 mb-2">Mobile Features:</h4>
+                        <h4 className="font-semibold text-gray-900 dark:text-gray-100 dark:text-slate-100 mb-2">Mobile Features:</h4>
                         <ul className="text-sm text-gray-600 dark:text-slate-400 space-y-1">
                           {recommendation.mobileFeatures.map(feature => (
                             <li key={feature} className="flex items-center">
@@ -516,7 +516,7 @@ export default function CustomizationWizard() {
                       </div>
 
                       <div>
-                        <h4 className="font-semibold text-gray-900 dark:text-slate-100 mb-2">Integration & Extras:</h4>
+                        <h4 className="font-semibold text-gray-900 dark:text-gray-100 dark:text-slate-100 mb-2">Integration & Extras:</h4>
                         <ul className="text-sm text-gray-600 dark:text-slate-400 space-y-1">
                           {recommendation.integrationFeatures.map(feature => (
                             <li key={feature} className="flex items-center">
@@ -557,8 +557,8 @@ export default function CustomizationWizard() {
             disabled={currentStep === 'web'}
             className={`px-6 py-3 rounded-lg font-medium transition-colors ${
               currentStep === 'web'
-                ? 'text-gray-400 dark:text-slate-500 cursor-not-allowed'
-                : 'text-gray-600 dark:text-slate-400 hover:text-gray-900 dark:text-slate-100 hover:bg-gray-100'
+                ? 'text-gray-400 dark:text-slate-500 dark:text-slate-400 cursor-not-allowed'
+                : 'text-gray-600 dark:text-slate-400 hover:text-gray-900 dark:text-gray-100 dark:text-slate-100 hover:bg-gray-100'
             }`}
           >
             ← Previous
@@ -571,7 +571,7 @@ export default function CustomizationWizard() {
               className={`px-8 py-3 rounded-lg font-bold transition-all ${
                 canProceed()
                   ? 'bg-primary hover:bg-primary/90 text-white shadow-md hover:shadow-lg'
-                  : 'bg-gray-300 text-gray-500 dark:text-slate-500 cursor-not-allowed'
+                  : 'bg-gray-300 text-gray-500 dark:text-slate-500 dark:text-slate-400 cursor-not-allowed'
               }`}
             >
               {currentStep === 'integration' ? 'View Recommendations' : 'Next Step'} →

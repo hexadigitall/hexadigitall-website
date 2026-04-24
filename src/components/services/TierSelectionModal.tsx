@@ -76,7 +76,7 @@ export default function TierSelectionModal({
         <div className="bg-white dark:bg-slate-900 rounded-2xl max-w-md w-full p-8 relative">
           <button
             onClick={onClose}
-            className="absolute top-4 right-4 text-gray-400 dark:text-slate-500 hover:text-gray-600 dark:text-slate-400"
+            className="absolute top-4 right-4 text-gray-400 dark:text-slate-500 dark:text-slate-400 hover:text-gray-600 dark:text-slate-400"
             aria-label="Close modal"
           >
             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -103,7 +103,7 @@ export default function TierSelectionModal({
         {/* Close Button */}
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 text-gray-400 dark:text-slate-500 hover:text-gray-600 dark:text-slate-400 transition-colors z-10 min-h-[44px] min-w-[44px] flex items-center justify-center rounded-full hover:bg-gray-100"
+          className="absolute top-4 right-4 text-gray-400 dark:text-slate-500 dark:text-slate-400 hover:text-gray-600 dark:text-slate-400 transition-colors z-10 min-h-[44px] min-w-[44px] flex items-center justify-center rounded-full hover:bg-gray-100"
           aria-label="Close modal"
         >
           <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -113,7 +113,7 @@ export default function TierSelectionModal({
 
         {/* Header */}
         <div className="mb-8">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-slate-100 mb-2">
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-gray-100 dark:text-slate-100 mb-2">
             {packageGroup.name}
           </h2>
           {packageGroup.description && (
@@ -166,7 +166,7 @@ export default function TierSelectionModal({
                 )}
 
                 {/* Tier Name */}
-                <h3 className="text-xl font-bold text-gray-900 dark:text-slate-100 mb-2 pr-10">
+                <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100 dark:text-slate-100 mb-2 pr-10">
                   {tier.name}
                 </h3>
 
@@ -193,7 +193,7 @@ export default function TierSelectionModal({
 
                 {/* Delivery Time */}
                 {tier.deliveryTime && (
-                  <div className="mb-6 p-3 bg-blue-50 dark:bg-blue-950/20 rounded-lg border border-blue-100 dark:border-blue-900/50 flex items-center text-sm text-gray-700 dark:text-slate-300">
+                  <div className="mb-6 p-3 bg-blue-50 dark:bg-blue-950/20 rounded-lg border border-blue-100 dark:border-blue-900/50 flex items-center text-sm text-gray-700 dark:text-gray-300 dark:text-slate-300">
                     <svg className="w-4 h-4 mr-2.5 text-primary flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>
@@ -209,7 +209,7 @@ export default function TierSelectionModal({
                         ? feature 
                         : (feature && typeof feature === 'object' ? (feature.title || feature.description || '') : '')
                       return (
-                        <li key={idx} className="flex items-start text-sm text-gray-700 dark:text-slate-300 leading-snug">
+                        <li key={idx} className="flex items-start text-sm text-gray-700 dark:text-gray-300 dark:text-slate-300 leading-snug">
                           <svg className="w-4 h-4 text-secondary mr-2.5 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
                             <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                           </svg>
@@ -218,7 +218,7 @@ export default function TierSelectionModal({
                       )
                     })}
                     {(tier.features?.length || 0) > 5 && (
-                      <li className="flex items-start text-xs text-gray-500 dark:text-slate-500 italic pt-1">
+                      <li className="flex items-start text-xs text-gray-500 dark:text-slate-500 dark:text-slate-400 italic pt-1">
                         + {(tier.features?.length || 0) - 5} more features
                       </li>
                     )}
@@ -229,7 +229,7 @@ export default function TierSelectionModal({
                 <div className={`p-3 rounded-lg text-center text-xs font-semibold transition-colors ${
                   isSelected
                     ? 'bg-primary text-white'
-                    : 'bg-gray-100 text-gray-700 dark:text-slate-300'
+                    : 'bg-gray-100 text-gray-700 dark:text-gray-300 dark:text-slate-300'
                 }`}>
                   {isSelected ? '✓ Selected' : 'Select Plan'}
                 </div>
@@ -241,11 +241,11 @@ export default function TierSelectionModal({
         {/* Feature Comparison Table */}
         {orderedTiers.length > 1 && (
           <div className="mb-12 overflow-x-auto">
-            <h3 className="text-lg font-bold text-gray-900 dark:text-slate-100 mb-4">Compare Features</h3>
+            <h3 className="text-lg font-bold text-gray-900 dark:text-gray-100 dark:text-slate-100 mb-4">Compare Features</h3>
             <table className="w-full text-sm">
               <thead>
                 <tr className="border-b-2 border-gray-200 dark:border-slate-700">
-                  <th className="text-left py-3 px-4 font-bold text-gray-900 dark:text-slate-100">Feature</th>
+                  <th className="text-left py-3 px-4 font-bold text-gray-900 dark:text-gray-100 dark:text-slate-100">Feature</th>
                   {orderedTiers.map(tier => {
                     const isSelected = selectedTierKey === tier._key
                     return (
@@ -254,7 +254,7 @@ export default function TierSelectionModal({
                         className={`text-center py-3 px-4 font-bold transition-all ${
                           isSelected 
                             ? 'text-primary bg-primary/10 border-l-4 border-r-4 border-primary' 
-                            : 'text-gray-900 dark:text-slate-100'
+                            : 'text-gray-900 dark:text-gray-100 dark:text-slate-100'
                         }`}
                       >
                         {tier.name}
@@ -274,7 +274,7 @@ export default function TierSelectionModal({
                   )
                 ).filter(Boolean).slice(0, 14).map((feature, idx) => (
                   <tr key={idx} className={idx % 2 === 0 ? 'bg-gray-50 dark:bg-slate-800/50' : ''}>
-                    <td className="py-3 px-4 text-gray-700 dark:text-slate-300 font-medium">{feature}</td>
+                    <td className="py-3 px-4 text-gray-700 dark:text-gray-300 dark:text-slate-300 font-medium">{feature}</td>
                     {orderedTiers.map(tier => {
                       const isSelected = selectedTierKey === tier._key
                       const hasFeature = (featureSets[tier._key] || new Set<string>()).has(feature)
@@ -288,7 +288,7 @@ export default function TierSelectionModal({
                           {hasFeature && (
                             <svg 
                               className={`w-5 h-5 mx-auto ${
-                                isSelected ? 'text-primary' : 'text-green-600'
+                                isSelected ? 'text-primary' : 'text-green-600 dark:text-green-400'
                               }`} 
                               fill="currentColor" 
                               viewBox="0 0 20 20"
@@ -323,14 +323,14 @@ export default function TierSelectionModal({
           </button>
           <button
             onClick={onClose}
-            className="flex-1 md:flex-auto min-h-[44px] border-2 border-gray-300 text-gray-700 dark:text-slate-300 py-3 px-6 rounded-xl font-semibold hover:border-gray-400 active:scale-95 transition-all"
+            className="flex-1 md:flex-auto min-h-[44px] border-2 border-gray-300 text-gray-700 dark:text-gray-300 dark:text-slate-300 py-3 px-6 rounded-xl font-semibold hover:border-gray-400 active:scale-95 transition-all"
           >
             Back
           </button>
         </div>
 
         {/* Currency Info */}
-        <div className="mt-6 text-center text-sm text-gray-500 dark:text-slate-500">
+        <div className="mt-6 text-center text-sm text-gray-500 dark:text-slate-500 dark:text-slate-400">
           Prices shown in {currentCurrency.flag} {currentCurrency.code}
         </div>
       </div>

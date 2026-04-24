@@ -34,9 +34,9 @@ export default function ServiceTestimonials({ testimonials }: { testimonials?: T
                 <img src={t.image.asset.url} alt={t.client || 'Client'} className="w-12 h-12 rounded-full object-cover" />
               </div>
             )}
-            <div className="text-sm text-gray-700 dark:text-slate-300 mb-2">{t.testimonial}</div>
-            <div className="text-sm font-medium text-gray-900 dark:text-slate-100">{t.client}{t.role ? ` — ${t.role}` : ''}</div>
-            {t.company && <div className="text-xs text-gray-500 dark:text-slate-500">{t.company}</div>}
+            <div className="text-sm text-gray-700 dark:text-gray-300 dark:text-slate-300 mb-2">{t.testimonial}</div>
+            <div className="text-sm font-medium text-gray-900 dark:text-gray-100 dark:text-slate-100">{t.client}{t.role ? ` — ${t.role}` : ''}</div>
+            {t.company && <div className="text-xs text-gray-500 dark:text-slate-500 dark:text-slate-400">{t.company}</div>}
           </div>
         ))}
       </div>

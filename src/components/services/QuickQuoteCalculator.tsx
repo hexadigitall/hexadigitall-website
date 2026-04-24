@@ -85,13 +85,13 @@ export default function QuickQuoteCalculator({ onGetQuote }: QuickQuoteCalculato
   return (
     <div className="bg-white dark:bg-slate-900 rounded-xl shadow-lg p-6 space-y-6">
       <div className="text-center">
-        <h3 className="text-2xl font-bold text-gray-900 dark:text-slate-100 mb-2">Quick Quote Calculator</h3>
+        <h3 className="text-2xl font-bold text-gray-900 dark:text-gray-100 dark:text-slate-100 mb-2">Quick Quote Calculator</h3>
         <p className="text-gray-600 dark:text-slate-400">Get an instant estimate for your project</p>
       </div>
 
       {/* Service Type Selection */}
       <div>
-        <label className="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-3">
+        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 dark:text-slate-300 mb-3">
           Select Service Type
         </label>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -106,12 +106,12 @@ export default function QuickQuoteCalculator({ onGetQuote }: QuickQuoteCalculato
               }`}
             >
               <div className="flex items-center justify-between">
-                <span className="font-medium text-gray-900 dark:text-slate-100">{service.label}</span>
+                <span className="font-medium text-gray-900 dark:text-gray-100 dark:text-slate-100">{service.label}</span>
                 {selectedService === service.id && (
                   <CheckIcon className="h-5 w-5 text-primary" />
                 )}
               </div>
-              <span className="text-sm text-gray-500 dark:text-slate-500">
+              <span className="text-sm text-gray-500 dark:text-slate-500 dark:text-slate-400">
                 Starting from {formatPrice(service.basePrice)}
               </span>
             </button>
@@ -122,7 +122,7 @@ export default function QuickQuoteCalculator({ onGetQuote }: QuickQuoteCalculato
       {/* Complexity Level */}
       {selectedService && (
         <div>
-          <label className="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-3">
+          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 dark:text-slate-300 mb-3">
             Project Complexity
           </label>
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
@@ -136,7 +136,7 @@ export default function QuickQuoteCalculator({ onGetQuote }: QuickQuoteCalculato
                     : 'border-gray-200 dark:border-slate-700 hover:border-primary/50'
                 }`}
               >
-                <div className="font-medium text-gray-900 dark:text-slate-100">{level.label}</div>
+                <div className="font-medium text-gray-900 dark:text-gray-100 dark:text-slate-100">{level.label}</div>
                 {selectedComplexity === level.id && (
                   <CheckIcon className="h-4 w-4 text-primary mx-auto mt-1" />
                 )}
@@ -149,7 +149,7 @@ export default function QuickQuoteCalculator({ onGetQuote }: QuickQuoteCalculato
       {/* Add-ons */}
       {selectedComplexity && (
         <div>
-          <label className="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-3">
+          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 dark:text-slate-300 mb-3">
             Additional Services (Optional)
           </label>
           <div className="space-y-2">
@@ -164,7 +164,7 @@ export default function QuickQuoteCalculator({ onGetQuote }: QuickQuoteCalculato
                   onChange={() => toggleAddOn(addon.id)}
                   className="h-4 w-4 text-primary focus:ring-primary border-gray-300 rounded"
                 />
-                <span className="ml-3 flex-1 text-gray-900 dark:text-slate-100">{addon.label}</span>
+                <span className="ml-3 flex-1 text-gray-900 dark:text-gray-100 dark:text-slate-100">{addon.label}</span>
                 <span className="text-sm text-gray-600 dark:text-slate-400">
                   +{formatPrice(addon.basePrice)}
                 </span>
@@ -179,7 +179,7 @@ export default function QuickQuoteCalculator({ onGetQuote }: QuickQuoteCalculato
         <div className="border-t pt-6">
           <div className="bg-gradient-to-r from-primary/10 to-accent/10 rounded-lg p-6 text-center">
             <p className="text-sm text-gray-600 dark:text-slate-400 mb-2">Estimated Project Cost</p>
-            <div className="text-4xl font-bold text-gray-900 dark:text-slate-100 mb-4">
+            <div className="text-4xl font-bold text-gray-900 dark:text-gray-100 dark:text-slate-100 mb-4">
               <PriceDisplay price={estimate} size="lg" />
             </div>
             <button
@@ -188,7 +188,7 @@ export default function QuickQuoteCalculator({ onGetQuote }: QuickQuoteCalculato
             >
               Get Detailed Quote
             </button>
-            <p className="text-xs text-gray-500 dark:text-slate-500 mt-3">
+            <p className="text-xs text-gray-500 dark:text-slate-500 dark:text-slate-400 mt-3">
               * This is an estimate. Final pricing may vary based on specific requirements.
             </p>
           </div>

@@ -305,7 +305,7 @@ export default function EnhancedServiceWizard({ onClose, onComplete, initialServ
       <div className="bg-white dark:bg-slate-900 rounded-2xl shadow-2xl max-w-4xl w-full max-h-[90vh] flex flex-col">
         {/* Header */}
         <div className="px-6 py-4 border-b flex items-center justify-between">
-          <h2 className="text-2xl font-bold text-gray-900 dark:text-slate-100">
+          <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100 dark:text-slate-100">
             {quoteType === 'web' ? 'Get Web Development Quote' :
              quoteType === 'mobile' ? 'Get Mobile App Quote' :
              quoteType === 'complete' ? 'Get Complete Solution Quote' :
@@ -324,7 +324,7 @@ export default function EnhancedServiceWizard({ onClose, onComplete, initialServ
           <div className="flex items-center justify-between">
             {steps.map((step, index) => (
               <div key={step.id} className="flex items-center">
-                <div className={`flex items-center ${index < currentStepIndex ? 'text-green-600' : index === currentStepIndex ? 'text-primary' : 'text-gray-400 dark:text-slate-500'}`}>
+                <div className={`flex items-center ${index < currentStepIndex ? 'text-green-600 dark:text-green-400' : index === currentStepIndex ? 'text-primary' : 'text-gray-400 dark:text-slate-500 dark:text-slate-400'}`}>
                   <div className={`w-8 h-8 rounded-full flex items-center justify-center border-2 ${
                     index < currentStepIndex ? 'bg-green-600 border-green-600' :
                     index === currentStepIndex ? 'bg-primary border-primary' :
@@ -333,7 +333,7 @@ export default function EnhancedServiceWizard({ onClose, onComplete, initialServ
                     {index < currentStepIndex ? (
                       <CheckIcon className="h-5 w-5 text-white" />
                     ) : (
-                      <span className={index === currentStepIndex ? 'text-white font-semibold' : 'text-gray-500 dark:text-slate-500'}>
+                      <span className={index === currentStepIndex ? 'text-white font-semibold' : 'text-gray-500 dark:text-slate-500 dark:text-slate-400'}>
                         {step.number}
                       </span>
                     )}
@@ -366,7 +366,7 @@ export default function EnhancedServiceWizard({ onClose, onComplete, initialServ
                     }`}
                   >
                     <div className="text-4xl mb-3">{service.icon}</div>
-                    <h4 className="font-bold text-gray-900 dark:text-slate-100 mb-2">{service.name}</h4>
+                    <h4 className="font-bold text-gray-900 dark:text-gray-100 dark:text-slate-100 mb-2">{service.name}</h4>
                     <p className="text-sm text-gray-600 dark:text-slate-400 mb-3">{service.description}</p>
                     <p className="text-sm font-semibold text-primary">
                       From {formatPrice(service.basePrice)}
@@ -398,7 +398,7 @@ export default function EnhancedServiceWizard({ onClose, onComplete, initialServ
                       onChange={() => toggleRequirement(req.id)}
                       className="h-5 w-5 text-primary focus:ring-primary border-gray-300 rounded"
                     />
-                    <span className="ml-3 flex-1 font-medium text-gray-900 dark:text-slate-100">{req.label}</span>
+                    <span className="ml-3 flex-1 font-medium text-gray-900 dark:text-gray-100 dark:text-slate-100">{req.label}</span>
                     <span className={`text-xs px-2 py-1 rounded ${
                       req.category === 'essential' 
                         ? 'bg-primary/10 text-primary' 
@@ -427,7 +427,7 @@ export default function EnhancedServiceWizard({ onClose, onComplete, initialServ
                         : 'border-gray-200 dark:border-slate-700 hover:border-primary/50'
                     }`}
                   >
-                    <h4 className="font-bold text-gray-900 dark:text-slate-100 mb-2">{level.name}</h4>
+                    <h4 className="font-bold text-gray-900 dark:text-gray-100 dark:text-slate-100 mb-2">{level.name}</h4>
                     <p className="text-sm text-gray-600 dark:text-slate-400">{level.description}</p>
                   </button>
                 ))}
@@ -453,10 +453,10 @@ export default function EnhancedServiceWizard({ onClose, onComplete, initialServ
                       className="h-5 w-5 mt-0.5 text-primary focus:ring-primary border-gray-300 rounded"
                     />
                     <div className="ml-3 flex-1">
-                      <div className="font-medium text-gray-900 dark:text-slate-100">{integration.name}</div>
+                      <div className="font-medium text-gray-900 dark:text-gray-100 dark:text-slate-100">{integration.name}</div>
                       <div className="text-sm text-gray-600 dark:text-slate-400">{integration.description}</div>
                     </div>
-                    <span className="text-sm font-semibold text-gray-900 dark:text-slate-100">
+                    <span className="text-sm font-semibold text-gray-900 dark:text-gray-100 dark:text-slate-100">
                       +{formatPrice(integration.price)}
                     </span>
                   </label>
@@ -501,10 +501,10 @@ export default function EnhancedServiceWizard({ onClose, onComplete, initialServ
                         )}
                       </div>
                     </div>
-                    <h4 className="text-xl font-bold text-gray-900 dark:text-slate-100 mb-2">{rec.name}</h4>
+                    <h4 className="text-xl font-bold text-gray-900 dark:text-gray-100 dark:text-slate-100 mb-2">{rec.name}</h4>
                     <p className="text-gray-600 dark:text-slate-400 mb-4">{rec.description}</p>
                     <div className="flex items-baseline gap-4 mb-4">
-                      <div className="text-3xl font-bold text-gray-900 dark:text-slate-100">
+                      <div className="text-3xl font-bold text-gray-900 dark:text-gray-100 dark:text-slate-100">
                         <PriceDisplay price={rec.totalPrice} size="lg" />
                       </div>
                       <div className="text-sm text-gray-600 dark:text-slate-400">
@@ -512,11 +512,11 @@ export default function EnhancedServiceWizard({ onClose, onComplete, initialServ
                       </div>
                     </div>
                     <div className="space-y-2">
-                      <p className="text-sm font-semibold text-gray-900 dark:text-slate-100">Includes:</p>
+                      <p className="text-sm font-semibold text-gray-900 dark:text-gray-100 dark:text-slate-100">Includes:</p>
                       <ul className="space-y-1">
                         {rec.features.map((feature, idx) => (
                           <li key={idx} className="text-sm text-gray-600 dark:text-slate-400 flex items-center">
-                            <CheckIcon className="h-4 w-4 text-green-600 mr-2 flex-shrink-0" />
+                            <CheckIcon className="h-4 w-4 text-green-600 dark:text-green-400 mr-2 flex-shrink-0" />
                             {feature}
                           </li>
                         ))}
@@ -537,7 +537,7 @@ export default function EnhancedServiceWizard({ onClose, onComplete, initialServ
                 {selectedRecommendation && (
                   <div className="mb-6">
                     <p className="text-sm text-gray-600 dark:text-slate-400 mb-2">Selected Package:</p>
-                    <h4 className="text-2xl font-bold text-gray-900 dark:text-slate-100 mb-4">
+                    <h4 className="text-2xl font-bold text-gray-900 dark:text-gray-100 dark:text-slate-100 mb-4">
                       {generateRecommendations().find(r => r.id === selectedRecommendation)?.name}
                     </h4>
                   </div>
@@ -545,34 +545,34 @@ export default function EnhancedServiceWizard({ onClose, onComplete, initialServ
                 
                 <div className="text-center mb-6">
                   <p className="text-gray-600 dark:text-slate-400 mb-2">Estimated Project Cost</p>
-                  <div className="text-5xl font-bold text-gray-900 dark:text-slate-100 mb-2">
+                  <div className="text-5xl font-bold text-gray-900 dark:text-gray-100 dark:text-slate-100 mb-2">
                     <PriceDisplay price={
                       generateRecommendations().find(r => r.id === selectedRecommendation)?.totalPrice || calculateEstimate()
                     } size="lg" />
                   </div>
-                  <p className="text-sm text-gray-500 dark:text-slate-500">
+                  <p className="text-sm text-gray-500 dark:text-slate-500 dark:text-slate-400">
                     Timeline: {generateRecommendations().find(r => r.id === selectedRecommendation)?.timeline || 'TBD'}
                   </p>
                 </div>
 
                 {/* What happens next */}
                 <div className="bg-white dark:bg-slate-900 rounded-lg p-4 mb-6 text-left">
-                  <p className="font-semibold text-gray-900 dark:text-slate-100 mb-2">What happens next?</p>
+                  <p className="font-semibold text-gray-900 dark:text-gray-100 dark:text-slate-100 mb-2">What happens next?</p>
                   <ul className="space-y-2 text-sm text-gray-600 dark:text-slate-400">
                     <li className="flex items-start">
-                      <CheckIcon className="h-5 w-5 text-green-600 mr-2 flex-shrink-0 mt-0.5" />
+                      <CheckIcon className="h-5 w-5 text-green-600 dark:text-green-400 mr-2 flex-shrink-0 mt-0.5" />
                       <span>Fill out a quick contact form with your details</span>
                     </li>
                     <li className="flex items-start">
-                      <CheckIcon className="h-5 w-5 text-green-600 mr-2 flex-shrink-0 mt-0.5" />
+                      <CheckIcon className="h-5 w-5 text-green-600 dark:text-green-400 mr-2 flex-shrink-0 mt-0.5" />
                       <span>Our team will review your requirements within 24 hours</span>
                     </li>
                     <li className="flex items-start">
-                      <CheckIcon className="h-5 w-5 text-green-600 mr-2 flex-shrink-0 mt-0.5" />
+                      <CheckIcon className="h-5 w-5 text-green-600 dark:text-green-400 mr-2 flex-shrink-0 mt-0.5" />
                       <span>Schedule a free consultation call to discuss your project</span>
                     </li>
                     <li className="flex items-start">
-                      <CheckIcon className="h-5 w-5 text-green-600 mr-2 flex-shrink-0 mt-0.5" />
+                      <CheckIcon className="h-5 w-5 text-green-600 dark:text-green-400 mr-2 flex-shrink-0 mt-0.5" />
                       <span>Receive a detailed proposal with payment options</span>
                     </li>
                   </ul>

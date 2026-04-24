@@ -51,7 +51,7 @@ export default function ServiceGroupCard({ group, onViewOptions }: ServiceGroupC
       <div className="p-8">
         {/* Header */}
         <div className="mb-6">
-          <h3 className="text-2xl font-bold font-heading text-gray-900 dark:text-slate-100 mb-2 group-hover:text-primary transition-colors">
+          <h3 className="text-2xl font-bold font-heading text-gray-900 dark:text-gray-100 dark:text-slate-100 mb-2 group-hover:text-primary transition-colors">
             {group.name}
           </h3>
           <p className="text-gray-600 dark:text-slate-400 text-sm line-clamp-2">
@@ -79,7 +79,7 @@ export default function ServiceGroupCard({ group, onViewOptions }: ServiceGroupC
         <div className="mb-6 flex items-center justify-between text-sm">
           <div className="flex items-center gap-2 text-gray-600 dark:text-slate-400">
             <svg
-              className="w-4 h-4 text-green-600"
+              className="w-4 h-4 text-green-600 dark:text-green-400"
               fill="currentColor"
               viewBox="0 0 20 20"
             >
@@ -89,7 +89,7 @@ export default function ServiceGroupCard({ group, onViewOptions }: ServiceGroupC
           </div>
           <div className="flex items-center gap-2 text-gray-600 dark:text-slate-400">
             <svg
-              className="w-4 h-4 text-blue-600"
+              className="w-4 h-4 text-blue-600 dark:text-blue-400"
               fill="currentColor"
               viewBox="0 0 20 20"
             >
@@ -128,7 +128,7 @@ export default function ServiceGroupCard({ group, onViewOptions }: ServiceGroupC
         </button>
 
         {/* Delivery time info */}
-        <p className="mt-4 text-center text-xs text-gray-500 dark:text-slate-500">
+        <p className="mt-4 text-center text-xs text-gray-500 dark:text-slate-500 dark:text-slate-400">
           📅 Delivery: {group.tiers?.[0]?.deliveryTime || 'Varies by tier'}
         </p>
       </div>

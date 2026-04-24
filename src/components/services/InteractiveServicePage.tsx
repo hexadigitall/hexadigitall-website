@@ -101,7 +101,7 @@ export default function InteractiveServicePage({ service, relatedServices }: { s
             )}
             
             <button
-              className="px-6 py-3 bg-white border border-green-500 text-green-700 rounded-lg font-semibold hover:bg-green-50"
+              className="px-6 py-3 bg-white border border-green-500 text-green-700 rounded-lg font-semibold hover:bg-green-50 dark:bg-green-950/20"
               onClick={() => window.location.assign('/services/custom-build')}
             >
               Build a Custom Solution
@@ -173,7 +173,7 @@ export default function InteractiveServicePage({ service, relatedServices }: { s
                     href={`/services/${relatedService.slug.current}`}
                     className="bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 p-6 group border border-gray-100"
                   >
-                    <h3 className="text-xl font-bold text-gray-900 group-hover:text-primary transition-colors mb-3">
+                    <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100 group-hover:text-primary transition-colors mb-3">
                       {relatedService.title}
                     </h3>
                     <p className="text-gray-600 text-sm leading-relaxed">

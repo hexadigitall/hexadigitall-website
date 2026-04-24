@@ -184,20 +184,20 @@ export default function CustomBuildWizard() {
   }
 
   return (
-    <div className="bg-white dark:bg-slate-900 dark:bg-slate-900 rounded-2xl shadow-xl border border-slate-200">
+    <div className="bg-white dark:bg-slate-900 rounded-2xl shadow-xl border border-slate-200">
       {/* Breadcrumb Navigation */}
       <div className="px-4 sm:px-6 pt-4 border-b border-slate-100">
-        <nav className="flex items-center gap-2 text-sm text-slate-600 mb-3">
-          <Link href="/" className="hover:text-blue-600 transition-colors">Home</Link>
+        <nav className="flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 mb-3">
+          <Link href="/" className="hover:text-blue-600 dark:text-blue-400 transition-colors">Home</Link>
           <span>/</span>
-          <Link href="/services" className="hover:text-blue-600 transition-colors">Services</Link>
+          <Link href="/services" className="hover:text-blue-600 dark:text-blue-400 transition-colors">Services</Link>
           <span>/</span>
-          <span className="text-slate-900 font-medium">Custom Build Wizard</span>
+          <span className="text-slate-900 dark:text-slate-100 font-medium">Custom Build Wizard</span>
         </nav>
         {step > 1 && (
           <button
             onClick={() => setStep(step - 1)}
-            className="inline-flex items-center gap-1 text-sm text-blue-600 hover:text-blue-700 font-medium mb-3 transition-colors"
+            className="inline-flex items-center gap-1 text-sm text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:text-blue-400 font-medium mb-3 transition-colors"
           >
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
@@ -224,7 +224,7 @@ export default function CustomBuildWizard() {
         {step === 1 && (
           <section>
             <h2 className="text-2xl font-bold mb-2">Choose Your Foundation</h2>
-            <p className="text-slate-600 mb-6">Select the platform type — each comes with a complete engineering foundation.</p>
+            <p className="text-slate-600 dark:text-slate-400 mb-6">Select the platform type — each comes with a complete engineering foundation.</p>
             
             <div className="grid grid-cols-1 gap-4">
               {PLATFORM_BASES.map((platform) => (
@@ -240,10 +240,10 @@ export default function CustomBuildWizard() {
                   <div className="flex justify-between items-start mb-3">
                     <div>
                       <div className="text-xl font-bold">{platform.name}</div>
-                      <div className="text-sm text-slate-600">{platform.description}</div>
+                      <div className="text-sm text-slate-600 dark:text-slate-400">{platform.description}</div>
                     </div>
                     <div className="text-right">
-                      <div className="text-lg font-bold text-blue-600">
+                      <div className="text-lg font-bold text-blue-600 dark:text-blue-400">
                         ${platform.basePrice.toLocaleString()}
                       </div>
                       {priceBreakdown.discountActive ? (
@@ -251,24 +251,24 @@ export default function CustomBuildWizard() {
                           <div className="text-sm text-slate-400 line-through">
                             {currentCurrency.symbol}{Math.round(convertPrice(platform.basePrice, currentCurrency.code)).toLocaleString()}
                           </div>
-                          <div className="text-xl font-bold text-green-600">
+                          <div className="text-xl font-bold text-green-600 dark:text-green-400">
                             {currentCurrency.symbol}{Math.round(convertPrice(platform.basePrice * 0.5, currentCurrency.code)).toLocaleString()}
                           </div>
                         </div>
                       ) : (
-                        <div className="text-base text-slate-600">
+                        <div className="text-base text-slate-600 dark:text-slate-400">
                           {currentCurrency.symbol}{Math.round(convertPrice(platform.basePrice, currentCurrency.code)).toLocaleString()}
                         </div>
                       )}
-                      <div className="text-xs text-slate-500 mt-1">{platform.deliveryTime}</div>
+                      <div className="text-xs text-slate-500 dark:text-slate-400 mt-1">{platform.deliveryTime}</div>
                     </div>
                   </div>
                   
-                  <div className="text-sm font-semibold text-slate-700 mb-2">What&apos;s Included in the Core:</div>
+                  <div className="text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">What&apos;s Included in the Core:</div>
                   <ul className="space-y-1">
                     {platform.coreFeatures.map((feature, idx) => (
-                      <li key={idx} className="text-sm text-slate-600 flex items-start gap-2">
-                        <span className="text-green-600 mt-0.5">✓</span>
+                      <li key={idx} className="text-sm text-slate-600 dark:text-slate-400 flex items-start gap-2">
+                        <span className="text-green-600 dark:text-green-400 mt-0.5">✓</span>
                         <span>{feature}</span>
                       </li>
                     ))}
@@ -283,7 +283,7 @@ export default function CustomBuildWizard() {
         {step === 2 && (
           <section>
             <h2 className="text-2xl font-bold mb-2">Power It Up with Features</h2>
-            <p className="text-slate-600 mb-6">Select the technical features you need — each has a clear price.</p>
+            <p className="text-slate-600 dark:text-slate-400 mb-6">Select the technical features you need — each has a clear price.</p>
             
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {TECH_FEATURES.map((feature) => (
@@ -300,31 +300,31 @@ export default function CustomBuildWizard() {
                       type="checkbox"
                       checked={selectedFeatures.includes(feature.id)}
                       onChange={() => toggleFeature(feature.id)}
-                      className="mt-1 h-5 w-5 text-blue-600 rounded"
+                      className="mt-1 h-5 w-5 text-blue-600 dark:text-blue-400 rounded"
                     />
                     <div className="flex-1">
                       <div className="flex items-center gap-2 mb-1">
                         <span className="text-xl">{feature.icon}</span>
                         <span className="font-semibold">{feature.name}</span>
                         <div className="ml-auto text-right">
-                          <div className="text-sm font-semibold text-blue-600">+${feature.price}</div>
+                          <div className="text-sm font-semibold text-blue-600 dark:text-blue-400">+${feature.price}</div>
                           {priceBreakdown.discountActive ? (
                             <div className="space-y-0.5">
                               <div className="text-xs text-slate-400 line-through">
                                 {currentCurrency.symbol}{Math.round(convertPrice(feature.price, currentCurrency.code)).toLocaleString()}
                               </div>
-                              <div className="text-sm font-bold text-green-600">
+                              <div className="text-sm font-bold text-green-600 dark:text-green-400">
                                 {currentCurrency.symbol}{Math.round(convertPrice(feature.price * 0.5, currentCurrency.code)).toLocaleString()}
                               </div>
                             </div>
                           ) : (
-                            <div className="text-xs text-slate-600">
+                            <div className="text-xs text-slate-600 dark:text-slate-400">
                               {currentCurrency.symbol}{Math.round(convertPrice(feature.price, currentCurrency.code)).toLocaleString()}
                             </div>
                           )}
                         </div>
                       </div>
-                      <div className="text-sm text-slate-600">{feature.description}</div>
+                      <div className="text-sm text-slate-600 dark:text-slate-400">{feature.description}</div>
                     </div>
                   </div>
                 </label>
@@ -337,7 +337,7 @@ export default function CustomBuildWizard() {
         {step === 3 && (
           <section>
             <h2 className="text-2xl font-bold mb-2">Enhance with Services</h2>
-            <p className="text-slate-600 mb-6">Optional services to complete your project.</p>
+            <p className="text-slate-600 dark:text-slate-400 mb-6">Optional services to complete your project.</p>
             
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {SERVICE_ADDONS.map((addon) => (
@@ -354,13 +354,13 @@ export default function CustomBuildWizard() {
                       type="checkbox"
                       checked={selectedAddons.includes(addon.id)}
                       onChange={() => toggleAddon(addon.id)}
-                      className="mt-1 h-5 w-5 text-blue-600 rounded"
+                      className="mt-1 h-5 w-5 text-blue-600 dark:text-blue-400 rounded"
                     />
                     <div className="flex-1">
                       <div className="flex items-center gap-2 mb-1">
                         <span className="font-semibold">{addon.name}</span>
                         <div className="ml-auto text-right">
-                          <div className="text-sm font-semibold text-blue-600">
+                          <div className="text-sm font-semibold text-blue-600 dark:text-blue-400">
                             +${addon.price}{addon.billing === 'monthly' ? '/mo' : ''}
                           </div>
                           {priceBreakdown.discountActive ? (
@@ -368,18 +368,18 @@ export default function CustomBuildWizard() {
                               <div className="text-xs text-slate-400 line-through">
                                 {currentCurrency.symbol}{Math.round(convertPrice(addon.price, currentCurrency.code)).toLocaleString()}
                               </div>
-                              <div className="text-sm font-bold text-green-600">
+                              <div className="text-sm font-bold text-green-600 dark:text-green-400">
                                 {currentCurrency.symbol}{Math.round(convertPrice(addon.price * 0.5, currentCurrency.code)).toLocaleString()}
                               </div>
                             </div>
                           ) : (
-                            <div className="text-xs text-slate-600">
+                            <div className="text-xs text-slate-600 dark:text-slate-400">
                               {currentCurrency.symbol}{Math.round(convertPrice(addon.price, currentCurrency.code)).toLocaleString()}
                             </div>
                           )}
                         </div>
                       </div>
-                      <div className="text-sm text-slate-600">{addon.description}</div>
+                      <div className="text-sm text-slate-600 dark:text-slate-400">{addon.description}</div>
                     </div>
                   </div>
                 </label>
@@ -392,7 +392,7 @@ export default function CustomBuildWizard() {
         {step === 4 && (
           <section>
             <h2 className="text-2xl font-bold mb-2">Your Contact Information</h2>
-            <p className="text-slate-600 mb-6">We&apos;ll send you a detailed quote and next steps.</p>
+            <p className="text-slate-600 dark:text-slate-400 mb-6">We&apos;ll send you a detailed quote and next steps.</p>
             
             <div className="space-y-4 max-w-md">
               <div>
@@ -434,20 +434,20 @@ export default function CustomBuildWizard() {
         {step === 5 && (
           <section>
             <h2 className="text-2xl font-bold mb-2">Your Custom Build Summary</h2>
-            <p className="text-slate-600 mb-6">Review your selections and proceed to payment.</p>
+            <p className="text-slate-600 dark:text-slate-400 mb-6">Review your selections and proceed to payment.</p>
             
             {/* Itemized Breakdown */}
-            <div className="bg-slate-50 rounded-xl p-6 mb-6">
+            <div className="bg-slate-50 dark:bg-slate-800/50 rounded-xl p-6 mb-6">
               <div className="space-y-3">
                 {/* Platform */}
                 <div className="flex justify-between items-start pb-3 border-b">
                   <div>
                     <div className="font-semibold">{priceBreakdown.breakdown.platform?.name}</div>
-                    <div className="text-sm text-slate-600">Foundation</div>
+                    <div className="text-sm text-slate-600 dark:text-slate-400">Foundation</div>
                   </div>
                   <div className="text-right">
                     <div className="font-bold">{currentCurrency.symbol}{priceBreakdown.convertedPlatform.toLocaleString()}</div>
-                    <div className="text-xs text-slate-500">${priceBreakdown.platformCost}</div>
+                    <div className="text-xs text-slate-500 dark:text-slate-400">${priceBreakdown.platformCost}</div>
                   </div>
                 </div>
 
@@ -456,11 +456,11 @@ export default function CustomBuildWizard() {
                   <div key={feature.id} className="flex justify-between items-start">
                     <div>
                       <div className="font-medium">{feature.name}</div>
-                      <div className="text-sm text-slate-600">{feature.description}</div>
+                      <div className="text-sm text-slate-600 dark:text-slate-400">{feature.description}</div>
                     </div>
                     <div className="text-right">
                       <div className="font-semibold">{currentCurrency.symbol}{Math.round(convertPrice(feature.price * (priceBreakdown.discountActive ? 0.5 : 1), currentCurrency.code)).toLocaleString()}</div>
-                      <div className="text-xs text-slate-500">${feature.price}</div>
+                      <div className="text-xs text-slate-500 dark:text-slate-400">${feature.price}</div>
                     </div>
                   </div>
                 ))}
@@ -470,11 +470,11 @@ export default function CustomBuildWizard() {
                   <div key={addon.id} className="flex justify-between items-start">
                     <div>
                       <div className="font-medium">{addon.name}</div>
-                      <div className="text-sm text-slate-600">{addon.description}</div>
+                      <div className="text-sm text-slate-600 dark:text-slate-400">{addon.description}</div>
                     </div>
                     <div className="text-right">
                       <div className="font-semibold">{currentCurrency.symbol}{Math.round(convertPrice(addon.price * (priceBreakdown.discountActive ? 0.5 : 1), currentCurrency.code)).toLocaleString()}</div>
-                      <div className="text-xs text-slate-500">${addon.price}</div>
+                      <div className="text-xs text-slate-500 dark:text-slate-400">${addon.price}</div>
                     </div>
                   </div>
                 ))}
@@ -483,8 +483,8 @@ export default function CustomBuildWizard() {
                 <div className="flex justify-between items-center pt-3 border-t-2 border-slate-300">
                   <div className="text-xl font-bold">Total</div>
                   <div className="text-right">
-                    <div className="text-2xl font-bold text-blue-600">{currentCurrency.symbol}{priceBreakdown.convertedTotal.toLocaleString()}</div>
-                    <div className="text-sm text-slate-500">≈ ${priceBreakdown.totalUSD.toLocaleString()} USD</div>
+                    <div className="text-2xl font-bold text-blue-600 dark:text-blue-400">{currentCurrency.symbol}{priceBreakdown.convertedTotal.toLocaleString()}</div>
+                    <div className="text-sm text-slate-500 dark:text-slate-400">≈ ${priceBreakdown.totalUSD.toLocaleString()} USD</div>
                   </div>
                 </div>
 
@@ -514,14 +514,14 @@ export default function CustomBuildWizard() {
                   {isSubmitting ? 'Processing...' : 'Submit & Pay Now'}
                 </button>
                 {paymentError && (
-                  <div className="text-red-600 text-sm text-center">{paymentError}</div>
+                  <div className="text-red-600 dark:text-red-400 text-sm text-center">{paymentError}</div>
                 )}
               </div>
             ) : (
               <div className="text-center space-y-4">
-                <div className="text-green-600 text-lg font-semibold">✓ Request Submitted!</div>
-                <p className="text-slate-600">Check your email for a detailed quote and next steps.</p>
-                <button onClick={reset} className="text-blue-600 hover:underline">
+                <div className="text-green-600 dark:text-green-400 text-lg font-semibold">✓ Request Submitted!</div>
+                <p className="text-slate-600 dark:text-slate-400">Check your email for a detailed quote and next steps.</p>
+                <button onClick={reset} className="text-blue-600 dark:text-blue-400 hover:underline">
                   Start a New Build
                 </button>
               </div>
@@ -535,7 +535,7 @@ export default function CustomBuildWizard() {
             {step > 1 && (
               <button
                 onClick={() => setStep(step - 1)}
-                className="px-6 py-3 bg-slate-200 text-slate-700 rounded-lg font-semibold hover:bg-slate-300"
+                className="px-6 py-3 bg-slate-200 text-slate-700 dark:text-slate-300 rounded-lg font-semibold hover:bg-slate-300"
               >
                 Back
               </button>
@@ -556,10 +556,10 @@ export default function CustomBuildWizard() {
             <div className="flex justify-between items-center">
               <div className="text-sm font-semibold text-slate-700 dark:text-slate-300">Your Build Total:</div>
               <div className="text-right">
-                <div className="text-2xl font-bold text-blue-600">
+                <div className="text-2xl font-bold text-blue-600 dark:text-blue-400">
                   {currentCurrency.symbol}{priceBreakdown.convertedTotal.toLocaleString()}
                 </div>
-                <div className="text-xs text-slate-500">≈ ${priceBreakdown.totalUSD.toLocaleString()} USD</div>
+                <div className="text-xs text-slate-500 dark:text-slate-400">≈ ${priceBreakdown.totalUSD.toLocaleString()} USD</div>
               </div>
             </div>
           </div>

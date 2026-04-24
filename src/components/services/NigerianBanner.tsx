@@ -18,7 +18,7 @@ export default function NigerianBanner() {
         <span>NIGERIAN LAUNCH SPECIAL: 50% OFF ALL PACKAGES!</span>
         <span>🔥</span>
       </div>
-      <div className="bg-green-50 border border-green-200 rounded-2xl p-6 max-w-4xl mx-auto mb-8">
+      <div className="bg-green-50 dark:bg-green-950/20 dark:bg-green-950/20 border border-green-200 rounded-2xl p-6 max-w-4xl mx-auto mb-8">
         <h3 className="text-xl font-bold text-green-800 mb-2">💰 Limited Time Offer - Ends January 31, 2026</h3>
         <p className="text-green-700">
           Nigerian clients get <strong>50% OFF</strong> all our Web & Mobile Development packages. 

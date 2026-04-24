@@ -309,7 +309,7 @@ export default function WebMobileClient({
               </svg>
               <span>Development & Technology Services</span>
             </div>
-            <h1 className="text-4xl md:text-5xl font-bold font-heading text-gray-900 dark:text-slate-100 mb-6">
+            <h1 className="text-4xl md:text-5xl font-bold font-heading text-gray-900 dark:text-gray-100 dark:text-slate-100 mb-6">
               Web & Mobile Development
             </h1>
             <p className="text-xl text-gray-600 dark:text-slate-400 max-w-3xl mx-auto leading-relaxed">
@@ -330,7 +330,7 @@ export default function WebMobileClient({
           <div className="mb-16">
             <div className="card-enhanced rounded-2xl p-8 text-center">
               <div className="mb-6">
-                <h2 className="text-2xl font-bold text-gray-900 dark:text-slate-100 mb-3">Need Just One Service?</h2>
+                <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100 dark:text-slate-100 mb-3">Need Just One Service?</h2>
                 <p className="text-gray-600">
                   Get individual development services without packages. Perfect for specific projects and budgets.
                 </p>
@@ -351,7 +351,7 @@ export default function WebMobileClient({
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                     {INDIVIDUAL_SERVICES.map((service) => (
                       <div key={service.id} className="bg-white dark:bg-slate-900 border-2 border-gray-200 dark:border-slate-700 rounded-xl p-6 hover:border-green-400 hover:shadow-lg transition-all duration-300">
-                        <h3 className="font-bold text-gray-900 dark:text-slate-100 mb-2">{service.name}</h3>
+                        <h3 className="font-bold text-gray-900 dark:text-gray-100 dark:text-slate-100 mb-2">{service.name}</h3>
                         <p className="text-sm text-gray-600 dark:text-slate-400 mb-4">{service.description}</p>
                         
                         <div className="mb-4">
@@ -400,7 +400,7 @@ export default function WebMobileClient({
                                 popular: false
                               }]
                             })}
-                            className="w-full bg-green-500 text-white py-2 px-4 rounded-lg hover:bg-green-600 transition-colors font-medium"
+                            className="w-full bg-green-50 dark:bg-green-950/200 text-white py-2 px-4 rounded-lg hover:bg-green-600 transition-colors font-medium"
                           >
                             Select This Service
                           </button>
@@ -411,7 +411,7 @@ export default function WebMobileClient({
                   
                   <button
                     onClick={() => setShowIndividualServices(false)}
-                    className="text-gray-500 hover:text-gray-700 dark:text-slate-300 text-sm"
+                    className="text-gray-500 hover:text-gray-700 dark:text-gray-300 dark:text-slate-300 text-sm"
                   >
                     Hide Individual Services
                   </button>
@@ -423,7 +423,7 @@ export default function WebMobileClient({
           {/* Service Packages */}
           <div className="mb-16" ref={packagesRef}>
             <div className="text-center mb-12">
-              <h2 className="text-3xl font-bold text-gray-900 dark:text-slate-100 mb-4">Complete Development Packages</h2>
+              <h2 className="text-3xl font-bold text-gray-900 dark:text-gray-100 dark:text-slate-100 mb-4">Complete Development Packages</h2>
               <p className="text-gray-600 dark:text-slate-400 max-w-2xl mx-auto">
                 Professional websites and applications built with modern technology, responsive design, and optimized for performance.
               </p>
@@ -449,7 +449,7 @@ export default function WebMobileClient({
                   )}
                   
                   <div className="text-center mb-6">
-                    <h3 className="text-2xl font-bold text-gray-900 dark:text-slate-100 mb-2">{pkg.name}</h3>
+                    <h3 className="text-2xl font-bold text-gray-900 dark:text-gray-100 dark:text-slate-100 mb-2">{pkg.name}</h3>
                     {pkg.description && (
                       <p className="text-gray-600 dark:text-slate-400 mb-4">{pkg.description}</p>
                     )}
@@ -471,7 +471,7 @@ export default function WebMobileClient({
                           <svg className="w-5 h-5 text-green-500 mt-0.5 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
                             <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                           </svg>
-                          <span className="text-gray-700 dark:text-slate-300 text-sm">{featureText}</span>
+                          <span className="text-gray-700 dark:text-gray-300 dark:text-slate-300 text-sm">{featureText}</span>
                         </li>
                       )
                     })}
@@ -497,14 +497,14 @@ export default function WebMobileClient({
             <div className="mt-10">
               <div className="card-enhanced rounded-2xl p-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
                 <div>
-                  <h3 className="text-2xl font-bold text-gray-900 dark:text-slate-100 mb-2">Want a Custom Build?</h3>
+                  <h3 className="text-2xl font-bold text-gray-900 dark:text-gray-100 dark:text-slate-100 mb-2">Want a Custom Build?</h3>
                   <p className="text-gray-600 dark:text-slate-400 max-w-2xl">
                     Combine website + mobile app, add or remove features, and tailor everything to your exact needs. Get a transparent quote instantly.
                   </p>
                 </div>
                 <Link
                   href="/services/custom-build"
-                  className="inline-flex items-center px-6 py-3 bg-white dark:bg-slate-900 border-2 border-green-500 text-green-700 font-semibold rounded-xl hover:bg-green-50 transition-colors"
+                  className="inline-flex items-center px-6 py-3 bg-white dark:bg-slate-900 border-2 border-green-500 text-green-700 font-semibold rounded-xl hover:bg-green-50 dark:bg-green-950/20 transition-colors"
                 >
                   Build a Custom Solution
                   <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -517,25 +517,25 @@ export default function WebMobileClient({
 
           {/* Why Choose Us Section */}
           <div className="text-center">
-            <h3 className="text-2xl font-bold text-gray-900 dark:text-slate-100 mb-8">Why Choose Our Development Services?</h3>
+            <h3 className="text-2xl font-bold text-gray-900 dark:text-gray-100 dark:text-slate-100 mb-8">Why Choose Our Development Services?</h3>
             <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
               <div className="card-enhanced rounded-xl p-6 text-center">
-                <div className="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center text-green-600 mx-auto mb-4">
+                <div className="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center text-green-600 dark:text-green-400 mx-auto mb-4">
                   <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
                   </svg>
                 </div>
-                <h4 className="font-bold text-gray-900 dark:text-slate-100 mb-2">42% Higher Conversions</h4>
+                <h4 className="font-bold text-gray-900 dark:text-gray-100 dark:text-slate-100 mb-2">42% Higher Conversions</h4>
                 <p className="text-gray-600 dark:text-slate-400 text-sm">Our optimized websites convert visitors to customers better than average</p>
               </div>
               
               <div className="card-enhanced rounded-xl p-6 text-center">
-                <div className="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center text-blue-600 mx-auto mb-4">
+                <div className="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center text-blue-600 dark:text-blue-400 mx-auto mb-4">
                   <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                   </svg>
                 </div>
-                <h4 className="font-bold text-gray-900 dark:text-slate-100 mb-2">&lt;2s Load Time</h4>
+                <h4 className="font-bold text-gray-900 dark:text-gray-100 dark:text-slate-100 mb-2">&lt;2s Load Time</h4>
                 <p className="text-gray-600 dark:text-slate-400 text-sm">Lightning-fast websites that keep users engaged and improve SEO</p>
               </div>
               
@@ -545,7 +545,7 @@ export default function WebMobileClient({
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                   </svg>
                 </div>
-                <h4 className="font-bold text-gray-900 dark:text-slate-100 mb-2">95+ PageSpeed Score</h4>
+                <h4 className="font-bold text-gray-900 dark:text-gray-100 dark:text-slate-100 mb-2">95+ PageSpeed Score</h4>
                 <p className="text-gray-600 dark:text-slate-400 text-sm">Google-optimized for top search rankings and superior performance</p>
               </div>
               
@@ -555,7 +555,7 @@ export default function WebMobileClient({
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" />
                   </svg>
                 </div>
-                <h4 className="font-bold text-gray-900 dark:text-slate-100 mb-2">100% Mobile Ready</h4>
+                <h4 className="font-bold text-gray-900 dark:text-gray-100 dark:text-slate-100 mb-2">100% Mobile Ready</h4>
                 <p className="text-gray-600 dark:text-slate-400 text-sm">Perfect display and functionality across all devices and screen sizes</p>
               </div>
             </div>
