@@ -344,7 +344,7 @@ export default function ServicesPageClient({ initialData }: ServicesPageClientPr
   }
 
   return (
-    <div className="bg-slate-50">
+    <div className="bg-slate-50 dark:bg-slate-950">
         {/* --- 1. HERO SECTION --- */}
         {renderHero()}
 
@@ -352,25 +352,25 @@ export default function ServicesPageClient({ initialData }: ServicesPageClientPr
           
           {/* --- 3. SERVICE PATH SELECTOR --- */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto mb-16">
-            <div className="group p-8 bg-white dark:bg-slate-900 dark:bg-slate-900 rounded-2xl border border-gray-100 shadow-sm hover:shadow-xl hover:border-blue-200 transition-all duration-300 flex flex-col items-center text-center">
+            <div className="group p-8 bg-white dark:bg-slate-900 rounded-2xl border border-gray-100 dark:border-slate-700 shadow-sm hover:shadow-xl hover:border-blue-200 dark:hover:border-blue-700 transition-all duration-300 flex flex-col items-center text-center">
               <div className="text-5xl mb-4 transform group-hover:scale-110 transition-transform duration-300">📦</div>
-              <h3 className="text-xl font-bold text-gray-900 dark:text-slate-100 dark:text-slate-100 mb-2 group-hover:text-blue-600 transition-colors">
+              <h3 className="text-xl font-bold text-gray-900 dark:text-slate-100 mb-2 group-hover:text-blue-600 transition-colors">
                 Tiered Packages
               </h3>
-              <p className="text-gray-600 dark:text-slate-400 dark:text-slate-400 mb-4 leading-relaxed">
+              <p className="text-gray-600 dark:text-slate-400 mb-4 leading-relaxed">
                 Complete solutions (Basic/Standard/Premium) for full projects like websites, business plans, or marketing campaigns.
               </p>
 
               <details className="mt-auto w-full max-w-xs relative">
-                <summary className="list-none cursor-pointer text-blue-600 font-bold text-sm flex items-center justify-center gap-2 rounded-lg border border-blue-200 bg-blue-50 py-2.5 px-4 hover:bg-blue-100 transition-colors">
+                <summary className="list-none cursor-pointer text-blue-600 dark:text-blue-400 font-bold text-sm flex items-center justify-center gap-2 rounded-lg border border-blue-200 dark:border-blue-800 bg-blue-50 dark:bg-blue-950/30 py-2.5 px-4 hover:bg-blue-100 dark:hover:bg-blue-900/30 transition-colors">
                   Select Category <span>▾</span>
                 </summary>
-                <div className="absolute left-1/2 z-20 mt-2 w-full -translate-x-1/2 rounded-xl border border-gray-200 dark:border-slate-700 dark:border-slate-700 bg-white dark:bg-slate-900 dark:bg-slate-900 shadow-xl text-left overflow-hidden">
+                <div className="absolute left-1/2 z-20 mt-2 w-full -translate-x-1/2 rounded-xl border border-gray-200 dark:border-slate-700 bg-white dark:bg-slate-900 shadow-xl text-left overflow-hidden">
                   {serviceCategories.map((category) => (
                     <Link
                       key={`selector-${category.href}`}
                       href={category.href}
-                      className="block px-4 py-2.5 text-sm font-medium text-gray-700 dark:text-slate-300 dark:text-slate-300 hover:bg-gray-50 dark:bg-slate-800/50 dark:bg-slate-800/50 hover:text-primary transition-colors"
+                      className="block px-4 py-2.5 text-sm font-medium text-gray-700 dark:text-slate-300 hover:bg-gray-50 dark:hover:bg-slate-800 hover:text-primary transition-colors"
                     >
                       {category.title}
                     </Link>
@@ -381,32 +381,32 @@ export default function ServicesPageClient({ initialData }: ServicesPageClientPr
 
             <Link 
               href="/services/custom-build" 
-              className="group p-8 bg-gradient-to-br from-indigo-50 to-white rounded-2xl border border-indigo-100 shadow-sm hover:shadow-xl hover:border-indigo-300 transition-all duration-300 flex flex-col items-center text-center"
+              className="group p-8 bg-gradient-to-br from-indigo-50 to-white dark:from-indigo-950/30 dark:to-slate-900 rounded-2xl border border-indigo-100 dark:border-indigo-900/50 shadow-sm hover:shadow-xl hover:border-indigo-300 dark:hover:border-indigo-700 transition-all duration-300 flex flex-col items-center text-center"
             >
               <div className="text-5xl mb-4 transform group-hover:scale-110 transition-transform duration-300">🧭</div>
-              <h3 className="text-xl font-bold text-gray-900 dark:text-slate-100 dark:text-slate-100 mb-2 group-hover:text-indigo-600 transition-colors">
+              <h3 className="text-xl font-bold text-gray-900 dark:text-slate-100 mb-2 group-hover:text-indigo-600 transition-colors">
                 Custom Build Wizard
               </h3>
-              <p className="text-gray-600 dark:text-slate-400 dark:text-slate-400 mb-4 leading-relaxed">
+              <p className="text-gray-600 dark:text-slate-400 mb-4 leading-relaxed">
                 Configure your platform, features, and services with live pricing. Perfect for unique software needs.
               </p>
-              <div className="mt-auto text-indigo-600 font-bold text-sm flex items-center justify-center">
+              <div className="mt-auto text-indigo-600 dark:text-indigo-400 font-bold text-sm flex items-center justify-center">
                 Start Building <span className="ml-2">→</span>
               </div>
             </Link>
 
             <Link 
               href="/services/build-bundle" 
-              className="group p-8 bg-white dark:bg-slate-900 dark:bg-slate-900 rounded-2xl border border-gray-100 shadow-sm hover:shadow-xl hover:border-green-200 transition-all duration-300 flex flex-col items-center text-center"
+              className="group p-8 bg-white dark:bg-slate-900 rounded-2xl border border-gray-100 dark:border-slate-700 shadow-sm hover:shadow-xl hover:border-green-200 dark:hover:border-green-700 transition-all duration-300 flex flex-col items-center text-center"
             >
               <div className="text-5xl mb-4 transform group-hover:scale-110 transition-transform duration-300">🛒</div>
-              <h3 className="text-xl font-bold text-gray-900 dark:text-slate-100 dark:text-slate-100 mb-2 group-hover:text-green-600 transition-colors">
+              <h3 className="text-xl font-bold text-gray-900 dark:text-slate-100 mb-2 group-hover:text-green-600 transition-colors">
                 À La Carte Builder
               </h3>
-              <p className="text-gray-600 dark:text-slate-400 dark:text-slate-400 mb-4 leading-relaxed">
+              <p className="text-gray-600 dark:text-slate-400 mb-4 leading-relaxed">
                 Pick individual services (logo, audit, SEO, support) from any category and bundle them your way.
               </p>
-              <div className="mt-auto text-green-600 font-bold text-sm flex items-center justify-center">
+              <div className="mt-auto text-green-600 dark:text-green-400 font-bold text-sm flex items-center justify-center">
                 Build Your Bundle <span className="ml-2">→</span>
               </div>
             </Link>
@@ -418,19 +418,19 @@ export default function ServicesPageClient({ initialData }: ServicesPageClientPr
           <div className="mb-20" id="packages">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {serviceCategories.map((category) => (
-                <article key={category.href} className="group relative bg-white dark:bg-slate-900 dark:bg-slate-900 rounded-2xl p-8 shadow-sm hover:shadow-xl transition-all duration-300 text-center h-full flex flex-col border border-gray-100 hover:border-gray-200 dark:border-slate-700">
+                <article key={category.href} className="group relative bg-white dark:bg-slate-900 rounded-2xl p-8 shadow-sm hover:shadow-xl transition-all duration-300 text-center h-full flex flex-col border border-gray-100 dark:border-slate-700 hover:border-gray-200 dark:hover:border-slate-600">
                    <Link href={category.href} className="absolute inset-0 z-0" aria-label={`Explore ${category.title}`} />
                    <div className={`w-16 h-16 bg-gradient-to-r ${category.color} rounded-2xl flex items-center justify-center mx-auto mb-6 text-white text-2xl group-hover:scale-110 group-hover:rotate-3 transition-transform duration-300 shadow-md`}>
                       {category.icon}
                    </div>
-                   <h3 className="text-xl font-bold text-gray-900 dark:text-slate-100 dark:text-slate-100 mb-3 group-hover:text-primary transition-colors">{category.title}</h3>
-                   <p className="text-gray-600 dark:text-slate-400 dark:text-slate-400 text-sm leading-relaxed mb-6 flex-grow">{category.desc}</p>
+                   <h3 className="text-xl font-bold text-gray-900 dark:text-slate-100 mb-3 group-hover:text-primary transition-colors">{category.title}</h3>
+                   <p className="text-gray-600 dark:text-slate-400 text-sm leading-relaxed mb-6 flex-grow">{category.desc}</p>
                    
-                   <div className="flex items-center justify-between mt-auto relative z-10 pt-4 border-t border-gray-50">
+                   <div className="flex items-center justify-between mt-auto relative z-10 pt-4 border-t border-gray-100 dark:border-slate-700">
                      <button 
                        onClick={(e) => handleWhatsAppClick(
                          `Hello Hexadigitall team,\n\nI am interested in learning more about your ${category.title} services. Could you please provide details?`, e)}
-                       className="text-gray-400 dark:text-slate-500 hover:text-green-600 p-2 rounded-full hover:bg-green-50 transition-all flex items-center gap-1 text-sm font-medium"
+                       className="text-gray-400 dark:text-slate-500 hover:text-green-600 dark:hover:text-green-400 p-2 rounded-full hover:bg-green-50 dark:hover:bg-green-950/30 transition-all flex items-center gap-1 text-sm font-medium"
                        title="Chat on WhatsApp"
                      >
                         <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
@@ -453,8 +453,8 @@ export default function ServicesPageClient({ initialData }: ServicesPageClientPr
           {/* --- 5. FEATURED PACKAGES --- */}
           <div className="mb-20">
             <div className="text-center mb-12">
-              <h2 className="text-3xl font-bold text-gray-900 dark:text-slate-100 dark:text-slate-100 mb-4">Featured Packages</h2>
-              <p className="text-gray-600 dark:text-slate-400 dark:text-slate-400 max-w-2xl mx-auto">
+              <h2 className="text-3xl font-bold text-gray-900 dark:text-slate-100 mb-4">Featured Packages</h2>
+              <p className="text-gray-600 dark:text-slate-400 max-w-2xl mx-auto">
                 Popular packages from our top service categories. Get started quickly with these proven solutions.
               </p>
             </div>
@@ -463,7 +463,7 @@ export default function ServicesPageClient({ initialData }: ServicesPageClientPr
               {featuredPackages.map((pkg) => (
                 <article 
                   key={pkg.id}
-                  className="bg-white dark:bg-slate-900 dark:bg-slate-900 rounded-2xl p-8 border border-gray-100 shadow-sm hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 relative overflow-hidden flex flex-col h-full"
+                  className="bg-white dark:bg-slate-900 rounded-2xl p-8 border border-gray-100 dark:border-slate-700 shadow-sm hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 relative overflow-hidden flex flex-col h-full"
                 >
                   {pkg.popular && (
                     <div className="absolute top-4 right-4 bg-gradient-to-r from-orange-500 to-pink-500 text-white px-3 py-1 rounded-full text-xs font-bold z-10 shadow-sm">
@@ -473,12 +473,12 @@ export default function ServicesPageClient({ initialData }: ServicesPageClientPr
 
                   <div className={`inline-flex items-center space-x-2 bg-gradient-to-r ${pkg.color} bg-opacity-10 px-3 py-1 rounded-full text-xs font-medium mb-4 w-fit`}>
                     <div className={`w-2 h-2 bg-gradient-to-r ${pkg.color} rounded-full`}></div>
-                    <span className="text-gray-700 dark:text-slate-300">{pkg.category}</span>
+                    <span className="text-gray-700 dark:text-slate-200">{pkg.category}</span>
                   </div>
                   
                   <div className="text-center mb-6">
-                    <h3 className="text-xl font-bold text-gray-900 dark:text-slate-100 dark:text-slate-100 mb-2">{pkg.name}</h3>
-                    <p className="text-gray-600 dark:text-slate-400 dark:text-slate-400 text-sm mb-4">{pkg.description}</p>
+                    <h3 className="text-xl font-bold text-gray-900 dark:text-slate-100 mb-2">{pkg.name}</h3>
+                    <p className="text-gray-600 dark:text-slate-400 text-sm mb-4">{pkg.description}</p>
                     <StartingAtPriceDisplay 
                       price={pkg.basePrice} 
                       size="lg" 
@@ -489,14 +489,14 @@ export default function ServicesPageClient({ initialData }: ServicesPageClientPr
                   <ul className="space-y-3 mb-8 flex-grow" role="list">
                     {pkg.features.slice(0, 4).map((feature, featureIndex) => (
                       <li key={featureIndex} className="flex items-center text-sm text-gray-600 dark:text-slate-400">
-                        <div className="w-5 h-5 rounded-full bg-green-100 flex items-center justify-center mr-3 flex-shrink-0">
-                           <svg className="w-3 h-3 text-green-600" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" /></svg>
+                        <div className="w-5 h-5 rounded-full bg-green-100 dark:bg-green-900/40 flex items-center justify-center mr-3 flex-shrink-0">
+                           <svg className="w-3 h-3 text-green-600 dark:text-green-400" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" /></svg>
                         </div>
                         {feature}
                       </li>
                     ))}
                     {pkg.features.length > 4 && (
-                      <li className="text-sm text-gray-500 dark:text-slate-500 pl-8 italic">+{pkg.features.length - 4} more features...</li>
+                      <li className="text-sm text-gray-500 dark:text-slate-400 pl-8 italic">+{pkg.features.length - 4} more features...</li>
                     )}
                   </ul>
 
@@ -507,7 +507,7 @@ export default function ServicesPageClient({ initialData }: ServicesPageClientPr
                          const priceStr = new Intl.NumberFormat('en-US', { style: 'currency', currency: currentCurrency.code, maximumFractionDigits: 0 }).format(priceVal);
                          handleWhatsAppClick(`Hello Hexadigitall, I'm interested in the *${pkg.name}* package (${pkg.category}) starting at ${priceStr}. Could you provide more details?`, e)
                       }}
-                      className="flex items-center justify-center px-4 py-3 border border-green-200 bg-green-50 text-green-700 rounded-xl hover:bg-green-100 transition-colors font-bold text-sm"
+                      className="flex items-center justify-center px-4 py-3 border border-green-200 dark:border-green-900/50 bg-green-50 dark:bg-green-950/30 text-green-700 dark:text-green-400 rounded-xl hover:bg-green-100 dark:hover:bg-green-900/40 transition-colors font-bold text-sm"
                     >
                        <svg className="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
                         Chat
@@ -522,7 +522,7 @@ export default function ServicesPageClient({ initialData }: ServicesPageClientPr
                   
                   <Link 
                     href={`/services/${pkg.categorySlug}`}
-                    className="text-center text-sm text-gray-500 dark:text-slate-500 hover:text-primary transition-colors mt-6 block"
+                    className="text-center text-sm text-gray-500 dark:text-slate-400 hover:text-primary transition-colors mt-6 block"
                     onClick={(e) => e.stopPropagation()}
                   >
                     View details & full comparison →
@@ -532,9 +532,9 @@ export default function ServicesPageClient({ initialData }: ServicesPageClientPr
             </div>
           </div>
 
-          <section className="mt-24 bg-white dark:bg-slate-900 dark:bg-slate-900 rounded-3xl p-8 md:p-12 text-center shadow-lg border border-gray-100">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-slate-100 dark:text-slate-100 mb-4">Ready to Get Started?</h2>
-            <p className="text-lg text-gray-600 dark:text-slate-400 dark:text-slate-400 mb-8 max-w-2xl mx-auto">
+          <section className="mt-24 bg-white dark:bg-slate-900 rounded-3xl p-8 md:p-12 text-center shadow-lg border border-gray-100 dark:border-slate-700">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-slate-100 mb-4">Ready to Get Started?</h2>
+            <p className="text-lg text-gray-600 dark:text-slate-400 mb-8 max-w-2xl mx-auto">
               Choose from our specialized service categories or contact us for a custom solution.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
