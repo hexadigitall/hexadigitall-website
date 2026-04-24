@@ -54,37 +54,37 @@ export default async function CourseAssessmentsPage({ params }: Props) {
 
   return (
     <main className="mx-auto max-w-5xl px-4 py-10 sm:px-6 lg:px-8">
-      <nav className="mb-5 text-sm text-slate-500">
-        <Link href="/courses" className="hover:text-slate-700">Courses</Link>
+      <nav className="mb-5 text-sm text-slate-500 dark:text-slate-400">
+        <Link href="/courses" className="hover:text-slate-700 dark:hover:text-slate-300">Courses</Link>
         <span className="mx-2">/</span>
-        <Link href={`/courses/${slug}`} className="hover:text-slate-700">{course.title}</Link>
+        <Link href={`/courses/${slug}`} className="hover:text-slate-700 dark:hover:text-slate-300">{course.title}</Link>
         <span className="mx-2">/</span>
-        <span className="font-medium text-slate-700">Assessments</span>
+        <span className="font-medium text-slate-700 dark:text-slate-300">Assessments</span>
       </nav>
 
       <header className="mb-8 rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 dark:bg-slate-800 p-6 shadow-sm">
-        <p className="mb-2 text-xs font-semibold uppercase tracking-wider text-cyan-700">Assessment Center</p>
-        <h1 className="text-2xl font-bold text-slate-900 sm:text-3xl">{course.title} Professional Assessments</h1>
-        <p className="mt-3 max-w-3xl text-sm text-slate-600">
+        <p className="mb-2 text-xs font-semibold uppercase tracking-wider text-cyan-700 dark:text-cyan-400">Assessment Center</p>
+        <h1 className="text-2xl font-bold text-slate-900 dark:text-slate-100 sm:text-3xl">{course.title} Professional Assessments</h1>
+        <p className="mt-3 max-w-3xl text-sm text-slate-600 dark:text-slate-400">
           Study from the textbook first, then take the timed assessment when ready. Each assessment is auto-graded and includes a printable result record for submission.
         </p>
       </header>
 
       {assessments.length === 0 ? (
-        <section className="rounded-2xl border border-dashed border-slate-300 bg-slate-50 p-8 text-center text-slate-600">
+        <section className="rounded-2xl border border-dashed border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-slate-800/50 p-8 text-center text-slate-600 dark:text-slate-400">
           Assessments are not configured for this course yet.
         </section>
       ) : (
         <section className="grid gap-4 sm:grid-cols-2">
           {assessments.map((assessment) => (
             <article key={assessment.slug} className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 dark:bg-slate-800 p-5 shadow-sm">
-              <p className="text-xs font-semibold uppercase tracking-wide text-cyan-700">{assessment.phaseLabel}</p>
-              <h2 className="mt-2 text-lg font-semibold text-slate-900">{assessment.title}</h2>
-              <p className="mt-2 text-sm text-slate-600">{assessment.description}</p>
+              <p className="text-xs font-semibold uppercase tracking-wide text-cyan-700 dark:text-cyan-400">{assessment.phaseLabel}</p>
+              <h2 className="mt-2 text-lg font-semibold text-slate-900 dark:text-slate-100">{assessment.title}</h2>
+              <p className="mt-2 text-sm text-slate-600 dark:text-slate-400">{assessment.description}</p>
 
-              <dl className="mt-4 grid grid-cols-2 gap-2 text-xs text-slate-600">
+              <dl className="mt-4 grid grid-cols-2 gap-2 text-xs text-slate-600 dark:text-slate-400">
                 <div>
-                  <dt className="font-semibold text-slate-800">Questions</dt>
+                  <dt className="font-semibold text-slate-800 dark:text-slate-200">Questions</dt>
                   <dd>{assessment.totalQuestions}</dd>
                 </div>
                 <div>

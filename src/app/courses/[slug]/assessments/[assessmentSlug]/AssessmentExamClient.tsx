@@ -252,9 +252,9 @@ export default function AssessmentExamClient({
   return (
     <section className="space-y-6 print:space-y-3">
       <header className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 dark:bg-slate-800 p-6 shadow-sm print:border-0 print:shadow-none print:p-0">
-        <p className="text-xs font-semibold uppercase tracking-wider text-cyan-700">Professional Timed Assessment</p>
-        <h1 className="mt-2 text-2xl font-bold text-slate-900">{assessment.title}</h1>
-        <p className="mt-2 text-sm text-slate-600">{assessment.description}</p>
+        <p className="text-xs font-semibold uppercase tracking-wider text-cyan-700 dark:text-cyan-400">Professional Timed Assessment</p>
+        <h1 className="mt-2 text-2xl font-bold text-slate-900 dark:text-slate-100">{assessment.title}</h1>
+        <p className="mt-2 text-sm text-slate-600 dark:text-slate-400">{assessment.description}</p>
       </header>
 
       {stage === 'intro' && (
@@ -266,16 +266,16 @@ export default function AssessmentExamClient({
             <Metric label="Pass Mark" value={`${assessment.passPercentage}%`} />
           </div>
 
-          <div className="mt-6 rounded-xl border border-slate-200 bg-slate-50 p-4">
-            <p className="text-sm font-semibold text-slate-800">Assessment Instructions</p>
-            <ul className="mt-2 list-disc space-y-1 pl-5 text-sm text-slate-600">
+          <div className="mt-6 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/50 p-4">
+            <p className="text-sm font-semibold text-slate-800 dark:text-slate-200">Assessment Instructions</p>
+            <ul className="mt-2 list-disc space-y-1 pl-5 text-sm text-slate-600 dark:text-slate-400">
               {assessment.instructions.map((item) => (
                 <li key={item}>{item}</li>
               ))}
             </ul>
           </div>
 
-          <div className="mt-6 rounded-xl border border-cyan-200 bg-cyan-50 p-4 text-sm text-cyan-900">
+          <div className="mt-6 rounded-xl border border-cyan-200 dark:border-cyan-900/50 bg-cyan-50 dark:bg-cyan-950/20 p-4 text-sm text-cyan-900 dark:text-cyan-300">
             {accessMessage}
           </div>
 
@@ -290,7 +290,7 @@ export default function AssessmentExamClient({
             >
               {loading ? 'Preparing assessment...' : 'Start Assessment'}
             </button>
-            <span className="text-xs text-slate-500">
+            <span className="text-xs text-slate-500 dark:text-slate-400">
               Timer starts immediately when you click start.
             </span>
           </div>
@@ -299,21 +299,21 @@ export default function AssessmentExamClient({
 
       {stage === 'exam' && attempt && (
         <article className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 dark:bg-slate-800 p-6 shadow-sm">
-          <div className="mb-5 flex flex-wrap items-center justify-between gap-3 border-b border-slate-200 pb-4">
+          <div className="mb-5 flex flex-wrap items-center justify-between gap-3 border-b border-slate-200 dark:border-slate-700 pb-4">
             <div>
-              <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">Attempt #{attempt.attemptNumber}</p>
-              <p className="text-sm text-slate-700">Answered {totalAnswered} of {assessment.totalQuestions}</p>
+              <p className="text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400">Attempt #{attempt.attemptNumber}</p>
+              <p className="text-sm text-slate-700 dark:text-slate-300">Answered {totalAnswered} of {assessment.totalQuestions}</p>
             </div>
-            <div className="rounded-lg border border-amber-300 bg-amber-50 px-4 py-2 text-sm font-semibold text-amber-800">
+            <div className="rounded-lg border border-amber-300 dark:border-amber-900/50 bg-amber-50 dark:bg-amber-950/20 px-4 py-2 text-sm font-semibold text-amber-800 dark:text-amber-300">
               Time Remaining: {formatTimeRemaining(secondsRemaining)}
             </div>
           </div>
 
           <div className="space-y-4">
-            <h2 className="text-lg font-semibold text-slate-900">
+            <h2 className="text-lg font-semibold text-slate-900 dark:text-slate-100">
               Question {currentIndex + 1} of {assessment.totalQuestions}
             </h2>
-            <p className="text-sm leading-6 text-slate-800">{activeQuestion.prompt}</p>
+            <p className="text-sm leading-6 text-slate-800 dark:text-slate-200">{activeQuestion.prompt}</p>
 
             <div className="space-y-2">
               {activeQuestion.options.map((option) => {
@@ -321,7 +321,7 @@ export default function AssessmentExamClient({
                 return (
                   <label
                     key={option.id}
-                    className={`flex cursor-pointer items-start gap-3 rounded-lg border p-3 text-sm transition ${checked ? 'border-slate-900 bg-slate-100' : 'border-slate-200 hover:border-slate-300'}`}
+                    className={`flex cursor-pointer items-start gap-3 rounded-lg border p-3 text-sm transition ${checked ? 'border-slate-900 dark:border-slate-400 bg-slate-100 dark:bg-slate-700' : 'border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600 text-slate-900 dark:text-slate-100'}`}
                   >
                     <input
                       type="radio"
@@ -363,7 +363,7 @@ export default function AssessmentExamClient({
               type="button"
               onClick={() => void submitAssessment(false)}
               disabled={loading || submitInFlightRef.current}
-              className="rounded-lg bg-cyan-700 px-5 py-2.5 text-sm font-semibold text-white disabled:cursor-not-allowed disabled:bg-cyan-300"
+              className="rounded-lg bg-cyan-700 dark:bg-cyan-600 px-5 py-2.5 text-sm font-semibold text-white disabled:cursor-not-allowed disabled:bg-cyan-300 dark:disabled:bg-cyan-800"
             >
               {loading ? 'Submitting...' : 'Submit Assessment'}
             </button>
@@ -373,10 +373,10 @@ export default function AssessmentExamClient({
 
       {stage === 'result' && result && (
         <article className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 dark:bg-slate-800 p-6 shadow-sm print:border-0 print:shadow-none">
-          <header className="border-b border-slate-200 pb-4 print:border-slate-300">
-            <p className="text-xs font-semibold uppercase tracking-wider text-slate-500">Assessment Result</p>
-            <h2 className="mt-2 text-2xl font-bold text-slate-900">{assessment.title}</h2>
-            <p className="mt-1 text-sm text-slate-600">{courseTitle}</p>
+          <header className="border-b border-slate-200 dark:border-slate-700 pb-4 print:border-slate-300">
+            <p className="text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">Assessment Result</p>
+            <h2 className="mt-2 text-2xl font-bold text-slate-900 dark:text-slate-100">{assessment.title}</h2>
+            <p className="mt-1 text-sm text-slate-600 dark:text-slate-400">{courseTitle}</p>
           </header>
 
           <div className="mt-5 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
@@ -390,7 +390,7 @@ export default function AssessmentExamClient({
             <Metric label="Timed Status" value={timedOut ? 'Auto-submitted on timeout' : 'Submitted normally'} />
           </div>
 
-          <div className="mt-6 rounded-xl border border-slate-200 bg-slate-50 p-4 text-sm text-slate-700">
+          <div className="mt-6 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/50 p-4 text-sm text-slate-700 dark:text-slate-300">
             Print this result page and submit it to your teacher or classroom workflow as required.
           </div>
 
@@ -409,7 +409,7 @@ export default function AssessmentExamClient({
                 setCurrentIndex(0)
                 setError(null)
               }}
-              className="rounded-lg border border-slate-300 px-5 py-2.5 text-sm font-semibold text-slate-700"
+              className="rounded-lg border border-slate-300 dark:border-slate-600 px-5 py-2.5 text-sm font-semibold text-slate-700 dark:text-slate-300"
             >
               Return to Assessment Intro
             </button>
@@ -423,8 +423,8 @@ export default function AssessmentExamClient({
 function Metric({ label, value, accent }: { label: string; value: string; accent?: string }) {
   return (
     <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 dark:bg-slate-800 p-3">
-      <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">{label}</p>
-      <p className={`mt-1 text-sm font-semibold text-slate-900 ${accent || ''}`}>{value}</p>
+      <p className="text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400">{label}</p>
+      <p className={`mt-1 text-sm font-semibold text-slate-900 dark:text-slate-100 ${accent || ''}`}>{value}</p>
     </div>
   )
 }
