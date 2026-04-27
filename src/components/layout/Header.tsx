@@ -38,7 +38,7 @@ const Header = () => {
   const tabletMenuTriggerClass = "inline-flex items-center rounded-full px-2.5 py-1.5 text-sm font-medium text-darkText dark:text-slate-200 transition-colors hover:bg-lightGray dark:hover:bg-slate-800 hover:text-secondary whitespace-nowrap";
   const dropdownPanelBaseClass = "absolute bg-white/95 dark:bg-slate-900/95 backdrop-blur-sm shadow-xl rounded-2xl border border-gray-200 dark:border-slate-700 mt-2 z-50 transition-all duration-200";
   const dropdownItemClass = "block px-4 py-2.5 text-sm text-darkText dark:text-slate-200 hover:bg-lightGray dark:hover:bg-slate-800 transition-colors";
-  const dropdownHighlightItemClass = "block px-4 py-2.5 text-sm font-semibold text-primary hover:bg-lightGray transition-colors";
+  const dropdownHighlightItemClass = "block px-4 py-2.5 text-sm font-semibold text-primary dark:text-cyan-400 hover:bg-lightGray dark:hover:bg-slate-800 transition-colors";
 
   // Helper function to close all mobile menus
   const closeMobileMenus = () => {
@@ -215,7 +215,7 @@ const Header = () => {
             <div className="relative nav-dropdown">
               <button
                 onClick={() => setAccountOpen(!isAccountOpen)}
-                className="inline-flex items-center rounded-full border border-primary/20 bg-primary/5 px-3 py-2 text-sm font-semibold text-primary transition-colors hover:border-primary/40 hover:bg-primary/10"
+                className="inline-flex items-center rounded-full border border-primary/30 dark:border-cyan-400/40 bg-primary/5 dark:bg-cyan-400/10 px-3 py-2 text-sm font-semibold text-primary dark:text-cyan-300 transition-colors hover:border-primary/40 dark:hover:border-cyan-400/60 hover:bg-primary/10 dark:hover:bg-cyan-400/15"
                 aria-expanded={isAccountOpen}
                 aria-haspopup="true"
                 aria-label="Account menu"
@@ -289,7 +289,7 @@ const Header = () => {
                   </svg>
                 </button>
                 <div className={`absolute left-0 xl:left-auto xl:right-0 w-72 ${dropdownPanelBaseClass} ${isServicesOpen ? 'opacity-100 visible translate-y-0' : 'opacity-0 invisible -translate-y-2'}`}>
-                  <Link href="/services" className="block px-4 py-3 text-sm font-medium text-primary border-b border-gray-100 dark:border-slate-700 hover:bg-lightGray dark:hover:bg-slate-800 whitespace-nowrap rounded-t-2xl" onClick={() => setServicesOpen(false)}>
+                  <Link href="/services" className="block px-4 py-3 text-sm font-medium text-primary dark:text-cyan-400 border-b border-gray-100 dark:border-slate-700 hover:bg-lightGray dark:hover:bg-slate-800 whitespace-nowrap rounded-t-2xl" onClick={() => setServicesOpen(false)}>
                     All Services
                   </Link>
                   {serviceLinks.map((link) => (
@@ -351,7 +351,7 @@ const Header = () => {
               <div className="relative nav-dropdown">
                 <button
                   onClick={() => setAccountOpen(!isAccountOpen)}
-                  className="inline-flex items-center rounded-full border border-primary/20 bg-primary/5 px-2.5 py-1.5 text-xs font-semibold text-primary transition-colors hover:border-primary/40 hover:bg-primary/10 whitespace-nowrap"
+                  className="inline-flex items-center rounded-full border border-primary/30 dark:border-cyan-400/40 bg-primary/5 dark:bg-cyan-400/10 px-2.5 py-1.5 text-xs font-semibold text-primary dark:text-cyan-300 transition-colors hover:border-primary/40 dark:hover:border-cyan-400/60 hover:bg-primary/10 dark:hover:bg-cyan-400/15 whitespace-nowrap"
                 >
                   Account
                   <svg className={`ml-1 h-3 w-3 transition-transform duration-200 ${isAccountOpen ? 'rotate-180' : ''}`} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
@@ -487,7 +487,7 @@ const Header = () => {
                   {/* Smooth expand for services */}
                   <div className={`overflow-hidden transition-all duration-300 ${isMobileServicesOpen ? 'max-h-96 opacity-100 mt-1' : 'max-h-0 opacity-0'}`}>
                     <div className="ml-4 space-y-1">
-                      <Link href="/services" className="block text-sm text-primary font-medium py-1.5" onClick={closeMobileMenus}>
+                      <Link href="/services" className="block text-sm text-primary dark:text-cyan-400 font-medium py-1.5" onClick={closeMobileMenus}>
                         All Services
                       </Link>
                       {serviceLinks.map((link) => (
@@ -503,14 +503,14 @@ const Header = () => {
                 <Link
                   href="/mentorships"
                   onClick={closeMobileMenus}
-                  className="block text-sm py-2 px-3 rounded-lg border border-primary/15 bg-primary/5 text-primary font-semibold hover:bg-primary/10 transition-colors"
+                  className="block text-sm py-2 px-3 rounded-lg border border-primary/15 dark:border-cyan-400/30 bg-primary/5 dark:bg-cyan-400/10 text-primary dark:text-cyan-300 font-semibold hover:bg-primary/10 dark:hover:bg-cyan-400/15 transition-colors"
                 >
                   Mentorships
                 </Link>
                 <Link href="/blog" onClick={closeMobileMenus} className="block text-sm py-1.5 text-darkText dark:text-slate-200 hover:text-secondary font-medium transition-colors">Blog</Link>
                 <Link href="/student/login" onClick={closeMobileMenus} className="block text-sm py-1.5 text-darkText dark:text-slate-200 hover:text-secondary font-medium transition-colors">Student Login</Link>
                 <Link href="/teacher/login" onClick={closeMobileMenus} className="block text-sm py-1.5 text-darkText dark:text-slate-200 hover:text-secondary font-medium transition-colors">Teacher Login</Link>
-                <Link href="/teacher/signup" onClick={closeMobileMenus} className="block text-sm py-1.5 text-primary font-semibold hover:text-primary/80 transition-colors">Apply to Teach</Link>
+                <Link href="/teacher/signup" onClick={closeMobileMenus} className="block text-sm py-1.5 text-primary dark:text-cyan-400 font-semibold hover:text-primary/80 dark:hover:text-cyan-300 transition-colors">Apply to Teach</Link>
                 
                 {/* Action Area (Bottom) - Compacted Spacing */}
                 <div className="pt-2 mt-1 border-t border-gray-100 dark:border-slate-800">
