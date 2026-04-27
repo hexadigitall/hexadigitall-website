@@ -145,7 +145,7 @@ const Header = () => {
                 </svg>
               </button>
               <div className={`absolute left-0 lg:left-auto lg:right-0 w-64 ${dropdownPanelBaseClass} ${isServicesOpen ? 'opacity-100 visible translate-y-0' : 'opacity-0 invisible -translate-y-2'}`} role="menu" aria-labelledby="services-button">
-                <Link href="/services" className="block px-4 py-3 text-sm font-medium text-primary border-b border-gray-100 dark:border-slate-700 hover:bg-lightGray dark:hover:bg-slate-800 rounded-t-2xl" onClick={() => setServicesOpen(false)}>
+                <Link href="/services" className="block px-4 py-3 text-sm font-medium text-primary dark:text-cyan-400 border-b border-gray-100 dark:border-slate-700 hover:bg-lightGray dark:hover:bg-slate-800 rounded-t-2xl" onClick={() => setServicesOpen(false)}>
                   All Services
                 </Link>
                 {serviceLinks.map((link) => (

@@ -111,18 +111,18 @@ export default async function CourseCurriculumPage({ params }: Props) {
 
   return (
     <main className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
-      <nav className="text-sm text-gray-500 dark:text-slate-500 mb-6">
-        <Link href="/" className="hover:text-primary transition-colors">Home</Link>
+      <nav className="text-sm text-gray-500 dark:text-slate-400 mb-6">
+        <Link href="/" className="hover:text-primary dark:hover:text-cyan-300 transition-colors">Home</Link>
         <span className="mx-2">/</span>
-        <Link href="/courses" className="hover:text-primary transition-colors">Courses</Link>
+        <Link href="/courses" className="hover:text-primary dark:hover:text-cyan-300 transition-colors">Courses</Link>
         <span className="mx-2">/</span>
-        <Link href={`/courses/${slug}`} className="hover:text-primary transition-colors">{course.title}</Link>
+        <Link href={`/courses/${slug}`} className="hover:text-primary dark:hover:text-cyan-300 transition-colors">{course.title}</Link>
         <span className="mx-2">/</span>
-        <span className="text-primary font-medium">Curriculum</span>
+        <span className="text-primary dark:text-cyan-300 font-medium">Curriculum</span>
       </nav>
 
       <header className="mb-6">
-        <h1 className="text-2xl md:text-3xl font-bold text-primary">{course.title} Curriculum</h1>
+        <h1 className="text-2xl md:text-3xl font-bold text-primary dark:text-cyan-300">{course.title} Curriculum</h1>
         <p className="text-gray-600 dark:text-slate-400 mt-2 max-w-3xl">
           Public curriculum preview for visitors and enrolled students. Use this page to evaluate module scope, outcomes, and learning path.
         </p>
