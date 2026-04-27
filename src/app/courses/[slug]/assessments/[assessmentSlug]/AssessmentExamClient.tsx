@@ -250,7 +250,44 @@ export default function AssessmentExamClient({
   }
 
   return (
-    <section className="space-y-6 print:space-y-3">
+    <>
+      <style jsx global>{`
+        @media print {
+          body * {
+            visibility: hidden !important;
+          }
+
+          .assessment-result-print,
+          .assessment-result-print * {
+            visibility: visible !important;
+          }
+
+          .assessment-result-print {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            margin: 0 !important;
+            border: 0 !important;
+            box-shadow: none !important;
+            background: #fff !important;
+            color: #000 !important;
+          }
+
+          .assessment-result-print * {
+            color: #000 !important;
+            background: transparent !important;
+            box-shadow: none !important;
+            border-color: #d1d5db !important;
+            text-shadow: none !important;
+          }
+
+          .assessment-result-print .print\:hidden {
+            display: none !important;
+          }
+        }
+      `}</style>
+
+      <section className="space-y-6 print:space-y-3">
       <header className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 dark:bg-slate-800 p-6 shadow-sm print:border-0 print:shadow-none print:p-0">
         <p className="text-xs font-semibold uppercase tracking-wider text-cyan-700 dark:text-cyan-400">Professional Timed Assessment</p>
         <h1 className="mt-2 text-2xl font-bold text-slate-900 dark:text-slate-100">{assessment.title}</h1>
@@ -372,7 +409,7 @@ export default function AssessmentExamClient({
       )}
 
       {stage === 'result' && result && (
-        <article className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 dark:bg-slate-800 p-6 shadow-sm print:border-0 print:shadow-none">
+        <article className="assessment-result-print rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 dark:bg-slate-800 p-6 shadow-sm print:border-0 print:shadow-none">
           <header className="border-b border-slate-200 dark:border-slate-700 pb-4 print:border-slate-300">
             <p className="text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">Assessment Result</p>
             <h2 className="mt-2 text-2xl font-bold text-slate-900 dark:text-slate-100">{assessment.title}</h2>
@@ -416,7 +453,8 @@ export default function AssessmentExamClient({
           </div>
         </article>
       )}
-    </section>
+      </section>
+    </>
   )
 }
 
