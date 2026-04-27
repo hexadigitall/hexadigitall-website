@@ -283,13 +283,13 @@
            focus:ring-primary/50;
   }
 
-  /* Secondary Button - Outline style */
+  /* Secondary Button - Outline style (auto-switches light ↔ dark) */
   .btn-secondary {
     @apply btn-base px-6 py-3
-           border-2 border-gray-300 text-gray-700 bg-transparent
-           hover:border-gray-400 hover:bg-gray-50 hover:shadow-md
+           border-2 border-border text-content-secondary bg-transparent
+           hover:bg-surface hover:shadow-md
            active:scale-95
-           focus:ring-gray-300;
+           focus:ring-primary/30;
   }
 
   /* Secondary Dark - For dark backgrounds */
@@ -310,22 +310,23 @@
            focus:ring-accent/50;
   }
 
-  /* Ghost Button - Minimal style */
+  /* Ghost Button - Minimal style (auto-switches light ↔ dark) */
   .btn-ghost {
     @apply btn-base px-4 py-2
-           text-gray-600 bg-transparent
-           hover:text-gray-900 hover:bg-gray-100
-           focus:ring-gray-200;
+           text-content-secondary bg-transparent
+           hover:text-content-heading hover:bg-surface
+           focus:ring-primary/20;
   }
 
   /* === CARD CLASSES === */
+  /* Use bg-surface-card + border-border so cards auto-switch light ↔ dark */
   .card-base {
-    @apply bg-white rounded-2xl
+    @apply bg-surface-card rounded-2xl
            transition-all duration-300;
   }
 
   .card-bordered {
-    @apply card-base border border-gray-200
+    @apply card-base border border-border
            shadow-sm hover:shadow-lg;
   }
 
@@ -335,18 +336,19 @@
   }
 
   .card-interactive {
-    @apply card-base border border-gray-200 shadow-sm cursor-pointer
+    @apply card-base border border-border shadow-sm cursor-pointer
            hover:shadow-xl hover:-translate-y-1 hover:border-primary/30
            active:scale-[0.98];
   }
 
   /* === INPUT CLASSES === */
+  /* Use semantic input tokens so this auto-switches light ↔ dark */
   .input-standard {
     @apply w-full px-4 py-3 rounded-lg
-           border border-gray-300 bg-white
+           border border-input-border bg-input-bg text-input-text
            focus:ring-2 focus:ring-primary focus:border-transparent
            transition-all duration-200
-           placeholder:text-gray-400;
+           placeholder:text-content-muted;
   }
 
   .input-error {
@@ -374,15 +376,15 @@
   }
 
   .badge-success {
-    @apply badge-base bg-green-100 text-green-800;
+    @apply badge-base bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400;
   }
 
   .badge-warning {
-    @apply badge-base bg-orange-100 text-orange-800;
+    @apply badge-base bg-orange-100 text-orange-800 dark:bg-orange-900/30 dark:text-orange-400;
   }
 
   .badge-error {
-    @apply badge-base bg-red-100 text-red-800;
+    @apply badge-base bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-400;
   }
 
   .badge-accent {
@@ -449,6 +451,37 @@
     display: -webkit-box;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 3;
+  }
+
+  /* ============================================
+   * SEMANTIC LAYOUT HELPERS
+   * Use these on new sections/pages. They auto-switch
+   * light ↔ dark because they read from CSS variables.
+   * Available semantic Tailwind utilities:
+   *   bg-surface-page  bg-surface  bg-surface-card  bg-surface-raised
+   *   text-content-heading  text-content  text-content-secondary  text-content-muted
+   *   border-border  border-border-subtle
+   *   bg-input-bg  border-input-border  text-input-text
+   * ============================================ */
+
+  /* Full-page background wrapper */
+  .page-section {
+    @apply bg-surface-page;
+  }
+
+  /* Alternating section background (slightly tinted) */
+  .page-section-alt {
+    @apply bg-surface;
+  }
+
+  /* Standard themed card surface (replaces bg-white + dark:bg-slate-8xx patterns) */
+  .surface-card {
+    @apply bg-surface-card border border-border rounded-2xl;
+  }
+
+  /* Themed horizontal divider */
+  .divider {
+    @apply border-t border-border;
   }
 }
 
@@ -849,7 +882,7 @@
   
   /* Loading skeleton */
   .skeleton {
-    @apply animate-pulse bg-gray-200 rounded;
+    @apply animate-pulse bg-gray-200 dark:bg-slate-700 rounded;
   }
   
   /* Focus visible improvements */
@@ -926,7 +959,24 @@
       0 8px 32px 0 rgba(31, 38, 135, 0.15),
       inset 0 1px 0 rgba(255, 255, 255, 0.9);
   }
-  
+
+  /* Dark mode override for card-enhanced */
+  .dark .card-enhanced {
+    background: linear-gradient(145deg, rgba(30, 41, 59, 0.95), rgba(15, 23, 42, 0.85));
+    border: 1px solid rgba(51, 65, 85, 0.8);
+    box-shadow:
+      0 8px 32px 0 rgba(2, 6, 23, 0.4),
+      0 2px 16px 0 rgba(2, 6, 23, 0.2),
+      inset 0 1px 0 rgba(148, 163, 184, 0.1);
+  }
+
+  .dark .card-enhanced:hover {
+    box-shadow:
+      0 20px 40px 0 rgba(2, 6, 23, 0.5),
+      0 8px 32px 0 rgba(2, 6, 23, 0.35),
+      inset 0 1px 0 rgba(148, 163, 184, 0.15);
+  }
+
   /* Gradient backgrounds */
   .bg-gradient-primary {
     background: linear-gradient(135deg, rgb(59, 130, 246) 0%, rgb(139, 92, 246) 100%);
@@ -1017,5 +1067,15 @@
   .course-card:hover {
     transform: translateY(-4px);
     box-shadow: 0 12px 40px 0 rgba(31, 38, 135, 0.2);
+  }
+
+  /* Dark mode override for course-card */
+  .dark .course-card {
+    background: linear-gradient(145deg, rgba(30, 41, 59, 0.9), rgba(15, 23, 42, 0.8));
+    border: 1px solid rgba(51, 65, 85, 0.6);
+  }
+
+  .dark .course-card:hover {
+    box-shadow: 0 12px 40px 0 rgba(2, 6, 23, 0.4);
   }
 }
