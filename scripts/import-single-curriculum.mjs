@@ -91,21 +91,50 @@ function parseCurriculum($, filename) {
     const $node = $(node)
     const weekLabel = collapseText($node.find('.week-number').first().text())
     const weekMatch = weekLabel.match(/(\d+)/)
+    const topic = collapseText($node.find('.week-topic, .week-title').first().text())
+
+    let outcomes = []
+    let labTitle
+    let labItems = []
+
+    const weekColumns = $node.find('.week-column').toArray()
+    for (const column of weekColumns) {
+      const $column = $(column)
+      const heading = collapseText($column.find('h4').first().text())
+      const headingLower = heading.toLowerCase()
+      const items = $column.find('li').toArray().map((item) => collapseText($(item).text())).filter(Boolean)
+
+      if (!items.length) continue
+
+      if (headingLower.includes('hands-on') || headingLower.includes('lab') || headingLower.includes('practical')) {
+        labTitle = heading || 'Lab Exercise'
+        labItems = items
+      } else if (headingLower.includes('concept') || headingLower.includes('outcome') || headingLower.includes('scope')) {
+        if (!outcomes.length) outcomes = items
+      } else if (!outcomes.length) {
+        outcomes = items
+      }
+    }
+
+    if (!outcomes.length) {
+      outcomes = $node.find('.week-content > ul > li').toArray().map((item) => collapseText($(item).text())).filter(Boolean)
+    }
+
+    if (!labItems.length) {
+      labTitle = labTitle || collapseText($node.find('.lab-section h4').first().text()) || undefined
+      labItems = $node.find('.lab-section li').toArray().map((item) => collapseText($(item).text())).filter(Boolean)
+    }
+
     return {
       _key: makeKey(`${filename}-week-${weekMatch ? weekMatch[1] : index + 1}`),
       weekNumber: weekMatch ? parseInt(weekMatch[1], 10) : index + 1,
-      title: collapseText($node.find('.week-title').first().text()),
-      overview: collapseText($node.find('.week-overview, p').first().text()),
-      topics: $node.find('.topic-item, li').toArray().map((item) => collapseText($(item).text())).filter(Boolean),
-      outcomes: $node.find('.outcome-item, .learning-outcome li').toArray().map((item) => collapseText($(item).text())).filter(Boolean),
-      projects: $node.find('.project-item').toArray().map((item, pIndex) => ({
-        _key: makeKey(`${filename}-week-${weekMatch ? weekMatch[1] : index + 1}-project-${pIndex + 1}`),
-        title: collapseText($(item).find('h4').first().text()),
-        description: collapseText($(item).find('p').first().text()) || undefined,
-        deliverables: $(item).find('li').toArray().map((li) => collapseText($(li).text())).filter(Boolean),
-      })).filter((p) => p.title),
+      duration: collapseText($node.find('.week-duration').first().text()) || undefined,
+      topic,
+      outcomes,
+      labTitle,
+      labItems,
     }
-  })
+  }).filter((week) => week.topic)
 
   const capstoneProjects = $('.capstone-project, .final-project').toArray().map((node, index) => ({
     _key: makeKey(`${filename}-project-${index + 1}`),

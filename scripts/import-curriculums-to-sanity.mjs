@@ -132,14 +132,48 @@ function parseCurriculum($, filename) {
     const $node = $(node)
     const weekLabel = collapseText($node.find('.week-number').first().text())
     const weekMatch = weekLabel.match(/(\d+)/)
+    const topic = collapseText($node.find('.week-topic, .week-title').first().text())
+
+    let outcomes = []
+    let labTitle
+    let labItems = []
+
+    const weekColumns = $node.find('.week-column').toArray()
+    for (const column of weekColumns) {
+      const $column = $(column)
+      const heading = collapseText($column.find('h4').first().text())
+      const headingLower = heading.toLowerCase()
+      const items = $column.find('li').toArray().map((item) => collapseText($(item).text())).filter(Boolean)
+
+      if (!items.length) continue
+
+      if (headingLower.includes('hands-on') || headingLower.includes('lab') || headingLower.includes('practical')) {
+        labTitle = heading || 'Lab Exercise'
+        labItems = items
+      } else if (headingLower.includes('concept') || headingLower.includes('outcome') || headingLower.includes('scope')) {
+        if (!outcomes.length) outcomes = items
+      } else if (!outcomes.length) {
+        outcomes = items
+      }
+    }
+
+    if (!outcomes.length) {
+      outcomes = $node.find('.week-content > ul > li').toArray().map((item) => collapseText($(item).text())).filter(Boolean)
+    }
+
+    if (!labItems.length) {
+      labTitle = labTitle || collapseText($node.find('.lab-section h4').first().text()) || undefined
+      labItems = $node.find('.lab-section li').toArray().map((item) => collapseText($(item).text())).filter(Boolean)
+    }
+
     return {
-      _key: makeKey(`${filename}-${index + 1}-${$node.find('.week-topic').first().text()}`),
+      _key: makeKey(`${filename}-${index + 1}-${topic}`),
       weekNumber: weekMatch ? Number(weekMatch[1]) : index + 1,
       duration: collapseText($node.find('.week-duration').first().text()) || undefined,
-      topic: collapseText($node.find('.week-topic').first().text()),
-      outcomes: $node.find('.week-content > ul > li').toArray().map((item) => collapseText($(item).text())).filter(Boolean),
-      labTitle: collapseText($node.find('.lab-section h4').first().text()) || undefined,
-      labItems: $node.find('.lab-section li').toArray().map((item) => collapseText($(item).text())).filter(Boolean),
+      topic,
+      outcomes,
+      labTitle,
+      labItems,
     }
   }).filter((week) => week.topic)
 
