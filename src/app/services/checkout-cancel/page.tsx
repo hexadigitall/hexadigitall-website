@@ -50,7 +50,7 @@ export default function CheckoutCancelPage() {
             </Link>
             <Link
               href="/contact"
-              className="inline-block border-2 border-primary text-primary px-8 py-3 rounded-lg font-semibold hover:bg-primary/5 transition-colors"
+              className="inline-block border-2 border-primary dark:border-cyan-400/60 text-primary dark:text-cyan-300 px-8 py-3 rounded-lg font-semibold hover:bg-primary/5 dark:hover:bg-cyan-400/10 transition-colors"
             >
               Contact Support
             </Link>

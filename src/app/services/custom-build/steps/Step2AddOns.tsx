@@ -98,7 +98,7 @@ export default function Step2AddOns({
   return (
     <div ref={sectionRef} tabIndex={-1} className="max-w-5xl mx-auto scroll-mt-24 outline-none">
       <div className="text-center mb-12 px-2 sm:px-0">
-        <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold font-heading mb-4 text-primary">
+        <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold font-heading mb-4 text-primary dark:text-cyan-300">
           Add Optional Features
         </h2>
         <p className="text-base sm:text-lg text-darkText/70 dark:text-slate-400">
@@ -173,7 +173,7 @@ export default function Step2AddOns({
         <div className="flex items-center justify-between">
           <div>
             <p className="text-sm text-darkText/70 dark:text-slate-400 mb-1">Additional Add-ons Selected</p>
-            <p className="text-2xl sm:text-3xl font-bold text-primary">
+            <p className="text-2xl sm:text-3xl font-bold text-primary dark:text-cyan-300">
               +{currentCurrency.symbol}{Math.round(convertedTotalAddOnPrice).toLocaleString()}
             </p>
             <p className="text-xs text-darkText/60 dark:text-slate-500 mt-1">{currentCurrency.code}</p>

@@ -56,7 +56,7 @@ export default function Step1Core({ selectedCore, onCoreSelect }: Step1CoreProps
   return (
     <div className="max-w-4xl mx-auto px-2 sm:px-0">
       <div className="text-center mb-8 sm:mb-12">
-        <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold font-heading mb-3 sm:mb-4 text-primary">
+        <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold font-heading mb-3 sm:mb-4 text-primary dark:text-cyan-300">
           What Would You Like to Build?
         </h2>
         <p className="text-base sm:text-lg text-darkText/70 dark:text-slate-400">
@@ -89,7 +89,7 @@ export default function Step1Core({ selectedCore, onCoreSelect }: Step1CoreProps
 
             {/* Title */}
             <h3 className={`text-xl sm:text-2xl font-bold font-heading mb-2 transition-colors ${
-              selectedCore === option.id ? 'text-primary' : 'text-darkText dark:text-slate-200'
+              selectedCore === option.id ? 'text-primary dark:text-cyan-300' : 'text-darkText dark:text-slate-200'
             }`}>
               {option.title}
             </h3>
@@ -105,7 +105,7 @@ export default function Step1Core({ selectedCore, onCoreSelect }: Step1CoreProps
                 <div key={idx} className="flex items-start gap-2 text-xs sm:text-sm text-darkText/70 dark:text-slate-400">
                   <svg
                     className={`w-3 h-3 sm:w-4 sm:h-4 mt-0.5 flex-shrink-0 ${
-                      selectedCore === option.id ? 'text-primary' : 'text-green-600'
+                      selectedCore === option.id ? 'text-primary dark:text-cyan-400' : 'text-green-600 dark:text-green-400'
                     }`}
                     fill="currentColor"
                     viewBox="0 0 20 20"
@@ -120,7 +120,7 @@ export default function Step1Core({ selectedCore, onCoreSelect }: Step1CoreProps
             {/* Selection Indicator */}
             {selectedCore === option.id && (
               <div className="mt-4 sm:mt-6 pt-4 sm:pt-6 border-t border-primary/20">
-                <p className="text-primary font-semibold text-xs sm:text-sm flex items-center gap-2">
+                <p className="text-primary dark:text-cyan-300 font-semibold text-xs sm:text-sm flex items-center gap-2">
                   <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="currentColor" viewBox="0 0 20 20">
                     <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
                   </svg>

@@ -78,7 +78,7 @@ export default function Step3Summary({
   return (
     <div className="max-w-4xl mx-auto px-2 sm:px-0">
       <div className="text-center mb-8 sm:mb-12">
-        <h2 ref={headingRef} tabIndex={-1} className="text-2xl sm:text-3xl md:text-4xl font-bold font-heading mb-3 sm:mb-4 text-primary focus:outline-none">
+        <h2 ref={headingRef} tabIndex={-1} className="text-2xl sm:text-3xl md:text-4xl font-bold font-heading mb-3 sm:mb-4 text-primary dark:text-cyan-300 focus:outline-none">
           Your Custom Solution Summary
         </h2>
         <p className="text-sm sm:text-lg text-darkText/70">
@@ -90,7 +90,7 @@ export default function Step3Summary({
         {/* Core Solution */}
         <div className="lg:col-span-2">
           <div className="bg-white dark:bg-slate-900 border-2 border-gray-200 dark:border-slate-700 rounded-lg p-4 sm:p-6 md:p-8 mb-6">
-            <h3 className="text-xl sm:text-2xl font-bold font-heading text-primary mb-4">
+            <h3 className="text-xl sm:text-2xl font-bold font-heading text-primary dark:text-cyan-300 mb-4">
               Core Solution
             </h3>
 
@@ -99,13 +99,13 @@ export default function Step3Summary({
               <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3 sm:gap-4 mb-4">
                 <div>
                   <p className="text-xs sm:text-sm text-darkText/70 mb-1">Selected:</p>
-                  <h4 className="text-xl sm:text-2xl font-bold font-heading text-primary capitalize">
+                  <h4 className="text-xl sm:text-2xl font-bold font-heading text-primary dark:text-cyan-300 capitalize">
                     {coreType} {coreType === 'both' ? 'Development' : 'Only'}
                   </h4>
                 </div>
                 <div className="sm:text-right">
                   <p className="text-xs sm:text-sm text-darkText/70 mb-1">Price:</p>
-                  <p className="text-2xl sm:text-3xl font-bold text-primary">
+                  <p className="text-2xl sm:text-3xl font-bold text-primary dark:text-cyan-300">
                     {currentCurrency.symbol}{Math.round(convertedCorePrice).toLocaleString()}
                   </p>
                 </div>
@@ -116,7 +116,7 @@ export default function Step3Summary({
             {/* Add-ons Section */}
             {selectedAddOns.length > 0 ? (
               <div>
-                <h3 className="text-lg sm:text-xl font-bold font-heading text-primary mb-4">
+                <h3 className="text-lg sm:text-xl font-bold font-heading text-primary dark:text-cyan-300 mb-4">
                   Add-ons
                 </h3>
                 <div className="space-y-2 sm:space-y-3">
@@ -187,7 +187,7 @@ export default function Step3Summary({
             {/* Submit Button */}
             <button
               onClick={() => setShowPaymentFlow(true)}
-              className="w-full bg-white dark:bg-slate-900 text-primary px-6 py-3 rounded-lg font-bold hover:bg-gray-50 dark:bg-slate-800/50 transition-colors min-h-[44px]"
+              className="w-full bg-white dark:bg-slate-800 text-primary dark:text-cyan-300 px-6 py-3 rounded-lg font-bold hover:bg-gray-50 dark:hover:bg-slate-700 transition-colors min-h-[44px]"
             >
               Proceed to Payment
             </button>
@@ -209,7 +209,7 @@ export default function Step3Summary({
         </button>
         <button
           onClick={onReset}
-          className="flex-1 px-6 py-4 border-2 border-primary/30 text-primary rounded-lg font-semibold hover:bg-primary/5 transition-colors min-h-[44px]"
+          className="flex-1 px-6 py-4 border-2 border-primary/30 dark:border-cyan-400/30 text-primary dark:text-cyan-300 rounded-lg font-semibold hover:bg-primary/5 dark:hover:bg-cyan-400/10 transition-colors min-h-[44px]"
         >
           Start Over
         </button>
