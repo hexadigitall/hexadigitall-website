@@ -38,7 +38,7 @@ const StickyServiceCTA = ({
       <div className="flex items-center justify-between gap-3 max-w-md mx-auto">
         <div className="flex flex-col">
           <span className="text-[10px] uppercase tracking-wider text-gray-500 dark:text-slate-500 dark:text-slate-400 font-semibold">Starting at</span>
-          <span className="font-bold text-lg text-primary leading-tight">
+          <span className="font-bold text-lg text-primary dark:text-cyan-300 leading-tight">
             {new Intl.NumberFormat('en-NG', { style: 'currency', currency: currencyCode, maximumFractionDigits: 0 }).format(price)}
           </span>
         </div>
@@ -314,8 +314,8 @@ export default function DynamicServicePage({
             <div className="mt-8">
               <div className="inline-flex items-center space-x-2 text-sm text-gray-600 dark:text-slate-400 mb-4">
                 <span>Prices shown in:</span>
-                <span className="font-semibold text-primary">
-                  {/* HYDRATION SAFE CURRENCY DISPLAY */}
+                <span className="font-semibold text-primary dark:text-cyan-300">
+                  {/* HYDRATION SAFE CURRENCY DISPLAY */
                   {isMounted ? `${currentCurrency.flag} ${currentCurrency.code}` : '🇺🇸 USD'}
                 </span>
               </div>

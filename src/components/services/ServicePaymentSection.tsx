@@ -68,7 +68,7 @@ export default function ServicePaymentSection({
           <div className="bg-white dark:bg-slate-900 rounded-2xl p-6 max-w-md mx-auto mb-8 shadow-sm border">
             <div className="text-center">
               <p className="text-gray-600 dark:text-slate-400 mb-2">Starting from</p>
-              <div className="text-4xl font-bold text-primary mb-2">
+              <div className="text-4xl font-bold text-primary dark:text-cyan-300 mb-2">
                 {formatPrice(startingPrice, { applyNigerianDiscount: true })}
               </div>
               {discountMessage && (
@@ -97,7 +97,7 @@ export default function ServicePaymentSection({
           
           <Link 
             href="/contact" 
-            className="flex-1 inline-flex items-center justify-center px-8 py-4 border-2 border-primary text-primary font-semibold rounded-xl hover:bg-primary/5 transition-colors"
+            className="flex-1 inline-flex items-center justify-center px-8 py-4 border-2 border-primary dark:border-cyan-400/60 text-primary dark:text-cyan-300 font-semibold rounded-xl hover:bg-primary/5 dark:hover:bg-cyan-400/10 transition-colors"
           >
             <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
@@ -141,21 +141,21 @@ export default function ServicePaymentSection({
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 text-sm">
             <Link 
               href="/services" 
-              className="text-primary hover:text-primary/80 font-medium transition-colors"
+              className="text-primary dark:text-cyan-400 hover:text-primary/80 dark:hover:text-cyan-300 font-medium transition-colors"
             >
               ← View All Services
             </Link>
             <span className="hidden sm:inline text-gray-400 dark:text-slate-500 dark:text-slate-400">•</span>
             <Link 
               href="/portfolio" 
-              className="text-primary hover:text-primary/80 font-medium transition-colors"
+              className="text-primary dark:text-cyan-400 hover:text-primary/80 dark:hover:text-cyan-300 font-medium transition-colors"
             >
               View Our Work
             </Link>
             <span className="hidden sm:inline text-gray-400 dark:text-slate-500 dark:text-slate-400">•</span>
             <Link 
               href="/about" 
-              className="text-primary hover:text-primary/80 font-medium transition-colors"
+              className="text-primary dark:text-cyan-400 hover:text-primary/80 dark:hover:text-cyan-300 font-medium transition-colors"
             >
               About Our Team
             </Link>

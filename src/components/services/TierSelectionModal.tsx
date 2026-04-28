@@ -179,7 +179,7 @@ export default function TierSelectionModal({
 
                 {/* Price */}
                 <div className="mb-6">
-                  <div className="text-3xl md:text-4xl font-bold text-primary leading-tight">
+                  <div className="text-3xl md:text-4xl font-bold text-primary dark:text-cyan-300 leading-tight">
                     {currentCurrency.symbol}
                     {Math.round(convertedPrice).toLocaleString()}
                   </div>
@@ -194,7 +194,7 @@ export default function TierSelectionModal({
                 {/* Delivery Time */}
                 {tier.deliveryTime && (
                   <div className="mb-6 p-3 bg-blue-50 dark:bg-blue-950/20 rounded-lg border border-blue-100 dark:border-blue-900/50 flex items-center text-sm text-gray-700 dark:text-gray-300 dark:text-slate-300">
-                    <svg className="w-4 h-4 mr-2.5 text-primary flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg className="w-4 h-4 mr-2.5 text-primary dark:text-cyan-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>
                     <span className="font-medium">Delivery: {tier.deliveryTime}</span>
@@ -253,13 +253,13 @@ export default function TierSelectionModal({
                         key={tier._key} 
                         className={`text-center py-3 px-4 font-bold transition-all ${
                           isSelected 
-                            ? 'text-primary bg-primary/10 border-l-4 border-r-4 border-primary' 
+                            ? 'text-primary dark:text-cyan-300 bg-primary/10 dark:bg-cyan-400/10 border-l-4 border-r-4 border-primary dark:border-cyan-400' 
                             : 'text-gray-900 dark:text-gray-100 dark:text-slate-100'
                         }`}
                       >
                         {tier.name}
                         {isSelected && (
-                          <div className="text-xs font-normal text-primary mt-1">✓ Selected</div>
+                          <div className="text-xs font-normal text-primary dark:text-cyan-300 mt-1">✓ Selected</div>
                         )}
                       </th>
                     )

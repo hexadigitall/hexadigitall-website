@@ -67,7 +67,7 @@ export default function PackageComparison({
         <h3 className="text-2xl font-bold text-gray-900 dark:text-gray-100 dark:text-slate-100">Choose Your Package</h3>
         <button
           onClick={() => setCompareMode(!compareMode)}
-          className="px-4 py-2 text-sm font-medium text-primary hover:bg-primary/10 rounded-lg transition-colors"
+          className="px-4 py-2 text-sm font-medium text-primary dark:text-cyan-300 hover:bg-primary/10 dark:hover:bg-cyan-400/10 rounded-lg transition-colors"
         >
           {compareMode ? 'Exit Compare Mode' : 'Compare Packages'}
         </button>
@@ -173,7 +173,7 @@ export default function PackageComparison({
                     }`}
                   >
                     <div className="font-bold text-gray-900 dark:text-gray-100 dark:text-slate-100">{pkg.name}</div>
-                    <div className="text-2xl font-bold text-primary mt-2">
+                    <div className="text-2xl font-bold text-primary dark:text-cyan-300 mt-2">
                       {formatPrice(pkg.price)}
                     </div>
                     {pkg.popular && (

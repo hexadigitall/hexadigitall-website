@@ -27,19 +27,19 @@ export default function ServiceStatistics({ statistics }: { statistics?: Service
       <h3 className="text-2xl font-bold mb-4">Service Statistics</h3>
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         <div className="text-center">
-          <div className="text-2xl font-bold text-primary">{metrics.projectsCompleted ?? '—'}</div>
+          <div className="text-2xl font-bold text-primary dark:text-cyan-300">{metrics.projectsCompleted ?? '—'}</div>
           <div className="text-sm text-gray-500 dark:text-slate-500 dark:text-slate-400">Projects Completed</div>
         </div>
         <div className="text-center">
-          <div className="text-2xl font-bold text-primary">{metrics.clientSatisfaction ?? '—'}%</div>
+          <div className="text-2xl font-bold text-primary dark:text-cyan-300">{metrics.clientSatisfaction ?? '—'}%</div>
           <div className="text-sm text-gray-500 dark:text-slate-500 dark:text-slate-400">Client Satisfaction</div>
         </div>
         <div className="text-center">
-          <div className="text-2xl font-bold text-primary">{metrics.averageDeliveryTime ?? '—'}</div>
+          <div className="text-2xl font-bold text-primary dark:text-cyan-300">{metrics.averageDeliveryTime ?? '—'}</div>
           <div className="text-sm text-gray-500 dark:text-slate-500 dark:text-slate-400">Avg Delivery</div>
         </div>
         <div className="text-center">
-          <div className="text-2xl font-bold text-primary">{metrics.teamSize ?? '—'}</div>
+          <div className="text-2xl font-bold text-primary dark:text-cyan-300">{metrics.teamSize ?? '—'}</div>
           <div className="text-sm text-gray-500 dark:text-slate-500 dark:text-slate-400">Team Size</div>
         </div>
       </div>

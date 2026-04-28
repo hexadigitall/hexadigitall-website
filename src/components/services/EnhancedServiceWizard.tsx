@@ -368,7 +368,7 @@ export default function EnhancedServiceWizard({ onClose, onComplete, initialServ
                     <div className="text-4xl mb-3">{service.icon}</div>
                     <h4 className="font-bold text-gray-900 dark:text-gray-100 dark:text-slate-100 mb-2">{service.name}</h4>
                     <p className="text-sm text-gray-600 dark:text-slate-400 mb-3">{service.description}</p>
-                    <p className="text-sm font-semibold text-primary">
+                    <p className="text-sm font-semibold text-primary dark:text-cyan-300">
                       From {formatPrice(service.basePrice)}
                     </p>
                   </button>
@@ -401,7 +401,7 @@ export default function EnhancedServiceWizard({ onClose, onComplete, initialServ
                     <span className="ml-3 flex-1 font-medium text-gray-900 dark:text-gray-100 dark:text-slate-100">{req.label}</span>
                     <span className={`text-xs px-2 py-1 rounded ${
                       req.category === 'essential' 
-                        ? 'bg-primary/10 text-primary' 
+                        ? 'bg-primary/10 dark:bg-cyan-400/10 text-primary dark:text-cyan-300' 
                         : 'bg-gray-100 text-gray-600 dark:text-slate-400'
                     }`}>
                       {req.category}

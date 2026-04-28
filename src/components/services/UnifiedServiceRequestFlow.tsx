@@ -265,7 +265,7 @@ export default function UnifiedServiceRequestFlow({
               <h3 className="font-semibold text-gray-900 dark:text-gray-100 dark:text-gray-100 dark:text-gray-100 dark:text-slate-100 dark:text-slate-100 mb-2">{serviceName}</h3>
               <p className="text-sm text-gray-700 dark:text-gray-300 dark:text-gray-300 dark:text-gray-300 dark:text-slate-300 dark:text-slate-300 mb-3">{serviceType === 'tiered' ? `Tier: ${tier?.name}` : 'Individual Service'}</p>
               <div className="flex justify-between items-end">
-                <span className="text-lg font-bold text-primary">
+                <span className="text-lg font-bold text-primary dark:text-cyan-300">
                   {currentCurrency.symbol}{Math.round(convertedPrice).toLocaleString()}
                 </span>
                 <span className="text-xs text-gray-600 dark:text-slate-400">{tier?.deliveryTime || '7-14 days'}</span>
@@ -310,14 +310,14 @@ export default function UnifiedServiceRequestFlow({
                       type="checkbox"
                       checked={isSelected}
                       onChange={() => toggleAddOn(addon._key)}
-                      className="w-5 h-5 text-primary rounded mt-1 mr-3 flex-shrink-0 cursor-pointer"
+                      className="w-5 h-5 text-primary dark:accent-cyan-400 rounded mt-1 mr-3 flex-shrink-0 cursor-pointer"
                       aria-label={`Add ${addon.name}`}
                     />
                     <div className="flex-1">
                       <p className="font-semibold text-gray-900 dark:text-gray-100 dark:text-gray-100 dark:text-gray-100 dark:text-slate-100">{addon.name}</p>
                       <p className="text-sm text-gray-600 dark:text-slate-400">{addon.description}</p>
                     </div>
-                    <span className="text-lg font-bold text-primary ml-4 flex-shrink-0">
+                    <span className="text-lg font-bold text-primary dark:text-cyan-300 ml-4 flex-shrink-0">
                       +{currentCurrency.symbol}{Math.round(convertedAddonPrice).toLocaleString()}
                     </span>
                   </label>
@@ -339,7 +339,7 @@ export default function UnifiedServiceRequestFlow({
               )}
               <div className="border-t pt-2 flex justify-between">
                 <span className="font-bold text-gray-900 dark:text-gray-100 dark:text-gray-100 dark:text-gray-100 dark:text-slate-100">Total:</span>
-                <span className="font-bold text-primary text-lg">{currentCurrency.symbol}{Math.round(convertedPrice + addOnsTotal).toLocaleString()}</span>
+                <span className="font-bold text-primary dark:text-cyan-300 text-lg">{currentCurrency.symbol}{Math.round(convertedPrice + addOnsTotal).toLocaleString()}</span>
               </div>
             </div>
           </div>
@@ -463,7 +463,7 @@ export default function UnifiedServiceRequestFlow({
               </div>
               <div className="border-t pt-3 flex justify-between">
                 <span className="font-bold text-gray-900 dark:text-gray-100 dark:text-gray-100 dark:text-gray-100 dark:text-slate-100">Total Amount:</span>
-                <span className="font-bold text-primary text-lg">{currentCurrency.symbol}{Math.round(totalPrice).toLocaleString()}</span>
+                <span className="font-bold text-primary dark:text-cyan-300 text-lg">{currentCurrency.symbol}{Math.round(totalPrice).toLocaleString()}</span>
               </div>
             </div>
 

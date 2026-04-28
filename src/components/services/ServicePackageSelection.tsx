@@ -254,7 +254,7 @@ export const ServicePackageSelection: React.FC<ServicePackageSelectionProps> = (
                   <div className="flex-1">
                     <div className="flex items-center">
                       <h5 className="font-semibold text-gray-900 dark:text-gray-100 dark:text-slate-100">{addOn.name}</h5>
-                      <span className="ml-2 font-bold text-primary">
+                      <span className="ml-2 font-bold text-primary dark:text-cyan-300">
                         +{formatPrice(addOn.price, selectedPackage.currency)}
                       </span>
                     </div>
@@ -406,14 +406,14 @@ export const ServicePackageSelection: React.FC<ServicePackageSelectionProps> = (
                 {selectedPackage.name} 
                 {selectedAddOns.length > 0 && ` + ${selectedAddOns.length} add-on${selectedAddOns.length > 1 ? 's' : ''}`}
               </p>
-              <p className="text-sm text-primary font-medium mt-1">
+              <p className="text-sm text-primary dark:text-cyan-300 font-medium mt-1">
                 Payment: {selectedPaymentPlan.name}
               </p>
             </div>
             <div className="text-right">
               {selectedPaymentPlan.installments === 1 ? (
                 <div>
-                  <div className="text-2xl font-bold text-primary">
+                  <div className="text-2xl font-bold text-primary dark:text-cyan-300">
                     {formatPrice(calculatePaymentBreakdown().totalWithFeeUSD)}
                   </div>
                   <div className="text-sm text-gray-600 dark:text-slate-400">Full payment</div>

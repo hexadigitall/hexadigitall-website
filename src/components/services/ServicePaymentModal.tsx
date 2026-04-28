@@ -280,7 +280,7 @@ function ServicePaymentModal({
 
                 <div className="text-center mb-4">
                   <h4 className="text-lg font-bold text-gray-900 dark:text-gray-100 dark:text-gray-100 dark:text-gray-100 dark:text-slate-100 mb-2">{pkg.name}</h4>
-                  <div className="text-3xl font-bold text-primary mb-2">
+                  <div className="text-3xl font-bold text-primary dark:text-cyan-300 mb-2">
                     {formatPrice(pkg.price, { applyNigerianDiscount: true })}
                   </div>
                   {currentCurrency.code !== 'NGN' && discountMessage && (
@@ -362,7 +362,7 @@ function ServicePaymentModal({
                 <p className="text-sm text-gray-600 dark:text-slate-400">{selectedPackage.name}</p>
               </div>
               <div className="text-right">
-                <div className="text-lg font-bold text-primary">
+                <div className="text-lg font-bold text-primary dark:text-cyan-300">
                   {formatPrice(selectedPackage.price, { applyNigerianDiscount: true })}
                 </div>
                 {currentCurrency.code !== 'NGN' && discountMessage && (
@@ -391,7 +391,7 @@ function ServicePaymentModal({
                   
                   <div className="flex justify-between items-center border-t pt-2 mb-3">
                     <span className="text-lg font-semibold">Total:</span>
-                    <span className="text-xl font-bold text-primary">
+                    <span className="text-xl font-bold text-primary dark:text-cyan-300">
                       {formatPrice((selectedPackage.price + selectedPaymentPlan.processingFee), { applyNigerianDiscount: true })}
                     </span>
                   </div>
@@ -433,7 +433,7 @@ function ServicePaymentModal({
                 <div>
                   <div className="flex justify-between items-center">
                     <span className="text-lg font-semibold">Total</span>
-                    <span className="text-2xl font-bold text-primary">
+                    <span className="text-2xl font-bold text-primary dark:text-cyan-300">
                       {formatPrice(selectedPackage.price, { applyNigerianDiscount: true })}
                     </span>
                   </div>
