@@ -105,13 +105,13 @@ export default async function CurriculumsIndexPage() {
       />
 
       <main className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <nav className="text-sm text-gray-500 dark:text-slate-500 mb-8">
-          <Link href="/" className="hover:text-primary transition-colors">Home</Link>
+        <nav className="text-sm text-gray-500 dark:text-slate-400 mb-8">
+          <Link href="/" className="hover:text-primary dark:hover:text-cyan-300 transition-colors">Home</Link>
           <span className="mx-2">/</span>
-          <span className="text-primary font-medium">Curriculums</span>
+          <span className="text-primary dark:text-cyan-300 font-medium">Curriculums</span>
         </nav>
 
-          <section className="mb-10 rounded-2xl border border-gray-100 dark:border-slate-700 bg-gray-50 dark:bg-slate-800/50 dark:bg-slate-800 p-5">
+          <section className="mb-10 rounded-2xl border border-gray-100 dark:border-slate-700 bg-gray-50 dark:bg-slate-800/50 p-5">
           <p className="text-sm text-gray-700 dark:text-slate-300">
             <strong>{curriculums.length}</strong> curriculum documents are currently available in Sanity for direct rendering.
             <span className="hidden sm:inline"> </span>
@@ -120,7 +120,7 @@ export default async function CurriculumsIndexPage() {
         </section>
 
         <section className="mb-12">
-          <h2 className="text-xl font-bold text-primary mb-4">Available Curriculums</h2>
+          <h2 className="text-xl font-bold text-primary dark:text-cyan-300 mb-4">Available Curriculums</h2>
           {curriculums.length > 0 ? (
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {curriculums.map((curriculum) => {
@@ -130,12 +130,12 @@ export default async function CurriculumsIndexPage() {
                 const description = curriculum.summary || course?.summary
 
                 return (
-                  <article key={curriculum._id} className="rounded-2xl border border-gray-100 dark:border-slate-700 bg-white dark:bg-slate-900 dark:bg-slate-800 p-4 shadow-sm">
+                  <article key={curriculum._id} className="rounded-2xl border border-gray-100 dark:border-slate-700 bg-white dark:bg-slate-800 p-4 shadow-sm">
                     <p className="font-semibold text-darkText dark:text-slate-200">{heading}</p>
                   {description && <p className="text-sm text-gray-500 dark:text-slate-500 mt-1 line-clamp-2">{description}</p>}
-                  <div className="mt-2 flex flex-wrap gap-2 text-[11px] font-medium text-gray-500 dark:text-slate-500">
-                      {curriculum.level && <span className="rounded-full bg-gray-100 dark:bg-slate-800 dark:bg-slate-700 dark:text-slate-300 px-2 py-1">{curriculum.level}</span>}
-                      {curriculum.duration && <span className="rounded-full bg-gray-100 dark:bg-slate-800 dark:bg-slate-700 dark:text-slate-300 px-2 py-1">{curriculum.duration}</span>}
+                  <div className="mt-2 flex flex-wrap gap-2 text-[11px] font-medium text-gray-500 dark:text-slate-400">
+                      {curriculum.level && <span className="rounded-full bg-gray-100 dark:bg-slate-700 dark:text-slate-300 px-2 py-1">{curriculum.level}</span>}
+                      {curriculum.duration && <span className="rounded-full bg-gray-100 dark:bg-slate-700 dark:text-slate-300 px-2 py-1">{curriculum.duration}</span>}
                   </div>
                   <div className="mt-3 flex flex-wrap gap-2">
                     <Link
@@ -147,7 +147,7 @@ export default async function CurriculumsIndexPage() {
                     {courseSlug && (
                       <Link
                         href={`/courses/${courseSlug}`}
-                          className="inline-flex items-center rounded-lg border border-gray-200 dark:border-slate-700 dark:border-slate-600 px-3 py-2 text-xs font-semibold text-gray-700 dark:text-slate-300 dark:text-slate-300 hover:border-gray-300 dark:border-slate-600 dark:hover:border-slate-500"
+                          className="inline-flex items-center rounded-lg border border-gray-200 dark:border-slate-600 px-3 py-2 text-xs font-semibold text-gray-700 dark:text-slate-300 hover:border-gray-300 dark:hover:border-slate-500"
                       >
                         View Course
                       </Link>
@@ -164,13 +164,13 @@ export default async function CurriculumsIndexPage() {
 
         {unmatched.length > 0 && (
           <section>
-            <h2 className="text-xl font-bold text-primary mb-4">Courses Awaiting Curriculum Mapping</h2>
+            <h2 className="text-xl font-bold text-primary dark:text-cyan-300 mb-4">Courses Awaiting Curriculum Mapping</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
               {unmatched.map((course) => (
-                  <article key={course._id} className="rounded-xl border border-dashed border-gray-200 dark:border-slate-700 dark:border-slate-600 bg-white dark:bg-slate-900 dark:bg-slate-800 p-4">
-                    <p className="font-medium text-gray-800 dark:text-slate-200 dark:text-slate-200">{course.title}</p>
+                  <article key={course._id} className="rounded-xl border border-dashed border-gray-200 dark:border-slate-600 bg-white dark:bg-slate-800 p-4">
+                    <p className="font-medium text-gray-800 dark:text-slate-200">{course.title}</p>
                   <p className="text-xs text-gray-500 dark:text-slate-500 mt-1">Slug: {course.slug.current}</p>
-                  <Link href={`/courses/${course.slug.current}`} className="mt-2 inline-block text-xs text-primary hover:underline">
+                  <Link href={`/courses/${course.slug.current}`} className="mt-2 inline-block text-xs text-primary dark:text-cyan-400 hover:underline">
                     Open course page
                   </Link>
                 </article>

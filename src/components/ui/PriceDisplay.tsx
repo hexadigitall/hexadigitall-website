@@ -50,7 +50,7 @@ export function PriceDisplay({
     // No discount - show regular price
     return (
       <div className={`${className}`}>
-        <span className={`text-primary ${styles.discounted}`}>
+        <span className={`text-primary dark:text-cyan-300 ${styles.discounted}`}>
           {priceInfo.discountedPrice}
         </span>
       </div>
@@ -76,7 +76,7 @@ export function PriceDisplay({
       <div className="flex flex-col items-center">
         {/* Original Price (Struck Through) */}
         <div className="flex items-center space-x-2 mb-1">
-          <span className={`text-gray-500 dark:text-slate-500 dark:text-slate-500 dark:text-slate-500 line-through ${styles.original}`}>
+          <span className={`text-gray-500 dark:text-slate-400 line-through ${styles.original}`}>
             {priceInfo.originalPrice}
           </span>
           {showUrgency && (
@@ -88,7 +88,7 @@ export function PriceDisplay({
         
         {/* Discounted Price */}
         <div className="flex items-center space-x-2">
-          <span className={`text-green-600 ${styles.discounted}`}>
+          <span className={`text-green-600 dark:text-green-400 ${styles.discounted}`}>
             {priceInfo.discountedPrice}
           </span>
           {showUrgency && (
@@ -101,7 +101,7 @@ export function PriceDisplay({
         {/* Savings Display */}
         {showUrgency && (
           <div className="mt-2 text-center">
-            <span className="text-xs sm:text-sm text-green-600 font-medium">
+            <span className="text-xs sm:text-sm text-green-600 dark:text-green-400 font-medium">
               💰 You save {priceInfo.discountPercentage}%!
             </span>
           </div>
@@ -127,7 +127,7 @@ export function CompactPriceDisplay({
   
   if (!priceInfo.hasDiscount || !showDiscount) {
     return (
-      <span className={`text-primary font-bold ${className}`}>
+      <span className={`text-primary dark:text-cyan-300 font-bold ${className}`}>
         {priceInfo.discountedPrice}
       </span>
     )
@@ -150,15 +150,15 @@ export function CompactPriceDisplay({
       {/* Prices */}
       <div className="flex flex-col items-center">
         {priceInfo.hasDiscount && (
-          <span className="text-gray-500 dark:text-slate-500 dark:text-slate-500 dark:text-slate-500 line-through text-sm font-medium mb-1">
+          <span className="text-gray-500 dark:text-slate-400 line-through text-sm font-medium mb-1">
             {priceInfo.originalPrice}
           </span>
         )}
-        <span className={`font-bold text-xl ${priceInfo.hasDiscount ? 'text-green-600' : 'text-primary'}`}>
+        <span className={`font-bold text-xl ${priceInfo.hasDiscount ? 'text-green-600 dark:text-green-400' : 'text-primary dark:text-cyan-300'}`}>
           {priceInfo.discountedPrice}
         </span>
         {priceInfo.hasDiscount && isLocalCurrency() && (
-          <span className="text-green-600 text-xs font-medium mt-1">
+          <span className="text-green-600 dark:text-green-400 text-xs font-medium mt-1">
             💰 You save {priceInfo.discountPercentage}%!
           </span>
         )}
@@ -202,29 +202,29 @@ export function StartingAtPriceDisplay({
   
   return (
     <div className={`text-center ${className}`}>
-      <div className={`text-gray-600 dark:text-slate-400 dark:text-slate-400 dark:text-slate-400 ${styles.starting} mb-1 uppercase tracking-wide`}>
+      <div className={`text-gray-600 dark:text-slate-300 ${styles.starting} mb-1 uppercase tracking-wide`}>
         Starting at
       </div>
       
       {priceInfo.hasDiscount && showDiscount ? (
         <div className="flex flex-col items-center">
-          <span className={`text-gray-500 dark:text-slate-500 dark:text-slate-500 dark:text-slate-500 line-through text-sm mb-1`}>
+          <span className={`text-gray-500 dark:text-slate-400 line-through text-sm mb-1`}>
             {priceInfo.originalPrice}
           </span>
-          <span className={`text-green-600 ${styles.price}`}>
+          <span className={`text-green-600 dark:text-green-400 ${styles.price}`}>
             {priceInfo.discountedPrice}
           </span>
-          <span className="text-green-600 text-xs mt-1">
+          <span className="text-green-600 dark:text-green-400 text-xs mt-1">
             Save {priceInfo.discountPercentage}%!
           </span>
         </div>
       ) : (
-        <span className={`text-primary ${styles.price}`}>
+        <span className={`text-primary dark:text-cyan-300 ${styles.price}`}>
           {priceInfo.discountedPrice}
         </span>
       )}
       
-      <div className="text-gray-500 dark:text-slate-500 dark:text-slate-500 dark:text-slate-500 text-xs mt-2">
+      <div className="text-gray-500 dark:text-slate-400 text-xs mt-2">
         *Final price depends on specific requirements
       </div>
     </div>

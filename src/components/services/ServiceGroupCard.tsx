@@ -51,7 +51,7 @@ export default function ServiceGroupCard({ group, onViewOptions }: ServiceGroupC
       <div className="p-8">
         {/* Header */}
         <div className="mb-6">
-          <h3 className="text-2xl font-bold font-heading text-gray-900 dark:text-gray-100 dark:text-slate-100 mb-2 group-hover:text-primary transition-colors">
+          <h3 className="text-2xl font-bold font-heading text-gray-900 dark:text-slate-100 mb-2 group-hover:text-primary transition-colors">
             {group.name}
           </h3>
           <p className="text-gray-600 dark:text-slate-400 text-sm line-clamp-2">
@@ -65,7 +65,7 @@ export default function ServiceGroupCard({ group, onViewOptions }: ServiceGroupC
             Starting at
           </p>
           <div className="flex items-baseline gap-1">
-            <span className="text-3xl font-bold text-primary">
+            <span className="text-3xl font-bold text-primary dark:text-cyan-300">
               {currentCurrency.symbol}
               {Math.round(convertedPrice).toLocaleString()}
             </span>
