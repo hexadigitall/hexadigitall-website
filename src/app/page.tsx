@@ -1,6 +1,7 @@
 // src/app/page.tsx
 
 import type { Metadata } from 'next';
+import Script from 'next/script';
 import Hero from '@/components/sections/Hero';
 import FeaturedCourses from '@/components/sections/FeaturedCourses';
 import RecentTextbooks from '@/components/sections/RecentTextbooks';
@@ -41,13 +42,15 @@ export default function HomePage() {
   return (
     <>
       {/* Structured Data for SEO */}
-      <script
+      <Script
+        id="org-structured-data"
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: generateStructuredData(organizationStructuredData),
         }}
       />
-      <script
+      <Script
+        id="website-structured-data"
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: generateStructuredData(websiteStructuredData),
