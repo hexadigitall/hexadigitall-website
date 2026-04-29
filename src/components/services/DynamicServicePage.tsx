@@ -315,7 +315,7 @@ export default function DynamicServicePage({
               <div className="inline-flex items-center space-x-2 text-sm text-gray-600 dark:text-slate-400 mb-4">
                 <span>Prices shown in:</span>
                 <span className="font-semibold text-primary dark:text-cyan-300">
-                  {/* HYDRATION SAFE CURRENCY DISPLAY */
+                  {/* HYDRATION SAFE CURRENCY DISPLAY */}
                   {isMounted ? `${currentCurrency.flag} ${currentCurrency.code}` : '🇺🇸 USD'}
                 </span>
               </div>
