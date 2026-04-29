@@ -105,7 +105,7 @@ export default function CourseEnrollment({ course }: { course: CourseEnrollmentD
                 return (
                   <div className="space-y-1">
                     <div className="text-sm text-gray-600 dark:text-gray-400 dark:text-slate-400">Starting from</div>
-                    <span className="text-3xl font-bold text-primary">
+                    <span className="text-3xl font-bold text-primary dark:text-cyan-300">
                       {new Intl.NumberFormat(undefined, {
                         style: 'currency',
                         currency,
@@ -129,7 +129,7 @@ export default function CourseEnrollment({ course }: { course: CourseEnrollmentD
                     </div>
                   )
                 } else {
-                  return <span className="text-3xl font-bold text-primary">{priceInfo.discountedPrice}</span>
+                  return <span className="text-3xl font-bold text-primary dark:text-cyan-300">{priceInfo.discountedPrice}</span>
                 }
               } else if (course.nairaPrice || course.price) {
                 const nairaAmount = course.nairaPrice || course.price || 0;
@@ -143,7 +143,7 @@ export default function CourseEnrollment({ course }: { course: CourseEnrollmentD
                     </div>
                   )
                 } else {
-                  return <span className="text-3xl font-bold text-primary">{priceInfo.discountedPrice}</span>
+                  return <span className="text-3xl font-bold text-primary dark:text-cyan-300">{priceInfo.discountedPrice}</span>
                 }
               } else {
                 return <span className="text-3xl font-bold text-green-600 dark:text-green-400">Free</span>

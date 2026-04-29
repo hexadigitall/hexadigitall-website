@@ -188,7 +188,7 @@ export default function TeacherLoginPage() {
           <div className="mt-6 space-y-3 text-center">
             <p className="text-sm text-gray-600 dark:text-slate-400">
               Don&apos;t have an account?{' '}
-              <Link href="/teacher/signup" className="text-primary hover:text-primary/80 font-medium">
+              <Link href="/teacher/signup" className="text-primary dark:text-cyan-400 hover:text-primary/80 dark:hover:text-cyan-300 font-medium">
                 Apply to teach
               </Link>
             </p>

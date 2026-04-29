@@ -19,7 +19,7 @@ export default function ComingSoon({
         <div className="mb-8 flex justify-center">
           <div className="w-24 h-24 bg-primary/10 rounded-full flex items-center justify-center">
             <svg 
-              className="w-12 h-12 text-primary" 
+              className="w-12 h-12 text-primary dark:text-cyan-300" 
               fill="none" 
               stroke="currentColor" 
               viewBox="0 0 24 24"

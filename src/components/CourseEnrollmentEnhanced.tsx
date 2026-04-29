@@ -262,7 +262,7 @@ export default function CourseEnrollmentEnhanced({ course }: { course: CourseEnr
                     );
                   } else {
                     return (
-                      <span className="text-3xl font-bold text-primary">
+                      <span className="text-3xl font-bold text-primary dark:text-cyan-300">
                         {priceInfo.discountedPrice}
                       </span>
                     );
@@ -425,7 +425,7 @@ export default function CourseEnrollmentEnhanced({ course }: { course: CourseEnr
                 >
                   <h4 className="font-semibold text-gray-900 dark:text-gray-100 dark:text-slate-100">Fixed Price Course</h4>
                   <p className="text-sm text-gray-600 dark:text-gray-400">Complete course with structured curriculum</p>
-                  <div className="mt-2 text-lg font-bold text-primary">
+                  <div className="mt-2 text-lg font-bold text-primary dark:text-cyan-300">
                     {formatPrice(course.dollarPrice || course.price || 0)}
                   </div>
                 </div>
@@ -440,7 +440,7 @@ export default function CourseEnrollmentEnhanced({ course }: { course: CourseEnr
                 >
                   <h4 className="font-semibold text-gray-900 dark:text-gray-100 dark:text-slate-100">Per-Session</h4>
                   <p className="text-sm text-gray-600 dark:text-gray-400">Pay for individual sessions</p>
-                  <div className="mt-2 text-lg font-bold text-primary">
+                  <div className="mt-2 text-lg font-bold text-primary dark:text-cyan-300">
                     {formatPrice(course.sessionPricing.perSessionPrice)} per session
                   </div>
                 </div>
@@ -455,7 +455,7 @@ export default function CourseEnrollmentEnhanced({ course }: { course: CourseEnr
                 >
                   <h4 className="font-semibold text-gray-900 dark:text-gray-100 dark:text-slate-100">Hourly Rate</h4>
                   <p className="text-sm text-gray-600 dark:text-gray-400">Pay by the hour for flexible learning</p>
-                  <div className="mt-2 text-lg font-bold text-primary">
+                  <div className="mt-2 text-lg font-bold text-primary dark:text-cyan-300">
                     {formatPrice(course.sessionPricing.hourlyRate)} per hour
                   </div>
                 </div>
@@ -529,7 +529,7 @@ export default function CourseEnrollmentEnhanced({ course }: { course: CourseEnr
                     htmlFor={schedule}
                     className={`block w-full p-3 text-center rounded-lg border-2 cursor-pointer ${
                       sessionCustomization.schedule === schedule 
-                        ? 'border-primary bg-primary/5 text-primary' 
+                        ? 'border-primary dark:border-cyan-400/60 bg-primary/5 dark:bg-cyan-400/10 text-primary dark:text-cyan-300' 
                         : 'border-gray-200 dark:border-slate-600 text-gray-700 dark:text-gray-300 dark:text-slate-300'
                     }`}
                   >
@@ -566,7 +566,7 @@ export default function CourseEnrollmentEnhanced({ course }: { course: CourseEnr
                     htmlFor={intensity.value}
                     className={`block w-full p-3 text-center rounded-lg border-2 cursor-pointer ${
                       sessionCustomization.intensity === intensity.value 
-                        ? 'border-primary bg-primary/5 text-primary' 
+                        ? 'border-primary dark:border-cyan-400/60 bg-primary/5 dark:bg-cyan-400/10 text-primary dark:text-cyan-300' 
                         : 'border-gray-200 dark:border-slate-600 text-gray-700 dark:text-gray-300 dark:text-slate-300'
                     }`}
                   >
@@ -582,7 +582,7 @@ export default function CourseEnrollmentEnhanced({ course }: { course: CourseEnr
           <div className="bg-blue-50 dark:bg-blue-950/20 rounded-lg p-4">
             <div className="flex justify-between items-center">
               <span className="font-semibold text-gray-900 dark:text-gray-100 dark:text-slate-100">Total Price:</span>
-              <span className="text-2xl font-bold text-primary">
+              <span className="text-2xl font-bold text-primary dark:text-cyan-300">
                 {formatPrice(totalPrice)}
               </span>
             </div>
@@ -772,7 +772,7 @@ export default function CourseEnrollmentEnhanced({ course }: { course: CourseEnr
             <div className="flex-1">
               <h4 className="font-semibold text-gray-900 dark:text-gray-100 dark:text-slate-100">{course.title}</h4>
               <p className="text-sm text-gray-600 dark:text-gray-400">{course.instructor}</p>
-              <div className="mt-2 text-lg font-bold text-primary">
+              <div className="mt-2 text-lg font-bold text-primary dark:text-cyan-300">
                 {formatPrice(totalPrice)}
               </div>
             </div>

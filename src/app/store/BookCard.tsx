@@ -93,7 +93,7 @@ export default function BookCard({ book, highlightTerm = '' }: { book: BookSumma
       {/* Details */}
       <div className="flex flex-col flex-1 p-4 gap-3">
         <div>
-          <Link href={`/store/${book.slug.current}`} className="hover:text-primary transition-colors">
+          <Link href={`/store/${book.slug.current}`} className="hover:text-primary dark:hover:text-cyan-300 transition-colors">
             <h3 className="font-bold text-darkText text-sm leading-snug line-clamp-2">{highlightText(book.title, highlightTerm)}</h3>
           </Link>
           {book.subtitle && <p className="text-xs text-gray-400 dark:text-slate-500 mt-0.5 line-clamp-1">{highlightText(book.subtitle, highlightTerm)}</p>}
@@ -105,7 +105,7 @@ export default function BookCard({ book, highlightTerm = '' }: { book: BookSumma
         {/* Meta chips */}
         <div className="flex flex-wrap gap-1">
           {book.level && (
-            <span className="text-xs bg-primary/8 text-primary px-2 py-0.5 rounded-full">
+            <span className="text-xs bg-primary/8 text-primary dark:text-cyan-300 px-2 py-0.5 rounded-full">
               {LEVEL_LABELS[book.level] ?? book.level}
             </span>
           )}
@@ -118,7 +118,7 @@ export default function BookCard({ book, highlightTerm = '' }: { book: BookSumma
 
         {/* Price */}
         {lowestNGN && (
-          <p className="text-sm font-bold text-primary">
+          <p className="text-sm font-bold text-primary dark:text-cyan-300">
             From ₦{lowestNGN.toLocaleString()}
           </p>
         )}
@@ -127,7 +127,7 @@ export default function BookCard({ book, highlightTerm = '' }: { book: BookSumma
         <div className="mt-auto pt-2 flex gap-2">
           <Link
             href={`/store/${book.slug.current}`}
-            className="flex-1 text-center text-xs font-semibold border border-primary text-primary rounded-lg py-2 hover:bg-primary hover:text-white transition-colors"
+            className="flex-1 text-center text-xs font-semibold border border-primary text-primary dark:text-cyan-300 dark:border-cyan-400/60 rounded-lg py-2 hover:bg-primary hover:text-white transition-colors"
           >
             View Details
           </Link>

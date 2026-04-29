@@ -133,7 +133,7 @@ export default async function BookPage({ params }: Props) {
           <span className="mx-2">/</span>
           <Link href="/store" className="hover:text-primary transition-colors">Store</Link>
           <span className="mx-2">/</span>
-          <span className="text-primary font-medium line-clamp-1">{book.title}</span>
+          <span className="text-primary dark:text-cyan-300 font-medium line-clamp-1">{book.title}</span>
         </nav>
 
         {/* Hero row */}
@@ -165,7 +165,7 @@ export default async function BookPage({ params }: Props) {
               <span className={`inline-block text-xs font-semibold px-3 py-1 rounded-full mb-3 ${STATUS_STYLES[book.status]}`}>
                 {STATUS_LABELS[book.status]}
               </span>
-              <h1 className="text-3xl md:text-4xl font-bold text-primary leading-tight">{book.title}</h1>
+              <h1 className="text-3xl md:text-4xl font-bold text-primary dark:text-cyan-300 leading-tight">{book.title}</h1>
               {book.subtitle && <p className="text-lg text-gray-500 dark:text-slate-400 mt-1">{book.subtitle}</p>}
               {book.authors && (
                 <p className="text-sm text-gray-600 dark:text-slate-400 mt-2">by {book.authors.join(', ')}</p>
@@ -216,7 +216,7 @@ export default async function BookPage({ params }: Props) {
                 <span className="text-2xl">🎓</span>
                 <div>
                   <p className="text-xs text-gray-500">Companion course</p>
-                  <Link href={`/courses/${book.relatedCourse.slug.current}`} className="text-sm font-semibold text-primary hover:underline">
+                  <Link href={`/courses/${book.relatedCourse.slug.current}`} className="text-sm font-semibold text-primary dark:text-cyan-400 hover:underline">
                     {book.relatedCourse.title}
                   </Link>
                 </div>
@@ -269,7 +269,7 @@ export default async function BookPage({ params }: Props) {
         {/* Long description */}
         {book.longDescription && (
           <section className="mb-16 max-w-3xl">
-            <h2 className="text-2xl font-bold text-primary mb-5">About This Book</h2>
+            <h2 className="text-2xl font-bold text-primary dark:text-cyan-300 mb-5">About This Book</h2>
             <div className="prose prose-gray dark:prose-invert max-w-none">
               <PortableText value={book.longDescription as Record<string, unknown>[]} />
             </div>
@@ -279,7 +279,7 @@ export default async function BookPage({ params }: Props) {
         {/* Table of contents */}
         {book.tableOfContents && book.tableOfContents.length > 0 && (
           <section className="mb-16 max-w-2xl">
-            <h2 className="text-2xl font-bold text-primary mb-5">Table of Contents</h2>
+            <h2 className="text-2xl font-bold text-primary dark:text-cyan-300 mb-5">Table of Contents</h2>
             <ol className="space-y-2">
               {book.tableOfContents.map((entry) => (
                 <li key={entry._key} className="flex items-baseline gap-3 py-2 border-b border-gray-100 dark:border-slate-700">
@@ -296,7 +296,7 @@ export default async function BookPage({ params }: Props) {
         {publicResources.length > 0 && (
           <section className="mb-16">
             <div className="flex items-center justify-between mb-5">
-              <h2 className="text-2xl font-bold text-primary">Free Companion Resources</h2>
+              <h2 className="text-2xl font-bold text-primary dark:text-cyan-300">Free Companion Resources</h2>
               <Link href={`/resources/${slug}`} className="text-sm text-secondary hover:underline font-medium">
                 View all resources →
               </Link>
@@ -316,7 +316,7 @@ export default async function BookPage({ params }: Props) {
         {hasErrata && (
           <section className="mb-16">
             <div className="flex items-center justify-between mb-5">
-              <h2 className="text-2xl font-bold text-primary">Corrections (Errata)</h2>
+              <h2 className="text-2xl font-bold text-primary dark:text-cyan-300">Corrections (Errata)</h2>
               <Link href={`/errata/${slug}`} className="text-sm text-secondary hover:underline font-medium">
                 View all corrections →
               </Link>
@@ -325,7 +325,7 @@ export default async function BookPage({ params }: Props) {
               We maintain a full list of corrections for this book. Found an error? Visit the errata page to report it.
             </p>
             <div className="mt-3">
-              <Link href={`/errata/${slug}`} className="inline-flex items-center gap-2 border border-gray-200 rounded-xl px-4 py-2 text-sm text-gray-600 hover:border-primary hover:text-primary transition-colors">
+              <Link href={`/errata/${slug}`} className="inline-flex items-center gap-2 border border-gray-200 dark:border-slate-700 rounded-xl px-4 py-2 text-sm text-gray-600 dark:text-slate-300 hover:border-primary dark:hover:border-cyan-400/60 hover:text-primary dark:hover:text-cyan-300 transition-colors">
                 🔍 View {book.errata?.length} correction{book.errata!.length !== 1 ? 's' : ''}
               </Link>
             </div>

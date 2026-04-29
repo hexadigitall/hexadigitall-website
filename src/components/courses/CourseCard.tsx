@@ -109,7 +109,7 @@ export default function CourseCard({
       
       <div className="p-6 flex flex-col flex-grow">
         {/* 🔗 2. CLICKABLE TITLE */}
-        <Link href={`/courses/${safeSlug}`} className="block group-hover:text-primary transition-colors cursor-pointer">
+        <Link href={`/courses/${safeSlug}`} className="block group-hover:text-primary dark:group-hover:text-cyan-300 transition-colors cursor-pointer">
           <h3 className="text-xl font-bold text-gray-900 dark:text-slate-100 mb-2 line-clamp-2">
             {safeTitle}
           </h3>

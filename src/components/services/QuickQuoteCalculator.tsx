@@ -108,7 +108,7 @@ export default function QuickQuoteCalculator({ onGetQuote }: QuickQuoteCalculato
               <div className="flex items-center justify-between">
                 <span className="font-medium text-gray-900 dark:text-gray-100 dark:text-slate-100">{service.label}</span>
                 {selectedService === service.id && (
-                  <CheckIcon className="h-5 w-5 text-primary" />
+                  <CheckIcon className="h-5 w-5 text-primary dark:text-cyan-300" />
                 )}
               </div>
               <span className="text-sm text-gray-500 dark:text-slate-500 dark:text-slate-400">
@@ -138,7 +138,7 @@ export default function QuickQuoteCalculator({ onGetQuote }: QuickQuoteCalculato
               >
                 <div className="font-medium text-gray-900 dark:text-gray-100 dark:text-slate-100">{level.label}</div>
                 {selectedComplexity === level.id && (
-                  <CheckIcon className="h-4 w-4 text-primary mx-auto mt-1" />
+                  <CheckIcon className="h-4 w-4 text-primary dark:text-cyan-300 mx-auto mt-1" />
                 )}
               </button>
             ))}

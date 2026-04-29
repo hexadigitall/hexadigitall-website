@@ -178,7 +178,7 @@ export default async function CampaignPage({ params }: { params: Promise<{ slug:
               <span className="px-3 py-1 rounded-full bg-gray-100">Cities: Lagos, Abuja, Calabar, Kano, Port Harcourt, Benin, Ibadan</span>
             </div>
             <div className="bg-gray-50 dark:bg-slate-800 border border-gray-100 dark:border-slate-700 rounded-xl p-6 space-y-4">
-              <h2 className="text-xl font-semibold text-primary">What you get in 48 hours</h2>
+              <h2 className="text-xl font-semibold text-primary dark:text-cyan-300">What you get in 48 hours</h2>
               <ul className="grid md:grid-cols-2 gap-3 text-sm text-gray-700 dark:text-slate-300">
                 <li className="flex gap-2"><span className="mt-1 h-2 w-2 rounded-full bg-secondary" />Landing page deployed with OG image + UTM-ready links</li>
                 <li className="flex gap-2"><span className="mt-1 h-2 w-2 rounded-full bg-secondary" />Admin visibility of every lead with campaign metadata</li>

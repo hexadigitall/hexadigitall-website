@@ -102,7 +102,7 @@ export default function BusinessServicePage({
             <div className="mt-8">
               <div className="inline-flex items-center space-x-2 text-sm text-gray-600 dark:text-slate-400 mb-4">
                 <span>Prices shown in:</span>
-                <span className="font-semibold text-primary">{currentCurrency.flag} {currentCurrency.code}</span>
+                <span className="font-semibold text-primary dark:text-cyan-300">{currentCurrency.flag} {currentCurrency.code}</span>
               </div>
             </div>
           </div>

@@ -25,7 +25,7 @@ export default function FunnelOnboarding({ onClose }: { onClose?: () => void }) 
               setDismissed(true)
               if (onClose) onClose()
             }}
-            className="text-sm text-primary hover:underline"
+            className="text-sm text-primary dark:text-cyan-400 hover:underline"
             aria-label="Dismiss onboarding"
           >
             Got it

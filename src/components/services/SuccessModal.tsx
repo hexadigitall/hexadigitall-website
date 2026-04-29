@@ -173,7 +173,7 @@ export default function SuccessModal({
 
             <Link
               href="/contact"
-              className="w-full inline-flex items-center justify-center px-4 py-2 text-primary hover:text-primary/80 transition-colors text-sm font-medium"
+              className="w-full inline-flex items-center justify-center px-4 py-2 text-primary dark:text-cyan-400 hover:text-primary/80 dark:hover:text-cyan-300 transition-colors text-sm font-medium"
             >
               <ChatBubbleLeftRightIcon className="h-4 w-4 mr-2" />
               Have questions? Contact us

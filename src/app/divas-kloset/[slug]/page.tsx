@@ -26,7 +26,7 @@ export default function DivasTierPage() {
     return (
       <div className="min-h-screen flex flex-col items-center justify-center bg-gray-50 dark:bg-slate-900 px-4 text-center">
         <p className="text-lg font-semibold text-gray-800 dark:text-slate-200">Tier not found.</p>
-        <Link href="/" className="mt-3 text-primary hover:text-primary/80">Back home</Link>
+        <Link href="/" className="mt-3 text-primary dark:text-cyan-400 hover:text-primary/80 dark:hover:text-cyan-300">Back home</Link>
       </div>
     )
   }

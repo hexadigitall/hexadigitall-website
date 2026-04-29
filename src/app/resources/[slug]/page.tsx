@@ -80,11 +80,11 @@ export default async function ResourcesPage({ params }: Props) {
 
       {/* Breadcrumb */}
       <nav className="text-sm text-gray-500 dark:text-slate-500 dark:text-slate-400 mb-8">
-        <Link href="/" className="hover:text-primary transition-colors">Home</Link>
+        <Link href="/" className="hover:text-primary dark:hover:text-cyan-300 transition-colors">Home</Link>
         <span className="mx-2">/</span>
-        <Link href="/resources" className="hover:text-primary transition-colors">Resources</Link>
+        <Link href="/resources" className="hover:text-primary dark:hover:text-cyan-300 transition-colors">Resources</Link>
         <span className="mx-2">/</span>
-        <span className="text-primary font-medium line-clamp-1">{book.title}</span>
+        <span className="text-primary dark:text-cyan-300 font-medium line-clamp-1">{book.title}</span>
       </nav>
 
       {/* Book header */}
@@ -95,7 +95,7 @@ export default async function ResourcesPage({ params }: Props) {
           </div>
         )}
         <div>
-          <h1 className="text-2xl md:text-3xl font-bold text-primary leading-tight">
+          <h1 className="text-2xl md:text-3xl font-bold text-primary dark:text-cyan-300 leading-tight">
             Companion Resources
           </h1>
           <p className="text-gray-600 dark:text-slate-400 dark:text-slate-400 mt-1">
@@ -234,7 +234,7 @@ export default async function ResourcesPage({ params }: Props) {
           <div className="flex items-start gap-3">
             <span className="text-3xl">🎓</span>
             <div>
-              <h3 className="font-bold text-primary mb-1">Want guided instruction?</h3>
+              <h3 className="font-bold text-primary dark:text-cyan-300 mb-1">Want guided instruction?</h3>
               <p className="text-sm text-gray-600 dark:text-slate-400 dark:text-slate-400 mb-3">
                 This book accompanies the <strong>{book.relatedCourse.title}</strong> course on Hexadigitall — 
                 with live mentoring, Q&amp;A, and structured pacing.

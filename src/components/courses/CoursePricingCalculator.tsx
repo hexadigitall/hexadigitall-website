@@ -308,7 +308,7 @@ const CoursePricingCalculator = ({
             <div className="border-t border-white/20 pt-4">
               <div className="flex justify-between items-center">
                 <span className="text-lg font-semibold text-gray-900 dark:text-slate-100">Monthly Total:</span>
-                <span className="text-2xl font-bold text-primary">
+                <span className="text-2xl font-bold text-primary dark:text-cyan-300">
                   {new Intl.NumberFormat(
                     billingCalculation.currency === 'NGN' ? 'en-NG' : 'en-US',
                     {

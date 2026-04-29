@@ -233,7 +233,7 @@ export const PaymentSummary: React.FC<PaymentSummaryProps> = ({
                 
                 <div className="flex justify-between items-center border-t pt-2 mb-3">
                   <span className="text-lg font-semibold text-gray-900 dark:text-gray-100 dark:text-slate-100">Total:</span>
-                  <span className="text-xl font-bold text-primary">
+                  <span className="text-xl font-bold text-primary dark:text-cyan-300">
                     {formatPrice(breakdown.totalWithFee, { applyNigerianDiscount: true })}
                   </span>
                 </div>
@@ -400,9 +400,9 @@ export const PaymentSummary: React.FC<PaymentSummaryProps> = ({
         {/* Terms Notice */}
         <p className="text-xs text-gray-500 dark:text-slate-500 dark:text-slate-400 mt-4 text-center">
           By proceeding with payment, you agree to our{' '}
-          <a href="/terms-of-service" className="text-primary hover:underline">Terms of Service</a>
+          <a href="/terms-of-service" className="text-primary dark:text-cyan-400 hover:underline">Terms of Service</a>
           {' '}and{' '}
-          <a href="/privacy-policy" className="text-primary hover:underline">Privacy Policy</a>.
+          <a href="/privacy-policy" className="text-primary dark:text-cyan-400 hover:underline">Privacy Policy</a>.
           You will be charged {formatPrice(breakdown.totalWithFee, { applyNigerianDiscount: true })} for this service.
         </p>
       </div>

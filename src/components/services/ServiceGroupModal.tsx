@@ -242,7 +242,7 @@ export const ServiceGroupCard: React.FC<ServiceGroupCardProps> = ({ group, onCli
           
           <Link
             href={getCategoryPageUrl(group.id)}
-            className="w-full block text-center border-2 border-primary text-primary py-3 px-4 rounded-xl font-semibold hover:bg-primary hover:text-white transition-all duration-300"
+            className="w-full block text-center border-2 border-primary dark:border-cyan-400/60 text-primary dark:text-cyan-300 py-3 px-4 rounded-xl font-semibold hover:bg-primary hover:text-white transition-all duration-300"
           >
             Browse Individual Services
           </Link>

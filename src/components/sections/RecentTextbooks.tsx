@@ -49,7 +49,7 @@ export default async function RecentTextbooks() {
                   </div>
                 </Link>
                 <div className="p-4">
-                  <Link href={`/store/${book.slug.current}`} className="font-semibold text-sm text-darkText hover:text-primary transition-colors line-clamp-2">
+                  <Link href={`/store/${book.slug.current}`} className="font-semibold text-sm text-darkText hover:text-primary dark:hover:text-cyan-300 transition-colors line-clamp-2">
                     {book.title}
                   </Link>
                   {book.edition && (

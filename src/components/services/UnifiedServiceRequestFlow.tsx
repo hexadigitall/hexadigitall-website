@@ -310,7 +310,7 @@ export default function UnifiedServiceRequestFlow({
                       type="checkbox"
                       checked={isSelected}
                       onChange={() => toggleAddOn(addon._key)}
-                      className="w-5 h-5 text-primary dark:accent-cyan-400 rounded mt-1 mr-3 flex-shrink-0 cursor-pointer"
+                      className="w-5 h-5 text-primary dark:text-cyan-300 dark:accent-cyan-400 rounded mt-1 mr-3 flex-shrink-0 cursor-pointer"
                       aria-label={`Add ${addon.name}`}
                     />
                     <div className="flex-1">

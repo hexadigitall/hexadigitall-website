@@ -137,7 +137,7 @@ export default function JourneySection({ className = "" }: { className?: string 
           </p>
           <Link
             href="/services/custom-build"
-            className="inline-flex items-center px-6 py-3 border-2 border-primary text-primary font-semibold rounded-xl hover:bg-primary hover:text-white transition-colors duration-300"
+            className="inline-flex items-center px-6 py-3 border-2 border-primary dark:border-cyan-400/60 text-primary dark:text-cyan-300 font-semibold rounded-xl hover:bg-primary hover:text-white transition-colors duration-300"
           >
             Build a Custom Solution
             <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">

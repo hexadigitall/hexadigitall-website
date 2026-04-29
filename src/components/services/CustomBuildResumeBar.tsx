@@ -56,7 +56,7 @@ export function CustomBuildResumeBar() {
         <div className="flex items-center gap-2 flex-shrink-0">
           <Link
             href={`/services/custom-build?step=${state.step}${state.core ? `&core=${state.core}` : ''}${state.addOns.length > 0 ? `&addOns=${encodeURIComponent(JSON.stringify(state.addOns))}` : ''}`}
-            className="px-4 py-1.5 bg-white dark:bg-slate-900 text-primary font-semibold rounded-lg hover:bg-white dark:bg-slate-900/95 transition-colors text-sm whitespace-nowrap"
+            className="px-4 py-1.5 bg-white dark:bg-slate-900 text-primary dark:text-cyan-300 font-semibold rounded-lg hover:bg-white dark:bg-slate-900/95 transition-colors text-sm whitespace-nowrap"
           >
             Resume
           </Link>

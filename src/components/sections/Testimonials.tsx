@@ -158,7 +158,7 @@ const Testimonials = async () => {
                   </div>
                   
                   <div className="flex-1">
-                    <p className="font-bold text-primary font-heading">{testimonial.authorName}</p>
+                    <p className="font-bold text-primary dark:text-cyan-300 font-heading">{testimonial.authorName}</p>
                     <p className="text-sm text-gray-600 dark:text-slate-400">{testimonial.authorCompany}</p>
                   </div>
                 </div>

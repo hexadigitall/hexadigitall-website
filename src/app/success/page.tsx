@@ -44,7 +44,7 @@ export default function SuccessPage() {
             </Link>
           </div>
           
-          <Link href="/" className="text-primary hover:text-secondary text-sm block">
+          <Link href="/" className="text-primary dark:text-cyan-400 hover:text-secondary dark:hover:text-cyan-300 text-sm block">
             ← Return to Home
           </Link>
         </div>

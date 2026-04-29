@@ -80,7 +80,7 @@ export const ServiceRequestForm: React.FC<ServiceRequestFormProps> = ({
               <span className="font-medium text-gray-900 dark:text-gray-100 dark:text-slate-100">{selectedPackage.name}</span>
               <span className="text-sm text-gray-600 dark:text-slate-400 ml-2">({selectedPackage.tier})</span>
             </div>
-            <span className="font-bold text-primary">
+            <span className="font-bold text-primary dark:text-cyan-300">
               {formatPrice(selectedPackage.price, { applyNigerianDiscount: true })}
             </span>
           </div>

@@ -135,7 +135,7 @@ export default async function BlogPostPage(props: Props) {
         </div>
         
           <div className="mt-16 pt-8 border-t border-gray-200 dark:border-slate-700">
-          <Link href="/blog" className="text-primary font-semibold hover:underline">
+          <Link href="/blog" className="text-primary dark:text-cyan-400 font-semibold hover:underline">
             ← Back to All Posts
           </Link>
         </div>

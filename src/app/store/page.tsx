@@ -43,14 +43,14 @@ export default async function StorePage() {
 
         {/* Breadcrumb */}
         <nav className="text-sm text-gray-500 dark:text-slate-500 mb-10">
-          <Link href="/" className="hover:text-primary transition-colors">Home</Link>
+          <Link href="/" className="hover:text-primary dark:hover:text-cyan-300 transition-colors">Home</Link>
           <span className="mx-2">/</span>
-          <span className="text-primary font-medium">Store</span>
+          <span className="text-primary dark:text-cyan-300 font-medium">Store</span>
         </nav>
 
         {/* Intro blurb */}
         <section className="mb-12 max-w-2xl">
-          <h2 className="text-2xl font-bold text-primary mb-3">Our Textbooks</h2>
+          <h2 className="text-2xl font-bold text-primary dark:text-cyan-300 mb-3">Our Textbooks</h2>
           <p className="text-gray-600 dark:text-slate-400 leading-relaxed">
             Every book is written to accompany a Hexadigitall course. Purchase from Amazon or other platforms and
             return here for free companion resources, exercise files, and corrections.

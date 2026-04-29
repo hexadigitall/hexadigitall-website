@@ -66,7 +66,7 @@ export function CampaignLeadForm({ campaignName, defaultService, heading = 'Book
 
   return (
     <div className="bg-white dark:bg-slate-900 shadow-lg rounded-xl border border-gray-100 p-6 md:p-8">
-      <h2 className="text-2xl font-bold text-primary mb-2">{heading}</h2>
+      <h2 className="text-2xl font-bold text-primary dark:text-cyan-300 mb-2">{heading}</h2>
       <p className="text-sm text-gray-600 dark:text-slate-400 mb-6">Fill this form and we will schedule your consultation in the next business day.</p>
       <form onSubmit={onSubmit} className="space-y-4">
         <div className="grid md:grid-cols-2 gap-4">

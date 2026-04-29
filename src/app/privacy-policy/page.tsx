@@ -45,15 +45,15 @@ export default function PrivacyPolicyPage() {
           {/* Breadcrumb Navigation */}
           <nav className="mb-8" aria-label="Breadcrumb">
             <ol className="flex items-center space-x-2 text-sm text-gray-600 dark:text-slate-400">
-              <li><Link href="/" className="hover:text-primary transition-colors">Home</Link></li>
+              <li><Link href="/" className="hover:text-primary dark:hover:text-cyan-300 transition-colors">Home</Link></li>
               <li className="text-gray-400 dark:text-slate-500">/</li>
-              <li className="text-primary font-medium" aria-current="page">Privacy Policy</li>
+              <li className="text-primary dark:text-cyan-300 font-medium" aria-current="page">Privacy Policy</li>
             </ol>
           </nav>
 
           {/* Header */}
           <div className="text-center mb-12">
-            <h1 className="text-4xl md:text-5xl font-bold font-heading text-primary mb-4">
+            <h1 className="text-4xl md:text-5xl font-bold font-heading text-primary dark:text-cyan-300 mb-4">
               Privacy Policy
             </h1>
             <p className="text-lg text-gray-600 dark:text-slate-400 max-w-2xl mx-auto">
@@ -69,7 +69,7 @@ export default function PrivacyPolicyPage() {
             
             {/* Introduction */}
             <section className="mb-8">
-              <h2 className="text-2xl font-bold font-heading text-primary mb-4">1. Introduction</h2>
+              <h2 className="text-2xl font-bold font-heading text-primary dark:text-cyan-300 mb-4">1. Introduction</h2>
               <p className="text-gray-700 leading-relaxed mb-4">
                 Welcome to Hexadigitall (&quot;we,&quot; &quot;our,&quot; or &quot;us&quot;). We are committed to protecting your privacy and ensuring the security of your personal information. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our website, use our services, or interact with us.
               </p>
@@ -80,7 +80,7 @@ export default function PrivacyPolicyPage() {
 
             {/* Information We Collect */}
             <section className="mb-8">
-              <h2 className="text-2xl font-bold font-heading text-primary mb-4">2. Information We Collect</h2>
+              <h2 className="text-2xl font-bold font-heading text-primary dark:text-cyan-300 mb-4">2. Information We Collect</h2>
               
               <h3 className="text-xl font-semibold text-gray-800 dark:text-slate-100 mb-3">2.1 Personal Information</h3>
               <p className="text-gray-700 dark:text-slate-300 leading-relaxed mb-4">
@@ -111,7 +111,7 @@ export default function PrivacyPolicyPage() {
 
             {/* How We Use Information */}
             <section className="mb-8">
-              <h2 className="text-2xl font-bold font-heading text-primary mb-4">3. How We Use Your Information</h2>
+              <h2 className="text-2xl font-bold font-heading text-primary dark:text-cyan-300 mb-4">3. How We Use Your Information</h2>
               <p className="text-gray-700 leading-relaxed mb-4">
                 We use the information we collect for various purposes:
               </p>
@@ -129,7 +129,7 @@ export default function PrivacyPolicyPage() {
 
             {/* Information Sharing */}
             <section className="mb-8">
-              <h2 className="text-2xl font-bold font-heading text-primary mb-4">4. Information Sharing and Disclosure</h2>
+              <h2 className="text-2xl font-bold font-heading text-primary dark:text-cyan-300 mb-4">4. Information Sharing and Disclosure</h2>
               <p className="text-gray-700 leading-relaxed mb-4">
                 We do not sell, trade, or rent your personal information to third parties. We may share your information in the following circumstances:
               </p>
@@ -154,7 +154,7 @@ export default function PrivacyPolicyPage() {
 
             {/* Data Security */}
             <section className="mb-8">
-              <h2 className="text-2xl font-bold font-heading text-primary mb-4">5. Data Security</h2>
+              <h2 className="text-2xl font-bold font-heading text-primary dark:text-cyan-300 mb-4">5. Data Security</h2>
               <p className="text-gray-700 leading-relaxed mb-4">
                 We implement appropriate technical and organizational security measures to protect your personal information:
               </p>
@@ -174,7 +174,7 @@ export default function PrivacyPolicyPage() {
 
             {/* Cookies */}
             <section className="mb-8">
-              <h2 className="text-2xl font-bold font-heading text-primary mb-4">6. Cookies and Tracking Technologies</h2>
+              <h2 className="text-2xl font-bold font-heading text-primary dark:text-cyan-300 mb-4">6. Cookies and Tracking Technologies</h2>
               <p className="text-gray-700 leading-relaxed mb-4">
                 Our website uses cookies and similar technologies to enhance your browsing experience:
               </p>
@@ -195,7 +195,7 @@ export default function PrivacyPolicyPage() {
 
             {/* Your Rights */}
             <section className="mb-8">
-              <h2 className="text-2xl font-bold font-heading text-primary mb-4">7. Your Privacy Rights</h2>
+              <h2 className="text-2xl font-bold font-heading text-primary dark:text-cyan-300 mb-4">7. Your Privacy Rights</h2>
               <p className="text-gray-700 leading-relaxed mb-4">
                 You have the following rights regarding your personal information:
               </p>
@@ -210,7 +210,7 @@ export default function PrivacyPolicyPage() {
               </ul>
               <p className="text-gray-700 leading-relaxed">
                 To exercise these rights, please contact us at{' '}
-                <a href="mailto:privacy@hexadigitall.com" className="text-primary hover:text-secondary">
+                <a href="mailto:privacy@hexadigitall.com" className="text-primary dark:text-cyan-400 hover:text-secondary dark:hover:text-cyan-300">
                   privacy@hexadigitall.com
                 </a>
               </p>
@@ -218,7 +218,7 @@ export default function PrivacyPolicyPage() {
 
             {/* Data Retention */}
             <section className="mb-8">
-              <h2 className="text-2xl font-bold font-heading text-primary mb-4">8. Data Retention</h2>
+              <h2 className="text-2xl font-bold font-heading text-primary dark:text-cyan-300 mb-4">8. Data Retention</h2>
               <p className="text-gray-700 leading-relaxed mb-4">
                 We retain your personal information only for as long as necessary to:
               </p>
@@ -235,7 +235,7 @@ export default function PrivacyPolicyPage() {
 
             {/* International Transfers */}
             <section className="mb-8">
-              <h2 className="text-2xl font-bold font-heading text-primary mb-4">9. International Data Transfers</h2>
+              <h2 className="text-2xl font-bold font-heading text-primary dark:text-cyan-300 mb-4">9. International Data Transfers</h2>
               <p className="text-gray-700 leading-relaxed mb-4">
                 Your information may be transferred to and processed in countries other than Nigeria, including the United States and European Union, where our service providers are located. We ensure appropriate safeguards are in place to protect your data during international transfers.
               </p>
@@ -243,7 +243,7 @@ export default function PrivacyPolicyPage() {
 
             {/* Children's Privacy */}
             <section className="mb-8">
-              <h2 className="text-2xl font-bold font-heading text-primary mb-4">10. Children&apos;s Privacy</h2>
+              <h2 className="text-2xl font-bold font-heading text-primary dark:text-cyan-300 mb-4">10. Children&apos;s Privacy</h2>
               <p className="text-gray-700 leading-relaxed mb-4">
                 Our services are not directed to children under 13 years of age. We do not knowingly collect personal information from children under 13. If you are a parent or guardian and believe your child has provided us with personal information, please contact us immediately.
               </p>
@@ -251,7 +251,7 @@ export default function PrivacyPolicyPage() {
 
             {/* Changes to Policy */}
             <section className="mb-8">
-              <h2 className="text-2xl font-bold font-heading text-primary mb-4">11. Changes to This Privacy Policy</h2>
+              <h2 className="text-2xl font-bold font-heading text-primary dark:text-cyan-300 mb-4">11. Changes to This Privacy Policy</h2>
               <p className="text-gray-700 leading-relaxed mb-4">
                 We may update this Privacy Policy from time to time. We will notify you of any changes by:
               </p>
@@ -267,7 +267,7 @@ export default function PrivacyPolicyPage() {
 
             {/* Contact Information */}
             <section className="mb-8">
-              <h2 className="text-2xl font-bold font-heading text-primary mb-4">12. Contact Us</h2>
+              <h2 className="text-2xl font-bold font-heading text-primary dark:text-cyan-300 mb-4">12. Contact Us</h2>
               <p className="text-gray-700 leading-relaxed mb-4">
                 If you have any questions about this Privacy Policy or our privacy practices, please contact us:
               </p>
@@ -275,9 +275,9 @@ export default function PrivacyPolicyPage() {
                 <div className="space-y-2">
                   <p className="text-gray-700">
                     <strong>Hexadigitall</strong><br />
-                    Email: <a href="mailto:privacy@hexadigitall.com" className="text-primary hover:text-secondary">privacy@hexadigitall.com</a><br />
-                    General: <a href="mailto:hexadigitztech@gmail.com" className="text-primary hover:text-secondary">hexadigitztech@gmail.com</a><br />
-                    Phone: <a href="tel:+2348125802140" className="text-primary hover:text-secondary">+234 812 580 2140</a><br />
+                    Email: <a href="mailto:privacy@hexadigitall.com" className="text-primary dark:text-cyan-400 hover:text-secondary dark:hover:text-cyan-300">privacy@hexadigitall.com</a><br />
+                    General: <a href="mailto:hexadigitztech@gmail.com" className="text-primary dark:text-cyan-400 hover:text-secondary dark:hover:text-cyan-300">hexadigitztech@gmail.com</a><br />
+                    Phone: <a href="tel:+2348125802140" className="text-primary dark:text-cyan-400 hover:text-secondary dark:hover:text-cyan-300">+234 812 580 2140</a><br />
                     Address: Calabar, Cross River, Nigeria
                   </p>
                 </div>

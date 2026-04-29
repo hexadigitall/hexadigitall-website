@@ -46,15 +46,15 @@ export default function TermsOfServicePage() {
           {/* Breadcrumb Navigation */}
           <nav className="mb-8" aria-label="Breadcrumb">
             <ol className="flex items-center space-x-2 text-sm text-gray-600 dark:text-slate-400">
-              <li><Link href="/" className="hover:text-primary transition-colors">Home</Link></li>
+              <li><Link href="/" className="hover:text-primary dark:hover:text-cyan-300 transition-colors">Home</Link></li>
               <li className="text-gray-400 dark:text-slate-500">/</li>
-              <li className="text-primary font-medium" aria-current="page">Terms of Service</li>
+              <li className="text-primary dark:text-cyan-300 font-medium" aria-current="page">Terms of Service</li>
             </ol>
           </nav>
 
           {/* Header */}
           <div className="text-center mb-12">
-            <h1 className="text-4xl md:text-5xl font-bold font-heading text-primary mb-4">
+            <h1 className="text-4xl md:text-5xl font-bold font-heading text-primary dark:text-cyan-300 mb-4">
               Terms of Service
             </h1>
             <p className="text-lg text-gray-600 dark:text-slate-400 max-w-2xl mx-auto">
@@ -71,7 +71,7 @@ export default function TermsOfServicePage() {
             
             {/* Introduction */}
             <section className="mb-8">
-              <h2 className="text-2xl font-bold font-heading text-primary mb-4">1. Agreement to Terms</h2>
+              <h2 className="text-2xl font-bold font-heading text-primary dark:text-cyan-300 mb-4">1. Agreement to Terms</h2>
               <p className="text-gray-700 dark:text-slate-300 leading-relaxed mb-4">
                 These Terms of Service (&quot;Terms&quot;) constitute a legally binding agreement between you (&quot;User,&quot; &quot;you,&quot; or &quot;your&quot;) and Hexadigitall (&quot;Company,&quot; &quot;we,&quot; &quot;our,&quot; or &quot;us&quot;) regarding your use of our website, services, and products.
               </p>
@@ -87,7 +87,7 @@ export default function TermsOfServicePage() {
 
             {/* Description of Services */}
             <section className="mb-8">
-              <h2 className="text-2xl font-bold font-heading text-primary mb-4">2. Description of Services</h2>
+              <h2 className="text-2xl font-bold font-heading text-primary dark:text-cyan-300 mb-4">2. Description of Services</h2>
               <p className="text-gray-700 dark:text-slate-300 leading-relaxed mb-4">
                 Hexadigitall provides comprehensive digital solutions including:
               </p>
@@ -107,7 +107,7 @@ export default function TermsOfServicePage() {
 
             {/* Eligibility */}
             <section className="mb-8">
-              <h2 className="text-2xl font-bold font-heading text-primary mb-4">3. Eligibility and Registration</h2>
+              <h2 className="text-2xl font-bold font-heading text-primary dark:text-cyan-300 mb-4">3. Eligibility and Registration</h2>
               
               <h3 className="text-xl font-semibold text-gray-800 mb-3">3.1 Age Requirements</h3>
               <p className="text-gray-700 leading-relaxed mb-4">
@@ -129,7 +129,7 @@ export default function TermsOfServicePage() {
 
             {/* Acceptable Use */}
             <section className="mb-8">
-              <h2 className="text-2xl font-bold font-heading text-primary mb-4">4. Acceptable Use Policy</h2>
+              <h2 className="text-2xl font-bold font-heading text-primary dark:text-cyan-300 mb-4">4. Acceptable Use Policy</h2>
               
               <h3 className="text-xl font-semibold text-gray-800 mb-3">4.1 Permitted Uses</h3>
               <p className="text-gray-700 leading-relaxed mb-4">
@@ -156,7 +156,7 @@ export default function TermsOfServicePage() {
 
             {/* Payment Terms */}
             <section className="mb-8">
-              <h2 className="text-2xl font-bold font-heading text-primary mb-4">5. Payment Terms and Billing</h2>
+              <h2 className="text-2xl font-bold font-heading text-primary dark:text-cyan-300 mb-4">5. Payment Terms and Billing</h2>
               
               <h3 className="text-xl font-semibold text-gray-800 mb-3">5.1 Pricing and Fees</h3>
               <p className="text-gray-700 leading-relaxed mb-4">
@@ -185,7 +185,7 @@ export default function TermsOfServicePage() {
 
             {/* Intellectual Property */}
             <section className="mb-8">
-              <h2 className="text-2xl font-bold font-heading text-primary mb-4">6. Intellectual Property Rights</h2>
+              <h2 className="text-2xl font-bold font-heading text-primary dark:text-cyan-300 mb-4">6. Intellectual Property Rights</h2>
               
               <h3 className="text-xl font-semibold text-gray-800 mb-3">6.1 Our Intellectual Property</h3>
               <p className="text-gray-700 leading-relaxed mb-4">
@@ -211,7 +211,7 @@ export default function TermsOfServicePage() {
 
             {/* Privacy and Data */}
             <section className="mb-8">
-              <h2 className="text-2xl font-bold font-heading text-primary mb-4">7. Privacy and Data Protection</h2>
+              <h2 className="text-2xl font-bold font-heading text-primary dark:text-cyan-300 mb-4">7. Privacy and Data Protection</h2>
               <p className="text-gray-700 leading-relaxed mb-4">
                 Your privacy is important to us. Our collection and use of personal information is governed by our Privacy Policy, which is incorporated into these Terms by reference. By using our services, you consent to our Privacy Policy.
               </p>
@@ -222,7 +222,7 @@ export default function TermsOfServicePage() {
 
             {/* Service Delivery */}
             <section className="mb-8">
-              <h2 className="text-2xl font-bold font-heading text-primary mb-4">8. Service Delivery and Performance</h2>
+              <h2 className="text-2xl font-bold font-heading text-primary dark:text-cyan-300 mb-4">8. Service Delivery and Performance</h2>
               
               <h3 className="text-xl font-semibold text-gray-800 mb-3">8.1 Project Timelines</h3>
               <p className="text-gray-700 leading-relaxed mb-4">
@@ -248,7 +248,7 @@ export default function TermsOfServicePage() {
 
             {/* Disclaimers */}
             <section className="mb-8">
-              <h2 className="text-2xl font-bold font-heading text-primary mb-4">9. Disclaimers and Warranties</h2>
+              <h2 className="text-2xl font-bold font-heading text-primary dark:text-cyan-300 mb-4">9. Disclaimers and Warranties</h2>
               
               <h3 className="text-xl font-semibold text-gray-800 mb-3">9.1 Service Disclaimer</h3>
               <p className="text-gray-700 leading-relaxed mb-4">
@@ -269,7 +269,7 @@ export default function TermsOfServicePage() {
 
             {/* Termination */}
             <section className="mb-8">
-              <h2 className="text-2xl font-bold font-heading text-primary mb-4">10. Termination</h2>
+              <h2 className="text-2xl font-bold font-heading text-primary dark:text-cyan-300 mb-4">10. Termination</h2>
               
               <h3 className="text-xl font-semibold text-gray-800 mb-3">10.1 Termination by You</h3>
               <p className="text-gray-700 leading-relaxed mb-4">
@@ -296,7 +296,7 @@ export default function TermsOfServicePage() {
 
             {/* Governing Law */}
             <section className="mb-8">
-              <h2 className="text-2xl font-bold font-heading text-primary mb-4">11. Governing Law and Disputes</h2>
+              <h2 className="text-2xl font-bold font-heading text-primary dark:text-cyan-300 mb-4">11. Governing Law and Disputes</h2>
               
               <h3 className="text-xl font-semibold text-gray-800 mb-3">11.1 Governing Law</h3>
               <p className="text-gray-700 leading-relaxed mb-4">
@@ -311,7 +311,7 @@ export default function TermsOfServicePage() {
 
             {/* Miscellaneous */}
             <section className="mb-8">
-              <h2 className="text-2xl font-bold font-heading text-primary mb-4">12. Miscellaneous</h2>
+              <h2 className="text-2xl font-bold font-heading text-primary dark:text-cyan-300 mb-4">12. Miscellaneous</h2>
               
               <h3 className="text-xl font-semibold text-gray-800 mb-3">12.1 Entire Agreement</h3>
               <p className="text-gray-700 leading-relaxed mb-4">
@@ -336,7 +336,7 @@ export default function TermsOfServicePage() {
 
             {/* Contact Information */}
             <section className="mb-8">
-              <h2 className="text-2xl font-bold font-heading text-primary mb-4">13. Contact Information</h2>
+              <h2 className="text-2xl font-bold font-heading text-primary dark:text-cyan-300 mb-4">13. Contact Information</h2>
               <p className="text-gray-700 leading-relaxed mb-4">
                 If you have questions about these Terms of Service, please contact us:
               </p>
@@ -344,9 +344,9 @@ export default function TermsOfServicePage() {
                 <div className="space-y-2">
                   <p className="text-gray-700">
                     <strong>Hexadigitall</strong><br />
-                    Email: <a href="mailto:legal@hexadigitall.com" className="text-primary hover:text-secondary">legal@hexadigitall.com</a><br />
-                    General: <a href="mailto:hexadigitztech@gmail.com" className="text-primary hover:text-secondary">hexadigitztech@gmail.com</a><br />
-                    Phone: <a href="tel:+2348125802140" className="text-primary hover:text-secondary">+234 812 580 2140</a><br />
+                    Email: <a href="mailto:legal@hexadigitall.com" className="text-primary dark:text-cyan-400 hover:text-secondary dark:hover:text-cyan-300">legal@hexadigitall.com</a><br />
+                    General: <a href="mailto:hexadigitztech@gmail.com" className="text-primary dark:text-cyan-400 hover:text-secondary dark:hover:text-cyan-300">hexadigitztech@gmail.com</a><br />
+                    Phone: <a href="tel:+2348125802140" className="text-primary dark:text-cyan-400 hover:text-secondary dark:hover:text-cyan-300">+234 812 580 2140</a><br />
                     Address: Calabar, Cross River, Nigeria
                   </p>
                 </div>

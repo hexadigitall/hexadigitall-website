@@ -309,29 +309,29 @@ function BundleBuilderContent() {
 
       {/* Explainer Section */}
       <div className="container mx-auto px-4 mt-12">
-        <div className="bg-blue-50 border border-blue-200 rounded-2xl p-8">
-          <h2 className="text-2xl font-bold text-gray-900 dark:text-slate-100 mb-4">
+        <div className="bg-blue-50 border border-blue-200 dark:bg-slate-900 dark:border-cyan-400/30 rounded-2xl p-8">
+          <h2 className="text-2xl font-bold text-gray-900 dark:text-cyan-300 mb-4">
             Why Use the Bundle Builder?
           </h2>
           <div className="grid md:grid-cols-3 gap-6">
             <div>
               <div className="text-3xl mb-2">🎯</div>
-              <h3 className="font-semibold text-gray-900 dark:text-slate-100 mb-1">Pay for What You Need</h3>
-              <p className="text-sm text-gray-600 dark:text-slate-400">
+              <h3 className="font-semibold text-gray-900 dark:text-cyan-300 mb-1">Pay for What You Need</h3>
+              <p className="text-sm text-gray-600 dark:text-slate-300">
                 No rigid packages. Pick individual tasks from any category and create your perfect bundle.
               </p>
             </div>
             <div>
               <div className="text-3xl mb-2">💰</div>
-              <h3 className="font-semibold text-gray-900 dark:text-slate-100 mb-1">Transparent Pricing</h3>
-              <p className="text-sm text-gray-600 dark:text-slate-400">
+              <h3 className="font-semibold text-gray-900 dark:text-cyan-300 mb-1">Transparent Pricing</h3>
+              <p className="text-sm text-gray-600 dark:text-slate-300">
                 Every service has a fixed price. Your total updates live—no surprises, no ranges.
               </p>
             </div>
             <div>
               <div className="text-3xl mb-2">⚡</div>
-              <h3 className="font-semibold text-gray-900 dark:text-slate-100 mb-1">Fast & Focused</h3>
-              <p className="text-sm text-gray-600 dark:text-slate-400">
+              <h3 className="font-semibold text-gray-900 dark:text-cyan-300 mb-1">Fast & Focused</h3>
+              <p className="text-sm text-gray-600 dark:text-slate-300">
                 Perfect for specific needs: an audit, a logo, monthly support, or any combination.
               </p>
             </div>

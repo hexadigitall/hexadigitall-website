@@ -69,11 +69,11 @@ export default async function ErrataPage({ params }: Props) {
 
       {/* Breadcrumb */}
       <nav className="text-sm text-gray-500 dark:text-slate-500 dark:text-slate-400 mb-8">
-        <Link href="/" className="hover:text-primary transition-colors">Home</Link>
+        <Link href="/" className="hover:text-primary dark:hover:text-cyan-300 transition-colors">Home</Link>
         <span className="mx-2">/</span>
-        <Link href="/errata" className="hover:text-primary transition-colors">Errata</Link>
+        <Link href="/errata" className="hover:text-primary dark:hover:text-cyan-300 transition-colors">Errata</Link>
         <span className="mx-2">/</span>
-        <span className="text-primary font-medium line-clamp-1">{book.title}</span>
+        <span className="text-primary dark:text-cyan-300 font-medium line-clamp-1">{book.title}</span>
       </nav>
 
       {/* Book header */}
@@ -84,7 +84,7 @@ export default async function ErrataPage({ params }: Props) {
           </div>
         )}
         <div>
-          <h1 className="text-2xl md:text-3xl font-bold text-primary leading-tight">{book.title}</h1>
+          <h1 className="text-2xl md:text-3xl font-bold text-primary dark:text-cyan-300 leading-tight">{book.title}</h1>
           {book.edition && <p className="text-sm text-gray-500 dark:text-slate-500 dark:text-slate-400 mt-1">{book.edition}</p>}
           <div className="flex gap-3 mt-3">
             <Link href={`/store/${slug}`} className="text-xs text-secondary hover:underline">← Back to book</Link>
@@ -120,7 +120,7 @@ export default async function ErrataPage({ params }: Props) {
 
       {/* Report form */}
         <section id="report" className="bg-gray-50 dark:bg-slate-800/50 dark:bg-slate-800 rounded-2xl p-6 border border-gray-100 dark:border-slate-700">
-        <h2 className="text-xl font-bold text-primary mb-2">Report an Error</h2>
+        <h2 className="text-xl font-bold text-primary dark:text-cyan-300 mb-2">Report an Error</h2>
         <p className="text-sm text-gray-600 dark:text-slate-400 dark:text-slate-400 mb-5">
           Found something wrong in <strong>{book.title}</strong>? Fill in the details below and we&apos;ll investigate and log it here.
         </p>

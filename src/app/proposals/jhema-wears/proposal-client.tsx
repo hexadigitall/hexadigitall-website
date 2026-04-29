@@ -165,7 +165,7 @@ export default function JhemaProposalClient({ companyName = 'Your Business' }: {
     <div className="bg-gradient-to-b from-slate-50 via-white to-slate-50 min-h-screen">
       <div className="max-w-6xl mx-auto px-4 py-12 md:py-16">
         <div className="mb-12 text-center">
-          <p className="text-sm uppercase tracking-[0.2em] text-primary font-semibold mb-2">E-commerce proposal</p>
+          <p className="text-sm uppercase tracking-[0.2em] text-primary dark:text-cyan-400 font-semibold mb-2">E-commerce proposal</p>
           <h1 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">{companyName} — Online Store Launch</h1>
           <p className="text-lg md:text-xl text-slate-600 max-w-3xl mx-auto">
             Tiered packages with Paystack checkout, tailored for fashion retail. Choose a plan below to get started.
@@ -196,17 +196,17 @@ export default function JhemaProposalClient({ companyName = 'Your Business' }: {
                 )}
                 <div className="flex items-center justify-between mb-2">
                   <h3 className="text-xl font-bold text-slate-900">{tier.name}</h3>
-                  <span className="text-sm font-medium text-primary">{tier.delivery}</span>
+                  <span className="text-sm font-medium text-primary dark:text-cyan-300">{tier.delivery}</span>
                 </div>
                 <p className="text-sm text-slate-600 mb-4">{tier.subtitle}</p>
-                <div className="text-3xl font-bold text-primary mb-2">{displayPrice}</div>
+                <div className="text-3xl font-bold text-primary dark:text-cyan-300 mb-2">{displayPrice}</div>
                 {convertedLabel && (
                   <div className="text-xs text-slate-500 mb-4">≈ {convertedLabel}</div>
                 )}
                 <ul className="space-y-2 text-sm text-slate-700">
                   {tier.features.map(item => (
                     <li key={item} className="flex gap-2">
-                      <span className="text-primary">•</span>
+                      <span className="text-primary dark:text-cyan-300">•</span>
                       <span>{item}</span>
                     </li>
                   ))}
@@ -228,12 +228,12 @@ export default function JhemaProposalClient({ companyName = 'Your Business' }: {
             <h2 className="text-2xl font-bold text-slate-900 mb-3">What this includes</h2>
             <p className="text-slate-600 mb-6">Full e-commerce build with payments, logistics, and marketing automation baked in.</p>
             <ul className="space-y-3 text-slate-700">
-              <li className="flex gap-2"><span className="text-primary">•</span><span>Product catalog with variants, inventory tracking, order management</span></li>
-              <li className="flex gap-2"><span className="text-primary">•</span><span>Paystack-first checkout (cards, transfers, USSD) with Flutterwave backup</span></li>
-              <li className="flex gap-2"><span className="text-primary">•</span><span>Shipping integrations (GIGL, DHL, Aramex) and customer notifications</span></li>
-              <li className="flex gap-2"><span className="text-primary">•</span><span>SEO + OG tags powered by SiteSEO, social share previews ready</span></li>
-              <li className="flex gap-2"><span className="text-primary">•</span><span>Marketing: abandoned cart, coupons, email capture, analytics</span></li>
-              <li className="flex gap-2"><span className="text-primary">•</span><span>Admin CMS via Sanity for fast updates (no dev needed)</span></li>
+              <li className="flex gap-2"><span className="text-primary dark:text-cyan-300">•</span><span>Product catalog with variants, inventory tracking, order management</span></li>
+              <li className="flex gap-2"><span className="text-primary dark:text-cyan-300">•</span><span>Paystack-first checkout (cards, transfers, USSD) with Flutterwave backup</span></li>
+              <li className="flex gap-2"><span className="text-primary dark:text-cyan-300">•</span><span>Shipping integrations (GIGL, DHL, Aramex) and customer notifications</span></li>
+              <li className="flex gap-2"><span className="text-primary dark:text-cyan-300">•</span><span>SEO + OG tags powered by SiteSEO, social share previews ready</span></li>
+              <li className="flex gap-2"><span className="text-primary dark:text-cyan-300">•</span><span>Marketing: abandoned cart, coupons, email capture, analytics</span></li>
+              <li className="flex gap-2"><span className="text-primary dark:text-cyan-300">•</span><span>Admin CMS via Sanity for fast updates (no dev needed)</span></li>
             </ul>
           </div>
 
@@ -278,7 +278,7 @@ export default function JhemaProposalClient({ companyName = 'Your Business' }: {
                 </div>
                 <div className="flex justify-between items-center mt-1 text-slate-600">
                   <span>Price</span>
-                    <span className="font-semibold text-primary">{selectedTier ? `₦${selectedTier.priceNGN.toLocaleString()}` : '—'}</span>
+                    <span className="font-semibold text-primary dark:text-cyan-300">{selectedTier ? `₦${selectedTier.priceNGN.toLocaleString()}` : '—'}</span>
                 </div>
               </div>
               {error && <p className="text-sm text-red-600">{error}</p>}

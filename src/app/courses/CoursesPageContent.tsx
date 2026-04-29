@@ -280,7 +280,7 @@ export default function CoursesPageContentEnhanced({ initialSchools = [] }: Cour
                 whileTap={{ scale: 0.95 }}
                 className="group flex items-center justify-center gap-3 bg-white dark:bg-slate-800 text-gray-600 dark:text-slate-300 px-6 py-3.5 rounded-full shadow-lg hover:shadow-primary/20 border border-gray-200 dark:border-slate-700 transition-all cursor-pointer"
               >
-                <IoSearchOutline className="text-2xl text-primary group-hover:scale-110 transition-transform" />
+                <IoSearchOutline className="text-2xl text-primary dark:text-cyan-300 group-hover:scale-110 transition-transform" />
                 <span className="font-semibold text-base md:text-lg text-gray-700 dark:text-slate-300">Find a Course</span>
               </motion.button>
             ) : (
@@ -335,7 +335,7 @@ export default function CoursesPageContentEnhanced({ initialSchools = [] }: Cour
                 </h2>
                 <button 
                   onClick={handleCloseSearch}
-                  className="text-primary font-medium hover:underline text-sm"
+                  className="text-primary dark:text-cyan-400 font-medium hover:underline text-sm"
                 >
                   Back to Schools
                 </button>
@@ -357,7 +357,7 @@ export default function CoursesPageContentEnhanced({ initialSchools = [] }: Cour
                   <p className="text-gray-500 dark:text-slate-400 text-lg">No courses found matching "<span className="font-bold">{searchQuery}</span>"</p>
                   <button 
                     onClick={() => setSearchQuery('')}
-                    className="mt-4 text-primary font-bold hover:underline"
+                    className="mt-4 text-primary dark:text-cyan-400 font-bold hover:underline"
                   >
                     Clear search term
                   </button>
