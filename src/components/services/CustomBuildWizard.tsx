@@ -184,9 +184,9 @@ export default function CustomBuildWizard() {
   }
 
   return (
-    <div className="bg-white dark:bg-slate-900 rounded-2xl shadow-xl border border-slate-200">
+    <div className="bg-white dark:bg-slate-900 rounded-2xl shadow-xl border border-slate-200 dark:border-slate-700">
       {/* Breadcrumb Navigation */}
-      <div className="px-4 sm:px-6 pt-4 border-b border-slate-100">
+      <div className="px-4 sm:px-6 pt-4 border-b border-slate-100 dark:border-slate-800">
         <nav className="flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 mb-3">
           <Link href="/" className="hover:text-blue-600 dark:text-blue-400 transition-colors">Home</Link>
           <span>/</span>
@@ -206,7 +206,7 @@ export default function CustomBuildWizard() {
           </button>
         )}
       </div>
-      <div className="p-4 sm:p-6 border-b">
+      <div className="p-4 sm:p-6 border-b border-slate-200 dark:border-slate-800">
         <nav aria-label="Progress" className="flex items-center justify-center gap-2 text-sm">
           {[1, 2, 3, 4, 5].map((i) => (
             <span
@@ -223,7 +223,7 @@ export default function CustomBuildWizard() {
         {/* STEP 1: Choose Platform ("The Bread") */}
         {step === 1 && (
           <section>
-            <h2 className="text-2xl font-bold mb-2">Choose Your Foundation</h2>
+            <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-100 mb-2">Choose Your Foundation</h2>
             <p className="text-slate-600 dark:text-slate-400 mb-6">Select the platform type — each comes with a complete engineering foundation.</p>
             
             <div className="grid grid-cols-1 gap-4">
@@ -282,7 +282,7 @@ export default function CustomBuildWizard() {
         {/* STEP 2: Add Tech Features ("The Fillings") */}
         {step === 2 && (
           <section>
-            <h2 className="text-2xl font-bold mb-2">Power It Up with Features</h2>
+            <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-100 mb-2">Power It Up with Features</h2>
             <p className="text-slate-600 dark:text-slate-400 mb-6">Select the technical features you need — each has a clear price.</p>
             
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -336,7 +336,7 @@ export default function CustomBuildWizard() {
         {/* STEP 3: Add Service Add-ons ("The Sides") */}
         {step === 3 && (
           <section>
-            <h2 className="text-2xl font-bold mb-2">Enhance with Services</h2>
+            <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-100 mb-2">Enhance with Services</h2>
             <p className="text-slate-600 dark:text-slate-400 mb-6">Optional services to complete your project.</p>
             
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -391,38 +391,38 @@ export default function CustomBuildWizard() {
         {/* STEP 4: Contact Info */}
         {step === 4 && (
           <section>
-            <h2 className="text-2xl font-bold mb-2">Your Contact Information</h2>
+            <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-100 mb-2">Your Contact Information</h2>
             <p className="text-slate-600 dark:text-slate-400 mb-6">We&apos;ll send you a detailed quote and next steps.</p>
             
             <div className="space-y-4 max-w-md">
               <div>
-                <label className="block text-sm font-medium mb-1">Email *</label>
+                <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Email *</label>
                 <input
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="w-full px-4 py-2 rounded-lg border border-slate-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200"
+                  className="w-full px-4 py-2 rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 dark:focus:ring-blue-900/50"
                   placeholder="you@example.com"
                   required
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium mb-1">Company / Project Name</label>
+                <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Company / Project Name</label>
                 <input
                   type="text"
                   value={company}
                   onChange={(e) => setCompany(e.target.value)}
-                  className="w-full px-4 py-2 rounded-lg border border-slate-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200"
+                  className="w-full px-4 py-2 rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 dark:focus:ring-blue-900/50"
                   placeholder="Acme Inc."
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium mb-1">Phone (optional)</label>
+                <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Phone (optional)</label>
                 <input
                   type="tel"
                   value={phone}
                   onChange={(e) => setPhone(e.target.value)}
-                  className="w-full px-4 py-2 rounded-lg border border-slate-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200"
+                  className="w-full px-4 py-2 rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 dark:focus:ring-blue-900/50"
                   placeholder="+234 xxx xxx xxxx"
                 />
               </div>
@@ -433,14 +433,14 @@ export default function CustomBuildWizard() {
         {/* STEP 5: Confirmation & Payment */}
         {step === 5 && (
           <section>
-            <h2 className="text-2xl font-bold mb-2">Your Custom Build Summary</h2>
+            <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-100 mb-2">Your Custom Build Summary</h2>
             <p className="text-slate-600 dark:text-slate-400 mb-6">Review your selections and proceed to payment.</p>
             
             {/* Itemized Breakdown */}
             <div className="bg-slate-50 dark:bg-slate-800/50 rounded-xl p-6 mb-6">
               <div className="space-y-3">
                 {/* Platform */}
-                <div className="flex justify-between items-start pb-3 border-b">
+                <div className="flex justify-between items-start pb-3 border-b border-slate-200 dark:border-slate-700">
                   <div>
                     <div className="font-semibold">{priceBreakdown.breakdown.platform?.name}</div>
                     <div className="text-sm text-slate-600 dark:text-slate-400">Foundation</div>
@@ -480,7 +480,7 @@ export default function CustomBuildWizard() {
                 ))}
 
                 {/* Total */}
-                <div className="flex justify-between items-center pt-3 border-t-2 border-slate-300">
+                <div className="flex justify-between items-center pt-3 border-t-2 border-slate-300 dark:border-slate-700">
                   <div className="text-xl font-bold">Total</div>
                   <div className="text-right">
                     <div className="text-2xl font-bold text-blue-600 dark:text-blue-400">{currentCurrency.symbol}{priceBreakdown.convertedTotal.toLocaleString()}</div>
@@ -489,7 +489,7 @@ export default function CustomBuildWizard() {
                 </div>
 
                 {priceBreakdown.discountActive && (
-                  <div className="bg-green-100 text-green-800 px-4 py-2 rounded-lg text-sm font-semibold text-center">
+                  <div className="bg-green-100 dark:bg-green-900/20 text-green-800 dark:text-green-300 px-4 py-2 rounded-lg text-sm font-semibold text-center">
                     🎉 Nigerian Launch Special: 50% OFF Applied!
                   </div>
                 )}
@@ -535,7 +535,7 @@ export default function CustomBuildWizard() {
             {step > 1 && (
               <button
                 onClick={() => setStep(step - 1)}
-                className="px-6 py-3 bg-slate-200 text-slate-700 dark:text-slate-300 rounded-lg font-semibold hover:bg-slate-300"
+                className="px-6 py-3 bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 rounded-lg font-semibold hover:bg-slate-300 dark:hover:bg-slate-700"
               >
                 Back
               </button>

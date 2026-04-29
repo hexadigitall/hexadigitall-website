@@ -7,7 +7,7 @@ export const dynamic = 'force-static'
 
 export default function CustomBuildPage() {
   return (
-    <main className="min-h-screen bg-gradient-to-b from-slate-50 via-blue-50/30 to-slate-50">
+    <main className="min-h-screen bg-gradient-to-b from-slate-50 via-blue-50/30 to-slate-50 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950">
       <section className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
         <div className="mb-6">
           <Breadcrumb
@@ -18,7 +18,7 @@ export default function CustomBuildPage() {
             ]}
           />
           <div className="mt-2">
-            <Link href="/services" className="inline-flex items-center text-sm text-blue-700 hover:text-blue-800">
+            <Link href="/services" className="inline-flex items-center text-sm text-blue-700 dark:text-cyan-400 hover:text-blue-800 dark:hover:text-cyan-300">
               <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
               </svg>
@@ -27,7 +27,7 @@ export default function CustomBuildPage() {
           </div>
         </div>
         <div className="text-center mb-8 sm:mb-10">
-          <div className="inline-flex items-center gap-2 px-4 py-2 bg-blue-100 text-blue-700 rounded-full text-sm font-semibold mb-4">
+          <div className="inline-flex items-center gap-2 px-4 py-2 bg-blue-100 text-blue-700 dark:bg-cyan-400/10 dark:text-cyan-300 rounded-full text-sm font-semibold mb-4">
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
             </svg>

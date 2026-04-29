@@ -81,7 +81,7 @@ export default function Step3Summary({
         <h2 ref={headingRef} tabIndex={-1} className="text-2xl sm:text-3xl md:text-4xl font-bold font-heading mb-3 sm:mb-4 text-primary dark:text-cyan-300 focus:outline-none">
           Your Custom Solution Summary
         </h2>
-        <p className="text-sm sm:text-lg text-darkText/70">
+        <p className="text-sm sm:text-lg text-darkText/70 dark:text-slate-400">
           Review your selections and submit your request. We&apos;ll get back to you within 24 hours.
         </p>
       </div>
@@ -110,7 +110,7 @@ export default function Step3Summary({
                   </p>
                 </div>
               </div>
-              <p className="text-sm sm:text-base text-darkText/70">{CORE_DESCRIPTIONS[coreType]}</p>
+              <p className="text-sm sm:text-base text-darkText/70 dark:text-slate-400">{CORE_DESCRIPTIONS[coreType]}</p>
             </div>
 
             {/* Add-ons Section */}
@@ -140,8 +140,8 @@ export default function Step3Summary({
                 </div>
               </div>
             ) : (
-              <div className="p-4 bg-blue-50 border border-blue-200 rounded-lg">
-                <p className="text-blue-900 text-xs sm:text-sm">
+              <div className="p-4 bg-blue-50 dark:bg-blue-950/20 border border-blue-200 dark:border-blue-900/50 rounded-lg">
+                <p className="text-blue-900 dark:text-blue-200 text-xs sm:text-sm">
                   No add-ons selected. You can enhance your project with optional features if needed.
                 </p>
               </div>
@@ -203,7 +203,7 @@ export default function Step3Summary({
       <div className="flex flex-col sm:flex-row gap-4 mb-8">
         <button
           onClick={onBack}
-          className="flex-1 px-6 py-4 border-2 border-gray-300 dark:border-slate-600 rounded-lg font-semibold text-darkText hover:bg-gray-50 dark:bg-slate-800/50 transition-colors min-h-[44px]"
+          className="flex-1 px-6 py-4 border-2 border-gray-300 dark:border-slate-600 rounded-lg font-semibold text-darkText dark:text-slate-300 hover:bg-gray-50 dark:bg-slate-800/50 dark:hover:bg-slate-700 transition-colors min-h-[44px]"
         >
           ← Back to Add-ons
         </button>
@@ -217,9 +217,9 @@ export default function Step3Summary({
 
       {/* Additional Info */}
       <div className="space-y-3 sm:space-y-4">
-        <div className="p-4 sm:p-6 bg-green-50 border-2 border-green-200 rounded-lg">
-          <p className="text-green-900 font-semibold mb-2 text-sm sm:text-base">✓ What happens next?</p>
-          <ul className="text-green-800 text-xs sm:text-sm space-y-1 ml-5 list-disc">
+        <div className="p-4 sm:p-6 bg-green-50 dark:bg-green-900/20 border-2 border-green-200 dark:border-green-900/50 rounded-lg">
+          <p className="text-green-900 dark:text-green-200 font-semibold mb-2 text-sm sm:text-base">✓ What happens next?</p>
+          <ul className="text-green-800 dark:text-green-300 text-xs sm:text-sm space-y-1 ml-5 list-disc">
             <li>We&apos;ll review your requirements</li>
             <li>Schedule a brief call to clarify details (if needed)</li>
             <li>Provide a detailed project timeline and scope</li>
@@ -227,9 +227,9 @@ export default function Step3Summary({
           </ul>
         </div>
 
-        <div className="p-4 sm:p-6 bg-blue-50 border-2 border-blue-200 rounded-lg">
-          <p className="text-blue-900 font-semibold mb-2 text-sm sm:text-base">ℹ️ Other options</p>
-          <p className="text-blue-800 text-xs sm:text-sm mb-3">
+        <div className="p-4 sm:p-6 bg-blue-50 dark:bg-blue-950/20 border-2 border-blue-200 dark:border-blue-900/50 rounded-lg">
+          <p className="text-blue-900 dark:text-blue-200 font-semibold mb-2 text-sm sm:text-base">ℹ️ Other options</p>
+          <p className="text-blue-800 dark:text-blue-300 text-xs sm:text-sm mb-3">
             Not sure about the custom builder? Check out our pre-built packages:
           </p>
           <Link

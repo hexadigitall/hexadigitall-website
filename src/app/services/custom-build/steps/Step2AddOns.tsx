@@ -206,8 +206,8 @@ export default function Step2AddOns({
       </div>
 
       {/* Help Text */}
-      <div className="mt-8 p-4 bg-blue-50 border border-blue-200 rounded-lg text-xs sm:text-sm">
-        <p className="text-blue-900 text-sm">
+      <div className="mt-8 p-4 bg-blue-50 dark:bg-blue-950/20 border border-blue-200 dark:border-blue-900/50 rounded-lg text-xs sm:text-sm">
+        <p className="text-blue-900 dark:text-blue-200 text-sm">
           💡 <strong>Tip:</strong> Add-ons can be modified later. Proceed to the summary to see your total investment and submit your request.
         </p>
       </div>
