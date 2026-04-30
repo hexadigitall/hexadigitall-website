@@ -1,0 +1,2064 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dunce to Midjourney Pro (6×9 Paperback Manuscript)</title>
+    <style>
+        * { box-sizing: border-box; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+
+        /* 1. PRINT & PAGE SETTINGS (6x9 Trade Paperback — Gutter-Mirrored) */
+        @page {
+            size: 6in 9in;
+            margin-top: 0.75in;
+            margin-bottom: 0.75in;
+            margin-inside: 0.75in;
+            margin-outside: 0.5in;
+            @bottom-center {
+                content: counter(page);
+                font-family: "Georgia", serif;
+                font-size: 10pt;
+            }
+        }
+        @page :left {
+            margin-top: 0.75in;
+            margin-bottom: 0.75in;
+            margin-left: 0.5in;
+            margin-right: 0.75in;
+        }
+        @page :right {
+            margin-top: 0.75in;
+            margin-bottom: 0.75in;
+            margin-left: 0.75in;
+            margin-right: 0.5in;
+        }
+
+        /* 2. ROOT VARIABLES & TYPOGRAPHY */
+        :root {
+            --primary-blue: #2c3e50;
+            --accent-blue: #3498db;
+            --myth-red: #e74c3c;
+            --pro-tip-green: #27ae60;
+            --text-main: #333333;
+            --bg-light: #f9f9f9;
+        }
+
+        .book-page {
+            width: 100%;
+            max-width: 152.4mm;
+            min-height: 228.6mm;
+            margin: 0 auto;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* PAGE STABILITY FOR PDF EXPORT */
+        @media print {
+            body { background: white; }
+            .page, .book-page {
+                page-break-after: always;
+                break-after: page;
+            }
+        }
+
+        body {
+            font-family: 'Georgia', serif; /* Classic book serif */
+            line-height: 1.6;
+            color: var(--text-main);
+            margin: 0;
+            padding: 0;
+            font-size: 11pt;
+            widows: 3;
+            orphans: 3;
+        }
+
+        h1, h2, h3, .sans {
+            font-family: 'Helvetica', 'Arial', sans-serif;
+            color: var(--primary-blue);
+        }
+
+        /* 3. CHAPTER STRUCTURE */
+        .chapter-start {
+            page-break-before: always;
+            text-align: center;
+            padding-top: 2in;
+        }
+
+        .chapter-num {
+            font-size: 14pt;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--accent-blue);
+        }
+
+        .quote-box {
+            font-style: italic;
+            text-align: center;
+            margin: 2in auto 1in auto;
+            max-width: 80%;
+            color: #555;
+        }
+
+        /* 4. BLOOM'S TAXONOMY CONTENT BLOCKS */
+        .content-section {
+            margin-bottom: 20pt;
+        }
+
+        /* 5. SPECIAL BOXES (The UI Elements) */
+        .box {
+            margin: 20pt 0;
+            padding: 15pt;
+            border-left: 5px solid;
+            background: var(--bg-light);
+        }
+
+        .info-box {
+            border-color: var(--pro-tip-green);
+        }
+        .info-box::before {
+            content: "PRO-TIP";
+            font-weight: bold;
+            display: block;
+            color: var(--pro-tip-green);
+            font-family: sans-serif;
+            font-size: 9pt;
+            margin-bottom: 5pt;
+        }
+
+        .myth-box {
+            border-color: var(--myth-red);
+        }
+        .myth-box::before {
+            content: "MYTH BUSTER";
+            font-weight: bold;
+            display: block;
+            color: var(--myth-red);
+            font-family: sans-serif;
+            font-size: 9pt;
+            margin-bottom: 5pt;
+        }
+
+        .lab-section {
+            background: #2c3e50;
+            color: white;
+            padding: 20pt;
+            border-radius: 5px;
+        }
+
+        /* 6. PROGRESS UPDATES */
+        .progress-bar {
+            height: 10pt;
+            background: #ddd;
+            width: 100%;
+            margin: 20pt 0;
+        }
+        .progress-fill {
+            height: 100%;
+            background: var(--accent-blue);
+        }
+
+        /* 7. PORTFOLIO & QUIZ */
+        .github-project {
+            border: 2px dashed var(--accent-blue);
+            padding: 15pt;
+            margin-top: 30pt;
+        }
+    </style>
+</head>
+<body>
+    <section class="page centered" style="page-break-after: always; display: flex; flex-direction: column; justify-content: center; height: 9in;">
+    <div class="half-title" style="font-size: 18pt; text-transform: uppercase; letter-spacing: 2px; color: #2c3e50;">
+        Dunce to Midjourney Pro
+    </div>
+</section>
+
+<div style="page-break-after: always;"></div>
+
+<section class="page centered" style="page-break-after: always; display: flex; flex-direction: column; justify-content: center; align-items: center; height: 9in; text-align: center;">
+    <div class="full-title">
+        <img src="cover-img-dunce-to-midjourney-pro.png" alt="Dunce to Midjourney Pro" style="width: 3.5in; height: auto; margin-bottom: 0.5in;">
+        
+        <h1 style="font-size: 28pt; margin-bottom: 10pt; font-family: sans-serif; color: #2c3e50;">Dunce to Midjourney Pro</h1>
+        <h2 style="font-size: 14pt; font-style: italic; color: #34495e; max-width: 80%; margin: 0 auto 1.5in auto; line-height: 1.4;">
+            The Step-by-Step Guide to Generative AI Mastery, Professional Prompting, and Creative Workflows
+        </h2>
+        
+        <div class="author-branding" style="margin-top: 1in;">
+            <p style="font-size: 14pt; font-weight: bold; margin-bottom: 5pt; font-family: sans-serif;">Techpoet</p>
+            <p style="font-size: 10pt; letter-spacing: 1px; text-transform: uppercase; color: #7f8c8d;">Hexadigitall Technologies</p>
+        </div>
+    </div>
+</section>
+<section class="page" style="page-break-after: always; display: flex; flex-direction: column; justify-content: flex-end; height: 9in; font-size: 9pt; padding: 0.5in;">
+    <div class="copyright-content" style="text-align: left; line-height: 1.4;">
+        <p><strong>Dunce to Midjourney Pro</strong></p>
+        <p>Copyright © 2026 by Techpoet / Hexadigitall Technologies.</p>
+        <p>All rights reserved. No part of this publication may be reproduced, distributed, or transmitted in any form or by any means, including photocopying, recording, or other electronic or mechanical methods, without the prior written permission of the publisher.</p>
+        <br>
+        <p><strong>AI Content Disclosure:</strong> This book discusses and utilizes generative AI workflows. All instructional content is curated to provide professional mastery of the Midjourney platform.</p>
+        <br>
+        <p><em>Midjourney is a registered trademark of Midjourney, Inc. This book is an independent educational guide and is not affiliated with, authorized, or endorsed by Midjourney, Inc.</em></p>
+        <br>
+        <p>First Edition: 2026</p>
+        <p>Published by Hexadigitall Technologies</p>
+        <p>Imprint: Hexadigitall Learning Press</p>
+        <p>ISBN: 978-0-0000000-0-0 (Paperback Placeholder)</p>
+        <p>ISBN: 978-0-0000000-0-0 (Hardcover Placeholder)</p>
+        <p>ISBN: 978-0-0000000-0-0 (eBook Placeholder)</p>
+    </div>
+</section>
+
+<section class="page centered" style="page-break-after: always; display: flex; flex-direction: column; justify-content: center; height: 9in; text-align: center;">
+    <div class="dedication-text" style="font-style: italic; font-size: 13pt; color: #2c3e50;">
+        <p>To those who aren’t afraid to look like a dunce<br>while they learn to be a master.</p>
+        <p style="margin-top: 20pt; font-size: 11pt;">Stay curious.</p>
+    </div>
+</section>
+<section class="page" style="page-break-after: always; padding: 0.6in; min-height: 9in; box-sizing: border-box; display: flex; flex-direction: column; background: #fff;">
+    <h1 style="text-align: center; font-family: sans-serif; font-size: 20pt; color: #2c3e50; margin-top: 0; margin-bottom: 20pt; text-transform: uppercase; letter-spacing: 3px; border-bottom: 2px solid #3498db; display: inline-block; width: 100%; padding-bottom: 10px;">
+        Contents
+    </h1>
+    
+    <div class="toc-body" style="font-family: 'Georgia', serif; font-size: 9pt; line-height: 1.3;">
+        
+        <div style="display: flex; justify-content: space-between; margin-bottom: 8pt; border-bottom: 1px solid #f0f0f0;">
+            <span style="font-weight: bold;">Preface: The Evolution of the Prompt</span>
+            <span style="font-family: sans-serif; font-weight: bold;">v</span>
+        </div>
+
+        <div style="margin-top: 10pt;">
+            <div style="display: flex; justify-content: space-between; color: #3498db; font-family: sans-serif; font-weight: bold; text-transform: uppercase; letter-spacing: 1px; font-size: 8pt; border-bottom: 1px solid #ebf5fb;">
+                <span>Phase 1: The First Spark (Initiate)</span>
+                <span>1</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; margin: 4pt 0; padding-left: 10pt;">
+                <span style="flex-grow: 1; border-bottom: 1px dotted #ccc; margin-right: 5pt;">Chapter 1: The Engine & The Interface</span>
+                <span style="font-family: sans-serif;">3</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; margin: 4pt 0; padding-left: 10pt;">
+                <span style="flex-grow: 1; border-bottom: 1px dotted #ccc; margin-right: 5pt;">Chapter 2: Speaking the Visual Language</span>
+                <span style="font-family: sans-serif;">19</span>
+            </div>
+        </div>
+
+        <div style="margin-top: 10pt;">
+            <div style="display: flex; justify-content: space-between; color: #3498db; font-family: sans-serif; font-weight: bold; text-transform: uppercase; letter-spacing: 1px; font-size: 8pt; border-bottom: 1px solid #ebf5fb;">
+                <span>Phase 2: The Style Weaver (Alchemist)</span>
+                <span>35</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; margin: 4pt 0; padding-left: 10pt;">
+                <span style="flex-grow: 1; border-bottom: 1px dotted #ccc; margin-right: 5pt;">Chapter 3: The Artisan’s Palette</span>
+                <span style="font-family: sans-serif;">37</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; margin: 4pt 0; padding-left: 10pt;">
+                <span style="flex-grow: 1; border-bottom: 1px dotted #ccc; margin-right: 5pt;">Chapter 4: Advanced Aesthetic Control</span>
+                <span style="font-family: sans-serif;">53</span>
+            </div>
+        </div>
+
+        <div style="margin-top: 10pt;">
+            <div style="display: flex; justify-content: space-between; color: #3498db; font-family: sans-serif; font-weight: bold; text-transform: uppercase; letter-spacing: 1px; font-size: 8pt; border-bottom: 1px solid #ebf5fb;">
+                <span>Phase 3: The Ghost in the Machine (Architect)</span>
+                <span>71</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; margin: 4pt 0; padding-left: 10pt;">
+                <span style="flex-grow: 1; border-bottom: 1px dotted #ccc; margin-right: 5pt;">Chapter 5: Surgical Editing & In-Painting</span>
+                <span style="font-family: sans-serif;">73</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; margin: 4pt 0; padding-left: 10pt;">
+                <span style="flex-grow: 1; border-bottom: 1px dotted #ccc; margin-right: 5pt;">Chapter 6: Architecting the Workflow</span>
+                <span style="font-family: sans-serif;">89</span>
+            </div>
+        </div>
+
+        <div style="margin-top: 10pt;">
+            <div style="display: flex; justify-content: space-between; color: #3498db; font-family: sans-serif; font-weight: bold; text-transform: uppercase; letter-spacing: 1px; font-size: 8pt; border-bottom: 1px solid #ebf5fb;">
+                <span>Phase 4: The Commercial Edge (Professional)</span>
+                <span>107</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; margin: 4pt 0; padding-left: 10pt;">
+                <span style="flex-grow: 1; border-bottom: 1px dotted #ccc; margin-right: 5pt;">Chapter 7: Professional Character Consistency</span>
+                <span style="font-family: sans-serif;">109</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; margin: 4pt 0; padding-left: 10pt;">
+                <span style="flex-grow: 1; border-bottom: 1px dotted #ccc; margin-right: 5pt;">Chapter 8: Building a Creative Business</span>
+                <span style="font-family: sans-serif;">125</span>
+            </div>
+        </div>
+
+        <div style="margin-top: 10pt;">
+            <div style="display: flex; justify-content: space-between; color: #27ae60; font-family: sans-serif; font-weight: bold; text-transform: uppercase; letter-spacing: 1px; font-size: 8pt; border-bottom: 1px solid #e8f5e9;">
+                <span>Bonus Phase: Post-Production Suite</span>
+                <span>135</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; margin: 4pt 0; padding-left: 10pt;">
+                <span style="flex-grow: 1; border-bottom: 1px dotted #ccc; margin-right: 5pt;">Chapter 9: The Pixel Surgeon (Photoshop Mastery)</span>
+                <span style="font-family: sans-serif;">137</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; margin: 4pt 0; padding-left: 10pt;">
+                <span style="flex-grow: 1; border-bottom: 1px dotted #ccc; margin-right: 5pt;">Chapter 10: The Vector Architect (Illustrator Mastery)</span>
+                <span style="font-family: sans-serif;">153</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; margin: 4pt 0; padding-left: 10pt;">
+                <span style="flex-grow: 1; border-bottom: 1px dotted #ccc; margin-right: 5pt;">Chapter 11: The Final Master (Print & Layout)</span>
+                <span style="font-family: sans-serif;">169</span>
+            </div>
+        </div>
+
+        <div style="margin-top: 10pt; display: flex; justify-content: space-between; font-weight: bold; color: #e67e22; border-bottom: 1px solid #fff5eb; font-family: sans-serif; font-size: 8pt; text-transform: uppercase;">
+            <span>The Final Challenge: Just to See If You Can</span>
+            <span>185</span>
+        </div>
+
+        <div style="margin-top: 10pt;">
+            <div style="display: flex; justify-content: space-between; color: #7f8c8d; font-family: sans-serif; font-weight: bold; text-transform: uppercase; letter-spacing: 1px; font-size: 8pt; border-bottom: 1px solid #f2f2f2;">
+                <span>Technical Appendices</span>
+                <span>189</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; margin: 4pt 0; padding-left: 10pt;">
+                <span style="flex-grow: 1; border-bottom: 1px dotted #ccc; margin-right: 5pt;">Appendix A: The Parameter Manifest</span>
+                <span style="font-family: sans-serif;">191</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; margin: 4pt 0; padding-left: 10pt;">
+                <span style="flex-grow: 1; border-bottom: 1px dotted #ccc; margin-right: 5pt;">Appendix B: Material & Lighting Library</span>
+                <span style="font-family: sans-serif;">195</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; margin: 4pt 0; padding-left: 10pt;">
+                <span style="flex-grow: 1; border-bottom: 1px dotted #ccc; margin-right: 5pt;">Appendix C: Troubleshooting Manifest</span>
+                <span style="font-family: sans-serif;">199</span>
+            </div>
+        </div>
+
+        <div style="margin-top: 12pt; border-top: 2px solid #3498db; padding-top: 5pt;">
+            <div style="display: flex; justify-content: space-between; margin-bottom: 4pt;">
+                <span>Glossary of Terms</span>
+                <span style="font-family: sans-serif; font-weight: bold;">203</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; margin-bottom: 4pt;">
+                <span>The Professional Blueprint (Summary)</span>
+                <span style="font-family: sans-serif; font-weight: bold;">207</span>
+            </div>
+            <div style="display: flex; justify-content: space-between;">
+                <span style="font-weight: bold;">Afterword by Hexadigitall</span>
+                <span style="font-family: sans-serif; font-weight: bold;">209</span>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<section class="page" style="page-break-after: always; padding: 0.75in; min-height: 9in; box-sizing: border-box; display: block; position: relative; background: #fff;">
+    <h1 style="text-align: center; font-family: sans-serif; font-size: 22pt; color: #2c3e50; margin-top: 0; margin-bottom: 30pt; text-transform: uppercase; letter-spacing: 2px;">
+        The Learning Roadmap
+    </h1>
+
+    <div class="roadmap-container" style="position: relative; font-family: sans-serif;">
+        
+        <div style="margin-bottom: 25pt; border-left: 4px solid #3498db; padding-left: 20pt; position: relative;">
+            <div style="position: absolute; left: -12px; top: 0; width: 20px; height: 20px; background: #3498db; border-radius: 50%; border: 4px solid #fff;"></div>
+            <h3 style="margin: 0; color: #2980b9; font-size: 12pt; text-transform: uppercase;">Phase 1: The First Spark</h3>
+            <p style="margin: 5pt 0; font-family: 'Georgia', serif; font-size: 10.5pt; line-height: 1.4;">
+                Mastering basic commands, the Discord UI, and initial image generations. Transitioning from guesswork to intentional prompting.
+            </p>
+        </div>
+
+        <div style="margin-bottom: 25pt; border-left: 4px solid #3498db; padding-left: 20pt; position: relative;">
+            <div style="position: absolute; left: -12px; top: 0; width: 20px; height: 20px; background: #3498db; border-radius: 50%; border: 4px solid #fff;"></div>
+            <h3 style="margin: 0; color: #2980b9; font-size: 12pt; text-transform: uppercase;">Phase 2: The Style Weaver</h3>
+            <p style="margin: 5pt 0; font-family: 'Georgia', serif; font-size: 10.5pt; line-height: 1.4;">
+                Exploring advanced lighting, materials, and artistic styles. Learning to speak the language of art history and aesthetic control.
+            </p>
+        </div>
+
+        <div style="margin-bottom: 25pt; border-left: 4px solid #3498db; padding-left: 20pt; position: relative;">
+            <div style="position: absolute; left: -12px; top: 0; width: 20px; height: 20px; background: #3498db; border-radius: 50%; border: 4px solid #fff;"></div>
+            <h3 style="margin: 0; color: #2980b9; font-size: 12pt; text-transform: uppercase;">Phase 3: The Ghost in the Machine</h3>
+            <p style="margin: 5pt 0; font-family: 'Georgia', serif; font-size: 10.5pt; line-height: 1.4;">
+                Surgical editing through In-painting, Out-painting, and Remixing. Mastering the tools that allow for precision and iterative design.
+            </p>
+        </div>
+
+        <div style="margin-bottom: 25pt; border-left: 4px solid #3498db; padding-left: 20pt; position: relative;">
+            <div style="position: absolute; left: -12px; top: 0; width: 20px; height: 20px; background: #3498db; border-radius: 50%; border: 4px solid #fff;"></div>
+            <h3 style="margin: 0; color: #2980b9; font-size: 12pt; text-transform: uppercase;">Phase 4: The Commercial Edge</h3>
+            <p style="margin: 5pt 0; font-family: 'Georgia', serif; font-size: 10.5pt; line-height: 1.4;">
+                Professional delivery, consistent character creation, and branding. Transforming your skill set into a viable creative business.
+            </p>
+        </div>
+
+    </div>
+
+    <div style="margin-top: 40pt; padding: 15pt; background: #f8f9fa; border: 1px solid #e9ecef; text-align: center;">
+        <p style="margin: 0; font-family: 'Georgia', serif; font-style: italic; font-size: 10pt; color: #7f8c8d;">
+            "Your portfolio is the ultimate assessment. Every project you complete builds your professional identity."
+        </p>
+    </div>
+</section>
+
+<section class="page" style="page-break-after: always; padding: 0.75in; min-height: 9in; box-sizing: border-box; display: block; position: relative; background: #fff;">
+    
+    <div class="chapter-header" style="text-align: center; margin-top: 1in; margin-bottom: 0.5in;">
+        <p style="font-family: sans-serif; text-transform: uppercase; letter-spacing: 2px; color: #3498db; font-size: 10pt; margin-bottom: 10pt;">Front Matter</p>
+        <h1 style="font-family: sans-serif; font-size: 22pt; color: #2c3e50; margin: 0; text-transform: uppercase;">Preface: The Evolution of the Prompt</h1>
+    </div>
+
+    <div class="quote-box" style="font-style: italic; text-align: center; margin: 0 auto 40pt auto; max-width: 80%; color: #555; font-family: 'Georgia', serif; line-height: 1.5;">
+        "Technology is the brush, but curiosity is the hand that moves it."
+    </div>
+
+    <div class="preface-content" style="font-family: 'Georgia', serif; font-size: 11pt; line-height: 1.7; color: #333;">
+        <h2 style="font-family: sans-serif; font-size: 14pt; color: #2980b9; margin-top: 20pt;">The Journey from Dunce to Master</h2>
+        <p style="margin-bottom: 15pt;">
+            Not long ago, the barrier to entry for high-level visual creation was a decade of technical training. Today, that barrier has shifted from the steady hand to the articulated mind. We find ourselves in an era where "I can't draw" is no longer an excuse for "I can't create."
+        </p>
+        
+        <p style="margin-bottom: 15pt;">
+            This book, <strong>Dunce to Midjourney Pro</strong>, was born from a simple observation: most people treat AI like a magic trick rather than a professional tool. To move beyond the "Dunce" stage, you must master the logic of the latent space.
+        </p>
+
+        <div style="background-color: #f4f7f6; border-left: 5px solid #27ae60; padding: 15pt; margin: 20pt 0; font-size: 10pt;">
+            <strong style="color: #27ae60; font-family: sans-serif; display: block; margin-bottom: 5pt; font-size: 9pt; letter-spacing: 1px;">PRO-TIP</strong>
+            Professionalism in Generative AI isn't about knowing one "magic prompt"; it's about understanding the logic of the engine and being able to replicate results consistently.
+        </div>
+
+        <p style="margin-bottom: 15pt;">
+            We utilize the <strong>Bloom’s Taxonomy</strong> approach, moving you from foundational terminology to the final creation of professional portfolios. By the time you reach the final chapter, you won't just have a book; you will have a live, professional identity built on the GitHub projects you complete.
+        </p>
+    </div>
+
+    <div style="margin-top: 50pt; text-align: center;">
+        <div style="height: 8pt; background: #eee; width: 100%; border-radius: 4px; margin-bottom: 10pt;">
+            <div style="height: 100%; background: #3498db; width: 5%; border-radius: 4px;"></div>
+        </div>
+        <p style="font-family: sans-serif; font-size: 9pt; color: #7f8c8d; text-transform: uppercase; letter-spacing: 1px;">Foundation Level: 5% Complete</p>
+    </div>
+</section>
+<section class="page" style="page-break-after: always; padding: 0.75in; min-height: 9in; box-sizing: border-box; display: block; position: relative; background: #fff;">
+    
+    <div class="chapter-start" style="text-align: center; padding-top: 1.5in; margin-bottom: 50pt;">
+        <div class="chapter-num" style="font-family: sans-serif; font-size: 14pt; text-transform: uppercase; letter-spacing: 2px; color: #3498db; margin-bottom: 10pt;">Phase 1: The Initiate</div>
+        <h1 style="font-family: sans-serif; font-size: 28pt; color: #2c3e50; margin: 0;">Chapter 1: The First Spark</h1>
+    </div>
+
+    <div class="quote-box" style="font-style: italic; text-align: center; margin: 0 auto 40pt auto; max-width: 80%; color: #555; font-family: 'Georgia', serif; line-height: 1.6;">
+        "Every great journey begins with a single prompt, and most of them start with /imagine."
+    </div>
+
+    <div class="content-section" style="font-family: 'Georgia', serif; font-size: 11pt; line-height: 1.7; color: #333;">
+        <h2 style="font-family: sans-serif; font-size: 16pt; color: #2c3e50; border-bottom: 1px solid #eee; padding-bottom: 5pt;">1.1 Introduction: Objectives</h2>
+        <p>
+            In this chapter, we transition from the 'Dunce' phase of passive observation to the 'Initiate' phase of intentional control. You will master the interface mechanics and, more importantly, the logic of how Midjourney "reads" your thoughts. By the end of this section, you will understand the technical difference between a sentence and a prompt.
+        </p>
+    </div>
+
+    <div class="box info-box" style="background-color: #f4f7f6; border-left: 5px solid #27ae60; padding: 15pt; margin: 25pt 0; font-size: 10pt;">
+        <strong style="color: #27ae60; font-family: sans-serif; display: block; margin-bottom: 5pt; font-size: 9pt; letter-spacing: 1px;">THE DISCORD COMMANDS</strong>
+        Beyond /imagine, the most professional tool is <strong>/settings</strong>. It allows you to toggle models (v5 vs v6) and Stylize levels without typing them manually every time.
+    </div>
+</section>
+
+<section class="page" style="page-break-after: always; padding: 0.75in; min-height: 9in; box-sizing: border-box; display: block; background: #fff;">
+    <h2 style="font-family: sans-serif; font-size: 16pt; color: #2c3e50; margin-top: 0;">1.2 The Mechanics of Tokenization</h2>
+    <p>
+        To a human, "A fluffy cat sitting on a blue chair" is a story. To Midjourney, it is a sequence of <strong>Tokens</strong>. Midjourney does not understand English grammar; it understands the statistical relationship between concepts.
+    </p>
+    
+    <h3 style="font-family: sans-serif; font-size: 12pt; color: #34495e;">The Bloom's Breakdown: Understanding the Latent Space</h3>
+    <p>
+        When you submit a prompt, the AI converts your words into numerical vectors. If your prompt is too wordy ("A very beautiful and cute cat that is really fluffy..."), the AI may get "lost" in the noise. Professional prompting relies on <strong>Noun-First Architecture</strong>.
+    </p>
+
+    <div class="box myth-box" style="background-color: #fdf2f2; border-left: 5px solid #e74c3c; padding: 15pt; margin: 25pt 0; font-size: 10pt;">
+        <strong style="color: #e74c3c; font-family: sans-serif; display: block; margin-bottom: 5pt; font-size: 9pt; letter-spacing: 1px;">CORE CLARITY</strong>
+        <strong>Myth:</strong> Using commas increases the quality of the image. 
+        <strong>Truth:</strong> Commas are largely ignored by the v6 model. Instead, they act as soft breaks. If you want a hard break between concepts, use double colons (::).
+    </div>
+
+    <h2 style="font-family: sans-serif; font-size: 16pt; color: #2c3e50; margin-top: 30pt;">1.3 Setting the Environment: Discord UI</h2>
+    <p>
+        The Midjourney Bot operates via Discord. Before your first generation, you must understand the <strong>Action Buttons</strong> that appear under your 2x2 grid:
+    </p>
+    <ul style="line-height: 2;">
+        <li><strong>U1 - U4:</strong> Upscale. This isolates a single image for final export.</li>
+        <li><strong>V1 - V4:</strong> Variation. This generates 4 new images based on the composition of the one you selected.</li>
+        <li><strong>The Blue Circle:</strong> Re-roll. This repeats the exact same prompt to get a new set of 4 variations.</li>
+    </ul>
+</section>
+
+<section class="page" style="page-break-after: always; padding: 0.75in; min-height: 9in; box-sizing: border-box; display: block; background: #fff;">
+    <div class="lab-section" style="background: #2c3e50; color: white; padding: 30pt; border-radius: 8px; font-family: sans-serif;">
+        <h3 style="margin-top: 0; color: #3498db; text-transform: uppercase; font-size: 12pt;">1.4 The Lab: Intentional Generation</h3>
+        <p style="font-size: 10pt;">We will now test the difference between "Vague" and "Intentional" prompting.</p>
+        <ol style="font-size: 10.5pt; line-height: 1.8;">
+            <li><strong>The Dunce Prompt:</strong> Type <code>/imagine prompt: a cool car</code></li>
+            <li><strong>The Initiate Prompt:</strong> Type <code>/imagine prompt: vintage red porsche 911, sunset lighting, cinematic shot --ar 16:9 --v 6.0</code></li>
+            <li><strong>The Analysis:</strong> Notice how the Initiate prompt commands the lighting and the aspect ratio.</li>
+        </ol>
+    </div>
+
+    <div class="box quiz-box" style="border: 1px solid #d1d8e0; padding: 15pt; margin: 30pt 0;">
+        <h4 style="margin-top: 0; font-family: sans-serif; color: #2c3e50;">Active Recall Quiz</h4>
+        <p style="font-size: 10pt;">1. Does Midjourney read grammar like a human? (Yes/No)</p>
+        <p style="font-size: 10pt;">2. Which button would you click to get 4 new variations of the top-left image?</p>
+        <p style="font-size: 10pt;">3. What parameter is required to change the shape of the image from square to wide?</p>
+    </div>
+
+    <div class="github-project" style="border: 2px dashed #3498db; padding: 20pt; margin-top: 30pt; font-family: 'Georgia', serif;">
+        <h3 style="margin-top: 0; font-family: sans-serif; color: #2c3e50;">1.5 GitHub Portfolio Project #1</h3>
+        <p style="font-size: 10.5pt;">
+            Create a repository named <code>midjourney-pro-journey</code>. Upload two screenshots: your "Dunce Prompt" and your "Initiate Prompt". In the README, write a 2-sentence analysis explaining why the Initiate prompt produced a more "professional" result based on the nouns used.
+        </p>
+    </div>
+</section>
+
+<section class="page" style="page-break-after: always; padding: 0.75in; min-height: 9in; box-sizing: border-box; display: block; background: #fff;">
+    <h2 style="font-family: sans-serif; font-size: 14pt; color: #2c3e50; border-top: 1px solid #eee; padding-top: 20pt;">Chapter Review & Next Up</h2>
+    <p style="font-size: 10.5pt;">
+        You have identified the core mechanics of prompting and the Discord interface. You now understand that AI prompting is about managing tokens and statistical weight, not just writing sentences.
+    </p>
+    <p style="font-size: 10.5pt; font-weight: bold; color: #2980b9;">Next Up: Speaking the Visual Language—Mastering Aspect Ratios and Stylize Parameters.</p>
+
+    <div style="margin-top: 80pt; text-align: center;">
+        <div style="height: 10pt; background: #eee; width: 100%; border-radius: 5px;">
+            <div style="height: 100%; background: #3498db; width: 12%; border-radius: 5px;"></div>
+        </div>
+        <p style="font-family: sans-serif; font-size: 9pt; color: #7f8c8d; text-transform: uppercase; margin-top: 10pt; letter-spacing: 1px;">Initiate Level: 12% Complete</p>
+    </div>
+
+    <div class="quote-box" style="font-style: italic; text-align: center; margin-top: 50pt; color: #555; font-family: 'Georgia', serif;">
+        "The expert in anything was once a beginner."
+    </div>
+</section>
+<section class="page" style="page-break-after: always; padding: 0.75in; min-height: 9in; box-sizing: border-box; display: block; position: relative; background: #fff;">
+    
+    <div class="chapter-start" style="text-align: center; padding-top: 1.5in; margin-bottom: 50pt;">
+        <div class="chapter-num" style="font-family: sans-serif; font-size: 14pt; text-transform: uppercase; letter-spacing: 2px; color: #3498db; margin-bottom: 10pt;">Phase 1: The Initiate</div>
+        <h1 style="font-family: sans-serif; font-size: 28pt; color: #2c3e50; margin: 0;">Chapter 2: Speaking the Visual Language</h1>
+    </div>
+
+    <div class="quote-box" style="font-style: italic; text-align: center; margin: 0 auto 40pt auto; max-width: 80%; color: #555; font-family: 'Georgia', serif; line-height: 1.6;">
+        "Composition is the difference between a snapshot and a masterpiece."
+    </div>
+
+    <div class="content-section" style="font-family: 'Georgia', serif; font-size: 11pt; line-height: 1.7; color: #333;">
+        <h2 style="font-family: sans-serif; font-size: 16pt; color: #2c3e50; border-bottom: 1px solid #eee; padding-bottom: 5pt;">2.1 Beyond the Words</h2>
+        <p>
+            If nouns are the "soul" of a prompt, <strong>Parameters</strong> are the "body." In this chapter, we explore the suffix commands that bypass the AI’s creative interpretation and force specific technical constraints. Mastering these is the first step toward professional-grade consistency.
+        </p>
+    </div>
+
+    <div class="box info-box" style="background-color: #f4f7f6; border-left: 5px solid #27ae60; padding: 15pt; margin: 25pt 0; font-size: 10pt;">
+        <strong style="color: #27ae60; font-family: sans-serif; display: block; margin-bottom: 5pt; font-size: 9pt; letter-spacing: 1px;">SYNTAX RULE</strong>
+        Parameters always go at the very end of your prompt. They must be preceded by a double hyphen (--) and a space. For example: <code>--ar 16:9</code>.
+    </div>
+</section>
+
+<section class="page" style="page-break-after: always; padding: 0.75in; min-height: 9in; box-sizing: border-box; display: block; background: #fff;">
+    <h2 style="font-family: sans-serif; font-size: 16pt; color: #2c3e50; margin-top: 0;">2.2 Aspect Ratios (--ar)</h2>
+    <p>
+        By default, Midjourney generates square images (1:1). However, professional media requires specific dimensions. The <code>--ar</code> parameter tells the engine how to frame the canvas.
+    </p>
+    
+    <h3 style="font-family: sans-serif; font-size: 12pt; color: #34495e;">The Industry Standards</h3>
+    <ul style="line-height: 2;">
+        <li><strong>--ar 16:9:</strong> Cinematic, YouTube thumbnails, and presentations.</li>
+        <li><strong>--ar 9:16:</strong> Social media stories, TikToks, and mobile wallpapers.</li>
+        <li><strong>--ar 2:3:</strong> Classic portrait photography and book covers.</li>
+        <li><strong>--ar 3:2:</strong> Classic landscape photography.</li>
+    </ul>
+
+    <div class="box myth-box" style="background-color: #fdf2f2; border-left: 5px solid #e74c3c; padding: 15pt; margin: 25pt 0; font-size: 10pt;">
+        <strong style="color: #e74c3c; font-family: sans-serif; display: block; margin-bottom: 5pt; font-size: 9pt; letter-spacing: 1px;">COMPOSITION LOGIC</strong>
+        <strong>Myth:</strong> Aspect ratio only changes the shape. 
+        <strong>Truth:</strong> Changing the aspect ratio changes the <strong>composition</strong>. A 9:16 ratio will often force the AI to show a full-body character, whereas a 1:1 ratio will focus on a close-up portrait.
+    </div>
+
+    <h2 style="font-family: sans-serif; font-size: 16pt; color: #2c3e50; margin-top: 30pt;">2.3 The Stylize Parameter (--s)</h2>
+    <p>
+        The <code>--stylize</code> (or <code>--s</code>) parameter controls how much of Midjourney’s internal "aesthetic training" is applied.
+    </p>
+    <ul style="line-height: 1.8;">
+        <li><strong>--s 50:</strong> Low stylization. Closer to your literal prompt, less "artistic" flair.</li>
+        <li><strong>--s 250:</strong> Default. A balance between your words and MJ's beauty.</li>
+        <li><strong>--s 750+:</strong> High stylization. The AI takes creative liberties to make the image "prettier," sometimes ignoring parts of your prompt.</li>
+    </ul>
+</section>
+
+<section class="page" style="page-break-after: always; padding: 0.75in; min-height: 9in; box-sizing: border-box; display: block; background: #fff;">
+    <div class="lab-section" style="background: #2c3e50; color: white; padding: 30pt; border-radius: 8px; font-family: sans-serif;">
+        <h3 style="margin-top: 0; color: #3498db; text-transform: uppercase; font-size: 12pt;">2.4 The Lab: Framing & Flair</h3>
+        <p style="font-size: 10pt;">Let's test how technical parameters alter a single concept.</p>
+        <ol style="font-size: 10.5pt; line-height: 1.8;">
+            <li><strong>The Wide Epic:</strong> <code>/imagine prompt: a lone knight standing on a mountain peak --ar 21:9 --s 750</code></li>
+            <li><strong>The Intimate Portrait:</strong> <code>/imagine prompt: a lone knight standing on a mountain peak --ar 2:3 --s 50</code></li>
+            <li><strong>The Analysis:</strong> Observe how the wide ratio adds "world-building" elements while the portrait ratio focuses on the armor details.</li>
+        </ol>
+    </div>
+
+    <div class="box quiz-box" style="border: 1px solid #d1d8e0; padding: 15pt; margin: 30pt 0;">
+        <h4 style="margin-top: 0; font-family: sans-serif; color: #2c3e50;">Active Recall Quiz</h4>
+        <p style="font-size: 10pt;">1. What is the default aspect ratio if you don't specify one?</p>
+        <p style="font-size: 10pt;">2. If your image is looking too "messy" and artistic, should you increase or decrease the <code>--s</code> value?</p>
+        <p style="font-size: 10pt;">3. Where do parameters belong in a prompt: The beginning, middle, or end?</p>
+    </div>
+
+    <div class="github-project" style="border: 2px dashed #3498db; padding: 20pt; margin-top: 30pt; font-family: 'Georgia', serif;">
+        <h3 style="margin-top: 0; font-family: sans-serif; color: #2c3e50;">2.5 GitHub Portfolio Project #2</h3>
+        <p style="font-size: 10.5pt;">
+            Update your <code>midjourney-pro-journey</code> repository. Create a folder named <code>Chapter-2-Parameters</code>. Upload one landscape image and one portrait image of the <strong>same subject</strong>. In your README, explain how the aspect ratio changed the "story" the AI told.
+        </p>
+    </div>
+</section>
+
+<section class="page" style="page-break-after: always; padding: 0.75in; min-height: 9in; box-sizing: border-box; display: block; background: #fff;">
+    <h2 style="font-family: sans-serif; font-size: 14pt; color: #2c3e50; border-top: 1px solid #eee; padding-top: 20pt;">Phase 1 Completion & Next Up</h2>
+    <p style="font-size: 10.5pt;">
+        Congratulations. You have completed the <strong>Initiate Level</strong>. You now command the interface, understand the tokenization of nouns, and can manipulate the physical canvas and aesthetic intensity of your generations.
+    </p>
+    <p style="font-size: 10.5pt; font-weight: bold; color: #2980b9;">Next Up: Phase 1 Assessment - The Initiate Challenge.
+
+</p>
+
+    <div style="margin-top: 80pt; text-align: center;">
+        <div style="height: 10pt; background: #eee; width: 100%; border-radius: 5px;">
+            <div style="height: 100%; background: #3498db; width: 25%; border-radius: 5px;"></div>
+        </div>
+        <p style="font-family: sans-serif; font-size: 9pt; color: #7f8c8d; text-transform: uppercase; margin-top: 10pt; letter-spacing: 1px;">Phase 1 Complete: 25% Total Progress</p>
+    </div>
+
+    <div class="quote-box" style="font-style: italic; text-align: center; margin-top: 50pt; color: #555; font-family: 'Georgia', serif;">
+        "Style is a way to say who you are without having to speak."
+    </div>
+</section>
+<section class="page" style="page-break-after: always; padding: 0.75in; min-height: 9in; box-sizing: border-box; display: block; background: #fff; border: 2px solid #3498db; margin: 10pt;">
+    <div style="text-align: center; margin-bottom: 30pt;">
+        <h2 style="font-family: sans-serif; font-size: 18pt; color: #2c3e50; text-transform: uppercase; letter-spacing: 2px;">Phase 1 Assessment: The Initiate Challenge</h2>
+        <p style="font-family: 'Georgia', serif; font-style: italic; color: #7f8c8d;">Testing Foundation, Syntax, and UI Navigation</p>
+    </div>
+
+    <div class="assessment-content" style="font-family: 'Georgia', serif; font-size: 11pt; line-height: 1.6;">
+        <p style="margin-bottom: 20pt;">To move into Phase 2, you must demonstrate mastery of the core engine. Complete the following technical tasks:</p>
+
+        <h3 style="font-family: sans-serif; font-size: 12pt; color: #2980b9;">Task 1: Syntax Debugging</h3>
+        <p style="font-size: 10.5pt; background: #f9f9f9; padding: 10pt; border-radius: 4px;">
+            Identify the error in this prompt: <br>
+            <code>/imagine a professional photography of a lion, --ar 16:9 --v6</code>
+        </p>
+
+        <h3 style="font-family: sans-serif; font-size: 12pt; color: #2980b9; margin-top: 20pt;">Task 2: Composition Control</h3>
+        <p style="font-size: 10.5pt;">
+            Write a prompt for a "Cyberpunk City" that utilizes <strong>Noun-First Architecture</strong> and forces a vertical aspect ratio for mobile devices.
+        </p>
+
+        <h3 style="font-family: sans-serif; font-size: 12pt; color: #2980b9; margin-top: 20pt;">Task 3: The Settings Logic</h3>
+        <p style="font-size: 10.5pt;">
+            If you want your images to be <em>less</em> artistic and more literal to your words, which parameter do you adjust, and in which direction (Higher or Lower)?
+        </p>
+    </div>
+
+    <div style="margin-top: 40pt; padding: 15pt; background: #ebf5fb; border-radius: 8px;">
+        <h4 style="margin: 0; font-family: sans-serif; font-size: 10pt; color: #2c3e50;">PHASE 1 MILESTONE</h4>
+        <p style="font-size: 9.5pt; margin: 5pt 0 0 0;">
+            <strong>Submission:</strong> Update your GitHub README with the answers to these three tasks. Link your repository to the <strong>Hexadigitall Peer Review</strong> board (or your personal mentor) for Phase 1 sign-off.
+        </p>
+    </div>
+</section>
+
+<section class="page" style="page-break-after: always; padding: 0.75in; min-height: 9in; box-sizing: border-box; display: block; position: relative; background: #fff;">
+    
+    <div class="chapter-start" style="text-align: center; padding-top: 1.5in; margin-bottom: 50pt;">
+        <div class="chapter-num" style="font-family: sans-serif; font-size: 14pt; text-transform: uppercase; letter-spacing: 2px; color: #3498db; margin-bottom: 10pt;">Phase 2: The Style Weaver</div>
+        <h1 style="font-family: sans-serif; font-size: 28pt; color: #2c3e50; margin: 0;">Chapter 3: The Artisan’s Palette</h1>
+    </div>
+
+    <div class="quote-box" style="font-style: italic; text-align: center; margin: 0 auto 40pt auto; max-width: 80%; color: #555; font-family: 'Georgia', serif; line-height: 1.6;">
+        "Lighting is the language of photography; style is the soul of the image."
+    </div>
+
+    <div class="content-section" style="font-family: 'Georgia', serif; font-size: 11pt; line-height: 1.7; color: #333;">
+        <h2 style="font-family: sans-serif; font-size: 16pt; color: #2c3e50; border-bottom: 1px solid #eee; padding-bottom: 5pt;">3.1 The Midjourney Alchemist</h2>
+        <p>
+            The difference between a "Dunce" image and a "Pro" image often boils down to two things: **Lighting** and **Medium**. In this chapter, we stop asking the AI to "make it look cool" and start commanding it to use specific artistic techniques. You will learn to manipulate the virtual environment to achieve professional lighting and material consistency.
+        </p>
+    </div>
+
+    <div class="box info-box" style="background-color: #f4f7f6; border-left: 5px solid #27ae60; padding: 15pt; margin: 25pt 0; font-size: 10pt;">
+        <strong style="color: #27ae60; font-family: sans-serif; display: block; margin-bottom: 5pt; font-size: 9pt; letter-spacing: 1px;">THE WEIGHT OF LIGHT</strong>
+        Lighting should be your second primary noun. After the subject, the lighting defines the mood of the entire latent space. Use <code>volumetric lighting</code> for depth or <code>golden hour</code> for warmth.
+    </div>
+</section>
+
+<section class="page" style="page-break-after: always; padding: 0.75in; min-height: 9in; box-sizing: border-box; display: block; background: #fff;">
+    <h2 style="font-family: sans-serif; font-size: 16pt; color: #2c3e50; margin-top: 0;">3.2 Mastery of Light and Shadow</h2>
+    <p>
+        Midjourney treats lighting as a physical property of the scene. To move into the **Understand** phase of Bloom’s Taxonomy, you must recognize how light interacts with your subject.
+    </p>
+    
+    <h3 style="font-family: sans-serif; font-size: 12pt; color: #34495e;">Technical Lighting Vocabulary</h3>
+    <ul style="line-height: 2;">
+        <li><strong>Chiaroscuro:</strong> Strong contrasts between light and dark (think Rembrandt).</li>
+        <li><strong>Cyberpunk Neon:</strong> High-contrast, saturated pinks and blues.</li>
+        <li><strong>Softbox Lighting:</strong> Even, diffused light used in professional studio portraits.</li>
+        <li><strong>Backlit / Rim Lighting:</strong> Places light behind the subject to create a glowing outline.</li>
+    </ul>
+
+    <div class="box myth-box" style="background-color: #fdf2f2; border-left: 5px solid #e74c3c; padding: 15pt; margin: 25pt 0; font-size: 10pt;">
+        <strong style="color: #e74c3c; font-family: sans-serif; display: block; margin-bottom: 5pt; font-size: 9pt; letter-spacing: 1px;">MEDIUM OVER MANNER</strong>
+        <strong>Myth:</strong> Mentioning a famous artist is enough to get their style. 
+        <strong>Truth:</strong> While MJ knows artists, it is more effective to describe the <strong>medium</strong> (e.g., oil on canvas, charcoal sketch, 35mm film) to establish the texture before adding the artist's name.
+    </div>
+
+    <h2 style="font-family: sans-serif; font-size: 16pt; color: #2c3e50; margin-top: 30pt;">3.3 Texture and Materials</h2>
+    <p>
+        Professional prompting requires an understanding of <strong>Tactility</strong>. How does the surface feel? Is it polished marble, rusted iron, or translucent silk? Adding material descriptors forces the AI to calculate light "bounce" and refraction more accurately.
+    </p>
+</section>
+
+<section class="page" style="page-break-after: always; padding: 0.75in; min-height: 9in; box-sizing: border-box; display: block; background: #fff;">
+    <div class="lab-section" style="background: #2c3e50; color: white; padding: 30pt; border-radius: 8px; font-family: sans-serif;">
+        <h3 style="margin-top: 0; color: #3498db; text-transform: uppercase; font-size: 12pt;">3.4 The Lab: The Material Swap</h3>
+        <p style="font-size: 10pt;">We will now apply different lighting and material "wraps" to a single subject to see the AI's transformation logic.</p>
+        <ol style="font-size: 10.5pt; line-height: 1.8;">
+            <li><strong>The Studio Shot:</strong> <code>/imagine prompt: a futuristic sneaker, softbox lighting, clean white studio background --v 6.0</code></li>
+            <li><strong>The Material Shift:</strong> <code>/imagine prompt: a futuristic sneaker made of liquid chrome, sunset lighting, ray-traced reflections --v 6.0</code></li>
+            <li><strong>The Analysis:</strong> Notice how the "Liquid Chrome" prompt changes not just the color, but the way the environment reflects off the surface.</li>
+        </ol>
+    </div>
+
+    <div class="box quiz-box" style="border: 1px solid #d1d8e0; padding: 15pt; margin: 30pt 0;">
+        <h4 style="margin-top: 0; font-family: sans-serif; color: #2c3e50;">Active Recall Quiz</h4>
+        <p style="font-size: 10pt;">1. Which lighting term creates a high-contrast "glow" around the edges of a subject?</p>
+        <p style="font-size: 10pt;">2. Is it better to prompt an artist's name first or the medium (e.g., "oil painting") first?</p>
+        <p style="font-size: 10pt;">3. How does mentioning "Liquid Chrome" change the AI's calculation of lighting?</p>
+    </div>
+
+    <div class="github-project" style="border: 2px dashed #3498db; padding: 20pt; margin-top: 30pt; font-family: 'Georgia', serif;">
+        <h3 style="margin-top: 0; font-family: sans-serif; color: #2c3e50;">3.5 GitHub Portfolio Project #3</h3>
+        <p style="font-size: 10.5pt;">
+            Pick one object (e.g., a chair, a phone, an apple). Generate three variations: one as <strong>Stained Glass</strong>, one as <strong>Polished Gold</strong>, and one as <strong>Holographic Wireframe</strong>. Upload all three to your repo and document how the lighting parameters had to change for each material.
+        </p>
+    </div>
+</section>
+
+<section class="page" style="page-break-after: always; padding: 0.75in; min-height: 9in; box-sizing: border-box; display: block; background: #fff;">
+    <h2 style="font-family: sans-serif; font-size: 14pt; color: #2c3e50; border-top: 1px solid #eee; padding-top: 20pt;">Chapter Review & Next Up</h2>
+    <p style="font-size: 10.5pt;">
+        You have successfully transitioned from basic nouns to complex textures. You now understand how to manipulate light as a physical tool and how to "wrap" subjects in professional-grade materials.
+    </p>
+    <p style="font-size: 10.5pt; font-weight: bold; color: #2980b9;">Next Up: Advanced Aesthetic Control—Mastering Style Tuners and Multi-Prompting.</p>
+
+    <div style="margin-top: 80pt; text-align: center;">
+        <div style="height: 10pt; background: #eee; width: 100%; border-radius: 5px;">
+            <div style="height: 100%; background: #3498db; width: 37%; border-radius: 5px;"></div>
+        </div>
+        <p style="font-family: sans-serif; font-size: 9pt; color: #7f8c8d; text-transform: uppercase; margin-top: 10pt; letter-spacing: 1px;">Weaver Level: 37% Complete</p>
+    </div>
+
+    <div class="quote-box" style="font-style: italic; text-align: center; margin-top: 50pt; color: #555; font-family: 'Georgia', serif;">
+        "Texture is the most forgotten sense in digital art."
+    </div>
+</section>
+<section class="page" style="page-break-after: always; padding: 0.75in; min-height: 9in; box-sizing: border-box; display: block; position: relative; background: #fff;">
+    
+    <div class="chapter-start" style="text-align: center; padding-top: 1.5in; margin-bottom: 50pt;">
+        <div class="chapter-num" style="font-family: sans-serif; font-size: 14pt; text-transform: uppercase; letter-spacing: 2px; color: #3498db; margin-bottom: 10pt;">Phase 2: The Style Weaver</div>
+        <h1 style="font-family: sans-serif; font-size: 28pt; color: #2c3e50; margin: 0;">Chapter 4: Advanced Aesthetic Control</h1>
+    </div>
+
+    <div class="quote-box" style="font-style: italic; text-align: center; margin: 0 auto 40pt auto; max-width: 80%; color: #555; font-family: 'Georgia', serif; line-height: 1.6;">
+        "The power to separate concepts is the power to control the machine."
+    </div>
+
+    <div class="content-section" style="font-family: 'Georgia', serif; font-size: 11pt; line-height: 1.7; color: #333;">
+        <h2 style="font-family: sans-serif; font-size: 16pt; color: #2c3e50; border-bottom: 1px solid #eee; padding-bottom: 5pt;">4.1 The Art of Separation</h2>
+        <p>
+            In Phase 1, we learned that Midjourney blends nouns together. But what happens when you want a "Space Explorer" without the AI turning their suit into a nebula? This chapter introduces <strong>Multi-Prompting</strong> and <strong>Style References</strong>—the advanced tools required to maintain surgical control over the AI's aesthetic output and prevent conceptual "bleeding."
+        </p>
+    </div>
+
+    <div class="box info-box" style="background-color: #f4f7f6; border-left: 5px solid #27ae60; padding: 15pt; margin: 25pt 0; font-size: 10pt;">
+        <strong style="color: #27ae60; font-family: sans-serif; display: block; margin-bottom: 5pt; font-size: 9pt; letter-spacing: 1px;">THE SYNTAX OF CONTROL</strong>
+        The double colon (::) is the most powerful character in your arsenal. It tells the AI: "Stop reading here, calculate this concept as a discrete entity, then move to the next." This is the foundation of <strong>Prompt Weighting</strong>.
+    </div>
+</section>
+
+<section class="page" style="page-break-after: always; padding: 0.75in; min-height: 9in; box-sizing: border-box; display: block; background: #fff;">
+    <h2 style="font-family: sans-serif; font-size: 16pt; color: #2c3e50; margin-top: 0;">4.2 Multi-Prompting and Weighting</h2>
+    <p>
+        By using <code>::</code>, you can assign numerical importance to different parts of a prompt. This allows you to balance competing elements mathematically rather than just through word order.
+    </p>
+    
+    <h3 style="font-family: sans-serif; font-size: 12pt; color: #34495e;">The Mathematical Balance</h3>
+    <ul style="line-height: 2;">
+        <li><code>hot:: dog</code> → A dog in a hot environment, rather than a frankfurter.</li>
+        <li><code>cyberpunk::2 forest::0.5</code> → A scene that is 75% tech-heavy and 25% nature.</li>
+        <li><code>architectural render::1.5 sketch::0.5</code> → A clean structure with only a hint of pencil texture.</li>
+    </ul>
+
+    <div class="box myth-box" style="background-color: #fdf2f2; border-left: 5px solid #e74c3c; padding: 15pt; margin: 25pt 0; font-size: 10pt;">
+        <strong style="color: #e74c3c; font-family: sans-serif; display: block; margin-bottom: 5pt; font-size: 9pt; letter-spacing: 1px;">THE NEGATIVE WEIGHT</strong>
+        <strong>Myth:</strong> Typing "no trees" in your prompt removes trees. 
+        <strong>Truth:</strong> The AI sees the word "trees" and generates them. To remove something, you must use <strong>Negative Prompting</strong>: <code>--no trees</code> or <code>trees::-0.5</code>.
+    </div>
+
+    <h2 style="font-family: sans-serif; font-size: 16pt; color: #2c3e50; margin-top: 30pt;">4.3 Style Reference (--sref)</h2>
+    <p>
+        The <code>--sref</code> parameter allows you to "pin" a specific aesthetic. By providing a URL of an existing image after this parameter, you force Midjourney to inherit the colors, lighting, and "vibe" of that image without copying the subject matter. This is essential for maintaining brand consistency.
+    </p>
+</section>
+
+<section class="page" style="page-break-after: always; padding: 0.75in; min-height: 9in; box-sizing: border-box; display: block; background: #fff;">
+    <div class="lab-section" style="background: #2c3e50; color: white; padding: 30pt; border-radius: 8px; font-family: sans-serif;">
+        <h3 style="margin-top: 0; color: #3498db; text-transform: uppercase; font-size: 12pt;">4.4 The Lab: Surgical Weighting</h3>
+        <p style="font-size: 10pt;">We will now use weights to prevent the AI from "blending" two distinct ideas.</p>
+        <ol style="font-size: 10.5pt; line-height: 1.8;">
+            <li><strong>The Blend:</strong> <code>/imagine prompt: chocolate volcano --v 6.0</code> (Likely a cake)</li>
+            <li><strong>The Weighted Split:</strong> <code>/imagine prompt: chocolate::2 volcano::1 --v 6.0</code> (A landscape made of chocolate)</li>
+            <li><strong>The Style Lock:</strong> Find a photo of a neon sign. Copy the URL. Type <code>/imagine prompt: a Victorian office --sref [URL] --v 6.0</code>.</li>
+        </ol>
+    </div>
+
+    <div class="box quiz-box" style="border: 1px solid #d1d8e0; padding: 15pt; margin: 30pt 0;">
+        <h4 style="margin-top: 0; font-family: sans-serif; color: #2c3e50;">Active Recall Quiz</h4>
+        <p style="font-size: 10pt;">1. What characters do you use to separate concepts and add weights?</p>
+        <p style="font-size: 10pt;">2. How do you technically remove an unwanted element from a scene?</p>
+        <p style="font-size: 10pt;">3. What does <code>--sref</code> stand for, and what does it do?</p>
+    </div>
+
+    <div class="github-project" style="border: 2px dashed #3498db; padding: 20pt; margin-top: 30pt; font-family: 'Georgia', serif;">
+        <h3 style="margin-top: 0; font-family: sans-serif; color: #2c3e50;">4.5 GitHub Portfolio Project #4</h3>
+        <p style="font-size: 10.5pt;">
+            Perform a "Style Transfer." Take a modern subject (like a Tesla) and use <code>--sref</code> to give it a 1920s charcoal sketch aesthetic. Upload the original reference image and your result to the <code>Style-Weaver</code> folder in your repo.
+        </p>
+    </div>
+</section>
+
+<section class="page" style="page-break-after: always; padding: 0.75in; min-height: 9in; box-sizing: border-box; display: block; background: #fff;">
+    <h2 style="font-family: sans-serif; font-size: 14pt; color: #2c3e50; border-top: 1px solid #eee; padding-top: 20pt;">Chapter Review & Next Up</h2>
+    <p style="font-size: 10.5pt;">
+        You have successfully mastered aesthetic weighting and style pinning. You now possess the tools to ensure consistency across multiple generations—a requirement for any professional AI workflow.
+    </p>
+    <p style="font-size: 10.5pt; font-weight: bold; color: #2980b9;">Next Up: Phase 2 Assessment - The Alchemist’s Trial.</p>
+
+    <div style="margin-top: 80pt; text-align: center;">
+        <div style="height: 10pt; background: #eee; width: 100%; border-radius: 5px;">
+            <div style="height: 100%; background: #3498db; width: 50%; border-radius: 5px;"></div>
+        </div>
+        <p style="font-family: sans-serif; font-size: 9pt; color: #7f8c8d; text-transform: uppercase; margin-top: 10pt; letter-spacing: 1px;">Weaver Level: 50% Complete</p>
+    </div>
+
+    <div class="quote-box" style="font-style: italic; text-align: center; margin-top: 50pt; color: #555; font-family: 'Georgia', serif;">
+        "Consistency is the true mark of a professional."
+    </div>
+</section>
+<section class="page" style="page-break-after: always; padding: 0.75in; min-height: 9in; box-sizing: border-box; display: block; background: #fff; border: 2px solid #3498db; margin: 10pt; position: relative;">
+    <div style="text-align: center; margin-bottom: 30pt;">
+        <h2 style="font-family: sans-serif; font-size: 18pt; color: #2c3e50; text-transform: uppercase; letter-spacing: 2px;">Phase 2 Assessment: The Alchemist’s Trial</h2>
+        <p style="font-family: 'Georgia', serif; font-style: italic; color: #7f8c8d;">Evaluating Aesthetic Synthesis and Weighted Control</p>
+    </div>
+
+    <div class="assessment-content" style="font-family: 'Georgia', serif; font-size: 11pt; line-height: 1.6;">
+        <p style="margin-bottom: 20pt;">You have moved past simple buttons. To prove you are an Alchemist, you must solve these three stylistic challenges:</p>
+
+        <h3 style="font-family: sans-serif; font-size: 12pt; color: #2980b9;">Challenge 1: The Weighted Balance</h3>
+        <p style="font-size: 10.5pt;">
+            Create a prompt that combines "A Renaissance Cathedral" and "A High-Tech Computer Server Room." Use <strong>Multi-Prompting (::)</strong> to ensure the architecture remains 70% Cathedral while the interior details are 30% Server Tech. 
+        </p>
+
+        <h3 style="font-family: sans-serif; font-size: 12pt; color: #2980b9; margin-top: 20pt;">Challenge 2: The Style Reference Lockdown</h3>
+        <p style="font-size: 10.5pt;">
+            Find a high-contrast <strong>Film Noir</strong> image online. Use its URL with the <code>--sref</code> parameter to generate a "Cyberpunk Street Market." The final result must inherit the Noir lighting (black and white, high shadow) but keep the Cyberpunk subject matter.
+        </p>
+
+        <h3 style="font-family: sans-serif; font-size: 12pt; color: #2980b9; margin-top: 20pt;">Challenge 3: Medium over Manner</h3>
+        <p style="font-size: 10.5pt;">
+            Generate a portrait of an astronaut where the <strong>medium</strong> is "Impasto Oil on Canvas." Do not use an artist's name. Control the texture using only material descriptors and lighting.
+        </p>
+    </div>
+
+    <div style="margin-top: 40pt; padding: 15pt; background: #ebf5fb; border-radius: 8px;">
+        <h4 style="margin: 0; font-family: sans-serif; font-size: 10pt; color: #2c3e50;">PHASE 2 SUBMISSION</h4>
+        <p style="font-size: 9.5pt; margin: 5pt 0 0 0;">
+            <strong>The Portfolio Requirement:</strong> Create a folder in your GitHub repo titled <code>Phase-2-Assessment</code>. Upload the resulting images and a text file containing the exact prompts used for all three challenges. This is your "Alchemist's Certificate."
+        </p>
+    </div>
+</section>
+<section class="page" style="page-break-after: always; padding: 0.75in; min-height: 9in; box-sizing: border-box; display: block; position: relative; background: #fff;">
+    
+    <div class="chapter-start" style="text-align: center; padding-top: 1.5in; margin-bottom: 50pt;">
+        <div class="chapter-num" style="font-family: sans-serif; font-size: 14pt; text-transform: uppercase; letter-spacing: 2px; color: #3498db; margin-bottom: 10pt;">Phase 3: The Ghost in the Machine</div>
+        <h1 style="font-family: sans-serif; font-size: 28pt; color: #2c3e50; margin: 0;">Chapter 5: Surgical Editing</h1>
+    </div>
+
+    <div class="quote-box" style="font-style: italic; text-align: center; margin: 0 auto 40pt auto; max-width: 80%; color: #555; font-family: 'Georgia', serif; line-height: 1.6;">
+        "True mastery is not found in the first click, but in the final adjustment."
+    </div>
+
+    <div class="content-section" style="font-family: 'Georgia', serif; font-size: 11pt; line-height: 1.7; color: #333;">
+        <h2 style="font-family: sans-serif; font-size: 16pt; color: #2c3e50; border-bottom: 1px solid #eee; padding-bottom: 5pt;">5.1 From Luck to Logic</h2>
+        <p>
+            Up to this point, if Midjourney gave you a perfect character with a "weird" hand, your only option was to re-roll and hope for the best. No more. In this chapter, we explore <strong>Vary Region</strong> (Midjourney’s in-painting tool), which allows you to highlight a specific area and re-generate only those pixels. This is where you stop being a prompt-writer and start being an <strong>Editor</strong>.
+        </p>
+    </div>
+
+    <div class="box info-box" style="background-color: #f4f7f6; border-left: 5px solid #27ae60; padding: 15pt; margin: 25pt 0; font-size: 10pt;">
+        <strong style="color: #27ae60; font-family: sans-serif; display: block; margin-bottom: 5pt; font-size: 9pt; letter-spacing: 1px;">THE EDITOR'S PREREQUISITE</strong>
+        Before you can use Vary Region, you must <strong>Upscale (U1-U4)</strong> an image. The in-painting tools only appear once a single image has been isolated from the initial 2x2 grid.
+    </div>
+</section>
+
+<section class="page" style="page-break-after: always; padding: 0.75in; min-height: 9in; box-sizing: border-box; display: block; background: #fff;">
+    <h2 style="font-family: sans-serif; font-size: 16pt; color: #2c3e50; margin-top: 0;">5.2 Vary Region (In-painting)</h2>
+    <p>
+        The <strong>Vary Region</strong> button opens a modal window with a selection tool. By selecting the "Lasso" or "Rectangle," you tell the AI exactly which part of the image is "wrong." 
+    </p>
+    
+    <h3 style="font-family: sans-serif; font-size: 12pt; color: #34495e;">The Bloom's Breakdown: Understanding Contextual Awareness</h3>
+    <p>
+        Midjourney doesn't just fill a hole; it looks at the surrounding pixels to ensure the lighting, texture, and style match. If you remove a character’s hat, the AI will intelligently reconstruct the hair that should have been underneath based on the rest of the head.
+    </p>
+
+    <div class="box myth-box" style="background-color: #fdf2f2; border-left: 5px solid #e74c3c; padding: 15pt; margin: 25pt 0; font-size: 10pt;">
+        <strong style="color: #e74c3c; font-family: sans-serif; display: block; margin-bottom: 5pt; font-size: 9pt; letter-spacing: 1px;">THE REMIX TRAP</strong>
+        <strong>Myth:</strong> Vary Region only lets you fix what's already there. 
+        <strong>Truth:</strong> If you enable <strong>Remix Mode</strong> in <code>/settings</code>, you can change the prompt text inside the Vary Region window. This allows you to select a character's hand and type "holding a lightsaber" to add an object that wasn't there before.
+    </div>
+
+    <h2 style="font-family: sans-serif; font-size: 16pt; color: #2c3e50; margin-top: 30pt;">5.3 Pan and Zoom (Out-painting)</h2>
+    <p>
+        While Vary Region fixes the inside, <strong>Pan</strong> and <strong>Zoom</strong> expand the outside.
+    </p>
+    <ul style="line-height: 2;">
+        <li><strong>Zoom Out (2x / 1.5x):</strong> Pulls the camera back, filling in the environment while keeping the subject identical.</li>
+        <li><strong>Pan (Arrows):</strong> Extends the canvas in a specific direction (Left, Right, Up, Down), effectively "building" the world piece by piece.</li>
+    </ul>
+</section>
+
+<section class="page" style="page-break-after: always; padding: 0.75in; min-height: 9in; box-sizing: border-box; display: block; background: #fff;">
+    <div class="lab-section" style="background: #2c3e50; color: white; padding: 30pt; border-radius: 8px; font-family: sans-serif;">
+        <h3 style="margin-top: 0; color: #3498db; text-transform: uppercase; font-size: 12pt;">5.4 The Lab: The Digital Surgeon</h3>
+        <p style="font-size: 10pt;">We will now perform a "Head Swap" to master regional variation.</p>
+        <ol style="font-size: 10.5pt; line-height: 1.8;">
+            <li><strong>The Subject:</strong> <code>/imagine prompt: a professional businessman in a grey suit --v 6.0</code></li>
+            <li><strong>The Surgery:</strong> Upscale your favorite image. Click <strong>Vary Region</strong>.</li>
+            <li><strong>The Action:</strong> Select the head area. Enable Remix Mode. Change the prompt to <code>a person wearing a futuristic VR headset</code>.</li>
+            <li><strong>The Analysis:</strong> Observe how the suit and lighting remain perfectly intact while the selected region is transformed.</li>
+        </ol>
+    </div>
+
+    <div class="box quiz-box" style="border: 1px solid #d1d8e0; padding: 15pt; margin: 30pt 0;">
+        <h4 style="margin-top: 0; font-family: sans-serif; color: #2c3e50;">Active Recall Quiz</h4>
+        <p style="font-size: 10pt;">1. What must you do to an image before the Vary Region button appears?</p>
+        <p style="font-size: 10pt;">2. Which mode must be active to change the prompt text during an in-painting session?</p>
+        <p style="font-size: 10pt;">3. What is the difference between Zoom and Pan?</p>
+    </div>
+
+    <div class="github-project" style="border: 2px dashed #3498db; padding: 20pt; margin-top: 30pt; font-family: 'Georgia', serif;">
+        <h3 style="margin-top: 0; font-family: sans-serif; color: #2c3e50;">5.5 GitHub Portfolio Project #5</h3>
+        <p style="font-size: 10.5pt;">
+            Perform a "Product Placement" edit. Generate an empty coffee table. Use <strong>Vary Region + Remix</strong> to place a specific object (e.g., a "steaming mug with a Hexadigitall logo") onto that table. Upload the 'Before' and 'After' shots to your repo.
+        </p>
+    </div>
+
+    <div style="margin-top: 40pt; text-align: center;">
+        <div style="height: 10pt; background: #eee; width: 100%; border-radius: 5px;">
+            <div style="height: 100%; background: #3498db; width: 62%; border-radius: 5px;"></div>
+        </div>
+        <p style="font-family: sans-serif; font-size: 9pt; color: #7f8c8d; text-transform: uppercase; margin-top: 10pt; letter-spacing: 1px;">Editor Level: 62% Complete</p>
+    </div>
+</section>
+<section class="page" style="page-break-after: always; padding: 0.75in; min-height: 9in; box-sizing: border-box; display: block; position: relative; background: #fff;">
+    
+    <div class="chapter-start" style="text-align: center; padding-top: 1.5in; margin-bottom: 50pt;">
+        <div class="chapter-num" style="font-family: sans-serif; font-size: 14pt; text-transform: uppercase; letter-spacing: 2px; color: #3498db; margin-bottom: 10pt;">Phase 3: The Ghost in the Machine</div>
+        <h1 style="font-family: sans-serif; font-size: 28pt; color: #2c3e50; margin: 0;">Chapter 6: Architecting the Workflow</h1>
+    </div>
+
+    <div class="quote-box" style="font-style: italic; text-align: center; margin: 0 auto 40pt auto; max-width: 80%; color: #555; font-family: 'Georgia', serif; line-height: 1.6;">
+        "Efficiency is doing things right; effectiveness is doing the right things."
+    </div>
+
+    <div class="content-section" style="font-family: 'Georgia', serif; font-size: 11pt; line-height: 1.7; color: #333;">
+        <h2 style="font-family: sans-serif; font-size: 16pt; color: #2c3e50; border-bottom: 1px solid #eee; padding-bottom: 5pt;">6.1 The Engineering Mindset</h2>
+        <p>
+            As a professional, your time is your most valuable asset. Generating one image at a time is for hobbyists. In this chapter, we architect a high-speed workflow using <strong>Permutation Prompts</strong> and <strong>Repeat</strong> commands. You will learn how to stress-test an idea by generating dozens of variations simultaneously, allowing you to find the "perfect" seed in a fraction of the time.
+        </p>
+    </div>
+
+    <div class="box info-box" style="background-color: #f4f7f6; border-left: 5px solid #27ae60; padding: 15pt; margin: 25pt 0; font-size: 10pt;">
+        <strong style="color: #27ae60; font-family: sans-serif; display: block; margin-bottom: 5pt; font-size: 9pt; letter-spacing: 1px;">FAST MODE VS. RELAX MODE</strong>
+        Professional workflows often switch to <code>/relax</code> mode for bulk testing and <code>/fast</code> mode for surgical editing. This preserves your GPU hours for when precision actually matters.
+    </div>
+</section>
+
+<section class="page" style="page-break-after: always; padding: 0.75in; min-height: 9in; box-sizing: border-box; display: block; background: #fff;">
+    <h2 style="font-family: sans-serif; font-size: 16pt; color: #2c3e50; margin-top: 0;">6.2 Permutation Prompts (The {Bracket} Logic)</h2>
+    <p>
+        Permutations allow you to generate variations of a prompt using curly brackets. Midjourney will process every combination inside the brackets as a separate job.
+    </p>
+    
+    <h3 style="font-family: sans-serif; font-size: 12pt; color: #34495e;">The Scaling Formula</h3>
+    <p style="font-size: 10.5pt; background: #f4f4f4; padding: 10pt; font-family: monospace;">
+        /imagine prompt: a futuristic {car, jet, bike} in {neon blue, solar yellow} --ar 16:9
+    </p>
+    <p>
+        The above command will instantly trigger <strong>6 separate jobs</strong>. This is essential for rapidly exploring color palettes or subject types for a client without re-typing.
+    </p>
+
+    <div class="box myth-box" style="background-color: #fdf2f2; border-left: 5px solid #e74c3c; padding: 15pt; margin: 25pt 0; font-size: 10pt;">
+        <strong style="color: #e74c3c; font-family: sans-serif; display: block; margin-bottom: 5pt; font-size: 9pt; letter-spacing: 1px;">THE SEED FALLACY</strong>
+        <strong>Myth:</strong> You must always use a <code>--seed</code> number to keep images consistent. 
+        <strong>Truth:</strong> While seeds help, they aren't magic. A seed only works if the prompt remains almost identical. For professional consistency, <strong>Style References (--sref)</strong> and <strong>Character References (--cref)</strong> are significantly more reliable.
+    </div>
+
+    <h2 style="font-family: sans-serif; font-size: 16pt; color: #2c3e50; margin-top: 30pt;">6.3 Batching with --repeat</h2>
+    <p>
+        If you have a prompt that is working well but you need more options, use <code>--repeat [number]</code>. This is the "brute force" method of finding the perfect generation.
+    </p>
+</section>
+
+<section class="page" style="page-break-after: always; padding: 0.75in; min-height: 9in; box-sizing: border-box; display: block; background: #fff;">
+    <div class="lab-section" style="background: #2c3e50; color: white; padding: 30pt; border-radius: 8px; font-family: sans-serif;">
+        <h3 style="margin-top: 0; color: #3498db; text-transform: uppercase; font-size: 12pt;">6.4 The Lab: The High-Speed Pipeline</h3>
+        <p style="font-size: 10pt;">We will now use bracket logic to generate a brand concept in four styles simultaneously.</p>
+        <ol style="font-size: 10.5pt; line-height: 1.8;">
+            <li><strong>The Command:</strong> <code>/imagine prompt: professional logo for a tech company, {minimalist, cyberpunk, vintage, 3D render} style, white background --v 6.0</code></li>
+            <li><strong>The Action:</strong> Confirm the "Yes" prompt when Discord asks if you want to trigger 4 jobs.</li>
+            <li><strong>The Analysis:</strong> Notice which style naturally aligns with the brand "voice" before you commit to upscaling.</li>
+        </ol>
+    </div>
+
+    <div class="box quiz-box" style="border: 1px solid #d1d8e0; padding: 15pt; margin: 30pt 0;">
+        <h4 style="margin-top: 0; font-family: sans-serif; color: #2c3e50;">Active Recall Quiz</h4>
+        <p style="font-size: 10pt;">1. What bracket type is used for Permutation Prompts?</p>
+        <p style="font-size: 10pt;">2. How many jobs would <code>{red, blue} {cat, dog}</code> trigger?</p>
+        <p style="font-size: 10pt;">3. Which command allows you to run the exact same prompt multiple times in one go?</p>
+    </div>
+
+    <div class="github-project" style="border: 2px dashed #3498db; padding: 20pt; margin-top: 30pt; font-family: 'Georgia', serif;">
+        <h3 style="margin-top: 0; font-family: sans-serif; color: #2c3e50;">6.5 GitHub Portfolio Project #6</h3>
+        <p style="font-size: 10.5pt;">
+            <strong>The Stress-Test:</strong> Create a Permutation Prompt with at least 3 variables (e.g., {day, night}, {rain, snow}). Upload the grid of results to your repo and write a short summary of which combination provided the highest "aesthetic value."
+        </p>
+    </div>
+</section>
+
+<section class="page" style="page-break-after: always; padding: 0.75in; min-height: 9in; box-sizing: border-box; display: block; background: #fff;">
+    <h2 style="font-family: sans-serif; font-size: 14pt; color: #2c3e50; border-top: 1px solid #eee; padding-top: 20pt;">Chapter Review & Next Up</h2>
+    <p style="font-size: 10.5pt;">
+        You have successfully transitioned from a "one-off" creator to a workflow architect. You now possess the skills to scale your creative output using the same logic used in DevOps and engineering pipelines.
+    </p>
+    <p style="font-size: 10.5pt; font-weight: bold; color: #2980b9;">Next Up: Phase 3 Assessment - The Ghost Challenge.</p>
+
+    <div style="margin-top: 80pt; text-align: center;">
+        <div style="height: 10pt; background: #eee; width: 100%; border-radius: 5px;">
+            <div style="height: 100%; background: #3498db; width: 75%; border-radius: 5px;"></div>
+        </div>
+        <p style="font-family: sans-serif; font-size: 9pt; color: #7f8c8d; text-transform: uppercase; margin-top: 10pt; letter-spacing: 1px;">Architect Level: 75% Complete</p>
+    </div>
+
+    <div class="quote-box" style="font-style: italic; text-align: center; margin-top: 50pt; color: #555; font-family: 'Georgia', serif;">
+        "Workflow is the secret sauce of the professional."
+    </div>
+</section>
+<section class="page" style="page-break-after: always; padding: 0.75in; min-height: 9in; box-sizing: border-box; display: block; background: #fff; border: 2px solid #3498db; margin: 10pt; position: relative;">
+    <div style="text-align: center; margin-bottom: 30pt;">
+        <h2 style="font-family: sans-serif; font-size: 18pt; color: #2c3e50; text-transform: uppercase; letter-spacing: 2px;">Phase 3 Assessment: The Ghost Challenge</h2>
+        <p style="font-family: 'Georgia', serif; font-style: italic; color: #7f8c8d;">Mastering Surgical Iteration and Pipeline Architecture</p>
+    </div>
+
+    <div class="assessment-content" style="font-family: 'Georgia', serif; font-size: 11pt; line-height: 1.6;">
+        <p style="margin-bottom: 20pt;">A professional is defined by their ability to refine. Complete these three advanced production tasks to secure your "Pro" status:</p>
+
+        <h3 style="font-family: sans-serif; font-size: 12pt; color: #2980b9;">Challenge 1: The Surgical Replacement</h3>
+        <p style="font-size: 10.5pt;">
+            Generate a high-quality image of a "Modern minimalist living room." Using <strong>Vary Region + Remix Mode</strong>, successfully replace a lamp on the table with a "holographic terrestrial globe." The replacement must match the room's lighting and shadows perfectly.
+        </p>
+
+        <h3 style="font-family: sans-serif; font-size: 12pt; color: #2980b9; margin-top: 20pt;">Challenge 2: The World Expansion</h3>
+        <p style="font-size: 10.5pt;">
+            Take an upscaled square image (1:1) of a character. Use the <strong>Pan</strong> tool to extend the scene to the left and right until you have created a cinematic 21:9 ultra-wide landscape that maintains character consistency.
+        </p>
+
+        <h3 style="font-family: sans-serif; font-size: 12pt; color: #2980b9; margin-top: 20pt;">Challenge 3: The Permutation Stress-Test</h3>
+        <p style="font-size: 10.5pt;">
+            Architect a single <strong>Permutation Prompt</strong> using curly brackets <code>{}</code> that tests 3 different subjects across 2 different lighting conditions (e.g., 6 total jobs). You must use <strong>/relax mode</strong> for this batch to demonstrate resource management.
+        </p>
+    </div>
+
+    <div style="margin-top: 40pt; padding: 15pt; background: #ebf5fb; border-radius: 8px;">
+        <h4 style="margin: 0; font-family: sans-serif; font-size: 10pt; color: #2c3e50;">PHASE 3 SUBMISSION</h4>
+        <p style="font-size: 9.5pt; margin: 5pt 0 0 0;">
+            <strong>The Pro Portfolio:</strong> Upload your "Before/After" surgery shots and your wide-angle expansion to a folder titled <code>Phase-3-Assessment</code>. Include a <code>manifest.json</code> or simple text file listing the permutation logic used in Challenge 3. 
+        </p>
+    </div>
+</section>
+<section class="page" style="page-break-after: always; padding: 0.75in; min-height: 9in; box-sizing: border-box; display: block; position: relative; background: #fff;">
+    
+    <div class="chapter-start" style="text-align: center; padding-top: 1.5in; margin-bottom: 50pt;">
+        <div class="chapter-num" style="font-family: sans-serif; font-size: 14pt; text-transform: uppercase; letter-spacing: 2px; color: #3498db; margin-bottom: 10pt;">Phase 4: The Commercial Edge</div>
+        <h1 style="font-family: sans-serif; font-size: 28pt; color: #2c3e50; margin: 0;">Chapter 7: Character Consistency</h1>
+    </div>
+
+    <div class="quote-box" style="font-style: italic; text-align: center; margin: 0 auto 40pt auto; max-width: 80%; color: #555; font-family: 'Georgia', serif; line-height: 1.6;">
+        "A brand is a voice; a character is the face that speaks it."
+    </div>
+
+    <div class="content-section" style="font-family: 'Georgia', serif; font-size: 11pt; line-height: 1.7; color: #333;">
+        <h2 style="font-family: sans-serif; font-size: 16pt; color: #2c3e50; border-bottom: 1px solid #eee; padding-bottom: 5pt;">7.1 The Holy Grail of AI Art</h2>
+        <p>
+            The number one question asked by professionals is: "How do I make the same person appear in different scenes?" Without consistency, you cannot create a graphic novel, a consistent social media persona, or a brand mascot. In this chapter, we master the <strong>Character Reference (--cref)</strong> system to "lock in" facial features and proportions across an entire project pipeline.
+        </p>
+    </div>
+
+    <div class="box info-box" style="background-color: #f4f7f6; border-left: 5px solid #27ae60; padding: 15pt; margin: 25pt 0; font-size: 10pt;">
+        <strong style="color: #27ae60; font-family: sans-serif; display: block; margin-bottom: 5pt; font-size: 9pt; letter-spacing: 1px;">THE REFERENCE URL</strong>
+        To use <code>--cref</code>, you must first have a "seed image" of your character upscaled and hosted online (Discord links work best). You will paste this URL directly after the parameter.
+    </div>
+</section>
+
+<section class="page" style="page-break-after: always; padding: 0.75in; min-height: 9in; box-sizing: border-box; display: block; background: #fff;">
+    <h2 style="font-family: sans-serif; font-size: 16pt; color: #2c3e50; margin-top: 0;">7.2 The --cref and --cw Parameters</h2>
+    <p>
+        Midjourney’s character engine allows you to specify <em>who</em> is in the image, while the rest of your prompt specifies <em>what</em> they are doing.
+    </p>
+    
+    <h3 style="font-family: sans-serif; font-size: 12pt; color: #34495e;">Character Weight (--cw)</h3>
+    <p>
+        The <code>--cw</code> parameter (Character Weight) ranges from 0 to 100:
+    </p>
+    <ul style="line-height: 2;">
+        <li><strong>--cw 100 (Default):</strong> Captures the face, hair, and <strong>outfit</strong>. Use this for keeping a uniform.</li>
+        <li><strong>--cw 0:</strong> Captures <strong>only the face</strong>. This is the professional choice when you want the same character to change clothes across different scenes.</li>
+    </ul>
+
+    <div class="box myth-box" style="background-color: #fdf2f2; border-left: 5px solid #e74c3c; padding: 15pt; margin: 25pt 0; font-size: 10pt;">
+        <strong style="color: #e74c3c; font-family: sans-serif; display: block; margin-bottom: 5pt; font-size: 9pt; letter-spacing: 1px;">THE PHOTOGRAPHIC TRAP</strong>
+        <strong>Myth:</strong> You can use a photo of a real celebrity with --cref. 
+        <strong>Truth:</strong> <code>--cref</code> is designed for Midjourney-generated characters. Using real people often leads to distorted results. For real people, <strong>Face-Swapping</strong> tools outside of Midjourney are usually required.
+    </div>
+</section>
+
+<section class="page" style="page-break-after: always; padding: 0.75in; min-height: 9in; box-sizing: border-box; display: block; background: #fff;">
+    <div class="lab-section" style="background: #2c3e50; color: white; padding: 30pt; border-radius: 8px; font-family: sans-serif;">
+        <h3 style="margin-top: 0; color: #3498db; text-transform: uppercase; font-size: 12pt;">7.3 The Lab: The Character Odyssey</h3>
+        <p style="font-size: 10pt;">We will now generate a character and move them through two different environments.</p>
+        <ol style="font-size: 10.5pt; line-height: 1.8;">
+            <li><strong>The Source:</strong> Generate <code>/imagine prompt: a woman with short blue hair and a leather jacket --v 6.0</code>. Upscale one and copy its link.</li>
+            <li><strong>The Scene Shift:</strong> Type <code>/imagine prompt: a woman drinking coffee in a sunny cafe --cref [URL] --cw 0</code>.</li>
+            <li><strong>The Action Shift:</strong> Type <code>/imagine prompt: a woman running through a rainy neon street --cref [URL] --cw 100</code>.</li>
+            <li><strong>The Analysis:</strong> Compare how <code>--cw 0</code> changed her clothes but kept her face, while <code>--cw 100</code> tried to keep the leather jacket.</li>
+        </ol>
+    </div>
+
+    <div class="box quiz-box" style="border: 1px solid #d1d8e0; padding: 15pt; margin: 30pt 0;">
+        <h4 style="margin-top: 0; font-family: sans-serif; color: #2c3e50;">Active Recall Quiz</h4>
+        <p style="font-size: 10pt;">1. What parameter is used to maintain character consistency?</p>
+        <p style="font-size: 10pt;">2. To keep a character's face but change their outfit, what value should <code>--cw</code> be?</p>
+        <p style="font-size: 10pt;">3. Can you use multiple <code>--cref</code> URLs in one prompt?</p>
+    </div>
+
+    <div class="github-project" style="border: 2px dashed #3498db; padding: 20pt; margin-top: 30pt; font-family: 'Georgia', serif;">
+        <h3 style="margin-top: 0; font-family: sans-serif; color: #2c3e50;">7.4 GitHub Portfolio Project #7</h3>
+        <p style="font-size: 10.5pt;">
+            <strong>The Character Sheet:</strong> Create a folder <code>Commercial-Edge</code>. Generate a "Master Character." Then, generate three shots of them: a close-up, a full-body action shot, and a profile shot in a different outfit. Upload all four to GitHub to prove your consistency mastery.
+        </p>
+    </div>
+
+    <div style="margin-top: 30pt; text-align: center;">
+        <div style="height: 10pt; background: #eee; width: 100%; border-radius: 5px;">
+            <div style="height: 100%; background: #3498db; width: 87%; border-radius: 5px;"></div>
+        </div>
+        <p style="font-family: sans-serif; font-size: 9pt; color: #7f8c8d; text-transform: uppercase; margin-top: 10pt; letter-spacing: 1px;">Professional Level: 87% Complete</p>
+    </div>
+</section>
+<section class="page" style="page-break-after: always; padding: 0.75in; min-height: 9in; box-sizing: border-box; display: block; position: relative; background: #fff;">
+    
+    <div class="chapter-start" style="text-align: center; padding-top: 1.5in; margin-bottom: 50pt;">
+        <div class="chapter-num" style="font-family: sans-serif; font-size: 14pt; text-transform: uppercase; letter-spacing: 2px; color: #3498db; margin-bottom: 10pt;">Phase 4: The Commercial Edge</div>
+        <h1 style="font-family: sans-serif; font-size: 28pt; color: #2c3e50; margin: 0;">Chapter 8: Building a Creative Business</h1>
+    </div>
+
+    <div class="quote-box" style="font-style: italic; text-align: center; margin: 0 auto 40pt auto; max-width: 80%; color: #555; font-family: 'Georgia', serif; line-height: 1.6;">
+        "Amateurs wait for inspiration; professionals get to work."
+    </div>
+
+    <div class="content-section" style="font-family: 'Georgia', serif; font-size: 11pt; line-height: 1.7; color: #333;">
+        <h2 style="font-family: sans-serif; font-size: 16pt; color: #2c3e50; border-bottom: 1px solid #eee; padding-bottom: 5pt;">8.1 From Artist to Agency</h2>
+        <p>
+            You have mastered the latent space, surgical editing, and character consistency. Now, you must learn to package these skills for the market. Professionalism in Generative AI isn't just about the quality of the pixels; it’s about **reliability**, **licensing**, and **workflow integration**. In this final chapter, we discuss how to navigate the legal landscape and build a sustainable creative business.
+        </p>
+    </div>
+
+    <div class="box info-box" style="background-color: #f4f7f6; border-left: 5px solid #27ae60; padding: 15pt; margin: 25pt 0; font-size: 10pt;">
+        <strong style="color: #27ae60; font-family: sans-serif; display: block; margin-bottom: 5pt; font-size: 9pt; letter-spacing: 1px;">THE COMMERCIAL LICENSE</strong>
+        If you are on a "Pro" or "Mega" Midjourney plan, you own the assets you create. However, current US copyright law does not allow for the copyrighting of AI-generated images. Your value lies in the <strong>services</strong> and <strong>hybrid designs</strong> you provide.
+    </div>
+</section>
+
+<section class="page" style="page-break-after: always; padding: 0.75in; min-height: 9in; box-sizing: border-box; display: block; background: #fff;">
+    <h2 style="font-family: sans-serif; font-size: 16pt; color: #2c3e50; margin-top: 0;">8.2 Monetization Strategies</h2>
+    <p>
+        How do you turn prompts into profit? The market has shifted from "selling images" to "selling solutions."
+    </p>
+    
+    <h3 style="font-family: sans-serif; font-size: 12pt; color: #34495e;">Professional Revenue Streams</h3>
+    <ul style="line-height: 2;">
+        <li><strong>Brand Asset Kits:</strong> Providing consistent character mascots and background environments for startups.</li>
+        <li><strong>Prompt Engineering Consulting:</strong> Teaching corporate teams how to use Midjourney to speed up their internal storyboarding.</li>
+        <li><strong>Hybrid Design:</strong> Using Midjourney as the base layer, then refining in Photoshop/Illustrator to create high-value commercial art.</li>
+    </ul>
+
+    <div class="box myth-box" style="background-color: #fdf2f2; border-left: 5px solid #e74c3c; padding: 15pt; margin: 25pt 0; font-size: 10pt;">
+        <strong style="color: #e74c3c; font-family: sans-serif; display: block; margin-bottom: 5pt; font-size: 9pt; letter-spacing: 1px;">THE ETHICAL BOUNDARY</strong>
+        <strong>Myth:</strong> You should hide the fact that you use AI from clients. 
+        <strong>Truth:</strong> Transparency builds trust. Position AI as a "productivity multiplier" and a "sophisticated camera for the mind." Always provide high-resolution, edited final files, not just raw Discord exports.
+    </div>
+
+    <h2 style="font-family: sans-serif; font-size: 16pt; color: #2c3e50; margin-top: 30pt;">8.3 Stealth Operations: /stealth</h2>
+    <p>
+        In a professional agency setting, you often need to protect your intellectual property before a campaign launch. The <code>/stealth</code> command (available on Pro plans) hides your generations from the public Midjourney gallery.
+    </p>
+</section>
+
+<section class="page" style="page-break-after: always; padding: 0.75in; min-height: 9in; box-sizing: border-box; display: block; background: #fff;">
+    <div class="lab-section" style="background: #2c3e50; color: white; padding: 30pt; border-radius: 8px; font-family: sans-serif;">
+        <h3 style="margin-top: 0; color: #3498db; text-transform: uppercase; font-size: 12pt;">8.4 The Lab: The Professional Pitch</h3>
+        <p style="font-size: 10pt;">We will now simulate a client request to test your commercial readiness.</p>
+        <ol style="font-size: 10.5pt; line-height: 1.8;">
+            <li><strong>The Brief:</strong> "I need a consistent brand mascot—a friendly robot—in 3 different poses for my tech blog."</li>
+            <li><strong>The Execution:</strong> Use <code>--cref</code> to generate the mascot in a "Wave," a "Thinking Pose," and a "Flying Pose."</li>
+            <li><strong>The Delivery:</strong> Upscale the results and organize them into a clean, professional folder structure.</li>
+        </ol>
+    </div>
+
+    <div class="box quiz-box" style="border: 1px solid #d1d8e0; padding: 15pt; margin: 30pt 0;">
+        <h4 style="margin-top: 0; font-family: sans-serif; color: #2c3e50;">Active Recall Quiz</h4>
+        <p style="font-size: 10pt;">1. Can you legally copyright a raw AI image currently?</p>
+        <p style="font-size: 10pt;">2. What command hides your work from the public gallery?</p>
+        <p style="font-size: 10pt;">3. Why is character consistency (cref) vital for commercial clients?</p>
+    </div>
+
+    <div class="github-project" style="border: 2px dashed #3498db; padding: 20pt; margin-top: 30pt; font-family: 'Georgia', serif;">
+        <h3 style="margin-top: 0; font-family: sans-serif; color: #2c3e50;">8.5 GitHub Portfolio: The Final Showcase</h3>
+        <p style="font-size: 10.5pt;">
+            <strong>The Pro Resume:</strong> Your GitHub repository <code>midjourney-pro-journey</code> is now complete. Ensure your README contains a "Services Offered" section based on the projects you've completed. This is no longer a student repo; it is a live professional portfolio.
+        </p>
+    </div>
+</section>
+
+<section class="page" style="page-break-after: always; padding: 0.75in; min-height: 9in; box-sizing: border-box; display: block; background: #fff;">
+    <h2 style="font-family: sans-serif; font-size: 14pt; color: #2c3e50; border-top: 1px solid #eee; padding-top: 20pt;">Journey Completion</h2>
+    <p style="font-size: 10.5pt;">
+        You have traveled from a "Dunce" to a "Midjourney Pro." You have the technical syntax, the artistic vocabulary, the surgical editing skills, and the business mindset to compete in the new creative economy.
+    </p>
+    <p style="font-size: 10.5pt; font-weight: bold; color: #2980b9;">Final Step: Phase 4 Assessment - The Commercial Launch.</p>
+
+    <div style="margin-top: 80pt; text-align: center;">
+        <div style="height: 10pt; background: #eee; width: 100%; border-radius: 5px;">
+            <div style="height: 100%; background: #3498db; width: 100%; border-radius: 5px;"></div>
+        </div>
+        <p style="font-family: sans-serif; font-size: 9pt; color: #7f8c8d; text-transform: uppercase; margin-top: 10pt; letter-spacing: 1px;">Pro Mastery: 100% Complete</p>
+    </div>
+
+    <div class="quote-box" style="font-style: italic; text-align: center; margin-top: 50pt; color: #555; font-family: 'Georgia', serif;">
+        "The best way to predict the future is to create it."
+    </div>
+</section>
+<section class="page" style="page-break-after: always; padding: 0.75in; min-height: 9in; box-sizing: border-box; display: block; background: #fff; border: 2px solid #3498db; margin: 10pt; position: relative;">
+    <div style="text-align: center; margin-bottom: 30pt;">
+        <h2 style="font-family: sans-serif; font-size: 18pt; color: #2c3e50; text-transform: uppercase; letter-spacing: 2px;">PHASE IV ASSESSMENT: The Commercial Launch</h2>
+        <p style="font-family: 'Georgia', serif; font-style: italic; color: #7f8c8d;">Final Certification of Consistency and Market Readiness</p>
+    </div>
+
+    <div class="assessment-content" style="font-family: 'Georgia', serif; font-size: 11pt; line-height: 1.6;">
+        <p style="margin-bottom: 20pt;">This is your final hurdle. You must act as a Creative Agency to fulfill this multi-part brand brief:</p>
+
+        <h3 style="font-family: sans-serif; font-size: 12pt; color: #2980b9;">Challenge 1: The Brand Ambassador</h3>
+        <p style="font-size: 10.5pt;">
+            Create a unique character to serve as a brand mascot. You must generate <strong>three distinct scenes</strong> featuring this exact character using <code>--cref</code>. One scene must be an action shot, and one must be a close-up "headshot."
+        </p>
+
+        <h3 style="font-family: sans-serif; font-size: 12pt; color: #2980b9; margin-top: 20pt;">Challenge 2: The Style Manual</h3>
+        <p style="font-size: 10.5pt;">
+            Apply a consistent <strong>Style Reference (--sref)</strong> to a set of 3 environmental images (e.g., an office, a storefront, and a product package). They must all look like they belong to the same high-end corporate brand.
+        </p>
+
+        <h3 style="font-family: sans-serif; font-size: 12pt; color: #2980b9; margin-top: 20pt;">Challenge 3: The Stealth Delivery</h3>
+        <p style="font-size: 10.5pt;">
+            Document your final workflow. Explain how you would utilize <strong>Permutation Prompts</strong> and <strong>Stealth Mode</strong> to deliver a "Holiday Campaign" featuring 12 different variations of a product in under 30 minutes.
+        </p>
+    </div>
+
+    <div style="margin-top: 40pt; padding: 15pt; background: #ebf5fb; border-radius: 8px;">
+        <h4 style="margin: 0; font-family: sans-serif; font-size: 10pt; color: #2c3e50;">GRADUATION REQUIREMENT</h4>
+        <p style="font-size: 9.5pt; margin: 5pt 0 0 0;">
+            <strong>The Pro Portfolio Finalization:</strong> Organise your <code>midjourney-pro-journey</code> repository into its final structure. The <code>README.md</code> must now feature a "Case Study" section detailing how you solved the Phase 4 Brand Brief. This repository is your proof of mastery.
+        </p>
+    </div>
+</section>
+
+<section class="page" style="page-break-after: always; padding: 0.75in; min-height: 9in; box-sizing: border-box; display: block; background: #fff; border: 2px solid #1e3a8a; margin: 10pt; position: relative;">
+    <div style="text-align: center; margin-bottom: 25pt;">
+        <h2 style="font-family: sans-serif; font-size: 18pt; color: #1e3a8a; text-transform: uppercase; letter-spacing: 2px; margin: 0;">COMPREHENSIVE FINAL EXAM (PART A)</h2>
+        <p style="font-family: 'Georgia', serif; font-style: italic; color: #64748b; margin-top: 10pt;">Core Prompt Engineering and Midjourney Systems</p>
+    </div>
+
+    <div style="font-family: 'Georgia', serif; font-size: 10.5pt; line-height: 1.7;">
+        <p style="margin-bottom: 12pt;"><strong>1.</strong> Write a complete prompt using Noun-First Architecture for a cinematic product image. Include <code>--ar</code>, <code>--s</code>, and one camera-related token.</p>
+        <p style="margin-bottom: 12pt;"><strong>2.</strong> Explain how <code>--stylize 50</code> differs from <code>--stylize 750</code> in outcome consistency.</p>
+        <p style="margin-bottom: 12pt;"><strong>3.</strong> Provide one case where <code>::</code> weighting is mandatory to prevent concept bleeding.</p>
+        <p style="margin-bottom: 12pt;"><strong>4.</strong> Describe the production difference between <code>Upscale (Subtle)</code> and <code>Upscale (Creative)</code>.</p>
+        <p style="margin-bottom: 12pt;"><strong>5.</strong> You need a recurring mascot in five scenes. Draft the core command strategy using <code>--cref</code> and <code>--cw</code>.</p>
+    </div>
+
+    <div style="margin-top: 30pt; padding: 14pt; background: #eff6ff; border: 1px solid #bfdbfe; border-radius: 6px;">
+        <p style="margin: 0; font-family: sans-serif; font-size: 9.5pt; color: #1e3a8a;"><strong>Scoring:</strong> 50 points total. Passing mark: 35/50.</p>
+    </div>
+</section>
+
+<section class="page" style="page-break-after: always; padding: 0.75in; min-height: 9in; box-sizing: border-box; display: block; background: #fff; border: 2px solid #1e3a8a; margin: 10pt; position: relative;">
+    <div style="text-align: center; margin-bottom: 25pt;">
+        <h2 style="font-family: sans-serif; font-size: 18pt; color: #1e3a8a; text-transform: uppercase; letter-spacing: 2px; margin: 0;">COMPREHENSIVE FINAL EXAM (PART B)</h2>
+        <p style="font-family: 'Georgia', serif; font-style: italic; color: #64748b; margin-top: 10pt;">Commercial Delivery, Post-Production, and Print Readiness</p>
+    </div>
+
+    <div style="font-family: 'Georgia', serif; font-size: 10.5pt; line-height: 1.7;">
+        <p style="margin-bottom: 12pt;"><strong>6.</strong> List the 4 mandatory checks before exporting a 6 x 9 print cover as PDF/X-1a.</p>
+        <p style="margin-bottom: 12pt;"><strong>7.</strong> Describe a workflow to repair AI skin artifacts while preserving texture integrity.</p>
+        <p style="margin-bottom: 12pt;"><strong>8.</strong> Explain why RGB-to-CMYK conversion can reduce vibrancy and how to mitigate it.</p>
+        <p style="margin-bottom: 12pt;"><strong>9.</strong> You must deliver a brand icon to web and print teams. Which vector and raster formats do you ship, and why?</p>
+        <p style="margin-bottom: 12pt;"><strong>10.</strong> Provide a final QA checklist for client handoff (naming convention, folder structure, rights notes, and versioning).</p>
+    </div>
+
+    <div style="margin-top: 30pt; padding: 14pt; background: #f8fafc; border: 1px solid #cbd5e1; border-radius: 6px;">
+        <p style="margin: 0; font-family: sans-serif; font-size: 9.5pt; color: #334155;"><strong>Certification Rule:</strong> Candidate must pass both Part A and Part B to receive completion status.</p>
+    </div>
+</section>
+
+<section class="page" style="page-break-after: always; padding: 0.75in; min-height: 9in; box-sizing: border-box; display: block; background: #fff;">
+    <div style="text-align: center; margin-top: 0.5in; margin-bottom: 30pt;">
+        <div style="font-family: sans-serif; font-size: 10pt; text-transform: uppercase; letter-spacing: 2px; color: #27ae60; margin-bottom: 10pt;">Bonus Phase: Post-Production Suite</div>
+        <h1 style="font-family: sans-serif; font-size: 22pt; color: #2c3e50; margin: 0; text-transform: uppercase;">Chapter 9: The Pixel Surgeon</h1>
+    </div>
+
+    <div class="content-body" style="font-family: 'Georgia', serif; font-size: 11pt; line-height: 1.6;">
+        <h2 style="font-family: sans-serif; font-size: 16pt; color: #2c3e50; border-bottom: 1px solid #eee; padding-bottom: 5pt;">9.1 Professional Frequency Separation</h2>
+        <p>
+            AI skin often lacks "pore depth," resulting in a plastic, uncanny-valley look. To fix this, we decouple the <strong>Low Frequency</strong> (Colors/Tones) from the <strong>High Frequency</strong> (Texture/Pores).
+        </p>
+
+        <h3 style="font-family: sans-serif; font-size: 12pt; color: #2980b9; margin-top: 15pt;">The 10-Step Setup:</h3>
+        <ol style="font-size: 10pt; line-height: 1.7;">
+            <li>Duplicate your base layer twice (<code>Cmd/Ctrl + J</code>). Name the top layer <strong>High</strong> and the middle layer <strong>Low</strong>.</li>
+            <li>Hide the <strong>High</strong> layer. Select the <strong>Low</strong> layer.</li>
+            <li>Go to <em>Filter > Blur > Gaussian Blur</em>. Increase the radius until the skin texture just disappears but the face shapes remain (usually 3.0 to 6.0 px). Click OK.</li>
+            <li>Unhide and select the <strong>High</strong> layer.</li>
+            <li>Go to <em>Image > Apply Image</em>. Use these exact settings:
+                <ul style="list-style-type: circle; margin-left: 20pt; font-size: 9.5pt;">
+                    <li>Layer: <strong>Low</strong></li>
+                    <li>Blending: <strong>Subtract</strong></li>
+                    <li>Scale: <strong>2</strong> | Offset: <strong>128</strong></li>
+                </ul>
+            </li>
+            <li>Click OK. Your screen will turn grey. Change the Blending Mode of the <strong>High</strong> layer to <strong>Linear Light</strong>. The image now looks normal, but the texture is isolated.</li>
+            <li>Select the <strong>Low</strong> layer. Use the <strong>Lasso Tool</strong> (Feather: 20px) to select splotchy areas of skin.</li>
+            <li>Go to <em>Filter > Blur > Gaussian Blur</em>. The color will smooth out without affecting the pores on the layer above.</li>
+        </ol>
+
+        <div class="box info-box" style="background-color: #f4f7f6; border-left: 5px solid #27ae60; padding: 15pt; margin: 20pt 0; font-size: 10pt;">
+            <strong style="color: #27ae60; font-family: sans-serif; display: block; margin-bottom: 5pt; font-size: 9pt; letter-spacing: 1px;">THE "PUNCH" TECHNIQUE</strong>
+            Once your skin is smooth, select the <strong>High</strong> layer and use the <strong>Sharpen Tool</strong> at 10% strength over the eyes and lips. This "punches" the AI texture back to life.
+        </div>
+    </div>
+</section>
+
+<section class="page" style="page-break-after: always; padding: 0.75in; min-height: 9in; box-sizing: border-box; display: block; background: #fff;">
+    <h2 style="font-family: sans-serif; font-size: 16pt; color: #2c3e50;">9.2 Generative Fill: Logic & Depth</h2>
+    <p>
+        Photoshop's Generative Fill is not for creating art; it is for <strong>Environmental Correction</strong>. When Midjourney hallucinations occur (e.g., a sixth finger or a floating artifact), we use "Contextual Awareness."
+    </p>
+
+    <h3 style="font-family: sans-serif; font-size: 12pt; color: #2980b9; margin-top: 15pt;">The Surgical Removal Workflow:</h3>
+    <ul style="font-size: 10pt; line-height: 1.8;">
+        <li><strong>Selection:</strong> Use the <strong>Lasso Tool (L)</strong>. Do not select just the error; select a small amount of the <em>surrounding environment</em> so the AI understands the lighting.</li>
+        <li><strong>Prompting:</strong> Leave the Generative Fill box <strong>empty</strong> if you want to remove an object. The AI will prioritize "Content-Aware Fill" logic.</li>
+        <li><strong>Blending:</strong> Always check the <em>Properties Panel</em> and cycle through the 3 variations. Look for the one where the grain matches the original Midjourney pixels.</li>
+    </ul>
+
+    <div class="box myth-box" style="background-color: #fdf2f2; border-left: 5px solid #e74c3c; padding: 15pt; margin: 25pt 0; font-size: 10pt;">
+        <strong style="color: #e74c3c; font-family: sans-serif; display: block; margin-bottom: 5pt; font-size: 9pt; letter-spacing: 1px;">THE RESOLUTION LIMIT</strong>
+        <strong>Myth:</strong> Generative Fill works at 4K. 
+        <strong>Truth:</strong> Currently, Generative Fill renders at 1024px. If you fill a large area, it will look blurry. <strong>Pro Move:</strong> Upscale your MJ image <em>before</em> bringing it into Photoshop to avoid a resolution mismatch.
+    </div>
+</section>
+
+<section class="page" style="page-break-after: always; padding: 0.75in; min-height: 9in; box-sizing: border-box; display: flex; flex-direction: column; background: #fff;">
+    <div class="lab-section" style="background: #2c3e50; color: white; padding: 30pt; border-radius: 8px; font-family: sans-serif;">
+        <h3 style="margin-top: 0; color: #3498db; text-transform: uppercase; font-size: 12pt;">Lab 9: The Forensic Fix</h3>
+        <p style="font-size: 10pt; margin-bottom: 15pt;">Goal: Take a Midjourney output and make it indistinguishable from a DSLR photograph.</p>
+        <ol style="font-size: 10.5pt; line-height: 1.8;">
+            <li><strong>Import:</strong> Load a high-res MJ portrait into PS.</li>
+            <li><strong>Frequency Separation:</strong> Execute the 10-step process from Section 9.1. Smooth the forehead and chin using Gaussian Blur on the Low Layer.</li>
+            <li><strong>Eye Restoration:</strong> Use the <strong>Marquee Tool</strong> to select an eye. Use <em>Generative Fill</em> with the prompt "Sharp iris, detailed eyelashes."</li>
+            <li><strong>Color Grade:</strong> Add a <strong>Color Lookup Adjustment Layer</strong>. Choose "Crisp_Warm.look." Lower opacity to 30%.</li>
+            <li><strong>Grain Injection:</strong> Create a new layer, fill with 50% Grey, go to <em>Filter > Noise > Add Noise (2%, Gaussian, Monochromatic)</em>. Set Blending Mode to <strong>Overlay</strong>.</li>
+        </ol>
+    </div>
+
+    <div class="github-project" style="border: 2px dashed #3498db; padding: 20pt; margin-top: 30pt; font-family: 'Georgia', serif;">
+        <h3 style="margin-top: 0; font-family: sans-serif; color: #2c3e50;">Portfolio Submission 9</h3>
+        <p style="font-size: 10.5pt;">
+            Upload a "Split-Screen" comparison to your repo. Left side: Raw Midjourney. Right side: Photoshop Processed. Document the <strong>Gaussian Blur radius</strong> and <strong>Noise percentage</strong> used in your README to prove technical repeatability.
+        </p>
+    </div>
+</section>
+<section class="page" style="page-break-after: always; padding: 0.75in; min-height: 9in; box-sizing: border-box; display: block; background: #fff;">
+    <div style="text-align: center; margin-top: 0.5in; margin-bottom: 30pt;">
+        <div style="font-family: sans-serif; font-size: 10pt; text-transform: uppercase; letter-spacing: 2px; color: #27ae60; margin-bottom: 10pt;">Bonus Phase: Post-Production Suite</div>
+        <h1 style="font-family: sans-serif; font-size: 22pt; color: #2c3e50; margin: 0; text-transform: uppercase;">Chapter 10: The Vector Architect</h1>
+    </div>
+
+    <div class="content-body" style="font-family: 'Georgia', serif; font-size: 11pt; line-height: 1.6;">
+        <h2 style="font-family: sans-serif; font-size: 16pt; color: #2c3e50; border-bottom: 1px solid #eee; padding-bottom: 5pt;">10.1 Mastering Image Trace (The Clean Pass)</h2>
+        <p>
+            Midjourney generates pixels ($RGB$). Professional logos require paths ($SVG/EPS$). The "Dunce" mistake is clicking "Expand" immediately. The "Pro" workflow is about <strong>Threshold Calibration</strong>.
+        </p>
+
+        <h3 style="font-family: sans-serif; font-size: 12pt; color: #2980b9; margin-top: 15pt;">The 7-Step Precision Trace:</h3>
+        <ol style="font-size: 10pt; line-height: 1.7;">
+            <li>Drag your high-res MJ logo into Illustrator. Open the <strong>Image Trace Panel</strong> (<em>Window > Image Trace</em>).</li>
+            <li>Change the "Preset" to <strong>Silhouettes</strong> (for icons) or <strong>Sketched Art</strong> (for complex lines).</li>
+            <li>Expand the <strong>Advanced</strong> section (click the small arrow).</li>
+            <li>Adjust the <strong>Threshold</strong> slider. Move it right to thicken the lines or left to capture fine detail. Find the "sweet spot" where the AI noise disappears.</li>
+            <li>Set <strong>Paths</strong> to 90% (higher for precision) and <strong>Corners</strong> to 10% (lower for smoother curves).</li>
+            <li>Check the box <strong>Ignore White</strong>. This removes the background automatically.</li>
+            <li>Click <strong>Expand</strong> in the top toolbar. Your image is now made of anchor points.</li>
+        </ol>
+
+        <div class="box myth-box" style="background-color: #fdf2f2; border-left: 5px solid #e74c3c; padding: 15pt; margin: 20pt 0; font-size: 10pt;">
+            <strong style="color: #e74c3c; font-family: sans-serif; display: block; margin-bottom: 5pt; font-size: 9pt; letter-spacing: 1px;">ANCHOR POINT BLOAT</strong>
+            <strong>Myth:</strong> More anchor points mean higher quality. <br>
+            <strong>Truth:</strong> Too many points make a file heavy and hard to edit. After expanding, go to <em>Object > Path > Simplify</em>. Move the slider to reduce points by 50% while maintaining the shape. This makes the logo "Clean."
+        </div>
+    </div>
+</section>
+
+<section class="page" style="page-break-after: always; padding: 0.75in; min-height: 9in; box-sizing: border-box; display: block; background: #fff;">
+    <h2 style="font-family: sans-serif; font-size: 16pt; color: #2c3e50;">10.2 Geometric Sanitization (The Pen Tool)</h2>
+    <p>
+        AI-generated geometry is often "organic"—meaning circles aren't perfectly round. To establish <strong>Hexadigitall Authenticity</strong>, we use the MJ output as a skeleton for perfect mathematical shapes.
+    </p>
+
+    <h3 style="font-family: sans-serif; font-size: 12pt; color: #2980b9; margin-top: 15pt;">The "Skeleton" Redraw Workflow:</h3>
+    <ul style="font-size: 10pt; line-height: 1.8;">
+        <li><strong>Layering:</strong> Place your MJ logo on Layer 1. Set Opacity to 30% and Lock (<code>Cmd+2</code>).</li>
+        <li><strong>The Curvature Tool (Shift+~):</strong> Instead of the standard Pen Tool, use the Curvature Tool to click on the main nodes of the MJ shape. Illustrator will automatically calculate the perfect mathematical arc between points.</li>
+        <li><strong>Geometric Shapes (L/M):</strong> If your logo has a circle, do not trace it. Press <strong>L</strong>, hold <strong>Shift</strong>, and draw a perfect circle over the MJ reference. Use the <em>Align Panel</em> to center it.</li>
+    </ul>
+
+    <div class="box info-box" style="background-color: #f4f7f6; border-left: 5px solid #27ae60; padding: 15pt; margin: 25pt 0; font-size: 10pt;">
+        <strong style="color: #27ae60; font-family: sans-serif; display: block; margin-bottom: 5pt; font-size: 9pt; letter-spacing: 1px;">COLOR MANAGEMENT</strong>
+        Once vectorized, go to <em>Window > Swatches</em>. Create a new folder. Use the <strong>Eyedropper (I)</strong> to sample the primary colors from the original MJ image and save them as <strong>Global Swatches</strong>. This ensures color consistency across all future brand assets.
+    </div>
+</section>
+
+<section class="page" style="page-break-after: always; padding: 0.75in; min-height: 9in; box-sizing: border-box; display: flex; flex-direction: column; background: #fff;">
+    <div class="lab-section" style="background: #2c3e50; color: white; padding: 30pt; border-radius: 8px; font-family: sans-serif;">
+        <h3 style="margin-top: 0; color: #3498db; text-transform: uppercase; font-size: 12pt;">Lab 10: The Vector Handover</h3>
+        <p style="font-size: 10pt; margin-bottom: 15pt;">Goal: Create a brand icon that can be scaled from a business card to a billboard without pixelation.</p>
+        <ol style="font-size: 10.5pt; line-height: 1.8;">
+            <li><strong>Import:</strong> Bring a flat icon from Midjourney (e.g., "Minimalist Eagle Logo").</li>
+            <li><strong>The Trace:</strong> Execute the 7-Step Image Trace from 10.1.</li>
+            <li><strong>Refinement:</strong> Use the <strong>Direct Selection Tool (A)</strong> to click on messy anchor points and delete them. Smooth the remaining paths using the <strong>Smooth Tool</strong>.</li>
+            <li><strong>Scaling:</strong> Hold <code>Alt+Shift</code> and drag a corner to scale the logo to 500%. Notice the perfect edges.</li>
+            <li><strong>Export:</strong> Save as <em>[FileName].svg</em> for web and <em>[FileName].ai</em> for the client.</li>
+        </ol>
+    </div>
+
+    <div class="github-project" style="border: 2px dashed #3498db; padding: 20pt; margin-top: 30pt; font-family: 'Georgia', serif;">
+        <h3 style="margin-top: 0; font-family: sans-serif; color: #2c3e50;">Portfolio Submission 10</h3>
+        <p style="font-size: 10.5pt;">
+            Upload your final <code>.svg</code> file to your GitHub repo. In the README, provide a screenshot of the <strong>Outline View (Cmd+Y)</strong> of your logo in Illustrator. A clean "Outline View" with minimal points is the mark of a professional Vector Architect.
+        </p>
+    </div>
+</section>
+<section class="page" style="page-break-after: always; padding: 0.75in; min-height: 9in; box-sizing: border-box; display: block; background: #fff;">
+    <div style="text-align: center; margin-top: 0.5in; margin-bottom: 30pt;">
+        <div style="font-family: sans-serif; font-size: 10pt; text-transform: uppercase; letter-spacing: 2px; color: #27ae60; margin-bottom: 10pt;">Bonus Phase: Post-Production Suite</div>
+        <h1 style="font-family: sans-serif; font-size: 22pt; color: #2c3e50; margin: 0; text-transform: uppercase;">Chapter 11: The Final Master</h1>
+    </div>
+
+    <div class="content-body" style="font-family: 'Georgia', serif; font-size: 11pt; line-height: 1.6;">
+        <h2 style="font-family: sans-serif; font-size: 16pt; color: #2c3e50; border-bottom: 1px solid #eee; padding-bottom: 5pt;">11.1 The Math of Print (DPI & Bleed)</h2>
+        <p>
+            Midjourney generates at 72 or 96 DPI (Dots Per Inch). High-end commercial printing (books, posters) requires <strong>300 DPI</strong>. If you simply resize the image, it will pixelate. You must "Master" the resolution.
+        </p>
+
+        <h3 style="font-family: sans-serif; font-size: 12pt; color: #2980b9; margin-top: 15pt;">The Resolution & Bleed Setup:</h3>
+        <ol style="font-size: 10pt; line-height: 1.7;">
+            <li>Open Photoshop. Go to <em>File > New</em>.</li>
+            <li>Set your "Resolution" to <strong>300 Pixels/Inch</strong>.</li>
+            <li>Set your "Color Mode" to <strong>CMYK Color</strong> (8-bit). </li>
+            <li><strong>The Bleed:</strong> If your final size is 6" x 9", set your canvas to <strong>6.25" x 9.25"</strong>. This extra 0.125" on all sides is the "Bleed"—it ensures no white edges appear when the printer trims the paper.</li>
+            <li>Place your upscaled MJ image. Stretch it so it covers the <strong>entire</strong> 6.25" area, including the bleed zone.</li>
+        </ol>
+
+        <div class="box info-box" style="background-color: #f4f7f6; border-left: 5px solid #27ae60; padding: 15pt; margin: 20pt 0; font-size: 10pt;">
+            <strong style="color: #27ae60; font-family: sans-serif; display: block; margin-bottom: 5pt; font-size: 9pt; letter-spacing: 1px;">THE SAFE ZONE</strong>
+            Keep all important text and logos at least <strong>0.25 inches away</strong> from the edge of the canvas. This is your "Safe Zone." If a logo is in the bleed zone, it will be cut off by the industrial blade.
+        </div>
+    </div>
+</section>
+
+<section class="page" style="page-break-after: always; padding: 0.75in; min-height: 9in; box-sizing: border-box; display: block; background: #fff;">
+    <h2 style="font-family: sans-serif; font-size: 16pt; color: #2c3e50;">11.2 Color Alchemy: RGB to CMYK</h2>
+    <p>
+        Midjourney lives in <strong>RGB</strong> (light-based color). Printers live in <strong>CMYK</strong> (ink-based color). Many MJ colors—like neon blues and electric purples—are "Out of Gamut," meaning they cannot be printed exactly as they appear on screen.
+    </p>
+
+    <h3 style="font-family: sans-serif; font-size: 12pt; color: #2980b9; margin-top: 15pt;">The Professional Conversion Workflow:</h3>
+    <ul style="font-size: 10pt; line-height: 1.8;">
+        <li><strong>Preview:</strong> Go to <em>View > Gamut Warning</em>. Any area that turns grey is "impossible" to print accurately.</li>
+        <li><strong>Correction:</strong> Add a <strong>Hue/Saturation Adjustment Layer</strong>. Target the "Blues" or "Magentas" and lower the saturation until the Gamut Warning disappears.</li>
+        <li><strong>Black Point:</strong> Printers hate "Rich Black" ($C:100, M:100, Y:100, K:100$) as it makes the paper soggy. Use <strong>Levels</strong> to ensure your blacks are capped at approximately $C:60, M:40, Y:40, K:100$.</li>
+    </ul>
+
+    <div class="box myth-box" style="background-color: #fdf2f2; border-left: 5px solid #e74c3c; padding: 15pt; margin: 25pt 0; font-size: 10pt;">
+        <strong style="color: #e74c3c; font-family: sans-serif; display: block; margin-bottom: 5pt; font-size: 9pt; letter-spacing: 1px;">THE PDF X-1a STANDARD</strong>
+        <strong>Myth:</strong> Sending a high-res JPG to a printer is enough. <br>
+        <strong>Truth:</strong> Professional printers require <strong>PDF/X-1a:2001</strong>. This format "flattens" the image and embeds the color profiles so the printer sees exactly what you see.
+    </div>
+</section>
+
+<section class="page" style="page-break-after: always; padding: 0.75in; min-height: 9in; box-sizing: border-box; display: flex; flex-direction: column; background: #fff;">
+    <div class="lab-section" style="background: #2c3e50; color: white; padding: 30pt; border-radius: 8px; font-family: sans-serif;">
+        <h3 style="margin-top: 0; color: #3498db; text-transform: uppercase; font-size: 12pt;">Lab 11: The Production Export</h3>
+        <p style="font-size: 10pt; margin-bottom: 15pt;">Goal: Prepare a Midjourney book cover for physical manufacturing.</p>
+        <ol style="font-size: 10.5pt; line-height: 1.8;">
+            <li><strong>Upscale:</strong> Use a tool like <em>Gigapixel AI</em> or PS <em>Super Resolution</em> to get your MJ asset to at least 4000px wide.</li>
+            <li><strong>Canvas Setup:</strong> Create the 300 DPI CMYK canvas with 0.125" bleed (Step 11.1).</li>
+            <li><strong>Layout:</strong> Import your Illustrator vector logo from Lab 10. Place it in the "Safe Zone."</li>
+            <li><strong>The Export:</strong> Go to <em>File > Save a Copy</em>. Select <strong>Adobe PDF</strong>. In the preset dropdown, choose <strong>[PDF/X-1a:2001]</strong>.</li>
+            <li><strong>Verification:</strong> Under "Marks and Bleeds," check the box <strong>Use Document Bleed Settings</strong>.</li>
+        </ol>
+    </div>
+
+    <div class="github-project" style="border: 2px dashed #3498db; padding: 20pt; margin-top: 30pt; font-family: 'Georgia', serif;">
+        <h3 style="margin-top: 0; font-family: sans-serif; color: #2c3e50;">Final Portfolio: The Master File</h3>
+        <p style="font-size: 10.5pt;">
+            Upload your final <strong>PDF/X-1a</strong> file to your repo. In the README, list the final pixel dimensions and the color profile used (e.g., <em>U.S. Web Coated SWOP v2</em>). You have now successfully engineered a digital hallucination into a physical reality.
+        </p>
+    </div>
+
+    <div style="margin-top: 30pt; text-align: center;">
+        <div style="height: 10pt; background: #eee; width: 100%; border-radius: 5px;">
+            <div style="height: 100%; background: #27ae60; width: 100%; border-radius: 5px;"></div>
+        </div>
+        <p style="font-family: sans-serif; font-size: 9pt; color: #27ae60; text-transform: uppercase; margin-top: 10pt; font-weight: bold; letter-spacing: 2px;">Curriculum Complete: 100% Mastery</p>
+    </div>
+</section>
+<section class="page" style="page-break-after: always; padding: 0.75in; min-height: 9in; box-sizing: border-box; display: flex; flex-direction: column; background: #0f172a; color: #f8fafc; border: 4px double #3498db;">
+    
+    <div style="text-align: center; margin-top: 0.5in; margin-bottom: 30pt;">
+        <h1 style="font-family: sans-serif; font-size: 22pt; color: #38bdf8; text-transform: uppercase; letter-spacing: 4px; margin: 0;">Just to See If You Can</h1>
+        <p style="font-family: 'Georgia', serif; font-style: italic; color: #94a3b8; margin-top: 10pt;">The "Ghost in the Machine" Final Challenge</p>
+    </div>
+
+    <div class="challenge-body" style="font-family: 'Georgia', serif; font-size: 11pt; line-height: 1.7; flex-grow: 1;">
+        <p style="margin-bottom: 20pt; text-align: center;">
+            The roadmap is behind you. The manual is closed. Now, we test if you can synthesize every phase—from the first token to the final CMYK export—to solve a visual paradox.
+        </p>
+
+        <div style="background: rgba(56, 189, 248, 0.1); border: 1px solid #0ea5e9; padding: 20pt; border-radius: 8px; margin-bottom: 25pt;">
+            <h3 style="font-family: sans-serif; color: #38bdf8; margin-top: 0; text-transform: uppercase; font-size: 12pt;">Project: The Paradoxical Brand</h3>
+            <p style="font-size: 10.5pt; margin-bottom: 10pt;">
+                Your client is <strong>"The Square Circle"</strong>—a boutique engineering firm. They require a hero image that depicts a <strong>Square Circle</strong> floating in a <strong>Liquid Gold</strong> environment.
+            </p>
+            <p style="font-size: 10pt; color: #cbd5e1;">
+                <strong>Constraints:</strong> You cannot use an image reference. You must use <code>::</code> weighting to balance the shapes and <code>--sref</code> to maintain the gold texture.
+            </p>
+        </div>
+
+        <h3 style="font-family: sans-serif; font-size: 13pt; color: #38bdf8; margin-top: 20pt;">The Required Workflow:</h3>
+        <ol style="font-size: 10.5pt; line-height: 1.8;">
+            <li><strong>Generate:</strong> Use Multi-Prompting to force the "impossible" geometry.</li>
+            <li><strong>Sanitize:</strong> Bring the result into <strong>Photoshop</strong>. Execute <em>Frequency Separation</em> to make the gold liquid look authentic, not "AI-shiny."</li>
+            <li><strong>Vectorize:</strong> Create a minimalist version of the "Square Circle" logo in <strong>Illustrator</strong>. Trace it with the <em>Curvature Tool</em> for mathematical perfection.</li>
+            <li><strong>Master:</strong> Place the vector logo over the cleaned hero image. Export as a <strong>300 DPI PDF/X-1a</strong> with 0.125" bleed.</li>
+        </ol>
+
+        <div style="margin-top: 30pt; border-top: 1px solid #334155; padding-top: 20pt; text-align: center;">
+            <p style="font-size: 11pt; font-weight: bold; color: #4ade80; margin-bottom: 5pt;">THE FINAL REWARD</p>
+            <p style="font-size: 10pt; font-style: italic; color: #94a3b8;">
+                If you solve the paradox, upload the full production package to your repo. <br>
+                Label it: <strong>[HEXA-PRO] - TOTAL SYSTEM SYNTHESIS.</strong>
+            </p>
+        </div>
+    </div>
+
+    <div class="quote-box" style="text-align: center; color: #64748b; padding-top: 40pt; font-family: 'Georgia', serif; font-style: italic; font-size: 10.5pt; line-height: 1.5;">
+        "The AI is a mirror. If you don't like what you see, <br>change the angle of your soul."
+    </div>
+</section>
+<section class="page" style="page-break-after: always; padding: 0.5in; min-height: 9in; box-sizing: border-box; display: flex; flex-direction: column; background: #fff;">
+    
+    <div style="text-align: center; margin-top: 0.2in; margin-bottom: 20pt;">
+        <div style="font-family: sans-serif; font-size: 9pt; text-transform: uppercase; letter-spacing: 2px; color: #3498db; margin-bottom: 5pt;">Dunce to Midjourney Pro</div>
+        <h1 style="font-family: sans-serif; font-size: 20pt; color: #2c3e50; margin: 0; text-transform: uppercase;">Appendix A: Parameter Manifest</h1>
+    </div>
+
+    <div class="content-body" style="font-family: 'Georgia', serif; font-size: 9.5pt; line-height: 1.4; flex-grow: 1;">
+        <p style="margin-bottom: 12pt; font-style: italic; color: #555; font-size: 9pt;">
+            Technical reference for CLI flags. All parameters must be placed at the end of the prompt.
+        </p>
+
+        <table style="width: 100%; border-collapse: collapse; table-layout: fixed; margin-bottom: 15pt; font-family: sans-serif; border: 1px solid #eee; word-wrap: break-word;">
+            <thead>
+                <tr style="background-color: #2c3e50; color: #fff; text-align: left; font-size: 8pt;">
+                    <th style="padding: 8pt; border: 1px solid #34495e; width: 22%;">Flag</th>
+                    <th style="padding: 8pt; border: 1px solid #34495e; width: 23%;">Range/Value</th>
+                    <th style="padding: 8pt; border: 1px solid #34495e; width: 55%;">Pro Insight</th>
+                </tr>
+            </thead>
+            <tbody style="font-size: 8pt; line-height: 1.3;">
+                <tr>
+                    <td style="padding: 6pt; border: 1px solid #eee; background: #f9f9f9;"><strong>--ar</strong></td>
+                    <td style="padding: 6pt; border: 1px solid #eee;">W:H (e.g. 16:9)</td>
+                    <td style="padding: 6pt; border: 1px solid #eee;">Affects composition. 1:1 is default. Use 2:3 for mobile, 21:9 for cinematic.</td>
+                </tr>
+                <tr>
+                    <td style="padding: 6pt; border: 1px solid #eee; background: #f9f9f9;"><strong>--s</strong></td>
+                    <td style="padding: 6pt; border: 1px solid #eee;">0 – 1000</td>
+                    <td style="padding: 6pt; border: 1px solid #eee;">Stylization intensity. 250 is default. Use 50 for literal, 750 for heavy artistic flair.</td>
+                </tr>
+                <tr>
+                    <td style="padding: 6pt; border: 1px solid #eee; background: #f9f9f9;"><strong>--c</strong></td>
+                    <td style="padding: 6pt; border: 1px solid #eee;">0 – 100</td>
+                    <td style="padding: 6pt; border: 1px solid #eee;">Chaos. Increases prompt divergence. High values (60+) yield 4 wildly different images.</td>
+                </tr>
+                <tr>
+                    <td style="padding: 6pt; border: 1px solid #eee; background: #f9f9f9;"><strong>--w</strong></td>
+                    <td style="padding: 6pt; border: 1px solid #eee;">0 – 3000</td>
+                    <td style="padding: 6pt; border: 1px solid #eee;">Weird. Introduces quirky, off-beat aesthetics. Use 100-500 for subtle "indie" vibes.</td>
+                </tr>
+                <tr>
+                    <td style="padding: 6pt; border: 1px solid #eee; background: #f9f9f9;"><strong>--iw</strong></td>
+                    <td style="padding: 6pt; border: 1px solid #eee;">0.25 – 2.0</td>
+                    <td style="padding: 6pt; border: 1px solid #eee;">Image Weight. Sets importance of an image URL vs. text. Default is 1.0.</td>
+                </tr>
+                <tr>
+                    <td style="padding: 6pt; border: 1px solid #eee; background: #f9f9f9;"><strong>--stop</strong></td>
+                    <td style="padding: 6pt; border: 1px solid #eee;">10 – 100</td>
+                    <td style="padding: 6pt; border: 1px solid #eee;">Terminates generation at X%. Use 80% for softer, painterly "unfinished" looks.</td>
+                </tr>
+                <tr>
+                    <td style="padding: 6pt; border: 1px solid #eee; background: #f9f9f9;"><strong>--tile</strong></td>
+                    <td style="padding: 6pt; border: 1px solid #eee;">None</td>
+                    <td style="padding: 6pt; border: 1px solid #eee;">Generates seamless patterns. Essential for texture mapping in 3D/web.</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="box info-box" style="background-color: #f4f7f6; border-left: 5px solid #27ae60; padding: 10pt; margin: 10pt 0; font-size: 8.5pt;">
+            <strong style="color: #27ae60; text-transform: uppercase;">The v6 Default:</strong> If no version is specified, MJ defaults to the latest model. Explicitly use <code>--v 6.1</code> for maximum photorealism.
+        </div>
+    </div>
+</section>
+
+<section class="page" style="page-break-after: always; padding: 0.5in; min-height: 9in; box-sizing: border-box; display: flex; flex-direction: column; background: #fff;">
+    <div class="content-body" style="font-family: 'Georgia', serif; font-size: 9.5pt; line-height: 1.4;">
+        <h2 style="font-family: sans-serif; font-size: 14pt; color: #2c3e50; border-bottom: 2px solid #eee; padding-bottom: 5pt; margin-top: 0;">Multi-Prompting & Weights</h2>
+        <p style="font-size: 9pt;">Advanced logic for concept isolation and value assignment.</p>
+
+        <table style="width: 100%; border-collapse: collapse; table-layout: fixed; margin-bottom: 15pt; font-family: sans-serif; border: 1px solid #eee;">
+            <tbody style="font-size: 8pt; line-height: 1.4;">
+                <tr>
+                    <td style="padding: 8pt; border: 1px solid #eee; background: #f9f9f9; width: 30%;"><strong>Concept Separation</strong></td>
+                    <td style="padding: 8pt; border: 1px solid #eee;"><code>::</code><br>Stops the AI from blending adjectives. <br><em>Example: hot:: dog vs hot dog.</em></td>
+                </tr>
+                <tr>
+                    <td style="padding: 8pt; border: 1px solid #eee; background: #f9f9f9;"><strong>Relative Weighting</strong></td>
+                    <td style="padding: 8pt; border: 1px solid #eee;"><code>::[N]</code><br>Assigns importance. <br><em>Example: space::2 explorer::0.5</em></td>
+                </tr>
+                <tr>
+                    <td style="padding: 8pt; border: 1px solid #eee; background: #f9f9f9;"><strong>Negative Weight</strong></td>
+                    <td style="padding: 8pt; border: 1px solid #eee;"><code>::-.5</code><br>Removes unwanted elements via weight. <br><em>Example: trees::-.5</em></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2 style="font-family: sans-serif; font-size: 14pt; color: #2c3e50; border-bottom: 2px solid #eee; padding-bottom: 5pt; margin-top: 10pt;">Style & Character Reference</h2>
+        
+        <table style="width: 100%; border-collapse: collapse; table-layout: fixed; margin-bottom: 15pt; font-family: sans-serif; border: 1px solid #eee;">
+            <tbody style="font-size: 8pt; line-height: 1.4;">
+                <tr>
+                    <td style="padding: 8pt; border: 1px solid #eee; background: #f9f9f9; width: 30%;"><strong>Style Ref (--sref)</strong></td>
+                    <td style="padding: 8pt; border: 1px solid #eee;">Inherits aesthetic/lighting from URL. Use <code>--sw 1000</code> for maximum style strength.</td>
+                </tr>
+                <tr>
+                    <td style="padding: 8pt; border: 1px solid #eee; background: #f9f9f9;"><strong>Char Ref (--cref)</strong></td>
+                    <td style="padding: 8pt; border: 1px solid #eee;">Maintains character identity from URL. Use <code>--cw 0</code> to change only the outfit.</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div style="background-color: #2c3e50; color: white; padding: 15pt; border-radius: 8px; margin-top: 10pt;">
+            <h3 style="margin-top: 0; font-family: sans-serif; font-size: 10pt; color: #3498db; text-transform: uppercase;">The Permutation Matrix</h3>
+            <p style="font-size: 8.5pt; line-height: 1.6;">
+                Use curly brackets to run batch jobs. <br>
+                <strong>Syntax:</strong> <code>{Subject A, Subject B} in {Night, Day}</code> <br>
+                <strong>Result:</strong> Triggers 4 separate generation jobs instantly. This is the ultimate "Architect" tool for high-speed concepting.
+            </p>
+        </div>
+    </div>
+
+    <div class="box info-box" style="background-color: #ebf5fb; border-left: 5px solid #3498db; padding: 10pt; margin-top: auto; font-size: 8.5pt;">
+        <strong style="color: #2980b9;">ENGINEER'S NOTE:</strong> Always check <code>/settings</code> first. Ensure "Remix Mode" is ON for surgical editing and "High Variation Mode" is ON for initial brainstorming.
+    </div>
+</section>
+<section class="page" style="page-break-after: always; padding: 0.5in; min-height: 9in; box-sizing: border-box; display: flex; flex-direction: column; background: #fff;">
+    
+    <div style="text-align: center; margin-top: 0.2in; margin-bottom: 20pt;">
+        <div style="font-family: sans-serif; font-size: 9pt; text-transform: uppercase; letter-spacing: 2px; color: #27ae60; margin-bottom: 5pt;">Dunce to Midjourney Pro</div>
+        <h1 style="font-family: sans-serif; font-size: 20pt; color: #2c3e50; margin: 0; text-transform: uppercase;">Appendix B: The Material Library</h1>
+    </div>
+
+    <div class="content-body" style="font-family: 'Georgia', serif; font-size: 9.5pt; line-height: 1.4; flex-grow: 1;">
+        <h2 style="font-family: sans-serif; font-size: 13pt; color: #27ae60; border-bottom: 1px solid #eee; padding-bottom: 3pt;">Surface & Material Tokens</h2>
+        <p style="margin-bottom: 10pt; font-size: 9pt; color: #555;">Use these to force specific refraction and "bounce" logic in the engine.</p>
+
+        <table style="width: 100%; border-collapse: collapse; table-layout: fixed; margin-bottom: 15pt; font-family: sans-serif; border: 1px solid #eee;">
+            <tbody style="font-size: 8.5pt; line-height: 1.3;">
+                <tr style="background: #f9f9f9;">
+                    <td style="padding: 8pt; border: 1px solid #eee; width: 35%;"><strong>Iridescent / Dichroic</strong></td>
+                    <td style="padding: 8pt; border: 1px solid #eee;">Forces color-shifting oil-slick effects. Best for "Future-Tech."</td>
+                </tr>
+                <tr>
+                    <td style="padding: 8pt; border: 1px solid #eee;"><strong>Brushed Aluminum</strong></td>
+                    <td style="padding: 8pt; border: 1px solid #eee;">Creates anisotropic highlights (linear reflections).</td>
+                </tr>
+                <tr style="background: #f9f9f9;">
+                    <td style="padding: 8pt; border: 1px solid #eee;"><strong>Translucent / Frosted</strong></td>
+                    <td style="padding: 8pt; border: 1px solid #eee;">Triggers Subsurface Scattering (SSS) where light passes through.</td>
+                </tr>
+                <tr>
+                    <td style="padding: 8pt; border: 1px solid #eee;"><strong>Hammered Copper</strong></td>
+                    <td style="padding: 8pt; border: 1px solid #eee;">Adds heavy micro-topography and warm metallic warmth.</td>
+                </tr>
+                <tr style="background: #f9f9f9;">
+                    <td style="padding: 8pt; border: 1px solid #eee;"><strong>Organza / Tulle</strong></td>
+                    <td style="padding: 8pt; border: 1px solid #eee;">Forces the AI to calculate sheer, layered transparency.</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2 style="font-family: sans-serif; font-size: 13pt; color: #27ae60; border-bottom: 1px solid #eee; padding-bottom: 3pt; margin-top: 15pt;">Atmospheric & Lighting Tokens</h2>
+        <p style="margin-bottom: 10pt; font-size: 9pt; color: #555;">These define the "Mood" and "Time of Day" vectors.</p>
+
+        <table style="width: 100%; border-collapse: collapse; table-layout: fixed; margin-bottom: 15pt; font-family: sans-serif; border: 1px solid #eee;">
+            <tbody style="font-size: 8.5pt; line-height: 1.3;">
+                <tr style="background: #f4fcf6;">
+                    <td style="padding: 8pt; border: 1px solid #eee; width: 35%;"><strong>Volumetric God Rays</strong></td>
+                    <td style="padding: 8pt; border: 1px solid #eee;">Creates visible beams of light through dust or haze.</td>
+                </tr>
+                <tr>
+                    <td style="padding: 8pt; border: 1px solid #eee;"><strong>Golden Hour</strong></td>
+                    <td style="padding: 8pt; border: 1px solid #eee;">Soft, directional, low-angle sunlight ($~3500K$ color temp).</td>
+                </tr>
+                <tr style="background: #f4fcf6;">
+                    <td style="padding: 8pt; border: 1px solid #eee;"><strong>Bioluminescent</strong></td>
+                    <td style="padding: 8pt; border: 1px solid #eee;">Subject emits its own light; great for organic sci-fi.</td>
+                </tr>
+                <tr>
+                    <td style="padding: 8pt; border: 1px solid #eee;"><strong>Rim Lighting</strong></td>
+                    <td style="padding: 8pt; border: 1px solid #eee;">Highlights the edges of the subject to separate them from the back.</td>
+                </tr>
+                <tr style="background: #f4fcf6;">
+                    <td style="padding: 8pt; border: 1px solid #eee;"><strong>Cinematic Teal & Orange</strong></td>
+                    <td style="padding: 8pt; border: 1px solid #eee;">Forces industry-standard color grading for modern films.</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="box info-box" style="background-color: #f4f7f6; border-left: 5px solid #27ae60; padding: 12pt; margin-top: auto; font-size: 8.5pt;">
+        <strong style="color: #27ae60; text-transform: uppercase;">The Alchemy Secret:</strong> Don't just list materials. Use <strong>Contrast Weighting</strong>. <br>
+        <em>Example: <code>Silk::2 Rusted-Iron::0.5</code></em> — This creates a character wearing delicate silk with subtle, rugged iron accents.
+    </div>
+</section>
+<section class="page" style="page-break-after: always; padding: 0.5in; min-height: 9in; box-sizing: border-box; display: flex; flex-direction: column; background: #fff;">
+    
+    <div style="text-align: center; margin-top: 0.2in; margin-bottom: 20pt;">
+        <div style="font-family: sans-serif; font-size: 9pt; text-transform: uppercase; letter-spacing: 2px; color: #e74c3c; margin-bottom: 5pt;">Dunce to Midjourney Pro</div>
+        <h1 style="font-family: sans-serif; font-size: 20pt; color: #2c3e50; margin: 0; text-transform: uppercase;">Appendix C: Troubleshooting</h1>
+    </div>
+
+    <div class="content-body" style="font-family: 'Georgia', serif; font-size: 9.5pt; line-height: 1.4; flex-grow: 1;">
+        <h2 style="font-family: sans-serif; font-size: 13pt; color: #e74c3c; border-bottom: 1px solid #eee; padding-bottom: 3pt;">Common Failures & Fixes</h2>
+        <p style="margin-bottom: 10pt; font-size: 9pt; color: #555;">When the output deviates from the technical brief, apply these corrective actions.</p>
+
+        <table style="width: 100%; border-collapse: collapse; table-layout: fixed; margin-bottom: 15pt; font-family: sans-serif; border: 1px solid #eee;">
+            <thead>
+                <tr style="background-color: #fdf2f2; font-size: 8pt; text-align: left;">
+                    <th style="padding: 8pt; border: 1px solid #eee; width: 30%;">The Symptom</th>
+                    <th style="padding: 8pt; border: 1px solid #eee; width: 70%;">The Engineering Fix</th>
+                </tr>
+            </thead>
+            <tbody style="font-size: 8.5pt; line-height: 1.4;">
+                <tr>
+                    <td style="padding: 8pt; border: 1px solid #eee; background: #fafafa;"><strong>Conceptual "Bleeding"</strong></td>
+                    <td style="padding: 8pt; border: 1px solid #eee;">
+                        <strong>Symptom:</strong> Color from one object is staining another (e.g., a "red car" making the "blue sky" turn purple).<br>
+                        <strong>Fix:</strong> Use Multi-prompting (<code>::</code>) to isolate the concepts: <code>red car :: blue sky</code>.
+                    </td>
+                </tr>
+                <tr>
+                    <td style="padding: 8pt; border: 1px solid #eee; background: #fafafa;"><strong>Text "Gore"</strong></td>
+                    <td style="padding: 8pt; border: 1px solid #eee;">
+                        <strong>Symptom:</strong> Gibberish letters appearing on signs or logos.<br>
+                        <strong>Fix:</strong> Use <strong>Vary Region</strong>. Highlight the text and re-prompt the specific word in quotes: <code>"HEXA"</code>. If that fails, wipe it clean in Photoshop.
+                    </td>
+                </tr>
+                <tr>
+                    <td style="padding: 8pt; border: 1px solid #eee; background: #fafafa;"><strong>Anatomical Distortion</strong></td>
+                    <td style="padding: 8pt; border: 1px solid #eee;">
+                        <strong>Symptom:</strong> Extra fingers, warped limbs, or "melted" faces.<br>
+                        <strong>Fix:</strong> Use <strong>Vary Region</strong> to regenerate the specific limb. If the face is the issue, lower <code>--stylize</code> to 50 for more anatomical literalism.
+                    </td>
+                </tr>
+                <tr>
+                    <td style="padding: 8pt; border: 1px solid #eee; background: #fafafa;"><strong>The "Waxy" Look</strong></td>
+                    <td style="padding: 8pt; border: 1px solid #eee;">
+                        <strong>Symptom:</strong> Skin looks overly smooth, like plastic or CGI.<br>
+                        <strong>Fix:</strong> Add tokens like <code>35mm photography</code>, <code>film grain</code>, or <code>unfiltered</code>. Execute Frequency Separation in Photoshop (Chapter 9).
+                    </td>
+                </tr>
+                <tr>
+                    <td style="padding: 8pt; border: 1px solid #eee; background: #fafafa;"><strong>Resolution Blur</strong></td>
+                    <td style="padding: 8pt; border: 1px solid #eee;">
+                        <strong>Symptom:</strong> The image looks "soft" or pixelated at large sizes.<br>
+                        <strong>Fix:</strong> Use <code>Upscale (Subtle)</code> or <code>Upscale (Creative)</code>. For 300 DPI print, use an external AI Upscaler before final mastering.
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="box info-box" style="background-color: #fdf2f2; border-left: 5px solid #e74c3c; padding: 12pt; margin-top: auto; font-size: 8.5pt;">
+        <strong style="color: #c0392b; text-transform: uppercase;">THE NUCLEAR OPTION:</strong> If the prompt is stuck in a loop of bad generations, use <code>/shorten [your prompt]</code>. The AI will analyze your prompt and tell you which words are "noise" and which are actually moving the needle.
+    </div>
+</section>
+<section class="page" style="page-break-after: always; padding: 0.5in; min-height: 9in; box-sizing: border-box; display: flex; flex-direction: column; background: #fff;">
+    
+    <div style="text-align: center; margin-top: 0.2in; margin-bottom: 25pt;">
+        <div style="font-family: sans-serif; font-size: 10pt; text-transform: uppercase; letter-spacing: 2px; color: #2c3e50; margin-bottom: 5pt;">Dunce to Midjourney Pro</div>
+        <h1 style="font-family: sans-serif; font-size: 22pt; color: #2c3e50; margin: 0; text-transform: uppercase;">Glossary of Terms</h1>
+    </div>
+
+    <div class="content-body" style="font-family: 'Georgia', serif; font-size: 9.5pt; line-height: 1.5; flex-grow: 1;">
+        
+        <p style="margin-bottom: 5pt; font-weight: bold; color: #2c3e50; text-transform: uppercase; font-size: 10pt; border-left: 3px solid #3498db; padding-left: 8pt;">Aspect Ratio (--ar)</p>
+        <p style="margin-bottom: 15pt; padding-left: 12pt;">The numerical ratio of width to height. In Midjourney, this parameter dictates the canvas dimensions. Pro-tip: <code>--ar 16:9</code> is standard for video, <code>--ar 2:3</code> is standard for photography, and <code>--ar 21:9</code> is used for ultra-wide cinematic world-building.</p>
+
+        <p style="margin-bottom: 5pt; font-weight: bold; color: #2c3e50; text-transform: uppercase; font-size: 10pt; border-left: 3px solid #3498db; padding-left: 8pt;">Bleed & Slug</p>
+        <p style="margin-bottom: 15pt; padding-left: 12pt;">Technical printing terms. **Bleed** is the 0.125" (3mm) margin added to the edges of a document that is trimmed off after printing. **Slug** is the area outside the bleed containing registration marks. Professional MJ assets must be generated with enough "headroom" to account for these trims.</p>
+
+        <p style="margin-bottom: 5pt; font-weight: bold; color: #2c3e50; text-transform: uppercase; font-size: 10pt; border-left: 3px solid #3498db; padding-left: 8pt;">Character Reference (--cref)</p>
+        <p style="margin-bottom: 15pt; padding-left: 12pt;">A Midjourney parameter used to maintain facial and physical consistency across multiple generations. It functions by analyzing a source URL and attempting to map those specific visual weights onto new prompts.</p>
+
+        <p style="margin-bottom: 5pt; font-weight: bold; color: #2c3e50; text-transform: uppercase; font-size: 10pt; border-left: 3px solid #3498db; padding-left: 8pt;">CMYK vs. RGB</p>
+        <p style="margin-bottom: 15pt; padding-left: 12pt;">**RGB** (Red, Green, Blue) is additive color for screens. **CMYK** (Cyan, Magenta, Yellow, Black) is subtractive color for ink. Midjourney generates in RGB; however, professional deliverables must be converted to CMYK (using profiles like GRACoL or SWOP) to prevent "color shift" during physical production.</p>
+
+        <p style="margin-bottom: 5pt; font-weight: bold; color: #2c3e50; text-transform: uppercase; font-size: 10pt; border-left: 3px solid #3498db; padding-left: 8pt;">Diffusion Model</p>
+        <p style="margin-bottom: 15pt; padding-left: 12pt;">The underlying architecture of Midjourney. It works by starting with a canvas of pure Gaussian noise and "denoising" it step-by-step until an image emerges that matches the statistical weights of the user’s prompt.</p>
+
+        <p style="margin-bottom: 5pt; font-weight: bold; color: #2c3e50; text-transform: uppercase; font-size: 10pt; border-left: 3px solid #3498db; padding-left: 8pt;">DPI (Dots Per Inch)</p>
+        <p style="margin-bottom: 15pt; padding-left: 12pt;">The density of ink drops on a printed page. While screens are content with 72 DPI, high-quality books and portfolios require 300 DPI. Converting a 1024px MJ image to 300 DPI requires upscaling to approximately 3000px+ to maintain "Retina" clarity.</p>
+
+        <p style="margin-bottom: 5pt; font-weight: bold; color: #2c3e50; text-transform: uppercase; font-size: 10pt; border-left: 3px solid #3498db; padding-left: 8pt;">Frequency Separation</p>
+        <p style="margin-bottom: 15pt; padding-left: 12pt;">An advanced Photoshop retouching workflow. By splitting an image into a **High Frequency** layer (pores, fine hairs, fabric weave) and a **Low Frequency** layer (skin tone, shadows, transitions), a designer can smooth AI-generated "splotchiness" without destroying detail.</p>
+
+    </div>
+</section>
+
+<section class="page" style="page-break-after: always; padding: 0.5in; min-height: 9in; box-sizing: border-box; display: flex; flex-direction: column; background: #fff;">
+    <div class="content-body" style="font-family: 'Georgia', serif; font-size: 9.5pt; line-height: 1.5;">
+        
+        <p style="margin-bottom: 5pt; font-weight: bold; color: #2c3e50; text-transform: uppercase; font-size: 10pt; border-left: 3px solid #3498db; padding-left: 8pt;">Gamut</p>
+        <p style="margin-bottom: 15pt; padding-left: 12pt;">The entire range of colors that a device can produce. Midjourney can produce "Neon" colors that are "Out of Gamut" for standard printers. Part of the Pro workflow involves using Photoshop’s *Gamut Warning* to identify and desaturate these areas before export.</p>
+
+        <p style="margin-bottom: 5pt; font-weight: bold; color: #2c3e50; text-transform: uppercase; font-size: 10pt; border-left: 3px solid #3498db; padding-left: 8pt;">In-Painting (Vary Region)</p>
+        <p style="margin-bottom: 15pt; padding-left: 12pt;">The act of regenerating a specific, masked portion of an existing image. This is the "Surgical" phase of prompting where errors (like six fingers) are corrected without altering the rest of the composition.</p>
+
+        <p style="margin-bottom: 5pt; font-weight: bold; color: #2c3e50; text-transform: uppercase; font-size: 10pt; border-left: 3px solid #3498db; padding-left: 8pt;">Latent Space</p>
+        <p style="margin-bottom: 15pt; padding-left: 12pt;">A mathematical "cloud" of data points where every possible image the AI can create exists as a set of coordinates. Prompting is the act of providing the AI with the map to navigate to a specific visual result within this high-dimensional space.</p>
+
+        <p style="margin-bottom: 5pt; font-weight: bold; color: #2c3e50; text-transform: uppercase; font-size: 10pt; border-left: 3px solid #3498db; padding-left: 8pt;">Multi-Prompting & Weighting (::)</p>
+        <p style="margin-bottom: 15pt; padding-left: 12pt;">A syntax used to break a prompt into independent parts. Adding a number after the double colon (e.g., <code>cyberpunk::2</code>) tells the AI to give that concept twice the statistical importance of other elements.</p>
+
+        <p style="margin-bottom: 5pt; font-weight: bold; color: #2c3e50; text-transform: uppercase; font-size: 10pt; border-left: 3px solid #3498db; padding-left: 8pt;">Noun-First Architecture</p>
+        <p style="margin-bottom: 15pt; padding-left: 12pt;">The **Hexadigitall** method of prompting. By placing the primary subject at the start of the prompt, you ensure it receives the highest initial attention from the CLIP (Contrastive Language-Image Pre-training) encoder.</p>
+
+        <p style="margin-bottom: 5pt; font-weight: bold; color: #2c3e50; text-transform: uppercase; font-size: 10pt; border-left: 3px solid #3498db; padding-left: 8pt;">Raster vs. Vector</p>
+        <p style="margin-bottom: 15pt; padding-left: 12pt;">**Raster** images (like MJ outputs) are made of fixed pixels and lose quality when enlarged. **Vector** images (AI/SVG/EPS) are made of mathematical paths and can be scaled to the size of a skyscraper. Professional branding requires converting MJ raster logos into clean vectors.</p>
+
+        <p style="margin-bottom: 5pt; font-weight: bold; color: #2c3e50; text-transform: uppercase; font-size: 10pt; border-left: 3px solid #3498db; padding-left: 8pt;">Seed Number</p>
+        <p style="margin-bottom: 15pt; padding-left: 12pt;">A unique numerical identifier for the initial "static" or noise that starts an image generation. Using the same seed with the same prompt will result in an identical image, allowing for repeatable testing.</p>
+
+        <p style="margin-bottom: 5pt; font-weight: bold; color: #2c3e50; text-transform: uppercase; font-size: 10pt; border-left: 3px solid #3498db; padding-left: 8pt;">Tokens</p>
+        <p style="margin-bottom: 15pt; padding-left: 12pt;">The basic units of meaning in a Large Language Model. Midjourney converts your words into numerical tokens. Understanding that "a blue car" is three separate tokens allows a Pro to manipulate the importance of each individually.</p>
+
+    </div>
+</section>
+<section class="page" style="page-break-after: always; padding: 0.5in; min-height: 9in; box-sizing: border-box; display: flex; flex-direction: column; background: #f8fafc; border: 1px solid #e2e8f0;">
+    
+    <div style="text-align: center; margin-top: 0.2in; margin-bottom: 30pt;">
+        <div style="font-family: sans-serif; font-size: 10pt; text-transform: uppercase; letter-spacing: 2px; color: #3498db; margin-bottom: 5pt;">Course Completion</div>
+        <h1 style="font-family: sans-serif; font-size: 24pt; color: #1e293b; margin: 0; text-transform: uppercase;">The Professional Blueprint</h1>
+    </div>
+
+    <div class="summary-grid" style="display: grid; grid-template-columns: 1fr; gap: 15pt; font-family: 'Georgia', serif; flex-grow: 1;">
+        
+        <div style="background: #fff; border: 1px solid #cbd5e1; padding: 15pt; border-radius: 8px;">
+            <h3 style="font-family: sans-serif; font-size: 11pt; color: #3498db; margin-top: 0; text-transform: uppercase; border-bottom: 1px solid #f1f5f9; padding-bottom: 5pt;">Phases 1-2: Latent Engineering</h3>
+            <ul style="font-size: 9.5pt; line-height: 1.6; margin-bottom: 0;">
+                <li><strong>Noun-First Architecture:</strong> Subject > Environment > Lighting > Technical Parameter.</li>
+                <li><strong>Style Anchoring:</strong> Use <code>--sref</code> for aesthetic consistency and <code>--s</code> for artistic variance.</li>
+                <li><strong>Weighting:</strong> Master the <code>::</code> syntax to prevent concept bleeding and assign importance.</li>
+            </ul>
+        </div>
+
+        <div style="background: #fff; border: 1px solid #cbd5e1; padding: 15pt; border-radius: 8px;">
+            <h3 style="font-family: sans-serif; font-size: 11pt; color: #27ae60; margin-top: 0; text-transform: uppercase; border-bottom: 1px solid #f1f5f9; padding-bottom: 5pt;">Phase 3: Surgical Refinement</h3>
+            <ul style="font-size: 9.5pt; line-height: 1.6; margin-bottom: 0;">
+                <li><strong>Vary Region:</strong> The primary tool for anatomical correction and local lighting fixes.</li>
+                <li><strong>Permutation Batching:</strong> Using <code>{bracket}</code> logic to stress-test concepts at high speed.</li>
+                <li><strong>Panning/Zooming:</strong> Extending the "world" of the image without losing the core subject.</li>
+            </ul>
+        </div>
+
+        <div style="background: #fff; border: 1px solid #cbd5e1; padding: 15pt; border-radius: 8px;">
+            <h3 style="font-family: sans-serif; font-size: 11pt; color: #8e44ad; margin-top: 0; text-transform: uppercase; border-bottom: 1px solid #f1f5f9; padding-bottom: 5pt;">Phase 4: Commercial Execution</h3>
+            <ul style="font-size: 9.5pt; line-height: 1.6; margin-bottom: 0;">
+                <li><strong>Character Persistence:</strong> Locking identity with <code>--cref</code> and <code>--cw</code> for brand storytelling.</li>
+                <li><strong>Hybrid Mastery:</strong> Using Photoshop for Frequency Separation and Illustrator for Vectorization.</li>
+                <li><strong>The Final Master:</strong> Converting RGB to 300 DPI CMYK PDF/X-1a for professional handover.</li>
+            </ul>
+        </div>
+
+        <div style="background: #1e293b; color: #fff; padding: 20pt; border-radius: 8px; margin-top: 5pt;">
+            <h3 style="font-family: sans-serif; font-size: 10pt; color: #38bdf8; margin-top: 0; text-transform: uppercase;">The "Hexa-Pro" Delivery Checklist</h3>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10pt; font-size: 8.5pt;">
+                <div>[ ] Resolution: 300 DPI Upscaled</div>
+                <div>[ ] Color: CMYK (Gamut Corrected)</div>
+                <div>[ ] Consistency: Character/Style Verified</div>
+                <div>[ ] Format: Vector (Logos) / PDF (Print)</div>
+            </div>
+        </div>
+    </div>
+
+    <div style="text-align: center; margin-top: 30pt; font-family: sans-serif; font-size: 9pt; color: #64748b; font-style: italic;">
+        "Architecture ends where the structure stands on its own."
+    </div>
+</section>
+
+<section class="page" style="page-break-after: always; padding: 0.6in; min-height: 9in; box-sizing: border-box; display: flex; flex-direction: column; background: #fff; border: 1px solid #e2e8f0;">
+    <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #2c3e50; padding-bottom: 10pt; margin-bottom: 20pt;">
+        <div style="font-family: sans-serif; font-weight: bold; font-size: 9pt; color: #2c3e50; letter-spacing: 1px;">BACK MATTER: REFERENCE</div>
+        <div style="font-family: sans-serif; font-size: 8.5pt; color: #64748b; text-transform: uppercase;">Production and Publishing Notes</div>
+    </div>
+
+    <h2 style="font-family: sans-serif; font-size: 16pt; color: #1e293b; margin-top: 0;">Marketplace Readiness Checklist</h2>
+    <div style="font-family: 'Georgia', serif; font-size: 9.5pt; line-height: 1.6;">
+        <p style="margin-bottom: 10pt;"><strong>Interior Trim:</strong> 6 x 9 inches, margins validated for print-safe zones.</p>
+        <p style="margin-bottom: 10pt;"><strong>Color Strategy:</strong> RGB learning interior validated for digital preview; print workflows documented in Chapter 11.</p>
+        <p style="margin-bottom: 10pt;"><strong>Metadata:</strong> Imprint and ISBN placeholders included on copyright page for final platform assignment.</p>
+        <p style="margin-bottom: 10pt;"><strong>Rights:</strong> Midjourney trademark disclaimer and AI content disclosure included.</p>
+        <p style="margin-bottom: 10pt;"><strong>Companion Assets:</strong> Cover image, final PDF/X-1a export guidance, and repository structure requirements documented.</p>
+    </div>
+
+    <div style="margin-top: 20pt; background: #f8fafc; border: 1px solid #cbd5e1; padding: 12pt; border-radius: 6px; font-family: sans-serif; font-size: 8.5pt; color: #334155;">
+        Final publisher action before release: replace placeholder ISBN values with platform-issued identifiers for each edition.
+    </div>
+</section>
+
+<div class="book-page certification-page" style="background: #001f3f; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 40px 20px; position: relative; width: 100%; max-width: 152.4mm; min-height: 228.6mm; height: auto; color: white; margin: 0 auto; box-sizing: border-box; overflow: hidden; page-break-after: always;">
+    <div style="border: 2px solid #c5a059; padding: 30px; text-align: center; width: 100%; max-width: 560px; box-sizing: border-box;">
+        <div style="font-family: sans-serif; font-weight: 700; color: #c5a059; font-size: 0.8rem; letter-spacing: 4px; margin-bottom: 20px; text-transform: uppercase;">
+            Hexadigitall Technologies
+        </div>
+        <h1 style="font-family: sans-serif; font-size: 2rem; margin-bottom: 18px; border-bottom: 1px solid rgba(255,255,255,0.2); padding-bottom: 18px; line-height: 1.2; color: white;">
+            Certification of Completion
+        </h1>
+        <p style="font-family: 'Georgia', serif; font-size: 1rem; opacity: 0.95; margin-bottom: 28px; line-height: 1.6;">
+            This certifies completion of the <strong>Dunce to Midjourney Pro</strong> curriculum, including prompt engineering, post-production, and print-ready delivery standards.
+        </p>
+        <div style="display: flex; justify-content: space-between; gap: 20px; margin-top: 30px;">
+            <div style="text-align: left; flex: 1; min-width: 150px;">
+                <div style="border-bottom: 1px solid #c5a059; width: 100%; margin-bottom: 8px; height: 20px;"></div>
+                <div style="font-size: 0.65rem; letter-spacing: 1px; font-weight: 700; text-transform: uppercase;">Program Director</div>
+            </div>
+            <div style="text-align: right; flex: 1; min-width: 150px;">
+                <div style="border-bottom: 1px solid #c5a059; width: 100%; margin-bottom: 8px; height: 20px;"></div>
+                <div style="font-size: 0.65rem; letter-spacing: 1px; font-weight: 700; text-transform: uppercase;">Date of Issue: 2026</div>
+            </div>
+        </div>
+    </div>
+    <footer style="margin-top: 30px; font-family: sans-serif; font-size: 0.75rem; opacity: 0.75; text-transform: uppercase; letter-spacing: 1px;">End of Student Edition</footer>
+</div>
+
+<section class="page" style="page-break-after: always; padding: 0.7in; min-height: 9in; box-sizing: border-box; display: flex; flex-direction: column; background: #fff; border: 1px solid #eee;">
+    <div style="text-align: center; margin-bottom: 24pt;">
+        <h2 style="font-family: sans-serif; font-size: 20pt; color: #2c3e50; text-transform: uppercase; letter-spacing: 2px; margin: 0;">About the Author & Publisher</h2>
+    </div>
+
+    <div style="font-family: 'Georgia', serif; font-size: 10.5pt; line-height: 1.7; color: #334155;">
+        <p style="margin-bottom: 14pt;"><strong>Author:</strong> Techpoet is a creative systems engineer focused on practical AI craftsmanship, visual direction, and repeatable production workflows for modern digital teams.</p>
+        <p style="margin-bottom: 14pt;"><strong>Publisher:</strong> Hexadigitall Technologies develops applied learning systems that bridge technical execution and commercial readiness for emerging creative technologies.</p>
+        <p style="margin-bottom: 14pt;"><strong>Mission:</strong> To help builders move from experimentation to dependable professional output through structured, evidence-based curriculum.</p>
+    </div>
+
+    <div style="margin-top: auto; border-top: 1px solid #e2e8f0; padding-top: 14pt; font-family: sans-serif; font-size: 8.5pt; color: #64748b; text-transform: uppercase; letter-spacing: 1px;">
+        Hexadigitall Learning Press | Global Digital Edition
+    </div>
+</section>
+
+<section class="page" style="page-break-after: always; padding: 0.75in; min-height: 9in; box-sizing: border-box; display: flex; flex-direction: column; background: #fff; position: relative;">
+    
+    <div style="text-align: center; margin-top: 1.5in; margin-bottom: 50pt;">
+        <h1 style="font-family: sans-serif; font-size: 24pt; color: #2c3e50; margin: 0; text-transform: uppercase; letter-spacing: 3px;">The Final Transmission</h1>
+        <div style="width: 50px; height: 3px; background: #3498db; margin: 20pt auto;"></div>
+    </div>
+
+    <div class="content-body" style="font-family: 'Georgia', serif; font-size: 11.5pt; line-height: 1.8; color: #333; flex-grow: 1; text-align: justify;">
+        <p style="margin-bottom: 20pt;">
+            You began this journey at the edge of the Latent Space, perhaps unsure of whether you were commanding the machine or simply following its lead. Today, that ambiguity is gone. You have moved through the crucible of technical syntax, surgical refinement, and commercial mastery. You are no longer a "Dunce" in the face of generative power; you are its architect.
+        </p>
+
+        <p style="margin-bottom: 20pt;">
+            At <strong>Hexadigitall Technologies</strong>, we believe that the true value of AI does not lie in its ability to automate, but in its ability to amplify the human spirit. The "Ghost in the Machine" is not the algorithm—it is the engineer who knows which lever to pull, which weight to assign, and when to bring a digital hallucination into the cold, sharp reality of a vector path.
+        </p>
+
+        <p style="margin-bottom: 20pt;">
+            As you close this book, remember that the tools will change. Midjourney v7, v8, and beyond will shift the landscape, but the principles of <strong>Architecture, Consistency, and Integrity</strong> are immutable. Treat every pixel as a line of code and every prompt as a design brief.
+        </p>
+
+        <p style="margin-bottom: 40pt;">
+            The world doesn't need more AI art. It needs more AI Artists who think like Engineers. Go build something that shouldn't exist.
+        </p>
+
+        <div style="margin-top: 50pt;">
+            <p style="margin: 0; font-family: sans-serif; font-weight: bold; color: #2c3e50; text-transform: uppercase; letter-spacing: 1px;">The Techpoet</p>
+            <p style="margin: 0; font-family: sans-serif; font-size: 10pt; color: #7f8c8d;">Lead Engineer & Creative Director</p>
+            <p style="margin: 0; font-family: sans-serif; font-size: 10pt; color: #3498db; font-weight: bold;">Hexadigitall Technologies</p>
+        </div>
+    </div>
+
+    <div style="text-align: center; margin-top: 50pt; border-top: 1px solid #eee; padding-top: 20pt;">
+        <p style="font-family: sans-serif; font-size: 8pt; color: #bdc3c7; text-transform: uppercase; letter-spacing: 5px;">EOF | End of File</p>
+    </div>
+</section>
+
+
+</body>
+</html>

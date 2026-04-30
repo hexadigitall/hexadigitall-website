@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Dunce to Midjourney Pro — KDP Hardcover Full Wrap</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --spine: 0.75in;
+      --total-width: 13.125in;
+      --height: 9.25in;
+      --panel-height: 9in;
+      --hinge: 0.0625in;
+      --bleed: 0.125in;
+    }
+    @page { size: 13.125in 9.25in; margin: 0; }
+    * { box-sizing: border-box; margin: 0; padding: 0; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    body { width: var(--total-width); height: var(--height); overflow: hidden; font-family: 'Inter', sans-serif; }
+    .wrap {
+      width: 100%; height: 100%; padding: 0 var(--bleed);
+      display: grid; grid-template-columns: 6in var(--hinge) var(--spine) var(--hinge) 6in;
+      background: linear-gradient(160deg, #07111e 0%, #1a2c42 46%, #0f2235 100%);
+      color: white;
+    }
+    .panel, .hinge, .spine { position: relative; margin: var(--bleed) 0; height: var(--panel-height); overflow: hidden; }
+    .panel::before, .hinge::before, .spine::before {
+      content: ''; position: absolute; inset: 0;
+      background-image: linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px);
+      background-size: 24px 24px;
+    }
+    .panel { padding: 0.42in 0.34in; }
+    .back h2, .front h1 { position: relative; z-index: 1; font-family: 'Space Grotesk', sans-serif; }
+    .back h2 { font-size: 17pt; line-height: 1.2; }
+    .back p, .back li, .front p { position: relative; z-index: 1; font-size: 8.8pt; line-height: 1.62; color: rgba(255,255,255,0.82); }
+    .back p { margin-top: 0.16in; }
+    .back ul { position: relative; z-index: 1; margin: 0.18in 0 0 0.18in; }
+    .back li { margin-bottom: 0.07in; }
+    .barcode { position: absolute; right: 0.34in; bottom: 0.36in; width: 1.55in; height: 0.95in; border: 1px dashed rgba(255,255,255,0.28); z-index: 1; }
+    .logo { position: relative; z-index: 1; width: 1.25in; filter: brightness(0) invert(1); }
+    .hero { position: relative; z-index: 1; margin-top: 0.26in; height: 2.55in; border-radius: 14px; overflow: hidden; }
+    .hero img { width: 100%; height: 100%; object-fit: cover; opacity: 0.85; }
+    .label { position: relative; z-index: 1; margin-top: 0.26in; color: #3498db; font-size: 7.5pt; font-weight: 700; letter-spacing: 2.8px; text-transform: uppercase; }
+    .front h1 { position: relative; z-index: 1; margin-top: 0.1in; font-size: 24pt; line-height: 1.05; }
+    .front .meta { position: relative; z-index: 1; display: flex; gap: 8px; flex-wrap: wrap; margin-top: 0.2in; }
+    .front .meta span { border: 1px solid rgba(52,152,219,0.46); border-radius: 999px; padding: 5px 9px; font-size: 6.7pt; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: #aed6f1; }
+    .front .publisher { position: relative; z-index: 1; margin-top: auto; font-size: 8pt; color: rgba(255,255,255,0.78); }
+    .front .publisher strong { display: block; font-family: 'Space Grotesk', sans-serif; font-size: 10.5pt; color: white; }
+    .hinge { border-left: 1px solid rgba(255,255,255,0.08); border-right: 1px solid rgba(255,255,255,0.08); }
+    .spine { display: flex; align-items: center; justify-content: center; border-left: 1px solid rgba(255,255,255,0.08); border-right: 1px solid rgba(255,255,255,0.08); }
+    .spine .text { position: relative; z-index: 1; writing-mode: vertical-rl; transform: rotate(180deg); font-family: 'Space Grotesk', sans-serif; font-size: 11pt; letter-spacing: 1px; text-transform: uppercase; text-align: center; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <section class="panel back">
+      <h2>Stop prompting. Start engineering.</h2>
+      <p>Dunce to Midjourney Pro takes you from absolute beginner to commercially capable AI image engineer — one structured phase at a time.</p>
+      <ul>
+        <li>Phase 1 — The First Spark: engine mechanics, interface mastery, foundational prompting</li>
+        <li>Phase 2 — The Style Weaver: aesthetic control, mood architecture, advanced parameters</li>
+        <li>Phase 3 — The Ghost in the Machine: surgical in-painting, workflow systems, consistency frameworks</li>
+        <li>Phase 4 — The Commercial Edge: character packs, client delivery, business models</li>
+        <li>Bonus — Post-Production Suite: Photoshop, Illustrator, and print-ready output</li>
+      </ul>
+      <p>Built for creators, designers, and entrepreneurs who need production-grade AI imagery — not just pretty pictures.</p>
+      <div class="barcode"></div>
+    </section>
+    <section class="hinge"></section>
+    <section class="spine">
+      <div class="text">Dunce to Midjourney Pro</div>
+    </section>
+    <section class="hinge"></section>
+    <section class="panel front">
+      <img class="logo" src="../../../hexadigitall-logo-transparent.svg" alt="Hexadigitall">
+      <div class="hero"><img src="./cover-img-dunce-to-midjourney-pro.png" alt="Dunce to Midjourney Pro"></div>
+      <div class="label">AI Image Generation Mastery</div>
+      <h1>Dunce to<br>Midjourney Pro</h1>
+      <p>From zero to commercial-grade AI imagery: prompting, style architecture, surgical editing, and production-ready workflows.</p>
+      <div class="meta"><span>4 phases</span><span>11 chapters</span><span>Hardcover</span></div>
+      <div class="publisher"><strong>Hexadigitall Technologies</strong>hexadigitall.com</div>
+    </section>
+  </div>
+</body>
+</html>
