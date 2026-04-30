@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dunce to Midjourney Pro (6×9 Paperback Manuscript)</title>
     <style>
         * { box-sizing: border-box; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
@@ -9,10 +10,7 @@
         /* 1. PRINT & PAGE SETTINGS (6x9 Trade Paperback — Gutter-Mirrored) */
         @page {
             size: 6in 9in;
-            margin-top: 0.75in;
-            margin-bottom: 0.75in;
-            margin-inside: 0.75in;
-            margin-outside: 0.5in;
+            margin: 0.75in 0.5in 0.75in 0.75in;
             @bottom-center {
                 content: counter(page);
                 font-family: "Georgia", serif;
@@ -30,6 +28,7 @@
             margin-bottom: 0.75in;
             margin-left: 0.75in;
             margin-right: 0.5in;
+        }
         }
 
         /* 2. ROOT VARIABLES & TYPOGRAPHY */
