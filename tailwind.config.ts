@@ -16,6 +16,11 @@ const config: Config = {
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
+    fontFamily: {
+      // ✅ Ensure these match the variables in layout.tsx with robust fallbacks
+      heading: ['var(--font-montserrat)', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', 'sans-serif'],
+      body: ['var(--font-lato)', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', 'sans-serif'],
+    },
     extend: {
       colors: {
         primary: '#0A4D68',   // Deep Blue
@@ -61,11 +66,6 @@ const config: Config = {
         'premium-gradient-end': '#fed6e3',
         'neon': '#00ffff',
         'electric': '#ff00ff',
-      },
-      fontFamily: {
-        // ✅ Ensure these match the variables in layout.tsx with robust fallbacks
-        heading: ['var(--font-montserrat)', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', 'sans-serif'],
-        body: ['var(--font-lato)', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', 'sans-serif'],
       },
       animation: {
         'gradient-x': 'gradient-x 15s ease infinite',
