@@ -59,9 +59,9 @@ const COVERS = [
     id: 'hardcover-fullwrap',
     name: 'Dunce to Midjourney Pro — Hardcover Full Wrap',
     src: `${TITLE_DIR}/dunce-to-midjourney-pro-kdp-cover-hardcover-fullwrap.html`,
-    // 13.125in * 300dpi = 3938; 9.25in * 300dpi = 2775
-    width: 3938,
-    height: 2775,
+    // 14.099in * 300dpi = 4230; 10.417in * 300dpi = 3125
+    width: 4230,
+    height: 3125,
     outBase: `${COVERS_DIR}/dunce-to-midjourney-pro-kdp-cover-hardcover-fullwrap`,
     outputs: { pdf: true, jpg: false, tiff: false },
   },

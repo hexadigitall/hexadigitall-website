@@ -1,23 +1,32 @@
 # Hexadigitall - Digital Services Platform
 
-A modern Next.js application offering tiered digital services with integrated Paystack payment processing.
+
+A modern Next.js platform for digital services, featuring a robust admin portal, real-time analytics, and integrated Paystack payment processing.
+
 
 ## Features
 
-- **Multi-tier Service Packages** - Web development, business planning, marketing, and branding services
-- **Paystack Payment Integration** - Secure payment processing with support for NGN and USD
-- **Multi-step Purchase Flow** - Tier selection → Add-ons → Customer details → Payment
-- **Responsive Design** - Tailwind CSS with mobile-first approach
-- **Sanity CMS Integration** - Content management for blogs, FAQs, and services
+- **Admin Portal** – Secure dashboard for managing submissions, analytics, and site data
+- **Multi-tier Service Packages** – Web development, business planning, marketing, and branding
+- **Paystack Payment Integration** – Secure payments (NGN & USD)
+- **Multi-step Purchase Flow** – Tier selection → Add-ons → Customer details → Payment
+- **Real-time Analytics** – Track page views, conversions, and user events
+- **Accessibility Improvements** – Aria-labels, error handling, and responsive design
+- **Sanity CMS Integration** – Content management for blogs, FAQs, and services
+- **“Coming Soon” Page** – Placeholder for upcoming courses
+
 
 ## Quick Start
 
+
 ### Prerequisites
-- Node.js 18+ 
+- Node.js 18+ (LTS recommended)
 - npm/yarn/pnpm
 - Paystack account (test or live keys)
+- Sanity project (for CMS/database)
 
-### Installation
+
+### Installation & Setup
 
 ```bash
 # Install dependencies
@@ -26,24 +35,26 @@ npm install
 # Copy environment variables
 cp .env.local.example .env.local
 
-# Add your Paystack keys to .env.local
-# Get keys from https://dashboard.paystack.com/#/settings/developers
+# Add your Paystack, Sanity, and analytics keys to .env.local
+# See DEVELOPMENT_SETUP.md for details
 
 # Run development server
 npm run dev
 ```
 
-Open [http://localhost:3001](http://localhost:3001) with your browser to see the result.
+Open [http://localhost:3001](http://localhost:3001) with your browser.
 
 You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
 ## Documentation
 
-- **[Paystack Setup Guide](./PAYSTACK_SETUP.md)** - Complete payment integration setup
-- **[Development Setup](./DEVELOPMENT_SETUP.md)** - Local development configuration
-- **[Deployment Guide](./DEPLOYMENT_GUIDE.md)** - Production deployment instructions
+- **[Paystack Setup Guide](./PAYSTACK_SETUP.md)** – Payment integration setup
+- **[Development Setup](./DEVELOPMENT_SETUP.md)** – Local development configuration & troubleshooting
+- **[Deployment Guide](./DEPLOYMENT_GUIDE.md)** – Production deployment instructions
+- **[Admin Setup](./ADMIN_SETUP.md)** – Admin portal setup & credentials
+- **[Actionable Next Steps](./ACTIONABLE_NEXT_STEPS.md)** – Roadmap & recent changes
+
 
 ## Project Structure
 
@@ -61,16 +72,18 @@ src/
     └── sanity/                   # Sanity CMS configuration
 ```
 
-## Key Technologies
 
-- **Next.js 15.5.3** - React framework with App Router
-- **React 19** - UI library
-- **TypeScript** - Type safety
-- **Tailwind CSS** - Styling
-- **Paystack API** - Payment processing
-- **Sanity CMS** - Content management
+## Technologies Used
 
-## Payment Flow
+- **Frontend:** Next.js 15, React 19, TypeScript, Tailwind CSS
+- **Backend:** Next.js API routes, custom authentication (JWT-like tokens)
+- **Database:** Sanity CMS
+- **Payments:** Paystack API
+- **Icons:** Heroicons
+- **Deployment:** Vercel
+
+
+## Payment & Admin Flows
 
 1. User selects service tier
 2. Adds optional add-ons
@@ -80,7 +93,8 @@ src/
 6. Webhook confirms payment
 7. User redirected to success page
 
-## Testing
+
+## Testing & Troubleshooting
 
 Use Paystack test cards:
 - **Success**: 4084084084084081
@@ -89,7 +103,8 @@ Use Paystack test cards:
 
 See [PAYSTACK_SETUP.md](./PAYSTACK_SETUP.md) for complete testing guide.
 
-## Deploy on Vercel
+
+## Deployment
 
 1. Push to GitHub
 2. Import project in Vercel
@@ -97,4 +112,18 @@ See [PAYSTACK_SETUP.md](./PAYSTACK_SETUP.md) for complete testing guide.
 4. Configure webhook URL in Paystack dashboard
 5. Deploy
 
+
 Check out the [Deployment Guide](./DEPLOYMENT_GUIDE.md) for detailed instructions.
+
+---
+
+## Recent Improvements
+
+- **Admin Portal:** Secure login, dashboard, analytics, and export features
+- **All form submissions saved to Sanity database** (never lose a lead)
+- **Real-time analytics dashboard** (page views, events, conversion rates)
+- **Accessibility:** Improved aria-labels, error handling, and loading states
+- **“Coming Soon” page** for courses
+- **Error handling** added to blog, FAQ, and portfolio pages
+
+For a full list of features and updates, see [ADMIN_FEATURE_SUMMARY.md](./ADMIN_FEATURE_SUMMARY.md) and [ACTIONABLE_NEXT_STEPS.md](./ACTIONABLE_NEXT_STEPS.md).
