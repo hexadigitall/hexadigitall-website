@@ -77,7 +77,8 @@
     "react-parallax-tilt": "^1.7.328",
     "resend": "^6.12.3",
     "rxjs": "^7.8.2",
-    "styled-components": "^6.4.2"
+    "styled-components": "^6.4.2",
+    "vercel": "^54.3.0"
   },
   "overrides": {
     "simple-swizzle": "0.2.2",
