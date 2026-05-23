@@ -1,4 +1,4 @@
-import NextAuth from 'next-auth'
+import { getServerSession as gss } from 'next-auth'
 import Google from 'next-auth/providers/google'
 import GitHub from 'next-auth/providers/github'
 import { cookies } from 'next/headers'
@@ -40,7 +40,9 @@ async function getUniqueUsername(seed: string): Promise<string> {
   return `${normalized}_${Date.now().toString().slice(-6)}`
 }
 
-export const { handlers, auth } = NextAuth({
+import type { AuthOptions } from 'next-auth'
+
+export const authOptions: AuthOptions = {
   providers: [
     ...(googleClientId && googleClientSecret
       ? [
@@ -60,7 +62,6 @@ export const { handlers, auth } = NextAuth({
       : []),
   ],
   secret: process.env.AUTH_SECRET || process.env.NEXTAUTH_SECRET,
-  trustHost: true,
   pages: {
     signIn: '/student/login',
     error: '/student/login',
@@ -193,4 +194,6 @@ export const { handlers, auth } = NextAuth({
       return `${baseUrl}/student/oauth-success`
     },
   },
-})
+}
+
+export const auth = () => gss(authOptions)

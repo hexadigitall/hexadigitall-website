@@ -1,4 +1,85 @@
-import { createClient } from '@sanity/client';
+const { createClient } = require('@sanity/client');
+
+const transactionMigrationClient = createClient({
+  projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID,
+  dataset: process.env.NEXT_PUBLIC_SANITY_DATASET,
+  apiVersion: '2026-05-22',
+  token: process.env.SANITY_SECRET_MIGRATION_TOKEN,
+  useCdn: false,
+});
+
+async function runSystemMigrationLifecycle() {
+  console.log('Initiating structural seeding pipeline sequence...');
+  try {
+    const authorRecordPayload = {
+      _type: 'author',
+      name: 'FVMMD',
+      slug: { _type: 'slug', current: 'fvmmd' },
+      biography: 'Imprint lead tactical architectural intelligence manager across operational publishing workflows.',
+    };
+    const createdAuthorNode = await transactionMigrationClient.createOrReplace({
+      _id: 'author-fvmmd-identity-node',
+      ...authorRecordPayload
+    });
+    console.log(`Seeded Author Profile ID: ${createdAuthorNode._id}`);
+
+    const sampleMatrixItems = [
+      {
+        _id: 'matrix-infrastructure-self',
+        _type: 'resourceMatrix',
+        title: 'The Infrastructure of the Self Matrix Series (Volume-Roadmap Pack)',
+        matrixId: 'FVMMD-LIN-M3',
+        resourceType: 'roadmap',
+        secureAssetUrl: 'https://hexadigitall.com/vault/assets/fvmmd-lin-m3-infrastructure-roadmap.pdf',
+        requiresVerification: true,
+      },
+      {
+        _id: 'matrix-cohort-workshop-roundtable',
+        _type: 'resourceMatrix',
+        title: 'Live Architecture Roundtable Blueprint Tracking Canvas',
+        matrixId: 'FVMMD-LIN-M4',
+        resourceType: 'template',
+        secureAssetUrl: 'https://hexadigitall.com/vault/assets/fvmmd-lin-m4-live-tracking-canvas.xlsx',
+        requiresVerification: true,
+      }
+    ];
+
+    const processingLedgerIds = [];
+    for (const itemCandidate of sampleMatrixItems) {
+      const createdItemNode = await transactionMigrationClient.createOrReplace(itemCandidate);
+      processingLedgerIds.push(createdItemNode._id);
+      console.log(`Seeded System Resource Matrix ID Token: ${createdItemNode._id} matching Code: ${createdItemNode.matrixId}`);
+    }
+
+    const publicationManuscriptManifest = {
+      _id: 'book-love-is-nothing-full-manuscript',
+      _type: 'publication',
+      title: 'Love Is Nothing. Love Comes From Everything Long Lasting.',
+      slug: { _type: 'slug', current: 'love-is-nothing-love-comes-from-everything-long-lasting' },
+      author: {
+        _type: 'reference',
+        _ref: createdAuthorNode._id,
+      },
+      isbn: '978-HEXA-DIGITALL-2026',
+      description: 'A step-by-step masterclass layout delivery explaining personal clarity, deep architectural self-governance frameworks, and systemic lifestyle design paradigms.',
+      price: 12500,
+      embeddedResources: processingLedgerIds.map(id => ({
+        _type: 'reference',
+        _ref: id,
+        _key: `ref-key-mapping-node-${id}`
+      })),
+    };
+
+    const committedPublicationNode = await transactionMigrationClient.createOrReplace(publicationManuscriptManifest);
+    console.log(`Successfully completed migration lifecycle pipeline operations. Target Core Book Reference Node ID: ${committedPublicationNode._id}`);
+
+  } catch (criticalProcessFailureFault) {
+    console.error('System validation engineering operation execution pipeline termination failure: ', criticalProcessFailureFault);
+    process.exit(1);
+  }
+}
+
+runSystemMigrationLifecycle();import { createClient } from '@sanity/client';
 import * as dotenv from 'dotenv';
 // Load environment variables
 dotenv.config({ path: '.env.local' });

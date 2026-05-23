@@ -1,0 +1,19 @@
+
+> hexadigitall@0.1.0 dev:turbo
+> next dev --turbopack
+
+▲ Next.js 16.2.6 (Turbopack)
+- Local:         http://localhost:3000
+- Network:       http://10.255.255.254:3000
+- Environments: .env.local
+✓ Ready in 16.9s
+⚠ Slow filesystem detected. The benchmark took 611ms. If /mnt/d/projects/mine/hexadigitall/hexadigitall/.next/dev is a network drive, consider moving it to a local folder.
+See more: https://nextjs.org/docs/app/guides/local-development
+○ Compiling proxy ...
+- Experiments (use with caution):
+  ✓ optimizeCss
+  · optimizePackageImports
+  ✓ webpackBuildWorker
+
+○ Compiling /_not-found/page ...
+ GET / 404 in 15.7s (next.js: 15.2s, application-code: 534ms)

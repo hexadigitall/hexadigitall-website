@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portfolio Website — Starter Intake Form - Hexadigitall</title>
+  <meta name="description" content="Intake form for Portfolio Website — Starter service at Hexadigitall">
+  <meta property="og:title" content="Portfolio Website — Starter Intake Form">
+  <meta property="og:description" content="Get started with our Portfolio Website — Starter service. Professional intake form for Portfolio Website — Starter.">
+  <link rel="stylesheet" href="/forms/assets/forms.css">
+  <style>
+    .tier-badge {
+      display: inline-block;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 0.5rem 1rem;
+      border-radius: 0.5rem;
+      font-weight: bold;
+      margin: 1rem 0;
+      font-size: 0.9rem;
+    }
+    .price-display {
+      font-size: 2rem;
+      font-weight: bold;
+      color: #667eea;
+      margin: 1rem 0;
+    }
+    .currency {
+      font-size: 1.2rem;
+      margin-right: 0.25rem;
+    }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <div class="header-content">
+      <h1>Service Intake Form</h1>
+      <p>Portfolio Website — Starter</p>
+    </div>
+  </header>
+
+  <main class="main-content">
+    <section class="hero-card">
+      <h1>Portfolio Website — Starter</h1>
+      <p class="subtitle">3-page portfolio website</p>
+      
+      <div class="price-section">
+        <div class="price-display">
+          <span class="currency">$</span>199
+        </div>
+        <p class="delivery-time">⏱️ Delivery: 5-7 days</p>
+      </div>
+    </section>
+
+    <section class="section-card">
+      <h2>What's Included</h2>
+      <ul class="feature-list">
+        <li>3-page responsive website</li><li>Home + About + Portfolio</li><li>Gallery for 10 projects</li><li>Contact form</li><li>Mobile optimization</li><li>Basic SEO setup</li><li>3 months hosting</li>
+      </ul>
+    </section>
+
+    <form data-service-form data-subject="Portfolio Website — Starter" data-service="portfolio" data-intake-endpoint="/api/forms/intake" class="intake-form">
+      <section class="section-card">
+        <h2>Your Information</h2>
+        
+        <div class="grid two">
+          <div class="field-group">
+            <label for="firstName">First Name *</label>
+            <input type="text" id="firstName" name="firstName" required>
+          </div>
+          <div class="field-group">
+            <label for="lastName">Last Name *</label>
+            <input type="text" id="lastName" name="lastName" required>
+          </div>
+        </div>
+
+        <div class="grid two">
+          <div class="field-group">
+            <label for="email">Email Address *</label>
+            <input type="email" id="email" name="email" required>
+          </div>
+          <div class="field-group">
+            <label for="phone">Phone Number</label>
+            <input type="tel" id="phone" name="phone">
+          </div>
+        </div>
+
+        <div class="field-group">
+          <label for="company">Company/Business Name</label>
+          <input type="text" id="company" name="company">
+        </div>
+      </section>
+
+      <section class="section-card">
+        <h2>Project Details</h2>
+        
+        <div class="field-group">
+          <label for="description">Project Description *</label>
+          <textarea id="description" name="description" rows="4" placeholder="Tell us about your project, goals, and any specific requirements..." required></textarea>
+          <small class="print-value"></small>
+        </div>
+
+        
+        <fieldset>
+          <legend>Required Information for This Tier</legend>
+          
+          <div class="field-group checkbox-group">
+            <label>
+              <input type="checkbox" name="requirements_0" value="Portfolio projects (10 with descriptions)">
+              Portfolio projects (10 with descriptions)
+            </label>
+          </div>
+          
+          <div class="field-group checkbox-group">
+            <label>
+              <input type="checkbox" name="requirements_1" value="About/bio section content">
+              About/bio section content
+            </label>
+          </div>
+          
+          <div class="field-group checkbox-group">
+            <label>
+              <input type="checkbox" name="requirements_2" value="Professional photos">
+              Professional photos
+            </label>
+          </div>
+          
+          <div class="field-group checkbox-group">
+            <label>
+              <input type="checkbox" name="requirements_3" value="Contact information">
+              Contact information
+            </label>
+          </div>
+          
+          <div class="field-group checkbox-group">
+            <label>
+              <input type="checkbox" name="requirements_4" value="Social media links">
+              Social media links
+            </label>
+          </div>
+          
+          <div class="field-group checkbox-group">
+            <label>
+              <input type="checkbox" name="requirements_5" value="Project descriptions and images">
+              Project descriptions and images
+            </label>
+          </div>
+          
+          <div class="field-group checkbox-group">
+            <label>
+              <input type="checkbox" name="requirements_6" value="Domain preference">
+              Domain preference
+            </label>
+          </div>
+          
+        </fieldset>
+        
+
+        <div class="field-group">
+          <label for="timeline">Timeline Preference</label>
+          <select id="timeline" name="timeline">
+            <option value="">Select timeline</option>
+            <option value="asap">ASAP (Rush)</option>
+            <option value="1-2-weeks">1-2 weeks</option>
+            <option value="2-4-weeks">2-4 weeks</option>
+            <option value="flexible">Flexible</option>
+          </select>
+        </div>
+
+        <div class="field-group">
+          <label for="budget">Budget (USD) - Minimum: $199</label>
+          <input type="number" id="budget" name="budget" min="199" placeholder="199">
+        </div>
+      </section>
+
+      <section class="section-card">
+        <h2>Additional Information</h2>
+        
+        <div class="field-group">
+          <label for="additionalNotes">Additional Notes</label>
+          <textarea id="additionalNotes" name="additionalNotes" rows="4" placeholder="Any other information you'd like to share..."></textarea>
+          <small class="print-value"></small>
+        </div>
+
+        <div class="field-group">
+          <label for="files">Send us files (images, documents, wireframes, etc.)</label>
+          <input type="file" id="files" name="files" multiple accept="image/*,.pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx">
+          <small>Max 5 files, 25MB each</small>
+          <div class="attachment-links" id="attachments"></div>
+        </div>
+      </section>
+
+      <section class="section-card">
+        <div class="form-actions">
+          <button type="submit" class="btn-primary">Submit Intake Form</button>
+          <button type="button" class="btn-secondary" onclick="window.print()">🖨️ Print</button>
+        </div>
+      </section>
+
+      <div id="formMessage" class="form-message" style="display: none;"></div>
+    </form>
+  </main>
+
+  <footer class="footer">
+    <p>&copy; 2024 Hexadigitall. All rights reserved.</p>
+  </footer>
+
+  <script src="/forms/assets/forms.js"></script>
+</body>
+</html>

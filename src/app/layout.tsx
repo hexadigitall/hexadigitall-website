@@ -97,8 +97,7 @@ export default function RootLayout({
 }>) {
   const FB_APP_ID = process.env.NEXT_PUBLIC_FB_APP_ID;
   return (
-    // Suppressing hydration warning on html tag as well
-    <html lang="en" className="scroll-smooth" data-scroll-behavior="smooth" suppressHydrationWarning={true}>
+    <html lang="en" className="scroll-smooth" suppressHydrationWarning={true}>
       <head>
         {/* Facebook App ID for link previews */}
         {FB_APP_ID ? (
@@ -177,7 +176,6 @@ export default function RootLayout({
       
       <body 
         className="font-body bg-white dark:bg-slate-900 text-darkText dark:text-slate-200 antialiased transition-colors duration-300" 
-        suppressHydrationWarning={true}
       >
         {/* Skip to main content link for screen readers */}
         <a

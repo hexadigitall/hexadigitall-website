@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>DevOps Engineering &amp; Cloud Infrastructure - Course Curriculum</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&amp;family=Space+Grotesk:wght@500;600;700&amp;display=swap" rel="stylesheet"/>
+<style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --primary-color: #0078D4;
+            --secondary-color: #50E6FF;
+            --dark-blue: #002050;
+            --text-dark: #1F1F1F;
+            --text-light: #605E5C;
+            --bg-light: #F5F5F5;
+            --bg-white: #FFFFFF;
+            --border-color: #EDEBE9;
+        }
+        body { font-family: 'Inter', sans-serif; line-height: 1.6; color: var(--text-dark); background: var(--bg-white); font-size: 14px; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 40px; }
+        .brand-bar { display: flex; align-items: center; justify-content: space-between; gap: 20px; border: 1px solid var(--border-color); border-radius: 12px; padding: 16px 20px; margin-bottom: 20px; box-shadow: 0 4px 18px rgba(0, 32, 80, 0.08); }
+        .brand-meta { display: flex; align-items: center; gap: 16px; }
+        .brand-meta img { width: 60px; height: auto; }
+        .brand-name { font-family: 'Space Grotesk', sans-serif; font-size: 18px; font-weight: 700; color: var(--dark-blue); }
+        .brand-link { color: var(--primary-color); font-weight: 600; text-decoration: none; }
+        .qr-block { display: flex; align-items: center; gap: 12px; background: var(--bg-light); padding: 10px 14px; border-radius: 10px; border: 1px solid var(--border-color); }
+        .qr-block img { width: 86px; height: 86px; }
+        .qr-text { font-size: 12px; color: var(--text-light); max-width: 220px; line-height: 1.5; }
+        .course-hero { background: linear-gradient(135deg, #E8F4FD 0%, #F5F9FF 100%); border: 1px solid var(--border-color); border-radius: 12px; padding: 18px; margin-bottom: 24px; display: grid; grid-template-columns: 1fr 320px; gap: 20px; align-items: center; box-shadow: 0 6px 18px rgba(0, 32, 80, 0.08); }
+        .course-hero img { width: 100%; border-radius: 12px; border: 1px solid var(--border-color); }
+        .course-hero h2 { font-family: 'Space Grotesk', sans-serif; color: var(--dark-blue); margin-bottom: 10px; font-size: 22px; }
+        .header { background: linear-gradient(135deg, var(--dark-blue) 0%, var(--primary-color) 100%); color: white; padding: 60px 40px; border-radius: 12px; margin-bottom: 40px; box-shadow: 0 10px 30px rgba(0, 120, 212, 0.2); }
+        .header h1 { font-family: 'Space Grotesk', sans-serif; font-size: 42px; font-weight: 700; margin-bottom: 16px; letter-spacing: -0.5px; }
+        .header .subtitle { font-size: 18px; opacity: 0.95; margin-bottom: 24px; }
+        .course-meta { display: flex; flex-wrap: wrap; gap: 24px; margin-top: 32px; }
+        .meta-item { display: flex; align-items: center; gap: 8px; background: rgba(255, 255, 255, 0.15); padding: 12px 20px; border-radius: 8px; }
+        .section { margin-bottom: 48px; break-inside: avoid; }
+        .section-title { font-family: 'Space Grotesk', sans-serif; font-size: 28px; color: var(--dark-blue); margin-bottom: 24px; padding-bottom: 12px; border-bottom: 3px solid var(--primary-color); display: flex; align-items: center; gap: 12px; }
+        .section-title::before { content: ''; width: 6px; height: 32px; background: linear-gradient(180deg, var(--primary-color), var(--secondary-color)); border-radius: 3px; }
+        .card { background: var(--bg-white); border: 1px solid var(--border-color); border-radius: 10px; padding: 24px; margin-bottom: 16px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05); }
+        .card ul { margin-left: 20px; }
+        .card li { margin: 6px 0; }
+        .roadmap-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+        .roadmap-card { border: 1px solid var(--border-color); border-radius: 12px; padding: 18px; background: linear-gradient(135deg, #F8FBFF 0%, #FFFFFF 100%); }
+        .roadmap-card h4 { color: var(--dark-blue); font-size: 18px; margin-bottom: 6px; }
+        .roadmap-card p { color: var(--text-light); font-size: 13px; margin-bottom: 10px; }
+        .roadmap-card ul { margin-left: 18px; }
+        .week-block { border: 1px solid var(--border-color); border-left: 6px solid var(--primary-color); border-radius: 12px; padding: 16px; margin-bottom: 14px; }
+        .week-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+        .week-number { font-weight: 700; color: var(--dark-blue); }
+        .week-duration { font-size: 12px; color: var(--text-light); }
+        .week-topic { color: var(--primary-color); font-family: 'Space Grotesk', sans-serif; font-size: 18px; margin-bottom: 10px; }
+        .week-content ul { margin-left: 20px; }
+        .week-content li { margin: 6px 0; }
+        .project-card { border: 1px solid var(--border-color); border-radius: 10px; padding: 16px; margin-bottom: 12px; background: linear-gradient(135deg, #f3f8ff 0%, #ffffff 100%); }
+        .project-card h4 { color: var(--dark-blue); margin-bottom: 8px; }
+        .project-card p { color: var(--text-light); margin-bottom: 8px; }
+        .project-card ul { margin-left: 20px; }
+        .footer { margin-top: 24px; padding-top: 16px; border-top: 1px solid var(--border-color); color: var(--text-light); font-size: 12px; }
+        @media (max-width: 900px) {
+            .course-hero { grid-template-columns: 1fr; }
+            .roadmap-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+
+
+
+<style id="curriculum-ui-normalization">
+:root { --primary-color:#0b5cab; --secondary-color:#5bb3ff; --dark-blue:#0d2a4a; --text-dark:#132235; --text-light:#4f637b; --bg-white:#ffffff; --bg-light:#f4f8fc; --border-color:#d9e5f2; }
+body { font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif; color:var(--text-dark); background:radial-gradient(circle at top right,#f7fbff 0%,#ffffff 45%); }
+h1,h2,h3,h4,.section-title,.week-topic,.week-number,.brand-name { font-family:'Space Grotesk','Inter',sans-serif; letter-spacing:-0.01em; }
+.section { margin-bottom:44px; }
+.card,.week-block,.project-card { border-radius:12px; border:1px solid var(--border-color); box-shadow:0 4px 16px rgba(13,42,74,0.06); }
+.welcome-section { background:linear-gradient(135deg,#eef6ff 0%,#f9fcff 100%); border-left:5px solid var(--primary-color); padding:28px; border-radius:12px; margin-bottom:36px; }
+.project-card { background:linear-gradient(135deg,#eef5ff 0%,#ffffff 60%); padding:20px; margin-bottom:14px; }
+.project-card h4 { color:var(--dark-blue); margin-bottom:8px; }
+.project-card p { color:var(--text-light); margin-bottom:10px; }
+.project-card ul { margin-left:18px; }
+.project-card li { margin:6px 0; }
+</style>
+<style id="curriculum-theme-override">
+:root { --primary-color:hsl(109 70% 42%); --secondary-color:hsl(133 82% 62%); --dark-blue:hsl(109 48% 18%); --text-dark:hsl(109 32% 14%); --text-light:hsl(109 18% 38%); --border-color:hsl(109 38% 86%); --bg-light:hsl(289 45% 97%); --theme-hero-a:hsl(109 85% 96%); --theme-hero-b:hsl(133 90% 98%); }
+body { background:radial-gradient(circle at 8% 0%, color-mix(in srgb, var(--theme-hero-a) 72%, white), #ffffff 46%); }
+.course-hero { background:linear-gradient(135deg,var(--theme-hero-a) 0%,var(--theme-hero-b) 100%); }
+.header { background:linear-gradient(135deg,color-mix(in srgb, var(--dark-blue) 90%, black), var(--primary-color)); }
+.section-title::before { background:linear-gradient(180deg,var(--primary-color),var(--secondary-color)); }
+.week-block { border-left:6px solid var(--primary-color); }
+</style>
+<style id="curriculum-contrast-fix">
+/* Final readability layer: resolves conflicting text/background and font overrides */
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif !important;
+  color: var(--text-dark) !important;
+  background-color: #ffffff;
+}
+h1, h2, h3, h4, .section-title, .week-topic, .week-number, .brand-name {
+  font-family: 'Space Grotesk', 'Inter', sans-serif !important;
+}
+
+/* Ensure light surfaces always use dark text */
+.container,
+.section,
+.card,
+.week-block,
+.week-column,
+.project-card,
+.welcome-section,
+.resource-item,
+.roadmap-card,
+.info-box {
+  color: var(--text-dark);
+}
+
+/* Keep hero as light panel with dark readable text */
+.course-hero,
+.course-hero h1,
+.course-hero h2,
+.course-hero h3,
+.course-hero h4,
+.course-hero p,
+.course-hero li,
+.course-hero span,
+.course-hero a {
+  color: var(--text-dark) !important;
+}
+
+/* Normalize dark surfaces so white text always has contrast */
+.brand-bar,
+.header,
+.footer {
+  background: linear-gradient(135deg, color-mix(in srgb, var(--dark-blue) 92%, black), var(--primary-color)) !important;
+}
+
+.header,
+.header h1,
+.header h2,
+.header h3,
+.header h4,
+.header p,
+.header li,
+.header span,
+.header strong,
+.header a,
+.brand-bar,
+.brand-bar h1,
+.brand-bar h2,
+.brand-bar h3,
+.brand-bar h4,
+.brand-bar p,
+.brand-bar li,
+.brand-bar span,
+.brand-bar strong,
+.brand-bar a,
+.footer,
+.footer h1,
+.footer h2,
+.footer h3,
+.footer h4,
+.footer p,
+.footer li,
+.footer span,
+.footer strong,
+.footer a {
+  color: #ffffff !important;
+}
+
+.brand-bar .brand-link,
+.brand-bar .qr-text,
+.footer p {
+  color: rgba(255, 255, 255, 0.92) !important;
+}
+
+/* Meta chips: readable in both dark and light contexts */
+.meta-item {
+  color: var(--text-dark);
+}
+.header .meta-item {
+  color: #ffffff !important;
+  background: rgba(255,255,255,0.16) !important;
+}
+
+/* Links and list readability */
+a { color: var(--primary-color); }
+a:hover { opacity: 0.9; }
+li { color: inherit; }
+
+.section-title,
+.week-topic,
+.project-card h4,
+.card h3,
+.welcome-section h2 {
+  opacity: 1 !important;
+}
+</style>
+<style id="curriculum-brandbar-contrast-fix">
+/* Brand bar readability fix */
+.brand-bar {
+  background: linear-gradient(135deg, color-mix(in srgb, var(--dark-blue) 88%, black), var(--primary-color)) !important;
+  border-color: color-mix(in srgb, var(--primary-color) 35%, white) !important;
+}
+.brand-bar .brand-name,
+.brand-bar .brand-link,
+.brand-bar .qr-text,
+.brand-bar .brand-text,
+.brand-bar .brand-meta,
+.brand-bar a,
+.brand-bar p,
+.brand-bar span,
+.brand-bar strong {
+  color: #ffffff !important;
+}
+.brand-bar .brand-link {
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.brand-bar .qr-block {
+  background: rgba(255,255,255,0.16) !important;
+  border-color: rgba(255,255,255,0.35) !important;
+}
+.brand-bar .qr-text {
+  opacity: 0.95;
+}
+</style>
+</head>
+<body>
+<div class="container">
+<div class="brand-bar">
+<div class="brand-meta">
+<img alt="Hexadigitall logo" src="../hexadigitall-logo-transparent.png"/>
+<div>
+<div class="brand-name">Hexadigitall Academy (Hexadigitall Technologies)</div>
+<a class="brand-link" href="https://www.hexadigitall.com">www.hexadigitall.com</a>
+</div>
+</div>
+<div class="qr-block">
+<img alt="Course QR Code" src="https://api.qrserver.com/v1/create-qr-code/?size=120x120&amp;data=https://www.hexadigitall.com/courses/devops-engineering-cloud-infrastructure"/>
+<div class="qr-text">Scan to view the course page, enrollment options, and mentorship details.</div>
+</div>
+</div>
+<div class="course-hero">
+<div>
+<h2>Course Snapshot</h2>
+<p>Master DevOps practices with containerization, orchestration, and infrastructure-as-code. Deploy and manage cloud infrastructure on AWS, Azure, or GCP with automation and best practices.</p>
+</div>
+<img alt="DevOps Engineering &amp; Cloud Infrastructure" onerror="this.style.display='none'" src="../assets/images/courses/devops-engineering-kubernetes-mastery.jpg"/>
+</div>
+<div class="header">
+<h1>DevOps Engineering &amp; Cloud Infrastructure</h1>
+<p class="subtitle">A professionally structured weekly curriculum aligned to the level, tooling, and delivery expectations of this course.</p>
+<div class="course-meta">
+<div class="meta-item"><strong>Duration:</strong> 20 Weeks</div>
+<div class="meta-item"><strong>Level:</strong> advanced</div>
+<div class="meta-item"><strong>Study Time:</strong> 3 hours/week + labs</div>
+</div>
+</div>
+        <!-- Welcome Section -->
+        <section class="welcome-section">
+            <h2>Welcome to DevOps Engineering & Cloud Infrastructure! 🎓</h2>
+            <p>This curriculum is designed to take you from core understanding to confident delivery through weekly applied practice, measurable outcomes, and portfolio evidence.</p>
+            <p>Each week builds progressively with practical tasks, implementation checkpoints, and reflection points so you can convert knowledge into repeatable professional performance.</p>
+            <p><strong>Your success is our priority.</strong> Stay consistent with weekly execution, document your work, and use feedback loops to continuously improve your delivery quality.</p>
+        </section>
+
+<div class="section">
+<h2 class="section-title">Prerequisites</h2>
+<div class="card">
+<ul><li>Experience designing system architectures with distributed components and resilience patterns</li><li>Hands-on practice with Infrastructure-as-Code, cloud service models (IaaS/PaaS/SaaS), and networking basics</li><li>Understanding of auto-scaling, load balancing, and cloud cost optimization tradeoffs</li><li>Familiarity with at least one major cloud console (AWS, Azure, or GCP) and basic CLI usage</li></ul>
+</div>
+</div>
+<div class="section">
+<h2 class="section-title">Learning Outcomes</h2>
+<div class="card">
+<ul><li>Hands-on projects to build practical skills</li><li>Industry best practices and workflows</li><li>Tools and frameworks used by professionals</li><li>Guidance to build a job-ready portfolio</li><li>Mentorship and feedback for faster growth</li></ul>
+</div>
+</div>
+        <!-- Complementary Courses -->
+        <section class="section">
+            <h2 class="section-title">Recommended Complementary Courses</h2>
+            <div class="card">
+                <ul>
+                    <li>Pair this curriculum with a related foundation or advanced specialization to strengthen adjacent skill areas.</li>
+                    <li>Select one systems-focused and one delivery-focused course to improve both implementation depth and execution speed.</li>
+                    <li>Use complementary study tracks to broaden portfolio evidence and improve interview and project readiness.</li>
+                </ul>
+            </div>
+        </section>
+
+<div class="section">
+<h2 class="section-title">Essential Learning Resources</h2>
+<div class="card">
+<ul><li>Cloud architecture reference implementations and Well-Architected Framework reviews</li><li>Infrastructure-as-Code templates and cloud service comparison matrices</li><li>Cost optimization playbooks and resilience validation runbooks</li></ul>
+</div>
+</div>
+<div class="section">
+<h2 class="section-title">Your Learning Roadmap</h2>
+<div class="roadmap-grid">
+<div class="roadmap-card"><h4>Foundation</h4><p>Weeks 1-5</p><ul><li>Early Weeks: Core cloud services, networking fundamentals, and basic deployments</li><li>Middle Weeks: Advanced architectures, multi-region deployment, and disaster recovery</li><li>Late Weeks: Cost optimization, governance frameworks, and production readiness</li></ul></div><div class="roadmap-card"><h4>Build</h4><p>Weeks 6-10</p><ul><li>Kubernetes Architecture and Workload Basics</li><li>Kubernetes Services, Ingress, and Traffic Routing</li><li>ConfigMaps, Secrets, and Stateful Workloads</li></ul></div><div class="roadmap-card"><h4>Integration</h4><p>Weeks 11-15</p><ul><li>Terraform Remote State, Environments, and Drift Control</li><li>Cloud Networking, IAM, and Core Platform Services</li><li>CI/CD Release Strategies and Deployment Safety</li></ul></div><div class="roadmap-card"><h4>Capstone</h4><p>Weeks 16-20</p><ul><li>GitOps Workflows and Platform Operations</li><li>Reliability Engineering and Incident Response</li><li>FinOps, Capacity Planning, and Performance Tuning</li></ul></div>
+</div>
+</div>
+<div class="section">
+<h2 class="section-title">Detailed Weekly Curriculum</h2>
+<div class="week-block">
+<div class="week-header">
+<span class="week-number">Week 1</span>
+<span class="week-duration">3 hours/week + labs</span>
+</div>
+<div class="week-topic">DevOps Culture, Linux, and Shell Workflow</div>
+<div class="week-content">
+<ul><li>Analyze the principles of DevOps Culture, Linux, and Shell Workflow and link them to course outcomes at advanced depth with architecture-level decision quality.</li><li>Evaluate DevOps Culture, Linux, and Shell Workflow in a guided scenario using realistic tools, constraints, and quality gates.</li><li>Design trade-offs, risks, and decision points for DevOps Culture, Linux, and Shell Workflow, then record rationale for stakeholder review.</li><li>Justify a portfolio-ready architecture decision record for DevOps Culture, Linux, and Shell Workflow with measurable success criteria and next actions.</li><li>Track measurable progress using rubric scores, defect/risk trends, and evidence completeness each week.</li><li>Run a short retrospective focused on what to retain, improve, and scale into the following week.</li><li>Incorporate peer or mentor feedback and revise the week deliverable to professional publication quality.</li><li>Publish the week output into your cumulative portfolio with concise outcome narrative and proof artifacts.</li></ul>
+</div>
+</div>
+<div class="week-block">
+<div class="week-header">
+<span class="week-number">Week 2</span>
+<span class="week-duration">3 hours/week + labs</span>
+</div>
+<div class="week-topic">Git Strategy, Branching, and Team Collaboration</div>
+<div class="week-content">
+<ul><li>Analyze the principles of Git Strategy, Branching, and Team Collaboration and link them to course outcomes at advanced depth with architecture-level decision quality.</li><li>Evaluate Git Strategy, Branching, and Team Collaboration in a guided scenario using realistic tools, constraints, and quality gates.</li><li>Design trade-offs, risks, and decision points for Git Strategy, Branching, and Team Collaboration, then record rationale for stakeholder review.</li><li>Justify a portfolio-ready architecture decision record for Git Strategy, Branching, and Team Collaboration with measurable success criteria and next actions.</li><li>Track measurable progress using rubric scores, defect/risk trends, and evidence completeness each week.</li><li>Run a short retrospective focused on what to retain, improve, and scale into the following week.</li><li>Incorporate peer or mentor feedback and revise the week deliverable to professional publication quality.</li><li>Publish the week output into your cumulative portfolio with concise outcome narrative and proof artifacts.</li></ul>
+</div>
+</div>
+<div class="week-block">
+<div class="week-header">
+<span class="week-number">Week 3</span>
+<span class="week-duration">3 hours/week + labs</span>
+</div>
+<div class="week-topic">CI Pipelines with Automated Build and Test</div>
+<div class="week-content">
+<ul><li>Analyze the principles of CI Pipelines with Automated Build and Test and link them to course outcomes at advanced depth with architecture-level decision quality.</li><li>Evaluate CI Pipelines with Automated Build and Test in a guided scenario using realistic tools, constraints, and quality gates.</li><li>Design trade-offs, risks, and decision points for CI Pipelines with Automated Build and Test, then record rationale for stakeholder review.</li><li>Justify a portfolio-ready architecture decision record for CI Pipelines with Automated Build and Test with measurable success criteria and next actions.</li><li>Track measurable progress using rubric scores, defect/risk trends, and evidence completeness each week.</li><li>Run a short retrospective focused on what to retain, improve, and scale into the following week.</li><li>Incorporate peer or mentor feedback and revise the week deliverable to professional publication quality.</li><li>Publish the week output into your cumulative portfolio with concise outcome narrative and proof artifacts.</li></ul>
+</div>
+</div>
+<div class="week-block">
+<div class="week-header">
+<span class="week-number">Week 4</span>
+<span class="week-duration">3 hours/week + labs</span>
+</div>
+<div class="week-topic">Containerization with Docker and Image Design</div>
+<div class="week-content">
+<ul><li>Analyze the principles of Containerization with Docker and Image Design and link them to course outcomes at advanced depth with architecture-level decision quality.</li><li>Evaluate Containerization with Docker and Image Design in a guided scenario using realistic tools, constraints, and quality gates.</li><li>Design trade-offs, risks, and decision points for Containerization with Docker and Image Design, then record rationale for stakeholder review.</li><li>Justify a portfolio-ready architecture decision record for Containerization with Docker and Image Design with measurable success criteria and next actions.</li><li>Track measurable progress using rubric scores, defect/risk trends, and evidence completeness each week.</li><li>Run a short retrospective focused on what to retain, improve, and scale into the following week.</li><li>Incorporate peer or mentor feedback and revise the week deliverable to professional publication quality.</li><li>Publish the week output into your cumulative portfolio with concise outcome narrative and proof artifacts.</li></ul>
+</div>
+</div>
+<div class="week-block">
+<div class="week-header">
+<span class="week-number">Week 5</span>
+<span class="week-duration">3 hours/week + labs</span>
+</div>
+<div class="week-topic">Container Networking, Volumes, and Runtime Debugging</div>
+<div class="week-content">
+<ul><li>Analyze the principles of Container Networking, Volumes, and Runtime Debugging and link them to course outcomes at advanced depth with architecture-level decision quality.</li><li>Evaluate Container Networking, Volumes, and Runtime Debugging in a guided scenario using realistic tools, constraints, and quality gates.</li><li>Design trade-offs, risks, and decision points for Container Networking, Volumes, and Runtime Debugging, then record rationale for stakeholder review.</li><li>Justify a portfolio-ready architecture decision record for Container Networking, Volumes, and Runtime Debugging with measurable success criteria and next actions.</li><li>Track measurable progress using rubric scores, defect/risk trends, and evidence completeness each week.</li><li>Run a short retrospective focused on what to retain, improve, and scale into the following week.</li><li>Incorporate peer or mentor feedback and revise the week deliverable to professional publication quality.</li><li>Publish the week output into your cumulative portfolio with concise outcome narrative and proof artifacts.</li></ul>
+</div>
+</div>
+<div class="week-block">
+<div class="week-header">
+<span class="week-number">Week 6</span>
+<span class="week-duration">3 hours/week + labs</span>
+</div>
+<div class="week-topic">Kubernetes Architecture and Workload Basics</div>
+<div class="week-content">
+<ul><li>Analyze the principles of Kubernetes Architecture and Workload Basics and link them to course outcomes at advanced depth with architecture-level decision quality.</li><li>Evaluate Kubernetes Architecture and Workload Basics in a guided scenario using realistic tools, constraints, and quality gates.</li><li>Design trade-offs, risks, and decision points for Kubernetes Architecture and Workload Basics, then record rationale for stakeholder review.</li><li>Justify a portfolio-ready architecture decision record for Kubernetes Architecture and Workload Basics with measurable success criteria and next actions.</li><li>Track measurable progress using rubric scores, defect/risk trends, and evidence completeness each week.</li><li>Run a short retrospective focused on what to retain, improve, and scale into the following week.</li><li>Incorporate peer or mentor feedback and revise the week deliverable to professional publication quality.</li><li>Publish the week output into your cumulative portfolio with concise outcome narrative and proof artifacts.</li></ul>
+</div>
+</div>
+<div class="week-block">
+<div class="week-header">
+<span class="week-number">Week 7</span>
+<span class="week-duration">3 hours/week + labs</span>
+</div>
+<div class="week-topic">Kubernetes Services, Ingress, and Traffic Routing</div>
+<div class="week-content">
+<ul><li>Analyze the principles of Kubernetes Services, Ingress, and Traffic Routing and link them to course outcomes at advanced depth with architecture-level decision quality.</li><li>Evaluate Kubernetes Services, Ingress, and Traffic Routing in a guided scenario using realistic tools, constraints, and quality gates.</li><li>Design trade-offs, risks, and decision points for Kubernetes Services, Ingress, and Traffic Routing, then record rationale for stakeholder review.</li><li>Justify a portfolio-ready architecture decision record for Kubernetes Services, Ingress, and Traffic Routing with measurable success criteria and next actions.</li><li>Track measurable progress using rubric scores, defect/risk trends, and evidence completeness each week.</li><li>Run a short retrospective focused on what to retain, improve, and scale into the following week.</li><li>Incorporate peer or mentor feedback and revise the week deliverable to professional publication quality.</li><li>Publish the week output into your cumulative portfolio with concise outcome narrative and proof artifacts.</li></ul>
+</div>
+</div>
+<div class="week-block">
+<div class="week-header">
+<span class="week-number">Week 8</span>
+<span class="week-duration">3 hours/week + labs</span>
+</div>
+<div class="week-topic">ConfigMaps, Secrets, and Stateful Workloads</div>
+<div class="week-content">
+<ul><li>Evaluate the principles of ConfigMaps, Secrets, and Stateful Workloads and link them to course outcomes at advanced depth with architecture-level decision quality.</li><li>Design ConfigMaps, Secrets, and Stateful Workloads in a guided scenario using realistic tools, constraints, and quality gates.</li><li>Optimize trade-offs, risks, and decision points for ConfigMaps, Secrets, and Stateful Workloads, then record rationale for stakeholder review.</li><li>Justify a portfolio-ready architecture decision record for ConfigMaps, Secrets, and Stateful Workloads with measurable success criteria and next actions.</li><li>Track measurable progress using rubric scores, defect/risk trends, and evidence completeness each week.</li><li>Run a short retrospective focused on what to retain, improve, and scale into the following week.</li><li>Incorporate peer or mentor feedback and revise the week deliverable to professional publication quality.</li><li>Publish the week output into your cumulative portfolio with concise outcome narrative and proof artifacts.</li></ul>
+</div>
+</div>
+<div class="week-block">
+<div class="week-header">
+<span class="week-number">Week 9</span>
+<span class="week-duration">3 hours/week + labs</span>
+</div>
+<div class="week-topic">Helm and Kubernetes Release Management</div>
+<div class="week-content">
+<ul><li>Evaluate the principles of Helm and Kubernetes Release Management and link them to course outcomes at advanced depth with architecture-level decision quality.</li><li>Design Helm and Kubernetes Release Management in a guided scenario using realistic tools, constraints, and quality gates.</li><li>Optimize trade-offs, risks, and decision points for Helm and Kubernetes Release Management, then record rationale for stakeholder review.</li><li>Justify a portfolio-ready architecture decision record for Helm and Kubernetes Release Management with measurable success criteria and next actions.</li><li>Track measurable progress using rubric scores, defect/risk trends, and evidence completeness each week.</li><li>Run a short retrospective focused on what to retain, improve, and scale into the following week.</li><li>Incorporate peer or mentor feedback and revise the week deliverable to professional publication quality.</li><li>Publish the week output into your cumulative portfolio with concise outcome narrative and proof artifacts.</li></ul>
+</div>
+</div>
+<div class="week-block">
+<div class="week-header">
+<span class="week-number">Week 10</span>
+<span class="week-duration">3 hours/week + labs</span>
+</div>
+<div class="week-topic">Terraform Fundamentals and Module Structure</div>
+<div class="week-content">
+<ul><li>Evaluate the principles of Terraform Fundamentals and Module Structure and link them to course outcomes at advanced depth with architecture-level decision quality.</li><li>Design Terraform Fundamentals and Module Structure in a guided scenario using realistic tools, constraints, and quality gates.</li><li>Optimize trade-offs, risks, and decision points for Terraform Fundamentals and Module Structure, then record rationale for stakeholder review.</li><li>Justify a portfolio-ready architecture decision record for Terraform Fundamentals and Module Structure with measurable success criteria and next actions.</li><li>Track measurable progress using rubric scores, defect/risk trends, and evidence completeness each week.</li><li>Run a short retrospective focused on what to retain, improve, and scale into the following week.</li><li>Incorporate peer or mentor feedback and revise the week deliverable to professional publication quality.</li><li>Publish the week output into your cumulative portfolio with concise outcome narrative and proof artifacts.</li></ul>
+</div>
+</div>
+<div class="week-block">
+<div class="week-header">
+<span class="week-number">Week 11</span>
+<span class="week-duration">3 hours/week + labs</span>
+</div>
+<div class="week-topic">Terraform Remote State, Environments, and Drift Control</div>
+<div class="week-content">
+<ul><li>Evaluate the principles of Terraform Remote State, Environments, and Drift Control and link them to course outcomes at advanced depth with architecture-level decision quality.</li><li>Design Terraform Remote State, Environments, and Drift Control in a guided scenario using realistic tools, constraints, and quality gates.</li><li>Optimize trade-offs, risks, and decision points for Terraform Remote State, Environments, and Drift Control, then record rationale for stakeholder review.</li><li>Justify a portfolio-ready architecture decision record for Terraform Remote State, Environments, and Drift Control with measurable success criteria and next actions.</li><li>Track measurable progress using rubric scores, defect/risk trends, and evidence completeness each week.</li><li>Run a short retrospective focused on what to retain, improve, and scale into the following week.</li><li>Incorporate peer or mentor feedback and revise the week deliverable to professional publication quality.</li><li>Publish the week output into your cumulative portfolio with concise outcome narrative and proof artifacts.</li></ul>
+</div>
+</div>
+<div class="week-block">
+<div class="week-header">
+<span class="week-number">Week 12</span>
+<span class="week-duration">3 hours/week + labs</span>
+</div>
+<div class="week-topic">Cloud Networking, IAM, and Core Platform Services</div>
+<div class="week-content">
+<ul><li>Evaluate the principles of Cloud Networking, IAM, and Core Platform Services and link them to course outcomes at advanced depth with architecture-level decision quality.</li><li>Design Cloud Networking, IAM, and Core Platform Services in a guided scenario using realistic tools, constraints, and quality gates.</li><li>Optimize trade-offs, risks, and decision points for Cloud Networking, IAM, and Core Platform Services, then record rationale for stakeholder review.</li><li>Justify a portfolio-ready architecture decision record for Cloud Networking, IAM, and Core Platform Services with measurable success criteria and next actions.</li><li>Track measurable progress using rubric scores, defect/risk trends, and evidence completeness each week.</li><li>Run a short retrospective focused on what to retain, improve, and scale into the following week.</li><li>Incorporate peer or mentor feedback and revise the week deliverable to professional publication quality.</li><li>Publish the week output into your cumulative portfolio with concise outcome narrative and proof artifacts.</li></ul>
+</div>
+</div>
+<div class="week-block">
+<div class="week-header">
+<span class="week-number">Week 13</span>
+<span class="week-duration">3 hours/week + labs</span>
+</div>
+<div class="week-topic">CI/CD Release Strategies and Deployment Safety</div>
+<div class="week-content">
+<ul><li>Evaluate the principles of CI/CD Release Strategies and Deployment Safety and link them to course outcomes at advanced depth with architecture-level decision quality.</li><li>Design CI/CD Release Strategies and Deployment Safety in a guided scenario using realistic tools, constraints, and quality gates.</li><li>Optimize trade-offs, risks, and decision points for CI/CD Release Strategies and Deployment Safety, then record rationale for stakeholder review.</li><li>Justify a portfolio-ready architecture decision record for CI/CD Release Strategies and Deployment Safety with measurable success criteria and next actions.</li><li>Track measurable progress using rubric scores, defect/risk trends, and evidence completeness each week.</li><li>Run a short retrospective focused on what to retain, improve, and scale into the following week.</li><li>Incorporate peer or mentor feedback and revise the week deliverable to professional publication quality.</li><li>Publish the week output into your cumulative portfolio with concise outcome narrative and proof artifacts.</li></ul>
+</div>
+</div>
+<div class="week-block">
+<div class="week-header">
+<span class="week-number">Week 14</span>
+<span class="week-duration">3 hours/week + labs</span>
+</div>
+<div class="week-topic">Observability with Metrics, Logs, and Traces</div>
+<div class="week-content">
+<ul><li>Design the principles of Observability with Metrics, Logs, and Traces and link them to course outcomes at advanced depth with architecture-level decision quality.</li><li>Optimize Observability with Metrics, Logs, and Traces in a guided scenario using realistic tools, constraints, and quality gates.</li><li>Architect trade-offs, risks, and decision points for Observability with Metrics, Logs, and Traces, then record rationale for stakeholder review.</li><li>Defend a portfolio-ready architecture decision record for Observability with Metrics, Logs, and Traces with measurable success criteria and next actions.</li><li>Track measurable progress using rubric scores, defect/risk trends, and evidence completeness each week.</li><li>Run a short retrospective focused on what to retain, improve, and scale into the following week.</li><li>Incorporate peer or mentor feedback and revise the week deliverable to professional publication quality.</li><li>Publish the week output into your cumulative portfolio with concise outcome narrative and proof artifacts.</li></ul>
+</div>
+</div>
+<div class="week-block">
+<div class="week-header">
+<span class="week-number">Week 15</span>
+<span class="week-duration">3 hours/week + labs</span>
+</div>
+<div class="week-topic">DevSecOps Controls and Pipeline Security</div>
+<div class="week-content">
+<ul><li>Design the principles of DevSecOps Controls and Pipeline Security and link them to course outcomes at advanced depth with architecture-level decision quality.</li><li>Optimize DevSecOps Controls and Pipeline Security in a guided scenario using realistic tools, constraints, and quality gates.</li><li>Architect trade-offs, risks, and decision points for DevSecOps Controls and Pipeline Security, then record rationale for stakeholder review.</li><li>Defend a portfolio-ready architecture decision record for DevSecOps Controls and Pipeline Security with measurable success criteria and next actions.</li><li>Track measurable progress using rubric scores, defect/risk trends, and evidence completeness each week.</li><li>Run a short retrospective focused on what to retain, improve, and scale into the following week.</li><li>Incorporate peer or mentor feedback and revise the week deliverable to professional publication quality.</li><li>Publish the week output into your cumulative portfolio with concise outcome narrative and proof artifacts.</li></ul>
+</div>
+</div>
+<div class="week-block">
+<div class="week-header">
+<span class="week-number">Week 16</span>
+<span class="week-duration">3 hours/week + labs</span>
+</div>
+<div class="week-topic">GitOps Workflows and Platform Operations</div>
+<div class="week-content">
+<ul><li>Design the principles of GitOps Workflows and Platform Operations and link them to course outcomes at advanced depth with architecture-level decision quality.</li><li>Optimize GitOps Workflows and Platform Operations in a guided scenario using realistic tools, constraints, and quality gates.</li><li>Architect trade-offs, risks, and decision points for GitOps Workflows and Platform Operations, then record rationale for stakeholder review.</li><li>Defend a portfolio-ready architecture decision record for GitOps Workflows and Platform Operations with measurable success criteria and next actions.</li><li>Track measurable progress using rubric scores, defect/risk trends, and evidence completeness each week.</li><li>Run a short retrospective focused on what to retain, improve, and scale into the following week.</li><li>Incorporate peer or mentor feedback and revise the week deliverable to professional publication quality.</li><li>Publish the week output into your cumulative portfolio with concise outcome narrative and proof artifacts.</li></ul>
+</div>
+</div>
+<div class="week-block">
+<div class="week-header">
+<span class="week-number">Week 17</span>
+<span class="week-duration">3 hours/week + labs</span>
+</div>
+<div class="week-topic">Reliability Engineering and Incident Response</div>
+<div class="week-content">
+<ul><li>Design the principles of Reliability Engineering and Incident Response and link them to course outcomes at advanced depth with architecture-level decision quality.</li><li>Optimize Reliability Engineering and Incident Response in a guided scenario using realistic tools, constraints, and quality gates.</li><li>Architect trade-offs, risks, and decision points for Reliability Engineering and Incident Response, then record rationale for stakeholder review.</li><li>Defend a portfolio-ready architecture decision record for Reliability Engineering and Incident Response with measurable success criteria and next actions.</li><li>Track measurable progress using rubric scores, defect/risk trends, and evidence completeness each week.</li><li>Run a short retrospective focused on what to retain, improve, and scale into the following week.</li><li>Incorporate peer or mentor feedback and revise the week deliverable to professional publication quality.</li><li>Publish the week output into your cumulative portfolio with concise outcome narrative and proof artifacts.</li></ul>
+</div>
+</div>
+<div class="week-block">
+<div class="week-header">
+<span class="week-number">Week 18</span>
+<span class="week-duration">3 hours/week + labs</span>
+</div>
+<div class="week-topic">FinOps, Capacity Planning, and Performance Tuning</div>
+<div class="week-content">
+<ul><li>Design the principles of FinOps, Capacity Planning, and Performance Tuning and link them to course outcomes at advanced depth with architecture-level decision quality.</li><li>Optimize FinOps, Capacity Planning, and Performance Tuning in a guided scenario using realistic tools, constraints, and quality gates.</li><li>Architect trade-offs, risks, and decision points for FinOps, Capacity Planning, and Performance Tuning, then record rationale for stakeholder review.</li><li>Defend a portfolio-ready architecture decision record for FinOps, Capacity Planning, and Performance Tuning with measurable success criteria and next actions.</li><li>Track measurable progress using rubric scores, defect/risk trends, and evidence completeness each week.</li><li>Run a short retrospective focused on what to retain, improve, and scale into the following week.</li><li>Incorporate peer or mentor feedback and revise the week deliverable to professional publication quality.</li><li>Publish the week output into your cumulative portfolio with concise outcome narrative and proof artifacts.</li></ul>
+</div>
+</div>
+<div class="week-block">
+<div class="week-header">
+<span class="week-number">Week 19</span>
+<span class="week-duration">3 hours/week + labs</span>
+</div>
+<div class="week-topic">Capstone Platform Build</div>
+<div class="week-content">
+<ul><li>Design the principles of Capstone Platform Build and link them to course outcomes at advanced depth with architecture-level decision quality.</li><li>Optimize Capstone Platform Build in a guided scenario using realistic tools, constraints, and quality gates.</li><li>Architect trade-offs, risks, and decision points for Capstone Platform Build, then record rationale for stakeholder review.</li><li>Defend a portfolio-ready architecture decision record for Capstone Platform Build with measurable success criteria and next actions.</li><li>Track measurable progress using rubric scores, defect/risk trends, and evidence completeness each week.</li><li>Run a short retrospective focused on what to retain, improve, and scale into the following week.</li><li>Incorporate peer or mentor feedback and revise the week deliverable to professional publication quality.</li><li>Publish the week output into your cumulative portfolio with concise outcome narrative and proof artifacts.</li></ul>
+</div>
+</div>
+<div class="week-block">
+<div class="week-header">
+<span class="week-number">Week 20</span>
+<span class="week-duration">3 hours/week + labs</span>
+</div>
+<div class="week-topic">Capstone Hardening and Executive Defense</div>
+<div class="week-content">
+<ul><li>Design the principles of Capstone Hardening and Executive Defense and link them to course outcomes at advanced depth with architecture-level decision quality.</li><li>Optimize Capstone Hardening and Executive Defense in a guided scenario using realistic tools, constraints, and quality gates.</li><li>Architect trade-offs, risks, and decision points for Capstone Hardening and Executive Defense, then record rationale for stakeholder review.</li><li>Defend a portfolio-ready architecture decision record for Capstone Hardening and Executive Defense with measurable success criteria and next actions.</li><li>Track measurable progress using rubric scores, defect/risk trends, and evidence completeness each week.</li><li>Run a short retrospective focused on what to retain, improve, and scale into the following week.</li><li>Incorporate peer or mentor feedback and revise the week deliverable to professional publication quality.</li><li>Publish the week output into your cumulative portfolio with concise outcome narrative and proof artifacts.</li></ul>
+</div>
+</div>
+</div>
+<div class="section">
+<h2 class="section-title">Capstone Projects</h2>
+<div class="project-card"><h4>Project 1: CI/CD and Deployment Foundation</h4><p>Implement a delivery foundation that builds, tests, versions, and deploys containerized services reliably.</p><ul><li>Pipeline implementation with automated quality gates and release tagging</li><li>Deployment workflow with rollback verification and environment promotion policy</li><li>Technical rationale for tooling and architecture choices</li></ul></div><div class="project-card"><h4>Project 2: Infrastructure and Observability Expansion</h4><p>Extend the platform with infrastructure lifecycle controls, monitoring, and reliability automation.</p><ul><li>IaC stack with remote state controls and drift detection workflow</li><li>Monitoring and alerting evidence tied to platform service objectives</li><li>Trade-off review for reliability, complexity, and operating cost</li></ul></div><div class="project-card"><h4>Project 3: DevOps Platform Handover and Defense</h4><p>Deliver a complete operations-ready DevOps platform package with hardening and governance evidence.</p><ul><li>Executive and technical handover pack with runbooks and risk matrix</li><li>Incident response and recovery scenario demonstration</li><li>Roadmap for the next quarter: security, performance, and cost priorities</li></ul></div>
+</div>
+<div class="section">
+<h2 class="section-title">Study Tips</h2>
+<div class="card">
+<ul><li>Allocate two weekly blocks for architecture review, deployment testing, and cost analysis against budgets.</li><li>Maintain an architecture decision record documenting service choices, redundancy approaches, and cost drivers.</li><li>Run weekly cost reviews, comparing projected vs. actual spend and identifying optimization leverage points.</li></ul>
+</div>
+</div>
+        <!-- Study Tips -->
+        <section class="section">
+            <h2 class="section-title">Study Tips for Success</h2>
+            <div class="card">
+                <ul>
+                    <li>Protect consistent weekly practice time and complete hands-on work before moving to the next topic.</li>
+                    <li>Document implementation decisions, trade-offs, and lessons learned after each weekly deliverable.</li>
+                    <li>Review feedback quickly and ship an improved revision within the same week to reinforce retention.</li>
+                    <li>Track measurable progress with checklists, test evidence, and milestone outcomes.</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- About Course -->
+        <section class="section">
+            <h2 class="section-title">About DevOps Engineering & Cloud Infrastructure</h2>
+            <div class="card">
+                <p>This curriculum is structured to build practical capability, consistent delivery discipline, and portfolio-ready outcomes in DevOps Engineering & Cloud Infrastructure. It combines conceptual understanding with applied execution so learners can perform confidently in real project environments.</p>
+            </div>
+        </section>
+
+<div class="footer">
+<p>© 2026 Hexadigitall Academy (Hexadigitall Technologies). Curriculum authored for DevOps Engineering &amp; Cloud Infrastructure.</p>
+</div>
+</div>
+</body>
+</html>

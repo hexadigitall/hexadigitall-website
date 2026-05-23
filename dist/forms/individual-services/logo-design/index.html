@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Logo Design - Service Intake Form | Hexadigitall</title>
+    <meta name="description" content="Complete your Logo Design service intake form. Professional branding design starting at $149.">
+    <link rel="icon" href="/favicon.ico">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #1e40af;
+            --primary-light: #3b82f6;
+            --accent: #f59e0b;
+            --success: #10b981;
+            --danger: #ef4444;
+            --gray-50: #f9fafb;
+            --gray-100: #f3f4f6;
+            --gray-300: #d1d5db;
+            --gray-600: #4b5563;
+            --gray-900: #111827;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: #f9fafb;
+            color: var(--gray-900);
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* HEADER - Matching main site */
+        header {
+            background: white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 1rem 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo-link {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            text-decoration: none;
+        }
+
+        .logo-link img {
+            height: 40px;
+            width: auto;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--gray-900);
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary) 0%, #1e3a8a 100%);
+            color: white;
+            padding: 0.5rem 1.5rem;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: transform 0.2s ease;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+        }
+
+        /* MAIN CONTENT */
+        main {
+            flex: 1;
+            max-width: 900px;
+            margin: 2rem auto;
+            padding: 0 1.5rem;
+            width: 100%;
+        }
+
+        .form-header {
+            background: linear-gradient(135deg, #ec4899 0%, #f472b6 100%);
+            color: white;
+            padding: 3rem 2rem;
+            border-radius: 12px;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .form-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .form-header p {
+            font-size: 1.1rem;
+            opacity: 0.95;
+        }
+
+        .price-badge {
+            display: inline-block;
+            background: white;
+            color: #ec4899;
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 1.2rem;
+            margin-top: 1rem;
+        }
+
+        .form-container {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .form-section {
+            margin-bottom: 2rem;
+        }
+
+        .section-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--gray-100);
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+        }
+
+        @media (min-width: 768px) {
+            .form-grid.two-cols {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--gray-900);
+        }
+
+        .required::after {
+            content: '*';
+            color: var(--danger);
+            margin-left: 4px;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"],
+        select,
+        textarea {
+            padding: 0.75rem;
+            border: 2px solid var(--gray-300);
+            border-radius: 6px;
+            font-size: 1rem;
+            font-family: inherit;
+            transition: border-color 0.3s ease;
+        }
+
+        input:focus,
+        select:focus,
+        textarea:focus {
+            outline: none;
+            border-color: var(--primary-light);
+        }
+
+        textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .help-text {
+            font-size: 0.85rem;
+            color: var(--gray-600);
+            margin-top: 0.25rem;
+        }
+
+        .form-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: flex-end;
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 2px solid var(--gray-100);
+        }
+
+        button {
+            padding: 0.75rem 2rem;
+            border: none;
+            border-radius: 6px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-submit {
+            background: linear-gradient(135deg, var(--primary) 0%, #1e3a8a 100%);
+            color: white;
+        }
+
+        .btn-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(30, 64, 175, 0.4);
+        }
+
+        .btn-reset {
+            background: var(--gray-100);
+            color: var(--gray-900);
+        }
+
+        .success-message {
+            background: #d1fae5;
+            border: 2px solid var(--success);
+            color: #065f46;
+            padding: 1rem;
+            border-radius: 6px;
+            margin-bottom: 1.5rem;
+            display: none;
+        }
+
+        .success-message.show {
+            display: block;
+        }
+
+        /* FOOTER */
+        footer {
+            background: linear-gradient(135deg, #1e40af 0%, #1e3a8a 100%);
+            color: white;
+            padding: 3rem 1.5rem 2rem;
+            margin-top: 4rem;
+        }
+
+        .footer-content {
+            max-width: 1280px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 1rem;
+            color: white;
+            font-size: 1.125rem;
+            font-weight: 600;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 0.75rem;
+        }
+
+        .footer-section a {
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            transition: color 0.3s ease;
+            font-size: 0.95rem;
+        }
+
+        .footer-section a:hover {
+            color: white;
+        }
+
+        .footer-bottom {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            text-align: center;
+            color: rgba(255,255,255,0.7);
+            font-size: 0.875rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- HEADER -->
+    <header>
+        <nav>
+            <a href="/" class="logo-link">
+                <img src="/hexadigitall-logo-transparent.png" alt="Hexadigitall">
+            </a>
+            <div class="nav-links">
+                <a href="/services">Services</a>
+                <a href="/courses">Courses</a>
+                <a href="/mentorships">Mentorship</a>
+                <a href="/about">About</a>
+                <a href="/contact" class="nav-cta">Contact</a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- MAIN CONTENT -->
+    <main>
+        <div class="form-header">
+            <h1>🎨 Logo Design</h1>
+            <p>Modern, professional logo for your brand</p>
+            <span class="price-badge">3-5 days delivery</span>
+        </div>
+
+        <div class="form-container">
+            <div class="success-message" id="successMessage">
+                ✓ Your service request has been submitted successfully! We'll contact you within 24 hours.
+            </div>
+
+            <form id="serviceForm">
+                <!-- CLIENT INFORMATION -->
+                <div class="form-section">
+                    <h2 class="section-title">Your Information</h2>
+                    <div class="form-grid two-cols">
+                        <div class="form-group">
+                            <label class="required">Full Name</label>
+                            <input type="text" name="fullName" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="required">Email Address</label>
+                            <input type="email" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="required">Phone Number</label>
+                            <input type="tel" name="phone" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Business Name</label>
+                            <input type="text" name="businessName">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SERVICE-SPECIFIC DETAILS -->
+                <div class="form-section">
+                    <h2 class="section-title">Logo Design Details</h2>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label class="required">Business/Brand Name</label>
+                            <input type="text" name="brandName" required>
+                        </div>
+                        <div class="form-group">
+                            <label>What does your business/brand do?</label>
+                            <input type="text" name="businessType" placeholder="e.g., Digital marketing agency, E-commerce store">
+                        </div>
+                        <div class="form-group">
+                            <label>Target Audience</label>
+                            <input type="text" name="targetAudience" placeholder="e.g., Young professionals, Tech enthusiasts">
+                        </div>
+                        <div class="form-group">
+                            <label>Preferred Style</label>
+                            <select name="logoStyle">
+                                <option value="">-- Select --</option>
+                                <option value="modern">Modern & minimalist</option>
+                                <option value="bold">Bold & vibrant</option>
+                                <option value="elegant">Elegant & sophisticated</option>
+                                <option value="playful">Playful & creative</option>
+                                <option value="corporate">Corporate & professional</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Brand Colors (Preferred)</label>
+                            <input type="text" name="preferredColors" placeholder="e.g., Blue, Gold, White">
+                        </div>
+                        <div class="form-group">
+                            <label>Inspiration or References</label>
+                            <textarea name="inspiration" placeholder="Any logos or design references you like?"></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TIMELINE -->
+                <div class="form-section">
+                    <h2 class="section-title">Timeline & Communication</h2>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label class="required">When do you need this completed?</label>
+                            <select name="timeline" required>
+                                <option value="">-- Select timeline --</option>
+                                <option value="asap">ASAP (Rush - may incur extra fees)</option>
+                                <option value="within-3-days">Within 3 days</option>
+                                <option value="within-1-week">Within 1 week</option>
+                                <option value="within-2-weeks">Within 2 weeks</option>
+                                <option value="flexible">Flexible (no specific deadline)</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Additional Information</label>
+                            <textarea name="additionalInfo" placeholder="Any other details we should know?"></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- FORM ACTIONS -->
+                <div class="form-actions">
+                    <button type="reset" class="btn-reset">Clear Form</button>
+                    <button type="submit" class="btn-submit">Submit Request</button>
+                </div>
+            </form>
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="/about">About Us</a></li>
+                    <li><a href="/portfolio">Portfolio</a></li>
+                    <li><a href="/blog">Blog</a></li>
+                    <li><a href="/faq">FAQs</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Services</h3>
+                <ul>
+                    <li><a href="/services">All Services</a></li>
+                    <li><a href="/services/web-and-mobile-software-development">Web Development</a></li>
+                    <li><a href="/services/business-plan-and-logo-design">Business Planning</a></li>
+                    <li><a href="/services/social-media-advertising-and-marketing">Marketing</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Learn</h3>
+                <ul>
+                    <li><a href="/courses">Courses</a></li>
+                    <li><a href="/mentorships">Mentorship</a></li>
+                    <li><a href="/about">About</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Connect</h3>
+                <ul>
+                    <li><a href="/contact">Contact Us</a></li>
+                    <li><a href="/privacy-policy">Privacy Policy</a></li>
+                    <li><a href="/terms-of-service">Terms of Service</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Hexadigitall. All Rights Reserved. Made with ❤️ in Nigeria.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.getElementById('serviceForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(this);
+            const data = {
+                service: 'logo-design',
+                price: 149,
+                timestamp: new Date().toISOString(),
+                ...Object.fromEntries(formData)
+            };
+
+            console.log('Form Data:', data);
+            
+            // Show success message
+            document.getElementById('successMessage').classList.add('show');
+            this.reset();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+
+            // Hide success message after 5 seconds
+            setTimeout(() => {
+                document.getElementById('successMessage').classList.remove('show');
+            }, 5000);
+        });
+    </script>
+</body>
+</html>

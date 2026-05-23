@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Dunce to Midjourney Pro — Kindle Cover</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <style>
+    @page { size: 5.333in 8.533in; margin: 0; }
+    * { box-sizing: border-box; margin: 0; padding: 0; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    body { width: 5.333in; height: 8.533in; overflow: hidden; font-family: 'Inter', sans-serif; }
+    .cover {
+      position: relative; width: 100%; height: 100%; color: #fff;
+      background:
+        radial-gradient(circle at 18% 20%, rgba(52,152,219,0.28), transparent 34%),
+        radial-gradient(circle at 80% 14%, rgba(231,76,60,0.22), transparent 28%),
+        linear-gradient(160deg, #09131f 0%, #1a2c42 46%, #0f2235 100%);
+    }
+    .cover::before {
+      content: ''; position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px);
+      background-size: 24px 24px;
+    }
+    .inner { position: relative; z-index: 1; height: 100%; padding: 0.34in; display: flex; flex-direction: column; }
+    .logo { width: 1.12in; filter: brightness(0) invert(1); }
+    .hero { margin-top: 0.26in; border-radius: 14px; overflow: hidden; height: 2.2in; box-shadow: 0 16px 34px rgba(0,0,0,0.35); }
+    .hero img { width: 100%; height: 100%; object-fit: cover; opacity: 0.88; }
+    .label { margin-top: 0.26in; color: #3498db; font-size: 7pt; font-weight: 700; letter-spacing: 2.8px; text-transform: uppercase; }
+    h1 { margin-top: 0.1in; font-family: 'Space Grotesk', sans-serif; font-size: 22pt; line-height: 1.05; }
+    .subtitle { margin-top: 0.1in; font-size: 8.5pt; line-height: 1.5; color: rgba(255,255,255,0.84); }
+    .meta { margin-top: 0.2in; display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+    .meta div { border: 1px solid rgba(255,255,255,0.14); border-radius: 12px; padding: 8px 7px; font-size: 6.5pt; text-transform: uppercase; letter-spacing: 1px; text-align: center; color: #aed6f1; }
+    .footer { margin-top: auto; font-size: 7.4pt; line-height: 1.5; color: rgba(255,255,255,0.76); }
+    .footer strong { display: block; font-family: 'Space Grotesk', sans-serif; font-size: 10pt; color: #fff; }
+  </style>
+</head>
+<body>
+  <div class="cover">
+    <div class="inner">
+      <img class="logo" src="../../../hexadigitall-logo-transparent.svg" alt="Hexadigitall">
+      <div class="hero">
+        <img src="./cover-img-dunce-to-midjourney-pro.png" alt="Dunce to Midjourney Pro">
+      </div>
+      <div class="label">AI Image Generation Mastery</div>
+      <h1>Dunce to<br>Midjourney Pro</h1>
+      <p class="subtitle">Prompting, style architecture, surgical editing, and production-ready AI image workflows.</p>
+      <div class="meta">
+        <div>4 phases</div>
+        <div>11 chapters</div>
+        <div>+ Bonus Suite</div>
+      </div>
+      <div class="footer">
+        <strong>Hexadigitall Technologies</strong>
+        From Zero to Commercial-Grade AI Imagery
+      </div>
+    </div>
+  </div>
+</body>
+</html>

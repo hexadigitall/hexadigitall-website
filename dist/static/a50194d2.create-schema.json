@@ -1,0 +1,5447 @@
+[
+  {
+    "fields": [
+      {
+        "initialValue": "Our Services",
+        "description": "The main H1 title of the /services page (e.g., \"Our Services\")",
+        "name": "title",
+        "type": "string",
+        "title": "Page Title"
+      },
+      {
+        "initialValue": "Comprehensive digital solutions tailored to your business growth.",
+        "description": "The subtitle/description appearing below the title.",
+        "name": "description",
+        "type": "text",
+        "title": "Page Description"
+      },
+      {
+        "options": {
+          "hotspot": true
+        },
+        "description": "The large hero background image.",
+        "name": "bannerBackgroundImage",
+        "type": "image"
+      },
+      {
+        "description": "Title used for social media previews (e.g. WhatsApp, LinkedIn). Defaults to Page Title if left empty.",
+        "name": "ogTitle",
+        "type": "string",
+        "title": "Social Share Title"
+      },
+      {
+        "description": "Description used for social media previews. Defaults to Page Description if left empty.",
+        "name": "ogDescription",
+        "type": "text",
+        "title": "Social Share Description"
+      },
+      {
+        "description": "Image used when sharing this page on social media (1200x630px).",
+        "name": "ogImage",
+        "type": "image",
+        "title": "Open Graph Image"
+      }
+    ],
+    "name": "servicesPage",
+    "type": "document",
+    "title": "Main Services Page"
+  },
+  {
+    "fields": [
+      {
+        "name": "title",
+        "type": "string"
+      },
+      {
+        "options": {
+          "source": "title"
+        },
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "custom"
+              }
+            ]
+          }
+        ],
+        "name": "slug",
+        "type": "slug"
+      },
+      {
+        "description": "Order in which this course appears in listings (lower numbers appear first)",
+        "name": "order",
+        "type": "number",
+        "title": "Display Order"
+      },
+      {
+        "to": [
+          {
+            "type": "school"
+          }
+        ],
+        "name": "school",
+        "type": "reference"
+      },
+      {
+        "name": "summary",
+        "type": "text"
+      },
+      {
+        "options": {
+          "hotspot": true
+        },
+        "description": "Banner image for course detail page (recommended: 1920x600)",
+        "name": "bannerBackgroundImage",
+        "type": "image"
+      },
+      {
+        "options": {
+          "list": [
+            {
+              "title": "Mentorship Subscription (Monthly)",
+              "value": "live"
+            },
+            {
+              "title": "Self-Paced (One-time)",
+              "value": "self-paced"
+            }
+          ],
+          "layout": "radio"
+        },
+        "initialValue": "live",
+        "description": "Monthly subscription with flexible scheduling using Regional Pricing (PPP)",
+        "name": "courseType",
+        "type": "string",
+        "title": "Course Pricing Model"
+      },
+      {
+        "description": "Course price in Nigerian Naira for local customers",
+        "hidden": "conditional",
+        "name": "nairaPrice",
+        "type": "number",
+        "title": "Price in Nigerian Naira (₦)"
+      },
+      {
+        "description": "Course price in USD for international customers (used for currency conversion)",
+        "hidden": "conditional",
+        "name": "dollarPrice",
+        "type": "number",
+        "title": "Price in US Dollars ($)"
+      },
+      {
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "custom"
+              }
+            ]
+          }
+        ],
+        "description": "The standard international hourly rate. (No enforced minimum, set as needed for market)",
+        "hidden": "conditional",
+        "name": "hourlyRateUSD",
+        "type": "number",
+        "title": "Hidden Global Rate (USD)"
+      },
+      {
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "custom"
+              }
+            ]
+          }
+        ],
+        "description": "The adjusted PPP rate for Nigeria. (No enforced minimum, set as needed for market)",
+        "hidden": "conditional",
+        "name": "hourlyRateNGN",
+        "type": "number",
+        "title": "Hidden Regional Rate (NGN)"
+      },
+      {
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "custom"
+              }
+            ]
+          }
+        ],
+        "description": "Optional lower hourly rate for mentorship-only subscriptions. Leave empty to auto-discount.",
+        "hidden": "conditional",
+        "name": "mentorshipHourlyRateUSD",
+        "type": "number",
+        "title": "Mentorship-Only Rate (USD)"
+      },
+      {
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "custom"
+              }
+            ]
+          }
+        ],
+        "description": "Optional lower NGN rate for mentorship-only subscriptions. Leave empty to auto-discount.",
+        "hidden": "conditional",
+        "name": "mentorshipHourlyRateNGN",
+        "type": "number",
+        "title": "Mentorship-Only Rate (NGN)"
+      },
+      {
+        "options": {
+          "list": [
+            {
+              "title": "Monthly Recurring (Recommended)",
+              "value": "monthly"
+            },
+            {
+              "title": "Pay-per-Session",
+              "value": "per-session"
+            },
+            {
+              "title": "Package Deal (Multiple months)",
+              "value": "package"
+            }
+          ]
+        },
+        "initialValue": "monthly",
+        "description": "How students will be billed for this course",
+        "name": "billingType",
+        "type": "string"
+      },
+      {
+        "description": "Legacy field - use nairaPrice and dollarPrice instead",
+        "hidden": true,
+        "name": "price",
+        "type": "number",
+        "title": "Legacy Price (NGN) - Deprecated"
+      },
+      {
+        "description": "Brief description of what students will learn (shown on course cards)",
+        "name": "description",
+        "type": "text",
+        "title": "Short Description"
+      },
+      {
+        "of": [
+          {
+            "lists": [
+              {
+                "value": "bullet",
+                "title": "Bulleted list"
+              },
+              {
+                "value": "number",
+                "title": "Numbered list"
+              }
+            ],
+            "marks": {
+              "annotations": [
+                {
+                  "i18nTitleKey": "inputs.portable-text.annotation.link",
+                  "options": {
+                    "modal": {
+                      "type": "popover"
+                    }
+                  },
+                  "fields": [
+                    {
+                      "validation": [
+                        {
+                          "level": "error",
+                          "rules": [
+                            {
+                              "flag": "uri",
+                              "constraint": {
+                                "options": {
+                                  "scheme": [
+                                    "/^http$/",
+                                    "/^https$/",
+                                    "/^tel$/",
+                                    "/^mailto$/"
+                                  ],
+                                  "allowRelative": true,
+                                  "relativeOnly": false,
+                                  "allowCredentials": false
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      ],
+                      "description": "A valid web, email, phone, or relative link.",
+                      "name": "href",
+                      "type": "url",
+                      "title": "Link"
+                    }
+                  ],
+                  "name": "link",
+                  "type": "object"
+                }
+              ],
+              "decorators": [
+                {
+                  "value": "strong",
+                  "title": "Strong"
+                },
+                {
+                  "value": "em",
+                  "title": "Italic"
+                },
+                {
+                  "value": "code",
+                  "title": "Code"
+                },
+                {
+                  "value": "underline",
+                  "title": "Underline"
+                },
+                {
+                  "value": "strike-through",
+                  "title": "Strike"
+                }
+              ]
+            },
+            "of": [],
+            "styles": [
+              {
+                "value": "normal",
+                "title": "Normal"
+              },
+              {
+                "value": "h1",
+                "title": "Heading 1"
+              },
+              {
+                "value": "h2",
+                "title": "Heading 2"
+              },
+              {
+                "value": "h3",
+                "title": "Heading 3"
+              },
+              {
+                "value": "h4",
+                "title": "Heading 4"
+              },
+              {
+                "value": "h5",
+                "title": "Heading 5"
+              },
+              {
+                "value": "h6",
+                "title": "Heading 6"
+              },
+              {
+                "value": "blockquote",
+                "title": "Quote"
+              }
+            ],
+            "type": "block"
+          }
+        ],
+        "name": "body",
+        "type": "array",
+        "title": "Full Description"
+      },
+      {
+        "options": {
+          "hotspot": true
+        },
+        "name": "mainImage",
+        "type": "image",
+        "title": "Course Image"
+      },
+      {
+        "initialValue": 8,
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "min",
+                "constraint": 4
+              },
+              {
+                "flag": "max",
+                "constraint": 24
+              }
+            ]
+          }
+        ],
+        "description": "Professional recommendation: Beginner (4-8 weeks), Intermediate (8-12 weeks), Advanced (12-16 weeks), Certification (16-24 weeks)",
+        "name": "durationWeeks",
+        "type": "number",
+        "title": "Duration in Weeks"
+      },
+      {
+        "initialValue": 2,
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "min",
+                "constraint": 1
+              },
+              {
+                "flag": "max",
+                "constraint": 10
+              }
+            ]
+          }
+        ],
+        "description": "Default recommendation for course completion",
+        "name": "hoursPerWeek",
+        "type": "number",
+        "title": "Recommended Hours per Week"
+      },
+      {
+        "description": "Display text for course duration",
+        "name": "duration",
+        "type": "string",
+        "title": "Duration Display Text"
+      },
+      {
+        "options": {
+          "list": [
+            {
+              "title": "Beginner",
+              "value": "Beginner"
+            },
+            {
+              "title": "Intermediate",
+              "value": "Intermediate"
+            },
+            {
+              "title": "Advanced",
+              "value": "Advanced"
+            },
+            {
+              "title": "All Levels",
+              "value": "All Levels"
+            }
+          ]
+        },
+        "initialValue": "Intermediate",
+        "name": "level",
+        "type": "string",
+        "title": "Course Level"
+      },
+      {
+        "description": "The main instructor for this course",
+        "name": "instructor",
+        "type": "string",
+        "title": "Instructor Name"
+      },
+      {
+        "description": "List of prerequisites for this course",
+        "of": [
+          {
+            "type": "string"
+          }
+        ],
+        "name": "prerequisites",
+        "type": "array"
+      },
+      {
+        "description": "Maximum number of students per live session (leave empty for unlimited)",
+        "name": "maxStudents",
+        "type": "number",
+        "title": "Maximum Students per Session"
+      },
+      {
+        "initialValue": 8,
+        "name": "modules",
+        "type": "number",
+        "title": "Number of Modules"
+      },
+      {
+        "initialValue": 24,
+        "name": "lessons",
+        "type": "number",
+        "title": "Total Lessons"
+      },
+      {
+        "initialValue": [
+          "Live one-on-one or small group sessions",
+          "Personalized learning path",
+          "Direct access to instructor",
+          "Flexible scheduling",
+          "Certificate of completion",
+          "Downloadable resources"
+        ],
+        "description": "List of what students get with this course",
+        "of": [
+          {
+            "type": "string"
+          }
+        ],
+        "name": "includes",
+        "type": "array",
+        "title": "What's Included"
+      },
+      {
+        "initialValue": true,
+        "description": "Whether students receive a certificate upon completion",
+        "name": "certificate",
+        "type": "boolean",
+        "title": "Certificate Available"
+      },
+      {
+        "initialValue": false,
+        "description": "Whether this course should be featured on the homepage",
+        "name": "featured",
+        "type": "boolean",
+        "title": "Featured Course"
+      },
+      {
+        "options": {
+          "accept": ".pdf"
+        },
+        "description": "Downloadable course content/curriculum PDF for enrolled students and assigned teachers",
+        "name": "contentPdf",
+        "type": "file",
+        "title": "Course Content PDF"
+      },
+      {
+        "options": {
+          "accept": ".pdf"
+        },
+        "description": "Downloadable learning roadmap PDF for enrolled students and assigned teachers",
+        "name": "roadmapPdf",
+        "type": "file",
+        "title": "Course Roadmap PDF"
+      },
+      {
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "custom"
+              }
+            ]
+          }
+        ],
+        "description": "Teachers assigned to teach this course",
+        "of": [
+          {
+            "to": [
+              {
+                "type": "user"
+              }
+            ],
+            "type": "reference",
+            "title": "Reference to user"
+          }
+        ],
+        "name": "assignedTeachers",
+        "type": "array"
+      },
+      {
+        "description": "Audit history for teacher course assignment updates",
+        "of": [
+          {
+            "fields": [
+              {
+                "name": "teacherId",
+                "type": "string",
+                "title": "Teacher ID"
+              },
+              {
+                "options": {
+                  "list": [
+                    {
+                      "title": "Assigned",
+                      "value": "assigned"
+                    },
+                    {
+                      "title": "Removed",
+                      "value": "removed"
+                    }
+                  ]
+                },
+                "name": "action",
+                "type": "string"
+              },
+              {
+                "name": "changedByUserId",
+                "type": "string",
+                "title": "Changed By User ID"
+              },
+              {
+                "name": "changedByUsername",
+                "type": "string"
+              },
+              {
+                "name": "changedAt",
+                "type": "datetime"
+              }
+            ],
+            "type": "object"
+          }
+        ],
+        "name": "assignmentAuditTrail",
+        "type": "array"
+      },
+      {
+        "initialValue": [
+          "WAT",
+          "ET"
+        ],
+        "description": "Time zones instructor is available for live sessions",
+        "of": [
+          {
+            "options": {
+              "list": [
+                {
+                  "title": "West Africa Time (WAT)",
+                  "value": "WAT"
+                },
+                {
+                  "title": "Eastern Time (ET)",
+                  "value": "ET"
+                },
+                {
+                  "title": "Central Time (CT)",
+                  "value": "CT"
+                },
+                {
+                  "title": "Pacific Time (PT)",
+                  "value": "PT"
+                },
+                {
+                  "title": "Greenwich Mean Time (GMT)",
+                  "value": "GMT"
+                },
+                {
+                  "title": "Central European Time (CET)",
+                  "value": "CET"
+                }
+              ]
+            },
+            "type": "string"
+          }
+        ],
+        "name": "timeZones",
+        "type": "array",
+        "title": "Available Time Zones"
+      },
+      {
+        "initialValue": [
+          "one-on-one",
+          "small-group"
+        ],
+        "description": "Available formats for live sessions",
+        "of": [
+          {
+            "options": {
+              "list": [
+                {
+                  "title": "One-on-One",
+                  "value": "one-on-one"
+                },
+                {
+                  "title": "Small Group (2-4 students)",
+                  "value": "small-group"
+                },
+                {
+                  "title": "Group Session (5-8 students)",
+                  "value": "group"
+                }
+              ]
+            },
+            "type": "string"
+          }
+        ],
+        "name": "sessionFormats",
+        "type": "array",
+        "title": "Available Session Formats"
+      },
+      {
+        "description": "Open Graph title for social sharing",
+        "name": "ogTitle",
+        "type": "string",
+        "title": "OG Title"
+      },
+      {
+        "description": "Open Graph description for social sharing",
+        "name": "ogDescription",
+        "type": "string",
+        "title": "OG Description"
+      },
+      {
+        "options": {
+          "hotspot": true
+        },
+        "description": "Open Graph image for social sharing",
+        "name": "ogImage",
+        "type": "image",
+        "title": "OG Image"
+      },
+      {
+        "description": "SEO metadata for this course",
+        "fields": [
+          {
+            "name": "title",
+            "type": "string",
+            "title": "SEO Title"
+          },
+          {
+            "name": "description",
+            "type": "string",
+            "title": "SEO Description"
+          },
+          {
+            "options": {
+              "hotspot": true
+            },
+            "name": "image",
+            "type": "image",
+            "title": "SEO Image"
+          },
+          {
+            "validation": [
+              {
+                "level": "error",
+                "rules": [
+                  {
+                    "flag": "uri",
+                    "constraint": {
+                      "options": {
+                        "scheme": [
+                          "/^http$/",
+                          "/^https$/"
+                        ],
+                        "allowRelative": false,
+                        "relativeOnly": false,
+                        "allowCredentials": false
+                      }
+                    }
+                  }
+                ]
+              }
+            ],
+            "name": "url",
+            "type": "url",
+            "title": "SEO URL"
+          }
+        ],
+        "name": "seo",
+        "type": "object",
+        "title": "SEO Metadata"
+      },
+      {
+        "description": "Legacy field - data migrating to modules/lessons/duration fields",
+        "fields": [
+          {
+            "name": "duration",
+            "type": "string"
+          },
+          {
+            "name": "lessons",
+            "type": "number"
+          },
+          {
+            "name": "modules",
+            "type": "number"
+          }
+        ],
+        "hidden": true,
+        "name": "curriculum",
+        "type": "object",
+        "title": "Curriculum (Legacy)"
+      },
+      {
+        "description": "Legacy scheduling constraints - superseded by flexible hourly model",
+        "fields": [
+          {
+            "fields": [
+              {
+                "name": "min",
+                "type": "number"
+              },
+              {
+                "name": "max",
+                "type": "number"
+              },
+              {
+                "name": "default",
+                "type": "number"
+              }
+            ],
+            "name": "sessionsPerWeek",
+            "type": "object"
+          },
+          {
+            "fields": [
+              {
+                "name": "min",
+                "type": "number"
+              },
+              {
+                "name": "max",
+                "type": "number"
+              },
+              {
+                "name": "default",
+                "type": "number"
+              }
+            ],
+            "name": "hoursPerSession",
+            "type": "object"
+          },
+          {
+            "name": "totalHoursLimit",
+            "type": "number"
+          }
+        ],
+        "hidden": true,
+        "name": "monthlyScheduling",
+        "type": "object",
+        "title": "Monthly Scheduling (Legacy)"
+      }
+    ],
+    "name": "course",
+    "type": "document"
+  },
+  {
+    "fields": [
+      {
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ]
+          }
+        ],
+        "name": "title",
+        "type": "string"
+      },
+      {
+        "options": {
+          "source": "title"
+        },
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "custom"
+              },
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ]
+          }
+        ],
+        "name": "slug",
+        "type": "slug"
+      },
+      {
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ]
+          }
+        ],
+        "to": [
+          {
+            "type": "course"
+          }
+        ],
+        "name": "course",
+        "type": "reference",
+        "title": "Linked Course"
+      },
+      {
+        "rows": 3,
+        "name": "summary",
+        "type": "text"
+      },
+      {
+        "rows": 3,
+        "name": "heroSummary",
+        "type": "text"
+      },
+      {
+        "of": [
+          {
+            "type": "string"
+          }
+        ],
+        "name": "heroTags",
+        "type": "array"
+      },
+      {
+        "name": "duration",
+        "type": "string"
+      },
+      {
+        "name": "level",
+        "type": "string"
+      },
+      {
+        "name": "studyTime",
+        "type": "string"
+      },
+      {
+        "name": "schoolName",
+        "type": "string"
+      },
+      {
+        "name": "welcomeTitle",
+        "type": "string",
+        "title": "Welcome Heading"
+      },
+      {
+        "of": [
+          {
+            "type": "text"
+          }
+        ],
+        "name": "welcomeMessages",
+        "type": "array",
+        "title": "Welcome Paragraphs"
+      },
+      {
+        "of": [
+          {
+            "type": "string"
+          }
+        ],
+        "name": "prerequisites",
+        "type": "array"
+      },
+      {
+        "of": [
+          {
+            "fields": [
+              {
+                "validation": [
+                  {
+                    "level": "error",
+                    "rules": [
+                      {
+                        "flag": "presence",
+                        "constraint": "required"
+                      }
+                    ]
+                  }
+                ],
+                "name": "title",
+                "type": "string"
+              },
+              {
+                "rows": 2,
+                "name": "description",
+                "type": "text"
+              }
+            ],
+            "type": "object"
+          }
+        ],
+        "name": "complementaryCourses",
+        "type": "array"
+      },
+      {
+        "of": [
+          {
+            "type": "string"
+          }
+        ],
+        "name": "essentialResources",
+        "type": "array"
+      },
+      {
+        "of": [
+          {
+            "type": "string"
+          }
+        ],
+        "name": "learningRoadmap",
+        "type": "array"
+      },
+      {
+        "of": [
+          {
+            "fields": [
+              {
+                "validation": [
+                  {
+                    "level": "error",
+                    "rules": [
+                      {
+                        "flag": "presence",
+                        "constraint": "required"
+                      },
+                      {
+                        "flag": "min",
+                        "constraint": 1
+                      }
+                    ]
+                  }
+                ],
+                "name": "weekNumber",
+                "type": "number"
+              },
+              {
+                "name": "duration",
+                "type": "string"
+              },
+              {
+                "validation": [
+                  {
+                    "level": "error",
+                    "rules": [
+                      {
+                        "flag": "presence",
+                        "constraint": "required"
+                      }
+                    ]
+                  }
+                ],
+                "name": "topic",
+                "type": "string"
+              },
+              {
+                "of": [
+                  {
+                    "type": "string"
+                  }
+                ],
+                "name": "outcomes",
+                "type": "array",
+                "title": "Learning Outcomes"
+              },
+              {
+                "name": "labTitle",
+                "type": "string"
+              },
+              {
+                "of": [
+                  {
+                    "type": "string"
+                  }
+                ],
+                "name": "labItems",
+                "type": "array"
+              }
+            ],
+            "type": "object"
+          }
+        ],
+        "name": "weeks",
+        "type": "array",
+        "title": "Weekly Curriculum"
+      },
+      {
+        "of": [
+          {
+            "fields": [
+              {
+                "validation": [
+                  {
+                    "level": "error",
+                    "rules": [
+                      {
+                        "flag": "presence",
+                        "constraint": "required"
+                      }
+                    ]
+                  }
+                ],
+                "name": "title",
+                "type": "string"
+              },
+              {
+                "rows": 2,
+                "name": "description",
+                "type": "text"
+              },
+              {
+                "of": [
+                  {
+                    "type": "string"
+                  }
+                ],
+                "name": "deliverables",
+                "type": "array"
+              }
+            ],
+            "type": "object"
+          }
+        ],
+        "name": "capstoneProjects",
+        "type": "array"
+      },
+      {
+        "readOnly": true,
+        "name": "sourceHtmlFile",
+        "type": "string",
+        "title": "Source HTML File"
+      },
+      {
+        "readOnly": true,
+        "name": "importedAt",
+        "type": "datetime"
+      }
+    ],
+    "name": "curriculum",
+    "type": "document"
+  },
+  {
+    "fields": [
+      {
+        "name": "title",
+        "type": "string"
+      },
+      {
+        "options": {
+          "source": "title"
+        },
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "custom"
+              }
+            ]
+          }
+        ],
+        "name": "slug",
+        "type": "slug"
+      },
+      {
+        "description": "Order in which this school appears (lower numbers first)",
+        "name": "order",
+        "type": "number",
+        "title": "Display Order"
+      },
+      {
+        "name": "description",
+        "type": "text"
+      },
+      {
+        "initialValue": "default",
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ]
+          }
+        ],
+        "description": "Icon name for this school (e.g. code, chart, settings, network, default)",
+        "name": "icon",
+        "type": "string"
+      },
+      {
+        "options": {
+          "hotspot": true
+        },
+        "description": "Banner image for school detail page (recommended: 1920x600)",
+        "name": "bannerBackgroundImage",
+        "type": "image"
+      },
+      {
+        "options": {
+          "hotspot": true
+        },
+        "description": "Image for sharing this school (1200x630 recommended).",
+        "name": "ogImage",
+        "type": "image",
+        "title": "Open Graph Image"
+      },
+      {
+        "name": "ogTitle",
+        "type": "string",
+        "title": "Open Graph Title"
+      },
+      {
+        "name": "ogDescription",
+        "type": "text",
+        "title": "Open Graph Description"
+      }
+    ],
+    "name": "school",
+    "type": "document"
+  },
+  {
+    "fields": [
+      {
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ]
+          }
+        ],
+        "to": [
+          {
+            "type": "course"
+          }
+        ],
+        "name": "courseId",
+        "type": "reference",
+        "title": "Course"
+      },
+      {
+        "options": {
+          "list": [
+            {
+              "title": "Self-Paced",
+              "value": "self-paced"
+            },
+            {
+              "title": "Live Sessions",
+              "value": "live"
+            }
+          ]
+        },
+        "initialValue": "self-paced",
+        "name": "courseType",
+        "type": "string"
+      },
+      {
+        "description": "Link to student user account (if enrolled via login)",
+        "to": [
+          {
+            "type": "user"
+          }
+        ],
+        "name": "studentId",
+        "type": "reference",
+        "title": "Student User"
+      },
+      {
+        "description": "Teacher assigned to this enrollment (primarily for live courses)",
+        "to": [
+          {
+            "type": "user"
+          }
+        ],
+        "hidden": "conditional",
+        "name": "teacherId",
+        "type": "reference",
+        "title": "Assigned Teacher"
+      },
+      {
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ]
+          }
+        ],
+        "name": "studentName",
+        "type": "string"
+      },
+      {
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ]
+          }
+        ],
+        "name": "studentEmail",
+        "type": "string"
+      },
+      {
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ]
+          }
+        ],
+        "name": "studentPhone",
+        "type": "string"
+      },
+      {
+        "options": {
+          "list": [
+            {
+              "title": "Complete Beginner",
+              "value": "beginner"
+            },
+            {
+              "title": "Some Experience",
+              "value": "some-experience"
+            },
+            {
+              "title": "Intermediate",
+              "value": "intermediate"
+            },
+            {
+              "title": "Advanced",
+              "value": "advanced"
+            }
+          ]
+        },
+        "name": "experience",
+        "type": "string",
+        "title": "Experience Level"
+      },
+      {
+        "rows": 3,
+        "name": "goals",
+        "type": "text",
+        "title": "Learning Goals"
+      },
+      {
+        "description": "Student's preferred schedule for live sessions",
+        "hidden": "conditional",
+        "name": "preferredSchedule",
+        "type": "text"
+      },
+      {
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "min",
+                "constraint": 0
+              },
+              {
+                "flag": "min",
+                "constraint": 1
+              },
+              {
+                "flag": "max",
+                "constraint": 21
+              }
+            ]
+          }
+        ],
+        "hidden": "conditional",
+        "name": "hoursPerWeek",
+        "type": "number",
+        "title": "Hours per Week"
+      },
+      {
+        "options": {
+          "list": [
+            {
+              "title": "One-on-One",
+              "value": "one-on-one"
+            },
+            {
+              "title": "Small Group (2-4)",
+              "value": "small-group"
+            },
+            {
+              "title": "Group Session (5-8)",
+              "value": "group"
+            }
+          ]
+        },
+        "hidden": "conditional",
+        "name": "sessionFormat",
+        "type": "string"
+      },
+      {
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "min",
+                "constraint": 0
+              }
+            ]
+          }
+        ],
+        "hidden": "conditional",
+        "name": "totalHours",
+        "type": "number",
+        "title": "Total Hours per Month"
+      },
+      {
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "min",
+                "constraint": 0
+              }
+            ]
+          }
+        ],
+        "hidden": "conditional",
+        "name": "monthlyAmount",
+        "type": "number",
+        "title": "Monthly Amount (in cents/kobo)"
+      },
+      {
+        "hidden": "conditional",
+        "name": "nextSessionDate",
+        "type": "datetime"
+      },
+      {
+        "initialValue": 0,
+        "hidden": "conditional",
+        "name": "totalSessionsCompleted",
+        "type": "number",
+        "title": "Sessions Completed"
+      },
+      {
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ]
+          }
+        ],
+        "name": "enrolledAt",
+        "type": "datetime",
+        "title": "Enrollment Date"
+      },
+      {
+        "options": {
+          "list": [
+            {
+              "title": "Pending",
+              "value": "pending"
+            },
+            {
+              "title": "Completed",
+              "value": "completed"
+            },
+            {
+              "title": "Failed",
+              "value": "failed"
+            },
+            {
+              "title": "Refunded",
+              "value": "refunded"
+            },
+            {
+              "title": "Active Subscription",
+              "value": "active"
+            },
+            {
+              "title": "Cancelled",
+              "value": "cancelled"
+            }
+          ]
+        },
+        "initialValue": "pending",
+        "name": "paymentStatus",
+        "type": "string"
+      },
+      {
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ]
+          }
+        ],
+        "name": "stripeSessionId",
+        "type": "string",
+        "title": "Stripe Session ID"
+      },
+      {
+        "name": "stripeCustomerId",
+        "type": "string",
+        "title": "Stripe Customer ID"
+      },
+      {
+        "description": "For live courses with recurring payments",
+        "hidden": "conditional",
+        "name": "stripeSubscriptionId",
+        "type": "string",
+        "title": "Stripe Subscription ID"
+      },
+      {
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              },
+              {
+                "flag": "min",
+                "constraint": 0
+              }
+            ]
+          }
+        ],
+        "name": "amount",
+        "type": "number",
+        "title": "Amount Paid (in cents/kobo)"
+      },
+      {
+        "options": {
+          "list": [
+            {
+              "title": "Nigerian Naira",
+              "value": "NGN"
+            },
+            {
+              "title": "US Dollar",
+              "value": "USD"
+            }
+          ]
+        },
+        "initialValue": "NGN",
+        "name": "currency",
+        "type": "string"
+      },
+      {
+        "initialValue": false,
+        "name": "courseAccessGranted",
+        "type": "boolean"
+      },
+      {
+        "description": "Audit history for manual access grants and revocations",
+        "of": [
+          {
+            "fields": [
+              {
+                "options": {
+                  "list": [
+                    {
+                      "title": "Granted",
+                      "value": "granted"
+                    },
+                    {
+                      "title": "Revoked",
+                      "value": "revoked"
+                    }
+                  ]
+                },
+                "name": "action",
+                "type": "string"
+              },
+              {
+                "name": "courseId",
+                "type": "string",
+                "title": "Course ID"
+              },
+              {
+                "name": "changedByUserId",
+                "type": "string",
+                "title": "Changed By User ID"
+              },
+              {
+                "name": "changedByUsername",
+                "type": "string"
+              },
+              {
+                "name": "changedAt",
+                "type": "datetime"
+              }
+            ],
+            "type": "object"
+          }
+        ],
+        "name": "accessAuditTrail",
+        "type": "array"
+      },
+      {
+        "initialValue": false,
+        "name": "certificateIssued",
+        "type": "boolean"
+      },
+      {
+        "initialValue": true,
+        "description": "For live courses - whether the student is still actively taking sessions",
+        "hidden": "conditional",
+        "name": "isActive",
+        "type": "boolean",
+        "title": "Active Enrollment"
+      },
+      {
+        "hidden": "conditional",
+        "name": "lastSessionDate",
+        "type": "datetime"
+      },
+      {
+        "description": "When the monthly subscription expires. Set to 30 days from enrollment for monthly plans.",
+        "name": "expiryDate",
+        "type": "datetime",
+        "title": "Subscription Expiry Date"
+      },
+      {
+        "description": "Unique Paystack transaction reference for tracking payments",
+        "name": "paystackReference",
+        "type": "string",
+        "title": "Paystack Payment Reference"
+      },
+      {
+        "description": "Track all monthly renewal payments",
+        "of": [
+          {
+            "fields": [
+              {
+                "name": "renewalDate",
+                "type": "datetime"
+              },
+              {
+                "name": "paystackReference",
+                "type": "string"
+              },
+              {
+                "name": "amount",
+                "type": "number"
+              }
+            ],
+            "type": "object"
+          }
+        ],
+        "name": "renewalHistory",
+        "type": "array"
+      },
+      {
+        "options": {
+          "accept": ".pdf"
+        },
+        "description": "Stable PDF snapshot of the curriculum generated for this enrollment",
+        "name": "curriculumPdf",
+        "type": "file",
+        "title": "Saved Curriculum PDF"
+      },
+      {
+        "readOnly": true,
+        "name": "curriculumPdfGeneratedAt",
+        "type": "datetime",
+        "title": "Curriculum PDF Generated At"
+      },
+      {
+        "readOnly": true,
+        "name": "curriculumSlugSnapshot",
+        "type": "string"
+      }
+    ],
+    "name": "enrollment",
+    "type": "document",
+    "title": "Course Enrollment"
+  },
+  {
+    "fields": [
+      {
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ]
+          }
+        ],
+        "to": [
+          {
+            "type": "course"
+          }
+        ],
+        "name": "courseId",
+        "type": "reference",
+        "title": "Course"
+      },
+      {
+        "options": {
+          "list": [
+            {
+              "title": "Self-Paced",
+              "value": "self-paced"
+            },
+            {
+              "title": "Live Sessions",
+              "value": "live"
+            }
+          ]
+        },
+        "initialValue": "self-paced",
+        "name": "courseType",
+        "type": "string"
+      },
+      {
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ]
+          }
+        ],
+        "name": "studentName",
+        "type": "string"
+      },
+      {
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ]
+          }
+        ],
+        "name": "studentEmail",
+        "type": "string"
+      },
+      {
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ]
+          }
+        ],
+        "name": "studentPhone",
+        "type": "string"
+      },
+      {
+        "options": {
+          "list": [
+            {
+              "title": "Complete Beginner",
+              "value": "beginner"
+            },
+            {
+              "title": "Some Experience",
+              "value": "some-experience"
+            },
+            {
+              "title": "Intermediate",
+              "value": "intermediate"
+            },
+            {
+              "title": "Advanced",
+              "value": "advanced"
+            }
+          ]
+        },
+        "name": "experience",
+        "type": "string",
+        "title": "Experience Level"
+      },
+      {
+        "rows": 3,
+        "name": "goals",
+        "type": "text",
+        "title": "Learning Goals"
+      },
+      {
+        "description": "Student's preferred schedule for live sessions",
+        "hidden": "conditional",
+        "name": "preferredSchedule",
+        "type": "text"
+      },
+      {
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "min",
+                "constraint": 0
+              },
+              {
+                "flag": "min",
+                "constraint": 1
+              },
+              {
+                "flag": "max",
+                "constraint": 21
+              }
+            ]
+          }
+        ],
+        "hidden": "conditional",
+        "name": "hoursPerWeek",
+        "type": "number",
+        "title": "Hours per Week"
+      },
+      {
+        "initialValue": 4,
+        "hidden": "conditional",
+        "name": "weeksPerMonth",
+        "type": "number",
+        "title": "Weeks per Month"
+      },
+      {
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "min",
+                "constraint": 0
+              }
+            ]
+          }
+        ],
+        "hidden": "conditional",
+        "name": "totalHours",
+        "type": "number",
+        "title": "Total Hours per Month"
+      },
+      {
+        "options": {
+          "list": [
+            {
+              "title": "One-on-One",
+              "value": "one-on-one"
+            },
+            {
+              "title": "Small Group (2-4)",
+              "value": "small-group"
+            },
+            {
+              "title": "Group Session (5-8)",
+              "value": "group"
+            }
+          ]
+        },
+        "hidden": "conditional",
+        "name": "sessionFormat",
+        "type": "string"
+      },
+      {
+        "options": {
+          "list": [
+            {
+              "title": "Nigerian Naira",
+              "value": "NGN"
+            },
+            {
+              "title": "US Dollar",
+              "value": "USD"
+            }
+          ]
+        },
+        "hidden": "conditional",
+        "name": "pricingCurrency",
+        "type": "string",
+        "title": "Currency"
+      },
+      {
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "min",
+                "constraint": 0
+              }
+            ]
+          }
+        ],
+        "hidden": "conditional",
+        "name": "hourlyRate",
+        "type": "number"
+      },
+      {
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "min",
+                "constraint": 0
+              }
+            ]
+          }
+        ],
+        "hidden": "conditional",
+        "name": "totalMonthlyPrice",
+        "type": "number"
+      },
+      {
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ]
+          }
+        ],
+        "name": "stripeSessionId",
+        "type": "string",
+        "title": "Stripe Session ID"
+      },
+      {
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              },
+              {
+                "flag": "min",
+                "constraint": 0
+              }
+            ]
+          }
+        ],
+        "name": "amount",
+        "type": "number",
+        "title": "Amount (in cents/kobo)"
+      },
+      {
+        "options": {
+          "list": [
+            {
+              "title": "Nigerian Naira",
+              "value": "NGN"
+            },
+            {
+              "title": "US Dollar",
+              "value": "USD"
+            }
+          ]
+        },
+        "initialValue": "NGN",
+        "name": "currency",
+        "type": "string"
+      },
+      {
+        "options": {
+          "list": [
+            {
+              "title": "Pending",
+              "value": "pending"
+            },
+            {
+              "title": "Confirmed",
+              "value": "confirmed"
+            },
+            {
+              "title": "Failed",
+              "value": "failed"
+            },
+            {
+              "title": "Expired",
+              "value": "expired"
+            }
+          ]
+        },
+        "initialValue": "pending",
+        "name": "status",
+        "type": "string"
+      },
+      {
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ]
+          }
+        ],
+        "name": "createdAt",
+        "type": "datetime"
+      },
+      {
+        "description": "When this pending enrollment expires (usually 24 hours after creation)",
+        "name": "expiresAt",
+        "type": "datetime"
+      }
+    ],
+    "name": "pendingEnrollment",
+    "type": "document",
+    "title": "Pending Course Enrollment"
+  },
+  {
+    "fields": [
+      {
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ]
+          }
+        ],
+        "name": "question",
+        "type": "string"
+      },
+      {
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ]
+          }
+        ],
+        "of": [
+          {
+            "lists": [
+              {
+                "value": "bullet",
+                "title": "Bulleted list"
+              },
+              {
+                "value": "number",
+                "title": "Numbered list"
+              }
+            ],
+            "marks": {
+              "annotations": [
+                {
+                  "i18nTitleKey": "inputs.portable-text.annotation.link",
+                  "options": {
+                    "modal": {
+                      "type": "popover"
+                    }
+                  },
+                  "fields": [
+                    {
+                      "validation": [
+                        {
+                          "level": "error",
+                          "rules": [
+                            {
+                              "flag": "uri",
+                              "constraint": {
+                                "options": {
+                                  "scheme": [
+                                    "/^http$/",
+                                    "/^https$/",
+                                    "/^tel$/",
+                                    "/^mailto$/"
+                                  ],
+                                  "allowRelative": true,
+                                  "relativeOnly": false,
+                                  "allowCredentials": false
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      ],
+                      "description": "A valid web, email, phone, or relative link.",
+                      "name": "href",
+                      "type": "url",
+                      "title": "Link"
+                    }
+                  ],
+                  "name": "link",
+                  "type": "object"
+                }
+              ],
+              "decorators": [
+                {
+                  "value": "strong",
+                  "title": "Strong"
+                },
+                {
+                  "value": "em",
+                  "title": "Italic"
+                },
+                {
+                  "value": "code",
+                  "title": "Code"
+                },
+                {
+                  "value": "underline",
+                  "title": "Underline"
+                },
+                {
+                  "value": "strike-through",
+                  "title": "Strike"
+                }
+              ]
+            },
+            "of": [],
+            "styles": [
+              {
+                "value": "normal",
+                "title": "Normal"
+              },
+              {
+                "value": "h1",
+                "title": "Heading 1"
+              },
+              {
+                "value": "h2",
+                "title": "Heading 2"
+              },
+              {
+                "value": "h3",
+                "title": "Heading 3"
+              },
+              {
+                "value": "h4",
+                "title": "Heading 4"
+              },
+              {
+                "value": "h5",
+                "title": "Heading 5"
+              },
+              {
+                "value": "h6",
+                "title": "Heading 6"
+              },
+              {
+                "value": "blockquote",
+                "title": "Quote"
+              }
+            ],
+            "type": "block"
+          }
+        ],
+        "name": "answer",
+        "type": "array"
+      },
+      {
+        "options": {
+          "list": [
+            {
+              "title": "General",
+              "value": "general"
+            },
+            {
+              "title": "Services",
+              "value": "services"
+            },
+            {
+              "title": "Pricing",
+              "value": "pricing"
+            },
+            {
+              "title": "Process",
+              "value": "process"
+            }
+          ],
+          "layout": "radio"
+        },
+        "name": "category",
+        "type": "string"
+      }
+    ],
+    "name": "faq",
+    "type": "document",
+    "title": "FAQ"
+  },
+  {
+    "fields": [
+      {
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ]
+          }
+        ],
+        "name": "title",
+        "type": "string"
+      },
+      {
+        "options": {
+          "source": "title",
+          "maxLength": 96
+        },
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "custom"
+              },
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ]
+          }
+        ],
+        "name": "slug",
+        "type": "slug"
+      },
+      {
+        "name": "publishedAt",
+        "type": "datetime",
+        "title": "Published at"
+      },
+      {
+        "options": {
+          "list": [
+            {
+              "title": "Tech Teaching",
+              "value": "tech"
+            },
+            {
+              "title": "Business Decisions",
+              "value": "business"
+            },
+            {
+              "title": "Marketing Tips",
+              "value": "marketing"
+            },
+            {
+              "title": "Content Strategy",
+              "value": "content"
+            }
+          ],
+          "layout": "tags"
+        },
+        "of": [
+          {
+            "type": "string"
+          }
+        ],
+        "name": "categories",
+        "type": "array"
+      },
+      {
+        "options": {
+          "hotspot": true
+        },
+        "name": "mainImage",
+        "type": "image",
+        "title": "Main image"
+      },
+      {
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ]
+          }
+        ],
+        "of": [
+          {
+            "lists": [
+              {
+                "value": "bullet",
+                "title": "Bulleted list"
+              },
+              {
+                "value": "number",
+                "title": "Numbered list"
+              }
+            ],
+            "marks": {
+              "annotations": [
+                {
+                  "i18nTitleKey": "inputs.portable-text.annotation.link",
+                  "options": {
+                    "modal": {
+                      "type": "popover"
+                    }
+                  },
+                  "fields": [
+                    {
+                      "validation": [
+                        {
+                          "level": "error",
+                          "rules": [
+                            {
+                              "flag": "uri",
+                              "constraint": {
+                                "options": {
+                                  "scheme": [
+                                    "/^http$/",
+                                    "/^https$/",
+                                    "/^tel$/",
+                                    "/^mailto$/"
+                                  ],
+                                  "allowRelative": true,
+                                  "relativeOnly": false,
+                                  "allowCredentials": false
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      ],
+                      "description": "A valid web, email, phone, or relative link.",
+                      "name": "href",
+                      "type": "url",
+                      "title": "Link"
+                    }
+                  ],
+                  "name": "link",
+                  "type": "object"
+                }
+              ],
+              "decorators": [
+                {
+                  "value": "strong",
+                  "title": "Strong"
+                },
+                {
+                  "value": "em",
+                  "title": "Italic"
+                },
+                {
+                  "value": "code",
+                  "title": "Code"
+                },
+                {
+                  "value": "underline",
+                  "title": "Underline"
+                },
+                {
+                  "value": "strike-through",
+                  "title": "Strike"
+                }
+              ]
+            },
+            "of": [],
+            "styles": [
+              {
+                "value": "normal",
+                "title": "Normal"
+              },
+              {
+                "value": "h1",
+                "title": "Heading 1"
+              },
+              {
+                "value": "h2",
+                "title": "Heading 2"
+              },
+              {
+                "value": "h3",
+                "title": "Heading 3"
+              },
+              {
+                "value": "h4",
+                "title": "Heading 4"
+              },
+              {
+                "value": "h5",
+                "title": "Heading 5"
+              },
+              {
+                "value": "h6",
+                "title": "Heading 6"
+              },
+              {
+                "value": "blockquote",
+                "title": "Quote"
+              }
+            ],
+            "type": "block"
+          }
+        ],
+        "name": "body",
+        "type": "array"
+      }
+    ],
+    "name": "post",
+    "type": "document",
+    "title": "Blog Post"
+  },
+  {
+    "fields": [
+      {
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ]
+          }
+        ],
+        "name": "title",
+        "type": "string",
+        "title": "Project Title / Client Name"
+      },
+      {
+        "options": {
+          "source": "title",
+          "maxLength": 96
+        },
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "custom"
+              },
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ]
+          }
+        ],
+        "name": "slug",
+        "type": "slug"
+      },
+      {
+        "name": "industry",
+        "type": "string",
+        "title": "Client Industry"
+      },
+      {
+        "description": "Brief description of the project",
+        "name": "description",
+        "type": "text",
+        "title": "Project Description"
+      },
+      {
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ]
+          }
+        ],
+        "name": "projectGoal",
+        "type": "text",
+        "title": "Project Goal / The Challenge"
+      },
+      {
+        "description": "The services provided by Hexadigitall.",
+        "of": [
+          {
+            "lists": [
+              {
+                "value": "bullet",
+                "title": "Bulleted list"
+              },
+              {
+                "value": "number",
+                "title": "Numbered list"
+              }
+            ],
+            "marks": {
+              "annotations": [
+                {
+                  "i18nTitleKey": "inputs.portable-text.annotation.link",
+                  "options": {
+                    "modal": {
+                      "type": "popover"
+                    }
+                  },
+                  "fields": [
+                    {
+                      "validation": [
+                        {
+                          "level": "error",
+                          "rules": [
+                            {
+                              "flag": "uri",
+                              "constraint": {
+                                "options": {
+                                  "scheme": [
+                                    "/^http$/",
+                                    "/^https$/",
+                                    "/^tel$/",
+                                    "/^mailto$/"
+                                  ],
+                                  "allowRelative": true,
+                                  "relativeOnly": false,
+                                  "allowCredentials": false
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      ],
+                      "description": "A valid web, email, phone, or relative link.",
+                      "name": "href",
+                      "type": "url",
+                      "title": "Link"
+                    }
+                  ],
+                  "name": "link",
+                  "type": "object"
+                }
+              ],
+              "decorators": [
+                {
+                  "value": "strong",
+                  "title": "Strong"
+                },
+                {
+                  "value": "em",
+                  "title": "Italic"
+                },
+                {
+                  "value": "code",
+                  "title": "Code"
+                },
+                {
+                  "value": "underline",
+                  "title": "Underline"
+                },
+                {
+                  "value": "strike-through",
+                  "title": "Strike"
+                }
+              ]
+            },
+            "of": [],
+            "styles": [
+              {
+                "value": "normal",
+                "title": "Normal"
+              },
+              {
+                "value": "h1",
+                "title": "Heading 1"
+              },
+              {
+                "value": "h2",
+                "title": "Heading 2"
+              },
+              {
+                "value": "h3",
+                "title": "Heading 3"
+              },
+              {
+                "value": "h4",
+                "title": "Heading 4"
+              },
+              {
+                "value": "h5",
+                "title": "Heading 5"
+              },
+              {
+                "value": "h6",
+                "title": "Heading 6"
+              },
+              {
+                "value": "blockquote",
+                "title": "Quote"
+              }
+            ],
+            "type": "block"
+          }
+        ],
+        "name": "solution",
+        "type": "array",
+        "title": "Our Solution"
+      },
+      {
+        "description": "Quantifiable metrics and outcomes.",
+        "of": [
+          {
+            "lists": [
+              {
+                "value": "bullet",
+                "title": "Bulleted list"
+              },
+              {
+                "value": "number",
+                "title": "Numbered list"
+              }
+            ],
+            "marks": {
+              "annotations": [
+                {
+                  "i18nTitleKey": "inputs.portable-text.annotation.link",
+                  "options": {
+                    "modal": {
+                      "type": "popover"
+                    }
+                  },
+                  "fields": [
+                    {
+                      "validation": [
+                        {
+                          "level": "error",
+                          "rules": [
+                            {
+                              "flag": "uri",
+                              "constraint": {
+                                "options": {
+                                  "scheme": [
+                                    "/^http$/",
+                                    "/^https$/",
+                                    "/^tel$/",
+                                    "/^mailto$/"
+                                  ],
+                                  "allowRelative": true,
+                                  "relativeOnly": false,
+                                  "allowCredentials": false
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      ],
+                      "description": "A valid web, email, phone, or relative link.",
+                      "name": "href",
+                      "type": "url",
+                      "title": "Link"
+                    }
+                  ],
+                  "name": "link",
+                  "type": "object"
+                }
+              ],
+              "decorators": [
+                {
+                  "value": "strong",
+                  "title": "Strong"
+                },
+                {
+                  "value": "em",
+                  "title": "Italic"
+                },
+                {
+                  "value": "code",
+                  "title": "Code"
+                },
+                {
+                  "value": "underline",
+                  "title": "Underline"
+                },
+                {
+                  "value": "strike-through",
+                  "title": "Strike"
+                }
+              ]
+            },
+            "of": [],
+            "styles": [
+              {
+                "value": "normal",
+                "title": "Normal"
+              },
+              {
+                "value": "h1",
+                "title": "Heading 1"
+              },
+              {
+                "value": "h2",
+                "title": "Heading 2"
+              },
+              {
+                "value": "h3",
+                "title": "Heading 3"
+              },
+              {
+                "value": "h4",
+                "title": "Heading 4"
+              },
+              {
+                "value": "h5",
+                "title": "Heading 5"
+              },
+              {
+                "value": "h6",
+                "title": "Heading 6"
+              },
+              {
+                "value": "blockquote",
+                "title": "Quote"
+              }
+            ],
+            "type": "block"
+          }
+        ],
+        "name": "results",
+        "type": "array",
+        "title": "Results & Impact"
+      },
+      {
+        "name": "testimonial",
+        "type": "text",
+        "title": "Client Testimonial"
+      },
+      {
+        "options": {
+          "hotspot": true
+        },
+        "name": "mainImage",
+        "type": "image",
+        "title": "Main Project Image"
+      }
+    ],
+    "name": "project",
+    "type": "document",
+    "title": "Project / Case Study"
+  },
+  {
+    "fields": [
+      {
+        "name": "title",
+        "type": "string"
+      },
+      {
+        "options": {
+          "source": "title",
+          "maxLength": 96
+        },
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "custom"
+              }
+            ]
+          }
+        ],
+        "name": "slug",
+        "type": "slug"
+      },
+      {
+        "description": "A short description for the main services page.",
+        "name": "overview",
+        "type": "text",
+        "title": "Service Overview"
+      },
+      {
+        "description": "Detailed description for the individual service page.",
+        "of": [
+          {
+            "lists": [
+              {
+                "value": "bullet",
+                "title": "Bulleted list"
+              },
+              {
+                "value": "number",
+                "title": "Numbered list"
+              }
+            ],
+            "marks": {
+              "annotations": [
+                {
+                  "i18nTitleKey": "inputs.portable-text.annotation.link",
+                  "options": {
+                    "modal": {
+                      "type": "popover"
+                    }
+                  },
+                  "fields": [
+                    {
+                      "validation": [
+                        {
+                          "level": "error",
+                          "rules": [
+                            {
+                              "flag": "uri",
+                              "constraint": {
+                                "options": {
+                                  "scheme": [
+                                    "/^http$/",
+                                    "/^https$/",
+                                    "/^tel$/",
+                                    "/^mailto$/"
+                                  ],
+                                  "allowRelative": true,
+                                  "relativeOnly": false,
+                                  "allowCredentials": false
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      ],
+                      "description": "A valid web, email, phone, or relative link.",
+                      "name": "href",
+                      "type": "url",
+                      "title": "Link"
+                    }
+                  ],
+                  "name": "link",
+                  "type": "object"
+                }
+              ],
+              "decorators": [
+                {
+                  "value": "strong",
+                  "title": "Strong"
+                },
+                {
+                  "value": "em",
+                  "title": "Italic"
+                },
+                {
+                  "value": "code",
+                  "title": "Code"
+                },
+                {
+                  "value": "underline",
+                  "title": "Underline"
+                },
+                {
+                  "value": "strike-through",
+                  "title": "Strike"
+                }
+              ]
+            },
+            "of": [],
+            "styles": [
+              {
+                "value": "normal",
+                "title": "Normal"
+              },
+              {
+                "value": "h1",
+                "title": "Heading 1"
+              },
+              {
+                "value": "h2",
+                "title": "Heading 2"
+              },
+              {
+                "value": "h3",
+                "title": "Heading 3"
+              },
+              {
+                "value": "h4",
+                "title": "Heading 4"
+              },
+              {
+                "value": "h5",
+                "title": "Heading 5"
+              },
+              {
+                "value": "h6",
+                "title": "Heading 6"
+              },
+              {
+                "value": "blockquote",
+                "title": "Quote"
+              }
+            ],
+            "type": "block"
+          }
+        ],
+        "name": "mainContent",
+        "type": "array"
+      },
+      {
+        "description": "Title for social sharing (overrides default title in link previews)",
+        "name": "ogTitle",
+        "type": "string",
+        "title": "Open Graph Title"
+      },
+      {
+        "description": "Description for social sharing (overrides default description in link previews)",
+        "name": "ogDescription",
+        "type": "text",
+        "title": "Open Graph Description"
+      },
+      {
+        "options": {
+          "hotspot": true
+        },
+        "description": "Image for sharing this individual service (1200x630 recommended).",
+        "name": "ogImage",
+        "type": "image",
+        "title": "Open Graph Image"
+      }
+    ],
+    "name": "service",
+    "type": "document"
+  },
+  {
+    "fields": [
+      {
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ]
+          }
+        ],
+        "name": "title",
+        "type": "string",
+        "title": "Category Title"
+      },
+      {
+        "options": {
+          "source": "title",
+          "maxLength": 100
+        },
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "custom"
+              },
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ]
+          }
+        ],
+        "name": "slug",
+        "type": "slug"
+      },
+      {
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ]
+          }
+        ],
+        "name": "description",
+        "type": "text"
+      },
+      {
+        "options": {
+          "list": [
+            {
+              "title": "Web Development",
+              "value": "web"
+            },
+            {
+              "title": "Mobile Development",
+              "value": "mobile"
+            },
+            {
+              "title": "Digital Marketing",
+              "value": "marketing"
+            },
+            {
+              "title": "Consulting",
+              "value": "consulting"
+            },
+            {
+              "title": "Business",
+              "value": "business"
+            },
+            {
+              "title": "Profile",
+              "value": "profile"
+            },
+            {
+              "title": "General",
+              "value": "general"
+            }
+          ]
+        },
+        "initialValue": "general",
+        "name": "serviceType",
+        "type": "string"
+      },
+      {
+        "initialValue": "default",
+        "name": "icon",
+        "type": "string"
+      },
+      {
+        "options": {
+          "hotspot": true
+        },
+        "description": "Large background image for the hero/banner area of this service category.",
+        "name": "bannerBackgroundImage",
+        "type": "image"
+      },
+      {
+        "description": "Title for social sharing (overrides default title in link previews)",
+        "name": "ogTitle",
+        "type": "string",
+        "title": "Open Graph Title"
+      },
+      {
+        "description": "Description for social sharing (overrides default description in link previews)",
+        "name": "ogDescription",
+        "type": "text",
+        "title": "Open Graph Description"
+      },
+      {
+        "options": {
+          "hotspot": true
+        },
+        "description": "Image used for social sharing and link previews (1200x630 recommended).",
+        "name": "ogImage",
+        "type": "image",
+        "title": "Open Graph Image"
+      },
+      {
+        "initialValue": false,
+        "name": "featured",
+        "type": "boolean",
+        "title": "Featured Service"
+      },
+      {
+        "of": [
+          {
+            "fields": [
+              {
+                "name": "name",
+                "type": "string",
+                "title": "Package Name"
+              },
+              {
+                "description": "Optional: Logical group for this package/tier (e.g. \"Landing Page\")",
+                "name": "groupName",
+                "type": "string"
+              },
+              {
+                "options": {
+                  "list": [
+                    "basic",
+                    "standard",
+                    "premium",
+                    "enterprise"
+                  ]
+                },
+                "name": "tier",
+                "type": "string"
+              },
+              {
+                "name": "price",
+                "type": "number",
+                "title": "Price (USD)"
+              },
+              {
+                "initialValue": "USD",
+                "name": "currency",
+                "type": "string"
+              },
+              {
+                "options": {
+                  "list": [
+                    "one_time",
+                    "monthly",
+                    "hourly",
+                    "project"
+                  ]
+                },
+                "name": "billing",
+                "type": "string",
+                "title": "Billing Type"
+              },
+              {
+                "name": "deliveryTime",
+                "type": "string"
+              },
+              {
+                "name": "popular",
+                "type": "boolean",
+                "title": "Is Popular?"
+              },
+              {
+                "of": [
+                  {
+                    "type": "string"
+                  }
+                ],
+                "name": "features",
+                "type": "array"
+              },
+              {
+                "of": [
+                  {
+                    "fields": [
+                      {
+                        "name": "name",
+                        "type": "string"
+                      },
+                      {
+                        "name": "price",
+                        "type": "number"
+                      },
+                      {
+                        "name": "description",
+                        "type": "string"
+                      }
+                    ],
+                    "type": "object"
+                  }
+                ],
+                "name": "addOns",
+                "type": "array",
+                "title": "Available Add-ons"
+              },
+              {
+                "options": {
+                  "hotspot": true
+                },
+                "description": "Image for sharing this tier/package (1200x630 recommended).",
+                "name": "ogImage",
+                "type": "image",
+                "title": "Open Graph Image"
+              },
+              {
+                "name": "ogTitle",
+                "type": "string",
+                "title": "Open Graph Title"
+              },
+              {
+                "name": "ogDescription",
+                "type": "text",
+                "title": "Open Graph Description"
+              }
+            ],
+            "type": "object",
+            "name": "package"
+          }
+        ],
+        "name": "packages",
+        "type": "array",
+        "title": "Service Packages"
+      },
+      {
+        "of": [
+          {
+            "fields": [
+              {
+                "name": "name",
+                "type": "string"
+              }
+            ],
+            "type": "object"
+          }
+        ],
+        "hidden": true,
+        "name": "packageGroups",
+        "type": "array",
+        "title": "Package Groups (Legacy)"
+      },
+      {
+        "of": [
+          {
+            "type": "string"
+          }
+        ],
+        "name": "requirements",
+        "type": "array"
+      },
+      {
+        "of": [
+          {
+            "fields": [
+              {
+                "name": "question",
+                "type": "string"
+              },
+              {
+                "name": "answer",
+                "type": "text"
+              }
+            ],
+            "type": "object"
+          }
+        ],
+        "name": "faq",
+        "type": "array",
+        "title": "FAQs"
+      }
+    ],
+    "name": "serviceCategory",
+    "type": "document"
+  },
+  {
+    "fields": [
+      {
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ]
+          }
+        ],
+        "name": "title",
+        "type": "string",
+        "title": "Case Study Title"
+      },
+      {
+        "options": {
+          "source": "title",
+          "maxLength": 100
+        },
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "custom"
+              },
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ]
+          }
+        ],
+        "name": "slug",
+        "type": "slug"
+      },
+      {
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ]
+          }
+        ],
+        "to": [
+          {
+            "type": "serviceCategory"
+          }
+        ],
+        "name": "serviceCategory",
+        "type": "reference"
+      },
+      {
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ]
+          }
+        ],
+        "name": "clientName",
+        "type": "string"
+      },
+      {
+        "name": "clientIndustry",
+        "type": "string"
+      },
+      {
+        "name": "clientSize",
+        "type": "string",
+        "title": "Company Size"
+      },
+      {
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ]
+          }
+        ],
+        "name": "challenge",
+        "type": "text",
+        "title": "Client Challenge"
+      },
+      {
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ]
+          }
+        ],
+        "of": [
+          {
+            "lists": [
+              {
+                "value": "bullet",
+                "title": "Bulleted list"
+              },
+              {
+                "value": "number",
+                "title": "Numbered list"
+              }
+            ],
+            "marks": {
+              "annotations": [
+                {
+                  "i18nTitleKey": "inputs.portable-text.annotation.link",
+                  "options": {
+                    "modal": {
+                      "type": "popover"
+                    }
+                  },
+                  "fields": [
+                    {
+                      "validation": [
+                        {
+                          "level": "error",
+                          "rules": [
+                            {
+                              "flag": "uri",
+                              "constraint": {
+                                "options": {
+                                  "scheme": [
+                                    "/^http$/",
+                                    "/^https$/",
+                                    "/^tel$/",
+                                    "/^mailto$/"
+                                  ],
+                                  "allowRelative": true,
+                                  "relativeOnly": false,
+                                  "allowCredentials": false
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      ],
+                      "description": "A valid web, email, phone, or relative link.",
+                      "name": "href",
+                      "type": "url",
+                      "title": "Link"
+                    }
+                  ],
+                  "name": "link",
+                  "type": "object"
+                }
+              ],
+              "decorators": [
+                {
+                  "value": "strong",
+                  "title": "Strong"
+                },
+                {
+                  "value": "em",
+                  "title": "Italic"
+                },
+                {
+                  "value": "code",
+                  "title": "Code"
+                },
+                {
+                  "value": "underline",
+                  "title": "Underline"
+                },
+                {
+                  "value": "strike-through",
+                  "title": "Strike"
+                }
+              ]
+            },
+            "of": [],
+            "styles": [
+              {
+                "value": "normal",
+                "title": "Normal"
+              },
+              {
+                "value": "h1",
+                "title": "Heading 1"
+              },
+              {
+                "value": "h2",
+                "title": "Heading 2"
+              },
+              {
+                "value": "h3",
+                "title": "Heading 3"
+              },
+              {
+                "value": "h4",
+                "title": "Heading 4"
+              },
+              {
+                "value": "h5",
+                "title": "Heading 5"
+              },
+              {
+                "value": "h6",
+                "title": "Heading 6"
+              },
+              {
+                "value": "blockquote",
+                "title": "Quote"
+              }
+            ],
+            "type": "block"
+          }
+        ],
+        "name": "solution",
+        "type": "array",
+        "title": "Our Solution"
+      },
+      {
+        "of": [
+          {
+            "type": "string"
+          }
+        ],
+        "name": "resultMetrics",
+        "type": "array",
+        "title": "Results & Impact"
+      },
+      {
+        "of": [
+          {
+            "type": "string"
+          }
+        ],
+        "name": "technologies",
+        "type": "array",
+        "title": "Technologies Used"
+      },
+      {
+        "name": "startDate",
+        "type": "date",
+        "title": "Project Start Date"
+      },
+      {
+        "name": "endDate",
+        "type": "date",
+        "title": "Project End Date"
+      },
+      {
+        "name": "duration",
+        "type": "string",
+        "title": "Project Duration"
+      },
+      {
+        "of": [
+          {
+            "options": {
+              "hotspot": true
+            },
+            "type": "image"
+          }
+        ],
+        "name": "images",
+        "type": "array",
+        "title": "Case Study Images"
+      },
+      {
+        "initialValue": false,
+        "name": "featured",
+        "type": "boolean",
+        "title": "Featured Case Study"
+      },
+      {
+        "to": [
+          {
+            "type": "serviceTestimonial"
+          }
+        ],
+        "name": "testimonial",
+        "type": "reference",
+        "title": "Related Testimonial"
+      }
+    ],
+    "name": "serviceCaseStudy",
+    "type": "document"
+  },
+  {
+    "fields": [
+      {
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ]
+          }
+        ],
+        "readOnly": true,
+        "name": "requestId",
+        "type": "string",
+        "title": "Request ID"
+      },
+      {
+        "options": {
+          "list": [
+            {
+              "title": "Pending",
+              "value": "pending"
+            },
+            {
+              "title": "In Progress",
+              "value": "in_progress"
+            },
+            {
+              "title": "Completed",
+              "value": "completed"
+            },
+            {
+              "title": "Cancelled",
+              "value": "cancelled"
+            }
+          ]
+        },
+        "initialValue": "pending",
+        "name": "status",
+        "type": "string"
+      },
+      {
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ]
+          }
+        ],
+        "to": [
+          {
+            "type": "serviceCategory"
+          }
+        ],
+        "name": "serviceCategoryId",
+        "type": "reference",
+        "title": "Service Category"
+      },
+      {
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ]
+          }
+        ],
+        "name": "packageName",
+        "type": "string",
+        "title": "Selected Package Name"
+      },
+      {
+        "name": "packageTier",
+        "type": "string"
+      },
+      {
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ]
+          }
+        ],
+        "name": "totalAmount",
+        "type": "number"
+      },
+      {
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ]
+          }
+        ],
+        "name": "clientFirstName",
+        "type": "string",
+        "title": "First Name"
+      },
+      {
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ]
+          }
+        ],
+        "name": "clientLastName",
+        "type": "string",
+        "title": "Last Name"
+      },
+      {
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ]
+          }
+        ],
+        "name": "clientEmail",
+        "type": "string",
+        "title": "Email"
+      },
+      {
+        "name": "clientPhone",
+        "type": "string",
+        "title": "Phone"
+      },
+      {
+        "name": "clientCompany",
+        "type": "string",
+        "title": "Company"
+      },
+      {
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ]
+          }
+        ],
+        "name": "projectTitle",
+        "type": "string"
+      },
+      {
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ]
+          }
+        ],
+        "name": "projectDescription",
+        "type": "text"
+      },
+      {
+        "name": "projectNotes",
+        "type": "text",
+        "title": "Additional Notes"
+      },
+      {
+        "name": "preferredTimeline",
+        "type": "string"
+      },
+      {
+        "name": "budgetRange",
+        "type": "string"
+      },
+      {
+        "name": "paymentPlan",
+        "type": "string"
+      },
+      {
+        "options": {
+          "list": [
+            {
+              "title": "Pending",
+              "value": "pending"
+            },
+            {
+              "title": "Paid",
+              "value": "paid"
+            },
+            {
+              "title": "Failed",
+              "value": "failed"
+            },
+            {
+              "title": "Refunded",
+              "value": "refunded"
+            }
+          ]
+        },
+        "initialValue": "pending",
+        "name": "paymentStatus",
+        "type": "string"
+      },
+      {
+        "name": "createdAt",
+        "type": "datetime"
+      },
+      {
+        "name": "updatedAt",
+        "type": "datetime"
+      }
+    ],
+    "name": "serviceRequest",
+    "type": "document"
+  },
+  {
+    "fields": [
+      {
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ]
+          }
+        ],
+        "to": [
+          {
+            "type": "serviceCategory"
+          }
+        ],
+        "name": "serviceCategory",
+        "type": "reference"
+      },
+      {
+        "name": "projectsCompleted",
+        "type": "number"
+      },
+      {
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "min",
+                "constraint": 0
+              },
+              {
+                "flag": "max",
+                "constraint": 100
+              }
+            ]
+          }
+        ],
+        "name": "clientSatisfaction",
+        "type": "number",
+        "title": "Client Satisfaction Rate"
+      },
+      {
+        "name": "averageDeliveryTime",
+        "type": "string"
+      },
+      {
+        "name": "teamSize",
+        "type": "number"
+      },
+      {
+        "of": [
+          {
+            "type": "string"
+          }
+        ],
+        "name": "performanceMetrics",
+        "type": "array"
+      },
+      {
+        "of": [
+          {
+            "type": "string"
+          }
+        ],
+        "name": "successMetrics",
+        "type": "array",
+        "title": "Client Success Metrics"
+      },
+      {
+        "of": [
+          {
+            "type": "string"
+          }
+        ],
+        "name": "techStack",
+        "type": "array",
+        "title": "Technology Stack"
+      },
+      {
+        "name": "lastUpdated",
+        "type": "datetime"
+      }
+    ],
+    "name": "serviceStatistics",
+    "type": "document"
+  },
+  {
+    "fields": [
+      {
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ]
+          }
+        ],
+        "name": "client",
+        "type": "string",
+        "title": "Client Name"
+      },
+      {
+        "description": "e.g., CEO, Project Manager, Director",
+        "name": "role",
+        "type": "string",
+        "title": "Client Role"
+      },
+      {
+        "name": "company",
+        "type": "string",
+        "title": "Company Name"
+      },
+      {
+        "options": {
+          "hotspot": true
+        },
+        "name": "image",
+        "type": "image",
+        "title": "Client Image"
+      },
+      {
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ]
+          }
+        ],
+        "name": "testimonial",
+        "type": "text",
+        "title": "Testimonial Text"
+      },
+      {
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ]
+          }
+        ],
+        "to": [
+          {
+            "type": "serviceCategory"
+          }
+        ],
+        "name": "serviceCategory",
+        "type": "reference"
+      },
+      {
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              },
+              {
+                "flag": "min",
+                "constraint": 1
+              },
+              {
+                "flag": "max",
+                "constraint": 5
+              }
+            ]
+          }
+        ],
+        "name": "rating",
+        "type": "number"
+      },
+      {
+        "of": [
+          {
+            "type": "string"
+          }
+        ],
+        "name": "projectHighlights",
+        "type": "array"
+      },
+      {
+        "initialValue": false,
+        "name": "featured",
+        "type": "boolean",
+        "title": "Featured Testimonial"
+      },
+      {
+        "name": "date",
+        "type": "date",
+        "title": "Testimonial Date"
+      }
+    ],
+    "name": "serviceTestimonial",
+    "type": "document"
+  },
+  {
+    "fields": [
+      {
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ]
+          }
+        ],
+        "name": "quote",
+        "type": "text"
+      },
+      {
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ]
+          }
+        ],
+        "name": "authorName",
+        "type": "string"
+      },
+      {
+        "name": "authorCompany",
+        "type": "string",
+        "title": "Author Company / Title"
+      }
+    ],
+    "name": "testimonial",
+    "type": "document"
+  },
+  {
+    "fields": [
+      {
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ]
+          }
+        ],
+        "name": "username",
+        "type": "string"
+      },
+      {
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ]
+          }
+        ],
+        "name": "email",
+        "type": "string"
+      },
+      {
+        "name": "name",
+        "type": "string"
+      },
+      {
+        "options": {
+          "list": [
+            {
+              "title": "Admin",
+              "value": "admin"
+            },
+            {
+              "title": "Teacher",
+              "value": "teacher"
+            },
+            {
+              "title": "Student",
+              "value": "student"
+            }
+          ]
+        },
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "valid",
+                "constraint": [
+                  "admin",
+                  "teacher",
+                  "student"
+                ]
+              },
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ]
+          }
+        ],
+        "name": "role",
+        "type": "string"
+      },
+      {
+        "description": "SHA-256 hash of password + salt",
+        "hidden": true,
+        "name": "passwordHash",
+        "type": "string"
+      },
+      {
+        "hidden": true,
+        "name": "salt",
+        "type": "string"
+      },
+      {
+        "options": {
+          "list": [
+            {
+              "title": "Active",
+              "value": "active"
+            },
+            {
+              "title": "Pending Approval",
+              "value": "pending"
+            },
+            {
+              "title": "Suspended",
+              "value": "suspended"
+            }
+          ]
+        },
+        "initialValue": "active",
+        "name": "status",
+        "type": "string"
+      },
+      {
+        "name": "createdAt",
+        "type": "datetime"
+      },
+      {
+        "initialValue": false,
+        "name": "emailVerified",
+        "type": "boolean"
+      },
+      {
+        "hidden": true,
+        "name": "emailVerifiedAt",
+        "type": "datetime"
+      },
+      {
+        "hidden": true,
+        "name": "emailVerificationTokenHash",
+        "type": "string"
+      },
+      {
+        "hidden": true,
+        "name": "emailVerificationExpiresAt",
+        "type": "datetime"
+      },
+      {
+        "description": "URL of profile photo (from OAuth provider or uploaded)",
+        "name": "profilePhotoUrl",
+        "type": "string",
+        "title": "Profile Photo URL"
+      },
+      {
+        "options": {
+          "list": [
+            {
+              "title": "Google",
+              "value": "google"
+            },
+            {
+              "title": "GitHub",
+              "value": "github"
+            }
+          ]
+        },
+        "name": "oauthProvider",
+        "type": "string",
+        "title": "OAuth Provider"
+      },
+      {
+        "hidden": true,
+        "name": "oauthProviderId",
+        "type": "string",
+        "title": "OAuth Provider ID"
+      }
+    ],
+    "name": "user",
+    "type": "document"
+  },
+  {
+    "fields": [
+      {
+        "options": {
+          "list": [
+            {
+              "title": "Contact Form",
+              "value": "contact"
+            },
+            {
+              "title": "Service Request",
+              "value": "service"
+            },
+            {
+              "title": "Course Enrollment",
+              "value": "course"
+            },
+            {
+              "title": "Newsletter",
+              "value": "newsletter"
+            },
+            {
+              "title": "Custom Build",
+              "value": "custom-build"
+            },
+            {
+              "title": "Campaign",
+              "value": "campaign"
+            }
+          ]
+        },
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "valid",
+                "constraint": [
+                  "contact",
+                  "service",
+                  "course",
+                  "newsletter",
+                  "custom-build",
+                  "campaign"
+                ]
+              },
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ]
+          }
+        ],
+        "name": "type",
+        "type": "string",
+        "title": "Form Type"
+      },
+      {
+        "options": {
+          "list": [
+            {
+              "title": "New",
+              "value": "new"
+            },
+            {
+              "title": "Read",
+              "value": "read"
+            },
+            {
+              "title": "In Progress",
+              "value": "in-progress"
+            },
+            {
+              "title": "Completed",
+              "value": "completed"
+            },
+            {
+              "title": "Archived",
+              "value": "archived"
+            }
+          ]
+        },
+        "initialValue": "new",
+        "name": "status",
+        "type": "string"
+      },
+      {
+        "options": {
+          "list": [
+            {
+              "title": "Low",
+              "value": "low"
+            },
+            {
+              "title": "Medium",
+              "value": "medium"
+            },
+            {
+              "title": "High",
+              "value": "high"
+            },
+            {
+              "title": "Urgent",
+              "value": "urgent"
+            }
+          ]
+        },
+        "initialValue": "medium",
+        "name": "priority",
+        "type": "string"
+      },
+      {
+        "name": "name",
+        "type": "string"
+      },
+      {
+        "name": "email",
+        "type": "string"
+      },
+      {
+        "name": "phone",
+        "type": "string"
+      },
+      {
+        "name": "company",
+        "type": "string"
+      },
+      {
+        "description": "Service selected on the form (web dev, marketing, etc.)",
+        "name": "service",
+        "type": "string"
+      },
+      {
+        "description": "City captured from form or utm_term (Lagos, Abuja, etc.)",
+        "name": "city",
+        "type": "string"
+      },
+      {
+        "description": "utm_campaign value",
+        "name": "campaignName",
+        "type": "string"
+      },
+      {
+        "description": "utm_source value (whatsapp, instagram, etc.)",
+        "name": "campaignSource",
+        "type": "string"
+      },
+      {
+        "description": "utm_medium value (social, email, web, etc.)",
+        "name": "campaignMedium",
+        "type": "string"
+      },
+      {
+        "description": "utm_content value (creative variant, day, etc.)",
+        "name": "campaignContent",
+        "type": "string"
+      },
+      {
+        "description": "utm_term value (city/keyword)",
+        "name": "campaignTerm",
+        "type": "string"
+      },
+      {
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "uri",
+                "constraint": {
+                  "options": {
+                    "scheme": [
+                      "/^http$/",
+                      "/^https$/"
+                    ],
+                    "allowRelative": false,
+                    "relativeOnly": false,
+                    "allowCredentials": false
+                  }
+                }
+              }
+            ]
+          }
+        ],
+        "description": "Landing page where the form was submitted",
+        "name": "landingPage",
+        "type": "url",
+        "title": "Landing Page URL"
+      },
+      {
+        "name": "subject",
+        "type": "string"
+      },
+      {
+        "name": "message",
+        "type": "text"
+      },
+      {
+        "fields": [
+          {
+            "description": "Paste JSON here",
+            "name": "raw",
+            "type": "text",
+            "title": "Raw JSON"
+          },
+          {
+            "of": [
+              {
+                "fields": [
+                  {
+                    "name": "key",
+                    "type": "string"
+                  },
+                  {
+                    "name": "value",
+                    "type": "text"
+                  }
+                ],
+                "type": "object"
+              }
+            ],
+            "name": "fields",
+            "type": "array",
+            "title": "Form Fields"
+          }
+        ],
+        "name": "formData",
+        "type": "object",
+        "title": "Complete Form Data"
+      },
+      {
+        "of": [
+          {
+            "fields": [
+              {
+                "name": "name",
+                "type": "string",
+                "title": "File Name"
+              },
+              {
+                "validation": [
+                  {
+                    "level": "error",
+                    "rules": [
+                      {
+                        "flag": "uri",
+                        "constraint": {
+                          "options": {
+                            "scheme": [
+                              "/^http$/",
+                              "/^https$/"
+                            ],
+                            "allowRelative": false,
+                            "relativeOnly": false,
+                            "allowCredentials": false
+                          }
+                        }
+                      }
+                    ]
+                  }
+                ],
+                "name": "url",
+                "type": "url",
+                "title": "URL"
+              },
+              {
+                "name": "assetId",
+                "type": "string",
+                "title": "Asset ID"
+              },
+              {
+                "name": "type",
+                "type": "string",
+                "title": "MIME Type"
+              },
+              {
+                "name": "size",
+                "type": "number",
+                "title": "Size (bytes)"
+              }
+            ],
+            "type": "object"
+          }
+        ],
+        "name": "attachments",
+        "type": "array"
+      },
+      {
+        "name": "submittedAt",
+        "type": "datetime"
+      },
+      {
+        "name": "ipAddress",
+        "type": "string",
+        "title": "IP Address"
+      },
+      {
+        "name": "userAgent",
+        "type": "string"
+      },
+      {
+        "name": "referrer",
+        "type": "string"
+      },
+      {
+        "of": [
+          {
+            "fields": [
+              {
+                "name": "note",
+                "type": "text"
+              },
+              {
+                "name": "timestamp",
+                "type": "datetime"
+              },
+              {
+                "name": "admin",
+                "type": "string"
+              }
+            ],
+            "type": "object"
+          }
+        ],
+        "name": "notes",
+        "type": "array",
+        "title": "Admin Notes"
+      }
+    ],
+    "name": "formSubmission",
+    "type": "document",
+    "title": "Form Submissions"
+  },
+  {
+    "fields": [
+      {
+        "options": {
+          "list": [
+            {
+              "title": "Page View",
+              "value": "page_view"
+            },
+            {
+              "title": "Button Click",
+              "value": "button_click"
+            },
+            {
+              "title": "Form Start",
+              "value": "form_start"
+            },
+            {
+              "title": "Form Submit",
+              "value": "form_submit"
+            },
+            {
+              "title": "Service View",
+              "value": "service_view"
+            },
+            {
+              "title": "Course View",
+              "value": "course_view"
+            },
+            {
+              "title": "Enrollment Start",
+              "value": "enrollment_start"
+            },
+            {
+              "title": "Currency Change",
+              "value": "currency_change"
+            },
+            {
+              "title": "Download",
+              "value": "download"
+            },
+            {
+              "title": "External Link",
+              "value": "external_link"
+            }
+          ]
+        },
+        "name": "eventType",
+        "type": "string"
+      },
+      {
+        "name": "eventName",
+        "type": "string"
+      },
+      {
+        "name": "page",
+        "type": "string"
+      },
+      {
+        "fields": [
+          {
+            "name": "data",
+            "type": "text",
+            "title": "JSON Data"
+          }
+        ],
+        "name": "eventData",
+        "type": "object"
+      },
+      {
+        "name": "sessionId",
+        "type": "string",
+        "title": "Session ID"
+      },
+      {
+        "name": "userId",
+        "type": "string",
+        "title": "User ID"
+      },
+      {
+        "name": "timestamp",
+        "type": "datetime"
+      },
+      {
+        "options": {
+          "list": [
+            "desktop",
+            "mobile",
+            "tablet"
+          ]
+        },
+        "name": "deviceType",
+        "type": "string"
+      },
+      {
+        "name": "browser",
+        "type": "string"
+      },
+      {
+        "name": "os",
+        "type": "string",
+        "title": "Operating System"
+      },
+      {
+        "name": "country",
+        "type": "string"
+      },
+      {
+        "name": "referrer",
+        "type": "string"
+      }
+    ],
+    "name": "analyticsEvent",
+    "type": "document",
+    "title": "Analytics Events"
+  },
+  {
+    "fields": [
+      {
+        "description": "The route or name of the page (e.g. about, blog, faq, services, home)",
+        "name": "page",
+        "type": "string"
+      },
+      {
+        "options": {
+          "hotspot": true
+        },
+        "description": "Open Graph image for social sharing (minimum 1200x630px recommended)",
+        "name": "ogImage",
+        "type": "image",
+        "title": "OG Image"
+      },
+      {
+        "description": "Open Graph title for the page",
+        "name": "ogTitle",
+        "type": "string",
+        "title": "OG Title"
+      },
+      {
+        "description": "Open Graph description for the page",
+        "name": "ogDescription",
+        "type": "text",
+        "title": "OG Description"
+      }
+    ],
+    "name": "pageOgAssets",
+    "type": "document",
+    "title": "Page OG Assets"
+  },
+  {
+    "fields": [
+      {
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ]
+          }
+        ],
+        "name": "title",
+        "type": "string"
+      },
+      {
+        "name": "subtitle",
+        "type": "string"
+      },
+      {
+        "options": {
+          "source": "title",
+          "maxLength": 96
+        },
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "custom"
+              },
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ]
+          }
+        ],
+        "name": "slug",
+        "type": "slug"
+      },
+      {
+        "initialValue": "1st Edition",
+        "description": "e.g. \"1st Edition\", \"2nd Edition\"",
+        "name": "edition",
+        "type": "string"
+      },
+      {
+        "description": "13-digit ISBN (e.g. 978-XXXXXXXXXX)",
+        "name": "isbn",
+        "type": "string",
+        "title": "ISBN-13"
+      },
+      {
+        "name": "publishedAt",
+        "type": "date",
+        "title": "Publication Date"
+      },
+      {
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              },
+              {
+                "flag": "min",
+                "constraint": 1
+              }
+            ]
+          }
+        ],
+        "of": [
+          {
+            "type": "string"
+          }
+        ],
+        "name": "authors",
+        "type": "array"
+      },
+      {
+        "options": {
+          "hotspot": true
+        },
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ]
+          }
+        ],
+        "description": "Book cover (recommended: 800x1080, portrait ratio)",
+        "name": "coverImage",
+        "type": "image"
+      },
+      {
+        "name": "coverImageAlt",
+        "type": "string",
+        "title": "Cover Image Alt Text"
+      },
+      {
+        "rows": 3,
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              },
+              {
+                "flag": "max",
+                "constraint": 300
+              }
+            ]
+          }
+        ],
+        "description": "One paragraph summary shown on store listing card",
+        "name": "description",
+        "type": "text",
+        "title": "Short Description"
+      },
+      {
+        "description": "Rich text used on the individual book page",
+        "of": [
+          {
+            "lists": [
+              {
+                "value": "bullet",
+                "title": "Bulleted list"
+              },
+              {
+                "value": "number",
+                "title": "Numbered list"
+              }
+            ],
+            "marks": {
+              "annotations": [
+                {
+                  "i18nTitleKey": "inputs.portable-text.annotation.link",
+                  "options": {
+                    "modal": {
+                      "type": "popover"
+                    }
+                  },
+                  "fields": [
+                    {
+                      "validation": [
+                        {
+                          "level": "error",
+                          "rules": [
+                            {
+                              "flag": "uri",
+                              "constraint": {
+                                "options": {
+                                  "scheme": [
+                                    "/^http$/",
+                                    "/^https$/",
+                                    "/^tel$/",
+                                    "/^mailto$/"
+                                  ],
+                                  "allowRelative": true,
+                                  "relativeOnly": false,
+                                  "allowCredentials": false
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      ],
+                      "description": "A valid web, email, phone, or relative link.",
+                      "name": "href",
+                      "type": "url",
+                      "title": "Link"
+                    }
+                  ],
+                  "name": "link",
+                  "type": "object"
+                }
+              ],
+              "decorators": [
+                {
+                  "value": "strong",
+                  "title": "Strong"
+                },
+                {
+                  "value": "em",
+                  "title": "Italic"
+                },
+                {
+                  "value": "code",
+                  "title": "Code"
+                },
+                {
+                  "value": "underline",
+                  "title": "Underline"
+                },
+                {
+                  "value": "strike-through",
+                  "title": "Strike"
+                }
+              ]
+            },
+            "of": [],
+            "styles": [
+              {
+                "value": "normal",
+                "title": "Normal"
+              },
+              {
+                "value": "h1",
+                "title": "Heading 1"
+              },
+              {
+                "value": "h2",
+                "title": "Heading 2"
+              },
+              {
+                "value": "h3",
+                "title": "Heading 3"
+              },
+              {
+                "value": "h4",
+                "title": "Heading 4"
+              },
+              {
+                "value": "h5",
+                "title": "Heading 5"
+              },
+              {
+                "value": "h6",
+                "title": "Heading 6"
+              },
+              {
+                "value": "blockquote",
+                "title": "Quote"
+              }
+            ],
+            "type": "block"
+          }
+        ],
+        "name": "longDescription",
+        "type": "array",
+        "title": "Full Description"
+      },
+      {
+        "of": [
+          {
+            "fields": [
+              {
+                "name": "chapter",
+                "type": "number",
+                "title": "Chapter Number"
+              },
+              {
+                "name": "title",
+                "type": "string",
+                "title": "Chapter Title"
+              },
+              {
+                "description": "e.g. \"1–24\"",
+                "name": "pages",
+                "type": "string",
+                "title": "Page Range"
+              }
+            ],
+            "type": "object"
+          }
+        ],
+        "name": "tableOfContents",
+        "type": "array",
+        "title": "Table of Contents"
+      },
+      {
+        "name": "pageCount",
+        "type": "number",
+        "title": "Number of Pages"
+      },
+      {
+        "options": {
+          "list": [
+            {
+              "title": "Beginner",
+              "value": "beginner"
+            },
+            {
+              "title": "Intermediate",
+              "value": "intermediate"
+            },
+            {
+              "title": "Advanced",
+              "value": "advanced"
+            },
+            {
+              "title": "All Levels",
+              "value": "all"
+            }
+          ],
+          "layout": "radio"
+        },
+        "initialValue": "beginner",
+        "name": "level",
+        "type": "string",
+        "title": "Difficulty Level"
+      },
+      {
+        "description": "Link to the Hexadigitall course this book accompanies",
+        "to": [
+          {
+            "type": "course"
+          }
+        ],
+        "name": "relatedCourse",
+        "type": "reference"
+      },
+      {
+        "options": {
+          "list": [
+            {
+              "title": "Coming Soon",
+              "value": "coming_soon"
+            },
+            {
+              "title": "Available",
+              "value": "available"
+            },
+            {
+              "title": "Out of Stock",
+              "value": "out_of_stock"
+            },
+            {
+              "title": "Discontinued",
+              "value": "discontinued"
+            }
+          ],
+          "layout": "radio"
+        },
+        "initialValue": "coming_soon",
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "valid",
+                "constraint": [
+                  "coming_soon",
+                  "available",
+                  "out_of_stock",
+                  "discontinued"
+                ]
+              },
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ]
+          }
+        ],
+        "name": "status",
+        "type": "string",
+        "title": "Availability Status"
+      },
+      {
+        "of": [
+          {
+            "fields": [
+              {
+                "options": {
+                  "list": [
+                    {
+                      "title": "Amazon (Paperback)",
+                      "value": "amazon_paperback"
+                    },
+                    {
+                      "title": "Amazon (Hardcover)",
+                      "value": "amazon_hardcover"
+                    },
+                    {
+                      "title": "Amazon (Kindle)",
+                      "value": "amazon_kindle"
+                    },
+                    {
+                      "title": "Selar",
+                      "value": "selar"
+                    },
+                    {
+                      "title": "Paystack Storefront",
+                      "value": "paystack"
+                    },
+                    {
+                      "title": "Direct Download (PDF)",
+                      "value": "pdf"
+                    },
+                    {
+                      "title": "Other",
+                      "value": "other"
+                    }
+                  ]
+                },
+                "name": "platform",
+                "type": "string"
+              },
+              {
+                "validation": [
+                  {
+                    "level": "error",
+                    "rules": [
+                      {
+                        "flag": "uri",
+                        "constraint": {
+                          "options": {
+                            "scheme": [
+                              "/^http$/",
+                              "/^https$/"
+                            ],
+                            "allowRelative": false,
+                            "relativeOnly": false,
+                            "allowCredentials": false
+                          }
+                        }
+                      }
+                    ]
+                  }
+                ],
+                "name": "url",
+                "type": "url",
+                "title": "Buy URL"
+              },
+              {
+                "name": "priceNGN",
+                "type": "number",
+                "title": "Price (₦)"
+              },
+              {
+                "name": "priceUSD",
+                "type": "number",
+                "title": "Price ($)"
+              },
+              {
+                "description": "Overrides default label e.g. \"Buy on Amazon\"",
+                "name": "label",
+                "type": "string",
+                "title": "Button Label"
+              },
+              {
+                "description": "Amazon Associates tag or UTM campaign value",
+                "name": "affiliateTag",
+                "type": "string",
+                "title": "Affiliate / UTM Tag"
+              }
+            ],
+            "type": "object"
+          }
+        ],
+        "name": "salesLinks",
+        "type": "array",
+        "title": "Where to Buy"
+      },
+      {
+        "of": [
+          {
+            "fields": [
+              {
+                "name": "reportedAt",
+                "type": "date",
+                "title": "Reported Date"
+              },
+              {
+                "name": "page",
+                "type": "number",
+                "title": "Page Number"
+              },
+              {
+                "description": "e.g. \"Chapter 3, line 12\" or \"Figure 2.4\"",
+                "name": "location",
+                "type": "string"
+              },
+              {
+                "rows": 2,
+                "name": "original",
+                "type": "text",
+                "title": "Original (Incorrect) Text"
+              },
+              {
+                "rows": 2,
+                "name": "correction",
+                "type": "text"
+              },
+              {
+                "description": "Leave blank if not yet fixed in print",
+                "name": "fixedInEdition",
+                "type": "string",
+                "title": "Fixed in Edition"
+              },
+              {
+                "options": {
+                  "list": [
+                    {
+                      "title": "Typo / Minor",
+                      "value": "minor"
+                    },
+                    {
+                      "title": "Content Error",
+                      "value": "content"
+                    },
+                    {
+                      "title": "Code Error",
+                      "value": "code"
+                    },
+                    {
+                      "title": "Critical",
+                      "value": "critical"
+                    }
+                  ],
+                  "layout": "radio"
+                },
+                "initialValue": "minor",
+                "name": "severity",
+                "type": "string"
+              }
+            ],
+            "type": "object"
+          }
+        ],
+        "name": "errata",
+        "type": "array",
+        "title": "Errata (Corrections)"
+      },
+      {
+        "of": [
+          {
+            "fields": [
+              {
+                "name": "title",
+                "type": "string",
+                "title": "Resource Title"
+              },
+              {
+                "rows": 2,
+                "name": "description",
+                "type": "text"
+              },
+              {
+                "options": {
+                  "list": [
+                    {
+                      "title": "Code Repository (GitHub)",
+                      "value": "code"
+                    },
+                    {
+                      "title": "Downloadable File",
+                      "value": "file"
+                    },
+                    {
+                      "title": "Dataset / Spreadsheet",
+                      "value": "dataset"
+                    },
+                    {
+                      "title": "Slide Deck",
+                      "value": "slides"
+                    },
+                    {
+                      "title": "Answer Key (Student)",
+                      "value": "answer_student"
+                    },
+                    {
+                      "title": "Answer Key (Instructor)",
+                      "value": "answer_instructor"
+                    },
+                    {
+                      "title": "Video Supplement",
+                      "value": "video"
+                    },
+                    {
+                      "title": "External Link",
+                      "value": "link"
+                    }
+                  ]
+                },
+                "name": "type",
+                "type": "string",
+                "title": "Resource Type"
+              },
+              {
+                "validation": [
+                  {
+                    "level": "error",
+                    "rules": [
+                      {
+                        "flag": "uri",
+                        "constraint": {
+                          "options": {
+                            "scheme": [
+                              "/^http$/",
+                              "/^https$/"
+                            ],
+                            "allowRelative": false,
+                            "relativeOnly": false,
+                            "allowCredentials": false
+                          }
+                        }
+                      }
+                    ]
+                  }
+                ],
+                "name": "url",
+                "type": "url",
+                "title": "External URL (GitHub, YouTube, etc.)"
+              },
+              {
+                "description": "Upload PDF, XLSX, or ZIP directly to Sanity",
+                "name": "file",
+                "type": "file",
+                "title": "Uploaded File"
+              },
+              {
+                "initialValue": false,
+                "description": "If true, user must submit instructor verification form to access",
+                "name": "gated",
+                "type": "boolean",
+                "title": "Instructor Only?"
+              },
+              {
+                "description": "Associate this resource with a specific chapter",
+                "name": "chapter",
+                "type": "number",
+                "title": "Chapter (optional)"
+              }
+            ],
+            "type": "object"
+          }
+        ],
+        "name": "resources",
+        "type": "array",
+        "title": "Companion Resources"
+      },
+      {
+        "name": "ogTitle",
+        "type": "string",
+        "title": "OG Title"
+      },
+      {
+        "rows": 2,
+        "name": "ogDescription",
+        "type": "text",
+        "title": "OG Description"
+      },
+      {
+        "options": {
+          "hotspot": true
+        },
+        "description": "Social share image (recommended: 1200x630)",
+        "name": "ogImage",
+        "type": "image",
+        "title": "OG Image"
+      }
+    ],
+    "name": "book",
+    "type": "document",
+    "title": "Textbook"
+  },
+  {
+    "fields": [
+      {
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ]
+          }
+        ],
+        "name": "email",
+        "type": "string"
+      },
+      {
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ]
+          }
+        ],
+        "name": "bookSlug",
+        "type": "string"
+      },
+      {
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ]
+          }
+        ],
+        "name": "bookTitle",
+        "type": "string"
+      },
+      {
+        "options": {
+          "list": [
+            {
+              "title": "Pending",
+              "value": "pending"
+            },
+            {
+              "title": "Notified",
+              "value": "notified"
+            }
+          ],
+          "layout": "radio"
+        },
+        "initialValue": "pending",
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "valid",
+                "constraint": [
+                  "pending",
+                  "notified"
+                ]
+              },
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ]
+          }
+        ],
+        "name": "status",
+        "type": "string",
+        "title": "Subscriber Status"
+      },
+      {
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ]
+          }
+        ],
+        "name": "createdAt",
+        "type": "datetime",
+        "title": "Subscribed At"
+      },
+      {
+        "name": "notifiedAt",
+        "type": "datetime"
+      }
+    ],
+    "name": "bookReleaseSubscriber",
+    "type": "document"
+  }
+]

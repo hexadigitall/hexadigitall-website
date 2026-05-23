@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>DevSecOps Engineering: Automating Security - 24-Week Curriculum | Hexadigitall Technologies</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<meta content="Shift security left by integrating it into development pipelines. Master automated security testing, SAST/DAST tools, container scanning, and compliance automation." name="description"/>
+<style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif; line-height: 1.6; color: #111827; background: #f9fafb; }
+    .brand-bar { display: flex; align-items: center; justify-content: space-between; gap: 20px; background: linear-gradient(135deg, #be0e0e 0%, #dc2626 100%); padding: 1rem 1.5rem; border-radius: 12px; margin: 1rem 2rem 0; }
+    .brand-meta { display: flex; align-items: center; gap: 12px; }
+    .brand-meta img { width: 52px; height: auto; }
+    .brand-text { display: flex; flex-direction: column; gap: 2px; }
+    .brand-name { color: #fff; font-size: 1.05rem; font-weight: 700; }
+    .brand-link { color: #e5e7eb; font-size: 0.9rem; text-decoration: none; }
+    .brand-link:hover { text-decoration: underline; }
+    .qr-block { display: flex; align-items: center; gap: 10px; background: rgba(255,255,255,0.15); padding: 0.5rem 0.75rem; border-radius: 10px; border: 1px solid rgba(255,255,255,0.25); }
+    .qr-block img { width: 72px; height: 72px; border-radius: 6px; background: #fff; padding: 4px; }
+    .qr-text { color: #f3f4f6; font-size: 0.8rem; max-width: 190px; line-height: 1.35; }
+    .container { max-width: 1200px; margin: 0 auto; padding: 2rem; }
+    .hero { background: linear-gradient(135deg, #be0e0e 0%, #0b1020 100%); color: #fff; padding: 3rem; border-radius: 16px; margin-bottom: 3rem; box-shadow: 0 20px 60px rgba(190,14,14,0.25); }
+    .course-hero { background: linear-gradient(135deg, #be0e0e 0%, #0b1020 100%); color: #fff; padding: 3rem; border-radius: 16px; margin-bottom: 3rem; box-shadow: 0 20px 60px rgba(190,14,14,0.25); }
+    .hero-grid { display: grid; grid-template-columns: 1fr auto; gap: 2rem; align-items: center; }
+    .hero h1, .course-hero h1 { font-size: 2.25rem; margin-bottom: 0.5rem; font-weight: 800; }
+    .hero-meta { display: flex; gap: 1rem 1.25rem; margin-top: 1rem; flex-wrap: wrap; }
+    .meta-item { display: flex; align-items: center; gap: 0.5rem; background: rgba(255,255,255,0.15); padding: 0.5rem 0.875rem; border-radius: 8px; backdrop-filter: blur(10px); }
+    .header { background: #fff; padding: 2.25rem; border-radius: 16px; margin-bottom: 2rem; box-shadow: 0 8px 24px rgba(0,0,0,0.08); border: 1px solid #e5e7eb; }
+    .header h1 { font-size: 2.1rem; margin-bottom: 0.75rem; font-weight: 800; color: #111827; }
+    .subtitle { font-size: 1.05rem; color: #4b5563; margin-bottom: 1rem; }
+    .header .course-meta { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .header .meta-item { background: #f3f4f6; color: #111827; backdrop-filter: none; }
+    .qr-box { background: #fff; padding: 1rem; border-radius: 12px; box-shadow: 0 8px 24px rgba(0,0,0,0.1); }
+    .qr-box img { display: block; width: 140px; height: 140px; }
+    .section-title { font-size: 1.75rem; margin-bottom: 1.25rem; color: #111827; font-weight: 800; text-align: center; }
+    .section { background: #fff; padding: 2rem; border-radius: 16px; margin-bottom: 2rem; box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
+    .card { background: #fff; border: 1px solid #e5e7eb; border-radius: 12px; padding: 1.5rem; }
+    .card ul { margin-left: 1.25rem; }
+    .card li { margin: 0.5rem 0; }
+    .welcome-section { background: linear-gradient(180deg, #fef2f2 0%, #ffffff 100%); border: 1px solid #fecaca; border-radius: 16px; padding: 2rem; margin-bottom: 2rem; }
+    .welcome-section h2 { font-size: 1.7rem; margin-bottom: 1rem; color: #991b1b; }
+    .welcome-section p { margin-bottom: 1rem; color: #374151; }
+    .resource-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem; }
+    .resource-item { border: 1px solid #e5e7eb; border-radius: 12px; padding: 1rem; background: #fff; }
+    .resource-item h4 { margin-bottom: 0.5rem; color: #111827; }
+    .week-block { border: 1px solid #e5e7eb; border-left: 6px solid #be0e0e; border-radius: 12px; padding: 1.25rem; margin-bottom: 1.25rem; background: #fff; }
+    .week-header { display: flex; justify-content: space-between; gap: 1rem; margin-bottom: 0.75rem; }
+    .week-duration { color: #6b7280; font-size: 0.95rem; font-weight: 600; }
+    .week-topic { color: #991b1b; font-size: 1.2rem; font-weight: 700; margin-bottom: 0.75rem; }
+    .week-content ul { margin-left: 1.25rem; }
+    .lab-section { margin-top: 1rem; padding: 1rem; border-radius: 10px; background: #fef2f2; border: 1px solid #fecaca; }
+    .lab-section h4 { margin-bottom: 0.5rem; color: #991b1b; }
+    .weeks-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem; margin-bottom: 2rem; }
+    .week-card { background: #fff; padding: 1rem; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.08); border-left: 4px solid #be0e0e; transition: transform 0.2s, box-shadow 0.2s; }
+    .week-card:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(190,14,14,0.2); }
+    .week-number { color: #be0e0e; font-weight: 700; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.3rem; }
+    .week-title { font-size: 1.05rem; font-weight: 700; margin-bottom: 0.4rem; color: #111827; }
+    .week-topics { color: #6b7280; font-size: 0.92rem; line-height: 1.5; }
+    .og-preview { background: #fff; padding: 1.25rem; border-radius: 12px; text-align: center; margin-bottom: 2rem; box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
+    .og-preview img { max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 8px 24px rgba(0,0,0,0.1); }
+    .footer { text-align: center; padding: 2rem; color: #6b7280; border-top: 1px solid #e5e7eb; margin-top: 2rem; }
+    @media (max-width: 768px) { .hero h1, .course-hero h1 { font-size: 1.5rem; } .hero-grid { grid-template-columns: 1fr; } .qr-box { margin: 0 auto; } }
+  </style>
+
+
+
+<style id="curriculum-ui-normalization">
+:root { --primary-color:#0b5cab; --secondary-color:#5bb3ff; --dark-blue:#0d2a4a; --text-dark:#132235; --text-light:#4f637b; --bg-white:#ffffff; --bg-light:#f4f8fc; --border-color:#d9e5f2; }
+body { font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif; color:var(--text-dark); background:radial-gradient(circle at top right,#f7fbff 0%,#ffffff 45%); }
+h1,h2,h3,h4,.section-title,.week-topic,.week-number,.brand-name { font-family:'Space Grotesk','Inter',sans-serif; letter-spacing:-0.01em; }
+.section { margin-bottom:44px; }
+.card,.week-block,.project-card { border-radius:12px; border:1px solid var(--border-color); box-shadow:0 4px 16px rgba(13,42,74,0.06); }
+.welcome-section { background:linear-gradient(135deg,#eef6ff 0%,#f9fcff 100%); border-left:5px solid var(--primary-color); padding:28px; border-radius:12px; margin-bottom:36px; }
+.project-card { background:linear-gradient(135deg,#eef5ff 0%,#ffffff 60%); padding:20px; margin-bottom:14px; }
+.project-card h4 { color:var(--dark-blue); margin-bottom:8px; }
+.project-card p { color:var(--text-light); margin-bottom:10px; }
+.project-card ul { margin-left:18px; }
+.project-card li { margin:6px 0; }
+</style>
+<style id="curriculum-theme-override">
+:root { --primary-color:hsl(157 70% 42%); --secondary-color:hsl(181 82% 62%); --dark-blue:hsl(157 48% 18%); --text-dark:hsl(157 32% 14%); --text-light:hsl(157 18% 38%); --border-color:hsl(157 38% 86%); --bg-light:hsl(337 45% 97%); --theme-hero-a:hsl(157 85% 96%); --theme-hero-b:hsl(181 90% 98%); }
+body { background:radial-gradient(circle at 8% 0%, color-mix(in srgb, var(--theme-hero-a) 72%, white), #ffffff 46%); }
+.course-hero { background:linear-gradient(135deg,var(--theme-hero-a) 0%,var(--theme-hero-b) 100%); }
+.header { background:linear-gradient(135deg,color-mix(in srgb, var(--dark-blue) 90%, black), var(--primary-color)); }
+.section-title::before { background:linear-gradient(180deg,var(--primary-color),var(--secondary-color)); }
+.week-block { border-left:6px solid var(--primary-color); }
+</style>
+<style id="curriculum-contrast-fix">
+/* Final readability layer: resolves conflicting text/background and font overrides */
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif !important;
+  color: var(--text-dark) !important;
+  background-color: #ffffff;
+}
+h1, h2, h3, h4, .section-title, .week-topic, .week-number, .brand-name {
+  font-family: 'Space Grotesk', 'Inter', sans-serif !important;
+}
+
+/* Ensure light surfaces always use dark text */
+.container,
+.section,
+.card,
+.week-block,
+.week-column,
+.project-card,
+.welcome-section,
+.resource-item,
+.roadmap-card,
+.info-box {
+  color: var(--text-dark);
+}
+
+/* Keep hero as light panel with dark readable text */
+.course-hero,
+.course-hero h1,
+.course-hero h2,
+.course-hero h3,
+.course-hero h4,
+.course-hero p,
+.course-hero li,
+.course-hero span,
+.course-hero a {
+  color: var(--text-dark) !important;
+}
+
+/* Normalize dark surfaces so white text always has contrast */
+.brand-bar,
+.header,
+.footer {
+  background: linear-gradient(135deg, color-mix(in srgb, var(--dark-blue) 92%, black), var(--primary-color)) !important;
+}
+
+.header,
+.header h1,
+.header h2,
+.header h3,
+.header h4,
+.header p,
+.header li,
+.header span,
+.header strong,
+.header a,
+.brand-bar,
+.brand-bar h1,
+.brand-bar h2,
+.brand-bar h3,
+.brand-bar h4,
+.brand-bar p,
+.brand-bar li,
+.brand-bar span,
+.brand-bar strong,
+.brand-bar a,
+.footer,
+.footer h1,
+.footer h2,
+.footer h3,
+.footer h4,
+.footer p,
+.footer li,
+.footer span,
+.footer strong,
+.footer a {
+  color: #ffffff !important;
+}
+
+.brand-bar .brand-link,
+.brand-bar .qr-text,
+.footer p {
+  color: rgba(255, 255, 255, 0.92) !important;
+}
+
+/* Meta chips: readable in both dark and light contexts */
+.meta-item {
+  color: var(--text-dark);
+}
+.header .meta-item {
+  color: #ffffff !important;
+  background: rgba(255,255,255,0.16) !important;
+}
+
+/* Links and list readability */
+a { color: var(--primary-color); }
+a:hover { opacity: 0.9; }
+li { color: inherit; }
+
+.section-title,
+.week-topic,
+.project-card h4,
+.card h3,
+.welcome-section h2 {
+  opacity: 1 !important;
+}
+</style>
+<style id="curriculum-brandbar-contrast-fix">
+/* Brand bar readability fix */
+.brand-bar {
+  background: linear-gradient(135deg, color-mix(in srgb, var(--dark-blue) 88%, black), var(--primary-color)) !important;
+  border-color: color-mix(in srgb, var(--primary-color) 35%, white) !important;
+}
+.brand-bar .brand-name,
+.brand-bar .brand-link,
+.brand-bar .qr-text,
+.brand-bar .brand-text,
+.brand-bar .brand-meta,
+.brand-bar a,
+.brand-bar p,
+.brand-bar span,
+.brand-bar strong {
+  color: #ffffff !important;
+}
+.brand-bar .brand-link {
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.brand-bar .qr-block {
+  background: rgba(255,255,255,0.16) !important;
+  border-color: rgba(255,255,255,0.35) !important;
+}
+.brand-bar .qr-text {
+  opacity: 0.95;
+}
+</style>
+</head>
+<body>
+<div class="brand-bar">
+<div class="brand-meta">
+<img alt="Hexadigitall Technologies logo" src="../hexadigitall-logo-transparent.png"/>
+<div class="brand-text">
+<span class="brand-name">Hexadigitall Technologies</span>
+<a class="brand-link" href="https://hexadigitall.com" rel="noopener" target="_blank">https://hexadigitall.com</a>
+</div>
+</div>
+<div class="qr-block">
+<img alt="QR code to the DevSecOps Engineering page" src="https://api.qrserver.com/v1/create-qr-code/?size=240x240&amp;data=https%3A%2F%2Fhexadigitall.com%2Fcourses%2Fdevsecops-engineering-automating-security"/>
+<div class="qr-text">Scan to open the course page and view enrollment options.</div>
+</div>
+</div>
+<div class="container">
+<div class="course-hero">
+<div class="hero-grid">
+<div>
+<h2>Course Snapshot</h2>
+<p style="font-size: 1.05rem; opacity: 0.95;">Shift security left by integrating it into development pipelines. Master automated security testing, SAST/DAST, container scanning, and compliance.</p>
+<div class="hero-meta">
+<div class="meta-item"><span>⏱️</span><strong>24 Weeks</strong></div>
+<div class="meta-item"><span>📊</span><strong>Advanced</strong></div>
+<div class="meta-item"><span>🔐</span><strong>Security Engineering</strong></div>
+</div>
+</div>
+<div class="qr-box">
+<img alt="Course QR Code" src="../assets/images/courses/enterprise-security-risk-management.jpg"/>
+</div>
+</div>
+</div>
+<header class="header">
+<h1>DevSecOps Engineering: Automating Security</h1>
+<p class="subtitle">Integrate security into the software delivery lifecycle with automated testing, dependency governance, container security, policy-as-code, cloud hardening, and incident-ready pipeline design.</p>
+<div class="course-meta">
+<div class="meta-item"><strong>Duration:</strong> 24 Weeks</div>
+<div class="meta-item"><strong>Level:</strong> Advanced</div>
+<div class="meta-item"><strong>Study Time:</strong> 5 hours/week + labs</div>
+<div class="meta-item"><strong>School:</strong> Cybersecurity</div>
+</div>
+</header>
+<section class="welcome-section">
+<h2>Welcome to DevSecOps Engineering: Automating Security! 🎓</h2>
+<p>This curriculum for DevSecOps Engineering: Automating Security follows a Bloom-aligned progression from practical foundations to measurable professional outcomes, with weekly evidence, labs, and portfolio outputs matched to advanced expectations.</p>
+<p>Each week advances from comprehension and application toward evaluation and creation, ensuring progressive learning and capstone readiness.</p>
+<p><strong>Your success is our priority.</strong> By the end of the course, you will be able to design and operate a secure delivery pipeline that balances speed, developer usability, and measurable security controls. You will graduate with a professionally curated portfolio that demonstrates scope, depth, and delivery quality. You will graduate with a professionally curated portfolio that demonstrates scope, depth, and delivery quality. You will graduate with a professionally curated portfolio that demonstrates scope, depth, and delivery quality. You will graduate with a professionally curated portfolio that demonstrates scope, depth, and delivery quality.</p>
+</section>
+<div class="section">
+<h2 class="section-title">Prerequisites &amp; What You Should Know</h2>
+<div class="card">
+<ul><li>Hands-on experience with network protocols, operating system internals, and security control implementation</li><li>Practical knowledge of reading security logs, alert analysis, and threat detection workflows</li><li>Comfort with risk documentation, control decisions, and evidence-based compliance mapping</li><li>Familiarity with at least one SIEM platform, policy tool, or security scanner</li></ul>
+</div>
+</div>
+<div class="section">
+<h2 class="section-title">Recommended Complementary Courses</h2>
+<div class="resource-grid"><div class="resource-item"><h4>Incident Response</h4><p>Master triage, containment, and post-incident forensics workflows</p></div><div class="resource-item"><h4>Cloud Security</h4><p>Extend identity, token, and workload protection into cloud environments</p></div><div class="resource-item"><h4>Governance &amp; Compliance</h4><p>Connect security controls to regulatory mappings and audit documentation</p></div></div>
+</div>
+<div class="section">
+<h2 class="section-title">Essential Learning Resources</h2>
+<div class="card">
+<ul><li>NIST Cybersecurity Framework, CIS Controls, and OWASP threat modeling guides</li><li>Incident simulation datasets, detection rule templates, and control efficacy checklists</li><li>Security architecture patterns repository and threat modeling workshop materials</li></ul>
+</div>
+</div>
+<div class="section">
+<h2 class="section-title">Your Learning Roadmap</h2>
+<div class="card">
+<ul><li>Early Weeks: Core controls, identity hardening, and baseline security posture</li><li>Middle Weeks: Detection engineering, incident handling, and service resilience</li><li>Late Weeks: Compliance evidence, executive reporting, and capstone defense</li></ul>
+</div>
+</div>
+<div class="section">
+<h2 class="section-title">Detailed Weekly Curriculum</h2>
+<div class="week-block"><div class="week-header"><span class="week-number">Week 1</span><span class="week-duration">5 hours + labs</span></div><div class="week-topic">DevSecOps Foundations</div><div class="week-content"><ul><li>Analyze the principles of DevSecOps Foundations and link them to course outcomes at advanced depth with architecture-level decision quality.</li><li>Evaluate DevSecOps Foundations in a guided scenario using realistic tools, constraints, and quality gates.</li><li>Design trade-offs, risks, and decision points for DevSecOps Foundations, then record rationale for stakeholder review.</li><li>Justify a portfolio-ready control validation dossier for DevSecOps Foundations with measurable success criteria and next actions.</li></ul><div class="lab-section"><h4>Lab Exercise</h4><ul><li>Design and execute a concrete DevSecOps Foundations build in DevSecOps Engineering: Automating Security with a clear acceptance checklist.</li><li>Validate DevSecOps Foundations with objective tests and quality controls before review.</li><li>Deliver DevSecOps Foundations artifacts with reproducible steps and operational notes.</li></ul></div></div></div>
+<div class="week-block"><div class="week-header"><span class="week-number">Week 2</span><span class="week-duration">5 hours + labs</span></div><div class="week-topic">SDLC Security</div><div class="week-content"><ul><li>Analyze the principles of SDLC Security and link them to course outcomes at advanced depth with architecture-level decision quality.</li><li>Evaluate SDLC Security in a guided scenario using realistic tools, constraints, and quality gates.</li><li>Design trade-offs, risks, and decision points for SDLC Security, then record rationale for stakeholder review.</li><li>Justify a portfolio-ready control validation dossier for SDLC Security with measurable success criteria and next actions.</li></ul><div class="lab-section"><h4>Lab Exercise</h4><ul><li>Implement baseline controls for SDLC Security and verify enforcement on target systems.</li><li>Run assessment/scanning for SDLC Security and prioritize findings by exploitability and impact.</li><li>Close critical findings for SDLC Security and publish re-test evidence.</li></ul></div></div></div>
+<div class="week-block"><div class="week-header"><span class="week-number">Week 3</span><span class="week-duration">5 hours + labs</span></div><div class="week-topic">Code Analysis - SAST</div><div class="week-content"><ul><li>Analyze the principles of Code Analysis - SAST and link them to course outcomes at advanced depth with architecture-level decision quality.</li><li>Evaluate Code Analysis - SAST in a guided scenario using realistic tools, constraints, and quality gates.</li><li>Design trade-offs, risks, and decision points for Code Analysis - SAST, then record rationale for stakeholder review.</li><li>Justify a portfolio-ready control validation dossier for Code Analysis - SAST with measurable success criteria and next actions.</li></ul><div class="lab-section"><h4>Lab Exercise</h4><ul><li>Design and execute a concrete Code Analysis - SAST build in DevSecOps Engineering: Automating Security with a clear acceptance checklist.</li><li>Validate Code Analysis - SAST with objective tests and quality controls before review.</li><li>Deliver Code Analysis - SAST artifacts with reproducible steps and operational notes.</li></ul></div></div></div>
+<div class="week-block"><div class="week-header"><span class="week-number">Week 4</span><span class="week-duration">5 hours + labs</span></div><div class="week-topic">Dependency Scanning</div><div class="week-content"><ul><li>Analyze the principles of Dependency Scanning and link them to course outcomes at advanced depth with architecture-level decision quality.</li><li>Evaluate Dependency Scanning in a guided scenario using realistic tools, constraints, and quality gates.</li><li>Design trade-offs, risks, and decision points for Dependency Scanning, then record rationale for stakeholder review.</li><li>Justify a portfolio-ready control validation dossier for Dependency Scanning with measurable success criteria and next actions.</li></ul><div class="lab-section"><h4>Lab Exercise</h4><ul><li>Design and execute a concrete Dependency Scanning build in DevSecOps Engineering: Automating Security with a clear acceptance checklist.</li><li>Validate Dependency Scanning with objective tests and quality controls before review.</li><li>Deliver Dependency Scanning artifacts with reproducible steps and operational notes.</li></ul></div></div></div>
+<div class="week-block"><div class="week-header"><span class="week-number">Week 5</span><span class="week-duration">5 hours + labs</span></div><div class="week-topic">Container Security I</div><div class="week-content"><ul><li>Analyze the principles of Container Security I and link them to course outcomes at advanced depth with architecture-level decision quality.</li><li>Evaluate Container Security I in a guided scenario using realistic tools, constraints, and quality gates.</li><li>Design trade-offs, risks, and decision points for Container Security I, then record rationale for stakeholder review.</li><li>Justify a portfolio-ready control validation dossier for Container Security I with measurable success criteria and next actions.</li></ul><div class="lab-section"><h4>Lab Exercise</h4><ul><li>Implement baseline controls for Container Security I and verify enforcement on target systems.</li><li>Run assessment/scanning for Container Security I and prioritize findings by exploitability and impact.</li><li>Close critical findings for Container Security I and publish re-test evidence.</li></ul></div></div></div>
+<div class="week-block"><div class="week-header"><span class="week-number">Week 6</span><span class="week-duration">5 hours + labs</span></div><div class="week-topic">Container Security II</div><div class="week-content"><ul><li>Analyze the principles of Container Security II and link them to course outcomes at advanced depth with architecture-level decision quality.</li><li>Evaluate Container Security II in a guided scenario using realistic tools, constraints, and quality gates.</li><li>Design trade-offs, risks, and decision points for Container Security II, then record rationale for stakeholder review.</li><li>Justify a portfolio-ready control validation dossier for Container Security II with measurable success criteria and next actions.</li></ul><div class="lab-section"><h4>Lab Exercise</h4><ul><li>Implement baseline controls for Container Security II and verify enforcement on target systems.</li><li>Run assessment/scanning for Container Security II and prioritize findings by exploitability and impact.</li><li>Close critical findings for Container Security II and publish re-test evidence.</li></ul></div></div></div>
+<div class="week-block"><div class="week-header"><span class="week-number">Week 7</span><span class="week-duration">5 hours + labs</span></div><div class="week-topic">Dynamic Testing - DAST</div><div class="week-content"><ul><li>Analyze the principles of Dynamic Testing - DAST and link them to course outcomes at advanced depth with architecture-level decision quality.</li><li>Evaluate Dynamic Testing - DAST in a guided scenario using realistic tools, constraints, and quality gates.</li><li>Design trade-offs, risks, and decision points for Dynamic Testing - DAST, then record rationale for stakeholder review.</li><li>Justify a portfolio-ready control validation dossier for Dynamic Testing - DAST with measurable success criteria and next actions.</li></ul><div class="lab-section"><h4>Lab Exercise</h4><ul><li>Design and execute a concrete Dynamic Testing - DAST build in DevSecOps Engineering: Automating Security with a clear acceptance checklist.</li><li>Validate Dynamic Testing - DAST with objective tests and quality controls before review.</li><li>Deliver Dynamic Testing - DAST artifacts with reproducible steps and operational notes.</li></ul></div></div></div>
+<div class="week-block"><div class="week-header"><span class="week-number">Week 8</span><span class="week-duration">5 hours + labs</span></div><div class="week-topic">CI/CD Pipeline Security</div><div class="week-content"><ul><li>Analyze the principles of CI/CD Pipeline Security and link them to course outcomes at advanced depth with architecture-level decision quality.</li><li>Evaluate CI/CD Pipeline Security in a guided scenario using realistic tools, constraints, and quality gates.</li><li>Design trade-offs, risks, and decision points for CI/CD Pipeline Security, then record rationale for stakeholder review.</li><li>Justify a portfolio-ready control validation dossier for CI/CD Pipeline Security with measurable success criteria and next actions.</li></ul><div class="lab-section"><h4>Lab Exercise</h4><ul><li>Implement baseline controls for CI/CD Pipeline Security and verify enforcement on target systems.</li><li>Run assessment/scanning for CI/CD Pipeline Security and prioritize findings by exploitability and impact.</li><li>Close critical findings for CI/CD Pipeline Security and publish re-test evidence.</li></ul></div></div></div>
+<div class="week-block"><div class="week-header"><span class="week-number">Week 9</span><span class="week-duration">5 hours + labs</span></div><div class="week-topic">Infrastructure as Code (IaC)</div><div class="week-content"><ul><li>Evaluate the principles of Infrastructure as Code (IaC) and link them to course outcomes at advanced depth with architecture-level decision quality.</li><li>Design Infrastructure as Code (IaC) in a guided scenario using realistic tools, constraints, and quality gates.</li><li>Optimize trade-offs, risks, and decision points for Infrastructure as Code (IaC), then record rationale for stakeholder review.</li><li>Justify a portfolio-ready control validation dossier for Infrastructure as Code (IaC) with measurable success criteria and next actions.</li></ul><div class="lab-section"><h4>Lab Exercise</h4><ul><li>Design and execute a concrete Infrastructure as Code (IaC) build in DevSecOps Engineering: Automating Security with a clear acceptance checklist.</li><li>Validate Infrastructure as Code (IaC) with objective tests and quality controls before review.</li><li>Deliver Infrastructure as Code (IaC) artifacts with reproducible steps and operational notes.</li></ul></div></div></div>
+<div class="week-block"><div class="week-header"><span class="week-number">Week 10</span><span class="week-duration">5 hours + labs</span></div><div class="week-topic">Policy as Code</div><div class="week-content"><ul><li>Evaluate the principles of Policy as Code and link them to course outcomes at advanced depth with architecture-level decision quality.</li><li>Design Policy as Code in a guided scenario using realistic tools, constraints, and quality gates.</li><li>Optimize trade-offs, risks, and decision points for Policy as Code, then record rationale for stakeholder review.</li><li>Justify a portfolio-ready control validation dossier for Policy as Code with measurable success criteria and next actions.</li></ul><div class="lab-section"><h4>Lab Exercise</h4><ul><li>Design and execute a concrete Policy as Code build in DevSecOps Engineering: Automating Security with a clear acceptance checklist.</li><li>Validate Policy as Code with objective tests and quality controls before review.</li><li>Deliver Policy as Code artifacts with reproducible steps and operational notes.</li></ul></div></div></div>
+<div class="week-block"><div class="week-header"><span class="week-number">Week 11</span><span class="week-duration">5 hours + labs</span></div><div class="week-topic">Secrets Management</div><div class="week-content"><ul><li>Evaluate the principles of Secrets Management and link them to course outcomes at advanced depth with architecture-level decision quality.</li><li>Design Secrets Management in a guided scenario using realistic tools, constraints, and quality gates.</li><li>Optimize trade-offs, risks, and decision points for Secrets Management, then record rationale for stakeholder review.</li><li>Justify a portfolio-ready control validation dossier for Secrets Management with measurable success criteria and next actions.</li></ul><div class="lab-section"><h4>Lab Exercise</h4><ul><li>Design and execute a concrete Secrets Management build in DevSecOps Engineering: Automating Security with a clear acceptance checklist.</li><li>Validate Secrets Management with objective tests and quality controls before review.</li><li>Deliver Secrets Management artifacts with reproducible steps and operational notes.</li></ul></div></div></div>
+<div class="week-block"><div class="week-header"><span class="week-number">Week 12</span><span class="week-duration">5 hours + labs</span></div><div class="week-topic">Cloud Security</div><div class="week-content"><ul><li>Evaluate the principles of Cloud Security and link them to course outcomes at advanced depth with architecture-level decision quality.</li><li>Design Cloud Security in a guided scenario using realistic tools, constraints, and quality gates.</li><li>Optimize trade-offs, risks, and decision points for Cloud Security, then record rationale for stakeholder review.</li><li>Justify a portfolio-ready control validation dossier for Cloud Security with measurable success criteria and next actions.</li></ul><div class="lab-section"><h4>Lab Exercise</h4><ul><li>Implement baseline controls for Cloud Security and verify enforcement on target systems.</li><li>Run assessment/scanning for Cloud Security and prioritize findings by exploitability and impact.</li><li>Close critical findings for Cloud Security and publish re-test evidence.</li></ul></div></div></div>
+<div class="week-block"><div class="week-header"><span class="week-number">Week 13</span><span class="week-duration">5 hours + labs</span></div><div class="week-topic">Kubernetes Security</div><div class="week-content"><ul><li>Evaluate the principles of Kubernetes Security and link them to course outcomes at advanced depth with architecture-level decision quality.</li><li>Design Kubernetes Security in a guided scenario using realistic tools, constraints, and quality gates.</li><li>Optimize trade-offs, risks, and decision points for Kubernetes Security, then record rationale for stakeholder review.</li><li>Justify a portfolio-ready control validation dossier for Kubernetes Security with measurable success criteria and next actions.</li></ul><div class="lab-section"><h4>Lab Exercise</h4><ul><li>Implement baseline controls for Kubernetes Security and verify enforcement on target systems.</li><li>Run assessment/scanning for Kubernetes Security and prioritize findings by exploitability and impact.</li><li>Close critical findings for Kubernetes Security and publish re-test evidence.</li></ul></div></div></div>
+<div class="week-block"><div class="week-header"><span class="week-number">Week 14</span><span class="week-duration">5 hours + labs</span></div><div class="week-topic">Monitoring &amp; Compliance</div><div class="week-content"><ul><li>Evaluate the principles of Monitoring &amp; Compliance and link them to course outcomes at advanced depth with architecture-level decision quality.</li><li>Design Monitoring &amp; Compliance in a guided scenario using realistic tools, constraints, and quality gates.</li><li>Optimize trade-offs, risks, and decision points for Monitoring &amp; Compliance, then record rationale for stakeholder review.</li><li>Justify a portfolio-ready control validation dossier for Monitoring &amp; Compliance with measurable success criteria and next actions.</li></ul><div class="lab-section"><h4>Lab Exercise</h4><ul><li>Implement baseline controls for Monitoring & Compliance and verify enforcement on target systems.</li><li>Run assessment/scanning for Monitoring & Compliance and prioritize findings by exploitability and impact.</li><li>Close critical findings for Monitoring & Compliance and publish re-test evidence.</li></ul></div></div></div>
+<div class="week-block"><div class="week-header"><span class="week-number">Week 15</span><span class="week-duration">5 hours + labs</span></div><div class="week-topic">SIEM Integration</div><div class="week-content"><ul><li>Evaluate the principles of SIEM Integration and link them to course outcomes at advanced depth with architecture-level decision quality.</li><li>Design SIEM Integration in a guided scenario using realistic tools, constraints, and quality gates.</li><li>Optimize trade-offs, risks, and decision points for SIEM Integration, then record rationale for stakeholder review.</li><li>Justify a portfolio-ready control validation dossier for SIEM Integration with measurable success criteria and next actions.</li></ul><div class="lab-section"><h4>Lab Exercise</h4><ul><li>Design and execute a concrete SIEM Integration build in DevSecOps Engineering: Automating Security with a clear acceptance checklist.</li><li>Validate SIEM Integration with objective tests and quality controls before review.</li><li>Deliver SIEM Integration artifacts with reproducible steps and operational notes.</li></ul></div></div></div>
+<div class="week-block"><div class="week-header"><span class="week-number">Week 16</span><span class="week-duration">5 hours + labs</span></div><div class="week-topic">Incident Response</div><div class="week-content"><ul><li>Evaluate the principles of Incident Response and link them to course outcomes at advanced depth with architecture-level decision quality.</li><li>Design Incident Response in a guided scenario using realistic tools, constraints, and quality gates.</li><li>Optimize trade-offs, risks, and decision points for Incident Response, then record rationale for stakeholder review.</li><li>Justify a portfolio-ready control validation dossier for Incident Response with measurable success criteria and next actions.</li></ul><div class="lab-section"><h4>Lab Exercise</h4><ul><li>Design and execute a concrete Incident Response build in DevSecOps Engineering: Automating Security with a clear acceptance checklist.</li><li>Validate Incident Response with objective tests and quality controls before review.</li><li>Deliver Incident Response artifacts with reproducible steps and operational notes.</li></ul></div></div></div>
+<div class="week-block"><div class="week-header"><span class="week-number">Week 17</span><span class="week-duration">5 hours + labs</span></div><div class="week-topic">Advanced CI/CD</div><div class="week-content"><ul><li>Design the principles of Advanced CI/CD and link them to course outcomes at advanced depth with architecture-level decision quality.</li><li>Optimize Advanced CI/CD in a guided scenario using realistic tools, constraints, and quality gates.</li><li>Architect trade-offs, risks, and decision points for Advanced CI/CD, then record rationale for stakeholder review.</li><li>Defend a portfolio-ready control validation dossier for Advanced CI/CD with measurable success criteria and next actions.</li></ul><div class="lab-section"><h4>Lab Exercise</h4><ul><li>Implement a production-style Advanced CI/CD setup using versioned config/code and environment controls.</li><li>Run validation gates for Advanced CI/CD covering reliability, security, and rollback readiness.</li><li>Publish Advanced CI/CD execution evidence with logs, metrics, and troubleshooting notes.</li></ul></div></div></div>
+<div class="week-block"><div class="week-header"><span class="week-number">Week 18</span><span class="week-duration">5 hours + labs</span></div><div class="week-topic">Supply Chain Security</div><div class="week-content"><ul><li>Design the principles of Supply Chain Security and link them to course outcomes at advanced depth with architecture-level decision quality.</li><li>Optimize Supply Chain Security in a guided scenario using realistic tools, constraints, and quality gates.</li><li>Architect trade-offs, risks, and decision points for Supply Chain Security, then record rationale for stakeholder review.</li><li>Defend a portfolio-ready control validation dossier for Supply Chain Security with measurable success criteria and next actions.</li></ul><div class="lab-section"><h4>Lab Exercise</h4><ul><li>Implement baseline controls for Supply Chain Security and verify enforcement on target systems.</li><li>Run assessment/scanning for Supply Chain Security and prioritize findings by exploitability and impact.</li><li>Close critical findings for Supply Chain Security and publish re-test evidence.</li></ul></div></div></div>
+<div class="week-block"><div class="week-header"><span class="week-number">Week 19</span><span class="week-duration">5 hours + labs</span></div><div class="week-topic">API Security</div><div class="week-content"><ul><li>Design the principles of API Security and link them to course outcomes at advanced depth with architecture-level decision quality.</li><li>Optimize API Security in a guided scenario using realistic tools, constraints, and quality gates.</li><li>Architect trade-offs, risks, and decision points for API Security, then record rationale for stakeholder review.</li><li>Defend a portfolio-ready control validation dossier for API Security with measurable success criteria and next actions.</li></ul><div class="lab-section"><h4>Lab Exercise</h4><ul><li>Implement baseline controls for API Security and verify enforcement on target systems.</li><li>Run assessment/scanning for API Security and prioritize findings by exploitability and impact.</li><li>Close critical findings for API Security and publish re-test evidence.</li></ul></div></div></div>
+<div class="week-block"><div class="week-header"><span class="week-number">Week 20</span><span class="week-duration">5 hours + labs</span></div><div class="week-topic">Automation Best Practices</div><div class="week-content"><ul><li>Design the principles of Automation Best Practices and link them to course outcomes at advanced depth with architecture-level decision quality.</li><li>Optimize Automation Best Practices in a guided scenario using realistic tools, constraints, and quality gates.</li><li>Architect trade-offs, risks, and decision points for Automation Best Practices, then record rationale for stakeholder review.</li><li>Defend a portfolio-ready control validation dossier for Automation Best Practices with measurable success criteria and next actions.</li></ul><div class="lab-section"><h4>Lab Exercise</h4><ul><li>Design and execute a concrete Automation Best Practices build in DevSecOps Engineering: Automating Security with a clear acceptance checklist.</li><li>Validate Automation Best Practices with objective tests and quality controls before review.</li><li>Deliver Automation Best Practices artifacts with reproducible steps and operational notes.</li></ul></div></div></div>
+<div class="week-block"><div class="week-header"><span class="week-number">Week 21</span><span class="week-duration">5 hours + labs</span></div><div class="week-topic">Team &amp; Culture</div><div class="week-content"><ul><li>Design the principles of Team &amp; Culture and link them to course outcomes at advanced depth with architecture-level decision quality.</li><li>Optimize Team &amp; Culture in a guided scenario using realistic tools, constraints, and quality gates.</li><li>Architect trade-offs, risks, and decision points for Team &amp; Culture, then record rationale for stakeholder review.</li><li>Defend a portfolio-ready control validation dossier for Team &amp; Culture with measurable success criteria and next actions.</li></ul><div class="lab-section"><h4>Lab Exercise</h4><ul><li>Design and execute a concrete Team & Culture build in DevSecOps Engineering: Automating Security with a clear acceptance checklist.</li><li>Validate Team & Culture with objective tests and quality controls before review.</li><li>Deliver Team & Culture artifacts with reproducible steps and operational notes.</li></ul></div></div></div>
+<div class="week-block"><div class="week-header"><span class="week-number">Week 22</span><span class="week-duration">5 hours + labs</span></div><div class="week-topic">Tools &amp; Integrations</div><div class="week-content"><ul><li>Design the principles of Tools &amp; Integrations and link them to course outcomes at advanced depth with architecture-level decision quality.</li><li>Optimize Tools &amp; Integrations in a guided scenario using realistic tools, constraints, and quality gates.</li><li>Architect trade-offs, risks, and decision points for Tools &amp; Integrations, then record rationale for stakeholder review.</li><li>Defend a portfolio-ready control validation dossier for Tools &amp; Integrations with measurable success criteria and next actions.</li></ul><div class="lab-section"><h4>Lab Exercise</h4><ul><li>Design and execute a concrete Tools & Integrations build in DevSecOps Engineering: Automating Security with a clear acceptance checklist.</li><li>Validate Tools & Integrations with objective tests and quality controls before review.</li><li>Deliver Tools & Integrations artifacts with reproducible steps and operational notes.</li></ul></div></div></div>
+<div class="week-block"><div class="week-header"><span class="week-number">Week 23</span><span class="week-duration">5 hours + labs</span></div><div class="week-topic">Industry Case Studies</div><div class="week-content"><ul><li>Design the principles of Industry Case Studies and link them to course outcomes at advanced depth with architecture-level decision quality.</li><li>Optimize Industry Case Studies in a guided scenario using realistic tools, constraints, and quality gates.</li><li>Architect trade-offs, risks, and decision points for Industry Case Studies, then record rationale for stakeholder review.</li><li>Defend a portfolio-ready control validation dossier for Industry Case Studies with measurable success criteria and next actions.</li></ul><div class="lab-section"><h4>Lab Exercise</h4><ul><li>Design and execute a concrete Industry Case Studies build in DevSecOps Engineering: Automating Security with a clear acceptance checklist.</li><li>Validate Industry Case Studies with objective tests and quality controls before review.</li><li>Deliver Industry Case Studies artifacts with reproducible steps and operational notes.</li></ul></div></div></div>
+<div class="week-block"><div class="week-header"><span class="week-number">Week 24</span><span class="week-duration">5 hours + capstone</span></div><div class="week-topic">Capstone: Secure Pipeline</div><div class="week-content"><ul><li>Design the principles of Capstone: Secure Pipeline and link them to course outcomes at advanced depth with architecture-level decision quality.</li><li>Optimize Capstone: Secure Pipeline in a guided scenario using realistic tools, constraints, and quality gates.</li><li>Architect trade-offs, risks, and decision points for Capstone: Secure Pipeline, then record rationale for stakeholder review.</li><li>Defend a portfolio-ready control validation dossier for Capstone: Secure Pipeline with measurable success criteria and next actions.</li></ul><div class="lab-section"><h4>Lab Exercise</h4><ul><li>Design and execute a concrete Capstone: Secure Pipeline build in DevSecOps Engineering: Automating Security with a clear acceptance checklist.</li><li>Validate Capstone: Secure Pipeline with objective tests and quality controls before review.</li><li>Deliver Capstone: Secure Pipeline artifacts with reproducible steps and operational notes.</li></ul></div></div></div>
+</div>
+<div class="section">
+<h2 class="section-title">Capstone Projects</h2><div class="project-card"><h4>Project 1: DevSecOps Engineering: Automating Security Foundation Build</h4><p>Deliver a concrete foundation implementation covering the first phase of the curriculum.</p><ul><li>Implement and validate DevSecOps Foundations.</li><li>Integrate SDLC Security with reusable workflow standards.</li><li>Publish evidence for Code Analysis - SAST with test and quality artifacts.</li></ul></div><div class="project-card"><h4>Project 2: DevSecOps Engineering: Automating Security Integrated Systems Build</h4><p>Combine mid-program competencies into a production-style integrated workflow.</p><ul><li>Build an end-to-end flow around Infrastructure as Code (IaC) and Policy as Code.</li><li>Add controls, observability, and rollback paths for reliability.</li><li>Document architecture decisions and trade-offs tied to Secrets Management.</li></ul></div><div class="project-card"><h4>Project 3: DevSecOps Engineering: Automating Security Capstone Delivery</h4><p>Ship a portfolio-ready capstone with measurable outcomes and stakeholder-ready presentation.</p><ul><li>Deliver a complete implementation centered on Team & Culture.</li><li>Validate readiness for Tools & Integrations using objective acceptance checks.</li><li>Present final defense and roadmap based on Industry Case Studies outcomes.</li></ul></div></div>
+<div class="section">
+<h2 class="section-title">Study Tips for Success</h2>
+<div class="card">
+<ul><li>Reserve two weekly deep-work blocks for hands-on labs, control validation, and remediation testing against real-world attacks.</li><li>Maintain a control-change ledger documenting each risk decision, its measurable impact, and improvement trajectory.</li><li>Conduct weekly threat model reviews, comparing assumed attack paths against current detection capability and control gaps.</li></ul>
+</div>
+</div>
+<div class="section">
+<h2 class="section-title">About This Course</h2>
+<div class="card">
+<p>DevSecOps Engineering: Automating Security is built for organizations and practitioners who need security controls to operate at delivery speed. The course focuses on automation-first security design so that policy, scanning, secrets, and response workflows become part of engineering practice instead of external bottlenecks.</p>
+</div>
+<div class="card" style="margin-top: 1rem;">
+<ul>
+<li><strong>Best fit roles:</strong> DevSecOps Engineer, Security Automation Engineer, Platform Security Engineer, Cloud Security Engineer.</li>
+<li><strong>Primary outcome:</strong> Design and defend a secure software delivery pipeline with automated enforcement and monitoring.</li>
+<li><strong>Portfolio value:</strong> Pipeline security controls, IaC scanning, policy-as-code rules, SIEM integrations, and supply chain security evidence.</li>
+</ul>
+</div>
+</div>
+<footer class="footer">
+<p><strong>Hexadigitall</strong> • Empowering Digital Futures</p>
+<p style="margin-top: 0.5rem; font-size: 0.9rem;">Visit <a href="https://hexadigitall.com" style="color: #be0e0e;">hexadigitall.com</a> to enroll</p>
+</footer>
+</div>
+</body>
+</html>

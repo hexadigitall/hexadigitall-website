@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Full Stack Web Development Bootcamp - Course Curriculum</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&amp;family=Space+Grotesk:wght@500;600;700&amp;display=swap" rel="stylesheet"/>
+<style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --primary-color: #0078D4;
+            --secondary-color: #50E6FF;
+            --dark-blue: #002050;
+            --text-dark: #1F1F1F;
+            --text-light: #605E5C;
+            --bg-light: #F5F5F5;
+            --bg-white: #FFFFFF;
+            --border-color: #EDEBE9;
+        }
+        body { font-family: 'Inter', sans-serif; line-height: 1.6; color: var(--text-dark); background: var(--bg-white); font-size: 14px; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 40px; }
+        .brand-bar { display: flex; align-items: center; justify-content: space-between; gap: 20px; border: 1px solid var(--border-color); border-radius: 12px; padding: 16px 20px; margin-bottom: 20px; box-shadow: 0 4px 18px rgba(0, 32, 80, 0.08); }
+        .brand-meta { display: flex; align-items: center; gap: 16px; }
+        .brand-meta img { width: 60px; height: auto; }
+        .brand-name { font-family: 'Space Grotesk', sans-serif; font-size: 18px; font-weight: 700; color: var(--dark-blue); }
+        .brand-link { color: var(--primary-color); font-weight: 600; text-decoration: none; }
+        .qr-block { display: flex; align-items: center; gap: 12px; background: var(--bg-light); padding: 10px 14px; border-radius: 10px; border: 1px solid var(--border-color); }
+        .qr-block img { width: 86px; height: 86px; }
+        .qr-text { font-size: 12px; color: var(--text-light); max-width: 220px; line-height: 1.5; }
+        .course-hero { background: linear-gradient(135deg, #E8F4FD 0%, #F5F9FF 100%); border: 1px solid var(--border-color); border-radius: 12px; padding: 18px; margin-bottom: 24px; display: grid; grid-template-columns: 1fr 320px; gap: 20px; align-items: center; box-shadow: 0 6px 18px rgba(0, 32, 80, 0.08); }
+        .course-hero img { width: 100%; border-radius: 12px; border: 1px solid var(--border-color); }
+        .course-hero h2 { font-family: 'Space Grotesk', sans-serif; color: var(--dark-blue); margin-bottom: 10px; font-size: 22px; }
+        .header { background: linear-gradient(135deg, var(--dark-blue) 0%, var(--primary-color) 100%); color: white; padding: 60px 40px; border-radius: 12px; margin-bottom: 40px; box-shadow: 0 10px 30px rgba(0, 120, 212, 0.2); }
+        .header h1 { font-family: 'Space Grotesk', sans-serif; font-size: 42px; font-weight: 700; margin-bottom: 16px; letter-spacing: -0.5px; }
+        .header .subtitle { font-size: 18px; opacity: 0.95; margin-bottom: 24px; }
+        .course-meta { display: flex; flex-wrap: wrap; gap: 24px; margin-top: 32px; }
+        .meta-item { display: flex; align-items: center; gap: 8px; background: rgba(255, 255, 255, 0.15); padding: 12px 20px; border-radius: 8px; }
+        .section { margin-bottom: 48px; break-inside: avoid; }
+        .section-title { font-family: 'Space Grotesk', sans-serif; font-size: 28px; color: var(--dark-blue); margin-bottom: 24px; padding-bottom: 12px; border-bottom: 3px solid var(--primary-color); display: flex; align-items: center; gap: 12px; }
+        .section-title::before { content: ''; width: 6px; height: 32px; background: linear-gradient(180deg, var(--primary-color), var(--secondary-color)); border-radius: 3px; }
+        .card { background: var(--bg-white); border: 1px solid var(--border-color); border-radius: 10px; padding: 24px; margin-bottom: 16px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05); }
+        .card ul { margin-left: 20px; }
+        .card li { margin: 6px 0; }
+        .roadmap-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+        .roadmap-card { border: 1px solid var(--border-color); border-radius: 12px; padding: 18px; background: linear-gradient(135deg, #F8FBFF 0%, #FFFFFF 100%); }
+        .roadmap-card h4 { color: var(--dark-blue); font-size: 18px; margin-bottom: 6px; }
+        .roadmap-card p { color: var(--text-light); font-size: 13px; margin-bottom: 10px; }
+        .roadmap-card ul { margin-left: 18px; }
+        .week-block { border: 1px solid var(--border-color); border-left: 6px solid var(--primary-color); border-radius: 12px; padding: 16px; margin-bottom: 14px; }
+        .week-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+        .week-number { font-weight: 700; color: var(--dark-blue); }
+        .week-duration { font-size: 12px; color: var(--text-light); }
+        .week-topic { color: var(--primary-color); font-family: 'Space Grotesk', sans-serif; font-size: 18px; margin-bottom: 10px; }
+        .week-content ul { margin-left: 20px; }
+        .week-content li { margin: 6px 0; }
+        .project-card { border: 1px solid var(--border-color); border-radius: 10px; padding: 16px; margin-bottom: 12px; background: linear-gradient(135deg, #f3f8ff 0%, #ffffff 100%); }
+        .project-card h4 { color: var(--dark-blue); margin-bottom: 8px; }
+        .project-card p { color: var(--text-light); margin-bottom: 8px; }
+        .project-card ul { margin-left: 20px; }
+        .footer { margin-top: 24px; padding-top: 16px; border-top: 1px solid var(--border-color); color: var(--text-light); font-size: 12px; }
+        @media (max-width: 900px) {
+            .course-hero { grid-template-columns: 1fr; }
+            .roadmap-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+
+
+
+<style id="curriculum-ui-normalization">
+:root { --primary-color:#0b5cab; --secondary-color:#5bb3ff; --dark-blue:#0d2a4a; --text-dark:#132235; --text-light:#4f637b; --bg-white:#ffffff; --bg-light:#f4f8fc; --border-color:#d9e5f2; }
+body { font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif; color:var(--text-dark); background:radial-gradient(circle at top right,#f7fbff 0%,#ffffff 45%); }
+h1,h2,h3,h4,.section-title,.week-topic,.week-number,.brand-name { font-family:'Space Grotesk','Inter',sans-serif; letter-spacing:-0.01em; }
+.section { margin-bottom:44px; }
+.card,.week-block,.project-card { border-radius:12px; border:1px solid var(--border-color); box-shadow:0 4px 16px rgba(13,42,74,0.06); }
+.welcome-section { background:linear-gradient(135deg,#eef6ff 0%,#f9fcff 100%); border-left:5px solid var(--primary-color); padding:28px; border-radius:12px; margin-bottom:36px; }
+.project-card { background:linear-gradient(135deg,#eef5ff 0%,#ffffff 60%); padding:20px; margin-bottom:14px; }
+.project-card h4 { color:var(--dark-blue); margin-bottom:8px; }
+.project-card p { color:var(--text-light); margin-bottom:10px; }
+.project-card ul { margin-left:18px; }
+.project-card li { margin:6px 0; }
+</style>
+<style id="curriculum-theme-override">
+:root { --primary-color:hsl(261 70% 42%); --secondary-color:hsl(285 82% 62%); --dark-blue:hsl(261 48% 18%); --text-dark:hsl(261 32% 14%); --text-light:hsl(261 18% 38%); --border-color:hsl(261 38% 86%); --bg-light:hsl(81 45% 97%); --theme-hero-a:hsl(261 85% 96%); --theme-hero-b:hsl(285 90% 98%); }
+body { background:radial-gradient(circle at 8% 0%, color-mix(in srgb, var(--theme-hero-a) 72%, white), #ffffff 46%); }
+.course-hero { background:linear-gradient(135deg,var(--theme-hero-a) 0%,var(--theme-hero-b) 100%); }
+.header { background:linear-gradient(135deg,color-mix(in srgb, var(--dark-blue) 90%, black), var(--primary-color)); }
+.section-title::before { background:linear-gradient(180deg,var(--primary-color),var(--secondary-color)); }
+.week-block { border-left:6px solid var(--primary-color); }
+</style>
+<style id="curriculum-contrast-fix">
+/* Final readability layer: resolves conflicting text/background and font overrides */
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif !important;
+  color: var(--text-dark) !important;
+  background-color: #ffffff;
+}
+h1, h2, h3, h4, .section-title, .week-topic, .week-number, .brand-name {
+  font-family: 'Space Grotesk', 'Inter', sans-serif !important;
+}
+
+/* Ensure light surfaces always use dark text */
+.container,
+.section,
+.card,
+.week-block,
+.week-column,
+.project-card,
+.welcome-section,
+.resource-item,
+.roadmap-card,
+.info-box {
+  color: var(--text-dark);
+}
+
+/* Keep hero as light panel with dark readable text */
+.course-hero,
+.course-hero h1,
+.course-hero h2,
+.course-hero h3,
+.course-hero h4,
+.course-hero p,
+.course-hero li,
+.course-hero span,
+.course-hero a {
+  color: var(--text-dark) !important;
+}
+
+/* Normalize dark surfaces so white text always has contrast */
+.brand-bar,
+.header,
+.footer {
+  background: linear-gradient(135deg, color-mix(in srgb, var(--dark-blue) 92%, black), var(--primary-color)) !important;
+}
+
+.header,
+.header h1,
+.header h2,
+.header h3,
+.header h4,
+.header p,
+.header li,
+.header span,
+.header strong,
+.header a,
+.brand-bar,
+.brand-bar h1,
+.brand-bar h2,
+.brand-bar h3,
+.brand-bar h4,
+.brand-bar p,
+.brand-bar li,
+.brand-bar span,
+.brand-bar strong,
+.brand-bar a,
+.footer,
+.footer h1,
+.footer h2,
+.footer h3,
+.footer h4,
+.footer p,
+.footer li,
+.footer span,
+.footer strong,
+.footer a {
+  color: #ffffff !important;
+}
+
+.brand-bar .brand-link,
+.brand-bar .qr-text,
+.footer p {
+  color: rgba(255, 255, 255, 0.92) !important;
+}
+
+/* Meta chips: readable in both dark and light contexts */
+.meta-item {
+  color: var(--text-dark);
+}
+.header .meta-item {
+  color: #ffffff !important;
+  background: rgba(255,255,255,0.16) !important;
+}
+
+/* Links and list readability */
+a { color: var(--primary-color); }
+a:hover { opacity: 0.9; }
+li { color: inherit; }
+
+.section-title,
+.week-topic,
+.project-card h4,
+.card h3,
+.welcome-section h2 {
+  opacity: 1 !important;
+}
+</style>
+<style id="curriculum-brandbar-contrast-fix">
+/* Brand bar readability fix */
+.brand-bar {
+  background: linear-gradient(135deg, color-mix(in srgb, var(--dark-blue) 88%, black), var(--primary-color)) !important;
+  border-color: color-mix(in srgb, var(--primary-color) 35%, white) !important;
+}
+.brand-bar .brand-name,
+.brand-bar .brand-link,
+.brand-bar .qr-text,
+.brand-bar .brand-text,
+.brand-bar .brand-meta,
+.brand-bar a,
+.brand-bar p,
+.brand-bar span,
+.brand-bar strong {
+  color: #ffffff !important;
+}
+.brand-bar .brand-link {
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.brand-bar .qr-block {
+  background: rgba(255,255,255,0.16) !important;
+  border-color: rgba(255,255,255,0.35) !important;
+}
+.brand-bar .qr-text {
+  opacity: 0.95;
+}
+</style>
+</head>
+<body>
+<div class="container">
+<div class="brand-bar">
+<div class="brand-meta">
+<img alt="Hexadigitall logo" src="../hexadigitall-logo-transparent.png"/>
+<div>
+<div class="brand-name">Hexadigitall Academy (Hexadigitall Technologies)</div>
+<a class="brand-link" href="https://www.hexadigitall.com">www.hexadigitall.com</a>
+</div>
+</div>
+<div class="qr-block">
+<img alt="Course QR Code" src="https://api.qrserver.com/v1/create-qr-code/?size=120x120&amp;data=https://www.hexadigitall.com/courses/full-stack-web-development"/>
+<div class="qr-text">Scan to view the course page, enrollment options, and mentorship details.</div>
+</div>
+</div>
+<div class="course-hero">
+<div>
+<h2>Course Snapshot</h2>
+<p>Become a complete software engineer. Master HTML, CSS, JavaScript, React, Node.js, and Databases.</p>
+</div>
+<img alt="Full Stack Web Development Bootcamp" onerror="this.style.display='none'" src="../assets/images/courses/frontend-mastery-with-react-next-js.jpg"/>
+</div>
+<div class="header">
+<h1>Full Stack Web Development Bootcamp</h1>
+<p class="subtitle">A professionally structured weekly curriculum aligned to the level, tooling, and delivery expectations of this course.</p>
+<div class="course-meta">
+<div class="meta-item"><strong>Duration:</strong> 16 Weeks</div>
+<div class="meta-item"><strong>Level:</strong> All Levels</div>
+<div class="meta-item"><strong>Study Time:</strong> 10 hours/week + labs</div>
+</div>
+</div>
+        <!-- Welcome Section -->
+        <section class="welcome-section">
+            <h2>Welcome to Full Stack Web Development Bootcamp! 🎓</h2>
+            <p>This curriculum is designed to take you from core understanding to confident delivery through weekly applied practice, measurable outcomes, and portfolio evidence.</p>
+            <p>Each week builds progressively with practical tasks, implementation checkpoints, and reflection points so you can convert knowledge into repeatable professional performance.</p>
+            <p><strong>Your success is our priority.</strong> Stay consistent with weekly execution, document your work, and use feedback loops to continuously improve your delivery quality.</p>
+        </section>
+
+<div class="section">
+<h2 class="section-title">Prerequisites</h2>
+<div class="card">
+<ul><li>Programming language proficiency with solid grasp of data structures, algorithms, and design patterns</li><li>Version control mastery: Git workflows, code review, merge conflict resolution, and collaborative development</li><li>Testing fundamentals: unit testing, test-driven development, mocking, and test coverage analysis</li><li>Debugging and profiling skills: breakpoint debugging, performance flame graphs, and memory analysis</li></ul>
+</div>
+</div>
+<div class="section">
+<h2 class="section-title">Learning Outcomes</h2>
+<div class="card">
+<ul><li>Master HTML5, CSS3, and Modern JavaScript (ES6+).</li><li>Build dynamic user interfaces with React.js and Next.js.</li><li>Create robust backends with Node.js, Express, and MongoDB.</li><li>Deploy applications to the cloud and build a professional portfolio.</li></ul>
+</div>
+</div>
+        <!-- Complementary Courses -->
+        <section class="section">
+            <h2 class="section-title">Recommended Complementary Courses</h2>
+            <div class="card">
+                <ul>
+                    <li>Pair this curriculum with a related foundation or advanced specialization to strengthen adjacent skill areas.</li>
+                    <li>Select one systems-focused and one delivery-focused course to improve both implementation depth and execution speed.</li>
+                    <li>Use complementary study tracks to broaden portfolio evidence and improve interview and project readiness.</li>
+                </ul>
+            </div>
+        </section>
+
+<div class="section">
+<h2 class="section-title">Essential Learning Resources</h2>
+<div class="card">
+<ul><li>Language-specific style guides, design patterns reference, and debugging tools inventory</li><li>Testing frameworks, mock libraries, and performance profiling instructions for your tech stack</li><li>Refactoring patterns, security best practices, and code quality tooling configurations</li></ul>
+</div>
+</div>
+<div class="section">
+<h2 class="section-title">Your Learning Roadmap</h2>
+<div class="roadmap-grid">
+<div class="roadmap-card"><h4>Foundation</h4><p>Weeks 1-4</p><ul><li>Early Weeks: Language fundamentals, testing basics, and design patterns</li><li>Middle Weeks: Advanced architectures, performance optimization, and debugging</li><li>Late Weeks: Production systems, scalability, and cross-platform deployment</li></ul></div><div class="roadmap-card"><h4>Build</h4><p>Weeks 5-8</p><ul><li>Async JavaScript, APIs, and Fetch Workflows</li><li>React Component Fundamentals</li><li>State, Forms, and Routing in React</li></ul></div><div class="roadmap-card"><h4>Integration</h4><p>Weeks 9-12</p><ul><li>Node.js Runtime, npm, and Express Basics</li><li>REST API Design and Middleware</li><li>MongoDB Modeling and CRUD Operations</li></ul></div><div class="roadmap-card"><h4>Capstone</h4><p>Weeks 13-16</p><ul><li>File Uploads, Validation, and Error Handling</li><li>Deployment, Environment Variables, and Monitoring</li><li>Capstone Build: Full-Stack Product Application</li></ul></div>
+</div>
+</div>
+<div class="section">
+<h2 class="section-title">Detailed Weekly Curriculum</h2>
+<div class="week-block">
+<div class="week-header">
+<span class="week-number">Week 1</span>
+<span class="week-duration">10 hours/week + labs</span>
+</div>
+<div class="week-topic">HTML Semantics, Page Structure, and Forms</div>
+<div class="week-content">
+<ul><li>Identify the principles of HTML Semantics, Page Structure, and Forms and link them to course outcomes in time-boxed sprints with rapid feedback loops.</li><li>Explain HTML Semantics, Page Structure, and Forms in a guided scenario using realistic tools, constraints, and quality gates.</li><li>Apply trade-offs, risks, and decision points for HTML Semantics, Page Structure, and Forms, then record rationale for stakeholder review.</li><li>Document a portfolio-ready delivery strategy memo for HTML Semantics, Page Structure, and Forms with measurable success criteria and next actions.</li><li>Track measurable progress using rubric scores, defect/risk trends, and evidence completeness each week.</li><li>Run a short retrospective focused on what to retain, improve, and scale into the following week.</li><li>Incorporate peer or mentor feedback and revise the week deliverable to professional publication quality.</li><li>Publish the week output into your cumulative portfolio with concise outcome narrative and proof artifacts.</li></ul>
+</div>
+</div>
+<div class="week-block">
+<div class="week-header">
+<span class="week-number">Week 2</span>
+<span class="week-duration">10 hours/week + labs</span>
+</div>
+<div class="week-topic">CSS Layouts, Responsive Styling, and Components</div>
+<div class="week-content">
+<ul><li>Identify the principles of CSS Layouts, Responsive Styling, and Components and link them to course outcomes in time-boxed sprints with rapid feedback loops.</li><li>Explain CSS Layouts, Responsive Styling, and Components in a guided scenario using realistic tools, constraints, and quality gates.</li><li>Apply trade-offs, risks, and decision points for CSS Layouts, Responsive Styling, and Components, then record rationale for stakeholder review.</li><li>Document a portfolio-ready delivery strategy memo for CSS Layouts, Responsive Styling, and Components with measurable success criteria and next actions.</li><li>Track measurable progress using rubric scores, defect/risk trends, and evidence completeness each week.</li><li>Run a short retrospective focused on what to retain, improve, and scale into the following week.</li><li>Incorporate peer or mentor feedback and revise the week deliverable to professional publication quality.</li><li>Publish the week output into your cumulative portfolio with concise outcome narrative and proof artifacts.</li></ul>
+</div>
+</div>
+<div class="week-block">
+<div class="week-header">
+<span class="week-number">Week 3</span>
+<span class="week-duration">10 hours/week + labs</span>
+</div>
+<div class="week-topic">JavaScript Fundamentals for the Browser</div>
+<div class="week-content">
+<ul><li>Identify the principles of JavaScript Fundamentals for the Browser and link them to course outcomes in time-boxed sprints with rapid feedback loops.</li><li>Explain JavaScript Fundamentals for the Browser in a guided scenario using realistic tools, constraints, and quality gates.</li><li>Apply trade-offs, risks, and decision points for JavaScript Fundamentals for the Browser, then record rationale for stakeholder review.</li><li>Document a portfolio-ready delivery strategy memo for JavaScript Fundamentals for the Browser with measurable success criteria and next actions.</li><li>Track measurable progress using rubric scores, defect/risk trends, and evidence completeness each week.</li><li>Run a short retrospective focused on what to retain, improve, and scale into the following week.</li><li>Incorporate peer or mentor feedback and revise the week deliverable to professional publication quality.</li><li>Publish the week output into your cumulative portfolio with concise outcome narrative and proof artifacts.</li></ul>
+</div>
+</div>
+<div class="week-block">
+<div class="week-header">
+<span class="week-number">Week 4</span>
+<span class="week-duration">10 hours/week + labs</span>
+</div>
+<div class="week-topic">DOM Manipulation and Event-Driven UI</div>
+<div class="week-content">
+<ul><li>Identify the principles of DOM Manipulation and Event-Driven UI and link them to course outcomes in time-boxed sprints with rapid feedback loops.</li><li>Explain DOM Manipulation and Event-Driven UI in a guided scenario using realistic tools, constraints, and quality gates.</li><li>Apply trade-offs, risks, and decision points for DOM Manipulation and Event-Driven UI, then record rationale for stakeholder review.</li><li>Document a portfolio-ready delivery strategy memo for DOM Manipulation and Event-Driven UI with measurable success criteria and next actions.</li><li>Track measurable progress using rubric scores, defect/risk trends, and evidence completeness each week.</li><li>Run a short retrospective focused on what to retain, improve, and scale into the following week.</li><li>Incorporate peer or mentor feedback and revise the week deliverable to professional publication quality.</li><li>Publish the week output into your cumulative portfolio with concise outcome narrative and proof artifacts.</li></ul>
+</div>
+</div>
+<div class="week-block">
+<div class="week-header">
+<span class="week-number">Week 5</span>
+<span class="week-duration">10 hours/week + labs</span>
+</div>
+<div class="week-topic">Async JavaScript, APIs, and Fetch Workflows</div>
+<div class="week-content">
+<ul><li>Identify the principles of Async JavaScript, APIs, and Fetch Workflows and link them to course outcomes in time-boxed sprints with rapid feedback loops.</li><li>Explain Async JavaScript, APIs, and Fetch Workflows in a guided scenario using realistic tools, constraints, and quality gates.</li><li>Apply trade-offs, risks, and decision points for Async JavaScript, APIs, and Fetch Workflows, then record rationale for stakeholder review.</li><li>Document a portfolio-ready delivery strategy memo for Async JavaScript, APIs, and Fetch Workflows with measurable success criteria and next actions.</li><li>Track measurable progress using rubric scores, defect/risk trends, and evidence completeness each week.</li><li>Run a short retrospective focused on what to retain, improve, and scale into the following week.</li><li>Incorporate peer or mentor feedback and revise the week deliverable to professional publication quality.</li><li>Publish the week output into your cumulative portfolio with concise outcome narrative and proof artifacts.</li></ul>
+</div>
+</div>
+<div class="week-block">
+<div class="week-header">
+<span class="week-number">Week 6</span>
+<span class="week-duration">10 hours/week + labs</span>
+</div>
+<div class="week-topic">React Component Fundamentals</div>
+<div class="week-content">
+<ul><li>Identify the principles of React Component Fundamentals and link them to course outcomes in time-boxed sprints with rapid feedback loops.</li><li>Explain React Component Fundamentals in a guided scenario using realistic tools, constraints, and quality gates.</li><li>Apply trade-offs, risks, and decision points for React Component Fundamentals, then record rationale for stakeholder review.</li><li>Document a portfolio-ready delivery strategy memo for React Component Fundamentals with measurable success criteria and next actions.</li><li>Track measurable progress using rubric scores, defect/risk trends, and evidence completeness each week.</li><li>Run a short retrospective focused on what to retain, improve, and scale into the following week.</li><li>Incorporate peer or mentor feedback and revise the week deliverable to professional publication quality.</li><li>Publish the week output into your cumulative portfolio with concise outcome narrative and proof artifacts.</li></ul>
+</div>
+</div>
+<div class="week-block">
+<div class="week-header">
+<span class="week-number">Week 7</span>
+<span class="week-duration">10 hours/week + labs</span>
+</div>
+<div class="week-topic">State, Forms, and Routing in React</div>
+<div class="week-content">
+<ul><li>Apply the principles of State, Forms, and Routing in React and link them to course outcomes in time-boxed sprints with rapid feedback loops.</li><li>Analyze State, Forms, and Routing in React in a guided scenario using realistic tools, constraints, and quality gates.</li><li>Evaluate trade-offs, risks, and decision points for State, Forms, and Routing in React, then record rationale for stakeholder review.</li><li>Document a portfolio-ready delivery strategy memo for State, Forms, and Routing in React with measurable success criteria and next actions.</li><li>Track measurable progress using rubric scores, defect/risk trends, and evidence completeness each week.</li><li>Run a short retrospective focused on what to retain, improve, and scale into the following week.</li><li>Incorporate peer or mentor feedback and revise the week deliverable to professional publication quality.</li><li>Publish the week output into your cumulative portfolio with concise outcome narrative and proof artifacts.</li></ul>
+</div>
+</div>
+<div class="week-block">
+<div class="week-header">
+<span class="week-number">Week 8</span>
+<span class="week-duration">10 hours/week + labs</span>
+</div>
+<div class="week-topic">Advanced Frontend Patterns and UI Reuse</div>
+<div class="week-content">
+<ul><li>Apply the principles of Advanced Frontend Patterns and UI Reuse and link them to course outcomes in time-boxed sprints with rapid feedback loops.</li><li>Analyze Advanced Frontend Patterns and UI Reuse in a guided scenario using realistic tools, constraints, and quality gates.</li><li>Evaluate trade-offs, risks, and decision points for Advanced Frontend Patterns and UI Reuse, then record rationale for stakeholder review.</li><li>Document a portfolio-ready delivery strategy memo for Advanced Frontend Patterns and UI Reuse with measurable success criteria and next actions.</li><li>Track measurable progress using rubric scores, defect/risk trends, and evidence completeness each week.</li><li>Run a short retrospective focused on what to retain, improve, and scale into the following week.</li><li>Incorporate peer or mentor feedback and revise the week deliverable to professional publication quality.</li><li>Publish the week output into your cumulative portfolio with concise outcome narrative and proof artifacts.</li></ul>
+</div>
+</div>
+<div class="week-block">
+<div class="week-header">
+<span class="week-number">Week 9</span>
+<span class="week-duration">10 hours/week + labs</span>
+</div>
+<div class="week-topic">Node.js Runtime, npm, and Express Basics</div>
+<div class="week-content">
+<ul><li>Apply the principles of Node.js Runtime, npm, and Express Basics and link them to course outcomes in time-boxed sprints with rapid feedback loops.</li><li>Analyze Node.js Runtime, npm, and Express Basics in a guided scenario using realistic tools, constraints, and quality gates.</li><li>Evaluate trade-offs, risks, and decision points for Node.js Runtime, npm, and Express Basics, then record rationale for stakeholder review.</li><li>Document a portfolio-ready delivery strategy memo for Node.js Runtime, npm, and Express Basics with measurable success criteria and next actions.</li><li>Track measurable progress using rubric scores, defect/risk trends, and evidence completeness each week.</li><li>Run a short retrospective focused on what to retain, improve, and scale into the following week.</li><li>Incorporate peer or mentor feedback and revise the week deliverable to professional publication quality.</li><li>Publish the week output into your cumulative portfolio with concise outcome narrative and proof artifacts.</li></ul>
+</div>
+</div>
+<div class="week-block">
+<div class="week-header">
+<span class="week-number">Week 10</span>
+<span class="week-duration">10 hours/week + labs</span>
+</div>
+<div class="week-topic">REST API Design and Middleware</div>
+<div class="week-content">
+<ul><li>Apply the principles of REST API Design and Middleware and link them to course outcomes in time-boxed sprints with rapid feedback loops.</li><li>Analyze REST API Design and Middleware in a guided scenario using realistic tools, constraints, and quality gates.</li><li>Evaluate trade-offs, risks, and decision points for REST API Design and Middleware, then record rationale for stakeholder review.</li><li>Document a portfolio-ready delivery strategy memo for REST API Design and Middleware with measurable success criteria and next actions.</li><li>Track measurable progress using rubric scores, defect/risk trends, and evidence completeness each week.</li><li>Run a short retrospective focused on what to retain, improve, and scale into the following week.</li><li>Incorporate peer or mentor feedback and revise the week deliverable to professional publication quality.</li><li>Publish the week output into your cumulative portfolio with concise outcome narrative and proof artifacts.</li></ul>
+</div>
+</div>
+<div class="week-block">
+<div class="week-header">
+<span class="week-number">Week 11</span>
+<span class="week-duration">10 hours/week + labs</span>
+</div>
+<div class="week-topic">MongoDB Modeling and CRUD Operations</div>
+<div class="week-content">
+<ul><li>Apply the principles of MongoDB Modeling and CRUD Operations and link them to course outcomes in time-boxed sprints with rapid feedback loops.</li><li>Analyze MongoDB Modeling and CRUD Operations in a guided scenario using realistic tools, constraints, and quality gates.</li><li>Evaluate trade-offs, risks, and decision points for MongoDB Modeling and CRUD Operations, then record rationale for stakeholder review.</li><li>Document a portfolio-ready delivery strategy memo for MongoDB Modeling and CRUD Operations with measurable success criteria and next actions.</li><li>Track measurable progress using rubric scores, defect/risk trends, and evidence completeness each week.</li><li>Run a short retrospective focused on what to retain, improve, and scale into the following week.</li><li>Incorporate peer or mentor feedback and revise the week deliverable to professional publication quality.</li><li>Publish the week output into your cumulative portfolio with concise outcome narrative and proof artifacts.</li></ul>
+</div>
+</div>
+<div class="week-block">
+<div class="week-header">
+<span class="week-number">Week 12</span>
+<span class="week-duration">10 hours/week + labs</span>
+</div>
+<div class="week-topic">Authentication, Sessions, and Authorization</div>
+<div class="week-content">
+<ul><li>Analyze the principles of Authentication, Sessions, and Authorization and link them to course outcomes in time-boxed sprints with rapid feedback loops.</li><li>Evaluate Authentication, Sessions, and Authorization in a guided scenario using realistic tools, constraints, and quality gates.</li><li>Create trade-offs, risks, and decision points for Authentication, Sessions, and Authorization, then record rationale for stakeholder review.</li><li>Defend a portfolio-ready delivery strategy memo for Authentication, Sessions, and Authorization with measurable success criteria and next actions.</li><li>Track measurable progress using rubric scores, defect/risk trends, and evidence completeness each week.</li><li>Run a short retrospective focused on what to retain, improve, and scale into the following week.</li><li>Incorporate peer or mentor feedback and revise the week deliverable to professional publication quality.</li><li>Publish the week output into your cumulative portfolio with concise outcome narrative and proof artifacts.</li></ul>
+</div>
+</div>
+<div class="week-block">
+<div class="week-header">
+<span class="week-number">Week 13</span>
+<span class="week-duration">10 hours/week + labs</span>
+</div>
+<div class="week-topic">File Uploads, Validation, and Error Handling</div>
+<div class="week-content">
+<ul><li>Analyze the principles of File Uploads, Validation, and Error Handling and link them to course outcomes in time-boxed sprints with rapid feedback loops.</li><li>Evaluate File Uploads, Validation, and Error Handling in a guided scenario using realistic tools, constraints, and quality gates.</li><li>Create trade-offs, risks, and decision points for File Uploads, Validation, and Error Handling, then record rationale for stakeholder review.</li><li>Defend a portfolio-ready delivery strategy memo for File Uploads, Validation, and Error Handling with measurable success criteria and next actions.</li><li>Track measurable progress using rubric scores, defect/risk trends, and evidence completeness each week.</li><li>Run a short retrospective focused on what to retain, improve, and scale into the following week.</li><li>Incorporate peer or mentor feedback and revise the week deliverable to professional publication quality.</li><li>Publish the week output into your cumulative portfolio with concise outcome narrative and proof artifacts.</li></ul>
+</div>
+</div>
+<div class="week-block">
+<div class="week-header">
+<span class="week-number">Week 14</span>
+<span class="week-duration">10 hours/week + labs</span>
+</div>
+<div class="week-topic">Deployment, Environment Variables, and Monitoring</div>
+<div class="week-content">
+<ul><li>Analyze the principles of Deployment, Environment Variables, and Monitoring and link them to course outcomes in time-boxed sprints with rapid feedback loops.</li><li>Evaluate Deployment, Environment Variables, and Monitoring in a guided scenario using realistic tools, constraints, and quality gates.</li><li>Create trade-offs, risks, and decision points for Deployment, Environment Variables, and Monitoring, then record rationale for stakeholder review.</li><li>Defend a portfolio-ready delivery strategy memo for Deployment, Environment Variables, and Monitoring with measurable success criteria and next actions.</li><li>Track measurable progress using rubric scores, defect/risk trends, and evidence completeness each week.</li><li>Run a short retrospective focused on what to retain, improve, and scale into the following week.</li><li>Incorporate peer or mentor feedback and revise the week deliverable to professional publication quality.</li><li>Publish the week output into your cumulative portfolio with concise outcome narrative and proof artifacts.</li></ul>
+</div>
+</div>
+<div class="week-block">
+<div class="week-header">
+<span class="week-number">Week 15</span>
+<span class="week-duration">10 hours/week + labs</span>
+</div>
+<div class="week-topic">Capstone Build: Full-Stack Product Application</div>
+<div class="week-content">
+<ul><li>Analyze the principles of Capstone Build: Full-Stack Product Application and link them to course outcomes in time-boxed sprints with rapid feedback loops.</li><li>Evaluate Capstone Build: Full-Stack Product Application in a guided scenario using realistic tools, constraints, and quality gates.</li><li>Create trade-offs, risks, and decision points for Capstone Build: Full-Stack Product Application, then record rationale for stakeholder review.</li><li>Defend a portfolio-ready delivery strategy memo for Capstone Build: Full-Stack Product Application with measurable success criteria and next actions.</li><li>Track measurable progress using rubric scores, defect/risk trends, and evidence completeness each week.</li><li>Run a short retrospective focused on what to retain, improve, and scale into the following week.</li><li>Incorporate peer or mentor feedback and revise the week deliverable to professional publication quality.</li><li>Publish the week output into your cumulative portfolio with concise outcome narrative and proof artifacts.</li></ul>
+</div>
+</div>
+<div class="week-block">
+<div class="week-header">
+<span class="week-number">Week 16</span>
+<span class="week-duration">10 hours/week + labs</span>
+</div>
+<div class="week-topic">Capstone Testing, Debugging, and Demo Delivery</div>
+<div class="week-content">
+<ul><li>Analyze the principles of Capstone Testing, Debugging, and Demo Delivery and link them to course outcomes in time-boxed sprints with rapid feedback loops.</li><li>Evaluate Capstone Testing, Debugging, and Demo Delivery in a guided scenario using realistic tools, constraints, and quality gates.</li><li>Create trade-offs, risks, and decision points for Capstone Testing, Debugging, and Demo Delivery, then record rationale for stakeholder review.</li><li>Defend a portfolio-ready delivery strategy memo for Capstone Testing, Debugging, and Demo Delivery with measurable success criteria and next actions.</li><li>Track measurable progress using rubric scores, defect/risk trends, and evidence completeness each week.</li><li>Run a short retrospective focused on what to retain, improve, and scale into the following week.</li><li>Incorporate peer or mentor feedback and revise the week deliverable to professional publication quality.</li><li>Publish the week output into your cumulative portfolio with concise outcome narrative and proof artifacts.</li></ul>
+</div>
+</div>
+</div>
+<div class="section">
+<h2 class="section-title">Capstone Projects</h2>
+<div class="project-card"><h4>Project 1: Full-Stack Feature Sprint</h4><p>Deliver an end-to-end feature that connects React UI, Express API, and MongoDB persistence.</p><ul><li>Validated frontend form and state management flow</li><li>REST API endpoints with schema validation and tests</li><li>Database model and CRUD integration evidence</li></ul></div><div class="project-card"><h4>Project 2: Secure Product Workflow Implementation</h4><p>Implement authentication, authorization, uploads, and robust error handling in a production-style flow.</p><ul><li>Role-protected routes and session or token security controls</li><li>Upload pipeline with validation and defensive safeguards</li><li>Operational logs, error metrics, and remediation notes</li></ul></div><div class="project-card"><h4>Project 3: Final Full-Stack Product Capstone</h4><p>Present a complete product application with tested quality, deployment readiness, and technical rationale.</p><ul><li>End-to-end architecture and deployment package</li><li>Regression testing report and quality checklist</li><li>Demo script, stakeholder presentation, and improvement roadmap</li></ul></div>
+</div>
+<div class="section">
+<h2 class="section-title">Study Tips</h2>
+<div class="card">
+<ul><li>Reserve two weekly deep-work sessions for code quality review, refactoring, and cross-browser/platform testing.</li><li>Maintain a technical debt ledger tracking complexity hotspots, test gaps, and performance bottlenecks requiring attention.</li><li>Run weekly code review discussions, learning from peer feedback and measuring code quality metrics (coverage, maintainability index, cyclomatic complexity).</li></ul>
+</div>
+</div>
+        <!-- Study Tips -->
+        <section class="section">
+            <h2 class="section-title">Study Tips for Success</h2>
+            <div class="card">
+                <ul>
+                    <li>Protect consistent weekly practice time and complete hands-on work before moving to the next topic.</li>
+                    <li>Document implementation decisions, trade-offs, and lessons learned after each weekly deliverable.</li>
+                    <li>Review feedback quickly and ship an improved revision within the same week to reinforce retention.</li>
+                    <li>Track measurable progress with checklists, test evidence, and milestone outcomes.</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- About Course -->
+        <section class="section">
+            <h2 class="section-title">About Full Stack Web Development Bootcamp</h2>
+            <div class="card">
+                <p>This curriculum is structured to build practical capability, consistent delivery discipline, and portfolio-ready outcomes in Full Stack Web Development Bootcamp. It combines conceptual understanding with applied execution so learners can perform confidently in real project environments.</p>
+            </div>
+        </section>
+
+<div class="footer">
+<p>© 2026 Hexadigitall Academy (Hexadigitall Technologies). Curriculum authored for Full Stack Web Development Bootcamp.</p>
+</div>
+</div>
+</body>
+</html>

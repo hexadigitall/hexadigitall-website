@@ -1,4 +1,4 @@
-import { defineArrayMember, defineField, defineType } from 'sanity'
+import { defineField, defineType, defineArrayMember } from 'sanity'
 
 export default defineType({
   name: 'curriculum',
@@ -40,8 +40,8 @@ export default defineType({
     defineField({
       name: 'heroTags',
       title: 'Hero Tags',
-      type: 'array',
-      of: [defineArrayMember({ type: 'string' })],
+        type: 'array',
+        of: [defineArrayMember({ type: 'string' })],
     }),
     defineField({
       name: 'duration',
@@ -72,7 +72,7 @@ export default defineType({
       name: 'welcomeMessages',
       title: 'Welcome Paragraphs',
       type: 'array',
-      of: [defineArrayMember({ type: 'text' })],
+        of: [defineArrayMember({ type: 'text' })],
     }),
     defineField({
       name: 'prerequisites',
@@ -101,7 +101,7 @@ export default defineType({
       name: 'essentialResources',
       title: 'Essential Resources',
       type: 'array',
-      of: [defineArrayMember({ type: 'string' })],
+        of: [defineArrayMember({ type: 'string' })],
     }),
     defineField({
       name: 'learningRoadmap',
@@ -124,14 +124,14 @@ export default defineType({
               name: 'outcomes',
               title: 'Learning Outcomes',
               type: 'array',
-              of: [defineArrayMember({ type: 'string' })],
+                of: [defineArrayMember({ type: 'string' })],
             }),
             defineField({ name: 'labTitle', title: 'Lab Title', type: 'string' }),
             defineField({
               name: 'labItems',
               title: 'Lab Items',
               type: 'array',
-              of: [defineArrayMember({ type: 'string' })],
+                of: [defineArrayMember({ type: 'string' })],
             }),
           ],
           preview: {
@@ -160,7 +160,7 @@ export default defineType({
               name: 'deliverables',
               title: 'Deliverables',
               type: 'array',
-              of: [defineArrayMember({ type: 'string' })],
+                of: [defineArrayMember({ type: 'string' })],
             }),
           ],
           preview: {

@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Frontend Engineering: React &amp; Next.js Mastery - Course Curriculum</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&amp;family=Space+Grotesk:wght@500;600;700&amp;display=swap" rel="stylesheet"/>
+<style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --primary-color: #0078D4;
+            --secondary-color: #50E6FF;
+            --dark-blue: #002050;
+            --text-dark: #1F1F1F;
+            --text-light: #605E5C;
+            --bg-light: #F5F5F5;
+            --bg-white: #FFFFFF;
+            --border-color: #EDEBE9;
+        }
+        body { font-family: 'Inter', sans-serif; line-height: 1.6; color: var(--text-dark); background: var(--bg-white); font-size: 14px; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 40px; }
+        .brand-bar { display: flex; align-items: center; justify-content: space-between; gap: 20px; border: 1px solid var(--border-color); border-radius: 12px; padding: 16px 20px; margin-bottom: 20px; box-shadow: 0 4px 18px rgba(0, 32, 80, 0.08); }
+        .brand-meta { display: flex; align-items: center; gap: 16px; }
+        .brand-meta img { width: 60px; height: auto; }
+        .brand-name { font-family: 'Space Grotesk', sans-serif; font-size: 18px; font-weight: 700; color: var(--dark-blue); }
+        .brand-link { color: var(--primary-color); font-weight: 600; text-decoration: none; }
+        .qr-block { display: flex; align-items: center; gap: 12px; background: var(--bg-light); padding: 10px 14px; border-radius: 10px; border: 1px solid var(--border-color); }
+        .qr-block img { width: 86px; height: 86px; }
+        .qr-text { font-size: 12px; color: var(--text-light); max-width: 220px; line-height: 1.5; }
+        .course-hero { background: linear-gradient(135deg, #E8F4FD 0%, #F5F9FF 100%); border: 1px solid var(--border-color); border-radius: 12px; padding: 18px; margin-bottom: 24px; display: grid; grid-template-columns: 1fr 320px; gap: 20px; align-items: center; box-shadow: 0 6px 18px rgba(0, 32, 80, 0.08); }
+        .course-hero img { width: 100%; border-radius: 12px; border: 1px solid var(--border-color); }
+        .course-hero h2 { font-family: 'Space Grotesk', sans-serif; color: var(--dark-blue); margin-bottom: 10px; font-size: 22px; }
+        .header { background: linear-gradient(135deg, var(--dark-blue) 0%, var(--primary-color) 100%); color: white; padding: 60px 40px; border-radius: 12px; margin-bottom: 40px; box-shadow: 0 10px 30px rgba(0, 120, 212, 0.2); }
+        .header h1 { font-family: 'Space Grotesk', sans-serif; font-size: 42px; font-weight: 700; margin-bottom: 16px; letter-spacing: -0.5px; }
+        .header .subtitle { font-size: 18px; opacity: 0.95; margin-bottom: 24px; }
+        .course-meta { display: flex; flex-wrap: wrap; gap: 24px; margin-top: 32px; }
+        .meta-item { display: flex; align-items: center; gap: 8px; background: rgba(255, 255, 255, 0.15); padding: 12px 20px; border-radius: 8px; }
+        .section { margin-bottom: 48px; break-inside: avoid; }
+        .section-title { font-family: 'Space Grotesk', sans-serif; font-size: 28px; color: var(--dark-blue); margin-bottom: 24px; padding-bottom: 12px; border-bottom: 3px solid var(--primary-color); display: flex; align-items: center; gap: 12px; }
+        .section-title::before { content: ''; width: 6px; height: 32px; background: linear-gradient(180deg, var(--primary-color), var(--secondary-color)); border-radius: 3px; }
+        .card { background: var(--bg-white); border: 1px solid var(--border-color); border-radius: 10px; padding: 24px; margin-bottom: 16px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05); }
+        .card ul { margin-left: 20px; }
+        .card li { margin: 6px 0; }
+        .roadmap-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+        .roadmap-card { border: 1px solid var(--border-color); border-radius: 12px; padding: 18px; background: linear-gradient(135deg, #F8FBFF 0%, #FFFFFF 100%); }
+        .roadmap-card h4 { color: var(--dark-blue); font-size: 18px; margin-bottom: 6px; }
+        .roadmap-card p { color: var(--text-light); font-size: 13px; margin-bottom: 10px; }
+        .roadmap-card ul { margin-left: 18px; }
+        .week-block { border: 1px solid var(--border-color); border-left: 6px solid var(--primary-color); border-radius: 12px; padding: 16px; margin-bottom: 14px; }
+        .week-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+        .week-number { font-weight: 700; color: var(--dark-blue); }
+        .week-duration { font-size: 12px; color: var(--text-light); }
+        .week-topic { color: var(--primary-color); font-family: 'Space Grotesk', sans-serif; font-size: 18px; margin-bottom: 10px; }
+        .week-content ul { margin-left: 20px; }
+        .week-content li { margin: 6px 0; }
+        .project-card { border: 1px solid var(--border-color); border-radius: 10px; padding: 16px; margin-bottom: 12px; background: linear-gradient(135deg, #f3f8ff 0%, #ffffff 100%); }
+        .project-card h4 { color: var(--dark-blue); margin-bottom: 8px; }
+        .project-card p { color: var(--text-light); margin-bottom: 8px; }
+        .project-card ul { margin-left: 20px; }
+        .footer { margin-top: 24px; padding-top: 16px; border-top: 1px solid var(--border-color); color: var(--text-light); font-size: 12px; }
+        @media (max-width: 900px) {
+            .course-hero { grid-template-columns: 1fr; }
+            .roadmap-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+
+
+
+<style id="curriculum-ui-normalization">
+:root { --primary-color:#0b5cab; --secondary-color:#5bb3ff; --dark-blue:#0d2a4a; --text-dark:#132235; --text-light:#4f637b; --bg-white:#ffffff; --bg-light:#f4f8fc; --border-color:#d9e5f2; }
+body { font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif; color:var(--text-dark); background:radial-gradient(circle at top right,#f7fbff 0%,#ffffff 45%); }
+h1,h2,h3,h4,.section-title,.week-topic,.week-number,.brand-name { font-family:'Space Grotesk','Inter',sans-serif; letter-spacing:-0.01em; }
+.section { margin-bottom:44px; }
+.card,.week-block,.project-card { border-radius:12px; border:1px solid var(--border-color); box-shadow:0 4px 16px rgba(13,42,74,0.06); }
+.welcome-section { background:linear-gradient(135deg,#eef6ff 0%,#f9fcff 100%); border-left:5px solid var(--primary-color); padding:28px; border-radius:12px; margin-bottom:36px; }
+.project-card { background:linear-gradient(135deg,#eef5ff 0%,#ffffff 60%); padding:20px; margin-bottom:14px; }
+.project-card h4 { color:var(--dark-blue); margin-bottom:8px; }
+.project-card p { color:var(--text-light); margin-bottom:10px; }
+.project-card ul { margin-left:18px; }
+.project-card li { margin:6px 0; }
+</style>
+<style id="curriculum-theme-override">
+:root { --primary-color:hsl(170 70% 42%); --secondary-color:hsl(194 82% 62%); --dark-blue:hsl(170 48% 18%); --text-dark:hsl(170 32% 14%); --text-light:hsl(170 18% 38%); --border-color:hsl(170 38% 86%); --bg-light:hsl(350 45% 97%); --theme-hero-a:hsl(170 85% 96%); --theme-hero-b:hsl(194 90% 98%); }
+body { background:radial-gradient(circle at 8% 0%, color-mix(in srgb, var(--theme-hero-a) 72%, white), #ffffff 46%); }
+.course-hero { background:linear-gradient(135deg,var(--theme-hero-a) 0%,var(--theme-hero-b) 100%); }
+.header { background:linear-gradient(135deg,color-mix(in srgb, var(--dark-blue) 90%, black), var(--primary-color)); }
+.section-title::before { background:linear-gradient(180deg,var(--primary-color),var(--secondary-color)); }
+.week-block { border-left:6px solid var(--primary-color); }
+</style>
+<style id="curriculum-contrast-fix">
+/* Final readability layer: resolves conflicting text/background and font overrides */
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif !important;
+  color: var(--text-dark) !important;
+  background-color: #ffffff;
+}
+h1, h2, h3, h4, .section-title, .week-topic, .week-number, .brand-name {
+  font-family: 'Space Grotesk', 'Inter', sans-serif !important;
+}
+
+/* Ensure light surfaces always use dark text */
+.container,
+.section,
+.card,
+.week-block,
+.week-column,
+.project-card,
+.welcome-section,
+.resource-item,
+.roadmap-card,
+.info-box {
+  color: var(--text-dark);
+}
+
+/* Keep hero as light panel with dark readable text */
+.course-hero,
+.course-hero h1,
+.course-hero h2,
+.course-hero h3,
+.course-hero h4,
+.course-hero p,
+.course-hero li,
+.course-hero span,
+.course-hero a {
+  color: var(--text-dark) !important;
+}
+
+/* Normalize dark surfaces so white text always has contrast */
+.brand-bar,
+.header,
+.footer {
+  background: linear-gradient(135deg, color-mix(in srgb, var(--dark-blue) 92%, black), var(--primary-color)) !important;
+}
+
+.header,
+.header h1,
+.header h2,
+.header h3,
+.header h4,
+.header p,
+.header li,
+.header span,
+.header strong,
+.header a,
+.brand-bar,
+.brand-bar h1,
+.brand-bar h2,
+.brand-bar h3,
+.brand-bar h4,
+.brand-bar p,
+.brand-bar li,
+.brand-bar span,
+.brand-bar strong,
+.brand-bar a,
+.footer,
+.footer h1,
+.footer h2,
+.footer h3,
+.footer h4,
+.footer p,
+.footer li,
+.footer span,
+.footer strong,
+.footer a {
+  color: #ffffff !important;
+}
+
+.brand-bar .brand-link,
+.brand-bar .qr-text,
+.footer p {
+  color: rgba(255, 255, 255, 0.92) !important;
+}
+
+/* Meta chips: readable in both dark and light contexts */
+.meta-item {
+  color: var(--text-dark);
+}
+.header .meta-item {
+  color: #ffffff !important;
+  background: rgba(255,255,255,0.16) !important;
+}
+
+/* Links and list readability */
+a { color: var(--primary-color); }
+a:hover { opacity: 0.9; }
+li { color: inherit; }
+
+.section-title,
+.week-topic,
+.project-card h4,
+.card h3,
+.welcome-section h2 {
+  opacity: 1 !important;
+}
+</style>
+<style id="curriculum-brandbar-contrast-fix">
+/* Brand bar readability fix */
+.brand-bar {
+  background: linear-gradient(135deg, color-mix(in srgb, var(--dark-blue) 88%, black), var(--primary-color)) !important;
+  border-color: color-mix(in srgb, var(--primary-color) 35%, white) !important;
+}
+.brand-bar .brand-name,
+.brand-bar .brand-link,
+.brand-bar .qr-text,
+.brand-bar .brand-text,
+.brand-bar .brand-meta,
+.brand-bar a,
+.brand-bar p,
+.brand-bar span,
+.brand-bar strong {
+  color: #ffffff !important;
+}
+.brand-bar .brand-link {
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.brand-bar .qr-block {
+  background: rgba(255,255,255,0.16) !important;
+  border-color: rgba(255,255,255,0.35) !important;
+}
+.brand-bar .qr-text {
+  opacity: 0.95;
+}
+</style>
+</head>
+<body>
+<div class="container">
+<div class="brand-bar">
+<div class="brand-meta">
+<img alt="Hexadigitall logo" src="../hexadigitall-logo-transparent.png"/>
+<div>
+<div class="brand-name">Hexadigitall Academy (Hexadigitall Technologies)</div>
+<a class="brand-link" href="https://www.hexadigitall.com">www.hexadigitall.com</a>
+</div>
+</div>
+<div class="qr-block">
+<img alt="Course QR Code" src="https://api.qrserver.com/v1/create-qr-code/?size=120x120&amp;data=https://www.hexadigitall.com/courses/frontend-engineering-react-next-js-mastery"/>
+<div class="qr-text">Scan to view the course page, enrollment options, and mentorship details.</div>
+</div>
+</div>
+<div class="course-hero">
+<div>
+<h2>Course Snapshot</h2>
+<p>Build production-grade frontends with React and Next.js. Master component architecture, state management, performance optimization, and full-stack capabilities with Next.js.</p>
+</div>
+<img alt="Frontend Engineering: React &amp; Next.js Mastery" onerror="this.style.display='none'" src="../assets/images/courses/frontend-mastery-with-react-next-js.jpg"/>
+</div>
+<div class="header">
+<h1>Frontend Engineering: React &amp; Next.js Mastery</h1>
+<p class="subtitle">A professionally structured weekly curriculum aligned to the level, tooling, and delivery expectations of this course.</p>
+<div class="course-meta">
+<div class="meta-item"><strong>Duration:</strong> 24 Weeks</div>
+<div class="meta-item"><strong>Level:</strong> intermediate</div>
+<div class="meta-item"><strong>Study Time:</strong> 2 hours/week + labs</div>
+</div>
+</div>
+        <!-- Welcome Section -->
+        <section class="welcome-section">
+            <h2>Welcome to Frontend Engineering: React & Next.js Mastery! 🎓</h2>
+            <p>This curriculum is designed to take you from core understanding to confident delivery through weekly applied practice, measurable outcomes, and portfolio evidence.</p>
+            <p>Each week builds progressively with practical tasks, implementation checkpoints, and reflection points so you can convert knowledge into repeatable professional performance.</p>
+            <p><strong>Your success is our priority.</strong> Stay consistent with weekly execution, document your work, and use feedback loops to continuously improve your delivery quality.</p>
+        </section>
+
+<div class="section">
+<h2 class="section-title">Prerequisites</h2>
+<div class="card">
+<ul><li>Programming language proficiency with solid grasp of data structures, algorithms, and design patterns</li><li>Version control mastery: Git workflows, code review, merge conflict resolution, and collaborative development</li><li>Testing fundamentals: unit testing, test-driven development, mocking, and test coverage analysis</li><li>Debugging and profiling skills: breakpoint debugging, performance flame graphs, and memory analysis</li></ul>
+</div>
+</div>
+<div class="section">
+<h2 class="section-title">Learning Outcomes</h2>
+<div class="card">
+<ul><li>Hands-on projects to build practical skills</li><li>Industry best practices and workflows</li><li>Tools and frameworks used by professionals</li><li>Guidance to build a job-ready portfolio</li><li>Mentorship and feedback for faster growth</li></ul>
+</div>
+</div>
+        <!-- Complementary Courses -->
+        <section class="section">
+            <h2 class="section-title">Recommended Complementary Courses</h2>
+            <div class="card">
+                <ul>
+                    <li>Pair this curriculum with a related foundation or advanced specialization to strengthen adjacent skill areas.</li>
+                    <li>Select one systems-focused and one delivery-focused course to improve both implementation depth and execution speed.</li>
+                    <li>Use complementary study tracks to broaden portfolio evidence and improve interview and project readiness.</li>
+                </ul>
+            </div>
+        </section>
+
+<div class="section">
+<h2 class="section-title">Essential Learning Resources</h2>
+<div class="card">
+<ul><li>Language-specific style guides, design patterns reference, and debugging tools inventory</li><li>Testing frameworks, mock libraries, and performance profiling instructions for your tech stack</li><li>Refactoring patterns, security best practices, and code quality tooling configurations</li></ul>
+</div>
+</div>
+<div class="section">
+<h2 class="section-title">Your Learning Roadmap</h2>
+<div class="roadmap-grid">
+<div class="roadmap-card"><h4>Foundation</h4><p>Weeks 1-6</p><ul><li>Early Weeks: Language fundamentals, testing basics, and design patterns</li><li>Middle Weeks: Advanced architectures, performance optimization, and debugging</li><li>Late Weeks: Production systems, scalability, and cross-platform deployment</li></ul></div><div class="roadmap-card"><h4>Build</h4><p>Weeks 7-12</p><ul><li>Custom Hooks and Reusable Logic</li><li>Client-Side Routing and Navigation Patterns</li><li>Next.js App Router and Project Structure</li></ul></div><div class="roadmap-card"><h4>Integration</h4><p>Weeks 13-18</p><ul><li>Styling Systems and Design System Integration</li><li>Building Accessible User Interface Components</li><li>Forms, Validation, and Mutation Workflows</li></ul></div><div class="roadmap-card"><h4>Capstone</h4><p>Weeks 19-24</p><ul><li>Performance Profiling and Bundle Optimization</li><li>SEO, Metadata, and Content Rendering in Next.js</li><li>Observability, Logging, and Frontend Reliability</li></ul></div>
+</div>
+</div>
+<div class="section">
+<h2 class="section-title">Detailed Weekly Curriculum</h2>
+<div class="week-block">
+<div class="week-header">
+<span class="week-number">Week 1</span>
+<span class="week-duration">2 hours/week + labs</span>
+</div>
+<div class="week-topic">HTML, CSS, and Modern Frontend Tooling Refresh</div>
+<div class="week-content">
+<ul><li>Analyze the principles of HTML, CSS, and Modern Frontend Tooling Refresh and link them to course outcomes at advanced depth with architecture-level decision quality.</li><li>Evaluate HTML, CSS, and Modern Frontend Tooling Refresh in a guided scenario using realistic tools, constraints, and quality gates.</li><li>Design trade-offs, risks, and decision points for HTML, CSS, and Modern Frontend Tooling Refresh, then record rationale for stakeholder review.</li><li>Justify a portfolio-ready engineering implementation dossier for HTML, CSS, and Modern Frontend Tooling Refresh with measurable success criteria and next actions.</li><li>Track measurable progress using rubric scores, defect/risk trends, and evidence completeness each week.</li><li>Run a short retrospective focused on what to retain, improve, and scale into the following week.</li><li>Incorporate peer or mentor feedback and revise the week deliverable to professional publication quality.</li><li>Publish the week output into your cumulative portfolio with concise outcome narrative and proof artifacts.</li></ul>
+</div>
+</div>
+<div class="week-block">
+<div class="week-header">
+<span class="week-number">Week 2</span>
+<span class="week-duration">2 hours/week + labs</span>
+</div>
+<div class="week-topic">Modern JavaScript for React Applications</div>
+<div class="week-content">
+<ul><li>Analyze the principles of Modern JavaScript for React Applications and link them to course outcomes at advanced depth with architecture-level decision quality.</li><li>Evaluate Modern JavaScript for React Applications in a guided scenario using realistic tools, constraints, and quality gates.</li><li>Design trade-offs, risks, and decision points for Modern JavaScript for React Applications, then record rationale for stakeholder review.</li><li>Justify a portfolio-ready engineering implementation dossier for Modern JavaScript for React Applications with measurable success criteria and next actions.</li><li>Track measurable progress using rubric scores, defect/risk trends, and evidence completeness each week.</li><li>Run a short retrospective focused on what to retain, improve, and scale into the following week.</li><li>Incorporate peer or mentor feedback and revise the week deliverable to professional publication quality.</li><li>Publish the week output into your cumulative portfolio with concise outcome narrative and proof artifacts.</li></ul>
+</div>
+</div>
+<div class="week-block">
+<div class="week-header">
+<span class="week-number">Week 3</span>
+<span class="week-duration">2 hours/week + labs</span>
+</div>
+<div class="week-topic">React Component Architecture and JSX Patterns</div>
+<div class="week-content">
+<ul><li>Analyze the principles of React Component Architecture and JSX Patterns and link them to course outcomes at advanced depth with architecture-level decision quality.</li><li>Evaluate React Component Architecture and JSX Patterns in a guided scenario using realistic tools, constraints, and quality gates.</li><li>Design trade-offs, risks, and decision points for React Component Architecture and JSX Patterns, then record rationale for stakeholder review.</li><li>Justify a portfolio-ready engineering implementation dossier for React Component Architecture and JSX Patterns with measurable success criteria and next actions.</li><li>Track measurable progress using rubric scores, defect/risk trends, and evidence completeness each week.</li><li>Run a short retrospective focused on what to retain, improve, and scale into the following week.</li><li>Incorporate peer or mentor feedback and revise the week deliverable to professional publication quality.</li><li>Publish the week output into your cumulative portfolio with concise outcome narrative and proof artifacts.</li></ul>
+</div>
+</div>
+<div class="week-block">
+<div class="week-header">
+<span class="week-number">Week 4</span>
+<span class="week-duration">2 hours/week + labs</span>
+</div>
+<div class="week-topic">Props, State, and One-Way Data Flow</div>
+<div class="week-content">
+<ul><li>Analyze the principles of Props, State, and One-Way Data Flow and link them to course outcomes at advanced depth with architecture-level decision quality.</li><li>Evaluate Props, State, and One-Way Data Flow in a guided scenario using realistic tools, constraints, and quality gates.</li><li>Design trade-offs, risks, and decision points for Props, State, and One-Way Data Flow, then record rationale for stakeholder review.</li><li>Justify a portfolio-ready engineering implementation dossier for Props, State, and One-Way Data Flow with measurable success criteria and next actions.</li><li>Track measurable progress using rubric scores, defect/risk trends, and evidence completeness each week.</li><li>Run a short retrospective focused on what to retain, improve, and scale into the following week.</li><li>Incorporate peer or mentor feedback and revise the week deliverable to professional publication quality.</li><li>Publish the week output into your cumulative portfolio with concise outcome narrative and proof artifacts.</li></ul>
+</div>
+</div>
+<div class="week-block">
+<div class="week-header">
+<span class="week-number">Week 5</span>
+<span class="week-duration">2 hours/week + labs</span>
+</div>
+<div class="week-topic">Events, Forms, and Controlled Inputs</div>
+<div class="week-content">
+<ul><li>Analyze the principles of Events, Forms, and Controlled Inputs and link them to course outcomes at advanced depth with architecture-level decision quality.</li><li>Evaluate Events, Forms, and Controlled Inputs in a guided scenario using realistic tools, constraints, and quality gates.</li><li>Design trade-offs, risks, and decision points for Events, Forms, and Controlled Inputs, then record rationale for stakeholder review.</li><li>Justify a portfolio-ready engineering implementation dossier for Events, Forms, and Controlled Inputs with measurable success criteria and next actions.</li><li>Track measurable progress using rubric scores, defect/risk trends, and evidence completeness each week.</li><li>Run a short retrospective focused on what to retain, improve, and scale into the following week.</li><li>Incorporate peer or mentor feedback and revise the week deliverable to professional publication quality.</li><li>Publish the week output into your cumulative portfolio with concise outcome narrative and proof artifacts.</li></ul>
+</div>
+</div>
+<div class="week-block">
+<div class="week-header">
+<span class="week-number">Week 6</span>
+<span class="week-duration">2 hours/week + labs</span>
+</div>
+<div class="week-topic">Side Effects, Data Flow, and Lifecycle Thinking</div>
+<div class="week-content">
+<ul><li>Analyze the principles of Side Effects, Data Flow, and Lifecycle Thinking and link them to course outcomes at advanced depth with architecture-level decision quality.</li><li>Evaluate Side Effects, Data Flow, and Lifecycle Thinking in a guided scenario using realistic tools, constraints, and quality gates.</li><li>Design trade-offs, risks, and decision points for Side Effects, Data Flow, and Lifecycle Thinking, then record rationale for stakeholder review.</li><li>Justify a portfolio-ready engineering implementation dossier for Side Effects, Data Flow, and Lifecycle Thinking with measurable success criteria and next actions.</li><li>Track measurable progress using rubric scores, defect/risk trends, and evidence completeness each week.</li><li>Run a short retrospective focused on what to retain, improve, and scale into the following week.</li><li>Incorporate peer or mentor feedback and revise the week deliverable to professional publication quality.</li><li>Publish the week output into your cumulative portfolio with concise outcome narrative and proof artifacts.</li></ul>
+</div>
+</div>
+<div class="week-block">
+<div class="week-header">
+<span class="week-number">Week 7</span>
+<span class="week-duration">2 hours/week + labs</span>
+</div>
+<div class="week-topic">Custom Hooks and Reusable Logic</div>
+<div class="week-content">
+<ul><li>Analyze the principles of Custom Hooks and Reusable Logic and link them to course outcomes at advanced depth with architecture-level decision quality.</li><li>Evaluate Custom Hooks and Reusable Logic in a guided scenario using realistic tools, constraints, and quality gates.</li><li>Design trade-offs, risks, and decision points for Custom Hooks and Reusable Logic, then record rationale for stakeholder review.</li><li>Justify a portfolio-ready engineering implementation dossier for Custom Hooks and Reusable Logic with measurable success criteria and next actions.</li><li>Track measurable progress using rubric scores, defect/risk trends, and evidence completeness each week.</li><li>Run a short retrospective focused on what to retain, improve, and scale into the following week.</li><li>Incorporate peer or mentor feedback and revise the week deliverable to professional publication quality.</li><li>Publish the week output into your cumulative portfolio with concise outcome narrative and proof artifacts.</li></ul>
+</div>
+</div>
+<div class="week-block">
+<div class="week-header">
+<span class="week-number">Week 8</span>
+<span class="week-duration">2 hours/week + labs</span>
+</div>
+<div class="week-topic">Client-Side Routing and Navigation Patterns</div>
+<div class="week-content">
+<ul><li>Analyze the principles of Client-Side Routing and Navigation Patterns and link them to course outcomes at advanced depth with architecture-level decision quality.</li><li>Evaluate Client-Side Routing and Navigation Patterns in a guided scenario using realistic tools, constraints, and quality gates.</li><li>Design trade-offs, risks, and decision points for Client-Side Routing and Navigation Patterns, then record rationale for stakeholder review.</li><li>Justify a portfolio-ready engineering implementation dossier for Client-Side Routing and Navigation Patterns with measurable success criteria and next actions.</li><li>Track measurable progress using rubric scores, defect/risk trends, and evidence completeness each week.</li><li>Run a short retrospective focused on what to retain, improve, and scale into the following week.</li><li>Incorporate peer or mentor feedback and revise the week deliverable to professional publication quality.</li><li>Publish the week output into your cumulative portfolio with concise outcome narrative and proof artifacts.</li></ul>
+</div>
+</div>
+<div class="week-block">
+<div class="week-header">
+<span class="week-number">Week 9</span>
+<span class="week-duration">2 hours/week + labs</span>
+</div>
+<div class="week-topic">Next.js App Router and Project Structure</div>
+<div class="week-content">
+<ul><li>Evaluate the principles of Next.js App Router and Project Structure and link them to course outcomes at advanced depth with architecture-level decision quality.</li><li>Design Next.js App Router and Project Structure in a guided scenario using realistic tools, constraints, and quality gates.</li><li>Optimize trade-offs, risks, and decision points for Next.js App Router and Project Structure, then record rationale for stakeholder review.</li><li>Justify a portfolio-ready engineering implementation dossier for Next.js App Router and Project Structure with measurable success criteria and next actions.</li><li>Track measurable progress using rubric scores, defect/risk trends, and evidence completeness each week.</li><li>Run a short retrospective focused on what to retain, improve, and scale into the following week.</li><li>Incorporate peer or mentor feedback and revise the week deliverable to professional publication quality.</li><li>Publish the week output into your cumulative portfolio with concise outcome narrative and proof artifacts.</li></ul>
+</div>
+</div>
+<div class="week-block">
+<div class="week-header">
+<span class="week-number">Week 10</span>
+<span class="week-duration">2 hours/week + labs</span>
+</div>
+<div class="week-topic">Server Components versus Client Components</div>
+<div class="week-content">
+<ul><li>Evaluate the principles of Server Components versus Client Components and link them to course outcomes at advanced depth with architecture-level decision quality.</li><li>Design Server Components versus Client Components in a guided scenario using realistic tools, constraints, and quality gates.</li><li>Optimize trade-offs, risks, and decision points for Server Components versus Client Components, then record rationale for stakeholder review.</li><li>Justify a portfolio-ready engineering implementation dossier for Server Components versus Client Components with measurable success criteria and next actions.</li><li>Track measurable progress using rubric scores, defect/risk trends, and evidence completeness each week.</li><li>Run a short retrospective focused on what to retain, improve, and scale into the following week.</li><li>Incorporate peer or mentor feedback and revise the week deliverable to professional publication quality.</li><li>Publish the week output into your cumulative portfolio with concise outcome narrative and proof artifacts.</li></ul>
+</div>
+</div>
+<div class="week-block">
+<div class="week-header">
+<span class="week-number">Week 11</span>
+<span class="week-duration">2 hours/week + labs</span>
+</div>
+<div class="week-topic">Data Fetching, Caching, and Revalidation</div>
+<div class="week-content">
+<ul><li>Evaluate the principles of Data Fetching, Caching, and Revalidation and link them to course outcomes at advanced depth with architecture-level decision quality.</li><li>Design Data Fetching, Caching, and Revalidation in a guided scenario using realistic tools, constraints, and quality gates.</li><li>Optimize trade-offs, risks, and decision points for Data Fetching, Caching, and Revalidation, then record rationale for stakeholder review.</li><li>Justify a portfolio-ready engineering implementation dossier for Data Fetching, Caching, and Revalidation with measurable success criteria and next actions.</li><li>Track measurable progress using rubric scores, defect/risk trends, and evidence completeness each week.</li><li>Run a short retrospective focused on what to retain, improve, and scale into the following week.</li><li>Incorporate peer or mentor feedback and revise the week deliverable to professional publication quality.</li><li>Publish the week output into your cumulative portfolio with concise outcome narrative and proof artifacts.</li></ul>
+</div>
+</div>
+<div class="week-block">
+<div class="week-header">
+<span class="week-number">Week 12</span>
+<span class="week-duration">2 hours/week + labs</span>
+</div>
+<div class="week-topic">Authentication, Sessions, and Protected Routes</div>
+<div class="week-content">
+<ul><li>Evaluate the principles of Authentication, Sessions, and Protected Routes and link them to course outcomes at advanced depth with architecture-level decision quality.</li><li>Design Authentication, Sessions, and Protected Routes in a guided scenario using realistic tools, constraints, and quality gates.</li><li>Optimize trade-offs, risks, and decision points for Authentication, Sessions, and Protected Routes, then record rationale for stakeholder review.</li><li>Justify a portfolio-ready engineering implementation dossier for Authentication, Sessions, and Protected Routes with measurable success criteria and next actions.</li><li>Track measurable progress using rubric scores, defect/risk trends, and evidence completeness each week.</li><li>Run a short retrospective focused on what to retain, improve, and scale into the following week.</li><li>Incorporate peer or mentor feedback and revise the week deliverable to professional publication quality.</li><li>Publish the week output into your cumulative portfolio with concise outcome narrative and proof artifacts.</li></ul>
+</div>
+</div>
+<div class="week-block">
+<div class="week-header">
+<span class="week-number">Week 13</span>
+<span class="week-duration">2 hours/week + labs</span>
+</div>
+<div class="week-topic">Styling Systems and Design System Integration</div>
+<div class="week-content">
+<ul><li>Evaluate the principles of Styling Systems and Design System Integration and link them to course outcomes at advanced depth with architecture-level decision quality.</li><li>Design Styling Systems and Design System Integration in a guided scenario using realistic tools, constraints, and quality gates.</li><li>Optimize trade-offs, risks, and decision points for Styling Systems and Design System Integration, then record rationale for stakeholder review.</li><li>Justify a portfolio-ready engineering implementation dossier for Styling Systems and Design System Integration with measurable success criteria and next actions.</li><li>Track measurable progress using rubric scores, defect/risk trends, and evidence completeness each week.</li><li>Run a short retrospective focused on what to retain, improve, and scale into the following week.</li><li>Incorporate peer or mentor feedback and revise the week deliverable to professional publication quality.</li><li>Publish the week output into your cumulative portfolio with concise outcome narrative and proof artifacts.</li></ul>
+</div>
+</div>
+<div class="week-block">
+<div class="week-header">
+<span class="week-number">Week 14</span>
+<span class="week-duration">2 hours/week + labs</span>
+</div>
+<div class="week-topic">Building Accessible User Interface Components</div>
+<div class="week-content">
+<ul><li>Evaluate the principles of Building Accessible User Interface Components and link them to course outcomes at advanced depth with architecture-level decision quality.</li><li>Design Building Accessible User Interface Components in a guided scenario using realistic tools, constraints, and quality gates.</li><li>Optimize trade-offs, risks, and decision points for Building Accessible User Interface Components, then record rationale for stakeholder review.</li><li>Justify a portfolio-ready engineering implementation dossier for Building Accessible User Interface Components with measurable success criteria and next actions.</li><li>Track measurable progress using rubric scores, defect/risk trends, and evidence completeness each week.</li><li>Run a short retrospective focused on what to retain, improve, and scale into the following week.</li><li>Incorporate peer or mentor feedback and revise the week deliverable to professional publication quality.</li><li>Publish the week output into your cumulative portfolio with concise outcome narrative and proof artifacts.</li></ul>
+</div>
+</div>
+<div class="week-block">
+<div class="week-header">
+<span class="week-number">Week 15</span>
+<span class="week-duration">2 hours/week + labs</span>
+</div>
+<div class="week-topic">Forms, Validation, and Mutation Workflows</div>
+<div class="week-content">
+<ul><li>Evaluate the principles of Forms, Validation, and Mutation Workflows and link them to course outcomes at advanced depth with architecture-level decision quality.</li><li>Design Forms, Validation, and Mutation Workflows in a guided scenario using realistic tools, constraints, and quality gates.</li><li>Optimize trade-offs, risks, and decision points for Forms, Validation, and Mutation Workflows, then record rationale for stakeholder review.</li><li>Justify a portfolio-ready engineering implementation dossier for Forms, Validation, and Mutation Workflows with measurable success criteria and next actions.</li><li>Track measurable progress using rubric scores, defect/risk trends, and evidence completeness each week.</li><li>Run a short retrospective focused on what to retain, improve, and scale into the following week.</li><li>Incorporate peer or mentor feedback and revise the week deliverable to professional publication quality.</li><li>Publish the week output into your cumulative portfolio with concise outcome narrative and proof artifacts.</li></ul>
+</div>
+</div>
+<div class="week-block">
+<div class="week-header">
+<span class="week-number">Week 16</span>
+<span class="week-duration">2 hours/week + labs</span>
+</div>
+<div class="week-topic">API Integration and Error Handling</div>
+<div class="week-content">
+<ul><li>Evaluate the principles of API Integration and Error Handling and link them to course outcomes at advanced depth with architecture-level decision quality.</li><li>Design API Integration and Error Handling in a guided scenario using realistic tools, constraints, and quality gates.</li><li>Optimize trade-offs, risks, and decision points for API Integration and Error Handling, then record rationale for stakeholder review.</li><li>Justify a portfolio-ready engineering implementation dossier for API Integration and Error Handling with measurable success criteria and next actions.</li><li>Track measurable progress using rubric scores, defect/risk trends, and evidence completeness each week.</li><li>Run a short retrospective focused on what to retain, improve, and scale into the following week.</li><li>Incorporate peer or mentor feedback and revise the week deliverable to professional publication quality.</li><li>Publish the week output into your cumulative portfolio with concise outcome narrative and proof artifacts.</li></ul>
+</div>
+</div>
+<div class="week-block">
+<div class="week-header">
+<span class="week-number">Week 17</span>
+<span class="week-duration">2 hours/week + labs</span>
+</div>
+<div class="week-topic">Global State Management and Server State</div>
+<div class="week-content">
+<ul><li>Design the principles of Global State Management and Server State and link them to course outcomes at advanced depth with architecture-level decision quality.</li><li>Optimize Global State Management and Server State in a guided scenario using realistic tools, constraints, and quality gates.</li><li>Architect trade-offs, risks, and decision points for Global State Management and Server State, then record rationale for stakeholder review.</li><li>Defend a portfolio-ready engineering implementation dossier for Global State Management and Server State with measurable success criteria and next actions.</li><li>Track measurable progress using rubric scores, defect/risk trends, and evidence completeness each week.</li><li>Run a short retrospective focused on what to retain, improve, and scale into the following week.</li><li>Incorporate peer or mentor feedback and revise the week deliverable to professional publication quality.</li><li>Publish the week output into your cumulative portfolio with concise outcome narrative and proof artifacts.</li></ul>
+</div>
+</div>
+<div class="week-block">
+<div class="week-header">
+<span class="week-number">Week 18</span>
+<span class="week-duration">2 hours/week + labs</span>
+</div>
+<div class="week-topic">Testing React Components and Next.js Pages</div>
+<div class="week-content">
+<ul><li>Design the principles of Testing React Components and Next.js Pages and link them to course outcomes at advanced depth with architecture-level decision quality.</li><li>Optimize Testing React Components and Next.js Pages in a guided scenario using realistic tools, constraints, and quality gates.</li><li>Architect trade-offs, risks, and decision points for Testing React Components and Next.js Pages, then record rationale for stakeholder review.</li><li>Defend a portfolio-ready engineering implementation dossier for Testing React Components and Next.js Pages with measurable success criteria and next actions.</li><li>Track measurable progress using rubric scores, defect/risk trends, and evidence completeness each week.</li><li>Run a short retrospective focused on what to retain, improve, and scale into the following week.</li><li>Incorporate peer or mentor feedback and revise the week deliverable to professional publication quality.</li><li>Publish the week output into your cumulative portfolio with concise outcome narrative and proof artifacts.</li></ul>
+</div>
+</div>
+<div class="week-block">
+<div class="week-header">
+<span class="week-number">Week 19</span>
+<span class="week-duration">2 hours/week + labs</span>
+</div>
+<div class="week-topic">Performance Profiling and Bundle Optimization</div>
+<div class="week-content">
+<ul><li>Design the principles of Performance Profiling and Bundle Optimization and link them to course outcomes at advanced depth with architecture-level decision quality.</li><li>Optimize Performance Profiling and Bundle Optimization in a guided scenario using realistic tools, constraints, and quality gates.</li><li>Architect trade-offs, risks, and decision points for Performance Profiling and Bundle Optimization, then record rationale for stakeholder review.</li><li>Defend a portfolio-ready engineering implementation dossier for Performance Profiling and Bundle Optimization with measurable success criteria and next actions.</li><li>Track measurable progress using rubric scores, defect/risk trends, and evidence completeness each week.</li><li>Run a short retrospective focused on what to retain, improve, and scale into the following week.</li><li>Incorporate peer or mentor feedback and revise the week deliverable to professional publication quality.</li><li>Publish the week output into your cumulative portfolio with concise outcome narrative and proof artifacts.</li></ul>
+</div>
+</div>
+<div class="week-block">
+<div class="week-header">
+<span class="week-number">Week 20</span>
+<span class="week-duration">2 hours/week + labs</span>
+</div>
+<div class="week-topic">SEO, Metadata, and Content Rendering in Next.js</div>
+<div class="week-content">
+<ul><li>Design the principles of SEO, Metadata, and Content Rendering in Next.js and link them to course outcomes at advanced depth with architecture-level decision quality.</li><li>Optimize SEO, Metadata, and Content Rendering in Next.js in a guided scenario using realistic tools, constraints, and quality gates.</li><li>Architect trade-offs, risks, and decision points for SEO, Metadata, and Content Rendering in Next.js, then record rationale for stakeholder review.</li><li>Defend a portfolio-ready engineering implementation dossier for SEO, Metadata, and Content Rendering in Next.js with measurable success criteria and next actions.</li><li>Track measurable progress using rubric scores, defect/risk trends, and evidence completeness each week.</li><li>Run a short retrospective focused on what to retain, improve, and scale into the following week.</li><li>Incorporate peer or mentor feedback and revise the week deliverable to professional publication quality.</li><li>Publish the week output into your cumulative portfolio with concise outcome narrative and proof artifacts.</li></ul>
+</div>
+</div>
+<div class="week-block">
+<div class="week-header">
+<span class="week-number">Week 21</span>
+<span class="week-duration">2 hours/week + labs</span>
+</div>
+<div class="week-topic">Observability, Logging, and Frontend Reliability</div>
+<div class="week-content">
+<ul><li>Design the principles of Observability, Logging, and Frontend Reliability and link them to course outcomes at advanced depth with architecture-level decision quality.</li><li>Optimize Observability, Logging, and Frontend Reliability in a guided scenario using realistic tools, constraints, and quality gates.</li><li>Architect trade-offs, risks, and decision points for Observability, Logging, and Frontend Reliability, then record rationale for stakeholder review.</li><li>Defend a portfolio-ready engineering implementation dossier for Observability, Logging, and Frontend Reliability with measurable success criteria and next actions.</li><li>Track measurable progress using rubric scores, defect/risk trends, and evidence completeness each week.</li><li>Run a short retrospective focused on what to retain, improve, and scale into the following week.</li><li>Incorporate peer or mentor feedback and revise the week deliverable to professional publication quality.</li><li>Publish the week output into your cumulative portfolio with concise outcome narrative and proof artifacts.</li></ul>
+</div>
+</div>
+<div class="week-block">
+<div class="week-header">
+<span class="week-number">Week 22</span>
+<span class="week-duration">2 hours/week + labs</span>
+</div>
+<div class="week-topic">Deployment Pipelines and Production Environments</div>
+<div class="week-content">
+<ul><li>Design the principles of Deployment Pipelines and Production Environments and link them to course outcomes at advanced depth with architecture-level decision quality.</li><li>Optimize Deployment Pipelines and Production Environments in a guided scenario using realistic tools, constraints, and quality gates.</li><li>Architect trade-offs, risks, and decision points for Deployment Pipelines and Production Environments, then record rationale for stakeholder review.</li><li>Defend a portfolio-ready engineering implementation dossier for Deployment Pipelines and Production Environments with measurable success criteria and next actions.</li><li>Track measurable progress using rubric scores, defect/risk trends, and evidence completeness each week.</li><li>Run a short retrospective focused on what to retain, improve, and scale into the following week.</li><li>Incorporate peer or mentor feedback and revise the week deliverable to professional publication quality.</li><li>Publish the week output into your cumulative portfolio with concise outcome narrative and proof artifacts.</li></ul>
+</div>
+</div>
+<div class="week-block">
+<div class="week-header">
+<span class="week-number">Week 23</span>
+<span class="week-duration">2 hours/week + labs</span>
+</div>
+<div class="week-topic">Capstone Build: Product-Grade Next.js Application</div>
+<div class="week-content">
+<ul><li>Design the principles of Capstone Build: Product-Grade Next.js Application and link them to course outcomes at advanced depth with architecture-level decision quality.</li><li>Optimize Capstone Build: Product-Grade Next.js Application in a guided scenario using realistic tools, constraints, and quality gates.</li><li>Architect trade-offs, risks, and decision points for Capstone Build: Product-Grade Next.js Application, then record rationale for stakeholder review.</li><li>Defend a portfolio-ready engineering implementation dossier for Capstone Build: Product-Grade Next.js Application with measurable success criteria and next actions.</li><li>Track measurable progress using rubric scores, defect/risk trends, and evidence completeness each week.</li><li>Run a short retrospective focused on what to retain, improve, and scale into the following week.</li><li>Incorporate peer or mentor feedback and revise the week deliverable to professional publication quality.</li><li>Publish the week output into your cumulative portfolio with concise outcome narrative and proof artifacts.</li></ul>
+</div>
+</div>
+<div class="week-block">
+<div class="week-header">
+<span class="week-number">Week 24</span>
+<span class="week-duration">2 hours/week + labs</span>
+</div>
+<div class="week-topic">Capstone Polish, QA, and Technical Defense</div>
+<div class="week-content">
+<ul><li>Design the principles of Capstone Polish, QA, and Technical Defense and link them to course outcomes at advanced depth with architecture-level decision quality.</li><li>Optimize Capstone Polish, QA, and Technical Defense in a guided scenario using realistic tools, constraints, and quality gates.</li><li>Architect trade-offs, risks, and decision points for Capstone Polish, QA, and Technical Defense, then record rationale for stakeholder review.</li><li>Defend a portfolio-ready engineering implementation dossier for Capstone Polish, QA, and Technical Defense with measurable success criteria and next actions.</li><li>Track measurable progress using rubric scores, defect/risk trends, and evidence completeness each week.</li><li>Run a short retrospective focused on what to retain, improve, and scale into the following week.</li><li>Incorporate peer or mentor feedback and revise the week deliverable to professional publication quality.</li><li>Publish the week output into your cumulative portfolio with concise outcome narrative and proof artifacts.</li></ul>
+</div>
+</div>
+</div>
+<div class="section">
+<h2 class="section-title">Capstone Projects</h2>
+<div class="project-card"><h4>Project 1: React Feature Workspace</h4><p>Build a complete React feature workspace with routed pages, reusable components, form workflows, and API-backed data handling.</p><ul><li>Component architecture and data-flow documentation</li><li>Validated form and mutation workflows</li><li>Integration demo with error handling scenarios</li></ul></div><div class="project-card"><h4>Project 2: Next.js Production Module</h4><p>Implement a product-focused Next.js module with App Router, server/client boundary decisions, authentication, caching, and SEO-aware rendering.</p><ul><li>Route architecture with protected paths</li><li>Caching and revalidation strategy implementation</li><li>Performance and accessibility audit summary</li></ul></div><div class="project-card"><h4>Project 3: Capstone: Product-Grade Next.js Application</h4><p>Deliver and defend a production-ready React and Next.js application with testing, observability, deployment pipeline, and technical rationale.</p><ul><li>End-to-end application with CI quality gates</li><li>Operational readiness and monitoring setup</li><li>Technical defense deck and final release package</li></ul></div>
+</div>
+<div class="section">
+<h2 class="section-title">Study Tips</h2>
+<div class="card">
+<ul><li>Reserve two weekly deep-work sessions for code quality review, refactoring, and cross-browser/platform testing.</li><li>Maintain a technical debt ledger tracking complexity hotspots, test gaps, and performance bottlenecks requiring attention.</li><li>Run weekly code review discussions, learning from peer feedback and measuring code quality metrics (coverage, maintainability index, cyclomatic complexity).</li></ul>
+</div>
+</div>
+        <!-- Study Tips -->
+        <section class="section">
+            <h2 class="section-title">Study Tips for Success</h2>
+            <div class="card">
+                <ul>
+                    <li>Protect consistent weekly practice time and complete hands-on work before moving to the next topic.</li>
+                    <li>Document implementation decisions, trade-offs, and lessons learned after each weekly deliverable.</li>
+                    <li>Review feedback quickly and ship an improved revision within the same week to reinforce retention.</li>
+                    <li>Track measurable progress with checklists, test evidence, and milestone outcomes.</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- About Course -->
+        <section class="section">
+            <h2 class="section-title">About Frontend Engineering: React & Next.js Mastery</h2>
+            <div class="card">
+                <p>This curriculum is structured to build practical capability, consistent delivery discipline, and portfolio-ready outcomes in Frontend Engineering: React & Next.js Mastery. It combines conceptual understanding with applied execution so learners can perform confidently in real project environments.</p>
+            </div>
+        </section>
+
+<div class="footer">
+<p>© 2026 Hexadigitall Academy (Hexadigitall Technologies). Curriculum authored for Frontend Engineering: React &amp; Next.js Mastery.</p>
+</div>
+</div>
+</body>
+</html>

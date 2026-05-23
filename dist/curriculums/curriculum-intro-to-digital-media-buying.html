@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Intro to Digital Media Buying - Course Curriculum</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&amp;family=Space+Grotesk:wght@500;600;700&amp;display=swap" rel="stylesheet"/>
+<style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --primary-color: #0078D4;
+            --secondary-color: #50E6FF;
+            --dark-blue: #002050;
+            --text-dark: #1F1F1F;
+            --text-light: #605E5C;
+            --bg-light: #F5F5F5;
+            --bg-white: #FFFFFF;
+            --border-color: #EDEBE9;
+        }
+        body { font-family: 'Inter', sans-serif; line-height: 1.6; color: var(--text-dark); background: var(--bg-white); font-size: 14px; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 40px; }
+        .brand-bar { display: flex; align-items: center; justify-content: space-between; gap: 20px; border: 1px solid var(--border-color); border-radius: 12px; padding: 16px 20px; margin-bottom: 20px; box-shadow: 0 4px 18px rgba(0, 32, 80, 0.08); }
+        .brand-meta { display: flex; align-items: center; gap: 16px; }
+        .brand-meta img { width: 60px; height: auto; }
+        .brand-name { font-family: 'Space Grotesk', sans-serif; font-size: 18px; font-weight: 700; color: var(--dark-blue); }
+        .brand-link { color: var(--primary-color); font-weight: 600; text-decoration: none; }
+        .qr-block { display: flex; align-items: center; gap: 12px; background: var(--bg-light); padding: 10px 14px; border-radius: 10px; border: 1px solid var(--border-color); }
+        .qr-block img { width: 86px; height: 86px; }
+        .qr-text { font-size: 12px; color: var(--text-light); max-width: 220px; line-height: 1.5; }
+        .course-hero { background: linear-gradient(135deg, #E8F4FD 0%, #F5F9FF 100%); border: 1px solid var(--border-color); border-radius: 12px; padding: 18px; margin-bottom: 24px; display: grid; grid-template-columns: 1fr 320px; gap: 20px; align-items: center; box-shadow: 0 6px 18px rgba(0, 32, 80, 0.08); }
+        .course-hero img { width: 100%; border-radius: 12px; border: 1px solid var(--border-color); }
+        .course-hero h2 { font-family: 'Space Grotesk', sans-serif; color: var(--dark-blue); margin-bottom: 10px; font-size: 22px; }
+        .header { background: linear-gradient(135deg, var(--dark-blue) 0%, var(--primary-color) 100%); color: white; padding: 60px 40px; border-radius: 12px; margin-bottom: 40px; box-shadow: 0 10px 30px rgba(0, 120, 212, 0.2); }
+        .header h1 { font-family: 'Space Grotesk', sans-serif; font-size: 42px; font-weight: 700; margin-bottom: 16px; letter-spacing: -0.5px; }
+        .header .subtitle { font-size: 18px; opacity: 0.95; margin-bottom: 24px; }
+        .course-meta { display: flex; flex-wrap: wrap; gap: 24px; margin-top: 32px; }
+        .meta-item { display: flex; align-items: center; gap: 8px; background: rgba(255, 255, 255, 0.15); padding: 12px 20px; border-radius: 8px; }
+        .section { margin-bottom: 48px; break-inside: avoid; }
+        .section-title { font-family: 'Space Grotesk', sans-serif; font-size: 28px; color: var(--dark-blue); margin-bottom: 24px; padding-bottom: 12px; border-bottom: 3px solid var(--primary-color); display: flex; align-items: center; gap: 12px; }
+        .section-title::before { content: ''; width: 6px; height: 32px; background: linear-gradient(180deg, var(--primary-color), var(--secondary-color)); border-radius: 3px; }
+        .card { background: var(--bg-white); border: 1px solid var(--border-color); border-radius: 10px; padding: 24px; margin-bottom: 16px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05); }
+        .card ul { margin-left: 20px; }
+        .card li { margin: 6px 0; }
+        .roadmap-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+        .roadmap-card { border: 1px solid var(--border-color); border-radius: 12px; padding: 18px; background: linear-gradient(135deg, #F8FBFF 0%, #FFFFFF 100%); }
+        .roadmap-card h4 { color: var(--dark-blue); font-size: 18px; margin-bottom: 6px; }
+        .roadmap-card p { color: var(--text-light); font-size: 13px; margin-bottom: 10px; }
+        .roadmap-card ul { margin-left: 18px; }
+        .week-block { border: 1px solid var(--border-color); border-left: 6px solid var(--primary-color); border-radius: 12px; padding: 16px; margin-bottom: 14px; }
+        .week-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+        .week-number { font-weight: 700; color: var(--dark-blue); }
+        .week-duration { font-size: 12px; color: var(--text-light); }
+        .week-topic { color: var(--primary-color); font-family: 'Space Grotesk', sans-serif; font-size: 18px; margin-bottom: 10px; }
+        .week-content ul { margin-left: 20px; }
+        .week-content li { margin: 6px 0; }
+        .project-card { border: 1px solid var(--border-color); border-radius: 10px; padding: 16px; margin-bottom: 12px; background: linear-gradient(135deg, #f3f8ff 0%, #ffffff 100%); }
+        .project-card h4 { color: var(--dark-blue); margin-bottom: 8px; }
+        .project-card p { color: var(--text-light); margin-bottom: 8px; }
+        .project-card ul { margin-left: 20px; }
+        .footer { margin-top: 24px; padding-top: 16px; border-top: 1px solid var(--border-color); color: var(--text-light); font-size: 12px; }
+        @media (max-width: 900px) {
+            .course-hero { grid-template-columns: 1fr; }
+            .roadmap-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+
+
+
+<style id="curriculum-ui-normalization">
+:root { --primary-color:#0b5cab; --secondary-color:#5bb3ff; --dark-blue:#0d2a4a; --text-dark:#132235; --text-light:#4f637b; --bg-white:#ffffff; --bg-light:#f4f8fc; --border-color:#d9e5f2; }
+body { font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif; color:var(--text-dark); background:radial-gradient(circle at top right,#f7fbff 0%,#ffffff 45%); }
+h1,h2,h3,h4,.section-title,.week-topic,.week-number,.brand-name { font-family:'Space Grotesk','Inter',sans-serif; letter-spacing:-0.01em; }
+.section { margin-bottom:44px; }
+.card,.week-block,.project-card { border-radius:12px; border:1px solid var(--border-color); box-shadow:0 4px 16px rgba(13,42,74,0.06); }
+.welcome-section { background:linear-gradient(135deg,#eef6ff 0%,#f9fcff 100%); border-left:5px solid var(--primary-color); padding:28px; border-radius:12px; margin-bottom:36px; }
+.project-card { background:linear-gradient(135deg,#eef5ff 0%,#ffffff 60%); padding:20px; margin-bottom:14px; }
+.project-card h4 { color:var(--dark-blue); margin-bottom:8px; }
+.project-card p { color:var(--text-light); margin-bottom:10px; }
+.project-card ul { margin-left:18px; }
+.project-card li { margin:6px 0; }
+</style>
+<style id="curriculum-theme-override">
+:root { --primary-color:hsl(275 70% 42%); --secondary-color:hsl(299 82% 62%); --dark-blue:hsl(275 48% 18%); --text-dark:hsl(275 32% 14%); --text-light:hsl(275 18% 38%); --border-color:hsl(275 38% 86%); --bg-light:hsl(95 45% 97%); --theme-hero-a:hsl(275 85% 96%); --theme-hero-b:hsl(299 90% 98%); }
+body { background:radial-gradient(circle at 8% 0%, color-mix(in srgb, var(--theme-hero-a) 72%, white), #ffffff 46%); }
+.course-hero { background:linear-gradient(135deg,var(--theme-hero-a) 0%,var(--theme-hero-b) 100%); }
+.header { background:linear-gradient(135deg,color-mix(in srgb, var(--dark-blue) 90%, black), var(--primary-color)); }
+.section-title::before { background:linear-gradient(180deg,var(--primary-color),var(--secondary-color)); }
+.week-block { border-left:6px solid var(--primary-color); }
+</style>
+<style id="curriculum-contrast-fix">
+/* Final readability layer: resolves conflicting text/background and font overrides */
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif !important;
+  color: var(--text-dark) !important;
+  background-color: #ffffff;
+}
+h1, h2, h3, h4, .section-title, .week-topic, .week-number, .brand-name {
+  font-family: 'Space Grotesk', 'Inter', sans-serif !important;
+}
+
+/* Ensure light surfaces always use dark text */
+.container,
+.section,
+.card,
+.week-block,
+.week-column,
+.project-card,
+.welcome-section,
+.resource-item,
+.roadmap-card,
+.info-box {
+  color: var(--text-dark);
+}
+
+/* Keep hero as light panel with dark readable text */
+.course-hero,
+.course-hero h1,
+.course-hero h2,
+.course-hero h3,
+.course-hero h4,
+.course-hero p,
+.course-hero li,
+.course-hero span,
+.course-hero a {
+  color: var(--text-dark) !important;
+}
+
+/* Normalize dark surfaces so white text always has contrast */
+.brand-bar,
+.header,
+.footer {
+  background: linear-gradient(135deg, color-mix(in srgb, var(--dark-blue) 92%, black), var(--primary-color)) !important;
+}
+
+.header,
+.header h1,
+.header h2,
+.header h3,
+.header h4,
+.header p,
+.header li,
+.header span,
+.header strong,
+.header a,
+.brand-bar,
+.brand-bar h1,
+.brand-bar h2,
+.brand-bar h3,
+.brand-bar h4,
+.brand-bar p,
+.brand-bar li,
+.brand-bar span,
+.brand-bar strong,
+.brand-bar a,
+.footer,
+.footer h1,
+.footer h2,
+.footer h3,
+.footer h4,
+.footer p,
+.footer li,
+.footer span,
+.footer strong,
+.footer a {
+  color: #ffffff !important;
+}
+
+.brand-bar .brand-link,
+.brand-bar .qr-text,
+.footer p {
+  color: rgba(255, 255, 255, 0.92) !important;
+}
+
+/* Meta chips: readable in both dark and light contexts */
+.meta-item {
+  color: var(--text-dark);
+}
+.header .meta-item {
+  color: #ffffff !important;
+  background: rgba(255,255,255,0.16) !important;
+}
+
+/* Links and list readability */
+a { color: var(--primary-color); }
+a:hover { opacity: 0.9; }
+li { color: inherit; }
+
+.section-title,
+.week-topic,
+.project-card h4,
+.card h3,
+.welcome-section h2 {
+  opacity: 1 !important;
+}
+</style>
+<style id="curriculum-brandbar-contrast-fix">
+/* Brand bar readability fix */
+.brand-bar {
+  background: linear-gradient(135deg, color-mix(in srgb, var(--dark-blue) 88%, black), var(--primary-color)) !important;
+  border-color: color-mix(in srgb, var(--primary-color) 35%, white) !important;
+}
+.brand-bar .brand-name,
+.brand-bar .brand-link,
+.brand-bar .qr-text,
+.brand-bar .brand-text,
+.brand-bar .brand-meta,
+.brand-bar a,
+.brand-bar p,
+.brand-bar span,
+.brand-bar strong {
+  color: #ffffff !important;
+}
+.brand-bar .brand-link {
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.brand-bar .qr-block {
+  background: rgba(255,255,255,0.16) !important;
+  border-color: rgba(255,255,255,0.35) !important;
+}
+.brand-bar .qr-text {
+  opacity: 0.95;
+}
+</style>
+</head>
+<body>
+<div class="container">
+<div class="brand-bar">
+<div class="brand-meta">
+<img alt="Hexadigitall logo" src="../hexadigitall-logo-transparent.png"/>
+<div>
+<div class="brand-name">Hexadigitall Academy (Hexadigitall Technologies)</div>
+<a class="brand-link" href="https://www.hexadigitall.com">www.hexadigitall.com</a>
+</div>
+</div>
+<div class="qr-block">
+<img alt="Course QR Code" src="https://api.qrserver.com/v1/create-qr-code/?size=120x120&amp;data=https://www.hexadigitall.com/courses/intro-to-digital-media-buying"/>
+<div class="qr-text">Scan to view the course page, enrollment options, and mentorship details.</div>
+</div>
+</div>
+<div class="course-hero">
+<div>
+<h2>Course Snapshot</h2>
+<p>Understand the business of buying attention: channels, pricing models, and measurement.</p>
+</div>
+<img alt="Intro to Digital Media Buying" onerror="this.style.display='none'" src="../assets/images/courses/course-coding.jpg"/>
+</div>
+<div class="header">
+<h1>Intro to Digital Media Buying</h1>
+<p class="subtitle">A professionally structured weekly curriculum aligned to the level, tooling, and delivery expectations of this course.</p>
+<div class="course-meta">
+<div class="meta-item"><strong>Duration:</strong> 12 Weeks</div>
+<div class="meta-item"><strong>Level:</strong> Beginner</div>
+<div class="meta-item"><strong>Study Time:</strong> 2 hours/week + labs</div>
+</div>
+</div>
+        <!-- Welcome Section -->
+        <section class="welcome-section">
+            <h2>Welcome to Intro to Digital Media Buying! 🎓</h2>
+            <p>This curriculum is designed to take you from core understanding to confident delivery through weekly applied practice, measurable outcomes, and portfolio evidence.</p>
+            <p>Each week builds progressively with practical tasks, implementation checkpoints, and reflection points so you can convert knowledge into repeatable professional performance.</p>
+            <p><strong>Your success is our priority.</strong> Stay consistent with weekly execution, document your work, and use feedback loops to continuously improve your delivery quality.</p>
+        </section>
+
+<div class="section">
+<h2 class="section-title">Prerequisites</h2>
+<div class="card">
+<ul><li>Project management fundamentals: scope definition, stakeholder communication, and timeline estimation accuracy</li><li>Business analysis skills: requirements gathering, user story crafting, and acceptance criteria specification</li><li>Process mapping and workflow redesign experience with focus on efficiency and stakeholder value</li><li>Familiarity with project management tools (Jira, Asana, Monday) and kanban board optimization</li></ul>
+</div>
+</div>
+<div class="section">
+<h2 class="section-title">Learning Outcomes</h2>
+<div class="card">
+<ul><li>How ad auctions and pricing models work</li><li>Channel mix: search, social, video, programmatic</li><li>Budget planning and pacing</li><li>Measurement, attribution, and incrementality</li><li>Agency vs. in-house operating models</li></ul>
+</div>
+</div>
+        <!-- Complementary Courses -->
+        <section class="section">
+            <h2 class="section-title">Recommended Complementary Courses</h2>
+            <div class="card">
+                <ul>
+                    <li>Pair this curriculum with a related foundation or advanced specialization to strengthen adjacent skill areas.</li>
+                    <li>Select one systems-focused and one delivery-focused course to improve both implementation depth and execution speed.</li>
+                    <li>Use complementary study tracks to broaden portfolio evidence and improve interview and project readiness.</li>
+                </ul>
+            </div>
+        </section>
+
+<div class="section">
+<h2 class="section-title">Essential Learning Resources</h2>
+<div class="card">
+<ul><li>Project Charter template, WBS examples, and stakeholder analysis worksheets</li><li>Risk register, change log, and lessons learned repository templates</li><li>ROI calculation models, benefits tracking dashboards, and governance frameworks</li></ul>
+</div>
+</div>
+<div class="section">
+<h2 class="section-title">Your Learning Roadmap</h2>
+<div class="roadmap-grid">
+<div class="roadmap-card"><h4>Foundation</h4><p>Weeks 1-3</p><ul><li>Early Weeks: Project fundamentals, planning, and stakeholder management</li><li>Middle Weeks: Execution excellence, risk management, and adaptive strategies</li><li>Late Weeks: Delivery validation, lessons learned, and strategic impact</li></ul></div><div class="roadmap-card"><h4>Build</h4><p>Weeks 4-6</p><ul><li>Audience Targeting and Segmentation</li><li>Budget Allocation, Bids, and Pacing</li><li>Creative Briefs and Ad Format Selection</li></ul></div><div class="roadmap-card"><h4>Integration</h4><p>Weeks 7-9</p><ul><li>Media Plans, Flighting, and Channel Mix</li><li>Tracking, Pixels, and Attribution Basics</li><li>Reading Platform Reports and Diagnosing Performance</li></ul></div><div class="roadmap-card"><h4>Capstone</h4><p>Weeks 10-12</p><ul><li>Brand Safety, Fraud, and Quality Controls</li><li>Optimization Loops and Reporting to Stakeholders</li><li>Capstone: Build and Defend a Basic Media Plan</li></ul></div>
+</div>
+</div>
+<div class="section">
+<h2 class="section-title">Detailed Weekly Curriculum</h2>
+<div class="week-block">
+<div class="week-header">
+<span class="week-number">Week 1</span>
+<span class="week-duration">2 hours/week + labs</span>
+</div>
+<div class="week-topic">Media Buying Fundamentals and Auction Economics</div>
+<div class="week-content">
+<ul><li>Identify the principles of Media Buying Fundamentals and Auction Economics and link them to course outcomes with scaffolded guidance and beginner-safe checkpoints.</li><li>Explain Media Buying Fundamentals and Auction Economics in a guided scenario using realistic tools, constraints, and quality gates.</li><li>Apply trade-offs, risks, and decision points for Media Buying Fundamentals and Auction Economics, then record rationale for stakeholder review.</li><li>Document a portfolio-ready delivery strategy memo for Media Buying Fundamentals and Auction Economics with measurable success criteria and next actions.</li><li>Track measurable progress using rubric scores, defect/risk trends, and evidence completeness each week.</li><li>Run a short retrospective focused on what to retain, improve, and scale into the following week.</li><li>Incorporate peer or mentor feedback and revise the week deliverable to professional publication quality.</li><li>Publish the week output into your cumulative portfolio with concise outcome narrative and proof artifacts.</li></ul>
+</div>
+</div>
+<div class="week-block">
+<div class="week-header">
+<span class="week-number">Week 2</span>
+<span class="week-duration">2 hours/week + labs</span>
+</div>
+<div class="week-topic">CPM, CPC, CPA, and Performance Metrics</div>
+<div class="week-content">
+<ul><li>Identify the principles of CPM, CPC, CPA, and Performance Metrics and link them to course outcomes with scaffolded guidance and beginner-safe checkpoints.</li><li>Explain CPM, CPC, CPA, and Performance Metrics in a guided scenario using realistic tools, constraints, and quality gates.</li><li>Apply trade-offs, risks, and decision points for CPM, CPC, CPA, and Performance Metrics, then record rationale for stakeholder review.</li><li>Document a portfolio-ready delivery strategy memo for CPM, CPC, CPA, and Performance Metrics with measurable success criteria and next actions.</li><li>Track measurable progress using rubric scores, defect/risk trends, and evidence completeness each week.</li><li>Run a short retrospective focused on what to retain, improve, and scale into the following week.</li><li>Incorporate peer or mentor feedback and revise the week deliverable to professional publication quality.</li><li>Publish the week output into your cumulative portfolio with concise outcome narrative and proof artifacts.</li></ul>
+</div>
+</div>
+<div class="week-block">
+<div class="week-header">
+<span class="week-number">Week 3</span>
+<span class="week-duration">2 hours/week + labs</span>
+</div>
+<div class="week-topic">Search, Social, Video, and Programmatic Channels</div>
+<div class="week-content">
+<ul><li>Identify the principles of Search, Social, Video, and Programmatic Channels and link them to course outcomes with scaffolded guidance and beginner-safe checkpoints.</li><li>Explain Search, Social, Video, and Programmatic Channels in a guided scenario using realistic tools, constraints, and quality gates.</li><li>Apply trade-offs, risks, and decision points for Search, Social, Video, and Programmatic Channels, then record rationale for stakeholder review.</li><li>Document a portfolio-ready delivery strategy memo for Search, Social, Video, and Programmatic Channels with measurable success criteria and next actions.</li><li>Track measurable progress using rubric scores, defect/risk trends, and evidence completeness each week.</li><li>Run a short retrospective focused on what to retain, improve, and scale into the following week.</li><li>Incorporate peer or mentor feedback and revise the week deliverable to professional publication quality.</li><li>Publish the week output into your cumulative portfolio with concise outcome narrative and proof artifacts.</li></ul>
+</div>
+</div>
+<div class="week-block">
+<div class="week-header">
+<span class="week-number">Week 4</span>
+<span class="week-duration">2 hours/week + labs</span>
+</div>
+<div class="week-topic">Audience Targeting and Segmentation</div>
+<div class="week-content">
+<ul><li>Identify the principles of Audience Targeting and Segmentation and link them to course outcomes with scaffolded guidance and beginner-safe checkpoints.</li><li>Explain Audience Targeting and Segmentation in a guided scenario using realistic tools, constraints, and quality gates.</li><li>Apply trade-offs, risks, and decision points for Audience Targeting and Segmentation, then record rationale for stakeholder review.</li><li>Document a portfolio-ready delivery strategy memo for Audience Targeting and Segmentation with measurable success criteria and next actions.</li><li>Track measurable progress using rubric scores, defect/risk trends, and evidence completeness each week.</li><li>Run a short retrospective focused on what to retain, improve, and scale into the following week.</li><li>Incorporate peer or mentor feedback and revise the week deliverable to professional publication quality.</li><li>Publish the week output into your cumulative portfolio with concise outcome narrative and proof artifacts.</li></ul>
+</div>
+</div>
+<div class="week-block">
+<div class="week-header">
+<span class="week-number">Week 5</span>
+<span class="week-duration">2 hours/week + labs</span>
+</div>
+<div class="week-topic">Budget Allocation, Bids, and Pacing</div>
+<div class="week-content">
+<ul><li>Apply the principles of Budget Allocation, Bids, and Pacing and link them to course outcomes with scaffolded guidance and beginner-safe checkpoints.</li><li>Analyze Budget Allocation, Bids, and Pacing in a guided scenario using realistic tools, constraints, and quality gates.</li><li>Evaluate trade-offs, risks, and decision points for Budget Allocation, Bids, and Pacing, then record rationale for stakeholder review.</li><li>Document a portfolio-ready delivery strategy memo for Budget Allocation, Bids, and Pacing with measurable success criteria and next actions.</li><li>Track measurable progress using rubric scores, defect/risk trends, and evidence completeness each week.</li><li>Run a short retrospective focused on what to retain, improve, and scale into the following week.</li><li>Incorporate peer or mentor feedback and revise the week deliverable to professional publication quality.</li><li>Publish the week output into your cumulative portfolio with concise outcome narrative and proof artifacts.</li></ul>
+</div>
+</div>
+<div class="week-block">
+<div class="week-header">
+<span class="week-number">Week 6</span>
+<span class="week-duration">2 hours/week + labs</span>
+</div>
+<div class="week-topic">Creative Briefs and Ad Format Selection</div>
+<div class="week-content">
+<ul><li>Apply the principles of Creative Briefs and Ad Format Selection and link them to course outcomes with scaffolded guidance and beginner-safe checkpoints.</li><li>Analyze Creative Briefs and Ad Format Selection in a guided scenario using realistic tools, constraints, and quality gates.</li><li>Evaluate trade-offs, risks, and decision points for Creative Briefs and Ad Format Selection, then record rationale for stakeholder review.</li><li>Document a portfolio-ready delivery strategy memo for Creative Briefs and Ad Format Selection with measurable success criteria and next actions.</li><li>Track measurable progress using rubric scores, defect/risk trends, and evidence completeness each week.</li><li>Run a short retrospective focused on what to retain, improve, and scale into the following week.</li><li>Incorporate peer or mentor feedback and revise the week deliverable to professional publication quality.</li><li>Publish the week output into your cumulative portfolio with concise outcome narrative and proof artifacts.</li></ul>
+</div>
+</div>
+<div class="week-block">
+<div class="week-header">
+<span class="week-number">Week 7</span>
+<span class="week-duration">2 hours/week + labs</span>
+</div>
+<div class="week-topic">Media Plans, Flighting, and Channel Mix</div>
+<div class="week-content">
+<ul><li>Apply the principles of Media Plans, Flighting, and Channel Mix and link them to course outcomes with scaffolded guidance and beginner-safe checkpoints.</li><li>Analyze Media Plans, Flighting, and Channel Mix in a guided scenario using realistic tools, constraints, and quality gates.</li><li>Evaluate trade-offs, risks, and decision points for Media Plans, Flighting, and Channel Mix, then record rationale for stakeholder review.</li><li>Document a portfolio-ready delivery strategy memo for Media Plans, Flighting, and Channel Mix with measurable success criteria and next actions.</li><li>Track measurable progress using rubric scores, defect/risk trends, and evidence completeness each week.</li><li>Run a short retrospective focused on what to retain, improve, and scale into the following week.</li><li>Incorporate peer or mentor feedback and revise the week deliverable to professional publication quality.</li><li>Publish the week output into your cumulative portfolio with concise outcome narrative and proof artifacts.</li></ul>
+</div>
+</div>
+<div class="week-block">
+<div class="week-header">
+<span class="week-number">Week 8</span>
+<span class="week-duration">2 hours/week + labs</span>
+</div>
+<div class="week-topic">Tracking, Pixels, and Attribution Basics</div>
+<div class="week-content">
+<ul><li>Apply the principles of Tracking, Pixels, and Attribution Basics and link them to course outcomes with scaffolded guidance and beginner-safe checkpoints.</li><li>Analyze Tracking, Pixels, and Attribution Basics in a guided scenario using realistic tools, constraints, and quality gates.</li><li>Evaluate trade-offs, risks, and decision points for Tracking, Pixels, and Attribution Basics, then record rationale for stakeholder review.</li><li>Document a portfolio-ready delivery strategy memo for Tracking, Pixels, and Attribution Basics with measurable success criteria and next actions.</li><li>Track measurable progress using rubric scores, defect/risk trends, and evidence completeness each week.</li><li>Run a short retrospective focused on what to retain, improve, and scale into the following week.</li><li>Incorporate peer or mentor feedback and revise the week deliverable to professional publication quality.</li><li>Publish the week output into your cumulative portfolio with concise outcome narrative and proof artifacts.</li></ul>
+</div>
+</div>
+<div class="week-block">
+<div class="week-header">
+<span class="week-number">Week 9</span>
+<span class="week-duration">2 hours/week + labs</span>
+</div>
+<div class="week-topic">Reading Platform Reports and Diagnosing Performance</div>
+<div class="week-content">
+<ul><li>Analyze the principles of Reading Platform Reports and Diagnosing Performance and link them to course outcomes with scaffolded guidance and beginner-safe checkpoints.</li><li>Evaluate Reading Platform Reports and Diagnosing Performance in a guided scenario using realistic tools, constraints, and quality gates.</li><li>Create trade-offs, risks, and decision points for Reading Platform Reports and Diagnosing Performance, then record rationale for stakeholder review.</li><li>Defend a portfolio-ready delivery strategy memo for Reading Platform Reports and Diagnosing Performance with measurable success criteria and next actions.</li><li>Track measurable progress using rubric scores, defect/risk trends, and evidence completeness each week.</li><li>Run a short retrospective focused on what to retain, improve, and scale into the following week.</li><li>Incorporate peer or mentor feedback and revise the week deliverable to professional publication quality.</li><li>Publish the week output into your cumulative portfolio with concise outcome narrative and proof artifacts.</li></ul>
+</div>
+</div>
+<div class="week-block">
+<div class="week-header">
+<span class="week-number">Week 10</span>
+<span class="week-duration">2 hours/week + labs</span>
+</div>
+<div class="week-topic">Brand Safety, Fraud, and Quality Controls</div>
+<div class="week-content">
+<ul><li>Analyze the principles of Brand Safety, Fraud, and Quality Controls and link them to course outcomes with scaffolded guidance and beginner-safe checkpoints.</li><li>Evaluate Brand Safety, Fraud, and Quality Controls in a guided scenario using realistic tools, constraints, and quality gates.</li><li>Create trade-offs, risks, and decision points for Brand Safety, Fraud, and Quality Controls, then record rationale for stakeholder review.</li><li>Defend a portfolio-ready delivery strategy memo for Brand Safety, Fraud, and Quality Controls with measurable success criteria and next actions.</li><li>Track measurable progress using rubric scores, defect/risk trends, and evidence completeness each week.</li><li>Run a short retrospective focused on what to retain, improve, and scale into the following week.</li><li>Incorporate peer or mentor feedback and revise the week deliverable to professional publication quality.</li><li>Publish the week output into your cumulative portfolio with concise outcome narrative and proof artifacts.</li></ul>
+</div>
+</div>
+<div class="week-block">
+<div class="week-header">
+<span class="week-number">Week 11</span>
+<span class="week-duration">2 hours/week + labs</span>
+</div>
+<div class="week-topic">Optimization Loops and Reporting to Stakeholders</div>
+<div class="week-content">
+<ul><li>Analyze the principles of Optimization Loops and Reporting to Stakeholders and link them to course outcomes with scaffolded guidance and beginner-safe checkpoints.</li><li>Evaluate Optimization Loops and Reporting to Stakeholders in a guided scenario using realistic tools, constraints, and quality gates.</li><li>Create trade-offs, risks, and decision points for Optimization Loops and Reporting to Stakeholders, then record rationale for stakeholder review.</li><li>Defend a portfolio-ready delivery strategy memo for Optimization Loops and Reporting to Stakeholders with measurable success criteria and next actions.</li><li>Track measurable progress using rubric scores, defect/risk trends, and evidence completeness each week.</li><li>Run a short retrospective focused on what to retain, improve, and scale into the following week.</li><li>Incorporate peer or mentor feedback and revise the week deliverable to professional publication quality.</li><li>Publish the week output into your cumulative portfolio with concise outcome narrative and proof artifacts.</li></ul>
+</div>
+</div>
+<div class="week-block">
+<div class="week-header">
+<span class="week-number">Week 12</span>
+<span class="week-duration">2 hours/week + labs</span>
+</div>
+<div class="week-topic">Capstone: Build and Defend a Basic Media Plan</div>
+<div class="week-content">
+<ul><li>Analyze the principles of Capstone: Build and Defend a Basic Media Plan and link them to course outcomes with scaffolded guidance and beginner-safe checkpoints.</li><li>Evaluate Capstone: Build and Defend a Basic Media Plan in a guided scenario using realistic tools, constraints, and quality gates.</li><li>Create trade-offs, risks, and decision points for Capstone: Build and Defend a Basic Media Plan, then record rationale for stakeholder review.</li><li>Defend a portfolio-ready delivery strategy memo for Capstone: Build and Defend a Basic Media Plan with measurable success criteria and next actions.</li><li>Track measurable progress using rubric scores, defect/risk trends, and evidence completeness each week.</li><li>Run a short retrospective focused on what to retain, improve, and scale into the following week.</li><li>Incorporate peer or mentor feedback and revise the week deliverable to professional publication quality.</li><li>Publish the week output into your cumulative portfolio with concise outcome narrative and proof artifacts.</li></ul>
+</div>
+</div>
+</div>
+<div class="section">
+<h2 class="section-title">Capstone Projects</h2>
+<div class="project-card"><h4>Project 1: Targeting and Budget Pilot Plan</h4><p>Create a pilot media plan with audience segmentation, initial channel split, and budget pacing model for a single campaign objective.</p><ul><li>Audience and channel planning workbook</li><li>Budget and pacing assumptions sheet</li><li>Pilot launch readiness checklist</li></ul></div><div class="project-card"><h4>Project 2: Measurement and Optimization Framework</h4><p>Build tracking, attribution, and reporting structure for an active campaign, including weekly diagnostic and optimization routines.</p><ul><li>Tracking and attribution setup map</li><li>Performance diagnosis and optimization log</li><li>Stakeholder reporting template</li></ul></div><div class="project-card"><h4>Project 3: Capstone: Defensible Media Buying Strategy</h4><p>Deliver and defend a complete media buying strategy with channel rationale, forecasting, quality controls, and optimization plan tied to business outcomes.</p><ul><li>Comprehensive media plan and forecast</li><li>Risk and quality control governance notes</li><li>Executive-ready defense presentation</li></ul></div>
+</div>
+<div class="section">
+<h2 class="section-title">Study Tips</h2>
+<div class="card">
+<ul><li>Block two weekly hours for stakeholder interviews, requirement refinement, and process flow documentation.</li><li>Maintain a project retrospective log capturing what worked, what didn't, and explicit process improvements for subsequent projects.</li><li>Conduct weekly status reviews with stakeholder feedback loops, adjusting scope and timeline based on market signals and priority changes.</li></ul>
+</div>
+</div>
+        <!-- Study Tips -->
+        <section class="section">
+            <h2 class="section-title">Study Tips for Success</h2>
+            <div class="card">
+                <ul>
+                    <li>Protect consistent weekly practice time and complete hands-on work before moving to the next topic.</li>
+                    <li>Document implementation decisions, trade-offs, and lessons learned after each weekly deliverable.</li>
+                    <li>Review feedback quickly and ship an improved revision within the same week to reinforce retention.</li>
+                    <li>Track measurable progress with checklists, test evidence, and milestone outcomes.</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- About Course -->
+        <section class="section">
+            <h2 class="section-title">About Intro to Digital Media Buying</h2>
+            <div class="card">
+                <p>This curriculum is structured to build practical capability, consistent delivery discipline, and portfolio-ready outcomes in Intro to Digital Media Buying. It combines conceptual understanding with applied execution so learners can perform confidently in real project environments.</p>
+            </div>
+        </section>
+
+<div class="footer">
+<p>© 2026 Hexadigitall Academy (Hexadigitall Technologies). Curriculum authored for Intro to Digital Media Buying.</p>
+</div>
+</div>
+</body>
+</html>

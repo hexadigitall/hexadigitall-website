@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Executive Summary - Service Intake Form | Hexadigitall</title>
+  <meta name="description" content="Complete your executive summary service intake form. Professional business summaries for investors and stakeholders.">
+  <link rel="stylesheet" href="/forms/assets/forms.css">
+  <style>
+    /* Navigation */
+    nav {
+      background: white;
+      border-bottom: 2px solid #e5e7eb;
+      padding: 16px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    }
+
+    .logo-link {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+    }
+
+    .logo-link img {
+      height: 40px;
+      width: auto;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 32px;
+      align-items: center;
+    }
+
+    .nav-links a {
+      color: #4b5563;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 0.95rem;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover {
+      color: #667eea;
+    }
+
+    .nav-cta {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white !important;
+      padding: 10px 24px;
+      border-radius: 6px;
+      font-weight: 600;
+    }
+
+    .nav-cta:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+    }
+
+    /* Form Header */
+    .form-header {
+      text-align: center;
+      margin-bottom: 3rem;
+      padding: 2rem;
+      background: linear-gradient(135deg, rgba(139, 92, 246, 0.05) 0%, rgba(118, 75, 162, 0.05) 100%);
+      border-radius: 12px;
+    }
+
+    .form-header h1 {
+      font-size: 2.5rem;
+      color: #1f2937;
+      margin-bottom: 0.5rem;
+    }
+
+    .form-header p {
+      font-size: 1.1rem;
+      color: #6b7280;
+      margin-bottom: 1rem;
+    }
+
+    .price-badge {
+      display: inline-block;
+      background: linear-gradient(135deg, #8b5cf6 0%, #764ba2 100%);
+      color: white;
+      padding: 8px 20px;
+      border-radius: 20px;
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
+
+    /* Footer */
+    footer {
+      background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+      color: white;
+      padding: 4rem 2rem 2rem;
+      margin-top: 6rem;
+    }
+
+    .footer-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 3rem;
+      margin-bottom: 3rem;
+    }
+
+    .footer-section h3 {
+      color: #667eea;
+      margin-bottom: 1rem;
+      font-size: 1.1rem;
+    }
+
+    .footer-section ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .footer-section ul li {
+      margin-bottom: 0.5rem;
+    }
+
+    .footer-section a {
+      color: #94a3b8;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .footer-section a:hover {
+      color: #667eea;
+    }
+
+    .footer-bottom {
+      text-align: center;
+      padding-top: 2rem;
+      border-top: 1px solid #334155;
+      color: #94a3b8;
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation -->
+  <nav>
+    <a href="/" class="logo-link">
+      <img src="/hexadigitall-logo-transparent.png" alt="Hexadigitall">
+    </a>
+    <div class="nav-links">
+      <a href="/services">Services</a>
+      <a href="/courses">Courses</a>
+      <a href="/mentorships">Mentorship</a>
+      <a href="/about">About</a>
+      <a href="/contact" class="nav-cta">Contact</a>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="main-content">
+    <div class="form-header">
+      <h1>📊 Executive Summary</h1>
+      <p>Concise, professional business summary for investors and stakeholders</p>
+      <span class="price-badge">3-4 days delivery</span>
+    </div>
+
+    <form class="intake-form" id="executiveSummaryForm">
+      <!-- Client Information -->
+      <section class="form-section">
+        <h2>📋 Client Information</h2>
+        
+        <div class="form-group">
+          <label for="fullName">Full Name *</label>
+          <input type="text" id="fullName" name="fullName" required>
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email Address *</label>
+          <input type="email" id="email" name="email" required>
+        </div>
+
+        <div class="form-group">
+          <label for="phone">Phone Number *</label>
+          <input type="tel" id="phone" name="phone" required>
+        </div>
+
+        <div class="form-group">
+          <label for="company">Company/Business Name *</label>
+          <input type="text" id="company" name="company" required>
+        </div>
+
+        <div class="form-group">
+          <label for="yourRole">Your Role/Title *</label>
+          <input type="text" id="yourRole" name="yourRole" placeholder="E.g., CEO, Founder..." required>
+        </div>
+      </section>
+
+      <!-- Business Information -->
+      <section class="form-section">
+        <h2>🏢 Business Information</h2>
+
+        <div class="form-group">
+          <label for="businessStage">What stage is your business in? *</label>
+          <select id="businessStage" name="businessStage" required>
+            <option value="">Select stage...</option>
+            <option value="idea">Idea stage</option>
+            <option value="startup">Startup (0-2 years)</option>
+            <option value="growing">Growing business (2-5 years)</option>
+            <option value="established">Established (5+ years)</option>
+            <option value="expansion">Expansion/Scaling phase</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="industry">Industry/Sector *</label>
+          <input type="text" id="industry" name="industry" placeholder="E.g., Technology, Healthcare, E-commerce..." required>
+        </div>
+
+        <div class="form-group">
+          <label for="businessModel">Business Model *</label>
+          <select id="businessModel" name="businessModel" required>
+            <option value="">Select model...</option>
+            <option value="b2b">B2B</option>
+            <option value="b2c">B2C</option>
+            <option value="b2b2c">B2B2C</option>
+            <option value="marketplace">Marketplace</option>
+            <option value="saas">SaaS/Subscription</option>
+            <option value="ecommerce">E-commerce</option>
+            <option value="service">Service-based</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="problemSolved">What problem does your business solve? *</label>
+          <textarea id="problemSolved" name="problemSolved" rows="3" placeholder="Describe the main problem or pain point your business addresses..." required></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="solution">Your solution/value proposition *</label>
+          <textarea id="solution" name="solution" rows="3" placeholder="How does your business solve this problem uniquely?" required></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="targetMarket">Target Market *</label>
+          <textarea id="targetMarket" name="targetMarket" rows="3" placeholder="Who are your ideal customers? Be specific..." required></textarea>
+        </div>
+      </section>
+
+      <!-- Financial & Traction -->
+      <section class="form-section">
+        <h2>💰 Financial & Traction Data</h2>
+
+        <div class="form-group">
+          <label for="revenue">Current annual revenue (if applicable)</label>
+          <select id="revenue" name="revenue">
+            <option value="">Select range...</option>
+            <option value="pre-revenue">Pre-revenue</option>
+            <option value="0-50k">$0 - $50,000</option>
+            <option value="50k-250k">$50,000 - $250,000</option>
+            <option value="250k-1m">$250,000 - $1M</option>
+            <option value="1m+">$1M+</option>
+            <option value="confidential">Prefer to discuss</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="fundingStage">Funding stage</label>
+          <select id="fundingStage" name="fundingStage">
+            <option value="">Select...</option>
+            <option value="bootstrapped">Bootstrapped</option>
+            <option value="seed">Seeking seed funding</option>
+            <option value="series-a">Series A</option>
+            <option value="series-b">Series B+</option>
+            <option value="funded">Already funded</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="fundingAmount">Funding amount seeking (if applicable)</label>
+          <input type="text" id="fundingAmount" name="fundingAmount" placeholder="E.g., $100,000 or N/A">
+        </div>
+
+        <div class="form-group">
+          <label for="traction">Current traction (customers, users, partnerships, etc.)</label>
+          <textarea id="traction" name="traction" rows="3" placeholder="E.g., 1,000 active users, 50 paying customers, partnerships with X and Y..."></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="keyMetrics">Key metrics or achievements</label>
+          <textarea id="keyMetrics" name="keyMetrics" rows="3" placeholder="E.g., MRR growth, customer acquisition cost, retention rate, awards..."></textarea>
+        </div>
+      </section>
+
+      <!-- Competition & Market -->
+      <section class="form-section">
+        <h2>🎯 Competition & Market Positioning</h2>
+
+        <div class="form-group">
+          <label for="competitors">Main competitors</label>
+          <textarea id="competitors" name="competitors" rows="3" placeholder="List your main competitors and how you differ..."></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="competitiveAdvantage">What's your competitive advantage? *</label>
+          <textarea id="competitiveAdvantage" name="competitiveAdvantage" rows="3" placeholder="What makes you better or different from competitors?" required></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="marketSize">Market size/opportunity</label>
+          <textarea id="marketSize" name="marketSize" rows="2" placeholder="E.g., $10B market, 5M potential customers..."></textarea>
+        </div>
+      </section>
+
+      <!-- Strategy & Goals -->
+      <section class="form-section">
+        <h2>📈 Strategy & Goals</h2>
+
+        <div class="form-group">
+          <label for="shortTermGoals">Short-term goals (6-12 months)</label>
+          <textarea id="shortTermGoals" name="shortTermGoals" rows="3" placeholder="What do you want to achieve in the next year?"></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="longTermVision">Long-term vision (3-5 years)</label>
+          <textarea id="longTermVision" name="longTermVision" rows="3" placeholder="Where do you see the business in 3-5 years?"></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="revenueModel">Revenue model/monetization strategy</label>
+          <textarea id="revenueModel" name="revenueModel" rows="3" placeholder="How do you make money? Subscriptions, one-time sales, commissions, etc."></textarea>
+        </div>
+      </section>
+
+      <!-- Purpose & Audience -->
+      <section class="form-section">
+        <h2>🎯 Purpose of Executive Summary</h2>
+
+        <div class="form-group">
+          <label for="purpose">Primary purpose of this executive summary *</label>
+          <select id="purpose" name="purpose" required>
+            <option value="">Select purpose...</option>
+            <option value="fundraising">Fundraising/Investor pitch</option>
+            <option value="partners">Partnership opportunities</option>
+            <option value="board">Board presentation</option>
+            <option value="grants">Grant application</option>
+            <option value="internal">Internal stakeholders</option>
+            <option value="competitions">Business competitions</option>
+            <option value="general">General business overview</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="targetAudience">Target audience for the summary *</label>
+          <textarea id="targetAudience" name="targetAudience" rows="2" placeholder="E.g., Angel investors, venture capitalists, potential partners..." required></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="pageLength">Preferred length</label>
+          <select id="pageLength" name="pageLength">
+            <option value="">Select...</option>
+            <option value="1-page">1 page (concise)</option>
+            <option value="2-page">2 pages (standard)</option>
+            <option value="3-page">3 pages (detailed)</option>
+            <option value="flexible">Flexible</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="tone">Preferred tone/style</label>
+          <select id="tone" name="tone">
+            <option value="">Select...</option>
+            <option value="formal">Formal and  professional</option>
+            <option value="conversational">Conversational yet professional</option>
+            <option value="impactful">Bold and impactful</option>
+            <option value="recommend">Recommend based on audience</option>
+          </select>
+        </div>
+      </section>
+
+      <!-- Additional Materials -->
+      <section class="form-section">
+        <h2>📎 Supporting Materials</h2>
+
+        <div class="form-group">
+          <label for="existingMaterials">Do you have existing materials we can reference?</label>
+          <div class="checkbox-group">
+            <label><input type="checkbox" name="materials" value="business-plan"> Business plan</label>
+            <label><input type="checkbox" name="materials" value="pitch-deck"> Pitch deck</label>
+            <label><input type="checkbox" name="materials" value="financial-projections"> Financial projections</label>
+            <label><input type="checkbox" name="materials" value="market-research"> Market research</label>
+            <label><input type="checkbox" name="materials" value="website"> Website/product demo</label>
+            <label><input type="checkbox" name="materials" value="none"> None available</label>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="additionalInfo">Additional information or special requests</label>
+          <textarea id="additionalInfo" name="additionalInfo" rows="4" placeholder="Anything else we should know? Specific sections to emphasize?"></textarea>
+        </div>
+      </section>
+
+      <!-- Timeline -->
+      <section class="form-section">
+        <h2>⏰ Timeline</h2>
+
+        <div class="form-group">
+          <label for="deadline">Do you have a specific deadline? *</label>
+          <input type="date" id="deadline" name="deadline" required>
+        </div>
+
+        <div class="form-group">
+          <label for="urgency">Urgency level *</label>
+          <select id="urgency" name="urgency" required>
+            <option value="">Select urgency...</option>
+            <option value="standard">Standard (3-4 days)</option>
+            <option value="rush">Rush (2 days - additional fee)</option>
+            <option value="urgent">Urgent (24 hours - premium fee)</option>
+          </select>
+        </div>
+      </section>
+
+      <!-- Submit Button -->
+      <div class="form-actions">
+        <button type="submit" class="btn-primary">Submit Executive Summary Request</button>
+      </div>
+    </form>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-content">
+      <div class="footer-section">
+        <h3>Quick Links</h3>
+        <ul>
+          <li><a href="/">Home</a></li>
+          <li><a href="/about">About Us</a></li>
+          <li><a href="/blog">Blog</a></li>
+          <li><a href="/contact">Contact</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-section">
+        <h3>Services</h3>
+        <ul>
+          <li><a href="/services">All Services</a></li>
+          <li><a href="/services#web-development">Web Development</a></li>
+          <li><a href="/services#branding">Branding</a></li>
+          <li><a href="/services#marketing">Marketing</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-section">
+        <h3>Learn</h3>
+        <ul>
+          <li><a href="/courses">Online Courses</a></li>
+          <li><a href="/mentorships">Mentorship</a></li>
+          <li><a href="/resources">Resources</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-section">
+        <h3>Connect</h3>
+        <ul>
+          <li><a href="https://twitter.com/hexadigitall" target="_blank">Twitter</a></li>
+          <li><a href="https://linkedin.com/company/hexadigitall" target="_blank">LinkedIn</a></li>
+          <li><a href="https://instagram.com/hexadigitall" target="_blank">Instagram</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>&copy; 2024 Hexadigitall. All rights reserved. Made with ❤️ in Nigeria</p>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('executiveSummaryForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const formData = new FormData(this);
+      const data = {
+        service: 'executive-summary',
+        timestamp: new Date().toISOString(),
+        clientInfo: {
+          fullName: formData.get('fullName'),
+          email: formData.get('email'),
+          phone: formData.get('phone'),
+          company: formData.get('company'),
+          role: formData.get('yourRole')
+        },
+        business: {
+          stage: formData.get('businessStage'),
+          industry: formData.get('industry'),
+          model: formData.get('businessModel'),
+          problemSolved: formData.get('problemSolved'),
+          solution: formData.get('solution'),
+          targetMarket: formData.get('targetMarket')
+        },
+        financial: {
+          revenue: formData.get('revenue'),
+          fundingStage: formData.get('fundingStage'),
+          fundingAmount: formData.get('fundingAmount'),
+          traction: formData.get('traction'),
+          keyMetrics: formData.get('keyMetrics')
+        },
+        market: {
+          competitors: formData.get('competitors'),
+          competitiveAdvantage: formData.get('competitiveAdvantage'),
+          marketSize: formData.get('marketSize')
+        },
+        strategy: {
+          shortTermGoals: formData.get('shortTermGoals'),
+          longTermVision: formData.get('longTermVision'),
+          revenueModel: formData.get('revenueModel')
+        },
+        summary: {
+          purpose: formData.get('purpose'),
+          targetAudience: formData.get('targetAudience'),
+          pageLength: formData.get('pageLength'),
+          tone: formData.get('tone')
+        },
+        materials: {
+          existing: formData.getAll('materials'),
+          additionalInfo: formData.get('additionalInfo')
+        },
+        timeline: {
+          deadline: formData.get('deadline'),
+          urgency: formData.get('urgency')
+        }
+      };
+
+      console.log('Executive Summary Form Submission:', data);
+      
+      alert('Thank you! Your executive summary request has been submitted. We\'ll contact you within 24 hours to gather any additional details and begin work.');
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Website Speed Optimization - Service Intake Form | Hexadigitall</title>
+  <meta name="description" content="Complete your website speed optimization service intake form. Make your website lightning-fast.">
+  <link rel="stylesheet" href="/forms/assets/forms.css">
+  <style>
+    /* Navigation */
+    nav {
+      background: white;
+      border-bottom: 2px solid #e5e7eb;
+      padding: 16px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    }
+
+    .logo-link {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+    }
+
+    .logo-link img {
+      height: 40px;
+      width: auto;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 32px;
+      align-items: center;
+    }
+
+    .nav-links a {
+      color: #4b5563;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 0.95rem;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover {
+      color: #667eea;
+    }
+
+    .nav-cta {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white !important;
+      padding: 10px 24px;
+      border-radius: 6px;
+      font-weight: 600;
+    }
+
+    .nav-cta:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+    }
+
+    /* Form Header */
+    .form-header {
+      text-align: center;
+      margin-bottom: 3rem;
+      padding: 2rem;
+      background: linear-gradient(135deg, rgba(59, 130, 246, 0.05) 0%, rgba(102, 126, 234, 0.05) 100%);
+      border-radius: 12px;
+    }
+
+    .form-header h1 {
+      font-size: 2.5rem;
+      color: #1f2937;
+      margin-bottom: 0.5rem;
+    }
+
+    .form-header p {
+      font-size: 1.1rem;
+      color: #6b7280;
+      margin-bottom: 1rem;
+    }
+
+    .price-badge {
+      display: inline-block;
+      background: linear-gradient(135deg, #3b82f6 0%, #667eea 100%);
+      color: white;
+      padding: 8px 20px;
+      border-radius: 20px;
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
+
+    /* Footer */
+    footer {
+      background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+      color: white;
+      padding: 4rem 2rem 2rem;
+      margin-top: 6rem;
+    }
+
+    .footer-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 3rem;
+      margin-bottom: 3rem;
+    }
+
+    .footer-section h3 {
+      color: #667eea;
+      margin-bottom: 1rem;
+      font-size: 1.1rem;
+    }
+
+    .footer-section ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .footer-section ul li {
+      margin-bottom: 0.5rem;
+    }
+
+    .footer-section a {
+      color: #94a3b8;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .footer-section a:hover {
+      color: #667eea;
+    }
+
+    .footer-bottom {
+      text-align: center;
+      padding-top: 2rem;
+      border-top: 1px solid #334155;
+      color: #94a3b8;
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation -->
+  <nav>
+    <a href="/" class="logo-link">
+      <img src="/hexadigitall-logo-transparent.png" alt="Hexadigitall">
+    </a>
+    <div class="nav-links">
+      <a href="/services">Services</a>
+      <a href="/courses">Courses</a>
+      <a href="/mentorships">Mentorship</a>
+      <a href="/about">About</a>
+      <a href="/contact" class="nav-cta">Contact</a>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="main-content">
+    <div class="form-header">
+      <h1>⚡ Website Speed Optimization</h1>
+      <p>Make your website lightning-fast and improve user experience</p>
+      <span class="price-badge">3-5 days delivery</span>
+    </div>
+
+    <form class="intake-form" id="speedOptimizationForm">
+      <!-- Client Information -->
+      <section class="form-section">
+        <h2>📋 Client Information</h2>
+        
+        <div class="form-group">
+          <label for="fullName">Full Name *</label>
+          <input type="text" id="fullName" name="fullName" required>
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email Address *</label>
+          <input type="email" id="email" name="email" required>
+        </div>
+
+        <div class="form-group">
+          <label for="phone">Phone Number *</label>
+          <input type="tel" id="phone" name="phone" required>
+        </div>
+
+        <div class="form-group">
+          <label for="company">Company/Business Name</label>
+          <input type="text" id="company" name="company">
+        </div>
+      </section>
+
+      <!-- Website Details -->
+      <section class="form-section">
+        <h2>🌐 Website Information</h2>
+
+        <div class="form-group">
+          <label for="websiteUrl">Website URL *</label>
+          <input type="url" id="websiteUrl" name="websiteUrl" placeholder="https://www.yourwebsite.com" required>
+        </div>
+
+        <div class="form-group">
+          <label for="platform">What platform is your website built on? *</label>
+          <select id="platform" name="platform" required>
+            <option value="">Select platform...</option>
+            <option value="wordpress">WordPress</option>
+            <option value="wix">Wix</option>
+            <option value="squarespace">Squarespace</option>
+            <option value="shopify">Shopify</option>
+            <option value="react">React/Next.js</option>
+            <option value="custom">Custom Built</option>
+            <option value="other">Other</option>
+            <option value="unknown">I don't know</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="currentSpeed">Current loading speed (if known)</label>
+          <select id="currentSpeed" name="currentSpeed">
+            <option value="">Select...</option>
+            <option value="very-slow">Very slow (5+ seconds)</option>
+            <option value="slow">Slow (3-5 seconds)</option>
+            <option value="moderate">Moderate (2-3 seconds)</option>
+            <option value="fast">Fast (under 2 seconds)</option>
+            <option value="unknown">I haven't tested</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="speedIssues">What speed issues are you experiencing? *</label>
+          <div class="checkbox-group">
+            <label><input type="checkbox" name="issues" value="slow-loading"> Slow page loading times</label>
+            <label><input type="checkbox" name="issues" value="large-images"> Large, unoptimized images</label>
+            <label><input type="checkbox" name="issues" value="slow-mobile"> Slow on mobile devices</label>
+            <label><input type="checkbox" name="issues" value="poor-score"> Poor PageSpeed Insights score</label>
+            <label><input type="checkbox" name="issues" value="slow-server"> Slow server response</label>
+            <label><input type="checkbox" name="issues" value="too-many-requests"> Too many HTTP requests</label>
+            <label><input type="checkbox" name="issues" value="not-cached"> No caching enabled</label>
+            <label><input type="checkbox" name="issues" value="other"> Other (specify in notes)</label>
+          </div>
+        </div>
+      </section>
+
+      <!-- Optimization Goals -->
+      <section class="form-section">
+        <h2>🎯 Optimization Goals</h2>
+
+        <div class="form-group">
+          <label for="primaryGoals">What are your primary goals? *</label>
+          <div class="checkbox-group">
+            <label><input type="checkbox" name="goals" value="faster-loading"> Faster page loading</label>
+            <label><input type="checkbox" name="goals" value="better-seo"> Better SEO rankings</label>
+            <label><input type="checkbox" name="goals" value="mobile-speed"> Improve mobile performance</label>
+            <label><input type="checkbox" name="goals" value="user-experience"> Better user experience</label>
+            <label><input type="checkbox" name="goals" value="reduce-bounce"> Reduce bounce rate</label>
+            <label><input type="checkbox" name="goals" value="conversion"> Increase conversions</label>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="targetSpeed">Target loading speed goal</label>
+          <select id="targetSpeed" name="targetSpeed">
+            <option value="">Select target...</option>
+            <option value="under-1s">Under 1 second</option>
+            <option value="under-2s">Under 2 seconds</option>
+            <option value="under-3s">Under 3 seconds</option>
+            <option value="industry-standard">Industry standard</option>
+            <option value="recommend">Recommend best target</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="priorityPages">Which pages are most important to optimize?</label>
+          <textarea id="priorityPages" name="priorityPages" rows="3" placeholder="E.g., Homepage, Product pages, Checkout page..."></textarea>
+        </div>
+      </section>
+
+      <!-- Technical Access -->
+      <section class="form-section">
+        <h2>⚙️ Technical Access</h2>
+
+        <div class="form-group">
+          <label for="hostingAccess">Do you have access to your website hosting? *</label>
+          <select id="hostingAccess" name="hostingAccess" required>
+            <option value="">Select...</option>
+            <option value="yes">Yes, I have full access</option>
+            <option value="partial">Yes, but limited access</option>
+            <option value="no">No access</option>
+            <option value="can-get">I can get access</option>
+            <option value="unknown">I'm not sure</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="cmsAccess">Do you have admin access to your CMS/website backend?</label>
+          <select id="cmsAccess" name="cmsAccess">
+            <option value="">Select...</option>
+            <option value="yes">Yes</option>
+            <option value="partial">Partial access</option>
+            <option value="no">No</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="currentPlugins">Current plugins/extensions (if applicable)</label>
+          <textarea id="currentPlugins" name="currentPlugins" rows="3" placeholder="List any plugins, especially caching or optimization plugins..."></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="hostingProvider">Who is your hosting provider?</label>
+          <input type="text" id="hostingProvider" name="hostingProvider" placeholder="E.g., Bluehost, SiteGround, AWS, etc.">
+        </div>
+      </section>
+
+      <!-- Content & Structure -->
+      <section class="form-section">
+        <h2>📄 Content & Structure</h2>
+
+        <div class="form-group">
+          <label for="mediaFiles">How many images/videos does your site have?</label>
+          <select id="mediaFiles" name="mediaFiles">
+            <option value="">Select...</option>
+            <option value="few">Few (1-20)</option>
+            <option value="moderate">Moderate (20-50)</option>
+            <option value="many">Many (50-100)</option>
+            <option value="extensive">Extensive (100+)</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="optimizationConsent">Can we optimize/compress images and files?</label>
+          <select id="optimizationConsent" name="optimizationConsent">
+            <option value="">Select...</option>
+            <option value="yes">Yes, optimize everything</option>
+            <option value="with-approval">Yes, but I want to approve changes</option>
+            <option value="limited">Only specific areas</option>
+            <option value="no">No, keep originals</option>
+          </select>
+        </div>
+      </section>
+
+      <!-- Timeline & Additional Info -->
+      <section class="form-section">
+        <h2>⏰ Timeline & Additional Information</h2>
+
+        <div class="form-group">
+          <label for="urgency">How urgent is this optimization? *</label>
+          <select id="urgency" name="urgency" required>
+            <option value="">Select urgency...</option>
+            <option value="standard">Standard (3-5 days)</option>
+            <option value="rush">Rush (2-3 days - additional fee)</option>
+            <option value="urgent">Urgent (24-48 hours - premium fee)</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="additionalNotes">Additional notes or specific requirements</label>
+          <textarea id="additionalNotes" name="additionalNotes" rows="4" placeholder="Any specific optimization requests or concerns..."></textarea>
+        </div>
+      </section>
+
+      <!-- Submit Button -->
+      <div class="form-actions">
+        <button type="submit" class="btn-primary">Submit Optimization Request</button>
+      </div>
+    </form>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-content">
+      <div class="footer-section">
+        <h3>Quick Links</h3>
+        <ul>
+          <li><a href="/">Home</a></li>
+          <li><a href="/about">About Us</a></li>
+          <li><a href="/blog">Blog</a></li>
+          <li><a href="/contact">Contact</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-section">
+        <h3>Services</h3>
+        <ul>
+          <li><a href="/services">All Services</a></li>
+          <li><a href="/services#web-development">Web Development</a></li>
+          <li><a href="/services#branding">Branding</a></li>
+          <li><a href="/services#marketing">Marketing</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-section">
+        <h3>Learn</h3>
+        <ul>
+          <li><a href="/courses">Online Courses</a></li>
+          <li><a href="/mentorships">Mentorship</a></li>
+          <li><a href="/resources">Resources</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-section">
+        <h3>Connect</h3>
+        <ul>
+          <li><a href="https://twitter.com/hexadigitall" target="_blank">Twitter</a></li>
+          <li><a href="https://linkedin.com/company/hexadigitall" target="_blank">LinkedIn</a></li>
+          <li><a href="https://instagram.com/hexadigitall" target="_blank">Instagram</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>&copy; 2024 Hexadigitall. All rights reserved. Made with ❤️ in Nigeria</p>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('speedOptimizationForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const formData = new FormData(this);
+      const data = {
+        service: 'speed-optimization',
+        timestamp: new Date().toISOString(),
+        clientInfo: {
+          fullName: formData.get('fullName'),
+          email: formData.get('email'),
+          phone: formData.get('phone'),
+          company: formData.get('company')
+        },
+        website: {
+          url: formData.get('websiteUrl'),
+          platform: formData.get('platform'),
+          currentSpeed: formData.get('currentSpeed'),
+          issues: formData.getAll('issues')
+        },
+        goals: {
+          primaryGoals: formData.getAll('goals'),
+          targetSpeed: formData.get('targetSpeed'),
+          priorityPages: formData.get('priorityPages')
+        },
+        access: {
+          hostingAccess: formData.get('hostingAccess'),
+          cmsAccess: formData.get('cmsAccess'),
+          currentPlugins: formData.get('currentPlugins'),
+          hostingProvider: formData.get('hostingProvider')
+        },
+        content: {
+          mediaFiles: formData.get('mediaFiles'),
+          optimizationConsent: formData.get('optimizationConsent')
+        },
+        timeline: {
+          urgency: formData.get('urgency'),
+          additionalNotes: formData.get('additionalNotes')
+        }
+      };
+
+      console.log('Speed Optimization Form Submission:', data);
+      
+      alert('Thank you! Your speed optimization request has been submitted. We\'ll analyze your site and contact you within 24 hours.');
+    });
+  </script>
+</body>
+</html>

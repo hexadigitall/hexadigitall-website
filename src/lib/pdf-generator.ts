@@ -6,7 +6,7 @@ interface PdfRenderOptions {
 }
 
 export async function generatePdfFromHtml(html: string, options?: PdfRenderOptions): Promise<Uint8Array> {
-  let browser: { newPage: () => Promise<{ setContent: (value: string, options: { waitUntil: 'networkidle0' }) => Promise<void>; pdf: (options: { format: 'A4'; margin: { top: string; bottom: string; left: string; right: string }; printBackground: true; preferCSSPageSize: true; displayHeaderFooter: true; headerTemplate: string; footerTemplate: string }) => Promise<Uint8Array> }>; close: () => Promise<void> }
+  let browser: any
 
   if (process.env.VERCEL) {
     const chromium = (await import('@sparticuz/chromium')).default

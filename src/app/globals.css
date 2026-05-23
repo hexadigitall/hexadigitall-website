@@ -1,8 +1,7 @@
 /* src/app/globals.css */
-
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+/* Tailwind CSS v4 */
+@import "tailwindcss";
+@config "../../tailwind.config.ts";
 
 /* ============================================================
    DARK MODE SEMANTIC TOKEN LAYER
@@ -276,7 +275,12 @@
 
   /* Primary Button - Standard gradient style */
   .btn-primary {
-    @apply btn-base px-6 py-3
+    @apply min-h-[44px] inline-flex items-center justify-center
+           font-semibold rounded-xl
+           transition-all duration-300
+           focus:ring-2 focus:ring-offset-2
+           disabled:opacity-50 disabled:cursor-not-allowed
+           px-6 py-3
            bg-gradient-to-r from-primary to-primary/80 text-white
            hover:from-primary/90 hover:to-primary/70 hover:shadow-lg
            active:scale-95
@@ -285,7 +289,12 @@
 
   /* Secondary Button - Outline style (auto-switches light ↔ dark) */
   .btn-secondary {
-    @apply btn-base px-6 py-3
+    @apply min-h-[44px] inline-flex items-center justify-center
+           font-semibold rounded-xl
+           transition-all duration-300
+           focus:ring-2 focus:ring-offset-2
+           disabled:opacity-50 disabled:cursor-not-allowed
+           px-6 py-3
            border-2 border-border text-content-secondary bg-transparent
            hover:bg-surface hover:shadow-md
            active:scale-95
@@ -294,7 +303,12 @@
 
   /* Secondary Dark - For dark backgrounds */
   .btn-secondary-dark {
-    @apply btn-base px-6 py-3
+    @apply min-h-[44px] inline-flex items-center justify-center
+           font-semibold rounded-xl
+           transition-all duration-300
+           focus:ring-2 focus:ring-offset-2
+           disabled:opacity-50 disabled:cursor-not-allowed
+           px-6 py-3
            border-2 border-white text-white bg-transparent
            hover:bg-white hover:text-primary hover:shadow-lg
            active:scale-95
@@ -303,7 +317,12 @@
 
   /* Accent Button - Orange/warm gradient */
   .btn-accent {
-    @apply btn-base px-6 py-3
+    @apply min-h-[44px] inline-flex items-center justify-center
+           font-semibold rounded-xl
+           transition-all duration-300
+           focus:ring-2 focus:ring-offset-2
+           disabled:opacity-50 disabled:cursor-not-allowed
+           px-6 py-3
            bg-gradient-to-r from-accent to-orange-500 text-white
            hover:from-accent/90 hover:to-orange-400 hover:shadow-lg
            active:scale-95
@@ -312,7 +331,12 @@
 
   /* Ghost Button - Minimal style (auto-switches light ↔ dark) */
   .btn-ghost {
-    @apply btn-base px-4 py-2
+    @apply min-h-[44px] inline-flex items-center justify-center
+           font-semibold rounded-xl
+           transition-all duration-300
+           focus:ring-2 focus:ring-offset-2
+           disabled:opacity-50 disabled:cursor-not-allowed
+           px-4 py-2
            text-content-secondary bg-transparent
            hover:text-content-heading hover:bg-surface
            focus:ring-primary/20;
@@ -326,17 +350,23 @@
   }
 
   .card-bordered {
-    @apply card-base border border-border
+    @apply bg-surface-card rounded-2xl
+           transition-all duration-300
+           border border-border
            shadow-sm hover:shadow-lg;
   }
 
   .card-elevated {
-    @apply card-base shadow-md
+    @apply bg-surface-card rounded-2xl
+           transition-all duration-300
+           shadow-md
            hover:shadow-xl hover:-translate-y-1;
   }
 
   .card-interactive {
-    @apply card-base border border-border shadow-sm cursor-pointer
+    @apply bg-surface-card rounded-2xl
+           transition-all duration-300
+           border border-border shadow-sm cursor-pointer
            hover:shadow-xl hover:-translate-y-1 hover:border-primary/30
            active:scale-[0.98];
   }
@@ -352,12 +382,22 @@
   }
 
   .input-error {
-    @apply input-standard border-red-500
+    @apply w-full px-4 py-3 rounded-lg
+           border border-input-border bg-input-bg text-input-text
+           focus:ring-2 focus:ring-primary focus:border-transparent
+           transition-all duration-200
+           placeholder:text-content-muted
+           border-red-500
            focus:ring-red-500;
   }
 
   .input-success {
-    @apply input-standard border-green-500
+    @apply w-full px-4 py-3 rounded-lg
+           border border-input-border bg-input-bg text-input-text
+           focus:ring-2 focus:ring-primary focus:border-transparent
+           transition-all duration-200
+           placeholder:text-content-muted
+           border-green-500
            focus:ring-green-500;
   }
 
@@ -368,27 +408,39 @@
   }
 
   .badge-primary {
-    @apply badge-base bg-primary/10 text-primary;
+    @apply inline-flex items-center px-3 py-1
+           rounded-full text-sm font-medium
+           bg-primary/10 text-primary;
   }
 
   .badge-secondary {
-    @apply badge-base bg-secondary/10 text-secondary;
+    @apply inline-flex items-center px-3 py-1
+           rounded-full text-sm font-medium
+           bg-secondary/10 text-secondary;
   }
 
   .badge-success {
-    @apply badge-base bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400;
+    @apply inline-flex items-center px-3 py-1
+           rounded-full text-sm font-medium
+           bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400;
   }
 
   .badge-warning {
-    @apply badge-base bg-orange-100 text-orange-800 dark:bg-orange-900/30 dark:text-orange-400;
+    @apply inline-flex items-center px-3 py-1
+           rounded-full text-sm font-medium
+           bg-orange-100 text-orange-800 dark:bg-orange-900/30 dark:text-orange-400;
   }
 
   .badge-error {
-    @apply badge-base bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-400;
+    @apply inline-flex items-center px-3 py-1
+           rounded-full text-sm font-medium
+           bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-400;
   }
 
   .badge-accent {
-    @apply badge-base bg-gradient-to-r from-orange-500 to-pink-500 text-white;
+    @apply inline-flex items-center px-3 py-1
+           rounded-full text-sm font-medium
+           bg-gradient-to-r from-orange-500 to-pink-500 text-white;
   }
 
   /* === SECTION SPACING === */
@@ -409,7 +461,12 @@
    * ============================================ */
 
   .btn-white {
-    @apply btn-base px-6 py-3
+    @apply min-h-[44px] inline-flex items-center justify-center
+           font-semibold rounded-xl
+           transition-all duration-300
+           focus:ring-2 focus:ring-offset-2
+           disabled:opacity-50 disabled:cursor-not-allowed
+           px-6 py-3
            bg-white text-primary
            hover:bg-gray-50 hover:shadow-lg
            active:scale-95

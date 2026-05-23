@@ -11,17 +11,13 @@ describe('StartupFunnelClient', () => {
     document.body.innerHTML = ''
     // Clear storage
     sessionStorage.clear()
-    // Reset location
-    // @ts-ignore
-    delete window.location
-    // @ts-ignore
-    window.location = new URL('http://localhost/')
+    // Reset location state for each test
+    window.history.replaceState({}, '', 'http://localhost/');
   })
 
   it('stores funnel arrival in sessionStorage and dispatches event when funnel query param present', async () => {
     // Set a funnel query param
-    // @ts-ignore
-    window.location = new URL('http://localhost/?funnel=have-an-idea')
+    window.history.pushState({}, '', 'http://localhost/?funnel=have-an-idea')
 
     const container = document.createElement('div')
     document.body.appendChild(container)

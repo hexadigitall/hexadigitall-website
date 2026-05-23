@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Investor Pitch Deck - Service Intake Form | Hexadigitall</title>
+  <meta name="description" content="Complete your investor pitch deck service intake form. Compelling presentations that win funding.">
+  <link rel="stylesheet" href="/forms/assets/forms.css">
+  <style>
+    /* Navigation */
+    nav {
+      background: white;
+      border-bottom: 2px solid #e5e7eb;
+      padding: 16px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    }
+
+    .logo-link { display: flex; align-items: center; text-decoration: none; }
+    .logo-link img { height: 40px; width: auto; }
+    .nav-links { display: flex; gap: 32px; align-items: center; }
+    .nav-links a { color: #4b5563; text-decoration: none; font-weight: 500; font-size: 0.95rem; transition: color 0.2s; }
+    .nav-links a:hover { color: #667eea; }
+    .nav-cta { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white !important; padding: 10px 24px; border-radius: 6px; font-weight: 600; }
+    .nav-cta:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3); }
+
+    .form-header { text-align: center; margin-bottom: 3rem; padding: 2rem; background: linear-gradient(135deg, rgba(139, 92, 246, 0.05) 0%, rgba(118, 75, 162, 0.05) 100%); border-radius: 12px; }
+    .form-header h1 { font-size: 2.5rem; color: #1f2937; margin-bottom: 0.5rem; }
+    .form-header p { font-size: 1.1rem; color: #6b7280; margin-bottom: 1rem; }
+    .price-badge { display: inline-block; background: linear-gradient(135deg, #8b5cf6 0%, #764ba2 100%); color: white; padding: 8px 20px; border-radius: 20px; font-weight: 600; font-size: 0.95rem; }
+
+    footer { background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%); color: white; padding: 4rem 2rem 2rem; margin-top: 6rem; }
+    .footer-content { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 3rem; margin-bottom: 3rem; }
+    .footer-section h3 { color: #667eea; margin-bottom: 1rem; font-size: 1.1rem; }
+    .footer-section ul { list-style: none; padding: 0; }
+    .footer-section ul li { margin-bottom: 0.5rem; }
+    .footer-section a { color: #94a3b8; text-decoration: none; transition: color 0.2s; }
+    .footer-section a:hover { color: #667eea; }
+    .footer-bottom { text-align: center; padding-top: 2rem; border-top: 1px solid #334155; color: #94a3b8; }
+  </style>
+</head>
+<body>
+  <nav>
+    <a href="/" class="logo-link"><img src="/hexadigitall-logo-transparent.png" alt="Hexadigitall"></a>
+    <div class="nav-links">
+      <a href="/services">Services</a>
+      <a href="/courses">Courses</a>
+      <a href="/mentorships">Mentorship</a>
+      <a href="/about">About</a>
+      <a href="/contact" class="nav-cta">Contact</a>
+    </div>
+  </nav>
+
+  <main class="main-content">
+    <div class="form-header">
+      <h1>🚀 Investor Pitch Deck</h1>
+      <p>Persuasive presentation that tells your story and wins funding</p>
+      <span class="price-badge">5-7 days delivery</span>
+    </div>
+
+    <form class="intake-form" id="pitchDeckForm">
+      <section class="form-section">
+        <h2>📋 Client Information</h2>
+        <div class="form-group"><label for="fullName">Full Name *</label><input type="text" id="fullName" name="fullName" required></div>
+        <div class="form-group"><label for="email">Email Address *</label><input type="email" id="email" name="email" required></div>
+        <div class="form-group"><label for="phone">Phone Number *</label><input type="tel" id="phone" name="phone" required></div>
+        <div class="form-group"><label for="company">Company Name *</label><input type="text" id="company" name="company" required></div>
+        <div class="form-group"><label for="yourRole">Your Role *</label><input type="text" id="yourRole" name="yourRole" placeholder="E.g., CEO, Founder..." required></div>
+      </section>
+
+      <section class="form-section">
+        <h2>💼 Business Overview</h2>
+        <div class="form-group"><label for="industry">Industry *</label><input type="text" id="industry" name="industry" required></div>
+        <div class="form-group"><label for="businessModel">Business Model *</label><select id="businessModel" name="businessModel" required><option value="">Select...</option><option value="b2b">B2B</option><option value="b2c">B2C</option><option value="saas">SaaS</option><option value="marketplace">Marketplace</option><option value="ecommerce">E-commerce</option><option value="other">Other</option></select></div>
+        <div class="form-group"><label for="elevator">Elevator Pitch (1-2 sentences) *</label><textarea id="elevator" name="elevator" rows="2" placeholder="What does your company do?" required></textarea></div>
+        <div class="form-group"><label for="problemSolved">Problem You're Solving *</label><textarea id="problemSolved" name="problemSolved" rows="3" required></textarea></div>
+        <div class="form-group"><label for="solution">Your Solution *</label><textarea id="solution" name="solution" rows="3" required></textarea></div>
+      </section>
+
+      <section class="form-section">
+        <h2>💰 Funding Details</h2>
+        <div class="form-group"><label for="fundingStage">Funding Stage *</label><select id="fundingStage" name="fundingStage" required><option value="">Select...</option><option value="pre-seed">Pre-seed</option><option value="seed">Seed</option><option value="series-a">Series A</option><option value="series-b">Series B+</option></select></div>
+        <div class="form-group"><label for="fundingAmount">Amount Seeking *</label><input type="text" id="fundingAmount" name="fundingAmount" placeholder="E.g., $500,000" required></div>
+        <div class="form-group"><label for="useOfFunds">Use of Funds</label><textarea id="useOfFunds" name="useOfFunds" rows="3" placeholder="How will you use the investment?"></textarea></div>
+        <div class="form-group"><label for="currentRevenue">Current Revenue</label><select id="currentRevenue" name="currentRevenue"><option value="">Select...</option><option value="pre-revenue">Pre-revenue</option><option value="0-100k">$0-$100K</option><option value="100k-500k">$100K-$500K</option><option value="500k-1m">$500K-$1M</option><option value="1m+">$1M+</option></select></div>
+      </section>
+
+      <section class="form-section">
+        <h2>📊 Market & Competition</h2>
+        <div class="form-group"><label for="targetMarket">Target Market *</label><textarea id="targetMarket" name="targetMarket" rows="3" required></textarea></div>
+        <div class="form-group"><label for="marketSize">Market Size Opportunity</label><textarea id="marketSize" name="marketSize" rows="2"></textarea></div>
+        <div class="form-group"><label for="competitors">Main Competitors</label><textarea id="competitors" name="competitors" rows="3"></textarea></div>
+        <div class="form-group"><label for="advantage">Competitive Advantage *</label><textarea id="advantage" name="advantage" rows="3" required></textarea></div>
+      </section>
+
+      <section class="form-section">
+        <h2>📈 Traction & Milestones</h2>
+        <div class="form-group"><label for="traction">Current Traction</label><textarea id="traction" name="traction" rows="3" placeholder="Users, customers, revenue, partnerships..."></textarea></div>
+        <div class="form-group"><label for="keyMetrics">Key Metrics</label><textarea id="keyMetrics" name="keyMetrics" rows="2"></textarea></div>
+        <div class="form-group"><label for="milestones">Key Milestones Achieved</label><textarea id="milestones" name="milestones" rows="3"></textarea></div>
+      </section>
+
+      <section class="form-section">
+        <h2>👥 Team</h2>
+        <div class="form-group"><label for="teamInfo">Key Team Members</label><textarea id="teamInfo" name="teamInfo" rows="4" placeholder="Names, roles, relevant experience..."></textarea></div>
+        <div class="form-group"><label for="advisors">Advisors/Board Members</label><textarea id="advisors" name="advisors" rows="2"></textarea></div>
+      </section>
+
+      <section class="form-section">
+        <h2>🎯 Pitch Deck Specifics</h2>
+        <div class="form-group"><label for="targetInvestors">Target Investor Type *</label><select id="targetInvestors" name="targetInvestors" required><option value="">Select...</option><option value="angel">Angel Investors</option><option value="vc">Venture Capital</option><option value="accelerator">Accelerator/Incubator</option><option value="grant">Grant Programs</option><option value="corporate">Corporate Investors</option></select></div>
+        <div class="form-group"><label for="slideCount">Preferred Slide Count</label><select id="slideCount" name="slideCount"><option value="">Select...</option><option value="10-12">10-12 slides (standard)</option><option value="15-18">15-18 slides (detailed)</option><option value="flexible">Flexible</option></select></div>
+        <div class="form-group"><label for="brandColors">Brand Colors (if any)</label><input type="text" id="brandColors" name="brandColors" placeholder="E.g., #667eea, blue and purple"></div>
+        <div class="form-group"><label for="designStyle">Design Style Preference</label><select id="designStyle" name="designStyle"><option value="">Select...</option><option value="minimal">Minimal and clean</option><option value="bold">Bold and impactful</option><option value="corporate">Corporate/Professional</option><option value="creative">Creative and modern</option></select></div>
+      </section>
+
+      <section class="form-section">
+        <h2>📎 Supporting Materials</h2>
+        <div class="form-group"><label for="materials">Available Materials</label><div class="checkbox-group"><label><input type="checkbox" name="materials" value="logo">Logo</label><label><input type="checkbox" name="materials" value="business-plan">Business Plan</label><label><input type="checkbox" name="materials" value="financials">Financial Projections</label><label><input type="checkbox" name="materials" value="product-images">Product Images</label><label><input type="checkbox" name="materials" value="market-research">Market Research</label></div></div>
+        <div class="form-group"><label for="additionalNotes">Additional Notes</label><textarea id="additionalNotes" name="additionalNotes" rows="4"></textarea></div>
+      </section>
+
+      <section class="form-section">
+        <h2>⏰ Timeline</h2>
+        <div class="form-group"><label for="deadline">Deadline *</label><input type="date" id="deadline" name="deadline" required></div>
+        <div class="form-group"><label for="urgency">Urgency *</label><select id="urgency" name="urgency" required><option value="">Select...</option><option value="standard">Standard (5-7 days)</option><option value="rush">Rush (3-4 days)</option><option value="urgent">Urgent (1-2 days)</option></select></div>
+      </section>
+
+      <div class="form-actions"><button type="submit" class="btn-primary">Submit Pitch Deck Request</button></div>
+    </form>
+  </main>
+
+  <footer>
+    <div class="footer-content">
+      <div class="footer-section"><h3>Quick Links</h3><ul><li><a href="/">Home</a></li><li><a href="/about">About</a></li><li><a href="/blog">Blog</a></li><li><a href="/contact">Contact</a></li></ul></div>
+      <div class="footer-section"><h3>Services</h3><ul><li><a href="/services">All Services</a></li><li><a href="/services#web-development">Web Development</a></li><li><a href="/services#branding">Branding</a></li><li><a href="/services#marketing">Marketing</a></li></ul></div>
+      <div class="footer-section"><h3>Learn</h3><ul><li><a href="/courses">Online Courses</a></li><li><a href="/mentorships">Mentorship</a></li><li><a href="/resources">Resources</a></li></ul></div>
+      <div class="footer-section"><h3>Connect</h3><ul><li><a href="https://twitter.com/hexadigitall" target="_blank">Twitter</a></li><li><a href="https://linkedin.com/company/hexadigitall" target="_blank">LinkedIn</a></li><li><a href="https://instagram.com/hexadigitall" target="_blank">Instagram</a></li></ul></div>
+    </div>
+    <div class="footer-bottom"><p>&copy; 2024 Hexadigitall. All rights reserved. Made with ❤️ in Nigeria</p></div>
+  </footer>
+
+  <script>
+    document.getElementById('pitchDeckForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const formData = new FormData(this);
+      console.log('Pitch Deck Form Submission:', {service: 'pitch-deck', timestamp: new Date().toISOString()});
+      alert('Thank you! Your pitch deck request has been submitted. We\'ll contact you within 24 hours.');
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,17 @@
+
+> hexadigitall@0.1.0 dev
+> node scripts/check-critical-files.mjs --fix && cross-env NEXT_DISABLE_TURBOPACK=1 CHOKIDAR_USEPOLLING=1 CHOKIDAR_INTERVAL=120 WATCHPACK_POLLING=true next dev --webpack
+
+✅ src/components/sections/Hero.tsx (14112 bytes)
+✅ src/app/services/ServicesPageClient.tsx (32876 bytes)
+✅ src/app/page.tsx (2387 bytes)
+✅ src/components/layout/Header.tsx (36810 bytes)
+✅ src/components/layout/Footer.tsx (13270 bytes)
+✅ src/app/layout.tsx (9729 bytes)
+
+All critical files are healthy.
+▲ Next.js 16.2.6 (webpack)
+- Local:         http://localhost:3000
+- Network:       http://10.255.255.254:3000
+- Environments: .env.local
+✓ Ready in 17.2s

@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Payment Gateway Integration - Service Intake Form | Hexadigitall</title>
+  <meta name="description" content="Complete your payment gateway integration service intake form. Accept payments securely online.">
+  <link rel="stylesheet" href="/forms/assets/forms.css">
+  <style>
+    /* Navigation */
+    nav {
+      background: white;
+      border-bottom: 2px solid #e5e7eb;
+      padding: 16px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    }
+
+    .logo-link {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+    }
+
+    .logo-link img {
+      height: 40px;
+      width: auto;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 32px;
+      align-items: center;
+    }
+
+    .nav-links a {
+      color: #4b5563;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 0.95rem;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover {
+      color: #667eea;
+    }
+
+    .nav-cta {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white !important;
+      padding: 10px 24px;
+      border-radius: 6px;
+      font-weight: 600;
+    }
+
+    .nav-cta:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+    }
+
+    /* Form Header */
+    .form-header {
+      text-align: center;
+      margin-bottom: 3rem;
+      padding: 2rem;
+      background: linear-gradient(135deg, rgba(59, 130, 246, 0.05) 0%, rgba(102, 126, 234, 0.05) 100%);
+      border-radius: 12px;
+    }
+
+    .form-header h1 {
+      font-size: 2.5rem;
+      color: #1f2937;
+      margin-bottom: 0.5rem;
+    }
+
+    .form-header p {
+      font-size: 1.1rem;
+      color: #6b7280;
+      margin-bottom: 1rem;
+    }
+
+    .price-badge {
+      display: inline-block;
+      background: linear-gradient(135deg, #3b82f6 0%, #667eea 100%);
+      color: white;
+      padding: 8px 20px;
+      border-radius: 20px;
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
+
+    /* Footer */
+    footer {
+      background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+      color: white;
+      padding: 4rem 2rem 2rem;
+      margin-top: 6rem;
+    }
+
+    .footer-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 3rem;
+      margin-bottom: 3rem;
+    }
+
+    .footer-section h3 {
+      color: #667eea;
+      margin-bottom: 1rem;
+      font-size: 1.1rem;
+    }
+
+    .footer-section ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .footer-section ul li {
+      margin-bottom: 0.5rem;
+    }
+
+    .footer-section a {
+      color: #94a3b8;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .footer-section a:hover {
+      color: #667eea;
+    }
+
+    .footer-bottom {
+      text-align: center;
+      padding-top: 2rem;
+      border-top: 1px solid #334155;
+      color: #94a3b8;
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation -->
+  <nav>
+    <a href="/" class="logo-link">
+      <img src="/hexadigitall-logo-transparent.png" alt="Hexadigitall">
+    </a>
+    <div class="nav-links">
+      <a href="/services">Services</a>
+      <a href="/courses">Courses</a>
+      <a href="/mentorships">Mentorship</a>
+      <a href="/about">About</a>
+      <a href="/contact" class="nav-cta">Contact</a>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="main-content">
+    <div class="form-header">
+      <h1>💳 Payment Gateway Integration</h1>
+      <p>Accept online payments securely with professional payment gateway setup</p>
+      <span class="price-badge">4-6 days delivery</span>
+    </div>
+
+    <form class="intake-form" id="paymentGatewayForm">
+      <!-- Client Information -->
+      <section class="form-section">
+        <h2>📋 Client Information</h2>
+        
+        <div class="form-group">
+          <label for="fullName">Full Name *</label>
+          <input type="text" id="fullName" name="fullName" required>
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email Address *</label>
+          <input type="email" id="email" name="email" required>
+        </div>
+
+        <div class="form-group">
+          <label for="phone">Phone Number *</label>
+          <input type="tel" id="phone" name="phone" required>
+        </div>
+
+        <div class="form-group">
+          <label for="company">Business/Company Name *</label>
+          <input type="text" id="company" name="company" required>
+        </div>
+
+        <div class="form-group">
+          <label for="businessType">Type of Business *</label>
+          <select id="businessType" name="businessType" required>
+            <option value="">Select...</option>
+            <option value="ecommerce">E-commerce Store</option>
+            <option value="service">Service Provider</option>
+            <option value="saas">SaaS/Subscription</option>
+            <option value="nonprofit">Non-profit/Charity</option>
+            <option value="education">Education/Training</option>
+            <option value="marketplace">Marketplace</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+      </section>
+
+      <!-- Website & Platform Details -->
+      <section class="form-section">
+        <h2>🌐 Website Information</h2>
+
+        <div class="form-group">
+          <label for="websiteUrl">Website URL *</label>
+          <input type="url" id="websiteUrl" name="websiteUrl" placeholder="https://www.yourwebsite.com" required>
+        </div>
+
+        <div class="form-group">
+          <label for="platform">What platform is your website on? *</label>
+          <select id="platform" name="platform" required>
+            <option value="">Select platform...</option>
+            <option value="woocommerce">WooCommerce (WordPress)</option>
+            <option value="shopify">Shopify</option>
+            <option value="wix">Wix</option>
+            <option value="squarespace">Squarespace</option>
+            <option value="custom-php">Custom PHP</option>
+            <option value="react-nextjs">React/Next.js</option>
+            <option value="django">Django/Python</option>
+            <option value="laravel">Laravel</option>
+            <option value="other">Other (specify in notes)</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="currentPayments">Do you currently accept payments online?</label>
+          <select id="currentPayments" name="currentPayments">
+            <option value="">Select...</option>
+            <option value="no">No, this is new</option>
+            <option value="yes-basic">Yes, basic setup</option>
+            <option value="yes-needs-upgrade">Yes, but need upgrade/replacement</option>
+          </select>
+        </div>
+      </section>
+
+      <!-- Payment Gateway Preferences -->
+      <section class="form-section">
+        <h2>💰 Payment Gateway Preferences</h2>
+
+        <div class="form-group">
+          <label for="preferredGateway">Preferred payment gateway(s) *</label>
+          <div class="checkbox-group">
+            <label><input type="checkbox" name="gateways" value="stripe"> Stripe</label>
+            <label><input type="checkbox" name="gateways" value="paypal"> PayPal</label>
+            <label><input type="checkbox" name="gateways" value="paystack"> Paystack (Africa)</label>
+            <label><input type="checkbox" name="gateways" value="flutterwave"> Flutterwave (Africa)</label>
+            <label><input type="checkbox" name="gateways" value="square"> Square</label>
+            <label><input type="checkbox" name="gateways" value="razorpay"> Razorpay (India)</label>
+            <label><input type="checkbox" name="gateways" value="authorize-net"> Authorize.net</label>
+            <label><input type="checkbox" name="gateways" value="recommend"> Recommend best option for me</label>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="paymentMethods">What payment methods do you want to accept? *</label>
+          <div class="checkbox-group">
+            <label><input type="checkbox" name="methods" value="credit-cards"> Credit/Debit Cards</label>
+            <label><input type="checkbox" name="methods" value="bank-transfer"> Bank Transfer</label>
+            <label><input type="checkbox" name="methods" value="mobile-money"> Mobile Money (Africa)</label>
+            <label><input type="checkbox" name="methods" value="apple-pay"> Apple Pay</label>
+            <label><input type="checkbox" name="methods" value="google-pay"> Google Pay</label>
+            <label><input type="checkbox" name="methods" value="crypto"> Cryptocurrency</label>
+            <label><input type="checkbox" name="methods" value="other"> Other (specify in notes)</label>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="currencies">What currencies do you need to support? *</label>
+          <textarea id="currencies" name="currencies" rows="2" placeholder="E.g., USD, EUR, NGN, GBP..." required></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="businessLocation">Where is your business registered? *</label>
+          <input type="text" id="businessLocation" name="businessLocation" placeholder="Country" required>
+        </div>
+      </section>
+
+      <!-- Business Requirements -->
+      <section class="form-section">
+        <h2>📊 Business Requirements</h2>
+
+        <div class="form-group">
+          <label for="transactionVolume">Expected monthly transaction volume</label>
+          <select id="transactionVolume" name="transactionVolume">
+            <option value="">Select...</option>
+            <option value="low">Low (Under $5,000)</option>
+            <option value="moderate">Moderate ($5,000 - $25,000)</option>
+            <option value="high">High ($25,000 - $100,000)</option>
+            <option value="very-high">Very High ($100,000+)</option>
+            <option value="unknown">Not sure yet</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="subscriptions">Do you need recurring/subscription payments?</label>
+          <select id="subscriptions" name="subscriptions">
+            <option value="">Select...</option>
+            <option value="yes">Yes, subscription billing required</option>
+            <option value="maybe">Maybe in the future</option>
+            <option value="no">No, one-time payments only</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="features">Additional features needed</label>
+          <div class="checkbox-group">
+            <label><input type="checkbox" name="features" value="invoicing"> Invoicing system</label>
+            <label><input type="checkbox" name="features" value="refunds"> Refund management</label>
+            <label><input type="checkbox" name="features" value="tax"> Tax calculation</label>
+            <label><input type="checkbox" name="features" value="multi-currency"> Multi-currency support</label>
+            <label><input type="checkbox" name="features" value="fraud-detection"> Fraud detection</label>
+            <label><input type="checkbox" name="features" value="reporting"> Payment reporting/analytics</label>
+            <label><input type="checkbox" name="features" value="webhooks"> webhooks integration</label>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="accountExists">Do you already have an account with your preferred gateway?</label>
+          <select id="accountExists" name="accountExists">
+            <option value="">Select...</option>
+            <option value="yes">Yes, I have an active account</option>
+            <option value="no-help">No, I need help setting it up</option>
+            <option value="no-create">No, I'll create one myself</option>
+          </select>
+        </div>
+      </section>
+
+      <!-- Technical Details -->
+      <section class="form-section">
+        <h2>⚙️ Technical Requirements</h2>
+
+        <div class="form-group">
+          <label for="websiteAccess">Do you have admin access to your website? *</label>
+          <select id="websiteAccess" name="websiteAccess" required>
+            <option value="">Select...</option>
+            <option value="yes">Yes, full access</option>
+            <option value="partial">Partial access</option>
+            <option value="no">No, but can arrange</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="sslCertificate">Does your website have an SSL certificate (HTTPS)? *</label>
+          <select id="sslCertificate" name="sslCertificate" required>
+            <option value="">Select...</option>
+            <option value="yes">Yes</option>
+            <option value="no">No</option>
+            <option value="unknown">I'm not sure</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="testMode">Would you like a test/sandbox mode setup first?</label>
+          <select id="testMode" name="testMode">
+            <option value="">Select...</option>
+            <option value="yes">Yes, I want to test before going live</option>
+            <option value="no">No, go live immediately</option>
+          </select>
+        </div>
+      </section>
+
+      <!-- Compliance & Security -->
+      <section class="form-section">
+        <h2>🔒 Compliance & Security</h2>
+
+        <div class="form-group">
+          <label for="complianceNeeds">Special compliance requirements</label>
+          <div class="checkbox-group">
+            <label><input type="checkbox" name="compliance" value="pci-dss"> PCI-DSS compliance needed</label>
+            <label><input type="checkbox" name="compliance" value="gdpr"> GDPR compliance (Europe)</label>
+            <label><input type="checkbox" name="compliance" value="hipaa"> HIPAA (Healthcare)</label>
+            <label><input type="checkbox" name="compliance" value="none"> No special requirements</label>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="dataStorage">Where should payment data be stored?</label>
+          <select id="dataStorage" name="dataStorage">
+            <option value="">Select...</option>
+            <option value="gateway-only">Gateway only (most secure)</option>
+            <option value="minimal">Minimal data on my server</option>
+            <option value="full">Full transaction history on my server</option>
+            <option value="recommend">Recommend best practice</option>
+          </select>
+        </div>
+      </section>
+
+      <!-- Timeline & Additional Info -->
+      <section class="form-section">
+        <h2>⏰ Timeline & Additional Information</h2>
+
+        <div class="form-group">
+          <label for="urgency">Project urgency *</label>
+          <select id="urgency" name="urgency" required>
+            <option value="">Select urgency...</option>
+            <option value="standard">Standard (4-6 days)</option>
+            <option value="rush">Rush (3-4 days - additional fee)</option>
+            <option value="urgent">Urgent (1-2 days - premium fee)</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="launchDate">Target launch date (if applicable)</label>
+          <input type="date" id="launchDate" name="launchDate">
+        </div>
+
+        <div class="form-group">
+          <label for="additionalNotes">Additional notes or special requirements</label>
+          <textarea id="additionalNotes" name="additionalNotes" rows="4" placeholder="Any specific requirements or questions..."></textarea>
+        </div>
+      </section>
+
+      <!-- Submit Button -->
+      <div class="form-actions">
+        <button type="submit" class="btn-primary">Submit Integration Request</button>
+      </div>
+    </form>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-content">
+      <div class="footer-section">
+        <h3>Quick Links</h3>
+        <ul>
+          <li><a href="/">Home</a></li>
+          <li><a href="/about">About Us</a></li>
+          <li><a href="/blog">Blog</a></li>
+          <li><a href="/contact">Contact</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-section">
+        <h3>Services</h3>
+        <ul>
+          <li><a href="/services">All Services</a></li>
+          <li><a href="/services#web-development">Web Development</a></li>
+          <li><a href="/services#branding">Branding</a></li>
+          <li><a href="/services#marketing">Marketing</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-section">
+        <h3>Learn</h3>
+        <ul>
+          <li><a href="/courses">Online Courses</a></li>
+          <li><a href="/mentorships">Mentorship</a></li>
+          <li><a href="/resources">Resources</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-section">
+        <h3>Connect</h3>
+        <ul>
+          <li><a href="https://twitter.com/hexadigitall" target="_blank">Twitter</a></li>
+          <li><a href="https://linkedin.com/company/hexadigitall" target="_blank">LinkedIn</a></li>
+          <li><a href="https://instagram.com/hexadigitall" target="_blank">Instagram</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>&copy; 2024 Hexadigitall. All rights reserved. Made with ❤️ in Nigeria</p>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('paymentGatewayForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const formData = new FormData(this);
+      const data = {
+        service: 'payment-gateway',
+        timestamp: new Date().toISOString(),
+        clientInfo: {
+          fullName: formData.get('fullName'),
+          email: formData.get('email'),
+          phone: formData.get('phone'),
+          company: formData.get('company'),
+          businessType: formData.get('businessType')
+        },
+        website: {
+          url: formData.get('websiteUrl'),
+          platform: formData.get('platform'),
+          currentPayments: formData.get('currentPayments')
+        },
+        paymentPreferences: {
+          gateways: formData.getAll('gateways'),
+          methods: formData.getAll('methods'),
+          currencies: formData.get('currencies'),
+          businessLocation: formData.get('businessLocation')
+        },
+        business: {
+          transactionVolume: formData.get('transactionVolume'),
+          subscriptions: formData.get('subscriptions'),
+          features: formData.getAll('features'),
+          accountExists: formData.get('accountExists')
+        },
+        technical: {
+          websiteAccess: formData.get('websiteAccess'),
+          sslCertificate: formData.get('sslCertificate'),
+          testMode: formData.get('testMode')
+        },
+        compliance: {
+          requirements: formData.getAll('compliance'),
+          dataStorage: formData.get('dataStorage')
+        },
+        timeline: {
+          urgency: formData.get('urgency'),
+          launchDate: formData.get('launchDate'),
+          additionalNotes: formData.get('additionalNotes')
+        }
+      };
+
+      console.log('Payment Gateway Form Submission:', data);
+      
+      alert('Thank you! Your payment gateway integration request has been submitted. We\'ll contact you within 24 hours to discuss the setup.');
+    });
+  </script>
+</body>
+</html>

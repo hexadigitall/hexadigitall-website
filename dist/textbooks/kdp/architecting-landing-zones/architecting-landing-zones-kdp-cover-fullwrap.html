@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Architecting Landing Zones — KDP Paperback Full Wrap</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --spine: 0.625in;
+      --total-width: 12.875in;
+      --height: 9.25in;
+      --panel-height: 9in;
+      --bleed: 0.125in;
+      --navy: #0b2542;
+      --navy-deep: #081526;
+      --gold: #c5a059;
+      --text: rgba(255,255,255,0.82);
+    }
+    @page { size: 12.875in 9.25in; margin: 0; }
+    * { box-sizing: border-box; margin: 0; padding: 0; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    body { width: var(--total-width); height: var(--height); overflow: hidden; font-family: 'Inter', sans-serif; }
+    .wrap { display: grid; grid-template-columns: 6in var(--spine) 6in; gap: 0; padding: 0 var(--bleed); width: 100%; height: 100%; background: #04101d; }
+    .panel, .spine {
+      height: var(--panel-height); margin: var(--bleed) 0; position: relative; overflow: hidden;
+      background:
+        radial-gradient(circle at 18% 18%, rgba(197,160,89,0.18), transparent 30%),
+        radial-gradient(circle at 84% 16%, rgba(59,130,246,0.22), transparent 28%),
+        linear-gradient(160deg, var(--navy-deep) 0%, var(--navy) 52%, #133b5c 100%);
+      color: white;
+    }
+    .panel::before, .spine::before {
+      content: ''; position: absolute; inset: 0;
+      background-image: linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px);
+      background-size: 24px 24px;
+    }
+    .back { padding: 0.48in 0.4in; }
+    .back h2 { position: relative; z-index: 1; font-family: 'Space Grotesk', sans-serif; font-size: 18pt; line-height: 1.2; }
+    .back p, .back li { position: relative; z-index: 1; font-size: 9pt; line-height: 1.65; color: var(--text); }
+    .back p { margin-top: 0.18in; }
+    .back ul { position: relative; z-index: 1; margin: 0.22in 0 0 0.18in; }
+    .back li { margin-bottom: 0.08in; }
+    .barcode { position: absolute; right: 0.4in; bottom: 0.46in; width: 1.7in; height: 1in; border: 1px dashed rgba(255,255,255,0.28); z-index: 1; }
+    .front { padding: 0.4in; display: flex; flex-direction: column; }
+    .logo { position: relative; z-index: 1; width: 1.3in; filter: brightness(0) invert(1); }
+    .hero { position: relative; z-index: 1; margin-top: 0.32in; height: 2.7in; border-radius: 16px; overflow: hidden; box-shadow: 0 18px 38px rgba(0,0,0,0.28); }
+    .hero img { width: 100%; height: 100%; object-fit: cover; opacity: 0.72; }
+    .label { position: relative; z-index: 1; margin-top: 0.3in; color: var(--gold); font-size: 8pt; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; }
+    .front h1 { position: relative; z-index: 1; margin-top: 0.1in; font-family: 'Space Grotesk', sans-serif; font-size: 26pt; line-height: 1.05; }
+    .front p { position: relative; z-index: 1; margin-top: 0.12in; font-size: 9.5pt; line-height: 1.55; color: var(--text); }
+    .front .meta { position: relative; z-index: 1; display: flex; gap: 8px; flex-wrap: wrap; margin-top: 0.22in; }
+    .front .meta span { border: 1px solid rgba(197,160,89,0.45); border-radius: 999px; padding: 5px 10px; font-size: 7pt; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: #f7e1b5; }
+    .front .publisher { position: relative; z-index: 1; margin-top: auto; font-size: 8pt; color: var(--text); }
+    .front .publisher strong { display: block; font-family: 'Space Grotesk', sans-serif; font-size: 11pt; color: white; }
+    .spine { display: flex; align-items: center; justify-content: center; }
+    .spine .text { position: relative; z-index: 1; writing-mode: vertical-rl; transform: rotate(180deg); font-family: 'Space Grotesk', sans-serif; font-size: 12pt; letter-spacing: 1px; text-transform: uppercase; text-align: center; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <section class="panel back">
+      <h2>Build enterprise-ready cloud foundations.</h2>
+      <p>Architecting Landing Zones moves from account hierarchy design into secure networking, automated guardrails, account vending, drift control, and operational handover.</p>
+      <ul>
+        <li>AWS Organizations, OUs, SCPs, and identity patterns</li>
+        <li>Transit Gateway, shared services, and audit account design</li>
+        <li>AFT, Service Catalog, Config Rules, and remediation workflows</li>
+        <li>Documentation, compliance evidence, and day-two operations</li>
+      </ul>
+      <p>Built for engineers preparing to design or inherit multi-account cloud platforms in production.</p>
+      <div class="barcode"></div>
+    </section>
+    <section class="spine">
+      <div class="text">Architecting Landing Zones</div>
+    </section>
+    <section class="panel front">
+      <img class="logo" src="../../../hexadigitall-logo-transparent.svg" alt="Hexadigitall">
+      <div class="hero"><img src="../../../assets/images/courses/architecting-landing-zones.jpg" alt="Architecting Landing Zones"></div>
+      <div class="label">Advanced Cloud Infrastructure</div>
+      <h1>Architecting<br>Landing Zones</h1>
+      <p>Foundations to Production: enterprise governance, secure networking, and automated landing-zone operations.</p>
+      <div class="meta"><span>14 weeks</span><span>28 sessions</span><span>Advanced</span></div>
+      <div class="publisher"><strong>Hexadigitall Technologies</strong>hexadigitall.com</div>
+    </section>
+  </div>
+</body>
+</html>

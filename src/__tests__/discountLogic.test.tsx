@@ -56,7 +56,7 @@ describe('Discount logic', () => {
     // Use getAllByText to handle multiple matches, verify at least one exists
     const priceElements = screen.getAllByText((_: string, element: Element | null) => {
       const text = element?.textContent || '';
-      return text.includes('₦') && text.includes('1000');
+      return text.includes('₦') && text.includes('1,000');
     });
     expect(priceElements.length).toBeGreaterThan(0);
   });

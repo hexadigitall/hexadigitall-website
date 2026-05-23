@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Monthly Bug Fixes & Support - Service Intake Form | Hexadigitall</title>
+  <meta name="description" content="Complete your monthly bug fixes and website support service intake form. Keep your website running smoothly.">
+  <link rel="stylesheet" href="/forms/assets/forms.css">
+  <style>
+    /* Navigation */
+    nav {
+      background: white;
+      border-bottom: 2px solid #e5e7eb;
+      padding: 16px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    }
+
+    .logo-link {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+    }
+
+    .logo-link img {
+      height: 40px;
+      width: auto;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 32px;
+      align-items: center;
+    }
+
+    .nav-links a {
+      color: #4b5563;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 0.95rem;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover {
+      color: #667eea;
+    }
+
+    .nav-cta {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white !important;
+      padding: 10px 24px;
+      border-radius: 6px;
+      font-weight: 600;
+    }
+
+    .nav-cta:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+    }
+
+    /* Form Header */
+    .form-header {
+      text-align: center;
+      margin-bottom: 3rem;
+      padding: 2rem;
+      background: linear-gradient(135deg, rgba(59, 130, 246, 0.05) 0%, rgba(102, 126, 234, 0.05) 100%);
+      border-radius: 12px;
+    }
+
+    .form-header h1 {
+      font-size: 2.5rem;
+      color: #1f2937;
+      margin-bottom: 0.5rem;
+    }
+
+    .form-header p {
+      font-size: 1.1rem;
+      color: #6b7280;
+      margin-bottom: 1rem;
+    }
+
+    .price-badge {
+      display: inline-block;
+      background: linear-gradient(135deg, #3b82f6 0%, #667eea 100%);
+      color: white;
+      padding: 8px 20px;
+      border-radius: 20px;
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
+
+    /* Footer */
+    footer {
+      background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+      color: white;
+      padding: 4rem 2rem 2rem;
+      margin-top: 6rem;
+    }
+
+    .footer-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 3rem;
+      margin-bottom: 3rem;
+    }
+
+    .footer-section h3 {
+      color: #667eea;
+      margin-bottom: 1rem;
+      font-size: 1.1rem;
+    }
+
+    .footer-section ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .footer-section ul li {
+      margin-bottom: 0.5rem;
+    }
+
+    .footer-section a {
+      color: #94a3b8;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .footer-section a:hover {
+      color: #667eea;
+    }
+
+    .footer-bottom {
+      text-align: center;
+      padding-top: 2rem;
+      border-top: 1px solid #334155;
+      color: #94a3b8;
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation -->
+  <nav>
+    <a href="/" class="logo-link">
+      <img src="/hexadigitall-logo-transparent.png" alt="Hexadigitall">
+    </a>
+    <div class="nav-links">
+      <a href="/services">Services</a>
+      <a href="/courses">Courses</a>
+      <a href="/mentorships">Mentorship</a>
+      <a href="/about">About</a>
+      <a href="/contact" class="nav-cta">Contact</a>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="main-content">
+    <div class="form-header">
+      <h1>🔧 Monthly Bug Fixes & Support</h1>
+      <p>Ongoing website maintenance and technical support for peace of mind</p>
+      <span class="price-badge">Monthly service</span>
+    </div>
+
+    <form class="intake-form" id="bugFixSupportForm">
+      <!-- Client Information -->
+      <section class="form-section">
+        <h2>📋 Client Information</h2>
+        
+        <div class="form-group">
+          <label for="fullName">Full Name *</label>
+          <input type="text" id="fullName" name="fullName" required>
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email Address *</label>
+          <input type="email" id="email" name="email" required>
+        </div>
+
+        <div class="form-group">
+          <label for="phone">Phone Number *</label>
+          <input type="tel" id="phone" name="phone" required>
+        </div>
+
+        <div class="form-group">
+          <label for="company">Company/Business Name</label>
+          <input type="text" id="company" name="company">
+        </div>
+      </section>
+
+      <!-- Website Information -->
+      <section class="form-section">
+        <h2>🌐 Website Information</h2>
+
+        <div class="form-group">
+          <label for="websiteUrl">Website URL *</label>
+          <input type="url" id="websiteUrl" name="websiteUrl" placeholder="https://www.yourwebsite.com" required>
+        </div>
+
+        <div class="form-group">
+          <label for="platform">What platform is your website built on? *</label>
+          <select id="platform" name="platform" required>
+            <option value="">Select platform...</option>
+            <option value="wordpress">WordPress</option>
+            <option value="wix">Wix</option>
+            <option value="squarespace">Squarespace</option>
+            <option value="shopify">Shopify</option>
+            <option value="react-nextjs">React/Next.js</option>
+            <option value="custom">Custom Built</option>
+            <option value="other">Other</option>
+            <option value="unknown">I don't know</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="hosting">Who hosts your website?</label>
+          <input type="text" id="hosting" name="hosting" placeholder="E.g., Bluehost, SiteGround, Vercel, AWS...">
+        </div>
+
+        <div class="form-group">
+          <label for="websiteAge">How old is your website?</label>
+          <select id="websiteAge" name="websiteAge">
+            <option value="">Select...</option>
+            <option value="new">Less than 6 months</option>
+            <option value="medium">6 months - 2 years</option>
+            <option value="mature">2-5 years</option>
+            <option value="old">5+ years</option>
+          </select>
+        </div>
+      </section>
+
+      <!-- Current Issues -->
+      <section class="form-section">
+        <h2>🐛 Current Issues & Support Needs</h2>
+
+        <div class="form-group">
+          <label for="currentIssues">What issues are you currently experiencing?</label>
+          <div class="checkbox-group">
+            <label><input type="checkbox" name="issues" value="broken-features"> Broken features or functionality</label>
+            <label><input type="checkbox" name="issues" value="slow-loading"> Slow loading times</label>
+            <label><input type="checkbox" name="issues" value="mobile-issues"> Mobile display issues</label>
+            <label><input type="checkbox" name="issues" value="browser-compatibility"> Browser compatibility issues</label>
+            <label><input type="checkbox" name="issues" value="form-issues"> Contact forms not working</label>
+            <label><input type="checkbox" name="issues" value="security"> Security concerns</label>
+            <label><input type="checkbox" name="issues" value="errors-messages"> Error messages appearing</label>
+            <label><input type="checkbox" name="issues" value="plugin-conflicts"> Plugin/extension conflicts</label>
+            <label><input type="checkbox" name="issues" value="none-preventive"> None - want preventive maintenance</label>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="issueDescription">Describe your main concerns or issues</label>
+          <textarea id="issueDescription" name="issueDescription" rows="4" placeholder="Please provide details about any bugs, errors, or problems you're experiencing..."></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="frequency">How often do issues occur?</label>
+          <select id="frequency" name="frequency">
+            <option value="">Select...</option>
+            <option value="daily">Daily</option>
+            <option value="weekly">Weekly</option>
+            <option value="monthly">Monthly</option>
+            <option value="rarely">Rarely</option>
+            <option value="none">No current issues</option>
+          </select>
+        </div>
+      </section>
+
+      <!-- Support Requirements -->
+      <section class="form-section">
+        <h2>🛠️ Support & Maintenance Requirements</h2>
+
+        <div class="form-group">
+          <label for="supportNeeds">What type of support do you need? *</label>
+          <div class="checkbox-group">
+            <label><input type="checkbox" name="support" value="bug-fixes"> Bug fixes and error resolution</label>
+            <label><input type="checkbox" name="support" value="updates"> Software/plugin updates</label>
+            <label><input type="checkbox" name="support" value="security"> Security monitoring and patches</label>
+            <label><input type="checkbox" name="support" value="backups"> Regular backups</label>
+            <label><input type="checkbox" name="support" value="content-updates"> Minor content updates</label>
+            <label><input type="checkbox" name="support" value="performance"> Performance optimization</label>
+            <label><input type="checkbox" name="support" value="troubleshooting"> Technical troubleshooting</label>
+            <label><input type="checkbox" name="support" value="monitoring"> Uptime monitoring</label>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="updateFrequency">How frequently do you need content updates?</label>
+          <select id="updateFrequency" name="updateFrequency">
+            <option value="">Select...</option>
+            <option value="frequent">Frequently (weekly)</option>
+            <option value="moderate">Moderately (2-3 times/month)</option>
+            <option value="occasional">Occasionally (once/month)</option>
+            <option value="rare">Rarely (as needed)</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="responseTime">Preferred response time for issues</label>
+          <select id="responseTime" name="responseTime">
+            <option value="">Select...</option>
+            <option value="urgent">Urgent (same day)</option>
+            <option value="priority">Priority (24 hours)</option>
+            <option value="standard">Standard (2-3 days)</option>
+            <option value="flexible">Flexible</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="businessHours">Support needed during business hours or 24/7?</label>
+          <select id="businessHours" name="businessHours">
+            <option value="">Select...</option>
+            <option value="business-hours">Business hours only (9am-5pm)</option>
+            <option value="extended">Extended hours (9am-9pm)</option>
+            <option value="24-7">24/7 support needed</option>
+          </select>
+        </div>
+      </section>
+
+      <!-- Access & Technical Details -->
+      <section class="form-section">
+        <h2>⚙️ Access & Technical Information</h2>
+
+        <div class="form-group">
+          <label for="adminAccess">Do you have admin access to your website? *</label>
+          <select id="adminAccess" name="adminAccess" required>
+            <option value="">Select...</option>
+            <option value="yes">Yes, full access</option>
+            <option value="partial">Partial access</option>
+            <option value="no">No access</option>
+            <option value="can-provide">I can provide access</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="hostingAccess">Do you have hosting control panel access?</label>
+          <select id="hostingAccess" name="hostingAccess">
+            <option value="">Select...</option>
+            <option value="yes">Yes</option>
+            <option value="no">No</option>
+            <option value="can-provide">I can arrange access</option>
+            <option value="unknown">I'm not sure</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="backupSystem">Do you currently have a backup system in place?</label>
+          <select id="backupSystem" name="backupSystem">
+            <option value="">Select...</option>
+            <option value="yes-automated">Yes, automated backups</option>
+            <option value="yes-manual">Yes, manual backups</option>
+            <option value="no">No backup system</option>
+            <option value="unknown">I'm not sure</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="techStack">Additional technical details (plugins, themes, custom code)</label>
+          <textarea id="techStack" name="techStack" rows="3" placeholder="List any important plugins, themes, or custom functionality..."></textarea>
+        </div>
+      </section>
+
+      <!-- Service Preferences -->
+      <section class="form-section">
+        <h2>📅 Service Preferences</h2>
+
+        <div class="form-group">
+          <label for="startDate">When would you like to start? *</label>
+          <input type="date" id="startDate" name="startDate" required>
+        </div>
+
+        <div class="form-group">
+          <label for="duration">Service duration preference</label>
+          <select id="duration" name="duration">
+            <option value="">Select...</option>
+            <option value="month-to-month">Month-to-month (cancel anytime)</option>
+            <option value="3-months">3-month commitment</option>
+            <option value="6-months">6-month commitment (5% discount)</option>
+            <option value="12-months">12-month commitment (10% discount)</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="communicationPreference">Preferred communication method</label>
+          <select id="communicationPreference" name="communicationPreference">
+            <option value="">Select...</option>
+            <option value="email">Email</option>
+            <option value="phone">Phone</option>
+            <option value="whatsapp">WhatsApp</option>
+            <option value="slack">Slack</option>
+            <option value="ticketing">Support ticketing system</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="monthlyReports">Would you like monthly maintenance reports?</label>
+          <select id="monthlyReports" name="monthlyReports">
+            <option value="">Select...</option>
+            <option value="yes-detailed">Yes, detailed reports</option>
+            <option value="yes-summary">Yes, summary only</option>
+            <option value="no">No, not necessary</option>
+          </select>
+        </div>
+      </section>
+
+      <!-- Additional Information -->
+      <section class="form-section">
+        <h2>📝 Additional Information</h2>
+
+        <div class="form-group">
+          <label for="specialRequests">Special requests or specific concerns</label>
+          <textarea id="specialRequests" name="specialRequests" rows="4" placeholder="Any specific requirements, concerns, or questions about the service..."></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="budget">Budget considerations</label>
+          <select id="budget" name="budget">
+            <option value="">Select...</option>
+            <option value="standard">Standard plan ($199/month)</option>
+            <option value="custom">Custom plan needed</option>
+            <option value="discuss">Let's discuss</option>
+          </select>
+        </div>
+      </section>
+
+      <!-- Submit Button -->
+      <div class="form-actions">
+        <button type="submit" class="btn-primary">Request Monthly Support</button>
+      </div>
+    </form>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-content">
+      <div class="footer-section">
+        <h3>Quick Links</h3>
+        <ul>
+          <li><a href="/">Home</a></li>
+          <li><a href="/about">About Us</a></li>
+          <li><a href="/blog">Blog</a></li>
+          <li><a href="/contact">Contact</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-section">
+        <h3>Services</h3>
+        <ul>
+          <li><a href="/services">All Services</a></li>
+          <li><a href="/services#web-development">Web Development</a></li>
+          <li><a href="/services#branding">Branding</a></li>
+          <li><a href="/services#marketing">Marketing</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-section">
+        <h3>Learn</h3>
+        <ul>
+          <li><a href="/courses">Online Courses</a></li>
+          <li><a href="/mentorships">Mentorship</a></li>
+          <li><a href="/resources">Resources</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-section">
+        <h3>Connect</h3>
+        <ul>
+          <li><a href="https://twitter.com/hexadigitall" target="_blank">Twitter</a></li>
+          <li><a href="https://linkedin.com/company/hexadigitall" target="_blank">LinkedIn</a></li>
+          <li><a href="https://instagram.com/hexadigitall" target="_blank">Instagram</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>&copy; 2024 Hexadigitall. All rights reserved. Made with ❤️ in Nigeria</p>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('bugFixSupportForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const formData = new FormData(this);
+      const data = {
+        service: 'bug-fix-monthly',
+        timestamp: new Date().toISOString(),
+        clientInfo: {
+          fullName: formData.get('fullName'),
+          email: formData.get('email'),
+          phone: formData.get('phone'),
+          company: formData.get('company')
+        },
+        website: {
+          url: formData.get('websiteUrl'),
+          platform: formData.get('platform'),
+          hosting: formData.get('hosting'),
+          websiteAge: formData.get('websiteAge')
+        },
+        issues: {
+          currentIssues: formData.getAll('issues'),
+          description: formData.get('issueDescription'),
+          frequency: formData.get('frequency')
+        },
+        support: {
+          needs: formData.getAll('support'),
+          updateFrequency: formData.get('updateFrequency'),
+          responseTime: formData.get('responseTime'),
+          businessHours: formData.get('businessHours')
+        },
+        access: {
+          adminAccess: formData.get('adminAccess'),
+          hostingAccess: formData.get('hostingAccess'),
+          backupSystem: formData.get('backupSystem'),
+          techStack: formData.get('techStack')
+        },
+        preferences: {
+          startDate: formData.get('startDate'),
+          duration: formData.get('duration'),
+          communicationPreference: formData.get('communicationPreference'),
+          monthlyReports: formData.get('monthlyReports')
+        },
+        additional: {
+          specialRequests: formData.get('specialRequests'),
+          budget: formData.get('budget')
+        }
+      };
+
+      console.log('Bug Fix & Support Form Submission:', data);
+      
+      alert('Thank you! Your monthly support request has been submitted. We\'ll contact you within 24 hours to set up your ongoing support plan.');
+    });
+  </script>
+</body>
+</html>

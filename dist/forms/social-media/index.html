@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Social Media Strategy Intake Form</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root {
+      --bg: #ffffff;
+      --text: #222;
+      --muted: #666;
+      --accent: #0a7cff;
+      --border: #e3e3e3;
+    }
+    body {
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color: var(--text);
+      background: var(--bg);
+      margin: 0;
+      padding: 24px;
+      line-height: 1.5;
+    }
+    .page-title {
+      text-align: center;
+      margin-bottom: 8px;
+    }
+    h1, h2, h3 {
+      margin: 0 0 12px;
+      line-height: 1.2;
+    }
+    .subtle {
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+    form {
+      max-width: 780px;
+      margin: 0 auto 48px;
+    }
+    fieldset {
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 18px;
+      margin: 24px 0;
+    }
+    legend {
+      padding: 0 8px;
+      font-weight: 600;
+      font-size: 1.1rem;
+    }
+    .row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+    label {
+      display: block;
+      font-weight: 600;
+      margin: 14px 0 6px;
+    }
+    label .required {
+      color: #dc2626;
+    }
+    input[type="text"],
+    input[type="email"],
+    input[type="tel"],
+    select,
+    textarea {
+      width: 100%;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 10px 12px;
+      font: inherit;
+      box-sizing: border-box;
+    }
+    textarea { min-height: 80px; }
+    .checkbox-group {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 8px 12px;
+      margin: 6px 0 12px;
+    }
+    .inline {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+    .actions {
+      display: flex;
+      gap: 12px;
+      margin-top: 20px;
+    }
+      .status {
+        margin-top: 16px;
+        font-size: 0.95rem;
+        color: var(--muted);
+      }
+    button {
+      border: 0;
+      border-radius: 8px;
+      padding: 12px 24px;
+      font: inherit;
+      cursor: pointer;
+      font-weight: 600;
+    }
+    .primary { background: var(--accent); color: white; }
+    .secondary { background: #f1f5f9; color: var(--text); }
+    details {
+      margin: 24px 0;
+      padding: 18px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+    }
+    summary {
+      cursor: pointer;
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
+    .glossary-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 12px;
+      font-size: 0.9rem;
+    }
+    .glossary-table th,
+    .glossary-table td {
+      border-bottom: 1px solid var(--border);
+      text-align: left;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .glossary-table th {
+      background: #f9fafb;
+      font-weight: 600;
+    }
+    @media print {
+      .actions { display: none; }
+      body { padding: 0; }
+      details { display: none; }
+    }
+    @media (max-width: 640px) {
+      .row {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <img src="hexadigitall-logo.png" alt="Hexadigitall Technologies Logo" style="max-width:150px;display:block;margin:0 auto 24px;" />
+  <h1 class="page-title">Social Media Strategy Intake Form</h1>
+  <p class="subtle" style="text-align: center;">Quick 3-5 minute form. Only essential information required.</p>
+  
+
+  <form
+    id="intake-form"
+    data-service-form
+    data-subject="Social Media Strategy Intake"
+    data-service="Social Media Strategy"
+    data-formspree="https://formspree.io/f/xrbvyjgy"
+    data-intake-endpoint="/api/forms/intake"
+    data-mailto="false"
+    action="https://formspree.io/f/xrbvyjgy"
+    method="POST"
+  >
+    
+    <!-- Contact Information -->
+    <fieldset>
+      <legend>📋 Contact Information</legend>
+      <div class="row">
+        <div>
+          <label for="full_name">Full Name <span class="required">*</span></label>
+          <input id="full_name" name="full_name" type="text" placeholder="Your name" required />
+        </div>
+        <div>
+          <label for="email">Email <span class="required">*</span></label>
+          <input id="email" name="email" type="email" placeholder="your@email.com" required />
+        </div>
+      </div>
+      <div class="row">
+        <div>
+          <label for="phone">Phone Number</label>
+          <input id="phone" name="phone" type="tel" placeholder="+234 XXX XXX XXXX" />
+        </div>
+        <div>
+          <label for="brand_name">Brand/Business Name <span class="required">*</span></label>
+          <input id="brand_name" name="brand_name" type="text" placeholder="Your brand name" required />
+        </div>
+      </div>
+    </fieldset>
+
+    <!-- Brand Essentials -->
+    <fieldset>
+      <legend>🎯 Brand Essentials</legend>
+
+      <label for="target_audience">Who is your target audience? <span class="required">*</span></label>
+      <textarea id="target_audience" name="target_audience" placeholder="e.g., Women aged 25–40 in Lagos who love sustainable fashion" required></textarea>
+
+      <label for="usp">What makes your brand unique? <span class="required">*</span></label>
+      <textarea id="usp" name="usp" placeholder="What sets you apart from competitors?" required></textarea>
+
+      <label>Brand personality (select up to 3)</label>
+      <div class="checkbox-group" role="group" aria-label="Brand personality">
+        <label class="inline"><input type="checkbox" name="brand_personality" value="Elegant" /> Elegant</label>
+        <label class="inline"><input type="checkbox" name="brand_personality" value="Edgy" /> Edgy</label>
+        <label class="inline"><input type="checkbox" name="brand_personality" value="Playful" /> Playful</label>
+        <label class="inline"><input type="checkbox" name="brand_personality" value="Minimalist" /> Minimalist</label>
+        <label class="inline"><input type="checkbox" name="brand_personality" value="Professional" /> Professional</label>
+        <label class="inline"><input type="checkbox" name="brand_personality" value="Bold" /> Bold</label>
+      </div>
+    </fieldset>
+
+    <!-- Social Media Presence -->
+    <fieldset>
+      <legend>📱 Social Media Presence</legend>
+
+      <label>Which platforms do you want to focus on? (select all) <span class="required">*</span></label>
+      <div class="checkbox-group" role="group" aria-label="Active platforms">
+        <label class="inline"><input type="checkbox" name="platforms" value="Instagram" /> Instagram</label>
+        <label class="inline"><input type="checkbox" name="platforms" value="Facebook" /> Facebook</label>
+        <label class="inline"><input type="checkbox" name="platforms" value="TikTok" /> TikTok</label>
+        <label class="inline"><input type="checkbox" name="platforms" value="LinkedIn" /> LinkedIn</label>
+        <label class="inline"><input type="checkbox" name="platforms" value="Twitter/X" /> Twitter/X</label>
+        <label class="inline"><input type="checkbox" name="platforms" value="Pinterest" /> Pinterest</label>
+      </div>
+
+      <label for="handles">Your social media handles (if any)</label>
+      <input id="handles" name="handles" type="text" placeholder="e.g., @yourbrand on Instagram" />
+    </fieldset>
+
+    <!-- Goals -->
+    <fieldset>
+      <legend>🎯 Your Goals</legend>
+
+      <label>What's your main goal? (select top 3) <span class="required">*</span></label>
+      <div class="checkbox-group" role="group" aria-label="Success metrics">
+        <label class="inline"><input type="checkbox" name="success" value="Follower Growth" /> Grow Followers</label>
+        <label class="inline"><input type="checkbox" name="success" value="Engagement" /> Increase Engagement</label>
+        <label class="inline"><input type="checkbox" name="success" value="Website Traffic" /> Drive Website Traffic</label>
+        <label class="inline"><input type="checkbox" name="success" value="Sales" /> Boost Sales</label>
+        <label class="inline"><input type="checkbox" name="success" value="Brand Awareness" /> Build Brand Awareness</label>
+        <label class="inline"><input type="checkbox" name="success" value="Community" /> Build Community</label>
+      </div>
+
+      <label for="target_metric">Specific target (optional)</label>
+      <input id="target_metric" name="target_metric" type="text" placeholder="e.g., Grow Instagram from 1,000 to 5,000 followers in 6 months" />
+    </fieldset>
+
+    <!-- Content & Budget -->
+    <fieldset>
+      <legend>💡 Content & Budget</legend>
+
+      <label>Preferred content tone</label>
+      <div class="checkbox-group" role="group" aria-label="Preferred tone">
+        <label class="inline"><input type="radio" name="tone" value="Formal / Aspirational" /> Formal / Aspirational</label>
+        <label class="inline"><input type="radio" name="tone" value="Casual / Relatable" checked /> Casual / Relatable</label>
+      </div>
+
+      <label for="content_preferences">Top 3 content types you want (optional)</label>
+      <textarea id="content_preferences" name="content_preferences" placeholder="e.g., Product launches, Behind-the-scenes, Customer testimonials"></textarea>
+
+      <div class="row">
+        <div>
+          <label for="assets_available">Do you have photos/videos?</label>
+          <select id="assets_available" name="assets_available">
+            <option value="">Select</option>
+            <option value="Yes">Yes, I have content</option>
+            <option value="No">No, need help creating</option>
+            <option value="Some">I have some</option>
+          </select>
+        </div>
+        <div>
+          <label for="ads_budget">Monthly budget for ads (optional)</label>
+          <input id="ads_budget" name="ads_budget" type="text" placeholder="e.g., ₦50,000 - ₦200,000" />
+        </div>
+      </div>
+    </fieldset>
+
+    <!-- Additional Info -->
+    <fieldset>
+      <legend>📝 Additional Information</legend>
+
+      <label for="competitors">Brands you admire (optional)</label>
+      <input id="competitors" name="competitors" type="text" placeholder="e.g., @brandname, @competitor" />
+
+      <label for="additional_notes">Anything else we should know?</label>
+      <textarea id="additional_notes" name="additional_notes" placeholder="Any specific requests, concerns, or additional details..."></textarea>
+    </fieldset>
+
+    <div class="actions">
+      <button type="submit" class="primary">Submit Form</button>
+      <button type="button" class="secondary" data-print onclick="window.print()">Print / Save as PDF</button>
+    </div>
+      <div class="status" id="submission-status" data-status aria-live="polite"></div>
+    <script src="/forms/assets/forms.js"></script>
+  </form>
+
+  <!-- Hidden Appendix for reference only -->
+  <details>
+    <summary>📖 Reference: Glossary of Terms (click to expand)</summary>
+    
+    <h3>Key Social Media Terms</h3>
+    <table class="glossary-table" aria-label="Glossary">
+      <thead>
+        <tr>
+          <th>Term</th>
+          <th>Definition</th>
+          <th>Example</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>USP</strong></td>
+          <td>Unique Selling Proposition - what sets your brand apart.</td>
+          <td>Eco-friendly fabrics or bold prints</td>
+        </tr>
+        <tr>
+          <td><strong>Engagement Rate</strong></td>
+          <td>Percentage of followers who interact with your content.</td>
+          <td>Likes, comments, shares, and saves</td>
+        </tr>
+        <tr>
+          <td><strong>Conversion</strong></td>
+          <td>When a follower takes a desired action.</td>
+          <td>Clicking "Shop Now" and making a purchase</td>
+        </tr>
+        <tr>
+          <td><strong>Reach</strong></td>
+          <td>Number of unique people who saw your post.</td>
+          <td>10,000 different users viewed your video</td>
+        </tr>
+        <tr>
+          <td><strong>Impressions</strong></td>
+          <td>Total times your content was displayed.</td>
+          <td>One person saw your ad 3 times = 3 impressions</td>
+        </tr>
+        <tr>
+          <td><strong>Content Calendar</strong></td>
+          <td>Schedule of planned posts.</td>
+          <td>Planning Instagram posts every Friday</td>
+        </tr>
+        <tr>
+          <td><strong>Community Management</strong></td>
+          <td>Engaging with followers to build relationships.</td>
+          <td>Replying to comments and DMs</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3 style="margin-top: 24px;">Brand Personality Terms</h3>
+    <table class="glossary-table" aria-label="Brand personality terms">
+      <thead>
+        <tr>
+          <th>Term</th>
+          <th>Definition</th>
+          <th>Example</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Edgy</strong></td>
+          <td>Bold, daring, and unconventional.</td>
+          <td>Neon colors and unexpected cuts</td>
+        </tr>
+        <tr>
+          <td><strong>Minimalist</strong></td>
+          <td>Clean, simple, and uncluttered.</td>
+          <td>Neutral-toned capsule wardrobe</td>
+        </tr>
+        <tr>
+          <td><strong>Playful</strong></td>
+          <td>Fun, lighthearted, and approachable.</td>
+          <td>Bright colors with quirky captions</td>
+        </tr>
+        <tr>
+          <td><strong>Elegant</strong></td>
+          <td>Sophisticated, refined, and timeless.</td>
+          <td>Couture gown with polished visuals</td>
+        </tr>
+      </tbody>
+    </table>
+  </details>
+
+  <footer class="subtle" style="max-width:780px;margin:24px auto 0;text-align:center;padding-top:24px;border-top:1px solid var(--border);">
+    <img src="hexadigitall-logo.png" alt="Hexadigitall Technologies Logo" style="max-width:30px;display:inline-block;margin:0 8px 0 0;vertical-align:middle;" />
+    Hexadigitall Technologies • +234 8125 802 140 • hexadigitztech@gmail.com
+  </footer>
+
+</body>
+</html>

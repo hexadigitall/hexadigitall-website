@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Individual Services - Order Now | Hexadigitall</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #1e40af;
+            --primary-light: #3b82f6;
+            --accent: #f59e0b;
+            --success: #10b981;
+            --danger: #ef4444;
+            --gray-50: #f9fafb;
+            --gray-100: #f3f4f6;
+            --gray-300: #d1d5db;
+            --gray-600: #4b5563;
+            --gray-900: #111827;
+            --border-radius: 8px;
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 20px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: #f9fafb;
+            color: var(--gray-900);
+        }
+
+        /* Top Navigation Bar */
+        .nav-bar {
+            background: white;
+            border-bottom: 2px solid var(--gray-100);
+            padding: 12px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-bar .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            font-weight: 700;
+            color: var(--gray-900);
+        }
+
+        .nav-bar .logo img {
+            height: 32px;
+            width: auto;
+        }
+
+        .nav-bar .back-link {
+            display: inline-block;
+            padding: 8px 12px;
+            background: var(--gray-100);
+            border-radius: var(--border-radius);
+            text-decoration: none;
+            color: var(--gray-600);
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .nav-bar .back-link:hover {
+            background: var(--gray-200);
+            color: var(--gray-900);
+        }
+
+        .breadcrumb {
+            padding: 14px 20px;
+            background: white;
+            border-bottom: 1px solid var(--gray-300);
+            font-size: 0.9rem;
+        }
+
+        .breadcrumb a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+
+        .breadcrumb span {
+            color: var(--gray-600);
+            margin: 0 8px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 50px 30px;
+            text-align: center;
+            margin: -20px -20px 40px -20px;
+            border-bottom: 4px solid #764ba2;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .header p {
+            font-size: 1.1em;
+            opacity: 0.95;
+        }
+
+        .form-wrapper {
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-lg);
+            padding: 40px;
+        }
+
+        .form-section {
+            margin-bottom: 40px;
+        }
+
+        .section-title {
+            font-size: 1.3em;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-title::before {
+            content: '';
+            width: 4px;
+            height: 24px;
+            background: var(--accent);
+            border-radius: 2px;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            grid-column: 1 / -1;
+        }
+
+        label {
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--gray-900);
+            font-size: 0.95em;
+        }
+
+        .required::after {
+            content: '*';
+            color: var(--danger);
+            margin-left: 4px;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"],
+        select,
+        textarea {
+            padding: 12px 14px;
+            border: 2px solid var(--gray-300);
+            border-radius: var(--border-radius);
+            font-size: 1em;
+            font-family: inherit;
+            transition: all 0.3s ease;
+            background: var(--gray-50);
+        }
+
+        input:focus,
+        select:focus,
+        textarea:focus {
+            outline: none;
+            background: white;
+            border-color: var(--primary-light);
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+
+        textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .help-text {
+            font-size: 0.85em;
+            color: var(--gray-600);
+            margin-top: 6px;
+        }
+
+        .service-selector {
+            background: var(--gray-50);
+            border: 2px solid var(--gray-300);
+            border-radius: var(--border-radius);
+            padding: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 12px;
+        }
+
+        .service-selector:hover {
+            border-color: var(--primary-light);
+            background: white;
+        }
+
+        .service-selector.selected {
+            border-color: var(--primary);
+            background: rgba(59, 130, 246, 0.05);
+        }
+
+        .service-selector input[type="radio"] {
+            margin-right: 10px;
+            accent-color: var(--primary);
+        }
+
+        .service-info {
+            margin-left: 28px;
+        }
+
+        .service-name {
+            font-weight: 700;
+            color: var(--gray-900);
+            margin-bottom: 4px;
+        }
+
+        .service-price {
+            color: var(--accent);
+            font-weight: 600;
+            font-size: 1.1em;
+        }
+
+        .service-desc {
+            color: var(--gray-600);
+            font-size: 0.9em;
+            margin-top: 4px;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        .form-actions {
+            display: flex;
+            gap: 12px;
+            justify-content: flex-end;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 2px solid var(--gray-100);
+        }
+
+        button {
+            padding: 12px 24px;
+            border: none;
+            border-radius: var(--border-radius);
+            font-size: 1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary) 0%, #1e3a8a 100%);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow);
+        }
+
+        .btn-secondary {
+            background: var(--gray-100);
+            color: var(--gray-900);
+            border: 2px solid var(--gray-300);
+        }
+
+        .success-message {
+            background: #d1fae5;
+            border: 2px solid var(--success);
+            color: #065f46;
+            padding: 16px;
+            border-radius: var(--border-radius);
+            margin-bottom: 20px;
+            display: none;
+        }
+
+        .success-message.show {
+            display: block;
+            animation: slideDown 0.4s ease-out;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .error-message {
+            color: var(--danger);
+            font-size: 0.9em;
+            margin-top: 6px;
+            display: none;
+        }
+
+        .error-message.show {
+            display: block;
+        }
+
+        input.error,
+        select.error,
+        textarea.error {
+            border-color: var(--danger) !important;
+        }
+
+        .summary-box {
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.05) 0%, rgba(245, 158, 11, 0.05) 100%);
+            border: 2px solid var(--gray-300);
+            border-radius: var(--border-radius);
+            padding: 16px;
+            margin-bottom: 20px;
+        }
+
+        .summary-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+            font-size: 0.95em;
+        }
+
+        .summary-label {
+            color: var(--gray-600);
+            font-weight: 500;
+        }
+
+        .summary-value {
+            color: var(--gray-900);
+            font-weight: 600;
+        }
+
+        .price-highlight {
+            color: var(--accent);
+            font-size: 1.1em;
+            font-weight: 700;
+        }
+
+        .checkbox-group,
+        .radio-group {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .checkbox-item,
+        .radio-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        input[type="checkbox"],
+        input[type="radio"] {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+        }
+
+        .checkbox-item label,
+        .radio-item label {
+            margin: 0;
+            cursor: pointer;
+            font-weight: 500;
+        }
+
+        @media (max-width: 768px) {
+            .form-wrapper {
+                padding: 20px;
+            }
+
+            .header {
+                padding: 30px 20px;
+            }
+
+            .header h1 {
+                font-size: 1.8em;
+            }
+
+            .form-actions {
+                flex-direction: column;
+            }
+
+            button {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar with Logo -->
+    <nav class="nav-bar">
+        <a href="/" class="logo">
+            <img src="/hexadigitall-logo-transparent.png" alt="Hexadigitall">
+            <span>Hexadigitall</span>
+        </a>
+        <a href="/services" class="back-link">← Back to Services</a>
+    </nav>
+
+    <div class="breadcrumb">
+        <a href="/services">Services</a>
+        <span>›</span>
+        <a href="/forms/">All Forms</a>
+        <span>›</span>
+        <strong>Individual Services</strong>
+    </div>
+
+    <div class="header">
+        <div class="container">
+            <h1>Order Individual Service</h1>
+            <p>Pay once, get results. Choose a service and start immediately.</p>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="form-wrapper">
+            <div class="success-message" id="successMessage">
+                ✓ Your service request has been submitted successfully! We'll contact you within 24 hours to confirm details.
+            </div>
+
+            <form id="serviceForm">
+                <!-- SECTION 1: SELECT SERVICE -->
+                <div class="form-section">
+                    <div class="section-title">📦 Choose Your Service</div>
+                    <div id="servicesContainer"></div>
+                </div>
+
+                <!-- SECTION 2: CLIENT INFORMATION -->
+                <div class="form-section">
+                    <div class="section-title">👤 Your Information</div>
+
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label class="required">Full Name</label>
+                            <input type="text" name="fullName" required>
+                            <span class="error-message"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="required">Email Address</label>
+                            <input type="email" name="email" required>
+                            <span class="error-message"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="required">Phone Number</label>
+                            <input type="tel" name="phone" required>
+                            <span class="error-message"></span>
+                        </div>
+                        <div class="form-group">
+                            <label>Business Name</label>
+                            <input type="text" name="businessName">
+                            <span class="help-text">Your company or personal brand name</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SECTION 3: SERVICE-SPECIFIC DETAILS -->
+                <div class="form-section" id="serviceDetailsSection" style="display: none;">
+                    <div class="section-title">📋 Service Details</div>
+                    <div id="serviceDetailsContainer"></div>
+                </div>
+
+                <!-- SECTION 4: PROJECT/TIMELINE -->
+                <div class="form-section">
+                    <div class="section-title">⏱️ Timeline & Preferences</div>
+
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label class="required">When do you need this completed?</label>
+                            <select name="timeline" required>
+                                <option value="">-- Select timeline --</option>
+                                <option value="asap">ASAP (Rush - may incur extra fees)</option>
+                                <option value="within-3-days">Within 3 days</option>
+                                <option value="within-1-week">Within 1 week</option>
+                                <option value="within-2-weeks">Within 2 weeks</option>
+                                <option value="flexible">Flexible (no specific deadline)</option>
+                            </select>
+                            <span class="error-message"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SECTION 5: ADDITIONAL INFORMATION -->
+                <div class="form-section">
+                    <div class="section-title">💬 Additional Information</div>
+
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>Project Description & Goals</label>
+                            <textarea name="projectDescription" placeholder="Tell us more about your project, goals, and any specific requirements..."></textarea>
+                            <span class="help-text">Help us understand your vision so we can deliver exactly what you need</span>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="required">Preferred Communication Method</label>
+                            <div class="radio-group">
+                                <div class="radio-item">
+                                    <input type="radio" id="comm-email" name="communication" value="email" required checked>
+                                    <label for="comm-email">Email</label>
+                                </div>
+                                <div class="radio-item">
+                                    <input type="radio" id="comm-phone" name="communication" value="phone" required>
+                                    <label for="comm-phone">Phone Call</label>
+                                </div>
+                                <div class="radio-item">
+                                    <input type="radio" id="comm-whatsapp" name="communication" value="whatsapp" required>
+                                    <label for="comm-whatsapp">WhatsApp</label>
+                                </div>
+                                <div class="radio-item">
+                                    <input type="radio" id="comm-video" name="communication" value="video" required>
+                                    <label for="comm-video">Video Call</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SECTION 6: SUMMARY & SUBMIT -->
+                <div class="form-section">
+                    <div class="summary-box">
+                        <div class="summary-item">
+                            <span class="summary-label">Selected Service:</span>
+                            <span class="summary-value" id="summaryService">Not selected</span>
+                        </div>
+                        <div class="summary-item">
+                            <span class="summary-label">Price:</span>
+                            <span class="price-highlight" id="summaryPrice">$0</span>
+                        </div>
+                        <div class="summary-item">
+                            <span class="summary-label">Estimated Delivery:</span>
+                            <span class="summary-value" id="summaryDelivery">-</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- FORM ACTIONS -->
+                <div class="form-actions">
+                    <button type="reset" class="btn-secondary">Clear Form</button>
+                    <button type="submit" class="btn-primary">Submit Service Request</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Service definitions
+        const services = {
+            'web-dev': [
+                { id: 'website-redesign', name: 'Website Redesign', price: 599, delivery: '7-10 days' },
+                { id: 'seo-audit', name: 'SEO Audit & Report', price: 199, delivery: '3-5 days' },
+                { id: 'speed-optimization', name: 'Website Speed Optimization', price: 299, delivery: '3-5 days' },
+                { id: 'payment-gateway', name: 'Payment Gateway Integration', price: 349, delivery: '4-6 days' },
+                { id: 'bug-fix-monthly', name: 'Monthly Bug Fixes & Support', price: 199, delivery: 'Monthly' }
+            ],
+            'business': [
+                { id: 'executive-summary', name: 'Executive Summary', price: 149, delivery: '3-4 days' },
+                { id: 'pitch-deck', name: 'Investor Pitch Deck', price: 399, delivery: '5-7 days' },
+                { id: 'market-research', name: 'Market Research Report', price: 499, delivery: '7-10 days' }
+            ],
+            'branding': [
+                { id: 'logo-design', name: 'Logo Design Only', price: 149, delivery: '3-5 days' },
+                { id: 'business-cards', name: 'Business Card Design', price: 79, delivery: '2-3 days' },
+                { id: 'social-media-kit', name: 'Social Media Branding Kit', price: 249, delivery: '5-7 days' }
+            ],
+            'marketing': [
+                { id: 'social-audit', name: 'Social Media Audit', price: 69, delivery: '3-5 days' },
+                { id: 'content-package', name: 'Content Creation Package', price: 129, delivery: '5-7 days' },
+                { id: 'ad-campaign', name: 'Ad Campaign Setup', price: 179, delivery: '3-5 days' }
+            ],
+            'mentoring': [
+                { id: 'strategy-call', name: 'Strategy Call (1 Hour)', price: 79, delivery: '1-2 days' },
+                { id: 'business-plan-review', name: 'Business Plan Review', price: 149, delivery: '3-5 days' },
+                { id: 'pitch-practice', name: 'Pitch Practice Session', price: 99, delivery: '2-3 days' }
+            ],
+            'portfolio': [
+                { id: 'cv-resume', name: 'Professional CV/Resume', price: 49, delivery: '2-3 days' },
+                { id: 'linkedin-optimization', name: 'LinkedIn Profile Optimization', price: 69, delivery: '3-4 days' },
+                { id: 'portfolio-website', name: 'Basic Portfolio Website', price: 199, delivery: '5-7 days' }
+            ]
+        };
+
+        // Service-specific form fields (same as before)
+        const serviceFields = {
+            'website-redesign': `<div class="form-grid"><div class="form-group"><label class="required">Current Website URL</label><input type="url" name="websiteUrl" required placeholder="https://example.com"><span class="error-message"></span></div><div class="form-group"><label>Primary Goal</label><select name="primaryGoal"><option value="">-- Select --</option><option value="modern-look">Modern look & feel</option><option value="improved-ux">Improved user experience</option><option value="mobile-optimization">Mobile optimization</option><option value="conversion">Increase conversions</option><option value="seo">Better SEO performance</option></select></div><div class="form-group"><label>Design Style Preference</label><select name="designStyle"><option value="">-- Select --</option><option value="minimalist">Minimalist & clean</option><option value="bold">Bold & vibrant</option><option value="professional">Corporate & professional</option><option value="creative">Creative & artistic</option></select></div><div class="form-group"><label>Brand Colors (if you have them)</label><input type="text" name="brandColors" placeholder="e.g., #1e40af, #f59e0b"><span class="help-text">Hex codes separated by commas</span></div></div>`,
+            'seo-audit': `<div class="form-grid"><div class="form-group"><label class="required">Website URL</label><input type="url" name="websiteUrl" required placeholder="https://example.com"><span class="error-message"></span></div><div class="form-group"><label>Target Keywords (If you know them)</label><input type="text" name="keywords" placeholder="e.g., web design, digital marketing"><span class="help-text">Comma-separated list</span></div><div class="form-group"><label>Primary Competitors (Optional)</label><input type="text" name="competitors" placeholder="https://competitor1.com, https://competitor2.com"><span class="help-text">URLs of your top 2-3 competitors</span></div></div>`,
+            'speed-optimization': `<div class="form-grid"><div class="form-group"><label class="required">Website URL</label><input type="url" name="websiteUrl" required placeholder="https://example.com"><span class="error-message"></span></div><div class="form-group"><label>Current Load Time (if you know)</label><input type="number" name="currentSpeed" placeholder="e.g., 5.2" step="0.1"><span class="help-text">In seconds. You can check at GTmetrix.com</span></div><div class="form-group"><label>Primary Performance Issues (if known)</label><div class="checkbox-group"><div class="checkbox-item"><input type="checkbox" id="issue-images" name="issues" value="images"><label for="issue-images">Large image files</label></div><div class="checkbox-item"><input type="checkbox" id="issue-cache" name="issues" value="cache"><label for="issue-cache">No browser caching</label></div><div class="checkbox-item"><input type="checkbox" id="issue-minify" name="issues" value="minify"><label for="issue-minify">Unminified CSS/JS</label></div><div class="checkbox-item"><input type="checkbox" id="issue-server" name="issues" value="server"><label for="issue-server">Slow server response</label></div></div></div></div>`,
+            'payment-gateway': `<div class="form-grid"><div class="form-group"><label class="required">Website URL</label><input type="url" name="websiteUrl" required placeholder="https://example.com"><span class="error-message"></span></div><div class="form-group"><label class="required">Preferred Payment Gateway</label><select name="gateway" required><option value="">-- Select --</option><option value="paystack">Paystack</option><option value="flutterwave">Flutterwave</option><option value="stripe">Stripe</option><option value="other">Other</option></select></div><div class="form-group"><label>What will you be selling?</label><input type="text" name="productType" placeholder="e.g., digital products, services, physical goods"></div><div class="form-group"><label>Expected Monthly Transaction Volume</label><select name="transactionVolume"><option value="">-- Select --</option><option value="under-100">Under 100</option><option value="100-500">100-500</option><option value="500-1000">500-1000</option><option value="over-1000">Over 1000</option></select></div></div>`,
+            'bug-fix-monthly': `<div class="form-grid"><div class="form-group"><label class="required">Website URL</label><input type="url" name="websiteUrl" required placeholder="https://example.com"><span class="error-message"></span></div><div class="form-group"><label class="required">Current Issues & Bugs</label><textarea name="currentIssues" required placeholder="Describe the bugs or issues you're experiencing..."></textarea><span class="error-message"></span></div><div class="form-group"><label>Technology Stack (if you know it)</label><input type="text" name="techStack" placeholder="e.g., React, Node.js, WordPress"></div></div>`,
+            'executive-summary': `<div class="form-grid"><div class="form-group"><label class="required">Business/Idea Name</label><input type="text" name="businessIdea" required placeholder="e.g., TechStartup Inc."><span class="error-message"></span></div><div class="form-group"><label class="required">Brief Business Description</label><textarea name="businessDescription" required placeholder="What does your business do? Who are your customers?"></textarea><span class="error-message"></span></div><div class="form-group"><label>Industry</label><select name="industry"><option value="">-- Select --</option><option value="tech">Technology</option><option value="ecommerce">E-commerce</option><option value="saas">SaaS</option><option value="healthcare">Healthcare</option><option value="finance">Finance</option><option value="other">Other</option></select></div><div class="form-group"><label>Estimated Market Size (Annual)</label><input type="text" name="marketSize" placeholder="e.g., $500M, $1B+"></div></div>`,
+            'pitch-deck': `<div class="form-grid"><div class="form-group"><label class="required">Business/Idea Name</label><input type="text" name="businessIdea" required placeholder="e.g., TechStartup Inc."><span class="error-message"></span></div><div class="form-group"><label class="required">Business Description</label><textarea name="businessDescription" required placeholder="What is your business? What problem do you solve?"></textarea><span class="error-message"></span></div><div class="form-group"><label>Funding Target</label><input type="text" name="fundingTarget" placeholder="e.g., $500K, $2M"></div><div class="form-group"><label>Stage</label><select name="stage"><option value="">-- Select --</option><option value="idea">Idea Stage</option><option value="mvp">MVP/Beta</option><option value="launched">Launched</option><option value="revenue">Revenue Generating</option></select></div><div class="form-group"><label>Team Background (brief)</label><input type="text" name="teamBackground" placeholder="e.g., 5 years in industry, ex-Google"></div></div>`,
+            'market-research': `<div class="form-grid"><div class="form-group"><label class="required">What market/industry do you want researched?</label><input type="text" name="marketFocus" required placeholder="e.g., AI-powered HR tools, sustainable fashion"><span class="error-message"></span></div><div class="form-group"><label class="required">Who is your target customer?</label><input type="text" name="targetCustomer" required placeholder="e.g., Small business owners, tech startups"><span class="error-message"></span></div><div class="form-group"><label>Key Competitors (if you know them)</label><input type="text" name="competitors" placeholder="Company names, comma-separated"></div><div class="form-group"><label>Focus Areas</label><div class="checkbox-group"><div class="checkbox-item"><input type="checkbox" id="focus-size" name="focusAreas" value="market-size"><label for="focus-size">Market size & growth</label></div><div class="checkbox-item"><input type="checkbox" id="focus-trends" name="focusAreas" value="trends"><label for="focus-trends">Industry trends</label></div><div class="checkbox-item"><input type="checkbox" id="focus-customer" name="focusAreas" value="customer-needs"><label for="focus-customer">Customer needs</label></div><div class="checkbox-item"><input type="checkbox" id="focus-competitive" name="focusAreas" value="competitive"><label for="focus-competitive">Competitive landscape</label></div></div></div></div>`,
+            'logo-design': `<div class="form-grid"><div class="form-group"><label class="required">Business/Brand Name</label><input type="text" name="brandName" required placeholder="Your business name"><span class="error-message"></span></div><div class="form-group"><label>What does your business/brand do?</label><input type="text" name="businessType" placeholder="e.g., Digital marketing agency, E-commerce store"></div><div class="form-group"><label>Target Audience</label><input type="text" name="targetAudience" placeholder="e.g., Young professionals, Tech enthusiasts"></div><div class="form-group"><label>Preferred Style</label><select name="logoStyle"><option value="">-- Select --</option><option value="modern">Modern & minimalist</option><option value="bold">Bold & vibrant</option><option value="elegant">Elegant & sophisticated</option><option value="playful">Playful & creative</option><option value="corporate">Corporate & professional</option></select></div><div class="form-group"><label>Brand Colors (Preferred)</label><input type="text" name="preferredColors" placeholder="e.g., Blue, Gold, White"></div><div class="form-group"><label>Inspiration or References</label><textarea name="inspiration" placeholder="Any logos or design references you like?"></textarea></div></div>`,
+            'business-cards': `<div class="form-grid"><div class="form-group"><label class="required">Business Name</label><input type="text" name="businessName" required placeholder="Your business name"><span class="error-message"></span></div><div class="form-group"><label class="required">Your Name/Title</label><input type="text" name="yourTitle" required placeholder="e.g., John Smith, CEO"><span class="error-message"></span></div><div class="form-group"><label class="required">Phone Number</label><input type="tel" name="businessPhone" required placeholder="Your business phone"><span class="error-message"></span></div><div class="form-group"><label class="required">Website/URL</label><input type="url" name="businessWebsite" required placeholder="https://yourbusiness.com"><span class="error-message"></span></div><div class="form-group"><label>Do you have a logo already?</label><select name="hasLogo"><option value="">-- Select --</option><option value="yes">Yes, I'll provide it</option><option value="no">No, create something simple</option></select></div></div>`,
+            'social-media-kit': `<div class="form-grid"><div class="form-group"><label class="required">Business/Brand Name</label><input type="text" name="brandName" required placeholder="Your brand name"><span class="error-message"></span></div><div class="form-group"><label>Industry/Category</label><select name="industry"><option value="">-- Select --</option><option value="tech">Technology</option><option value="fashion">Fashion & Beauty</option><option value="food">Food & Beverage</option><option value="ecommerce">E-commerce</option><option value="services">Services</option><option value="other">Other</option></select></div><div class="form-group"><label>Which platforms?</label><div class="checkbox-group"><div class="checkbox-item"><input type="checkbox" id="platform-instagram" name="platforms" value="instagram" checked><label for="platform-instagram">Instagram</label></div><div class="checkbox-item"><input type="checkbox" id="platform-facebook" name="platforms" value="facebook" checked><label for="platform-facebook">Facebook</label></div><div class="checkbox-item"><input type="checkbox" id="platform-tiktok" name="platforms" value="tiktok"><label for="platform-tiktok">TikTok</label></div><div class="checkbox-item"><input type="checkbox" id="platform-linkedin" name="platforms" value="linkedin"><label for="platform-linkedin">LinkedIn</label></div></div></div><div class="form-group"><label>Brand Tone</label><select name="brandTone"><option value="">-- Select --</option><option value="professional">Professional & formal</option><option value="friendly">Friendly & casual</option><option value="creative">Creative & artistic</option><option value="playful">Playful & humorous</option></select></div><div class="form-group"><label>Brand Colors (Preferred)</label><input type="text" name="brandColors" placeholder="e.g., #1e40af, #f59e0b"></div></div>`,
+            'social-audit': `<div class="form-grid"><div class="form-group"><label class="required">Your Social Media Handles</label><input type="text" name="socialHandles" required placeholder="@yourhandle, URL to profiles, etc."><span class="error-message"></span><span class="help-text">Provide all your active social media usernames or profile links</span></div><div class="form-group"><label>Primary Goal</label><select name="primaryGoal"><option value="">-- Select --</option><option value="engagement">Increase engagement</option><option value="growth">Grow followers</option><option value="sales">Drive sales/conversions</option><option value="brand">Build brand awareness</option></select></div><div class="form-group"><label>Main Challenges or Concerns</label><textarea name="challenges" placeholder="What's not working well on your social media?"></textarea></div></div>`,
+            'content-package': `<div class="form-grid"><div class="form-group"><label class="required">Industry/Niche</label><input type="text" name="industry" required placeholder="e.g., E-commerce, SaaS, Health & Wellness"><span class="error-message"></span></div><div class="form-group"><label>Primary Platform</label><select name="platform"><option value="">-- Select --</option><option value="instagram">Instagram</option><option value="facebook">Facebook</option><option value="linkedin">LinkedIn</option><option value="all">All (multi-platform)</option></select></div><div class="form-group"><label>Content Themes/Topics</label><input type="text" name="contentTopics" placeholder="e.g., Industry tips, product features, customer testimonials"><span class="help-text">Comma-separated list of topics</span></div><div class="form-group"><label>Brand Tone</label><select name="tone"><option value="">-- Select --</option><option value="professional">Professional</option><option value="casual">Casual & friendly</option><option value="energetic">Energetic & fun</option><option value="educational">Educational</option></select></div></div>`,
+            'ad-campaign': `<div class="form-grid"><div class="form-group"><label class="required">What are you advertising?</label><input type="text" name="productService" required placeholder="e.g., Online course, E-commerce store, Service"><span class="error-message"></span></div><div class="form-group"><label class="required">Ad Platform</label><select name="adPlatform" required><option value="">-- Select --</option><option value="facebook">Facebook & Instagram</option><option value="google">Google Ads</option><option value="both">Both</option></select><span class="error-message"></span></div><div class="form-group"><label>Monthly Ad Budget</label><input type="number" name="adBudget" placeholder="e.g., 500" step="50"><span class="help-text">In USD</span></div><div class="form-group"><label>Target Audience Description</label><textarea name="targetAudience" placeholder="Age, interests, location, job title, etc."></textarea></div><div class="form-group"><label>Desired Outcome</label><select name="desiredOutcome"><option value="">-- Select --</option><option value="clicks">Website clicks</option><option value="conversions">Sales/Sign-ups</option><option value="awareness">Brand awareness</option><option value="engagement">Engagement</option></select></div></div>`,
+            'strategy-call': `<div class="form-grid"><div class="form-group"><label class="required">What do you want to discuss?</label><textarea name="callTopic" required placeholder="Briefly describe the main challenges or topics you want to cover..."></textarea><span class="error-message"></span></div><div class="form-group"><label class="required">Preferred Call Date</label><input type="date" name="preferredDate" required><span class="error-message"></span></div><div class="form-group"><label class="required">Preferred Call Time (Your timezone)</label><input type="time" name="preferredTime" required><span class="error-message"></span></div><div class="form-group"><label>Your Background/Experience</label><input type="text" name="background" placeholder="e.g., 5 years in marketing, founder, developer"></div></div>`,
+            'business-plan-review': `<div class="form-grid"><div class="form-group"><label class="required">Business Name</label><input type="text" name="businessName" required placeholder="Your business name"><span class="error-message"></span></div><div class="form-group"><label class="required">How can we access your business plan?</label><select name="planAccess" required><option value="">-- Select --</option><option value="upload">I'll upload the file during checkout</option><option value="google-drive">Share Google Drive link</option><option value="dropbox">Share Dropbox link</option><option value="email">Email it separately</option></select><span class="error-message"></span></div><div class="form-group"><label>Key Areas for Review (optional)</label><div class="checkbox-group"><div class="checkbox-item"><input type="checkbox" id="review-exec" name="reviewAreas" value="executive"><label for="review-exec">Executive Summary</label></div><div class="checkbox-item"><input type="checkbox" id="review-market" name="reviewAreas" value="market"><label for="review-market">Market Analysis</label></div><div class="checkbox-item"><input type="checkbox" id="review-financial" name="reviewAreas" value="financial"><label for="review-financial">Financial Projections</label></div><div class="checkbox-item"><input type="checkbox" id="review-all" name="reviewAreas" value="all"><label for="review-all">Review entire plan</label></div></div></div></div>`,
+            'pitch-practice': `<div class="form-grid"><div class="form-group"><label class="required">What are you pitching?</label><input type="text" name="pitchTopic" required placeholder="e.g., Startup idea, Product launch, Investment request"><span class="error-message"></span></div><div class="form-group"><label>Who is your target investor?</label><input type="text" name="investorType" placeholder="e.g., Angel investors, VCs, Grants"></div><div class="form-group"><label>Experience Level</label><select name="experienceLevel"><option value="">-- Select --</option><option value="first-time">First time pitching</option><option value="some">Some pitch experience</option><option value="experienced">Experienced pitcher</option></select></div><div class="form-group"><label>Key Message You Want to Convey</label><textarea name="keyMessage" placeholder="What's the most important thing you want investors to understand?"></textarea></div></div>`,
+            'cv-resume': `<div class="form-grid"><div class="form-group"><label class="required">Job Title/Role You're Targeting</label><input type="text" name="targetRole" required placeholder="e.g., Software Engineer, Marketing Manager"><span class="error-message"></span></div><div class="form-group"><label class="required">Years of Experience</label><input type="number" name="yearsExperience" required min="0" placeholder="e.g., 5"><span class="error-message"></span></div><div class="form-group"><label>Key Skills (top 5-7)</label><input type="text" name="skills" placeholder="e.g., Python, Project Management, Leadership"><span class="help-text">Comma-separated list</span></div><div class="form-group"><label>Education</label><input type="text" name="education" placeholder="e.g., MBA from University X, B.Sc. Computer Science"></div><div class="form-group"><label>How would you like the format?</label><select name="format"><option value="">-- Select --</option><option value="modern">Modern/Contemporary</option><option value="traditional">Traditional</option><option value="ats">ATS-Optimized (for applications)</option></select></div></div>`,
+            'linkedin-optimization': `<div class="form-grid"><div class="form-group"><label class="required">Your Current LinkedIn URL</label><input type="url" name="linkedinUrl" required placeholder="https://linkedin.com/in/yourprofile"><span class="error-message"></span></div><div class="form-group"><label class="required">Current Job Title</label><input type="text" name="currentJobTitle" required placeholder="e.g., Software Engineer"><span class="error-message"></span></div><div class="form-group"><label>Industry</label><input type="text" name="industry" placeholder="e.g., Technology, Finance, Marketing"></div><div class="form-group"><label>What are your main goals on LinkedIn?</label><div class="checkbox-group"><div class="checkbox-item"><input type="checkbox" id="goal-job" name="goals" value="job-search"><label for="goal-job">Job search / Career change</label></div><div class="checkbox-item"><input type="checkbox" id="goal-network" name="goals" value="networking"><label for="goal-network">Build professional network</label></div><div class="checkbox-item"><input type="checkbox" id="goal-visibility" name="goals" value="visibility"><label for="goal-visibility">Increase visibility in my field</label></div><div class="checkbox-item"><input type="checkbox" id="goal-clients" name="goals" value="clients"><label for="goal-clients">Attract clients/business</label></div></div></div></div>`,
+            'portfolio-website': `<div class="form-grid"><div class="form-group"><label class="required">Your Name/Brand Name</label><input type="text" name="portfolioName" required placeholder="e.g., John Smith or Creative Studio"><span class="error-message"></span></div><div class="form-group"><label class="required">What's your profession/specialty?</label><input type="text" name="profession" required placeholder="e.g., Web Designer, Freelance Developer, Photographer"><span class="error-message"></span></div><div class="form-group"><label>How many projects to showcase?</label><select name="projectCount"><option value="">-- Select --</option><option value="3-5">3-5 projects</option><option value="5-8">5-8 projects</option><option value="8-12">8-12 projects</option></select></div><div class="form-group"><label>Brief bio or about yourself</label><textarea name="bio" placeholder="A short paragraph about yourself, your experience, and what you do..."></textarea></div></div>`
+        };
+
+        // Initialize form
+        function initForm() {
+            renderServices();
+            setupEventListeners();
+        }
+
+        // Render services by category
+        function renderServices() {
+            const container = document.getElementById('servicesContainer');
+            container.innerHTML = '';
+
+            const categories = [
+                { key: 'web-dev', label: '🌐 Web & Mobile Development' },
+                { key: 'business', label: '📊 Business Plan & Strategy' },
+                { key: 'branding', label: '🎨 Branding & Logo Design' },
+                { key: 'marketing', label: '📢 Marketing' },
+                { key: 'mentoring', label: '🎯 Mentoring & Consulting' },
+                { key: 'portfolio', label: '💼 Portfolio & Profile Building' }
+            ];
+
+            categories.forEach(cat => {
+                const catDiv = document.createElement('div');
+                catDiv.className = 'form-group';
+                catDiv.innerHTML = `<label style="font-size: 1em; font-weight: 700; margin-bottom: 12px;">${cat.label}</label>`;
+
+                const servicesList = services[cat.key];
+                servicesList.forEach(service => {
+                    const serviceDiv = document.createElement('div');
+                    serviceDiv.className = 'service-selector';
+                    serviceDiv.innerHTML = `
+                        <input type="radio" id="service-${service.id}" name="service" value="${service.id}" required>
+                        <div class="service-info">
+                            <div class="service-name">${service.name}</div>
+                            <div class="service-price">$${service.price} • ${service.delivery}</div>
+                        </div>
+                    `;
+                    serviceDiv.addEventListener('click', () => {
+                        document.getElementById(`service-${service.id}`).checked = true;
+                        updateServiceDetails(service);
+                    });
+                    catDiv.appendChild(serviceDiv);
+                });
+
+                container.appendChild(catDiv);
+            });
+        }
+
+        // Update form when service is selected
+        function updateServiceDetails(service) {
+            document.getElementById('summaryService').textContent = service.name;
+            document.getElementById('summaryPrice').textContent = `$${service.price}`;
+            document.getElementById('summaryDelivery').textContent = service.delivery;
+
+            const detailsSection = document.getElementById('serviceDetailsSection');
+            const detailsContainer = document.getElementById('serviceDetailsContainer');
+
+            if (serviceFields[service.id]) {
+                detailsSection.style.display = 'block';
+                detailsContainer.innerHTML = serviceFields[service.id];
+            } else {
+                detailsSection.style.display = 'none';
+                detailsContainer.innerHTML = '';
+            }
+        }
+
+        // Setup event listeners
+        function setupEventListeners() {
+            const form = document.getElementById('serviceForm');
+
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
+
+                if (!validateForm()) {
+                    return;
+                }
+
+                const formData = new FormData(form);
+                const data = {
+                    service: formData.get('service'),
+                    timestamp: new Date().toISOString()
+                };
+
+                console.log('Service Request:', data);
+
+                const successMessage = document.getElementById('successMessage');
+                successMessage.classList.add('show');
+
+                form.reset();
+                document.getElementById('serviceDetailsSection').style.display = 'none';
+                document.getElementById('summaryService').textContent = 'Not selected';
+                document.getElementById('summaryPrice').textContent = '$0';
+                document.getElementById('summaryDelivery').textContent = '-';
+
+                setTimeout(() => {
+                    successMessage.classList.remove('show');
+                }, 5000);
+
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+        }
+
+        // Validate form
+        function validateForm() {
+            const form = document.getElementById('serviceForm');
+            let isValid = true;
+
+            form.querySelectorAll('input[required], select[required], textarea[required]').forEach(field => {
+                const errorEl = field.closest('.form-group').querySelector('.error-message');
+                
+                if (!field.value || (field.type === 'email' && !isValidEmail(field.value))) {
+                    field.classList.add('error');
+                    if (errorEl) {
+                        errorEl.textContent = 'This field is required';
+                        errorEl.classList.add('show');
+                    }
+                    isValid = false;
+                } else {
+                    field.classList.remove('error');
+                    if (errorEl) {
+                        errorEl.classList.remove('show');
+                    }
+                }
+            });
+
+            return isValid;
+        }
+
+        function isValidEmail(email) {
+            return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+        }
+
+        document.addEventListener('DOMContentLoaded', initForm);
+    </script>
+</body>
+</html>
