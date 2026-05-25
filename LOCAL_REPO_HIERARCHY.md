@@ -1,0 +1,7407 @@
+# Hexadigitall Local Repository Hierarchy
+
+```text
+.
+├── .build-scripts
+│   ├── __tests__
+│   │   ├── __mocks__
+│   │   │   └── sanityClient.js
+│   │   └── migrate-services.test.js
+│   ├── jest.setup.js
+│   ├── migrate-services-dryrun.js
+│   └── migrate-services.js
+├── .dev-error-log
+├── .dev-server.pid
+├── .env.example
+├── .env.local
+├── .env.local.example
+├── .env.local.template
+├── .env.production
+├── .env.production.local
+├── .env.vercel.check
+├── .env.vercel.check2
+├── .env.vercel.current
+├── .eslintrc.js
+├── .gemini
+│   └── settings.json
+├── .github
+│   ├── dependabot.yml
+│   └── workflows
+│       ├── axe-audit.yml
+│       └── ci.yml
+├── .gitignore
+├── .npmrc
+├── .nvmrc
+├── .sanity
+│   └── runtime
+│       ├── app.js
+│       └── index.html
+├── .venv
+│   ├── .gitignore
+│   ├── bin
+│   │   ├── Activate.ps1
+│   │   ├── activate
+│   │   ├── activate.csh
+│   │   ├── activate.fish
+│   │   ├── pip
+│   │   ├── pip3
+│   │   ├── pip3.12
+│   │   ├── python
+│   │   ├── python3
+│   │   └── python3.12
+│   ├── include
+│   │   └── python3.12
+│   ├── lib
+│   │   └── python3.12
+│   │       └── site-packages
+│   │           ├── pip
+│   │           │   ├── __init__.py
+│   │           │   ├── __main__.py
+│   │           │   ├── __pip-runner__.py
+│   │           │   ├── _internal
+│   │           │   │   ├── __init__.py
+│   │           │   │   ├── build_env.py
+│   │           │   │   ├── cache.py
+│   │           │   │   ├── cli
+│   │           │   │   │   ├── __init__.py
+│   │           │   │   │   ├── autocompletion.py
+│   │           │   │   │   ├── base_command.py
+│   │           │   │   │   ├── cmdoptions.py
+│   │           │   │   │   ├── command_context.py
+│   │           │   │   │   ├── index_command.py
+│   │           │   │   │   ├── main.py
+│   │           │   │   │   ├── main_parser.py
+│   │           │   │   │   ├── parser.py
+│   │           │   │   │   ├── progress_bars.py
+│   │           │   │   │   ├── req_command.py
+│   │           │   │   │   ├── spinners.py
+│   │           │   │   │   └── status_codes.py
+│   │           │   │   ├── commands
+│   │           │   │   │   ├── __init__.py
+│   │           │   │   │   ├── cache.py
+│   │           │   │   │   ├── check.py
+│   │           │   │   │   ├── completion.py
+│   │           │   │   │   ├── configuration.py
+│   │           │   │   │   ├── debug.py
+│   │           │   │   │   ├── download.py
+│   │           │   │   │   ├── freeze.py
+│   │           │   │   │   ├── hash.py
+│   │           │   │   │   ├── help.py
+│   │           │   │   │   ├── index.py
+│   │           │   │   │   ├── inspect.py
+│   │           │   │   │   ├── install.py
+│   │           │   │   │   ├── list.py
+│   │           │   │   │   ├── lock.py
+│   │           │   │   │   ├── search.py
+│   │           │   │   │   ├── show.py
+│   │           │   │   │   ├── uninstall.py
+│   │           │   │   │   └── wheel.py
+│   │           │   │   ├── configuration.py
+│   │           │   │   ├── distributions
+│   │           │   │   │   ├── __init__.py
+│   │           │   │   │   ├── base.py
+│   │           │   │   │   ├── installed.py
+│   │           │   │   │   ├── sdist.py
+│   │           │   │   │   └── wheel.py
+│   │           │   │   ├── exceptions.py
+│   │           │   │   ├── index
+│   │           │   │   │   ├── __init__.py
+│   │           │   │   │   ├── collector.py
+│   │           │   │   │   ├── package_finder.py
+│   │           │   │   │   └── sources.py
+│   │           │   │   ├── locations
+│   │           │   │   │   ├── __init__.py
+│   │           │   │   │   ├── _distutils.py
+│   │           │   │   │   ├── _sysconfig.py
+│   │           │   │   │   └── base.py
+│   │           │   │   ├── main.py
+│   │           │   │   ├── metadata
+│   │           │   │   │   ├── __init__.py
+│   │           │   │   │   ├── _json.py
+│   │           │   │   │   ├── base.py
+│   │           │   │   │   ├── importlib
+│   │           │   │   │   │   ├── __init__.py
+│   │           │   │   │   │   ├── _compat.py
+│   │           │   │   │   │   ├── _dists.py
+│   │           │   │   │   │   └── _envs.py
+│   │           │   │   │   └── pkg_resources.py
+│   │           │   │   ├── models
+│   │           │   │   │   ├── __init__.py
+│   │           │   │   │   ├── candidate.py
+│   │           │   │   │   ├── direct_url.py
+│   │           │   │   │   ├── format_control.py
+│   │           │   │   │   ├── index.py
+│   │           │   │   │   ├── installation_report.py
+│   │           │   │   │   ├── link.py
+│   │           │   │   │   ├── pylock.py
+│   │           │   │   │   ├── scheme.py
+│   │           │   │   │   ├── search_scope.py
+│   │           │   │   │   ├── selection_prefs.py
+│   │           │   │   │   ├── target_python.py
+│   │           │   │   │   └── wheel.py
+│   │           │   │   ├── network
+│   │           │   │   │   ├── __init__.py
+│   │           │   │   │   ├── auth.py
+│   │           │   │   │   ├── cache.py
+│   │           │   │   │   ├── download.py
+│   │           │   │   │   ├── lazy_wheel.py
+│   │           │   │   │   ├── session.py
+│   │           │   │   │   ├── utils.py
+│   │           │   │   │   └── xmlrpc.py
+│   │           │   │   ├── operations
+│   │           │   │   │   ├── __init__.py
+│   │           │   │   │   ├── build
+│   │           │   │   │   │   ├── __init__.py
+│   │           │   │   │   │   ├── build_tracker.py
+│   │           │   │   │   │   ├── metadata.py
+│   │           │   │   │   │   ├── metadata_editable.py
+│   │           │   │   │   │   ├── wheel.py
+│   │           │   │   │   │   └── wheel_editable.py
+│   │           │   │   │   ├── check.py
+│   │           │   │   │   ├── freeze.py
+│   │           │   │   │   ├── install
+│   │           │   │   │   │   ├── __init__.py
+│   │           │   │   │   │   └── wheel.py
+│   │           │   │   │   └── prepare.py
+│   │           │   │   ├── pyproject.py
+│   │           │   │   ├── req
+│   │           │   │   │   ├── __init__.py
+│   │           │   │   │   ├── constructors.py
+│   │           │   │   │   ├── req_dependency_group.py
+│   │           │   │   │   ├── req_file.py
+│   │           │   │   │   ├── req_install.py
+│   │           │   │   │   ├── req_set.py
+│   │           │   │   │   └── req_uninstall.py
+│   │           │   │   ├── resolution
+│   │           │   │   │   ├── __init__.py
+│   │           │   │   │   ├── base.py
+│   │           │   │   │   ├── legacy
+│   │           │   │   │   │   ├── __init__.py
+│   │           │   │   │   │   └── resolver.py
+│   │           │   │   │   └── resolvelib
+│   │           │   │   │       ├── __init__.py
+│   │           │   │   │       ├── base.py
+│   │           │   │   │       ├── candidates.py
+│   │           │   │   │       ├── factory.py
+│   │           │   │   │       ├── found_candidates.py
+│   │           │   │   │       ├── provider.py
+│   │           │   │   │       ├── reporter.py
+│   │           │   │   │       ├── requirements.py
+│   │           │   │   │       └── resolver.py
+│   │           │   │   ├── self_outdated_check.py
+│   │           │   │   ├── utils
+│   │           │   │   │   ├── __init__.py
+│   │           │   │   │   ├── _jaraco_text.py
+│   │           │   │   │   ├── _log.py
+│   │           │   │   │   ├── appdirs.py
+│   │           │   │   │   ├── compat.py
+│   │           │   │   │   ├── compatibility_tags.py
+│   │           │   │   │   ├── datetime.py
+│   │           │   │   │   ├── deprecation.py
+│   │           │   │   │   ├── direct_url_helpers.py
+│   │           │   │   │   ├── egg_link.py
+│   │           │   │   │   ├── entrypoints.py
+│   │           │   │   │   ├── filesystem.py
+│   │           │   │   │   ├── filetypes.py
+│   │           │   │   │   ├── glibc.py
+│   │           │   │   │   ├── hashes.py
+│   │           │   │   │   ├── logging.py
+│   │           │   │   │   ├── misc.py
+│   │           │   │   │   ├── packaging.py
+│   │           │   │   │   ├── retry.py
+│   │           │   │   │   ├── subprocess.py
+│   │           │   │   │   ├── temp_dir.py
+│   │           │   │   │   ├── unpacking.py
+│   │           │   │   │   ├── urls.py
+│   │           │   │   │   ├── virtualenv.py
+│   │           │   │   │   └── wheel.py
+│   │           │   │   ├── vcs
+│   │           │   │   │   ├── __init__.py
+│   │           │   │   │   ├── bazaar.py
+│   │           │   │   │   ├── git.py
+│   │           │   │   │   ├── mercurial.py
+│   │           │   │   │   ├── subversion.py
+│   │           │   │   │   └── versioncontrol.py
+│   │           │   │   └── wheel_builder.py
+│   │           │   ├── _vendor
+│   │           │   │   ├── README.rst
+│   │           │   │   ├── __init__.py
+│   │           │   │   ├── cachecontrol
+│   │           │   │   │   ├── LICENSE.txt
+│   │           │   │   │   ├── __init__.py
+│   │           │   │   │   ├── _cmd.py
+│   │           │   │   │   ├── adapter.py
+│   │           │   │   │   ├── cache.py
+│   │           │   │   │   ├── caches
+│   │           │   │   │   │   ├── __init__.py
+│   │           │   │   │   │   ├── file_cache.py
+│   │           │   │   │   │   └── redis_cache.py
+│   │           │   │   │   ├── controller.py
+│   │           │   │   │   ├── filewrapper.py
+│   │           │   │   │   ├── heuristics.py
+│   │           │   │   │   ├── py.typed
+│   │           │   │   │   ├── serialize.py
+│   │           │   │   │   └── wrapper.py
+│   │           │   │   ├── certifi
+│   │           │   │   │   ├── LICENSE
+│   │           │   │   │   ├── __init__.py
+│   │           │   │   │   ├── __main__.py
+│   │           │   │   │   ├── cacert.pem
+│   │           │   │   │   ├── core.py
+│   │           │   │   │   └── py.typed
+│   │           │   │   ├── dependency_groups
+│   │           │   │   │   ├── LICENSE.txt
+│   │           │   │   │   ├── __init__.py
+│   │           │   │   │   ├── __main__.py
+│   │           │   │   │   ├── _implementation.py
+│   │           │   │   │   ├── _lint_dependency_groups.py
+│   │           │   │   │   ├── _pip_wrapper.py
+│   │           │   │   │   ├── _toml_compat.py
+│   │           │   │   │   └── py.typed
+│   │           │   │   ├── distlib
+│   │           │   │   │   ├── LICENSE.txt
+│   │           │   │   │   ├── __init__.py
+│   │           │   │   │   ├── compat.py
+│   │           │   │   │   ├── resources.py
+│   │           │   │   │   ├── scripts.py
+│   │           │   │   │   ├── t32.exe
+│   │           │   │   │   ├── t64-arm.exe
+│   │           │   │   │   ├── t64.exe
+│   │           │   │   │   ├── util.py
+│   │           │   │   │   ├── w32.exe
+│   │           │   │   │   ├── w64-arm.exe
+│   │           │   │   │   └── w64.exe
+│   │           │   │   ├── distro
+│   │           │   │   │   ├── LICENSE
+│   │           │   │   │   ├── __init__.py
+│   │           │   │   │   ├── __main__.py
+│   │           │   │   │   ├── distro.py
+│   │           │   │   │   └── py.typed
+│   │           │   │   ├── idna
+│   │           │   │   │   ├── LICENSE.md
+│   │           │   │   │   ├── __init__.py
+│   │           │   │   │   ├── codec.py
+│   │           │   │   │   ├── compat.py
+│   │           │   │   │   ├── core.py
+│   │           │   │   │   ├── idnadata.py
+│   │           │   │   │   ├── intranges.py
+│   │           │   │   │   ├── package_data.py
+│   │           │   │   │   ├── py.typed
+│   │           │   │   │   └── uts46data.py
+│   │           │   │   ├── msgpack
+│   │           │   │   │   ├── COPYING
+│   │           │   │   │   ├── __init__.py
+│   │           │   │   │   ├── exceptions.py
+│   │           │   │   │   ├── ext.py
+│   │           │   │   │   └── fallback.py
+│   │           │   │   ├── packaging
+│   │           │   │   │   ├── LICENSE
+│   │           │   │   │   ├── LICENSE.APACHE
+│   │           │   │   │   ├── LICENSE.BSD
+│   │           │   │   │   ├── __init__.py
+│   │           │   │   │   ├── _elffile.py
+│   │           │   │   │   ├── _manylinux.py
+│   │           │   │   │   ├── _musllinux.py
+│   │           │   │   │   ├── _parser.py
+│   │           │   │   │   ├── _structures.py
+│   │           │   │   │   ├── _tokenizer.py
+│   │           │   │   │   ├── licenses
+│   │           │   │   │   │   ├── __init__.py
+│   │           │   │   │   │   └── _spdx.py
+│   │           │   │   │   ├── markers.py
+│   │           │   │   │   ├── metadata.py
+│   │           │   │   │   ├── py.typed
+│   │           │   │   │   ├── requirements.py
+│   │           │   │   │   ├── specifiers.py
+│   │           │   │   │   ├── tags.py
+│   │           │   │   │   ├── utils.py
+│   │           │   │   │   └── version.py
+│   │           │   │   ├── pkg_resources
+│   │           │   │   │   ├── LICENSE
+│   │           │   │   │   └── __init__.py
+│   │           │   │   ├── platformdirs
+│   │           │   │   │   ├── LICENSE
+│   │           │   │   │   ├── __init__.py
+│   │           │   │   │   ├── __main__.py
+│   │           │   │   │   ├── android.py
+│   │           │   │   │   ├── api.py
+│   │           │   │   │   ├── macos.py
+│   │           │   │   │   ├── py.typed
+│   │           │   │   │   ├── unix.py
+│   │           │   │   │   ├── version.py
+│   │           │   │   │   └── windows.py
+│   │           │   │   ├── pygments
+│   │           │   │   │   ├── LICENSE
+│   │           │   │   │   ├── __init__.py
+│   │           │   │   │   ├── __main__.py
+│   │           │   │   │   ├── console.py
+│   │           │   │   │   ├── filter.py
+│   │           │   │   │   ├── filters
+│   │           │   │   │   │   └── __init__.py
+│   │           │   │   │   ├── formatter.py
+│   │           │   │   │   ├── formatters
+│   │           │   │   │   │   ├── __init__.py
+│   │           │   │   │   │   └── _mapping.py
+│   │           │   │   │   ├── lexer.py
+│   │           │   │   │   ├── lexers
+│   │           │   │   │   │   ├── __init__.py
+│   │           │   │   │   │   ├── _mapping.py
+│   │           │   │   │   │   └── python.py
+│   │           │   │   │   ├── modeline.py
+│   │           │   │   │   ├── plugin.py
+│   │           │   │   │   ├── regexopt.py
+│   │           │   │   │   ├── scanner.py
+│   │           │   │   │   ├── sphinxext.py
+│   │           │   │   │   ├── style.py
+│   │           │   │   │   ├── styles
+│   │           │   │   │   │   ├── __init__.py
+│   │           │   │   │   │   └── _mapping.py
+│   │           │   │   │   ├── token.py
+│   │           │   │   │   ├── unistring.py
+│   │           │   │   │   └── util.py
+│   │           │   │   ├── pyproject_hooks
+│   │           │   │   │   ├── LICENSE
+│   │           │   │   │   ├── __init__.py
+│   │           │   │   │   ├── _impl.py
+│   │           │   │   │   ├── _in_process
+│   │           │   │   │   │   ├── __init__.py
+│   │           │   │   │   │   └── _in_process.py
+│   │           │   │   │   └── py.typed
+│   │           │   │   ├── requests
+│   │           │   │   │   ├── LICENSE
+│   │           │   │   │   ├── __init__.py
+│   │           │   │   │   ├── __version__.py
+│   │           │   │   │   ├── _internal_utils.py
+│   │           │   │   │   ├── adapters.py
+│   │           │   │   │   ├── api.py
+│   │           │   │   │   ├── auth.py
+│   │           │   │   │   ├── certs.py
+│   │           │   │   │   ├── compat.py
+│   │           │   │   │   ├── cookies.py
+│   │           │   │   │   ├── exceptions.py
+│   │           │   │   │   ├── help.py
+│   │           │   │   │   ├── hooks.py
+│   │           │   │   │   ├── models.py
+│   │           │   │   │   ├── packages.py
+│   │           │   │   │   ├── sessions.py
+│   │           │   │   │   ├── status_codes.py
+│   │           │   │   │   ├── structures.py
+│   │           │   │   │   └── utils.py
+│   │           │   │   ├── resolvelib
+│   │           │   │   │   ├── LICENSE
+│   │           │   │   │   ├── __init__.py
+│   │           │   │   │   ├── providers.py
+│   │           │   │   │   ├── py.typed
+│   │           │   │   │   ├── reporters.py
+│   │           │   │   │   ├── resolvers
+│   │           │   │   │   │   ├── __init__.py
+│   │           │   │   │   │   ├── abstract.py
+│   │           │   │   │   │   ├── criterion.py
+│   │           │   │   │   │   ├── exceptions.py
+│   │           │   │   │   │   └── resolution.py
+│   │           │   │   │   └── structs.py
+│   │           │   │   ├── rich
+│   │           │   │   │   ├── LICENSE
+│   │           │   │   │   ├── __init__.py
+│   │           │   │   │   ├── __main__.py
+│   │           │   │   │   ├── _cell_widths.py
+│   │           │   │   │   ├── _emoji_codes.py
+│   │           │   │   │   ├── _emoji_replace.py
+│   │           │   │   │   ├── _export_format.py
+│   │           │   │   │   ├── _extension.py
+│   │           │   │   │   ├── _fileno.py
+│   │           │   │   │   ├── _inspect.py
+│   │           │   │   │   ├── _log_render.py
+│   │           │   │   │   ├── _loop.py
+│   │           │   │   │   ├── _null_file.py
+│   │           │   │   │   ├── _palettes.py
+│   │           │   │   │   ├── _pick.py
+│   │           │   │   │   ├── _ratio.py
+│   │           │   │   │   ├── _spinners.py
+│   │           │   │   │   ├── _stack.py
+│   │           │   │   │   ├── _timer.py
+│   │           │   │   │   ├── _win32_console.py
+│   │           │   │   │   ├── _windows.py
+│   │           │   │   │   ├── _windows_renderer.py
+│   │           │   │   │   ├── _wrap.py
+│   │           │   │   │   ├── abc.py
+│   │           │   │   │   ├── align.py
+│   │           │   │   │   ├── ansi.py
+│   │           │   │   │   ├── bar.py
+│   │           │   │   │   ├── box.py
+│   │           │   │   │   ├── cells.py
+│   │           │   │   │   ├── color.py
+│   │           │   │   │   ├── color_triplet.py
+│   │           │   │   │   ├── columns.py
+│   │           │   │   │   ├── console.py
+│   │           │   │   │   ├── constrain.py
+│   │           │   │   │   ├── containers.py
+│   │           │   │   │   ├── control.py
+│   │           │   │   │   ├── default_styles.py
+│   │           │   │   │   ├── diagnose.py
+│   │           │   │   │   ├── emoji.py
+│   │           │   │   │   ├── errors.py
+│   │           │   │   │   ├── file_proxy.py
+│   │           │   │   │   ├── filesize.py
+│   │           │   │   │   ├── highlighter.py
+│   │           │   │   │   ├── json.py
+│   │           │   │   │   ├── jupyter.py
+│   │           │   │   │   ├── layout.py
+│   │           │   │   │   ├── live.py
+│   │           │   │   │   ├── live_render.py
+│   │           │   │   │   ├── logging.py
+│   │           │   │   │   ├── markup.py
+│   │           │   │   │   ├── measure.py
+│   │           │   │   │   ├── padding.py
+│   │           │   │   │   ├── pager.py
+│   │           │   │   │   ├── palette.py
+│   │           │   │   │   ├── panel.py
+│   │           │   │   │   ├── pretty.py
+│   │           │   │   │   ├── progress.py
+│   │           │   │   │   ├── progress_bar.py
+│   │           │   │   │   ├── prompt.py
+│   │           │   │   │   ├── protocol.py
+│   │           │   │   │   ├── py.typed
+│   │           │   │   │   ├── region.py
+│   │           │   │   │   ├── repr.py
+│   │           │   │   │   ├── rule.py
+│   │           │   │   │   ├── scope.py
+│   │           │   │   │   ├── screen.py
+│   │           │   │   │   ├── segment.py
+│   │           │   │   │   ├── spinner.py
+│   │           │   │   │   ├── status.py
+│   │           │   │   │   ├── style.py
+│   │           │   │   │   ├── styled.py
+│   │           │   │   │   ├── syntax.py
+│   │           │   │   │   ├── table.py
+│   │           │   │   │   ├── terminal_theme.py
+│   │           │   │   │   ├── text.py
+│   │           │   │   │   ├── theme.py
+│   │           │   │   │   ├── themes.py
+│   │           │   │   │   ├── traceback.py
+│   │           │   │   │   └── tree.py
+│   │           │   │   ├── tomli
+│   │           │   │   │   ├── LICENSE
+│   │           │   │   │   ├── __init__.py
+│   │           │   │   │   ├── _parser.py
+│   │           │   │   │   ├── _re.py
+│   │           │   │   │   ├── _types.py
+│   │           │   │   │   └── py.typed
+│   │           │   │   ├── tomli_w
+│   │           │   │   │   ├── LICENSE
+│   │           │   │   │   ├── __init__.py
+│   │           │   │   │   ├── _writer.py
+│   │           │   │   │   └── py.typed
+│   │           │   │   ├── truststore
+│   │           │   │   │   ├── LICENSE
+│   │           │   │   │   ├── __init__.py
+│   │           │   │   │   ├── _api.py
+│   │           │   │   │   ├── _macos.py
+│   │           │   │   │   ├── _openssl.py
+│   │           │   │   │   ├── _ssl_constants.py
+│   │           │   │   │   ├── _windows.py
+│   │           │   │   │   └── py.typed
+│   │           │   │   ├── urllib3
+│   │           │   │   │   ├── LICENSE.txt
+│   │           │   │   │   ├── __init__.py
+│   │           │   │   │   ├── _collections.py
+│   │           │   │   │   ├── _version.py
+│   │           │   │   │   ├── connection.py
+│   │           │   │   │   ├── connectionpool.py
+│   │           │   │   │   ├── contrib
+│   │           │   │   │   │   ├── __init__.py
+│   │           │   │   │   │   ├── _appengine_environ.py
+│   │           │   │   │   │   ├── _securetransport
+│   │           │   │   │   │   │   ├── __init__.py
+│   │           │   │   │   │   │   ├── bindings.py
+│   │           │   │   │   │   │   └── low_level.py
+│   │           │   │   │   │   ├── appengine.py
+│   │           │   │   │   │   ├── ntlmpool.py
+│   │           │   │   │   │   ├── pyopenssl.py
+│   │           │   │   │   │   ├── securetransport.py
+│   │           │   │   │   │   └── socks.py
+│   │           │   │   │   ├── exceptions.py
+│   │           │   │   │   ├── fields.py
+│   │           │   │   │   ├── filepost.py
+│   │           │   │   │   ├── packages
+│   │           │   │   │   │   ├── __init__.py
+│   │           │   │   │   │   ├── backports
+│   │           │   │   │   │   │   ├── __init__.py
+│   │           │   │   │   │   │   ├── makefile.py
+│   │           │   │   │   │   │   └── weakref_finalize.py
+│   │           │   │   │   │   └── six.py
+│   │           │   │   │   ├── poolmanager.py
+│   │           │   │   │   ├── request.py
+│   │           │   │   │   ├── response.py
+│   │           │   │   │   └── util
+│   │           │   │   │       ├── __init__.py
+│   │           │   │   │       ├── connection.py
+│   │           │   │   │       ├── proxy.py
+│   │           │   │   │       ├── queue.py
+│   │           │   │   │       ├── request.py
+│   │           │   │   │       ├── response.py
+│   │           │   │   │       ├── retry.py
+│   │           │   │   │       ├── ssl_.py
+│   │           │   │   │       ├── ssl_match_hostname.py
+│   │           │   │   │       ├── ssltransport.py
+│   │           │   │   │       ├── timeout.py
+│   │           │   │   │       ├── url.py
+│   │           │   │   │       └── wait.py
+│   │           │   │   └── vendor.txt
+│   │           │   └── py.typed
+│   │           └── pip-25.3.dist-info
+│   │               ├── INSTALLER
+│   │               ├── METADATA
+│   │               ├── RECORD
+│   │               ├── REQUESTED
+│   │               ├── WHEEL
+│   │               ├── entry_points.txt
+│   │               └── licenses
+│   │                   ├── AUTHORS.txt
+│   │                   ├── LICENSE.txt
+│   │                   └── src
+│   │                       └── pip
+│   │                           └── _vendor
+│   │                               ├── cachecontrol
+│   │                               │   └── LICENSE.txt
+│   │                               ├── certifi
+│   │                               │   └── LICENSE
+│   │                               ├── dependency_groups
+│   │                               │   └── LICENSE.txt
+│   │                               ├── distlib
+│   │                               │   └── LICENSE.txt
+│   │                               ├── distro
+│   │                               │   └── LICENSE
+│   │                               ├── idna
+│   │                               │   └── LICENSE.md
+│   │                               ├── msgpack
+│   │                               │   └── COPYING
+│   │                               ├── packaging
+│   │                               │   ├── LICENSE
+│   │                               │   ├── LICENSE.APACHE
+│   │                               │   └── LICENSE.BSD
+│   │                               ├── pkg_resources
+│   │                               │   └── LICENSE
+│   │                               ├── platformdirs
+│   │                               │   └── LICENSE
+│   │                               ├── pygments
+│   │                               │   └── LICENSE
+│   │                               ├── pyproject_hooks
+│   │                               │   └── LICENSE
+│   │                               ├── requests
+│   │                               │   └── LICENSE
+│   │                               ├── resolvelib
+│   │                               │   └── LICENSE
+│   │                               ├── rich
+│   │                               │   └── LICENSE
+│   │                               ├── tomli
+│   │                               │   └── LICENSE
+│   │                               ├── tomli_w
+│   │                               │   └── LICENSE
+│   │                               ├── truststore
+│   │                               │   └── LICENSE
+│   │                               └── urllib3
+│   │                                   └── LICENSE.txt
+│   ├── lib64
+│   │   └── python3.12
+│   │       └── site-packages
+│   │           ├── pip
+│   │           │   ├── __init__.py
+│   │           │   ├── __main__.py
+│   │           │   ├── __pip-runner__.py
+│   │           │   ├── _internal
+│   │           │   │   ├── __init__.py
+│   │           │   │   ├── build_env.py
+│   │           │   │   ├── cache.py
+│   │           │   │   ├── cli
+│   │           │   │   │   ├── __init__.py
+│   │           │   │   │   ├── autocompletion.py
+│   │           │   │   │   ├── base_command.py
+│   │           │   │   │   ├── cmdoptions.py
+│   │           │   │   │   ├── command_context.py
+│   │           │   │   │   ├── index_command.py
+│   │           │   │   │   ├── main.py
+│   │           │   │   │   ├── main_parser.py
+│   │           │   │   │   ├── parser.py
+│   │           │   │   │   ├── progress_bars.py
+│   │           │   │   │   ├── req_command.py
+│   │           │   │   │   ├── spinners.py
+│   │           │   │   │   └── status_codes.py
+│   │           │   │   ├── commands
+│   │           │   │   │   ├── __init__.py
+│   │           │   │   │   ├── cache.py
+│   │           │   │   │   ├── check.py
+│   │           │   │   │   ├── completion.py
+│   │           │   │   │   ├── configuration.py
+│   │           │   │   │   ├── debug.py
+│   │           │   │   │   ├── download.py
+│   │           │   │   │   ├── freeze.py
+│   │           │   │   │   ├── hash.py
+│   │           │   │   │   ├── help.py
+│   │           │   │   │   ├── index.py
+│   │           │   │   │   ├── inspect.py
+│   │           │   │   │   ├── install.py
+│   │           │   │   │   ├── list.py
+│   │           │   │   │   ├── lock.py
+│   │           │   │   │   ├── search.py
+│   │           │   │   │   ├── show.py
+│   │           │   │   │   ├── uninstall.py
+│   │           │   │   │   └── wheel.py
+│   │           │   │   ├── configuration.py
+│   │           │   │   ├── distributions
+│   │           │   │   │   ├── __init__.py
+│   │           │   │   │   ├── base.py
+│   │           │   │   │   ├── installed.py
+│   │           │   │   │   ├── sdist.py
+│   │           │   │   │   └── wheel.py
+│   │           │   │   ├── exceptions.py
+│   │           │   │   ├── index
+│   │           │   │   │   ├── __init__.py
+│   │           │   │   │   ├── collector.py
+│   │           │   │   │   ├── package_finder.py
+│   │           │   │   │   └── sources.py
+│   │           │   │   ├── locations
+│   │           │   │   │   ├── __init__.py
+│   │           │   │   │   ├── _distutils.py
+│   │           │   │   │   ├── _sysconfig.py
+│   │           │   │   │   └── base.py
+│   │           │   │   ├── main.py
+│   │           │   │   ├── metadata
+│   │           │   │   │   ├── __init__.py
+│   │           │   │   │   ├── _json.py
+│   │           │   │   │   ├── base.py
+│   │           │   │   │   ├── importlib
+│   │           │   │   │   │   ├── __init__.py
+│   │           │   │   │   │   ├── _compat.py
+│   │           │   │   │   │   ├── _dists.py
+│   │           │   │   │   │   └── _envs.py
+│   │           │   │   │   └── pkg_resources.py
+│   │           │   │   ├── models
+│   │           │   │   │   ├── __init__.py
+│   │           │   │   │   ├── candidate.py
+│   │           │   │   │   ├── direct_url.py
+│   │           │   │   │   ├── format_control.py
+│   │           │   │   │   ├── index.py
+│   │           │   │   │   ├── installation_report.py
+│   │           │   │   │   ├── link.py
+│   │           │   │   │   ├── pylock.py
+│   │           │   │   │   ├── scheme.py
+│   │           │   │   │   ├── search_scope.py
+│   │           │   │   │   ├── selection_prefs.py
+│   │           │   │   │   ├── target_python.py
+│   │           │   │   │   └── wheel.py
+│   │           │   │   ├── network
+│   │           │   │   │   ├── __init__.py
+│   │           │   │   │   ├── auth.py
+│   │           │   │   │   ├── cache.py
+│   │           │   │   │   ├── download.py
+│   │           │   │   │   ├── lazy_wheel.py
+│   │           │   │   │   ├── session.py
+│   │           │   │   │   ├── utils.py
+│   │           │   │   │   └── xmlrpc.py
+│   │           │   │   ├── operations
+│   │           │   │   │   ├── __init__.py
+│   │           │   │   │   ├── build
+│   │           │   │   │   │   ├── __init__.py
+│   │           │   │   │   │   ├── build_tracker.py
+│   │           │   │   │   │   ├── metadata.py
+│   │           │   │   │   │   ├── metadata_editable.py
+│   │           │   │   │   │   ├── wheel.py
+│   │           │   │   │   │   └── wheel_editable.py
+│   │           │   │   │   ├── check.py
+│   │           │   │   │   ├── freeze.py
+│   │           │   │   │   ├── install
+│   │           │   │   │   │   ├── __init__.py
+│   │           │   │   │   │   └── wheel.py
+│   │           │   │   │   └── prepare.py
+│   │           │   │   ├── pyproject.py
+│   │           │   │   ├── req
+│   │           │   │   │   ├── __init__.py
+│   │           │   │   │   ├── constructors.py
+│   │           │   │   │   ├── req_dependency_group.py
+│   │           │   │   │   ├── req_file.py
+│   │           │   │   │   ├── req_install.py
+│   │           │   │   │   ├── req_set.py
+│   │           │   │   │   └── req_uninstall.py
+│   │           │   │   ├── resolution
+│   │           │   │   │   ├── __init__.py
+│   │           │   │   │   ├── base.py
+│   │           │   │   │   ├── legacy
+│   │           │   │   │   │   ├── __init__.py
+│   │           │   │   │   │   └── resolver.py
+│   │           │   │   │   └── resolvelib
+│   │           │   │   │       ├── __init__.py
+│   │           │   │   │       ├── base.py
+│   │           │   │   │       ├── candidates.py
+│   │           │   │   │       ├── factory.py
+│   │           │   │   │       ├── found_candidates.py
+│   │           │   │   │       ├── provider.py
+│   │           │   │   │       ├── reporter.py
+│   │           │   │   │       ├── requirements.py
+│   │           │   │   │       └── resolver.py
+│   │           │   │   ├── self_outdated_check.py
+│   │           │   │   ├── utils
+│   │           │   │   │   ├── __init__.py
+│   │           │   │   │   ├── _jaraco_text.py
+│   │           │   │   │   ├── _log.py
+│   │           │   │   │   ├── appdirs.py
+│   │           │   │   │   ├── compat.py
+│   │           │   │   │   ├── compatibility_tags.py
+│   │           │   │   │   ├── datetime.py
+│   │           │   │   │   ├── deprecation.py
+│   │           │   │   │   ├── direct_url_helpers.py
+│   │           │   │   │   ├── egg_link.py
+│   │           │   │   │   ├── entrypoints.py
+│   │           │   │   │   ├── filesystem.py
+│   │           │   │   │   ├── filetypes.py
+│   │           │   │   │   ├── glibc.py
+│   │           │   │   │   ├── hashes.py
+│   │           │   │   │   ├── logging.py
+│   │           │   │   │   ├── misc.py
+│   │           │   │   │   ├── packaging.py
+│   │           │   │   │   ├── retry.py
+│   │           │   │   │   ├── subprocess.py
+│   │           │   │   │   ├── temp_dir.py
+│   │           │   │   │   ├── unpacking.py
+│   │           │   │   │   ├── urls.py
+│   │           │   │   │   ├── virtualenv.py
+│   │           │   │   │   └── wheel.py
+│   │           │   │   ├── vcs
+│   │           │   │   │   ├── __init__.py
+│   │           │   │   │   ├── bazaar.py
+│   │           │   │   │   ├── git.py
+│   │           │   │   │   ├── mercurial.py
+│   │           │   │   │   ├── subversion.py
+│   │           │   │   │   └── versioncontrol.py
+│   │           │   │   └── wheel_builder.py
+│   │           │   ├── _vendor
+│   │           │   │   ├── README.rst
+│   │           │   │   ├── __init__.py
+│   │           │   │   ├── cachecontrol
+│   │           │   │   │   ├── LICENSE.txt
+│   │           │   │   │   ├── __init__.py
+│   │           │   │   │   ├── _cmd.py
+│   │           │   │   │   ├── adapter.py
+│   │           │   │   │   ├── cache.py
+│   │           │   │   │   ├── caches
+│   │           │   │   │   │   ├── __init__.py
+│   │           │   │   │   │   ├── file_cache.py
+│   │           │   │   │   │   └── redis_cache.py
+│   │           │   │   │   ├── controller.py
+│   │           │   │   │   ├── filewrapper.py
+│   │           │   │   │   ├── heuristics.py
+│   │           │   │   │   ├── py.typed
+│   │           │   │   │   ├── serialize.py
+│   │           │   │   │   └── wrapper.py
+│   │           │   │   ├── certifi
+│   │           │   │   │   ├── LICENSE
+│   │           │   │   │   ├── __init__.py
+│   │           │   │   │   ├── __main__.py
+│   │           │   │   │   ├── cacert.pem
+│   │           │   │   │   ├── core.py
+│   │           │   │   │   └── py.typed
+│   │           │   │   ├── dependency_groups
+│   │           │   │   │   ├── LICENSE.txt
+│   │           │   │   │   ├── __init__.py
+│   │           │   │   │   ├── __main__.py
+│   │           │   │   │   ├── _implementation.py
+│   │           │   │   │   ├── _lint_dependency_groups.py
+│   │           │   │   │   ├── _pip_wrapper.py
+│   │           │   │   │   ├── _toml_compat.py
+│   │           │   │   │   └── py.typed
+│   │           │   │   ├── distlib
+│   │           │   │   │   ├── LICENSE.txt
+│   │           │   │   │   ├── __init__.py
+│   │           │   │   │   ├── compat.py
+│   │           │   │   │   ├── resources.py
+│   │           │   │   │   ├── scripts.py
+│   │           │   │   │   ├── t32.exe
+│   │           │   │   │   ├── t64-arm.exe
+│   │           │   │   │   ├── t64.exe
+│   │           │   │   │   ├── util.py
+│   │           │   │   │   ├── w32.exe
+│   │           │   │   │   ├── w64-arm.exe
+│   │           │   │   │   └── w64.exe
+│   │           │   │   ├── distro
+│   │           │   │   │   ├── LICENSE
+│   │           │   │   │   ├── __init__.py
+│   │           │   │   │   ├── __main__.py
+│   │           │   │   │   ├── distro.py
+│   │           │   │   │   └── py.typed
+│   │           │   │   ├── idna
+│   │           │   │   │   ├── LICENSE.md
+│   │           │   │   │   ├── __init__.py
+│   │           │   │   │   ├── codec.py
+│   │           │   │   │   ├── compat.py
+│   │           │   │   │   ├── core.py
+│   │           │   │   │   ├── idnadata.py
+│   │           │   │   │   ├── intranges.py
+│   │           │   │   │   ├── package_data.py
+│   │           │   │   │   ├── py.typed
+│   │           │   │   │   └── uts46data.py
+│   │           │   │   ├── msgpack
+│   │           │   │   │   ├── COPYING
+│   │           │   │   │   ├── __init__.py
+│   │           │   │   │   ├── exceptions.py
+│   │           │   │   │   ├── ext.py
+│   │           │   │   │   └── fallback.py
+│   │           │   │   ├── packaging
+│   │           │   │   │   ├── LICENSE
+│   │           │   │   │   ├── LICENSE.APACHE
+│   │           │   │   │   ├── LICENSE.BSD
+│   │           │   │   │   ├── __init__.py
+│   │           │   │   │   ├── _elffile.py
+│   │           │   │   │   ├── _manylinux.py
+│   │           │   │   │   ├── _musllinux.py
+│   │           │   │   │   ├── _parser.py
+│   │           │   │   │   ├── _structures.py
+│   │           │   │   │   ├── _tokenizer.py
+│   │           │   │   │   ├── licenses
+│   │           │   │   │   │   ├── __init__.py
+│   │           │   │   │   │   └── _spdx.py
+│   │           │   │   │   ├── markers.py
+│   │           │   │   │   ├── metadata.py
+│   │           │   │   │   ├── py.typed
+│   │           │   │   │   ├── requirements.py
+│   │           │   │   │   ├── specifiers.py
+│   │           │   │   │   ├── tags.py
+│   │           │   │   │   ├── utils.py
+│   │           │   │   │   └── version.py
+│   │           │   │   ├── pkg_resources
+│   │           │   │   │   ├── LICENSE
+│   │           │   │   │   └── __init__.py
+│   │           │   │   ├── platformdirs
+│   │           │   │   │   ├── LICENSE
+│   │           │   │   │   ├── __init__.py
+│   │           │   │   │   ├── __main__.py
+│   │           │   │   │   ├── android.py
+│   │           │   │   │   ├── api.py
+│   │           │   │   │   ├── macos.py
+│   │           │   │   │   ├── py.typed
+│   │           │   │   │   ├── unix.py
+│   │           │   │   │   ├── version.py
+│   │           │   │   │   └── windows.py
+│   │           │   │   ├── pygments
+│   │           │   │   │   ├── LICENSE
+│   │           │   │   │   ├── __init__.py
+│   │           │   │   │   ├── __main__.py
+│   │           │   │   │   ├── console.py
+│   │           │   │   │   ├── filter.py
+│   │           │   │   │   ├── filters
+│   │           │   │   │   │   └── __init__.py
+│   │           │   │   │   ├── formatter.py
+│   │           │   │   │   ├── formatters
+│   │           │   │   │   │   ├── __init__.py
+│   │           │   │   │   │   └── _mapping.py
+│   │           │   │   │   ├── lexer.py
+│   │           │   │   │   ├── lexers
+│   │           │   │   │   │   ├── __init__.py
+│   │           │   │   │   │   ├── _mapping.py
+│   │           │   │   │   │   └── python.py
+│   │           │   │   │   ├── modeline.py
+│   │           │   │   │   ├── plugin.py
+│   │           │   │   │   ├── regexopt.py
+│   │           │   │   │   ├── scanner.py
+│   │           │   │   │   ├── sphinxext.py
+│   │           │   │   │   ├── style.py
+│   │           │   │   │   ├── styles
+│   │           │   │   │   │   ├── __init__.py
+│   │           │   │   │   │   └── _mapping.py
+│   │           │   │   │   ├── token.py
+│   │           │   │   │   ├── unistring.py
+│   │           │   │   │   └── util.py
+│   │           │   │   ├── pyproject_hooks
+│   │           │   │   │   ├── LICENSE
+│   │           │   │   │   ├── __init__.py
+│   │           │   │   │   ├── _impl.py
+│   │           │   │   │   ├── _in_process
+│   │           │   │   │   │   ├── __init__.py
+│   │           │   │   │   │   └── _in_process.py
+│   │           │   │   │   └── py.typed
+│   │           │   │   ├── requests
+│   │           │   │   │   ├── LICENSE
+│   │           │   │   │   ├── __init__.py
+│   │           │   │   │   ├── __version__.py
+│   │           │   │   │   ├── _internal_utils.py
+│   │           │   │   │   ├── adapters.py
+│   │           │   │   │   ├── api.py
+│   │           │   │   │   ├── auth.py
+│   │           │   │   │   ├── certs.py
+│   │           │   │   │   ├── compat.py
+│   │           │   │   │   ├── cookies.py
+│   │           │   │   │   ├── exceptions.py
+│   │           │   │   │   ├── help.py
+│   │           │   │   │   ├── hooks.py
+│   │           │   │   │   ├── models.py
+│   │           │   │   │   ├── packages.py
+│   │           │   │   │   ├── sessions.py
+│   │           │   │   │   ├── status_codes.py
+│   │           │   │   │   ├── structures.py
+│   │           │   │   │   └── utils.py
+│   │           │   │   ├── resolvelib
+│   │           │   │   │   ├── LICENSE
+│   │           │   │   │   ├── __init__.py
+│   │           │   │   │   ├── providers.py
+│   │           │   │   │   ├── py.typed
+│   │           │   │   │   ├── reporters.py
+│   │           │   │   │   ├── resolvers
+│   │           │   │   │   │   ├── __init__.py
+│   │           │   │   │   │   ├── abstract.py
+│   │           │   │   │   │   ├── criterion.py
+│   │           │   │   │   │   ├── exceptions.py
+│   │           │   │   │   │   └── resolution.py
+│   │           │   │   │   └── structs.py
+│   │           │   │   ├── rich
+│   │           │   │   │   ├── LICENSE
+│   │           │   │   │   ├── __init__.py
+│   │           │   │   │   ├── __main__.py
+│   │           │   │   │   ├── _cell_widths.py
+│   │           │   │   │   ├── _emoji_codes.py
+│   │           │   │   │   ├── _emoji_replace.py
+│   │           │   │   │   ├── _export_format.py
+│   │           │   │   │   ├── _extension.py
+│   │           │   │   │   ├── _fileno.py
+│   │           │   │   │   ├── _inspect.py
+│   │           │   │   │   ├── _log_render.py
+│   │           │   │   │   ├── _loop.py
+│   │           │   │   │   ├── _null_file.py
+│   │           │   │   │   ├── _palettes.py
+│   │           │   │   │   ├── _pick.py
+│   │           │   │   │   ├── _ratio.py
+│   │           │   │   │   ├── _spinners.py
+│   │           │   │   │   ├── _stack.py
+│   │           │   │   │   ├── _timer.py
+│   │           │   │   │   ├── _win32_console.py
+│   │           │   │   │   ├── _windows.py
+│   │           │   │   │   ├── _windows_renderer.py
+│   │           │   │   │   ├── _wrap.py
+│   │           │   │   │   ├── abc.py
+│   │           │   │   │   ├── align.py
+│   │           │   │   │   ├── ansi.py
+│   │           │   │   │   ├── bar.py
+│   │           │   │   │   ├── box.py
+│   │           │   │   │   ├── cells.py
+│   │           │   │   │   ├── color.py
+│   │           │   │   │   ├── color_triplet.py
+│   │           │   │   │   ├── columns.py
+│   │           │   │   │   ├── console.py
+│   │           │   │   │   ├── constrain.py
+│   │           │   │   │   ├── containers.py
+│   │           │   │   │   ├── control.py
+│   │           │   │   │   ├── default_styles.py
+│   │           │   │   │   ├── diagnose.py
+│   │           │   │   │   ├── emoji.py
+│   │           │   │   │   ├── errors.py
+│   │           │   │   │   ├── file_proxy.py
+│   │           │   │   │   ├── filesize.py
+│   │           │   │   │   ├── highlighter.py
+│   │           │   │   │   ├── json.py
+│   │           │   │   │   ├── jupyter.py
+│   │           │   │   │   ├── layout.py
+│   │           │   │   │   ├── live.py
+│   │           │   │   │   ├── live_render.py
+│   │           │   │   │   ├── logging.py
+│   │           │   │   │   ├── markup.py
+│   │           │   │   │   ├── measure.py
+│   │           │   │   │   ├── padding.py
+│   │           │   │   │   ├── pager.py
+│   │           │   │   │   ├── palette.py
+│   │           │   │   │   ├── panel.py
+│   │           │   │   │   ├── pretty.py
+│   │           │   │   │   ├── progress.py
+│   │           │   │   │   ├── progress_bar.py
+│   │           │   │   │   ├── prompt.py
+│   │           │   │   │   ├── protocol.py
+│   │           │   │   │   ├── py.typed
+│   │           │   │   │   ├── region.py
+│   │           │   │   │   ├── repr.py
+│   │           │   │   │   ├── rule.py
+│   │           │   │   │   ├── scope.py
+│   │           │   │   │   ├── screen.py
+│   │           │   │   │   ├── segment.py
+│   │           │   │   │   ├── spinner.py
+│   │           │   │   │   ├── status.py
+│   │           │   │   │   ├── style.py
+│   │           │   │   │   ├── styled.py
+│   │           │   │   │   ├── syntax.py
+│   │           │   │   │   ├── table.py
+│   │           │   │   │   ├── terminal_theme.py
+│   │           │   │   │   ├── text.py
+│   │           │   │   │   ├── theme.py
+│   │           │   │   │   ├── themes.py
+│   │           │   │   │   ├── traceback.py
+│   │           │   │   │   └── tree.py
+│   │           │   │   ├── tomli
+│   │           │   │   │   ├── LICENSE
+│   │           │   │   │   ├── __init__.py
+│   │           │   │   │   ├── _parser.py
+│   │           │   │   │   ├── _re.py
+│   │           │   │   │   ├── _types.py
+│   │           │   │   │   └── py.typed
+│   │           │   │   ├── tomli_w
+│   │           │   │   │   ├── LICENSE
+│   │           │   │   │   ├── __init__.py
+│   │           │   │   │   ├── _writer.py
+│   │           │   │   │   └── py.typed
+│   │           │   │   ├── truststore
+│   │           │   │   │   ├── LICENSE
+│   │           │   │   │   ├── __init__.py
+│   │           │   │   │   ├── _api.py
+│   │           │   │   │   ├── _macos.py
+│   │           │   │   │   ├── _openssl.py
+│   │           │   │   │   ├── _ssl_constants.py
+│   │           │   │   │   ├── _windows.py
+│   │           │   │   │   └── py.typed
+│   │           │   │   ├── urllib3
+│   │           │   │   │   ├── LICENSE.txt
+│   │           │   │   │   ├── __init__.py
+│   │           │   │   │   ├── _collections.py
+│   │           │   │   │   ├── _version.py
+│   │           │   │   │   ├── connection.py
+│   │           │   │   │   ├── connectionpool.py
+│   │           │   │   │   ├── contrib
+│   │           │   │   │   │   ├── __init__.py
+│   │           │   │   │   │   ├── _appengine_environ.py
+│   │           │   │   │   │   ├── _securetransport
+│   │           │   │   │   │   │   ├── __init__.py
+│   │           │   │   │   │   │   ├── bindings.py
+│   │           │   │   │   │   │   └── low_level.py
+│   │           │   │   │   │   ├── appengine.py
+│   │           │   │   │   │   ├── ntlmpool.py
+│   │           │   │   │   │   ├── pyopenssl.py
+│   │           │   │   │   │   ├── securetransport.py
+│   │           │   │   │   │   └── socks.py
+│   │           │   │   │   ├── exceptions.py
+│   │           │   │   │   ├── fields.py
+│   │           │   │   │   ├── filepost.py
+│   │           │   │   │   ├── packages
+│   │           │   │   │   │   ├── __init__.py
+│   │           │   │   │   │   ├── backports
+│   │           │   │   │   │   │   ├── __init__.py
+│   │           │   │   │   │   │   ├── makefile.py
+│   │           │   │   │   │   │   └── weakref_finalize.py
+│   │           │   │   │   │   └── six.py
+│   │           │   │   │   ├── poolmanager.py
+│   │           │   │   │   ├── request.py
+│   │           │   │   │   ├── response.py
+│   │           │   │   │   └── util
+│   │           │   │   │       ├── __init__.py
+│   │           │   │   │       ├── connection.py
+│   │           │   │   │       ├── proxy.py
+│   │           │   │   │       ├── queue.py
+│   │           │   │   │       ├── request.py
+│   │           │   │   │       ├── response.py
+│   │           │   │   │       ├── retry.py
+│   │           │   │   │       ├── ssl_.py
+│   │           │   │   │       ├── ssl_match_hostname.py
+│   │           │   │   │       ├── ssltransport.py
+│   │           │   │   │       ├── timeout.py
+│   │           │   │   │       ├── url.py
+│   │           │   │   │       └── wait.py
+│   │           │   │   └── vendor.txt
+│   │           │   └── py.typed
+│   │           └── pip-25.3.dist-info
+│   │               ├── INSTALLER
+│   │               ├── METADATA
+│   │               ├── RECORD
+│   │               ├── REQUESTED
+│   │               ├── WHEEL
+│   │               ├── entry_points.txt
+│   │               └── licenses
+│   │                   ├── AUTHORS.txt
+│   │                   ├── LICENSE.txt
+│   │                   └── src
+│   │                       └── pip
+│   │                           └── _vendor
+│   │                               ├── cachecontrol
+│   │                               │   └── LICENSE.txt
+│   │                               ├── certifi
+│   │                               │   └── LICENSE
+│   │                               ├── dependency_groups
+│   │                               │   └── LICENSE.txt
+│   │                               ├── distlib
+│   │                               │   └── LICENSE.txt
+│   │                               ├── distro
+│   │                               │   └── LICENSE
+│   │                               ├── idna
+│   │                               │   └── LICENSE.md
+│   │                               ├── msgpack
+│   │                               │   └── COPYING
+│   │                               ├── packaging
+│   │                               │   ├── LICENSE
+│   │                               │   ├── LICENSE.APACHE
+│   │                               │   └── LICENSE.BSD
+│   │                               ├── pkg_resources
+│   │                               │   └── LICENSE
+│   │                               ├── platformdirs
+│   │                               │   └── LICENSE
+│   │                               ├── pygments
+│   │                               │   └── LICENSE
+│   │                               ├── pyproject_hooks
+│   │                               │   └── LICENSE
+│   │                               ├── requests
+│   │                               │   └── LICENSE
+│   │                               ├── resolvelib
+│   │                               │   └── LICENSE
+│   │                               ├── rich
+│   │                               │   └── LICENSE
+│   │                               ├── tomli
+│   │                               │   └── LICENSE
+│   │                               ├── tomli_w
+│   │                               │   └── LICENSE
+│   │                               ├── truststore
+│   │                               │   └── LICENSE
+│   │                               └── urllib3
+│   │                                   └── LICENSE.txt
+│   ├── pip.pyz
+│   └── pyvenv.cfg
+├── .venv-imgcover
+│   └── lib
+│       └── python3.12
+│           └── site-packages
+│               └── pip
+│                   └── _vendor
+│                       └── certifi
+│                           └── cacert.pem
+├── .venv-kdp
+│   └── lib
+│       └── python3.12
+│           └── site-packages
+│               └── pip
+│                   └── _vendor
+│                       └── certifi
+│                           └── cacert.pem
+├── .vercel
+│   ├── .env.production.local
+│   ├── README.txt
+│   ├── output
+│   │   ├── builds.json
+│   │   ├── config.json
+│   │   ├── diagnostics
+│   │   │   ├── build-diagnostics.json
+│   │   │   ├── cli_traces.json
+│   │   │   ├── framework.json
+│   │   │   ├── route-bundle-stats.json
+│   │   │   ├── trace
+│   │   │   ├── trace-build
+│   │   │   └── turbopack
+│   │   ├── functions
+│   │   │   ├── _global-error.func
+│   │   │   │   ├── .vc-config.json
+│   │   │   │   └── ___next_launcher.cjs
+│   │   │   ├── _global-error.prerender-config.json
+│   │   │   ├── _global-error.prerender-fallback.html
+│   │   │   ├── _global-error.rsc.func
+│   │   │   │   ├── .vc-config.json
+│   │   │   │   └── ___next_launcher.cjs
+│   │   │   ├── _global-error.rsc.prerender-config.json
+│   │   │   ├── _global-error.rsc.prerender-fallback.rsc
+│   │   │   ├── _global-error.segments
+│   │   │   │   ├── __PAGE__.segment.rsc.func
+│   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   ├── __PAGE__.segment.rsc.prerender-config.json
+│   │   │   │   ├── __PAGE__.segment.rsc.prerender-fallback.rsc
+│   │   │   │   ├── _full.segment.rsc.func
+│   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   ├── _full.segment.rsc.prerender-config.json
+│   │   │   │   ├── _full.segment.rsc.prerender-fallback.rsc
+│   │   │   │   ├── _head.segment.rsc.func
+│   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   ├── _head.segment.rsc.prerender-config.json
+│   │   │   │   ├── _head.segment.rsc.prerender-fallback.rsc
+│   │   │   │   ├── _index.segment.rsc.func
+│   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   ├── _index.segment.rsc.prerender-config.json
+│   │   │   │   ├── _index.segment.rsc.prerender-fallback.rsc
+│   │   │   │   ├── _tree.segment.rsc.func
+│   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   ├── _tree.segment.rsc.prerender-config.json
+│   │   │   │   └── _tree.segment.rsc.prerender-fallback.rsc
+│   │   │   ├── _not-found.func
+│   │   │   │   ├── .vc-config.json
+│   │   │   │   └── ___next_launcher.cjs
+│   │   │   ├── _not-found.prerender-config.json
+│   │   │   ├── _not-found.prerender-fallback.html
+│   │   │   ├── _not-found.rsc.func
+│   │   │   │   ├── .vc-config.json
+│   │   │   │   └── ___next_launcher.cjs
+│   │   │   ├── _not-found.rsc.prerender-config.json
+│   │   │   ├── _not-found.rsc.prerender-fallback.rsc
+│   │   │   ├── _not-found.segments
+│   │   │   │   ├── _full.segment.rsc.func
+│   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   ├── _full.segment.rsc.prerender-config.json
+│   │   │   │   ├── _full.segment.rsc.prerender-fallback.rsc
+│   │   │   │   ├── _head.segment.rsc.func
+│   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   ├── _head.segment.rsc.prerender-config.json
+│   │   │   │   ├── _head.segment.rsc.prerender-fallback.rsc
+│   │   │   │   ├── _index.segment.rsc.func
+│   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   ├── _index.segment.rsc.prerender-config.json
+│   │   │   │   ├── _index.segment.rsc.prerender-fallback.rsc
+│   │   │   │   ├── _not-found
+│   │   │   │   │   ├── __PAGE__.segment.rsc.func
+│   │   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   │   ├── __PAGE__.segment.rsc.prerender-config.json
+│   │   │   │   │   └── __PAGE__.segment.rsc.prerender-fallback.rsc
+│   │   │   │   ├── _not-found.segment.rsc.func
+│   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   ├── _not-found.segment.rsc.prerender-config.json
+│   │   │   │   ├── _not-found.segment.rsc.prerender-fallback.rsc
+│   │   │   │   ├── _tree.segment.rsc.func
+│   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   ├── _tree.segment.rsc.prerender-config.json
+│   │   │   │   └── _tree.segment.rsc.prerender-fallback.rsc
+│   │   │   ├── about.func
+│   │   │   │   ├── .vc-config.json
+│   │   │   │   └── ___next_launcher.cjs
+│   │   │   ├── about.prerender-config.json
+│   │   │   ├── about.prerender-fallback.html
+│   │   │   ├── about.rsc.func
+│   │   │   │   ├── .vc-config.json
+│   │   │   │   └── ___next_launcher.cjs
+│   │   │   ├── about.rsc.prerender-config.json
+│   │   │   ├── about.rsc.prerender-fallback.rsc
+│   │   │   ├── about.segments
+│   │   │   │   ├── _full.segment.rsc.func
+│   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   ├── _full.segment.rsc.prerender-config.json
+│   │   │   │   ├── _full.segment.rsc.prerender-fallback.rsc
+│   │   │   │   ├── _head.segment.rsc.func
+│   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   ├── _head.segment.rsc.prerender-config.json
+│   │   │   │   ├── _head.segment.rsc.prerender-fallback.rsc
+│   │   │   │   ├── _index.segment.rsc.func
+│   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   ├── _index.segment.rsc.prerender-config.json
+│   │   │   │   ├── _index.segment.rsc.prerender-fallback.rsc
+│   │   │   │   ├── _tree.segment.rsc.func
+│   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   ├── _tree.segment.rsc.prerender-config.json
+│   │   │   │   ├── _tree.segment.rsc.prerender-fallback.rsc
+│   │   │   │   ├── about
+│   │   │   │   │   ├── __PAGE__.segment.rsc.func
+│   │   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   │   ├── __PAGE__.segment.rsc.prerender-config.json
+│   │   │   │   │   └── __PAGE__.segment.rsc.prerender-fallback.rsc
+│   │   │   │   ├── about.segment.rsc.func
+│   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   ├── about.segment.rsc.prerender-config.json
+│   │   │   │   └── about.segment.rsc.prerender-fallback.rsc
+│   │   │   ├── admin
+│   │   │   │   ├── analytics.func
+│   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   ├── analytics.prerender-config.json
+│   │   │   │   ├── analytics.prerender-fallback.html
+│   │   │   │   ├── analytics.rsc.func
+│   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   ├── analytics.rsc.prerender-config.json
+│   │   │   │   ├── analytics.rsc.prerender-fallback.rsc
+│   │   │   │   ├── analytics.segments
+│   │   │   │   │   ├── _full.segment.rsc.func
+│   │   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   │   ├── _full.segment.rsc.prerender-config.json
+│   │   │   │   │   ├── _full.segment.rsc.prerender-fallback.rsc
+│   │   │   │   │   ├── _head.segment.rsc.func
+│   │   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   │   ├── _head.segment.rsc.prerender-config.json
+│   │   │   │   │   ├── _head.segment.rsc.prerender-fallback.rsc
+│   │   │   │   │   ├── _index.segment.rsc.func
+│   │   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   │   ├── _index.segment.rsc.prerender-config.json
+│   │   │   │   │   ├── _index.segment.rsc.prerender-fallback.rsc
+│   │   │   │   │   ├── _tree.segment.rsc.func
+│   │   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   │   ├── _tree.segment.rsc.prerender-config.json
+│   │   │   │   │   ├── _tree.segment.rsc.prerender-fallback.rsc
+│   │   │   │   │   ├── admin
+│   │   │   │   │   │   ├── analytics
+│   │   │   │   │   │   │   ├── __PAGE__.segment.rsc.func
+│   │   │   │   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   │   │   │   ├── __PAGE__.segment.rsc.prerender-config.json
+│   │   │   │   │   │   │   └── __PAGE__.segment.rsc.prerender-fallback.rsc
+│   │   │   │   │   │   ├── analytics.segment.rsc.func
+│   │   │   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   │   │   ├── analytics.segment.rsc.prerender-config.json
+│   │   │   │   │   │   └── analytics.segment.rsc.prerender-fallback.rsc
+│   │   │   │   │   ├── admin.segment.rsc.func
+│   │   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   │   ├── admin.segment.rsc.prerender-config.json
+│   │   │   │   │   └── admin.segment.rsc.prerender-fallback.rsc
+│   │   │   │   ├── dashboard.func
+│   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   ├── dashboard.prerender-config.json
+│   │   │   │   ├── dashboard.prerender-fallback.html
+│   │   │   │   ├── dashboard.rsc.func
+│   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   ├── dashboard.rsc.prerender-config.json
+│   │   │   │   ├── dashboard.rsc.prerender-fallback.rsc
+│   │   │   │   ├── dashboard.segments
+│   │   │   │   │   ├── _full.segment.rsc.func
+│   │   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   │   ├── _full.segment.rsc.prerender-config.json
+│   │   │   │   │   ├── _full.segment.rsc.prerender-fallback.rsc
+│   │   │   │   │   ├── _head.segment.rsc.func
+│   │   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   │   ├── _head.segment.rsc.prerender-config.json
+│   │   │   │   │   ├── _head.segment.rsc.prerender-fallback.rsc
+│   │   │   │   │   ├── _index.segment.rsc.func
+│   │   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   │   ├── _index.segment.rsc.prerender-config.json
+│   │   │   │   │   ├── _index.segment.rsc.prerender-fallback.rsc
+│   │   │   │   │   ├── _tree.segment.rsc.func
+│   │   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   │   ├── _tree.segment.rsc.prerender-config.json
+│   │   │   │   │   ├── _tree.segment.rsc.prerender-fallback.rsc
+│   │   │   │   │   ├── admin
+│   │   │   │   │   │   ├── dashboard
+│   │   │   │   │   │   │   ├── __PAGE__.segment.rsc.func
+│   │   │   │   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   │   │   │   ├── __PAGE__.segment.rsc.prerender-config.json
+│   │   │   │   │   │   │   └── __PAGE__.segment.rsc.prerender-fallback.rsc
+│   │   │   │   │   │   ├── dashboard.segment.rsc.func
+│   │   │   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   │   │   ├── dashboard.segment.rsc.prerender-config.json
+│   │   │   │   │   │   └── dashboard.segment.rsc.prerender-fallback.rsc
+│   │   │   │   │   ├── admin.segment.rsc.func
+│   │   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   │   ├── admin.segment.rsc.prerender-config.json
+│   │   │   │   │   └── admin.segment.rsc.prerender-fallback.rsc
+│   │   │   │   ├── enrollments
+│   │   │   │   │   ├── [id].func
+│   │   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   │   └── [id].rsc.func
+│   │   │   │   │       ├── .vc-config.json
+│   │   │   │   │       └── ___next_launcher.cjs
+│   │   │   │   ├── enrollments.func
+│   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   ├── enrollments.prerender-config.json
+│   │   │   │   ├── enrollments.prerender-fallback.html
+│   │   │   │   ├── enrollments.rsc.func
+│   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   ├── enrollments.rsc.prerender-config.json
+│   │   │   │   ├── enrollments.rsc.prerender-fallback.rsc
+│   │   │   │   ├── enrollments.segments
+│   │   │   │   │   ├── _full.segment.rsc.func
+│   │   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   │   ├── _full.segment.rsc.prerender-config.json
+│   │   │   │   │   ├── _full.segment.rsc.prerender-fallback.rsc
+│   │   │   │   │   ├── _head.segment.rsc.func
+│   │   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   │   ├── _head.segment.rsc.prerender-config.json
+│   │   │   │   │   ├── _head.segment.rsc.prerender-fallback.rsc
+│   │   │   │   │   ├── _index.segment.rsc.func
+│   │   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   │   ├── _index.segment.rsc.prerender-config.json
+│   │   │   │   │   ├── _index.segment.rsc.prerender-fallback.rsc
+│   │   │   │   │   ├── _tree.segment.rsc.func
+│   │   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   │   ├── _tree.segment.rsc.prerender-config.json
+│   │   │   │   │   ├── _tree.segment.rsc.prerender-fallback.rsc
+│   │   │   │   │   ├── admin
+│   │   │   │   │   │   ├── enrollments
+│   │   │   │   │   │   │   ├── __PAGE__.segment.rsc.func
+│   │   │   │   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   │   │   │   ├── __PAGE__.segment.rsc.prerender-config.json
+│   │   │   │   │   │   │   └── __PAGE__.segment.rsc.prerender-fallback.rsc
+│   │   │   │   │   │   ├── enrollments.segment.rsc.func
+│   │   │   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   │   │   ├── enrollments.segment.rsc.prerender-config.json
+│   │   │   │   │   │   └── enrollments.segment.rsc.prerender-fallback.rsc
+│   │   │   │   │   ├── admin.segment.rsc.func
+│   │   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   │   ├── admin.segment.rsc.prerender-config.json
+│   │   │   │   │   └── admin.segment.rsc.prerender-fallback.rsc
+│   │   │   │   ├── login.func
+│   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   ├── login.prerender-config.json
+│   │   │   │   ├── login.prerender-fallback.html
+│   │   │   │   ├── login.rsc.func
+│   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   ├── login.rsc.prerender-config.json
+│   │   │   │   ├── login.rsc.prerender-fallback.rsc
+│   │   │   │   ├── login.segments
+│   │   │   │   │   ├── _full.segment.rsc.func
+│   │   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   │   ├── _full.segment.rsc.prerender-config.json
+│   │   │   │   │   ├── _full.segment.rsc.prerender-fallback.rsc
+│   │   │   │   │   ├── _head.segment.rsc.func
+│   │   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   │   ├── _head.segment.rsc.prerender-config.json
+│   │   │   │   │   ├── _head.segment.rsc.prerender-fallback.rsc
+│   │   │   │   │   ├── _index.segment.rsc.func
+│   │   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   │   ├── _index.segment.rsc.prerender-config.json
+│   │   │   │   │   ├── _index.segment.rsc.prerender-fallback.rsc
+│   │   │   │   │   ├── _tree.segment.rsc.func
+│   │   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   │   ├── _tree.segment.rsc.prerender-config.json
+│   │   │   │   │   ├── _tree.segment.rsc.prerender-fallback.rsc
+│   │   │   │   │   ├── admin
+│   │   │   │   │   │   ├── login
+│   │   │   │   │   │   │   ├── __PAGE__.segment.rsc.func
+│   │   │   │   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   │   │   │   ├── __PAGE__.segment.rsc.prerender-config.json
+│   │   │   │   │   │   │   └── __PAGE__.segment.rsc.prerender-fallback.rsc
+│   │   │   │   │   │   ├── login.segment.rsc.func
+│   │   │   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   │   │   ├── login.segment.rsc.prerender-config.json
+│   │   │   │   │   │   └── login.segment.rsc.prerender-fallback.rsc
+│   │   │   │   │   ├── admin.segment.rsc.func
+│   │   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   │   ├── admin.segment.rsc.prerender-config.json
+│   │   │   │   │   └── admin.segment.rsc.prerender-fallback.rsc
+│   │   │   │   ├── settings.func
+│   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   ├── settings.prerender-config.json
+│   │   │   │   ├── settings.prerender-fallback.html
+│   │   │   │   ├── settings.rsc.func
+│   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   ├── settings.rsc.prerender-config.json
+│   │   │   │   ├── settings.rsc.prerender-fallback.rsc
+│   │   │   │   ├── settings.segments
+│   │   │   │   │   ├── _full.segment.rsc.func
+│   │   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   │   ├── _full.segment.rsc.prerender-config.json
+│   │   │   │   │   ├── _full.segment.rsc.prerender-fallback.rsc
+│   │   │   │   │   ├── _head.segment.rsc.func
+│   │   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   │   ├── _head.segment.rsc.prerender-config.json
+│   │   │   │   │   ├── _head.segment.rsc.prerender-fallback.rsc
+│   │   │   │   │   ├── _index.segment.rsc.func
+│   │   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   │   ├── _index.segment.rsc.prerender-config.json
+│   │   │   │   │   ├── _index.segment.rsc.prerender-fallback.rsc
+│   │   │   │   │   ├── _tree.segment.rsc.func
+│   │   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   │   ├── _tree.segment.rsc.prerender-config.json
+│   │   │   │   │   ├── _tree.segment.rsc.prerender-fallback.rsc
+│   │   │   │   │   ├── admin
+│   │   │   │   │   │   ├── settings
+│   │   │   │   │   │   │   ├── __PAGE__.segment.rsc.func
+│   │   │   │   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   │   │   │   ├── __PAGE__.segment.rsc.prerender-config.json
+│   │   │   │   │   │   │   └── __PAGE__.segment.rsc.prerender-fallback.rsc
+│   │   │   │   │   │   ├── settings.segment.rsc.func
+│   │   │   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   │   │   ├── settings.segment.rsc.prerender-config.json
+│   │   │   │   │   │   └── settings.segment.rsc.prerender-fallback.rsc
+│   │   │   │   │   ├── admin.segment.rsc.func
+│   │   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   │   ├── admin.segment.rsc.prerender-config.json
+│   │   │   │   │   └── admin.segment.rsc.prerender-fallback.rsc
+│   │   │   │   ├── submissions
+│   │   │   │   │   ├── [id].func
+│   │   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   │   └── [id].rsc.func
+│   │   │   │   │       ├── .vc-config.json
+│   │   │   │   │       └── ___next_launcher.cjs
+│   │   │   │   ├── submissions.func
+│   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   ├── submissions.prerender-config.json
+│   │   │   │   ├── submissions.prerender-fallback.html
+│   │   │   │   ├── submissions.rsc.func
+│   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   ├── submissions.rsc.prerender-config.json
+│   │   │   │   ├── submissions.rsc.prerender-fallback.rsc
+│   │   │   │   ├── submissions.segments
+│   │   │   │   │   ├── _full.segment.rsc.func
+│   │   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   │   ├── _full.segment.rsc.prerender-config.json
+│   │   │   │   │   ├── _full.segment.rsc.prerender-fallback.rsc
+│   │   │   │   │   ├── _head.segment.rsc.func
+│   │   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   │   ├── _head.segment.rsc.prerender-config.json
+│   │   │   │   │   ├── _head.segment.rsc.prerender-fallback.rsc
+│   │   │   │   │   ├── _index.segment.rsc.func
+│   │   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   │   ├── _index.segment.rsc.prerender-config.json
+│   │   │   │   │   ├── _index.segment.rsc.prerender-fallback.rsc
+│   │   │   │   │   ├── _tree.segment.rsc.func
+│   │   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   │   ├── _tree.segment.rsc.prerender-config.json
+│   │   │   │   │   ├── _tree.segment.rsc.prerender-fallback.rsc
+│   │   │   │   │   ├── admin
+│   │   │   │   │   │   ├── submissions
+│   │   │   │   │   │   │   ├── __PAGE__.segment.rsc.func
+│   │   │   │   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   │   │   │   ├── __PAGE__.segment.rsc.prerender-config.json
+│   │   │   │   │   │   │   └── __PAGE__.segment.rsc.prerender-fallback.rsc
+│   │   │   │   │   │   ├── submissions.segment.rsc.func
+│   │   │   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   │   │   ├── submissions.segment.rsc.prerender-config.json
+│   │   │   │   │   │   └── submissions.segment.rsc.prerender-fallback.rsc
+│   │   │   │   │   ├── admin.segment.rsc.func
+│   │   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   │   ├── admin.segment.rsc.prerender-config.json
+│   │   │   │   │   └── admin.segment.rsc.prerender-fallback.rsc
+│   │   │   │   ├── users.func
+│   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   ├── users.prerender-config.json
+│   │   │   │   ├── users.prerender-fallback.html
+│   │   │   │   ├── users.rsc.func
+│   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   ├── users.rsc.prerender-config.json
+│   │   │   │   ├── users.rsc.prerender-fallback.rsc
+│   │   │   │   └── users.segments
+│   │   │   │       ├── _full.segment.rsc.func
+│   │   │   │       │   ├── .vc-config.json
+│   │   │   │       │   └── ___next_launcher.cjs
+│   │   │   │       ├── _full.segment.rsc.prerender-config.json
+│   │   │   │       ├── _full.segment.rsc.prerender-fallback.rsc
+│   │   │   │       ├── _head.segment.rsc.func
+│   │   │   │       │   ├── .vc-config.json
+│   │   │   │       │   └── ___next_launcher.cjs
+│   │   │   │       ├── _head.segment.rsc.prerender-config.json
+│   │   │   │       ├── _head.segment.rsc.prerender-fallback.rsc
+│   │   │   │       ├── _index.segment.rsc.func
+│   │   │   │       │   ├── .vc-config.json
+│   │   │   │       │   └── ___next_launcher.cjs
+│   │   │   │       ├── _index.segment.rsc.prerender-config.json
+│   │   │   │       ├── _index.segment.rsc.prerender-fallback.rsc
+│   │   │   │       ├── _tree.segment.rsc.func
+│   │   │   │       │   ├── .vc-config.json
+│   │   │   │       │   └── ___next_launcher.cjs
+│   │   │   │       ├── _tree.segment.rsc.prerender-config.json
+│   │   │   │       ├── _tree.segment.rsc.prerender-fallback.rsc
+│   │   │   │       ├── admin
+│   │   │   │       │   ├── users
+│   │   │   │       │   │   ├── __PAGE__.segment.rsc.func
+│   │   │   │       │   │   │   ├── .vc-config.json
+│   │   │   │       │   │   │   └── ___next_launcher.cjs
+│   │   │   │       │   │   ├── __PAGE__.segment.rsc.prerender-config.json
+│   │   │   │       │   │   └── __PAGE__.segment.rsc.prerender-fallback.rsc
+│   │   │   │       │   ├── users.segment.rsc.func
+│   │   │   │       │   │   ├── .vc-config.json
+│   │   │   │       │   │   └── ___next_launcher.cjs
+│   │   │   │       │   ├── users.segment.rsc.prerender-config.json
+│   │   │   │       │   └── users.segment.rsc.prerender-fallback.rsc
+│   │   │   │       ├── admin.segment.rsc.func
+│   │   │   │       │   ├── .vc-config.json
+│   │   │   │       │   └── ___next_launcher.cjs
+│   │   │   │       ├── admin.segment.rsc.prerender-config.json
+│   │   │   │       └── admin.segment.rsc.prerender-fallback.rsc
+│   │   │   ├── api
+│   │   │   │   ├── admin
+│   │   │   │   │   ├── analytics.func
+│   │   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   │   ├── analytics.rsc.func
+│   │   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   │   ├── auth.func
+│   │   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   │   ├── auth.rsc.func
+│   │   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   │   ├── dashboard.func
+│   │   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   │   ├── dashboard.rsc.func
+│   │   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   │   ├── enrollments.func
+│   │   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   │   ├── enrollments.rsc.func
+│   │   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   │   ├── settings
+│   │   │   │   │   │   ├── password.func
+│   │   │   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   │   │   └── password.rsc.func
+│   │   │   │   │   │       ├── .vc-config.json
+│   │   │   │   │   │       └── ___next_launcher.cjs
+│   │   │   │   │   ├── submissions.func
+│   │   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   │   ├── submissions.rsc.func
+│   │   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   │   ├── users
+│   │   │   │   │   │   ├── [id]
+│   │   │   │   │   │   │   ├── courses.func
+│   │   │   │   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   │   │   │   └── courses.rsc.func
+│   │   │   │   │   │   │       ├── .vc-config.json
+│   │   │   │   │   │   │       └── ___next_launcher.cjs
+│   │   │   │   │   │   ├── [id].func
+│   │   │   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   │   │   └── [id].rsc.func
+│   │   │   │   │   │       ├── .vc-config.json
+│   │   │   │   │   │       └── ___next_launcher.cjs
+│   │   │   │   │   ├── users.func
+│   │   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   │   └── users.rsc.func
+│   │   │   │   │       ├── .vc-config.json
+│   │   │   │   │       └── ___next_launcher.cjs
+│   │   │   │   ├── analytics.func
+│   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   ├── analytics.rsc.func
+│   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   ├── auth
+│   │   │   │   │   ├── [...nextauth].func
+│   │   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   │   ├── [...nextauth].rsc.func
+│   │   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   │   ├── login.func
+│   │   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   │   ├── login.rsc.func
+│   │   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   │   ├── oauth
+│   │   │   │   │   │   ├── session-login.func
+│   │   │   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   │   │   └── session-login.rsc.func
+│   │   │   │   │   │       ├── .vc-config.json
+│   │   │   │   │   │       └── ___next_launcher.cjs
+│   │   │   │   │   ├── register.func
+│   │   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   │   ├── register.rsc.func
+│   │   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   │   ├── teacher-oauth-claim.func
+│   │   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   │   ├── teacher-oauth-claim.rsc.func
+│   │   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   │   ├── teacher-oauth-session-login.func
+│   │   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   │   ├── teacher-oauth-session-login.rsc.func
+│   │   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   │   ├── verify-email.func
+│   │   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   │   └── verify-email.rsc.func
+│   │   │   │   │       ├── .vc-config.json
+│   │   │   │   │       └── ___next_launcher.cjs
+│   │   │   │   ├── campaign
+│   │   │   │   │   ├── leads.func
+│   │   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   │   └── leads.rsc.func
+│   │   │   │   │       ├── .vc-config.json
+│   │   │   │   │       └── ___next_launcher.cjs
+│   │   │   │   ├── contact.func
+│   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   ├── contact.rsc.func
+│   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   ├── course-enrollment.func
+│   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   ├── course-enrollment.rsc.func
+│   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   ├── create-checkout-session.func
+│   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   ├── create-checkout-session.rsc.func
+│   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   ├── curriculum
+│   │   │   │   │   └── [slug]
+│   │   │   │   │       ├── pdf.func
+│   │   │   │   │       │   ├── .vc-config.json
+│   │   │   │   │       │   └── ___next_launcher.cjs
+│   │   │   │   │       └── pdf.rsc.func
+│   │   │   │   │           ├── .vc-config.json
+│   │   │   │   │           └── ___next_launcher.cjs
+│   │   │   │   ├── custom-build.func
+│   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   ├── custom-build.rsc.func
+│   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   ├── debug
+│   │   │   │   │   ├── env.func
+│   │   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   │   └── env.rsc.func
+│   │   │   │   │       ├── .vc-config.json
+│   │   │   │   │       └── ___next_launcher.cjs
+│   │   │   │   ├── exchange-rates.func
+│   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   ├── exchange-rates.rsc.func
+│   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   ├── featured-courses.func
+│   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   ├── featured-courses.rsc.func
+│   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   ├── files
+│   │   │   │   │   ├── [id].func
+│   │   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   │   └── [id].rsc.func
+│   │   │   │   │       ├── .vc-config.json
+│   │   │   │   │       └── ___next_launcher.cjs
+│   │   │   │   ├── forms
+│   │   │   │   │   ├── intake.func
+│   │   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   │   └── intake.rsc.func
+│   │   │   │   │       ├── .vc-config.json
+│   │   │   │   │       └── ___next_launcher.cjs
+│   │   │   │   ├── health.func
+│   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   ├── health.rsc.func
+│   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   ├── newsletter.func
+│   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   ├── newsletter.rsc.func
+│   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   ├── release-notifications
+│   │   │   │   │   ├── dispatch.func
+│   │   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   │   ├── dispatch.rsc.func
+│   │   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   │   ├── subscribe.func
+│   │   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   │   └── subscribe.rsc.func
+│   │   │   │   │       ├── .vc-config.json
+│   │   │   │   │       └── ___next_launcher.cjs
+│   │   │   │   ├── revalidate.func
+│   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   ├── revalidate.rsc.func
+│   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   ├── service-categories.func
+│   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   ├── service-categories.rsc.func
+│   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   ├── service-checkout.func
+│   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   ├── service-checkout.rsc.func
+│   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   ├── service-request.func
+│   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   ├── service-request.rsc.func
+│   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   ├── student
+│   │   │   │   │   ├── curriculum-pdf.func
+│   │   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   │   ├── curriculum-pdf.rsc.func
+│   │   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   │   ├── enrollments.func
+│   │   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   │   ├── enrollments.rsc.func
+│   │   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   │   ├── renew.func
+│   │   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   │   └── renew.rsc.func
+│   │   │   │   │       ├── .vc-config.json
+│   │   │   │   │       └── ___next_launcher.cjs
+│   │   │   │   ├── teacher
+│   │   │   │   │   ├── courses.func
+│   │   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   │   ├── courses.rsc.func
+│   │   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   │   ├── students.func
+│   │   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   │   └── students.rsc.func
+│   │   │   │   │       ├── .vc-config.json
+│   │   │   │   │       └── ___next_launcher.cjs
+│   │   │   │   ├── test.func
+│   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   ├── test.rsc.func
+│   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   ├── user
+│   │   │   │   │   ├── profile-photo.func
+│   │   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   │   └── profile-photo.rsc.func
+│   │   │   │   │       ├── .vc-config.json
+│   │   │   │   │       └── ___next_launcher.cjs
+│   │   │   │   ├── version.func
+│   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   ├── version.rsc.func
+│   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   └── webhooks
+│   │   │   │       ├── paystack.func
+│   │   │   │       │   ├── .vc-config.json
+│   │   │   │       │   └── ___next_launcher.cjs
+│   │   │   │       └── paystack.rsc.func
+│   │   │   │           ├── .vc-config.json
+│   │   │   │           └── ___next_launcher.cjs
+│   │   │   ├── apple-icon.func
+│   │   │   │   ├── .vc-config.json
+│   │   │   │   ├── index.js
+│   │   │   │   └── index.js.map
+│   │   │   ├── apple-icon.rsc.func
+│   │   │   │   ├── .vc-config.json
+│   │   │   │   ├── index.js
+│   │   │   │   └── index.js.map
+│   │   │   ├── blog
+│   │   │   │   ├── [slug].func
+│   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   └── [slug].rsc.func
+│   │   │   │       ├── .vc-config.json
+│   │   │   │       └── ___next_launcher.cjs
+│   │   │   ├── blog.func
+│   │   │   │   ├── .vc-config.json
+│   │   │   │   └── ___next_launcher.cjs
+│   │   │   ├── blog.prerender-config.json
+│   │   │   ├── blog.prerender-fallback.html
+│   │   │   ├── blog.rsc.func
+│   │   │   │   ├── .vc-config.json
+│   │   │   │   └── ___next_launcher.cjs
+│   │   │   ├── blog.rsc.prerender-config.json
+│   │   │   ├── blog.rsc.prerender-fallback.rsc
+│   │   │   ├── blog.segments
+│   │   │   │   ├── _full.segment.rsc.func
+│   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   ├── _full.segment.rsc.prerender-config.json
+│   │   │   │   ├── _full.segment.rsc.prerender-fallback.rsc
+│   │   │   │   ├── _head.segment.rsc.func
+│   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   ├── _head.segment.rsc.prerender-config.json
+│   │   │   │   ├── _head.segment.rsc.prerender-fallback.rsc
+│   │   │   │   ├── _index.segment.rsc.func
+│   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   ├── _index.segment.rsc.prerender-config.json
+│   │   │   │   ├── _index.segment.rsc.prerender-fallback.rsc
+│   │   │   │   ├── _tree.segment.rsc.func
+│   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   ├── _tree.segment.rsc.prerender-config.json
+│   │   │   │   ├── _tree.segment.rsc.prerender-fallback.rsc
+│   │   │   │   ├── blog
+│   │   │   │   │   ├── __PAGE__.segment.rsc.func
+│   │   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   │   ├── __PAGE__.segment.rsc.prerender-config.json
+│   │   │   │   │   └── __PAGE__.segment.rsc.prerender-fallback.rsc
+│   │   │   │   ├── blog.segment.rsc.func
+│   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   ├── blog.segment.rsc.prerender-config.json
+│   │   │   │   └── blog.segment.rsc.prerender-fallback.rsc
+│   │   │   ├── campaign
+│   │   │   │   ├── [slug].func
+│   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   └── [slug].rsc.func
+│   │   │   │       ├── .vc-config.json
+│   │   │   │       └── ___next_launcher.cjs
+│   │   │   ├── cancel.func
+│   │   │   │   ├── .vc-config.json
+│   │   │   │   └── ___next_launcher.cjs
+│   │   │   ├── cancel.prerender-config.json
+│   │   │   ├── cancel.prerender-fallback.html
+│   │   │   ├── cancel.rsc.func
+│   │   │   │   ├── .vc-config.json
+│   │   │   │   └── ___next_launcher.cjs
+│   │   │   ├── cancel.rsc.prerender-config.json
+│   │   │   ├── cancel.rsc.prerender-fallback.rsc
+│   │   │   ├── cancel.segments
+│   │   │   │   ├── _full.segment.rsc.func
+│   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   ├── _full.segment.rsc.prerender-config.json
+│   │   │   │   ├── _full.segment.rsc.prerender-fallback.rsc
+│   │   │   │   ├── _head.segment.rsc.func
+│   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   ├── _head.segment.rsc.prerender-config.json
+│   │   │   │   ├── _head.segment.rsc.prerender-fallback.rsc
+│   │   │   │   ├── _index.segment.rsc.func
+│   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   ├── _index.segment.rsc.prerender-config.json
+│   │   │   │   ├── _index.segment.rsc.prerender-fallback.rsc
+│   │   │   │   ├── _tree.segment.rsc.func
+│   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   ├── _tree.segment.rsc.prerender-config.json
+│   │   │   │   ├── _tree.segment.rsc.prerender-fallback.rsc
+│   │   │   │   ├── cancel
+│   │   │   │   │   ├── __PAGE__.segment.rsc.func
+│   │   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   │   ├── __PAGE__.segment.rsc.prerender-config.json
+│   │   │   │   │   └── __PAGE__.segment.rsc.prerender-fallback.rsc
+│   │   │   │   ├── cancel.segment.rsc.func
+│   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   ├── cancel.segment.rsc.prerender-config.json
+│   │   │   │   └── cancel.segment.rsc.prerender-fallback.rsc
+│   │   │   ├── contact.func
+│   │   │   │   ├── .vc-config.json
+│   │   │   │   └── ___next_launcher.cjs
+│   │   │   ├── contact.prerender-config.json
+│   │   │   ├── contact.prerender-fallback.html
+│   │   │   ├── contact.rsc.func
+│   │   │   │   ├── .vc-config.json
+│   │   │   │   └── ___next_launcher.cjs
+│   │   │   ├── contact.rsc.prerender-config.json
+│   │   │   ├── contact.rsc.prerender-fallback.rsc
+│   │   │   ├── contact.segments
+│   │   │   │   ├── _full.segment.rsc.func
+│   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   ├── _full.segment.rsc.prerender-config.json
+│   │   │   │   ├── _full.segment.rsc.prerender-fallback.rsc
+│   │   │   │   ├── _head.segment.rsc.func
+│   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   ├── _head.segment.rsc.prerender-config.json
+│   │   │   │   ├── _head.segment.rsc.prerender-fallback.rsc
+│   │   │   │   ├── _index.segment.rsc.func
+│   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   ├── _index.segment.rsc.prerender-config.json
+│   │   │   │   ├── _index.segment.rsc.prerender-fallback.rsc
+│   │   │   │   ├── _tree.segment.rsc.func
+│   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   ├── _tree.segment.rsc.prerender-config.json
+│   │   │   │   ├── _tree.segment.rsc.prerender-fallback.rsc
+│   │   │   │   ├── contact
+│   │   │   │   │   ├── __PAGE__.segment.rsc.func
+│   │   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   │   ├── __PAGE__.segment.rsc.prerender-config.json
+│   │   │   │   │   └── __PAGE__.segment.rsc.prerender-fallback.rsc
+│   │   │   │   ├── contact.segment.rsc.func
+│   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   ├── contact.segment.rsc.prerender-config.json
+│   │   │   │   └── contact.segment.rsc.prerender-fallback.rsc
+│   │   │   ├── courses
+│   │   │   │   ├── [slug]
+│   │   │   │   │   ├── curriculum.func
+│   │   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   │   └── curriculum.rsc.func
+│   │   │   │   │       ├── .vc-config.json
+│   │   │   │   │       └── ___next_launcher.cjs
+│   │   │   │   ├── [slug].func
+│   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   ├── [slug].rsc.func
+│   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   └── category
+│   │   │   │       ├── [slug].func
+│   │   │   │       │   ├── .vc-config.json
+│   │   │   │       │   └── ___next_launcher.cjs
+│   │   │   │       └── [slug].rsc.func
+│   │   │   │           ├── .vc-config.json
+│   │   │   │           └── ___next_launcher.cjs
+│   │   │   ├── courses.func
+│   │   │   │   ├── .vc-config.json
+│   │   │   │   └── ___next_launcher.cjs
+│   │   │   ├── courses.rsc.func
+│   │   │   │   ├── .vc-config.json
+│   │   │   │   └── ___next_launcher.cjs
+│   │   │   ├── curriculums.func
+│   │   │   │   ├── .vc-config.json
+│   │   │   │   └── ___next_launcher.cjs
+│   │   │   ├── curriculums.rsc.func
+│   │   │   │   ├── .vc-config.json
+│   │   │   │   └── ___next_launcher.cjs
+│   │   │   ├── divas-kloset
+│   │   │   │   ├── [slug].func
+│   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   └── [slug].rsc.func
+│   │   │   │       ├── .vc-config.json
+│   │   │   │       └── ___next_launcher.cjs
+│   │   │   ├── enrollment-success.func
+│   │   │   │   ├── .vc-config.json
+│   │   │   │   └── ___next_launcher.cjs
+│   │   │   ├── enrollment-success.rsc.func
+│   │   │   │   ├── .vc-config.json
+│   │   │   │   └── ___next_launcher.cjs
+│   │   │   ├── errata
+│   │   │   │   ├── [slug].func
+│   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   └── [slug].rsc.func
+│   │   │   │       ├── .vc-config.json
+│   │   │   │       └── ___next_launcher.cjs
+│   │   │   ├── errata.func
+│   │   │   │   ├── .vc-config.json
+│   │   │   │   └── ___next_launcher.cjs
+│   │   │   ├── errata.rsc.func
+│   │   │   │   ├── .vc-config.json
+│   │   │   │   └── ___next_launcher.cjs
+│   │   │   ├── faq.func
+│   │   │   │   ├── .vc-config.json
+│   │   │   │   └── ___next_launcher.cjs
+│   │   │   ├── faq.prerender-config.json
+│   │   │   ├── faq.prerender-fallback.html
+│   │   │   ├── faq.rsc.func
+│   │   │   │   ├── .vc-config.json
+│   │   │   │   └── ___next_launcher.cjs
+│   │   │   ├── faq.rsc.prerender-config.json
+│   │   │   ├── faq.rsc.prerender-fallback.rsc
+│   │   │   ├── faq.segments
+│   │   │   │   ├── _full.segment.rsc.func
+│   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   ├── _full.segment.rsc.prerender-config.json
+│   │   │   │   ├── _full.segment.rsc.prerender-fallback.rsc
+│   │   │   │   ├── _head.segment.rsc.func
+│   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   ├── _head.segment.rsc.prerender-config.json
+│   │   │   │   ├── _head.segment.rsc.prerender-fallback.rsc
+│   │   │   │   ├── _index.segment.rsc.func
+│   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   ├── _index.segment.rsc.prerender-config.json
+│   │   │   │   ├── _index.segment.rsc.prerender-fallback.rsc
+│   │   │   │   ├── _tree.segment.rsc.func
+│   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   ├── _tree.segment.rsc.prerender-config.json
+│   │   │   │   ├── _tree.segment.rsc.prerender-fallback.rsc
+│   │   │   │   ├── faq
+│   │   │   │   │   ├── __PAGE__.segment.rsc.func
+│   │   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   │   ├── __PAGE__.segment.rsc.prerender-config.json
+│   │   │   │   │   └── __PAGE__.segment.rsc.prerender-fallback.rsc
+│   │   │   │   ├── faq.segment.rsc.func
+│   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   ├── faq.segment.rsc.prerender-config.json
+│   │   │   │   └── faq.segment.rsc.prerender-fallback.rsc
+│   │   │   ├── icon.func
+│   │   │   │   ├── .vc-config.json
+│   │   │   │   ├── index.js
+│   │   │   │   └── index.js.map
+│   │   │   ├── icon.rsc.func
+│   │   │   │   ├── .vc-config.json
+│   │   │   │   ├── index.js
+│   │   │   │   └── index.js.map
+│   │   │   ├── index.func
+│   │   │   │   ├── .vc-config.json
+│   │   │   │   └── ___next_launcher.cjs
+│   │   │   ├── index.prerender-config.json
+│   │   │   ├── index.prerender-fallback.html
+│   │   │   ├── index.rsc.func
+│   │   │   │   ├── .vc-config.json
+│   │   │   │   └── ___next_launcher.cjs
+│   │   │   ├── index.rsc.prerender-config.json
+│   │   │   ├── index.rsc.prerender-fallback.rsc
+│   │   │   ├── index.segments
+│   │   │   │   ├── __PAGE__.segment.rsc.func
+│   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   ├── __PAGE__.segment.rsc.prerender-config.json
+│   │   │   │   ├── __PAGE__.segment.rsc.prerender-fallback.rsc
+│   │   │   │   ├── _full.segment.rsc.func
+│   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   ├── _full.segment.rsc.prerender-config.json
+│   │   │   │   ├── _full.segment.rsc.prerender-fallback.rsc
+│   │   │   │   ├── _head.segment.rsc.func
+│   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   ├── _head.segment.rsc.prerender-config.json
+│   │   │   │   ├── _head.segment.rsc.prerender-fallback.rsc
+│   │   │   │   ├── _index.segment.rsc.func
+│   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   ├── _index.segment.rsc.prerender-config.json
+│   │   │   │   ├── _index.segment.rsc.prerender-fallback.rsc
+│   │   │   │   ├── _tree.segment.rsc.func
+│   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   ├── _tree.segment.rsc.prerender-config.json
+│   │   │   │   └── _tree.segment.rsc.prerender-fallback.rsc
+│   │   │   ├── mentorships
+│   │   │   │   ├── courses
+│   │   │   │   │   ├── [slug].func
+│   │   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   │   └── [slug].rsc.func
+│   │   │   │   │       ├── .vc-config.json
+│   │   │   │   │       └── ___next_launcher.cjs
+│   │   │   │   ├── courses.func
+│   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   ├── courses.rsc.func
+│   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   ├── enrollment-success.func
+│   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   └── enrollment-success.rsc.func
+│   │   │   │       ├── .vc-config.json
+│   │   │   │       └── ___next_launcher.cjs
+│   │   │   ├── mentorships.func
+│   │   │   │   ├── .vc-config.json
+│   │   │   │   └── ___next_launcher.cjs
+│   │   │   ├── mentorships.rsc.func
+│   │   │   │   ├── .vc-config.json
+│   │   │   │   └── ___next_launcher.cjs
+│   │   │   ├── middleware.func
+│   │   │   │   ├── .vc-config.json
+│   │   │   │   ├── index.js
+│   │   │   │   └── index.js.map
+│   │   │   ├── portfolio
+│   │   │   │   ├── [slug].func
+│   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   └── [slug].rsc.func
+│   │   │   │       ├── .vc-config.json
+│   │   │   │       └── ___next_launcher.cjs
+│   │   │   ├── portfolio.func
+│   │   │   │   ├── .vc-config.json
+│   │   │   │   └── ___next_launcher.cjs
+│   │   │   ├── portfolio.prerender-config.json
+│   │   │   ├── portfolio.prerender-fallback.html
+│   │   │   ├── portfolio.rsc.func
+│   │   │   │   ├── .vc-config.json
+│   │   │   │   └── ___next_launcher.cjs
+│   │   │   ├── portfolio.rsc.prerender-config.json
+│   │   │   ├── portfolio.rsc.prerender-fallback.rsc
+│   │   │   ├── portfolio.segments
+│   │   │   │   ├── _full.segment.rsc.func
+│   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   ├── _full.segment.rsc.prerender-config.json
+│   │   │   │   ├── _full.segment.rsc.prerender-fallback.rsc
+│   │   │   │   ├── _head.segment.rsc.func
+│   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   ├── _head.segment.rsc.prerender-config.json
+│   │   │   │   ├── _head.segment.rsc.prerender-fallback.rsc
+│   │   │   │   ├── _index.segment.rsc.func
+│   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   ├── _index.segment.rsc.prerender-config.json
+│   │   │   │   ├── _index.segment.rsc.prerender-fallback.rsc
+│   │   │   │   ├── _tree.segment.rsc.func
+│   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   ├── _tree.segment.rsc.prerender-config.json
+│   │   │   │   ├── _tree.segment.rsc.prerender-fallback.rsc
+│   │   │   │   ├── portfolio
+│   │   │   │   │   ├── __PAGE__.segment.rsc.func
+│   │   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   │   ├── __PAGE__.segment.rsc.prerender-config.json
+│   │   │   │   │   └── __PAGE__.segment.rsc.prerender-fallback.rsc
+│   │   │   │   ├── portfolio.segment.rsc.func
+│   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   ├── portfolio.segment.rsc.prerender-config.json
+│   │   │   │   └── portfolio.segment.rsc.prerender-fallback.rsc
+│   │   │   ├── privacy-policy.func
+│   │   │   │   ├── .vc-config.json
+│   │   │   │   └── ___next_launcher.cjs
+│   │   │   ├── privacy-policy.prerender-config.json
+│   │   │   ├── privacy-policy.prerender-fallback.html
+│   │   │   ├── privacy-policy.rsc.func
+│   │   │   │   ├── .vc-config.json
+│   │   │   │   └── ___next_launcher.cjs
+│   │   │   ├── privacy-policy.rsc.prerender-config.json
+│   │   │   ├── privacy-policy.rsc.prerender-fallback.rsc
+│   │   │   ├── privacy-policy.segments
+│   │   │   │   ├── _full.segment.rsc.func
+│   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   ├── _full.segment.rsc.prerender-config.json
+│   │   │   │   ├── _full.segment.rsc.prerender-fallback.rsc
+│   │   │   │   ├── _head.segment.rsc.func
+│   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   ├── _head.segment.rsc.prerender-config.json
+│   │   │   │   ├── _head.segment.rsc.prerender-fallback.rsc
+│   │   │   │   ├── _index.segment.rsc.func
+│   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   ├── _index.segment.rsc.prerender-config.json
+│   │   │   │   ├── _index.segment.rsc.prerender-fallback.rsc
+│   │   │   │   ├── _tree.segment.rsc.func
+│   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   ├── _tree.segment.rsc.prerender-config.json
+│   │   │   │   ├── _tree.segment.rsc.prerender-fallback.rsc
+│   │   │   │   ├── privacy-policy
+│   │   │   │   │   ├── __PAGE__.segment.rsc.func
+│   │   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   │   ├── __PAGE__.segment.rsc.prerender-config.json
+│   │   │   │   │   └── __PAGE__.segment.rsc.prerender-fallback.rsc
+│   │   │   │   ├── privacy-policy.segment.rsc.func
+│   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   ├── privacy-policy.segment.rsc.prerender-config.json
+│   │   │   │   └── privacy-policy.segment.rsc.prerender-fallback.rsc
+│   │   │   ├── proposals
+│   │   │   │   ├── [client].func
+│   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   ├── [client].rsc.func
+│   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   ├── divas-kloset.func
+│   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   ├── divas-kloset.prerender-config.json
+│   │   │   │   ├── divas-kloset.prerender-fallback.html
+│   │   │   │   ├── divas-kloset.rsc.func
+│   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   ├── divas-kloset.rsc.prerender-config.json
+│   │   │   │   ├── divas-kloset.rsc.prerender-fallback.rsc
+│   │   │   │   ├── divas-kloset.segments
+│   │   │   │   │   ├── _full.segment.rsc.func
+│   │   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   │   ├── _full.segment.rsc.prerender-config.json
+│   │   │   │   │   ├── _full.segment.rsc.prerender-fallback.rsc
+│   │   │   │   │   ├── _head.segment.rsc.func
+│   │   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   │   ├── _head.segment.rsc.prerender-config.json
+│   │   │   │   │   ├── _head.segment.rsc.prerender-fallback.rsc
+│   │   │   │   │   ├── _index.segment.rsc.func
+│   │   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   │   ├── _index.segment.rsc.prerender-config.json
+│   │   │   │   │   ├── _index.segment.rsc.prerender-fallback.rsc
+│   │   │   │   │   ├── _tree.segment.rsc.func
+│   │   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   │   ├── _tree.segment.rsc.prerender-config.json
+│   │   │   │   │   ├── _tree.segment.rsc.prerender-fallback.rsc
+│   │   │   │   │   ├── proposals
+│   │   │   │   │   │   ├── divas-kloset
+│   │   │   │   │   │   │   ├── __PAGE__.segment.rsc.func
+│   │   │   │   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   │   │   │   ├── __PAGE__.segment.rsc.prerender-config.json
+│   │   │   │   │   │   │   └── __PAGE__.segment.rsc.prerender-fallback.rsc
+│   │   │   │   │   │   ├── divas-kloset.segment.rsc.func
+│   │   │   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   │   │   ├── divas-kloset.segment.rsc.prerender-config.json
+│   │   │   │   │   │   └── divas-kloset.segment.rsc.prerender-fallback.rsc
+│   │   │   │   │   ├── proposals.segment.rsc.func
+│   │   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   │   ├── proposals.segment.rsc.prerender-config.json
+│   │   │   │   │   └── proposals.segment.rsc.prerender-fallback.rsc
+│   │   │   │   ├── jhema-wears.func
+│   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   ├── jhema-wears.prerender-config.json
+│   │   │   │   ├── jhema-wears.prerender-fallback.html
+│   │   │   │   ├── jhema-wears.rsc.func
+│   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   ├── jhema-wears.rsc.prerender-config.json
+│   │   │   │   ├── jhema-wears.rsc.prerender-fallback.rsc
+│   │   │   │   ├── jhema-wears.segments
+│   │   │   │   │   ├── _full.segment.rsc.func
+│   │   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   │   ├── _full.segment.rsc.prerender-config.json
+│   │   │   │   │   ├── _full.segment.rsc.prerender-fallback.rsc
+│   │   │   │   │   ├── _head.segment.rsc.func
+│   │   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   │   ├── _head.segment.rsc.prerender-config.json
+│   │   │   │   │   ├── _head.segment.rsc.prerender-fallback.rsc
+│   │   │   │   │   ├── _index.segment.rsc.func
+│   │   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   │   ├── _index.segment.rsc.prerender-config.json
+│   │   │   │   │   ├── _index.segment.rsc.prerender-fallback.rsc
+│   │   │   │   │   ├── _tree.segment.rsc.func
+│   │   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   │   ├── _tree.segment.rsc.prerender-config.json
+│   │   │   │   │   ├── _tree.segment.rsc.prerender-fallback.rsc
+│   │   │   │   │   ├── proposals
+│   │   │   │   │   │   ├── jhema-wears
+│   │   │   │   │   │   │   ├── __PAGE__.segment.rsc.func
+│   │   │   │   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   │   │   │   ├── __PAGE__.segment.rsc.prerender-config.json
+│   │   │   │   │   │   │   └── __PAGE__.segment.rsc.prerender-fallback.rsc
+│   │   │   │   │   │   ├── jhema-wears.segment.rsc.func
+│   │   │   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   │   │   ├── jhema-wears.segment.rsc.prerender-config.json
+│   │   │   │   │   │   └── jhema-wears.segment.rsc.prerender-fallback.rsc
+│   │   │   │   │   ├── proposals.segment.rsc.func
+│   │   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   │   ├── proposals.segment.rsc.prerender-config.json
+│   │   │   │   │   └── proposals.segment.rsc.prerender-fallback.rsc
+│   │   │   │   └── social-media-marketing
+│   │   │   │       ├── [client].func
+│   │   │   │       │   ├── .vc-config.json
+│   │   │   │       │   └── ___next_launcher.cjs
+│   │   │   │       └── [client].rsc.func
+│   │   │   │           ├── .vc-config.json
+│   │   │   │           └── ___next_launcher.cjs
+│   │   │   ├── resources
+│   │   │   │   ├── [slug].func
+│   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   └── [slug].rsc.func
+│   │   │   │       ├── .vc-config.json
+│   │   │   │       └── ___next_launcher.cjs
+│   │   │   ├── resources.func
+│   │   │   │   ├── .vc-config.json
+│   │   │   │   └── ___next_launcher.cjs
+│   │   │   ├── resources.rsc.func
+│   │   │   │   ├── .vc-config.json
+│   │   │   │   └── ___next_launcher.cjs
+│   │   │   ├── robots.txt.func
+│   │   │   │   ├── .vc-config.json
+│   │   │   │   └── ___next_launcher.cjs
+│   │   │   ├── robots.txt.prerender-config.json
+│   │   │   ├── robots.txt.prerender-fallback.body
+│   │   │   ├── robots.txt.rsc.func
+│   │   │   │   ├── .vc-config.json
+│   │   │   │   └── ___next_launcher.cjs
+│   │   │   ├── school
+│   │   │   │   ├── [slug].func
+│   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   └── [slug].rsc.func
+│   │   │   │       ├── .vc-config.json
+│   │   │   │       └── ___next_launcher.cjs
+│   │   │   ├── services
+│   │   │   │   ├── [slug].func
+│   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   ├── [slug].rsc.func
+│   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   ├── build-bundle.func
+│   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   ├── build-bundle.prerender-config.json
+│   │   │   │   ├── build-bundle.prerender-fallback.html
+│   │   │   │   ├── build-bundle.rsc.func
+│   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   ├── build-bundle.rsc.prerender-config.json
+│   │   │   │   ├── build-bundle.rsc.prerender-fallback.rsc
+│   │   │   │   ├── build-bundle.segments
+│   │   │   │   │   ├── _full.segment.rsc.func
+│   │   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   │   ├── _full.segment.rsc.prerender-config.json
+│   │   │   │   │   ├── _full.segment.rsc.prerender-fallback.rsc
+│   │   │   │   │   ├── _head.segment.rsc.func
+│   │   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   │   ├── _head.segment.rsc.prerender-config.json
+│   │   │   │   │   ├── _head.segment.rsc.prerender-fallback.rsc
+│   │   │   │   │   ├── _index.segment.rsc.func
+│   │   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   │   ├── _index.segment.rsc.prerender-config.json
+│   │   │   │   │   ├── _index.segment.rsc.prerender-fallback.rsc
+│   │   │   │   │   ├── _tree.segment.rsc.func
+│   │   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   │   ├── _tree.segment.rsc.prerender-config.json
+│   │   │   │   │   ├── _tree.segment.rsc.prerender-fallback.rsc
+│   │   │   │   │   ├── services
+│   │   │   │   │   │   ├── build-bundle
+│   │   │   │   │   │   │   ├── __PAGE__.segment.rsc.func
+│   │   │   │   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   │   │   │   ├── __PAGE__.segment.rsc.prerender-config.json
+│   │   │   │   │   │   │   └── __PAGE__.segment.rsc.prerender-fallback.rsc
+│   │   │   │   │   │   ├── build-bundle.segment.rsc.func
+│   │   │   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   │   │   ├── build-bundle.segment.rsc.prerender-config.json
+│   │   │   │   │   │   └── build-bundle.segment.rsc.prerender-fallback.rsc
+│   │   │   │   │   ├── services.segment.rsc.func
+│   │   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   │   ├── services.segment.rsc.prerender-config.json
+│   │   │   │   │   └── services.segment.rsc.prerender-fallback.rsc
+│   │   │   │   ├── checkout-cancel.func
+│   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   ├── checkout-cancel.prerender-config.json
+│   │   │   │   ├── checkout-cancel.prerender-fallback.html
+│   │   │   │   ├── checkout-cancel.rsc.func
+│   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   ├── checkout-cancel.rsc.prerender-config.json
+│   │   │   │   ├── checkout-cancel.rsc.prerender-fallback.rsc
+│   │   │   │   ├── checkout-cancel.segments
+│   │   │   │   │   ├── _full.segment.rsc.func
+│   │   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   │   ├── _full.segment.rsc.prerender-config.json
+│   │   │   │   │   ├── _full.segment.rsc.prerender-fallback.rsc
+│   │   │   │   │   ├── _head.segment.rsc.func
+│   │   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   │   ├── _head.segment.rsc.prerender-config.json
+│   │   │   │   │   ├── _head.segment.rsc.prerender-fallback.rsc
+│   │   │   │   │   ├── _index.segment.rsc.func
+│   │   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   │   ├── _index.segment.rsc.prerender-config.json
+│   │   │   │   │   ├── _index.segment.rsc.prerender-fallback.rsc
+│   │   │   │   │   ├── _tree.segment.rsc.func
+│   │   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   │   ├── _tree.segment.rsc.prerender-config.json
+│   │   │   │   │   ├── _tree.segment.rsc.prerender-fallback.rsc
+│   │   │   │   │   ├── services
+│   │   │   │   │   │   ├── checkout-cancel
+│   │   │   │   │   │   │   ├── __PAGE__.segment.rsc.func
+│   │   │   │   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   │   │   │   ├── __PAGE__.segment.rsc.prerender-config.json
+│   │   │   │   │   │   │   └── __PAGE__.segment.rsc.prerender-fallback.rsc
+│   │   │   │   │   │   ├── checkout-cancel.segment.rsc.func
+│   │   │   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   │   │   ├── checkout-cancel.segment.rsc.prerender-config.json
+│   │   │   │   │   │   └── checkout-cancel.segment.rsc.prerender-fallback.rsc
+│   │   │   │   │   ├── services.segment.rsc.func
+│   │   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   │   ├── services.segment.rsc.prerender-config.json
+│   │   │   │   │   └── services.segment.rsc.prerender-fallback.rsc
+│   │   │   │   ├── checkout-success.func
+│   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   ├── checkout-success.prerender-config.json
+│   │   │   │   ├── checkout-success.prerender-fallback.html
+│   │   │   │   ├── checkout-success.rsc.func
+│   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   ├── checkout-success.rsc.prerender-config.json
+│   │   │   │   ├── checkout-success.rsc.prerender-fallback.rsc
+│   │   │   │   ├── checkout-success.segments
+│   │   │   │   │   ├── _full.segment.rsc.func
+│   │   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   │   ├── _full.segment.rsc.prerender-config.json
+│   │   │   │   │   ├── _full.segment.rsc.prerender-fallback.rsc
+│   │   │   │   │   ├── _head.segment.rsc.func
+│   │   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   │   ├── _head.segment.rsc.prerender-config.json
+│   │   │   │   │   ├── _head.segment.rsc.prerender-fallback.rsc
+│   │   │   │   │   ├── _index.segment.rsc.func
+│   │   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   │   ├── _index.segment.rsc.prerender-config.json
+│   │   │   │   │   ├── _index.segment.rsc.prerender-fallback.rsc
+│   │   │   │   │   ├── _tree.segment.rsc.func
+│   │   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   │   ├── _tree.segment.rsc.prerender-config.json
+│   │   │   │   │   ├── _tree.segment.rsc.prerender-fallback.rsc
+│   │   │   │   │   ├── services
+│   │   │   │   │   │   ├── checkout-success
+│   │   │   │   │   │   │   ├── __PAGE__.segment.rsc.func
+│   │   │   │   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   │   │   │   ├── __PAGE__.segment.rsc.prerender-config.json
+│   │   │   │   │   │   │   └── __PAGE__.segment.rsc.prerender-fallback.rsc
+│   │   │   │   │   │   ├── checkout-success.segment.rsc.func
+│   │   │   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   │   │   ├── checkout-success.segment.rsc.prerender-config.json
+│   │   │   │   │   │   └── checkout-success.segment.rsc.prerender-fallback.rsc
+│   │   │   │   │   ├── services.segment.rsc.func
+│   │   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   │   ├── services.segment.rsc.prerender-config.json
+│   │   │   │   │   └── services.segment.rsc.prerender-fallback.rsc
+│   │   │   │   ├── custom-build.func
+│   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   ├── custom-build.prerender-config.json
+│   │   │   │   ├── custom-build.prerender-fallback.html
+│   │   │   │   ├── custom-build.rsc.func
+│   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   ├── custom-build.rsc.prerender-config.json
+│   │   │   │   ├── custom-build.rsc.prerender-fallback.rsc
+│   │   │   │   ├── custom-build.segments
+│   │   │   │   │   ├── _full.segment.rsc.func
+│   │   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   │   ├── _full.segment.rsc.prerender-config.json
+│   │   │   │   │   ├── _full.segment.rsc.prerender-fallback.rsc
+│   │   │   │   │   ├── _head.segment.rsc.func
+│   │   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   │   ├── _head.segment.rsc.prerender-config.json
+│   │   │   │   │   ├── _head.segment.rsc.prerender-fallback.rsc
+│   │   │   │   │   ├── _index.segment.rsc.func
+│   │   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   │   ├── _index.segment.rsc.prerender-config.json
+│   │   │   │   │   ├── _index.segment.rsc.prerender-fallback.rsc
+│   │   │   │   │   ├── _tree.segment.rsc.func
+│   │   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   │   ├── _tree.segment.rsc.prerender-config.json
+│   │   │   │   │   ├── _tree.segment.rsc.prerender-fallback.rsc
+│   │   │   │   │   ├── services
+│   │   │   │   │   │   ├── custom-build
+│   │   │   │   │   │   │   ├── __PAGE__.segment.rsc.func
+│   │   │   │   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   │   │   │   ├── __PAGE__.segment.rsc.prerender-config.json
+│   │   │   │   │   │   │   └── __PAGE__.segment.rsc.prerender-fallback.rsc
+│   │   │   │   │   │   ├── custom-build.segment.rsc.func
+│   │   │   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   │   │   ├── custom-build.segment.rsc.prerender-config.json
+│   │   │   │   │   │   └── custom-build.segment.rsc.prerender-fallback.rsc
+│   │   │   │   │   ├── services.segment.rsc.func
+│   │   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   │   ├── services.segment.rsc.prerender-config.json
+│   │   │   │   │   └── services.segment.rsc.prerender-fallback.rsc
+│   │   │   │   └── request
+│   │   │   │       ├── success.func
+│   │   │   │       │   ├── .vc-config.json
+│   │   │   │       │   └── ___next_launcher.cjs
+│   │   │   │       ├── success.prerender-config.json
+│   │   │   │       ├── success.prerender-fallback.html
+│   │   │   │       ├── success.rsc.func
+│   │   │   │       │   ├── .vc-config.json
+│   │   │   │       │   └── ___next_launcher.cjs
+│   │   │   │       ├── success.rsc.prerender-config.json
+│   │   │   │       ├── success.rsc.prerender-fallback.rsc
+│   │   │   │       └── success.segments
+│   │   │   │           ├── _full.segment.rsc.func
+│   │   │   │           │   ├── .vc-config.json
+│   │   │   │           │   └── ___next_launcher.cjs
+│   │   │   │           ├── _full.segment.rsc.prerender-config.json
+│   │   │   │           ├── _full.segment.rsc.prerender-fallback.rsc
+│   │   │   │           ├── _head.segment.rsc.func
+│   │   │   │           │   ├── .vc-config.json
+│   │   │   │           │   └── ___next_launcher.cjs
+│   │   │   │           ├── _head.segment.rsc.prerender-config.json
+│   │   │   │           ├── _head.segment.rsc.prerender-fallback.rsc
+│   │   │   │           ├── _index.segment.rsc.func
+│   │   │   │           │   ├── .vc-config.json
+│   │   │   │           │   └── ___next_launcher.cjs
+│   │   │   │           ├── _index.segment.rsc.prerender-config.json
+│   │   │   │           ├── _index.segment.rsc.prerender-fallback.rsc
+│   │   │   │           ├── _tree.segment.rsc.func
+│   │   │   │           │   ├── .vc-config.json
+│   │   │   │           │   └── ___next_launcher.cjs
+│   │   │   │           ├── _tree.segment.rsc.prerender-config.json
+│   │   │   │           ├── _tree.segment.rsc.prerender-fallback.rsc
+│   │   │   │           ├── services
+│   │   │   │           │   ├── request
+│   │   │   │           │   │   ├── success
+│   │   │   │           │   │   │   ├── __PAGE__.segment.rsc.func
+│   │   │   │           │   │   │   │   ├── .vc-config.json
+│   │   │   │           │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │           │   │   │   ├── __PAGE__.segment.rsc.prerender-config.json
+│   │   │   │           │   │   │   └── __PAGE__.segment.rsc.prerender-fallback.rsc
+│   │   │   │           │   │   ├── success.segment.rsc.func
+│   │   │   │           │   │   │   ├── .vc-config.json
+│   │   │   │           │   │   │   └── ___next_launcher.cjs
+│   │   │   │           │   │   ├── success.segment.rsc.prerender-config.json
+│   │   │   │           │   │   └── success.segment.rsc.prerender-fallback.rsc
+│   │   │   │           │   ├── request.segment.rsc.func
+│   │   │   │           │   │   ├── .vc-config.json
+│   │   │   │           │   │   └── ___next_launcher.cjs
+│   │   │   │           │   ├── request.segment.rsc.prerender-config.json
+│   │   │   │           │   └── request.segment.rsc.prerender-fallback.rsc
+│   │   │   │           ├── services.segment.rsc.func
+│   │   │   │           │   ├── .vc-config.json
+│   │   │   │           │   └── ___next_launcher.cjs
+│   │   │   │           ├── services.segment.rsc.prerender-config.json
+│   │   │   │           └── services.segment.rsc.prerender-fallback.rsc
+│   │   │   ├── services.func
+│   │   │   │   ├── .vc-config.json
+│   │   │   │   └── ___next_launcher.cjs
+│   │   │   ├── services.rsc.func
+│   │   │   │   ├── .vc-config.json
+│   │   │   │   └── ___next_launcher.cjs
+│   │   │   ├── sitemap.xml.func
+│   │   │   │   ├── .vc-config.json
+│   │   │   │   └── ___next_launcher.cjs
+│   │   │   ├── sitemap.xml.prerender-config.json
+│   │   │   ├── sitemap.xml.prerender-fallback.body
+│   │   │   ├── sitemap.xml.rsc.func
+│   │   │   │   ├── .vc-config.json
+│   │   │   │   └── ___next_launcher.cjs
+│   │   │   ├── store
+│   │   │   │   ├── [slug].func
+│   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   └── [slug].rsc.func
+│   │   │   │       ├── .vc-config.json
+│   │   │   │       └── ___next_launcher.cjs
+│   │   │   ├── store.func
+│   │   │   │   ├── .vc-config.json
+│   │   │   │   └── ___next_launcher.cjs
+│   │   │   ├── store.rsc.func
+│   │   │   │   ├── .vc-config.json
+│   │   │   │   └── ___next_launcher.cjs
+│   │   │   ├── student
+│   │   │   │   ├── dashboard.func
+│   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   ├── dashboard.prerender-config.json
+│   │   │   │   ├── dashboard.prerender-fallback.html
+│   │   │   │   ├── dashboard.rsc.func
+│   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   ├── dashboard.rsc.prerender-config.json
+│   │   │   │   ├── dashboard.rsc.prerender-fallback.rsc
+│   │   │   │   ├── dashboard.segments
+│   │   │   │   │   ├── _full.segment.rsc.func
+│   │   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   │   ├── _full.segment.rsc.prerender-config.json
+│   │   │   │   │   ├── _full.segment.rsc.prerender-fallback.rsc
+│   │   │   │   │   ├── _head.segment.rsc.func
+│   │   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   │   ├── _head.segment.rsc.prerender-config.json
+│   │   │   │   │   ├── _head.segment.rsc.prerender-fallback.rsc
+│   │   │   │   │   ├── _index.segment.rsc.func
+│   │   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   │   ├── _index.segment.rsc.prerender-config.json
+│   │   │   │   │   ├── _index.segment.rsc.prerender-fallback.rsc
+│   │   │   │   │   ├── _tree.segment.rsc.func
+│   │   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   │   ├── _tree.segment.rsc.prerender-config.json
+│   │   │   │   │   ├── _tree.segment.rsc.prerender-fallback.rsc
+│   │   │   │   │   ├── student
+│   │   │   │   │   │   ├── dashboard
+│   │   │   │   │   │   │   ├── __PAGE__.segment.rsc.func
+│   │   │   │   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   │   │   │   ├── __PAGE__.segment.rsc.prerender-config.json
+│   │   │   │   │   │   │   └── __PAGE__.segment.rsc.prerender-fallback.rsc
+│   │   │   │   │   │   ├── dashboard.segment.rsc.func
+│   │   │   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   │   │   ├── dashboard.segment.rsc.prerender-config.json
+│   │   │   │   │   │   └── dashboard.segment.rsc.prerender-fallback.rsc
+│   │   │   │   │   ├── student.segment.rsc.func
+│   │   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   │   ├── student.segment.rsc.prerender-config.json
+│   │   │   │   │   └── student.segment.rsc.prerender-fallback.rsc
+│   │   │   │   ├── login.func
+│   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   ├── login.prerender-config.json
+│   │   │   │   ├── login.prerender-fallback.html
+│   │   │   │   ├── login.rsc.func
+│   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   ├── login.rsc.prerender-config.json
+│   │   │   │   ├── login.rsc.prerender-fallback.rsc
+│   │   │   │   ├── login.segments
+│   │   │   │   │   ├── _full.segment.rsc.func
+│   │   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   │   ├── _full.segment.rsc.prerender-config.json
+│   │   │   │   │   ├── _full.segment.rsc.prerender-fallback.rsc
+│   │   │   │   │   ├── _head.segment.rsc.func
+│   │   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   │   ├── _head.segment.rsc.prerender-config.json
+│   │   │   │   │   ├── _head.segment.rsc.prerender-fallback.rsc
+│   │   │   │   │   ├── _index.segment.rsc.func
+│   │   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   │   ├── _index.segment.rsc.prerender-config.json
+│   │   │   │   │   ├── _index.segment.rsc.prerender-fallback.rsc
+│   │   │   │   │   ├── _tree.segment.rsc.func
+│   │   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   │   ├── _tree.segment.rsc.prerender-config.json
+│   │   │   │   │   ├── _tree.segment.rsc.prerender-fallback.rsc
+│   │   │   │   │   ├── student
+│   │   │   │   │   │   ├── login
+│   │   │   │   │   │   │   ├── __PAGE__.segment.rsc.func
+│   │   │   │   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   │   │   │   ├── __PAGE__.segment.rsc.prerender-config.json
+│   │   │   │   │   │   │   └── __PAGE__.segment.rsc.prerender-fallback.rsc
+│   │   │   │   │   │   ├── login.segment.rsc.func
+│   │   │   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   │   │   ├── login.segment.rsc.prerender-config.json
+│   │   │   │   │   │   └── login.segment.rsc.prerender-fallback.rsc
+│   │   │   │   │   ├── student.segment.rsc.func
+│   │   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   │   ├── student.segment.rsc.prerender-config.json
+│   │   │   │   │   └── student.segment.rsc.prerender-fallback.rsc
+│   │   │   │   ├── oauth-success.func
+│   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   ├── oauth-success.prerender-config.json
+│   │   │   │   ├── oauth-success.prerender-fallback.html
+│   │   │   │   ├── oauth-success.rsc.func
+│   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   ├── oauth-success.rsc.prerender-config.json
+│   │   │   │   ├── oauth-success.rsc.prerender-fallback.rsc
+│   │   │   │   ├── oauth-success.segments
+│   │   │   │   │   ├── _full.segment.rsc.func
+│   │   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   │   ├── _full.segment.rsc.prerender-config.json
+│   │   │   │   │   ├── _full.segment.rsc.prerender-fallback.rsc
+│   │   │   │   │   ├── _head.segment.rsc.func
+│   │   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   │   ├── _head.segment.rsc.prerender-config.json
+│   │   │   │   │   ├── _head.segment.rsc.prerender-fallback.rsc
+│   │   │   │   │   ├── _index.segment.rsc.func
+│   │   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   │   ├── _index.segment.rsc.prerender-config.json
+│   │   │   │   │   ├── _index.segment.rsc.prerender-fallback.rsc
+│   │   │   │   │   ├── _tree.segment.rsc.func
+│   │   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   │   ├── _tree.segment.rsc.prerender-config.json
+│   │   │   │   │   ├── _tree.segment.rsc.prerender-fallback.rsc
+│   │   │   │   │   ├── student
+│   │   │   │   │   │   ├── oauth-success
+│   │   │   │   │   │   │   ├── __PAGE__.segment.rsc.func
+│   │   │   │   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   │   │   │   ├── __PAGE__.segment.rsc.prerender-config.json
+│   │   │   │   │   │   │   └── __PAGE__.segment.rsc.prerender-fallback.rsc
+│   │   │   │   │   │   ├── oauth-success.segment.rsc.func
+│   │   │   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   │   │   ├── oauth-success.segment.rsc.prerender-config.json
+│   │   │   │   │   │   └── oauth-success.segment.rsc.prerender-fallback.rsc
+│   │   │   │   │   ├── student.segment.rsc.func
+│   │   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   │   ├── student.segment.rsc.prerender-config.json
+│   │   │   │   │   └── student.segment.rsc.prerender-fallback.rsc
+│   │   │   │   ├── signup.func
+│   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   ├── signup.prerender-config.json
+│   │   │   │   ├── signup.prerender-fallback.html
+│   │   │   │   ├── signup.rsc.func
+│   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   ├── signup.rsc.prerender-config.json
+│   │   │   │   ├── signup.rsc.prerender-fallback.rsc
+│   │   │   │   └── signup.segments
+│   │   │   │       ├── _full.segment.rsc.func
+│   │   │   │       │   ├── .vc-config.json
+│   │   │   │       │   └── ___next_launcher.cjs
+│   │   │   │       ├── _full.segment.rsc.prerender-config.json
+│   │   │   │       ├── _full.segment.rsc.prerender-fallback.rsc
+│   │   │   │       ├── _head.segment.rsc.func
+│   │   │   │       │   ├── .vc-config.json
+│   │   │   │       │   └── ___next_launcher.cjs
+│   │   │   │       ├── _head.segment.rsc.prerender-config.json
+│   │   │   │       ├── _head.segment.rsc.prerender-fallback.rsc
+│   │   │   │       ├── _index.segment.rsc.func
+│   │   │   │       │   ├── .vc-config.json
+│   │   │   │       │   └── ___next_launcher.cjs
+│   │   │   │       ├── _index.segment.rsc.prerender-config.json
+│   │   │   │       ├── _index.segment.rsc.prerender-fallback.rsc
+│   │   │   │       ├── _tree.segment.rsc.func
+│   │   │   │       │   ├── .vc-config.json
+│   │   │   │       │   └── ___next_launcher.cjs
+│   │   │   │       ├── _tree.segment.rsc.prerender-config.json
+│   │   │   │       ├── _tree.segment.rsc.prerender-fallback.rsc
+│   │   │   │       ├── student
+│   │   │   │       │   ├── signup
+│   │   │   │       │   │   ├── __PAGE__.segment.rsc.func
+│   │   │   │       │   │   │   ├── .vc-config.json
+│   │   │   │       │   │   │   └── ___next_launcher.cjs
+│   │   │   │       │   │   ├── __PAGE__.segment.rsc.prerender-config.json
+│   │   │   │       │   │   └── __PAGE__.segment.rsc.prerender-fallback.rsc
+│   │   │   │       │   ├── signup.segment.rsc.func
+│   │   │   │       │   │   ├── .vc-config.json
+│   │   │   │       │   │   └── ___next_launcher.cjs
+│   │   │   │       │   ├── signup.segment.rsc.prerender-config.json
+│   │   │   │       │   └── signup.segment.rsc.prerender-fallback.rsc
+│   │   │   │       ├── student.segment.rsc.func
+│   │   │   │       │   ├── .vc-config.json
+│   │   │   │       │   └── ___next_launcher.cjs
+│   │   │   │       ├── student.segment.rsc.prerender-config.json
+│   │   │   │       └── student.segment.rsc.prerender-fallback.rsc
+│   │   │   ├── studio
+│   │   │   │   ├── [[...index]].func
+│   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   └── [[...index]].rsc.func
+│   │   │   │       ├── .vc-config.json
+│   │   │   │       └── ___next_launcher.cjs
+│   │   │   ├── success.func
+│   │   │   │   ├── .vc-config.json
+│   │   │   │   └── ___next_launcher.cjs
+│   │   │   ├── success.prerender-config.json
+│   │   │   ├── success.prerender-fallback.html
+│   │   │   ├── success.rsc.func
+│   │   │   │   ├── .vc-config.json
+│   │   │   │   └── ___next_launcher.cjs
+│   │   │   ├── success.rsc.prerender-config.json
+│   │   │   ├── success.rsc.prerender-fallback.rsc
+│   │   │   ├── success.segments
+│   │   │   │   ├── _full.segment.rsc.func
+│   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   ├── _full.segment.rsc.prerender-config.json
+│   │   │   │   ├── _full.segment.rsc.prerender-fallback.rsc
+│   │   │   │   ├── _head.segment.rsc.func
+│   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   ├── _head.segment.rsc.prerender-config.json
+│   │   │   │   ├── _head.segment.rsc.prerender-fallback.rsc
+│   │   │   │   ├── _index.segment.rsc.func
+│   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   ├── _index.segment.rsc.prerender-config.json
+│   │   │   │   ├── _index.segment.rsc.prerender-fallback.rsc
+│   │   │   │   ├── _tree.segment.rsc.func
+│   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   ├── _tree.segment.rsc.prerender-config.json
+│   │   │   │   ├── _tree.segment.rsc.prerender-fallback.rsc
+│   │   │   │   ├── success
+│   │   │   │   │   ├── __PAGE__.segment.rsc.func
+│   │   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   │   ├── __PAGE__.segment.rsc.prerender-config.json
+│   │   │   │   │   └── __PAGE__.segment.rsc.prerender-fallback.rsc
+│   │   │   │   ├── success.segment.rsc.func
+│   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   ├── success.segment.rsc.prerender-config.json
+│   │   │   │   └── success.segment.rsc.prerender-fallback.rsc
+│   │   │   ├── teacher
+│   │   │   │   ├── dashboard.func
+│   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   ├── dashboard.prerender-config.json
+│   │   │   │   ├── dashboard.prerender-fallback.html
+│   │   │   │   ├── dashboard.rsc.func
+│   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   ├── dashboard.rsc.prerender-config.json
+│   │   │   │   ├── dashboard.rsc.prerender-fallback.rsc
+│   │   │   │   ├── dashboard.segments
+│   │   │   │   │   ├── _full.segment.rsc.func
+│   │   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   │   ├── _full.segment.rsc.prerender-config.json
+│   │   │   │   │   ├── _full.segment.rsc.prerender-fallback.rsc
+│   │   │   │   │   ├── _head.segment.rsc.func
+│   │   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   │   ├── _head.segment.rsc.prerender-config.json
+│   │   │   │   │   ├── _head.segment.rsc.prerender-fallback.rsc
+│   │   │   │   │   ├── _index.segment.rsc.func
+│   │   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   │   ├── _index.segment.rsc.prerender-config.json
+│   │   │   │   │   ├── _index.segment.rsc.prerender-fallback.rsc
+│   │   │   │   │   ├── _tree.segment.rsc.func
+│   │   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   │   ├── _tree.segment.rsc.prerender-config.json
+│   │   │   │   │   ├── _tree.segment.rsc.prerender-fallback.rsc
+│   │   │   │   │   ├── teacher
+│   │   │   │   │   │   ├── dashboard
+│   │   │   │   │   │   │   ├── __PAGE__.segment.rsc.func
+│   │   │   │   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   │   │   │   ├── __PAGE__.segment.rsc.prerender-config.json
+│   │   │   │   │   │   │   └── __PAGE__.segment.rsc.prerender-fallback.rsc
+│   │   │   │   │   │   ├── dashboard.segment.rsc.func
+│   │   │   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   │   │   ├── dashboard.segment.rsc.prerender-config.json
+│   │   │   │   │   │   └── dashboard.segment.rsc.prerender-fallback.rsc
+│   │   │   │   │   ├── teacher.segment.rsc.func
+│   │   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   │   ├── teacher.segment.rsc.prerender-config.json
+│   │   │   │   │   └── teacher.segment.rsc.prerender-fallback.rsc
+│   │   │   │   ├── login.func
+│   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   ├── login.prerender-config.json
+│   │   │   │   ├── login.prerender-fallback.html
+│   │   │   │   ├── login.rsc.func
+│   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   ├── login.rsc.prerender-config.json
+│   │   │   │   ├── login.rsc.prerender-fallback.rsc
+│   │   │   │   ├── login.segments
+│   │   │   │   │   ├── _full.segment.rsc.func
+│   │   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   │   ├── _full.segment.rsc.prerender-config.json
+│   │   │   │   │   ├── _full.segment.rsc.prerender-fallback.rsc
+│   │   │   │   │   ├── _head.segment.rsc.func
+│   │   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   │   ├── _head.segment.rsc.prerender-config.json
+│   │   │   │   │   ├── _head.segment.rsc.prerender-fallback.rsc
+│   │   │   │   │   ├── _index.segment.rsc.func
+│   │   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   │   ├── _index.segment.rsc.prerender-config.json
+│   │   │   │   │   ├── _index.segment.rsc.prerender-fallback.rsc
+│   │   │   │   │   ├── _tree.segment.rsc.func
+│   │   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   │   ├── _tree.segment.rsc.prerender-config.json
+│   │   │   │   │   ├── _tree.segment.rsc.prerender-fallback.rsc
+│   │   │   │   │   ├── teacher
+│   │   │   │   │   │   ├── login
+│   │   │   │   │   │   │   ├── __PAGE__.segment.rsc.func
+│   │   │   │   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   │   │   │   ├── __PAGE__.segment.rsc.prerender-config.json
+│   │   │   │   │   │   │   └── __PAGE__.segment.rsc.prerender-fallback.rsc
+│   │   │   │   │   │   ├── login.segment.rsc.func
+│   │   │   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   │   │   ├── login.segment.rsc.prerender-config.json
+│   │   │   │   │   │   └── login.segment.rsc.prerender-fallback.rsc
+│   │   │   │   │   ├── teacher.segment.rsc.func
+│   │   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   │   ├── teacher.segment.rsc.prerender-config.json
+│   │   │   │   │   └── teacher.segment.rsc.prerender-fallback.rsc
+│   │   │   │   ├── oauth-success.func
+│   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   ├── oauth-success.prerender-config.json
+│   │   │   │   ├── oauth-success.prerender-fallback.html
+│   │   │   │   ├── oauth-success.rsc.func
+│   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   ├── oauth-success.rsc.prerender-config.json
+│   │   │   │   ├── oauth-success.rsc.prerender-fallback.rsc
+│   │   │   │   ├── oauth-success.segments
+│   │   │   │   │   ├── _full.segment.rsc.func
+│   │   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   │   ├── _full.segment.rsc.prerender-config.json
+│   │   │   │   │   ├── _full.segment.rsc.prerender-fallback.rsc
+│   │   │   │   │   ├── _head.segment.rsc.func
+│   │   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   │   ├── _head.segment.rsc.prerender-config.json
+│   │   │   │   │   ├── _head.segment.rsc.prerender-fallback.rsc
+│   │   │   │   │   ├── _index.segment.rsc.func
+│   │   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   │   ├── _index.segment.rsc.prerender-config.json
+│   │   │   │   │   ├── _index.segment.rsc.prerender-fallback.rsc
+│   │   │   │   │   ├── _tree.segment.rsc.func
+│   │   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   │   ├── _tree.segment.rsc.prerender-config.json
+│   │   │   │   │   ├── _tree.segment.rsc.prerender-fallback.rsc
+│   │   │   │   │   ├── teacher
+│   │   │   │   │   │   ├── oauth-success
+│   │   │   │   │   │   │   ├── __PAGE__.segment.rsc.func
+│   │   │   │   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   │   │   │   ├── __PAGE__.segment.rsc.prerender-config.json
+│   │   │   │   │   │   │   └── __PAGE__.segment.rsc.prerender-fallback.rsc
+│   │   │   │   │   │   ├── oauth-success.segment.rsc.func
+│   │   │   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   │   │   ├── oauth-success.segment.rsc.prerender-config.json
+│   │   │   │   │   │   └── oauth-success.segment.rsc.prerender-fallback.rsc
+│   │   │   │   │   ├── teacher.segment.rsc.func
+│   │   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   │   ├── teacher.segment.rsc.prerender-config.json
+│   │   │   │   │   └── teacher.segment.rsc.prerender-fallback.rsc
+│   │   │   │   ├── signup.func
+│   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   ├── signup.prerender-config.json
+│   │   │   │   ├── signup.prerender-fallback.html
+│   │   │   │   ├── signup.rsc.func
+│   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   ├── signup.rsc.prerender-config.json
+│   │   │   │   ├── signup.rsc.prerender-fallback.rsc
+│   │   │   │   └── signup.segments
+│   │   │   │       ├── _full.segment.rsc.func
+│   │   │   │       │   ├── .vc-config.json
+│   │   │   │       │   └── ___next_launcher.cjs
+│   │   │   │       ├── _full.segment.rsc.prerender-config.json
+│   │   │   │       ├── _full.segment.rsc.prerender-fallback.rsc
+│   │   │   │       ├── _head.segment.rsc.func
+│   │   │   │       │   ├── .vc-config.json
+│   │   │   │       │   └── ___next_launcher.cjs
+│   │   │   │       ├── _head.segment.rsc.prerender-config.json
+│   │   │   │       ├── _head.segment.rsc.prerender-fallback.rsc
+│   │   │   │       ├── _index.segment.rsc.func
+│   │   │   │       │   ├── .vc-config.json
+│   │   │   │       │   └── ___next_launcher.cjs
+│   │   │   │       ├── _index.segment.rsc.prerender-config.json
+│   │   │   │       ├── _index.segment.rsc.prerender-fallback.rsc
+│   │   │   │       ├── _tree.segment.rsc.func
+│   │   │   │       │   ├── .vc-config.json
+│   │   │   │       │   └── ___next_launcher.cjs
+│   │   │   │       ├── _tree.segment.rsc.prerender-config.json
+│   │   │   │       ├── _tree.segment.rsc.prerender-fallback.rsc
+│   │   │   │       ├── teacher
+│   │   │   │       │   ├── signup
+│   │   │   │       │   │   ├── __PAGE__.segment.rsc.func
+│   │   │   │       │   │   │   ├── .vc-config.json
+│   │   │   │       │   │   │   └── ___next_launcher.cjs
+│   │   │   │       │   │   ├── __PAGE__.segment.rsc.prerender-config.json
+│   │   │   │       │   │   └── __PAGE__.segment.rsc.prerender-fallback.rsc
+│   │   │   │       │   ├── signup.segment.rsc.func
+│   │   │   │       │   │   ├── .vc-config.json
+│   │   │   │       │   │   └── ___next_launcher.cjs
+│   │   │   │       │   ├── signup.segment.rsc.prerender-config.json
+│   │   │   │       │   └── signup.segment.rsc.prerender-fallback.rsc
+│   │   │   │       ├── teacher.segment.rsc.func
+│   │   │   │       │   ├── .vc-config.json
+│   │   │   │       │   └── ___next_launcher.cjs
+│   │   │   │       ├── teacher.segment.rsc.prerender-config.json
+│   │   │   │       └── teacher.segment.rsc.prerender-fallback.rsc
+│   │   │   ├── terms-of-service.func
+│   │   │   │   ├── .vc-config.json
+│   │   │   │   └── ___next_launcher.cjs
+│   │   │   ├── terms-of-service.prerender-config.json
+│   │   │   ├── terms-of-service.prerender-fallback.html
+│   │   │   ├── terms-of-service.rsc.func
+│   │   │   │   ├── .vc-config.json
+│   │   │   │   └── ___next_launcher.cjs
+│   │   │   ├── terms-of-service.rsc.prerender-config.json
+│   │   │   ├── terms-of-service.rsc.prerender-fallback.rsc
+│   │   │   ├── terms-of-service.segments
+│   │   │   │   ├── _full.segment.rsc.func
+│   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   ├── _full.segment.rsc.prerender-config.json
+│   │   │   │   ├── _full.segment.rsc.prerender-fallback.rsc
+│   │   │   │   ├── _head.segment.rsc.func
+│   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   ├── _head.segment.rsc.prerender-config.json
+│   │   │   │   ├── _head.segment.rsc.prerender-fallback.rsc
+│   │   │   │   ├── _index.segment.rsc.func
+│   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   ├── _index.segment.rsc.prerender-config.json
+│   │   │   │   ├── _index.segment.rsc.prerender-fallback.rsc
+│   │   │   │   ├── _tree.segment.rsc.func
+│   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   ├── _tree.segment.rsc.prerender-config.json
+│   │   │   │   ├── _tree.segment.rsc.prerender-fallback.rsc
+│   │   │   │   ├── terms-of-service
+│   │   │   │   │   ├── __PAGE__.segment.rsc.func
+│   │   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   │   ├── __PAGE__.segment.rsc.prerender-config.json
+│   │   │   │   │   └── __PAGE__.segment.rsc.prerender-fallback.rsc
+│   │   │   │   ├── terms-of-service.segment.rsc.func
+│   │   │   │   │   ├── .vc-config.json
+│   │   │   │   │   └── ___next_launcher.cjs
+│   │   │   │   ├── terms-of-service.segment.rsc.prerender-config.json
+│   │   │   │   └── terms-of-service.segment.rsc.prerender-fallback.rsc
+│   │   │   └── tools
+│   │   │       ├── utm.func
+│   │   │       │   ├── .vc-config.json
+│   │   │       │   └── ___next_launcher.cjs
+│   │   │       ├── utm.prerender-config.json
+│   │   │       ├── utm.prerender-fallback.html
+│   │   │       ├── utm.rsc.func
+│   │   │       │   ├── .vc-config.json
+│   │   │       │   └── ___next_launcher.cjs
+│   │   │       ├── utm.rsc.prerender-config.json
+│   │   │       ├── utm.rsc.prerender-fallback.rsc
+│   │   │       └── utm.segments
+│   │   │           ├── _full.segment.rsc.func
+│   │   │           │   ├── .vc-config.json
+│   │   │           │   └── ___next_launcher.cjs
+│   │   │           ├── _full.segment.rsc.prerender-config.json
+│   │   │           ├── _full.segment.rsc.prerender-fallback.rsc
+│   │   │           ├── _head.segment.rsc.func
+│   │   │           │   ├── .vc-config.json
+│   │   │           │   └── ___next_launcher.cjs
+│   │   │           ├── _head.segment.rsc.prerender-config.json
+│   │   │           ├── _head.segment.rsc.prerender-fallback.rsc
+│   │   │           ├── _index.segment.rsc.func
+│   │   │           │   ├── .vc-config.json
+│   │   │           │   └── ___next_launcher.cjs
+│   │   │           ├── _index.segment.rsc.prerender-config.json
+│   │   │           ├── _index.segment.rsc.prerender-fallback.rsc
+│   │   │           ├── _tree.segment.rsc.func
+│   │   │           │   ├── .vc-config.json
+│   │   │           │   └── ___next_launcher.cjs
+│   │   │           ├── _tree.segment.rsc.prerender-config.json
+│   │   │           ├── _tree.segment.rsc.prerender-fallback.rsc
+│   │   │           ├── tools
+│   │   │           │   ├── utm
+│   │   │           │   │   ├── __PAGE__.segment.rsc.func
+│   │   │           │   │   │   ├── .vc-config.json
+│   │   │           │   │   │   └── ___next_launcher.cjs
+│   │   │           │   │   ├── __PAGE__.segment.rsc.prerender-config.json
+│   │   │           │   │   └── __PAGE__.segment.rsc.prerender-fallback.rsc
+│   │   │           │   ├── utm.segment.rsc.func
+│   │   │           │   │   ├── .vc-config.json
+│   │   │           │   │   └── ___next_launcher.cjs
+│   │   │           │   ├── utm.segment.rsc.prerender-config.json
+│   │   │           │   └── utm.segment.rsc.prerender-fallback.rsc
+│   │   │           ├── tools.segment.rsc.func
+│   │   │           │   ├── .vc-config.json
+│   │   │           │   └── ___next_launcher.cjs
+│   │   │           ├── tools.segment.rsc.prerender-config.json
+│   │   │           └── tools.segment.rsc.prerender-fallback.rsc
+│   │   └── static
+│   │       ├── 404.html
+│   │       ├── 404.rsc.json
+│   │       ├── 404.segments
+│   │       │   └── _tree.segment.rsc.json
+│   │       ├── 500.html
+│   │       ├── 500.rsc.json
+│   │       ├── 500.segments
+│   │       │   └── _tree.segment.rsc.json
+│   │       ├── PUBLIC_FOLDER_WIREFRAME.md
+│   │       ├── _next
+│   │       │   ├── __private
+│   │       │   │   └── trace
+│   │       │   └── static
+│   │       │       ├── Fi_OSR4ulC90VN8kaLlUR
+│   │       │       │   ├── _buildManifest.js
+│   │       │       │   ├── _clientMiddlewareManifest.js
+│   │       │       │   └── _ssgManifest.js
+│   │       │       ├── chunks
+│   │       │       │   ├── 0-4s04l9sj_gm.js
+│   │       │       │   ├── 0.-qnnxoeind~.js
+│   │       │       │   ├── 0..bst24r1~h5.js
+│   │       │       │   ├── 0.fcom6sx2g9r.js
+│   │       │       │   ├── 0.gw.afv7gy76.js
+│   │       │       │   ├── 0.zgm_3r5p3qe.js
+│   │       │       │   ├── 00o7yeoexvxjc.js
+│   │       │       │   ├── 018f6.ph25ixq.js
+│   │       │       │   ├── 01bcnx3chu_ay.js
+│   │       │       │   ├── 02g6bbzyssy7-.js
+│   │       │       │   ├── 02wldshs.p01h.js
+│   │       │       │   ├── 03.cpv~71a~tl.js
+│   │       │       │   ├── 0334eq_vrholi.js
+│   │       │       │   ├── 03h66lwa39i8-.js
+│   │       │       │   ├── 03z1x7x5gdgfq.js
+│   │       │       │   ├── 03~yq9q893hmn.js
+│   │       │       │   ├── 055gmuijztsqu.js
+│   │       │       │   ├── 05gl0w~hijvgs.js
+│   │       │       │   ├── 05v1fy7h9-qbl.js
+│   │       │       │   ├── 05vi5hagex0sl.js
+│   │       │       │   ├── 05xhebuh.i4sw.js
+│   │       │       │   ├── 05zylqwfm254s.js
+│   │       │       │   ├── 06kx-2hlglv~7.js
+│   │       │       │   ├── 07uit1qfbln7n.js
+│   │       │       │   ├── 0_--vm7~q-a.a.js
+│   │       │       │   ├── 0_8.3n_z8jc1i.js
+│   │       │       │   ├── 0_y0o2-34hwoe.js
+│   │       │       │   ├── 0bmc~xsewiwny.js
+│   │       │       │   ├── 0bncidq958n-w.js
+│   │       │       │   ├── 0bo_786whrb4z.js
+│   │       │       │   ├── 0c7n5qsujb0sb.js
+│   │       │       │   ├── 0cs7lbu3-b8e7.js
+│   │       │       │   ├── 0d6k6abqf~0ej.js
+│   │       │       │   ├── 0d90he211igd6.js
+│   │       │       │   ├── 0dp0fl96ki8rc.js
+│   │       │       │   ├── 0elm1ml-fh93k.js
+│   │       │       │   ├── 0fo5la6mgju1c.js
+│   │       │       │   ├── 0fu9xq2-t2s3b.js
+│   │       │       │   ├── 0huqt7itqivqm.js
+│   │       │       │   ├── 0i-.ffhh8t4by.js
+│   │       │       │   ├── 0i.l9589uvx0j.js
+│   │       │       │   ├── 0i_es1mi-lcv9.js
+│   │       │       │   ├── 0iuwcfwz-1t5g.js
+│   │       │       │   ├── 0j.1x7d-s6x8d.js
+│   │       │       │   ├── 0k9d-x7nt.9lk.js
+│   │       │       │   ├── 0k9u04o_kcaqe.js
+│   │       │       │   ├── 0kefmv.5u~yoz.css
+│   │       │       │   ├── 0nji1p5~je.l6.js
+│   │       │       │   ├── 0ob1btal_2u8j.js
+│   │       │       │   ├── 0ovgccyc9jn8j.js
+│   │       │       │   ├── 0pevq3zzvdcsj.js
+│   │       │       │   ├── 0pt.h-6fwjbbq.js
+│   │       │       │   ├── 0qhn3w.mzlbl~.js
+│   │       │       │   ├── 0qt~aoch1_zvn.js
+│   │       │       │   ├── 0qxf2ng8rm606.js
+│   │       │       │   ├── 0rnazlg8qa7nw.js
+│   │       │       │   ├── 0rwwge57xnfls.js
+│   │       │       │   ├── 0t3z~anwiw~qh.js
+│   │       │       │   ├── 0t64yfzegdzar.js
+│   │       │       │   ├── 0tq.rakznwhcn.js
+│   │       │       │   ├── 0u6f0yny6cof0.js
+│   │       │       │   ├── 0uho0q441htqd.js
+│   │       │       │   ├── 0v77qhpfswpt2.js
+│   │       │       │   ├── 0vb55~oy~k_s..js
+│   │       │       │   ├── 0vl-ubr_ui2g4.js
+│   │       │       │   ├── 0vvnj8x3g4vxs.js
+│   │       │       │   ├── 0wergdc.cnqb9.js
+│   │       │       │   ├── 0whcl9ff4lw~~.js
+│   │       │       │   ├── 0wwqe2dlt_3k5.js
+│   │       │       │   ├── 0wz56pkde-egl.js
+│   │       │       │   ├── 0x.73w57rn4ou.js
+│   │       │       │   ├── 0x0rrmu147rf2.js
+│   │       │       │   ├── 0xs~r_~57qot1.js
+│   │       │       │   ├── 0yf77bvcjzc9j.js
+│   │       │       │   ├── 0yly2nhpzgukm.js
+│   │       │       │   ├── 0zjs5hlwbvch9.js
+│   │       │       │   ├── 0zmhz85t0p2gw.js
+│   │       │       │   ├── 0zq67pxjz-7w3.js
+│   │       │       │   ├── 0~10b78mrq4h3.js
+│   │       │       │   ├── 0~dlyvavv9ckg.js
+│   │       │       │   ├── 0~mhn_i~sv745.js
+│   │       │       │   ├── 0~q.xyc9mtm0y.js
+│   │       │       │   ├── 11k2sfa7r46~w.js
+│   │       │       │   ├── 11m75~hrixg91.js
+│   │       │       │   ├── 11td0rha8w4w_.js
+│   │       │       │   ├── 130.m2a4gu5...js
+│   │       │       │   ├── 13jh8pqjnvu.q.js
+│   │       │       │   ├── 14q0m7.23joy9.js
+│   │       │       │   ├── 15.xx7v6vdddp.js
+│   │       │       │   ├── 168l6w6l~h4j~.js
+│   │       │       │   ├── 16f8r~lknbwuf.js
+│   │       │       │   ├── 17de3gr.q8gh-.js
+│   │       │       │   ├── 187-7ej3hov1w.js
+│   │       │       │   └── turbopack-0par-ve04gu0b.js
+│   │       │       └── not-found.txt
+│   │       ├── android-chrome-192x192.png
+│   │       ├── android-chrome-512x512.png
+│   │       ├── apple-touch-icon.png
+│   │       ├── assets
+│   │       │   └── images
+│   │       │       ├── courses
+│   │       │       │   ├── adobe-creative-cloud-suite.jpg
+│   │       │       │   ├── adsense-101-approval-blueprint.jpg
+│   │       │       │   ├── adsense-arbitrage-pro.jpg
+│   │       │       │   ├── adsense-traffic-revenue.jpg
+│   │       │       │   ├── advanced-ansible-automation-iac.jpg
+│   │       │       │   ├── advanced-backend-engineering-node-js-microservices-.jpg
+│   │       │       │   ├── advanced-css-mastery.jpg
+│   │       │       │   ├── advanced-excel-business.jpg
+│   │       │       │   ├── advanced-javascript-mastery.jpg
+│   │       │       │   ├── advanced-seo-rank-1-on-google.jpg
+│   │       │       │   ├── advanced-seo-serp-ranking-mastery.jpg
+│   │       │       │   ├── advanced-ui-ux.jpg
+│   │       │       │   ├── agile-project-management-essentials.jpg
+│   │       │       │   ├── ai-engineering-building-llms-neural-networks.jpg
+│   │       │       │   ├── ai-engineering-mlops.jpg
+│   │       │       │   ├── amazon-retail-media-networks.jpg
+│   │       │       │   ├── application-security-appsec-specialist.jpg
+│   │       │       │   ├── applied-machine-learning-data-science.jpg
+│   │       │       │   ├── archicad-professional.jpg
+│   │       │       │   ├── architecting-landing-zones.jpg
+│   │       │       │   ├── autocad-masterclass.jpg
+│   │       │       │   ├── aws-certified-solutions-architect-associate-professional.jpg
+│   │       │       │   ├── aws-crash-course-for-beginners.jpg
+│   │       │       │   ├── azure-security-technologies-az-500.jpg
+│   │       │       │   ├── backend-development-crash-course.jpg
+│   │       │       │   ├── backend-engineering.jpg
+│   │       │       │   ├── business-intelligence-analytics.jpg
+│   │       │       │   ├── business-writing.jpg
+│   │       │       │   ├── c-net-core-architecture.jpg
+│   │       │       │   ├── canva-for-ad-creatives.jpg
+│   │       │       │   ├── ccna-networking.jpg
+│   │       │       │   ├── certified-scrum-master-csm-bootcamp-0.jpg
+│   │       │       │   ├── certified-scrum-master-csm-bootcamp-2.jpg
+│   │       │       │   ├── certified-scrum-master-csm-bootcamp.jpg
+│   │       │       │   ├── cisco-certified-network-associate-ccna-200-301.jpg
+│   │       │       │   ├── cissp-certification-prep-course.jpg
+│   │       │       │   ├── cissp-senior-security-professional-prep.jpg
+│   │       │       │   ├── cloud-infrastructure-deployment-strategy.jpg
+│   │       │       │   ├── competitive-programming.jpg
+│   │       │       │   ├── computer-hardware-engineering-system-maintenance.jpg
+│   │       │       │   ├── content-writing-copywriting.jpg
+│   │       │       │   ├── copywriting-crash-course.jpg
+│   │       │       │   ├── copywriting-for-direct-response.jpg
+│   │       │       │   ├── cross-platform-mobile-app-development-react-native-.jpg
+│   │       │       │   ├── cross-platform-mobile-app-development-react-native-2.jpg
+│   │       │       │   ├── css-fundamentals.jpg
+│   │       │       │   ├── css-only-projects.jpg
+│   │       │       │   ├── cybersecurity-fundamentals-network-systems-defense.jpg
+│   │       │       │   ├── data-analysis-with-python.jpg
+│   │       │       │   ├── devops-engineering-cloud-infrastructure-core.jpg
+│   │       │       │   ├── devops-engineering-cloud-infrastructure.jpg
+│   │       │       │   ├── devops-engineering-kubernetes-mastery.jpg
+│   │       │       │   ├── devops-fundamentals-git-github-mastery.jpg
+│   │       │       │   ├── devsecops-engineering-automating-security.jpg
+│   │       │       │   ├── digital-literacy-computer-operations.jpg
+│   │       │       │   ├── digital-marketing-for-small-businesses.jpg
+│   │       │       │   ├── dsa-fundamentals.jpg
+│   │       │       │   ├── enterprise-cloud-solutions-architect.jpg
+│   │       │       │   ├── enterprise-security-risk-management.jpg
+│   │       │       │   ├── ethical-hacking-fast-track.jpg
+│   │       │       │   ├── ethical-hacking-for-beginners.jpg
+│   │       │       │   ├── ethical-hacking-penetration-testing-masterclass.jpg
+│   │       │       │   ├── executive-agile-leadership-transformation.jpg
+│   │       │       │   ├── executive-presentation-public-speaking.jpg
+│   │       │       │   ├── frontend-engineering-react-next-js-mastery.jpg
+│   │       │       │   ├── frontend-mastery-with-react-next-js.jpg
+│   │       │       │   ├── full-stack-jumpstart-mern.jpg
+│   │       │       │   ├── full-stack-web-development-bootcamp-zero-to-hero-.jpg
+│   │       │       │   ├── git-github-for-beginners.jpg
+│   │       │       │   ├── google-analytics-4-from-beginner-to-expert.jpg
+│   │       │       │   ├── google-analytics-4-ga4-data-mastery.jpg
+│   │       │       │   ├── google-search-ads-boot-camp.jpg
+│   │       │       │   ├── graphic-design-crash-course.jpg
+│   │       │       │   ├── graphic-design.jpg
+│   │       │       │   ├── html-fundamentals.jpg
+│   │       │       │   ├── integrated-digital-marketing-growth-strategy.jpg
+│   │       │       │   ├── intro-to-algorithms-problem-solving.jpg
+│   │       │       │   ├── intro-to-cloud-computing.jpg
+│   │       │       │   ├── intro-to-cybersecurity.jpg
+│   │       │       │   ├── intro-to-data-ai.jpg
+│   │       │       │   ├── intro-to-design.jpg
+│   │       │       │   ├── intro-to-digital-literacy.jpg
+│   │       │       │   ├── intro-to-digital-marketing.jpg
+│   │       │       │   ├── intro-to-digital-media-buying.jpg
+│   │       │       │   ├── intro-to-leadership-management.jpg
+│   │       │       │   ├── intro-to-networking-infrastructure.jpg
+│   │       │       │   ├── intro-to-professional-writing.jpg
+│   │       │       │   ├── intro-to-software-development.jpg
+│   │       │       │   ├── java-enterprise-development.jpg
+│   │       │       │   ├── javascript-fundamentals.jpg
+│   │       │       │   ├── javascript-only-projects.jpg
+│   │       │       │   ├── kubernetes-quick-start.jpg
+│   │       │       │   ├── leetcode-interview-prep.jpg
+│   │       │       │   ├── linux-administration-shell-scripting-pro.jpg
+│   │       │       │   ├── machine-learning-crash-course.jpg
+│   │       │       │   ├── meta-ads-for-local-business.jpg
+│   │       │       │   ├── microsoft-365-ai-integration.jpg
+│   │       │       │   ├── microsoft-access-business-apps.jpg
+│   │       │       │   ├── microsoft-cybersecurity-architect-sc-100.jpg
+│   │       │       │   ├── mobile-app-development-quick-start.jpg
+│   │       │       │   ├── mobile-engineering.jpg
+│   │       │       │   ├── mobile-office-business-productivity-from-your-phone.jpg
+│   │       │       │   ├── modern-javascript-algorithms-data-structures.jpg
+│   │       │       │   ├── motion-graphics-visual-effects.jpg
+│   │       │       │   ├── network-security-administration.jpg
+│   │       │       │   ├── network-security-essentials.jpg
+│   │       │       │   ├── nosql-cloud-database-architecture.jpg
+│   │       │       │   ├── personal-branding.jpg
+│   │       │       │   ├── product-design-ui-ux-professional-bootcamp.jpg
+│   │       │       │   ├── product-management-quick-start.jpg
+│   │       │       │   ├── product-strategy-the-lean-startup-building-mvps.jpg
+│   │       │       │   ├── professional-data-engineering.jpg
+│   │       │       │   ├── professional-office-365-suite-mastery-2.jpg
+│   │       │       │   ├── professional-office-365-suite-mastery.jpg
+│   │       │       │   ├── programmatic-advertising-rtb.jpg
+│   │       │       │   ├── programming-data-management.jpg
+│   │       │       │   ├── project-management-fundamentals.jpg
+│   │       │       │   ├── python-for-data-science-analytics.jpg
+│   │       │       │   ├── rapid-app-development-low-code.jpg
+│   │       │       │   ├── react-essentials-bootcamp.jpg
+│   │       │       │   ├── react-native-build-mobile-apps-for-ios-android.jpg
+│   │       │       │   ├── security-operations-analyst-sc-200.jpg
+│   │       │       │   ├── seo-fast-track-rank-on-google.jpg
+│   │       │       │   ├── server-side-tracking-capi.jpg
+│   │       │       │   ├── social-media-marketing-accelerator.jpg
+│   │       │       │   ├── social-media-marketing-community-growth-2.jpg
+│   │       │       │   ├── social-media-marketing-community-growth.jpg
+│   │       │       │   ├── sql-relational-database-design.jpg
+│   │       │       │   ├── system-design-interviews.jpg
+│   │       │       │   ├── technical-writing-api-documentation.jpg
+│   │       │       │   ├── technical-writing-essentials.jpg
+│   │       │       │   ├── technical-writing.jpg
+│   │       │       │   ├── the-lean-startup-build-your-mvp.jpg
+│   │       │       │   ├── tiktok-reels-ad-strategy.jpg
+│   │       │       │   ├── ui-ux-fundamentals.jpg
+│   │       │       │   ├── uiux-quick-start-for-developers.jpg
+│   │       │       │   ├── vector-graphics-mastery-coreldraw.jpeg
+│   │       │       │   ├── visual-brand-design-graphic-artistry.jpg
+│   │       │       │   └── web-development-bootcamp-from-zero-to-hero.jpg
+│   │       │       ├── heroes
+│   │       │       │   ├── hero-students-learning.jpg
+│   │       │       │   ├── hero-success-celebration.jpg
+│   │       │       │   └── hero-tech-team.jpg
+│   │       │       ├── people
+│   │       │       │   ├── african-american-man-wearing-red-sweater-excited-chip.webp
+│   │       │       │   ├── front-view-happy-woman-calling-out-chip.webp
+│   │       │       │   ├── front-view-happy-woman-calling-out-hero.webp
+│   │       │       │   ├── portrait-cool-man-with-sunglasses-dancing-smiling-alt-chip.webp
+│   │       │       │   ├── portrait-cool-man-with-sunglasses-dancing-smiling-chip.webp
+│   │       │       │   └── surprised-playful-touched-good-looking-african-american-woman-glasses-chip.webp
+│   │       │       ├── schools
+│   │       │       │   ├── school-of-cloud-and-devops.jpg
+│   │       │       │   ├── school-of-coding-and-development.jpg
+│   │       │       │   ├── school-of-cybersecurity.jpg
+│   │       │       │   ├── school-of-data-and-ai.jpg
+│   │       │       │   ├── school-of-design.jpg
+│   │       │       │   ├── school-of-executive-management.jpg
+│   │       │       │   ├── school-of-fundamentals.jpg
+│   │       │       │   ├── school-of-growth-and-marketing.jpg
+│   │       │       │   ├── school-of-infrastructure.jpg
+│   │       │       │   └── school-of-software-mastery.jpg
+│   │       │       ├── services
+│   │       │       │   ├── business-plan-and-logo-design.jpg
+│   │       │       │   ├── graphic-design.jpg
+│   │       │       │   ├── mentoring-and-consulting.jpg
+│   │       │       │   ├── professional-woman.jpg
+│   │       │       │   ├── profile-and-portfolio-building.jpg
+│   │       │       │   ├── service-ad-campaign-setup.jpg
+│   │       │       │   ├── service-ad-campaign-setup1.jpg
+│   │       │       │   ├── service-business-plan-and-logo.jpg
+│   │       │       │   ├── service-business-plan-and-logo2.jpg
+│   │       │       │   ├── service-business-plan-and-logo3.jpg
+│   │       │       │   ├── service-business-plan-growth.jpg
+│   │       │       │   ├── service-business-plan-investor.jpg
+│   │       │       │   ├── service-business-plan-starter.jpg
+│   │       │       │   ├── service-business-website.jpg
+│   │       │       │   ├── service-business-website2.jpg
+│   │       │       │   ├── service-business-website3.jpg
+│   │       │       │   ├── service-cloud-infrastructure-devops.jpg
+│   │       │       │   ├── service-cms-integration.jpg
+│   │       │       │   ├── service-cms-integration2.jpg
+│   │       │       │   ├── service-consulting.jpg
+│   │       │       │   ├── service-cybersecurity.jpg
+│   │       │       │   ├── service-data-analytics-bi.jpg
+│   │       │       │   ├── service-ecommerce-store.jpg
+│   │       │       │   ├── service-ecommerce-store2.jpg
+│   │       │       │   ├── service-ecommerce-store3.jpg
+│   │       │       │   ├── service-financial-projections.jpg
+│   │       │       │   ├── service-financial-projections1.jpg
+│   │       │       │   ├── service-financial-projections2.jpg
+│   │       │       │   ├── service-growth-accelerator.jpg
+│   │       │       │   ├── service-it-support.jpg
+│   │       │       │   ├── service-landing-page-design.jpg
+│   │       │       │   ├── service-landing-page-design2.jpg
+│   │       │       │   ├── service-linkedin-optimization.jpg
+│   │       │       │   ├── service-logo-design.jpg
+│   │       │       │   ├── service-logo-design2.jpg
+│   │       │       │   ├── service-marketing-pro.jpg
+│   │       │       │   ├── service-marketing-pro2.jpg
+│   │       │       │   ├── service-mentoring-and-consulting.jpg
+│   │       │       │   ├── service-mentoring-and-consulting1.jpg
+│   │       │       │   ├── service-mentoring-and-consulting2.jpg
+│   │       │       │   ├── service-mentoring-program.jpg
+│   │       │       │   ├── service-mobile-app-development.jpg
+│   │       │       │   ├── service-mobile-app-development2.jpg
+│   │       │       │   ├── service-mobile-app-development3.jpg
+│   │       │       │   ├── service-pitch-practice.jpg
+│   │       │       │   ├── service-pitch-practice1.jpg
+│   │       │       │   ├── service-pitch-practice2.jpg
+│   │       │       │   ├── service-portfolio-website.jpg
+│   │       │       │   ├── service-professional-cv-resume.jpg
+│   │       │       │   ├── service-profile-and-portfolio.jpg
+│   │       │       │   ├── service-profile-and-portfolio1.jpg
+│   │       │       │   ├── service-social-media-audit.jpg
+│   │       │       │   ├── service-social-media-audit1.jpg
+│   │       │       │   ├── service-social-media-marketing.jpg
+│   │       │       │   ├── service-social-media-marketing2.jpg
+│   │       │       │   ├── service-social-media-marketing3.jpg
+│   │       │       │   ├── service-social-starter.jpg
+│   │       │       │   ├── service-social-starter2.jpg
+│   │       │       │   ├── service-strategy-session.jpg
+│   │       │       │   ├── service-web-and-mobile-development.jpg
+│   │       │       │   ├── service-web-and-mobile-development2.jpg
+│   │       │       │   ├── service-web-and-mobile-development3.jpg
+│   │       │       │   ├── service-web-development.jpg
+│   │       │       │   ├── social-media-advertising-and-marketing.jpg
+│   │       │       │   └── web-and-mobile-software-development.jpg
+│   │       │       ├── team
+│   │       │       │   ├── diverse-team.jpg
+│   │       │       │   ├── happy-businessman.jpg
+│   │       │       │   └── smiling-developer.jpg
+│   │       │       └── testimonials
+│   │       │           ├── testimonial-person-1.jpg
+│   │       │           ├── testimonial-person-2.jpg
+│   │       │           └── testimonial-person-3.jpg
+│   │       ├── browserconfig.xml
+│   │       ├── curriculums
+│   │       │   ├── curriculum-adobe-creative-cloud-suite.html
+│   │       │   ├── curriculum-adsense-101-approval-blueprint.html
+│   │       │   ├── curriculum-adsense-arbitrage-pro.html
+│   │       │   ├── curriculum-adsense-traffic-revenue.html
+│   │       │   ├── curriculum-advanced-ansible-automation.html
+│   │       │   ├── curriculum-advanced-backend-nodejs.html
+│   │       │   ├── curriculum-advanced-css-mastery.html
+│   │       │   ├── curriculum-advanced-excel-business.html
+│   │       │   ├── curriculum-advanced-javascript-mastery.html
+│   │       │   ├── curriculum-advanced-seo-mastery.html
+│   │       │   ├── curriculum-advanced-ui-ux.html
+│   │       │   ├── curriculum-agile-project-management-essentials.html
+│   │       │   ├── curriculum-ai-engineering-llms.html
+│   │       │   ├── curriculum-ai-engineering-mlops.html
+│   │       │   ├── curriculum-amazon-retail-media-networks.html
+│   │       │   ├── curriculum-application-security-appsec-specialist.html
+│   │       │   ├── curriculum-applied-machine-learning.html
+│   │       │   ├── curriculum-archicad-professional.html
+│   │       │   ├── curriculum-architecting-landing-zones.html
+│   │       │   ├── curriculum-autocad-masterclass.html
+│   │       │   ├── curriculum-aws-certified-solutions-architect.html
+│   │       │   ├── curriculum-aws-crash-course-for-beginners.html
+│   │       │   ├── curriculum-azure-security-technologies-az-500.html
+│   │       │   ├── curriculum-backend-development-crash-course.html
+│   │       │   ├── curriculum-backend-engineering-scalable-architectures.html
+│   │       │   ├── curriculum-business-intelligence-analytics.html
+│   │       │   ├── curriculum-business-writing.html
+│   │       │   ├── curriculum-c-sharp-net-core.html
+│   │       │   ├── curriculum-canva-for-ad-creatives.html
+│   │       │   ├── curriculum-ccna-networking.html
+│   │       │   ├── curriculum-certified-scrum-master-csm.html
+│   │       │   ├── curriculum-cissp-certification-prep.html
+│   │       │   ├── curriculum-cloud-infrastructure-strategy.html
+│   │       │   ├── curriculum-competitive-programming.html
+│   │       │   ├── curriculum-computer-hardware-engineering.html
+│   │       │   ├── curriculum-content-writing-copywriting.html
+│   │       │   ├── curriculum-copywriting-crash-course.html
+│   │       │   ├── curriculum-copywriting-for-direct-response.html
+│   │       │   ├── curriculum-css-fundamentals.html
+│   │       │   ├── curriculum-css-only-projects.html
+│   │       │   ├── curriculum-cybersecurity-fundamentals-network-systems-defense.html
+│   │       │   ├── curriculum-data-analysis-fast-track.html
+│   │       │   ├── curriculum-devops-engineering-cloud-infrastructure-core.html
+│   │       │   ├── curriculum-devops-engineering-cloud-infrastructure.html
+│   │       │   ├── curriculum-devops-kubernetes-mastery.html
+│   │       │   ├── curriculum-devsecops-engineering-automating-security.html
+│   │       │   ├── curriculum-digital-literacy-computer-operations.html
+│   │       │   ├── curriculum-digital-marketing-small-business.html
+│   │       │   ├── curriculum-dsa-fundamentals.html
+│   │       │   ├── curriculum-enterprise-cloud-solutions-architect.html
+│   │       │   ├── curriculum-enterprise-security-risk.html
+│   │       │   ├── curriculum-ethical-hacking-beginners.html
+│   │       │   ├── curriculum-ethical-hacking-fast-track.html
+│   │       │   ├── curriculum-ethical-hacking-penetration-testing.html
+│   │       │   ├── curriculum-executive-agile-leadership.html
+│   │       │   ├── curriculum-executive-presentation-public-speaking.html
+│   │       │   ├── curriculum-frontend-engineering-react-next-js-mastery.html
+│   │       │   ├── curriculum-full-stack-jumpstart-mern.html
+│   │       │   ├── curriculum-full-stack-web-development.html
+│   │       │   ├── curriculum-git-github-beginners.html
+│   │       │   ├── curriculum-google-analytics-4-mastery.html
+│   │       │   ├── curriculum-google-search-ads-boot-camp.html
+│   │       │   ├── curriculum-graphic-design-crash-course.html
+│   │       │   ├── curriculum-graphic-design-essentials.html
+│   │       │   ├── curriculum-html-fundamentals.html
+│   │       │   ├── curriculum-integrated-digital-marketing.html
+│   │       │   ├── curriculum-intro-to-algorithms-problem-solving.html
+│   │       │   ├── curriculum-intro-to-cloud-computing.html
+│   │       │   ├── curriculum-intro-to-coding.html
+│   │       │   ├── curriculum-intro-to-cybersecurity.html
+│   │       │   ├── curriculum-intro-to-data-ai.html
+│   │       │   ├── curriculum-intro-to-design.html
+│   │       │   ├── curriculum-intro-to-digital-literacy.html
+│   │       │   ├── curriculum-intro-to-digital-marketing.html
+│   │       │   ├── curriculum-intro-to-digital-media-buying.html
+│   │       │   ├── curriculum-intro-to-leadership-management.html
+│   │       │   ├── curriculum-intro-to-networking-infrastructure.html
+│   │       │   ├── curriculum-intro-to-professional-writing.html
+│   │       │   ├── curriculum-intro-to-software-development.html
+│   │       │   ├── curriculum-java-enterprise-development.html
+│   │       │   ├── curriculum-javascript-fundamentals.html
+│   │       │   ├── curriculum-javascript-only-projects.html
+│   │       │   ├── curriculum-kubernetes-quick-start.html
+│   │       │   ├── curriculum-leetcode-interview-prep.html
+│   │       │   ├── curriculum-linux-administration-shell-scripting.html
+│   │       │   ├── curriculum-machine-learning-crash-course.html
+│   │       │   ├── curriculum-meta-ads-for-local-business.html
+│   │       │   ├── curriculum-microsoft-365-ai-integration.html
+│   │       │   ├── curriculum-microsoft-access-business-apps.html
+│   │       │   ├── curriculum-microsoft-cybersecurity-architect-sc-100.html
+│   │       │   ├── curriculum-mobile-app-development-quick-start.html
+│   │       │   ├── curriculum-mobile-engineering-cross-platform-development.html
+│   │       │   ├── curriculum-motion-graphics-vfx.html
+│   │       │   ├── curriculum-network-security-admin.html
+│   │       │   ├── curriculum-network-security-essentials.html
+│   │       │   ├── curriculum-nosql-cloud-database-architecture.html
+│   │       │   ├── curriculum-personal-branding.html
+│   │       │   ├── curriculum-pmp-certification-prep.html
+│   │       │   ├── curriculum-product-management-quick-start.html
+│   │       │   ├── curriculum-product-strategy-lean-startup.html
+│   │       │   ├── curriculum-professional-data-engineering.html
+│   │       │   ├── curriculum-professional-office-365.html
+│   │       │   ├── curriculum-programmatic-advertising-rtb.html
+│   │       │   ├── curriculum-programming-data-management.html
+│   │       │   ├── curriculum-python-data-science-analytics.html
+│   │       │   ├── curriculum-rapid-app-development-low-code.html
+│   │       │   ├── curriculum-react-essentials-bootcamp.html
+│   │       │   ├── curriculum-react-native-mobile-dev.html
+│   │       │   ├── curriculum-security-operations-analyst-sc-200.html
+│   │       │   ├── curriculum-seo-fast-track-rank-on-google.html
+│   │       │   ├── curriculum-server-side-tracking-capi.html
+│   │       │   ├── curriculum-social-media-community-growth.html
+│   │       │   ├── curriculum-social-media-marketing-accelerator.html
+│   │       │   ├── curriculum-sql-relational-database-design.html
+│   │       │   ├── curriculum-system-design-interviews.html
+│   │       │   ├── curriculum-technical-writing-api-docs.html
+│   │       │   ├── curriculum-technical-writing-essentials.html
+│   │       │   ├── curriculum-technical-writing.html
+│   │       │   ├── curriculum-tiktok-reels-ad-strategy.html
+│   │       │   ├── curriculum-ui-ux-fundamentals.html
+│   │       │   ├── curriculum-ui-ux-product-design.html
+│   │       │   ├── curriculum-uiux-quick-start-for-developers.html
+│   │       │   ├── curriculum-vector-graphics-mastery-coreldraw.html
+│   │       │   ├── curriculum-visual-brand-design.html
+│   │       │   ├── curriculum-visual-communication-infographics.html
+│   │       │   ├── curriculum-youtube-ads-manager.html
+│   │       │   └── pdfs
+│   │       │       ├── azure-security-technologies-az-500.pdf
+│   │       │       ├── curriculum-azure-security-az500.pdf
+│   │       │       ├── curriculum-javascript-fundamentals.pdf
+│   │       │       ├── curriculum-linux-shell-scripting.pdf
+│   │       │       ├── devops-engineering-cloud-infrastructure-core.pdf
+│   │       │       └── linux-administration-shell-scripting.pdf
+│   │       ├── digital_marketing2.jpg
+│   │       ├── digital_partner_.png
+│   │       ├── digitall_partner.png
+│   │       ├── favicon-16.ico
+│   │       ├── favicon-16x16.png
+│   │       ├── favicon-32.ico
+│   │       ├── favicon-32x32.png
+│   │       ├── favicon.ico
+│   │       ├── fonts
+│   │       │   ├── lato-bold.woff2
+│   │       │   ├── lato-regular.woff2
+│   │       │   ├── lato.zip
+│   │       │   ├── montserrat-bold.woff2
+│   │       │   └── montserrat.zip
+│   │       ├── forms
+│   │       │   ├── assets
+│   │       │   │   ├── forms.css
+│   │       │   │   └── forms.js
+│   │       │   ├── branding
+│   │       │   │   └── logo-design
+│   │       │   │       ├── logo-basic
+│   │       │   │       │   └── index.html
+│   │       │   │       ├── logo-premium
+│   │       │   │       │   └── index.html
+│   │       │   │       └── logo-standard
+│   │       │   │           └── index.html
+│   │       │   ├── branding-design
+│   │       │   │   └── professional-branding
+│   │       │   │       └── index.html
+│   │       │   ├── business-and-strategy
+│   │       │   │   └── business-plan-package
+│   │       │   │       └── index.html
+│   │       │   ├── business-strategy
+│   │       │   │   ├── business-plan
+│   │       │   │   │   ├── bp-basic
+│   │       │   │   │   │   └── index.html
+│   │       │   │   │   ├── bp-premium
+│   │       │   │   │   │   └── index.html
+│   │       │   │   │   └── bp-standard
+│   │       │   │   │       └── index.html
+│   │       │   │   └── growth-plan
+│   │       │   │       ├── growth-basic
+│   │       │   │       │   └── index.html
+│   │       │   │       ├── growth-premium
+│   │       │   │       │   └── index.html
+│   │       │   │       └── growth-standard
+│   │       │   │           └── index.html
+│   │       │   ├── consulting-advisory
+│   │       │   │   └── business-consulting
+│   │       │   │       └── index.html
+│   │       │   ├── creative-services
+│   │       │   │   └── portfolio-website
+│   │       │   │       └── index.html
+│   │       │   ├── digital-marketing
+│   │       │   │   └── marketing-strategy
+│   │       │   │       └── index.html
+│   │       │   ├── general-inquiry
+│   │       │   │   └── index.html
+│   │       │   ├── index.html
+│   │       │   ├── individual-services
+│   │       │   │   ├── ad-campaign
+│   │       │   │   │   └── index.html
+│   │       │   │   ├── bug-fix-monthly
+│   │       │   │   │   └── index.html
+│   │       │   │   ├── business-cards
+│   │       │   │   │   └── index.html
+│   │       │   │   ├── business-plan-review
+│   │       │   │   │   └── index.html
+│   │       │   │   ├── content-package
+│   │       │   │   │   └── index.html
+│   │       │   │   ├── cv-resume
+│   │       │   │   │   └── index.html
+│   │       │   │   ├── executive-summary
+│   │       │   │   │   └── index.html
+│   │       │   │   ├── index.html
+│   │       │   │   ├── linkedin-optimization
+│   │       │   │   │   └── index.html
+│   │       │   │   ├── logo-design
+│   │       │   │   │   └── index.html
+│   │       │   │   ├── market-research
+│   │       │   │   │   └── index.html
+│   │       │   │   ├── payment-gateway
+│   │       │   │   │   └── index.html
+│   │       │   │   ├── pitch-deck
+│   │       │   │   │   └── index.html
+│   │       │   │   ├── pitch-practice
+│   │       │   │   │   └── index.html
+│   │       │   │   ├── portfolio-website
+│   │       │   │   │   └── index.html
+│   │       │   │   ├── seo-audit
+│   │       │   │   │   └── index.html
+│   │       │   │   ├── social-audit
+│   │       │   │   │   └── index.html
+│   │       │   │   ├── social-media-kit
+│   │       │   │   │   └── index.html
+│   │       │   │   ├── speed-optimization
+│   │       │   │   │   └── index.html
+│   │       │   │   ├── strategy-call
+│   │       │   │   │   └── index.html
+│   │       │   │   └── website-redesign
+│   │       │   │       └── index.html
+│   │       │   ├── marketing
+│   │       │   │   ├── marketing-strategy
+│   │       │   │   │   ├── market-basic
+│   │       │   │   │   │   └── index.html
+│   │       │   │   │   ├── market-premium
+│   │       │   │   │   │   └── index.html
+│   │       │   │   │   └── market-standard
+│   │       │   │   │       └── index.html
+│   │       │   │   └── social-media
+│   │       │   │       ├── socmed-basic
+│   │       │   │       │   └── index.html
+│   │       │   │       ├── socmed-premium
+│   │       │   │       │   └── index.html
+│   │       │   │       └── socmed-standard
+│   │       │   │           └── index.html
+│   │       │   ├── portfolio
+│   │       │   │   ├── cv-resume
+│   │       │   │   │   ├── cv-essential
+│   │       │   │   │   │   └── index.html
+│   │       │   │   │   ├── cv-executive
+│   │       │   │   │   │   └── index.html
+│   │       │   │   │   └── cv-professional
+│   │       │   │   │       └── index.html
+│   │       │   │   ├── linkedin-optimization
+│   │       │   │   │   ├── linkedin-complete
+│   │       │   │   │   │   └── index.html
+│   │       │   │   │   ├── linkedin-executive
+│   │       │   │   │   │   └── index.html
+│   │       │   │   │   └── linkedin-quick
+│   │       │   │   │       └── index.html
+│   │       │   │   └── portfolio-website
+│   │       │   │       ├── portfolio-premium
+│   │       │   │       │   └── index.html
+│   │       │   │       ├── portfolio-professional
+│   │       │   │       │   └── index.html
+│   │       │   │       └── portfolio-starter
+│   │       │   │           └── index.html
+│   │       │   ├── profile-and-portfolio
+│   │       │   │   ├── cv-resume-professional
+│   │       │   │   │   └── index.html
+│   │       │   │   ├── cv-resume-professional.html
+│   │       │   │   ├── linkedin-complete-makeover
+│   │       │   │   │   └── index.html
+│   │       │   │   └── linkedin-complete-makeover.html
+│   │       │   ├── social-media
+│   │       │   │   ├── hexadigitall-logo.png
+│   │       │   │   ├── index-original-backup.html
+│   │       │   │   └── index.html
+│   │       │   ├── web-and-mobile
+│   │       │   │   ├── business-website
+│   │       │   │   │   └── index.html
+│   │       │   │   ├── ecommerce-store
+│   │       │   │   │   └── index.html
+│   │       │   │   ├── landing-page
+│   │       │   │   │   └── index.html
+│   │       │   │   └── web-app-development
+│   │       │   │       └── index.html
+│   │       │   └── web-development
+│   │       │       ├── business-website
+│   │       │       │   ├── business-website-basic
+│   │       │       │   │   └── index.html
+│   │       │       │   ├── business-website-premium
+│   │       │       │   │   └── index.html
+│   │       │       │   └── business-website-standard
+│   │       │       │       └── index.html
+│   │       │       ├── ecommerce-store
+│   │       │       │   ├── ecommerce-basic
+│   │       │       │   │   └── index.html
+│   │       │       │   ├── ecommerce-premium
+│   │       │       │   │   └── index.html
+│   │       │       │   └── ecommerce-standard
+│   │       │       │       └── index.html
+│   │       │       ├── landing-page
+│   │       │       │   ├── landing-page-basic
+│   │       │       │   │   └── index.html
+│   │       │       │   ├── landing-page-premium
+│   │       │       │   │   └── index.html
+│   │       │       │   └── landing-page-standard
+│   │       │       │       └── index.html
+│   │       │       └── web-app
+│   │       │           ├── webapp-business
+│   │       │           │   └── index.html
+│   │       │           ├── webapp-enterprise
+│   │       │           │   └── index.html
+│   │       │           └── webapp-startup
+│   │       │               └── index.html
+│   │       ├── hexadigitall-logo-transparent.png
+│   │       ├── hexadigitall-logo-transparent.svg
+│   │       ├── hexadigitall-logo.svg
+│   │       ├── manifest.json
+│   │       ├── og-images
+│   │       │   ├── advanced-ansible-automation-iac.jpg
+│   │       │   ├── advanced-backend-engineering-node-js-microservices-.jpg
+│   │       │   ├── advanced-seo-rank-1-on-google.jpg
+│   │       │   ├── advanced-seo-serp-ranking-mastery.jpg
+│   │       │   ├── ai-engineering-building-llms-neural-networks.jpg
+│   │       │   ├── applied-machine-learning-data-science.jpg
+│   │       │   ├── architecting-landing-zones.jpg
+│   │       │   ├── aws-certified-solutions-architect-associate-professional-.jpg
+│   │       │   ├── aws-certified-solutions-architect-associate-professional-2.jpg
+│   │       │   ├── aws-certified-solutions-architect-associate-professional-3.jpg
+│   │       │   ├── bp-growth-basic.jpg
+│   │       │   ├── bp-growth-premium.jpg
+│   │       │   ├── bp-growth-standard.jpg
+│   │       │   ├── bp-starter-basic.jpg
+│   │       │   ├── bp-starter-premium.jpg
+│   │       │   ├── bp-starter-standard.jpg
+│   │       │   ├── bug-fix-support.jpg
+│   │       │   ├── business-coaching-basic.jpg
+│   │       │   ├── business-coaching-premium.jpg
+│   │       │   ├── business-coaching-standard.jpg
+│   │       │   ├── business-coaching.jpg
+│   │       │   ├── business-plan-and-logo-design.jpg
+│   │       │   ├── business-plan-growth.jpg
+│   │       │   ├── business-plan-premium.jpg
+│   │       │   ├── business-plan-standard.jpg
+│   │       │   ├── business-plan-starter.jpg
+│   │       │   ├── business-website-basic.jpg
+│   │       │   ├── business-website-premium.jpg
+│   │       │   ├── business-website-standard.jpg
+│   │       │   ├── business-website.jpg
+│   │       │   ├── c-net-core-architecture.jpg
+│   │       │   ├── career-basic.jpg
+│   │       │   ├── career-coaching-basic.jpg
+│   │       │   ├── career-coaching-executive.jpg
+│   │       │   ├── career-coaching-transition.jpg
+│   │       │   ├── career-coaching.jpg
+│   │       │   ├── career-premium.jpg
+│   │       │   ├── career-standard.jpg
+│   │       │   ├── certified-scrum-master-csm-bootcamp-0.jpg
+│   │       │   ├── certified-scrum-master-csm-bootcamp-2.jpg
+│   │       │   ├── certified-scrum-master-csm-bootcamp.jpg
+│   │       │   ├── cisco-certified-network-associate-ccna-200-301.jpg
+│   │       │   ├── cissp-certification-prep-course.jpg
+│   │       │   ├── cissp-senior-security-professional-prep.jpg
+│   │       │   ├── cloud-infrastructure-deployment-strategy.jpg
+│   │       │   ├── coaching-basic.jpg
+│   │       │   ├── coaching-premium.jpg
+│   │       │   ├── coaching-standard.jpg
+│   │       │   ├── computer-hardware-engineering-system-maintenance.jpg
+│   │       │   ├── course-adobe-creative-cloud-suite.jpg
+│   │       │   ├── course-adsense-101-approval-blueprint.jpg
+│   │       │   ├── course-adsense-arbitrage-pro.jpg
+│   │       │   ├── course-adsense-traffic-revenue.jpg
+│   │       │   ├── course-advanced-ansible-automation-iac.jpg
+│   │       │   ├── course-advanced-ansible-automation-iac.png
+│   │       │   ├── course-advanced-ansible-automation.jpg
+│   │       │   ├── course-advanced-backend-engineering-node-js-microservices-.jpg
+│   │       │   ├── course-advanced-backend-engineering-node-js-microservices-.png
+│   │       │   ├── course-advanced-backend-nodejs.jpg
+│   │       │   ├── course-advanced-css-mastery.jpg
+│   │       │   ├── course-advanced-excel-business.jpg
+│   │       │   ├── course-advanced-javascript-mastery.jpg
+│   │       │   ├── course-advanced-seo-mastery.jpg
+│   │       │   ├── course-advanced-seo-rank-1-on-google.jpg
+│   │       │   ├── course-advanced-seo-rank-1-on-google.png
+│   │       │   ├── course-advanced-seo-serp-ranking-mastery.jpg
+│   │       │   ├── course-advanced-seo-serp-ranking-mastery.png
+│   │       │   ├── course-advanced-ui-ux.jpg
+│   │       │   ├── course-agile-project-management-essentials.jpg
+│   │       │   ├── course-ai-engineering-building-llms-neural-networks.jpg
+│   │       │   ├── course-ai-engineering-building-llms-neural-networks.png
+│   │       │   ├── course-ai-engineering-llms.jpg
+│   │       │   ├── course-ai-engineering-mlops.jpg
+│   │       │   ├── course-amazon-retail-media-networks.jpg
+│   │       │   ├── course-application-security-appsec-specialist.jpg
+│   │       │   ├── course-applied-machine-learning-data-science.jpg
+│   │       │   ├── course-applied-machine-learning-data-science.png
+│   │       │   ├── course-applied-machine-learning.jpg
+│   │       │   ├── course-archicad-professional.jpg
+│   │       │   ├── course-architecting-landing-zones.jpg
+│   │       │   ├── course-architecting-landing-zones.png
+│   │       │   ├── course-autocad-masterclass.jpg
+│   │       │   ├── course-aws-certified-solutions-architect-associate-professional-.jpg
+│   │       │   ├── course-aws-certified-solutions-architect-associate-professional-.png
+│   │       │   ├── course-aws-certified-solutions-architect-associate-professional-2.jpg
+│   │       │   ├── course-aws-certified-solutions-architect-associate-professional-2.png
+│   │       │   ├── course-aws-certified-solutions-architect-associate-professional-3.jpg
+│   │       │   ├── course-aws-certified-solutions-architect-associate-professional-3.png
+│   │       │   ├── course-aws-certified-solutions-architect.jpg
+│   │       │   ├── course-aws-crash-course-for-beginners.jpg
+│   │       │   ├── course-azure-security-technologies-az-500.jpg
+│   │       │   ├── course-backend-development-crash-course.jpg
+│   │       │   ├── course-backend-engineering-plhld.jpg
+│   │       │   ├── course-backend-engineering-plhld.png
+│   │       │   ├── course-backend-engineering-scalable-architectures.jpg
+│   │       │   ├── course-backend-engineering.jpg
+│   │       │   ├── course-backend-engineering.png
+│   │       │   ├── course-business-intelligence-analytics.jpg
+│   │       │   ├── course-business-writing.jpg
+│   │       │   ├── course-c-net-core-architecture.jpg
+│   │       │   ├── course-c-net-core-architecture.png
+│   │       │   ├── course-c-sharp-net-core.jpg
+│   │       │   ├── course-canva-for-ad-creatives.jpg
+│   │       │   ├── course-ccna-networking.jpg
+│   │       │   ├── course-certified-scrum-master-csm-bootcamp-0.jpg
+│   │       │   ├── course-certified-scrum-master-csm-bootcamp-0.png
+│   │       │   ├── course-certified-scrum-master-csm-bootcamp-2.jpg
+│   │       │   ├── course-certified-scrum-master-csm-bootcamp-2.png
+│   │       │   ├── course-certified-scrum-master-csm-bootcamp.jpg
+│   │       │   ├── course-certified-scrum-master-csm-bootcamp.png
+│   │       │   ├── course-certified-scrum-master-csm.jpg
+│   │       │   ├── course-cissp-certification-prep.jpg
+│   │       │   ├── course-cloud-infrastructure-strategy.jpg
+│   │       │   ├── course-competitive-programming.jpg
+│   │       │   ├── course-computer-hardware-engineering.jpg
+│   │       │   ├── course-content-writing-copywriting.jpg
+│   │       │   ├── course-copywriting-crash-course.jpg
+│   │       │   ├── course-copywriting-for-direct-response.jpg
+│   │       │   ├── course-css-fundamentals.jpg
+│   │       │   ├── course-css-only-projects.jpg
+│   │       │   ├── course-cybersecurity-fundamentals-network-systems-defense.jpg
+│   │       │   ├── course-data-analysis-fast-track.jpg
+│   │       │   ├── course-devops-engineering-cloud-infrastructure-core.jpg
+│   │       │   ├── course-devops-engineering-cloud-infrastructure.jpg
+│   │       │   ├── course-devops-kubernetes-mastery.jpg
+│   │       │   ├── course-devsecops-engineering-automating-security.jpg
+│   │       │   ├── course-digital-literacy-computer-operations.jpg
+│   │       │   ├── course-digital-marketing-small-business.jpg
+│   │       │   ├── course-dsa-fundamentals.jpg
+│   │       │   ├── course-enterprise-cloud-solutions-architect.jpg
+│   │       │   ├── course-enterprise-security-risk.jpg
+│   │       │   ├── course-ethical-hacking-beginners.jpg
+│   │       │   ├── course-ethical-hacking-fast-track.jpg
+│   │       │   ├── course-ethical-hacking-penetration-testing.jpg
+│   │       │   ├── course-executive-agile-leadership.jpg
+│   │       │   ├── course-executive-presentation-public-speaking.jpg
+│   │       │   ├── course-frontend-engineering-react-next-js-mastery.jpg
+│   │       │   ├── course-full-stack-jumpstart-mern.jpg
+│   │       │   ├── course-full-stack-web-development.jpg
+│   │       │   ├── course-git-github-beginners.jpg
+│   │       │   ├── course-google-analytics-4-mastery.jpg
+│   │       │   ├── course-google-search-ads-boot-camp.jpg
+│   │       │   ├── course-graphic-design-crash-course.jpg
+│   │       │   ├── course-graphic-design-essentials.jpg
+│   │       │   ├── course-html-fundamentals.jpg
+│   │       │   ├── course-integrated-digital-marketing.jpg
+│   │       │   ├── course-intro-to-algorithms-problem-solving.jpg
+│   │       │   ├── course-intro-to-cloud-computing.jpg
+│   │       │   ├── course-intro-to-coding.jpg
+│   │       │   ├── course-intro-to-cybersecurity.jpg
+│   │       │   ├── course-intro-to-data-ai.jpg
+│   │       │   ├── course-intro-to-design.jpg
+│   │       │   ├── course-intro-to-digital-literacy.jpg
+│   │       │   ├── course-intro-to-digital-marketing.jpg
+│   │       │   ├── course-intro-to-digital-media-buying.jpg
+│   │       │   ├── course-intro-to-leadership-management.jpg
+│   │       │   ├── course-intro-to-networking-infrastructure.jpg
+│   │       │   ├── course-intro-to-professional-writing.jpg
+│   │       │   ├── course-java-enterprise-development.jpg
+│   │       │   ├── course-linux-administration-shell-scripting.jpg
+│   │       │   ├── course-mobile-engineering-cross-platform-development.jpg
+│   │       │   ├── course-motion-graphics-vfx.jpg
+│   │       │   ├── course-network-security-admin.jpg
+│   │       │   ├── course-pmp-certification-prep.jpg
+│   │       │   ├── course-product-strategy-lean-startup.jpg
+│   │       │   ├── course-professional-office-365.jpg
+│   │       │   ├── course-python-data-science-analytics.jpg
+│   │       │   ├── course-react-native-mobile-dev.jpg
+│   │       │   ├── course-social-media-community-growth.jpg
+│   │       │   ├── course-technical-writing-api-docs.jpg
+│   │       │   ├── course-ui-ux-product-design.jpg
+│   │       │   ├── course-visual-brand-design.jpg
+│   │       │   ├── courses-hub.jpg
+│   │       │   ├── courses-hub.png
+│   │       │   ├── cross-platform-mobile-app-development-react-native-.jpg
+│   │       │   ├── cross-platform-mobile-app-development-react-native-2.jpg
+│   │       │   ├── cv-basic.jpg
+│   │       │   ├── cv-premium.jpg
+│   │       │   ├── cv-resume-essential.jpg
+│   │       │   ├── cv-resume-executive.jpg
+│   │       │   ├── cv-resume-professional.jpg
+│   │       │   ├── cv-resume.jpg
+│   │       │   ├── cv-standard.jpg
+│   │       │   ├── data-analysis-with-python.jpg
+│   │       │   ├── devops-engineering-kubernetes-mastery.jpg
+│   │       │   ├── devops-fundamentals-git-github-mastery.jpg
+│   │       │   ├── digital-literacy-computer-operations-2.jpg
+│   │       │   ├── digital-literacy-computer-operations.jpg
+│   │       │   ├── digital-marketing-for-small-businesses-2.jpg
+│   │       │   ├── digital-marketing-for-small-businesses-3.jpg
+│   │       │   ├── digital-marketing-for-small-businesses.jpg
+│   │       │   ├── digital-marketing-strategy.jpg
+│   │       │   ├── dm-basic.jpg
+│   │       │   ├── dm-premium.jpg
+│   │       │   ├── dm-standard.jpg
+│   │       │   ├── e-commerce-store-basic.jpg
+│   │       │   ├── e-commerce-store-premium.jpg
+│   │       │   ├── e-commerce-store-standard.jpg
+│   │       │   ├── ecommerce-basic.jpg
+│   │       │   ├── ecommerce-premium.jpg
+│   │       │   ├── ecommerce-standard.jpg
+│   │       │   ├── ecommerce-store.jpg
+│   │       │   ├── ecommerce-website.jpg
+│   │       │   ├── enterprise-security-risk-management.jpg
+│   │       │   ├── ethical-hacking-for-beginners.jpg
+│   │       │   ├── ethical-hacking-penetration-testing-masterclass.jpg
+│   │       │   ├── executive-agile-leadership-transformation.jpg
+│   │       │   ├── executive-summary.jpg
+│   │       │   ├── frontend-mastery-with-react-next-js.jpg
+│   │       │   ├── full-stack-web-development-bootcamp-zero-to-hero-.jpg
+│   │       │   ├── git-github-for-beginners.jpg
+│   │       │   ├── google-analytics-4-from-beginner-to-expert.jpg
+│   │       │   ├── google-analytics-4-ga4-data-mastery.jpg
+│   │       │   ├── growth-plan-basic.jpg
+│   │       │   ├── growth-plan-premium.jpg
+│   │       │   ├── growth-plan-standard.jpg
+│   │       │   ├── home.png
+│   │       │   ├── integrated-digital-marketing-growth-strategy.jpg
+│   │       │   ├── java-enterprise-development.jpg
+│   │       │   ├── landing-page-basic.jpg
+│   │       │   ├── landing-page-premium.jpg
+│   │       │   ├── landing-page-standard.jpg
+│   │       │   ├── landing-page.jpg
+│   │       │   ├── linkedin-basic.jpg
+│   │       │   ├── linkedin-complete-makeover.jpg
+│   │       │   ├── linkedin-executive-presence.jpg
+│   │       │   ├── linkedin-optimization.jpg
+│   │       │   ├── linkedin-premium.jpg
+│   │       │   ├── linkedin-quick-refresh.jpg
+│   │       │   ├── linkedin-standard.jpg
+│   │       │   ├── linux-administration-shell-scripting-pro.jpg
+│   │       │   ├── logo-basic.jpg
+│   │       │   ├── logo-design-basic.jpg
+│   │       │   ├── logo-design-premium.jpg
+│   │       │   ├── logo-design-standard.jpg
+│   │       │   ├── logo-design.jpg
+│   │       │   ├── logo-premium.jpg
+│   │       │   ├── logo-standard.jpg
+│   │       │   ├── marketing-strategy-basic.jpg
+│   │       │   ├── marketing-strategy-premium.jpg
+│   │       │   ├── marketing-strategy-standard.jpg
+│   │       │   ├── mentoring-and-consulting.jpg
+│   │       │   ├── mobile-office-business-productivity-from-your-phone.jpg
+│   │       │   ├── modern-javascript-algorithms-data-structures.jpg
+│   │       │   ├── motion-graphics-visual-effects.jpg
+│   │       │   ├── network-security-administration.jpg
+│   │       │   ├── option-1.jpg
+│   │       │   ├── option-2.jpg
+│   │       │   ├── option-3.jpg
+│   │       │   ├── option-4.jpg
+│   │       │   ├── package-business-plan-growth.jpg
+│   │       │   ├── package-business-plan-investor.jpg
+│   │       │   ├── package-business-plan-starter.jpg
+│   │       │   ├── package-growth-accelerator.jpg
+│   │       │   ├── package-marketing-pro.jpg
+│   │       │   ├── package-social-starter.jpg
+│   │       │   ├── payment-gateway.jpg
+│   │       │   ├── pitch-deck.jpg
+│   │       │   ├── portfolio-basic.jpg
+│   │       │   ├── portfolio-premium.jpg
+│   │       │   ├── portfolio-standard.jpg
+│   │       │   ├── portfolio-website-premium.jpg
+│   │       │   ├── portfolio-website-professional.jpg
+│   │       │   ├── portfolio-website-starter.jpg
+│   │       │   ├── portfolio-website.jpg
+│   │       │   ├── posts
+│   │       │   │   ├── advanced-ansible-automation-iac.jpg
+│   │       │   │   ├── advanced-backend-engineering-node-js-microservices-.jpg
+│   │       │   │   ├── advanced-seo-rank-1-on-google.jpg
+│   │       │   │   ├── advanced-seo-serp-ranking-mastery.jpg
+│   │       │   │   ├── ai-engineering-building-llms-neural-networks.jpg
+│   │       │   │   ├── applied-machine-learning-data-science.jpg
+│   │       │   │   ├── aws-certified-solutions-architect-associate-professional-.jpg
+│   │       │   │   ├── aws-certified-solutions-architect-associate-professional-2.jpg
+│   │       │   │   ├── aws-certified-solutions-architect-associate-professional-3.jpg
+│   │       │   │   ├── business-plan-and-logo-design.jpg
+│   │       │   │   ├── c-net-core-architecture.jpg
+│   │       │   │   ├── certified-scrum-master-csm-bootcamp-0.jpg
+│   │       │   │   ├── certified-scrum-master-csm-bootcamp-2.jpg
+│   │       │   │   ├── certified-scrum-master-csm-bootcamp.jpg
+│   │       │   │   ├── cisco-certified-network-associate-ccna-200-301.jpg
+│   │       │   │   ├── cissp-certification-prep-course.jpg
+│   │       │   │   ├── cissp-senior-security-professional-prep.jpg
+│   │       │   │   ├── cloud-infrastructure-deployment-strategy.jpg
+│   │       │   │   ├── computer-hardware-engineering-system-maintenance.jpg
+│   │       │   │   ├── course-data-analysis.jpg
+│   │       │   │   ├── course-digital-marketing.jpg
+│   │       │   │   ├── course-ui-ux.jpg
+│   │       │   │   ├── course-web-development.jpg
+│   │       │   │   ├── courses-hub.jpg
+│   │       │   │   ├── cross-platform-mobile-app-development-react-native-.jpg
+│   │       │   │   ├── cross-platform-mobile-app-development-react-native-2.jpg
+│   │       │   │   ├── data-analysis-with-python.jpg
+│   │       │   │   ├── devops-engineering-kubernetes-mastery.jpg
+│   │       │   │   ├── devops-fundamentals-git-github-mastery.jpg
+│   │       │   │   ├── digital-literacy-computer-operations-2.jpg
+│   │       │   │   ├── digital-literacy-computer-operations.jpg
+│   │       │   │   ├── digital-marketing-for-small-businesses-2.jpg
+│   │       │   │   ├── digital-marketing-for-small-businesses-3.jpg
+│   │       │   │   ├── digital-marketing-for-small-businesses.jpg
+│   │       │   │   ├── ecommerce-store.jpg
+│   │       │   │   ├── enterprise-security-risk-management.jpg
+│   │       │   │   ├── ethical-hacking-for-beginners.jpg
+│   │       │   │   ├── ethical-hacking-penetration-testing-masterclass.jpg
+│   │       │   │   ├── executive-agile-leadership-transformation.jpg
+│   │       │   │   ├── frontend-mastery-with-react-next-js.jpg
+│   │       │   │   ├── full-stack-web-development-bootcamp-zero-to-hero-.jpg
+│   │       │   │   ├── git-github-for-beginners.jpg
+│   │       │   │   ├── google-analytics-4-from-beginner-to-expert.jpg
+│   │       │   │   ├── google-analytics-4-ga4-data-mastery.jpg
+│   │       │   │   ├── integrated-digital-marketing-growth-strategy.jpg
+│   │       │   │   ├── java-enterprise-development.jpg
+│   │       │   │   ├── linux-administration-shell-scripting-pro.jpg
+│   │       │   │   ├── mentoring-and-consulting.jpg
+│   │       │   │   ├── mobile-office-business-productivity-from-your-phone.jpg
+│   │       │   │   ├── modern-javascript-algorithms-data-structures.jpg
+│   │       │   │   ├── motion-graphics-visual-effects.jpg
+│   │       │   │   ├── network-security-administration.jpg
+│   │       │   │   ├── package-business-plan-growth.jpg
+│   │       │   │   ├── package-business-plan-investor.jpg
+│   │       │   │   ├── package-business-plan-starter.jpg
+│   │       │   │   ├── package-growth-accelerator.jpg
+│   │       │   │   ├── package-marketing-pro.jpg
+│   │       │   │   ├── package-social-starter.jpg
+│   │       │   │   ├── product-design-ui-ux-professional-bootcamp.jpg
+│   │       │   │   ├── product-strategy-the-lean-startup-building-mvps.jpg
+│   │       │   │   ├── professional-office-365-suite-mastery-2.jpg
+│   │       │   │   ├── professional-office-365-suite-mastery.jpg
+│   │       │   │   ├── project-management-fundamentals.jpg
+│   │       │   │   ├── python-for-data-science-analytics.jpg
+│   │       │   │   ├── react-native-build-mobile-apps-for-ios-android.jpg
+│   │       │   │   ├── service-ad-campaigns.jpg
+│   │       │   │   ├── service-business-plan.jpg
+│   │       │   │   ├── service-business-planning.jpg
+│   │       │   │   ├── service-business-website.jpg
+│   │       │   │   ├── service-cloud-devops.jpg
+│   │       │   │   ├── service-cms.jpg
+│   │       │   │   ├── service-cv-resume.jpg
+│   │       │   │   ├── service-cybersecurity.jpg
+│   │       │   │   ├── service-data-analytics.jpg
+│   │       │   │   ├── service-digital-marketing.jpg
+│   │       │   │   ├── service-ecommerce.jpg
+│   │       │   │   ├── service-financial-projections.jpg
+│   │       │   │   ├── service-it-support.jpg
+│   │       │   │   ├── service-landing-page.jpg
+│   │       │   │   ├── service-linkedin.jpg
+│   │       │   │   ├── service-logo-design.jpg
+│   │       │   │   ├── service-mentoring-program.jpg
+│   │       │   │   ├── service-mentoring.jpg
+│   │       │   │   ├── service-mobile-app.jpg
+│   │       │   │   ├── service-pitch-practice.jpg
+│   │       │   │   ├── service-portfolio-site.jpg
+│   │       │   │   ├── service-profile-building.jpg
+│   │       │   │   ├── service-social-audit.jpg
+│   │       │   │   ├── service-social-media.jpg
+│   │       │   │   ├── service-strategy-session.jpg
+│   │       │   │   ├── service-web-development.jpg
+│   │       │   │   ├── social-media-advertising-and-marketing.jpg
+│   │       │   │   ├── social-media-marketing-community-growth-2.jpg
+│   │       │   │   ├── social-media-marketing-community-growth.jpg
+│   │       │   │   ├── technical-writing-api-documentation.jpg
+│   │       │   │   ├── the-lean-startup-build-your-mvp.jpg
+│   │       │   │   ├── visual-brand-design-graphic-artistry.jpg
+│   │       │   │   ├── web-and-mobile-software-development.jpg
+│   │       │   │   └── web-development-bootcamp-from-zero-to-hero.jpg
+│   │       │   ├── product-design-ui-ux-professional-bootcamp.jpg
+│   │       │   ├── product-strategy-the-lean-startup-building-mvps.jpg
+│   │       │   ├── professional-office-365-suite-mastery-2.jpg
+│   │       │   ├── professional-office-365-suite-mastery.jpg
+│   │       │   ├── profile-and-portfolio-building.jpg
+│   │       │   ├── project-management-fundamentals.jpg
+│   │       │   ├── proposal-divas-kloset.jpg
+│   │       │   ├── proposal-divas-kloset.png
+│   │       │   ├── proposal-generic.jpg
+│   │       │   ├── proposal-generic.png
+│   │       │   ├── proposal-jhema-wears.jpg
+│   │       │   ├── proposal-jhema-wears.png
+│   │       │   ├── python-for-data-science-analytics.jpg
+│   │       │   ├── react-native-build-mobile-apps-for-ios-android.jpg
+│   │       │   ├── school-school-of-cloud-and-devops.jpg
+│   │       │   ├── school-school-of-cloud-and-devops.png
+│   │       │   ├── school-school-of-coding-and-development.jpg
+│   │       │   ├── school-school-of-coding-and-development.png
+│   │       │   ├── school-school-of-cybersecurity.jpg
+│   │       │   ├── school-school-of-cybersecurity.png
+│   │       │   ├── school-school-of-data-and-ai.jpg
+│   │       │   ├── school-school-of-data-and-ai.png
+│   │       │   ├── school-school-of-design.jpg
+│   │       │   ├── school-school-of-design.png
+│   │       │   ├── school-school-of-executive-management.jpg
+│   │       │   ├── school-school-of-executive-management.png
+│   │       │   ├── school-school-of-fundamentals.jpg
+│   │       │   ├── school-school-of-fundamentals.png
+│   │       │   ├── school-school-of-growth-and-marketing.jpg
+│   │       │   ├── school-school-of-growth-and-marketing.png
+│   │       │   ├── school-school-of-infrastructure.jpg
+│   │       │   ├── school-school-of-infrastructure.png
+│   │       │   ├── school-school-of-software-mastery.jpg
+│   │       │   ├── school-school-of-software-mastery.png
+│   │       │   ├── seo-audit.jpg
+│   │       │   ├── service-ad-campaigns.jpg
+│   │       │   ├── service-business-plan-and-logo-design.jpg
+│   │       │   ├── service-business-plan-and-logo-design.png
+│   │       │   ├── service-business-plan.jpg
+│   │       │   ├── service-business-website.jpg
+│   │       │   ├── service-cloud-devops.jpg
+│   │       │   ├── service-cms.jpg
+│   │       │   ├── service-cv-resume.jpg
+│   │       │   ├── service-cybersecurity.jpg
+│   │       │   ├── service-data-analytics.jpg
+│   │       │   ├── service-financial-projections.jpg
+│   │       │   ├── service-it-support.jpg
+│   │       │   ├── service-landing-page.jpg
+│   │       │   ├── service-linkedin.jpg
+│   │       │   ├── service-logo-design.jpg
+│   │       │   ├── service-mentoring-and-consulting.jpg
+│   │       │   ├── service-mentoring-and-consulting.png
+│   │       │   ├── service-mentoring-program.jpg
+│   │       │   ├── service-mentoring.jpg
+│   │       │   ├── service-mobile-app.jpg
+│   │       │   ├── service-pitch-practice.jpg
+│   │       │   ├── service-portfolio-site.jpg
+│   │       │   ├── service-profile-and-portfolio-building.jpg
+│   │       │   ├── service-profile-and-portfolio-building.png
+│   │       │   ├── service-profile-building.jpg
+│   │       │   ├── service-social-audit.jpg
+│   │       │   ├── service-social-media-advertising-and-marketing.jpg
+│   │       │   ├── service-social-media.jpg
+│   │       │   ├── service-strategy-session.jpg
+│   │       │   ├── service-web-and-mobile-software-development.jpg
+│   │       │   ├── service-web-and-mobile-software-development.png
+│   │       │   ├── services-hub.jpg
+│   │       │   ├── services-hub.png
+│   │       │   ├── sm-basic.jpg
+│   │       │   ├── sm-premium.jpg
+│   │       │   ├── sm-standard.jpg
+│   │       │   ├── social-media-advertising-and-marketing.jpg
+│   │       │   ├── social-media-audit.jpg
+│   │       │   ├── social-media-basic.jpg
+│   │       │   ├── social-media-management.jpg
+│   │       │   ├── social-media-marketing-community-growth-2.jpg
+│   │       │   ├── social-media-marketing-community-growth.jpg
+│   │       │   ├── social-media-premium.jpg
+│   │       │   ├── social-media-standard.jpg
+│   │       │   ├── speed-optimization.jpg
+│   │       │   ├── stories
+│   │       │   │   ├── advanced-ansible-automation-iac.jpg
+│   │       │   │   ├── advanced-backend-engineering-node-js-microservices-.jpg
+│   │       │   │   ├── advanced-seo-rank-1-on-google.jpg
+│   │       │   │   ├── advanced-seo-serp-ranking-mastery.jpg
+│   │       │   │   ├── ai-engineering-building-llms-neural-networks.jpg
+│   │       │   │   ├── applied-machine-learning-data-science.jpg
+│   │       │   │   ├── aws-certified-solutions-architect-associate-professional-.jpg
+│   │       │   │   ├── aws-certified-solutions-architect-associate-professional-2.jpg
+│   │       │   │   ├── aws-certified-solutions-architect-associate-professional-3.jpg
+│   │       │   │   ├── business-plan-and-logo-design.jpg
+│   │       │   │   ├── c-net-core-architecture.jpg
+│   │       │   │   ├── certified-scrum-master-csm-bootcamp-0.jpg
+│   │       │   │   ├── certified-scrum-master-csm-bootcamp-2.jpg
+│   │       │   │   ├── certified-scrum-master-csm-bootcamp.jpg
+│   │       │   │   ├── cisco-certified-network-associate-ccna-200-301.jpg
+│   │       │   │   ├── cissp-certification-prep-course.jpg
+│   │       │   │   ├── cissp-senior-security-professional-prep.jpg
+│   │       │   │   ├── cloud-infrastructure-deployment-strategy.jpg
+│   │       │   │   ├── computer-hardware-engineering-system-maintenance.jpg
+│   │       │   │   ├── course-data-analysis.jpg
+│   │       │   │   ├── course-digital-marketing.jpg
+│   │       │   │   ├── course-ui-ux.jpg
+│   │       │   │   ├── course-web-development.jpg
+│   │       │   │   ├── courses-hub.jpg
+│   │       │   │   ├── cross-platform-mobile-app-development-react-native-.jpg
+│   │       │   │   ├── cross-platform-mobile-app-development-react-native-2.jpg
+│   │       │   │   ├── data-analysis-with-python.jpg
+│   │       │   │   ├── devops-engineering-kubernetes-mastery.jpg
+│   │       │   │   ├── devops-fundamentals-git-github-mastery.jpg
+│   │       │   │   ├── digital-literacy-computer-operations-2.jpg
+│   │       │   │   ├── digital-literacy-computer-operations.jpg
+│   │       │   │   ├── digital-marketing-for-small-businesses-2.jpg
+│   │       │   │   ├── digital-marketing-for-small-businesses-3.jpg
+│   │       │   │   ├── digital-marketing-for-small-businesses.jpg
+│   │       │   │   ├── ecommerce-store.jpg
+│   │       │   │   ├── enterprise-security-risk-management.jpg
+│   │       │   │   ├── ethical-hacking-for-beginners.jpg
+│   │       │   │   ├── ethical-hacking-penetration-testing-masterclass.jpg
+│   │       │   │   ├── executive-agile-leadership-transformation.jpg
+│   │       │   │   ├── frontend-mastery-with-react-next-js.jpg
+│   │       │   │   ├── full-stack-web-development-bootcamp-zero-to-hero-.jpg
+│   │       │   │   ├── git-github-for-beginners.jpg
+│   │       │   │   ├── google-analytics-4-from-beginner-to-expert.jpg
+│   │       │   │   ├── google-analytics-4-ga4-data-mastery.jpg
+│   │       │   │   ├── integrated-digital-marketing-growth-strategy.jpg
+│   │       │   │   ├── java-enterprise-development.jpg
+│   │       │   │   ├── linux-administration-shell-scripting-pro.jpg
+│   │       │   │   ├── mentoring-and-consulting.jpg
+│   │       │   │   ├── mobile-office-business-productivity-from-your-phone.jpg
+│   │       │   │   ├── modern-javascript-algorithms-data-structures.jpg
+│   │       │   │   ├── motion-graphics-visual-effects.jpg
+│   │       │   │   ├── network-security-administration.jpg
+│   │       │   │   ├── package-business-plan-growth.jpg
+│   │       │   │   ├── package-business-plan-investor.jpg
+│   │       │   │   ├── package-business-plan-starter.jpg
+│   │       │   │   ├── package-growth-accelerator.jpg
+│   │       │   │   ├── package-marketing-pro.jpg
+│   │       │   │   ├── package-social-starter.jpg
+│   │       │   │   ├── product-design-ui-ux-professional-bootcamp.jpg
+│   │       │   │   ├── product-strategy-the-lean-startup-building-mvps.jpg
+│   │       │   │   ├── professional-office-365-suite-mastery-2.jpg
+│   │       │   │   ├── professional-office-365-suite-mastery.jpg
+│   │       │   │   ├── project-management-fundamentals.jpg
+│   │       │   │   ├── python-for-data-science-analytics.jpg
+│   │       │   │   ├── react-native-build-mobile-apps-for-ios-android.jpg
+│   │       │   │   ├── service-ad-campaigns.jpg
+│   │       │   │   ├── service-business-plan.jpg
+│   │       │   │   ├── service-business-planning.jpg
+│   │       │   │   ├── service-business-website.jpg
+│   │       │   │   ├── service-cloud-devops.jpg
+│   │       │   │   ├── service-cms.jpg
+│   │       │   │   ├── service-cv-resume.jpg
+│   │       │   │   ├── service-cybersecurity.jpg
+│   │       │   │   ├── service-data-analytics.jpg
+│   │       │   │   ├── service-digital-marketing.jpg
+│   │       │   │   ├── service-ecommerce.jpg
+│   │       │   │   ├── service-financial-projections.jpg
+│   │       │   │   ├── service-it-support.jpg
+│   │       │   │   ├── service-landing-page.jpg
+│   │       │   │   ├── service-linkedin.jpg
+│   │       │   │   ├── service-logo-design.jpg
+│   │       │   │   ├── service-mentoring-program.jpg
+│   │       │   │   ├── service-mentoring.jpg
+│   │       │   │   ├── service-mobile-app.jpg
+│   │       │   │   ├── service-pitch-practice.jpg
+│   │       │   │   ├── service-portfolio-site.jpg
+│   │       │   │   ├── service-profile-building.jpg
+│   │       │   │   ├── service-social-audit.jpg
+│   │       │   │   ├── service-social-media.jpg
+│   │       │   │   ├── service-strategy-session.jpg
+│   │       │   │   ├── service-web-development.jpg
+│   │       │   │   ├── social-media-advertising-and-marketing.jpg
+│   │       │   │   ├── social-media-marketing-community-growth-2.jpg
+│   │       │   │   ├── social-media-marketing-community-growth.jpg
+│   │       │   │   ├── technical-writing-api-documentation.jpg
+│   │       │   │   ├── the-lean-startup-build-your-mvp.jpg
+│   │       │   │   ├── visual-brand-design-graphic-artistry.jpg
+│   │       │   │   ├── web-and-mobile-software-development.jpg
+│   │       │   │   └── web-development-bootcamp-from-zero-to-hero.jpg
+│   │       │   ├── strategy-basic.jpg
+│   │       │   ├── strategy-call.jpg
+│   │       │   ├── strategy-premium.jpg
+│   │       │   ├── strategy-session-basic.jpg
+│   │       │   ├── strategy-session-premium.jpg
+│   │       │   ├── strategy-session-standard.jpg
+│   │       │   ├── strategy-session.jpg
+│   │       │   ├── strategy-standard.jpg
+│   │       │   ├── technical-writing-api-documentation.jpg
+│   │       │   ├── test-gen-1
+│   │       │   │   ├── test-1-1-architecting-landing-zones.jpg
+│   │       │   │   ├── test-1-2-azure-security-technologies-az-500.jpg
+│   │       │   │   └── test-1-3-devops-kubernetes-mastery.jpg
+│   │       │   ├── test-gen-2
+│   │       │   │   ├── test-2-1-architecting-landing-zones.jpg
+│   │       │   │   ├── test-2-2-azure-security-technologies-az-500.jpg
+│   │       │   │   └── test-2-3-devops-kubernetes-mastery.jpg
+│   │       │   ├── test-gen-3
+│   │       │   │   ├── test-3-1-architecting-landing-zones.jpg
+│   │       │   │   ├── test-3-2-azure-security-technologies-az-500.jpg
+│   │       │   │   └── test-3-3-devops-kubernetes-mastery.jpg
+│   │       │   ├── the-lean-startup-build-your-mvp.jpg
+│   │       │   ├── visual-brand-design-graphic-artistry.jpg
+│   │       │   ├── web-and-mobile-software-development.jpg
+│   │       │   ├── web-app-business-edition.jpg
+│   │       │   ├── web-app-development.jpg
+│   │       │   ├── web-app-enterprise-edition.jpg
+│   │       │   ├── web-app-startup-edition.jpg
+│   │       │   ├── web-development-bootcamp-from-zero-to-hero.jpg
+│   │       │   ├── webapp-business.jpg
+│   │       │   ├── webapp-enterprise.jpg
+│   │       │   ├── webapp-startup.jpg
+│   │       │   └── website-redesign.jpg
+│   │       ├── roadmaps
+│   │       │   └── roadmap-cloud-security-engineer.html
+│   │       ├── social-preview
+│   │       │   └── README.md
+│   │       ├── textbooks
+│   │       │   ├── architecting-landing-zones-textbook.html
+│   │       │   ├── devops-engineering-cloud-infrastructure-core-student-textbook.html
+│   │       │   ├── devops-engineering-cloud-infrastructure-core-textbook.html
+│   │       │   └── kdp
+│   │       │       ├── KDP_PUBLISHING_GUIDE.md
+│   │       │       ├── devops-kdp-6x9-hardcover-teacher.html
+│   │       │       ├── devops-kdp-6x9-hardcover.html
+│   │       │       ├── devops-kdp-6x9-teacher.html
+│   │       │       ├── devops-kdp-6x9.html
+│   │       │       ├── devops-kdp-cover-fullwrap.html
+│   │       │       ├── devops-kdp-cover-hardcover-fullwrap.html
+│   │       │       ├── devops-kdp-cover.html
+│   │       │       ├── devops-kdp-preliminary-pages.html
+│   │       │       ├── devops-kindle-cover.html
+│   │       │       └── exports
+│   │       │           └── pdf
+│   │       │               ├── devops-kdp-6x9-hardcover-teacher.pdf
+│   │       │               ├── devops-kdp-6x9-hardcover.pdf
+│   │       │               ├── devops-kdp-6x9-teacher.pdf
+│   │       │               └── devops-kdp-6x9.pdf
+│   │       ├── web-development-bootcamp-from-zero-to-hero.jpg
+│   │       ├── web-development.jpg
+│   │       └── web.jpg
+│   └── project.json
+├── ACTIONABLE_NEXT_STEPS.md
+├── ADMIN_FEATURE_SUMMARY.md
+├── ADMIN_QUICK_START.md
+├── ADMIN_SETUP.md
+├── AFFORDABLE_COURSES_CAMPAIGN_30DAYS.html
+├── ANALYTICS_FIX_STATUS.md
+├── ANALYTICS_TESTING_GUIDE.md
+├── ANALYTICS_TRACKING_GUIDE.md
+├── CAMPAIGN_30_DAYS_COMPLETE.html
+├── CAMPAIGN_DEPLOYMENT_INFRASTRUCTURE_ASSESSMENT.md
+├── CAMPAIGN_TRACKING_REFERENCE.md
+├── CHANGELOG.md
+├── CODE_REVIEW_SUMMARY.md
+├── CONTENT_CALENDAR_DEC_JAN_2025.md
+├── CONTENT_DRAFTS.md
+├── COURSES_IMPORT_SUMMARY.md
+├── CURRENT_STATE_SNAPSHOT.md
+├── CURRICULUM_COMPLETION_SUMMARY.md
+├── CURRICULUM_STRUCTURE_ANALYSIS_REPORT.md
+├── CURRICULUM_SYSTEM_README.md
+├── DARK_MODE_EXECUTION_TRACKER.md
+├── DARK_MODE_IMPLEMENTATION_PLAYBOOK.md
+├── DEPLOYMENT_GUIDE.md
+├── DEPLOYMENT_TROUBLESHOOTING.md
+├── DESIGN_SYSTEM_AUDIT.md
+├── DEVELOPMENT_SETUP.md
+├── ECOSYSTEM_HIERARCHY.docs
+├── ECOSYSTEM_HIERARCHY.md
+├── ENV_SETUP.md
+├── ERRORS_FIXED.md
+├── EXECUTIVE_SUMMARY_COURSE_EXPANSION.md
+├── FINAL_CONFIRMATION.md
+├── FINAL_STATUS.md
+├── FIXES_IMPLEMENTED.md
+├── GITHUB_PR_ANALYSIS_FULL.md
+├── IMPLEMENTATION_COMPLETE.md
+├── IMPLEMENTATION_STATUS_MARKETING_OPTIMIZATION.md
+├── IMPLEMENTATION_SUMMARY.md
+├── INVESTIGATION.md
+├── LOGO_SETUP.md
+├── MARKETING_CAMPAIGN_EXECUTIVE_SUMMARY.md
+├── MARKETING_QUICK_START_24HOURS.md
+├── MARKETING_TOOLKIT_DEC_JAN_2025.md
+├── MARKET_ANALYSIS_NEW_COURSES.md
+├── MEDIA_BUYING_CAMPAIGN_BLITZ.html
+├── MEDIA_BUYING_CAMPAIGN_SUMMARY.md
+├── MULTI_ROLE_AUTH_SYSTEM.md
+├── MVP_ROLES_COMPLETE.md
+├── NATIVE_MODULE_RECOVERY_RUNBOOK.md
+├── NEXT_SESSION_TASK_7.md
+├── NIGERIAN-PRICING-SUMMARY.md
+├── OPTIMIZED_PRICING_STRATEGY.md
+├── PDF_CONVERSION_COMPLETE.txt
+├── PERFORMANCE.md
+├── PHASE_1_2_ROADMAP.md
+├── PHASE_1_COMPLETE.md
+├── PHASE_1_COMPLETION_SUMMARY.md
+├── PHASE_2_IMPLEMENTATION_ROADMAP.md
+├── PRICING_AUDIT_AND_STRATEGY.md
+├── PRICING_IMPLEMENTATION_SUMMARY.md
+├── PRICING_STRATEGY_ANALYSIS.md
+├── PRICING_TEST_VALIDATION.md
+├── PRICING_UPDATES.md
+├── PROFESSIONAL_SERVICE_NAMING_STRATEGY.md
+├── PROJECT_SUMMARY.md
+├── PR_COMPLETION_STATUS.md
+├── PR_DESCRIPTION.md
+├── QUICK_REFERENCE.md
+├── QUICK_START_CURRICULUM.md
+├── README.md
+├── REMAINING_WORK_STATUS.md
+├── RESPONSIVE_TEST.md
+├── RESPONSIVE_UX_CHECKLIST.md
+├── SANITY_CORS_FIX.md
+├── SANITY_SETUP.md
+├── SAVED_CONTEXT_ALL_TASKS_INSTRUCTIONS.md
+├── SAVED_CONTEXT_MEMORY.md
+├── SCHEMA_FIX_COMPLETE.md
+├── SEARCHABLE_PDFS_READY.md
+├── SECURITY_UPDATES.md
+├── SEO_ACTION_PLAN.md
+├── SERVICE_FULL_LIST.md
+├── SESSION_PROGRESS_2025_11_27.md
+├── SESSION_PROGRESS_JAN_6_2026.md
+├── SESSION_PROGRESS_JAN_6_2026_PART_2.md
+├── SESSION_SUMMARY_DEC_14.md
+├── SHARABLE_LINKS_WWW.html
+├── SHARABLE_LINKS_WWW.md
+├── SHAREABLE_LINKS_QUICK_REFERENCE.md
+├── SOCIAL_MEDIA_PREVIEW_OPTIMIZATION.md
+├── STUDIO_ACCESS_GUIDE.md
+├── TEXTBOOK_PRINT_AND_SALES_PLAYBOOK.md
+├── TEXTBOOK_STANDARD_IMPLEMENTATION_PLAN.md
+├── THREE_DELIVERABLES_CONFIRMED.md
+├── TIER_SYSTEM_COMPLETE.md
+├── TIER_SYSTEM_INTEGRATION.md
+├── UI_IMPROVEMENTS_SUMMARY.md
+├── UI_UX_FIX_STATUS_DEC14_2025.md
+├── USERFLOW_IMPLEMENTATION.md
+├── VISUAL_GUIDE.md
+├── WORK_COMPLETION_REPORT.md
+├── add-course-placeholders.js
+├── analyze-curriculum-structure.mjs
+├── audit-schools-courses.mjs
+├── audit.json
+├── axe-report.json
+├── backups
+│   └── architecting-landing-zones-textbook.html.bak
+├── build-kdp-6x9-hardcover-teacher.py
+├── build-kdp-6x9-hardcover.py
+├── build-kdp-6x9-teacher.py
+├── build-kdp-6x9.py
+├── build-kdp-dunce-to-midjourney-pro-6x9-hardcover.py
+├── build-kdp-dunce-to-midjourney-pro-6x9.py
+├── build-kdp-landing-zones-6x9-hardcover-teacher.py
+├── build-kdp-landing-zones-6x9-hardcover.py
+├── build-kdp-landing-zones-6x9-teacher.py
+├── build-kdp-landing-zones-6x9.py
+├── build.log
+├── build_kdp_landing_zones_common.py
+├── check-all-courses.js
+├── check-all-unknown-fields.mjs
+├── check-course-fields.mjs
+├── check-course.js
+├── check-ethical-hacking-courses.mjs
+├── check-images.js
+├── check-live-site.js
+├── check-og-fields.mjs
+├── check-sanity-content.js
+├── check-sanity-history.js
+├── check-schools.js
+├── check-schools.mjs
+├── check-studio-access.js
+├── cleanup-duplicates.js
+├── cleanup-new-courses.mjs
+├── clients
+│   └── olu-thompson
+│       ├── CLIENT-EMAIL-TEMPLATE.md
+│       ├── PROJECT-SUMMARY.md
+│       ├── README.md
+│       ├── assets
+│       │   ├── profile-photo.jpg
+│       │   └── security-article.png
+│       ├── linkedin-field-guide.html
+│       ├── linkedin-profile-mockup.html
+│       └── resume
+│           ├── Olu-Thompson-Current-Resume.docx
+│           ├── RESUME-PROJECT-SUMMARY.md
+│           ├── assets
+│           │   └── profile-photo.jpg
+│           └── olu-thompson-resume.html
+├── complete-course-rebuild.js
+├── components
+│   └── publications
+│       └── SearchInterface.tsx
+├── content
+│   └── draft-messages.md
+├── convert-to-pdf.cjs
+├── create-test-service.js
+├── curriculum-audit-report-after-upgrade.json
+├── curriculum-audit-report.json
+├── data
+│   ├── dsa-writing-design-courses.json
+│   └── new-dsa-writing-design-courses.json
+├── dev.log
+├── diagnose-editing-issue.js
+├── diagnose-schema.cjs
+├── dist
+│   ├── PUBLIC_FOLDER_WIREFRAME.md
+│   ├── android-chrome-192x192.png
+│   ├── android-chrome-512x512.png
+│   ├── apple-touch-icon.png
+│   ├── assets
+│   │   └── images
+│   │       ├── heroes
+│   │       │   ├── hero-students-learning.jpg
+│   │       │   ├── hero-success-celebration.jpg
+│   │       │   └── hero-tech-team.jpg
+│   │       ├── people
+│   │       │   ├── african-american-man-wearing-red-sweater-excited-chip.webp
+│   │       │   ├── front-view-happy-woman-calling-out-chip.webp
+│   │       │   ├── front-view-happy-woman-calling-out-hero.webp
+│   │       │   ├── portrait-cool-man-with-sunglasses-dancing-smiling-alt-chip.webp
+│   │       │   ├── portrait-cool-man-with-sunglasses-dancing-smiling-chip.webp
+│   │       │   └── surprised-playful-touched-good-looking-african-american-woman-glasses-chip.webp
+│   │       ├── team
+│   │       │   ├── diverse-team.jpg
+│   │       │   ├── happy-businessman.jpg
+│   │       │   └── smiling-developer.jpg
+│   │       └── testimonials
+│   │           ├── testimonial-person-1.jpg
+│   │           ├── testimonial-person-2.jpg
+│   │           └── testimonial-person-3.jpg
+│   ├── browserconfig.xml
+│   ├── curriculums
+│   │   ├── curriculum-adobe-creative-cloud-suite.html
+│   │   ├── curriculum-adsense-101-approval-blueprint.html
+│   │   ├── curriculum-adsense-arbitrage-pro.html
+│   │   ├── curriculum-adsense-traffic-revenue.html
+│   │   ├── curriculum-advanced-ansible-automation.html
+│   │   ├── curriculum-advanced-backend-nodejs.html
+│   │   ├── curriculum-advanced-css-mastery.html
+│   │   ├── curriculum-advanced-excel-business.html
+│   │   ├── curriculum-advanced-javascript-mastery.html
+│   │   ├── curriculum-advanced-seo-mastery.html
+│   │   ├── curriculum-advanced-ui-ux.html
+│   │   ├── curriculum-agile-project-management-essentials.html
+│   │   ├── curriculum-ai-engineering-llms.html
+│   │   ├── curriculum-ai-engineering-mlops.html
+│   │   ├── curriculum-amazon-retail-media-networks.html
+│   │   ├── curriculum-application-security-appsec-specialist.html
+│   │   ├── curriculum-applied-machine-learning.html
+│   │   ├── curriculum-archicad-professional.html
+│   │   ├── curriculum-architecting-landing-zones.html
+│   │   ├── curriculum-autocad-masterclass.html
+│   │   ├── curriculum-aws-certified-solutions-architect.html
+│   │   ├── curriculum-aws-crash-course-for-beginners.html
+│   │   ├── curriculum-azure-security-technologies-az-500.html
+│   │   ├── curriculum-backend-development-crash-course.html
+│   │   ├── curriculum-backend-engineering-scalable-architectures.html
+│   │   ├── curriculum-business-intelligence-analytics.html
+│   │   ├── curriculum-business-writing.html
+│   │   ├── curriculum-c-sharp-net-core.html
+│   │   ├── curriculum-canva-for-ad-creatives.html
+│   │   ├── curriculum-ccna-networking.html
+│   │   ├── curriculum-certified-scrum-master-csm.html
+│   │   ├── curriculum-cissp-certification-prep.html
+│   │   ├── curriculum-cloud-infrastructure-strategy.html
+│   │   ├── curriculum-competitive-programming.html
+│   │   ├── curriculum-computer-hardware-engineering.html
+│   │   ├── curriculum-content-writing-copywriting.html
+│   │   ├── curriculum-copywriting-crash-course.html
+│   │   ├── curriculum-copywriting-for-direct-response.html
+│   │   ├── curriculum-css-fundamentals.html
+│   │   ├── curriculum-css-only-projects.html
+│   │   ├── curriculum-cybersecurity-fundamentals-network-systems-defense.html
+│   │   ├── curriculum-data-analysis-fast-track.html
+│   │   ├── curriculum-devops-engineering-cloud-infrastructure-core.html
+│   │   ├── curriculum-devops-engineering-cloud-infrastructure.html
+│   │   ├── curriculum-devops-kubernetes-mastery.html
+│   │   ├── curriculum-devsecops-engineering-automating-security.html
+│   │   ├── curriculum-digital-literacy-computer-operations.html
+│   │   ├── curriculum-digital-marketing-small-business.html
+│   │   ├── curriculum-dsa-fundamentals.html
+│   │   ├── curriculum-enterprise-cloud-solutions-architect.html
+│   │   ├── curriculum-enterprise-security-risk.html
+│   │   ├── curriculum-ethical-hacking-beginners.html
+│   │   ├── curriculum-ethical-hacking-fast-track.html
+│   │   ├── curriculum-ethical-hacking-penetration-testing.html
+│   │   ├── curriculum-executive-agile-leadership.html
+│   │   ├── curriculum-executive-presentation-public-speaking.html
+│   │   ├── curriculum-frontend-engineering-react-next-js-mastery.html
+│   │   ├── curriculum-full-stack-jumpstart-mern.html
+│   │   ├── curriculum-full-stack-web-development.html
+│   │   ├── curriculum-git-github-beginners.html
+│   │   ├── curriculum-google-analytics-4-mastery.html
+│   │   ├── curriculum-google-search-ads-boot-camp.html
+│   │   ├── curriculum-graphic-design-crash-course.html
+│   │   ├── curriculum-graphic-design-essentials.html
+│   │   ├── curriculum-html-fundamentals.html
+│   │   ├── curriculum-integrated-digital-marketing.html
+│   │   ├── curriculum-intro-to-algorithms-problem-solving.html
+│   │   ├── curriculum-intro-to-cloud-computing.html
+│   │   ├── curriculum-intro-to-coding.html
+│   │   ├── curriculum-intro-to-cybersecurity.html
+│   │   ├── curriculum-intro-to-data-ai.html
+│   │   ├── curriculum-intro-to-design.html
+│   │   ├── curriculum-intro-to-digital-literacy.html
+│   │   ├── curriculum-intro-to-digital-marketing.html
+│   │   ├── curriculum-intro-to-digital-media-buying.html
+│   │   ├── curriculum-intro-to-leadership-management.html
+│   │   ├── curriculum-intro-to-networking-infrastructure.html
+│   │   ├── curriculum-intro-to-professional-writing.html
+│   │   ├── curriculum-intro-to-software-development.html
+│   │   ├── curriculum-java-enterprise-development.html
+│   │   ├── curriculum-javascript-fundamentals.html
+│   │   ├── curriculum-javascript-only-projects.html
+│   │   ├── curriculum-kubernetes-quick-start.html
+│   │   ├── curriculum-leetcode-interview-prep.html
+│   │   ├── curriculum-linux-administration-shell-scripting.html
+│   │   ├── curriculum-machine-learning-crash-course.html
+│   │   ├── curriculum-meta-ads-for-local-business.html
+│   │   ├── curriculum-microsoft-365-ai-integration.html
+│   │   ├── curriculum-microsoft-access-business-apps.html
+│   │   ├── curriculum-microsoft-cybersecurity-architect-sc-100.html
+│   │   ├── curriculum-mobile-app-development-quick-start.html
+│   │   ├── curriculum-mobile-engineering-cross-platform-development.html
+│   │   ├── curriculum-motion-graphics-vfx.html
+│   │   ├── curriculum-network-security-admin.html
+│   │   ├── curriculum-network-security-essentials.html
+│   │   ├── curriculum-nosql-cloud-database-architecture.html
+│   │   ├── curriculum-personal-branding.html
+│   │   ├── curriculum-pmp-certification-prep.html
+│   │   ├── curriculum-product-management-quick-start.html
+│   │   ├── curriculum-product-strategy-lean-startup.html
+│   │   ├── curriculum-professional-data-engineering.html
+│   │   ├── curriculum-professional-office-365.html
+│   │   ├── curriculum-programmatic-advertising-rtb.html
+│   │   ├── curriculum-programming-data-management.html
+│   │   ├── curriculum-python-data-science-analytics.html
+│   │   ├── curriculum-rapid-app-development-low-code.html
+│   │   ├── curriculum-react-essentials-bootcamp.html
+│   │   ├── curriculum-react-native-mobile-dev.html
+│   │   ├── curriculum-security-operations-analyst-sc-200.html
+│   │   ├── curriculum-seo-fast-track-rank-on-google.html
+│   │   ├── curriculum-server-side-tracking-capi.html
+│   │   ├── curriculum-social-media-community-growth.html
+│   │   ├── curriculum-social-media-marketing-accelerator.html
+│   │   ├── curriculum-sql-relational-database-design.html
+│   │   ├── curriculum-system-design-interviews.html
+│   │   ├── curriculum-technical-writing-api-docs.html
+│   │   ├── curriculum-technical-writing-essentials.html
+│   │   ├── curriculum-technical-writing.html
+│   │   ├── curriculum-tiktok-reels-ad-strategy.html
+│   │   ├── curriculum-ui-ux-fundamentals.html
+│   │   ├── curriculum-ui-ux-product-design.html
+│   │   ├── curriculum-uiux-quick-start-for-developers.html
+│   │   ├── curriculum-vector-graphics-mastery-coreldraw.html
+│   │   ├── curriculum-visual-brand-design.html
+│   │   ├── curriculum-visual-communication-infographics.html
+│   │   ├── curriculum-youtube-ads-manager.html
+│   │   └── pdfs
+│   │       ├── advanced-ansible-automation-curriculum.pdf
+│   │       ├── azure-security-technologies-az-500.pdf
+│   │       ├── curriculum-azure-security-az500.pdf
+│   │       ├── curriculum-javascript-fundamentals.pdf
+│   │       ├── curriculum-linux-shell-scripting.pdf
+│   │       ├── devops-engineering-cloud-infrastructure-core.pdf
+│   │       ├── executive-agile-leadership-curriculum.pdf
+│   │       └── linux-administration-shell-scripting.pdf
+│   ├── digital_marketing2.jpg
+│   ├── digital_partner_.png
+│   ├── digitall_partner.png
+│   ├── favicon-16.ico
+│   ├── favicon-16x16.png
+│   ├── favicon-32.ico
+│   ├── favicon-32x32.png
+│   ├── favicon.ico
+│   ├── fonts
+│   │   ├── lato-bold.woff2
+│   │   ├── lato-regular.woff2
+│   │   ├── lato.zip
+│   │   ├── montserrat-bold.woff2
+│   │   └── montserrat.zip
+│   ├── forms
+│   │   ├── assets
+│   │   │   ├── forms.css
+│   │   │   └── forms.js
+│   │   ├── branding
+│   │   │   └── logo-design
+│   │   │       ├── logo-basic
+│   │   │       │   └── index.html
+│   │   │       ├── logo-premium
+│   │   │       │   └── index.html
+│   │   │       └── logo-standard
+│   │   │           └── index.html
+│   │   ├── branding-design
+│   │   │   └── professional-branding
+│   │   │       └── index.html
+│   │   ├── business-and-strategy
+│   │   │   └── business-plan-package
+│   │   │       └── index.html
+│   │   ├── business-strategy
+│   │   │   ├── business-plan
+│   │   │   │   ├── bp-basic
+│   │   │   │   │   └── index.html
+│   │   │   │   ├── bp-premium
+│   │   │   │   │   └── index.html
+│   │   │   │   └── bp-standard
+│   │   │   │       └── index.html
+│   │   │   └── growth-plan
+│   │   │       ├── growth-basic
+│   │   │       │   └── index.html
+│   │   │       ├── growth-premium
+│   │   │       │   └── index.html
+│   │   │       └── growth-standard
+│   │   │           └── index.html
+│   │   ├── consulting-advisory
+│   │   │   └── business-consulting
+│   │   │       └── index.html
+│   │   ├── creative-services
+│   │   │   └── portfolio-website
+│   │   │       └── index.html
+│   │   ├── digital-marketing
+│   │   │   └── marketing-strategy
+│   │   │       └── index.html
+│   │   ├── general-inquiry
+│   │   │   └── index.html
+│   │   ├── index.html
+│   │   ├── individual-services
+│   │   │   ├── ad-campaign
+│   │   │   │   └── index.html
+│   │   │   ├── bug-fix-monthly
+│   │   │   │   └── index.html
+│   │   │   ├── business-cards
+│   │   │   │   └── index.html
+│   │   │   ├── business-plan-review
+│   │   │   │   └── index.html
+│   │   │   ├── content-package
+│   │   │   │   └── index.html
+│   │   │   ├── cv-resume
+│   │   │   │   └── index.html
+│   │   │   ├── executive-summary
+│   │   │   │   └── index.html
+│   │   │   ├── index.html
+│   │   │   ├── linkedin-optimization
+│   │   │   │   └── index.html
+│   │   │   ├── logo-design
+│   │   │   │   └── index.html
+│   │   │   ├── market-research
+│   │   │   │   └── index.html
+│   │   │   ├── payment-gateway
+│   │   │   │   └── index.html
+│   │   │   ├── pitch-deck
+│   │   │   │   └── index.html
+│   │   │   ├── pitch-practice
+│   │   │   │   └── index.html
+│   │   │   ├── portfolio-website
+│   │   │   │   └── index.html
+│   │   │   ├── seo-audit
+│   │   │   │   └── index.html
+│   │   │   ├── social-audit
+│   │   │   │   └── index.html
+│   │   │   ├── social-media-kit
+│   │   │   │   └── index.html
+│   │   │   ├── speed-optimization
+│   │   │   │   └── index.html
+│   │   │   ├── strategy-call
+│   │   │   │   └── index.html
+│   │   │   └── website-redesign
+│   │   │       └── index.html
+│   │   ├── marketing
+│   │   │   ├── marketing-strategy
+│   │   │   │   ├── market-basic
+│   │   │   │   │   └── index.html
+│   │   │   │   ├── market-premium
+│   │   │   │   │   └── index.html
+│   │   │   │   └── market-standard
+│   │   │   │       └── index.html
+│   │   │   └── social-media
+│   │   │       ├── socmed-basic
+│   │   │       │   └── index.html
+│   │   │       ├── socmed-premium
+│   │   │       │   └── index.html
+│   │   │       └── socmed-standard
+│   │   │           └── index.html
+│   │   ├── portfolio
+│   │   │   ├── cv-resume
+│   │   │   │   ├── cv-essential
+│   │   │   │   │   └── index.html
+│   │   │   │   ├── cv-executive
+│   │   │   │   │   └── index.html
+│   │   │   │   └── cv-professional
+│   │   │   │       └── index.html
+│   │   │   ├── linkedin-optimization
+│   │   │   │   ├── linkedin-complete
+│   │   │   │   │   └── index.html
+│   │   │   │   ├── linkedin-executive
+│   │   │   │   │   └── index.html
+│   │   │   │   └── linkedin-quick
+│   │   │   │       └── index.html
+│   │   │   └── portfolio-website
+│   │   │       ├── portfolio-premium
+│   │   │       │   └── index.html
+│   │   │       ├── portfolio-professional
+│   │   │       │   └── index.html
+│   │   │       └── portfolio-starter
+│   │   │           └── index.html
+│   │   ├── profile-and-portfolio
+│   │   │   ├── cv-resume-professional
+│   │   │   │   └── index.html
+│   │   │   ├── cv-resume-professional.html
+│   │   │   ├── linkedin-complete-makeover
+│   │   │   │   └── index.html
+│   │   │   └── linkedin-complete-makeover.html
+│   │   ├── social-media
+│   │   │   ├── hexadigitall-logo.png
+│   │   │   ├── index-original-backup.html
+│   │   │   └── index.html
+│   │   ├── web-and-mobile
+│   │   │   ├── business-website
+│   │   │   │   └── index.html
+│   │   │   ├── ecommerce-store
+│   │   │   │   └── index.html
+│   │   │   ├── landing-page
+│   │   │   │   └── index.html
+│   │   │   └── web-app-development
+│   │   │       └── index.html
+│   │   └── web-development
+│   │       ├── business-website
+│   │       │   ├── business-website-basic
+│   │       │   │   └── index.html
+│   │       │   ├── business-website-premium
+│   │       │   │   └── index.html
+│   │       │   └── business-website-standard
+│   │       │       └── index.html
+│   │       ├── ecommerce-store
+│   │       │   ├── ecommerce-basic
+│   │       │   │   └── index.html
+│   │       │   ├── ecommerce-premium
+│   │       │   │   └── index.html
+│   │       │   └── ecommerce-standard
+│   │       │       └── index.html
+│   │       ├── landing-page
+│   │       │   ├── landing-page-basic
+│   │       │   │   └── index.html
+│   │       │   ├── landing-page-premium
+│   │       │   │   └── index.html
+│   │       │   └── landing-page-standard
+│   │       │       └── index.html
+│   │       └── web-app
+│   │           ├── webapp-business
+│   │           │   └── index.html
+│   │           ├── webapp-enterprise
+│   │           │   └── index.html
+│   │           └── webapp-startup
+│   │               └── index.html
+│   ├── hexadigitall-logo-transparent.png
+│   ├── hexadigitall-logo-transparent.svg
+│   ├── hexadigitall-logo.svg
+│   ├── index.html
+│   ├── manifest.json
+│   ├── og-images
+│   │   ├── advanced-ansible-automation-iac.jpg
+│   │   ├── advanced-backend-engineering-node-js-microservices-.jpg
+│   │   ├── advanced-seo-rank-1-on-google.jpg
+│   │   ├── advanced-seo-serp-ranking-mastery.jpg
+│   │   ├── ai-engineering-building-llms-neural-networks.jpg
+│   │   ├── applied-machine-learning-data-science.jpg
+│   │   ├── architecting-landing-zones.jpg
+│   │   ├── aws-certified-solutions-architect-associate-professional-.jpg
+│   │   ├── aws-certified-solutions-architect-associate-professional-2.jpg
+│   │   ├── aws-certified-solutions-architect-associate-professional-3.jpg
+│   │   ├── bp-growth-basic.jpg
+│   │   ├── bp-growth-premium.jpg
+│   │   ├── bp-growth-standard.jpg
+│   │   ├── bp-starter-basic.jpg
+│   │   ├── bp-starter-premium.jpg
+│   │   ├── bp-starter-standard.jpg
+│   │   ├── bug-fix-support.jpg
+│   │   ├── business-coaching-basic.jpg
+│   │   ├── business-coaching-premium.jpg
+│   │   ├── business-coaching-standard.jpg
+│   │   ├── business-coaching.jpg
+│   │   ├── business-plan-and-logo-design.jpg
+│   │   ├── business-plan-growth.jpg
+│   │   ├── business-plan-premium.jpg
+│   │   ├── business-plan-standard.jpg
+│   │   ├── business-plan-starter.jpg
+│   │   ├── business-website-basic.jpg
+│   │   ├── business-website-premium.jpg
+│   │   ├── business-website-standard.jpg
+│   │   ├── business-website.jpg
+│   │   ├── c-net-core-architecture.jpg
+│   │   ├── career-basic.jpg
+│   │   ├── career-coaching-basic.jpg
+│   │   ├── career-coaching-executive.jpg
+│   │   ├── career-coaching-transition.jpg
+│   │   ├── career-coaching.jpg
+│   │   ├── career-premium.jpg
+│   │   ├── career-standard.jpg
+│   │   ├── certified-scrum-master-csm-bootcamp-0.jpg
+│   │   ├── certified-scrum-master-csm-bootcamp-2.jpg
+│   │   ├── certified-scrum-master-csm-bootcamp.jpg
+│   │   ├── cisco-certified-network-associate-ccna-200-301.jpg
+│   │   ├── cissp-certification-prep-course.jpg
+│   │   ├── cissp-senior-security-professional-prep.jpg
+│   │   ├── cloud-infrastructure-deployment-strategy.jpg
+│   │   ├── coaching-basic.jpg
+│   │   ├── coaching-premium.jpg
+│   │   ├── coaching-standard.jpg
+│   │   ├── computer-hardware-engineering-system-maintenance.jpg
+│   │   ├── course-adobe-creative-cloud-suite.jpg
+│   │   ├── course-adsense-101-approval-blueprint.jpg
+│   │   ├── course-adsense-arbitrage-pro.jpg
+│   │   ├── course-adsense-traffic-revenue.jpg
+│   │   ├── course-advanced-ansible-automation-iac.jpg
+│   │   ├── course-advanced-ansible-automation-iac.png
+│   │   ├── course-advanced-ansible-automation.jpg
+│   │   ├── course-advanced-backend-engineering-node-js-microservices-.jpg
+│   │   ├── course-advanced-backend-engineering-node-js-microservices-.png
+│   │   ├── course-advanced-backend-nodejs.jpg
+│   │   ├── course-advanced-css-mastery.jpg
+│   │   ├── course-advanced-excel-business.jpg
+│   │   ├── course-advanced-javascript-mastery.jpg
+│   │   ├── course-advanced-seo-mastery.jpg
+│   │   ├── course-advanced-seo-rank-1-on-google.jpg
+│   │   ├── course-advanced-seo-rank-1-on-google.png
+│   │   ├── course-advanced-seo-serp-ranking-mastery.jpg
+│   │   ├── course-advanced-seo-serp-ranking-mastery.png
+│   │   ├── course-advanced-ui-ux.jpg
+│   │   ├── course-agile-project-management-essentials.jpg
+│   │   ├── course-ai-engineering-building-llms-neural-networks.jpg
+│   │   ├── course-ai-engineering-building-llms-neural-networks.png
+│   │   ├── course-ai-engineering-llms.jpg
+│   │   ├── course-ai-engineering-mlops.jpg
+│   │   ├── course-amazon-retail-media-networks.jpg
+│   │   ├── course-application-security-appsec-specialist.jpg
+│   │   ├── course-applied-machine-learning-data-science.jpg
+│   │   ├── course-applied-machine-learning-data-science.png
+│   │   ├── course-applied-machine-learning.jpg
+│   │   ├── course-archicad-professional.jpg
+│   │   ├── course-architecting-landing-zones.jpg
+│   │   ├── course-architecting-landing-zones.png
+│   │   ├── course-autocad-masterclass.jpg
+│   │   ├── course-aws-certified-solutions-architect-associate-professional-.jpg
+│   │   ├── course-aws-certified-solutions-architect-associate-professional-.png
+│   │   ├── course-aws-certified-solutions-architect-associate-professional-2.jpg
+│   │   ├── course-aws-certified-solutions-architect-associate-professional-2.png
+│   │   ├── course-aws-certified-solutions-architect-associate-professional-3.jpg
+│   │   ├── course-aws-certified-solutions-architect-associate-professional-3.png
+│   │   ├── course-aws-certified-solutions-architect.jpg
+│   │   ├── course-aws-crash-course-for-beginners.jpg
+│   │   ├── course-azure-security-technologies-az-500.jpg
+│   │   ├── course-backend-development-crash-course.jpg
+│   │   ├── course-backend-engineering-plhld.jpg
+│   │   ├── course-backend-engineering-plhld.png
+│   │   ├── course-backend-engineering-scalable-architectures.jpg
+│   │   ├── course-backend-engineering.jpg
+│   │   ├── course-backend-engineering.png
+│   │   ├── course-business-intelligence-analytics.jpg
+│   │   ├── course-business-writing.jpg
+│   │   ├── course-c-net-core-architecture.jpg
+│   │   ├── course-c-net-core-architecture.png
+│   │   ├── course-c-sharp-net-core.jpg
+│   │   ├── course-canva-for-ad-creatives.jpg
+│   │   ├── course-ccna-networking.jpg
+│   │   ├── course-certified-scrum-master-csm-bootcamp-0.jpg
+│   │   ├── course-certified-scrum-master-csm-bootcamp-0.png
+│   │   ├── course-certified-scrum-master-csm-bootcamp-2.jpg
+│   │   ├── course-certified-scrum-master-csm-bootcamp-2.png
+│   │   ├── course-certified-scrum-master-csm-bootcamp.jpg
+│   │   ├── course-certified-scrum-master-csm-bootcamp.png
+│   │   ├── course-certified-scrum-master-csm.jpg
+│   │   ├── course-cissp-certification-prep.jpg
+│   │   ├── course-cloud-infrastructure-strategy.jpg
+│   │   ├── course-competitive-programming.jpg
+│   │   ├── course-computer-hardware-engineering.jpg
+│   │   ├── course-content-writing-copywriting.jpg
+│   │   ├── course-copywriting-crash-course.jpg
+│   │   ├── course-copywriting-for-direct-response.jpg
+│   │   ├── course-css-fundamentals.jpg
+│   │   ├── course-css-only-projects.jpg
+│   │   ├── course-cybersecurity-fundamentals-network-systems-defense.jpg
+│   │   ├── course-data-analysis-fast-track.jpg
+│   │   ├── course-devops-engineering-cloud-infrastructure-core.jpg
+│   │   ├── course-devops-engineering-cloud-infrastructure.jpg
+│   │   ├── course-devops-kubernetes-mastery.jpg
+│   │   ├── course-devsecops-engineering-automating-security.jpg
+│   │   ├── course-digital-literacy-computer-operations.jpg
+│   │   ├── course-digital-marketing-small-business.jpg
+│   │   ├── course-dsa-fundamentals.jpg
+│   │   ├── course-enterprise-cloud-solutions-architect.jpg
+│   │   ├── course-enterprise-security-risk.jpg
+│   │   ├── course-ethical-hacking-beginners.jpg
+│   │   ├── course-ethical-hacking-fast-track.jpg
+│   │   ├── course-ethical-hacking-penetration-testing.jpg
+│   │   ├── course-executive-agile-leadership.jpg
+│   │   ├── course-executive-presentation-public-speaking.jpg
+│   │   ├── course-frontend-engineering-react-next-js-mastery.jpg
+│   │   ├── course-full-stack-jumpstart-mern.jpg
+│   │   ├── course-full-stack-web-development.jpg
+│   │   ├── course-git-github-beginners.jpg
+│   │   ├── course-google-analytics-4-mastery.jpg
+│   │   ├── course-google-search-ads-boot-camp.jpg
+│   │   ├── course-graphic-design-crash-course.jpg
+│   │   ├── course-graphic-design-essentials.jpg
+│   │   ├── course-html-fundamentals.jpg
+│   │   ├── course-integrated-digital-marketing.jpg
+│   │   ├── course-intro-to-algorithms-problem-solving.jpg
+│   │   ├── course-intro-to-cloud-computing.jpg
+│   │   ├── course-intro-to-coding.jpg
+│   │   ├── course-intro-to-cybersecurity.jpg
+│   │   ├── course-intro-to-data-ai.jpg
+│   │   ├── course-intro-to-design.jpg
+│   │   ├── course-intro-to-digital-literacy.jpg
+│   │   ├── course-intro-to-digital-marketing.jpg
+│   │   ├── course-intro-to-digital-media-buying.jpg
+│   │   ├── course-intro-to-leadership-management.jpg
+│   │   ├── course-intro-to-networking-infrastructure.jpg
+│   │   ├── course-intro-to-professional-writing.jpg
+│   │   ├── course-intro-to-software-development.jpg
+│   │   ├── course-java-enterprise-development.jpg
+│   │   ├── course-javascript-fundamentals.jpg
+│   │   ├── course-javascript-only-projects.jpg
+│   │   ├── course-kubernetes-quick-start.jpg
+│   │   ├── course-leetcode-interview-prep.jpg
+│   │   ├── course-linux-administration-shell-scripting.jpg
+│   │   ├── course-machine-learning-crash-course.jpg
+│   │   ├── course-meta-ads-for-local-business.jpg
+│   │   ├── course-microsoft-365-ai-integration.jpg
+│   │   ├── course-microsoft-access-business-apps.jpg
+│   │   ├── course-microsoft-cybersecurity-architect-sc-100.jpg
+│   │   ├── course-mobile-app-development-quick-start.jpg
+│   │   ├── course-mobile-engineering-cross-platform-development.jpg
+│   │   ├── course-motion-graphics-vfx.jpg
+│   │   ├── course-network-security-admin.jpg
+│   │   ├── course-network-security-essentials.jpg
+│   │   ├── course-nosql-cloud-database-architecture.jpg
+│   │   ├── course-personal-branding.jpg
+│   │   ├── course-pmp-certification-prep.jpg
+│   │   ├── course-product-management-quick-start.jpg
+│   │   ├── course-product-strategy-lean-startup.jpg
+│   │   ├── course-professional-data-engineering.jpg
+│   │   ├── course-professional-office-365.jpg
+│   │   ├── course-programmatic-advertising-rtb.jpg
+│   │   ├── course-programming-data-management.jpg
+│   │   ├── course-python-data-science-analytics.jpg
+│   │   ├── course-rapid-app-development-low-code.jpg
+│   │   ├── course-react-essentials-bootcamp.jpg
+│   │   ├── course-react-native-mobile-dev.jpg
+│   │   ├── course-security-operations-analyst-sc-200.jpg
+│   │   ├── course-seo-fast-track-rank-on-google.jpg
+│   │   ├── course-server-side-tracking-capi.jpg
+│   │   ├── course-social-media-community-growth.jpg
+│   │   ├── course-social-media-marketing-accelerator.jpg
+│   │   ├── course-sql-relational-database-design.jpg
+│   │   ├── course-system-design-interviews.jpg
+│   │   ├── course-technical-writing-api-docs.jpg
+│   │   ├── course-technical-writing-essentials.jpg
+│   │   ├── course-technical-writing.jpg
+│   │   ├── course-tiktok-reels-ad-strategy.jpg
+│   │   ├── course-ui-ux-fundamentals.jpg
+│   │   ├── course-ui-ux-product-design.jpg
+│   │   ├── course-uiux-quick-start-for-developers.jpg
+│   │   ├── course-vector-graphics-mastery-coreldraw.jpg
+│   │   ├── course-visual-brand-design.jpg
+│   │   ├── course-visual-communication-infographics.jpg
+│   │   ├── course-youtube-ads-manager.jpg
+│   │   ├── courses-hub.jpg
+│   │   ├── courses-hub.png
+│   │   ├── cross-platform-mobile-app-development-react-native-.jpg
+│   │   ├── cross-platform-mobile-app-development-react-native-2.jpg
+│   │   ├── cv-basic.jpg
+│   │   ├── cv-premium.jpg
+│   │   ├── cv-resume-essential.jpg
+│   │   ├── cv-resume-executive.jpg
+│   │   ├── cv-resume-professional.jpg
+│   │   ├── cv-resume.jpg
+│   │   ├── cv-standard.jpg
+│   │   ├── data-analysis-with-python.jpg
+│   │   ├── devops-engineering-kubernetes-mastery.jpg
+│   │   ├── devops-fundamentals-git-github-mastery.jpg
+│   │   ├── digital-literacy-computer-operations-2.jpg
+│   │   ├── digital-literacy-computer-operations.jpg
+│   │   ├── digital-marketing-for-small-businesses-2.jpg
+│   │   ├── digital-marketing-for-small-businesses-3.jpg
+│   │   ├── digital-marketing-for-small-businesses.jpg
+│   │   ├── digital-marketing-strategy.jpg
+│   │   ├── dm-basic.jpg
+│   │   ├── dm-premium.jpg
+│   │   ├── dm-standard.jpg
+│   │   ├── e-commerce-store-basic.jpg
+│   │   ├── e-commerce-store-premium.jpg
+│   │   ├── e-commerce-store-standard.jpg
+│   │   ├── ecommerce-basic.jpg
+│   │   ├── ecommerce-premium.jpg
+│   │   ├── ecommerce-standard.jpg
+│   │   ├── ecommerce-store.jpg
+│   │   ├── ecommerce-website.jpg
+│   │   ├── enterprise-security-risk-management.jpg
+│   │   ├── ethical-hacking-for-beginners.jpg
+│   │   ├── ethical-hacking-penetration-testing-masterclass.jpg
+│   │   ├── executive-agile-leadership-transformation.jpg
+│   │   ├── executive-summary.jpg
+│   │   ├── frontend-mastery-with-react-next-js.jpg
+│   │   ├── full-stack-web-development-bootcamp-zero-to-hero-.jpg
+│   │   ├── git-github-for-beginners.jpg
+│   │   ├── google-analytics-4-from-beginner-to-expert.jpg
+│   │   ├── google-analytics-4-ga4-data-mastery.jpg
+│   │   ├── growth-plan-basic.jpg
+│   │   ├── growth-plan-premium.jpg
+│   │   ├── growth-plan-standard.jpg
+│   │   ├── home.png
+│   │   ├── integrated-digital-marketing-growth-strategy.jpg
+│   │   ├── java-enterprise-development.jpg
+│   │   ├── landing-page-basic.jpg
+│   │   ├── landing-page-premium.jpg
+│   │   ├── landing-page-standard.jpg
+│   │   ├── landing-page.jpg
+│   │   ├── linkedin-basic.jpg
+│   │   ├── linkedin-complete-makeover.jpg
+│   │   ├── linkedin-executive-presence.jpg
+│   │   ├── linkedin-optimization.jpg
+│   │   ├── linkedin-premium.jpg
+│   │   ├── linkedin-quick-refresh.jpg
+│   │   ├── linkedin-standard.jpg
+│   │   ├── linux-administration-shell-scripting-pro.jpg
+│   │   ├── logo-basic.jpg
+│   │   ├── logo-design-basic.jpg
+│   │   ├── logo-design-premium.jpg
+│   │   ├── logo-design-standard.jpg
+│   │   ├── logo-design.jpg
+│   │   ├── logo-premium.jpg
+│   │   ├── logo-standard.jpg
+│   │   ├── marketing-strategy-basic.jpg
+│   │   ├── marketing-strategy-premium.jpg
+│   │   ├── marketing-strategy-standard.jpg
+│   │   ├── mentoring-and-consulting.jpg
+│   │   ├── mobile-office-business-productivity-from-your-phone.jpg
+│   │   ├── modern-javascript-algorithms-data-structures.jpg
+│   │   ├── motion-graphics-visual-effects.jpg
+│   │   ├── network-security-administration.jpg
+│   │   ├── option-1.jpg
+│   │   ├── option-2.jpg
+│   │   ├── option-3.jpg
+│   │   ├── option-4.jpg
+│   │   ├── package-business-plan-growth.jpg
+│   │   ├── package-business-plan-investor.jpg
+│   │   ├── package-business-plan-starter.jpg
+│   │   ├── package-growth-accelerator.jpg
+│   │   ├── package-marketing-pro.jpg
+│   │   ├── package-social-starter.jpg
+│   │   ├── payment-gateway.jpg
+│   │   ├── pitch-deck.jpg
+│   │   ├── portfolio-basic.jpg
+│   │   ├── portfolio-premium.jpg
+│   │   ├── portfolio-standard.jpg
+│   │   ├── portfolio-website-premium.jpg
+│   │   ├── portfolio-website-professional.jpg
+│   │   ├── portfolio-website-starter.jpg
+│   │   ├── portfolio-website.jpg
+│   │   ├── product-design-ui-ux-professional-bootcamp.jpg
+│   │   ├── product-strategy-the-lean-startup-building-mvps.jpg
+│   │   ├── professional-office-365-suite-mastery-2.jpg
+│   │   ├── professional-office-365-suite-mastery.jpg
+│   │   ├── profile-and-portfolio-building.jpg
+│   │   ├── project-management-fundamentals.jpg
+│   │   ├── proposal-divas-kloset.jpg
+│   │   ├── proposal-divas-kloset.png
+│   │   ├── proposal-generic.jpg
+│   │   ├── proposal-generic.png
+│   │   ├── proposal-jhema-wears.jpg
+│   │   ├── proposal-jhema-wears.png
+│   │   ├── python-for-data-science-analytics.jpg
+│   │   ├── react-native-build-mobile-apps-for-ios-android.jpg
+│   │   ├── school-school-of-cloud-and-devops.jpg
+│   │   ├── school-school-of-cloud-and-devops.png
+│   │   ├── school-school-of-coding-and-development.jpg
+│   │   ├── school-school-of-coding-and-development.png
+│   │   ├── school-school-of-cybersecurity.jpg
+│   │   ├── school-school-of-cybersecurity.png
+│   │   ├── school-school-of-data-and-ai.jpg
+│   │   ├── school-school-of-data-and-ai.png
+│   │   ├── school-school-of-design.jpg
+│   │   ├── school-school-of-design.png
+│   │   ├── school-school-of-executive-management.jpg
+│   │   ├── school-school-of-executive-management.png
+│   │   ├── school-school-of-fundamentals.jpg
+│   │   ├── school-school-of-fundamentals.png
+│   │   ├── school-school-of-growth-and-marketing.jpg
+│   │   ├── school-school-of-growth-and-marketing.png
+│   │   ├── school-school-of-infrastructure.jpg
+│   │   ├── school-school-of-infrastructure.png
+│   │   ├── school-school-of-software-mastery.jpg
+│   │   ├── school-school-of-software-mastery.png
+│   │   ├── seo-audit.jpg
+│   │   ├── service-ad-campaigns.jpg
+│   │   ├── service-business-plan-and-logo-design.jpg
+│   │   ├── service-business-plan-and-logo-design.png
+│   │   ├── service-business-plan.jpg
+│   │   ├── service-business-website.jpg
+│   │   ├── service-cloud-devops.jpg
+│   │   ├── service-cms.jpg
+│   │   ├── service-cv-resume.jpg
+│   │   ├── service-cybersecurity.jpg
+│   │   ├── service-data-analytics.jpg
+│   │   ├── service-financial-projections.jpg
+│   │   ├── service-it-support.jpg
+│   │   ├── service-landing-page.jpg
+│   │   ├── service-linkedin.jpg
+│   │   ├── service-logo-design.jpg
+│   │   ├── service-mentoring-and-consulting.jpg
+│   │   ├── service-mentoring-and-consulting.png
+│   │   ├── service-mentoring-program.jpg
+│   │   ├── service-mentoring.jpg
+│   │   ├── service-mobile-app.jpg
+│   │   ├── service-pitch-practice.jpg
+│   │   ├── service-portfolio-site.jpg
+│   │   ├── service-profile-and-portfolio-building.jpg
+│   │   ├── service-profile-and-portfolio-building.png
+│   │   ├── service-profile-building.jpg
+│   │   ├── service-social-audit.jpg
+│   │   ├── service-social-media-advertising-and-marketing.jpg
+│   │   ├── service-social-media.jpg
+│   │   ├── service-strategy-session.jpg
+│   │   ├── service-web-and-mobile-software-development.jpg
+│   │   ├── service-web-and-mobile-software-development.png
+│   │   ├── services-hub.jpg
+│   │   ├── services-hub.png
+│   │   ├── sm-basic.jpg
+│   │   ├── sm-premium.jpg
+│   │   ├── sm-standard.jpg
+│   │   ├── social-media-advertising-and-marketing.jpg
+│   │   ├── social-media-audit.jpg
+│   │   ├── social-media-basic.jpg
+│   │   ├── social-media-management.jpg
+│   │   ├── social-media-marketing-community-growth-2.jpg
+│   │   ├── social-media-marketing-community-growth.jpg
+│   │   ├── social-media-premium.jpg
+│   │   ├── social-media-standard.jpg
+│   │   ├── speed-optimization.jpg
+│   │   ├── strategy-basic.jpg
+│   │   ├── strategy-call.jpg
+│   │   ├── strategy-premium.jpg
+│   │   ├── strategy-session-basic.jpg
+│   │   ├── strategy-session-premium.jpg
+│   │   ├── strategy-session-standard.jpg
+│   │   ├── strategy-session.jpg
+│   │   ├── strategy-standard.jpg
+│   │   ├── technical-writing-api-documentation.jpg
+│   │   ├── the-lean-startup-build-your-mvp.jpg
+│   │   ├── visual-brand-design-graphic-artistry.jpg
+│   │   ├── web-and-mobile-software-development.jpg
+│   │   ├── web-app-business-edition.jpg
+│   │   ├── web-app-development.jpg
+│   │   ├── web-app-enterprise-edition.jpg
+│   │   ├── web-app-startup-edition.jpg
+│   │   ├── web-development-bootcamp-from-zero-to-hero.jpg
+│   │   ├── webapp-business.jpg
+│   │   ├── webapp-enterprise.jpg
+│   │   ├── webapp-startup.jpg
+│   │   └── website-redesign.jpg
+│   ├── roadmaps
+│   │   └── roadmap-cloud-security-engineer.html
+│   ├── social-preview
+│   │   └── README.md
+│   ├── static
+│   │   ├── SanityVision-9uo3KlLC.js
+│   │   ├── VideoPlayer-aDL46I3D.js
+│   │   ├── ViteDevServerStopped-xo1pwa8h.js
+│   │   ├── a50194d2.create-schema.json
+│   │   ├── apple-touch-icon.png
+│   │   ├── bash-CG6S6Dwl.js
+│   │   ├── browser-Dn51dcC7.js
+│   │   ├── create-manifest.json
+│   │   ├── ef87c8fe.create-tools.json
+│   │   ├── favicon-192.png
+│   │   ├── favicon-512.png
+│   │   ├── favicon-96.png
+│   │   ├── favicon.ico
+│   │   ├── favicon.svg
+│   │   ├── groq-BSgH9Pcp.js
+│   │   ├── index-BjuBiSjk.js
+│   │   ├── index2-CRNX8Sjz.js
+│   │   ├── index3-zeQuyGW7.js
+│   │   ├── index4-DXG4lNR1.js
+│   │   ├── javascript-BJ-GTedN.js
+│   │   ├── json-unC8z3UW.js
+│   │   ├── jsx-BQ6XNmEo.js
+│   │   ├── manifest.webmanifest
+│   │   ├── refractor-CfhyEo1P.js
+│   │   ├── resources-Belq_sQk.js
+│   │   ├── resources-CXmeHSdR.js
+│   │   ├── resources2-BE2ymlFK.js
+│   │   ├── resources3-IgIaOFUi.js
+│   │   ├── resources4-DMHftPzP.js
+│   │   ├── resources5-CXHTtAg4.js
+│   │   ├── resources6-BHmPcXiL.js
+│   │   ├── resources7-uljtVn1_.js
+│   │   ├── resources8-DBpqGiBO.js
+│   │   ├── sanity-Dl7Nn4P7.js
+│   │   ├── stegaEncodeSourceMap-BVVT0ypT.js
+│   │   └── typescript-DrL72TmI.js
+│   ├── textbooks
+│   │   ├── devops-engineering-cloud-infrastructure-core-student-textbook.html
+│   │   ├── devops-engineering-cloud-infrastructure-core-textbook.html
+│   │   ├── dunce-to-midjourney-pro-textbook.html
+│   │   ├── kdp
+│   │   │   ├── KDP_PUBLISHING_GUIDE.md
+│   │   │   ├── architecting-landing-zones
+│   │   │   │   ├── architecting-landing-zones-kdp-6x9-hardcover-teacher.html
+│   │   │   │   ├── architecting-landing-zones-kdp-6x9-hardcover.html
+│   │   │   │   ├── architecting-landing-zones-kdp-6x9-teacher.html
+│   │   │   │   ├── architecting-landing-zones-kdp-6x9.html
+│   │   │   │   ├── architecting-landing-zones-kdp-cover-fullwrap.html
+│   │   │   │   ├── architecting-landing-zones-kdp-cover-hardcover-fullwrap.html
+│   │   │   │   ├── architecting-landing-zones-kdp-cover.html
+│   │   │   │   ├── architecting-landing-zones-kdp-preliminary-pages.html
+│   │   │   │   ├── architecting-landing-zones-kindle-cover.html
+│   │   │   │   ├── architecting-landing-zones-student-textbook.html
+│   │   │   │   ├── architecting-landing-zones-textbook.html
+│   │   │   │   ├── covers
+│   │   │   │   │   ├── architecting-landing-zones-hardcover-fullwrap.pdf
+│   │   │   │   │   ├── architecting-landing-zones-kindle-cover.jpg
+│   │   │   │   │   ├── architecting-landing-zones-kindle-cover.tiff
+│   │   │   │   │   └── architecting-landing-zones-paperback-fullwrap.pdf
+│   │   │   │   ├── imgs
+│   │   │   │   └── pdfs
+│   │   │   │       ├── architecting-landing-zones-kdp-6x9-hardcover-teacher.pdf
+│   │   │   │       ├── architecting-landing-zones-kdp-6x9-hardcover.pdf
+│   │   │   │       ├── architecting-landing-zones-kdp-6x9-teacher.pdf
+│   │   │   │       └── architecting-landing-zones-kdp-6x9.pdf
+│   │   │   ├── devops-engineering-cloud-infrastructure-core
+│   │   │   │   ├── covers
+│   │   │   │   │   ├── devops-kdp-cover-fullwrap.pdf
+│   │   │   │   │   ├── devops-kdp-cover-hardcover-fullwrap.pdf
+│   │   │   │   │   ├── devops-kindle-cover.jpg
+│   │   │   │   │   └── devops-kindle-cover.tiff
+│   │   │   │   ├── devops-engineering-cloud-infrastructure-core-student-textbook.html
+│   │   │   │   ├── devops-engineering-cloud-infrastructure-core-textbook.html
+│   │   │   │   ├── devops-kdp-6x9-hardcover-teacher.html
+│   │   │   │   ├── devops-kdp-6x9-hardcover.html
+│   │   │   │   ├── devops-kdp-6x9-teacher.html
+│   │   │   │   ├── devops-kdp-6x9.html
+│   │   │   │   ├── devops-kdp-cover-fullwrap.html
+│   │   │   │   ├── devops-kdp-cover-hardcover-fullwrap.html
+│   │   │   │   ├── devops-kdp-cover.html
+│   │   │   │   ├── devops-kdp-preliminary-pages.html
+│   │   │   │   ├── devops-kindle-cover.html
+│   │   │   │   ├── imgs
+│   │   │   │   └── pdfs
+│   │   │   │       ├── devops-kdp-6x9-hardcover-teacher.pdf
+│   │   │   │       ├── devops-kdp-6x9-hardcover.pdf
+│   │   │   │       ├── devops-kdp-6x9-teacher.pdf
+│   │   │   │       ├── devops-kdp-6x9.pdf
+│   │   │   │       └── exports
+│   │   │   ├── dunce-to-midjourney-pro
+│   │   │   │   ├── cover-img-dunce-to-midjourney-pro-square.png
+│   │   │   │   ├── cover-img-dunce-to-midjourney-pro-wtext.png
+│   │   │   │   ├── cover-img-dunce-to-midjourney-pro.png
+│   │   │   │   ├── covers
+│   │   │   │   │   ├── .gitkeep
+│   │   │   │   │   ├── dunce-to-midjourney-pro-kdp-cover-fullwrap.pdf
+│   │   │   │   │   ├── dunce-to-midjourney-pro-kdp-cover-hardcover-fullwrap.pdf
+│   │   │   │   │   ├── dunce-to-midjourney-pro-kdp-cover.jpg
+│   │   │   │   │   ├── dunce-to-midjourney-pro-kdp-cover.tiff
+│   │   │   │   │   ├── dunce-to-midjourney-pro-kindle-cover.jpg
+│   │   │   │   │   └── dunce-to-midjourney-pro-kindle-cover.tiff
+│   │   │   │   ├── dunce-to-midjourney-pro-kdp-6x9-hardcover.html
+│   │   │   │   ├── dunce-to-midjourney-pro-kdp-6x9.html
+│   │   │   │   ├── dunce-to-midjourney-pro-kdp-cover-fullwrap.html
+│   │   │   │   ├── dunce-to-midjourney-pro-kdp-cover-hardcover-fullwrap.html
+│   │   │   │   ├── dunce-to-midjourney-pro-kdp-cover.html
+│   │   │   │   ├── dunce-to-midjourney-pro-kdp-preliminary-pages.html
+│   │   │   │   ├── dunce-to-midjourney-pro-kindle-cover.html
+│   │   │   │   ├── dunce-to-midjourney-pro.html
+│   │   │   │   ├── imgs
+│   │   │   │   │   └── .gitkeep
+│   │   │   │   └── pdfs
+│   │   │   │       ├── .gitkeep
+│   │   │   │       ├── dunce-to-midjourney-pro-kdp-6x9-hardcover.pdf
+│   │   │   │       └── dunce-to-midjourney-pro-kdp-6x9.pdf
+│   │   │   └── exports
+│   │   │       └── pdf
+│   │   └── textbook-assessment-renderer.js
+│   ├── web-development-bootcamp-from-zero-to-hero.jpg
+│   ├── web-development.jpg
+│   └── web.jpg
+├── docs
+│   ├── COURSE_MIGRATION_GUIDE.md
+│   ├── EMAIL_SETUP.md
+│   ├── FAVICON_SETUP.md
+│   ├── Fully_Updated_Course_List_Plus_Data_for_Sanity_Studio.md
+│   ├── MIGRATION_QUICKSTART.md
+│   ├── SANITY_STUDIO_FIX_GUIDE.md
+│   ├── SOCIAL_SHARE_GUIDE.md
+│   └── og-share-investigation.md
+├── eslint.config.js
+├── final-blooms-pass.py
+├── final-cleanup.js
+├── final-course-restoration.js
+├── fix-blog-keys.js
+├── fix-faq-keys.js
+├── fix-localStorage.js
+├── fix-remaining-issues.js
+├── fix-service-colors.mjs
+├── flowchart TD.md
+├── flowchart.mmd
+├── force-cleanup-courses.js
+├── generate-admin-hash.js
+├── generate-course-og-images.mjs
+├── generate-course-og.mjs
+├── generate-devops-cover-exports.mjs
+├── generate-dunce-to-midjourney-pro-cover-exports.mjs
+├── generate-dunce-to-midjourney-pro-kdp-pdfs.mjs
+├── generate-kdp-pdfs.mjs
+├── generate-landing-zones-cover-exports.mjs
+├── generate-landing-zones-kdp-pdfs.mjs
+├── generate-new-course-og-images.mjs
+├── generate-og-metadata.mjs
+├── get-content.js
+├── hexadigitall-filelist.jsonl
+├── hexadigitall-project-blueprint.pdf
+├── hexadigitall-project-blueprint.py
+├── import-14-courses.mjs
+├── import-courses-full.mjs
+├── import-new-courses-batch.mjs
+├── import-sample-content.js
+├── import-service-categories.js
+├── import.ndjson
+├── improved-userflow.mmd
+├── investigate-sanity-pricing.js
+├── jest.config.ts
+├── list-all-names.mjs
+├── list-all-slugs-simple.mjs
+├── list-correct-slugs-urls.mjs
+├── list-correct-urls-fixed.mjs
+├── list-detailed-services.mjs
+├── list-everything-complete.mjs
+├── list-everything-full.mjs
+├── list-schools-with-urls.mjs
+├── list-schools.mjs
+├── list-service-categories.mjs
+├── next-env.d.ts
+├── next.config.ts
+├── package-lock.json
+├── package.json
+├── postcss.config.mjs
+├── prepare-course-import.mjs
+├── promotional-campaign
+│   ├── CAMPAIGN_LAUNCH_PAD_DEC27.md
+│   ├── CAMPAIGN_STRATEGY.md
+│   ├── CAMPAIGN_TRACKING_GUIDE.md
+│   ├── CONTENT_CALENDAR_30DAYS.md
+│   ├── EMAIL_NURTURE_SEQUENCES.md
+│   ├── FOLDER_WIREFRAME.md
+│   ├── FOLDER_WIREFRAME_FULL.md
+│   ├── LAUNCH_DAY_CHECKLIST.md
+│   ├── MASTER_PLAYBOOK.md
+│   ├── README.md
+│   ├── SWIPE_FILE.md
+│   ├── content
+│   │   ├── SALES_STRATEGY.md
+│   │   ├── SEO_CONTENT_STRATEGY.md
+│   │   └── SOCIAL_MEDIA_CONTENT.md
+│   ├── download-images.cjs
+│   ├── download-people-images.cjs
+│   ├── generate-course-og-images.cjs
+│   ├── generate-images-v2.cjs
+│   ├── generate-images-v3.cjs
+│   ├── generate-images-v4.cjs
+│   ├── generate-images-v5.cjs
+│   ├── generate-images.cjs
+│   ├── pdfs
+│   │   ├── CAMPAIGN_STRATEGY.html
+│   │   ├── CAMPAIGN_TRACKING_GUIDE.html
+│   │   ├── CONTENT_CALENDAR_30DAYS.html
+│   │   ├── EMAIL_NURTURE_SEQUENCES.html
+│   │   ├── INDEX.html
+│   │   ├── LAUNCH_DAY_CHECKLIST.html
+│   │   ├── MASTER_PLAYBOOK.html
+│   │   ├── QUICK_REFERENCE.html
+│   │   ├── README.html
+│   │   ├── SALES_STRATEGY.html
+│   │   ├── SEO_CONTENT_STRATEGY.html
+│   │   ├── SOCIAL_MEDIA_CONTENT.html
+│   │   ├── SOCIAL_SHARE_GUIDE.html
+│   │   └── SWIPE_FILE.html
+│   └── tracking
+│       └── sample_campaign_data.csv
+├── proposals
+│   ├── divas-kloset-outreach.md
+│   ├── jhema-wears-outreach.md
+│   └── jhema-wears-proposal.md
+├── public
+│   ├── PUBLIC_FOLDER_WIREFRAME.md
+│   ├── android-chrome-192x192.png
+│   ├── android-chrome-512x512.png
+│   ├── apple-touch-icon.png
+│   ├── assets
+│   │   └── images
+│   │       ├── heroes
+│   │       │   ├── hero-students-learning.jpg
+│   │       │   ├── hero-success-celebration.jpg
+│   │       │   └── hero-tech-team.jpg
+│   │       ├── people
+│   │       │   ├── african-american-man-wearing-red-sweater-excited-chip.webp
+│   │       │   ├── front-view-happy-woman-calling-out-chip.webp
+│   │       │   ├── front-view-happy-woman-calling-out-hero.webp
+│   │       │   ├── portrait-cool-man-with-sunglasses-dancing-smiling-alt-chip.webp
+│   │       │   ├── portrait-cool-man-with-sunglasses-dancing-smiling-chip.webp
+│   │       │   └── surprised-playful-touched-good-looking-african-american-woman-glasses-chip.webp
+│   │       ├── team
+│   │       │   ├── diverse-team.jpg
+│   │       │   ├── happy-businessman.jpg
+│   │       │   └── smiling-developer.jpg
+│   │       └── testimonials
+│   │           ├── testimonial-person-1.jpg
+│   │           ├── testimonial-person-2.jpg
+│   │           └── testimonial-person-3.jpg
+│   ├── browserconfig.xml
+│   ├── curriculums
+│   │   ├── curriculum-adobe-creative-cloud-suite.html
+│   │   ├── curriculum-adsense-101-approval-blueprint.html
+│   │   ├── curriculum-adsense-arbitrage-pro.html
+│   │   ├── curriculum-adsense-traffic-revenue.html
+│   │   ├── curriculum-advanced-ansible-automation.html
+│   │   ├── curriculum-advanced-backend-nodejs.html
+│   │   ├── curriculum-advanced-css-mastery.html
+│   │   ├── curriculum-advanced-excel-business.html
+│   │   ├── curriculum-advanced-javascript-mastery.html
+│   │   ├── curriculum-advanced-seo-mastery.html
+│   │   ├── curriculum-advanced-ui-ux.html
+│   │   ├── curriculum-agile-project-management-essentials.html
+│   │   ├── curriculum-ai-engineering-llms.html
+│   │   ├── curriculum-ai-engineering-mlops.html
+│   │   ├── curriculum-amazon-retail-media-networks.html
+│   │   ├── curriculum-application-security-appsec-specialist.html
+│   │   ├── curriculum-applied-machine-learning.html
+│   │   ├── curriculum-archicad-professional.html
+│   │   ├── curriculum-architecting-landing-zones.html
+│   │   ├── curriculum-autocad-masterclass.html
+│   │   ├── curriculum-aws-certified-solutions-architect.html
+│   │   ├── curriculum-aws-crash-course-for-beginners.html
+│   │   ├── curriculum-azure-security-technologies-az-500.html
+│   │   ├── curriculum-backend-development-crash-course.html
+│   │   ├── curriculum-backend-engineering-scalable-architectures.html
+│   │   ├── curriculum-business-intelligence-analytics.html
+│   │   ├── curriculum-business-writing.html
+│   │   ├── curriculum-c-sharp-net-core.html
+│   │   ├── curriculum-canva-for-ad-creatives.html
+│   │   ├── curriculum-ccna-networking.html
+│   │   ├── curriculum-certified-scrum-master-csm.html
+│   │   ├── curriculum-cissp-certification-prep.html
+│   │   ├── curriculum-cloud-infrastructure-strategy.html
+│   │   ├── curriculum-competitive-programming.html
+│   │   ├── curriculum-computer-hardware-engineering.html
+│   │   ├── curriculum-content-writing-copywriting.html
+│   │   ├── curriculum-copywriting-crash-course.html
+│   │   ├── curriculum-copywriting-for-direct-response.html
+│   │   ├── curriculum-css-fundamentals.html
+│   │   ├── curriculum-css-only-projects.html
+│   │   ├── curriculum-cybersecurity-fundamentals-network-systems-defense.html
+│   │   ├── curriculum-data-analysis-fast-track.html
+│   │   ├── curriculum-devops-engineering-cloud-infrastructure-core.html
+│   │   ├── curriculum-devops-engineering-cloud-infrastructure.html
+│   │   ├── curriculum-devops-kubernetes-mastery.html
+│   │   ├── curriculum-devsecops-engineering-automating-security.html
+│   │   ├── curriculum-digital-literacy-computer-operations.html
+│   │   ├── curriculum-digital-marketing-small-business.html
+│   │   ├── curriculum-dsa-fundamentals.html
+│   │   ├── curriculum-enterprise-cloud-solutions-architect.html
+│   │   ├── curriculum-enterprise-security-risk.html
+│   │   ├── curriculum-ethical-hacking-beginners.html
+│   │   ├── curriculum-ethical-hacking-fast-track.html
+│   │   ├── curriculum-ethical-hacking-penetration-testing.html
+│   │   ├── curriculum-executive-agile-leadership.html
+│   │   ├── curriculum-executive-presentation-public-speaking.html
+│   │   ├── curriculum-frontend-engineering-react-next-js-mastery.html
+│   │   ├── curriculum-full-stack-jumpstart-mern.html
+│   │   ├── curriculum-full-stack-web-development.html
+│   │   ├── curriculum-git-github-beginners.html
+│   │   ├── curriculum-google-analytics-4-mastery.html
+│   │   ├── curriculum-google-search-ads-boot-camp.html
+│   │   ├── curriculum-graphic-design-crash-course.html
+│   │   ├── curriculum-graphic-design-essentials.html
+│   │   ├── curriculum-html-fundamentals.html
+│   │   ├── curriculum-integrated-digital-marketing.html
+│   │   ├── curriculum-intro-to-algorithms-problem-solving.html
+│   │   ├── curriculum-intro-to-cloud-computing.html
+│   │   ├── curriculum-intro-to-coding.html
+│   │   ├── curriculum-intro-to-cybersecurity.html
+│   │   ├── curriculum-intro-to-data-ai.html
+│   │   ├── curriculum-intro-to-design.html
+│   │   ├── curriculum-intro-to-digital-literacy.html
+│   │   ├── curriculum-intro-to-digital-marketing.html
+│   │   ├── curriculum-intro-to-digital-media-buying.html
+│   │   ├── curriculum-intro-to-leadership-management.html
+│   │   ├── curriculum-intro-to-networking-infrastructure.html
+│   │   ├── curriculum-intro-to-professional-writing.html
+│   │   ├── curriculum-intro-to-software-development.html
+│   │   ├── curriculum-java-enterprise-development.html
+│   │   ├── curriculum-javascript-fundamentals.html
+│   │   ├── curriculum-javascript-only-projects.html
+│   │   ├── curriculum-kubernetes-quick-start.html
+│   │   ├── curriculum-leetcode-interview-prep.html
+│   │   ├── curriculum-linux-administration-shell-scripting.html
+│   │   ├── curriculum-machine-learning-crash-course.html
+│   │   ├── curriculum-meta-ads-for-local-business.html
+│   │   ├── curriculum-microsoft-365-ai-integration.html
+│   │   ├── curriculum-microsoft-access-business-apps.html
+│   │   ├── curriculum-microsoft-cybersecurity-architect-sc-100.html
+│   │   ├── curriculum-mobile-app-development-quick-start.html
+│   │   ├── curriculum-mobile-engineering-cross-platform-development.html
+│   │   ├── curriculum-motion-graphics-vfx.html
+│   │   ├── curriculum-network-security-admin.html
+│   │   ├── curriculum-network-security-essentials.html
+│   │   ├── curriculum-nosql-cloud-database-architecture.html
+│   │   ├── curriculum-personal-branding.html
+│   │   ├── curriculum-pmp-certification-prep.html
+│   │   ├── curriculum-product-management-quick-start.html
+│   │   ├── curriculum-product-strategy-lean-startup.html
+│   │   ├── curriculum-professional-data-engineering.html
+│   │   ├── curriculum-professional-office-365.html
+│   │   ├── curriculum-programmatic-advertising-rtb.html
+│   │   ├── curriculum-programming-data-management.html
+│   │   ├── curriculum-python-data-science-analytics.html
+│   │   ├── curriculum-rapid-app-development-low-code.html
+│   │   ├── curriculum-react-essentials-bootcamp.html
+│   │   ├── curriculum-react-native-mobile-dev.html
+│   │   ├── curriculum-security-operations-analyst-sc-200.html
+│   │   ├── curriculum-seo-fast-track-rank-on-google.html
+│   │   ├── curriculum-server-side-tracking-capi.html
+│   │   ├── curriculum-social-media-community-growth.html
+│   │   ├── curriculum-social-media-marketing-accelerator.html
+│   │   ├── curriculum-sql-relational-database-design.html
+│   │   ├── curriculum-system-design-interviews.html
+│   │   ├── curriculum-technical-writing-api-docs.html
+│   │   ├── curriculum-technical-writing-essentials.html
+│   │   ├── curriculum-technical-writing.html
+│   │   ├── curriculum-tiktok-reels-ad-strategy.html
+│   │   ├── curriculum-ui-ux-fundamentals.html
+│   │   ├── curriculum-ui-ux-product-design.html
+│   │   ├── curriculum-uiux-quick-start-for-developers.html
+│   │   ├── curriculum-vector-graphics-mastery-coreldraw.html
+│   │   ├── curriculum-visual-brand-design.html
+│   │   ├── curriculum-visual-communication-infographics.html
+│   │   ├── curriculum-youtube-ads-manager.html
+│   │   └── pdfs
+│   │       ├── advanced-ansible-automation-curriculum.pdf
+│   │       ├── azure-security-technologies-az-500.pdf
+│   │       ├── curriculum-azure-security-az500.pdf
+│   │       ├── curriculum-javascript-fundamentals.pdf
+│   │       ├── curriculum-linux-shell-scripting.pdf
+│   │       ├── devops-engineering-cloud-infrastructure-core.pdf
+│   │       ├── executive-agile-leadership-curriculum.pdf
+│   │       └── linux-administration-shell-scripting.pdf
+│   ├── digital_marketing2.jpg
+│   ├── digital_partner_.png
+│   ├── digitall_partner.png
+│   ├── favicon-16.ico
+│   ├── favicon-16x16.png
+│   ├── favicon-32.ico
+│   ├── favicon-32x32.png
+│   ├── favicon.ico
+│   ├── fonts
+│   │   ├── lato-bold.woff2
+│   │   ├── lato-regular.woff2
+│   │   ├── lato.zip
+│   │   ├── montserrat-bold.woff2
+│   │   └── montserrat.zip
+│   ├── forms
+│   │   ├── assets
+│   │   │   ├── forms.css
+│   │   │   └── forms.js
+│   │   ├── branding
+│   │   │   └── logo-design
+│   │   │       ├── logo-basic
+│   │   │       │   └── index.html
+│   │   │       ├── logo-premium
+│   │   │       │   └── index.html
+│   │   │       └── logo-standard
+│   │   │           └── index.html
+│   │   ├── branding-design
+│   │   │   └── professional-branding
+│   │   │       └── index.html
+│   │   ├── business-and-strategy
+│   │   │   └── business-plan-package
+│   │   │       └── index.html
+│   │   ├── business-strategy
+│   │   │   ├── business-plan
+│   │   │   │   ├── bp-basic
+│   │   │   │   │   └── index.html
+│   │   │   │   ├── bp-premium
+│   │   │   │   │   └── index.html
+│   │   │   │   └── bp-standard
+│   │   │   │       └── index.html
+│   │   │   └── growth-plan
+│   │   │       ├── growth-basic
+│   │   │       │   └── index.html
+│   │   │       ├── growth-premium
+│   │   │       │   └── index.html
+│   │   │       └── growth-standard
+│   │   │           └── index.html
+│   │   ├── consulting-advisory
+│   │   │   └── business-consulting
+│   │   │       └── index.html
+│   │   ├── creative-services
+│   │   │   └── portfolio-website
+│   │   │       └── index.html
+│   │   ├── digital-marketing
+│   │   │   └── marketing-strategy
+│   │   │       └── index.html
+│   │   ├── general-inquiry
+│   │   │   └── index.html
+│   │   ├── index.html
+│   │   ├── individual-services
+│   │   │   ├── ad-campaign
+│   │   │   │   └── index.html
+│   │   │   ├── bug-fix-monthly
+│   │   │   │   └── index.html
+│   │   │   ├── business-cards
+│   │   │   │   └── index.html
+│   │   │   ├── business-plan-review
+│   │   │   │   └── index.html
+│   │   │   ├── content-package
+│   │   │   │   └── index.html
+│   │   │   ├── cv-resume
+│   │   │   │   └── index.html
+│   │   │   ├── executive-summary
+│   │   │   │   └── index.html
+│   │   │   ├── index.html
+│   │   │   ├── linkedin-optimization
+│   │   │   │   └── index.html
+│   │   │   ├── logo-design
+│   │   │   │   └── index.html
+│   │   │   ├── market-research
+│   │   │   │   └── index.html
+│   │   │   ├── payment-gateway
+│   │   │   │   └── index.html
+│   │   │   ├── pitch-deck
+│   │   │   │   └── index.html
+│   │   │   ├── pitch-practice
+│   │   │   │   └── index.html
+│   │   │   ├── portfolio-website
+│   │   │   │   └── index.html
+│   │   │   ├── seo-audit
+│   │   │   │   └── index.html
+│   │   │   ├── social-audit
+│   │   │   │   └── index.html
+│   │   │   ├── social-media-kit
+│   │   │   │   └── index.html
+│   │   │   ├── speed-optimization
+│   │   │   │   └── index.html
+│   │   │   ├── strategy-call
+│   │   │   │   └── index.html
+│   │   │   └── website-redesign
+│   │   │       └── index.html
+│   │   ├── marketing
+│   │   │   ├── marketing-strategy
+│   │   │   │   ├── market-basic
+│   │   │   │   │   └── index.html
+│   │   │   │   ├── market-premium
+│   │   │   │   │   └── index.html
+│   │   │   │   └── market-standard
+│   │   │   │       └── index.html
+│   │   │   └── social-media
+│   │   │       ├── socmed-basic
+│   │   │       │   └── index.html
+│   │   │       ├── socmed-premium
+│   │   │       │   └── index.html
+│   │   │       └── socmed-standard
+│   │   │           └── index.html
+│   │   ├── portfolio
+│   │   │   ├── cv-resume
+│   │   │   │   ├── cv-essential
+│   │   │   │   │   └── index.html
+│   │   │   │   ├── cv-executive
+│   │   │   │   │   └── index.html
+│   │   │   │   └── cv-professional
+│   │   │   │       └── index.html
+│   │   │   ├── linkedin-optimization
+│   │   │   │   ├── linkedin-complete
+│   │   │   │   │   └── index.html
+│   │   │   │   ├── linkedin-executive
+│   │   │   │   │   └── index.html
+│   │   │   │   └── linkedin-quick
+│   │   │   │       └── index.html
+│   │   │   └── portfolio-website
+│   │   │       ├── portfolio-premium
+│   │   │       │   └── index.html
+│   │   │       ├── portfolio-professional
+│   │   │       │   └── index.html
+│   │   │       └── portfolio-starter
+│   │   │           └── index.html
+│   │   ├── profile-and-portfolio
+│   │   │   ├── cv-resume-professional
+│   │   │   │   └── index.html
+│   │   │   ├── cv-resume-professional.html
+│   │   │   ├── linkedin-complete-makeover
+│   │   │   │   └── index.html
+│   │   │   └── linkedin-complete-makeover.html
+│   │   ├── social-media
+│   │   │   ├── hexadigitall-logo.png
+│   │   │   ├── index-original-backup.html
+│   │   │   └── index.html
+│   │   ├── web-and-mobile
+│   │   │   ├── business-website
+│   │   │   │   └── index.html
+│   │   │   ├── ecommerce-store
+│   │   │   │   └── index.html
+│   │   │   ├── landing-page
+│   │   │   │   └── index.html
+│   │   │   └── web-app-development
+│   │   │       └── index.html
+│   │   └── web-development
+│   │       ├── business-website
+│   │       │   ├── business-website-basic
+│   │       │   │   └── index.html
+│   │       │   ├── business-website-premium
+│   │       │   │   └── index.html
+│   │       │   └── business-website-standard
+│   │       │       └── index.html
+│   │       ├── ecommerce-store
+│   │       │   ├── ecommerce-basic
+│   │       │   │   └── index.html
+│   │       │   ├── ecommerce-premium
+│   │       │   │   └── index.html
+│   │       │   └── ecommerce-standard
+│   │       │       └── index.html
+│   │       ├── landing-page
+│   │       │   ├── landing-page-basic
+│   │       │   │   └── index.html
+│   │       │   ├── landing-page-premium
+│   │       │   │   └── index.html
+│   │       │   └── landing-page-standard
+│   │       │       └── index.html
+│   │       └── web-app
+│   │           ├── webapp-business
+│   │           │   └── index.html
+│   │           ├── webapp-enterprise
+│   │           │   └── index.html
+│   │           └── webapp-startup
+│   │               └── index.html
+│   ├── hexadigitall-logo-transparent.png
+│   ├── hexadigitall-logo-transparent.svg
+│   ├── hexadigitall-logo.svg
+│   ├── manifest.json
+│   ├── og-images
+│   │   ├── advanced-ansible-automation-iac.jpg
+│   │   ├── advanced-backend-engineering-node-js-microservices-.jpg
+│   │   ├── advanced-seo-rank-1-on-google.jpg
+│   │   ├── advanced-seo-serp-ranking-mastery.jpg
+│   │   ├── ai-engineering-building-llms-neural-networks.jpg
+│   │   ├── applied-machine-learning-data-science.jpg
+│   │   ├── architecting-landing-zones.jpg
+│   │   ├── aws-certified-solutions-architect-associate-professional-.jpg
+│   │   ├── aws-certified-solutions-architect-associate-professional-2.jpg
+│   │   ├── aws-certified-solutions-architect-associate-professional-3.jpg
+│   │   ├── bp-growth-basic.jpg
+│   │   ├── bp-growth-premium.jpg
+│   │   ├── bp-growth-standard.jpg
+│   │   ├── bp-starter-basic.jpg
+│   │   ├── bp-starter-premium.jpg
+│   │   ├── bp-starter-standard.jpg
+│   │   ├── bug-fix-support.jpg
+│   │   ├── business-coaching-basic.jpg
+│   │   ├── business-coaching-premium.jpg
+│   │   ├── business-coaching-standard.jpg
+│   │   ├── business-coaching.jpg
+│   │   ├── business-plan-and-logo-design.jpg
+│   │   ├── business-plan-growth.jpg
+│   │   ├── business-plan-premium.jpg
+│   │   ├── business-plan-standard.jpg
+│   │   ├── business-plan-starter.jpg
+│   │   ├── business-website-basic.jpg
+│   │   ├── business-website-premium.jpg
+│   │   ├── business-website-standard.jpg
+│   │   ├── business-website.jpg
+│   │   ├── c-net-core-architecture.jpg
+│   │   ├── career-basic.jpg
+│   │   ├── career-coaching-basic.jpg
+│   │   ├── career-coaching-executive.jpg
+│   │   ├── career-coaching-transition.jpg
+│   │   ├── career-coaching.jpg
+│   │   ├── career-premium.jpg
+│   │   ├── career-standard.jpg
+│   │   ├── certified-scrum-master-csm-bootcamp-0.jpg
+│   │   ├── certified-scrum-master-csm-bootcamp-2.jpg
+│   │   ├── certified-scrum-master-csm-bootcamp.jpg
+│   │   ├── cisco-certified-network-associate-ccna-200-301.jpg
+│   │   ├── cissp-certification-prep-course.jpg
+│   │   ├── cissp-senior-security-professional-prep.jpg
+│   │   ├── cloud-infrastructure-deployment-strategy.jpg
+│   │   ├── coaching-basic.jpg
+│   │   ├── coaching-premium.jpg
+│   │   ├── coaching-standard.jpg
+│   │   ├── computer-hardware-engineering-system-maintenance.jpg
+│   │   ├── course-adobe-creative-cloud-suite.jpg
+│   │   ├── course-adsense-101-approval-blueprint.jpg
+│   │   ├── course-adsense-arbitrage-pro.jpg
+│   │   ├── course-adsense-traffic-revenue.jpg
+│   │   ├── course-advanced-ansible-automation-iac.jpg
+│   │   ├── course-advanced-ansible-automation-iac.png
+│   │   ├── course-advanced-ansible-automation.jpg
+│   │   ├── course-advanced-backend-engineering-node-js-microservices-.jpg
+│   │   ├── course-advanced-backend-engineering-node-js-microservices-.png
+│   │   ├── course-advanced-backend-nodejs.jpg
+│   │   ├── course-advanced-css-mastery.jpg
+│   │   ├── course-advanced-excel-business.jpg
+│   │   ├── course-advanced-javascript-mastery.jpg
+│   │   ├── course-advanced-seo-mastery.jpg
+│   │   ├── course-advanced-seo-rank-1-on-google.jpg
+│   │   ├── course-advanced-seo-rank-1-on-google.png
+│   │   ├── course-advanced-seo-serp-ranking-mastery.jpg
+│   │   ├── course-advanced-seo-serp-ranking-mastery.png
+│   │   ├── course-advanced-ui-ux.jpg
+│   │   ├── course-agile-project-management-essentials.jpg
+│   │   ├── course-ai-engineering-building-llms-neural-networks.jpg
+│   │   ├── course-ai-engineering-building-llms-neural-networks.png
+│   │   ├── course-ai-engineering-llms.jpg
+│   │   ├── course-ai-engineering-mlops.jpg
+│   │   ├── course-amazon-retail-media-networks.jpg
+│   │   ├── course-application-security-appsec-specialist.jpg
+│   │   ├── course-applied-machine-learning-data-science.jpg
+│   │   ├── course-applied-machine-learning-data-science.png
+│   │   ├── course-applied-machine-learning.jpg
+│   │   ├── course-archicad-professional.jpg
+│   │   ├── course-architecting-landing-zones.jpg
+│   │   ├── course-architecting-landing-zones.png
+│   │   ├── course-autocad-masterclass.jpg
+│   │   ├── course-aws-certified-solutions-architect-associate-professional-.jpg
+│   │   ├── course-aws-certified-solutions-architect-associate-professional-.png
+│   │   ├── course-aws-certified-solutions-architect-associate-professional-2.jpg
+│   │   ├── course-aws-certified-solutions-architect-associate-professional-2.png
+│   │   ├── course-aws-certified-solutions-architect-associate-professional-3.jpg
+│   │   ├── course-aws-certified-solutions-architect-associate-professional-3.png
+│   │   ├── course-aws-certified-solutions-architect.jpg
+│   │   ├── course-aws-crash-course-for-beginners.jpg
+│   │   ├── course-azure-security-technologies-az-500.jpg
+│   │   ├── course-backend-development-crash-course.jpg
+│   │   ├── course-backend-engineering-plhld.jpg
+│   │   ├── course-backend-engineering-plhld.png
+│   │   ├── course-backend-engineering-scalable-architectures.jpg
+│   │   ├── course-backend-engineering.jpg
+│   │   ├── course-backend-engineering.png
+│   │   ├── course-business-intelligence-analytics.jpg
+│   │   ├── course-business-writing.jpg
+│   │   ├── course-c-net-core-architecture.jpg
+│   │   ├── course-c-net-core-architecture.png
+│   │   ├── course-c-sharp-net-core.jpg
+│   │   ├── course-canva-for-ad-creatives.jpg
+│   │   ├── course-ccna-networking.jpg
+│   │   ├── course-certified-scrum-master-csm-bootcamp-0.jpg
+│   │   ├── course-certified-scrum-master-csm-bootcamp-0.png
+│   │   ├── course-certified-scrum-master-csm-bootcamp-2.jpg
+│   │   ├── course-certified-scrum-master-csm-bootcamp-2.png
+│   │   ├── course-certified-scrum-master-csm-bootcamp.jpg
+│   │   ├── course-certified-scrum-master-csm-bootcamp.png
+│   │   ├── course-certified-scrum-master-csm.jpg
+│   │   ├── course-cissp-certification-prep.jpg
+│   │   ├── course-cloud-infrastructure-strategy.jpg
+│   │   ├── course-competitive-programming.jpg
+│   │   ├── course-computer-hardware-engineering.jpg
+│   │   ├── course-content-writing-copywriting.jpg
+│   │   ├── course-copywriting-crash-course.jpg
+│   │   ├── course-copywriting-for-direct-response.jpg
+│   │   ├── course-css-fundamentals.jpg
+│   │   ├── course-css-only-projects.jpg
+│   │   ├── course-cybersecurity-fundamentals-network-systems-defense.jpg
+│   │   ├── course-data-analysis-fast-track.jpg
+│   │   ├── course-devops-engineering-cloud-infrastructure-core.jpg
+│   │   ├── course-devops-engineering-cloud-infrastructure.jpg
+│   │   ├── course-devops-kubernetes-mastery.jpg
+│   │   ├── course-devsecops-engineering-automating-security.jpg
+│   │   ├── course-digital-literacy-computer-operations.jpg
+│   │   ├── course-digital-marketing-small-business.jpg
+│   │   ├── course-dsa-fundamentals.jpg
+│   │   ├── course-enterprise-cloud-solutions-architect.jpg
+│   │   ├── course-enterprise-security-risk.jpg
+│   │   ├── course-ethical-hacking-beginners.jpg
+│   │   ├── course-ethical-hacking-fast-track.jpg
+│   │   ├── course-ethical-hacking-penetration-testing.jpg
+│   │   ├── course-executive-agile-leadership.jpg
+│   │   ├── course-executive-presentation-public-speaking.jpg
+│   │   ├── course-frontend-engineering-react-next-js-mastery.jpg
+│   │   ├── course-full-stack-jumpstart-mern.jpg
+│   │   ├── course-full-stack-web-development.jpg
+│   │   ├── course-git-github-beginners.jpg
+│   │   ├── course-google-analytics-4-mastery.jpg
+│   │   ├── course-google-search-ads-boot-camp.jpg
+│   │   ├── course-graphic-design-crash-course.jpg
+│   │   ├── course-graphic-design-essentials.jpg
+│   │   ├── course-html-fundamentals.jpg
+│   │   ├── course-integrated-digital-marketing.jpg
+│   │   ├── course-intro-to-algorithms-problem-solving.jpg
+│   │   ├── course-intro-to-cloud-computing.jpg
+│   │   ├── course-intro-to-coding.jpg
+│   │   ├── course-intro-to-cybersecurity.jpg
+│   │   ├── course-intro-to-data-ai.jpg
+│   │   ├── course-intro-to-design.jpg
+│   │   ├── course-intro-to-digital-literacy.jpg
+│   │   ├── course-intro-to-digital-marketing.jpg
+│   │   ├── course-intro-to-digital-media-buying.jpg
+│   │   ├── course-intro-to-leadership-management.jpg
+│   │   ├── course-intro-to-networking-infrastructure.jpg
+│   │   ├── course-intro-to-professional-writing.jpg
+│   │   ├── course-intro-to-software-development.jpg
+│   │   ├── course-java-enterprise-development.jpg
+│   │   ├── course-javascript-fundamentals.jpg
+│   │   ├── course-javascript-only-projects.jpg
+│   │   ├── course-kubernetes-quick-start.jpg
+│   │   ├── course-leetcode-interview-prep.jpg
+│   │   ├── course-linux-administration-shell-scripting.jpg
+│   │   ├── course-machine-learning-crash-course.jpg
+│   │   ├── course-meta-ads-for-local-business.jpg
+│   │   ├── course-microsoft-365-ai-integration.jpg
+│   │   ├── course-microsoft-access-business-apps.jpg
+│   │   ├── course-microsoft-cybersecurity-architect-sc-100.jpg
+│   │   ├── course-mobile-app-development-quick-start.jpg
+│   │   ├── course-mobile-engineering-cross-platform-development.jpg
+│   │   ├── course-motion-graphics-vfx.jpg
+│   │   ├── course-network-security-admin.jpg
+│   │   ├── course-network-security-essentials.jpg
+│   │   ├── course-nosql-cloud-database-architecture.jpg
+│   │   ├── course-personal-branding.jpg
+│   │   ├── course-pmp-certification-prep.jpg
+│   │   ├── course-product-management-quick-start.jpg
+│   │   ├── course-product-strategy-lean-startup.jpg
+│   │   ├── course-professional-data-engineering.jpg
+│   │   ├── course-professional-office-365.jpg
+│   │   ├── course-programmatic-advertising-rtb.jpg
+│   │   ├── course-programming-data-management.jpg
+│   │   ├── course-python-data-science-analytics.jpg
+│   │   ├── course-rapid-app-development-low-code.jpg
+│   │   ├── course-react-essentials-bootcamp.jpg
+│   │   ├── course-react-native-mobile-dev.jpg
+│   │   ├── course-security-operations-analyst-sc-200.jpg
+│   │   ├── course-seo-fast-track-rank-on-google.jpg
+│   │   ├── course-server-side-tracking-capi.jpg
+│   │   ├── course-social-media-community-growth.jpg
+│   │   ├── course-social-media-marketing-accelerator.jpg
+│   │   ├── course-sql-relational-database-design.jpg
+│   │   ├── course-system-design-interviews.jpg
+│   │   ├── course-technical-writing-api-docs.jpg
+│   │   ├── course-technical-writing-essentials.jpg
+│   │   ├── course-technical-writing.jpg
+│   │   ├── course-tiktok-reels-ad-strategy.jpg
+│   │   ├── course-ui-ux-fundamentals.jpg
+│   │   ├── course-ui-ux-product-design.jpg
+│   │   ├── course-uiux-quick-start-for-developers.jpg
+│   │   ├── course-vector-graphics-mastery-coreldraw.jpg
+│   │   ├── course-visual-brand-design.jpg
+│   │   ├── course-visual-communication-infographics.jpg
+│   │   ├── course-youtube-ads-manager.jpg
+│   │   ├── courses-hub.jpg
+│   │   ├── courses-hub.png
+│   │   ├── cross-platform-mobile-app-development-react-native-.jpg
+│   │   ├── cross-platform-mobile-app-development-react-native-2.jpg
+│   │   ├── cv-basic.jpg
+│   │   ├── cv-premium.jpg
+│   │   ├── cv-resume-essential.jpg
+│   │   ├── cv-resume-executive.jpg
+│   │   ├── cv-resume-professional.jpg
+│   │   ├── cv-resume.jpg
+│   │   ├── cv-standard.jpg
+│   │   ├── data-analysis-with-python.jpg
+│   │   ├── devops-engineering-kubernetes-mastery.jpg
+│   │   ├── devops-fundamentals-git-github-mastery.jpg
+│   │   ├── digital-literacy-computer-operations-2.jpg
+│   │   ├── digital-literacy-computer-operations.jpg
+│   │   ├── digital-marketing-for-small-businesses-2.jpg
+│   │   ├── digital-marketing-for-small-businesses-3.jpg
+│   │   ├── digital-marketing-for-small-businesses.jpg
+│   │   ├── digital-marketing-strategy.jpg
+│   │   ├── dm-basic.jpg
+│   │   ├── dm-premium.jpg
+│   │   ├── dm-standard.jpg
+│   │   ├── e-commerce-store-basic.jpg
+│   │   ├── e-commerce-store-premium.jpg
+│   │   ├── e-commerce-store-standard.jpg
+│   │   ├── ecommerce-basic.jpg
+│   │   ├── ecommerce-premium.jpg
+│   │   ├── ecommerce-standard.jpg
+│   │   ├── ecommerce-store.jpg
+│   │   ├── ecommerce-website.jpg
+│   │   ├── enterprise-security-risk-management.jpg
+│   │   ├── ethical-hacking-for-beginners.jpg
+│   │   ├── ethical-hacking-penetration-testing-masterclass.jpg
+│   │   ├── executive-agile-leadership-transformation.jpg
+│   │   ├── executive-summary.jpg
+│   │   ├── frontend-mastery-with-react-next-js.jpg
+│   │   ├── full-stack-web-development-bootcamp-zero-to-hero-.jpg
+│   │   ├── git-github-for-beginners.jpg
+│   │   ├── google-analytics-4-from-beginner-to-expert.jpg
+│   │   ├── google-analytics-4-ga4-data-mastery.jpg
+│   │   ├── growth-plan-basic.jpg
+│   │   ├── growth-plan-premium.jpg
+│   │   ├── growth-plan-standard.jpg
+│   │   ├── home.png
+│   │   ├── integrated-digital-marketing-growth-strategy.jpg
+│   │   ├── java-enterprise-development.jpg
+│   │   ├── landing-page-basic.jpg
+│   │   ├── landing-page-premium.jpg
+│   │   ├── landing-page-standard.jpg
+│   │   ├── landing-page.jpg
+│   │   ├── linkedin-basic.jpg
+│   │   ├── linkedin-complete-makeover.jpg
+│   │   ├── linkedin-executive-presence.jpg
+│   │   ├── linkedin-optimization.jpg
+│   │   ├── linkedin-premium.jpg
+│   │   ├── linkedin-quick-refresh.jpg
+│   │   ├── linkedin-standard.jpg
+│   │   ├── linux-administration-shell-scripting-pro.jpg
+│   │   ├── logo-basic.jpg
+│   │   ├── logo-design-basic.jpg
+│   │   ├── logo-design-premium.jpg
+│   │   ├── logo-design-standard.jpg
+│   │   ├── logo-design.jpg
+│   │   ├── logo-premium.jpg
+│   │   ├── logo-standard.jpg
+│   │   ├── marketing-strategy-basic.jpg
+│   │   ├── marketing-strategy-premium.jpg
+│   │   ├── marketing-strategy-standard.jpg
+│   │   ├── mentoring-and-consulting.jpg
+│   │   ├── mobile-office-business-productivity-from-your-phone.jpg
+│   │   ├── modern-javascript-algorithms-data-structures.jpg
+│   │   ├── motion-graphics-visual-effects.jpg
+│   │   ├── network-security-administration.jpg
+│   │   ├── option-1.jpg
+│   │   ├── option-2.jpg
+│   │   ├── option-3.jpg
+│   │   ├── option-4.jpg
+│   │   ├── package-business-plan-growth.jpg
+│   │   ├── package-business-plan-investor.jpg
+│   │   ├── package-business-plan-starter.jpg
+│   │   ├── package-growth-accelerator.jpg
+│   │   ├── package-marketing-pro.jpg
+│   │   ├── package-social-starter.jpg
+│   │   ├── payment-gateway.jpg
+│   │   ├── pitch-deck.jpg
+│   │   ├── portfolio-basic.jpg
+│   │   ├── portfolio-premium.jpg
+│   │   ├── portfolio-standard.jpg
+│   │   ├── portfolio-website-premium.jpg
+│   │   ├── portfolio-website-professional.jpg
+│   │   ├── portfolio-website-starter.jpg
+│   │   ├── portfolio-website.jpg
+│   │   ├── product-design-ui-ux-professional-bootcamp.jpg
+│   │   ├── product-strategy-the-lean-startup-building-mvps.jpg
+│   │   ├── professional-office-365-suite-mastery-2.jpg
+│   │   ├── professional-office-365-suite-mastery.jpg
+│   │   ├── profile-and-portfolio-building.jpg
+│   │   ├── project-management-fundamentals.jpg
+│   │   ├── proposal-divas-kloset.jpg
+│   │   ├── proposal-divas-kloset.png
+│   │   ├── proposal-generic.jpg
+│   │   ├── proposal-generic.png
+│   │   ├── proposal-jhema-wears.jpg
+│   │   ├── proposal-jhema-wears.png
+│   │   ├── python-for-data-science-analytics.jpg
+│   │   ├── react-native-build-mobile-apps-for-ios-android.jpg
+│   │   ├── school-school-of-cloud-and-devops.jpg
+│   │   ├── school-school-of-cloud-and-devops.png
+│   │   ├── school-school-of-coding-and-development.jpg
+│   │   ├── school-school-of-coding-and-development.png
+│   │   ├── school-school-of-cybersecurity.jpg
+│   │   ├── school-school-of-cybersecurity.png
+│   │   ├── school-school-of-data-and-ai.jpg
+│   │   ├── school-school-of-data-and-ai.png
+│   │   ├── school-school-of-design.jpg
+│   │   ├── school-school-of-design.png
+│   │   ├── school-school-of-executive-management.jpg
+│   │   ├── school-school-of-executive-management.png
+│   │   ├── school-school-of-fundamentals.jpg
+│   │   ├── school-school-of-fundamentals.png
+│   │   ├── school-school-of-growth-and-marketing.jpg
+│   │   ├── school-school-of-growth-and-marketing.png
+│   │   ├── school-school-of-infrastructure.jpg
+│   │   ├── school-school-of-infrastructure.png
+│   │   ├── school-school-of-software-mastery.jpg
+│   │   ├── school-school-of-software-mastery.png
+│   │   ├── seo-audit.jpg
+│   │   ├── service-ad-campaigns.jpg
+│   │   ├── service-business-plan-and-logo-design.jpg
+│   │   ├── service-business-plan-and-logo-design.png
+│   │   ├── service-business-plan.jpg
+│   │   ├── service-business-website.jpg
+│   │   ├── service-cloud-devops.jpg
+│   │   ├── service-cms.jpg
+│   │   ├── service-cv-resume.jpg
+│   │   ├── service-cybersecurity.jpg
+│   │   ├── service-data-analytics.jpg
+│   │   ├── service-financial-projections.jpg
+│   │   ├── service-it-support.jpg
+│   │   ├── service-landing-page.jpg
+│   │   ├── service-linkedin.jpg
+│   │   ├── service-logo-design.jpg
+│   │   ├── service-mentoring-and-consulting.jpg
+│   │   ├── service-mentoring-and-consulting.png
+│   │   ├── service-mentoring-program.jpg
+│   │   ├── service-mentoring.jpg
+│   │   ├── service-mobile-app.jpg
+│   │   ├── service-pitch-practice.jpg
+│   │   ├── service-portfolio-site.jpg
+│   │   ├── service-profile-and-portfolio-building.jpg
+│   │   ├── service-profile-and-portfolio-building.png
+│   │   ├── service-profile-building.jpg
+│   │   ├── service-social-audit.jpg
+│   │   ├── service-social-media-advertising-and-marketing.jpg
+│   │   ├── service-social-media.jpg
+│   │   ├── service-strategy-session.jpg
+│   │   ├── service-web-and-mobile-software-development.jpg
+│   │   ├── service-web-and-mobile-software-development.png
+│   │   ├── services-hub.jpg
+│   │   ├── services-hub.png
+│   │   ├── sm-basic.jpg
+│   │   ├── sm-premium.jpg
+│   │   ├── sm-standard.jpg
+│   │   ├── social-media-advertising-and-marketing.jpg
+│   │   ├── social-media-audit.jpg
+│   │   ├── social-media-basic.jpg
+│   │   ├── social-media-management.jpg
+│   │   ├── social-media-marketing-community-growth-2.jpg
+│   │   ├── social-media-marketing-community-growth.jpg
+│   │   ├── social-media-premium.jpg
+│   │   ├── social-media-standard.jpg
+│   │   ├── speed-optimization.jpg
+│   │   ├── strategy-basic.jpg
+│   │   ├── strategy-call.jpg
+│   │   ├── strategy-premium.jpg
+│   │   ├── strategy-session-basic.jpg
+│   │   ├── strategy-session-premium.jpg
+│   │   ├── strategy-session-standard.jpg
+│   │   ├── strategy-session.jpg
+│   │   ├── strategy-standard.jpg
+│   │   ├── technical-writing-api-documentation.jpg
+│   │   ├── the-lean-startup-build-your-mvp.jpg
+│   │   ├── visual-brand-design-graphic-artistry.jpg
+│   │   ├── web-and-mobile-software-development.jpg
+│   │   ├── web-app-business-edition.jpg
+│   │   ├── web-app-development.jpg
+│   │   ├── web-app-enterprise-edition.jpg
+│   │   ├── web-app-startup-edition.jpg
+│   │   ├── web-development-bootcamp-from-zero-to-hero.jpg
+│   │   ├── webapp-business.jpg
+│   │   ├── webapp-enterprise.jpg
+│   │   ├── webapp-startup.jpg
+│   │   └── website-redesign.jpg
+│   ├── roadmaps
+│   │   └── roadmap-cloud-security-engineer.html
+│   ├── social-preview
+│   │   └── README.md
+│   ├── textbooks
+│   │   ├── devops-engineering-cloud-infrastructure-core-student-textbook.html
+│   │   ├── devops-engineering-cloud-infrastructure-core-textbook.html
+│   │   ├── dunce-to-midjourney-pro-textbook.html
+│   │   ├── kdp
+│   │   │   ├── KDP_PUBLISHING_GUIDE.md
+│   │   │   ├── architecting-landing-zones
+│   │   │   │   ├── architecting-landing-zones-kdp-6x9-hardcover-teacher.html
+│   │   │   │   ├── architecting-landing-zones-kdp-6x9-hardcover.html
+│   │   │   │   ├── architecting-landing-zones-kdp-6x9-teacher.html
+│   │   │   │   ├── architecting-landing-zones-kdp-6x9.html
+│   │   │   │   ├── architecting-landing-zones-kdp-cover-fullwrap.html
+│   │   │   │   ├── architecting-landing-zones-kdp-cover-hardcover-fullwrap.html
+│   │   │   │   ├── architecting-landing-zones-kdp-cover.html
+│   │   │   │   ├── architecting-landing-zones-kdp-preliminary-pages.html
+│   │   │   │   ├── architecting-landing-zones-kindle-cover.html
+│   │   │   │   ├── architecting-landing-zones-student-textbook.html
+│   │   │   │   ├── architecting-landing-zones-textbook.html
+│   │   │   │   ├── covers
+│   │   │   │   │   ├── architecting-landing-zones-hardcover-fullwrap.pdf
+│   │   │   │   │   ├── architecting-landing-zones-kindle-cover.jpg
+│   │   │   │   │   ├── architecting-landing-zones-kindle-cover.tiff
+│   │   │   │   │   └── architecting-landing-zones-paperback-fullwrap.pdf
+│   │   │   │   ├── imgs
+│   │   │   │   └── pdfs
+│   │   │   │       ├── architecting-landing-zones-kdp-6x9-hardcover-teacher.pdf
+│   │   │   │       ├── architecting-landing-zones-kdp-6x9-hardcover.pdf
+│   │   │   │       ├── architecting-landing-zones-kdp-6x9-teacher.pdf
+│   │   │   │       └── architecting-landing-zones-kdp-6x9.pdf
+│   │   │   ├── devops-engineering-cloud-infrastructure-core
+│   │   │   │   ├── covers
+│   │   │   │   │   ├── devops-kdp-cover-fullwrap.pdf
+│   │   │   │   │   ├── devops-kdp-cover-hardcover-fullwrap.pdf
+│   │   │   │   │   ├── devops-kindle-cover.jpg
+│   │   │   │   │   └── devops-kindle-cover.tiff
+│   │   │   │   ├── devops-engineering-cloud-infrastructure-core-student-textbook.html
+│   │   │   │   ├── devops-engineering-cloud-infrastructure-core-textbook.html
+│   │   │   │   ├── devops-kdp-6x9-hardcover-teacher.html
+│   │   │   │   ├── devops-kdp-6x9-hardcover.html
+│   │   │   │   ├── devops-kdp-6x9-teacher.html
+│   │   │   │   ├── devops-kdp-6x9.html
+│   │   │   │   ├── devops-kdp-cover-fullwrap.html
+│   │   │   │   ├── devops-kdp-cover-hardcover-fullwrap.html
+│   │   │   │   ├── devops-kdp-cover.html
+│   │   │   │   ├── devops-kdp-preliminary-pages.html
+│   │   │   │   ├── devops-kindle-cover.html
+│   │   │   │   ├── imgs
+│   │   │   │   └── pdfs
+│   │   │   │       ├── devops-kdp-6x9-hardcover-teacher.pdf
+│   │   │   │       ├── devops-kdp-6x9-hardcover.pdf
+│   │   │   │       ├── devops-kdp-6x9-teacher.pdf
+│   │   │   │       ├── devops-kdp-6x9.pdf
+│   │   │   │       └── exports
+│   │   │   ├── dunce-to-midjourney-pro
+│   │   │   │   ├── cover-img-dunce-to-midjourney-pro-square.png
+│   │   │   │   ├── cover-img-dunce-to-midjourney-pro-wtext.png
+│   │   │   │   ├── cover-img-dunce-to-midjourney-pro.png
+│   │   │   │   ├── covers
+│   │   │   │   │   ├── .gitkeep
+│   │   │   │   │   ├── dunce-to-midjourney-pro-kdp-cover-fullwrap.pdf
+│   │   │   │   │   ├── dunce-to-midjourney-pro-kdp-cover-hardcover-fullwrap.pdf
+│   │   │   │   │   ├── dunce-to-midjourney-pro-kdp-cover.jpg
+│   │   │   │   │   ├── dunce-to-midjourney-pro-kdp-cover.tiff
+│   │   │   │   │   ├── dunce-to-midjourney-pro-kindle-cover.jpg
+│   │   │   │   │   └── dunce-to-midjourney-pro-kindle-cover.tiff
+│   │   │   │   ├── dunce-to-midjourney-pro-kdp-6x9-hardcover.html
+│   │   │   │   ├── dunce-to-midjourney-pro-kdp-6x9.html
+│   │   │   │   ├── dunce-to-midjourney-pro-kdp-cover-fullwrap.html
+│   │   │   │   ├── dunce-to-midjourney-pro-kdp-cover-hardcover-fullwrap.html
+│   │   │   │   ├── dunce-to-midjourney-pro-kdp-cover.html
+│   │   │   │   ├── dunce-to-midjourney-pro-kdp-preliminary-pages.html
+│   │   │   │   ├── dunce-to-midjourney-pro-kindle-cover.html
+│   │   │   │   ├── dunce-to-midjourney-pro.html
+│   │   │   │   ├── imgs
+│   │   │   │   │   └── .gitkeep
+│   │   │   │   └── pdfs
+│   │   │   │       ├── .gitkeep
+│   │   │   │       ├── dunce-to-midjourney-pro-kdp-6x9-hardcover.pdf
+│   │   │   │       └── dunce-to-midjourney-pro-kdp-6x9.pdf
+│   │   │   └── exports
+│   │   │       └── pdf
+│   │   └── textbook-assessment-renderer.js
+│   ├── web-development-bootcamp-from-zero-to-hero.jpg
+│   ├── web-development.jpg
+│   └── web.jpg
+├── remove-duplicate-ethical-hacking.mjs
+├── restore-courses-complete.js
+├── restore-courses-editable.js
+├── sample-data
+│   ├── README.md
+│   ├── service-categories-ngn.json
+│   └── service-categories.json
+├── sanity
+│   ├── schema.ts
+│   └── schemas
+│       ├── author.ts
+│       ├── publication.ts
+│       └── resourceMatrix.ts
+├── sanity-sample-data.json
+├── sanity.cli.js
+├── sanity.config.ts
+├── sanity.config.ts.backup
+├── schools-course-reorg.js
+├── scripts
+│   ├── DRY_RUN.md
+│   ├── __tests__
+│   │   ├── __mocks__
+│   │   │   └── sanityClient.ts
+│   │   ├── funnel-onboarding.test.tsx
+│   │   ├── migrate-services.test.ts
+│   │   ├── normalizeStatistics.test.ts
+│   │   └── startup-funnel-client.test.tsx
+│   ├── add-missing-durations.mjs
+│   ├── add-new-courses-with-images.mjs
+│   ├── add-og-metadata.mjs
+│   ├── adjust-course-pricing.mjs
+│   ├── apply-pricing-tiers.mjs
+│   ├── audit-course-levels.mjs
+│   ├── audit-generator3-mainimage.mjs
+│   ├── autoFixUnreachableSlugs.cjs
+│   ├── axe-audit.mjs
+│   ├── check-course-school-schema-fields.mjs
+│   ├── check-critical-files.mjs
+│   ├── check-duplicate-missing-schema-fields.mjs
+│   ├── check-duration-text-mismatch.mjs
+│   ├── check-missing-durations.mjs
+│   ├── check-missing-hours-per-week.mjs
+│   ├── check-node-version.mjs
+│   ├── check-og-images-in-sanity-deep.mjs
+│   ├── check-og-images-in-sanity.mjs
+│   ├── checkOgImagesForSharableLinks.cjs
+│   ├── checkSchoolsOgMeta.cjs
+│   ├── checkServicesOgMeta.cjs
+│   ├── checkSharableSlugs.cjs
+│   ├── checkSharableSlugs.js
+│   ├── cleanup-services.js
+│   ├── clear-sanity-courses.js
+│   ├── complete-course-update.mjs
+│   ├── copy-og-image-fallbacks.mjs
+│   ├── create-sample-services.js
+│   ├── create-schools-import-courses.mjs
+│   ├── debug-servicesPage-on-sanity.cjs
+│   ├── debug-servicesPage-on-sanity.mjs
+│   ├── debugDynamicRouteResponses-https.cjs
+│   ├── debugDynamicRouteResponses-www.cjs
+│   ├── debugDynamicRouteResponses.cjs
+│   ├── dedupe-courses.mjs
+│   ├── delete-sanity-categories.cjs
+│   ├── delete-sanity-categories.js
+│   ├── download-courses-images.cjs
+│   ├── download-courses-images.js
+│   ├── export-kdp-manuscripts-teacher.mjs
+│   ├── export-kdp-manuscripts.mjs
+│   ├── fetch-all-courses-for-curriculum.mjs
+│   ├── fetch-course-curriculum-data.mjs
+│   ├── fill-course-body.mjs
+│   ├── fill-missing-og-fields.mjs
+│   ├── fill-og-fields.cjs
+│   ├── fill-og-fields.js
+│   ├── find-affordable-courses.mjs
+│   ├── find-intro-short-courses.mjs
+│   ├── find-missing-category-og-fields.mjs
+│   ├── find-missing-course-school-og-fields.mjs
+│   ├── find-missing-og-fields.mjs
+│   ├── fix-14-course-pricing.mjs
+│   ├── fix-course-levels.mjs
+│   ├── fix-course-pricing.mjs
+│   ├── fix-duration-text-mismatch.mjs
+│   ├── fix-featured-courses.mjs
+│   ├── fix-full-descriptions.mjs
+│   ├── fix-og-mapping.mjs
+│   ├── fixDuplicateDynamicExport.cjs
+│   ├── force-delete-legacy.js
+│   ├── generate-all-social-assets.mjs
+│   ├── generate-course-images.mjs
+│   ├── generate-course-og-images.cjs
+│   ├── generate-course-promo-og-images.cjs
+│   ├── generate-courses-images.cjs
+│   ├── generate-curriculum-pdfs.mjs
+│   ├── generate-final-assets.mjs
+│   ├── generate-hierarchy.py
+│   ├── generate-local-hierarchy.py
+│   ├── generate-marketing-images-v2.mjs
+│   ├── generate-marketing-images.mjs
+│   ├── generate-missing-og-images.mjs
+│   ├── generate-og-generator3-course-bg.mjs
+│   ├── generate-og-images.mjs
+│   ├── generate-og-images.mjs.backup
+│   ├── generate-og-preview.ts
+│   ├── implement-curriculum-assets.mjs
+│   ├── import-affordable-alternatives.mjs
+│   ├── import-basic-coding-courses.mjs
+│   ├── import-curriculums-to-sanity.mjs
+│   ├── import-intro-courses.mjs
+│   ├── import-media-buying-courses.mjs
+│   ├── import-new-courses.mjs
+│   ├── import-single-curriculum.mjs
+│   ├── investigateDynamicRouteDeployment.cjs
+│   ├── jest.setup.ts
+│   ├── lib
+│   │   └── sanity-helpers.mjs
+│   ├── list-all-courses.mjs
+│   ├── list-all-service-schemas.mjs
+│   ├── list-missing-course-image-slugs.mjs
+│   ├── listSanitySlugs.cjs
+│   ├── listSanitySlugs.js
+│   ├── map-sanity-course-images.cjs
+│   ├── map-sanity-course-images.js
+│   ├── migrate-aggregated.ts
+│   ├── migrate-courses-regional.js
+│   ├── migrate-packageGroups-and-features.js
+│   ├── migrate-services-dryrun.ts
+│   ├── migrate-services.ts
+│   ├── nuclear-cleanup.js
+│   ├── patch-missing-category-og-fields.mjs
+│   ├── patch-missing-course-og-fields.mjs
+│   ├── patch-missing-og-fields.mjs
+│   ├── patch-new-courses-images.mjs
+│   ├── patch-og-images-in-sanity.mjs
+│   ├── patch-sanity-generator3-images.mjs
+│   ├── populate-remaining-courses.js
+│   ├── populate-sanity-courses.js
+│   ├── populate-sanity-services.js
+│   ├── push-packageGroups-web-mobile.js
+│   ├── rebuild-curriculums-course-specific.mjs
+│   ├── rebuild-curriculums-professional.mjs
+│   ├── rebuild-missing-curriculums-specific.mjs
+│   ├── reformat-course-bodies.mjs
+│   ├── reformat-course-body.mjs
+│   ├── regenerate-portal-images.mjs
+│   ├── regenerate-qr-codes.mjs
+│   ├── relink-and-delete.js
+│   ├── reset-and-populate-courses.js
+│   ├── restore-curriculums-from-sanity.mjs
+│   ├── sanity-course-image-map.json
+│   ├── schools-structure.cjs
+│   ├── setup-migration.sh
+│   ├── sync-content.ts
+│   ├── test-sanity-schemas.sh
+│   ├── tsconfig.json
+│   ├── types
+│   │   └── jest.d.ts
+│   ├── update-all-images-robust.mjs
+│   ├── update-all-images.mjs
+│   ├── update-hours-per-week.mjs
+│   ├── update-intro-short-courses.mjs
+│   ├── update-short-descriptions.mjs
+│   ├── upgrade-curriculums-gold-standard.mjs
+│   ├── validate-accessibility.js
+│   ├── validate-migration-readiness.js
+│   ├── validate-service-data.js
+│   ├── verify-affordable-courses.mjs
+│   ├── verify-all-content.mjs
+│   ├── verify-curriculum-assets.mjs
+│   └── verify-new-courses.mjs
+├── seed-books.mjs
+├── semantic-remediation.py
+├── service_discovery_hub.png
+├── service_discovery_hub.svg
+├── service_exploration.png
+├── service_exploration.svg
+├── src
+│   ├── __tests__
+│   │   ├── accessibilityFlow.test.tsx
+│   │   └── discountLogic.test.tsx
+│   ├── app
+│   │   ├── about
+│   │   │   └── page.tsx
+│   │   ├── admin
+│   │   │   ├── analytics
+│   │   │   │   └── page.tsx
+│   │   │   ├── dashboard
+│   │   │   │   └── page.tsx
+│   │   │   ├── enrollments
+│   │   │   │   ├── [id]
+│   │   │   │   │   └── page.tsx
+│   │   │   │   └── page.tsx
+│   │   │   ├── login
+│   │   │   │   └── page.tsx
+│   │   │   ├── operations
+│   │   │   │   └── page.tsx
+│   │   │   ├── settings
+│   │   │   │   └── page.tsx
+│   │   │   ├── submissions
+│   │   │   │   ├── [id]
+│   │   │   │   │   └── page.tsx
+│   │   │   │   └── page.tsx
+│   │   │   └── users
+│   │   │       └── page.tsx
+│   │   ├── api
+│   │   │   ├── admin
+│   │   │   │   ├── analytics
+│   │   │   │   │   └── route.ts
+│   │   │   │   ├── auth
+│   │   │   │   │   └── route.ts
+│   │   │   │   ├── courses
+│   │   │   │   │   └── route.ts
+│   │   │   │   ├── dashboard
+│   │   │   │   │   └── route.ts
+│   │   │   │   ├── enrollments
+│   │   │   │   │   └── route.ts
+│   │   │   │   ├── operations
+│   │   │   │   │   └── route.ts
+│   │   │   │   ├── settings
+│   │   │   │   │   └── password
+│   │   │   │   │       └── route.ts
+│   │   │   │   ├── submissions
+│   │   │   │   │   └── route.ts
+│   │   │   │   └── users
+│   │   │   │       ├── [id]
+│   │   │   │       │   ├── courses
+│   │   │   │       │   │   └── route.ts
+│   │   │   │       │   ├── enrollments
+│   │   │   │       │   │   └── route.ts
+│   │   │   │       │   └── route.ts
+│   │   │   │       └── route.ts
+│   │   │   ├── analytics
+│   │   │   │   └── route.ts
+│   │   │   ├── assessments
+│   │   │   │   └── [courseSlug]
+│   │   │   │       └── [assessmentSlug]
+│   │   │   │           ├── save
+│   │   │   │           │   └── route.ts
+│   │   │   │           ├── start
+│   │   │   │           │   └── route.ts
+│   │   │   │           └── submit
+│   │   │   │               └── route.ts
+│   │   │   ├── auth
+│   │   │   │   ├── [...nextauth]
+│   │   │   │   │   └── route.ts
+│   │   │   │   ├── login
+│   │   │   │   │   └── route.ts
+│   │   │   │   ├── oauth
+│   │   │   │   │   └── session-login
+│   │   │   │   │       └── route.ts
+│   │   │   │   ├── register
+│   │   │   │   │   └── route.ts
+│   │   │   │   ├── teacher-oauth-claim
+│   │   │   │   │   └── route.ts
+│   │   │   │   ├── teacher-oauth-session-login
+│   │   │   │   │   └── route.ts
+│   │   │   │   └── verify-email
+│   │   │   │       └── route.ts
+│   │   │   ├── campaign
+│   │   │   │   └── leads
+│   │   │   │       └── route.ts
+│   │   │   ├── contact
+│   │   │   │   └── route.ts
+│   │   │   ├── course-enrollment
+│   │   │   │   └── route.ts
+│   │   │   ├── create-checkout-session
+│   │   │   │   └── route.ts
+│   │   │   ├── curriculum
+│   │   │   │   └── [slug]
+│   │   │   │       └── pdf
+│   │   │   │           └── route.ts
+│   │   │   ├── custom-build
+│   │   │   │   └── route.ts
+│   │   │   ├── debug
+│   │   │   │   └── env
+│   │   │   │       └── route.ts
+│   │   │   ├── exchange-rates
+│   │   │   │   └── route.ts
+│   │   │   ├── featured-courses
+│   │   │   │   └── route.ts
+│   │   │   ├── files
+│   │   │   │   └── [id]
+│   │   │   │       └── route.ts
+│   │   │   ├── forms
+│   │   │   │   └── intake
+│   │   │   │       └── route.ts
+│   │   │   ├── health
+│   │   │   │   └── route.ts
+│   │   │   ├── newsletter
+│   │   │   │   └── route.ts
+│   │   │   ├── publications
+│   │   │   │   └── search
+│   │   │   │       └── route.ts
+│   │   │   ├── release-notifications
+│   │   │   │   ├── dispatch
+│   │   │   │   │   └── route.ts
+│   │   │   │   └── subscribe
+│   │   │   │       └── route.ts
+│   │   │   ├── revalidate
+│   │   │   │   └── route.ts
+│   │   │   ├── service-categories
+│   │   │   │   └── route.ts
+│   │   │   ├── service-checkout
+│   │   │   │   └── route.ts
+│   │   │   ├── service-request
+│   │   │   │   └── route.ts
+│   │   │   ├── student
+│   │   │   │   ├── curriculum-pdf
+│   │   │   │   │   └── route.ts
+│   │   │   │   ├── enrollments
+│   │   │   │   │   └── route.ts
+│   │   │   │   └── renew
+│   │   │   │       └── route.ts
+│   │   │   ├── teacher
+│   │   │   │   ├── assessments
+│   │   │   │   │   └── route.ts
+│   │   │   │   ├── courses
+│   │   │   │   │   └── route.ts
+│   │   │   │   └── students
+│   │   │   │       └── route.ts
+│   │   │   ├── test
+│   │   │   │   └── route.ts
+│   │   │   ├── textbook-assessments
+│   │   │   │   └── [courseSlug]
+│   │   │   │       └── route.ts
+│   │   │   ├── user
+│   │   │   │   └── profile-photo
+│   │   │   │       └── route.ts
+│   │   │   ├── version
+│   │   │   │   └── route.ts
+│   │   │   └── webhooks
+│   │   │       └── paystack
+│   │   │           └── route.ts
+│   │   ├── apple-icon.tsx
+│   │   ├── blog
+│   │   │   ├── BlogPageContent.tsx
+│   │   │   ├── [slug]
+│   │   │   │   └── page.tsx
+│   │   │   └── page.tsx
+│   │   ├── campaign
+│   │   │   └── [slug]
+│   │   │       └── page.tsx
+│   │   ├── cancel
+│   │   │   └── page.tsx
+│   │   ├── contact
+│   │   │   └── page.tsx
+│   │   ├── courses
+│   │   │   ├── CoursesPageContent.tsx
+│   │   │   ├── CoursesPageContent.tsx.old
+│   │   │   ├── ServerCoursesPage.tsx
+│   │   │   ├── [slug]
+│   │   │   │   ├── assessments
+│   │   │   │   │   ├── [assessmentSlug]
+│   │   │   │   │   │   ├── AssessmentExamClient.tsx
+│   │   │   │   │   │   └── page.tsx
+│   │   │   │   │   └── page.tsx
+│   │   │   │   ├── curriculum
+│   │   │   │   │   ├── CurriculumEmbed.tsx
+│   │   │   │   │   └── page.tsx
+│   │   │   │   └── page.tsx
+│   │   │   ├── category
+│   │   │   │   └── [slug]
+│   │   │   │       └── page.tsx
+│   │   │   └── page.tsx
+│   │   ├── curriculums
+│   │   │   ├── [slug]
+│   │   │   └── page.tsx
+│   │   ├── divas-kloset
+│   │   │   └── [slug]
+│   │   │       └── page.tsx
+│   │   ├── enrollment-success
+│   │   │   └── page.tsx
+│   │   ├── errata
+│   │   │   ├── ErrataCatalog.tsx
+│   │   │   ├── [slug]
+│   │   │   │   ├── ErrataDetailClient.tsx
+│   │   │   │   └── page.tsx
+│   │   │   └── page.tsx
+│   │   ├── error.tsx
+│   │   ├── faq
+│   │   │   ├── FaqPageContent.tsx
+│   │   │   └── page.tsx
+│   │   ├── global-error.tsx
+│   │   ├── globals.css
+│   │   ├── icon.tsx
+│   │   ├── layout.tsx
+│   │   ├── mentorships
+│   │   │   ├── courses
+│   │   │   │   ├── MentorshipCoursesPageClient.tsx
+│   │   │   │   ├── [slug]
+│   │   │   │   │   ├── MentorshipCoursePageClient.tsx
+│   │   │   │   │   └── page.tsx
+│   │   │   │   └── page.tsx
+│   │   │   ├── enrollment-success
+│   │   │   │   └── page.tsx
+│   │   │   └── page.tsx
+│   │   ├── not-found.tsx
+│   │   ├── page.tsx
+│   │   ├── portfolio
+│   │   │   ├── PortfolioPageContent.tsx
+│   │   │   ├── [slug]
+│   │   │   │   └── page.tsx
+│   │   │   └── page.tsx
+│   │   ├── privacy-policy
+│   │   │   └── page.tsx
+│   │   ├── proposals
+│   │   │   ├── [client]
+│   │   │   │   └── page.tsx
+│   │   │   ├── divas-kloset
+│   │   │   │   ├── page.tsx
+│   │   │   │   └── proposal-client.tsx
+│   │   │   ├── jhema-wears
+│   │   │   │   ├── page.tsx
+│   │   │   │   └── proposal-client.tsx
+│   │   │   └── social-media-marketing
+│   │   │       └── [client]
+│   │   │           └── page.tsx
+│   │   ├── publications
+│   │   │   └── [slug]
+│   │   │       └── resource-vault
+│   │   │           └── page.tsx
+│   │   ├── resources
+│   │   │   ├── ResourcesCatalog.tsx
+│   │   │   ├── [slug]
+│   │   │   │   ├── ResourcesDetailClient.tsx
+│   │   │   │   └── page.tsx
+│   │   │   └── page.tsx
+│   │   ├── robots.ts
+│   │   ├── school
+│   │   │   └── [slug]
+│   │   │       ├── SchoolPageContent.tsx
+│   │   │       └── page.tsx
+│   │   ├── services
+│   │   │   ├── ServicesPageClient.tsx
+│   │   │   ├── [slug]
+│   │   │   │   └── page.tsx
+│   │   │   ├── build-bundle
+│   │   │   │   └── page.tsx
+│   │   │   ├── checkout-cancel
+│   │   │   │   └── page.tsx
+│   │   │   ├── checkout-success
+│   │   │   │   ├── CheckoutSuccessClient.tsx
+│   │   │   │   └── page.tsx
+│   │   │   ├── custom-build
+│   │   │   │   ├── page.tsx
+│   │   │   │   ├── steps
+│   │   │   │   │   ├── Step1Core.tsx
+│   │   │   │   │   ├── Step2AddOns.tsx
+│   │   │   │   │   ├── Step3Summary.tsx
+│   │   │   │   │   └── index.ts
+│   │   │   │   └── types.ts
+│   │   │   ├── error.tsx
+│   │   │   ├── page.tsx
+│   │   │   └── request
+│   │   │       └── success
+│   │   │           └── page.tsx
+│   │   ├── sitemap.ts
+│   │   ├── store
+│   │   │   ├── BookCard.tsx
+│   │   │   ├── StoreCatalog.tsx
+│   │   │   ├── [slug]
+│   │   │   │   ├── ReleaseNotifyForm.tsx
+│   │   │   │   └── page.tsx
+│   │   │   └── page.tsx
+│   │   ├── student
+│   │   │   ├── dashboard
+│   │   │   │   └── page.tsx
+│   │   │   ├── login
+│   │   │   │   └── page.tsx
+│   │   │   ├── oauth-success
+│   │   │   │   └── page.tsx
+│   │   │   └── signup
+│   │   │       └── page.tsx
+│   │   ├── studio
+│   │   │   └── [[...index]]
+│   │   │       └── page.tsx
+│   │   ├── success
+│   │   │   └── page.tsx
+│   │   ├── teacher
+│   │   │   ├── dashboard
+│   │   │   │   └── page.tsx
+│   │   │   ├── login
+│   │   │   │   └── page.tsx
+│   │   │   ├── oauth-success
+│   │   │   │   └── page.tsx
+│   │   │   └── signup
+│   │   │       └── page.tsx
+│   │   ├── terms-of-service
+│   │   │   └── page.tsx
+│   │   └── tools
+│   │       └── utm
+│   │           └── page.tsx
+│   ├── auth.ts
+│   ├── components
+│   │   ├── AnalyticsTracker.tsx
+│   │   ├── ContactForm.tsx
+│   │   ├── CourseEnrollment.tsx
+│   │   ├── CourseEnrollment.tsx.old
+│   │   ├── CourseEnrollmentEnhanced.tsx
+│   │   ├── ErrorBoundary.tsx
+│   │   ├── GoogleAnalytics.tsx
+│   │   ├── NewsletterSubscription.tsx
+│   │   ├── SEOStructuredData.tsx
+│   │   ├── SiteSEO.tsx
+│   │   ├── admin
+│   │   │   ├── AdminNavbar.tsx
+│   │   │   ├── AssignCoursesModal.tsx
+│   │   │   ├── Breadcrumbs.tsx
+│   │   │   └── GrantCourseAccessModal.tsx
+│   │   ├── animations
+│   │   │   ├── AnimatedBackground.tsx
+│   │   │   └── AnimatedCard.tsx
+│   │   ├── campaign
+│   │   │   └── CampaignLeadForm.tsx
+│   │   ├── common
+│   │   │   └── Banner.tsx
+│   │   ├── courses
+│   │   │   ├── CourseCard.tsx
+│   │   │   ├── CoursePaymentModal.tsx
+│   │   │   └── CoursePricingCalculator.tsx
+│   │   ├── curriculum
+│   │   │   └── CurriculumDocumentView.tsx
+│   │   ├── home
+│   │   │   └── JourneySection.tsx
+│   │   ├── layout
+│   │   │   ├── Footer.tsx
+│   │   │   └── Header.tsx
+│   │   ├── marketing
+│   │   │   ├── FunnelOnboarding.tsx
+│   │   │   ├── StartupFunnel.tsx
+│   │   │   └── StartupFunnelClient.tsx
+│   │   ├── mentorships
+│   │   │   ├── MentorshipCourseCard.tsx
+│   │   │   └── MentorshipEnrollmentModal.tsx
+│   │   ├── modals
+│   │   │   └── EnrollmentModal.tsx
+│   │   ├── sections
+│   │   │   ├── ComingSoon.tsx
+│   │   │   ├── FeaturedCourses.tsx
+│   │   │   ├── FinalCTA.tsx
+│   │   │   ├── Hero.tsx
+│   │   │   ├── RecentTextbooks.tsx
+│   │   │   ├── ServiceCard.tsx
+│   │   │   ├── ServicesOverview.tsx
+│   │   │   ├── Testimonials.tsx
+│   │   │   └── WhyChooseUs.tsx
+│   │   ├── service
+│   │   │   └── DynamicServicePage.tsx
+│   │   ├── services
+│   │   │   ├── BusinessServicePage.tsx
+│   │   │   ├── CompleteServicePage.tsx
+│   │   │   ├── ConditionalContactForm.tsx
+│   │   │   ├── ConditionalSections.tsx
+│   │   │   ├── CustomBuildResumeBar.tsx
+│   │   │   ├── CustomBuildWizard.tsx
+│   │   │   ├── CustomizationWizard.tsx
+│   │   │   ├── CustomizeHandler.tsx
+│   │   │   ├── DynamicServicePage.tsx
+│   │   │   ├── EnhancedServiceWizard.tsx
+│   │   │   ├── FocusHandler.tsx
+│   │   │   ├── InteractiveServicePage.tsx
+│   │   │   ├── JourneyHeader.tsx
+│   │   │   ├── NigerianBanner.tsx
+│   │   │   ├── PackageComparison.tsx
+│   │   │   ├── PaymentSummary.tsx
+│   │   │   ├── PredefinedPackageButton.tsx
+│   │   │   ├── QuickQuoteCalculator.tsx
+│   │   │   ├── QuickStartChecklist.tsx
+│   │   │   ├── QuoteButtonWrapper.tsx
+│   │   │   ├── SearchParamsHandler.tsx
+│   │   │   ├── ServiceCaseStudies.tsx
+│   │   │   ├── ServiceGroupCard.tsx
+│   │   │   ├── ServiceGroupModal.tsx
+│   │   │   ├── ServiceGroupSelector.tsx
+│   │   │   ├── ServicePackageSelection.tsx
+│   │   │   ├── ServicePaymentModal.tsx
+│   │   │   ├── ServicePaymentSection.tsx
+│   │   │   ├── ServicePricingClient.tsx
+│   │   │   ├── ServiceRequestFlow.tsx
+│   │   │   ├── ServiceRequestForm.tsx
+│   │   │   ├── ServiceSearchBar.tsx
+│   │   │   ├── ServiceStatistics.tsx
+│   │   │   ├── ServiceTestimonials.tsx
+│   │   │   ├── ServicesPageClient.tsx
+│   │   │   ├── SuccessModal.tsx
+│   │   │   ├── TierSelectionModal.tsx
+│   │   │   ├── TieredServicePage.tsx
+│   │   │   ├── UnifiedServiceRequestFlow.tsx
+│   │   │   ├── WebMobileClient.tsx
+│   │   │   ├── WebMobilePricingSections.tsx
+│   │   │   └── WebMobileQuoteButtons.tsx
+│   │   ├── student
+│   │   │   └── SubscriptionCard.tsx
+│   │   └── ui
+│   │       ├── Breadcrumb.tsx
+│   │       ├── CTAButton.tsx
+│   │       ├── CountdownTimer.tsx
+│   │       ├── CurrencySwitcher.tsx
+│   │       ├── DiscountBanner.tsx
+│   │       ├── FloatingCTA.tsx
+│   │       ├── Modal.tsx
+│   │       ├── OptimizedImage.tsx
+│   │       ├── PerformanceMonitor.tsx
+│   │       ├── PriceDisplay.tsx
+│   │       ├── PricingTiers.tsx
+│   │       ├── WhatsAppWidget.tsx
+│   │       └── button.tsx
+│   ├── config
+│   │   ├── serviceCustomFields.ts
+│   │   └── servicePackages.ts
+│   ├── contexts
+│   │   ├── CurrencyContext.tsx
+│   │   ├── CustomBuildContext.tsx
+│   │   └── ThemeContext.tsx
+│   ├── data
+│   │   ├── divasKlosetTiers.ts
+│   │   ├── individualServices.ts
+│   │   ├── serviceGroups.ts
+│   │   └── servicePackages.ts
+│   ├── hooks
+│   │   ├── useAnalytics.ts
+│   │   └── useServices.ts
+│   ├── lib
+│   │   ├── __tests__
+│   │   │   └── normalizeStatistics.test.ts
+│   │   ├── adminAuth.ts
+│   │   ├── analytics.ts
+│   │   ├── assessment-access.ts
+│   │   ├── assessment-registry.ts
+│   │   ├── assessment-types.ts
+│   │   ├── auth.ts
+│   │   ├── book-queries.ts
+│   │   ├── cached-api.ts
+│   │   ├── course-assessments
+│   │   │   ├── architecting-landing-zones.ts
+│   │   │   └── devops-engineering-cloud-infrastructure-core.ts
+│   │   ├── currency.ts
+│   │   ├── curriculum-pdf.ts
+│   │   ├── curriculum-types.ts
+│   │   ├── curriculum-utils.ts
+│   │   ├── customBuildPricing.ts
+│   │   ├── email-templates.ts
+│   │   ├── email-types.ts
+│   │   ├── email.ts
+│   │   ├── fallback-data.ts
+│   │   ├── mentorship-pricing.ts
+│   │   ├── normalizeStatistics.ts
+│   │   ├── pdf-generator.ts
+│   │   ├── sanity-queries.ts
+│   │   ├── sanity-server.ts
+│   │   ├── seo.ts
+│   │   ├── service-data.ts
+│   │   ├── session-auth.ts
+│   │   ├── structured-data.ts
+│   │   ├── timeout-utils.ts
+│   │   ├── utils.ts
+│   │   └── whatsapp.ts
+│   ├── proxy.ts
+│   ├── sanity
+│   │   ├── client.ts
+│   │   ├── deskStructure.ts
+│   │   ├── imageUrlBuilder.ts
+│   │   └── schemas
+│   │       ├── __tests__
+│   │       │   └── schemaValidation.test.ts
+│   │       ├── analyticsEvent.ts
+│   │       ├── assessmentAttempt.ts
+│   │       ├── author.hexadigitall.ts
+│   │       ├── book.ts
+│   │       ├── bookReleaseSubscriber.ts
+│   │       ├── course-fixed.ts
+│   │       ├── course-original-backup.ts
+│   │       ├── course.ts
+│   │       ├── courseCategory.ts
+│   │       ├── curriculum.ts
+│   │       ├── enrollment.ts
+│   │       ├── faq.ts
+│   │       ├── formSubmission.ts
+│   │       ├── index.ts
+│   │       ├── pageOgAssets.ts
+│   │       ├── pendingEnrollment.ts
+│   │       ├── post.ts
+│   │       ├── project.ts
+│   │       ├── publication.hexadigitall.ts
+│   │       ├── resourceMatrix.hexadigitall.ts
+│   │       ├── school.ts
+│   │       ├── service.ts
+│   │       ├── serviceCaseStudy.ts
+│   │       ├── serviceCategory.ts
+│   │       ├── serviceRequest.ts
+│   │       ├── serviceStatistics.ts
+│   │       ├── serviceTestimonial.ts
+│   │       ├── servicesPage.ts
+│   │       ├── testimonial.ts
+│   │       └── user.ts
+│   └── types
+│       ├── course.ts
+│       ├── jest.d.ts
+│       ├── modules.d.ts
+│       ├── school.ts
+│       ├── service.ts
+│       └── subscription.ts
+├── tailwind.config.ts
+├── test-checkout.js
+├── test-course-prices.ps1
+├── test-current-api.mjs
+├── test-hydration.js
+├── test-og-generator-1.mjs
+├── test-og-generator-2.mjs
+├── test-og-generator-3.mjs
+├── test-prices.bat
+├── test-user-auth.md
+├── tmp
+│   └── pdf-qa
+│       ├── after
+│       │   ├── p125.png
+│       │   ├── p235.png
+│       │   ├── p249.png
+│       │   ├── p253.png
+│       │   ├── p297.png
+│       │   ├── p313.png
+│       │   ├── p467.png
+│       │   ├── p475.png
+│       │   ├── p499.png
+│       │   └── p60.png
+│       ├── focus
+│       │   ├── p10.png
+│       │   ├── p104.png
+│       │   ├── p105.png
+│       │   ├── p11.png
+│       │   ├── p12.png
+│       │   ├── p125.png
+│       │   ├── p13.png
+│       │   ├── p174.png
+│       │   ├── p175.png
+│       │   ├── p19.png
+│       │   ├── p192.png
+│       │   ├── p193.png
+│       │   ├── p20.png
+│       │   ├── p201.png
+│       │   ├── p202.png
+│       │   ├── p21.png
+│       │   ├── p235.png
+│       │   ├── p249.png
+│       │   ├── p253.png
+│       │   ├── p297.png
+│       │   ├── p313.png
+│       │   ├── p44.png
+│       │   ├── p45.png
+│       │   ├── p467.png
+│       │   ├── p475.png
+│       │   ├── p499.png
+│       │   ├── p60.png
+│       │   ├── p652.png
+│       │   ├── p66.png
+│       │   ├── p67.png
+│       │   ├── p73.png
+│       │   ├── p74.png
+│       │   ├── p8.png
+│       │   └── p9.png
+│       ├── neighbors
+│       │   ├── p124.png
+│       │   ├── p125.png
+│       │   ├── p126.png
+│       │   ├── p234.png
+│       │   ├── p235.png
+│       │   ├── p236.png
+│       │   ├── p248.png
+│       │   ├── p249.png
+│       │   ├── p250.png
+│       │   ├── p252.png
+│       │   ├── p253.png
+│       │   ├── p254.png
+│       │   ├── p466.png
+│       │   ├── p467.png
+│       │   ├── p468.png
+│       │   ├── p474.png
+│       │   ├── p475.png
+│       │   ├── p476.png
+│       │   ├── p498.png
+│       │   ├── p499.png
+│       │   ├── p500.png
+│       │   ├── p59.png
+│       │   ├── p60.png
+│       │   ├── p61.png
+│       │   ├── p651.png
+│       │   ├── p652.png
+│       │   └── p653.png
+│       ├── wk1-p7.png
+│       ├── wk1-p8.png
+│       ├── wk10-p7.png
+│       ├── wk10-p8.png
+│       ├── wk15-p7.png
+│       ├── wk15-p8.png
+│       ├── wk20-p8.png
+│       ├── wk20-p9.png
+│       ├── wk5-p7.png
+│       └── wk5-p8.png
+├── tmp-matched-course-slugs-from-post-og.txt
+├── tmp-missing-course-image-slugs.txt
+├── tmp-missing-course-slugs-for-post-og.txt
+├── tmp_dev.log
+├── tmp_dev_render.log
+├── tmp_services.html
+├── trigger-service-revalidation.js
+├── tsconfig.json
+├── tsconfig.tsbuildinfo
+├── update-ethical-hacking-pricing.mjs
+├── update-service-overviews.js
+├── verify-og.mjs
+├── view-curriculum.sh
+└── ~$OSYSTEM_HIERARCHY.docs
+```

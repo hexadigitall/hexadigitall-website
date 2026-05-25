@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { client } from '@/sanity/client';
 
-interface SearchPayloadNode {
+interface SanityPublicationDataStream {
   _id: string;
   title: string;
   slug: string;
@@ -11,24 +11,19 @@ interface SearchPayloadNode {
     matrixId: string;
     title: string;
     resourceType: string;
-  }>;
-}
-
-interface ScoredSearchNode {
-  node: SearchPayloadNode;
-  calculatedMatchScore: number;
+  }> | null;
 }
 
 export async function GET(request: NextRequest) {
   try {
-    const searchParams = request.nextUrl.searchParams;
-    const rawQueryString = searchParams.get('q') || '';
+    const { searchParams } = request.nextUrl;
+    const rawInputQuery = searchParams.get('q') || '';
 
-    if (!rawQueryString.trim()) {
+    if (!rawInputQuery.trim()) {
       return NextResponse.json({ success: true, results: [] });
     }
 
-    const dataExtractQuery = `*[_type == "publication"] {
+    const compiledDataFetchQuery = `*[_type == "publication"] {
       _id,
       title,
       "slug": slug.current,
@@ -41,41 +36,42 @@ export async function GET(request: NextRequest) {
       }
     }`;
 
-    const lookupDataset: SearchPayloadNode[] = await client.fetch(dataExtractQuery);
-    const cleaningRegex = /[^\w\s]/g;
-    const normalizationTokens = rawQueryString.toLowerCase().replace(cleaningRegex, '').split(/\s+/).filter(Boolean);
+    const lookupDataset: SanityPublicationDataStream[] = await client.fetch(compiledDataFetchQuery);
+    const cleansingRegExp = /[^\w\s]/g;
+    const trackingTokens = rawInputQuery.toLowerCase().replace(cleansingRegExp, '').split(/\s+/).filter(Boolean);
 
-    const matchEvaluationEngine: ScoredSearchNode[] = lookupDataset.map((document) => {
-      let documentAccumulatedScore = 0;
-      const searchTargetString = [
+    const scoringCompilationEngine = lookupDataset.map((document) => {
+      let documentCalculatedScore = 0;
+      
+      const aggregationTargetText = [
         document.title,
         document.description || '',
         document.authorName,
-        document.resources.map(r => `${r.matrixId} ${r.title}`).join(' ')
-      ].join(' ').toLowerCase().replace(cleaningRegex, '');
-      normalizationTokens.forEach((token) => {
-        if (searchTargetString.includes(token)) {
-          const boundaryScan = new RegExp(`\\b${token}\\b`, 'i');
-          if (boundaryScan.test(searchTargetString)) {
-            documentAccumulatedScore += 10;
+        document.resources?.map(resource => `${resource.matrixId} ${resource.title}`).join(' ') || ''
+      ].join(' ').toLowerCase().replace(cleansingRegExp, '');
+
+      trackingTokens.forEach((token) => {
+        if (aggregationTargetText.includes(token)) {
+          const absoluteWordBoundaryScan = new RegExp(`\\b${token}\\b`, 'i');
+          if (absoluteWordBoundaryScan.test(aggregationTargetText)) {
+            documentCalculatedScore += 10;
           } else {
-            documentAccumulatedScore += 3;
+            documentCalculatedScore += 3;
           }
         }
       });
-      return { node: document, calculatedMatchScore: documentAccumulatedScore };
+
+      return { node: document, operationalScore: documentCalculatedScore };
     });
 
-    const filteredRankedResults = matchEvaluationEngine
-      .filter(candidate => candidate.calculatedMatchScore > 0)
-      .sort((alpha, beta) => beta.calculatedMatchScore - alpha.calculatedMatchScore)
-      .map(entry => entry.node);
+    const finalizedRankedTransforms = scoringCompilationEngine
+      .filter((candidate) => candidate.operationalScore > 0)
+      .sort((a, b) => b.operationalScore - a.operationalScore)
+      .map((entry) => entry.node);
 
-    return NextResponse.json({ success: true, results: filteredRankedResults });
-  } catch (structuralSystemFault) {
-    return NextResponse.json(
-      { success: false, error: 'Internal Engine Compute Failure Exception' },
-      { status: 500 }
-    );
+    return NextResponse.json({ success: true, results: finalizedRankedTransforms });
+  } catch (exceptionSystemFault) {
+    console.error('Core algorithmic fault trace:', exceptionSystemFault);
+    return NextResponse.json({ success: false, error: 'Internal Analytical Processing Fault' }, { status: 500 });
   }
 }

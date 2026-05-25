@@ -116,9 +116,10 @@ class CurrencyService {
         }
       }
       
-      throw new Error('All geo services failed');
+      console.warn('All geo services failed. Falling back to USD.');
+      return 'USD';
     } catch (error) {
-      console.error('Geo detection failed:', error);
+      console.warn('Unexpected error in geo detection. Falling back to USD.');
       return 'USD'; // fallback
     }
   }

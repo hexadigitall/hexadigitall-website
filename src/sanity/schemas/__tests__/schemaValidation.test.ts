@@ -15,16 +15,23 @@ import { describe, test, expect, jest } from '@jest/globals';
 jest.mock('sanity', () => ({
   defineType: (config: Record<string, unknown>) => config,
   defineField: (config: Record<string, unknown>) => config,
-  defineArrayMember: (config: Record<string, unknown>) => config,
 }));
 
-// import schemas after mocking
+// Import schemas after mocking
 import { schemaTypes } from '../index';
-import type { SchemaTypeDefinition } from 'sanity';
 
+// Type for schema type definition
 interface SchemaField {
   name?: string;
   type?: string;
+  fields?: SchemaField[];
+  [key: string]: unknown;
+}
+
+interface SchemaTypeDefinition {
+  name?: string;
+  type?: string;
+  title?: string;
   fields?: SchemaField[];
   [key: string]: unknown;
 }
@@ -54,18 +61,15 @@ function hasProperFieldStructure(field: SchemaField): boolean {
 describe('Sanity Schema Validation', () => {
   describe('Schema Types Structure', () => {
     test('all schema types should have a name property', () => {
-      schemaTypes.forEach((type: any) => {
+      schemaTypes.forEach((type: SchemaTypeDefinition) => {
         expect(type.name).toBeDefined();
         expect(typeof type.name).toBe('string');
-        if (typeof type.name !== 'string') {
-          throw new Error('Schema type name must be a string');
-        }
         expect(type.name.length).toBeGreaterThan(0);
       });
     });
 
     test('all schema types should have a type property', () => {
-      schemaTypes.forEach((type: any) => {
+      schemaTypes.forEach((type: SchemaTypeDefinition) => {
         expect(type.type).toBeDefined();
         expect(typeof type.type).toBe('string');
       });
@@ -73,17 +77,17 @@ describe('Sanity Schema Validation', () => {
 
     test('document types should have fields array', () => {
       const documentTypes = schemaTypes.filter(
-        (type: any) => type.type === 'document'
+        (type: SchemaTypeDefinition) => type.type === 'document'
       );
       
-      documentTypes.forEach((type: any) => {
+      documentTypes.forEach((type: SchemaTypeDefinition) => {
         expect(type.fields).toBeDefined();
         expect(Array.isArray(type.fields)).toBe(true);
       });
     });
 
     test('all fields should have name and type properties', () => {
-      schemaTypes.forEach((type: any) => {
+      schemaTypes.forEach((type: SchemaTypeDefinition) => {
         if (type.fields && Array.isArray(type.fields)) {
           type.fields.forEach((field: SchemaField) => {
             expect(field.name).toBeDefined();
@@ -98,7 +102,7 @@ describe('Sanity Schema Validation', () => {
 
   describe('Nested Object Fields (SchemaError Prevention)', () => {
     test('object type fields should have properly structured nested fields', () => {
-      schemaTypes.forEach((type: any) => {
+      schemaTypes.forEach((type: SchemaTypeDefinition) => {
         if (type.fields && Array.isArray(type.fields)) {
           type.fields
             .filter((field: SchemaField) => field.type === 'object' && field.fields)
@@ -110,7 +114,7 @@ describe('Sanity Schema Validation', () => {
     });
 
     test('nested fields in object types should be plain objects', () => {
-      schemaTypes.forEach((type: any) => {
+      schemaTypes.forEach((type: SchemaTypeDefinition) => {
         if (type.fields && Array.isArray(type.fields)) {
           type.fields
             .filter((field: SchemaField) => field.type === 'object' && field.fields)
@@ -130,8 +134,8 @@ describe('Sanity Schema Validation', () => {
 
   describe('Specific Schema Validations', () => {
     test('course schema should be properly defined', () => {
-      const courseSchema: any = schemaTypes.find(
-        (type: any) => type.name === 'course'
+      const courseSchema = schemaTypes.find(
+        (type: SchemaTypeDefinition) => type.name === 'course'
       );
       
       expect(courseSchema).toBeDefined();
@@ -140,8 +144,8 @@ describe('Sanity Schema Validation', () => {
     });
 
     test('enrollment schema should be properly defined', () => {
-      const enrollmentSchema: any = schemaTypes.find(
-        (type: any) => type.name === 'enrollment'
+      const enrollmentSchema = schemaTypes.find(
+        (type: SchemaTypeDefinition) => type.name === 'enrollment'
       );
       
       expect(enrollmentSchema).toBeDefined();
@@ -150,8 +154,8 @@ describe('Sanity Schema Validation', () => {
     });
 
     test('pendingEnrollment schema should be properly defined', () => {
-      const pendingEnrollmentSchema: any = schemaTypes.find(
-        (type: any) => type.name === 'pendingEnrollment'
+      const pendingEnrollmentSchema = schemaTypes.find(
+        (type: SchemaTypeDefinition) => type.name === 'pendingEnrollment'
       );
       
       expect(pendingEnrollmentSchema).toBeDefined();
@@ -166,13 +170,13 @@ describe('Sanity Schema Validation', () => {
     });
 
     test('schema type names should be unique', () => {
-      const names = schemaTypes.map((type: any) => type.name);
+      const names = schemaTypes.map((type: SchemaTypeDefinition) => type.name);
       const uniqueNames = new Set(names);
       expect(uniqueNames.size).toBe(names.length);
     });
 
     test('field names within each schema should be unique', () => {
-      schemaTypes.forEach((type: any) => {
+      schemaTypes.forEach((type: SchemaTypeDefinition) => {
         if (type.fields && Array.isArray(type.fields)) {
           const fieldNames = type.fields.map((field: SchemaField) => field.name);
           const uniqueFieldNames = new Set(fieldNames);

@@ -1,4 +1,4 @@
-const minimumVersion = [22, 13, 0]
+const minimumVersion = [22, 12, 0]
 
 function parseVersion(version) {
   return version.replace(/^v/, '').split('.').map((part) => Number(part || 0))

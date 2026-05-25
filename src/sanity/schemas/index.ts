@@ -23,43 +23,39 @@ import servicesPage from './servicesPage' // 👈 IMPORTED HERE
 import pageOgAssets from './pageOgAssets'
 import book from './book'
 import bookReleaseSubscriber from './bookReleaseSubscriber'
+import author from './author'
+import resourceMatrix from './resourceMatrix'
+import publication from './publication'
 
 // Objects (if any, though most seem to be documents based on your file list)
 // ...
 
-import authorHexadigitall from './author.hexadigitall';
-import resourceMatrixHexadigitall from './resourceMatrix.hexadigitall';
-import publicationHexadigitall from './publication.hexadigitall';
-
-export const schemaTypes: SchemaTypeDefinition[] = [
-  post,
-  user,
-  category,
-  course,
-  curriculum,
-  school,
-  service,
-  project,
-  serviceRequest,
-  enrollment,
-  pendingEnrollment,
-  assessmentAttempt,
-  formSubmission,
-  faq,
-  testimonial,
-  serviceTestimonial,
-  serviceCaseStudy,
-  serviceStatistics,
-  servicesPage,
-  pageOgAssets,
-  book,
-  bookReleaseSubscriber,
-  // Hexadigitall publishing engine schemas
-  authorHexadigitall,
-  resourceMatrixHexadigitall,
-  publicationHexadigitall,
-];
-
 export const schema: { types: SchemaTypeDefinition[] } = {
-  types: schemaTypes,
-};
+  types: [
+    post,
+    user,
+    category,
+    course,
+    curriculum,
+    school,
+    service,
+    project,
+    serviceRequest,
+    enrollment,
+    pendingEnrollment,
+    assessmentAttempt,
+    formSubmission,
+    faq,
+    testimonial,
+    serviceTestimonial,
+    serviceCaseStudy,
+    serviceStatistics,
+    servicesPage, // 👈 ADDED HERE
+    pageOgAssets,
+    book,
+    bookReleaseSubscriber,
+    author,
+    resourceMatrix,
+    publication,
+  ],
+}

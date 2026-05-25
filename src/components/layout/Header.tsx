@@ -180,6 +180,9 @@ const Header = () => {
                 <Link href="/portfolio" className={dropdownItemClass} onClick={closeDesktopMenus}>
                   Portfolio
                 </Link>
+                <Link href="/publications" className={dropdownItemClass} onClick={closeDesktopMenus}>
+                  Library
+                </Link>
               </div>
             </div>
 
@@ -319,6 +322,9 @@ const Header = () => {
                   </Link>
                   <Link href="/portfolio" className={`${dropdownItemClass} whitespace-nowrap`} onClick={closeDesktopMenus}>
                     Portfolio
+                  </Link>
+                  <Link href="/publications" className={`${dropdownItemClass} whitespace-nowrap`} onClick={closeDesktopMenus}>
+                    Library
                   </Link>
                 </div>
               </div>
@@ -500,6 +506,7 @@ const Header = () => {
                 </div>
 
                 <Link href="/courses" onClick={closeMobileMenus} className="block text-sm py-1.5 text-darkText dark:text-slate-200 hover:text-secondary font-medium transition-colors">Courses</Link>
+                <Link href="/publications" onClick={closeMobileMenus} className="block text-sm py-1.5 text-darkText dark:text-slate-200 hover:text-secondary font-medium transition-colors">Library</Link>
                 <Link
                   href="/mentorships"
                   onClick={closeMobileMenus}

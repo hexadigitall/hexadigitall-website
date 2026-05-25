@@ -1,29 +1,32 @@
+import React from 'react';
 import { notFound } from 'next/navigation';
 import { client } from '@/sanity/client';
 import { ArrowDownTrayIcon, ShieldCheckIcon } from '@heroicons/react/24/outline';
 
-interface CompletePageProps {
+interface VaultRoutingProps {
   params: Promise<{ slug: string }>;
 }
 
-interface ExtractionNodePayload {
+interface AppendixResourceNode {
   _id: string;
   title: string;
-  resources: Array<{
-    _id: string;
-    title: string;
-    matrixId: string;
-    resourceType: string;
-    secureAssetUrl: string;
-    requiresVerification: boolean;
-  }>;
+  matrixId: string;
+  resourceType: string;
+  secureAssetUrl: string;
+  requiresVerification: boolean;
 }
 
-export default async function ResourceVaultPage({ params }: CompletePageProps) {
-  const resolvesRouteParameters = await params;
-  const targetSlugToken = resolvesRouteParameters.slug;
+interface ComprehensiveVaultPayload {
+  _id: string;
+  title: string;
+  resources: AppendixResourceNode[] | null;
+}
 
-  const extractionQuery = `*[_type == "publication" && slug.current == $slug][0] {
+export default async function ProtectedResourceVaultPage({ params }: VaultRoutingProps) {
+  const parsedSlugParams = await params;
+  const identifierSlugToken = parsedSlugParams.slug;
+
+  const dataExtractionGROQ = `*[_type == "publication" && slug.current == $slug][0] {
     _id,
     title,
     "resources": embeddedResources[]-> {
@@ -36,66 +39,64 @@ export default async function ResourceVaultPage({ params }: CompletePageProps) {
     }
   }`;
 
-  const documentPayload: ExtractionNodePayload | null = await client.fetch(extractionQuery, { slug: targetSlugToken });
+  const payload: ComprehensiveVaultPayload | null = await client.fetch(dataExtractionGROQ, { slug: identifierSlugToken });
 
-  if (!documentPayload) {
+  if (!payload) {
     notFound();
   }
 
   return (
-    <div className="min-h-screen bg-slate-50 py-12 px-4 sm:px-6 lg:px-8 font-serif text-slate-900">
-      <div className="max-w-4xl mx-auto bg-white border border-slate-200 p-8 rounded-xl shadow-sm">
-        <div className="border-b border-slate-900 pb-6 mb-8">
-          <div className="flex items-center space-x-3 text-emerald-700 font-mono text-sm uppercase tracking-wider mb-2">
-            <ShieldCheckIcon className="h-5 w-5" />
-            <span>Academy Verification Command Matrix Active</span>
+    <main className="min-h-screen bg-slate-50/50 py-16 px-4 sm:px-6 lg:px-8 text-slate-950">
+      <div className="max-w-4xl mx-auto bg-white border border-slate-200 rounded-2xl p-8 shadow-xs">
+        <div className="border-b border-slate-950 pb-6 mb-8">
+          <div className="inline-flex items-center space-x-2 text-emerald-800 font-mono text-xs uppercase tracking-wider bg-emerald-50 px-3 py-1 rounded-full mb-3">
+            <ShieldCheckIcon className="h-4 w-4 text-emerald-600" />
+            <span className="font-bold">Ecosystem Authorization Gate Active</span>
           </div>
-          <h1 className="text-3xl font-extrabold text-slate-950 font-sans tracking-tight">
-            {documentPayload.title} — Protected Resource Vault
+          <h1 className="text-3xl font-bold font-serif text-slate-950 tracking-tight sm:text-4xl">
+            {payload.title}
           </h1>
-          <p className="text-slate-600 mt-2 text-sm italic">
-            Access secure clean tracking templates, diagnostic cohort matrices, and educational roadmaps explicitly distributed under the imprint documentation.
+          <p className="text-sm text-slate-500 font-serif italic mt-2">
+            Section C Infrastructure Vault: Download validated workbook models, asset tracking dashboards, and strategic reference charts.
           </p>
         </div>
 
         <div className="space-y-4">
-          {documentPayload.resources && documentPayload.resources.length > 0 ? (
-            documentPayload.resources.map((matrixItem) => (
-              <div 
-                key={matrixItem._id} 
-                className="flex flex-col sm:flex-row justify-between items-start sm:items-center p-5 border border-slate-100 bg-slate-50/50 hover:bg-slate-50 rounded-lg transition-all"
-              >
-                <div>
-                  <div className="flex items-center space-x-2">
-                    <span className="font-mono text-xs font-bold uppercase tracking-wide bg-slate-900 text-white px-2 py-0.5 rounded">
-                      {matrixItem.matrixId}
+          {payload.resources && payload.resources.length > 0 ? (
+            payload.resources.map((matrix) => (
+              <div key={matrix._id} className="flex flex-col sm:flex-row justify-between items-start sm:items-center p-5 border border-slate-100 bg-slate-50/40 rounded-xl hover:bg-slate-50 transition-all group">
+                <div className="space-y-1">
+                  <div className="flex flex-wrap items-center gap-2">
+                    <span className="font-mono text-xs font-bold bg-slate-950 text-white px-2 py-0.5 rounded shadow-sm">
+                      {matrix.matrixId}
                     </span>
-                    <span className="font-mono text-xs capitalize text-slate-500">
-                      {matrixItem.resourceType} Node Type
+                    <span className="font-mono text-[10px] text-slate-400 uppercase tracking-wider capitalize">
+                      {matrix.resourceType.replace('-', ' ')}
                     </span>
                   </div>
-                  <h3 className="text-lg font-bold text-slate-950 mt-1 font-sans">{matrixItem.title}</h3>
-                  <p className="text-xs font-mono text-slate-400 mt-0.5">System Verification Required System Gate</p>
+                  <h3 className="text-lg font-bold font-serif text-slate-950 group-hover:text-blue-900 transition-colors">
+                    {matrix.title}
+                  </h3>
                 </div>
 
                 <a
-                  href={matrixItem.secureAssetUrl || '#'}
+                  href={matrix.secureAssetUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="mt-4 sm:mt-0 flex items-center space-x-2 px-4 py-2 bg-slate-950 hover:bg-slate-800 text-white font-mono text-xs rounded transition-colors"
+                  className="mt-4 sm:mt-0 w-full sm:w-auto inline-flex items-center justify-center space-x-2 bg-slate-950 hover:bg-slate-800 text-white font-mono text-xs font-bold px-4 py-2.5 rounded-xl transition-all shadow-sm"
                 >
                   <ArrowDownTrayIcon className="h-4 w-4" />
-                  <span>Retrieve Matrix Link</span>
+                  <span>Download Matrix</span>
                 </a>
               </div>
             ))
           ) : (
-            <div className="text-center py-12 border border-dashed border-slate-200 rounded-lg">
-              <p className="font-mono text-sm text-slate-400">No external Section C system manifests configured inside this blueprint registry node.</p>
+            <div className="text-center py-16 border border-dashed border-slate-200 rounded-2xl bg-slate-50/20">
+              <p className="font-mono text-sm text-slate-400">No external data matrix sheets mapped to this blueprint.</p>
             </div>
           )}
         </div>
       </div>
-    </div>
+    </main>
   );
 }
