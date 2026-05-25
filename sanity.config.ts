@@ -24,6 +24,9 @@ import pageOgAssets from "./src/sanity/schemas/pageOgAssets";
 import book from "./src/sanity/schemas/book";
 import bookReleaseSubscriber from "./src/sanity/schemas/bookReleaseSubscriber";
 import curriculum from "./src/sanity/schemas/curriculum";
+import author from "./src/sanity/schemas/author";
+import publication from "./src/sanity/schemas/publication";
+import resourceMatrix from "./src/sanity/schemas/resourceMatrix";
 import { deskStructure } from "./src/sanity/deskStructure";
 
 const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || "puzezel0";
@@ -61,6 +64,9 @@ export default defineConfig({
       pageOgAssets,
       book,
       bookReleaseSubscriber,
+      author,
+      publication,
+      resourceMatrix,
     ],
   },
 });
