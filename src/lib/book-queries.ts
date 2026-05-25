@@ -8,6 +8,7 @@ export interface SalesLink {
   _key: string
   platform: string
   url: string
+  file?: { asset?: { url?: string } }
   priceNGN?: number
   priceUSD?: number
   label?: string
@@ -106,6 +107,7 @@ const ALL_BOOKS_QUERY = groq`
       _key,
       platform,
       url,
+      file { asset->{ url } },
       priceNGN,
       priceUSD,
       label,
@@ -135,6 +137,7 @@ const BOOK_BY_SLUG_QUERY = groq`
       _key,
       platform,
       url,
+      file { asset->{ url } },
       priceNGN,
       priceUSD,
       label,

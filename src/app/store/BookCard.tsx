@@ -133,7 +133,7 @@ export default function BookCard({ book, highlightTerm = '' }: { book: BookSumma
           </Link>
           {book.status === 'available' && primaryLink && (
             <a
-              href={primaryLink.url}
+              href={primaryLink.file?.asset?.url || primaryLink.url || '#'}
               target="_blank"
               rel="noopener noreferrer"
               className="flex-1 text-center text-xs font-semibold bg-primary text-white rounded-lg py-2 hover:bg-primary/90 transition-colors"
