@@ -61,7 +61,24 @@ export const deskStructure: StructureResolver = (S) =>
                 ),
             ])
         ),
+      S.listItem()
+        .title('Digital Publishing (FVMMD)')
+        .child(
+          S.list()
+            .title('Digital Publishing')
+            .items([
+              S.listItem()
+                .title('Publications')
+                .child(S.documentTypeList('publication').title('Publications')),
+              S.listItem()
+                .title('Resource Matrices')
+                .child(S.documentTypeList('resourceMatrix').title('Resource Matrices')),
+              S.listItem()
+                .title('Authors')
+                .child(S.documentTypeList('author').title('Authors')),
+            ])
+        ),
       ...S.documentTypeListItems().filter(
-        (listItem) => !['book', 'bookReleaseSubscriber'].includes(listItem.getId() ?? '')
+        (listItem) => !['book', 'bookReleaseSubscriber', 'publication', 'resourceMatrix', 'author'].includes(listItem.getId() ?? '')
       ),
     ])

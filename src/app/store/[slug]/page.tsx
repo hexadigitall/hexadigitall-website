@@ -6,6 +6,7 @@ import Link from 'next/link'
 import { PortableText } from '@portabletext/react'
 import { getBookBySlug, getAllBookSlugs, type BookDetail, type SalesLink } from '@/lib/book-queries'
 import ReleaseNotifyForm from '@/app/store/[slug]/ReleaseNotifyForm'
+import StoreBuySection from '@/components/sections/StoreBuySection'
 
 export const dynamic = 'force-dynamic'
 
@@ -239,24 +240,11 @@ export default async function BookPage({ params }: Props) {
 
             {/* Buy buttons */}
             {book.status === 'available' && book.salesLinks && book.salesLinks.length > 0 && (
-              <div>
-                <p className="text-xs text-gray-400 uppercase font-semibold mb-2 tracking-wider">Where to Buy</p>
-                <div className="flex flex-wrap gap-3">
-                  {book.salesLinks.map((link: SalesLink) => (
-                    <a
-                      key={link._key}
-                      href={link.file?.asset?.url || link.url || '#'}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 bg-primary text-white px-4 py-2.5 rounded-xl text-sm font-semibold hover:bg-primary/90 transition-colors shadow-sm"
-                    >
-                      <span>{PLATFORM_ICONS[link.platform] ?? '🛒'}</span>
-                      <span>{link.label ?? PLATFORM_LABELS[link.platform] ?? 'Buy'}</span>
-                      {link.priceNGN && <span className="text-white/80 text-xs">₦{link.priceNGN.toLocaleString()}</span>}
-                    </a>
-                  ))}
-                </div>
-              </div>
+              <StoreBuySection 
+                salesLinks={book.salesLinks} 
+                bookTitle={book.title} 
+                bookId={book._id} 
+              />
             )}
 
             {/* Notify form anchor for coming soon */}

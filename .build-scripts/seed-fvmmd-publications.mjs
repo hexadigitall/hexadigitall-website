@@ -2,13 +2,19 @@
  * Run sequence command: node .build-scripts/seed-fvmmd-publications.js
  * Required environment variables: SANITY_SECRET_MIGRATION_TOKEN, NEXT_PUBLIC_SANITY_PROJECT_ID
  */
-const { createClient } = require('@sanity/client');
+import { createClient } from '@sanity/client';
+import dotenv from 'dotenv';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+dotenv.config({ path: path.join(__dirname, '..', '.env.local') });
 
 const migrationWriteClient = createClient({
   projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID,
   dataset: process.env.NEXT_PUBLIC_SANITY_DATASET || 'production',
   apiVersion: '2026-05-25',
-  token: process.env.SANITY_SECRET_MIGRATION_TOKEN,
+  token: process.env.SANITY_API_UPDATE_TOKEN || process.env.SANITY_API_TOKEN,
   useCdn: false,
 });
 

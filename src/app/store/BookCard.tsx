@@ -5,6 +5,8 @@ import Image from 'next/image'
 import Link from 'next/link'
 import type { BookSummary } from '@/lib/book-queries'
 import type { ReactNode } from 'react'
+import { useState } from 'react'
+import TwoStepCheckoutModal from '@/components/modals/TwoStepCheckoutModal'
 
 const STATUS_STYLES: Record<string, string> = {
   available: 'bg-green-100 text-green-700',
@@ -61,12 +63,23 @@ function highlightText(text: string, query: string): ReactNode {
 }
 
 export default function BookCard({ book, highlightTerm = '' }: { book: BookSummary; highlightTerm?: string }) {
+  const [showCheckout, setShowCheckout] = useState(false)
   const coverUrl = book.coverImage?.asset?.url
   const primaryLink = book.salesLinks?.find((l) => l.platform.startsWith('amazon')) ?? book.salesLinks?.[0]
   const lowestNGN = book.salesLinks?.map((l) => l.priceNGN).filter(Boolean).sort((a, b) => a! - b!)[0]
 
   return (
     <article className="group flex flex-col bg-white dark:bg-slate-900 rounded-2xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-md transition-shadow duration-200">
+      <TwoStepCheckoutModal 
+        isOpen={showCheckout}
+        onClose={() => setShowCheckout(false)}
+        title={book.title}
+        price={lowestNGN || 15000}
+        currency="NGN"
+        itemId={book._id}
+        itemType="book"
+        onSuccess={() => setShowCheckout(false)}
+      />
 
       {/* Cover */}
       <Link href={`/store/${book.slug.current}`} className="block relative bg-gray-50 dark:bg-slate-800/50" style={{ aspectRatio: '3/4' }}>
@@ -132,14 +145,18 @@ export default function BookCard({ book, highlightTerm = '' }: { book: BookSumma
             View Details
           </Link>
           {book.status === 'available' && primaryLink && (
-            <a
-              href={primaryLink.file?.asset?.url || primaryLink.url || '#'}
-              target="_blank"
-              rel="noopener noreferrer"
+            <button
+              onClick={() => {
+                if (primaryLink.platform === 'pdf') {
+                  setShowCheckout(true)
+                } else {
+                  window.open(primaryLink.url || '#', '_blank')
+                }
+              }}
               className="flex-1 text-center text-xs font-semibold bg-primary text-white rounded-lg py-2 hover:bg-primary/90 transition-colors"
             >
               {primaryLink.label ?? `Buy on ${PLATFORM_LABELS[primaryLink.platform] ?? 'Store'}`}
-            </a>
+            </button>
           )}
           {book.status === 'coming_soon' && (
             <Link
