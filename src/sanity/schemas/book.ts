@@ -170,7 +170,22 @@ export default defineType({
                 ],
               },
             },
-            { name: 'url', title: 'Buy URL', type: 'url' },
+            { 
+              name: 'url', 
+              title: 'Buy URL', 
+              type: 'url',
+              hidden: ({ parent }: any) => parent?.platform === 'pdf'
+            },
+            {
+              name: 'file',
+              title: 'Direct File Upload (PDF/HTML)',
+              type: 'file',
+              description: 'Upload the textbook file directly. Users will download this file.',
+              options: {
+                accept: 'application/pdf, text/html'
+              },
+              hidden: ({ parent }: any) => parent?.platform !== 'pdf'
+            },
             { name: 'priceNGN', title: 'Price (₦)', type: 'number' },
             { name: 'priceUSD', title: 'Price ($)', type: 'number' },
             {
