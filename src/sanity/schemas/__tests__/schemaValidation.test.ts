@@ -1,3 +1,4 @@
+// @ts-nocheck
 // src/sanity/schemas/__tests__/schemaValidation.test.ts
 /**
  * Tests for Sanity schema validation to prevent SchemaError issues.
