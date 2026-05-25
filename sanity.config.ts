@@ -27,6 +27,7 @@ import curriculum from "./src/sanity/schemas/curriculum";
 import author from "./src/sanity/schemas/author";
 import publication from "./src/sanity/schemas/publication";
 import resourceMatrix from "./src/sanity/schemas/resourceMatrix";
+import publicationAccessLedger from "./src/sanity/schemas/publicationAccessLedger";
 import { deskStructure } from "./src/sanity/deskStructure";
 
 const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || "puzezel0";
@@ -67,6 +68,7 @@ export default defineConfig({
       author,
       publication,
       resourceMatrix,
+      publicationAccessLedger,
     ],
   },
 });
