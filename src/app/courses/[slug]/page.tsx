@@ -227,6 +227,8 @@ export default async function CoursePage(props: Props) {
         console.error(`Failed to fetch course data for ${slug}:`, error);
     }
 
+    if (!course) notFound();
+
     // 3. Fetch related textbook
     const bookQuery = groq`*[_type in ["book", "imprint"] && relatedCourse._ref == $courseId && !(_id in path("drafts.**"))][0]{
         title,
