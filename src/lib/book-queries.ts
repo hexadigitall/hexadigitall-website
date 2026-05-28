@@ -4,16 +4,15 @@ import { groq } from 'next-sanity'
 
 // ── Types ─────────────────────────────────────────────────────────────────────
 
-export interface SalesLink {
-  _key: string
-  platform: string
-  audience?: 'student' | 'teacher'
-  url: string
-  file?: { asset?: { url?: string } }
-  priceNGN?: number
-  priceUSD?: number
-  label?: string
-  affiliateTag?: string
+export interface StoreLinks {
+  amazon?: string
+  selar?: string
+  gumroad?: string
+}
+
+export interface Pricing {
+  usd?: number
+  ngn?: number
 }
 
 export interface ErrataItem {
@@ -60,7 +59,13 @@ export interface BookSummary {
   level?: string
   pageCount?: number
   publishedAt?: string
-  salesLinks?: SalesLink[]
+  storeLinks?: StoreLinks
+  directDownloadEnabled?: boolean
+  hasStudentVersion?: boolean
+  studentFile?: { asset?: { url?: string } }
+  hasTeacherVersion?: boolean
+  teacherFile?: { asset?: { url?: string } }
+  pricing?: Pricing
 }
 
 export interface BookDetail extends BookSummary {
@@ -110,17 +115,13 @@ const ALL_STORE_ITEMS_QUERY = groq`
     level,
     pageCount,
     publishedAt,
-    salesLinks[] {
-      _key,
-      platform,
-      audience,
-      url,
-      file { asset->{ url } },
-      priceNGN,
-      priceUSD,
-      label,
-      affiliateTag
-    }
+    storeLinks,
+    directDownloadEnabled,
+    hasStudentVersion,
+    studentFile { asset->{ url } },
+    hasTeacherVersion,
+    teacherFile { asset->{ url } },
+    pricing
   }
 `
 
@@ -143,17 +144,13 @@ const BOOK_BY_SLUG_QUERY = groq`
     pageCount,
     publishedAt,
     tableOfContents[] { _key, chapter, title, pages },
-    salesLinks[] {
-      _key,
-      platform,
-      audience,
-      url,
-      file { asset->{ url } },
-      priceNGN,
-      priceUSD,
-      label,
-      affiliateTag
-    },
+    storeLinks,
+    directDownloadEnabled,
+    hasStudentVersion,
+    studentFile { asset->{ url } },
+    hasTeacherVersion,
+    teacherFile { asset->{ url } },
+    pricing,
     errata[] | order(page asc) {
       _key,
       reportedAt,

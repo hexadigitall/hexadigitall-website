@@ -65,8 +65,8 @@ function highlightText(text: string, query: string): ReactNode {
 export default function BookCard({ book, highlightTerm = '' }: { book: BookSummary; highlightTerm?: string }) {
   const [showCheckout, setShowCheckout] = useState(false)
   const coverUrl = book.coverImage?.asset?.url
-  const primaryLink = book.salesLinks?.find((l) => l.platform.startsWith('amazon')) ?? book.salesLinks?.[0]
-  const lowestNGN = book.salesLinks?.map((l) => l.priceNGN).filter(Boolean).sort((a, b) => a! - b!)[0]
+  const amazonLink = book.storeLinks?.amazon
+  const lowestNGN = book.pricing?.ngn
   
   const displayAuthor = (book._type === 'imprint' ? book.author?.name : (book.authors && book.authors.length > 0 ? book.authors.join(', ') : 'Hexadigitall')) || 'Hexadigitall'
 
@@ -91,7 +91,7 @@ export default function BookCard({ book, highlightTerm = '' }: { book: BookSumma
             alt={book.coverImage?.alt ?? `${book.title} cover`}
             fill
             sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
-            className="object-contain p-2 group-hover:scale-[1.03] transition-transform duration-500"
+            className="object-cover group-hover:scale-[1.03] transition-transform duration-500"
           />
         ) : (
           <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-primary/10 to-secondary/10">
@@ -151,18 +151,18 @@ export default function BookCard({ book, highlightTerm = '' }: { book: BookSumma
           >
             Details
           </Link>
-          {book.status === 'available' && primaryLink && (
+          {book.status === 'available' && (
             <button
               onClick={() => {
-                if (primaryLink.platform === 'pdf') {
+                if (book.directDownloadEnabled) {
                   setShowCheckout(true)
-                } else {
-                  window.open(primaryLink.url || '#', '_blank')
+                } else if (amazonLink) {
+                  window.open(amazonLink, '_blank')
                 }
               }}
               className="flex-1 text-center text-xs font-bold bg-blue-600 text-white rounded-xl py-3 hover:bg-blue-700 shadow-lg shadow-blue-500/20 transition-all active:scale-95"
             >
-              {primaryLink.label || (primaryLink.platform === 'pdf' ? 'Buy Now' : `Amazon`)}
+              {book.directDownloadEnabled ? 'Buy Now' : 'Amazon'}
             </button>
           )}
           {book.status === 'coming_soon' && (

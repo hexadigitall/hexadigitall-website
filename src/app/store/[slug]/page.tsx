@@ -4,7 +4,7 @@ import { notFound } from 'next/navigation'
 import Image from 'next/image'
 import Link from 'next/link'
 import { PortableText } from '@portabletext/react'
-import { getBookBySlug, getAllBookSlugs, type BookDetail, type SalesLink } from '@/lib/book-queries'
+import { getBookBySlug, getAllBookSlugs, type BookDetail } from '@/lib/book-queries'
 import ReleaseNotifyForm from '@/app/store/[slug]/ReleaseNotifyForm'
 import StoreBuySection from '@/components/sections/StoreBuySection'
 import { ArrowRightIcon } from '@heroicons/react/24/outline'
@@ -116,13 +116,14 @@ export default async function BookPage({ params }: Props) {
     inLanguage: 'en',
     url: `${BASE_URL}/store/${slug}`,
     image: coverUrl,
-    offers: book.salesLinks?.map((l: SalesLink) => ({
-      '@type': 'Offer',
-      url: l.url,
-      priceCurrency: l.priceNGN ? 'NGN' : 'USD',
-      price: l.priceNGN ?? l.priceUSD ?? 0,
-      availability: book.status === 'available' ? 'https://schema.org/InStock' : 'https://schema.org/PreOrder',
-    })) ?? [],
+    offers: [
+      {
+        '@type': 'Offer',
+        priceCurrency: 'NGN',
+        price: book.pricing?.ngn ?? 0,
+        availability: book.status === 'available' ? 'https://schema.org/InStock' : 'https://schema.org/PreOrder',
+      }
+    ],
   }
 
   return (
@@ -152,7 +153,7 @@ export default async function BookPage({ params }: Props) {
                   alt={book.coverImage?.alt ?? `${book.title} cover`}
                   fill
                   sizes="(max-width: 768px) 80vw, 380px"
-                  className="object-contain p-6"
+                  className="object-cover"
                   priority
                 />
               ) : (
@@ -227,11 +228,9 @@ export default async function BookPage({ params }: Props) {
             </div>
 
             {/* Dynamic Actions Component */}
-            {book.status === 'available' && book.salesLinks && (
+            {book.status === 'available' && (
               <StoreBuySection 
-                salesLinks={book.salesLinks} 
-                bookTitle={book.title} 
-                bookId={book._id} 
+                book={book} 
               />
             )}
 

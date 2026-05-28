@@ -9,7 +9,7 @@ export default defineType({
       name: 'publication',
       title: 'Registered Publication',
       type: 'reference',
-      to: [{ type: 'publication' }],
+      to: [{ type: 'book' }, { type: 'imprint' }],
       validation: (Rule) => Rule.required(),
     }),
     defineField({

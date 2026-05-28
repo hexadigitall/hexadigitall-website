@@ -174,6 +174,9 @@ const Header = () => {
                 <Link href="/courses" className={dropdownItemClass} onClick={closeDesktopMenus}>
                   Courses
                 </Link>
+                <Link href="/store" className={dropdownItemClass} onClick={closeDesktopMenus}>
+                  Store
+                </Link>
                 <Link href="/mentorships" className={dropdownHighlightItemClass} onClick={closeDesktopMenus}>
                   Mentorships
                 </Link>
@@ -316,6 +319,9 @@ const Header = () => {
                 <div className={`absolute left-0 xl:left-auto xl:right-0 w-56 ${dropdownPanelBaseClass} ${isExploreOpen ? 'opacity-100 visible translate-y-0' : 'opacity-0 invisible -translate-y-2'}`}>
                   <Link href="/courses" className={`${dropdownItemClass} whitespace-nowrap`} onClick={closeDesktopMenus}>
                     Courses
+                  </Link>
+                  <Link href="/store" className={`${dropdownItemClass} whitespace-nowrap`} onClick={closeDesktopMenus}>
+                    Store
                   </Link>
                   <Link href="/mentorships" className={`${dropdownHighlightItemClass} whitespace-nowrap`} onClick={closeDesktopMenus}>
                     Mentorships
@@ -505,7 +511,9 @@ const Header = () => {
                   </div>
                 </div>
 
+                {/* Mobile Direct Links */}
                 <Link href="/courses" onClick={closeMobileMenus} className="block text-sm py-1.5 text-darkText dark:text-slate-200 hover:text-secondary font-medium transition-colors">Courses</Link>
+                <Link href="/store" onClick={closeMobileMenus} className="block text-sm py-1.5 text-darkText dark:text-slate-200 hover:text-secondary font-medium transition-colors">Store</Link>
                 <Link href="/publications" onClick={closeMobileMenus} className="block text-sm py-1.5 text-darkText dark:text-slate-200 hover:text-secondary font-medium transition-colors">Library</Link>
                 <Link
                   href="/mentorships"

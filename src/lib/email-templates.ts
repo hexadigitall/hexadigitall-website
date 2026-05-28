@@ -305,3 +305,30 @@ export const createNewsletterWelcomeTemplate = () => {
   
   return createEmailWrapper(content);
 };
+
+export const createPublicationDeliveryTemplate = (data: { publicationTitle: string; accessUrl: string; reference: string }) => {
+  const content = `
+    ${createEmailHeader('Your Digital Asset is Ready! 📚', `Access ${data.publicationTitle}`, '#0A4D68')}
+    
+    <div style="padding: 40px 30px;">
+      <div style="text-align: center; margin-bottom: 30px;">
+        <h2 style="color: #0A4D68; margin: 0 0 10px 0;">Thank You For Your Purchase!</h2>
+        <p style="color: #6c757d; font-size: 16px; margin: 0;">Your transaction has been verified successfully.</p>
+      </div>
+      
+      <div style="background: #f8f9fa; padding: 25px; border-radius: 12px; margin-bottom: 30px; text-align: center;">
+        <h3 style="color: #0A4D68; margin: 0 0 15px 0;">${data.publicationTitle}</h3>
+        <p style="color: #495057; margin-bottom: 25px;">Click the button below to access your digital assets and download your files.</p>
+        
+        <a href="${data.accessUrl}" style="display: inline-block; background: #0A4D68; color: white; padding: 15px 30px; text-decoration: none; border-radius: 8px; font-weight: 600; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">Access My Library</a>
+      </div>
+      
+      <div style="font-size: 14px; color: #6c757d; text-align: center; border-top: 1px solid #e9ecef; padding-top: 20px;">
+        <p style="margin: 0 0 5px 0;">Reference: <strong style="font-family: monospace;">${data.reference}</strong></p>
+        <p style="margin: 0;">Keep this email for your records. Do not share your access link.</p>
+      </div>
+    </div>
+  `;
+  
+  return createEmailWrapper(content);
+};

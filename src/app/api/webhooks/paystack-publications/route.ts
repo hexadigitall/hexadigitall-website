@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 import crypto from 'crypto';
 import { client } from '@/sanity/client';
+import { emailService } from '@/lib/email';
+import { createPublicationDeliveryTemplate } from '@/lib/email-templates';
 
 export async function POST(request: NextRequest) {
   try {
@@ -33,6 +35,22 @@ export async function POST(request: NextRequest) {
         },
         grantedSystemTimestamp: new Date().toISOString(),
         operationalLedgerState: 'active',
+      });
+
+      // Fetch the publication title
+      const publication = await client.fetch(`*[_id == $id || _id == "drafts." + $id][0] { title }`, { id: targetPublicationReferenceId });
+      
+      const accessUrl = `${process.env.NEXT_PUBLIC_BASE_URL || 'https://hexadigitall.com'}/publications/success?reference=${dataNode.reference}`;
+
+      // Dispatch Email
+      await emailService.sendEmail({
+        to: verifiedUserEmailToken,
+        subject: `Your Digital Asset is Ready! 📚 - ${publication?.title || 'Hexadigitall'}`,
+        html: createPublicationDeliveryTemplate({
+          publicationTitle: publication?.title || 'Your Digital Asset',
+          accessUrl,
+          reference: dataNode.reference
+        })
       });
     }
 

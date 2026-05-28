@@ -81,17 +81,26 @@ function SuccessContent() {
           </div>
 
           <div className="space-y-3">
-            {accessData.publication.files && accessData.publication.files.length > 0 && accessData.publication.files.map((file: any, idx: number) => (
+            {accessData.publication.studentFileUrl && (
               <a 
-                key={idx}
-                href={file.url} 
+                href={accessData.publication.studentFileUrl} 
                 target="_blank"
                 className="w-full inline-flex items-center justify-center space-x-3 bg-slate-950 text-white font-bold py-4 rounded-xl hover:bg-slate-800 transition-all shadow-lg"
               >
                 <ArrowDownTrayIcon className="h-5 w-5" />
-                <span>Download {file.label || 'PDF'}</span>
+                <span>Download Student Edition (PDF)</span>
               </a>
-            ))}
+            )}
+            {accessData.publication.teacherFileUrl && (
+              <a 
+                href={accessData.publication.teacherFileUrl} 
+                target="_blank"
+                className="w-full inline-flex items-center justify-center space-x-3 bg-slate-950 text-white font-bold py-4 rounded-xl hover:bg-slate-800 transition-all shadow-lg mt-3"
+              >
+                <ArrowDownTrayIcon className="h-5 w-5" />
+                <span>Download Teacher Edition (PDF)</span>
+              </a>
+            )}
 
             {accessData.publication.resources && accessData.publication.resources.length > 0 && (
               <div className="mt-8">

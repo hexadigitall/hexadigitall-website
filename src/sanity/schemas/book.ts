@@ -145,81 +145,91 @@ export default defineType({
       validation: (Rule) => Rule.required(),
     }),
 
-    // ── Sales links ───────────────────────────────────
+    // ── External Stores ─────────────────────────────────
     defineField({
-      name: 'salesLinks',
-      title: 'Where to Buy',
-      type: 'array',
-      of: [
-        {
-          type: 'object',
-          fields: [
-            {
-              name: 'platform',
-              title: 'Platform',
-              type: 'string',
-              options: {
-                list: [
-                  { title: 'Amazon (Paperback)', value: 'amazon_paperback' },
-                  { title: 'Amazon (Hardcover)', value: 'amazon_hardcover' },
-                  { title: 'Amazon (Kindle)', value: 'amazon_kindle' },
-                  { title: 'Selar', value: 'selar' },
-                  { title: 'Paystack Storefront', value: 'paystack' },
-                  { title: 'Direct Download (PDF)', value: 'pdf' },
-                  { title: 'Other', value: 'other' },
-                ],
-              },
-            },
-            { 
-              name: 'url', 
-              title: 'Buy URL', 
-              type: 'url',
-              hidden: ({ parent }: any) => parent?.platform === 'pdf'
-            },
-            {
-              name: 'file',
-              title: 'Direct File Upload (PDF/HTML)',
-              type: 'file',
-              description: 'Upload the textbook file directly. Users will download this file.',
-              options: {
-                accept: 'application/pdf, text/html'
-              },
-              hidden: ({ parent }: any) => parent?.platform !== 'pdf'
-            },
-            {
-              name: 'audience',
-              title: 'Target Audience',
-              type: 'string',
-              options: {
-                list: [
-                  { title: 'General / Student', value: 'student' },
-                  { title: 'Instructor / Teacher', value: 'teacher' },
-                ],
-                layout: 'radio'
-              },
-              initialValue: 'student',
-              hidden: ({ parent }: any) => parent?.platform !== 'pdf'
-            },
-            { name: 'priceNGN', title: 'Price (₦)', type: 'number' },
-            { name: 'priceUSD', title: 'Price ($)', type: 'number' },
-            {
-              name: 'label',
-              title: 'Button Label',
-              type: 'string',
-              description: 'Overrides default label e.g. "Buy on Amazon"',
-            },
-            {
-              name: 'affiliateTag',
-              title: 'Affiliate / UTM Tag',
-              type: 'string',
-              description: 'Amazon Associates tag or UTM campaign value',
-            },
-          ],
-          preview: {
-            select: { title: 'platform', subtitle: 'url' },
-          },
-        },
-      ],
+      name: 'storeLinks',
+      title: 'External Store Links',
+      type: 'object',
+      description: 'URLs to external platforms where this book can be purchased',
+      fields: [
+        defineField({
+          name: 'amazon',
+          title: 'Amazon URL',
+          type: 'url',
+          description: 'Link to Amazon store page (if available)'
+        }),
+        defineField({
+          name: 'selar',
+          title: 'Selar URL',
+          type: 'url',
+          description: 'Link to Selar store page (if available)'
+        }),
+        defineField({
+          name: 'gumroad',
+          title: 'Gumroad URL',
+          type: 'url',
+          description: 'Link to Gumroad store page (if available)'
+        })
+      ]
+    }),
+
+    // ── Direct Download Configuration ───────────────────
+    defineField({
+      name: 'directDownloadEnabled',
+      title: 'Enable Direct Download (Hexadigitall Portal)',
+      type: 'boolean',
+      initialValue: true,
+    }),
+    defineField({
+      name: 'hasStudentVersion',
+      title: 'Has Student Version',
+      type: 'boolean',
+      initialValue: true,
+      hidden: ({ parent }) => !parent?.directDownloadEnabled
+    }),
+    defineField({
+      name: 'studentFile',
+      title: 'Student Version File (PDF)',
+      type: 'file',
+      options: { accept: 'application/pdf' },
+      hidden: ({ parent }) => !parent?.hasStudentVersion || !parent?.directDownloadEnabled
+    }),
+    defineField({
+      name: 'hasTeacherVersion',
+      title: 'Has Teacher/Instructor Version',
+      type: 'boolean',
+      initialValue: false,
+      hidden: ({ parent }) => !parent?.directDownloadEnabled
+    }),
+    defineField({
+      name: 'teacherFile',
+      title: 'Teacher Version File (PDF/HTML)',
+      type: 'file',
+      hidden: ({ parent }) => !parent?.hasTeacherVersion || !parent?.directDownloadEnabled
+    }),
+
+    // ── Pricing (PPP Model) ─────────────────────────────
+    defineField({
+      name: 'pricing',
+      title: 'Direct Download Pricing',
+      type: 'object',
+      hidden: ({ parent }) => !parent?.directDownloadEnabled,
+      fields: [
+        defineField({
+          name: 'usd',
+          title: 'Standard Price (USD)',
+          type: 'number',
+          description: 'Standard international price (e.g. 40 - 65)',
+          validation: Rule => Rule.min(0)
+        }),
+        defineField({
+          name: 'ngn',
+          title: 'Nigerian Price (NGN)',
+          type: 'number',
+          description: 'PPP discounted price for Nigeria (e.g. 30000 - 50000)',
+          validation: Rule => Rule.min(0)
+        })
+      ]
     }),
 
     // ── Errata ────────────────────────────────────────

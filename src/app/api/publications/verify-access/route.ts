@@ -39,11 +39,8 @@ export async function GET(request: NextRequest) {
         _id,
         "publication": purchasedPublicationReference-> {
           title,
-          "files": salesLinks[platform == "pdf"] {
-            audience,
-            label,
-            "url": file.asset->url
-          },
+          "studentFileUrl": studentFile.asset->url,
+          "teacherFileUrl": teacherFile.asset->url,
           "resources": embeddedResources[]-> {
             title,
             matrixId,
@@ -58,15 +55,43 @@ export async function GET(request: NextRequest) {
         _id,
         "publication": purchasedPublicationReference-> {
           title,
-          "fileUrl": salesLinks[platform == "pdf"][0].file.asset->url
+          "studentFileUrl": studentFile.asset->url,
+          "teacherFileUrl": teacherFile.asset->url
         }
       }`;
       params = { email };
     }
 
-    const access = await client.fetch(query, params);
+    let access = await client.fetch(query, params);
 
     if (!access) {
+      if (reference) {
+        // Fallback: If Paystack verified the transaction but the webhook hasn't created the ledger yet
+        const paystackResponse = await fetch(`https://api.paystack.co/transaction/verify/${reference}`, {
+          headers: {
+            'Authorization': `Bearer ${process.env.PAYSTACK_SECRET_KEY}`,
+          },
+        });
+        const paystackData = await paystackResponse.json();
+        
+        if (paystackData.status && paystackData.data.status === 'success') {
+          const publicationId = paystackData.data.metadata.publicationId;
+          const publication = await client.fetch(`*[_id == $pubId || _id == "drafts." + $pubId][0] {
+            title,
+            "studentFileUrl": studentFile.asset->url,
+            "teacherFileUrl": teacherFile.asset->url,
+            "resources": embeddedResources[]-> {
+              title,
+              matrixId,
+              secureAssetUrl
+            }
+          }`, { pubId: publicationId });
+          
+          if (publication) {
+            return NextResponse.json({ success: true, data: { publication } });
+          }
+        }
+      }
       return NextResponse.json({ success: false, error: 'No access record found' }, { status: 404 });
     }
 

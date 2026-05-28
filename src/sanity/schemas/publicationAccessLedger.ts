@@ -14,7 +14,7 @@ export default defineType({
       name: 'purchasedPublicationReference',
       title: 'Purchased Publication',
       type: 'reference',
-      to: [{ type: 'publication' }, { type: 'book' }],
+      to: [{ type: 'imprint' }, { type: 'book' }],
     }),
     defineField({
       name: 'grantedSystemTimestamp',
