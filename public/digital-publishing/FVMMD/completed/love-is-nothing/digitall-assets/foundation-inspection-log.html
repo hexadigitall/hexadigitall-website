@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hexadigitall Imprint // The Foundation Inspection Log</title>
+    <style>
+        /* ==========================================================================
+           1. MASTER CSS PAGED MEDIA ENGINE (WEASYPRINT / PAGED.JS OPTIMIZED)
+           ========================================================================== */
+        @page {
+            size: 6in 9in; /* Matches master book typography layout blueprint */
+            margin: 15mm 12mm 15mm 12mm;
+        }
+
+        @page log_layout_sheet {
+            @bottom-right {
+                content: "SYSTEM SHEET // 03";
+                font-family: 'Times New Roman', Times, serif;
+                font-size: 7.5pt;
+                letter-spacing: 0.5px;
+                color: #8c4627;
+            }
+        }
+
+        /* ==========================================================================
+           2. GLOBAL DISPLAY RESOLUTION & TYPOGRAPHY
+           ========================================================================== */
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #ffffff;
+            font-family: 'Times New Roman', Times, serif;
+            font-size: 10pt;
+            line-height: 1.5;
+            color: #1a1a1a;
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
+        }
+
+        .log-document-container {
+            page: log_layout_sheet;
+            max-width: 6in;
+            margin: 0 auto;
+            box-sizing: border-box;
+        }
+
+        /* Running Track Header */
+        .log-running-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #111111;
+            padding-bottom: 2mm;
+            margin-bottom: 6mm;
+            font-size: 8.5pt;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #555555;
+        }
+        .log-running-header .right-track {
+            font-style: italic;
+            color: #8c4627;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        /* Title Infrastructure */
+        .log-title-frame {
+            margin-bottom: 6mm;
+        }
+        .log-meta-tag {
+            font-size: 9pt;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #8c4627;
+            font-weight: bold;
+            margin-bottom: 1mm;
+        }
+        .log-main-heading {
+            font-size: 16pt;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-weight: bold;
+            color: #111111;
+            margin: 0;
+        }
+
+        /* Subheadings */
+        .log-section-subheading {
+            font-size: 10.5pt;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: #1a1a1a;
+            margin-top: 6mm;
+            margin-bottom: 3mm;
+            border-left: 3px solid #8c4627;
+            padding-left: 3mm;
+        }
+
+        /* ==========================================================================
+           3. DYNAMIC EXPANSION LAYOUT CONFIGURATION
+           ========================================================================== */
+        .log-metadata-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4mm;
+            margin-bottom: 5mm;
+        }
+        .log-input-group {
+            border-bottom: 1px solid #d1c9c4;
+            padding-bottom: 1mm;
+        }
+        .log-input-label {
+            font-size: 8pt;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: #6e655f;
+            font-weight: bold;
+            display: block;
+        }
+        .log-field-inline {
+            width: 100%;
+            border: none;
+            background: transparent;
+            font-family: 'Times New Roman', Times, serif;
+            font-size: 10pt;
+            color: #111111;
+            padding: 0;
+            margin-top: 0.5mm;
+        }
+        .log-field-inline:focus {
+            outline: none;
+        }
+
+        /* Core Question Architecture */
+        .log-question-block {
+            background-color: #faf8f5;
+            border: 1px solid #e6dfda;
+            border-radius: 2px;
+            padding: 4mm;
+            margin-bottom: 5mm;
+            page-break-inside: avoid;
+        }
+        .log-prompt-text {
+            font-size: 10pt;
+            font-weight: bold;
+            color: #1a1a1a;
+            margin-bottom: 3mm;
+            line-height: 1.4;
+        }
+        .log-prompt-text span {
+            color: #8c4627;
+            font-size: 9pt;
+            margin-right: 1mm;
+        }
+
+        /* Content-Editable Dynamic Input Framework */
+        .log-textarea-expandable {
+            width: 100%;
+            min-height: 25mm;
+            height: auto;
+            border: none;
+            background: transparent;
+            font-family: 'Times New Roman', Times, serif;
+            font-size: 10pt;
+            line-height: 1.5;
+            color: #222222;
+            padding: 0;
+            box-sizing: border-box;
+            border-bottom: 1px dashed #d1c9c4;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+        .log-textarea-expandable:focus {
+            outline: none;
+            border-bottom: 1px solid #8c4627;
+        }
+        
+        /* Interactive Placeholder Styling */
+        .log-textarea-expandable:empty::before {
+            content: attr(data-placeholder);
+            color: #a39992;
+            font-style: italic;
+        }
+
+        /* Command Bar for Browser Viewport */
+        .log-command-bar {
+            display: flex;
+            justify-content: center;
+            gap: 4mm;
+            margin-top: 8mm;
+            margin-bottom: 8mm;
+        }
+        .log-btn {
+            background-color: #1a1a1a;
+            color: #ffffff;
+            border: none;
+            padding: 3mm 6mm;
+            font-family: 'Times New Roman', Times, serif;
+            font-size: 9pt;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: bold;
+            cursor: pointer;
+            border-radius: 2px;
+            transition: background-color 0.2s ease;
+        }
+        .log-btn:hover {
+            background-color: #8c4627;
+        }
+        .log-btn-secondary {
+            background-color: #faf8f5;
+            color: #1a1a1a;
+            border: 1px solid #e6dfda;
+        }
+        .log-btn-secondary:hover {
+            background-color: #eae3de;
+            color: #1a1a1a;
+        }
+
+        /* ==========================================================================
+           4. PRINT ENGINE SPECIFIC OVERRIDES (TRIGGERED VIA PRINT LOOP)
+           ========================================================================== */
+        @media print {
+            body {
+                background-color: #ffffff;
+            }
+            .log-command-bar {
+                display: none;
+            }
+            .log-textarea-expandable {
+                border-bottom: none;
+                min-height: auto;
+            }
+            .log-document-container {
+                max-width: 100%;
+                margin: 0;
+            }
+            .log-page-break-block {
+                page-break-before: always;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="log-document-container">
+        
+        <div class="log-running-header">
+            <span class="left-track">Hexadigitall Academy Imprint</span>
+            <span class="right-track">Quarterly Audit</span>
+        </div>
+
+        <div class="log-title-frame">
+            <div class="log-meta-tag">System Sheet 03 // Chapter 7</div>
+            <h1 class="log-main-heading">The Foundation Inspection Log</h1>
+        </div>
+
+        <div class="log-metadata-grid">
+            <div class="log-input-group">
+                <label class="log-input-label">Audit Quarter / Year</label>
+                <input type="text" class="log-field-inline" placeholder="e.g., Q2 / 2026">
+            </div>
+            <div class="log-input-group">
+                <label class="log-input-label">Structural Lead Inspector</label>
+                <input type="text" class="log-field-inline" placeholder="Joint Inspection">
+            </div>
+        </div>
+
+        <p class="no-indent" style="font-style: italic; color: #555555; margin-bottom: 5mm; font-size: 9.5pt;">
+            Step completely away from daily logistical conversations for this quarterly deep dive. Take a snapshot of the main beams underneath your house to check the alignment of trust, equity, and domestic labor distribution.
+        </p>
+
+        <div class="log-section-subheading">Track 1 // Main Beam Alignment</div>
+        
+        <div class="log-question-block">
+            <div class="log-prompt-text"><span>1.1</span> Evaluating Team Equity: Do we both feel like equivalent teammates right now, or has one of us quietly drifted into the role of a domestic manager or default planner?</div>
+            <div class="log-textarea-expandable" contenteditable="true" data-placeholder="Examine real alignment vs imbalance items..."></div>
+        </div>
+
+        <div class="log-question-block">
+            <div class="log-prompt-text"><span>1.2</span> Reviewing the Load Distribution: Are we sharing the administrative weight of the household (bills, logistics, child care, mental labor) efficiently and fairly? Where can we balance the structural weight?</div>
+            <div class="log-textarea-expandable" contenteditable="true" data-placeholder="Detail explicit labor adjustments or structural heavy-spots..."></div>
+        </div>
+
+        <div class="log-page-break-block"></div>
+        
+        <div class="log-running-header" style="margin-top: 6mm;">
+            <span class="left-track">Hexadigitall Academy Imprint</span>
+            <span class="right-track">Structural Verification</span>
+        </div>
+
+        <div class="log-section-subheading">Track 2 // Deep Crack Detection</div>
+
+        <div class="log-question-block">
+            <div class="log-prompt-text"><span>2.1</span> Identifying Hidden Resentment: Look back over the past ninety days. Is there any recurring friction area, unaddressed comment, or broken boundary that has left a trace of quiet decay?</div>
+            <div class="log-textarea-expandable" contenteditable="true" data-placeholder="Clear out hidden blocks before the wood fibers warp under weight..."></div>
+        </div>
+
+        <div class="log-question-block">
+            <div class="log-prompt-text"><span>2.2</span> Blueprint Updates: What long-term personal values or individual goals have changed for either of us this quarter, and how should our shared life blueprint adapt to support them?</div>
+            <div class="log-textarea-expandable" contenteditable="true" data-placeholder="Calibrate systems configuration for upcoming growth tracks..."></div>
+        </div>
+
+        <div class="log-command-bar">
+            <button class="log-btn log-btn-secondary" onclick="window.print()">Convert to PDF / Print</button>
+            <button class="log-btn" onclick="clearLogSheet()">Clear Log</button>
+        </div>
+
+    </div>
+
+    <script>
+        function clearLogSheet() {
+            if (confirm("Are you sure you want to clear this quarterly foundation log? All current inputs will be reset.")) {
+                const fields = document.querySelectorAll('.log-textarea-expandable');
+                const inputs = document.querySelectorAll('.log-field-inline');
+                fields.forEach(field => field.innerHTML = '');
+                inputs.forEach(input => input.value = '');
+            }
+        }
+    </script>
+</body>
+</html>

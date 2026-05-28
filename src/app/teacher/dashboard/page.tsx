@@ -25,6 +25,7 @@ interface Course {
   mainImage?: { asset: { _ref: string } }
   contentPdf?: { asset: { _ref: string; url?: string } }
   roadmapPdf?: { asset: { _ref: string; url?: string } }
+  textbook?: { title: string; fileUrl?: string }
   enrollmentCount?: number
   activeEnrollments?: Array<{
     _id: string
@@ -441,6 +442,16 @@ export default function TeacherDashboardPage() {
                           <ArrowDownTrayIcon className="h-4 w-4" />
                           Download Roadmap
                         </button>
+                      )}
+                      {course.textbook?.fileUrl && (
+                        <a
+                          href={course.textbook.fileUrl}
+                          target="_blank"
+                          className="w-full flex items-center justify-center gap-2 px-4 py-2.5 bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition-colors text-xs font-semibold shadow-md shadow-blue-500/10"
+                        >
+                          <BookOpenIcon className="h-4 w-4" />
+                          Download Full Textbook
+                        </a>
                       )}
                     </div>
                     <div className="pt-3 border-t border-gray-100 dark:border-slate-700">

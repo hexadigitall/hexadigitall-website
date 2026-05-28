@@ -47,11 +47,17 @@ export default function StoreBuySection({ salesLinks, bookTitle, bookId }: Store
                 window.open(link.url || '#', '_blank');
               }
             }}
-            className="inline-flex items-center gap-2 bg-primary text-white px-4 py-2.5 rounded-xl text-sm font-semibold hover:bg-primary/90 transition-colors shadow-sm"
+            className="inline-flex items-center gap-2 bg-primary text-white px-4 py-2.5 rounded-xl text-sm font-semibold hover:bg-primary/90 transition-all active:scale-95 shadow-sm"
           >
             <span>{PLATFORM_ICONS[link.platform] ?? '🛒'}</span>
-            <span>{link.label ?? PLATFORM_LABELS[link.platform] ?? 'Buy'}</span>
-            {link.priceNGN && <span className="text-white/80 text-xs">₦{link.priceNGN.toLocaleString()}</span>}
+            <span>
+              {link.label || (
+                link.platform === 'pdf' 
+                ? `${link.audience === 'teacher' ? 'Instructor' : 'Student'} Edition`
+                : PLATFORM_LABELS[link.platform] || 'Buy'
+              )}
+            </span>
+            {link.priceNGN && <span className="text-white/80 text-xs ml-1">₦{link.priceNGN.toLocaleString()}</span>}
           </button>
         ))}
       </div>

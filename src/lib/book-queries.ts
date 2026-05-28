@@ -7,6 +7,7 @@ import { groq } from 'next-sanity'
 export interface SalesLink {
   _key: string
   platform: string
+  audience?: 'student' | 'teacher'
   url: string
   file?: { asset?: { url?: string } }
   priceNGN?: number
@@ -106,6 +107,7 @@ const ALL_BOOKS_QUERY = groq`
     salesLinks[] {
       _key,
       platform,
+      audience,
       url,
       file { asset->{ url } },
       priceNGN,
@@ -136,6 +138,7 @@ const BOOK_BY_SLUG_QUERY = groq`
     salesLinks[] {
       _key,
       platform,
+      audience,
       url,
       file { asset->{ url } },
       priceNGN,

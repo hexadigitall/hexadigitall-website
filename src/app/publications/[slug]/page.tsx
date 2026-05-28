@@ -2,6 +2,7 @@ import React from 'react';
 import { notFound } from 'next/navigation';
 import { client } from '@/sanity/client';
 import { ShieldCheckIcon, ArrowRightIcon } from '@heroicons/react/24/outline';
+import PublicationActions from '@/components/publications/PublicationActions';
 
 interface DynamicRoutingContainerProps {
   params: Promise<{ slug: string }>;
@@ -14,6 +15,8 @@ interface PublicationDocumentPayload {
   description?: string;
   price: number;
   authorName: string;
+  allowCopyRegistration: boolean;
+  resources: any[] | null;
 }
 
 export default async function PublicationDetailView({ params }: DynamicRoutingContainerProps) {
@@ -26,7 +29,16 @@ export default async function PublicationDetailView({ params }: DynamicRoutingCo
     isbn,
     description,
     price,
-    "authorName": author->name
+    allowCopyRegistration,
+    "authorName": author->name,
+    "resources": embeddedResources[]-> {
+      _id,
+      title,
+      matrixId,
+      resourceType,
+      priceNGN,
+      priceUSD
+    }
   }`;
 
   const document: PublicationDocumentPayload | null = await client.fetch(secureQueryFetch, { slug: currentSlugToken });
@@ -36,52 +48,47 @@ export default async function PublicationDetailView({ params }: DynamicRoutingCo
   }
 
   return (
-    <main className="min-h-screen bg-slate-50/30 py-16 px-4 sm:px-6 lg:px-8 font-serif text-slate-950">
-      <div className="max-w-3xl mx-auto bg-white border border-slate-200/70 rounded-2xl p-8 shadow-xs">
-        <div className="border-b border-slate-900 pb-6">
-          <span className="font-mono text-xs uppercase tracking-widest text-blue-900 font-bold block mb-1">
+    <main className="min-h-screen bg-slate-50/30 dark:bg-slate-950 py-16 px-4 sm:px-6 lg:px-8 font-serif text-slate-950">
+      <div className="max-w-4xl mx-auto bg-white dark:bg-slate-900 border border-slate-200/70 dark:border-slate-800 rounded-3xl p-8 md:p-12 shadow-xs">
+        <div className="border-b border-slate-900 dark:border-slate-700 pb-10">
+          <span className="font-mono text-xs uppercase tracking-[0.3em] text-blue-600 font-black block mb-3">
             Manuscript Registry Element
           </span>
-          <h1 className="text-3xl font-bold font-serif tracking-tight sm:text-4xl text-slate-950 leading-tight">
+          <h1 className="text-4xl font-bold font-serif tracking-tight sm:text-5xl text-slate-950 dark:text-white leading-tight">
             {document.title}
           </h1>
-          <div className="flex flex-wrap items-center gap-4 mt-3 font-mono text-xs text-slate-400">
-            <span>Author Workspace: <strong className="text-slate-700">{document.authorName}</strong></span>
-            {document.isbn && <span>| ISBN Node: <strong className="text-slate-700">{document.isbn}</strong></span>}
+          <div className="flex flex-wrap items-center gap-6 mt-6 font-mono text-[10px] text-slate-400 uppercase tracking-widest">
+            <span>Author Workspace: <strong className="text-slate-700 dark:text-slate-200">{document.authorName}</strong></span>
+            {document.isbn && <span>| ISBN Node: <strong className="text-slate-700 dark:text-slate-200">{document.isbn}</strong></span>}
           </div>
         </div>
 
         {document.description && (
-          <div className="py-6 border-b border-slate-100">
-            <h2 className="font-mono text-xs uppercase tracking-wider text-slate-400 mb-2">Index Summary Abstract</h2>
-            <p className="text-base text-slate-700 leading-relaxed text-justify whitespace-pre-line">
-              {document.description}
+          <div className="py-10 border-b border-slate-100 dark:border-slate-800">
+            <h2 className="font-mono text-[10px] uppercase tracking-[0.2em] text-slate-400 mb-4 font-bold">Index Summary Abstract</h2>
+            <p className="text-lg text-slate-700 dark:text-slate-300 leading-relaxed text-justify whitespace-pre-line font-serif italic">
+              "{document.description}"
             </p>
           </div>
         )}
 
-        <div className="mt-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 bg-slate-50 p-5 rounded-xl border border-slate-100">
-          <div>
-            <span className="font-mono text-[10px] uppercase tracking-wider text-slate-400 block">Fulfillment Clearance Target</span>
-            <span className="text-2xl font-bold font-mono text-slate-950">
-              {new Intl.NumberFormat('en-NG', { style: 'currency', currency: 'NGN', maximumFractionDigits: 0 }).format(document.price)}
-            </span>
-          </div>
-
-          <div className="flex items-center space-x-3 w-full sm:w-auto">
-            <a 
-              href={`/publications/${currentSlugToken}/resource-vault`}
-              className="w-full sm:w-auto inline-flex items-center justify-center space-x-2 bg-white hover:bg-slate-50 text-slate-950 font-mono text-xs font-bold border-2 border-slate-950 px-5 py-3 rounded-xl transition-all shadow-2xs"
-            >
-              <ShieldCheckIcon className="h-4 w-4" />
-              <span>Access Section C Vault</span>
-            </a>
-            
-            <button className="w-full sm:w-auto inline-flex items-center justify-center space-x-2 bg-slate-950 hover:bg-slate-800 text-white font-mono text-xs font-bold px-5 py-3.5 rounded-xl transition-all shadow-xs">
-              <span>Acquire System</span>
-              <ArrowRightIcon className="h-3.5 w-3.5" />
-            </button>
-          </div>
+        <PublicationActions 
+          publicationId={document._id}
+          title={document.title}
+          price={document.price}
+          slug={currentSlugToken}
+          allowRegistration={document.allowCopyRegistration}
+          resources={document.resources || []}
+        />
+        
+        <div className="mt-16 pt-8 border-t border-slate-100 dark:border-slate-800 text-center">
+          <a 
+            href={`/publications/${currentSlugToken}/resource-vault`}
+            className="inline-flex items-center space-x-2 text-slate-400 hover:text-blue-600 transition-all font-mono text-[10px] uppercase tracking-widest"
+          >
+            <ShieldCheckIcon className="h-4 w-4" />
+            <span>Direct Access Endpoint (Verify Authorization)</span>
+          </a>
         </div>
       </div>
     </main>

@@ -12,12 +12,14 @@ interface EnrollmentRequest {
   };
   amount: number;
   currency: string;
+  redirectUrl?: string;
+  metadata?: any;
 }
 
 export async function POST(request: Request) {
   try {
     const body: EnrollmentRequest = await request.json();
-    const { courseId, amount, currency, studentDetails } = body;
+    const { courseId, amount, currency, studentDetails, redirectUrl, metadata } = body;
 
     // Validate required fields
     if (!courseId || !amount || !currency) {
@@ -27,15 +29,16 @@ export async function POST(request: Request) {
       );
     }
 
-    // Verify course exists in Sanity
-    const course = await client.fetch(
-      '*[_type == "course" && _id == $id][0]',
+    // Verify item exists (could be course, book, or publication)
+    // We'll broaden the search to handle different types if itemId is provided
+    const item = await client.fetch(
+      '*[(_type == "course" || _type == "book" || _type == "publication") && (_id == $id || _id == "drafts." + $id)][0]',
       { id: courseId }
     );
     
-    if (!course) {
+    if (!item) {
       return NextResponse.json(
-        { error: 'Course not found' },
+        { error: 'Item not found' },
         { status: 404 }
       );
     }
@@ -47,9 +50,11 @@ export async function POST(request: Request) {
     const paystackPayload = {
       email: studentDetails?.email || 'noemail@hexadigitall.com',
       amount: paystackAmount,
+      callback_url: redirectUrl || `${process.env.NEXT_PUBLIC_BASE_URL || 'https://hexadigitall.com'}/enrollment-success`,
       metadata: {
+        ...metadata,
         courseId,
-        courseName: course.title,
+        itemTitle: item.title,
         studentName: studentDetails?.fullName,
         studentPhone: studentDetails?.phone,
       },

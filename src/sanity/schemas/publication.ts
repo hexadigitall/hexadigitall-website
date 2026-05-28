@@ -42,6 +42,13 @@ export default defineType({
       validation: (Rule) => Rule.required().min(0),
     }),
     defineField({
+      name: 'allowCopyRegistration',
+      title: 'Allow Copy Registration',
+      type: 'boolean',
+      description: 'Enable this to allow readers to register their physical/purchased copies on the site.',
+      initialValue: true,
+    }),
+    defineField({
       name: 'embeddedResources',
       title: 'Section C Appendix Matrix List Assemblies',
       type: 'array',

@@ -79,9 +79,12 @@ export const deskStructure: StructureResolver = (S) =>
               S.listItem()
                 .title('Access Ledgers')
                 .child(S.documentTypeList('publicationAccessLedger').title('Access Ledgers')),
+              S.listItem()
+                .title('Copy Registrations')
+                .child(S.documentTypeList('publicationRegistration').title('Copy Registrations')),
             ])
         ),
       ...S.documentTypeListItems().filter(
-        (listItem) => !['book', 'bookReleaseSubscriber', 'publication', 'resourceMatrix', 'author', 'publicationAccessLedger'].includes(listItem.getId() ?? '')
+        (listItem) => !['book', 'bookReleaseSubscriber', 'publication', 'resourceMatrix', 'author', 'publicationAccessLedger', 'publicationRegistration'].includes(listItem.getId() ?? '')
       ),
     ])

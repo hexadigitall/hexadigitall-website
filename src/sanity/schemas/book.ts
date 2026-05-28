@@ -186,6 +186,20 @@ export default defineType({
               },
               hidden: ({ parent }: any) => parent?.platform !== 'pdf'
             },
+            {
+              name: 'audience',
+              title: 'Target Audience',
+              type: 'string',
+              options: {
+                list: [
+                  { title: 'General / Student', value: 'student' },
+                  { title: 'Instructor / Teacher', value: 'teacher' },
+                ],
+                layout: 'radio'
+              },
+              initialValue: 'student',
+              hidden: ({ parent }: any) => parent?.platform !== 'pdf'
+            },
             { name: 'priceNGN', title: 'Price (₦)', type: 'number' },
             { name: 'priceUSD', title: 'Price ($)', type: 'number' },
             {

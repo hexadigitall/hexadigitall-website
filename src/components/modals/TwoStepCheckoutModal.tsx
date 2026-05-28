@@ -50,16 +50,17 @@ export default function TwoStepCheckoutModal({
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          courseId: itemId, // Mapping to courseId for now as the API expects it
+          courseId: itemId, 
           amount: price,
           currency: currency,
+          redirectUrl: `${window.location.origin}/publications/success`,
           studentDetails: {
             fullName: formData.fullName,
             email: formData.email
           },
           metadata: {
             itemType,
-            itemId,
+            publicationId: itemId,
             itemTitle: title
           }
         }),

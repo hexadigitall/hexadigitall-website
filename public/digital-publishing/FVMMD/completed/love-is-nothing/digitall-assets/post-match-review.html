@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hexadigitall Imprint // The Post-Match Review Tool</title>
+    <style>
+        /* ==========================================================================
+           1. MASTER CSS PAGED MEDIA ENGINE (WEASYPRINT / PAGED.JS OPTIMIZED)
+           ========================================================================== */
+        @page {
+            size: 6in 9in; /* Matches master book typography layout blueprint */
+            margin: 15mm 12mm 15mm 12mm;
+        }
+
+        @page review_layout_sheet {
+            @bottom-right {
+                content: "SYSTEM SHEET // 02";
+                font-family: 'Times New Roman', Times, serif;
+                font-size: 7.5pt;
+                letter-spacing: 0.5px;
+                color: #8c4627;
+            }
+        }
+
+        /* ==========================================================================
+           2. GLOBAL DISPLAY RESOLUTION & TYPOGRAPHY
+           ========================================================================== */
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #ffffff;
+            font-family: 'Times New Roman', Times, serif;
+            font-size: 10pt;
+            line-height: 1.5;
+            color: #1a1a1a;
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
+        }
+
+        .review-document-container {
+            page: review_layout_sheet;
+            max-width: 6in;
+            margin: 0 auto;
+            box-sizing: border-box;
+        }
+
+        /* Running Track Header */
+        .review-running-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #111111;
+            padding-bottom: 2mm;
+            margin-bottom: 6mm;
+            font-size: 8.5pt;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #555555;
+        }
+        .review-running-header .right-track {
+            font-style: italic;
+            color: #8c4627;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        /* Title Infrastructure */
+        .review-title-frame {
+            margin-bottom: 6mm;
+        }
+        .review-meta-tag {
+            font-size: 9pt;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #8c4627;
+            font-weight: bold;
+            margin-bottom: 1mm;
+        }
+        .review-main-heading {
+            font-size: 16pt;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-weight: bold;
+            color: #111111;
+            margin: 0;
+        }
+
+        /* Subheadings */
+        .review-section-subheading {
+            font-size: 10.5pt;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: #1a1a1a;
+            margin-top: 6mm;
+            margin-bottom: 3mm;
+            border-left: 3px solid #8c4627;
+            padding-left: 3mm;
+        }
+
+        /* ==========================================================================
+           3. DYNAMIC EXPANSION LAYOUT CONFIGURATION
+           ========================================================================== */
+        .review-metadata-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4mm;
+            margin-bottom: 5mm;
+        }
+        .review-input-group {
+            border-bottom: 1px solid #d1c9c4;
+            padding-bottom: 1mm;
+        }
+        .review-input-label {
+            font-size: 8pt;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: #6e655f;
+            font-weight: bold;
+            display: block;
+        }
+        .review-field-inline {
+            width: 100%;
+            border: none;
+            background: transparent;
+            font-family: 'Times New Roman', Times, serif;
+            font-size: 10pt;
+            color: #111111;
+            padding: 0;
+            margin-top: 0.5mm;
+        }
+        .review-field-inline:focus {
+            outline: none;
+        }
+
+        /* Core Question Architecture */
+        .review-question-block {
+            background-color: #faf8f5;
+            border: 1px solid #e6dfda;
+            border-radius: 2px;
+            padding: 4mm;
+            margin-bottom: 5mm;
+            page-break-inside: avoid; /* Keeps standard entries intact per page */
+        }
+        .review-prompt-text {
+            font-size: 10pt;
+            font-weight: bold;
+            color: #1a1a1a;
+            margin-bottom: 3mm;
+            line-height: 1.4;
+        }
+        .review-prompt-text span {
+            color: #8c4627;
+            font-size: 9pt;
+            margin-right: 1mm;
+        }
+
+        /* Content-Editable Dynamic Input Framework */
+        .review-textarea-expandable {
+            width: 100%;
+            min-height: 25mm; /* Minimum layout baseline height */
+            height: auto;
+            border: none;
+            background: transparent;
+            font-family: 'Times New Roman', Times, serif;
+            font-size: 10pt;
+            line-height: 1.5;
+            color: #222222;
+            padding: 0;
+            box-sizing: border-box;
+            border-bottom: 1px dashed #d1c9c4;
+            white-space: pre-wrap; /* Maintains line breaks cleanly */
+            word-wrap: break-word;
+        }
+        .review-textarea-expandable:focus {
+            outline: none;
+            border-bottom: 1px solid #8c4627;
+        }
+        
+        /* Interactive Placeholder Styling via CSS Pseudo-class */
+        .review-textarea-expandable:empty::before {
+            content: attr(data-placeholder);
+            color: #a39992;
+            font-style: italic;
+        }
+
+        /* Command Bar for Browser Viewport */
+        .review-command-bar {
+            display: flex;
+            justify-content: center;
+            gap: 4mm;
+            margin-top: 8mm;
+            margin-bottom: 8mm;
+        }
+        .review-btn {
+            background-color: #1a1a1a;
+            color: #ffffff;
+            border: none;
+            padding: 3mm 6mm;
+            font-family: 'Times New Roman', Times, serif;
+            font-size: 9pt;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: bold;
+            cursor: pointer;
+            border-radius: 2px;
+            transition: background-color 0.2s ease;
+        }
+        .review-btn:hover {
+            background-color: #8c4627;
+        }
+        .review-btn-secondary {
+            background-color: #faf8f5;
+            color: #1a1a1a;
+            border: 1px solid #e6dfda;
+        }
+        .review-btn-secondary:hover {
+            background-color: #eae3de;
+            color: #1a1a1a;
+        }
+
+        /* ==========================================================================
+           4. PRINT ENGINE SPECIFIC OVERRIDES (TRIGGERED VIA PRINT LOOP)
+           ========================================================================== */
+        @media print {
+            body {
+                background-color: #ffffff;
+            }
+            .review-command-bar {
+                display: none; /* Strip buttons from final PDF render */
+            }
+            .review-textarea-expandable {
+                border-bottom: none; /* Clean layout print display */
+                min-height: auto;
+            }
+            .review-document-container {
+                max-width: 100%;
+                margin: 0;
+            }
+            .review-page-break-block {
+                page-break-before: always;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="review-document-container">
+        
+        <div class="review-running-header">
+            <span class="left-track">Hexadigitall Academy Imprint</span>
+            <span class="right-track">Post-Match Protocol</span>
+        </div>
+
+        <div class="review-title-frame">
+            <div class="review-meta-tag">System Sheet 02 // Chapter 8</div>
+            <h1 class="review-main-heading">The Post-Match Review Tool</h1>
+        </div>
+
+        <div class="review-metadata-grid">
+            <div class="review-input-group">
+                <label class="review-input-label">Date of Review</label>
+                <input type="text" class="review-field-inline" placeholder="e.g., June 1, 2026">
+            </div>
+            <div class="review-input-group">
+                <label class="review-input-label">Core Friction Area</label>
+                <input type="text" class="review-field-inline" placeholder="e.g., Household Logistics / Tone">
+            </div>
+        </div>
+
+        <p class="no-indent" style="font-style: italic; color: #555555; margin-bottom: 5mm; font-size: 9.5pt;">
+            Execute this rapid review loop together after a heated disagreement has fully cooled down. Do not walk away or pretend it didn't happen. Spend five minutes to find the root cause, change the operational routine, and mix real mortar.
+        </p>
+
+        <div class="review-section-subheading">Track 1 // Debris Management</div>
+        
+        <div class="review-question-block">
+            <div class="sync-prompt-text"><span>1.1</span> Let's trace the actual anatomy of the friction. What specific event or remark triggered the immediate spike in tension today?</div>
+            <div class="review-textarea-expandable" contenteditable="true" data-placeholder="Identify the immediate surface-level trigger points cleanly..."></div>
+        </div>
+
+        <div class="review-question-block">
+            <div class="sync-prompt-text"><span>1.2</span> Look beneath the surface event. What percentage of this disagreement was truly about today's issue, and what percentage was driven by an old, hidden crack we papered over recently?</div>
+            <div class="review-textarea-expandable" contenteditable="true" data-placeholder="Be completely honest about underlying patterns or lingering fatigue..."></div>
+        </div>
+
+        <div class="review-page-break-block"></div>
+        
+        <div class="review-running-header" style="margin-top: 6mm;">
+            <span class="left-track">Hexadigitall Academy Imprint</span>
+            <span class="right-track">Joint Structural Repair</span>
+        </div>
+
+        <div class="review-section-subheading">Track 2 // Mortar Application</div>
+
+        <div class="review-question-block">
+            <div class="sync-prompt-text"><span>2.1</span> Verbal apologies are just temporary patches. What is the explicit, daily operational adjustment we are both committing to right now to keep this specific gap sealed?</div>
+            <div class="review-textarea-expandable" contenteditable="true" data-placeholder="Define the precise workflow or behavior change required..."></div>
+        </div>
+
+        <div class="review-question-block">
+            <div class="sync-prompt-text"><span>2.2</span> Validation Check: Does our teammate feel fully heard and supported as we conclude this review loop, or is there a lingering line we need to dig out?</div>
+            <div class="review-textarea-expandable" contenteditable="true" data-placeholder="Verify that the structural joint is level and the room is clear..."></div>
+        </div>
+
+        <div class="review-command-bar">
+            <button class="review-btn review-btn-secondary" onclick="window.print()">Convert to PDF / Print</button>
+            <button class="review-btn" onclick="clearReviewSheet()">Clear Protocol</button>
+        </div>
+
+    </div>
+
+    <script>
+        function clearReviewSheet() {
+            if (confirm("Are you sure you want to clear this post-match protocol? All current inputs will be reset.")) {
+                const fields = document.querySelectorAll('.review-textarea-expandable');
+                const inputs = document.querySelectorAll('.review-field-inline');
+                fields.forEach(field => field.innerHTML = '');
+                inputs.forEach(input => input.value = '');
+            }
+        }
+    </script>
+</body>
+</html>

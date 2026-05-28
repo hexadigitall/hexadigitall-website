@@ -12,6 +12,25 @@ export default defineType({
       validation: (Rule) => Rule.required(),
     }),
     defineField({
+      name: 'slug',
+      title: 'Matrix Route Key',
+      type: 'slug',
+      options: { source: 'title', maxLength: 96 },
+    }),
+    defineField({
+      name: 'priceNGN',
+      title: 'Asset Price (₦)',
+      type: 'number',
+      description: 'Leave 0 or empty if free for book owners',
+      initialValue: 0,
+    }),
+    defineField({
+      name: 'priceUSD',
+      title: 'Asset Price ($)',
+      type: 'number',
+      initialValue: 0,
+    }),
+    defineField({
       name: 'matrixId',
       title: 'Unique Appendix System Reference Code',
       type: 'string',

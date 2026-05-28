@@ -61,6 +61,10 @@ export async function GET(request: NextRequest) {
         mainImage,
         contentPdf,
         roadmapPdf,
+        "textbook": *[_type == "book" && references(^._id)][0] {
+           title,
+           "fileUrl": (salesLinks[platform == "pdf" && audience == "teacher"][0].file.asset->url) || (salesLinks[platform == "pdf"][0].file.asset->url)
+        },
         "enrollmentCount": count(*[_type == "enrollment" && references(^._id) && courseType == "live"]),
         "activeEnrollments": *[_type == "enrollment" && references(^._id) && courseType == "live" && status == "active"]{
           _id,
@@ -83,6 +87,10 @@ export async function GET(request: NextRequest) {
         mainImage,
         contentPdf,
         roadmapPdf,
+        "textbook": *[_type == "book" && references(^._id)][0] {
+           title,
+           "fileUrl": (salesLinks[platform == "pdf" && audience == "teacher"][0].file.asset->url) || (salesLinks[platform == "pdf"][0].file.asset->url)
+        },
         "enrollmentCount": count(*[_type == "enrollment" && references(^._id) && courseType == "live" && teacherId._ref == $userId]),
         "activeEnrollments": *[_type == "enrollment" && references(^._id) && courseType == "live" && status == "active" && teacherId._ref == $userId]{
           _id,

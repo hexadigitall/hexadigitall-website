@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hexadigitall Imprint // The Sunday Sync Sheet</title>
+    <style>
+        /* ==========================================================================
+           1. MASTER CSS PAGED MEDIA ENGINE (WEASYPRINT / PAGED.JS OPTIMIZED)
+           ========================================================================== */
+        @page {
+            size: 6in 9in; /* Matches master book typography layout blueprint */
+            margin: 15mm 12mm 15mm 12mm;
+        }
+
+        @page sync_layout_sheet {
+            @bottom-right {
+                content: "SYSTEM SHEET // 01";
+                font-family: 'Times New Roman', Times, serif;
+                font-size: 7.5pt;
+                letter-spacing: 0.5px;
+                color: #8c4627;
+            }
+        }
+
+        /* ==========================================================================
+           2. GLOBAL DISPLAY RESOLUTION & TYPOGRAPHY
+           ========================================================================== */
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #ffffff;
+            font-family: 'Times New Roman', Times, serif;
+            font-size: 10pt;
+            line-height: 1.5;
+            color: #1a1a1a;
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
+        }
+
+        .sync-document-container {
+            page: sync_layout_sheet;
+            max-width: 6in;
+            margin: 0 auto;
+            box-sizing: border-box;
+        }
+
+        /* Running Track Header */
+        .sync-running-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #111111;
+            padding-bottom: 2mm;
+            margin-bottom: 6mm;
+            font-size: 8.5pt;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #555555;
+        }
+        .sync-running-header .right-track {
+            font-style: italic;
+            color: #8c4627;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        /* Title Infrastructure */
+        .sync-title-frame {
+            margin-bottom: 6mm;
+        }
+        .sync-meta-tag {
+            font-size: 9pt;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #8c4627;
+            font-weight: bold;
+            margin-bottom: 1mm;
+        }
+        .sync-main-heading {
+            font-size: 16pt;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-weight: bold;
+            color: #111111;
+            margin: 0;
+        }
+
+        /* Subheadings */
+        .sync-section-subheading {
+            font-size: 10.5pt;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: #1a1a1a;
+            margin-top: 6mm;
+            margin-bottom: 3mm;
+            border-left: 3px solid #8c4627;
+            padding-left: 3mm;
+        }
+
+        /* ==========================================================================
+           3. DYNAMIC EXPANSION LAYOUT CONFIGURATION
+           ========================================================================== */
+        .sync-metadata-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4mm;
+            margin-bottom: 5mm;
+        }
+        .sync-input-group {
+            border-bottom: 1px solid #d1c9c4;
+            padding-bottom: 1mm;
+        }
+        .sync-input-label {
+            font-size: 8pt;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: #6e655f;
+            font-weight: bold;
+            display: block;
+        }
+        .sync-field-inline {
+            width: 100%;
+            border: none;
+            background: transparent;
+            font-family: 'Times New Roman', Times, serif;
+            font-size: 10pt;
+            color: #111111;
+            padding: 0;
+            margin-top: 0.5mm;
+        }
+        .sync-field-inline:focus {
+            outline: none;
+        }
+
+        /* Core Question Architecture */
+        .sync-question-block {
+            background-color: #faf8f5;
+            border: 1px solid #e6dfda;
+            border-radius: 2px;
+            padding: 4mm;
+            margin-bottom: 5mm;
+            page-break-inside: avoid; /* Prevents container breaking awkwardly across panels */
+        }
+        .sync-prompt-text {
+            font-size: 10pt;
+            font-weight: bold;
+            color: #1a1a1a;
+            margin-bottom: 3mm;
+            line-height: 1.4;
+        }
+        .sync-prompt-text span {
+            color: #8c4627;
+            font-size: 9pt;
+            margin-right: 1mm;
+        }
+
+        /* Content-Editable Dynamic Input Framework */
+        .sync-textarea-expandable {
+            width: 100%;
+            min-height: 25mm; /* Minimum layout baseline height */
+            height: auto; /* Dynamically scales tall based on text density */
+            border: none;
+            background: transparent;
+            font-family: 'Times New Roman', Times, serif;
+            font-size: 10pt;
+            line-height: 1.5;
+            color: #222222;
+            padding: 0;
+            box-sizing: border-box;
+            border-bottom: 1px dashed #d1c9c4;
+            white-space: pre-wrap; /* Preserves explicit line returns from user input */
+            word-wrap: break-word;
+        }
+        .sync-textarea-expandable:focus {
+            outline: none;
+            border-bottom: 1px solid #8c4627;
+        }
+        
+        /* Interactive Placeholder Styling via CSS Pseudo-class */
+        .sync-textarea-expandable:empty::before {
+            content: attr(data-placeholder);
+            color: #a39992;
+            font-style: italic;
+        }
+
+        /* Command Bar for Browser Viewport */
+        .sync-command-bar {
+            display: flex;
+            justify-content: center;
+            gap: 4mm;
+            margin-top: 8mm;
+            margin-bottom: 8mm;
+        }
+        .sync-btn {
+            background-color: #1a1a1a;
+            color: #ffffff;
+            border: none;
+            padding: 3mm 6mm;
+            font-family: 'Times New Roman', Times, serif;
+            font-size: 9pt;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: bold;
+            cursor: pointer;
+            border-radius: 2px;
+            transition: background-color 0.2s ease;
+        }
+        .sync-btn:hover {
+            background-color: #8c4627;
+        }
+        .sync-btn-secondary {
+            background-color: #faf8f5;
+            color: #1a1a1a;
+            border: 1px solid #e6dfda;
+        }
+        .sync-btn-secondary:hover {
+            background-color: #eae3de;
+            color: #1a1a1a;
+        }
+
+        /* ==========================================================================
+           4. PRINT ENGINE SPECIFIC OVERRIDES (TRIGGERED VIA PRINT LOOP)
+           ========================================================================== */
+        @media print {
+            body {
+                background-color: #ffffff;
+            }
+            .sync-command-bar {
+                display: none; /* Strip control buttons from final PDF render */
+            }
+            .sync-textarea-expandable {
+                border-bottom: none; /* Clean presentation look on hardcopy paper */
+                min-height: auto; /* Allows compact resizing if text layout is thin */
+            }
+            .sync-document-container {
+                max-width: 100%;
+                margin: 0;
+            }
+            .sync-page-break-block {
+                page-break-before: always;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="sync-document-container">
+        
+        <div class="sync-running-header">
+            <span class="left-track">Hexadigitall Academy Imprint</span>
+            <span class="right-track">Weekly Operational Sync</span>
+        </div>
+
+        <div class="sync-title-frame">
+            <div class="sync-meta-tag">System Sheet 01 // Chapter 7</div>
+            <h1 class="sync-main-heading">The Sunday Sync Sheet</h1>
+        </div>
+
+        <div class="sync-metadata-grid">
+            <div class="sync-input-group">
+                <label class="sync-input-label">Inspection Cycle (Date)</label>
+                <input type="text" class="sync-field-inline" placeholder="e.g., May 24, 2026">
+            </div>
+            <div class="sync-input-group">
+                <label class="sync-input-label">Current System Status</label>
+                <input type="text" class="sync-field-inline" placeholder="e.g., Clear Skies / Maintenance Due">
+            </div>
+        </div>
+
+        <p class="no-indent" style="font-style: italic; color: #555555; margin-bottom: 5mm; font-size: 9.5pt;">
+            Execute this clean operational review together every Sunday morning. Spend twenty minutes out of the daily noise to align schedules, evaluate domestic tracking pipelines, and verify structural stability.
+        </p>
+
+        <div class="sync-section-subheading">Track 1 // Tactical Alignment</div>
+        
+        <div class="sync-question-block">
+            <div class="sync-prompt-text"><span>1.1</span> What went smoothly in our schedule or domestic routines this past week, and where did we feel our gears grinding?</div>
+            <div class="sync-textarea-expandable" contenteditable="true" data-placeholder="Log operational successes and mechanical friction items..."></div>
+        </div>
+
+        <div class="sync-question-block">
+            <div class="sync-prompt-text"><span>1.2</span> Review the upcoming seven-day calendar. What heavy work demands, administrative tasks, or schedule bottlenecks are approaching?</div>
+            <div class="sync-textarea-expandable" contenteditable="true" data-placeholder="Map out upcoming calendar resource strains..."></div>
+        </div>
+
+        <div class="sync-page-break-block"></div>
+        
+        <div class="sync-running-header" style="margin-top: 6mm;">
+            <span class="left-track">Hexadigitall Academy Imprint</span>
+            <span class="right-track">Foundation Verification</span>
+        </div>
+
+        <div class="sync-section-subheading">Track 2 // Foundation Check</div>
+
+        <div class="sync-question-block">
+            <div class="sync-prompt-text"><span>2.1</span> Did any silent frustrations or small misunderstandings crop up this week that we papered over quickly just to maintain an artificial peace?</div>
+            <div class="sync-textarea-expandable" contenteditable="true" data-placeholder="Identify hairline cracks that require clean mortar repair..."></div>
+        </div>
+
+        <div class="sync-question-block">
+            <div class="sync-prompt-text"><span>2.2</span> What is one direct, simple action or moment of shared focus we can schedule this week to keep our roots wrapping around each other sideways?</div>
+            <div class="sync-textarea-expandable" contenteditable="true" data-placeholder="Commit to a specific joint structure pattern..."></div>
+        </div>
+
+        <div class="sync-command-bar">
+            <button class="sync-btn sync-btn-secondary" onclick="window.print()">Convert to PDF / Print</button>
+            <button class="sync-btn" onclick="clearSyncSheet()">Clear Log</button>
+        </div>
+
+    </div>
+
+    <script>
+        function clearSyncSheet() {
+            if (confirm("Are you sure you want to clear this operational sync log? All current inputs will be reset.")) {
+                const fields = document.querySelectorAll('.sync-textarea-expandable');
+                const inputs = document.querySelectorAll('.sync-field-inline');
+                fields.forEach(field => field.innerHTML = '');
+                inputs.forEach(input => input.value = '');
+            }
+        }
+    </script>
+</body>
+</html>

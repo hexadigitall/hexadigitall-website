@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hexadigitall Imprint // The Master Map Realignment Guide</title>
+    <style>
+        /* ==========================================================================
+           1. MASTER CSS PAGED MEDIA ENGINE (WEASYPRINT / PAGED.JS OPTIMIZED)
+           ========================================================================== */
+        @page {
+            size: 6in 9in; /* Matches master book typography layout blueprint */
+            margin: 15mm 12mm 15mm 12mm;
+        }
+
+        @page alignment_layout_sheet {
+            @bottom-right {
+                content: "SYSTEM SHEET // 05";
+                font-family: 'Times New Roman', Times, serif;
+                font-size: 7.5pt;
+                letter-spacing: 0.5px;
+                color: #8c4627;
+            }
+        }
+
+        /* ==========================================================================
+           2. GLOBAL DISPLAY RESOLUTION & TYPOGRAPHY
+           ========================================================================== */
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #ffffff;
+            font-family: 'Times New Roman', Times, serif;
+            font-size: 10pt;
+            line-height: 1.5;
+            color: #1a1a1a;
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
+        }
+
+        .align-document-container {
+            page: alignment_layout_sheet;
+            max-width: 6in;
+            margin: 0 auto;
+            box-sizing: border-box;
+        }
+
+        /* Running Track Header */
+        .align-running-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #111111;
+            padding-bottom: 2mm;
+            margin-bottom: 6mm;
+            font-size: 8.5pt;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #555555;
+        }
+        .align-running-header .right-track {
+            font-style: italic;
+            color: #8c4627;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        /* Title Infrastructure */
+        .align-title-frame {
+            margin-bottom: 6mm;
+        }
+        .align-meta-tag {
+            font-size: 9pt;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #8c4627;
+            font-weight: bold;
+            margin-bottom: 1mm;
+        }
+        .align-main-heading {
+            font-size: 16pt;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-weight: bold;
+            color: #111111;
+            margin: 0;
+        }
+
+        /* Subheadings */
+        .align-section-subheading {
+            font-size: 10.5pt;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: #1a1a1a;
+            margin-top: 6mm;
+            margin-bottom: 3mm;
+            border-left: 3px solid #8c4627;
+            padding-left: 3mm;
+        }
+
+        /* ==========================================================================
+           3. DYNAMIC EXPANSION LAYOUT CONFIGURATION
+           ========================================================================== */
+        .align-metadata-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4mm;
+            margin-bottom: 5mm;
+        }
+        .align-input-group {
+            border-bottom: 1px solid #d1c9c4;
+            padding-bottom: 1mm;
+        }
+        .align-input-label {
+            font-size: 8pt;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: #6e655f;
+            font-weight: bold;
+            display: block;
+        }
+        .align-field-inline {
+            width: 100%;
+            border: none;
+            background: transparent;
+            font-family: 'Times New Roman', Times, serif;
+            font-size: 10pt;
+            color: #111111;
+            padding: 0;
+            margin-top: 0.5mm;
+        }
+        .align-field-inline:focus {
+            outline: none;
+        }
+
+        /* Core Question Architecture */
+        .align-question-block {
+            background-color: #faf8f5;
+            border: 1px solid #e6dfda;
+            border-radius: 2px;
+            padding: 4mm;
+            margin-bottom: 5mm;
+            page-break-inside: avoid;
+        }
+        .align-prompt-text {
+            font-size: 10pt;
+            font-weight: bold;
+            color: #1a1a1a;
+            margin-bottom: 3mm;
+            line-height: 1.4;
+        }
+        .align-prompt-text span {
+            color: #8c4627;
+            font-size: 9pt;
+            margin-right: 1mm;
+        }
+
+        /* Content-Editable Dynamic Input Framework */
+        .align-textarea-expandable {
+            width: 100%;
+            min-height: 25mm;
+            height: auto;
+            border: none;
+            background: transparent;
+            font-family: 'Times New Roman', Times, serif;
+            font-size: 10pt;
+            line-height: 1.5;
+            color: #222222;
+            padding: 0;
+            box-sizing: border-box;
+            border-bottom: 1px dashed #d1c9c4;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+        .align-textarea-expandable:focus {
+            outline: none;
+            border-bottom: 1px solid #8c4627;
+        }
+        
+        /* Interactive Placeholder Styling */
+        .align-textarea-expandable:empty::before {
+            content: attr(data-placeholder);
+            color: #a39992;
+            font-style: italic;
+        }
+
+        /* Command Bar for Browser Viewport */
+        .align-command-bar {
+            display: flex;
+            justify-content: center;
+            gap: 4mm;
+            margin-top: 8mm;
+            margin-bottom: 8mm;
+        }
+        .align-btn {
+            background-color: #1a1a1a;
+            color: #ffffff;
+            border: none;
+            padding: 3mm 6mm;
+            font-family: 'Times New Roman', Times, serif;
+            font-size: 9pt;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: bold;
+            cursor: pointer;
+            border-radius: 2px;
+            transition: background-color 0.2s ease;
+        }
+        .align-btn:hover {
+            background-color: #8c4627;
+        }
+        .align-btn-secondary {
+            background-color: #faf8f5;
+            color: #1a1a1a;
+            border: 1px solid #e6dfda;
+        }
+        .align-btn-secondary:hover {
+            background-color: #eae3de;
+            color: #1a1a1a;
+        }
+
+        /* ==========================================================================
+           4. PRINT ENGINE SPECIFIC OVERRIDES (TRIGGERED VIA PRINT LOOP)
+           ========================================================================== */
+        @media print {
+            body {
+                background-color: #ffffff;
+            }
+            .align-command-bar {
+                display: none;
+            }
+            .align-textarea-expandable {
+                border-bottom: none;
+                min-height: auto;
+            }
+            .align-document-container {
+                max-width: 100%;
+                margin: 0;
+            }
+            .align-page-break-block {
+                page-break-before: always;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="align-document-container">
+        
+        <div class="align-running-header">
+            <span class="left-track">Hexadigitall Academy Imprint</span>
+            <span class="right-track">Annual Alignment</span>
+        </div>
+
+        <div class="align-title-frame">
+            <div class="align-meta-tag">System Sheet 05 // Chapters 9</div>
+            <h1 class="align-main-heading">The Master Map Realignment Guide</h1>
+        </div>
+
+        <div class="align-metadata-grid">
+            <div class="align-input-group">
+                <label class="align-input-label">Realignment Horizon (Year)</label>
+                <input type="text" class="align-field-inline" placeholder="e.g., 2026 Blueprint Cycle">
+            </div>
+            <div class="align-input-group">
+                <label class="align-input-label">System Architecture Status</label>
+                <input type="text" class="align-field-inline" placeholder="Intertwined Root Status Verified">
+            </div>
+        </div>
+
+        <p class="no-indent" style="font-style: italic; color: #555555; margin-bottom: 5mm; font-size: 9.5pt;">
+            Execute this formal strategy overview annually. People transform over time; their goals, interests, and viewpoints naturally evolve. Use this workbook to intentionally map your shifting inner worlds and realign your joint blueprint.
+        </p>
+
+        <div class="align-section-subheading">Track 1 // Internal Evolution Mapping</div>
+        
+        <div class="align-question-block">
+            <div class="align-prompt-text"><span>1.1</span> Individual Architecture Changes: What are the most significant shifts in your personal perspective, career ambitions, or core priorities over the past year? Avoid assumptions; let each partner map their reality out in the open.</div>
+            <div class="align-textarea-expandable" contenteditable="true" data-placeholder="Document changing inner worlds, fresh inspirations, or new internal priorities cleanly..."></div>
+        </div>
+
+        <div class="align-question-block">
+            <div class="align-prompt-text"><span>1.2</span> Detecting Parallel Drift: Look closely at your day-to-day operations. Are there areas where you have quietly begun running on completely isolated, parallel tracks? How can we proactively counter this drift?</div>
+            <div class="align-textarea-expandable" contenteditable="true" data-placeholder="Examine habits or patterns that risk treating the partnership like a house-management firm..."></div>
+        </div>
+
+        <div class="align-page-break-block"></div>
+        
+        <div class="align-running-header" style="margin-top: 6mm;">
+            <span class="left-track">Hexadigitall Academy Imprint</span>
+            <span class="right-track">Intertwined Shield Blueprints</span>
+        </div>
+
+        <div class="align-section-subheading">Track 2 // Blending the Master Blueprint</div>
+
+        <div class="align-question-block">
+            <div class="align-prompt-text"><span>2.1</span> Blending the New Blueprint: Taking into account the updates from Track 1, how must our shared financial targets, career trajectories, or family goals adapt to ensure we are scaling upward as a single, unified team?</div>
+            <div class="align-textarea-expandable" contenteditable="true" data-placeholder="Synthesize individual trajectories into a singular, balanced master architectural plan..."></div>
+        </div>
+
+        <div class="align-question-block">
+            <div class="align-prompt-text"><span>2.2</span> Cultivating Joint Ventures: What explicit, long-term shared projects, deep mutual pursuits, or protective infrastructure habits are we launching this year to guarantee our roots stay tightly wrapped together underground?</div>
+            <div class="align-textarea-expandable" contenteditable="true" data-placeholder="Commit to dedicated common ground vectors to maintain absolute structural integrity..."></div>
+        </div>
+
+        <div class="align-command-bar">
+            <button class="align-btn align-btn-secondary" onclick="window.print()">Convert to PDF / Print</button>
+            <button class="align-btn" onclick="clearAlignmentSheet()">Clear Workbook</button>
+        </div>
+
+    </div>
+
+    <script>
+        function clearAlignmentSheet() {
+            if (confirm("Are you sure you want to clear this realignment guide? All current inputs will be reset.")) {
+                const fields = document.querySelectorAll('.align-textarea-expandable');
+                const inputs = document.querySelectorAll('.align-field-inline');
+                fields.forEach(field => field.innerHTML = '');
+                inputs.forEach(input => input.value = '');
+            }
+        }
+    </script>
+</body>
+</html>
