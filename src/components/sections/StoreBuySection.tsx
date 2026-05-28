@@ -5,12 +5,14 @@ import type { BookSummary } from '@/lib/book-queries';
 import TwoStepCheckoutModal from '@/components/modals/TwoStepCheckoutModal';
 import { ChevronDownIcon, ShoppingCartIcon, ArrowTopRightOnSquareIcon } from '@heroicons/react/24/outline';
 import { useSession, signIn } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
 
 interface StoreBuySectionProps {
   book: BookSummary;
 }
 
 export default function StoreBuySection({ book }: StoreBuySectionProps) {
+  const router = useRouter();
   const { data: session } = useSession();
   const [activeModal, setActiveModal] = useState<{ audience: 'student' | 'teacher' | 'both' } | null>(null);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -18,7 +20,7 @@ export default function StoreBuySection({ book }: StoreBuySectionProps) {
   // Derive roles
   const user = session?.user as any;
   const isInternalStudent = user?.role === 'student';
-  const isInternalTeacher = user?.role === 'instructor' || user?.role === 'admin';
+  const isInternalTeacher = user?.role === 'instructor' || user?.role === 'admin' || user?.role === 'teacher';
 
   // Base pricing
   const defaultNgnPrice = book.pricing?.ngn || 30000;
@@ -80,9 +82,8 @@ export default function StoreBuySection({ book }: StoreBuySectionProps) {
                   {isInternalTeacher && book.hasTeacherVersion && (
                     <button
                       onClick={() => {
-                        // Routing to webcopy reader, implemented later
                         setIsDropdownOpen(false);
-                        alert("Instructor Webcopy Reader opens here.");
+                        router.push(`/store/${book.slug.current}/reader`);
                       }}
                       className="w-full text-left px-6 py-4 hover:bg-amber-50 dark:hover:bg-amber-900/20 border-b border-slate-100 dark:border-slate-800 flex justify-between items-center group"
                     >
