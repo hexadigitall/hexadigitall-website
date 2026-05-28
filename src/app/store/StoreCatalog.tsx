@@ -47,7 +47,16 @@ function toSearchableText(book: BookSummary): string {
   return normalize(`${book.title} ${subtitle} ${authors} ${authorName} ${description} ${edition} ${slug}`)
 }
 
-export default function StoreCatalog({ books }: StoreCatalogProps) {
+export default function StoreCatalog({ books: initialBooks }: StoreCatalogProps) {
+  const books = useMemo(() => {
+    const seen = new Set()
+    return initialBooks.filter(b => {
+      if (seen.has(b._id)) return false
+      seen.add(b._id)
+      return true
+    })
+  }, [initialBooks])
+
   const searchParams = useSearchParams()
   const router = useRouter()
   const pathname = usePathname()
@@ -178,7 +187,7 @@ export default function StoreCatalog({ books }: StoreCatalogProps) {
                 {[
                   { id: 'all', label: 'Everything' },
                   { id: 'book', label: 'Course Textbooks' },
-                  { id: 'imprint', label: 'Digital Imprints' }
+                  { id: 'publication', label: 'Digital Imprints' }
                 ].map((f) => (
                   <button
                     key={f.id}

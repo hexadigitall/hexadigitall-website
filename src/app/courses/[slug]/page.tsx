@@ -5,12 +5,15 @@ import { client } from '@/sanity/client'
 import { groq } from 'next-sanity';
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
+import Image from 'next/image';
+import Link from 'next/link';
 import { PortableText } from '@portabletext/react';
 import type { PortableTextBlock } from 'sanity';
 import CourseEnrollment, { type CourseEnrollmentData } from '@/components/CourseEnrollment';
 import { cookies } from 'next/headers'
 import Banner from '@/components/common/Banner';
 import Breadcrumb from '@/components/ui/Breadcrumb';
+import { ShoppingBagIcon } from '@heroicons/react/24/outline';
 
 // --- Interfaces ---
 
@@ -224,9 +227,15 @@ export default async function CoursePage(props: Props) {
         console.error(`Failed to fetch course data for ${slug}:`, error);
     }
 
-    if (!course) notFound();
+    // 3. Fetch related textbook
+    const bookQuery = groq`*[_type in ["book", "imprint"] && relatedCourse._ref == $courseId && !(_id in path("drafts.**"))][0]{
+        title,
+        slug,
+        "coverUrl": coverImage.asset->url
+    }`;
+    const relatedBook = await client.fetch(bookQuery, { courseId: course._id });
 
-    // 3. Check Access Permissions (Cookies)
+    // 4. Check Access Permissions (Cookies)
     const cookieStore = await cookies();
     const token = cookieStore.get('admin_token')?.value;
     let hasAccess = false;
@@ -391,11 +400,33 @@ export default async function CoursePage(props: Props) {
 
                     {/* Right Column: Enrollment & Materials */}
                     <div className="lg:col-span-1">
-                        <div className="sticky top-28">
+                        <div className="sticky top-28 space-y-6">
                             <CourseEnrollment course={courseEnrollmentData} />
+
+                            {/* Official Textbook Section */}
+                            {relatedBook && (
+                                <div className="bg-slate-900 rounded-3xl p-6 border border-white/10 shadow-2xl overflow-hidden relative group">
+                                    <div className="relative z-10">
+                                        <p className="text-[10px] font-black uppercase tracking-[0.2em] text-blue-400 mb-4">Official Textbook</p>
+                                        <h4 className="text-white font-bold text-lg mb-4 leading-tight">{relatedBook.title}</h4>
+                                        <Link 
+                                            href={`/store/${relatedBook.slug.current}`}
+                                            className="inline-flex w-full items-center justify-center gap-2 px-6 py-4 bg-white text-slate-950 rounded-2xl font-black uppercase tracking-widest text-[10px] hover:bg-blue-600 hover:text-white transition-all shadow-xl"
+                                        >
+                                            <ShoppingBagIcon className="h-4 w-4" />
+                                            Acquire Copy
+                                        </Link>
+                                    </div>
+                                    {relatedBook.coverUrl && (
+                                        <div className="absolute top-0 right-0 w-32 h-full opacity-20 group-hover:opacity-40 transition-opacity blur-sm">
+                                            <Image src={relatedBook.coverUrl} alt="" fill className="object-cover" />
+                                        </div>
+                                    )}
+                                </div>
+                            )}
                             
                             {/* Materials Section (Protected) */}
-                            <div className="mt-6 bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-gray-200 dark:border-slate-700 p-5">
+                            <div className="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-gray-200 dark:border-slate-700 p-5">
                                 <h3 className="text-base font-semibold text-gray-900 dark:text-slate-100 mb-3">Course Materials</h3>
                                 <div className="mb-3">
                                     <a

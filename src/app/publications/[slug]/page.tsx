@@ -13,7 +13,7 @@ interface PublicationDocumentPayload {
   title: string;
   isbn?: string;
   description?: string;
-  price: number;
+  pricing?: { ngn?: number; usd?: number };
   authorName: string;
   allowCopyRegistration: boolean;
   resources: any[] | null;
@@ -28,7 +28,7 @@ export default async function PublicationDetailView({ params }: DynamicRoutingCo
     title,
     isbn,
     description,
-    price,
+    pricing,
     allowCopyRegistration,
     "authorName": author->name,
     "resources": embeddedResources[]-> {
@@ -75,7 +75,7 @@ export default async function PublicationDetailView({ params }: DynamicRoutingCo
         <PublicationActions 
           publicationId={document._id}
           title={document.title}
-          price={document.price}
+          price={document.pricing?.ngn || 30000}
           slug={currentSlugToken}
           allowRegistration={document.allowCopyRegistration}
           resources={document.resources || []}

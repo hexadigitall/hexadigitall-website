@@ -6,7 +6,8 @@ import Banner from '@/components/common/Banner'
 import Link from 'next/link'
 
 export const dynamic = 'force-dynamic'
-
+export const revalidate = 0 // Disable cache for this page
+// Last Update: 2024-05-28 14:45:00 UTC
 const BASE_URL = 'https://hexadigitall.com'
 
 export const metadata: Metadata = {

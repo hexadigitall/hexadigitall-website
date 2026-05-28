@@ -45,9 +45,9 @@ export interface TocEntry {
 }
 
 export interface BookSummary {
-  _id: string
-  _type: 'book' | 'imprint'
-  title: string
+  _id: string;
+  _type: 'book' | 'imprint' | 'publication';
+  title: string;
   subtitle?: string
   slug: { current: string }
   edition?: string
@@ -100,7 +100,7 @@ const OG_PROJECTION = `
 // ── Queries ───────────────────────────────────────────────────────────────────
 
 const ALL_STORE_ITEMS_QUERY = groq`
-  *[_type in ["book", "imprint"]] | order(publishedAt desc) {
+  *[_type in ["book", "imprint", "publication"] && !(_id in path("drafts.**"))] | order(publishedAt desc) {
     _id,
     _type,
     title,
@@ -126,7 +126,7 @@ const ALL_STORE_ITEMS_QUERY = groq`
 `
 
 const BOOK_BY_SLUG_QUERY = groq`
-  *[_type in ["book", "imprint"] && slug.current == $slug][0] {
+  *[_type in ["book", "imprint", "publication"] && slug.current == $slug && !(_id in path("drafts.**"))][0] {
     _id,
     _type,
     title,
@@ -188,7 +188,7 @@ const BOOK_BY_SLUG_QUERY = groq`
 `
 
 const ALL_BOOK_SLUGS_QUERY = groq`
-  *[_type in ["book", "imprint"] && defined(slug.current)] {
+  *[_type in ["book", "imprint", "publication"] && defined(slug.current) && !(_id in path("drafts.**"))] {
     "slug": slug.current,
     _updatedAt
   }
