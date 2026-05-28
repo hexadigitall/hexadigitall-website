@@ -88,11 +88,13 @@ export default function PublicationActions({
                   onClick={() => {
                     if (resource.priceNGN > 0) {
                       setActiveResourceCheckout(resource);
+                    } else if (resource.resourceType === 'tool') {
+                      window.location.href = `/store/view/${resource.slug.current}`;
                     } else {
-                      window.location.href = `/publications/${slug}/resource-vault`;
+                      window.open(resource.secureAssetUrl, '_blank');
                     }
                   }}
-                  className="w-full inline-flex items-center justify-center space-x-2 py-3 border border-slate-200 dark:border-slate-700 rounded-xl text-xs font-bold font-mono text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 transition-all"
+                  className="w-full inline-flex items-center justify-center space-x-2 py-3 border border-slate-200 dark:border-slate-700 rounded-xl text-xs font-black uppercase tracking-widest text-slate-600 dark:text-slate-400 hover:bg-slate-950 hover:text-white transition-all"
                 >
                   {resource.priceNGN > 0 ? (
                     <>
@@ -102,7 +104,7 @@ export default function PublicationActions({
                   ) : (
                     <>
                       <ShieldCheckIcon className="h-4 w-4" />
-                      <span>Access Vault</span>
+                      <span>{resource.resourceType === 'tool' ? 'Open Interactive Tool' : 'View Asset'}</span>
                     </>
                   )}
                 </button>

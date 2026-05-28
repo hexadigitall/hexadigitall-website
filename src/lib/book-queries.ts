@@ -47,11 +47,13 @@ export interface TocEntry {
 
 export interface BookSummary {
   _id: string
+  _type: 'book' | 'imprint'
   title: string
   subtitle?: string
   slug: { current: string }
   edition?: string
   authors?: string[]
+  author?: { name: string }
   description?: string
   coverImage?: { asset?: { url?: string }; alt?: string }
   status: 'coming_soon' | 'available' | 'out_of_stock' | 'discontinued'
@@ -67,6 +69,8 @@ export interface BookDetail extends BookSummary {
   tableOfContents?: TocEntry[]
   errata?: ErrataItem[]
   resources?: ResourceItem[]
+  assets?: ResourceItem[]
+  allowCopyRegistration?: boolean
   relatedCourse?: { _id: string; title: string; slug: { current: string } }
   ogTitle?: string
   ogDescription?: string
@@ -90,14 +94,16 @@ const OG_PROJECTION = `
 
 // ── Queries ───────────────────────────────────────────────────────────────────
 
-const ALL_BOOKS_QUERY = groq`
-  *[_type == "book"] | order(publishedAt desc) {
+const ALL_STORE_ITEMS_QUERY = groq`
+  *[_type in ["book", "imprint"]] | order(publishedAt desc) {
     _id,
+    _type,
     title,
     subtitle,
     slug,
     edition,
     authors,
+    "author": author->{ name },
     description,
     ${COVER_PROJECTION},
     status,
@@ -119,14 +125,16 @@ const ALL_BOOKS_QUERY = groq`
 `
 
 const BOOK_BY_SLUG_QUERY = groq`
-  *[_type == "book" && slug.current == $slug][0] {
+  *[_type in ["book", "imprint"] && slug.current == $slug][0] {
     _id,
+    _type,
     title,
     subtitle,
     slug,
     edition,
     isbn,
     authors,
+    "author": author->{ name },
     description,
     longDescription,
     ${COVER_PROJECTION},
@@ -166,13 +174,24 @@ const BOOK_BY_SLUG_QUERY = groq`
       gated,
       chapter
     },
+    "assets": assets[]-> {
+      _id,
+      _type,
+      title,
+      slug,
+      priceNGN,
+      priceUSD,
+      matrixId,
+      resourceType,
+      "secureAssetUrl": file.asset->url
+    },
     relatedCourse->{ _id, title, slug },
     ${OG_PROJECTION}
   }
 `
 
 const ALL_BOOK_SLUGS_QUERY = groq`
-  *[_type == "book" && defined(slug.current)] {
+  *[_type in ["book", "imprint"] && defined(slug.current)] {
     "slug": slug.current,
     _updatedAt
   }
@@ -182,7 +201,7 @@ const ALL_BOOK_SLUGS_QUERY = groq`
 
 export async function getAllBooks(): Promise<BookSummary[]> {
   try {
-    return await client.fetch(ALL_BOOKS_QUERY)
+    return await client.fetch(ALL_STORE_ITEMS_QUERY)
   } catch {
     return []
   }

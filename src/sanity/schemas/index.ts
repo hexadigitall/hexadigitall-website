@@ -24,8 +24,8 @@ import pageOgAssets from './pageOgAssets'
 import book from './book'
 import bookReleaseSubscriber from './bookReleaseSubscriber'
 import author from './author'
-import resourceMatrix from './resourceMatrix'
-import publication from './publication'
+import asset from './asset'
+import imprint from './imprint'
 
 // Objects (if any, though most seem to be documents based on your file list)
 // ...
@@ -55,7 +55,7 @@ export const schema: { types: SchemaTypeDefinition[] } = {
     book,
     bookReleaseSubscriber,
     author,
-    resourceMatrix,
-    publication,
+    asset,
+    imprint,
   ],
 }

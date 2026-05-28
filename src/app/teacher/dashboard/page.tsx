@@ -13,6 +13,7 @@ import {
   ArrowRightOnRectangleIcon,
   CameraIcon,
   ClipboardDocumentIcon,
+  BookOpenIcon,
 } from '@heroicons/react/24/outline'
 
 interface Course {

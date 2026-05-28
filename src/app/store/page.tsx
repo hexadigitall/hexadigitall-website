@@ -10,15 +10,14 @@ export const dynamic = 'force-dynamic'
 const BASE_URL = 'https://hexadigitall.com'
 
 export const metadata: Metadata = {
-  title: 'Textbook Store | Hexadigitall',
-  description: 'Browse Hexadigitall textbooks for professional tech and business training. Buy on Amazon, Selar, or download direct.',
+  title: 'Ecosystem Store | Hexadigitall',
+  description: 'Access official course textbooks and digital imprints. Digital downloads, physical copies, and premium companion assets.',
   keywords: [
-    'Hexadigitall textbooks', 'tech books Nigeria', 'programming books', 'business books Nigeria',
-    'buy textbooks online Nigeria', 'coding books', 'Hexadigitall store',
+    'Hexadigitall store', 'tech books', 'digital imprints', 'FVMMD', 'companion assets',
   ],
   openGraph: {
-    title: 'Hexadigitall Textbook Store',
-    description: 'Official textbooks for Hexadigitall courses. Available on Amazon and other platforms.',
+    title: 'Hexadigitall Store & Resource Center',
+    description: 'The central hub for all Hexadigitall physical and digital publishing resources.',
     url: `${BASE_URL}/store`,
     siteName: 'Hexadigitall',
     locale: 'en_NG',
@@ -29,60 +28,59 @@ export const metadata: Metadata = {
 }
 
 export default async function StorePage() {
-  const books = await getAllBooks()
+  const items = await getAllBooks()
 
   return (
     <>
       <Banner
-        title="Hexadigitall Textbook Store"
-        description="Official course textbooks — written by our instructors, built for Nigerian learners."
-        overlayClassName="bg-primary/80"
+        title="Hexadigitall Store"
+        description="Ecosystem resources, textbooks, and digital imprints for builders and thinkers."
+        overlayClassName="bg-slate-950/80"
       />
 
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
 
         {/* Breadcrumb */}
-        <nav className="text-sm text-gray-500 dark:text-slate-500 mb-10">
-          <Link href="/" className="hover:text-primary dark:hover:text-cyan-300 transition-colors">Home</Link>
+        <nav className="text-[10px] font-mono uppercase tracking-widest text-slate-400 mb-12">
+          <Link href="/" className="hover:text-blue-600 transition-colors">Home</Link>
           <span className="mx-2">/</span>
-          <span className="text-primary dark:text-cyan-300 font-medium">Store</span>
+          <span className="text-slate-900 dark:text-white font-bold">Store</span>
         </nav>
 
         {/* Intro blurb */}
-        <section className="mb-12 max-w-2xl">
-          <h2 className="text-2xl font-bold text-primary dark:text-cyan-300 mb-3">Our Textbooks</h2>
-          <p className="text-gray-600 dark:text-slate-400 leading-relaxed">
-            Every book is written to accompany a Hexadigitall course. Purchase from Amazon or other platforms and
-            return here for free companion resources, exercise files, and corrections.
+        <section className="mb-20 max-w-3xl">
+          <h2 className="text-4xl font-bold font-serif text-slate-950 dark:text-white mb-6">Master Resource Catalog</h2>
+          <p className="text-lg text-slate-600 dark:text-slate-400 leading-relaxed font-serif italic">
+            "Every asset is designed to bridge the gap between abstract concept and tactical execution."
           </p>
         </section>
 
-        <StoreCatalog books={books} />
+        <StoreCatalog books={items} />
 
         {/* Empty state */}
-        {books.length === 0 && (
+        {items.length === 0 && (
           <div className="text-center py-24 text-gray-500 dark:text-slate-500">
-            <p className="text-3xl mb-4">📚</p>
-            <p className="text-lg font-medium">Our first textbooks are on their way.</p>
-            <p className="mt-2 text-sm">Check back soon or explore our courses while you wait.</p>
-            <Link href="/courses" className="mt-6 inline-block bg-primary text-white px-6 py-3 rounded-lg font-semibold hover:bg-primary/90 transition-colors">
+            <p className="text-3xl mb-4">📘</p>
+            <p className="text-lg font-medium">Synchronizing ecosystem alignment...</p>
+            <p className="mt-2 text-sm">Our primary publishing catalog is currently being indexed. Check back shortly.</p>
+            <Link href="/courses" className="mt-6 inline-block bg-blue-600 text-white px-6 py-3 rounded-xl font-semibold hover:bg-blue-700 transition-all">
               Browse Courses
             </Link>
           </div>
         )}
 
         {/* Schema.org ItemList */}
-        {books.length > 0 && (
+        {items.length > 0 && (
           <script
             type="application/ld+json"
             dangerouslySetInnerHTML={{
               __html: JSON.stringify({
                 '@context': 'https://schema.org',
                 '@type': 'ItemList',
-                name: 'Hexadigitall Textbooks',
+                name: 'Hexadigitall Store',
                 url: `${BASE_URL}/store`,
-                numberOfItems: books.length,
-                itemListElement: books.map((b: BookSummary, i: number) => ({
+                numberOfItems: items.length,
+                itemListElement: items.map((b: BookSummary, i: number) => ({
                   '@type': 'ListItem',
                   position: i + 1,
                   url: `${BASE_URL}/store/${b.slug.current}`,

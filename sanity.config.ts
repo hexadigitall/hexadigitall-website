@@ -25,8 +25,8 @@ import book from "./src/sanity/schemas/book";
 import bookReleaseSubscriber from "./src/sanity/schemas/bookReleaseSubscriber";
 import curriculum from "./src/sanity/schemas/curriculum";
 import author from "./src/sanity/schemas/author";
-import publication from "./src/sanity/schemas/publication";
-import resourceMatrix from "./src/sanity/schemas/resourceMatrix";
+import imprint from "./src/sanity/schemas/imprint";
+import asset from "./src/sanity/schemas/asset";
 import publicationAccessLedger from "./src/sanity/schemas/publicationAccessLedger";
 import publicationRegistration from "./src/sanity/schemas/publicationRegistration";
 import { deskStructure } from "./src/sanity/deskStructure";
@@ -67,8 +67,8 @@ export default defineConfig({
       book,
       bookReleaseSubscriber,
       author,
-      publication,
-      resourceMatrix,
+      imprint,
+      asset,
       publicationAccessLedger,
       publicationRegistration,
     ],

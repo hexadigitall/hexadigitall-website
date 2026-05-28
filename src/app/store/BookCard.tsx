@@ -40,7 +40,7 @@ const PLATFORM_LABELS: Record<string, string> = {
 }
 
 function escapeRegExp(value: string): string {
-  return value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+  return value.replace(/[.*+?^${}()|[\\]/g, '\\$&')
 }
 
 function highlightText(text: string, query: string): ReactNode {
@@ -67,9 +67,11 @@ export default function BookCard({ book, highlightTerm = '' }: { book: BookSumma
   const coverUrl = book.coverImage?.asset?.url
   const primaryLink = book.salesLinks?.find((l) => l.platform.startsWith('amazon')) ?? book.salesLinks?.[0]
   const lowestNGN = book.salesLinks?.map((l) => l.priceNGN).filter(Boolean).sort((a, b) => a! - b!)[0]
+  
+  const displayAuthor = (book._type === 'imprint' ? book.author?.name : (book.authors && book.authors.length > 0 ? book.authors.join(', ') : 'Hexadigitall')) || 'Hexadigitall'
 
   return (
-    <article className="group flex flex-col bg-white dark:bg-slate-900 rounded-2xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-md transition-shadow duration-200">
+    <article className="group flex flex-col bg-white dark:bg-slate-900 rounded-2xl shadow-sm border border-gray-100 dark:border-slate-800 overflow-hidden hover:shadow-lg transition-all duration-300">
       <TwoStepCheckoutModal 
         isOpen={showCheckout}
         onClose={() => setShowCheckout(false)}
@@ -77,19 +79,19 @@ export default function BookCard({ book, highlightTerm = '' }: { book: BookSumma
         price={lowestNGN || 15000}
         currency="NGN"
         itemId={book._id}
-        itemType="book"
+        itemType={book._type === 'imprint' ? 'publication' : 'book'}
         onSuccess={() => setShowCheckout(false)}
       />
 
-      {/* Cover */}
-      <Link href={`/store/${book.slug.current}`} className="block relative bg-gray-50 dark:bg-slate-800/50" style={{ aspectRatio: '3/4' }}>
+      {/* Cover Container */}
+      <Link href={`/store/${book.slug.current}`} className="block relative bg-slate-50 dark:bg-slate-950 overflow-hidden" style={{ aspectRatio: '3/4' }}>
         {coverUrl ? (
           <Image
             src={coverUrl}
             alt={book.coverImage?.alt ?? `${book.title} cover`}
             fill
             sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
-            className="object-cover group-hover:scale-[1.02] transition-transform duration-300"
+            className="object-contain p-2 group-hover:scale-[1.03] transition-transform duration-500"
           />
         ) : (
           <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-primary/10 to-secondary/10">
@@ -97,33 +99,38 @@ export default function BookCard({ book, highlightTerm = '' }: { book: BookSumma
           </div>
         )}
 
+        {/* Category Label */}
+        <div className="absolute top-3 right-3 z-10">
+          <span className={`text-[10px] uppercase tracking-widest font-black px-2 py-1 rounded bg-black/80 text-white backdrop-blur-sm border border-white/10`}>
+            {book._type === 'imprint' ? 'Imprint' : 'Textbook'}
+          </span>
+        </div>
+
         {/* Status badge */}
-        <span className={`absolute top-3 left-3 text-xs font-semibold px-2 py-1 rounded-full ${STATUS_STYLES[book.status]}`}>
+        <span className={`absolute top-3 left-3 text-[10px] uppercase tracking-wider font-bold px-2 py-1 rounded-full ${STATUS_STYLES[book.status]}`}>
           {STATUS_LABELS[book.status]}
         </span>
       </Link>
 
       {/* Details */}
-      <div className="flex flex-col flex-1 p-4 gap-3">
+      <div className="flex flex-col flex-1 p-5 gap-4">
         <div>
-          <Link href={`/store/${book.slug.current}`} className="hover:text-primary dark:hover:text-cyan-300 transition-colors">
-            <h3 className="font-bold text-darkText text-sm leading-snug line-clamp-2">{highlightText(book.title, highlightTerm)}</h3>
+          <Link href={`/store/${book.slug.current}`} className="hover:text-primary dark:hover:text-cyan-400 transition-colors">
+            <h3 className="font-bold text-slate-900 dark:text-white text-base leading-tight line-clamp-2 mb-1">{highlightText(book.title, highlightTerm)}</h3>
           </Link>
-          {book.subtitle && <p className="text-xs text-gray-400 dark:text-slate-500 mt-0.5 line-clamp-1">{highlightText(book.subtitle, highlightTerm)}</p>}
-          {book.authors && book.authors.length > 0 && (
-            <p className="text-xs text-gray-500 dark:text-slate-500 mt-1">{highlightText(book.authors.join(', '), highlightTerm)}</p>
-          )}
+          {book.subtitle && <p className="text-xs text-slate-500 dark:text-slate-400 line-clamp-1 italic">{highlightText(book.subtitle, highlightTerm)}</p>}
+          <p className="text-xs text-slate-400 dark:text-slate-500 mt-2 font-medium">by {highlightText(displayAuthor, highlightTerm)}</p>
         </div>
 
         {/* Meta chips */}
-        <div className="flex flex-wrap gap-1">
+        <div className="flex flex-wrap gap-2">
           {book.level && (
-            <span className="text-xs bg-primary/8 text-primary dark:text-cyan-300 px-2 py-0.5 rounded-full">
+            <span className="text-[10px] uppercase font-bold bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 px-2 py-1 rounded">
               {LEVEL_LABELS[book.level] ?? book.level}
             </span>
           )}
           {book.edition && (
-            <span className="text-xs bg-gray-100 dark:bg-slate-800 text-gray-500 dark:text-slate-500 px-2 py-0.5 rounded-full">
+            <span className="text-[10px] uppercase font-bold bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 px-2 py-1 rounded">
               {book.edition}
             </span>
           )}
@@ -131,18 +138,18 @@ export default function BookCard({ book, highlightTerm = '' }: { book: BookSumma
 
         {/* Price */}
         {lowestNGN && (
-          <p className="text-sm font-bold text-primary dark:text-cyan-300">
-            From ₦{lowestNGN.toLocaleString()}
+          <p className="text-lg font-black text-slate-900 dark:text-white font-mono">
+            ₦{lowestNGN.toLocaleString()}
           </p>
         )}
 
         {/* CTA */}
-        <div className="mt-auto pt-2 flex gap-2">
+        <div className="mt-auto pt-4 flex gap-2">
           <Link
             href={`/store/${book.slug.current}`}
-            className="flex-1 text-center text-xs font-semibold border border-primary text-primary dark:text-cyan-300 dark:border-cyan-400/60 rounded-lg py-2 hover:bg-primary hover:text-white transition-colors"
+            className="flex-1 text-center text-xs font-bold border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 rounded-xl py-3 hover:bg-slate-50 dark:hover:bg-slate-800 transition-all"
           >
-            View Details
+            Details
           </Link>
           {book.status === 'available' && primaryLink && (
             <button
@@ -153,17 +160,17 @@ export default function BookCard({ book, highlightTerm = '' }: { book: BookSumma
                   window.open(primaryLink.url || '#', '_blank')
                 }
               }}
-              className="flex-1 text-center text-xs font-semibold bg-primary text-white rounded-lg py-2 hover:bg-primary/90 transition-colors"
+              className="flex-1 text-center text-xs font-bold bg-blue-600 text-white rounded-xl py-3 hover:bg-blue-700 shadow-lg shadow-blue-500/20 transition-all active:scale-95"
             >
-              {primaryLink.label ?? `Buy on ${PLATFORM_LABELS[primaryLink.platform] ?? 'Store'}`}
+              {primaryLink.label || (primaryLink.platform === 'pdf' ? 'Buy Now' : `Amazon`)}
             </button>
           )}
           {book.status === 'coming_soon' && (
             <Link
               href={`/store/${book.slug.current}#notify`}
-              className="flex-1 text-center text-xs font-semibold bg-amber-500 text-white rounded-lg py-2 hover:bg-amber-600 transition-colors"
+              className="flex-1 text-center text-xs font-black uppercase tracking-widest bg-amber-500 text-white rounded-xl py-3 hover:bg-amber-600 transition-all active:scale-95"
             >
-              Notify Me
+              Notify
             </Link>
           )}
         </div>

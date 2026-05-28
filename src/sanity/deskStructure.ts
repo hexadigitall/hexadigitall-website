@@ -62,17 +62,17 @@ export const deskStructure: StructureResolver = (S) =>
             ])
         ),
       S.listItem()
-        .title('Digital Publishing (FVMMD)')
+        .title('Digital Imprints (FVMMD)')
         .child(
           S.list()
-            .title('Digital Publishing')
+            .title('Digital Imprints')
             .items([
               S.listItem()
-                .title('Publications')
-                .child(S.documentTypeList('publication').title('Publications')),
+                .title('All Imprints')
+                .child(S.documentTypeList('imprint').title('Digital Imprints')),
               S.listItem()
-                .title('Resource Matrices')
-                .child(S.documentTypeList('resourceMatrix').title('Resource Matrices')),
+                .title('Asset Bundle')
+                .child(S.documentTypeList('asset').title('Digital Assets')),
               S.listItem()
                 .title('Authors')
                 .child(S.documentTypeList('author').title('Authors')),
@@ -85,6 +85,6 @@ export const deskStructure: StructureResolver = (S) =>
             ])
         ),
       ...S.documentTypeListItems().filter(
-        (listItem) => !['book', 'bookReleaseSubscriber', 'publication', 'resourceMatrix', 'author', 'publicationAccessLedger', 'publicationRegistration'].includes(listItem.getId() ?? '')
+        (listItem) => !['book', 'bookReleaseSubscriber', 'imprint', 'asset', 'author', 'publicationAccessLedger', 'publicationRegistration'].includes(listItem.getId() ?? '')
       ),
     ])

@@ -15,6 +15,13 @@ interface TwoStepCheckoutModalProps {
   onSuccess: (checkoutUrl: string) => void;
 }
 
+const ROLES = [
+  { id: 'student', label: 'Student (Self-study)' },
+  { id: 'parent', label: 'Parent (Buying for a student)' },
+  { id: 'teacher', label: 'Teacher / Instructor' },
+  { id: 'mentor', label: 'Mentor / Coach' },
+];
+
 export default function TwoStepCheckoutModal({
   isOpen,
   onClose,
@@ -26,13 +33,13 @@ export default function TwoStepCheckoutModal({
   onSuccess
 }: TwoStepCheckoutModalProps) {
   const [step, setStep] = useState(1);
-  const [formData, setFormData] = useState({ fullName: '', email: '' });
+  const [formData, setFormData] = useState({ fullName: '', email: '', role: 'student' });
   const [isSubmitting, setIsPending] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   const handleNext = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!formData.fullName || !formData.email) {
+    if (!formData.fullName || !formData.email || !formData.role) {
       setError('Please fill out all fields.');
       return;
     }
@@ -45,7 +52,6 @@ export default function TwoStepCheckoutModal({
     setError(null);
 
     try {
-      // Use the generic enrollment endpoint for books too, or create a specific one
       const response = await fetch('/api/course-enrollment', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -61,7 +67,8 @@ export default function TwoStepCheckoutModal({
           metadata: {
             itemType,
             publicationId: itemId,
-            itemTitle: title
+            itemTitle: title,
+            userRole: formData.role
           }
         }),
       });
@@ -82,96 +89,106 @@ export default function TwoStepCheckoutModal({
 
   return (
     <Dialog open={isOpen} onClose={onClose} className="relative z-[100]">
-      <DialogBackdrop className="fixed inset-0 bg-slate-900/60 backdrop-blur-sm transition-opacity" />
+      <DialogBackdrop className="fixed inset-0 bg-slate-950/80 backdrop-blur-md transition-opacity" />
 
-      <div className="fixed inset-0 z-10 w-screen overflow-y-auto">
+      <div className="fixed inset-0 z-10 w-screen overflow-y-auto font-serif">
         <div className="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
-          <div className="relative transform overflow-hidden rounded-2xl bg-white dark:bg-slate-900 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-md border border-slate-200 dark:border-slate-800">
+          <div className="relative transform overflow-hidden rounded-[2rem] bg-white dark:bg-slate-900 text-left shadow-2xl transition-all sm:my-8 sm:w-full sm:max-w-md border border-slate-100 dark:border-slate-800">
             
             {/* Header */}
-            <div className="px-6 py-4 border-b border-slate-100 dark:border-slate-800 flex justify-between items-center bg-slate-50/50 dark:bg-slate-950/50">
-              <DialogTitle className="text-lg font-bold text-slate-900 dark:text-white">
-                {step === 1 ? 'Step 1: Contact Info' : 'Step 2: Confirmation'}
+            <div className="px-8 py-6 border-b border-slate-50 dark:border-slate-800 flex justify-between items-center bg-slate-50/50 dark:bg-slate-950/50">
+              <DialogTitle className="text-xl font-bold text-slate-950 dark:text-white">
+                {step === 1 ? 'Digital Entry' : 'Verification'}
               </DialogTitle>
-              <button onClick={onClose} className="text-slate-400 hover:text-slate-500 transition-colors">
+              <button onClick={onClose} className="text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors">
                 <XMarkIcon className="h-6 w-6" />
               </button>
             </div>
 
             {/* Content */}
-            <div className="px-6 py-8">
+            <div className="px-8 py-10">
               {step === 1 ? (
-                <form onSubmit={handleNext} className="space-y-4">
-                  <p className="text-sm text-slate-500 dark:text-slate-400 mb-6">
-                    Enter your details to receive the download link for <strong className="text-slate-900 dark:text-white">{title}</strong>.
+                <form onSubmit={handleNext} className="space-y-6">
+                  <p className="text-sm text-slate-500 dark:text-slate-400 mb-8 leading-relaxed italic">
+                    Providing access to: <strong className="text-slate-900 dark:text-slate-200 not-italic">{title}</strong>.
                   </p>
 
-                  <div>
-                    <label className="block text-xs font-bold uppercase tracking-wider text-slate-400 mb-1.5 ml-1">Full Name</label>
-                    <div className="relative">
-                      <UserIcon className="absolute left-3 top-3 h-5 w-5 text-slate-400" />
+                  <div className="space-y-4">
+                    <div>
+                      <label className="block text-[10px] font-black uppercase tracking-widest text-slate-400 mb-2 ml-1">Identity Node</label>
                       <input
                         required
                         type="text"
-                        placeholder="John Doe"
-                        className="w-full pl-10 pr-4 py-3 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none transition-all text-slate-900 dark:text-white"
+                        placeholder="Full Name"
+                        className="w-full px-5 py-4 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-2xl focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 outline-none transition-all text-slate-900 dark:text-white font-sans"
                         value={formData.fullName}
                         onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
                       />
                     </div>
-                  </div>
 
-                  <div>
-                    <label className="block text-xs font-bold uppercase tracking-wider text-slate-400 mb-1.5 ml-1">Email Address</label>
-                    <div className="relative">
-                      <EnvelopeIcon className="absolute left-3 top-3 h-5 w-5 text-slate-400" />
+                    <div>
+                      <label className="block text-[10px] font-black uppercase tracking-widest text-slate-400 mb-2 ml-1">Secure Channel</label>
                       <input
                         required
                         type="email"
-                        placeholder="john@example.com"
-                        className="w-full pl-10 pr-4 py-3 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none transition-all text-slate-900 dark:text-white"
+                        placeholder="Email Address"
+                        className="w-full px-5 py-4 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-2xl focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 outline-none transition-all text-slate-900 dark:text-white font-sans"
                         value={formData.email}
                         onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                       />
                     </div>
+
+                    <div>
+                      <label className="block text-[10px] font-black uppercase tracking-widest text-slate-400 mb-2 ml-1">Acquisition Role</label>
+                      <select
+                        required
+                        className="w-full px-5 py-4 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-2xl focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 outline-none transition-all text-slate-900 dark:text-white font-sans"
+                        value={formData.role}
+                        onChange={(e) => setFormData({ ...formData, role: e.target.value })}
+                      >
+                        {ROLES.map(r => (
+                          <option key={r.id} value={r.id}>{r.label}</option>
+                        ))}
+                      </select>
+                    </div>
                   </div>
 
-                  {error && <p className="text-xs text-red-500 mt-2 ml-1">{error}</p>}
+                  {error && <p className="text-xs text-red-500 mt-4 ml-1">{error}</p>}
 
                   <button
                     type="submit"
-                    className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 rounded-xl transition-all shadow-lg shadow-blue-500/20 mt-6 flex items-center justify-center space-x-2"
+                    className="w-full bg-slate-950 dark:bg-blue-600 hover:scale-[1.02] text-white font-black uppercase tracking-widest text-xs py-5 rounded-2xl transition-all shadow-xl shadow-blue-500/10 mt-8"
                   >
-                    <span>Continue to Payment</span>
+                    Confirm & Proceed
                   </button>
                 </form>
               ) : (
-                <div className="text-center space-y-6">
-                  <div className="p-6 bg-slate-50 dark:bg-slate-800 rounded-2xl border border-slate-100 dark:border-slate-700">
-                    <p className="text-xs font-mono text-slate-400 uppercase tracking-widest mb-1">Total to Pay</p>
-                    <p className="text-4xl font-black text-slate-900 dark:text-white">
+                <div className="text-center space-y-8 animate-in fade-in zoom-in-95 duration-300">
+                  <div className="p-8 bg-slate-50 dark:bg-slate-950 rounded-3xl border border-slate-100 dark:border-slate-800">
+                    <p className="text-[10px] font-black font-mono text-slate-400 uppercase tracking-widest mb-2">Verification Amount</p>
+                    <p className="text-4xl font-black text-slate-950 dark:text-white font-mono">
                       {new Intl.NumberFormat('en-NG', { style: 'currency', currency: currency, maximumFractionDigits: 0 }).format(price)}
                     </p>
-                    <div className="mt-4 text-sm text-slate-600 dark:text-slate-400">
-                      <p>Checkout as: <strong>{formData.fullName}</strong></p>
-                      <p className="text-xs">({formData.email})</p>
+                    <div className="mt-6 text-sm text-slate-500 dark:text-slate-400 font-serif italic">
+                      <p>Registry under: <span className="text-slate-900 dark:text-slate-200 not-italic font-bold">{formData.fullName}</span></p>
+                      <p className="text-xs mt-1">({formData.email})</p>
                     </div>
                   </div>
 
                   {error && <p className="text-xs text-red-500">{error}</p>}
 
-                  <div className="space-y-3">
+                  <div className="space-y-4">
                     <button
                       disabled={isSubmitting}
                       onClick={handleInitializePayment}
-                      className="w-full bg-slate-950 dark:bg-white dark:text-slate-950 text-white font-bold py-4 rounded-xl transition-all shadow-lg flex items-center justify-center space-x-2 disabled:opacity-50"
+                      className="w-full bg-blue-600 hover:bg-blue-700 text-white font-black uppercase tracking-widest text-xs py-5 rounded-2xl transition-all shadow-xl shadow-blue-500/20 flex items-center justify-center space-x-3 disabled:opacity-50"
                     >
                       {isSubmitting ? (
-                        <div className="h-5 w-5 border-2 border-white dark:border-slate-950 border-t-transparent animate-spin rounded-full" />
+                        <div className="h-5 w-5 border-2 border-white border-t-transparent animate-spin rounded-full" />
                       ) : (
                         <>
                           <CreditCardIcon className="h-5 w-5" />
-                          <span>Pay with Paystack</span>
+                          <span>Fulfill via Paystack</span>
                         </>
                       )}
                     </button>
@@ -179,14 +196,14 @@ export default function TwoStepCheckoutModal({
                     <button
                       disabled={isSubmitting}
                       onClick={() => setStep(1)}
-                      className="w-full text-slate-500 hover:text-slate-700 text-sm font-medium py-2 transition-colors"
+                      className="w-full text-slate-400 hover:text-slate-900 dark:hover:text-white text-[10px] font-black uppercase tracking-widest py-2 transition-colors"
                     >
-                      Edit details
+                      Back to Registry
                     </button>
                   </div>
 
-                  <p className="text-[10px] text-slate-400 leading-relaxed">
-                    By proceeding, you agree to our Terms of Service. A download link will be sent to your email immediately after successful payment.
+                  <p className="text-[10px] text-slate-400 leading-relaxed font-serif italic">
+                    Digital assets are dispatched via secure email protocol immediately upon ledger verification.
                   </p>
                 </div>
               )}

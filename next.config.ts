@@ -19,6 +19,16 @@ const nextConfig: NextConfig = {
         destination: '/forms/social-media',
         permanent: true,
       },
+      {
+        source: '/publications',
+        destination: '/store',
+        permanent: true,
+      },
+      {
+        source: '/publications/:path*',
+        destination: '/store/:path*',
+        permanent: true,
+      },
     ]
   },
   // Rewrite rules for static files

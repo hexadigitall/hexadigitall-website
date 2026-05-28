@@ -1,56 +1,61 @@
 import { defineType, defineField } from 'sanity';
 
 export default defineType({
-  name: 'publication',
-  title: 'Publication Knowledge Graph Ledger',
+  name: 'imprint',
+  title: 'Digital Imprint',
   type: 'document',
   fields: [
     defineField({
       name: 'title',
-      title: 'Complete Literary Masterpiece Title',
+      title: 'Book Title',
       type: 'string',
       validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: 'slug',
-      title: 'URL Router Segment Target Slug',
+      title: 'Slug',
       type: 'slug',
       options: { source: 'title', maxLength: 96 },
       validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: 'author',
-      title: 'Imprint Origin Author Node',
+      title: 'Author',
       type: 'reference',
       to: [{ type: 'author' }],
       validation: (Rule) => Rule.required(),
     }),
     defineField({
+      name: 'coverImage',
+      title: 'Cover Image',
+      type: 'image',
+      options: { hotspot: true },
+    }),
+    defineField({
       name: 'isbn',
-      title: 'International Standard Book Number String',
+      title: 'ISBN',
       type: 'string',
     }),
     defineField({
       name: 'description',
-      title: 'Manuscript Synopsis / Structural Index Abstract',
+      title: 'Synopsis',
       type: 'text',
     }),
     defineField({
       name: 'price',
-      title: 'Fulfillment Clearing Base Price (NGN Matrix Minimum Integer)',
+      title: 'Price (NGN)',
       type: 'number',
       validation: (Rule) => Rule.required().min(0),
     }),
     defineField({
       name: 'allowCopyRegistration',
-      title: 'Allow Copy Registration',
+      title: 'Allow Readers to Register Physical Copies',
       type: 'boolean',
-      description: 'Enable this to allow readers to register their physical/purchased copies on the site.',
       initialValue: true,
     }),
     defineField({
-      name: 'embeddedResources',
-      title: 'Section C Appendix Matrix List Assemblies',
+      name: 'assets',
+      title: 'Companion Digital Assets',
       type: 'array',
       of: [{ type: 'reference', to: [{ type: 'resourceMatrix' }] }],
     }),
