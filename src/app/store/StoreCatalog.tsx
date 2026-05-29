@@ -78,6 +78,10 @@ export default function StoreCatalog({ books: initialBooks, authors }: StoreCata
   const filteredAuthors = useMemo(() => {
     if (type !== 'imprint' && type !== 'all') return [];
     
+    // Hide authors if we're in 'all' type but filtering by specific status
+    // since Author Cards represent collections and don't have a single status
+    if (type === 'all' && status !== 'all') return [];
+    
     // In 'imprint' or 'all' view, we show ALL authors who have imprints
     if (type === 'imprint' || type === 'all') {
        if (!query.trim()) return authors;
@@ -85,7 +89,7 @@ export default function StoreCatalog({ books: initialBooks, authors }: StoreCata
     }
 
     return [];
-  }, [authors, type, query]);
+  }, [authors, type, query, status]);
 
   const available = useMemo(() => filteredBooks.filter(b => b.status === 'available'), [filteredBooks]);
   const upcoming = useMemo(() => filteredBooks.filter(b => b.status === 'coming_soon'), [filteredBooks]);
