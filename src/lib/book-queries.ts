@@ -198,7 +198,7 @@ const ALL_BOOK_SLUGS_QUERY = groq`
 
 export async function getAllBooks(): Promise<BookSummary[]> {
   try {
-    return await client.fetch(ALL_STORE_ITEMS_QUERY)
+    return await client.fetch(ALL_STORE_ITEMS_QUERY, {}, { next: { revalidate: 0 } })
   } catch {
     return []
   }
