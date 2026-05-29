@@ -16,6 +16,7 @@ import SEOStructuredData from '@/components/SEOStructuredData';
 import { QuickContactFAB } from '@/components/ui/FloatingCTA';
 import StartupFunnelClient from '@/components/marketing/StartupFunnelClient';
 import { ThemeProvider } from '@/contexts/ThemeContext'
+import NextAuthProvider from '@/providers/NextAuthProvider';
 
 // ✅ Enhanced metadata for SEO and accessibility
 export const metadata: Metadata = {
@@ -186,6 +187,7 @@ export default function RootLayout({
         </a>
         
         <ThemeProvider>
+        <NextAuthProvider>
         <CurrencyProvider>
           <CustomBuildProvider>
             {/* Google Analytics */}
@@ -241,6 +243,7 @@ export default function RootLayout({
             />
           </CustomBuildProvider>
         </CurrencyProvider>
+        </NextAuthProvider>
         </ThemeProvider>
       </body>
     </html>
