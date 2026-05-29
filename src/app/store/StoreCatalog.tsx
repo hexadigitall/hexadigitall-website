@@ -19,20 +19,10 @@ function normalize(value: string): string {
   return value.toLowerCase().trim()
 }
 
-function looseSubsequenceMatch(text: string, query: string): boolean {
-  let textIndex = 0
-  let queryIndex = 0
-  while (textIndex < text.length && queryIndex < query.length) {
-    if (text[textIndex] === query[queryIndex]) queryIndex += 1
-    textIndex += 1
-  }
-  return queryIndex === query.length
-}
-
 function fuzzyMatch(text: string, query: string): boolean {
   if (!query) return true
-  if (text.includes(query)) return true
-  return looseSubsequenceMatch(text, query)
+  const q = normalize(query)
+  return normalize(text).includes(q)
 }
 
 function toSearchableText(book: BookSummary): string {
@@ -40,8 +30,7 @@ function toSearchableText(book: BookSummary): string {
   const authorName = book.author?.name ?? ''
   const description = book.description ?? ''
   const subtitle = book.subtitle ?? ''
-  const slug = book.slug?.current ?? ''
-  return normalize(`${book.title} ${subtitle} ${authors} ${authorName} ${description} ${slug}`)
+  return `${book.title} ${subtitle} ${authors} ${authorName} ${description}`
 }
 
 export default function StoreCatalog({ books: initialBooks, authors }: StoreCatalogProps) {
@@ -57,16 +46,23 @@ export default function StoreCatalog({ books: initialBooks, authors }: StoreCata
   const searchParams = useSearchParams()
   const router = useRouter()
   const pathname = usePathname()
-  const searchInputRef = useRef<HTMLInputElement | null>(null)
 
   const [query, setQuery] = useState(searchParams.get('q') ?? '')
   const [status, setStatus] = useState<StatusFilter>((searchParams.get('status') as StatusFilter) || 'all')
   const [level, setLevel] = useState<LevelFilter>((searchParams.get('level') as LevelFilter) || 'all')
   const [type, setType] = useState<TypeFilter>((searchParams.get('type') as TypeFilter) || 'all')
 
+  // Filter books (Exclude imprints from 'all' and 'book' views as requested)
   const filteredBooks = useMemo(() => {
     return books.filter(book => {
-      if (type !== 'all' && book._type !== type) return false;
+      // If we are in 'all' or 'book' mode, ONLY show books (textbooks)
+      if (type === 'all' || type === 'book') {
+        if (book._type !== 'book') return false;
+      }
+      
+      // If specifically looking at 'publication', the author cards will handle it
+      if (type === 'publication') return false;
+
       if (status !== 'all' && book.status !== status) return false;
       if (level !== 'all') {
         if (level === 'all_levels' && book.level !== 'all') return false;
@@ -74,17 +70,23 @@ export default function StoreCatalog({ books: initialBooks, authors }: StoreCata
       }
       if (query.trim()) {
         const searchable = toSearchableText(book);
-        const terms = normalize(query).split(/\s+/).filter(Boolean);
-        if (!terms.every(term => fuzzyMatch(searchable, term))) return false;
+        if (!fuzzyMatch(searchable, query)) return false;
       }
       return true;
     });
   }, [books, type, status, level, query]);
 
+  // Filter authors (Only for 'publication' view)
   const filteredAuthors = useMemo(() => {
     if (type !== 'publication' && type !== 'all') return [];
-    if (!query.trim()) return authors;
-    return authors.filter(a => fuzzyMatch(normalize(a.name), normalize(query)));
+    
+    // In 'publication' view, we show ALL authors who have imprints
+    if (type === 'publication') {
+       if (!query.trim()) return authors;
+       return authors.filter(a => fuzzyMatch(a.name, query));
+    }
+
+    return [];
   }, [authors, type, query]);
 
   const available = useMemo(() => filteredBooks.filter(b => b.status === 'available'), [filteredBooks]);
@@ -103,21 +105,19 @@ export default function StoreCatalog({ books: initialBooks, authors }: StoreCata
     <div className="grid grid-cols-1 lg:grid-cols-[280px_1fr] gap-12">
       <aside className="space-y-10">
         <div>
-          <label htmlFor="store-search" className="block text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 mb-4">Search Resources</label>
+          <label className="block text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 mb-4">Search Catalog</label>
           <input
-            ref={searchInputRef}
-            id="store-search"
             type="search"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            placeholder="Search by title, author..."
+            placeholder="Search resources..."
             className="w-full rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 px-4 py-3 text-sm outline-none focus:ring-2 focus:ring-blue-500/20"
           />
         </div>
 
         <div className="space-y-6">
           <div>
-            <p className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 mb-3">Resource Category</p>
+            <p className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 mb-3">Resource Type</p>
             <div className="flex flex-col gap-2">
               {[
                 { id: 'all', label: 'Everything' }, 
@@ -136,19 +136,8 @@ export default function StoreCatalog({ books: initialBooks, authors }: StoreCata
               <div>
                 <p className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 mb-3">Availability</p>
                 <div className="flex flex-col gap-2">
-                  {[{ id: 'all', label: 'All Status' }, { id: 'available', label: 'Available Now' }, { id: 'coming_soon', label: 'Coming Soon' }].map((f) => (
+                  {[{ id: 'all', label: 'All Status' }, { id: 'available', label: 'Available Now' }, { id: 'coming_soon', label: 'Pipeline' }].map((f) => (
                     <button key={f.id} onClick={() => setStatus(f.id as StatusFilter)} className={`text-left px-4 py-2.5 rounded-xl text-sm font-bold transition-all ${status === f.id ? 'bg-blue-600 text-white' : 'text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800'}`}>
-                      {f.label}
-                    </button>
-                  ))}
-                </div>
-              </div>
-
-              <div>
-                <p className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 mb-3">Difficulty</p>
-                <div className="flex flex-col gap-2">
-                  {[{ id: 'all', label: 'All Levels' }, { id: 'beginner', label: 'Beginner' }, { id: 'intermediate', label: 'Intermediate' }, { id: 'advanced', label: 'Advanced' }].map((f) => (
-                    <button key={f.id} onClick={() => setLevel(f.id as LevelFilter)} className={`text-left px-4 py-2.5 rounded-xl text-sm font-bold transition-all ${level === f.id ? 'bg-blue-600 text-white' : 'text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800'}`}>
                       {f.label}
                     </button>
                   ))}
@@ -160,7 +149,6 @@ export default function StoreCatalog({ books: initialBooks, authors }: StoreCata
       </aside>
 
       <div className="flex-1">
-        {/* If Digital Imprints is selected, show Authors */}
         {type === 'publication' ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-8">
             {filteredAuthors.map(author => (
@@ -177,7 +165,7 @@ export default function StoreCatalog({ books: initialBooks, authors }: StoreCata
 
             {upcoming.length > 0 && (
               <div className="space-y-10">
-                <h3 className="text-xs font-black uppercase tracking-[0.3em] text-slate-400 border-b border-slate-100 dark:border-slate-800 pb-4">Pipeline</h3>
+                <h3 className="text-xs font-black uppercase tracking-[0.3em] text-slate-400 border-b border-slate-100 dark:border-slate-800 pb-4">Upcoming Curriculum</h3>
                 <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-8">
                   {upcoming.map(book => <BookCard key={book._id} book={book} highlightTerm={query} />)}
                 </div>
@@ -188,7 +176,7 @@ export default function StoreCatalog({ books: initialBooks, authors }: StoreCata
 
         {(type === 'publication' ? filteredAuthors.length === 0 : filteredBooks.length === 0) && (
           <div className="py-24 text-center">
-            <p className="text-slate-400">No matching results found.</p>
+            <p className="text-slate-400">No matching catalog items found.</p>
           </div>
         )}
       </div>

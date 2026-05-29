@@ -159,7 +159,9 @@ const BOOKS_BY_AUTHOR_QUERY = groq`
     ${COVER_PROJECTION},
     status,
     "author": author->{ name, slug },
-    pricing
+    pricing,
+    directDownloadEnabled,
+    storeLinks
   }
 `
 
