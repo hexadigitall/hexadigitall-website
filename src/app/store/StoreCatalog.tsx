@@ -13,7 +13,7 @@ interface StoreCatalogProps {
 
 type StatusFilter = 'all' | 'available' | 'coming_soon'
 type LevelFilter = 'all' | 'beginner' | 'intermediate' | 'advanced' | 'all_levels'
-type TypeFilter = 'all' | 'book' | 'publication'
+type TypeFilter = 'all' | 'book' | 'imprint'
 
 function normalize(value: string): string {
   return value.toLowerCase().trim()
@@ -55,13 +55,11 @@ export default function StoreCatalog({ books: initialBooks, authors }: StoreCata
   // Filter books (Exclude imprints from 'all' and 'book' views as requested)
   const filteredBooks = useMemo(() => {
     return books.filter(book => {
-      // If we are in 'all' or 'book' mode, ONLY show books (textbooks)
-      if (type === 'all' || type === 'book') {
-        if (book._type !== 'book') return false;
-      }
+      // ONLY show textbooks (never show imprints as book cards)
+      if (book._type !== 'book') return false;
       
-      // If specifically looking at 'publication', the author cards will handle it
-      if (type === 'publication') return false;
+      // If specifically looking at 'imprint', the author cards will handle it
+      if (type === 'imprint') return false;
 
       if (status !== 'all' && book.status !== status) return false;
       if (level !== 'all') {
@@ -76,12 +74,12 @@ export default function StoreCatalog({ books: initialBooks, authors }: StoreCata
     });
   }, [books, type, status, level, query]);
 
-  // Filter authors (Only for 'publication' view)
+  // Filter authors (Only for 'imprint' view)
   const filteredAuthors = useMemo(() => {
-    if (type !== 'publication' && type !== 'all') return [];
+    if (type !== 'imprint' && type !== 'all') return [];
     
-    // In 'publication' view, we show ALL authors who have imprints
-    if (type === 'publication') {
+    // In 'imprint' or 'all' view, we show ALL authors who have imprints
+    if (type === 'imprint' || type === 'all') {
        if (!query.trim()) return authors;
        return authors.filter(a => fuzzyMatch(a.name, query));
     }
@@ -122,7 +120,7 @@ export default function StoreCatalog({ books: initialBooks, authors }: StoreCata
               {[
                 { id: 'all', label: 'Everything' }, 
                 { id: 'book', label: 'Course Textbooks' }, 
-                { id: 'publication', label: 'Digital Imprints' }
+                { id: 'imprint', label: 'Digital Imprints' }
               ].map((f) => (
                 <button key={f.id} onClick={() => setType(f.id as TypeFilter)} className={`text-left px-4 py-2.5 rounded-xl text-sm font-bold transition-all ${type === f.id ? 'bg-blue-600 text-white shadow-lg' : 'text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800'}`}>
                   {f.label}
@@ -131,7 +129,7 @@ export default function StoreCatalog({ books: initialBooks, authors }: StoreCata
             </div>
           </div>
 
-          {type !== 'publication' && (
+          {type !== 'imprint' && (
             <>
               <div>
                 <p className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 mb-3">Availability</p>
@@ -149,17 +147,25 @@ export default function StoreCatalog({ books: initialBooks, authors }: StoreCata
       </aside>
 
       <div className="flex-1">
-        {type === 'publication' ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-8">
-            {filteredAuthors.map(author => (
-              <AuthorCard key={author._id} author={author} />
-            ))}
+        {(type === 'imprint' || type === 'all') && filteredAuthors.length > 0 && (
+          <div className="mb-20">
+            {type === 'all' && <h3 className="text-xs font-black uppercase tracking-[0.3em] text-slate-400 border-b border-slate-100 dark:border-slate-800 pb-4 mb-8">Digital Imprints</h3>}
+            <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-8">
+              {filteredAuthors.map(author => (
+                <AuthorCard key={author._id} author={author} />
+              ))}
+            </div>
           </div>
-        ) : (
+        )}
+
+        {type !== 'imprint' && (
           <>
             {available.length > 0 && (
-              <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-8 mb-20">
-                {available.map(book => <BookCard key={book._id} book={book} highlightTerm={query} />)}
+              <div className="mb-20">
+                {type === 'all' && <h3 className="text-xs font-black uppercase tracking-[0.3em] text-slate-400 border-b border-slate-100 dark:border-slate-800 pb-4 mb-8">Course Textbooks</h3>}
+                <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-8">
+                  {available.map(book => <BookCard key={book._id} book={book} highlightTerm={query} />)}
+                </div>
               </div>
             )}
 
@@ -174,7 +180,9 @@ export default function StoreCatalog({ books: initialBooks, authors }: StoreCata
           </>
         )}
 
-        {(type === 'publication' ? filteredAuthors.length === 0 : filteredBooks.length === 0) && (
+        {((type === 'imprint' && filteredAuthors.length === 0) || 
+          (type === 'book' && filteredBooks.length === 0) || 
+          (type === 'all' && filteredAuthors.length === 0 && filteredBooks.length === 0)) && (
           <div className="py-24 text-center">
             <p className="text-slate-400">No matching catalog items found.</p>
           </div>

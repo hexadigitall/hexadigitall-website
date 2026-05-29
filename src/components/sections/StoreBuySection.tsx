@@ -137,7 +137,7 @@ export default function StoreBuySection({ book }: StoreBuySectionProps) {
           price={prices[activeModal.audience as keyof typeof prices]}
           currency="NGN"
           itemId={book._id}
-          itemType={book._type === 'publication' ? 'publication' : 'book'}
+          itemType={['publication', 'imprint'].includes(book._type) ? 'publication' : 'book'}
           onSuccess={() => setActiveModal(null)}
         />
       )}

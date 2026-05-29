@@ -99,7 +99,7 @@ const AUTHOR_PROJECTION = `
   slug,
   biography,
   image { asset->{ url } },
-  "workCount": count(*[_type == "publication" && references(^._id)])
+  "workCount": count(*[_type in ["publication", "imprint"] && references(^._id)])
 `
 
 const COVER_PROJECTION = `
@@ -118,13 +118,13 @@ const OG_PROJECTION = `
 // ── Queries ───────────────────────────────────────────────────────────────────
 
 const ALL_STORE_AUTHORS_QUERY = groq`
-  *[_type == "author" && count(*[_type == "publication" && references(^._id)]) > 0] {
+  *[_type == "author" && count(*[_type in ["publication", "imprint"] && references(^._id)]) > 0] {
     ${AUTHOR_PROJECTION}
   }
 `
 
 const ALL_STORE_ITEMS_QUERY = groq`
-  *[_type in ["book", "publication"] && !(_id in path("drafts.**"))] | order(publishedAt desc) {
+  *[_type in ["book", "publication", "imprint"] && !(_id in path("drafts.**"))] | order(publishedAt desc) {
     _id,
     _type,
     title,
@@ -150,7 +150,7 @@ const ALL_STORE_ITEMS_QUERY = groq`
 `
 
 const BOOKS_BY_AUTHOR_QUERY = groq`
-  *[_type == "publication" && references($authorId) && !(_id in path("drafts.**"))] | order(publishedAt desc) {
+  *[_type in ["publication", "imprint"] && references($authorId) && !(_id in path("drafts.**"))] | order(publishedAt desc) {
     _id,
     _type,
     title,
