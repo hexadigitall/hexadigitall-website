@@ -10,7 +10,7 @@ import StoreBuySection from '@/components/sections/StoreBuySection'
 import { ArrowRightIcon } from '@heroicons/react/24/outline'
 
 export const dynamic = 'force-dynamic'
-
+export const dynamicParams = true // Allow slugs not in generateStaticParams to work
 const BASE_URL = 'https://hexadigitall.com'
 
 type Props = { params: Promise<{ slug: string }> }
@@ -101,7 +101,7 @@ export default async function BookPage({ params }: Props) {
   const hasResources = (book.resources?.length ?? 0) > 0 || (book.assets?.length ?? 0) > 0
   const publicResources = book.resources?.filter((r) => !r.gated) ?? []
   
-  const displayAuthor = (book._type === 'imprint' ? book.author?.name : (book.authors && book.authors.length > 0 ? book.authors.join(', ') : 'Hexadigitall')) || 'Hexadigitall'
+  const displayAuthor = (['imprint', 'publication'].includes(book._type) ? book.author?.name : (book.authors && book.authors.length > 0 ? book.authors.join(', ') : 'Hexadigitall')) || 'Hexadigitall'
 
   const structuredData = {
     '@context': 'https://schema.org',
