@@ -37,7 +37,7 @@ export default async function StorePage() {
     <>
       <Banner
         title="Hexadigitall Store"
-        description="Ecosystem resources, textbooks, and digital imprints for builders and thinkers."
+        description="Equip yourself with the foundational texts, architectural blueprints, and digital imprints powering the next generation of builders and thinkers."
         overlayClassName="bg-slate-950/80"
       />
 
@@ -51,11 +51,20 @@ export default async function StorePage() {
         </nav>
 
         {/* Intro blurb */}
-        <section className="mb-20 max-w-3xl">
-          <h2 className="text-4xl font-bold font-serif text-slate-950 dark:text-white mb-6">Master Resource Catalog</h2>
-          <p className="text-lg text-slate-600 dark:text-slate-400 leading-relaxed font-serif italic">
-            "Every asset is designed to bridge the gap between abstract concept and tactical execution."
-          </p>
+        <section className="mb-20 max-w-4xl">
+          <h2 className="text-4xl md:text-5xl font-bold font-serif text-slate-950 dark:text-white mb-6 tracking-tight">Master Resource Catalog</h2>
+          
+          <div className="space-y-6 text-lg text-slate-600 dark:text-slate-400 leading-relaxed font-serif">
+            <p>
+              Welcome to the central repository for Hexadigitall publishing. This catalog is meticulously curated to provide engineers, designers, and strategic thinkers with high-signal, low-noise resources required to harden their infrastructure and elevate their technical discipline.
+            </p>
+            <p>
+              Explore our official <strong className="text-slate-900 dark:text-slate-200">Course Textbooks</strong>—rigorous, standard-setting manuals designed to accompany our core curriculums—or delve into <strong className="text-slate-900 dark:text-slate-200">Digital Imprints</strong> authored by our partner ecosystem nodes, offering specialized frameworks for personal clarity, tactical execution, and self-governance.
+            </p>
+            <p className="italic border-l-4 border-blue-600 pl-6 py-2 mt-8 text-xl text-slate-800 dark:text-slate-300">
+              "Every asset is engineered to bridge the gap between abstract concept and tactical execution."
+            </p>
+          </div>
         </section>
 
         <StoreCatalog books={items} authors={authors} />
