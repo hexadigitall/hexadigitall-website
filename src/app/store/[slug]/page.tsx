@@ -62,17 +62,17 @@ export default async function BookPage({ params }: Props) {
   if (!book) notFound()
 
   const coverUrl = book.coverImage?.asset?.url
-  const hasErrata = (book.errata?.length ?? 0) > 0
+  const hasErrata = Array.isArray(book.errata) && book.errata.length > 0
   const hasResources = (book.resources?.length ?? 0) > 0 || (book.assets?.length ?? 0) > 0
   
-  const displayAuthor = (['imprint', 'publication'].includes(book._type) ? book.author?.name : (book.authors && book.authors.length > 0 ? book.authors.join(', ') : 'Hexadigitall')) || 'Hexadigitall'
+  const displayAuthor = (['imprint', 'publication'].includes(book._type) ? book.author?.name : (Array.isArray(book.authors) && book.authors.length > 0 ? book.authors.join(', ') : 'Hexadigitall')) || 'Hexadigitall'
 
   const structuredData = {
     '@context': 'https://schema.org',
     '@type': 'Book',
     name: book.title,
     description: book.description,
-    author: ['imprint', 'publication'].includes(book._type) ? { '@type': 'Person', name: book.author?.name || 'Hexadigitall' } : book.authors?.map((a: string) => ({ '@type': 'Person', name: a })) ?? [],
+    author: ['imprint', 'publication'].includes(book._type) ? { '@type': 'Person', name: book.author?.name || 'Hexadigitall' } : (Array.isArray(book.authors) ? book.authors.map((a: string) => ({ '@type': 'Person', name: a })) : []),
     publisher: { '@type': 'Organization', name: 'Hexadigitall' },
     datePublished: book.publishedAt,
     isbn: book.isbn,
@@ -153,7 +153,7 @@ export default async function BookPage({ params }: Props) {
                   <p className="text-sm font-bold text-slate-900 dark:text-slate-200">{book.edition}</p>
                 </div>
               )}
-              {book.level && (
+              {book.level && typeof book.level === 'string' && (
                 <div className="bg-slate-50 dark:bg-slate-900/50 p-4 rounded-2xl border border-slate-100 dark:border-slate-800">
                   <p className="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-1">Level</p>
                   <p className="text-sm font-bold text-slate-900 dark:text-slate-200 capitalize">{book.level.replace('_', ' ')}</p>
@@ -177,7 +177,7 @@ export default async function BookPage({ params }: Props) {
           </div>
         </div>
 
-        {book.relatedCourse && (
+        {book.relatedCourse?.slug?.current && (
           <section className="mb-24">
             <Link href={`/courses/${book.relatedCourse.slug.current}`} className="group block bg-blue-600 rounded-3xl p-1 shadow-xl shadow-blue-500/20">
               <div className="bg-white dark:bg-slate-950 rounded-[22px] p-8 flex flex-col md:flex-row items-center justify-between gap-8 group-hover:bg-transparent transition-all duration-500">
@@ -194,7 +194,7 @@ export default async function BookPage({ params }: Props) {
           </section>
         )}
 
-        {book.assets && book.assets.length > 0 && (
+        {Array.isArray(book.assets) && book.assets.length > 0 && (
           <section className="mb-24">
              <h2 className="text-3xl font-bold font-serif text-slate-950 dark:text-white mb-10 flex items-center gap-4">Companion Digital Assets<span className="h-px flex-1 bg-slate-100 dark:bg-slate-800"></span></h2>
              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -221,7 +221,7 @@ export default async function BookPage({ params }: Props) {
                 </div>
               </section>
             )}
-            {book.tableOfContents && book.tableOfContents.length > 0 && (
+            {Array.isArray(book.tableOfContents) && book.tableOfContents.length > 0 && (
               <section>
                 <h2 className="text-xs font-black uppercase tracking-[0.3em] text-slate-400 mb-8 pb-4 border-b border-slate-100 dark:border-slate-800">Index Structure</h2>
                 <ol className="space-y-4">
