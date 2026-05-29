@@ -53,6 +53,44 @@ export interface AuthorSummary {
   workCount: number
 }
 
+export interface BookSummary {
+  _id: string
+  _type: 'book' | 'imprint' | 'publication'
+  title: string
+  subtitle?: string
+  slug: { current: string }
+  edition?: string
+  authors?: string[]
+  author?: { name: string; slug?: { current: string } }
+  description?: string
+  coverImage?: { asset?: { url?: string }; alt?: string }
+  status: 'coming_soon' | 'available' | 'out_of_stock' | 'discontinued'
+  level?: string
+  pageCount?: number
+  publishedAt?: string
+  storeLinks?: StoreLinks
+  directDownloadEnabled?: boolean
+  hasStudentVersion?: boolean
+  studentFile?: { asset?: { url?: string } }
+  hasTeacherVersion?: boolean
+  teacherFile?: { asset?: { url?: string } }
+  pricing?: Pricing
+}
+
+export interface BookDetail extends BookSummary {
+  longDescription?: object[]
+  isbn?: string
+  tableOfContents?: TocEntry[]
+  errata?: ErrataItem[]
+  resources?: ResourceItem[]
+  assets?: ResourceItem[]
+  allowCopyRegistration?: boolean
+  relatedCourse?: { _id: string; title: string; slug: { current: string } }
+  ogTitle?: string
+  ogDescription?: string
+  ogImage?: { asset?: { url?: string } }
+}
+
 // ── Image projection reused in both queries ───────────────────────────────────
 
 const AUTHOR_PROJECTION = `
