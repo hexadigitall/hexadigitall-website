@@ -1,13 +1,12 @@
 // src/app/store/page.tsx
 import type { Metadata } from 'next'
-import { getAllBooks, type BookSummary } from '@/lib/book-queries'
+import { getAllBooks, getAllAuthors, type BookSummary, type AuthorSummary } from '@/lib/book-queries'
 import StoreCatalog from '@/app/store/StoreCatalog'
 import Banner from '@/components/common/Banner'
 import Link from 'next/link'
 
 export const dynamic = 'force-dynamic'
 export const revalidate = 0 // Disable cache for this page
-// Last Update: 2024-05-28 14:45:00 UTC
 const BASE_URL = 'https://hexadigitall.com'
 
 export const metadata: Metadata = {
@@ -29,7 +28,10 @@ export const metadata: Metadata = {
 }
 
 export default async function StorePage() {
-  const items = await getAllBooks()
+  const [items, authors] = await Promise.all([
+    getAllBooks(),
+    getAllAuthors()
+  ])
 
   return (
     <>
@@ -56,10 +58,10 @@ export default async function StorePage() {
           </p>
         </section>
 
-        <StoreCatalog books={items} />
+        <StoreCatalog books={items} authors={authors} />
 
         {/* Empty state */}
-        {items.length === 0 && (
+        {items.length === 0 && authors.length === 0 && (
           <div className="text-center py-24 text-gray-500 dark:text-slate-500">
             <p className="text-3xl mb-4">📘</p>
             <p className="text-lg font-medium">Synchronizing ecosystem alignment...</p>
@@ -68,28 +70,6 @@ export default async function StorePage() {
               Browse Courses
             </Link>
           </div>
-        )}
-
-        {/* Schema.org ItemList */}
-        {items.length > 0 && (
-          <script
-            type="application/ld+json"
-            dangerouslySetInnerHTML={{
-              __html: JSON.stringify({
-                '@context': 'https://schema.org',
-                '@type': 'ItemList',
-                name: 'Hexadigitall Store',
-                url: `${BASE_URL}/store`,
-                numberOfItems: items.length,
-                itemListElement: items.map((b: BookSummary, i: number) => ({
-                  '@type': 'ListItem',
-                  position: i + 1,
-                  url: `${BASE_URL}/store/${b.slug.current}`,
-                  name: b.title,
-                })),
-              }),
-            }}
-          />
         )}
       </main>
     </>

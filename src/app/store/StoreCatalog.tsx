@@ -2,11 +2,13 @@
 
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
-import type { BookSummary } from '@/lib/book-queries'
+import type { BookSummary, AuthorSummary } from '@/lib/book-queries'
 import BookCard from '@/app/store/BookCard'
+import AuthorCard from '@/app/store/AuthorCard'
 
 interface StoreCatalogProps {
   books: BookSummary[]
+  authors: AuthorSummary[]
 }
 
 type StatusFilter = 'all' | 'available' | 'coming_soon'
@@ -42,8 +44,7 @@ function toSearchableText(book: BookSummary): string {
   return normalize(`${book.title} ${subtitle} ${authors} ${authorName} ${description} ${slug}`)
 }
 
-export default function StoreCatalog({ books: initialBooks }: StoreCatalogProps) {
-  // 1. Strict Uniqueness Filter
+export default function StoreCatalog({ books: initialBooks, authors }: StoreCatalogProps) {
   const books = useMemo(() => {
     const seen = new Set();
     return initialBooks.filter(b => {
@@ -63,19 +64,14 @@ export default function StoreCatalog({ books: initialBooks }: StoreCatalogProps)
   const [level, setLevel] = useState<LevelFilter>((searchParams.get('level') as LevelFilter) || 'all')
   const [type, setType] = useState<TypeFilter>((searchParams.get('type') as TypeFilter) || 'all')
 
-  // 2. Filter Logic (Using unique 'books' array only)
   const filteredBooks = useMemo(() => {
     return books.filter(book => {
-      // Type filter
       if (type !== 'all' && book._type !== type) return false;
-      // Status filter
       if (status !== 'all' && book.status !== status) return false;
-      // Level filter
       if (level !== 'all') {
         if (level === 'all_levels' && book.level !== 'all') return false;
         if (level !== 'all_levels' && book.level !== level) return false;
       }
-      // Query filter
       if (query.trim()) {
         const searchable = toSearchableText(book);
         const terms = normalize(query).split(/\s+/).filter(Boolean);
@@ -84,6 +80,12 @@ export default function StoreCatalog({ books: initialBooks }: StoreCatalogProps)
       return true;
     });
   }, [books, type, status, level, query]);
+
+  const filteredAuthors = useMemo(() => {
+    if (type !== 'publication' && type !== 'all') return [];
+    if (!query.trim()) return authors;
+    return authors.filter(a => fuzzyMatch(normalize(a.name), normalize(query)));
+  }, [authors, type, query]);
 
   const available = useMemo(() => filteredBooks.filter(b => b.status === 'available'), [filteredBooks]);
   const upcoming = useMemo(() => filteredBooks.filter(b => b.status === 'coming_soon'), [filteredBooks]);
@@ -108,7 +110,7 @@ export default function StoreCatalog({ books: initialBooks }: StoreCatalogProps)
             type="search"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            placeholder="Title, author, keywords..."
+            placeholder="Search by title, author..."
             className="w-full rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 px-4 py-3 text-sm outline-none focus:ring-2 focus:ring-blue-500/20"
           />
         </div>
@@ -117,30 +119,76 @@ export default function StoreCatalog({ books: initialBooks }: StoreCatalogProps)
           <div>
             <p className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 mb-3">Resource Category</p>
             <div className="flex flex-col gap-2">
-              {[{ id: 'all', label: 'Everything' }, { id: 'book', label: 'Course Textbooks' }, { id: 'publication', label: 'Digital Imprints' }].map((f) => (
+              {[
+                { id: 'all', label: 'Everything' }, 
+                { id: 'book', label: 'Course Textbooks' }, 
+                { id: 'publication', label: 'Digital Imprints' }
+              ].map((f) => (
                 <button key={f.id} onClick={() => setType(f.id as TypeFilter)} className={`text-left px-4 py-2.5 rounded-xl text-sm font-bold transition-all ${type === f.id ? 'bg-blue-600 text-white shadow-lg' : 'text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800'}`}>
                   {f.label}
                 </button>
               ))}
             </div>
           </div>
-          {/* ... other filters ... */}
+
+          {type !== 'publication' && (
+            <>
+              <div>
+                <p className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 mb-3">Availability</p>
+                <div className="flex flex-col gap-2">
+                  {[{ id: 'all', label: 'All Status' }, { id: 'available', label: 'Available Now' }, { id: 'coming_soon', label: 'Coming Soon' }].map((f) => (
+                    <button key={f.id} onClick={() => setStatus(f.id as StatusFilter)} className={`text-left px-4 py-2.5 rounded-xl text-sm font-bold transition-all ${status === f.id ? 'bg-blue-600 text-white' : 'text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800'}`}>
+                      {f.label}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              <div>
+                <p className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 mb-3">Difficulty</p>
+                <div className="flex flex-col gap-2">
+                  {[{ id: 'all', label: 'All Levels' }, { id: 'beginner', label: 'Beginner' }, { id: 'intermediate', label: 'Intermediate' }, { id: 'advanced', label: 'Advanced' }].map((f) => (
+                    <button key={f.id} onClick={() => setLevel(f.id as LevelFilter)} className={`text-left px-4 py-2.5 rounded-xl text-sm font-bold transition-all ${level === f.id ? 'bg-blue-600 text-white' : 'text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800'}`}>
+                      {f.label}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            </>
+          )}
         </div>
       </aside>
 
       <div className="flex-1">
-        {available.length > 0 && (
-          <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-8 mb-20">
-            {available.map(book => <BookCard key={book._id} book={book} highlightTerm={query} />)}
+        {/* If Digital Imprints is selected, show Authors */}
+        {type === 'publication' ? (
+          <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-8">
+            {filteredAuthors.map(author => (
+              <AuthorCard key={author._id} author={author} />
+            ))}
           </div>
+        ) : (
+          <>
+            {available.length > 0 && (
+              <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-8 mb-20">
+                {available.map(book => <BookCard key={book._id} book={book} highlightTerm={query} />)}
+              </div>
+            )}
+
+            {upcoming.length > 0 && (
+              <div className="space-y-10">
+                <h3 className="text-xs font-black uppercase tracking-[0.3em] text-slate-400 border-b border-slate-100 dark:border-slate-800 pb-4">Pipeline</h3>
+                <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-8">
+                  {upcoming.map(book => <BookCard key={book._id} book={book} highlightTerm={query} />)}
+                </div>
+              </div>
+            )}
+          </>
         )}
 
-        {upcoming.length > 0 && (
-          <div className="space-y-10">
-            <h3 className="text-xs font-black uppercase tracking-[0.3em] text-slate-400 border-b border-slate-100 dark:border-slate-800 pb-4">Pipeline</h3>
-            <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-8">
-              {upcoming.map(book => <BookCard key={book._id} book={book} highlightTerm={query} />)}
-            </div>
+        {(type === 'publication' ? filteredAuthors.length === 0 : filteredBooks.length === 0) && (
+          <div className="py-24 text-center">
+            <p className="text-slate-400">No matching results found.</p>
           </div>
         )}
       </div>

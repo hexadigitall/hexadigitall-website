@@ -44,45 +44,25 @@ export interface TocEntry {
   pages?: string
 }
 
-export interface BookSummary {
-  _id: string;
-  _type: 'book' | 'imprint' | 'publication';
-  title: string;
-  subtitle?: string
+export interface AuthorSummary {
+  _id: string
+  name: string
   slug: { current: string }
-  edition?: string
-  authors?: string[]
-  author?: { name: string }
-  description?: string
-  coverImage?: { asset?: { url?: string }; alt?: string }
-  status: 'coming_soon' | 'available' | 'out_of_stock' | 'discontinued'
-  level?: string
-  pageCount?: number
-  publishedAt?: string
-  storeLinks?: StoreLinks
-  directDownloadEnabled?: boolean
-  hasStudentVersion?: boolean
-  studentFile?: { asset?: { url?: string } }
-  hasTeacherVersion?: boolean
-  teacherFile?: { asset?: { url?: string } }
-  pricing?: Pricing
-}
-
-export interface BookDetail extends BookSummary {
-  longDescription?: object[]
-  isbn?: string
-  tableOfContents?: TocEntry[]
-  errata?: ErrataItem[]
-  resources?: ResourceItem[]
-  assets?: ResourceItem[]
-  allowCopyRegistration?: boolean
-  relatedCourse?: { _id: string; title: string; slug: { current: string } }
-  ogTitle?: string
-  ogDescription?: string
-  ogImage?: { asset?: { url?: string } }
+  biography?: string
+  image?: { asset?: { url?: string } }
+  workCount: number
 }
 
 // ── Image projection reused in both queries ───────────────────────────────────
+
+const AUTHOR_PROJECTION = `
+  _id,
+  name,
+  slug,
+  biography,
+  image { asset->{ url } },
+  "workCount": count(*[_type == "publication" && references(^._id)])
+`
 
 const COVER_PROJECTION = `
   coverImage {
@@ -99,8 +79,14 @@ const OG_PROJECTION = `
 
 // ── Queries ───────────────────────────────────────────────────────────────────
 
+const ALL_STORE_AUTHORS_QUERY = groq`
+  *[_type == "author" && count(*[_type == "publication" && references(^._id)]) > 0] {
+    ${AUTHOR_PROJECTION}
+  }
+`
+
 const ALL_STORE_ITEMS_QUERY = groq`
-  *[_type in ["book", "imprint", "publication"] && !(_id in path("drafts.**"))] | order(publishedAt desc) {
+  *[_type in ["book", "publication"] && !(_id in path("drafts.**"))] | order(publishedAt desc) {
     _id,
     _type,
     title,
@@ -108,7 +94,7 @@ const ALL_STORE_ITEMS_QUERY = groq`
     slug,
     edition,
     authors,
-    "author": author->{ name },
+    "author": author->{ name, slug },
     description,
     ${COVER_PROJECTION},
     status,
@@ -122,6 +108,26 @@ const ALL_STORE_ITEMS_QUERY = groq`
     hasTeacherVersion,
     teacherFile { asset->{ url } },
     pricing
+  }
+`
+
+const BOOKS_BY_AUTHOR_QUERY = groq`
+  *[_type == "publication" && references($authorId) && !(_id in path("drafts.**"))] | order(publishedAt desc) {
+    _id,
+    _type,
+    title,
+    subtitle,
+    slug,
+    ${COVER_PROJECTION},
+    status,
+    "author": author->{ name, slug },
+    pricing
+  }
+`
+
+const AUTHOR_BY_SLUG_QUERY = groq`
+  *[_type == "author" && slug.current == $slug][0] {
+    ${AUTHOR_PROJECTION}
   }
 `
 
@@ -195,6 +201,30 @@ const ALL_BOOK_SLUGS_QUERY = groq`
 `
 
 // ── Fetchers ──────────────────────────────────────────────────────────────────
+
+export async function getAllAuthors(): Promise<AuthorSummary[]> {
+  try {
+    return await client.fetch(ALL_STORE_AUTHORS_QUERY)
+  } catch {
+    return []
+  }
+}
+
+export async function getAuthorBySlug(slug: string): Promise<AuthorSummary | null> {
+  try {
+    return await client.fetch(AUTHOR_BY_SLUG_QUERY, { slug })
+  } catch {
+    return null
+  }
+}
+
+export async function getBooksByAuthor(authorId: string): Promise<BookSummary[]> {
+  try {
+    return await client.fetch(BOOKS_BY_AUTHOR_QUERY, { authorId })
+  } catch {
+    return []
+  }
+}
 
 export async function getAllBooks(): Promise<BookSummary[]> {
   try {
