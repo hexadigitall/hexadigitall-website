@@ -62,10 +62,6 @@ export function CustomBuildProvider({ children }: { children: React.ReactNode })
     localStorage.removeItem(STORAGE_KEY);
   };
 
-  if (!isHydrated) {
-    return children;
-  }
-
   return (
     <CustomBuildContext.Provider value={{ state, updateState, resetState }}>
       {children}
