@@ -31,7 +31,7 @@ export default function PublicationActions({
       {/* Primary Actions */}
       <div className="mt-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 bg-slate-50 dark:bg-slate-900/50 p-6 rounded-2xl border border-slate-100 dark:border-slate-800 shadow-sm">
         <div>
-          <span className="font-mono text-[10px] uppercase tracking-wider text-slate-400 block mb-1">Fulfillment Clearance Target</span>
+          <span className="font-mono text-[10px] uppercase tracking-wider text-slate-400 block mb-1">Price</span>
           <span className="text-3xl font-black font-mono text-slate-950 dark:text-white">
             {new Intl.NumberFormat('en-NG', { style: 'currency', currency: 'NGN', maximumFractionDigits: 0 }).format(price)}
           </span>
@@ -44,7 +44,7 @@ export default function PublicationActions({
               className="flex-1 sm:flex-none inline-flex items-center justify-center space-x-2 bg-white dark:bg-slate-800 text-slate-900 dark:text-white font-mono text-xs font-bold border-2 border-slate-950 dark:border-slate-700 px-5 py-3.5 rounded-xl transition-all hover:bg-slate-50"
             >
               <BookmarkSquareIcon className="h-4 w-4" />
-              <span>Register My Copy</span>
+              <span>Register Book</span>
             </button>
           )}
           
@@ -52,7 +52,7 @@ export default function PublicationActions({
             onClick={() => setShowCheckout(true)}
             className="flex-1 sm:flex-none inline-flex items-center justify-center space-x-2 bg-slate-950 dark:bg-blue-600 text-white font-mono text-xs font-bold px-6 py-4 rounded-xl transition-all hover:scale-[1.02] shadow-xl shadow-blue-500/10"
           >
-            <span>Buy Digital System</span>
+            <span>Buy Book</span>
             <ArrowRightIcon className="h-4 w-4" />
           </button>
         </div>
@@ -64,7 +64,7 @@ export default function PublicationActions({
           <div className="flex items-center space-x-3 mb-6">
             <div className="h-px flex-1 bg-slate-100 dark:bg-slate-800"></div>
             <h2 className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-slate-400 text-center px-4">
-              Companion Matrix Assemblies
+              Companion Resources
             </h2>
             <div className="h-px flex-1 bg-slate-100 dark:bg-slate-800"></div>
           </div>
@@ -82,7 +82,7 @@ export default function PublicationActions({
                   )}
                 </div>
                 <h3 className="text-lg font-bold font-serif text-slate-900 dark:text-white mb-2 group-hover:text-blue-600 transition-colors">{resource.title}</h3>
-                <p className="text-xs text-slate-500 font-serif italic mb-6">Optimized strategic configuration matrix authored for FVMMD alignment.</p>
+                <p className="text-xs text-slate-500 font-serif italic mb-6">Official companion resource.</p>
                 
                 <button 
                   onClick={() => {
@@ -99,12 +99,12 @@ export default function PublicationActions({
                   {resource.priceNGN > 0 ? (
                     <>
                       <ShoppingBagIcon className="h-4 w-4" />
-                      <span>Acquire Asset</span>
+                      <span>Buy Resource</span>
                     </>
                   ) : (
                     <>
                       <ShieldCheckIcon className="h-4 w-4" />
-                      <span>{resource.resourceType === 'tool' ? 'Open Interactive Tool' : 'View Asset'}</span>
+                      <span>{resource.resourceType === 'tool' ? 'Open Tool' : 'View Resource'}</span>
                     </>
                   )}
                 </button>

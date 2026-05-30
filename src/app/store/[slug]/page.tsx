@@ -50,7 +50,7 @@ const STATUS_STYLES: Record<string, string> = {
 }
 
 const STATUS_LABELS: Record<string, string> = {
-  available: 'Available Now',
+  available: 'Available',
   coming_soon: 'Coming Soon',
   out_of_stock: 'Out of Stock',
   discontinued: 'Discontinued',
@@ -188,7 +188,7 @@ export default async function BookPage({ params }: Props) {
                     <h2 className="text-2xl font-bold text-slate-950 dark:text-white group-hover:text-white transition-colors">{book.relatedCourse.title}</h2>
                   </div>
                 </div>
-                <div className="text-blue-600 group-hover:text-white font-black uppercase tracking-widest text-xs flex items-center gap-2 transition-colors">Explore Curriculum <ArrowRightIcon className="h-4 w-4" /></div>
+                <div className="text-blue-600 group-hover:text-white font-black uppercase tracking-widest text-xs flex items-center gap-2 transition-colors">View Course <ArrowRightIcon className="h-4 w-4" /></div>
               </div>
             </Link>
           </section>
@@ -205,7 +205,7 @@ export default async function BookPage({ params }: Props) {
                       <span className="text-[10px] font-black uppercase tracking-widest text-slate-400">{asset.resourceType}</span>
                     </div>
                     <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-6 group-hover:text-blue-600 transition-colors">{asset.title}</h3>
-                    <button className="w-full py-3 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-xs font-black uppercase tracking-widest text-slate-600 dark:text-slate-400 hover:bg-slate-950 hover:text-white transition-all">Acquire Asset</button>
+                    <button className="w-full py-3 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-xs font-black uppercase tracking-widest text-slate-600 dark:text-slate-400 hover:bg-slate-950 hover:text-white transition-all">Get Resource</button>
                   </div>
                 ))}
              </div>
@@ -257,7 +257,7 @@ export default async function BookPage({ params }: Props) {
                   <span className="text-2xl">📋</span>
                   <div>
                     <p className="text-xs font-black uppercase tracking-widest text-slate-400">Ownership</p>
-                    <p className="font-bold text-slate-900 dark:text-slate-200">Register Proof of Purchase</p>
+                    <p className="font-bold text-slate-900 dark:text-slate-200">Register Book</p>
                   </div>
                 </div>
                 <ArrowRightIcon className="h-5 w-5 text-slate-300 group-hover:text-blue-500 transition-colors" />

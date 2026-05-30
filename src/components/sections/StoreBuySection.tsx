@@ -47,7 +47,7 @@ export default function StoreBuySection({ book }: StoreBuySectionProps) {
               >
                 <div className="flex items-center space-x-3">
                   <ShoppingCartIcon className="h-5 w-5" />
-                  <span>Choose Delivery Version</span>
+                  <span>Buy Book</span>
                 </div>
                 <ChevronDownIcon className={`h-4 w-4 transition-transform ${isDropdownOpen ? 'rotate-180' : ''}`} />
               </button>
@@ -98,7 +98,7 @@ export default function StoreBuySection({ book }: StoreBuySectionProps) {
               className="w-full flex items-center justify-center space-x-3 bg-slate-950 dark:bg-blue-600 text-white font-black uppercase tracking-widest text-xs py-5 rounded-2xl hover:scale-[1.01] transition-all shadow-2xl active:scale-[0.98]"
             >
               <ShoppingBagIcon className="h-5 w-5" />
-              <span>Acquire Digital Copy</span>
+              <span>Buy Book</span>
               <span className="ml-4 pl-4 border-l border-white/20 font-mono">₦{defaultNgnPrice.toLocaleString()}</span>
             </button>
           )}

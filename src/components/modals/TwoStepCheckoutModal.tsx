@@ -98,7 +98,7 @@ export default function TwoStepCheckoutModal({
             {/* Header */}
             <div className="px-8 py-6 border-b border-slate-50 dark:border-slate-800 flex justify-between items-center bg-slate-50/50 dark:bg-slate-950/50">
               <DialogTitle className="text-xl font-bold text-slate-950 dark:text-white">
-                {step === 1 ? 'Digital Entry' : 'Verification'}
+                {step === 1 ? 'Checkout' : 'Payment'}
               </DialogTitle>
               <button onClick={onClose} className="text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors">
                 <XMarkIcon className="h-6 w-6" />
@@ -115,7 +115,7 @@ export default function TwoStepCheckoutModal({
 
                   <div className="space-y-4">
                     <div>
-                      <label className="block text-[10px] font-black uppercase tracking-widest text-slate-400 mb-2 ml-1">Identity Node</label>
+                      <label className="block text-[10px] font-black uppercase tracking-widest text-slate-400 mb-2 ml-1">Full Name</label>
                       <input
                         required
                         type="text"
@@ -127,11 +127,11 @@ export default function TwoStepCheckoutModal({
                     </div>
 
                     <div>
-                      <label className="block text-[10px] font-black uppercase tracking-widest text-slate-400 mb-2 ml-1">Secure Channel</label>
+                      <label className="block text-[10px] font-black uppercase tracking-widest text-slate-400 mb-2 ml-1">Email address</label>
                       <input
                         required
                         type="email"
-                        placeholder="Email Address"
+                        placeholder="Email address"
                         className="w-full px-5 py-4 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-2xl focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 outline-none transition-all text-slate-900 dark:text-white font-sans"
                         value={formData.email}
                         onChange={(e) => setFormData({ ...formData, email: e.target.value })}
@@ -140,7 +140,7 @@ export default function TwoStepCheckoutModal({
 
                     {itemType === 'book' && (
                       <div>
-                        <label className="block text-[10px] font-black uppercase tracking-widest text-slate-400 mb-2 ml-1">Acquisition Role</label>
+                        <label className="block text-[10px] font-black uppercase tracking-widest text-slate-400 mb-2 ml-1">Role</label>
                         <select
                           required
                           className="w-full px-5 py-4 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-2xl focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 outline-none transition-all text-slate-900 dark:text-white font-sans"
@@ -161,18 +161,18 @@ export default function TwoStepCheckoutModal({
                     type="submit"
                     className="w-full bg-slate-950 dark:bg-blue-600 hover:scale-[1.02] text-white font-black uppercase tracking-widest text-xs py-5 rounded-2xl transition-all shadow-xl shadow-blue-500/10 mt-8"
                   >
-                    Confirm & Proceed
+                    Continue to Payment
                   </button>
                 </form>
               ) : (
                 <div className="text-center space-y-8 animate-in fade-in zoom-in-95 duration-300">
                   <div className="p-8 bg-slate-50 dark:bg-slate-950 rounded-3xl border border-slate-100 dark:border-slate-800">
-                    <p className="text-[10px] font-black font-mono text-slate-400 uppercase tracking-widest mb-2">Verification Amount</p>
+                    <p className="text-[10px] font-black font-mono text-slate-400 uppercase tracking-widest mb-2">Amount</p>
                     <p className="text-4xl font-black text-slate-950 dark:text-white font-mono">
                       {new Intl.NumberFormat('en-NG', { style: 'currency', currency: currency, maximumFractionDigits: 0 }).format(price)}
                     </p>
                     <div className="mt-6 text-sm text-slate-500 dark:text-slate-400 font-serif italic">
-                      <p>Registry under: <span className="text-slate-900 dark:text-slate-200 not-italic font-bold">{formData.fullName}</span></p>
+                      <p>Name: <span className="text-slate-900 dark:text-slate-200 not-italic font-bold">{formData.fullName}</span></p>
                       <p className="text-xs mt-1">({formData.email})</p>
                     </div>
                   </div>
@@ -190,7 +190,7 @@ export default function TwoStepCheckoutModal({
                       ) : (
                         <>
                           <CreditCardIcon className="h-5 w-5" />
-                          <span>Fulfill via Paystack</span>
+                          <span>Pay with Paystack</span>
                         </>
                       )}
                     </button>
@@ -200,12 +200,12 @@ export default function TwoStepCheckoutModal({
                       onClick={() => setStep(1)}
                       className="w-full text-slate-400 hover:text-slate-900 dark:hover:text-white text-[10px] font-black uppercase tracking-widest py-2 transition-colors"
                     >
-                      Back to Registry
+                      Back
                     </button>
                   </div>
 
                   <p className="text-[10px] text-slate-400 leading-relaxed font-serif italic">
-                    Digital assets are dispatched via secure email protocol immediately upon ledger verification.
+                    Your digital assets will be emailed to you immediately after payment.
                   </p>
                 </div>
               )}

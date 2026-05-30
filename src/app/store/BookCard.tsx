@@ -14,7 +14,7 @@ const STATUS_STYLES: Record<string, string> = {
 }
 
 const STATUS_LABELS: Record<string, string> = {
-  available: 'Available Now',
+  available: 'Available',
   coming_soon: 'Pipeline',
   out_of_stock: 'Sold Out',
   discontinued: 'Legacy',

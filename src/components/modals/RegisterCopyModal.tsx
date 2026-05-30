@@ -106,7 +106,7 @@ export default function RegisterCopyModal({
                     <input
                       required
                       type="email"
-                      placeholder="Email Address"
+                      placeholder="Email address"
                       className="w-full px-4 py-3 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl outline-none"
                       value={formData.email}
                       onChange={(e) => setFormData({ ...formData, email: e.target.value })}
@@ -114,7 +114,7 @@ export default function RegisterCopyModal({
                     <input
                       required
                       type="text"
-                      placeholder="Proof of Purchase / Receipt Code"
+                      placeholder="Receipt code"
                       className="w-full px-4 py-3 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl outline-none font-mono"
                       value={formData.code}
                       onChange={(e) => setFormData({ ...formData, code: e.target.value })}
@@ -128,7 +128,7 @@ export default function RegisterCopyModal({
                     type="submit"
                     className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 rounded-xl transition-all shadow-lg shadow-blue-500/20 mt-6 flex items-center justify-center space-x-2"
                   >
-                    {status === 'submitting' ? 'Submitting...' : 'Register Now'}
+                    {status === 'submitting' ? 'Submitting...' : 'Register'}
                   </button>
                 </form>
               )}

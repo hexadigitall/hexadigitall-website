@@ -147,7 +147,7 @@ export default function StoreCatalog({ books: initialBooks, authors }: StoreCata
               <div>
                 <p className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 mb-3">Availability</p>
                 <div className="flex flex-col gap-2">
-                  {[{ id: 'all', label: 'All Status' }, { id: 'available', label: 'Available Now' }, { id: 'coming_soon', label: 'Pipeline' }].map((f) => (
+                  {[{ id: 'all', label: 'All Status' }, { id: 'available', label: 'Available' }, { id: 'coming_soon', label: 'Pipeline' }].map((f) => (
                     <button key={f.id} onClick={() => setStatus(f.id as StatusFilter)} className={`text-left px-4 py-2.5 rounded-xl text-sm font-bold transition-all ${status === f.id ? 'bg-blue-600 text-white' : 'text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800'}`}>
                       {f.label}
                     </button>
