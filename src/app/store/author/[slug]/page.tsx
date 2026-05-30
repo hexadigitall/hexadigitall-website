@@ -46,7 +46,7 @@ export default async function AuthorProfilePage({ params }: Props) {
         <nav className="text-[10px] font-mono uppercase tracking-widest text-slate-400 mb-12">
           <Link href="/" className="hover:text-blue-600 transition-colors">Home</Link>
           <span className="mx-2">/</span>
-          <Link href="/store" className="hover:text-blue-600 transition-colors">Store</Link>
+          <Link href="/store" className="hover:text-blue-600 transition-colors">Library</Link>
           <span className="mx-2">/</span>
           <span className="text-slate-900 dark:text-white font-bold">Author: {author.name}</span>
         </nav>

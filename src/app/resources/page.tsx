@@ -80,7 +80,7 @@ export default async function ResourcesIndexPage() {
           <div className="text-center py-20 text-gray-500 dark:text-slate-500">
             <p className="text-3xl mb-4">📁</p>
             <p className="text-lg font-medium">Resources will be published alongside our first textbooks.</p>
-            <Link href="/store" className="mt-4 inline-block text-sm text-primary dark:text-cyan-400 underline">Visit the store</Link>
+            <Link href="/store" className="mt-4 inline-block text-sm text-primary dark:text-cyan-400 underline">Visit the library</Link>
           </div>
         )}
       </main>

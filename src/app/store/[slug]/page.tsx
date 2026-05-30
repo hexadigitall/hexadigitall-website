@@ -23,7 +23,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const ogImage = book.ogImage?.asset?.url ?? book.coverImage?.asset?.url ?? `${BASE_URL}/og-images/store.jpg`
 
   return {
-    title: `${book.ogTitle ?? book.title} | Hexadigitall Store`,
+    title: `${book.ogTitle ?? book.title} | Hexadigitall Library`,
     description: book.ogDescription ?? book.description ?? `${book.title} — Hexadigitall textbook.`,
     openGraph: {
       title: book.ogTitle ?? book.title,
@@ -63,7 +63,7 @@ export default async function BookPage({ params }: Props) {
 
   const coverUrl = book.coverImage?.asset?.url
   const hasErrata = Array.isArray(book.errata) && book.errata.length > 0
-  const hasResources = (book.resources?.length ?? 0) > 0 || (book.assets?.length ?? 0) > 0
+  const hasResources = (Array.isArray(book.resources) && book.resources.length > 0) || (Array.isArray(book.assets) && book.assets.length > 0)
   
   const displayAuthor = (['imprint', 'publication'].includes(book._type) ? book.author?.name : (Array.isArray(book.authors) && book.authors.length > 0 ? book.authors.join(', ') : 'Hexadigitall')) || 'Hexadigitall'
 
@@ -99,7 +99,7 @@ export default async function BookPage({ params }: Props) {
         <nav className="text-[10px] font-mono uppercase tracking-widest text-slate-400 mb-12">
           <Link href="/" className="hover:text-blue-600 transition-colors">Home</Link>
           <span className="mx-2">/</span>
-          <Link href="/store" className="hover:text-blue-600 transition-colors">Store</Link>
+          <Link href="/store" className="hover:text-blue-600 transition-colors">Library</Link>
           <span className="mx-2">/</span>
           <span className="text-slate-900 dark:text-white font-bold line-clamp-1">{book.title}</span>
         </nav>
@@ -213,7 +213,7 @@ export default async function BookPage({ params }: Props) {
         )}
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-20">
-            {book.longDescription && (
+            {Array.isArray(book.longDescription) && book.longDescription.length > 0 && (
               <section>
                 <h2 className="text-xs font-black uppercase tracking-[0.3em] text-slate-400 mb-8 pb-4 border-b border-slate-100 dark:border-slate-800">Manuscript Overview</h2>
                 <div className="prose prose-slate dark:prose-invert max-w-none font-serif leading-relaxed text-slate-700 dark:text-slate-400 italic">

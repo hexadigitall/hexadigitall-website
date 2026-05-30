@@ -82,6 +82,7 @@ export async function POST(request: Request) {
             ${buyLink ? `<p><a href="${buyLink}" style="display:inline-block;padding:10px 16px;background:#0A4D68;color:#fff;text-decoration:none;border-radius:8px;">Buy now</a></p>` : ''}
             <p style="margin-top:16px;">You can also view the book details on Hexadigitall:</p>
             <p><a href="https://hexadigitall.com/store/${slug}">https://hexadigitall.com/store/${slug}</a></p>
+            <p style="color:#6b7280; font-size:12px; margin-top:24px;">Hexadigitall Textbook Library</p>
           </div>
         `,
       });

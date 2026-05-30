@@ -20,7 +20,7 @@ export default function MentorshipLandingPage() {
               Mentorships for Textbook Learners
             </h1>
             <p className="mt-4 text-lg text-white/80">
-              Bought a Hexadigitall textbook from our store or a vendor? Activate mentorship support, grading, and
+              Bought a Hexadigitall textbook from our library or a vendor? Activate mentorship support, grading, and
               portfolio guidance without enrolling in the full cohort.
             </p>
             <div className="mt-8 flex flex-wrap gap-4">

@@ -59,7 +59,7 @@ export default function TwoStepCheckoutModal({
           courseId: itemId, 
           amount: price,
           currency: currency,
-          redirectUrl: `${window.location.origin}/publications/success`,
+          redirectUrl: `${window.location.origin}/store/success`,
           studentDetails: {
             fullName: formData.fullName,
             email: formData.email

@@ -10,19 +10,19 @@ export const revalidate = 0 // Disable cache for this page
 const BASE_URL = 'https://hexadigitall.com'
 
 export const metadata: Metadata = {
-  title: 'Ecosystem Store | Hexadigitall',
+  title: 'Ecosystem Library | Hexadigitall',
   description: 'Access official course textbooks and digital imprints. Digital downloads, physical copies, and premium companion assets.',
   keywords: [
-    'Hexadigitall store', 'tech books', 'digital imprints', 'FVMMD', 'companion assets',
+    'Hexadigitall library', 'tech books', 'digital imprints', 'FVMMD', 'companion assets',
   ],
   openGraph: {
-    title: 'Hexadigitall Store & Resource Center',
+    title: 'Hexadigitall Library & Resource Center',
     description: 'The central hub for all Hexadigitall physical and digital publishing resources.',
     url: `${BASE_URL}/store`,
     siteName: 'Hexadigitall',
     locale: 'en_NG',
     type: 'website',
-    images: [{ url: `${BASE_URL}/og-images/store.jpg`, width: 1200, height: 630, alt: 'Hexadigitall Store' }],
+    images: [{ url: `${BASE_URL}/og-images/store.jpg`, width: 1200, height: 630, alt: 'Hexadigitall Library' }],
   },
   alternates: { canonical: `${BASE_URL}/store` },
 }
@@ -36,7 +36,7 @@ export default async function StorePage() {
   return (
     <>
       <Banner
-        title="Hexadigitall Store"
+        title="Hexadigitall Library"
         description="Equip yourself with the foundational texts, architectural blueprints, and digital imprints powering the next generation of builders and thinkers."
         overlayClassName="bg-slate-950/80"
       />
@@ -47,7 +47,7 @@ export default async function StorePage() {
         <nav className="text-[10px] font-mono uppercase tracking-widest text-slate-400 mb-12">
           <Link href="/" className="hover:text-blue-600 transition-colors">Home</Link>
           <span className="mx-2">/</span>
-          <span className="text-slate-900 dark:text-white font-bold">Store</span>
+          <span className="text-slate-900 dark:text-white font-bold">Library</span>
         </nav>
 
         {/* Intro blurb */}

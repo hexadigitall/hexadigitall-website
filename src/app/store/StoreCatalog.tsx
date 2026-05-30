@@ -78,18 +78,27 @@ export default function StoreCatalog({ books: initialBooks, authors }: StoreCata
   const filteredAuthors = useMemo(() => {
     if (type !== 'imprint' && type !== 'all') return [];
     
-    // Hide authors if we're in 'all' type but filtering by specific status
-    // since Author Cards represent collections and don't have a single status
-    if (type === 'all' && status !== 'all') return [];
-    
-    // In 'imprint' or 'all' view, we show ALL authors who have imprints
-    if (type === 'imprint' || type === 'all') {
-       if (!query.trim()) return authors;
-       return authors.filter(a => fuzzyMatch(a.name, query));
+    let result = authors;
+
+    // Filter by status if not 'all'
+    // An author is shown if they have at least one imprint/publication matching the status
+    if (status !== 'all') {
+      const authorsWithMatchingImprints = new Set(
+        books
+          .filter(b => (b._type === 'imprint' || b._type === 'publication') && b.status === status)
+          .map(b => b.author?.slug?.current)
+          .filter(Boolean)
+      );
+      result = result.filter(a => authorsWithMatchingImprints.has(a.slug.current));
     }
 
-    return [];
-  }, [authors, type, query, status]);
+    // Filter by query if present
+    if (query.trim()) {
+      result = result.filter(a => fuzzyMatch(a.name, query));
+    }
+
+    return result;
+  }, [authors, type, query, status, books]);
 
   const available = useMemo(() => filteredBooks.filter(b => b.status === 'available'), [filteredBooks]);
   const upcoming = useMemo(() => filteredBooks.filter(b => b.status === 'coming_soon'), [filteredBooks]);

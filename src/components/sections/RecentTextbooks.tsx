@@ -15,7 +15,7 @@ export default async function RecentTextbooks() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-8">
           <div>
-            <p className="text-xs font-semibold tracking-[0.18em] text-secondary dark:text-cyan-300 uppercase">Textbook Store</p>
+            <p className="text-xs font-semibold tracking-[0.18em] text-secondary dark:text-cyan-300 uppercase">Textbook Library</p>
             <h2 className="mt-2 text-2xl md:text-3xl font-bold text-darkText dark:text-slate-100">Recently Added Textbooks</h2>
           </div>
           <Link href="/store" className="text-sm font-semibold text-primary dark:text-cyan-300 hover:underline">

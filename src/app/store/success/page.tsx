@@ -51,7 +51,7 @@ function SuccessContent() {
         </div>
         <h1 className="text-2xl font-bold text-slate-900 mb-2">Verification Failed</h1>
         <p className="text-slate-600 mb-8">We couldn't verify your payment. If you've been charged, please contact support with your reference: <code className="bg-slate-100 px-2 py-1 rounded">{reference}</code></p>
-        <Link href="/publications" className="text-blue-600 font-bold hover:underline flex items-center justify-center space-x-2">
+        <Link href="/store" className="text-blue-600 font-bold hover:underline flex items-center justify-center space-x-2">
           <ArrowRightIcon className="h-4 w-4 rotate-180" />
           <span>Return to Library</span>
         </Link>
@@ -125,7 +125,7 @@ function SuccessContent() {
 
         <div className="text-center">
           <p className="text-sm text-slate-400 font-serif italic mb-6">A copy of these download links has been sent to your email.</p>
-          <Link href="/publications" className="inline-flex items-center space-x-2 text-slate-900 font-bold hover:text-blue-600 transition-colors">
+          <Link href="/store" className="inline-flex items-center space-x-2 text-slate-900 font-bold hover:text-blue-600 transition-colors">
             <span>Explore more in the Library</span>
             <ArrowRightIcon className="h-4 w-4" />
           </Link>

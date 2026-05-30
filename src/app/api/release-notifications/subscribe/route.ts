@@ -55,7 +55,7 @@ export async function POST(request: Request) {
           <h2 style="color:#0A4D68;">You're on the list</h2>
           <p>Thanks for subscribing to release updates for <strong>${book.title}</strong>.</p>
           <p>We'll email you as soon as this textbook is available.</p>
-          <p style="color:#6b7280; font-size:12px; margin-top:24px;">Hexadigitall Textbook Store</p>
+          <p style="color:#6b7280; font-size:12px; margin-top:24px;">Hexadigitall Textbook Library</p>
         </div>
       `,
     });

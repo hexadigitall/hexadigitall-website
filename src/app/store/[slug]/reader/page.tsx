@@ -47,7 +47,7 @@ export default async function SecureWebReaderPage({ params }: Props) {
     <div className="flex flex-col h-screen bg-slate-950 text-white font-sans">
       <div className="flex items-center justify-between px-6 py-4 bg-slate-900 border-b border-slate-800 shadow-sm z-10">
         <div className="flex items-center space-x-4">
-          <Link href={`/store/${slug}`} className="p-2 hover:bg-slate-800 text-slate-300 hover:text-white rounded-full transition-colors" title="Back to Store">
+          <Link href={`/store/${slug}`} className="p-2 hover:bg-slate-800 text-slate-300 hover:text-white rounded-full transition-colors" title="Back to Library">
             <ArrowLeftIcon className="h-5 w-5" />
           </Link>
           <div>

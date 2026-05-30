@@ -174,16 +174,13 @@ const Header = () => {
                 <Link href="/courses" className={dropdownItemClass} onClick={closeDesktopMenus}>
                   Courses
                 </Link>
-                <Link href="/store" className={dropdownItemClass} onClick={closeDesktopMenus}>
-                  Store
-                </Link>
                 <Link href="/mentorships" className={dropdownHighlightItemClass} onClick={closeDesktopMenus}>
                   Mentorships
                 </Link>
                 <Link href="/portfolio" className={dropdownItemClass} onClick={closeDesktopMenus}>
                   Portfolio
                 </Link>
-                <Link href="/publications" className={dropdownItemClass} onClick={closeDesktopMenus}>
+                <Link href="/store" className={dropdownItemClass} onClick={closeDesktopMenus}>
                   Library
                 </Link>
               </div>
@@ -320,16 +317,13 @@ const Header = () => {
                   <Link href="/courses" className={`${dropdownItemClass} whitespace-nowrap`} onClick={closeDesktopMenus}>
                     Courses
                   </Link>
-                  <Link href="/store" className={`${dropdownItemClass} whitespace-nowrap`} onClick={closeDesktopMenus}>
-                    Store
-                  </Link>
                   <Link href="/mentorships" className={`${dropdownHighlightItemClass} whitespace-nowrap`} onClick={closeDesktopMenus}>
                     Mentorships
                   </Link>
                   <Link href="/portfolio" className={`${dropdownItemClass} whitespace-nowrap`} onClick={closeDesktopMenus}>
                     Portfolio
                   </Link>
-                  <Link href="/publications" className={`${dropdownItemClass} whitespace-nowrap`} onClick={closeDesktopMenus}>
+                  <Link href="/store" className={`${dropdownItemClass} whitespace-nowrap`} onClick={closeDesktopMenus}>
                     Library
                   </Link>
                 </div>
@@ -530,8 +524,7 @@ const Header = () => {
 
                 {/* Mobile Direct Links */}
                 <Link href="/courses" onClick={closeMobileMenus} className="block text-sm py-1.5 text-darkText dark:text-slate-200 hover:text-secondary font-medium transition-colors">Courses</Link>
-                <Link href="/store" onClick={closeMobileMenus} className="block text-sm py-1.5 text-darkText dark:text-slate-200 hover:text-secondary font-medium transition-colors">Store</Link>
-                <Link href="/publications" onClick={closeMobileMenus} className="block text-sm py-1.5 text-darkText dark:text-slate-200 hover:text-secondary font-medium transition-colors">Library</Link>
+                <Link href="/store" onClick={closeMobileMenus} className="block text-sm py-1.5 text-darkText dark:text-slate-200 hover:text-secondary font-medium transition-colors">Library</Link>
                 <Link
                   href="/mentorships"
                   onClick={closeMobileMenus}
