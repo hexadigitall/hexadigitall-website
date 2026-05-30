@@ -29,6 +29,16 @@ const nextConfig: NextConfig = {
         destination: '/store/:path*',
         permanent: true,
       },
+      {
+        source: '/library',
+        destination: '/store',
+        permanent: true,
+      },
+      {
+        source: '/library/:path*',
+        destination: '/store/:path*',
+        permanent: true,
+      },
     ]
   },
   // Rewrite rules for static files
