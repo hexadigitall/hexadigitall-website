@@ -39,7 +39,7 @@ export default function TwoStepCheckoutModal({
 
   const handleNext = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!formData.fullName || !formData.email || !formData.role) {
+    if (!formData.fullName || !formData.email || (itemType === 'book' && !formData.role)) {
       setError('Please fill out all fields.');
       return;
     }
@@ -138,19 +138,21 @@ export default function TwoStepCheckoutModal({
                       />
                     </div>
 
-                    <div>
-                      <label className="block text-[10px] font-black uppercase tracking-widest text-slate-400 mb-2 ml-1">Acquisition Role</label>
-                      <select
-                        required
-                        className="w-full px-5 py-4 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-2xl focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 outline-none transition-all text-slate-900 dark:text-white font-sans"
-                        value={formData.role}
-                        onChange={(e) => setFormData({ ...formData, role: e.target.value })}
-                      >
-                        {ROLES.map(r => (
-                          <option key={r.id} value={r.id}>{r.label}</option>
-                        ))}
-                      </select>
-                    </div>
+                    {itemType === 'book' && (
+                      <div>
+                        <label className="block text-[10px] font-black uppercase tracking-widest text-slate-400 mb-2 ml-1">Acquisition Role</label>
+                        <select
+                          required
+                          className="w-full px-5 py-4 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-2xl focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 outline-none transition-all text-slate-900 dark:text-white font-sans"
+                          value={formData.role}
+                          onChange={(e) => setFormData({ ...formData, role: e.target.value })}
+                        >
+                          {ROLES.map(r => (
+                            <option key={r.id} value={r.id}>{r.label}</option>
+                          ))}
+                        </select>
+                      </div>
+                    )}
                   </div>
 
                   {error && <p className="text-xs text-red-500 mt-4 ml-1">{error}</p>}
