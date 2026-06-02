@@ -8,13 +8,6 @@ const config: Config = {
     'font-heading',
   ],
   darkMode: 'class',
-  // ✅ CRITICAL: This 'content' array must be correct.
-  // It tells Tailwind to scan all .ts, .tsx, etc., files inside the 'src' folder.
-  content: [
-    "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
-    "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
-    "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
-  ],
   theme: {
     fontFamily: {
       // ✅ Ensure these match the variables in layout.tsx with robust fallbacks
