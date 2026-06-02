@@ -6,6 +6,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { urlFor } from '@/sanity/imageUrlBuilder'
 import SubscriptionCard from '@/components/student/SubscriptionCard'
+import LibraryView from './LibraryView'
 import {
   BookOpenIcon,
   CalendarIcon,
@@ -55,6 +56,7 @@ export default function StudentDashboardPage() {
   const [curriculumLoading, setCurriculumLoading] = useState<string | null>(null)
   const [photoUrl, setPhotoUrl] = useState<string | null>(null)
   const [photoUploading, setPhotoUploading] = useState(false)
+  const [activeTab, setActiveTab] = useState<'courses' | 'library'>('courses')
   const photoInputRef = useRef<HTMLInputElement>(null)
 
   useEffect(() => {
@@ -371,6 +373,30 @@ export default function StudentDashboardPage() {
         </div>
       </div>
 
+      {/* Tabs */}
+      <div className="bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 sticky top-0 z-30">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <nav className="flex gap-8 overflow-x-auto no-scrollbar">
+            {[
+              { id: 'courses', label: 'My Courses' },
+              { id: 'library', label: 'My Library' },
+            ].map((tab) => (
+              <button
+                key={tab.id}
+                onClick={() => setActiveTab(tab.id as any)}
+                className={`py-5 text-sm font-bold border-b-2 transition-all whitespace-nowrap ${
+                  activeTab === tab.id
+                    ? 'border-purple-600 text-purple-600'
+                    : 'border-transparent text-slate-500 hover:text-slate-700 dark:hover:text-slate-300'
+                }`}
+              >
+                {tab.label}
+              </button>
+            ))}
+          </nav>
+        </div>
+      </div>
+
       <div className="sm:hidden px-4 pt-4">
         {sessionRole === 'admin' && (
           <Link
@@ -392,40 +418,42 @@ export default function StudentDashboardPage() {
 
       {/* Page content */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-10">
-
-        {/* Stat cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-          <StatCard
-            icon={<BookOpenIcon className="h-5 w-5" />}
-            title="Active Courses"
-            value={activeCount.toString()}
-            color="purple"
-          />
-          <StatCard
-            icon={<CalendarIcon className="h-5 w-5" />}
-            title="Next Payment"
-            value={nextPayment ? nextPayment.toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) : '—'}
-            color="blue"
-          />
-          <div className="relative bg-gradient-to-br from-emerald-500 to-teal-600 rounded-2xl p-5 shadow-sm overflow-hidden">
-            <div className="absolute top-0 right-0 w-24 h-24 rounded-full bg-white dark:bg-slate-900/10 -translate-y-8 translate-x-8" />
-            <div className="flex items-center gap-3 mb-4">
-              <div className="p-2 bg-white dark:bg-slate-900/20 rounded-xl">
-                <CreditCardIcon className="h-5 w-5 text-white" />
+        
+        {activeTab === 'courses' ? (
+          <>
+            {/* Stat cards */}
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+              <StatCard
+                icon={<BookOpenIcon className="h-5 w-5" />}
+                title="Active Courses"
+                value={activeCount.toString()}
+                color="purple"
+              />
+              <StatCard
+                icon={<CalendarIcon className="h-5 w-5" />}
+                title="Next Payment"
+                value={nextPayment ? nextPayment.toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) : '—'}
+                color="blue"
+              />
+              <div className="relative bg-gradient-to-br from-emerald-500 to-teal-600 rounded-2xl p-5 shadow-sm overflow-hidden">
+                <div className="absolute top-0 right-0 w-24 h-24 rounded-full bg-white dark:bg-slate-900/10 -translate-y-8 translate-x-8" />
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="p-2 bg-white dark:bg-slate-900/20 rounded-xl">
+                    <CreditCardIcon className="h-5 w-5 text-white" />
+                  </div>
+                  <h3 className="text-sm font-semibold text-white/90">Billing</h3>
+                </div>
+                <Link
+                  href="/courses"
+                  className="inline-flex items-center px-4 py-2 bg-white dark:bg-slate-900 text-emerald-700 dark:text-emerald-300 rounded-xl hover:bg-emerald-50 dark:hover:bg-emerald-950/20 transition-colors text-sm font-semibold shadow-sm"
+                >
+                  Renew Subscription
+                </Link>
               </div>
-              <h3 className="text-sm font-semibold text-white/90">Billing</h3>
             </div>
-            <Link
-              href="/courses"
-              className="inline-flex items-center px-4 py-2 bg-white dark:bg-slate-900 text-emerald-700 dark:text-emerald-300 rounded-xl hover:bg-emerald-50 dark:hover:bg-emerald-950/20 transition-colors text-sm font-semibold shadow-sm"
-            >
-              Renew Subscription
-            </Link>
-          </div>
-        </div>
 
-        {/* Courses section */}
-        <section>
+            {/* Courses section */}
+            <section>
           <div className="flex items-center justify-between mb-6">
             <div>
               <h2 className="text-xl font-bold text-gray-900 dark:text-slate-100">My Enrolled Courses</h2>
@@ -620,6 +648,10 @@ export default function StudentDashboardPage() {
             </div>
           )}
         </section>
+          </>
+        ) : (
+          <LibraryView userEmail={student?.username || ''} />
+        )}
       </div>
     </div>
   )
