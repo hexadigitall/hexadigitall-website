@@ -72,19 +72,19 @@ export default function StoreBuySection({ book }: StoreBuySectionProps) {
                   >
                     <div>
                       <p className="text-sm font-bold text-slate-900 dark:text-white group-hover:text-blue-600 transition-colors">Student Edition</p>
-                      <p className="text-[10px] text-slate-400 uppercase tracking-widest mt-0.5">Optimized for individual learners</p>
+                      <p className="text-[10px] text-slate-400 uppercase tracking-widest mt-0.5">For individual learners</p>
                     </div>
                     <span className="font-mono text-sm font-black">₦{prices.student.toLocaleString()}</span>
                   </button>
 
-                  {/* Teacher Path */}
+                  {/* Instructor Path */}
                   <button
                     onClick={() => { setActiveModal({ audience: 'teacher' }); setIsDropdownOpen(false); }}
                     className="w-full text-left px-6 py-5 hover:bg-slate-50 dark:hover:bg-slate-800 flex justify-between items-center group"
                   >
                     <div>
                       <p className="text-sm font-bold text-slate-900 dark:text-white group-hover:text-blue-600 transition-colors">Instructor Edition</p>
-                      <p className="text-[10px] text-slate-400 uppercase tracking-widest mt-0.5">Includes advanced teaching matrix</p>
+                      <p className="text-[10px] text-slate-400 uppercase tracking-widest mt-0.5">Includes teaching resources</p>
                     </div>
                     <span className="font-mono text-sm font-black">₦{prices.teacher.toLocaleString()}</span>
                   </button>

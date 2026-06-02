@@ -16,10 +16,8 @@ interface TwoStepCheckoutModalProps {
 }
 
 const ROLES = [
-  { id: 'student', label: 'Student (Self-study)' },
-  { id: 'parent', label: 'Parent (Buying for a student)' },
-  { id: 'teacher', label: 'Teacher / Instructor' },
-  { id: 'mentor', label: 'Mentor / Coach' },
+  { id: 'student', label: 'Student' },
+  { id: 'instructor', label: 'Instructor / Mentor / Parent' },
 ];
 
 export default function TwoStepCheckoutModal({
