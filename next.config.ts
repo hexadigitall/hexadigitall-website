@@ -178,7 +178,7 @@ const nextConfig: NextConfig = {
   // Experimental features and performance optimizations
   experimental: {
     // Enable optimized CSS
-    optimizeCss: true,
+    optimizeCss: false,
     // Performance optimizations
     webpackBuildWorker: true,
     // Enable PPR (Partial Prerendering) for better performance
