@@ -1,12 +1,15 @@
 'use client'
 // src/app/store/BookCard.tsx
 
-import React, { useState, type ReactNode } from 'react'
+import React, { useState, useMemo, type ReactNode } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import type { BookSummary } from '@/lib/book-queries'
-import { BookOpenIcon, BookmarkIcon, ShoppingCartIcon, CheckCircleIcon } from '@heroicons/react/24/outline'
+import { BookOpenIcon, BookmarkIcon, ShoppingCartIcon, CheckCircleIcon, EyeIcon } from '@heroicons/react/24/outline'
 import toast from 'react-hot-toast'
+import BookDetailsModal from '@/components/dashboard/BookDetailsModal'
+import { useCurrency } from '@/contexts/CurrencyContext'
+import { SUPPORTED_CURRENCIES } from '@/lib/currency'
 
 const STATUS_STYLES: Record<string, string> = {
   available: 'bg-green-100 text-green-700',
@@ -49,6 +52,9 @@ interface BookCardProps {
 export default function BookCard({ book, highlightTerm = '', user, isDashboardContext }: BookCardProps) {
   const [isSaving, setIsSaving] = useState(false)
   const [isSaved, setIsSaved] = useState(false)
+  const [detailsModalOpen, setDetailsModalOpen] = useState(false)
+  
+  const { currentCurrency, convertPrice, formatPrice } = useCurrency()
   
   const coverUrl = book.coverImage?.asset?.url
   const isTextbook = book._type === 'book'
@@ -56,6 +62,42 @@ export default function BookCard({ book, highlightTerm = '', user, isDashboardCo
 
   // @ts-ignore - added in StoreCatalog expansion
   const variant = book._displayVariant as 'teacher' | 'student' | 'single' | undefined;
+
+  const rawPrice = useMemo(() => {
+    let baseUSD = book.pricing?.usd || 30;
+    const slug = book.slug.current;
+    
+    if (slug === 'dunce-to-midjourney-pro') baseUSD = 54.99;
+    if (slug === 'mother-of-two') baseUSD = 47.99;
+    if (slug === 'love-is-nothing') baseUSD = 85.99;
+
+    // Teacher version is 15% more
+    if (variant === 'teacher') baseUSD *= 1.15;
+
+    if (currentCurrency.code === 'NGN' && book.pricing?.ngn) {
+        let ngn = book.pricing.ngn;
+        if (variant === 'teacher') ngn *= 1.15;
+        return Math.round(ngn);
+    }
+
+    return convertPrice(baseUSD);
+  }, [book, currentCurrency.code, convertPrice, variant]);
+
+  const formattedPrice = useMemo(() => {
+    if (!isDashboardContext || variant === 'teacher') return undefined;
+    
+    if (currentCurrency.code === 'NGN' && book.pricing?.ngn) {
+        return `₦${book.pricing.ngn.toLocaleString()}`;
+    }
+
+    let baseUSD = book.pricing?.usd || 30;
+    const slug = book.slug.current;
+    if (slug === 'dunce-to-midjourney-pro') baseUSD = 54.99;
+    if (slug === 'mother-of-two') baseUSD = 47.99;
+    if (slug === 'love-is-nothing') baseUSD = 85.99;
+
+    return formatPrice(baseUSD);
+  }, [book, currentCurrency.code, formatPrice, isDashboardContext, variant]);
 
   const handleSaveToDashboard = async () => {
     if (!user?.email) {
@@ -98,19 +140,20 @@ export default function BookCard({ book, highlightTerm = '', user, isDashboardCo
         return (
           <div className="grid grid-cols-2 gap-3 w-full">
             <button
-              onClick={handleSaveToDashboard}
+              onClick={(e) => { e.stopPropagation(); handleSaveToDashboard(); }}
               disabled={isSaving || isSaved}
               className="flex items-center justify-center gap-2 bg-slate-100 dark:bg-slate-800 text-slate-900 dark:text-white py-3 rounded-xl font-bold uppercase tracking-widest text-[9px] hover:bg-slate-200 dark:hover:bg-slate-700 transition-all disabled:opacity-50"
             >
               {isSaved ? <CheckCircleIcon className="h-3.5 w-3.5" /> : <BookmarkIcon className="h-3.5 w-3.5" />}
-              {isSaved ? 'Saved' : 'Save to Account'}
+              {isSaved ? 'Saved' : 'Save'}
             </button>
             <Link
               href={`/store/${book.slug.current}/reader`}
+              onClick={(e) => e.stopPropagation()}
               className="flex items-center justify-center gap-2 bg-slate-900 dark:bg-blue-600 text-white py-3 rounded-xl font-bold uppercase tracking-widest text-[9px] hover:scale-[1.02] transition-all shadow-lg active:scale-95"
             >
               <BookOpenIcon className="h-3.5 w-3.5" />
-              Open Reader
+              View
             </Link>
           </div>
         )
@@ -118,25 +161,25 @@ export default function BookCard({ book, highlightTerm = '', user, isDashboardCo
 
       if (variant === 'student' || (!isTeacher && variant === 'single')) {
         return (
-          <Link
-            href={`/store/${book.slug.current}`}
+          <button
+            onClick={(e) => { e.stopPropagation(); setDetailsModalOpen(true); }}
             className="flex items-center justify-center gap-2 w-full bg-blue-600 text-white py-4 rounded-xl font-bold uppercase tracking-widest text-[10px] hover:bg-blue-700 transition-all shadow-xl"
           >
             <ShoppingCartIcon className="h-4 w-4" />
             {book.relatedCourse ? 'Buy Course Textbook' : 'Buy Textbook'}
-          </Link>
+          </button>
         )
       }
     }
 
     // Standard Store View
     return (
-      <Link 
-        href={`/store/${book.slug.current}`} 
+      <button 
+        onClick={() => setDetailsModalOpen(true)}
         className="flex items-center justify-center w-full bg-slate-900 dark:bg-blue-600 text-white py-4 rounded-2xl font-black uppercase tracking-widest text-xs hover:scale-[1.02] transition-all shadow-xl active:scale-95"
       >
         View Details
-      </Link>
+      </button>
     )
   }
 
@@ -152,39 +195,64 @@ export default function BookCard({ book, highlightTerm = '', user, isDashboardCo
   }
 
   return (
-    <article className="group flex flex-col bg-white dark:bg-slate-900 rounded-[2rem] shadow-sm border border-slate-100 dark:border-slate-800 overflow-hidden hover:shadow-2xl transition-all duration-500">
-      <Link href={`/store/${book.slug.current}`} className="block relative bg-slate-50 dark:bg-slate-950 overflow-hidden" style={{ aspectRatio: '3/4' }}>
-        {coverUrl ? (
-          <Image src={coverUrl} alt={book.title} fill sizes="(max-width: 768px) 100vw, 400px" className="object-cover group-hover:scale-105 transition-transform duration-700 ease-out" />
-        ) : (
-          <div className="absolute inset-0 flex items-center justify-center bg-slate-100 dark:bg-slate-800 text-6xl opacity-20">📘</div>
-        )}
-        
-        {/* Floating Category Tag */}
-        <div className="absolute top-4 right-4">
-          <span className="text-[10px] font-black uppercase tracking-widest bg-black/80 text-white px-3 py-1.5 rounded-full backdrop-blur-md border border-white/10 shadow-lg">
-            {variant === 'teacher' ? 'Instructor Edition' : (variant === 'student' ? 'Student Edition' : (isTextbook ? 'Textbook' : 'Digital Imprint'))}
-          </span>
-        </div>
-      </Link>
-
-      <div className="p-8 flex flex-col flex-1">
-        <div className="mb-6">
-          <div className="flex items-center gap-2 mb-3">
-             <span className={`text-[9px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full border border-current ${STATUS_STYLES[book.status]}`}>
-              {STATUS_LABELS[book.status]}
+    <>
+      <article 
+        onClick={() => setDetailsModalOpen(true)}
+        className="group flex flex-col bg-white dark:bg-slate-900 rounded-[2rem] shadow-sm border border-slate-100 dark:border-slate-800 overflow-hidden hover:shadow-2xl transition-all duration-500 cursor-pointer"
+      >
+        <div className="block relative bg-slate-50 dark:bg-slate-950 overflow-hidden" style={{ aspectRatio: '3/4' }}>
+          {coverUrl ? (
+            <Image src={coverUrl} alt={book.title} fill sizes="(max-width: 768px) 100vw, 400px" className="object-cover group-hover:scale-105 transition-transform duration-700 ease-out" />
+          ) : (
+            <div className="absolute inset-0 flex items-center justify-center bg-slate-100 dark:bg-slate-800 text-6xl opacity-20">📘</div>
+          )}
+          
+          <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-500" />
+          <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+             <div className="bg-white/90 backdrop-blur-sm p-4 rounded-full shadow-2xl">
+                <EyeIcon className="h-6 w-6 text-slate-900" />
+             </div>
+          </div>
+          
+          {/* Floating Category Tag */}
+          <div className="absolute top-4 right-4">
+            <span className="text-[10px] font-black uppercase tracking-widest bg-black/80 text-white px-3 py-1.5 rounded-full backdrop-blur-md border border-white/10 shadow-lg">
+              {variant === 'teacher' ? 'Instructor Edition' : (variant === 'student' ? 'Student Edition' : (isTextbook ? 'Textbook' : 'Digital Imprint'))}
             </span>
           </div>
-          <h3 className="text-xl font-bold text-slate-900 dark:text-white leading-tight line-clamp-3 min-h-[3.5rem]">
-            {displayTitle()}
-          </h3>
-          <p className="text-xs font-medium text-slate-400 dark:text-slate-500 mt-2 uppercase tracking-widest italic">by {displayAuthor}</p>
         </div>
 
-        <div className="mt-auto pt-6 border-t border-slate-50 dark:border-slate-800">
-          {renderActions()}
+        <div className="p-8 flex flex-col flex-1">
+          <div className="mb-6">
+            <div className="flex items-center gap-2 mb-3">
+               <span className={`text-[9px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full border border-current ${STATUS_STYLES[book.status]}`}>
+                {STATUS_LABELS[book.status]}
+              </span>
+            </div>
+            <h3 className="text-xl font-bold text-slate-900 dark:text-white leading-tight line-clamp-3 min-h-[3.5rem]">
+              {displayTitle()}
+            </h3>
+            <p className="text-xs font-medium text-slate-400 dark:text-slate-500 mt-2 uppercase tracking-widest italic">by {displayAuthor}</p>
+          </div>
+
+          <div className="mt-auto pt-6 border-t border-slate-50 dark:border-slate-800">
+            {renderActions()}
+          </div>
         </div>
-      </div>
-    </article>
+      </article>
+
+      <BookDetailsModal 
+        isOpen={detailsModalOpen}
+        onClose={() => setDetailsModalOpen(false)}
+        book={book}
+        user={user}
+        variant={variant}
+        onSave={handleSaveToDashboard}
+        isSaving={isSaving}
+        isSaved={isSaved}
+        formattedPrice={formattedPrice}
+        price={rawPrice}
+      />
+    </>
   )
 }

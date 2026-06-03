@@ -8,6 +8,7 @@ export async function GET(request: Request) {
       _id,
       _type,
       title,
+      subtitle,
       slug,
       "coverImage": coverImage { asset->{url} },
       status,
@@ -15,7 +16,13 @@ export async function GET(request: Request) {
       "author": author->{name, slug},
       hasTeacherVersion,
       hasStudentVersion,
-      "relatedCourse": relatedCourse->{ _id, title, slug }
+      "relatedCourse": relatedCourse->{ _id, title, slug, level, school->{_id, title} },
+      description,
+      tableOfContents,
+      pageCount,
+      edition,
+      level,
+      pricing
     }`;
 
     const books = await client.fetch(query);

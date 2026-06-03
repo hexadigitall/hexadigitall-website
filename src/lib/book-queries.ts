@@ -77,10 +77,13 @@ export interface BookSummary {
   hasTeacherWebcopy?: boolean
   fileUrl?: string
   pricing?: Pricing
+  tableOfContents?: TocEntry[]
   relatedCourse?: {
     _id: string;
     title: string;
     slug: { current: string };
+    school?: { _id: string; title: string };
+    level?: string;
   }
 }
 

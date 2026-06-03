@@ -687,7 +687,10 @@ export default function StudentDashboardPage() {
         </section>
           </>
         ) : (
-          <DashboardLibraryView user={{ role: sessionRole || 'student', email: student?.username || '', username: student?.username }} />
+          <DashboardLibraryView 
+            user={{ role: sessionRole || 'student', email: student?.username || '', username: student?.username }} 
+            userCourses={enrollments}
+          />
         )}
       </div>
     </div>
