@@ -1,43 +1,10 @@
 'use client'
 // src/app/store/BookCard.tsx
 
+import React, { useState, type ReactNode } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import type { BookSummary } from '@/lib/book-queries'
-import type { ReactNode } from 'react'
-
-const STATUS_STYLES: Record<string, string> = {
-  available: 'bg-green-100 text-green-700',
-  coming_soon: 'bg-amber-100 text-amber-700',
-  out_of_stock: 'bg-gray-100 dark:bg-slate-800 text-gray-500 dark:text-slate-500',
-  discontinued: 'bg-red-100 text-red-600',
-}
-
-const STATUS_LABELS: Record<string, string> = {
-  available: 'Available',
-  coming_soon: 'Pipeline',
-  out_of_stock: 'Sold Out',
-  discontinued: 'Legacy',
-}
-
-function escapeRegExp(value: string): string {
-  return value.replace(/[.*+?^${}()|[\\]]/g, '\\$&')
-}
-
-function highlightText(text: string, query: string): ReactNode {
-  if (!query.trim()) return text
-  const safeQuery = escapeRegExp(query.trim())
-  const regex = new RegExp(`(${safeQuery})`, 'ig')
-  const parts = text.split(regex)
-  return parts.map((part, index) => {
-    if (part.toLowerCase() === query.trim().toLowerCase()) {
-      return <mark key={index} className="bg-yellow-100 text-inherit px-0.5 rounded">{part}</mark>
-    }
-    return <span key={index}>{part}</span>
-  })
-}
-
-import React, { useState, type ReactNode } from 'react'
 import { BookOpenIcon, BookmarkIcon, ShoppingCartIcon, CheckCircleIcon } from '@heroicons/react/24/outline'
 import toast from 'react-hot-toast'
 

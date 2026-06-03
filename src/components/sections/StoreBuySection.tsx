@@ -8,6 +8,7 @@ import { useSession, signIn } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { useCurrency } from '@/contexts/CurrencyContext';
 import { resolveMentorshipRates } from '@/lib/mentorship-pricing';
+import { SUPPORTED_CURRENCIES } from '@/lib/currency';
 
 interface StoreBuySectionProps {
   book: BookDetail;
@@ -16,7 +17,7 @@ interface StoreBuySectionProps {
 export default function StoreBuySection({ book }: StoreBuySectionProps) {
   const router = useRouter();
   const { data: session } = useSession();
-  const { currentCurrency, convertPrice } = useCurrency();
+  const { currentCurrency, convertPrice, formatPrice } = useCurrency();
   const [activeModal, setActiveModal] = useState<{ audience: 'student' | 'teacher' | 'both' | 'single' } | null>(null);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
@@ -34,7 +35,7 @@ export default function StoreBuySection({ book }: StoreBuySectionProps) {
     
     // 1. Check for special hardcoded titles
     if (slug === 'dunce-to-midjourney-pro') {
-      return { usd: 54.99, ngn: 54.99 * (book.pricing?.ngn ? book.pricing.ngn / (book.pricing.usd || 54.99) : 1000) }; // Fallback to a reasonable NGN rate if no pricing in sanity
+      return { usd: 54.99, ngn: 54.99 * (book.pricing?.ngn ? book.pricing.ngn / (book.pricing.usd || 54.99) : 1000) };
     }
     if (slug === 'mother-of-two') {
       return { usd: 47.99, ngn: book.pricing?.ngn || 47.99 * 1000 };
@@ -69,22 +70,32 @@ export default function StoreBuySection({ book }: StoreBuySectionProps) {
     };
   }, [basePrices, currentCurrency.code, convertPrice]);
 
-  const formatAmount = (amount: number) => {
-    const isWholeNumberCurrency = ['NGN', 'KES', 'ZAR'].includes(currentCurrency.code);
-    return new Intl.NumberFormat('en-US', {
-      style: 'currency',
-      currency: currentCurrency.code,
-      minimumFractionDigits: isWholeNumberCurrency ? 0 : 2,
-      maximumFractionDigits: isWholeNumberCurrency ? 0 : 2,
-    }).format(amount);
-  };
+  const formattedPrices = useMemo(() => {
+    const isNGN = currentCurrency.code === 'NGN';
+    
+    const formatPureAmount = (val: number, code: string) => {
+      const symbol = code === 'NGN' ? '₦' : (SUPPORTED_CURRENCIES[code]?.symbol || '$');
+      const isWhole = ['NGN', 'KES', 'ZAR'].includes(code);
+      const formatted = Math.round(val).toLocaleString();
+      return `${symbol}${formatted}`;
+    };
 
-  const formattedPrices = {
-    student: formatAmount(prices.student),
-    teacher: formatAmount(prices.teacher),
-    both: formatAmount(prices.both),
-    single: formatAmount(prices.single)
-  };
+    if (isNGN) {
+      return {
+        student: formatPureAmount(prices.student, 'NGN'),
+        teacher: formatPureAmount(prices.teacher, 'NGN'),
+        both: formatPureAmount(prices.both, 'NGN'),
+        single: formatPureAmount(prices.single, 'NGN')
+      };
+    }
+
+    return {
+      student: formatPrice(basePrices.usd),
+      teacher: formatPrice(basePrices.usd * 1.15),
+      both: formatPrice(basePrices.usd * 1.5),
+      single: formatPrice(basePrices.usd)
+    };
+  }, [basePrices, prices, currentCurrency.code, formatPrice]);
 
   const hasExternalLinks = !!book.storeLinks?.amazon || !!book.storeLinks?.selar || !!book.storeLinks?.gumroad;
 

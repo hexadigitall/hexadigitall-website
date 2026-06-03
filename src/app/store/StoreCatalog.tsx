@@ -232,7 +232,7 @@ export default function StoreCatalog({ books: initialBooks, authors, user }: Sto
                 <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-8">
                   {available.map(book => (
                     <BookCard 
-                      key={book._id} 
+                      key={`${book._id}-${(book as any)._displayVariant || 'none'}`} 
                       book={book} 
                       highlightTerm={query} 
                       user={user}
@@ -246,18 +246,17 @@ export default function StoreCatalog({ books: initialBooks, authors, user }: Sto
             {upcoming.length > 0 && (
               <div className="space-y-10">
                 <h3 className="text-xs font-black uppercase tracking-[0.3em] text-slate-400 border-b border-slate-100 dark:border-slate-800 pb-4">Upcoming Curriculum</h3>
-                <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-8">
-                  {upcoming.map(book => (
-                    <BookCard 
-                      key={book._id} 
-                      book={book} 
-                      highlightTerm={query}
-                      user={user}
-                      isDashboardContext={isDashboardContext}
-                    />
-                  ))}
-                </div>
-              </div>
+                                <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-8">
+                                  {upcoming.map(book => (
+                                    <BookCard 
+                                      key={`${book._id}-${(book as any)._displayVariant || 'none'}`} 
+                                      book={book} 
+                                      highlightTerm={query} 
+                                      user={user}
+                                      isDashboardContext={isDashboardContext}
+                                    />
+                                  ))}
+                                </div>              </div>
             )}
           </>
         )}
