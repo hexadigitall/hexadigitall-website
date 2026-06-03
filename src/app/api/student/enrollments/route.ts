@@ -76,7 +76,7 @@ export async function GET(request: NextRequest) {
            _id,
            _type,
            title,
-           "slug": slug.current,
+           slug,
            "coverImage": coverImage { asset->{url} },
            status,
            authors,

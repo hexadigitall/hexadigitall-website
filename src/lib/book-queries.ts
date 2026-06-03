@@ -74,6 +74,8 @@ export interface BookSummary {
   studentFile?: { asset?: { url?: string } }
   hasTeacherVersion?: boolean
   teacherFile?: { asset?: { url?: string } }
+  hasTeacherWebcopy?: boolean
+  fileUrl?: string
   pricing?: Pricing
   relatedCourse?: {
     _id: string;
@@ -159,6 +161,7 @@ const ALL_STORE_ITEMS_QUERY = groq`
     studentFile { asset->{ url } },
     hasTeacherVersion,
     teacherFile { asset->{ url } },
+    "hasTeacherWebcopy": defined(teacherFile),
     pricing,
     "relatedCourse": relatedCourse->{ _id, title, slug }
   }
@@ -176,6 +179,7 @@ const BOOKS_BY_AUTHOR_QUERY = groq`
     "author": author->{ name, slug },
     pricing,
     directDownloadEnabled,
+    "hasTeacherWebcopy": defined(teacherFile),
     storeLinks,
     "relatedCourse": relatedCourse->{ _id, title, slug }
   }
@@ -212,6 +216,7 @@ const BOOK_BY_SLUG_QUERY = groq`
     studentFile { asset->{ url } },
     hasTeacherVersion,
     teacherFile { asset->{ url } },
+    "hasTeacherWebcopy": defined(teacherFile),
     pricing,
     errata[] | order(page asc) {
       _key,

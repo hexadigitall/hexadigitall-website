@@ -28,7 +28,7 @@ interface Course {
   mainImage?: { asset: { _ref: string } }
   contentPdf?: { asset: { _ref: string; url?: string } }
   roadmapPdf?: { asset: { _ref: string; url?: string } }
-  textbook?: BookSummary & { hasTeacherWebcopy?: boolean }
+  textbook?: BookSummary
   enrollmentCount?: number
   activeEnrollments?: Array<{
     _id: string
@@ -506,7 +506,7 @@ export default function TeacherDashboardPage() {
                           </a>
                           {course.textbook.hasTeacherWebcopy && (
                             <Link
-                              href={`/store/${course.textbook.slug}/reader`}
+                              href={`/store/${course.textbook.slug.current}/reader`}
                               className="flex items-center justify-center gap-2 px-3 py-2.5 bg-slate-900 text-white rounded-xl hover:bg-slate-800 transition-colors text-[10px] font-bold shadow-md"
                             >
                               <BookOpenIcon className="h-3.5 w-3.5" />
