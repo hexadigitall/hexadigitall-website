@@ -9,6 +9,7 @@ import AuthorCard from '@/app/store/AuthorCard'
 interface StoreCatalogProps {
   books: BookSummary[]
   authors: AuthorSummary[]
+  user?: { role: string; email?: string; username?: string }
 }
 
 type StatusFilter = 'all' | 'available' | 'coming_soon'
@@ -33,7 +34,7 @@ function toSearchableText(book: BookSummary): string {
   return `${book.title} ${subtitle} ${authors} ${authorName} ${description}`
 }
 
-export default function StoreCatalog({ books: initialBooks, authors }: StoreCatalogProps) {
+export default function StoreCatalog({ books: initialBooks, authors, user }: StoreCatalogProps) {
   const books = useMemo(() => {
     const seen = new Set();
     return initialBooks.filter(b => {
@@ -50,32 +51,76 @@ export default function StoreCatalog({ books: initialBooks, authors }: StoreCata
   const [query, setQuery] = useState(searchParams.get('q') ?? '')
   const [status, setStatus] = useState<StatusFilter>((searchParams.get('status') as StatusFilter) || 'all')
   const [level, setLevel] = useState<LevelFilter>((searchParams.get('level') as LevelFilter) || 'all')
-  const [type, setType] = useState<TypeFilter>((searchParams.get('type') as TypeFilter) || 'all')
+  
+  // Dashboard context logic
+  const isDashboardContext = searchParams.get('context') === 'dashboard'
+  const [type, setType] = useState<TypeFilter>(isDashboardContext ? 'book' : (searchParams.get('type') as TypeFilter) || 'all')
 
   // Filter books (Exclude imprints from 'all' and 'book' views as requested)
   const filteredBooks = useMemo(() => {
-    return books.filter(book => {
+    const list: any[] = [];
+    
+    books.forEach(book => {
       // ONLY show textbooks (never show imprints as book cards)
-      if (book._type !== 'book') return false;
+      if (book._type !== 'book') return;
       
-      // If specifically looking at 'imprint', the author cards will handle it
-      if (type === 'imprint') return false;
+      const isTeacher = user?.role === 'teacher' || user?.role === 'instructor' || user?.role === 'admin';
+      const isStudent = user?.role === 'student';
 
-      if (status !== 'all' && book.status !== status) return false;
+      if (isDashboardContext) {
+        if (isTeacher) {
+          // Teacher sees all textbooks (available and pending)
+          // If there are two versions, show both
+          if (book.hasTeacherVersion && book.hasStudentVersion) {
+            list.push({ ...book, _displayVariant: 'teacher' });
+            list.push({ ...book, _displayVariant: 'student' });
+          } else {
+            // Single edition (could be just teacher or just student, treat as the 'single' complimentary for teacher)
+            list.push({ ...book, _displayVariant: 'single' });
+          }
+        } else if (isStudent) {
+          // Student only sees student editions or single editions
+          if (book.hasStudentVersion || (!book.hasStudentVersion && !book.hasTeacherVersion)) {
+            list.push({ ...book, _displayVariant: 'student' });
+          }
+        } else {
+          // Admin or other role in dashboard context
+          list.push(book);
+        }
+      } else {
+        // Standard store view - don't expand
+        if (type === 'imprint') return;
+        if (status !== 'all' && book.status !== status) return;
+        if (level !== 'all') {
+          if (level === 'all_levels' && book.level !== 'all') return;
+          if (level !== 'all_levels' && book.level !== level) return;
+        }
+        if (query.trim()) {
+          const searchable = toSearchableText(book);
+          if (!fuzzyMatch(searchable, query)) return;
+        }
+        list.push(book);
+      }
+    });
+
+    // Post-filter for search/status/level even in dashboard mode (optional but good)
+    return list.filter(item => {
+      if (status !== 'all' && item.status !== status) return false;
       if (level !== 'all') {
-        if (level === 'all_levels' && book.level !== 'all') return false;
-        if (level !== 'all_levels' && book.level !== level) return false;
+        if (level === 'all_levels' && item.level !== 'all') return false;
+        if (level !== 'all_levels' && item.level !== level) return false;
       }
       if (query.trim()) {
-        const searchable = toSearchableText(book);
+        const searchable = toSearchableText(item);
         if (!fuzzyMatch(searchable, query)) return false;
       }
       return true;
     });
-  }, [books, type, status, level, query]);
+  }, [books, type, status, level, query, isDashboardContext, user?.role]);
 
   // Filter authors (Only for 'imprint' view)
   const filteredAuthors = useMemo(() => {
+    if (isDashboardContext) return []; // No imprints in dashboard context
     if (type !== 'imprint' && type !== 'all') return [];
     
     let result = authors;
@@ -98,19 +143,27 @@ export default function StoreCatalog({ books: initialBooks, authors }: StoreCata
     }
 
     return result;
-  }, [authors, type, query, status, books]);
+  }, [authors, type, query, status, books, isDashboardContext]);
 
   const available = useMemo(() => filteredBooks.filter(b => b.status === 'available'), [filteredBooks]);
   const upcoming = useMemo(() => filteredBooks.filter(b => b.status === 'coming_soon'), [filteredBooks]);
 
   useEffect(() => {
-    const params = new URLSearchParams()
+    const params = new URLSearchParams(searchParams.toString())
     if (query.trim()) params.set('q', query.trim())
+    else params.delete('q')
+    
     if (status !== 'all') params.set('status', status)
+    else params.delete('status')
+    
     if (level !== 'all') params.set('level', level)
+    else params.delete('level')
+    
     if (type !== 'all') params.set('type', type)
+    else params.delete('type')
+
     router.replace(params.toString() ? `${pathname}?${params.toString()}` : pathname, { scroll: false })
-  }, [query, status, level, type, pathname, router])
+  }, [query, status, level, type, pathname, router, searchParams])
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-[280px_1fr] gap-12">
@@ -131,10 +184,10 @@ export default function StoreCatalog({ books: initialBooks, authors }: StoreCata
             <p className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 mb-3">Resource Type</p>
             <div className="flex flex-col gap-2">
               {[
-                { id: 'all', label: 'Everything' }, 
+                { id: 'all', label: 'Everything', hide: isDashboardContext }, 
                 { id: 'book', label: 'Course Textbooks' }, 
-                { id: 'imprint', label: 'Digital Imprints' }
-              ].map((f) => (
+                { id: 'imprint', label: 'Digital Imprints', hide: isDashboardContext }
+              ].filter(f => !f.hide).map((f) => (
                 <button key={f.id} onClick={() => setType(f.id as TypeFilter)} className={`text-left px-4 py-2.5 rounded-xl text-sm font-bold transition-all ${type === f.id ? 'bg-blue-600 text-white shadow-lg' : 'text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800'}`}>
                   {f.label}
                 </button>
@@ -177,7 +230,15 @@ export default function StoreCatalog({ books: initialBooks, authors }: StoreCata
               <div className="mb-20">
                 {type === 'all' && <h3 className="text-xs font-black uppercase tracking-[0.3em] text-slate-400 border-b border-slate-100 dark:border-slate-800 pb-4 mb-8">Course Textbooks</h3>}
                 <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-8">
-                  {available.map(book => <BookCard key={book._id} book={book} highlightTerm={query} />)}
+                  {available.map(book => (
+                    <BookCard 
+                      key={book._id} 
+                      book={book} 
+                      highlightTerm={query} 
+                      user={user}
+                      isDashboardContext={isDashboardContext}
+                    />
+                  ))}
                 </div>
               </div>
             )}
@@ -186,7 +247,15 @@ export default function StoreCatalog({ books: initialBooks, authors }: StoreCata
               <div className="space-y-10">
                 <h3 className="text-xs font-black uppercase tracking-[0.3em] text-slate-400 border-b border-slate-100 dark:border-slate-800 pb-4">Upcoming Curriculum</h3>
                 <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-8">
-                  {upcoming.map(book => <BookCard key={book._id} book={book} highlightTerm={query} />)}
+                  {upcoming.map(book => (
+                    <BookCard 
+                      key={book._id} 
+                      book={book} 
+                      highlightTerm={query}
+                      user={user}
+                      isDashboardContext={isDashboardContext}
+                    />
+                  ))}
                 </div>
               </div>
             )}

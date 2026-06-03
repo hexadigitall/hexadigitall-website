@@ -7,6 +7,7 @@ import { PortableText } from '@portabletext/react'
 import { getBookBySlug, getAllBookSlugs, type BookDetail } from '@/lib/book-queries'
 import ReleaseNotifyForm from '@/app/store/[slug]/ReleaseNotifyForm'
 import StoreBuySection from '@/components/sections/StoreBuySection'
+import StoreAssetsSection from '@/components/sections/StoreAssetsSection'
 import { ArrowRightIcon } from '@heroicons/react/24/outline'
 
 export const dynamic = 'force-dynamic'
@@ -195,21 +196,7 @@ export default async function BookPage({ params }: Props) {
         )}
 
         {Array.isArray(book.assets) && book.assets.length > 0 && (
-          <section className="mb-24">
-             <h2 className="text-3xl font-bold font-serif text-slate-950 dark:text-white mb-10 flex items-center gap-4">Companion Digital Assets<span className="h-px flex-1 bg-slate-100 dark:bg-slate-800"></span></h2>
-             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {book.assets.map((asset: any) => (
-                  <div key={asset._id} className="bg-slate-50 dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-2xl p-6 hover:shadow-xl transition-all group">
-                    <div className="flex justify-between items-start mb-6">
-                      <span className="font-mono text-[10px] font-black bg-slate-950 text-white px-2 py-1 rounded">{asset.matrixId}</span>
-                      <span className="text-[10px] font-black uppercase tracking-widest text-slate-400">{asset.resourceType}</span>
-                    </div>
-                    <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-6 group-hover:text-blue-600 transition-colors">{asset.title}</h3>
-                    <button className="w-full py-3 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-xs font-black uppercase tracking-widest text-slate-600 dark:text-slate-400 hover:bg-slate-950 hover:text-white transition-all">Get Resource</button>
-                  </div>
-                ))}
-             </div>
-          </section>
+          <StoreAssetsSection assets={book.assets as any} />
         )}
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-20">

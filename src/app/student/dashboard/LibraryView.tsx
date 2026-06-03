@@ -50,8 +50,8 @@ export default function LibraryView({ userEmail }: { userEmail: string }) {
           <p className="text-slate-500 max-w-md mx-auto mb-8">
             You haven't acquired any digital imprints, textbooks, or companion assets yet.
           </p>
-          <Link href="/store" className="inline-flex items-center justify-center bg-blue-600 text-white px-6 py-3 rounded-xl font-bold hover:bg-blue-700 transition-colors">
-            Browse Store
+          <Link href="/store?context=dashboard" className="inline-flex items-center justify-center bg-blue-600 text-white px-6 py-3 rounded-xl font-bold hover:bg-blue-700 transition-colors">
+            Browse Library
           </Link>
         </div>
       ) : (

@@ -62,8 +62,18 @@ export async function GET(request: NextRequest) {
         contentPdf,
         roadmapPdf,
         "textbook": *[_type == "book" && references(^._id)][0] {
+           _id,
+           _type,
            title,
-           "fileUrl": (salesLinks[platform == "pdf" && audience == "teacher"][0].file.asset->url) || (salesLinks[platform == "pdf"][0].file.asset->url)
+           "slug": slug.current,
+           "coverImage": coverImage { asset->{url} },
+           status,
+           authors,
+           "author": author->{name, slug},
+           hasTeacherVersion,
+           hasStudentVersion,
+           "fileUrl": (teacherFile.asset->url) || (studentFile.asset->url),
+           "hasTeacherWebcopy": defined(teacherFile)
         },
         "enrollmentCount": count(*[_type == "enrollment" && references(^._id) && courseType == "live"]),
         "activeEnrollments": *[_type == "enrollment" && references(^._id) && courseType == "live" && status == "active"]{
@@ -88,8 +98,18 @@ export async function GET(request: NextRequest) {
         contentPdf,
         roadmapPdf,
         "textbook": *[_type == "book" && references(^._id)][0] {
+           _id,
+           _type,
            title,
-           "fileUrl": (salesLinks[platform == "pdf" && audience == "teacher"][0].file.asset->url) || (salesLinks[platform == "pdf"][0].file.asset->url)
+           "slug": slug.current,
+           "coverImage": coverImage { asset->{url} },
+           status,
+           authors,
+           "author": author->{name, slug},
+           hasTeacherVersion,
+           hasStudentVersion,
+           "fileUrl": (teacherFile.asset->url) || (studentFile.asset->url),
+           "hasTeacherWebcopy": defined(teacherFile)
         },
         "enrollmentCount": count(*[_type == "enrollment" && references(^._id) && courseType == "live" && teacherId._ref == $userId]),
         "activeEnrollments": *[_type == "enrollment" && references(^._id) && courseType == "live" && status == "active" && teacherId._ref == $userId]{

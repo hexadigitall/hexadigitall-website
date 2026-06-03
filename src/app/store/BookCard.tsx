@@ -37,10 +37,121 @@ function highlightText(text: string, query: string): ReactNode {
   })
 }
 
-export default function BookCard({ book, highlightTerm = '' }: { book: BookSummary; highlightTerm?: string }) {
+import React, { useState, type ReactNode } from 'react'
+import { BookOpenIcon, BookmarkIcon, ShoppingCartIcon, CheckCircleIcon } from '@heroicons/react/24/outline'
+import toast from 'react-hot-toast'
+
+interface BookCardProps {
+  book: BookSummary
+  highlightTerm?: string
+  user?: { role: string; email?: string; username?: string }
+  isDashboardContext?: boolean
+}
+
+export default function BookCard({ book, highlightTerm = '', user, isDashboardContext }: BookCardProps) {
+  const [isSaving, setIsSaving] = useState(false)
+  const [isSaved, setIsSaved] = useState(false)
+  
   const coverUrl = book.coverImage?.asset?.url
   const isTextbook = book._type === 'book'
   const displayAuthor = (['imprint', 'publication'].includes(book._type) ? book.author?.name : (book.authors && book.authors.length > 0 ? book.authors.join(', ') : 'Hexadigitall')) || 'Hexadigitall'
+
+  // @ts-ignore - added in StoreCatalog expansion
+  const variant = book._displayVariant as 'teacher' | 'student' | 'single' | undefined;
+
+  const handleSaveToDashboard = async () => {
+    if (!user?.email) {
+      toast.error('Please log in to save items.')
+      return
+    }
+    
+    setIsSaving(true)
+    try {
+      const res = await fetch('/api/student/library/save', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          email: user.email,
+          bookId: book._id,
+          audience: variant === 'single' ? 'student' : 'teacher' // Saving the appropriate version
+        })
+      })
+      
+      if (res.ok) {
+        setIsSaved(true)
+        toast.success('Saved to your dashboard library!')
+      } else {
+        const data = await res.json()
+        toast.error(data.error || 'Failed to save item.')
+      }
+    } catch (error) {
+      toast.error('An error occurred. Please try again.')
+    } finally {
+      setIsSaving(false)
+    }
+  }
+
+  const isTeacher = user?.role === 'teacher' || user?.role === 'instructor' || user?.role === 'admin'
+  
+  // Decide what buttons and title to show
+  const renderActions = () => {
+    if (isDashboardContext) {
+      if (variant === 'teacher' || (isTeacher && variant === 'single')) {
+        return (
+          <div className="grid grid-cols-2 gap-3 w-full">
+            <button
+              onClick={handleSaveToDashboard}
+              disabled={isSaving || isSaved}
+              className="flex items-center justify-center gap-2 bg-slate-100 dark:bg-slate-800 text-slate-900 dark:text-white py-3 rounded-xl font-bold uppercase tracking-widest text-[9px] hover:bg-slate-200 dark:hover:bg-slate-700 transition-all disabled:opacity-50"
+            >
+              {isSaved ? <CheckCircleIcon className="h-3.5 w-3.5" /> : <BookmarkIcon className="h-3.5 w-3.5" />}
+              {isSaved ? 'Saved' : 'Save to Account'}
+            </button>
+            <Link
+              href={`/store/${book.slug.current}/reader`}
+              className="flex items-center justify-center gap-2 bg-slate-900 dark:bg-blue-600 text-white py-3 rounded-xl font-bold uppercase tracking-widest text-[9px] hover:scale-[1.02] transition-all shadow-lg active:scale-95"
+            >
+              <BookOpenIcon className="h-3.5 w-3.5" />
+              Open Reader
+            </Link>
+          </div>
+        )
+      }
+
+      if (variant === 'student' || (!isTeacher && variant === 'single')) {
+        return (
+          <Link
+            href={`/store/${book.slug.current}`}
+            className="flex items-center justify-center gap-2 w-full bg-blue-600 text-white py-4 rounded-xl font-bold uppercase tracking-widest text-[10px] hover:bg-blue-700 transition-all shadow-xl"
+          >
+            <ShoppingCartIcon className="h-4 w-4" />
+            {book.relatedCourse ? 'Buy Course Textbook' : 'Buy Textbook'}
+          </Link>
+        )
+      }
+    }
+
+    // Standard Store View
+    return (
+      <Link 
+        href={`/store/${book.slug.current}`} 
+        className="flex items-center justify-center w-full bg-slate-900 dark:bg-blue-600 text-white py-4 rounded-2xl font-black uppercase tracking-widest text-xs hover:scale-[1.02] transition-all shadow-xl active:scale-95"
+      >
+        View Details
+      </Link>
+    )
+  }
+
+  const displayTitle = () => {
+    const base = highlightText(book.title, highlightTerm);
+    if (isDashboardContext && variant === 'teacher') {
+      return <span>{base} <span className="text-amber-500 text-sm block mt-1">(Instructor Edition)</span></span>
+    }
+    if (isDashboardContext && variant === 'student' && isTeacher) {
+      return <span>{base} <span className="text-blue-500 text-sm block mt-1">(Student Edition)</span></span>
+    }
+    return base;
+  }
 
   return (
     <article className="group flex flex-col bg-white dark:bg-slate-900 rounded-[2rem] shadow-sm border border-slate-100 dark:border-slate-800 overflow-hidden hover:shadow-2xl transition-all duration-500">
@@ -54,7 +165,7 @@ export default function BookCard({ book, highlightTerm = '' }: { book: BookSumma
         {/* Floating Category Tag */}
         <div className="absolute top-4 right-4">
           <span className="text-[10px] font-black uppercase tracking-widest bg-black/80 text-white px-3 py-1.5 rounded-full backdrop-blur-md border border-white/10 shadow-lg">
-            {isTextbook ? 'Textbook' : 'Digital Imprint'}
+            {variant === 'teacher' ? 'Instructor Edition' : (variant === 'student' ? 'Student Edition' : (isTextbook ? 'Textbook' : 'Digital Imprint'))}
           </span>
         </div>
       </Link>
@@ -66,19 +177,14 @@ export default function BookCard({ book, highlightTerm = '' }: { book: BookSumma
               {STATUS_LABELS[book.status]}
             </span>
           </div>
-          <h3 className="text-xl font-bold text-slate-900 dark:text-white leading-tight line-clamp-2 min-h-[3.5rem]">
-            {highlightText(book.title, highlightTerm)}
+          <h3 className="text-xl font-bold text-slate-900 dark:text-white leading-tight line-clamp-3 min-h-[3.5rem]">
+            {displayTitle()}
           </h3>
           <p className="text-xs font-medium text-slate-400 dark:text-slate-500 mt-2 uppercase tracking-widest italic">by {displayAuthor}</p>
         </div>
 
         <div className="mt-auto pt-6 border-t border-slate-50 dark:border-slate-800">
-          <Link 
-            href={`/store/${book.slug.current}`} 
-            className="flex items-center justify-center w-full bg-slate-900 dark:bg-blue-600 text-white py-4 rounded-2xl font-black uppercase tracking-widest text-xs hover:scale-[1.02] transition-all shadow-xl active:scale-95"
-          >
-            View
-          </Link>
+          {renderActions()}
         </div>
       </div>
     </article>

@@ -5,6 +5,9 @@ import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import Image from 'next/image'
 import { urlFor } from '@/sanity/imageUrlBuilder'
+import ClipboardDocumentIcon from '@heroicons/react/24/outline/ClipboardDocumentIcon'
+import BookCard from '@/app/store/BookCard'
+import { type BookSummary } from '@/lib/book-queries'
 import {
   ArrowLeftIcon,
   AcademicCapIcon,
@@ -26,7 +29,7 @@ interface Course {
   mainImage?: { asset: { _ref: string } }
   contentPdf?: { asset: { _ref: string; url?: string } }
   roadmapPdf?: { asset: { _ref: string; url?: string } }
-  textbook?: { title: string; fileUrl?: string }
+  textbook?: BookSummary & { hasTeacherWebcopy?: boolean }
   enrollmentCount?: number
   activeEnrollments?: Array<{
     _id: string
@@ -88,47 +91,8 @@ export default function TeacherDashboardPage() {
   const [sessionRole, setSessionRole] = useState<string | null>(null)
   const [courses, setCourses] = useState<Course[]>([])
   const [students, setStudents] = useState<Student[]>([])
-  const [assessmentQuickCopyPanels, setAssessmentQuickCopyPanels] = useState<AssessmentQuickCopyPanel[]>([])
-  const [assessmentAttempts, setAssessmentAttempts] = useState<AssessmentAttemptSnapshot[]>([])
-  const [copyMessage, setCopyMessage] = useState<string | null>(null)
-  const [photoUrl, setPhotoUrl] = useState<string | null>(null)
-  const [photoUploading, setPhotoUploading] = useState(false)
-  const photoInputRef = useRef<HTMLInputElement>(null)
 
-  useEffect(() => {
-    const checkAuth = async () => {
-      const token = localStorage.getItem('admin_token')
-      const session = localStorage.getItem('admin_session')
-      if (!token || !session) {
-        return router.push('/teacher/login')
-      }
-
-      try {
-        const res = await fetch('/api/admin/auth', { headers: { Authorization: `Bearer ${token}` } })
-        if (!res.ok) return router.push('/teacher/login')
-        
-        const data = await res.json()
-        if (!data.role || (data.role !== 'teacher' && data.role !== 'admin')) {
-          return router.push('/teacher/login')
-        }
-        setSessionRole(data.role)
-
-        const sessionData = JSON.parse(session)
-        setTeacher({ username: sessionData.username, name: data.name || sessionData.name })
-        setPhotoUrl(data.profilePhotoUrl || null)
-
-        // Fetch courses and students
-        await Promise.all([fetchCourses(token), fetchStudents(token), fetchAssessments(token)])
-      } catch (error) {
-        console.error('Auth check failed:', error)
-        router.push('/teacher/login')
-      } finally {
-        setLoading(false)
-      }
-    }
-
-    checkAuth()
-  }, [router])
+  // ... inside TeacherDashboardPage ...
 
   const fetchCourses = async (token: string) => {
     try {
@@ -365,11 +329,59 @@ export default function TeacherDashboardPage() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-10">
 
         {/* Stat cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-4 gap-4">
           <StatCard icon={<AcademicCapIcon className="h-5 w-5" />} title="Courses Taught" value={courses.length} color="teal" />
           <StatCard icon={<UsersIcon className="h-5 w-5" />} title="Total Students" value={students.length} color="blue" />
           <StatCard icon={<UsersIcon className="h-5 w-5" />} title="Active Enrollments" value={students.filter(s => s.status === 'active').length} color="purple" />
+          <div className="relative bg-gradient-to-br from-slate-800 to-slate-900 rounded-2xl p-5 shadow-sm overflow-hidden">
+            <div className="absolute top-0 right-0 w-24 h-24 rounded-full bg-white/5 -translate-y-8 translate-x-8" />
+            <div className="flex items-center gap-3 mb-4">
+              <div className="p-2 bg-white/10 rounded-xl">
+                <BookOpenIcon className="h-5 w-5 text-white" />
+              </div>
+              <h3 className="text-sm font-semibold text-white/80">Resources</h3>
+            </div>
+            <Link
+              href="/store?context=dashboard"
+              className="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition-colors text-sm font-semibold shadow-sm"
+            >
+              Visit Library
+            </Link>
+          </div>
         </div>
+
+        {/* Suggested Textbooks */}
+        {courses.some(c => c.textbook?.status === 'available') && (
+          <section className="animate-in fade-in slide-in-from-bottom-4 duration-700 delay-200">
+            <div className="flex items-center justify-between mb-6">
+              <div>
+                <h2 className="text-xl font-bold text-gray-900 dark:text-slate-100 font-serif">Suggested Textbook(s)</h2>
+                <p className="text-sm text-gray-500 dark:text-slate-400 mt-0.5">Resources for your assigned courses</p>
+              </div>
+              <Link
+                href="/store?context=dashboard"
+                className="text-sm font-medium text-blue-600 hover:text-blue-700 dark:text-blue-400 transition-colors"
+              >
+                Visit Library →
+              </Link>
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+              {Array.from(new Map(courses
+                .map(c => c.textbook)
+                .filter((t): t is BookSummary => !!t && t.status === 'available')
+                .map(t => [t._id, t])
+              ).values()).map((book) => (
+                <div key={book._id} className="scale-90 origin-top-left -mb-10">
+                  <BookCard 
+                    book={book} 
+                    isDashboardContext={true} 
+                    user={teacher ? { role: 'teacher', email: teacher.username } : undefined} 
+                  />
+                </div>
+              ))}
+            </div>
+          </section>
+        )}
 
         {/* My Courses */}
         <section>
@@ -445,14 +457,25 @@ export default function TeacherDashboardPage() {
                         </button>
                       )}
                       {course.textbook?.fileUrl && (
-                        <a
-                          href={course.textbook.fileUrl}
-                          target="_blank"
-                          className="w-full flex items-center justify-center gap-2 px-4 py-2.5 bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition-colors text-xs font-semibold shadow-md shadow-blue-500/10"
-                        >
-                          <BookOpenIcon className="h-4 w-4" />
-                          Download Full Textbook
-                        </a>
+                        <div className="grid grid-cols-2 gap-2">
+                          <a
+                            href={course.textbook.fileUrl}
+                            target="_blank"
+                            className="flex items-center justify-center gap-2 px-3 py-2.5 bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition-colors text-[10px] font-bold shadow-md shadow-blue-500/10"
+                          >
+                            <ArrowDownTrayIcon className="h-3.5 w-3.5" />
+                            Download
+                          </a>
+                          {course.textbook.hasTeacherWebcopy && (
+                            <Link
+                              href={`/store/${course.textbook.slug}/reader`}
+                              className="flex items-center justify-center gap-2 px-3 py-2.5 bg-slate-900 text-white rounded-xl hover:bg-slate-800 transition-colors text-[10px] font-bold shadow-md"
+                            >
+                              <BookOpenIcon className="h-3.5 w-3.5" />
+                              Open in Browser
+                            </Link>
+                          )}
+                        </div>
                       )}
                     </div>
                     <div className="pt-3 border-t border-gray-100 dark:border-slate-700">

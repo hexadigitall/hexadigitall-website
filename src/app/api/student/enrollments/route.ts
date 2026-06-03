@@ -71,7 +71,20 @@ export async function GET(request: NextRequest) {
         mainImage,
         contentPdf,
         roadmapPdf,
-        courseType
+        courseType,
+        "textbook": *[_type == "book" && references(^._id)][0] {
+           _id,
+           _type,
+           title,
+           "slug": slug.current,
+           "coverImage": coverImage { asset->{url} },
+           status,
+           authors,
+           "author": author->{name, slug},
+           hasTeacherVersion,
+           hasStudentVersion,
+           "fileUrl": (teacherFile.asset->url) || (studentFile.asset->url)
+        }
       },
       "teacher": teacherId->{
         _id,

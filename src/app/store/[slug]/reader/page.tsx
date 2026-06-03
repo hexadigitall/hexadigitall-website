@@ -31,7 +31,7 @@ export default async function SecureWebReaderPage({ params }: Props) {
     redirect(`/store/${slug}`);
   }
 
-  const query = `*[_type in ["book", "imprint"] && slug.current == $slug][0] {
+  const query = `*[_type == "book" && slug.current == $slug][0] {
     _id,
     title,
     "teacherFileUrl": teacherFile.asset->url

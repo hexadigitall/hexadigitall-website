@@ -1,19 +1,22 @@
 'use client';
 
-import React, { useState } from 'react';
-import type { BookSummary } from '@/lib/book-queries';
+import React, { useState, useMemo } from 'react';
+import type { BookDetail } from '@/lib/book-queries';
 import TwoStepCheckoutModal from '@/components/modals/TwoStepCheckoutModal';
 import { ChevronDownIcon, ShoppingCartIcon, ArrowTopRightOnSquareIcon, ShoppingBagIcon } from '@heroicons/react/24/outline';
 import { useSession, signIn } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
+import { useCurrency } from '@/contexts/CurrencyContext';
+import { resolveMentorshipRates } from '@/lib/mentorship-pricing';
 
 interface StoreBuySectionProps {
-  book: BookSummary;
+  book: BookDetail;
 }
 
 export default function StoreBuySection({ book }: StoreBuySectionProps) {
   const router = useRouter();
   const { data: session } = useSession();
+  const { currentCurrency, convertPrice } = useCurrency();
   const [activeModal, setActiveModal] = useState<{ audience: 'student' | 'teacher' | 'both' | 'single' } | null>(null);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
@@ -22,13 +25,65 @@ export default function StoreBuySection({ book }: StoreBuySectionProps) {
   const isInternalTeacher = user?.role === 'instructor' || user?.role === 'admin' || user?.role === 'teacher';
 
   const isTextbook = book._type === 'book';
-  const defaultNgnPrice = book.pricing?.ngn || 30000;
-  
-  const prices = {
-    student: defaultNgnPrice,
-    teacher: defaultNgnPrice,
-    both: defaultNgnPrice * 1.5,
-    single: defaultNgnPrice
+
+  const mentorshipRates = useMemo(() => book.relatedCourse ? resolveMentorshipRates(book.relatedCourse as any) : null, [book.relatedCourse]);
+  const isLiveMentorship = book.relatedCourse?.courseType === 'live' && mentorshipRates?.hourlyRateUSD && mentorshipRates?.hourlyRateNGN;
+
+  const basePrices = useMemo(() => {
+    const slug = book.slug.current;
+    
+    // 1. Check for special hardcoded titles
+    if (slug === 'dunce-to-midjourney-pro') {
+      return { usd: 54.99, ngn: 54.99 * (book.pricing?.ngn ? book.pricing.ngn / (book.pricing.usd || 54.99) : 1000) }; // Fallback to a reasonable NGN rate if no pricing in sanity
+    }
+    if (slug === 'mother-of-two') {
+      return { usd: 47.99, ngn: book.pricing?.ngn || 47.99 * 1000 };
+    }
+    if (slug === 'love-is-nothing') {
+      return { usd: 85.99, ngn: book.pricing?.ngn || 85.99 * 1000 };
+    }
+
+    // 2. Mentorship-based pricing for other textbooks
+    if (isTextbook && isLiveMentorship && mentorshipRates) {
+      return {
+        usd: mentorshipRates.hourlyRateUSD! * 4,
+        ngn: mentorshipRates.hourlyRateNGN! * 4
+      };
+    }
+
+    // 3. Default to Sanity pricing or fallbacks
+    return {
+      usd: book.pricing?.usd || 30,
+      ngn: book.pricing?.ngn || 30000
+    };
+  }, [book.slug.current, book.pricing, isTextbook, isLiveMentorship, mentorshipRates]);
+
+  const prices = useMemo(() => {
+    const studentBase = currentCurrency.code === 'NGN' ? basePrices.ngn : convertPrice(basePrices.usd, currentCurrency.code);
+    
+    return {
+      student: studentBase,
+      teacher: studentBase * 1.15,
+      both: studentBase * 1.5,
+      single: studentBase
+    };
+  }, [basePrices, currentCurrency.code, convertPrice]);
+
+  const formatAmount = (amount: number) => {
+    const isWholeNumberCurrency = ['NGN', 'KES', 'ZAR'].includes(currentCurrency.code);
+    return new Intl.NumberFormat('en-US', {
+      style: 'currency',
+      currency: currentCurrency.code,
+      minimumFractionDigits: isWholeNumberCurrency ? 0 : 2,
+      maximumFractionDigits: isWholeNumberCurrency ? 0 : 2,
+    }).format(amount);
+  };
+
+  const formattedPrices = {
+    student: formatAmount(prices.student),
+    teacher: formatAmount(prices.teacher),
+    both: formatAmount(prices.both),
+    single: formatAmount(prices.single)
   };
 
   const hasExternalLinks = !!book.storeLinks?.amazon || !!book.storeLinks?.selar || !!book.storeLinks?.gumroad;
@@ -74,7 +129,7 @@ export default function StoreBuySection({ book }: StoreBuySectionProps) {
                       <p className="text-sm font-bold text-slate-900 dark:text-white group-hover:text-blue-600 transition-colors">Student Edition</p>
                       <p className="text-[10px] text-slate-400 uppercase tracking-widest mt-0.5">For individual learners</p>
                     </div>
-                    <span className="font-mono text-sm font-black">₦{prices.student.toLocaleString()}</span>
+                    <span className="font-mono text-sm font-black">{formattedPrices.student}</span>
                   </button>
 
                   {/* Instructor Path */}
@@ -86,7 +141,7 @@ export default function StoreBuySection({ book }: StoreBuySectionProps) {
                       <p className="text-sm font-bold text-slate-900 dark:text-white group-hover:text-blue-600 transition-colors">Instructor Edition</p>
                       <p className="text-[10px] text-slate-400 uppercase tracking-widest mt-0.5">Includes teaching resources</p>
                     </div>
-                    <span className="font-mono text-sm font-black">₦{prices.teacher.toLocaleString()}</span>
+                    <span className="font-mono text-sm font-black">{formattedPrices.teacher}</span>
                   </button>
                 </div>
               )}
@@ -99,7 +154,7 @@ export default function StoreBuySection({ book }: StoreBuySectionProps) {
             >
               <ShoppingBagIcon className="h-5 w-5" />
               <span>Buy Book</span>
-              <span className="ml-4 pl-4 border-l border-white/20 font-mono">₦{defaultNgnPrice.toLocaleString()}</span>
+              <span className="ml-4 pl-4 border-l border-white/20 font-mono">{formattedPrices.single}</span>
             </button>
           )}
         </div>
@@ -135,7 +190,7 @@ export default function StoreBuySection({ book }: StoreBuySectionProps) {
           onClose={() => setActiveModal(null)}
           title={isTextbook ? `${book.title} (${activeModal.audience === 'teacher' ? 'Instructor' : 'Student'} Edition)` : book.title}
           price={prices[activeModal.audience as keyof typeof prices]}
-          currency="NGN"
+          currency={currentCurrency.code}
           itemId={book._id}
           itemType={['publication', 'imprint'].includes(book._type) ? 'publication' : 'book'}
           onSuccess={() => setActiveModal(null)}

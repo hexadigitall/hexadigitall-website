@@ -7,6 +7,8 @@ import Link from 'next/link'
 import { urlFor } from '@/sanity/imageUrlBuilder'
 import SubscriptionCard from '@/components/student/SubscriptionCard'
 import LibraryView from './LibraryView'
+import BookCard from '@/app/store/BookCard'
+import { type BookSummary } from '@/lib/book-queries'
 import {
   BookOpenIcon,
   CalendarIcon,
@@ -38,6 +40,7 @@ interface Enrollment {
     contentPdf?: { asset: { _ref: string; url?: string } }
     roadmapPdf?: { asset: { _ref: string; url?: string } }
     courseType?: string
+    textbook?: BookSummary
   }
   teacher?: {
     _id: string
@@ -439,18 +442,52 @@ export default function StudentDashboardPage() {
                 <div className="absolute top-0 right-0 w-24 h-24 rounded-full bg-white dark:bg-slate-900/10 -translate-y-8 translate-x-8" />
                 <div className="flex items-center gap-3 mb-4">
                   <div className="p-2 bg-white dark:bg-slate-900/20 rounded-xl">
-                    <CreditCardIcon className="h-5 w-5 text-white" />
+                    <BookOpenIcon className="h-5 w-5 text-white" />
                   </div>
-                  <h3 className="text-sm font-semibold text-white/90">Billing</h3>
+                  <h3 className="text-sm font-semibold text-white/90">Library</h3>
                 </div>
                 <Link
-                  href="/courses"
+                  href="/store?context=dashboard"
                   className="inline-flex items-center px-4 py-2 bg-white dark:bg-slate-900 text-emerald-700 dark:text-emerald-300 rounded-xl hover:bg-emerald-50 dark:hover:bg-emerald-950/20 transition-colors text-sm font-semibold shadow-sm"
                 >
-                  Renew Subscription
+                  Visit Library
                 </Link>
               </div>
             </div>
+
+            {/* Suggested Textbooks */}
+            {enrollments.some(e => e.course?.textbook?.status === 'available') && (
+              <section className="animate-in fade-in slide-in-from-bottom-4 duration-700 delay-200">
+                <div className="flex items-center justify-between mb-6">
+                  <div>
+                    <h2 className="text-xl font-bold text-gray-900 dark:text-slate-100 font-serif">Suggested Textbook(s)</h2>
+                    <p className="text-sm text-gray-500 dark:text-slate-400 mt-0.5">Recommended for your current learning path</p>
+                  </div>
+                  <Link
+                    href="/store?context=dashboard"
+                    className="text-sm font-medium text-blue-600 hover:text-blue-700 dark:text-blue-400 transition-colors"
+                  >
+                    Visit Library →
+                  </Link>
+                </div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {/* Get unique textbooks from enrollments */}
+                  {Array.from(new Map(enrollments
+                    .map(e => e.course?.textbook)
+                    .filter((t): t is BookSummary => !!t && t.status === 'available')
+                    .map(t => [t._id, t])
+                  ).values()).map((book) => (
+                    <div key={book._id} className="scale-90 origin-top-left -mb-10">
+                      <BookCard 
+                        book={book} 
+                        isDashboardContext={true} 
+                        user={student ? { role: 'student', email: student.username } : undefined} 
+                      />
+                    </div>
+                  ))}
+                </div>
+              </section>
+            )}
 
             {/* Courses section */}
             <section>

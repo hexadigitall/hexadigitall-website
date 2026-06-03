@@ -85,7 +85,16 @@ export interface BookDetail extends BookSummary {
   resources?: ResourceItem[]
   assets?: ResourceItem[]
   allowCopyRegistration?: boolean
-  relatedCourse?: { _id: string; title: string; slug: { current: string } }
+  relatedCourse?: {
+    _id: string;
+    title: string;
+    slug: { current: string };
+    courseType?: string;
+    hourlyRateUSD?: number;
+    hourlyRateNGN?: number;
+    mentorshipHourlyRateUSD?: number;
+    mentorshipHourlyRateNGN?: number;
+  }
   ogTitle?: string
   ogDescription?: string
   ogImage?: { asset?: { url?: string } }
@@ -228,7 +237,16 @@ const BOOK_BY_SLUG_QUERY = groq`
       resourceType,
       "secureAssetUrl": file.asset->url
     },
-    relatedCourse->{ _id, title, slug },
+    relatedCourse->{ 
+      _id, 
+      title, 
+      slug,
+      courseType,
+      hourlyRateUSD,
+      hourlyRateNGN,
+      mentorshipHourlyRateUSD,
+      mentorshipHourlyRateNGN
+    },
     ${OG_PROJECTION}
   }
 `

@@ -2,6 +2,7 @@
 /* Tailwind CSS v4 */
 @import "tailwindcss";
 @config "../../tailwind.config.ts";
+@source "../";
 
 /* ============================================================
    DARK MODE SEMANTIC TOKEN LAYER

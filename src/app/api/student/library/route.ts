@@ -15,8 +15,9 @@ export async function GET(request: Request) {
         "title": purchasedPublicationReference->title,
         "type": purchasedPublicationReference->_type,
         "slug": purchasedPublicationReference->slug.current,
+        "audience": audience,
         "acquiredAt": grantedSystemTimestamp,
-        "files": purchasedPublicationReference->salesLinks[audience == 'student'] {
+        "files": purchasedPublicationReference->salesLinks[audience == ^.audience || (!defined(audience) && audience == 'student')] {
            "url": file.asset->url,
            "label": label
         }
@@ -45,7 +46,9 @@ export async function GET(request: Request) {
     // Format output
     const formattedLedger = ledgerItems.map((item: any) => ({
       ...item,
-      type: item.type === 'book' ? 'Student Edition' : 'Digital Imprint'
+      type: item.type === 'book' 
+        ? (item.audience === 'teacher' ? 'Teacher Edition' : 'Student Edition')
+        : 'Digital Imprint'
     }));
 
     const formattedRegistrations = registrationItems.map((item: any) => ({
