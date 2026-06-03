@@ -6,7 +6,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { urlFor } from '@/sanity/imageUrlBuilder'
 import SubscriptionCard from '@/components/student/SubscriptionCard'
-import LibraryView from './LibraryView'
+import DashboardLibraryView from '@/components/dashboard/DashboardLibraryView'
 import BookCard from '@/app/store/BookCard'
 import { type BookSummary } from '@/lib/book-queries'
 import {
@@ -463,12 +463,12 @@ export default function StudentDashboardPage() {
                     <h2 className="text-xl font-bold text-gray-900 dark:text-slate-100 font-serif">Suggested Textbook(s)</h2>
                     <p className="text-sm text-gray-500 dark:text-slate-400 mt-0.5">Recommended for your current learning path</p>
                   </div>
-                  <Link
-                    href="/store?context=dashboard"
+                  <button
+                    onClick={() => setActiveTab('library')}
                     className="text-sm font-medium text-blue-600 hover:text-blue-700 dark:text-blue-400 transition-colors"
                   >
                     Visit Library →
-                  </Link>
+                  </button>
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                   {/* Get unique textbooks from enrollments */}
@@ -687,7 +687,7 @@ export default function StudentDashboardPage() {
         </section>
           </>
         ) : (
-          <LibraryView userEmail={student?.username || ''} />
+          <DashboardLibraryView user={{ role: sessionRole || 'student', email: student?.username || '', username: student?.username }} />
         )}
       </div>
     </div>

@@ -7,6 +7,7 @@ import Image from 'next/image'
 import { urlFor } from '@/sanity/imageUrlBuilder'
 import ClipboardDocumentIcon from '@heroicons/react/24/outline/ClipboardDocumentIcon'
 import BookCard from '@/app/store/BookCard'
+import DashboardLibraryView from '@/components/dashboard/DashboardLibraryView'
 import { type BookSummary } from '@/lib/book-queries'
 import {
   ArrowLeftIcon,
@@ -95,6 +96,7 @@ export default function TeacherDashboardPage() {
   const [copyMessage, setCopyMessage] = useState<string | null>(null)
   const [photoUrl, setPhotoUrl] = useState<string | null>(null)
   const [photoUploading, setPhotoUploading] = useState(false)
+  const [activeTab, setActiveTab] = useState<'overview' | 'library'>('overview')
   const photoInputRef = useRef<HTMLInputElement>(null)
 
   useEffect(() => {
@@ -344,6 +346,30 @@ export default function TeacherDashboardPage() {
         </div>
       </div>
 
+      {/* Tabs */}
+      <div className="bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 sticky top-0 z-30">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <nav className="flex gap-8 overflow-x-auto no-scrollbar">
+            {[
+              { id: 'overview', label: 'My Teaching Dashboard' },
+              { id: 'library', label: 'My Library' },
+            ].map((tab) => (
+              <button
+                key={tab.id}
+                onClick={() => setActiveTab(tab.id as any)}
+                className={`py-5 text-sm font-bold border-b-2 transition-all whitespace-nowrap ${
+                  activeTab === tab.id
+                    ? 'border-blue-600 text-blue-600'
+                    : 'border-transparent text-slate-500 hover:text-slate-700 dark:hover:text-slate-300'
+                }`}
+              >
+                {tab.label}
+              </button>
+            ))}
+          </nav>
+        </div>
+      </div>
+
       <div className="sm:hidden px-4 pt-4">
         {sessionRole === 'admin' && (
           <Link
@@ -366,345 +392,351 @@ export default function TeacherDashboardPage() {
       {/* Page content */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-10">
 
-        {/* Stat cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-4 gap-4">
-          <StatCard icon={<AcademicCapIcon className="h-5 w-5" />} title="Courses Taught" value={courses.length} color="teal" />
-          <StatCard icon={<UsersIcon className="h-5 w-5" />} title="Total Students" value={students.length} color="blue" />
-          <StatCard icon={<UsersIcon className="h-5 w-5" />} title="Active Enrollments" value={students.filter(s => s.status === 'active').length} color="purple" />
-          <div className="relative bg-gradient-to-br from-slate-800 to-slate-900 rounded-2xl p-5 shadow-sm overflow-hidden">
-            <div className="absolute top-0 right-0 w-24 h-24 rounded-full bg-white/5 -translate-y-8 translate-x-8" />
-            <div className="flex items-center gap-3 mb-4">
-              <div className="p-2 bg-white/10 rounded-xl">
-                <BookOpenIcon className="h-5 w-5 text-white" />
-              </div>
-              <h3 className="text-sm font-semibold text-white/80">Resources</h3>
-            </div>
-            <Link
-              href="/store?context=dashboard"
-              className="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition-colors text-sm font-semibold shadow-sm"
-            >
-              Visit Library
-            </Link>
-          </div>
-        </div>
-
-        {/* Suggested Textbooks */}
-        {courses.some(c => c.textbook?.status === 'available') && (
-          <section className="animate-in fade-in slide-in-from-bottom-4 duration-700 delay-200">
-            <div className="flex items-center justify-between mb-6">
-              <div>
-                <h2 className="text-xl font-bold text-gray-900 dark:text-slate-100 font-serif">Suggested Textbook(s)</h2>
-                <p className="text-sm text-gray-500 dark:text-slate-400 mt-0.5">Resources for your assigned courses</p>
-              </div>
-              <Link
-                href="/store?context=dashboard"
-                className="text-sm font-medium text-blue-600 hover:text-blue-700 dark:text-blue-400 transition-colors"
-              >
-                Visit Library →
-              </Link>
-            </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-              {Array.from(new Map(courses
-                .map(c => c.textbook)
-                .filter((t): t is BookSummary => !!t && t.status === 'available')
-                .map(t => [t._id, t])
-              ).values()).map((book) => (
-                <div key={book._id} className="scale-90 origin-top-left -mb-10">
-                  <BookCard 
-                    book={book} 
-                    isDashboardContext={true} 
-                    user={teacher ? { role: 'teacher', email: teacher.username } : undefined} 
-                  />
+        {activeTab === 'overview' ? (
+          <>
+            {/* Stat cards */}
+            <div className="grid grid-cols-1 sm:grid-cols-4 gap-4">
+              <StatCard icon={<AcademicCapIcon className="h-5 w-5" />} title="Courses Taught" value={courses.length} color="teal" />
+              <StatCard icon={<UsersIcon className="h-5 w-5" />} title="Total Students" value={students.length} color="blue" />
+              <StatCard icon={<UsersIcon className="h-5 w-5" />} title="Active Enrollments" value={students.filter(s => s.status === 'active').length} color="purple" />
+              <div className="relative bg-gradient-to-br from-slate-800 to-slate-900 rounded-2xl p-5 shadow-sm overflow-hidden">
+                <div className="absolute top-0 right-0 w-24 h-24 rounded-full bg-white/5 -translate-y-8 translate-x-8" />
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="p-2 bg-white/10 rounded-xl">
+                    <BookOpenIcon className="h-5 w-5 text-white" />
+                  </div>
+                  <h3 className="text-sm font-semibold text-white/80">Resources</h3>
                 </div>
-              ))}
-            </div>
-          </section>
-        )}
-
-        {/* My Courses */}
-        <section>
-          <div className="mb-6">
-            <h2 className="text-xl font-bold text-gray-900 dark:text-slate-100">My Courses</h2>
-            <p className="text-sm text-gray-500 dark:text-slate-400 mt-0.5">{courses.length} course{courses.length !== 1 ? 's' : ''} assigned</p>
-          </div>
-          {courses.length === 0 ? (
-            <div className="bg-white dark:bg-slate-800 rounded-2xl border border-gray-100 dark:border-slate-700 p-12 text-center shadow-sm">
-              <div className="w-16 h-16 bg-teal-50 rounded-2xl flex items-center justify-center mx-auto mb-4">
-                <AcademicCapIcon className="h-8 w-8 text-teal-400" />
-              </div>
-              <h3 className="text-lg font-semibold text-gray-900 dark:text-slate-100 mb-2">No courses assigned</h3>
-              <p className="text-gray-500 dark:text-slate-400 text-sm">Contact admin to get assigned to courses.</p>
-            </div>
-          ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-              {courses.map((course) => (
-                <div
-                  key={course._id}
-                  className="bg-white dark:bg-slate-800 rounded-2xl border border-gray-100 dark:border-slate-700 shadow-sm overflow-hidden hover:shadow-md hover:-translate-y-0.5 transition-all duration-200"
+                <button
+                  onClick={() => setActiveTab('library')}
+                  className="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition-colors text-sm font-semibold shadow-sm"
                 >
-                  {course.mainImage ? (
-                    <div className="relative h-44 w-full">
-                      <Image
-                        src={urlFor(course.mainImage).width(600).height(400).url()}
-                        alt={course.title}
-                        fill
-                        className="object-cover"
+                  Visit Library
+                </button>
+              </div>
+            </div>
+
+            {/* Suggested Textbooks */}
+            {courses.some(c => c.textbook?.status === 'available') && (
+              <section className="animate-in fade-in slide-in-from-bottom-4 duration-700 delay-200">
+                <div className="flex items-center justify-between mb-6">
+                  <div>
+                    <h2 className="text-xl font-bold text-gray-900 dark:text-slate-100 font-serif">Suggested Textbook(s)</h2>
+                    <p className="text-sm text-gray-500 dark:text-slate-400 mt-0.5">Resources for your assigned courses</p>
+                  </div>
+                  <button
+                    onClick={() => setActiveTab('library')}
+                    className="text-sm font-medium text-blue-600 hover:text-blue-700 dark:text-blue-400 transition-colors"
+                  >
+                    Visit Library →
+                  </button>
+                </div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                  {Array.from(new Map(courses
+                    .map(c => c.textbook)
+                    .filter((t): t is BookSummary => !!t && t.status === 'available')
+                    .map(t => [t._id, t])
+                  ).values()).map((book) => (
+                    <div key={book._id} className="scale-90 origin-top-left -mb-10">
+                      <BookCard 
+                        book={book} 
+                        isDashboardContext={true} 
+                        user={teacher ? { role: 'teacher', email: teacher.username } : undefined} 
                       />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
-                      <div className="absolute bottom-3 left-4">
-                        {course.level && (
-                          <span className="inline-flex px-2 py-0.5 text-xs font-medium rounded-full bg-white dark:bg-slate-900/90 dark:bg-slate-700 text-gray-800 dark:text-gray-200 dark:text-slate-200 dark:text-slate-100 capitalize">
-                            {course.level}
-                          </span>
-                        )}
-                      </div>
                     </div>
-                  ) : (
-                    <div className="h-16 bg-gradient-to-r from-teal-600 to-cyan-600 relative">
-                      <div className="absolute bottom-3 left-4">
-                        {course.level && (
-                          <span className="inline-flex px-2 py-0.5 text-xs font-medium rounded-full bg-white/20 text-white capitalize">
-                            {course.level}
-                          </span>
+                  ))}
+                </div>
+              </section>
+            )}
+
+            {/* My Courses */}
+            <section>
+              <div className="mb-6">
+                <h2 className="text-xl font-bold text-gray-900 dark:text-slate-100">My Courses</h2>
+                <p className="text-sm text-gray-500 dark:text-slate-400 mt-0.5">{courses.length} course{courses.length !== 1 ? 's' : ''} assigned</p>
+              </div>
+              {courses.length === 0 ? (
+                <div className="bg-white dark:bg-slate-800 rounded-2xl border border-gray-100 dark:border-slate-700 p-12 text-center shadow-sm">
+                  <div className="w-16 h-16 bg-teal-50 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                    <AcademicCapIcon className="h-8 w-8 text-teal-400" />
+                  </div>
+                  <h3 className="text-lg font-semibold text-gray-900 dark:text-slate-100 mb-2">No courses assigned</h3>
+                  <p className="text-gray-500 dark:text-slate-400 text-sm">Contact admin to get assigned to courses.</p>
+                </div>
+              ) : (
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                  {courses.map((course) => (
+                    <div
+                      key={course._id}
+                      className="bg-white dark:bg-slate-800 rounded-2xl border border-gray-100 dark:border-slate-700 shadow-sm overflow-hidden hover:shadow-md hover:-translate-y-0.5 transition-all duration-200"
+                    >
+                      {course.mainImage ? (
+                        <div className="relative h-44 w-full">
+                          <Image
+                            src={urlFor(course.mainImage).width(600).height(400).url()}
+                            alt={course.title}
+                            fill
+                            className="object-cover"
+                          />
+                          <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
+                          <div className="absolute bottom-3 left-4">
+                            {course.level && (
+                              <span className="inline-flex px-2 py-0.5 text-xs font-medium rounded-full bg-white dark:bg-slate-900/90 dark:bg-slate-700 text-gray-800 dark:text-gray-200 dark:text-slate-200 dark:text-slate-100 capitalize">
+                                {course.level}
+                              </span>
+                            )}
+                          </div>
+                        </div>
+                      ) : (
+                        <div className="h-16 bg-gradient-to-r from-teal-600 to-cyan-600 relative">
+                          <div className="absolute bottom-3 left-4">
+                            {course.level && (
+                              <span className="inline-flex px-2 py-0.5 text-xs font-medium rounded-full bg-white/20 text-white capitalize">
+                                {course.level}
+                              </span>
+                            )}
+                          </div>
+                        </div>
+                      )}
+                      <div className="p-5">
+                        <h3 className="text-base font-bold text-gray-900 dark:text-slate-100 mb-2">{course.title}</h3>
+                        {course.description && (
+                          <p className="text-sm text-gray-500 dark:text-slate-400 mb-4 line-clamp-2">{course.description}</p>
                         )}
-                      </div>
-                    </div>
-                  )}
-                  <div className="p-5">
-                    <h3 className="text-base font-bold text-gray-900 dark:text-slate-100 mb-2">{course.title}</h3>
-                    {course.description && (
-                      <p className="text-sm text-gray-500 dark:text-slate-400 mb-4 line-clamp-2">{course.description}</p>
-                    )}
-                    <div className="space-y-2 mb-4">
-                      {course.contentPdf && (
-                        <button
-                          onClick={() => downloadPdf(course.contentPdf, `${course.title}-content.pdf`)}
-                          className="w-full flex items-center justify-center gap-2 px-4 py-2.5 bg-teal-600 text-white rounded-xl hover:bg-teal-700 transition-colors text-xs font-semibold"
-                        >
-                          <ArrowDownTrayIcon className="h-4 w-4" />
-                          Download Course Content
-                        </button>
-                      )}
-                      {course.roadmapPdf && (
-                        <button
-                          onClick={() => downloadPdf(course.roadmapPdf, `${course.title}-roadmap.pdf`)}
-                          className="w-full flex items-center justify-center gap-2 px-4 py-2.5 bg-teal-50 text-teal-700 rounded-xl hover:bg-teal-100 transition-colors text-xs font-semibold border border-teal-100"
-                        >
-                          <ArrowDownTrayIcon className="h-4 w-4" />
-                          Download Roadmap
-                        </button>
-                      )}
-                      {course.textbook?.fileUrl && (
-                        <div className="grid grid-cols-2 gap-2">
-                          <a
-                            href={course.textbook.fileUrl}
-                            target="_blank"
-                            className="flex items-center justify-center gap-2 px-3 py-2.5 bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition-colors text-[10px] font-bold shadow-md shadow-blue-500/10"
-                          >
-                            <ArrowDownTrayIcon className="h-3.5 w-3.5" />
-                            Download
-                          </a>
-                          {course.textbook.hasTeacherWebcopy && (
-                            <Link
-                              href={`/store/${course.textbook.slug.current}/reader`}
-                              className="flex items-center justify-center gap-2 px-3 py-2.5 bg-slate-900 text-white rounded-xl hover:bg-slate-800 transition-colors text-[10px] font-bold shadow-md"
+                        <div className="space-y-2 mb-4">
+                          {course.contentPdf && (
+                            <button
+                              onClick={() => downloadPdf(course.contentPdf, `${course.title}-content.pdf`)}
+                              className="w-full flex items-center justify-center gap-2 px-4 py-2.5 bg-teal-600 text-white rounded-xl hover:bg-teal-700 transition-colors text-xs font-semibold"
                             >
-                              <BookOpenIcon className="h-3.5 w-3.5" />
-                              Open in Browser
-                            </Link>
+                              <ArrowDownTrayIcon className="h-4 w-4" />
+                              Download Course Content
+                            </button>
+                          )}
+                          {course.roadmapPdf && (
+                            <button
+                              onClick={() => downloadPdf(course.roadmapPdf, `${course.title}-roadmap.pdf`)}
+                              className="w-full flex items-center justify-center gap-2 px-4 py-2.5 bg-teal-50 text-teal-700 rounded-xl hover:bg-teal-100 transition-colors text-xs font-semibold border border-teal-100"
+                            >
+                              <ArrowDownTrayIcon className="h-4 w-4" />
+                              Download Roadmap
+                            </button>
+                          )}
+                          {course.textbook?.fileUrl && (
+                            <div className="grid grid-cols-2 gap-2">
+                              <a
+                                href={course.textbook.fileUrl}
+                                target="_blank"
+                                className="flex items-center justify-center gap-2 px-3 py-2.5 bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition-colors text-[10px] font-bold shadow-md shadow-blue-500/10"
+                              >
+                                <ArrowDownTrayIcon className="h-3.5 w-3.5" />
+                                Download
+                              </a>
+                              {course.textbook.hasTeacherWebcopy && (
+                                <Link
+                                  href={`/store/${course.textbook.slug.current}/reader`}
+                                  className="flex items-center justify-center gap-2 px-3 py-2.5 bg-slate-900 text-white rounded-xl hover:bg-slate-800 transition-colors text-[10px] font-bold shadow-md"
+                                >
+                                  <BookOpenIcon className="h-3.5 w-3.5" />
+                                  Open in Browser
+                                </Link>
+                              )}
+                            </div>
                           )}
                         </div>
-                      )}
-                    </div>
-                    <div className="pt-3 border-t border-gray-100 dark:border-slate-700">
-                      <p className="text-xs text-gray-400 dark:text-slate-400">
-                        <span className="font-semibold text-gray-700 dark:text-slate-300">{course.enrollmentCount || 0}</span> enrolled students
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          )}
-        </section>
-
-        {/* My Students */}
-        <section>
-          <div className="mb-6">
-            <h2 className="text-xl font-bold text-gray-900 dark:text-slate-100">My Students</h2>
-            <p className="text-sm text-gray-500 dark:text-slate-400 mt-0.5">
-              {students.filter(s => s.status === 'active').length} active · {students.length} total
-            </p>
-          </div>
-          {students.length === 0 ? (
-            <div className="bg-white dark:bg-slate-800 rounded-2xl border border-gray-100 dark:border-slate-700 p-12 text-center shadow-sm">
-              <div className="w-16 h-16 bg-blue-50 dark:bg-blue-950/20 rounded-2xl flex items-center justify-center mx-auto mb-4">
-                <UsersIcon className="h-8 w-8 text-blue-400" />
-              </div>
-              <h3 className="text-lg font-semibold text-gray-900 dark:text-slate-100 mb-2">No students yet</h3>
-              <p className="text-gray-500 dark:text-slate-400 text-sm">Students will appear here once they enroll in your courses.</p>
-            </div>
-          ) : (
-            <div className="bg-white dark:bg-slate-800 rounded-2xl border border-gray-100 dark:border-slate-700 shadow-sm overflow-hidden">
-              <div className="overflow-x-auto">
-                <table className="min-w-full">
-                  <thead>
-                    <tr className="border-b border-gray-100 dark:border-slate-700">
-                      <th className="px-6 py-4 text-left text-xs font-semibold text-gray-400 dark:text-slate-400 uppercase tracking-widest">Student</th>
-                      <th className="px-6 py-4 text-left text-xs font-semibold text-gray-400 dark:text-slate-400 uppercase tracking-widest">Course</th>
-                      <th className="px-6 py-4 text-left text-xs font-semibold text-gray-400 dark:text-slate-400 uppercase tracking-widest">Status</th>
-                      <th className="px-6 py-4 text-left text-xs font-semibold text-gray-400 dark:text-slate-400 uppercase tracking-widest">Enrolled</th>
-                    </tr>
-                  </thead>
-                  <tbody className="divide-y divide-gray-50 dark:divide-slate-800">
-                    {students.map((student) => (
-                      <tr key={student._id} className="hover:bg-gray-50 dark:hover:bg-slate-800/60 transition-colors">
-                        <td className="px-6 py-4">
-                          <div className="flex items-center gap-3">
-                            <div className="w-8 h-8 rounded-xl bg-teal-100 flex items-center justify-center shrink-0">
-                              <span className="text-xs font-bold text-teal-700">
-                                {student.studentName?.charAt(0)?.toUpperCase() || '?'}
-                              </span>
-                            </div>
-                            <div>
-                              <p className="text-sm font-semibold text-gray-900 dark:text-slate-100">{student.studentName}</p>
-                              <p className="text-xs text-gray-400 dark:text-slate-400">{student.studentEmail}</p>
-                            </div>
-                          </div>
-                        </td>
-                        <td className="px-6 py-4 text-sm text-gray-600 dark:text-slate-400">{student.course?.title || '—'}</td>
-                        <td className="px-6 py-4">
-                          <span className={`inline-flex px-2.5 py-1 text-xs font-semibold rounded-full ${
-                            student.status === 'active'
-                              ? 'bg-emerald-100 text-emerald-700'
-                              : 'bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-slate-400'
-                          }`}>
-                            {student.status}
-                          </span>
-                        </td>
-                        <td className="px-6 py-4 text-sm text-gray-500 dark:text-slate-400">
-                          {new Date(student.enrolledAt).toLocaleDateString()}
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          )}
-        </section>
-
-        {/* Assessment Quick Copy */}
-        <section>
-          <div className="mb-6">
-            <h2 className="text-xl font-bold text-gray-900 dark:text-slate-100">Phase Assessment Links</h2>
-            <p className="text-sm text-gray-500 dark:text-slate-400 mt-0.5">
-              Quick-copy URLs for your assigned course assessments
-            </p>
-          </div>
-
-          {copyMessage && (
-            <div className="mb-4 rounded-xl border border-teal-200 bg-teal-50 px-4 py-2 text-sm text-teal-800">
-              {copyMessage}
-            </div>
-          )}
-
-          {assessmentQuickCopyPanels.length === 0 ? (
-            <div className="bg-white dark:bg-slate-900 rounded-2xl border border-gray-100 dark:border-slate-700 p-8 text-center shadow-sm text-gray-500 dark:text-slate-400">
-              No configured assessments found for your assigned courses.
-            </div>
-          ) : (
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
-              {assessmentQuickCopyPanels.map((panel) => (
-                <div key={panel.courseSlug} className="bg-white dark:bg-slate-900 rounded-2xl border border-gray-100 dark:border-slate-700 shadow-sm p-5">
-                  <h3 className="text-base font-semibold text-gray-900 dark:text-slate-100">{panel.courseTitle}</h3>
-                  <p className="text-xs text-gray-500 dark:text-slate-400 mt-1">/{panel.courseSlug}</p>
-                  <div className="mt-4 space-y-2">
-                    {panel.assessments.map((assessment) => (
-                      <div key={assessment.slug} className="flex items-center justify-between gap-3 rounded-lg border border-gray-100 dark:border-slate-700 px-3 py-2">
-                        <div>
-                          <p className="text-sm font-medium text-gray-900 dark:text-slate-100">{assessment.phaseLabel}</p>
-                          <p className="text-xs text-gray-500 dark:text-slate-400">{assessment.title}</p>
+                        <div className="pt-3 border-t border-gray-100 dark:border-slate-700">
+                          <p className="text-xs text-gray-400 dark:text-slate-400">
+                            <span className="font-semibold text-gray-700 dark:text-slate-300">{course.enrollmentCount || 0}</span> enrolled students
+                          </p>
                         </div>
-                        <button
-                          type="button"
-                          onClick={() => copyAssessmentLink(assessment.relativeUrl)}
-                          className="inline-flex items-center gap-1 rounded-lg border border-teal-200 bg-teal-50 px-3 py-1.5 text-xs font-medium text-teal-700 hover:bg-teal-100"
-                        >
-                          <ClipboardDocumentIcon className="h-4 w-4" />
-                          Copy URL
-                        </button>
                       </div>
-                    ))}
+                    </div>
+                  ))}
+                </div>
+              )}
+            </section>
+
+            {/* My Students */}
+            <section>
+              <div className="mb-6">
+                <h2 className="text-xl font-bold text-gray-900 dark:text-slate-100">My Students</h2>
+                <p className="text-sm text-gray-500 dark:text-slate-400 mt-0.5">
+                  {students.filter(s => s.status === 'active').length} active · {students.length} total
+                </p>
+              </div>
+              {students.length === 0 ? (
+                <div className="bg-white dark:bg-slate-800 rounded-2xl border border-gray-100 dark:border-slate-700 p-12 text-center shadow-sm">
+                  <div className="w-16 h-16 bg-blue-50 dark:bg-blue-950/20 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                    <UsersIcon className="h-8 w-8 text-blue-400" />
+                  </div>
+                  <h3 className="text-lg font-semibold text-gray-900 dark:text-slate-100 mb-2">No students yet</h3>
+                  <p className="text-gray-500 dark:text-slate-400 text-sm">Students will appear here once they enroll in your courses.</p>
+                </div>
+              ) : (
+                <div className="bg-white dark:bg-slate-800 rounded-2xl border border-gray-100 dark:border-slate-700 shadow-sm overflow-hidden">
+                  <div className="overflow-x-auto">
+                    <table className="min-w-full">
+                      <thead>
+                        <tr className="border-b border-gray-100 dark:border-slate-700">
+                          <th className="px-6 py-4 text-left text-xs font-semibold text-gray-400 dark:text-slate-400 uppercase tracking-widest">Student</th>
+                          <th className="px-6 py-4 text-left text-xs font-semibold text-gray-400 dark:text-slate-400 uppercase tracking-widest">Course</th>
+                          <th className="px-6 py-4 text-left text-xs font-semibold text-gray-400 dark:text-slate-400 uppercase tracking-widest">Status</th>
+                          <th className="px-6 py-4 text-left text-xs font-semibold text-gray-400 dark:text-slate-400 uppercase tracking-widest">Enrolled</th>
+                        </tr>
+                      </thead>
+                      <tbody className="divide-y divide-gray-50 dark:divide-slate-800">
+                        {students.map((student) => (
+                          <tr key={student._id} className="hover:bg-gray-50 dark:hover:bg-slate-800/60 transition-colors">
+                            <td className="px-6 py-4">
+                              <div className="flex items-center gap-3">
+                                <div className="w-8 h-8 rounded-xl bg-teal-100 flex items-center justify-center shrink-0">
+                                  <span className="text-xs font-bold text-teal-700">
+                                    {student.studentName?.charAt(0)?.toUpperCase() || '?'}
+                                  </span>
+                                </div>
+                                <div>
+                                  <p className="text-sm font-semibold text-gray-900 dark:text-slate-100">{student.studentName}</p>
+                                  <p className="text-xs text-gray-400 dark:text-slate-400">{student.studentEmail}</p>
+                                </div>
+                              </div>
+                            </td>
+                            <td className="px-6 py-4 text-sm text-gray-600 dark:text-slate-400">{student.course?.title || '—'}</td>
+                            <td className="px-6 py-4">
+                              <span className={`inline-flex px-2.5 py-1 text-xs font-semibold rounded-full ${
+                                student.status === 'active'
+                                  ? 'bg-emerald-100 text-emerald-700'
+                                  : 'bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-slate-400'
+                              }`}>
+                                {student.status}
+                              </span>
+                            </td>
+                            <td className="px-6 py-4 text-sm text-gray-500 dark:text-slate-400">
+                              {new Date(student.enrolledAt).toLocaleDateString()}
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
                   </div>
                 </div>
-              ))}
-            </div>
-          )}
-        </section>
+              )}
+            </section>
 
-        {/* Assessment Attempts */}
-        <section>
-          <div className="mb-6">
-            <h2 className="text-xl font-bold text-gray-900 dark:text-slate-100">Assessment Attempts</h2>
-            <p className="text-sm text-gray-500 dark:text-slate-400 mt-0.5">Student attempt status and score snapshots</p>
-          </div>
-
-          {assessmentAttempts.length === 0 ? (
-            <div className="bg-white dark:bg-slate-900 rounded-2xl border border-gray-100 dark:border-slate-700 p-8 text-center shadow-sm text-gray-500 dark:text-slate-400">
-              No assessment attempts yet.
-            </div>
-          ) : (
-            <div className="bg-white dark:bg-slate-800 rounded-2xl border border-gray-100 dark:border-slate-700 shadow-sm overflow-hidden">
-              <div className="overflow-x-auto">
-                <table className="min-w-full">
-                  <thead>
-                    <tr className="border-b border-gray-100 dark:border-slate-700">
-                      <th className="px-6 py-4 text-left text-xs font-semibold text-gray-400 dark:text-slate-400 uppercase tracking-widest">Student</th>
-                      <th className="px-6 py-4 text-left text-xs font-semibold text-gray-400 dark:text-slate-400 uppercase tracking-widest">Assessment</th>
-                      <th className="px-6 py-4 text-left text-xs font-semibold text-gray-400 dark:text-slate-400 uppercase tracking-widest">Status</th>
-                      <th className="px-6 py-4 text-left text-xs font-semibold text-gray-400 dark:text-slate-400 uppercase tracking-widest">Score</th>
-                      <th className="px-6 py-4 text-left text-xs font-semibold text-gray-400 dark:text-slate-400 uppercase tracking-widest">Submitted</th>
-                    </tr>
-                  </thead>
-                  <tbody className="divide-y divide-gray-50 dark:divide-slate-800">
-                    {assessmentAttempts.slice(0, 120).map((attempt) => (
-                      <tr key={attempt._id} className="hover:bg-gray-50 dark:hover:bg-slate-800/60 transition-colors">
-                        <td className="px-6 py-4">
-                          <p className="text-sm font-semibold text-gray-900 dark:text-slate-100">{attempt.studentNameSnapshot || 'Unknown Student'}</p>
-                          <p className="text-xs text-gray-400 dark:text-slate-400">{attempt.studentEmailSnapshot || 'No email snapshot'}</p>
-                        </td>
-                        <td className="px-6 py-4">
-                          <p className="text-sm font-medium text-gray-900 dark:text-slate-100">{attempt.phaseLabel}</p>
-                          <p className="text-xs text-gray-500 dark:text-slate-400">{attempt.courseTitle}</p>
-                        </td>
-                        <td className="px-6 py-4">
-                          <span className={`inline-flex px-2.5 py-1 text-xs font-semibold rounded-full ${
-                            attempt.status === 'submitted'
-                              ? 'bg-emerald-100 text-emerald-700'
-                              : attempt.status === 'in_progress'
-                                ? 'bg-amber-100 text-amber-700 dark:text-amber-400'
-                                : 'bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-slate-400'
-                          }`}>
-                            {attempt.status.replace('_', ' ')}
-                          </span>
-                        </td>
-                        <td className="px-6 py-4 text-sm text-gray-600 dark:text-slate-400">
-                          {typeof attempt.scorePercent === 'number'
-                            ? `${attempt.scorePercent}%${attempt.passed ? ' (Pass)' : ' (Fail)'}`
-                            : 'Pending'}
-                        </td>
-                        <td className="px-6 py-4 text-sm text-gray-500 dark:text-slate-400">
-                          {attempt.submittedAt ? new Date(attempt.submittedAt).toLocaleString() : 'Not submitted'}
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
+            {/* Assessment Quick Copy */}
+            <section>
+              <div className="mb-6">
+                <h2 className="text-xl font-bold text-gray-900 dark:text-slate-100">Phase Assessment Links</h2>
+                <p className="text-sm text-gray-500 dark:text-slate-400 mt-0.5">
+                  Quick-copy URLs for your assigned course assessments
+                </p>
               </div>
-            </div>
-          )}
-        </section>
+
+              {copyMessage && (
+                <div className="mb-4 rounded-xl border border-teal-200 bg-teal-50 px-4 py-2 text-sm text-teal-800">
+                  {copyMessage}
+                </div>
+              )}
+
+              {assessmentQuickCopyPanels.length === 0 ? (
+                <div className="bg-white dark:bg-slate-900 rounded-2xl border border-gray-100 dark:border-slate-700 p-8 text-center shadow-sm text-gray-500 dark:text-slate-400">
+                  No configured assessments found for your assigned courses.
+                </div>
+              ) : (
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
+                  {assessmentQuickCopyPanels.map((panel) => (
+                    <div key={panel.courseSlug} className="bg-white dark:bg-slate-900 rounded-2xl border border-gray-100 dark:border-slate-700 shadow-sm p-5">
+                      <h3 className="text-base font-semibold text-gray-900 dark:text-slate-100">{panel.courseTitle}</h3>
+                      <p className="text-xs text-gray-500 dark:text-slate-400 mt-1">/{panel.courseSlug}</p>
+                      <div className="mt-4 space-y-2">
+                        {panel.assessments.map((assessment) => (
+                          <div key={assessment.slug} className="flex items-center justify-between gap-3 rounded-lg border border-gray-100 dark:border-slate-700 px-3 py-2">
+                            <div>
+                              <p className="text-sm font-medium text-gray-900 dark:text-slate-100">{assessment.phaseLabel}</p>
+                              <p className="text-xs text-gray-500 dark:text-slate-400">{assessment.title}</p>
+                            </div>
+                            <button
+                              type="button"
+                              onClick={() => copyAssessmentLink(assessment.relativeUrl)}
+                              className="inline-flex items-center gap-1 rounded-lg border border-teal-200 bg-teal-50 px-3 py-1.5 text-xs font-medium text-teal-700 hover:bg-teal-100"
+                            >
+                              <ClipboardDocumentIcon className="h-4 w-4" />
+                              Copy URL
+                            </button>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </section>
+
+            {/* Assessment Attempts */}
+            <section>
+              <div className="mb-6">
+                <h2 className="text-xl font-bold text-gray-900 dark:text-slate-100">Assessment Attempts</h2>
+                <p className="text-sm text-gray-500 dark:text-slate-400 mt-0.5">Student attempt status and score snapshots</p>
+              </div>
+
+              {assessmentAttempts.length === 0 ? (
+                <div className="bg-white dark:bg-slate-900 rounded-2xl border border-gray-100 dark:border-slate-700 p-8 text-center shadow-sm text-gray-500 dark:text-slate-400">
+                  No assessment attempts yet.
+                </div>
+              ) : (
+                <div className="bg-white dark:bg-slate-800 rounded-2xl border border-gray-100 dark:border-slate-700 shadow-sm overflow-hidden">
+                  <div className="overflow-x-auto">
+                    <table className="min-w-full">
+                      <thead>
+                        <tr className="border-b border-gray-100 dark:border-slate-700">
+                          <th className="px-6 py-4 text-left text-xs font-semibold text-gray-400 dark:text-slate-400 uppercase tracking-widest">Student</th>
+                          <th className="px-6 py-4 text-left text-xs font-semibold text-gray-400 dark:text-slate-400 uppercase tracking-widest">Assessment</th>
+                          <th className="px-6 py-4 text-left text-xs font-semibold text-gray-400 dark:text-slate-400 uppercase tracking-widest">Status</th>
+                          <th className="px-6 py-4 text-left text-xs font-semibold text-gray-400 dark:text-slate-400 uppercase tracking-widest">Score</th>
+                          <th className="px-6 py-4 text-left text-xs font-semibold text-gray-400 dark:text-slate-400 uppercase tracking-widest">Submitted</th>
+                        </tr>
+                      </thead>
+                      <tbody className="divide-y divide-gray-50 dark:divide-slate-800">
+                        {assessmentAttempts.slice(0, 120).map((attempt) => (
+                          <tr key={attempt._id} className="hover:bg-gray-50 dark:hover:bg-slate-800/60 transition-colors">
+                            <td className="px-6 py-4">
+                              <p className="text-sm font-semibold text-gray-900 dark:text-slate-100">{attempt.studentNameSnapshot || 'Unknown Student'}</p>
+                              <p className="text-xs text-gray-400 dark:text-slate-400">{attempt.studentEmailSnapshot || 'No email snapshot'}</p>
+                            </td>
+                            <td className="px-6 py-4">
+                              <p className="text-sm font-medium text-gray-900 dark:text-slate-100">{attempt.phaseLabel}</p>
+                              <p className="text-xs text-gray-500 dark:text-slate-400">{attempt.courseTitle}</p>
+                            </td>
+                            <td className="px-6 py-4">
+                              <span className={`inline-flex px-2.5 py-1 text-xs font-semibold rounded-full ${
+                                attempt.status === 'submitted'
+                                  ? 'bg-emerald-100 text-emerald-700'
+                                  : attempt.status === 'in_progress'
+                                    ? 'bg-amber-100 text-amber-700 dark:text-amber-400'
+                                    : 'bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-slate-400'
+                              }`}>
+                                {attempt.status.replace('_', ' ')}
+                              </span>
+                            </td>
+                            <td className="px-6 py-4 text-sm text-gray-600 dark:text-slate-400">
+                              {typeof attempt.scorePercent === 'number'
+                                ? `${attempt.scorePercent}%${attempt.passed ? ' (Pass)' : ' (Fail)'}`
+                                : 'Pending'}
+                            </td>
+                            <td className="px-6 py-4 text-sm text-gray-500 dark:text-slate-400">
+                              {attempt.submittedAt ? new Date(attempt.submittedAt).toLocaleString() : 'Not submitted'}
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              )}
+            </section>
+          </>
+        ) : (
+          <DashboardLibraryView user={{ role: sessionRole || 'teacher', email: teacher?.username || '', username: teacher?.username }} />
+        )}
       </div>
     </div>
   )
