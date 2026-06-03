@@ -69,7 +69,7 @@ export default function BookCard({ book, highlightTerm = '', user, isDashboardCo
     return resolveBookPrice({
         slug: book.slug.current,
         _type: book._type,
-        // If expansion provided a variant use it, otherwise detect from user role
+        // Ensure variant is passed so teacher markup is applied in utility
         variant: variant || (isTeacher ? 'teacher' : 'student'),
         relatedCourse: book.relatedCourse as any,
         pricing: book.pricing
@@ -78,8 +78,20 @@ export default function BookCard({ book, highlightTerm = '', user, isDashboardCo
 
   const rawPrice = useMemo(() => {
     if (currentCurrency.code === 'NGN') return resolvedPrice.ngn;
+    // For other currencies, convert from the absolute USD base
     return convertPrice(resolvedPrice.usd);
   }, [resolvedPrice, currentCurrency.code, convertPrice]);
+
+  const formattedPrice = useMemo(() => {
+    if (!isDashboardContext || variant === 'teacher') return undefined;
+    
+    if (currentCurrency.code === 'NGN') {
+        return `₦${resolvedPrice.ngn.toLocaleString()}`;
+    }
+
+    // Use absolute USD base for other currency formatting
+    return formatPrice(resolvedPrice.usd);
+  }, [resolvedPrice, currentCurrency.code, formatPrice, isDashboardContext, variant]);
 
   const handleSaveToDashboard = async () => {
     if (!user?.email) {

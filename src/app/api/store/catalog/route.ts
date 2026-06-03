@@ -3,8 +3,16 @@ import { client } from '@/sanity/client';
 
 export async function GET(request: Request) {
   try {
-    // Only textbooks for the dashboard catalog
-    const query = `*[_type in ["book", "imprint", "publication"]] | order(publishedAt desc) {
+    const { searchParams } = new URL(request.url);
+    const context = searchParams.get('context');
+    
+    // If context is dashboard, strictly only return textbooks (book type)
+    // Otherwise return all for general store/catalog purposes
+    const typeFilter = context === 'dashboard' 
+        ? '["book"]' 
+        : '["book", "imprint", "publication"]';
+
+    const query = `*[_type in ${typeFilter}] | order(publishedAt desc) {
       _id,
       _type,
       title,

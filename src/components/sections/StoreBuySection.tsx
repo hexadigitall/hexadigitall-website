@@ -44,8 +44,9 @@ export default function StoreBuySection({ book }: StoreBuySectionProps) {
         pricing: book.pricing
     });
 
-    const studentBase = currentCurrency.code === 'NGN' ? studentPrices.ngn : convertPrice(studentPrices.usd, currentCurrency.code);
-    const teacherBase = currentCurrency.code === 'NGN' ? teacherPrices.ngn : convertPrice(teacherPrices.usd, currentCurrency.code);
+    const isNGN = currentCurrency.code === 'NGN';
+    const studentBase = isNGN ? studentPrices.ngn : convertPrice(studentPrices.usd, currentCurrency.code);
+    const teacherBase = isNGN ? teacherPrices.ngn : convertPrice(teacherPrices.usd, currentCurrency.code);
 
     return {
       student: studentBase,

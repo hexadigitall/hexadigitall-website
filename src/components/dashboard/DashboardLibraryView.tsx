@@ -89,7 +89,7 @@ export default function DashboardLibraryView({ user, userCourses = [] }: Dashboa
       try {
         const [libRes, catalogRes] = await Promise.all([
           fetch(`/api/student/library?email=${encodeURIComponent(user.email)}`),
-          fetch(`/api/store/catalog`)
+          fetch(`/api/store/catalog?context=dashboard`)
         ]);
 
         if (libRes.ok) {

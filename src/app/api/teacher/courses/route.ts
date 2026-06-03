@@ -72,7 +72,16 @@ export async function GET(request: NextRequest) {
            "author": author->{name, slug},
            hasTeacherVersion,
            hasStudentVersion,
-           "relatedCourse": { "_id": ^._id, "title": ^.title, "slug": ^.slug },
+           "relatedCourse": { 
+             "_id": ^._id, 
+             "title": ^.title, 
+             "slug": ^.slug,
+             "courseType": ^.courseType,
+             "hourlyRateUSD": ^.hourlyRateUSD,
+             "hourlyRateNGN": ^.hourlyRateNGN,
+             "mentorshipHourlyRateUSD": ^.mentorshipHourlyRateUSD,
+             "mentorshipHourlyRateNGN": ^.mentorshipHourlyRateNGN
+           },
            "fileUrl": (teacherFile.asset->url) || (studentFile.asset->url),
            "hasTeacherWebcopy": defined(teacherFile)
         },
@@ -109,7 +118,16 @@ export async function GET(request: NextRequest) {
            "author": author->{name, slug},
            hasTeacherVersion,
            hasStudentVersion,
-           "relatedCourse": { "_id": ^._id, "title": ^.title, "slug": ^.slug },
+           "relatedCourse": { 
+             "_id": ^._id, 
+             "title": ^.title, 
+             "slug": ^.slug,
+             "courseType": ^.courseType,
+             "hourlyRateUSD": ^.hourlyRateUSD,
+             "hourlyRateNGN": ^.hourlyRateNGN,
+             "mentorshipHourlyRateUSD": ^.mentorshipHourlyRateUSD,
+             "mentorshipHourlyRateNGN": ^.mentorshipHourlyRateNGN
+           },
            "fileUrl": (teacherFile.asset->url) || (studentFile.asset->url),
            "hasTeacherWebcopy": defined(teacherFile)
         },

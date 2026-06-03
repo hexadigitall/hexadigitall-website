@@ -64,7 +64,7 @@ export default function BookDetailsModal({
 
   const currentFormattedPrice = React.useMemo(() => {
     if (currentCurrency.code === 'NGN') return `₦${resolvedPrice.ngn.toLocaleString()}`;
-    return formatPrice(resolvedPrice.usd, { currency: currentCurrency.code });
+    return formatPrice(resolvedPrice.usd);
   }, [resolvedPrice, currentCurrency.code, formatPrice]);
 
   const handleBuyClick = (e: React.MouseEvent) => {
