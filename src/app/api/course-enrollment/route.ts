@@ -2,6 +2,7 @@
 // Paystack-based course enrollment endpoint
 import { NextResponse } from 'next/server';
 import { client } from '@/sanity/client';
+import { EXCHANGE_RATES } from '@/lib/currency';
 
 interface EnrollmentRequest {
   courseId: string;
@@ -29,8 +30,7 @@ export async function POST(request: Request) {
       );
     }
 
-    // Verify item exists (could be course, book, or publication)
-    // We'll broaden the search to handle different types if itemId is provided
+    // Verify item exists
     const item = await client.fetch(
       '*[(_type == "course" || _type == "book" || _type == "publication") && (_id == $id || _id == "drafts." + $id)][0]',
       { id: courseId }
@@ -43,13 +43,27 @@ export async function POST(request: Request) {
       );
     }
 
-    // Initialize Paystack transaction
-    // Paystack expects the smallest currency unit (kobo for NGN, cents for USD, etc.)
-    const paystackAmount = Math.round(amount * 100);
+    // RESOLVE PRICING TO NGN
+    // Paystack currently only handles NGN correctly for this integration.
+    // If currency is not NGN, convert based on EXCHANGE_RATES.
+    let resolvedAmountNGN = amount;
+
+    if (currency !== 'NGN') {
+        const rateToUSD = 1 / (EXCHANGE_RATES[currency] || 1);
+        const amountInUSD = amount * rateToUSD;
+        const rateToNGN = EXCHANGE_RATES['NGN'] || 1650;
+        resolvedAmountNGN = amountInUSD * rateToNGN;
+        
+        console.log(`Converting ${amount} ${currency} to NGN: ${resolvedAmountNGN}`);
+    }
+
+    // Paystack expects the smallest currency unit (kobo for NGN)
+    const paystackAmount = Math.round(resolvedAmountNGN * 100);
 
     const paystackPayload = {
       email: studentDetails?.email || 'noemail@hexadigitall.com',
       amount: paystackAmount,
+      currency: 'NGN', // Explicitly tell Paystack we are charging in NGN
       callback_url: redirectUrl || `${process.env.NEXT_PUBLIC_BASE_URL || 'https://hexadigitall.com'}/enrollment-success`,
       metadata: {
         ...metadata,

@@ -47,7 +47,8 @@ export default function DashboardLibraryView({ user, userCourses = [] }: Dashboa
 
     // Debug userCourses mapping
     const userCourseIds = new Set(userCourses.map(c => {
-        // For students it's c.course._id, for teachers it's c._id
+        // Enrollment structure: c.course._id
+        // Teacher course structure: c._id
         return c.course?._id || c._id;
     }).filter(Boolean));
     
@@ -57,8 +58,11 @@ export default function DashboardLibraryView({ user, userCourses = [] }: Dashboa
     
     // Suggested: Matching user courses OR matching school (supplementary)
     const suggested = filtered.filter(book => {
-        const isDirectlyRelated = book.relatedCourse?._id && userCourseIds.has(book.relatedCourse._id);
-        const isSupplementary = book.relatedCourse?.school?._id && userSchoolIds.has(book.relatedCourse.school._id);
+        const bookCourseId = book.relatedCourse?._id;
+        const bookSchoolId = book.relatedCourse?.school?._id;
+        
+        const isDirectlyRelated = bookCourseId && userCourseIds.has(bookCourseId);
+        const isSupplementary = bookSchoolId && userSchoolIds.has(bookSchoolId);
         
         return book.status === 'available' && (isDirectlyRelated || isSupplementary);
     });
