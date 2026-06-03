@@ -75,6 +75,11 @@ export interface BookSummary {
   hasTeacherVersion?: boolean
   teacherFile?: { asset?: { url?: string } }
   pricing?: Pricing
+  relatedCourse?: {
+    _id: string;
+    title: string;
+    slug: { current: string };
+  }
 }
 
 export interface BookDetail extends BookSummary {
@@ -154,7 +159,8 @@ const ALL_STORE_ITEMS_QUERY = groq`
     studentFile { asset->{ url } },
     hasTeacherVersion,
     teacherFile { asset->{ url } },
-    pricing
+    pricing,
+    "relatedCourse": relatedCourse->{ _id, title, slug }
   }
 `
 
@@ -170,7 +176,8 @@ const BOOKS_BY_AUTHOR_QUERY = groq`
     "author": author->{ name, slug },
     pricing,
     directDownloadEnabled,
-    storeLinks
+    storeLinks,
+    "relatedCourse": relatedCourse->{ _id, title, slug }
   }
 `
 

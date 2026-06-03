@@ -83,6 +83,7 @@ export async function GET(request: NextRequest) {
            "author": author->{name, slug},
            hasTeacherVersion,
            hasStudentVersion,
+           "relatedCourse": { "_id": ^._id, "title": ^.title, "slug": ^.slug },
            "fileUrl": (teacherFile.asset->url) || (studentFile.asset->url)
         }
       },
