@@ -59,27 +59,36 @@ export function resolveBookPrice(book: {
   relatedCourse?: RateInput;
   pricing?: { usd?: number; ngn?: number };
 }) {
-    let priceUSD = 30; // Global fallback
-    let priceNGN = 45000; // Global fallback
+    // BASE DEFAULT - Should rarely be used if data is complete
+    let priceUSD = 40; 
+    let priceNGN = 66000;
 
     const isAsset = book._type === 'asset' || book.slug.startsWith('companion-');
     
-    // 1. Check for specific USD overrides
+    // 1. Check for specific USD overrides FIRST
     if (book.slug === 'dunce-to-midjourney-pro') {
         priceUSD = 54.99;
+        priceNGN = priceUSD * 1650;
     } else if (book.slug === 'mother-of-two') {
         priceUSD = 47.99;
+        priceNGN = priceUSD * 1650;
     } else if (book.slug === 'love-is-nothing') {
         priceUSD = 85.99;
+        priceNGN = priceUSD * 1650;
     } else if (isAsset) {
         priceUSD = 9.99;
+        priceNGN = priceUSD * 1650;
     } 
     // 2. Textbooks tied to courses use Mentorship Pricing (Hourly USD * 4)
     else if (book.relatedCourse) {
+        // We use resolveMentorshipRates to find the professional hourly rate for the course
         const rates = resolveMentorshipRates(book.relatedCourse);
+        
         if (rates.hourlyRateUSD) {
+            // Textbook price is strictly 4x the mentorship hourly rate (Monthly cost)
             priceUSD = rates.hourlyRateUSD * 4;
-            // Use specific NGN mentorship rate if available to keep PPP consistency
+            
+            // For NGN, we use the course's regional PPP hourly rate if available
             if (rates.hourlyRateNGN) {
                 priceNGN = rates.hourlyRateNGN * 4;
             } else {
@@ -90,13 +99,10 @@ export function resolveBookPrice(book: {
             priceNGN = book.pricing.ngn || (priceUSD * 1650);
         }
     }
-    // 3. Fallback to Sanity pricing
+    // 3. Fallback to Sanity pricing fields
     else if (book.pricing?.usd) {
         priceUSD = book.pricing.usd;
         priceNGN = book.pricing.ngn || (priceUSD * 1650);
-    } else {
-        // Ultimate fallback
-        priceNGN = priceUSD * 1650;
     }
 
     // Apply Teacher Markup (15%)

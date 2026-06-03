@@ -55,16 +55,16 @@ export default function BookDetailsModal({
         relatedCourse: book.relatedCourse as any,
         pricing: book.pricing
     });
-  }, [book, activeEdition]);
+  }, [book.slug.current, book._type, book.relatedCourse, book.pricing, activeEdition]);
 
   const rawPrice = React.useMemo(() => {
     if (currentCurrency.code === 'NGN') return resolvedPrice.ngn;
-    return convertPrice(resolvedPrice.usd);
+    return convertPrice(resolvedPrice.usd, currentCurrency.code);
   }, [resolvedPrice, currentCurrency.code, convertPrice]);
 
   const currentFormattedPrice = React.useMemo(() => {
     if (currentCurrency.code === 'NGN') return `₦${resolvedPrice.ngn.toLocaleString()}`;
-    return formatPrice(resolvedPrice.usd);
+    return formatPrice(resolvedPrice.usd, { currency: currentCurrency.code });
   }, [resolvedPrice, currentCurrency.code, formatPrice]);
 
   const handleBuyClick = (e: React.MouseEvent) => {

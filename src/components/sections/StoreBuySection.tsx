@@ -50,10 +50,11 @@ export default function StoreBuySection({ book }: StoreBuySectionProps) {
     return {
       student: studentBase,
       teacher: teacherBase,
-      both: studentBase * 1.5, // Legacy
       single: studentBase,
       rawStudentUSD: studentPrices.usd,
-      rawTeacherUSD: teacherPrices.usd
+      rawTeacherUSD: teacherPrices.usd,
+      rawStudentNGN: studentPrices.ngn,
+      rawTeacherNGN: teacherPrices.ngn
     };
   }, [book, currentCurrency.code, convertPrice]);
 
@@ -62,9 +63,9 @@ export default function StoreBuySection({ book }: StoreBuySectionProps) {
     
     if (isNGN) {
       return {
-        student: `₦${Math.round(prices.student).toLocaleString()}`,
-        teacher: `₦${Math.round(prices.teacher).toLocaleString()}`,
-        single: `₦${Math.round(prices.single).toLocaleString()}`
+        student: `₦${prices.rawStudentNGN.toLocaleString()}`,
+        teacher: `₦${prices.rawTeacherNGN.toLocaleString()}`,
+        single: `₦${prices.rawStudentNGN.toLocaleString()}`
       };
     }
 

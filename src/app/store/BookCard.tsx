@@ -69,11 +69,17 @@ export default function BookCard({ book, highlightTerm = '', user, isDashboardCo
     return resolveBookPrice({
         slug: book.slug.current,
         _type: book._type,
+        // If expansion provided a variant use it, otherwise detect from user role
         variant: variant || (isTeacher ? 'teacher' : 'student'),
         relatedCourse: book.relatedCourse as any,
         pricing: book.pricing
     });
-  }, [book, user, variant, isTeacher]);
+  }, [book, isTeacher, variant]);
+
+  const rawPrice = useMemo(() => {
+    if (currentCurrency.code === 'NGN') return resolvedPrice.ngn;
+    return convertPrice(resolvedPrice.usd);
+  }, [resolvedPrice, currentCurrency.code, convertPrice]);
 
   const handleSaveToDashboard = async () => {
     if (!user?.email) {

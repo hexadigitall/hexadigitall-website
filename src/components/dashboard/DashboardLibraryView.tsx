@@ -99,8 +99,8 @@ export default function DashboardLibraryView({ user, userCourses = [] }: Dashboa
 
         if (catalogRes.ok) {
           const data = await catalogRes.json();
-          // Textbooks + Imprints for catalog
-          setCatalogItems(data.books || []);
+          // ONLY textbooks for the dashboard library catalog
+          setCatalogItems(data.books?.filter((b: any) => b._type === 'book') || []);
         }
       } catch (error) {
         console.error('Failed to fetch library data:', error);
