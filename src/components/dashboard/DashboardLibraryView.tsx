@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useEffect, useState, useMemo } from 'react';
-import { BookmarkIcon, ArrowDownTrayIcon, BookOpenIcon } from '@heroicons/react/24/outline';
+import { BookmarkIcon, ArrowDownTrayIcon, BookOpenIcon, MagnifyingGlassIcon, FunnelIcon } from '@heroicons/react/24/outline';
 import Link from 'next/link';
 import BookCard from '@/app/store/BookCard';
 import { type BookSummary } from '@/lib/book-queries';
@@ -11,6 +11,7 @@ interface DashboardLibraryViewProps {
     role: string;
     email: string;
     username?: string;
+    name?: string;
   };
   userCourses?: any[]; // Enrolled for students, assigned for teachers
 }
@@ -20,16 +21,42 @@ export default function DashboardLibraryView({ user, userCourses = [] }: Dashboa
   const [catalogItems, setCatalogItems] = useState<BookSummary[]>([]);
   const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState<'collection' | 'catalog'>('collection');
+  const [searchQuery, setSearchQuery] = useState('');
+  const [levelFilter, setLevelFilter] = useState('all');
 
   // Logic for sectioning the catalog
   const catalogSections = useMemo(() => {
-    if (catalogItems.length === 0) return { suggested: [], available: [], pipeline: [] };
+    let filtered = catalogItems;
+    
+    // Apply search
+    if (searchQuery) {
+        const q = searchQuery.toLowerCase();
+        filtered = filtered.filter(b => 
+            b.title.toLowerCase().includes(q) || 
+            b.description?.toLowerCase().includes(q) ||
+            b.authors?.some(a => a.toLowerCase().includes(q))
+        );
+    }
 
-    const userCourseIds = new Set(userCourses.map(c => c._id || c.course?._id).filter(Boolean));
-    const userSchoolIds = new Set(userCourses.map(c => (c.school?._id || c.course?.school?._id)).filter(Boolean));
+    // Apply level filter
+    if (levelFilter !== 'all') {
+        filtered = filtered.filter(b => b.level === levelFilter);
+    }
+
+    if (filtered.length === 0) return { suggested: [], available: [], pipeline: [] };
+
+    // Debug userCourses mapping
+    const userCourseIds = new Set(userCourses.map(c => {
+        // For students it's c.course._id, for teachers it's c._id
+        return c.course?._id || c._id;
+    }).filter(Boolean));
+    
+    const userSchoolIds = new Set(userCourses.map(c => {
+        return c.course?.school?._id || c.school?._id;
+    }).filter(Boolean));
     
     // Suggested: Matching user courses OR matching school (supplementary)
-    const suggested = catalogItems.filter(book => {
+    const suggested = filtered.filter(book => {
         const isDirectlyRelated = book.relatedCourse?._id && userCourseIds.has(book.relatedCourse._id);
         const isSupplementary = book.relatedCourse?.school?._id && userSchoolIds.has(book.relatedCourse.school._id);
         
@@ -38,15 +65,15 @@ export default function DashboardLibraryView({ user, userCourses = [] }: Dashboa
 
     // Available: Rest of available books
     const suggestedIds = new Set(suggested.map(b => b._id));
-    const available = catalogItems.filter(book => {
+    const available = filtered.filter(book => {
         return book.status === 'available' && !suggestedIds.has(book._id);
     });
 
     // Pipeline: Coming soon
-    const pipeline = catalogItems.filter(book => book.status === 'coming_soon');
+    const pipeline = filtered.filter(book => book.status === 'coming_soon');
 
     return { suggested, available, pipeline };
-  }, [catalogItems, userCourses]);
+  }, [catalogItems, userCourses, searchQuery, levelFilter]);
 
   useEffect(() => {
     if (!user?.email) return;
@@ -65,7 +92,6 @@ export default function DashboardLibraryView({ user, userCourses = [] }: Dashboa
 
         if (catalogRes.ok) {
           const data = await catalogRes.json();
-          // The API returns all books, but we double-check filtering here
           setCatalogItems(data.books?.filter((b: any) => b._type === 'book') || []);
         }
       } catch (error) {
@@ -112,13 +138,13 @@ export default function DashboardLibraryView({ user, userCourses = [] }: Dashboa
   return (
     <div className="space-y-10 animate-in fade-in duration-500">
       {/* Header & Sub-tabs */}
-      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-6">
+      <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6">
         <div>
           <h2 className="text-3xl font-bold text-slate-900 dark:text-white font-serif">Library & Resources</h2>
           <p className="text-sm text-slate-500 mt-1">Manage your collection and explore official Hexadigitall textbooks.</p>
         </div>
         
-        <div className="flex bg-slate-100 dark:bg-slate-900 p-1 rounded-xl">
+        <div className="flex bg-slate-100 dark:bg-slate-900 p-1 rounded-xl shrink-0">
           <button
             onClick={() => setActiveTab('collection')}
             className={`px-6 py-2 text-xs font-black uppercase tracking-widest rounded-lg transition-all ${
@@ -206,6 +232,36 @@ export default function DashboardLibraryView({ user, userCourses = [] }: Dashboa
         </>
       ) : (
         <div className="space-y-16">
+          {/* Catalog Filters */}
+          <div className="flex flex-col md:flex-row gap-4 bg-white dark:bg-slate-900 p-6 rounded-[2rem] border border-slate-100 dark:border-slate-800 shadow-sm">
+             <div className="relative flex-1">
+                <MagnifyingGlassIcon className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-slate-400" />
+                <input 
+                    type="text"
+                    placeholder="Search catalog..."
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    className="w-full pl-12 pr-4 py-3 bg-slate-50 dark:bg-slate-950 border-none rounded-2xl focus:ring-2 focus:ring-blue-600 transition-all text-sm font-medium"
+                />
+             </div>
+             <div className="flex items-center gap-4 shrink-0">
+                <div className="flex items-center gap-2 text-xs font-black uppercase tracking-widest text-slate-400">
+                    <FunnelIcon className="h-4 w-4" />
+                    <span>Level</span>
+                </div>
+                <select 
+                    value={levelFilter}
+                    onChange={(e) => setLevelFilter(e.target.value)}
+                    className="bg-slate-50 dark:bg-slate-950 border-none rounded-2xl py-3 pl-4 pr-10 text-sm font-bold focus:ring-2 focus:ring-blue-600 transition-all"
+                >
+                    <option value="all">All Levels</option>
+                    <option value="beginner">Beginner</option>
+                    <option value="intermediate">Intermediate</option>
+                    <option value="advanced">Advanced</option>
+                </select>
+             </div>
+          </div>
+
           {/* Suggested Section */}
           {catalogSections.suggested.length > 0 && (
             <section>
@@ -223,17 +279,19 @@ export default function DashboardLibraryView({ user, userCourses = [] }: Dashboa
                 <h3 className="text-xs font-black uppercase tracking-[0.3em] text-slate-400 whitespace-nowrap">Available Now</h3>
                 <div className="h-px w-full bg-slate-100 dark:bg-slate-800"></div>
             </div>
-            {renderBookGrid(catalogSections.available, "No additional textbooks available at this time.")}
+            {renderBookGrid(catalogSections.available, searchQuery || levelFilter !== 'all' ? "No books match your filters." : "No additional textbooks available at this time.")}
           </section>
 
           {/* Pipeline Section */}
-          <section>
-             <div className="flex items-center gap-4 mb-8">
-                <h3 className="text-xs font-black uppercase tracking-[0.3em] text-amber-500 whitespace-nowrap">In the Pipeline</h3>
-                <div className="h-px w-full bg-amber-500/10"></div>
-            </div>
-            {renderBookGrid(catalogSections.pipeline, "No upcoming textbooks in the pipeline.")}
-          </section>
+          {catalogSections.pipeline.length > 0 && (
+            <section>
+                <div className="flex items-center gap-4 mb-8">
+                    <h3 className="text-xs font-black uppercase tracking-[0.3em] text-amber-500 whitespace-nowrap">In the Pipeline</h3>
+                    <div className="h-px w-full bg-amber-500/10"></div>
+                </div>
+                {renderBookGrid(catalogSections.pipeline, "No upcoming textbooks in the pipeline.")}
+            </section>
+          )}
         </div>
       )}
     </div>

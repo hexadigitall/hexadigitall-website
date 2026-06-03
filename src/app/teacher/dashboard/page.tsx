@@ -736,7 +736,7 @@ export default function TeacherDashboardPage() {
           </>
         ) : (
           <DashboardLibraryView 
-            user={{ role: sessionRole || 'teacher', email: teacher?.username || '', username: teacher?.username }} 
+            user={{ role: sessionRole || 'teacher', email: teacher?.username || '', username: teacher?.username, name: teacher?.name }} 
             userCourses={courses}
           />
         )}

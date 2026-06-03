@@ -12,6 +12,7 @@ interface TwoStepCheckoutModalProps {
   currency: string;
   itemId: string;
   itemType: 'book' | 'publication' | 'course' | 'asset';
+  userContext?: { role?: string; email?: string; name?: string; username?: string };
   onSuccess: (checkoutUrl: string) => void;
 }
 
@@ -28,12 +29,29 @@ export default function TwoStepCheckoutModal({
   currency,
   itemId,
   itemType,
+  userContext,
   onSuccess
 }: TwoStepCheckoutModalProps) {
   const [step, setStep] = useState(1);
-  const [formData, setFormData] = useState({ fullName: '', email: '', role: 'student' });
+  const [formData, setFormData] = useState({ 
+    fullName: userContext?.name || '', 
+    email: userContext?.email || userContext?.username || '', 
+    role: userContext?.role === 'teacher' ? 'instructor' : (userContext?.role || 'student')
+  });
   const [isSubmitting, setIsPending] = useState(false);
   const [error, setError] = useState<string | null>(null);
+
+  // Update form if userContext changes (e.g. login happens while open)
+  React.useEffect(() => {
+    if (userContext) {
+      setFormData(prev => ({
+        ...prev,
+        fullName: prev.fullName || userContext.name || '',
+        email: prev.email || userContext.email || userContext.username || '',
+        role: userContext.role === 'teacher' ? 'instructor' : (userContext.role || prev.role)
+      }));
+    }
+  }, [userContext]);
 
   const handleNext = (e: React.FormEvent) => {
     e.preventDefault();
@@ -85,11 +103,13 @@ export default function TwoStepCheckoutModal({
     }
   };
 
+  const showRoleField = itemType === 'book' && !userContext?.role;
+
   return (
     <Dialog open={isOpen} onClose={onClose} className="relative z-[100]">
       <DialogBackdrop className="fixed inset-0 bg-slate-950/80 backdrop-blur-md transition-opacity" />
 
-      <div className="fixed inset-0 z-10 w-screen overflow-y-auto font-serif">
+      <div className="fixed inset-0 z-10 w-screen overflow-y-auto font-sans">
         <div className="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
           <div className="relative transform overflow-hidden rounded-[2rem] bg-white dark:bg-slate-900 text-left shadow-2xl transition-all sm:my-8 sm:w-full sm:max-w-md border border-slate-100 dark:border-slate-800">
             
@@ -136,7 +156,7 @@ export default function TwoStepCheckoutModal({
                       />
                     </div>
 
-                    {itemType === 'book' && (
+                    {showRoleField && (
                       <div>
                         <label className="block text-[10px] font-black uppercase tracking-widest text-slate-400 mb-2 ml-1">Role</label>
                         <select
@@ -169,7 +189,7 @@ export default function TwoStepCheckoutModal({
                     <p className="text-4xl font-black text-slate-950 dark:text-white font-mono">
                       {new Intl.NumberFormat('en-NG', { style: 'currency', currency: currency, maximumFractionDigits: 0 }).format(price)}
                     </p>
-                    <div className="mt-6 text-sm text-slate-500 dark:text-slate-400 font-serif italic">
+                    <div className="mt-6 text-sm text-slate-500 dark:text-slate-400 font-sans italic">
                       <p>Name: <span className="text-slate-900 dark:text-slate-200 not-italic font-bold">{formData.fullName}</span></p>
                       <p className="text-xs mt-1">({formData.email})</p>
                     </div>
@@ -202,7 +222,7 @@ export default function TwoStepCheckoutModal({
                     </button>
                   </div>
 
-                  <p className="text-[10px] text-slate-400 leading-relaxed font-serif italic">
+                  <p className="text-[10px] text-slate-400 leading-relaxed font-sans italic">
                     Your digital assets will be emailed to you immediately after payment.
                   </p>
                 </div>

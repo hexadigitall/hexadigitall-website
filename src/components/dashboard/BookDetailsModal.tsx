@@ -27,7 +27,7 @@ export default function BookDetailsModal({
   onClose,
   book,
   user,
-  variant,
+  variant: propVariant,
   onSave,
   isSaving,
   isSaved,
@@ -36,16 +36,26 @@ export default function BookDetailsModal({
 }: BookDetailsModalProps) {
   const [checkoutOpen, setCheckoutOpen] = useState(false);
   const { currentCurrency } = useCurrency();
+  
+  const isInstructor = user?.role === 'teacher' || user?.role === 'instructor' || user?.role === 'admin';
+  const hasBothEditions = book.hasStudentVersion && book.hasTeacherVersion;
+  
+  // Teachers can switch between editions if both exist
+  const [activeEdition, setActiveEdition] = useState<'student' | 'teacher'>(
+    propVariant === 'teacher' ? 'teacher' : 'student'
+  );
 
   if (!book) return null;
 
-  const isTeacher = user?.role === 'teacher' || user?.role === 'instructor' || user?.role === 'admin';
   const coverUrl = book.coverImage?.asset?.url;
 
   const handleBuyClick = (e: React.MouseEvent) => {
     e.preventDefault();
     setCheckoutOpen(true);
   };
+
+  // Determine current display context based on active tab
+  const displayVariant = isInstructor ? activeEdition : 'student';
 
   return (
     <>
@@ -77,7 +87,7 @@ export default function BookDetailsModal({
                   </div>
 
                   <div className="space-y-4 mt-auto">
-                    {variant === 'teacher' || (isTeacher && variant === 'single') ? (
+                    {displayVariant === 'teacher' ? (
                       <>
                           <button
                             onClick={onSave}
@@ -104,7 +114,7 @@ export default function BookDetailsModal({
                           {book.relatedCourse ? 'Buy Course Textbook' : 'Buy Textbook'}
                         </button>
                     )}
-                    {formattedPrice && (
+                    {formattedPrice && displayVariant === 'student' && (
                       <p className="text-center text-sm font-mono font-black text-slate-400 dark:text-slate-500">{formattedPrice}</p>
                     )}
                   </div>
@@ -113,15 +123,36 @@ export default function BookDetailsModal({
                 {/* Right Column: Content */}
                 <div className="p-10 md:p-12 overflow-y-auto">
                   <div className="mb-10">
-                    <div className="flex items-center gap-3 mb-4">
-                      <span className="text-[10px] font-black uppercase tracking-widest px-3 py-1 bg-blue-600 text-white rounded-full">
-                        {variant === 'teacher' ? 'Instructor Edition' : 'Student Edition'}
-                      </span>
+                    <div className="flex flex-wrap items-center gap-3 mb-6">
+                      {isInstructor && hasBothEditions ? (
+                        <div className="flex bg-slate-100 dark:bg-slate-800 p-1 rounded-xl">
+                           <button 
+                            onClick={() => setActiveEdition('student')}
+                            className={`px-4 py-1.5 text-[10px] font-black uppercase tracking-widest rounded-lg transition-all ${activeEdition === 'student' ? 'bg-white dark:bg-slate-700 text-blue-600 shadow-sm' : 'text-slate-500'}`}
+                           >
+                            Student Ed.
+                           </button>
+                           <button 
+                            onClick={() => setActiveEdition('teacher')}
+                            className={`px-4 py-1.5 text-[10px] font-black uppercase tracking-widest rounded-lg transition-all ${activeEdition === 'teacher' ? 'bg-white dark:bg-slate-700 text-amber-600 shadow-sm' : 'text-slate-500'}`}
+                           >
+                            Teacher Ed.
+                           </button>
+                        </div>
+                      ) : (
+                        <span className={`text-[10px] font-black uppercase tracking-widest px-3 py-1 rounded-full ${displayVariant === 'teacher' ? 'bg-amber-100 text-amber-700 dark:bg-amber-900/30' : 'bg-blue-600 text-white'}`}>
+                            {displayVariant === 'teacher' ? 'Instructor Edition' : 'Student Edition'}
+                        </span>
+                      )}
+                      
                       <span className="text-[10px] font-black uppercase tracking-widest px-3 py-1 bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 rounded-full">
                         {book.level || 'All Levels'}
                       </span>
                     </div>
-                    <DialogTitle className="text-3xl md:text-4xl font-bold text-slate-950 dark:text-white leading-tight font-serif mb-4">{book.title}</DialogTitle>
+
+                    <DialogTitle as="h2" className="text-3xl md:text-4xl font-bold text-slate-950 dark:text-white leading-tight font-serif mb-4">
+                      {book.title}
+                    </DialogTitle>
                     {book.subtitle && <p className="text-lg text-slate-500 dark:text-slate-400 italic font-serif mb-6">{book.subtitle}</p>}
                     <p className="text-sm font-bold text-slate-400 uppercase tracking-widest">by {Array.isArray(book.authors) ? book.authors.join(', ') : 'Hexadigitall'}</p>
                   </div>
@@ -179,6 +210,7 @@ export default function BookDetailsModal({
         currency={currentCurrency.code}
         itemId={book._id}
         itemType="book"
+        userContext={user ? { ...user, role: user.role } : undefined}
         onSuccess={() => setCheckoutOpen(false)}
       />
     </>

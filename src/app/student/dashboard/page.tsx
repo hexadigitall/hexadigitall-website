@@ -446,12 +446,12 @@ export default function StudentDashboardPage() {
                   </div>
                   <h3 className="text-sm font-semibold text-white/90">Library</h3>
                 </div>
-                <Link
-                  href="/store?context=dashboard"
+                <button
+                  onClick={() => setActiveTab('library')}
                   className="inline-flex items-center px-4 py-2 bg-white dark:bg-slate-900 text-emerald-700 dark:text-emerald-300 rounded-xl hover:bg-emerald-50 dark:hover:bg-emerald-950/20 transition-colors text-sm font-semibold shadow-sm"
                 >
                   Visit Library
-                </Link>
+                </button>
               </div>
             </div>
 
@@ -688,7 +688,7 @@ export default function StudentDashboardPage() {
           </>
         ) : (
           <DashboardLibraryView 
-            user={{ role: sessionRole || 'student', email: student?.username || '', username: student?.username }} 
+            user={{ role: sessionRole || 'student', email: student?.username || '', username: student?.username, name: student?.name }} 
             userCourses={enrollments}
           />
         )}
