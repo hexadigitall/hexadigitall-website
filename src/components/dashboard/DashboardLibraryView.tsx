@@ -57,7 +57,10 @@ export default function DashboardLibraryView({ user, userCourses = [] }: Dashboa
     }).filter(Boolean));
     
     // Suggested: Matching user courses OR matching school (supplementary)
+    // ONLY textbooks can be suggested based on courses
     const suggested = filtered.filter(book => {
+        if (book._type !== 'book') return false;
+
         const bookCourseId = book.relatedCourse?._id;
         const bookSchoolId = book.relatedCourse?.school?._id;
         
@@ -67,10 +70,10 @@ export default function DashboardLibraryView({ user, userCourses = [] }: Dashboa
         return book.status === 'available' && (isDirectlyRelated || isSupplementary);
     });
 
-    // Available: Rest of available books
+    // Available: Rest of available books/imprints
     const suggestedIds = new Set(suggested.map(b => b._id));
-    const available = filtered.filter(book => {
-        return book.status === 'available' && !suggestedIds.has(book._id);
+    const available = filtered.filter(item => {
+        return item.status === 'available' && !suggestedIds.has(item._id);
     });
 
     // Pipeline: Coming soon
@@ -96,7 +99,8 @@ export default function DashboardLibraryView({ user, userCourses = [] }: Dashboa
 
         if (catalogRes.ok) {
           const data = await catalogRes.json();
-          setCatalogItems(data.books?.filter((b: any) => b._type === 'book') || []);
+          // Textbooks + Imprints for catalog
+          setCatalogItems(data.books || []);
         }
       } catch (error) {
         console.error('Failed to fetch library data:', error);

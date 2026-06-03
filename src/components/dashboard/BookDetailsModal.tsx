@@ -8,18 +8,17 @@ import { type BookSummary } from '@/lib/book-queries';
 import Link from 'next/link';
 import TwoStepCheckoutModal from '@/components/modals/TwoStepCheckoutModal';
 import { useCurrency } from '@/contexts/CurrencyContext';
+import { resolveBookPrice } from '@/lib/mentorship-pricing';
 
 interface BookDetailsModalProps {
   isOpen: boolean;
   onClose: () => void;
   book: any; 
-  user?: { role: string; email?: string; username?: string };
+  user?: { role: string; email?: string; username?: string; name?: string };
   variant?: 'teacher' | 'student' | 'single';
   onSave: () => Promise<void>;
   isSaving: boolean;
   isSaved: boolean;
-  formattedPrice?: string;
-  price?: number;
 }
 
 export default function BookDetailsModal({
@@ -31,11 +30,9 @@ export default function BookDetailsModal({
   onSave,
   isSaving,
   isSaved,
-  formattedPrice,
-  price
 }: BookDetailsModalProps) {
   const [checkoutOpen, setCheckoutOpen] = useState(false);
-  const { currentCurrency } = useCurrency();
+  const { currentCurrency, formatPrice, convertPrice } = useCurrency();
   
   const isInstructor = user?.role === 'teacher' || user?.role === 'instructor' || user?.role === 'admin';
   const hasBothEditions = book.hasStudentVersion && book.hasTeacherVersion;
@@ -48,6 +45,27 @@ export default function BookDetailsModal({
   if (!book) return null;
 
   const coverUrl = book.coverImage?.asset?.url;
+
+  // RESOLVE DYNAMIC PRICE
+  const resolvedPrice = React.useMemo(() => {
+    return resolveBookPrice({
+        slug: book.slug.current,
+        _type: book._type,
+        variant: activeEdition,
+        relatedCourse: book.relatedCourse as any,
+        pricing: book.pricing
+    });
+  }, [book, activeEdition]);
+
+  const rawPrice = React.useMemo(() => {
+    if (currentCurrency.code === 'NGN') return resolvedPrice.ngn;
+    return convertPrice(resolvedPrice.usd);
+  }, [resolvedPrice, currentCurrency.code, convertPrice]);
+
+  const currentFormattedPrice = React.useMemo(() => {
+    if (currentCurrency.code === 'NGN') return `₦${resolvedPrice.ngn.toLocaleString()}`;
+    return formatPrice(resolvedPrice.usd);
+  }, [resolvedPrice, currentCurrency.code, formatPrice]);
 
   const handleBuyClick = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -62,7 +80,7 @@ export default function BookDetailsModal({
       <Dialog open={isOpen} onClose={onClose} className="relative z-[100]">
         <DialogBackdrop className="fixed inset-0 bg-slate-950/90 backdrop-blur-xl transition-opacity" />
 
-        <div className="fixed inset-0 z-10 w-screen overflow-y-auto">
+        <div className="fixed inset-0 z-10 w-screen overflow-y-auto font-sans">
           <div className="flex min-h-full items-center justify-center p-4 text-center sm:p-0">
             <div className="relative transform overflow-hidden rounded-[2.5rem] bg-white dark:bg-slate-900 text-left shadow-2xl transition-all sm:my-8 sm:w-full sm:max-w-4xl border border-slate-100 dark:border-slate-800">
               
@@ -114,8 +132,8 @@ export default function BookDetailsModal({
                           {book.relatedCourse ? 'Buy Course Textbook' : 'Buy Textbook'}
                         </button>
                     )}
-                    {formattedPrice && displayVariant === 'student' && (
-                      <p className="text-center text-sm font-mono font-black text-slate-400 dark:text-slate-500">{formattedPrice}</p>
+                    {displayVariant === 'student' && (
+                      <p className="text-center text-sm font-mono font-black text-slate-400 dark:text-slate-500">{currentFormattedPrice}</p>
                     )}
                   </div>
                 </div>
@@ -205,8 +223,8 @@ export default function BookDetailsModal({
       <TwoStepCheckoutModal
         isOpen={checkoutOpen}
         onClose={() => setCheckoutOpen(false)}
-        title={`${book.title} (Student Edition)`}
-        price={price || 0}
+        title={`${book.title} (${activeEdition === 'teacher' ? 'Instructor' : 'Student'} Edition)`}
+        price={rawPrice}
         currency={currentCurrency.code}
         itemId={book._id}
         itemType="book"

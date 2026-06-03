@@ -41,3 +41,75 @@ export function resolveMentorshipRates(course: RateInput) {
     source: 'missing' as const
   }
 }
+
+/**
+ * Global pricing logic for Textbooks and Imprints
+ * Rules:
+ * 1. Base price is ALWAYS calculated in USD first.
+ * 2. Student Edition = Monthly Mentorship Price (Hourly USD Rate * 4)
+ * 3. Teacher Edition = Student Price + 15%
+ * 4. Specific USD overrides for certain titles.
+ * 5. Companion assets = $9.99 USD.
+ * 6. Convert to NGN using site exchange logic (or specific NGN mentorship rate if available).
+ */
+export function resolveBookPrice(book: { 
+  slug: string; 
+  _type: string; 
+  variant?: 'student' | 'teacher' | 'single';
+  relatedCourse?: RateInput;
+  pricing?: { usd?: number; ngn?: number };
+}) {
+    let priceUSD = 30; // Global fallback
+    let priceNGN = 45000; // Global fallback
+
+    const isAsset = book._type === 'asset' || book.slug.startsWith('companion-');
+    
+    // 1. Check for specific USD overrides
+    if (book.slug === 'dunce-to-midjourney-pro') {
+        priceUSD = 54.99;
+    } else if (book.slug === 'mother-of-two') {
+        priceUSD = 47.99;
+    } else if (book.slug === 'love-is-nothing') {
+        priceUSD = 85.99;
+    } else if (isAsset) {
+        priceUSD = 9.99;
+    } 
+    // 2. Textbooks tied to courses use Mentorship Pricing (Hourly USD * 4)
+    else if (book.relatedCourse) {
+        const rates = resolveMentorshipRates(book.relatedCourse);
+        if (rates.hourlyRateUSD) {
+            priceUSD = rates.hourlyRateUSD * 4;
+            // Use specific NGN mentorship rate if available to keep PPP consistency
+            if (rates.hourlyRateNGN) {
+                priceNGN = rates.hourlyRateNGN * 4;
+            } else {
+                priceNGN = priceUSD * 1650;
+            }
+        } else if (book.pricing?.usd) {
+            priceUSD = book.pricing.usd;
+            priceNGN = book.pricing.ngn || (priceUSD * 1650);
+        }
+    }
+    // 3. Fallback to Sanity pricing
+    else if (book.pricing?.usd) {
+        priceUSD = book.pricing.usd;
+        priceNGN = book.pricing.ngn || (priceUSD * 1650);
+    } else {
+        // Ultimate fallback
+        priceNGN = priceUSD * 1650;
+    }
+
+    // Apply Teacher Markup (15%)
+    if (book.variant === 'teacher') {
+        priceUSD *= 1.15;
+        priceNGN *= 1.15;
+    }
+
+    return {
+        usd: priceUSD,
+        ngn: Math.round(priceNGN)
+    };
+}
+
+// Internal imports for the utility if needed (checking if EXCHANGE_RATES is available)
+const EXCHANGE_RATES: Record<string, number> = { NGN: 1650 }; // Minimal local fallback

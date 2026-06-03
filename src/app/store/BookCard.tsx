@@ -10,6 +10,7 @@ import toast from 'react-hot-toast'
 import BookDetailsModal from '@/components/dashboard/BookDetailsModal'
 import { useCurrency } from '@/contexts/CurrencyContext'
 import { SUPPORTED_CURRENCIES } from '@/lib/currency'
+import { resolveBookPrice } from '@/lib/mentorship-pricing'
 
 const STATUS_STYLES: Record<string, string> = {
   available: 'bg-green-100 text-green-700',
@@ -26,7 +27,7 @@ const STATUS_LABELS: Record<string, string> = {
 }
 
 function escapeRegExp(value: string): string {
-  return value.replace(/[.*+?^${}()|[\]]/g, '\\$&')
+  return value.replace(/[.*+?^${}()|[\\]]/g, '\\$&')
 }
 
 function highlightText(text: string, query: string): ReactNode {
@@ -62,42 +63,17 @@ export default function BookCard({ book, highlightTerm = '', user, isDashboardCo
 
   // @ts-ignore - added in StoreCatalog expansion
   const variant = book._displayVariant as 'teacher' | 'student' | 'single' | undefined;
+  const isTeacher = user?.role === 'teacher' || user?.role === 'instructor' || user?.role === 'admin'
 
-  const rawPrice = useMemo(() => {
-    let baseUSD = book.pricing?.usd || 30;
-    const slug = book.slug.current;
-    
-    if (slug === 'dunce-to-midjourney-pro') baseUSD = 54.99;
-    if (slug === 'mother-of-two') baseUSD = 47.99;
-    if (slug === 'love-is-nothing') baseUSD = 85.99;
-
-    // Teacher version is 15% more
-    if (variant === 'teacher') baseUSD *= 1.15;
-
-    if (currentCurrency.code === 'NGN' && book.pricing?.ngn) {
-        let ngn = book.pricing.ngn;
-        if (variant === 'teacher') ngn *= 1.15;
-        return Math.round(ngn);
-    }
-
-    return convertPrice(baseUSD);
-  }, [book, currentCurrency.code, convertPrice, variant]);
-
-  const formattedPrice = useMemo(() => {
-    if (!isDashboardContext || variant === 'teacher') return undefined;
-    
-    if (currentCurrency.code === 'NGN' && book.pricing?.ngn) {
-        return `₦${book.pricing.ngn.toLocaleString()}`;
-    }
-
-    let baseUSD = book.pricing?.usd || 30;
-    const slug = book.slug.current;
-    if (slug === 'dunce-to-midjourney-pro') baseUSD = 54.99;
-    if (slug === 'mother-of-two') baseUSD = 47.99;
-    if (slug === 'love-is-nothing') baseUSD = 85.99;
-
-    return formatPrice(baseUSD);
-  }, [book, currentCurrency.code, formatPrice, isDashboardContext, variant]);
+  const resolvedPrice = useMemo(() => {
+    return resolveBookPrice({
+        slug: book.slug.current,
+        _type: book._type,
+        variant: variant || (isTeacher ? 'teacher' : 'student'),
+        relatedCourse: book.relatedCourse as any,
+        pricing: book.pricing
+    });
+  }, [book, user, variant, isTeacher]);
 
   const handleSaveToDashboard = async () => {
     if (!user?.email) {
@@ -130,8 +106,6 @@ export default function BookCard({ book, highlightTerm = '', user, isDashboardCo
       setIsSaving(false)
     }
   }
-
-  const isTeacher = user?.role === 'teacher' || user?.role === 'instructor' || user?.role === 'admin'
   
   // Decide what buttons and title to show
   const renderActions = () => {
@@ -225,8 +199,6 @@ export default function BookCard({ book, highlightTerm = '', user, isDashboardCo
         onSave={handleSaveToDashboard}
         isSaving={isSaving}
         isSaved={isSaved}
-        formattedPrice={formattedPrice}
-        price={rawPrice}
       />
     </>
   )

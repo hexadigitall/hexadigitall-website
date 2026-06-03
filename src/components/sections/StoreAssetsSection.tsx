@@ -3,6 +3,8 @@
 import React, { useState } from 'react';
 import { useCurrency } from '@/contexts/CurrencyContext';
 import TwoStepCheckoutModal from '@/components/modals/TwoStepCheckoutModal';
+import { resolveBookPrice } from '@/lib/mentorship-pricing';
+import { useSession } from 'next-auth/react';
 
 interface Asset {
   _id: string;
@@ -22,10 +24,16 @@ interface StoreAssetsSectionProps {
 
 export default function StoreAssetsSection({ assets }: StoreAssetsSectionProps) {
   const { currentCurrency, convertPrice } = useCurrency();
+  const { data: session } = useSession();
   const [activeAsset, setActiveAsset] = useState<Asset | null>(null);
 
+  const user = session?.user as any;
+
   const formatAmount = (amount: number) => {
-    const isWholeNumberCurrency = ['NGN', 'KES', 'ZAR'].includes(currentCurrency.code);
+    const isNGN = currentCurrency.code === 'NGN';
+    if (isNGN) return `₦${Math.round(amount).toLocaleString()}`;
+
+    const isWholeNumberCurrency = ['KES', 'ZAR'].includes(currentCurrency.code);
     return new Intl.NumberFormat('en-US', {
       style: 'currency',
       currency: currentCurrency.code,
@@ -34,10 +42,14 @@ export default function StoreAssetsSection({ assets }: StoreAssetsSectionProps) 
     }).format(amount);
   };
 
-  const getAssetPrice = () => {
-    // Strictly use USD 9.99 as requested by user
-    const baseUSD = 9.99;
-    return convertPrice(baseUSD, currentCurrency.code);
+  const getResolvedAssetPrice = (asset: Asset) => {
+    const resolved = resolveBookPrice({
+        slug: asset.slug.current,
+        _type: 'asset',
+    });
+    
+    if (currentCurrency.code === 'NGN') return resolved.ngn;
+    return convertPrice(resolved.usd, currentCurrency.code);
   };
 
   return (
@@ -48,7 +60,7 @@ export default function StoreAssetsSection({ assets }: StoreAssetsSectionProps) 
       </h2>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {assets.map((asset) => {
-          const price = getAssetPrice();
+          const price = getResolvedAssetPrice(asset);
           const formattedPrice = formatAmount(price);
 
           return (
@@ -77,10 +89,11 @@ export default function StoreAssetsSection({ assets }: StoreAssetsSectionProps) 
           isOpen={!!activeAsset}
           onClose={() => setActiveAsset(null)}
           title={activeAsset.title}
-          price={getAssetPrice()}
+          price={getResolvedAssetPrice(activeAsset)}
           currency={currentCurrency.code}
           itemId={activeAsset._id}
           itemType="asset"
+          userContext={user}
           onSuccess={() => setActiveAsset(null)}
         />
       )}

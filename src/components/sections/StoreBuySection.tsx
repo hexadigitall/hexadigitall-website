@@ -7,7 +7,7 @@ import { ChevronDownIcon, ShoppingCartIcon, ArrowTopRightOnSquareIcon, ShoppingB
 import { useSession, signIn } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { useCurrency } from '@/contexts/CurrencyContext';
-import { resolveMentorshipRates } from '@/lib/mentorship-pricing';
+import { resolveMentorshipRates, resolveBookPrice } from '@/lib/mentorship-pricing';
 import { SUPPORTED_CURRENCIES } from '@/lib/currency';
 
 interface StoreBuySectionProps {
@@ -27,75 +27,53 @@ export default function StoreBuySection({ book }: StoreBuySectionProps) {
 
   const isTextbook = book._type === 'book';
 
-  const mentorshipRates = useMemo(() => book.relatedCourse ? resolveMentorshipRates(book.relatedCourse as any) : null, [book.relatedCourse]);
-  const isLiveMentorship = book.relatedCourse?.courseType === 'live' && mentorshipRates?.hourlyRateUSD && mentorshipRates?.hourlyRateNGN;
-
-  const basePrices = useMemo(() => {
-    const slug = book.slug.current;
-    
-    // 1. Check for special hardcoded titles
-    if (slug === 'dunce-to-midjourney-pro') {
-      return { usd: 54.99, ngn: 54.99 * (book.pricing?.ngn ? book.pricing.ngn / (book.pricing.usd || 54.99) : 1000) };
-    }
-    if (slug === 'mother-of-two') {
-      return { usd: 47.99, ngn: book.pricing?.ngn || 47.99 * 1000 };
-    }
-    if (slug === 'love-is-nothing') {
-      return { usd: 85.99, ngn: book.pricing?.ngn || 85.99 * 1000 };
-    }
-
-    // 2. Mentorship-based pricing for other textbooks
-    if (isTextbook && isLiveMentorship && mentorshipRates) {
-      return {
-        usd: mentorshipRates.hourlyRateUSD! * 4,
-        ngn: mentorshipRates.hourlyRateNGN! * 4
-      };
-    }
-
-    // 3. Default to Sanity pricing or fallbacks
-    return {
-      usd: book.pricing?.usd || 30,
-      ngn: book.pricing?.ngn || 30000
-    };
-  }, [book.slug.current, book.pricing, isTextbook, isLiveMentorship, mentorshipRates]);
-
   const prices = useMemo(() => {
-    const studentBase = currentCurrency.code === 'NGN' ? basePrices.ngn : convertPrice(basePrices.usd, currentCurrency.code);
-    
+    const studentPrices = resolveBookPrice({
+        slug: book.slug.current,
+        _type: book._type,
+        variant: 'student',
+        relatedCourse: book.relatedCourse as any,
+        pricing: book.pricing
+    });
+
+    const teacherPrices = resolveBookPrice({
+        slug: book.slug.current,
+        _type: book._type,
+        variant: 'teacher',
+        relatedCourse: book.relatedCourse as any,
+        pricing: book.pricing
+    });
+
+    const studentBase = currentCurrency.code === 'NGN' ? studentPrices.ngn : convertPrice(studentPrices.usd, currentCurrency.code);
+    const teacherBase = currentCurrency.code === 'NGN' ? teacherPrices.ngn : convertPrice(teacherPrices.usd, currentCurrency.code);
+
     return {
       student: studentBase,
-      teacher: studentBase * 1.15,
-      both: studentBase * 1.5,
-      single: studentBase
+      teacher: teacherBase,
+      both: studentBase * 1.5, // Legacy
+      single: studentBase,
+      rawStudentUSD: studentPrices.usd,
+      rawTeacherUSD: teacherPrices.usd
     };
-  }, [basePrices, currentCurrency.code, convertPrice]);
+  }, [book, currentCurrency.code, convertPrice]);
 
   const formattedPrices = useMemo(() => {
     const isNGN = currentCurrency.code === 'NGN';
     
-    const formatPureAmount = (val: number, code: string) => {
-      const symbol = code === 'NGN' ? '₦' : (SUPPORTED_CURRENCIES[code]?.symbol || '$');
-      const isWhole = ['NGN', 'KES', 'ZAR'].includes(code);
-      const formatted = Math.round(val).toLocaleString();
-      return `${symbol}${formatted}`;
-    };
-
     if (isNGN) {
       return {
-        student: formatPureAmount(prices.student, 'NGN'),
-        teacher: formatPureAmount(prices.teacher, 'NGN'),
-        both: formatPureAmount(prices.both, 'NGN'),
-        single: formatPureAmount(prices.single, 'NGN')
+        student: `₦${Math.round(prices.student).toLocaleString()}`,
+        teacher: `₦${Math.round(prices.teacher).toLocaleString()}`,
+        single: `₦${Math.round(prices.single).toLocaleString()}`
       };
     }
 
     return {
-      student: formatPrice(basePrices.usd),
-      teacher: formatPrice(basePrices.usd * 1.15),
-      both: formatPrice(basePrices.usd * 1.5),
-      single: formatPrice(basePrices.usd)
+      student: formatPrice(prices.rawStudentUSD),
+      teacher: formatPrice(prices.rawTeacherUSD),
+      single: formatPrice(prices.rawStudentUSD)
     };
-  }, [basePrices, prices, currentCurrency.code, formatPrice]);
+  }, [prices, currentCurrency.code, formatPrice]);
 
   const hasExternalLinks = !!book.storeLinks?.amazon || !!book.storeLinks?.selar || !!book.storeLinks?.gumroad;
 
@@ -204,6 +182,7 @@ export default function StoreBuySection({ book }: StoreBuySectionProps) {
           currency={currentCurrency.code}
           itemId={book._id}
           itemType={['publication', 'imprint'].includes(book._type) ? 'publication' : 'book'}
+          userContext={user}
           onSuccess={() => setActiveModal(null)}
         />
       )}

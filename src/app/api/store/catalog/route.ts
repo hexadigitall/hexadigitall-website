@@ -4,7 +4,7 @@ import { client } from '@/sanity/client';
 export async function GET(request: Request) {
   try {
     // Only textbooks for the dashboard catalog
-    const query = `*[_type == "book"] | order(publishedAt desc) {
+    const query = `*[_type in ["book", "imprint", "publication"]] | order(publishedAt desc) {
       _id,
       _type,
       title,
@@ -16,7 +16,18 @@ export async function GET(request: Request) {
       "author": author->{name, slug},
       hasTeacherVersion,
       hasStudentVersion,
-      "relatedCourse": relatedCourse->{ _id, title, slug, level, school->{_id, title} },
+      "relatedCourse": relatedCourse->{ 
+        _id, 
+        title, 
+        slug, 
+        level, 
+        courseType,
+        hourlyRateUSD,
+        hourlyRateNGN,
+        mentorshipHourlyRateUSD,
+        mentorshipHourlyRateNGN,
+        school->{_id, title} 
+      },
       description,
       tableOfContents,
       pageCount,
