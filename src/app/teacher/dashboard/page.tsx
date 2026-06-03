@@ -90,8 +90,47 @@ export default function TeacherDashboardPage() {
   const [sessionRole, setSessionRole] = useState<string | null>(null)
   const [courses, setCourses] = useState<Course[]>([])
   const [students, setStudents] = useState<Student[]>([])
+  const [assessmentQuickCopyPanels, setAssessmentQuickCopyPanels] = useState<AssessmentQuickCopyPanel[]>([])
+  const [assessmentAttempts, setAssessmentAttempts] = useState<AssessmentAttemptSnapshot[]>([])
+  const [copyMessage, setCopyMessage] = useState<string | null>(null)
+  const [photoUrl, setPhotoUrl] = useState<string | null>(null)
+  const [photoUploading, setPhotoUploading] = useState(false)
+  const photoInputRef = useRef<HTMLInputElement>(null)
 
-  // ... inside TeacherDashboardPage ...
+  useEffect(() => {
+    const checkAuth = async () => {
+      const token = localStorage.getItem('admin_token')
+      const session = localStorage.getItem('admin_session')
+      if (!token || !session) {
+        return router.push('/teacher/login')
+      }
+
+      try {
+        const res = await fetch('/api/admin/auth', { headers: { Authorization: `Bearer ${token}` } })
+        if (!res.ok) return router.push('/teacher/login')
+        
+        const data = await res.json()
+        if (!data.role || (data.role !== 'teacher' && data.role !== 'admin')) {
+          return router.push('/teacher/login')
+        }
+        setSessionRole(data.role)
+
+        const sessionData = JSON.parse(session)
+        setTeacher({ username: sessionData.username, name: data.name || sessionData.name })
+        setPhotoUrl(data.profilePhotoUrl || null)
+
+        // Fetch courses and students
+        await Promise.all([fetchCourses(token), fetchStudents(token), fetchAssessments(token)])
+      } catch (error) {
+        console.error('Auth check failed:', error)
+        router.push('/teacher/login')
+      } finally {
+        setLoading(false)
+      }
+    }
+
+    checkAuth()
+  }, [router])
 
   const fetchCourses = async (token: string) => {
     try {
