@@ -11,7 +11,7 @@ interface TwoStepCheckoutModalProps {
   price: number;
   currency: string;
   itemId: string;
-  itemType: 'book' | 'publication' | 'course';
+  itemType: 'book' | 'publication' | 'course' | 'asset';
   onSuccess: (checkoutUrl: string) => void;
 }
 
