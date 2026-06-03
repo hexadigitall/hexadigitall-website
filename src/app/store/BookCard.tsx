@@ -136,40 +136,15 @@ export default function BookCard({ book, highlightTerm = '', user, isDashboardCo
   // Decide what buttons and title to show
   const renderActions = () => {
     if (isDashboardContext) {
-      if (variant === 'teacher' || (isTeacher && variant === 'single')) {
-        return (
-          <div className="grid grid-cols-2 gap-3 w-full">
-            <button
-              onClick={(e) => { e.stopPropagation(); handleSaveToDashboard(); }}
-              disabled={isSaving || isSaved}
-              className="flex items-center justify-center gap-2 bg-slate-100 dark:bg-slate-800 text-slate-900 dark:text-white py-3 rounded-xl font-bold uppercase tracking-widest text-[9px] hover:bg-slate-200 dark:hover:bg-slate-700 transition-all disabled:opacity-50"
-            >
-              {isSaved ? <CheckCircleIcon className="h-3.5 w-3.5" /> : <BookmarkIcon className="h-3.5 w-3.5" />}
-              {isSaved ? 'Saved' : 'Save'}
-            </button>
-            <Link
-              href={`/store/${book.slug.current}/reader`}
-              onClick={(e) => e.stopPropagation()}
-              className="flex items-center justify-center gap-2 bg-slate-900 dark:bg-blue-600 text-white py-3 rounded-xl font-bold uppercase tracking-widest text-[9px] hover:scale-[1.02] transition-all shadow-lg active:scale-95"
-            >
-              <BookOpenIcon className="h-3.5 w-3.5" />
-              View
-            </Link>
-          </div>
-        )
-      }
-
-      if (variant === 'student' || (!isTeacher && variant === 'single')) {
-        return (
-          <button
-            onClick={(e) => { e.stopPropagation(); setDetailsModalOpen(true); }}
-            className="flex items-center justify-center gap-2 w-full bg-blue-600 text-white py-4 rounded-xl font-bold uppercase tracking-widest text-[10px] hover:bg-blue-700 transition-all shadow-xl"
-          >
-            <ShoppingCartIcon className="h-4 w-4" />
-            {book.relatedCourse ? 'Buy Course Textbook' : 'Buy Textbook'}
-          </button>
-        )
-      }
+      return (
+        <button
+          onClick={(e) => { e.stopPropagation(); setDetailsModalOpen(true); }}
+          className="flex items-center justify-center gap-2 w-full bg-slate-900 dark:bg-blue-600 text-white py-4 rounded-xl font-bold uppercase tracking-widest text-[10px] hover:bg-slate-800 dark:hover:bg-blue-700 transition-all shadow-xl active:scale-95"
+        >
+          <BookOpenIcon className="h-4 w-4" />
+          View Details
+        </button>
+      )
     }
 
     // Standard Store View

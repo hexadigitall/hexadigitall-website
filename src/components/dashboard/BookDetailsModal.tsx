@@ -85,14 +85,14 @@ export default function BookDetailsModal({
                             className="w-full flex items-center justify-center gap-3 bg-white dark:bg-slate-800 text-slate-900 dark:text-white py-4 rounded-2xl font-black uppercase tracking-widest text-xs border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-700 transition-all disabled:opacity-50 shadow-sm"
                           >
                             {isSaved ? <CheckCircleIcon className="h-5 w-5 text-green-500" /> : <BookmarkIcon className="h-5 w-5" />}
-                            {isSaved ? 'Saved to Account' : 'Save to Account'}
+                            {isSaved ? 'Saved to Dashboard' : 'Save to Dashboard'}
                           </button>
                           <Link
                             href={`/store/${book.slug.current}/reader`}
                             className="w-full flex items-center justify-center gap-3 bg-slate-950 dark:bg-blue-600 text-white py-4 rounded-2xl font-black uppercase tracking-widest text-xs hover:scale-[1.02] transition-all shadow-xl"
                           >
                             <BookOpenIcon className="h-5 w-5" />
-                            Open Web Reader
+                            View Reader
                           </Link>
                       </>
                     ) : (
