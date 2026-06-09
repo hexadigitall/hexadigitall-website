@@ -9,6 +9,7 @@ import ClipboardDocumentIcon from '@heroicons/react/24/outline/ClipboardDocument
 import BookCard from '@/app/store/BookCard'
 import DashboardLibraryView from '@/components/dashboard/DashboardLibraryView'
 import { type BookSummary } from '@/lib/book-queries'
+import TeacherLabsView from '@/components/labs/TeacherLabsView'
 import {
   ArrowLeftIcon,
   AcademicCapIcon,
@@ -353,6 +354,7 @@ export default function TeacherDashboardPage() {
             {[
               { id: 'overview', label: 'My Teaching Dashboard' },
               { id: 'library', label: 'My Library' },
+              { id: 'sim-labs', label: 'Simulation Labs' },
             ].map((tab) => (
               <button
                 key={tab.id}
@@ -734,11 +736,13 @@ export default function TeacherDashboardPage() {
               )}
             </section>
           </>
-        ) : (
+        ) : activeTab === 'library' ? (
           <DashboardLibraryView 
             user={{ role: sessionRole || 'teacher', email: teacher?.username || '', username: teacher?.username, name: teacher?.name }} 
             userCourses={courses}
           />
+        ) : (
+          <TeacherLabsView />
         )}
       </div>
     </div>

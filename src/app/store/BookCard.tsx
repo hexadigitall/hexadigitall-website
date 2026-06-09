@@ -77,21 +77,14 @@ export default function BookCard({ book, highlightTerm = '', user, isDashboardCo
   }, [book, isTeacher, variant]);
 
   const rawPrice = useMemo(() => {
-    if (currentCurrency.code === 'NGN') return resolvedPrice.ngn;
-    // For other currencies, convert from the absolute USD base
     return convertPrice(resolvedPrice.usd);
-  }, [resolvedPrice, currentCurrency.code, convertPrice]);
+  }, [resolvedPrice, convertPrice]);
 
   const formattedPrice = useMemo(() => {
     if (!isDashboardContext || variant === 'teacher') return undefined;
     
-    if (currentCurrency.code === 'NGN') {
-        return `₦${resolvedPrice.ngn.toLocaleString()}`;
-    }
-
-    // Use absolute USD base for other currency formatting
     return formatPrice(resolvedPrice.usd);
-  }, [resolvedPrice, currentCurrency.code, formatPrice, isDashboardContext, variant]);
+  }, [resolvedPrice, formatPrice, isDashboardContext, variant]);
 
   const handleSaveToDashboard = async () => {
     if (!user?.email) {

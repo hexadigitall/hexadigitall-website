@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation';
 import { client } from '@/sanity/client';
 import { ShieldCheckIcon, ArrowRightIcon } from '@heroicons/react/24/outline';
 import PublicationActions from '@/components/publications/PublicationActions';
+import { resolveBookPrice } from '@/lib/mentorship-pricing';
 
 interface DynamicRoutingContainerProps {
   params: Promise<{ slug: string }>;
@@ -47,6 +48,12 @@ export default async function PublicationDetailView({ params }: DynamicRoutingCo
     notFound();
   }
 
+  const basePrice = resolveBookPrice({
+    slug: currentSlugToken,
+    _type: 'publication',
+    pricing: document.pricing
+  }).usd;
+
   return (
     <main className="min-h-screen bg-slate-50/30 dark:bg-slate-950 py-16 px-4 sm:px-6 lg:px-8 font-serif text-slate-950">
       <div className="max-w-4xl mx-auto bg-white dark:bg-slate-900 border border-slate-200/70 dark:border-slate-800 rounded-3xl p-8 md:p-12 shadow-xs">
@@ -75,7 +82,7 @@ export default async function PublicationDetailView({ params }: DynamicRoutingCo
         <PublicationActions 
           publicationId={document._id}
           title={document.title}
-          price={document.pricing?.ngn || 30000}
+          usdPrice={basePrice}
           slug={currentSlugToken}
           allowRegistration={document.allowCopyRegistration}
           resources={document.resources || []}

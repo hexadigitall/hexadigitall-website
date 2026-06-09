@@ -27,8 +27,10 @@ import author from './author'
 import asset from './asset'
 import imprint from './imprint'
 
-// Objects (if any, though most seem to be documents based on your file list)
-// ...
+// Simulation schemas
+import simLabDefinition from './simLabDefinition'
+import simScenario from './simScenario'
+import simGradingHint from './simGradingHint'
 
 export const schema: { types: SchemaTypeDefinition[] } = {
   types: [
@@ -50,12 +52,17 @@ export const schema: { types: SchemaTypeDefinition[] } = {
     serviceTestimonial,
     serviceCaseStudy,
     serviceStatistics,
-    servicesPage, // 👈 ADDED HERE
+    servicesPage,
     pageOgAssets,
     book,
     bookReleaseSubscriber,
     author,
     asset,
     imprint,
+
+    // Simulation lab platform
+    simLabDefinition,
+    simScenario,
+    simGradingHint,
   ],
 }

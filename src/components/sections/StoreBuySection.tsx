@@ -44,9 +44,8 @@ export default function StoreBuySection({ book }: StoreBuySectionProps) {
         pricing: book.pricing
     });
 
-    const isNGN = currentCurrency.code === 'NGN';
-    const studentBase = isNGN ? studentPrices.ngn : convertPrice(studentPrices.usd, currentCurrency.code);
-    const teacherBase = isNGN ? teacherPrices.ngn : convertPrice(teacherPrices.usd, currentCurrency.code);
+    const studentBase = convertPrice(studentPrices.usd, currentCurrency.code);
+    const teacherBase = convertPrice(teacherPrices.usd, currentCurrency.code);
 
     return {
       student: studentBase,
@@ -54,28 +53,16 @@ export default function StoreBuySection({ book }: StoreBuySectionProps) {
       single: studentBase,
       rawStudentUSD: studentPrices.usd,
       rawTeacherUSD: teacherPrices.usd,
-      rawStudentNGN: studentPrices.ngn,
-      rawTeacherNGN: teacherPrices.ngn
     };
   }, [book, currentCurrency.code, convertPrice]);
 
   const formattedPrices = useMemo(() => {
-    const isNGN = currentCurrency.code === 'NGN';
-    
-    if (isNGN) {
-      return {
-        student: `₦${prices.rawStudentNGN.toLocaleString()}`,
-        teacher: `₦${prices.rawTeacherNGN.toLocaleString()}`,
-        single: `₦${prices.rawStudentNGN.toLocaleString()}`
-      };
-    }
-
     return {
       student: formatPrice(prices.rawStudentUSD),
       teacher: formatPrice(prices.rawTeacherUSD),
       single: formatPrice(prices.rawStudentUSD)
     };
-  }, [prices, currentCurrency.code, formatPrice]);
+  }, [prices, formatPrice]);
 
   const hasExternalLinks = !!book.storeLinks?.amazon || !!book.storeLinks?.selar || !!book.storeLinks?.gumroad;
 

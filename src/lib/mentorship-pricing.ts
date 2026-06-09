@@ -61,23 +61,18 @@ export function resolveBookPrice(book: {
 }) {
     // BASE DEFAULT - Should rarely be used if data is complete
     let priceUSD = 40; 
-    let priceNGN = 66000;
 
     const isAsset = book._type === 'asset' || book.slug.startsWith('companion-');
     
     // 1. Check for specific USD overrides FIRST
     if (book.slug === 'dunce-to-midjourney-pro') {
         priceUSD = 54.99;
-        priceNGN = priceUSD * 1650;
     } else if (book.slug === 'mother-of-two') {
         priceUSD = 47.99;
-        priceNGN = priceUSD * 1650;
     } else if (book.slug === 'love-is-nothing') {
         priceUSD = 85.99;
-        priceNGN = priceUSD * 1650;
     } else if (isAsset) {
         priceUSD = 9.99;
-        priceNGN = priceUSD * 1650;
     } 
     // 2. Textbooks tied to courses use Mentorship Pricing (Hourly USD * 4)
     else if (book.relatedCourse) {
@@ -87,33 +82,23 @@ export function resolveBookPrice(book: {
         if (rates.hourlyRateUSD) {
             // Textbook price is strictly 4x the mentorship hourly rate (Monthly cost)
             priceUSD = rates.hourlyRateUSD * 4;
-            
-            // For NGN, we use the course's regional PPP hourly rate if available
-            if (rates.hourlyRateNGN) {
-                priceNGN = rates.hourlyRateNGN * 4;
-            } else {
-                priceNGN = priceUSD * 1650;
-            }
         } else if (book.pricing?.usd) {
             priceUSD = book.pricing.usd;
-            priceNGN = book.pricing.ngn || (priceUSD * 1650);
         }
     }
     // 3. Fallback to Sanity pricing fields
     else if (book.pricing?.usd) {
         priceUSD = book.pricing.usd;
-        priceNGN = book.pricing.ngn || (priceUSD * 1650);
     }
 
     // Apply Teacher Markup (15%)
     if (book.variant === 'teacher') {
         priceUSD *= 1.15;
-        priceNGN *= 1.15;
     }
 
     return {
         usd: priceUSD,
-        ngn: Math.round(priceNGN)
+        ngn: priceUSD * 1650 // Legacy fallback, UI should format via CurrencyContext
     };
 }
 

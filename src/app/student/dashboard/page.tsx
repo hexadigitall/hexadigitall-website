@@ -9,6 +9,7 @@ import SubscriptionCard from '@/components/student/SubscriptionCard'
 import DashboardLibraryView from '@/components/dashboard/DashboardLibraryView'
 import BookCard from '@/app/store/BookCard'
 import { type BookSummary } from '@/lib/book-queries'
+import StudentLabsView from '@/components/labs/StudentLabsView'
 import {
   BookOpenIcon,
   CalendarIcon,
@@ -383,6 +384,7 @@ export default function StudentDashboardPage() {
             {[
               { id: 'courses', label: 'My Courses' },
               { id: 'library', label: 'My Library' },
+              { id: 'labs', label: 'Simulation Labs' },
             ].map((tab) => (
               <button
                 key={tab.id}
@@ -686,11 +688,13 @@ export default function StudentDashboardPage() {
           )}
         </section>
           </>
-        ) : (
+        ) : activeTab === 'library' ? (
           <DashboardLibraryView 
             user={{ role: sessionRole || 'student', email: student?.username || '', username: student?.username, name: student?.name }} 
             userCourses={enrollments}
           />
+        ) : (
+          <StudentLabsView />
         )}
       </div>
     </div>

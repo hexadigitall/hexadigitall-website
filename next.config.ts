@@ -200,7 +200,7 @@ const nextConfig: NextConfig = {
   // TypeScript configuration
   typescript: {
     // Type checking is handled by your IDE and CI
-    ignoreBuildErrors: false,
+    // ignoreBuildErrors: true,
   },
 
   // Removed unsupported ESLint configuration (moved to .eslintrc or package.json if needed)

@@ -4,11 +4,12 @@ import React, { useState } from 'react';
 import { ShieldCheckIcon, ArrowRightIcon, BookmarkSquareIcon, ShoppingBagIcon } from '@heroicons/react/24/outline';
 import TwoStepCheckoutModal from '@/components/modals/TwoStepCheckoutModal';
 import RegisterCopyModal from '@/components/modals/RegisterCopyModal';
+import { useCurrency } from '@/contexts/CurrencyContext';
 
 interface PublicationActionsProps {
   publicationId: string;
   title: string;
-  price: number;
+  usdPrice: number;
   slug: string;
   allowRegistration: boolean;
   resources: any[];
@@ -17,7 +18,7 @@ interface PublicationActionsProps {
 export default function PublicationActions({
   publicationId,
   title,
-  price,
+  usdPrice,
   slug,
   allowRegistration,
   resources
@@ -25,6 +26,7 @@ export default function PublicationActions({
   const [showCheckout, setShowCheckout] = useState(false);
   const [showRegister, setShowRegister] = useState(false);
   const [activeResourceCheckout, setActiveResourceCheckout] = useState<any>(null);
+  const { currentCurrency, formatPrice, convertPrice } = useCurrency();
 
   return (
     <div className="space-y-12">
@@ -33,7 +35,7 @@ export default function PublicationActions({
         <div>
           <span className="font-mono text-[10px] uppercase tracking-wider text-slate-400 block mb-1">Price</span>
           <span className="text-3xl font-black font-mono text-slate-950 dark:text-white">
-            {new Intl.NumberFormat('en-NG', { style: 'currency', currency: 'NGN', maximumFractionDigits: 0 }).format(price)}
+            {formatPrice(usdPrice)}
           </span>
         </div>
 
@@ -119,8 +121,8 @@ export default function PublicationActions({
         isOpen={showCheckout}
         onClose={() => setShowCheckout(false)}
         title={title}
-        price={price}
-        currency="NGN"
+        price={convertPrice(usdPrice, currentCurrency.code)}
+        currency={currentCurrency.code}
         itemId={publicationId}
         itemType="publication"
         onSuccess={() => setShowCheckout(false)}

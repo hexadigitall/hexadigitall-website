@@ -177,6 +177,7 @@ export default function RootLayout({
       
       <body 
         className="font-body bg-white dark:bg-slate-900 text-darkText dark:text-slate-200 antialiased transition-colors duration-300" 
+        suppressHydrationWarning={true}
       >
         {/* Skip to main content link for screen readers */}
         <a
