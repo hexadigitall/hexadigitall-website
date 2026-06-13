@@ -42,11 +42,20 @@ describe('StoreBuySection Pricing', () => {
   // Shared state for the mock to access
   let currentCurrencyCode = 'USD';
 
-  const mockFormatPrice = jest.fn((price, options) => {
+  const mockFormatPrice = jest.fn((usdPrice, options) => {
     const currency = options?.currency || currentCurrencyCode;
     const isWhole = ['NGN', 'KES', 'ZAR'].includes(currency);
     const symbol = currency === 'NGN' ? '₦' : '$';
-    const formattedNumber = price.toLocaleString(undefined, {
+    const exchangeRate = currency === 'NGN' ? 1000 : 1; // Simulated exchange rate for test matching NGN PPP if needed
+    
+    // In our test, USD 30 becomes 30000. So we mock the exact conversion behavior
+    // based on the USD price passed in.
+    let finalPrice = usdPrice;
+    if (currency === 'NGN') {
+      finalPrice = usdPrice * 1000;
+    }
+
+    const formattedNumber = finalPrice.toLocaleString('en-US', {
       minimumFractionDigits: isWhole ? 0 : 2,
       maximumFractionDigits: isWhole ? 0 : 2,
     });

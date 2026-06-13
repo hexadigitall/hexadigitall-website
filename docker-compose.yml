@@ -1,0 +1,60 @@
+services:
+  # ── Simulation Engine Database ──────────────────────────────────────────
+  sim-postgres:
+    image: postgres:16-alpine
+    container_name: hexa-sim-postgres
+    environment:
+      POSTGRES_DB: sim_erp
+      POSTGRES_USER: simerp
+      POSTGRES_PASSWORD: ${SIM_DB_PASSWORD:-simerp_dev_password}
+    ports:
+      - '5432:5432'
+    volumes:
+      - sim-pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U simerp -d sim_erp']
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  # ── Simulation Engine Orchestrator ─────────────────────────────────────
+  sim-orchestrator:
+    build:
+      context: ./sim-engine
+      dockerfile: Dockerfile
+    container_name: hexa-sim-orchestrator
+    environment:
+      DB_URL: postgresql://simerp:${SIM_DB_PASSWORD:-simerp_dev_password}@sim-postgres:5432/sim_erp
+      AUTH_SECRET: ${AUTH_SECRET:-dev-secret-change-in-production}
+      PORT: '9000'
+      PORT_RANGE: '9100-9200'
+    ports:
+      - '9000:9000'
+    depends_on:
+      sim-postgres:
+        condition: service_healthy
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    restart: unless-stopped
+
+  # ── WebSocket Proxy (Phase 3) ──────────────────────────────────────────
+  sim-ws-proxy:
+    image: node:20-alpine
+    container_name: hexa-sim-ws-proxy
+    working_dir: /app
+    environment:
+      ENGINE_URL: http://sim-orchestrator:9000
+      PORT: '3001'
+      AUTH_SECRET: ${AUTH_SECRET:-dev-secret-change-in-production}
+    ports:
+      - '3001:3001'
+    volumes:
+      - ./ws-proxy:/app
+    command: sh -c "npm install --production && node server.js"
+    depends_on:
+      sim-orchestrator:
+        condition: service_started
+    restart: unless-stopped
+
+volumes:
+  sim-pgdata:

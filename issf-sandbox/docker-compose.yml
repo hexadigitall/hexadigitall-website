@@ -1,0 +1,116 @@
+name: issf-sandbox
+
+services:
+  opa:
+    image: openpolicyagent/opa:0.68.0-static
+    container_name: issf-opa
+    hostname: opa.issf-sandbox.ng
+    ports:
+      - "8181:8181"
+    volumes:
+      - ./config/opa:/policies:ro
+    command:
+      - "run"
+      - "--server"
+      - "--log-level=debug"
+      - "--addr=:8181"
+      - "/policies/identity/authz.rego"
+      - "/policies/network/segmentation.rego"
+      - "/policies/device/selfwipe.rego"
+      - "/policies/fusion/threat_scoring.rego"
+    networks:
+      issf-net:
+        aliases:
+          - opa.issf-sandbox.ng
+
+  mock-idp:
+    build:
+      context: .
+      dockerfile: Dockerfile.sandbox
+    container_name: issf-idp
+    hostname: idp.issf-sandbox.ng
+    command: python /app/services/mock-idp/app.py
+    environment:
+      - OPA_URL=http://opa.issf-sandbox.ng:8181
+      - OPA_AUTHZ_PATH=v1/data/identity/authz/allow
+    ports:
+      - "8443:8443"
+    depends_on:
+      - opa
+    networks:
+      issf-net:
+        aliases:
+          - idp.issf-sandbox.ng
+
+  sensor-gateway:
+    build:
+      context: .
+      dockerfile: Dockerfile.sandbox
+    container_name: issf-sensors
+    hostname: sensors.issf-sandbox.ng
+    command: python /app/services/sensor-gateway/app.py
+    environment:
+      - OPA_URL=http://opa.issf-sandbox.ng:8181
+      - SELF_WIPE_PATH=v1/data/device/selfwipe/trigger_wipe
+      - SCENARIO=${SCENARIO:-peaceful}
+    ports:
+      - "8081:8080"
+    depends_on:
+      - opa
+    networks:
+      issf-net:
+        aliases:
+          - sensors.issf-sandbox.ng
+
+  fusion-engine:
+    build:
+      context: .
+      dockerfile: Dockerfile.sandbox
+    container_name: issf-fusion
+    hostname: fusion.issf-sandbox.ng
+    command: python /app/services/fusion-engine/app.py
+    environment:
+      - OPA_URL=http://opa.issf-sandbox.ng:8181
+      - OPA_THREAT_PATH=v1/data/fusion/threat_scoring/auto_actions
+      - QRF_WEBHOOK=http://console.issf-sandbox.ng:9099/webhook/qrf
+      - SENSOR_URL=http://sensors.issf-sandbox.ng:8080
+    ports:
+      - "9090:9090"
+    depends_on:
+      - opa
+      - sensor-gateway
+    networks:
+      issf-net:
+        aliases:
+          - fusion.issf-sandbox.ng
+
+  console:
+    build:
+      context: .
+      dockerfile: Dockerfile.sandbox
+    container_name: issf-console
+    hostname: console.issf-sandbox.ng
+    command: python /app/services/console/app.py
+    environment:
+      - OPA_URL=http://opa.issf-sandbox.ng:8181
+      - IDP_URL=http://idp.issf-sandbox.ng:8443
+      - SENSOR_URL=http://sensors.issf-sandbox.ng:8080
+      - FUSION_URL=http://fusion.issf-sandbox.ng:9090
+    ports:
+      - "9099:9099"
+    stdin_open: true
+    tty: true
+    depends_on:
+      - opa
+      - mock-idp
+      - sensor-gateway
+      - fusion-engine
+    networks:
+      issf-net:
+        aliases:
+          - console.issf-sandbox.ng
+
+networks:
+  issf-net:
+    name: issf-sandbox-net
+    driver: bridge

@@ -16,10 +16,12 @@ import { describe, test, expect, jest } from '@jest/globals';
 jest.mock('sanity', () => ({
   defineType: (config: Record<string, unknown>) => config,
   defineField: (config: Record<string, unknown>) => config,
+  defineArrayMember: (config: Record<string, unknown>) => config,
 }));
 
 // Import schemas after mocking
-import { schemaTypes } from '../index';
+import { schema } from '../index';
+const schemaTypes = schema.types;
 
 // Type for schema type definition
 interface SchemaField {

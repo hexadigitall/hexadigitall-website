@@ -9,9 +9,12 @@ export default [
       '.next/**',
       'out/**',
       'build/**',
+      'dist/**',
       '.build-scripts/**',
       'next-env.d.ts',
     ],
+  },
+  {
     plugins: {
       '@typescript-eslint': eslintPluginTs,
     },
