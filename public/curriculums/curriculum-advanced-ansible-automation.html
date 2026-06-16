@@ -1,97 +1,240 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Advanced Ansible Automation &amp; IaC - Course Curriculum</title>
-<link href="https://fonts.googleapis.com" rel="preconnect"/>
-<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&amp;family=Space+Grotesk:wght@500;600;700&amp;display=swap" rel="stylesheet"/>
+<title>Advanced Ansible Automation &amp; IaC - Course Curriculum | Hexadigitall Technologies</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
 <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        :root {
-            --primary-color: #0078D4;
-            --secondary-color: #50E6FF;
-            --dark-blue: #002050;
-            --text-dark: #1F1F1F;
-            --text-light: #605E5C;
-            --bg-light: #F5F5F5;
-            --bg-white: #FFFFFF;
-            --border-color: #EDEBE9;
-        }
-        body { font-family: 'Inter', sans-serif; line-height: 1.6; color: var(--text-dark); background: var(--bg-white); font-size: 14px; }
-        .container { max-width: 1200px; margin: 0 auto; padding: 40px; }
-        .brand-bar { display: flex; align-items: center; justify-content: space-between; gap: 20px; border: 1px solid var(--border-color); border-radius: 12px; padding: 16px 20px; margin-bottom: 20px; box-shadow: 0 4px 18px rgba(0, 32, 80, 0.08); }
-        .brand-meta { display: flex; align-items: center; gap: 16px; }
-        .brand-meta img { width: 60px; height: auto; }
-        .brand-name { font-family: 'Space Grotesk', sans-serif; font-size: 18px; font-weight: 700; color: var(--dark-blue); }
-        .brand-link { color: var(--primary-color); font-weight: 600; text-decoration: none; }
-        .qr-block { display: flex; align-items: center; gap: 12px; background: var(--bg-light); padding: 10px 14px; border-radius: 10px; border: 1px solid var(--border-color); }
-        .qr-block img { width: 86px; height: 86px; }
-        .qr-text { font-size: 12px; color: var(--text-light); max-width: 220px; line-height: 1.5; }
-        .course-hero { background: linear-gradient(135deg, #E8F4FD 0%, #F5F9FF 100%); border: 1px solid var(--border-color); border-radius: 12px; padding: 18px; margin-bottom: 24px; display: grid; grid-template-columns: 1fr 320px; gap: 20px; align-items: center; box-shadow: 0 6px 18px rgba(0, 32, 80, 0.08); }
-        .course-hero img { width: 100%; border-radius: 12px; border: 1px solid var(--border-color); }
-        .course-hero h2 { font-family: 'Space Grotesk', sans-serif; color: var(--dark-blue); margin-bottom: 10px; font-size: 22px; }
-        .header { background: linear-gradient(135deg, var(--dark-blue) 0%, var(--primary-color) 100%); color: white; padding: 60px 40px; border-radius: 12px; margin-bottom: 40px; box-shadow: 0 10px 30px rgba(0, 120, 212, 0.2); }
-        .header h1 { font-family: 'Space Grotesk', sans-serif; font-size: 42px; font-weight: 700; margin-bottom: 16px; letter-spacing: -0.5px; }
-        .header .subtitle { font-size: 18px; opacity: 0.95; margin-bottom: 24px; }
-        .course-meta { display: flex; flex-wrap: wrap; gap: 24px; margin-top: 32px; }
-        .meta-item { display: flex; align-items: center; gap: 8px; background: rgba(255, 255, 255, 0.15); padding: 12px 20px; border-radius: 8px; }
-        .section { margin-bottom: 48px; break-inside: avoid; }
-        .section-title { font-family: 'Space Grotesk', sans-serif; font-size: 28px; color: var(--dark-blue); margin-bottom: 24px; padding-bottom: 12px; border-bottom: 3px solid var(--primary-color); display: flex; align-items: center; gap: 12px; }
-        .section-title::before { content: ''; width: 6px; height: 32px; background: linear-gradient(180deg, var(--primary-color), var(--secondary-color)); border-radius: 3px; }
-        .card { background: var(--bg-white); border: 1px solid var(--border-color); border-radius: 10px; padding: 24px; margin-bottom: 16px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05); }
-        .card ul { margin-left: 20px; }
-        .card li { margin: 6px 0; }
-        .roadmap-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
-        .roadmap-card { border: 1px solid var(--border-color); border-radius: 12px; padding: 18px; background: linear-gradient(135deg, #F8FBFF 0%, #FFFFFF 100%); }
-        .roadmap-card h4 { color: var(--dark-blue); font-size: 18px; margin-bottom: 6px; }
-        .roadmap-card p { color: var(--text-light); font-size: 13px; margin-bottom: 10px; }
-        .roadmap-card ul { margin-left: 18px; }
-        .week-block { border: 1px solid var(--border-color); border-left: 6px solid var(--primary-color); border-radius: 12px; padding: 16px; margin-bottom: 14px; }
-        .week-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
-        .week-number { font-weight: 700; color: var(--dark-blue); }
-        .week-duration { font-size: 12px; color: var(--text-light); }
-        .week-topic { color: var(--primary-color); font-family: 'Space Grotesk', sans-serif; font-size: 18px; margin-bottom: 10px; }
-        .week-content ul { margin-left: 20px; }
-        .week-content li { margin: 6px 0; }
-        .project-card { border: 1px solid var(--border-color); border-radius: 10px; padding: 16px; margin-bottom: 12px; background: linear-gradient(135deg, #f3f8ff 0%, #ffffff 100%); }
-        .project-card h4 { color: var(--dark-blue); margin-bottom: 8px; }
-        .project-card p { color: var(--text-light); margin-bottom: 8px; }
-        .project-card ul { margin-left: 20px; }
-        .footer { margin-top: 24px; padding-top: 16px; border-top: 1px solid var(--border-color); color: var(--text-light); font-size: 12px; }
-        @media (max-width: 900px) {
-            .course-hero { grid-template-columns: 1fr; }
-            .roadmap-grid { grid-template-columns: 1fr; }
-        }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Ubuntu, sans-serif; line-height: 1.6; color: #111827; background: #f9fafb; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 2rem; }
+        .brand-bar { display: flex; align-items: center; justify-content: space-between; gap: 20px; background: linear-gradient(135deg, #1d4ed8 0%, #0891b2 100%); padding: 1rem 1.5rem; border-radius: 12px; margin: 1rem 0 1.5rem; }
+        .brand-meta { display: flex; align-items: center; gap: 12px; }
+        .brand-meta img { width: 52px; height: auto; }
+        .brand-text { display: flex; flex-direction: column; gap: 2px; }
+        .brand-name { color: #fff; font-size: 1.05rem; font-weight: 700; }
+        .brand-link { color: #e5e7eb; font-size: 0.9rem; text-decoration: none; }
+        .brand-link:hover { text-decoration: underline; }
+        .qr-block { display: flex; align-items: center; gap: 10px; background: rgba(255,255,255,0.15); padding: 0.5rem 0.75rem; border-radius: 10px; border: 1px solid rgba(255,255,255,0.25); }
+        .qr-block img { width: 72px; height: 72px; border-radius: 6px; background: #fff; padding: 4px; }
+        .qr-text { color: #f3f4f6; font-size: 0.8rem; max-width: 190px; line-height: 1.35; }
+        .course-hero { background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 100%); color: #fff; padding: 2rem; border-radius: 16px; margin-bottom: 2rem; }
+        .hero-grid { display: grid; grid-template-columns: 1fr auto; gap: 1.5rem; align-items: center; }
+        .hero-meta { display: flex; gap: 1rem; margin-top: 1rem; flex-wrap: wrap; }
+        .meta-item { background: rgba(255,255,255,0.15); padding: 0.45rem 0.8rem; border-radius: 8px; }
+        .qr-box { background: #fff; padding: 0.75rem; border-radius: 12px; }
+        .qr-box img { width: 130px; height: 130px; }
+        .header { background: #fff; padding: 2rem; border-radius: 16px; margin-bottom: 1.5rem; border: 1px solid #e5e7eb; }
+        .subtitle { color: #4b5563; margin: 0.75rem 0; }
+        .course-meta { display: flex; flex-wrap: wrap; gap: 0.75rem; }
+        .header .meta-item { background: #f3f4f6; color: #111827; }
+        .welcome-section { background: linear-gradient(180deg, #eff6ff 0%, #fff 100%); border: 1px solid #bfdbfe; border-radius: 16px; padding: 1.5rem; margin-bottom: 1.5rem; }
+        .section { background: #fff; padding: 2rem; border-radius: 16px; margin-bottom: 2rem; border: 1px solid #e5e7eb; }
+        .section-title { font-size: 1.75rem; margin-bottom: 1.5rem; text-align: left; font-weight: 700; color: #4c1d95; border-bottom: 2px solid #ddd6fe; padding-bottom: 0.5rem; }
+        .week-block { border: 1px solid #e5e7eb; border-left: 6px solid #6d28d9; border-radius: 12px; padding: 1.25rem; margin-bottom: 1.25rem; }
+        .week-header { display: flex; justify-content: space-between; margin-bottom: 0.5rem; }
+        .week-topic { color: #4c1d95; font-size: 1.15rem; font-weight: 700; margin-bottom: 0.5rem; }
+        .week-content ul { margin-left: 1.2rem; }
+        .lab-section { margin-top: 0.8rem; padding: 0.8rem; border-radius: 10px; background: #f5f3ff; border: 1px solid #ddd6fe; }
+        .project-objectives { margin-top: 1rem; }
+        .project-objectives ul { margin-left: 1.2rem; }
+        .footer { text-align: center; padding: 2rem; color: #6b7280; border-top: 1px solid #e5e7eb; margin-top: 2rem; }
+        @media (max-width:768px) { .hero-grid { grid-template-columns: 1fr; } .qr-box { margin: 0 auto; } }
     </style>
 
-
-
 <style id="curriculum-ui-normalization">
-:root { --primary-color:#0b5cab; --secondary-color:#5bb3ff; --dark-blue:#0d2a4a; --text-dark:#132235; --text-light:#4f637b; --bg-white:#ffffff; --bg-light:#f4f8fc; --border-color:#d9e5f2; }
-body { font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif; color:var(--text-dark); background:radial-gradient(circle at top right,#f7fbff 0%,#ffffff 45%); }
+:root { --primary-color:#6d28d9; --secondary-color:#8b5cf6; --dark-blue:#4c1d95; --text-dark:#2e1065; --text-light:#4b5563; --bg-white:#ffffff; --bg-light:#f5f3ff; --border-color:#ddd6fe; }
+body { font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif; color:var(--text-dark); background:radial-gradient(circle at top right,#f5f3ff 0%,#ffffff 45%); }
 h1,h2,h3,h4,.section-title,.week-topic,.week-number,.brand-name { font-family:'Space Grotesk','Inter',sans-serif; letter-spacing:-0.01em; }
 .section { margin-bottom:44px; }
-.card,.week-block,.project-card { border-radius:12px; border:1px solid var(--border-color); box-shadow:0 4px 16px rgba(13,42,74,0.06); }
-.welcome-section { background:linear-gradient(135deg,#eef6ff 0%,#f9fcff 100%); border-left:5px solid var(--primary-color); padding:28px; border-radius:12px; margin-bottom:36px; }
-.project-card { background:linear-gradient(135deg,#eef5ff 0%,#ffffff 60%); padding:20px; margin-bottom:14px; }
+.card,.week-block,.project-card { border-radius:12px; border:1px solid var(--border-color); box-shadow:0 4px 16px rgba(76,29,149,0.06); }
+.welcome-section { background:linear-gradient(135deg,#edd6ff 0%,#fafafa 100%); border-left:5px solid var(--primary-color); padding:28px; border-radius:12px; margin-bottom:36px; }
+.project-card { background:linear-gradient(135deg,#ddd6fe 0%,#ffffff 60%); padding:20px; margin-bottom:14px; }
 .project-card h4 { color:var(--dark-blue); margin-bottom:8px; }
 .project-card p { color:var(--text-light); margin-bottom:10px; }
 .project-card ul { margin-left:18px; }
 .project-card li { margin:6px 0; }
 </style>
+
+<style id="curriculum-enhanced-ui-ux">
+        .grid-dashboard {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 1.25rem;
+        }
+        .metric-card {
+            background: #ffffff;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 1.5rem;
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .metric-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(109, 40, 217, 0.08);
+        }
+        .metric-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: var(--secondary-color);
+        }
+        .metric-card h4 {
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+        .metric-card p {
+            font-size: 0.95rem;
+            color: var(--text-dark);
+            line-height: 1.5;
+        }
+
+        .grid-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 1.5rem;
+        }
+        .feature-card {
+            background: linear-gradient(180deg, #ffffff 0%, var(--bg-light) 100%);
+            border: 1px solid var(--border-color);
+            border-radius: 14px;
+            padding: 1.75rem;
+            transition: all 0.2s ease;
+        }
+        .feature-card:hover {
+            border-color: var(--secondary-color);
+            box-shadow: 0 4px 18px rgba(139, 92, 246, 0.08);
+        }
+        .feature-card h3 {
+            font-size: 1.2rem;
+            color: var(--dark-blue);
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .feature-card p {
+            color: var(--text-light);
+            font-size: 0.95rem;
+        }
+
+        .toolkit-container {
+            background: #ffffff;
+            border: 1px solid var(--border-color);
+            border-radius: 14px;
+            padding: 1.5rem;
+        }
+        .toolkit-ribbon {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        .toolkit-tag {
+            background: var(--bg-light);
+            border: 1px solid var(--border-color);
+            color: var(--primary-color);
+            padding: 0.75rem 1.25rem;
+            border-radius: 30px;
+            font-size: 0.95rem;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            transition: all 0.15s ease;
+        }
+        .toolkit-tag:hover {
+            background: var(--primary-color);
+            color: #ffffff;
+            border-color: var(--primary-color);
+        }
+
+        .roadmap-timeline {
+            position: relative;
+            padding-left: 2rem;
+            margin: 1rem 0;
+        }
+        .roadmap-timeline::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 7px;
+            width: 2px;
+            height: 100%;
+            background: var(--border-color);
+        }
+        .roadmap-node {
+            position: relative;
+            margin-bottom: 2rem;
+        }
+        .roadmap-node:last-child {
+            margin-bottom: 0;
+        }
+        .roadmap-marker {
+            position: absolute;
+            left: -2rem;
+            top: 4px;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: #ffffff;
+            border: 4px solid var(--secondary-color);
+            z-index: 2;
+            transition: background 0.2s ease;
+        }
+        .roadmap-node:hover .roadmap-marker {
+            background: var(--secondary-color);
+        }
+        .roadmap-content {
+            background: #ffffff;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 1.25rem 1.5rem;
+            transition: box-shadow 0.2s ease;
+        }
+        .roadmap-node:hover .roadmap-content {
+            box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+        }
+        .roadmap-phase {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            font-weight: 700;
+            color: var(--secondary-color);
+            letter-spacing: 0.05em;
+            margin-bottom: 0.25rem;
+        }
+        .roadmap-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--dark-blue);
+            margin-bottom: 0.5rem;
+        }
+        .roadmap-desc {
+            font-size: 0.95rem;
+            color: var(--text-light);
+            line-height: 1.5;
+        }
+</style>
+
 <style id="curriculum-theme-override">
-:root { --primary-color:hsl(61 70% 42%); --secondary-color:hsl(85 82% 62%); --dark-blue:hsl(61 48% 18%); --text-dark:hsl(61 32% 14%); --text-light:hsl(61 18% 38%); --border-color:hsl(61 38% 86%); --bg-light:hsl(241 45% 97%); --theme-hero-a:hsl(61 85% 96%); --theme-hero-b:hsl(85 90% 98%); }
+:root { --primary-color:hsl(266 78% 32%); --secondary-color:hsl(266 82% 56%); --dark-blue:hsl(266 85% 14%); --text-dark:hsl(266 40% 12%); --text-light:hsl(266 10% 38%); --border-color:hsl(266 45% 85%); --bg-light:hsl(266 60% 97%); --theme-hero-a:hsl(266 50% 94%); --theme-hero-b:hsl(280 55% 96%); }
 body { background:radial-gradient(circle at 8% 0%, color-mix(in srgb, var(--theme-hero-a) 72%, white), #ffffff 46%); }
 .course-hero { background:linear-gradient(135deg,var(--theme-hero-a) 0%,var(--theme-hero-b) 100%); }
 .header { background:linear-gradient(135deg,color-mix(in srgb, var(--dark-blue) 90%, black), var(--primary-color)); }
 .section-title::before { background:linear-gradient(180deg,var(--primary-color),var(--secondary-color)); }
 .week-block { border-left:6px solid var(--primary-color); }
 </style>
+
 <style id="curriculum-contrast-fix">
-/* Final readability layer: resolves conflicting text/background and font overrides */
 body {
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif !important;
   color: var(--text-dark) !important;
@@ -100,8 +243,6 @@ body {
 h1, h2, h3, h4, .section-title, .week-topic, .week-number, .brand-name {
   font-family: 'Space Grotesk', 'Inter', sans-serif !important;
 }
-
-/* Ensure light surfaces always use dark text */
 .container,
 .section,
 .card,
@@ -114,8 +255,6 @@ h1, h2, h3, h4, .section-title, .week-topic, .week-number, .brand-name {
 .info-box {
   color: var(--text-dark);
 }
-
-/* Keep hero as light panel with dark readable text */
 .course-hero,
 .course-hero h1,
 .course-hero h2,
@@ -123,18 +262,14 @@ h1, h2, h3, h4, .section-title, .week-topic, .week-number, .brand-name {
 .course-hero h4,
 .course-hero p,
 .course-hero li,
-.course-hero span,
 .course-hero a {
   color: var(--text-dark) !important;
 }
-
-/* Normalize dark surfaces so white text always has contrast */
 .brand-bar,
 .header,
 .footer {
   background: linear-gradient(135deg, color-mix(in srgb, var(--dark-blue) 92%, black), var(--primary-color)) !important;
 }
-
 .header,
 .header h1,
 .header h2,
@@ -142,7 +277,6 @@ h1, h2, h3, h4, .section-title, .week-topic, .week-number, .brand-name {
 .header h4,
 .header p,
 .header li,
-.header span,
 .header strong,
 .header a,
 .brand-bar,
@@ -152,7 +286,6 @@ h1, h2, h3, h4, .section-title, .week-topic, .week-number, .brand-name {
 .brand-bar h4,
 .brand-bar p,
 .brand-bar li,
-.brand-bar span,
 .brand-bar strong,
 .brand-bar a,
 .footer,
@@ -162,19 +295,15 @@ h1, h2, h3, h4, .section-title, .week-topic, .week-number, .brand-name {
 .footer h4,
 .footer p,
 .footer li,
-.footer span,
 .footer strong,
 .footer a {
   color: #ffffff !important;
 }
-
 .brand-bar .brand-link,
 .brand-bar .qr-text,
 .footer p {
   color: rgba(255, 255, 255, 0.92) !important;
 }
-
-/* Meta chips: readable in both dark and light contexts */
 .meta-item {
   color: var(--text-dark);
 }
@@ -182,12 +311,9 @@ h1, h2, h3, h4, .section-title, .week-topic, .week-number, .brand-name {
   color: #ffffff !important;
   background: rgba(255,255,255,0.16) !important;
 }
-
-/* Links and list readability */
 a { color: var(--primary-color); }
 a:hover { opacity: 0.9; }
 li { color: inherit; }
-
 .section-title,
 .week-topic,
 .project-card h4,
@@ -196,8 +322,8 @@ li { color: inherit; }
   opacity: 1 !important;
 }
 </style>
+
 <style id="curriculum-brandbar-contrast-fix">
-/* Brand bar readability fix */
 .brand-bar {
   background: linear-gradient(135deg, color-mix(in srgb, var(--dark-blue) 88%, black), var(--primary-color)) !important;
   border-color: color-mix(in srgb, var(--primary-color) 35%, white) !important;
@@ -209,7 +335,6 @@ li { color: inherit; }
 .brand-bar .brand-meta,
 .brand-bar a,
 .brand-bar p,
-.brand-bar span,
 .brand-bar strong {
   color: #ffffff !important;
 }
@@ -230,314 +355,194 @@ li { color: inherit; }
 <div class="container">
 <div class="brand-bar">
 <div class="brand-meta">
-<img alt="Hexadigitall logo" src="../hexadigitall-logo-transparent.png"/>
-<div>
-<div class="brand-name">Hexadigitall Academy (Hexadigitall Technologies)</div>
-<a class="brand-link" href="https://www.hexadigitall.com">www.hexadigitall.com</a>
+<img alt="Hexadigitall Technologies logo" src="../hexadigitall-logo-transparent.png"/>
+<div class="brand-text">
+<div class="brand-name">Hexadigitall Technologies</div>
+<a class="brand-link" href="https://hexadigitall.com" rel="noopener" target="_blank">https://hexadigitall.com</a>
 </div>
 </div>
 <div class="qr-block">
-<img alt="Course QR Code" src="https://api.qrserver.com/v1/create-qr-code/?size=120x120&amp;data=https://www.hexadigitall.com/courses/advanced-ansible-automation"/>
-<div class="qr-text">Scan to view the course page, enrollment options, and mentorship details.</div>
+<img alt="QR code to the course page" src="https://api.qrserver.com/v1/create-qr-code/?size=240x240&amp;data=https%3A%2F%2Fhexadigitall.com%2Fcourses%2Fadvanced-ansible-automation-and-iac"/>
+<div class="qr-text">Scan to open the course page and view enrollment options.</div>
 </div>
 </div>
 <div class="course-hero">
+<div class="hero-grid">
 <div>
 <h2>Course Snapshot</h2>
-<p>Master Infrastructure as Code (IaC) with Ansible. Automate configuration management and deployment.</p>
+<p style="font-size: 1.05rem; opacity: 0.95;">Comprehensive deep-dive into multi-tier infrastructure configurations, customized plugin construction, automated security testing grids, and massive GitOps scaling environments.</p>
+<div class="hero-meta">
+<div class="meta-item"><strong>20 Weeks</strong></div>
+<div class="meta-item"><strong>Advanced Enterprise</strong></div>
+<div class="meta-item"><strong>Project-Based</strong></div>
 </div>
-<img alt="Advanced Ansible Automation &amp; IaC" onerror="this.style.display='none'" src="../assets/images/courses/advanced-ansible-automation-iac.jpg"/>
+</div>
+<div class="qr-box">
+<img alt="Course QR Code" src="../og-images/course-advanced-ansible-automation-and-iac.jpg"/>
+</div>
+</div>
 </div>
 <div class="header">
 <h1>Advanced Ansible Automation &amp; IaC</h1>
-<p class="subtitle">A professionally structured weekly curriculum aligned to the level, tooling, and delivery expectations of this course.</p>
+<p class="subtitle">Architecting scalable configuration networks, programmatic collection bundles, self-healing continuous loops, and robust policy-driven deployments.</p>
 <div class="course-meta">
-<div class="meta-item"><strong>Duration:</strong> 20 Weeks</div>
-<div class="meta-item"><strong>Level:</strong> Advanced</div>
-<div class="meta-item"><strong>Study Time:</strong> 6 hours/week + labs</div>
+<div class="meta-item"><strong>Duration:</strong> 20 Weeks (4 Macro Phases)</div>
+<div class="meta-item"><strong>Level:</strong> Advanced Enterprise Core</div>
+<div class="meta-item"><strong>Study Time:</strong> 2 hours/session, 2 sessions/week recommended</div>
+<div class="meta-item"><strong>School:</strong> Hexadigitall Academy</div>
 </div>
 </div>
-        <!-- Welcome Section -->
-        <section class="welcome-section">
-            <h2>Welcome to Advanced Ansible Automation & IaC! 🎓</h2>
-            <p>This curriculum is designed to take you from core understanding to confident delivery through weekly applied practice, measurable outcomes, and portfolio evidence.</p>
-            <p>Each week builds progressively with practical tasks, implementation checkpoints, and reflection points so you can convert knowledge into repeatable professional performance.</p>
-            <p><strong>Your success is our priority.</strong> Stay consistent with weekly execution, document your work, and use feedback loops to continuously improve your delivery quality.</p>
-        </section>
+<div class="welcome-section">
+<h2>Welcome to Advanced Ansible Automation &amp; IaC! 🎓</h2>
+<p>This comprehensive 20-week professional engineering track transforms traditional operations technicians into expert Infrastructure Engineers. We bypass introductory syntax tutorials to dive directly into multi-tier orchestration logic, optimized execution execution engines, policy-driven code checking, and centralized automation mesh nodes.</p>
+<p>Tuition footprints are delivered via an flexible recurring <strong>Monthly Payment Structure</strong>, entirely removing fixed-cost up-front hurdles to let you expand your capabilities seamlessly over time.</p>
+<p><strong>Your engineering growth is our path.</strong> You will progress systematically across 4 strategic technical phases, moving from structured component patterns directly toward deploying large multi-account hybrid setups controlled by hard compliance gates.</p>
+</div>
 
 <div class="section">
-<h2 class="section-title">Prerequisites</h2>
-<div class="card">
-<ul><li>Version control experience with Git workflows, branching strategies, and code review practices</li><li>CI/CD pipeline familiarity (GitHub Actions, GitLab CI, Jenkins, or similar platforms)</li><li>Container fundamentals: Docker, image layering, networking, and registry management</li><li>Understanding of deployment strategies (blue-green, canary, rolling) and rollback procedures</li></ul>
+    <h2 class="section-title">Prerequisites &amp; Entry Criteria</h2>
+    <div class="grid-dashboard">
+        <div class="metric-card">
+            <h4>Linux Internals</h4>
+            <p>Solid operational proficiency with core Linux operating system engineering, storage schemas, and daemon configurations.</p>
+        </div>
+        <div class="metric-card">
+            <h4>Configuration Baselines</h4>
+            <p>Hands-on baseline familiarity building atomic Ansible playbooks, managing ad-hoc commands, and structuring inventory variables.</p>
+        </div>
+        <div class="metric-card">
+            <h4>Version Management</h4>
+            <p>Comprehensive knowledge of distributed source code versioning engines, branch routing policies, and basic pipeline runner actions.</p>
+        </div>
+        <div class="metric-card">
+            <h4>Strategic Ambition</h4>
+            <p>Explicit intent to transition entirely away from singular manual troubleshooting sessions into building broad autonomous code platforms.</p>
+        </div>
+    </div>
 </div>
-</div>
+
 <div class="section">
-<h2 class="section-title">Learning Outcomes</h2>
-<div class="card">
-<ul><li>Write complex Ansible Playbooks and Roles.</li><li>Manage configuration for hundreds of servers.</li><li>Implement Ansible Tower/AWX for enterprise automation.</li><li>Integrate Ansible into CI/CD pipelines.</li></ul>
+    <h2 class="section-title">Recommended Complementary Curriculums</h2>
+    <div class="grid-features">
+        <div class="feature-card">
+            <h3>🌐 Infrastructure-as-Code Policy Security</h3>
+            <p>Master native Open Policy Agent engines, author declarative validation rules, and configure Kubernetes Webhook Constraint structures.</p>
+        </div>
+        <div class="feature-card">
+            <h3>🛡️ Identity &amp; Access Governance</h3>
+            <p>Integrate context-driven cryptographically verified identity planes, deploy identity-aware proxies, and build temporary session workflows.</p>
+        </div>
+        <div class="feature-card">
+            <h3>📊 Enterprise Security Architecture</h3>
+            <p>Understand distributed cloud multi-tenant landing zones, map international governance matrices, and model institutional risk indexes.</p>
+        </div>
+    </div>
 </div>
+
+<div class="section">
+    <h2 class="section-title">Essential Learning Tools</h2>
+    <div class="toolkit-container">
+        <div class="toolkit-ribbon">
+            <div class="toolkit-tag">📋 Declarative Configuration Mapping Inventories</div>
+            <div class="toolkit-tag">📊 Containerized Execution Environment Builders</div>
+            <div class="toolkit-tag">🗺️ Abstract Syntax Tree Linting Checkers</div>
+            <div class="toolkit-tag">🔀 Centralized Automation Mesh Router Nodes</div>
+            <div class="toolkit-tag">🤖 Continuous Deployment Secret Management Vaults</div>
+            <div class="toolkit-tag">💾 Programmatic Testing Assertion Libraries</div>
+        </div>
+    </div>
 </div>
-        <!-- Complementary Courses -->
-        <section class="section">
-            <h2 class="section-title">Recommended Complementary Courses</h2>
-            <div class="card">
-                <ul>
-                    <li>Pair this curriculum with a related foundation or advanced specialization to strengthen adjacent skill areas.</li>
-                    <li>Select one systems-focused and one delivery-focused course to improve both implementation depth and execution speed.</li>
-                    <li>Use complementary study tracks to broaden portfolio evidence and improve interview and project readiness.</li>
-                </ul>
+
+<div class="section">
+    <h2 class="section-title">Your Learning Roadmap</h2>
+    <div class="roadmap-timeline">
+        <div class="roadmap-node">
+            <div class="roadmap-marker"></div>
+            <div class="roadmap-content">
+                <div class="roadmap-phase">Phase 1 — Weeks 1 to 5</div>
+                <div class="roadmap-title">Advanced Modular Pattern Foundations</div>
+                <div class="roadmap-desc">Deep-dive structural scoping loops, encrypted variables architecture, nested role decoupling strategies, and customized loop configurations.</div>
             </div>
-        </section>
-
-<div class="section">
-<h2 class="section-title">Essential Learning Resources</h2>
-<div class="card">
-<ul><li>CI/CD pipeline patterns and deployment strategy reference implementations</li><li>Infrastructure automation templates and reliability engineering guides</li><li>Observability stack setup instructions and incident response playbooks</li></ul>
-</div>
-</div>
-<div class="section">
-<h2 class="section-title">Your Learning Roadmap</h2>
-<div class="roadmap-grid">
-<div class="roadmap-card"><h4>Foundation</h4><p>Weeks 1-5</p><ul><li>Early Weeks: Version control workflows, CI foundation, and automation basics</li><li>Middle Weeks: Advanced CI/CD, container orchestration, and pipeline optimization</li><li>Late Weeks: Production reliability, observability, and operational excellence</li></ul></div><div class="roadmap-card"><h4>Build</h4><p>Weeks 6-10</p><ul><li>Roles, Collections, and Reusable Automation Design</li><li>Secrets Management with Ansible Vault</li><li>Package, Service, and File Automation at Scale</li></ul></div><div class="roadmap-card"><h4>Integration</h4><p>Weeks 11-15</p><ul><li>Inventories, Credentials, RBAC, and Workflow Templates</li><li>Dynamic Inventory for Cloud and Virtual Environments</li><li>CI/CD Integration for Ansible Projects</li></ul></div><div class="roadmap-card"><h4>Capstone</h4><p>Weeks 16-20</p><ul><li>Network Automation with Vendor Modules and APIs</li><li>Windows Automation with WinRM and PowerShell Patterns</li><li>Container and Kubernetes Automation Use Cases</li></ul></div>
-</div>
-</div>
-<div class="section">
-<h2 class="section-title">Detailed Weekly Curriculum</h2>
-<div class="week-block">
-<div class="week-header">
-<span class="week-number">Week 1</span>
-<span class="week-duration">6 hours/week + labs</span>
-</div>
-<div class="week-topic">Ansible Control Node Setup, Inventory Structure, and SSH Access</div>
-<div class="week-content">
-<ul><li>Analyze the principles of Ansible Control Node Setup, Inventory Structure, and SSH Access and link them to course outcomes at advanced depth with architecture-level decision quality.</li><li>Evaluate Ansible Control Node Setup, Inventory Structure, and SSH Access in a guided scenario using realistic tools, constraints, and quality gates.</li><li>Design trade-offs, risks, and decision points for Ansible Control Node Setup, Inventory Structure, and SSH Access, then record rationale for stakeholder review.</li><li>Justify a portfolio-ready pipeline reliability report for Ansible Control Node Setup, Inventory Structure, and SSH Access with measurable success criteria and next actions.</li><li>Track measurable progress using rubric scores, defect/risk trends, and evidence completeness each week.</li><li>Run a short retrospective focused on what to retain, improve, and scale into the following week.</li><li>Incorporate peer or mentor feedback and revise the week deliverable to professional publication quality.</li><li>Publish the week output into your cumulative portfolio with concise outcome narrative and proof artifacts.</li></ul>
-</div>
-</div>
-<div class="week-block">
-<div class="week-header">
-<span class="week-number">Week 2</span>
-<span class="week-duration">6 hours/week + labs</span>
-</div>
-<div class="week-topic">Host Patterns, Group Variables, and Fact Gathering</div>
-<div class="week-content">
-<ul><li>Analyze the principles of Host Patterns, Group Variables, and Fact Gathering and link them to course outcomes at advanced depth with architecture-level decision quality.</li><li>Evaluate Host Patterns, Group Variables, and Fact Gathering in a guided scenario using realistic tools, constraints, and quality gates.</li><li>Design trade-offs, risks, and decision points for Host Patterns, Group Variables, and Fact Gathering, then record rationale for stakeholder review.</li><li>Justify a portfolio-ready pipeline reliability report for Host Patterns, Group Variables, and Fact Gathering with measurable success criteria and next actions.</li><li>Track measurable progress using rubric scores, defect/risk trends, and evidence completeness each week.</li><li>Run a short retrospective focused on what to retain, improve, and scale into the following week.</li><li>Incorporate peer or mentor feedback and revise the week deliverable to professional publication quality.</li><li>Publish the week output into your cumulative portfolio with concise outcome narrative and proof artifacts.</li></ul>
-</div>
-</div>
-<div class="week-block">
-<div class="week-header">
-<span class="week-number">Week 3</span>
-<span class="week-duration">6 hours/week + labs</span>
-</div>
-<div class="week-topic">Playbook Structure, Tasks, and Idempotent Execution</div>
-<div class="week-content">
-<ul><li>Analyze the principles of Playbook Structure, Tasks, and Idempotent Execution and link them to course outcomes at advanced depth with architecture-level decision quality.</li><li>Evaluate Playbook Structure, Tasks, and Idempotent Execution in a guided scenario using realistic tools, constraints, and quality gates.</li><li>Design trade-offs, risks, and decision points for Playbook Structure, Tasks, and Idempotent Execution, then record rationale for stakeholder review.</li><li>Justify a portfolio-ready pipeline reliability report for Playbook Structure, Tasks, and Idempotent Execution with measurable success criteria and next actions.</li><li>Track measurable progress using rubric scores, defect/risk trends, and evidence completeness each week.</li><li>Run a short retrospective focused on what to retain, improve, and scale into the following week.</li><li>Incorporate peer or mentor feedback and revise the week deliverable to professional publication quality.</li><li>Publish the week output into your cumulative portfolio with concise outcome narrative and proof artifacts.</li></ul>
-</div>
-</div>
-<div class="week-block">
-<div class="week-header">
-<span class="week-number">Week 4</span>
-<span class="week-duration">6 hours/week + labs</span>
-</div>
-<div class="week-topic">Variables, Templates, Loops, and Conditionals</div>
-<div class="week-content">
-<ul><li>Analyze the principles of Variables, Templates, Loops, and Conditionals and link them to course outcomes at advanced depth with architecture-level decision quality.</li><li>Evaluate Variables, Templates, Loops, and Conditionals in a guided scenario using realistic tools, constraints, and quality gates.</li><li>Design trade-offs, risks, and decision points for Variables, Templates, Loops, and Conditionals, then record rationale for stakeholder review.</li><li>Justify a portfolio-ready pipeline reliability report for Variables, Templates, Loops, and Conditionals with measurable success criteria and next actions.</li><li>Track measurable progress using rubric scores, defect/risk trends, and evidence completeness each week.</li><li>Run a short retrospective focused on what to retain, improve, and scale into the following week.</li><li>Incorporate peer or mentor feedback and revise the week deliverable to professional publication quality.</li><li>Publish the week output into your cumulative portfolio with concise outcome narrative and proof artifacts.</li></ul>
-</div>
-</div>
-<div class="week-block">
-<div class="week-header">
-<span class="week-number">Week 5</span>
-<span class="week-duration">6 hours/week + labs</span>
-</div>
-<div class="week-topic">Handlers, Tags, Blocks, and Error Recovery</div>
-<div class="week-content">
-<ul><li>Analyze the principles of Handlers, Tags, Blocks, and Error Recovery and link them to course outcomes at advanced depth with architecture-level decision quality.</li><li>Evaluate Handlers, Tags, Blocks, and Error Recovery in a guided scenario using realistic tools, constraints, and quality gates.</li><li>Design trade-offs, risks, and decision points for Handlers, Tags, Blocks, and Error Recovery, then record rationale for stakeholder review.</li><li>Justify a portfolio-ready pipeline reliability report for Handlers, Tags, Blocks, and Error Recovery with measurable success criteria and next actions.</li><li>Track measurable progress using rubric scores, defect/risk trends, and evidence completeness each week.</li><li>Run a short retrospective focused on what to retain, improve, and scale into the following week.</li><li>Incorporate peer or mentor feedback and revise the week deliverable to professional publication quality.</li><li>Publish the week output into your cumulative portfolio with concise outcome narrative and proof artifacts.</li></ul>
-</div>
-</div>
-<div class="week-block">
-<div class="week-header">
-<span class="week-number">Week 6</span>
-<span class="week-duration">6 hours/week + labs</span>
-</div>
-<div class="week-topic">Roles, Collections, and Reusable Automation Design</div>
-<div class="week-content">
-<ul><li>Analyze the principles of Roles, Collections, and Reusable Automation Design and link them to course outcomes at advanced depth with architecture-level decision quality.</li><li>Evaluate Roles, Collections, and Reusable Automation Design in a guided scenario using realistic tools, constraints, and quality gates.</li><li>Design trade-offs, risks, and decision points for Roles, Collections, and Reusable Automation Design, then record rationale for stakeholder review.</li><li>Justify a portfolio-ready pipeline reliability report for Roles, Collections, and Reusable Automation Design with measurable success criteria and next actions.</li><li>Track measurable progress using rubric scores, defect/risk trends, and evidence completeness each week.</li><li>Run a short retrospective focused on what to retain, improve, and scale into the following week.</li><li>Incorporate peer or mentor feedback and revise the week deliverable to professional publication quality.</li><li>Publish the week output into your cumulative portfolio with concise outcome narrative and proof artifacts.</li></ul>
-</div>
-</div>
-<div class="week-block">
-<div class="week-header">
-<span class="week-number">Week 7</span>
-<span class="week-duration">6 hours/week + labs</span>
-</div>
-<div class="week-topic">Secrets Management with Ansible Vault</div>
-<div class="week-content">
-<ul><li>Analyze the principles of Secrets Management with Ansible Vault and link them to course outcomes at advanced depth with architecture-level decision quality.</li><li>Evaluate Secrets Management with Ansible Vault in a guided scenario using realistic tools, constraints, and quality gates.</li><li>Design trade-offs, risks, and decision points for Secrets Management with Ansible Vault, then record rationale for stakeholder review.</li><li>Justify a portfolio-ready pipeline reliability report for Secrets Management with Ansible Vault with measurable success criteria and next actions.</li><li>Track measurable progress using rubric scores, defect/risk trends, and evidence completeness each week.</li><li>Run a short retrospective focused on what to retain, improve, and scale into the following week.</li><li>Incorporate peer or mentor feedback and revise the week deliverable to professional publication quality.</li><li>Publish the week output into your cumulative portfolio with concise outcome narrative and proof artifacts.</li></ul>
-</div>
-</div>
-<div class="week-block">
-<div class="week-header">
-<span class="week-number">Week 8</span>
-<span class="week-duration">6 hours/week + labs</span>
-</div>
-<div class="week-topic">Package, Service, and File Automation at Scale</div>
-<div class="week-content">
-<ul><li>Evaluate the principles of Package, Service, and File Automation at Scale and link them to course outcomes at advanced depth with architecture-level decision quality.</li><li>Design Package, Service, and File Automation at Scale in a guided scenario using realistic tools, constraints, and quality gates.</li><li>Optimize trade-offs, risks, and decision points for Package, Service, and File Automation at Scale, then record rationale for stakeholder review.</li><li>Justify a portfolio-ready pipeline reliability report for Package, Service, and File Automation at Scale with measurable success criteria and next actions.</li><li>Track measurable progress using rubric scores, defect/risk trends, and evidence completeness each week.</li><li>Run a short retrospective focused on what to retain, improve, and scale into the following week.</li><li>Incorporate peer or mentor feedback and revise the week deliverable to professional publication quality.</li><li>Publish the week output into your cumulative portfolio with concise outcome narrative and proof artifacts.</li></ul>
-</div>
-</div>
-<div class="week-block">
-<div class="week-header">
-<span class="week-number">Week 9</span>
-<span class="week-duration">6 hours/week + labs</span>
-</div>
-<div class="week-topic">User Provisioning, Access Baselines, and Server Hardening</div>
-<div class="week-content">
-<ul><li>Evaluate the principles of User Provisioning, Access Baselines, and Server Hardening and link them to course outcomes at advanced depth with architecture-level decision quality.</li><li>Design User Provisioning, Access Baselines, and Server Hardening in a guided scenario using realistic tools, constraints, and quality gates.</li><li>Optimize trade-offs, risks, and decision points for User Provisioning, Access Baselines, and Server Hardening, then record rationale for stakeholder review.</li><li>Justify a portfolio-ready pipeline reliability report for User Provisioning, Access Baselines, and Server Hardening with measurable success criteria and next actions.</li><li>Track measurable progress using rubric scores, defect/risk trends, and evidence completeness each week.</li><li>Run a short retrospective focused on what to retain, improve, and scale into the following week.</li><li>Incorporate peer or mentor feedback and revise the week deliverable to professional publication quality.</li><li>Publish the week output into your cumulative portfolio with concise outcome narrative and proof artifacts.</li></ul>
-</div>
-</div>
-<div class="week-block">
-<div class="week-header">
-<span class="week-number">Week 10</span>
-<span class="week-duration">6 hours/week + labs</span>
-</div>
-<div class="week-topic">AWX or Automation Controller Architecture and Job Templates</div>
-<div class="week-content">
-<ul><li>Evaluate the principles of AWX or Automation Controller Architecture and Job Templates and link them to course outcomes at advanced depth with architecture-level decision quality.</li><li>Design AWX or Automation Controller Architecture and Job Templates in a guided scenario using realistic tools, constraints, and quality gates.</li><li>Optimize trade-offs, risks, and decision points for AWX or Automation Controller Architecture and Job Templates, then record rationale for stakeholder review.</li><li>Justify a portfolio-ready pipeline reliability report for AWX or Automation Controller Architecture and Job Templates with measurable success criteria and next actions.</li><li>Track measurable progress using rubric scores, defect/risk trends, and evidence completeness each week.</li><li>Run a short retrospective focused on what to retain, improve, and scale into the following week.</li><li>Incorporate peer or mentor feedback and revise the week deliverable to professional publication quality.</li><li>Publish the week output into your cumulative portfolio with concise outcome narrative and proof artifacts.</li></ul>
-</div>
-</div>
-<div class="week-block">
-<div class="week-header">
-<span class="week-number">Week 11</span>
-<span class="week-duration">6 hours/week + labs</span>
-</div>
-<div class="week-topic">Inventories, Credentials, RBAC, and Workflow Templates</div>
-<div class="week-content">
-<ul><li>Evaluate the principles of Inventories, Credentials, RBAC, and Workflow Templates and link them to course outcomes at advanced depth with architecture-level decision quality.</li><li>Design Inventories, Credentials, RBAC, and Workflow Templates in a guided scenario using realistic tools, constraints, and quality gates.</li><li>Optimize trade-offs, risks, and decision points for Inventories, Credentials, RBAC, and Workflow Templates, then record rationale for stakeholder review.</li><li>Justify a portfolio-ready pipeline reliability report for Inventories, Credentials, RBAC, and Workflow Templates with measurable success criteria and next actions.</li><li>Track measurable progress using rubric scores, defect/risk trends, and evidence completeness each week.</li><li>Run a short retrospective focused on what to retain, improve, and scale into the following week.</li><li>Incorporate peer or mentor feedback and revise the week deliverable to professional publication quality.</li><li>Publish the week output into your cumulative portfolio with concise outcome narrative and proof artifacts.</li></ul>
-</div>
-</div>
-<div class="week-block">
-<div class="week-header">
-<span class="week-number">Week 12</span>
-<span class="week-duration">6 hours/week + labs</span>
-</div>
-<div class="week-topic">Dynamic Inventory for Cloud and Virtual Environments</div>
-<div class="week-content">
-<ul><li>Evaluate the principles of Dynamic Inventory for Cloud and Virtual Environments and link them to course outcomes at advanced depth with architecture-level decision quality.</li><li>Design Dynamic Inventory for Cloud and Virtual Environments in a guided scenario using realistic tools, constraints, and quality gates.</li><li>Optimize trade-offs, risks, and decision points for Dynamic Inventory for Cloud and Virtual Environments, then record rationale for stakeholder review.</li><li>Justify a portfolio-ready pipeline reliability report for Dynamic Inventory for Cloud and Virtual Environments with measurable success criteria and next actions.</li><li>Track measurable progress using rubric scores, defect/risk trends, and evidence completeness each week.</li><li>Run a short retrospective focused on what to retain, improve, and scale into the following week.</li><li>Incorporate peer or mentor feedback and revise the week deliverable to professional publication quality.</li><li>Publish the week output into your cumulative portfolio with concise outcome narrative and proof artifacts.</li></ul>
-</div>
-</div>
-<div class="week-block">
-<div class="week-header">
-<span class="week-number">Week 13</span>
-<span class="week-duration">6 hours/week + labs</span>
-</div>
-<div class="week-topic">CI/CD Integration for Ansible Projects</div>
-<div class="week-content">
-<ul><li>Evaluate the principles of CI/CD Integration for Ansible Projects and link them to course outcomes at advanced depth with architecture-level decision quality.</li><li>Design CI/CD Integration for Ansible Projects in a guided scenario using realistic tools, constraints, and quality gates.</li><li>Optimize trade-offs, risks, and decision points for CI/CD Integration for Ansible Projects, then record rationale for stakeholder review.</li><li>Justify a portfolio-ready pipeline reliability report for CI/CD Integration for Ansible Projects with measurable success criteria and next actions.</li><li>Track measurable progress using rubric scores, defect/risk trends, and evidence completeness each week.</li><li>Run a short retrospective focused on what to retain, improve, and scale into the following week.</li><li>Incorporate peer or mentor feedback and revise the week deliverable to professional publication quality.</li><li>Publish the week output into your cumulative portfolio with concise outcome narrative and proof artifacts.</li></ul>
-</div>
-</div>
-<div class="week-block">
-<div class="week-header">
-<span class="week-number">Week 14</span>
-<span class="week-duration">6 hours/week + labs</span>
-</div>
-<div class="week-topic">Testing Playbooks with Molecule, Linting, and Validation</div>
-<div class="week-content">
-<ul><li>Design the principles of Testing Playbooks with Molecule, Linting, and Validation and link them to course outcomes at advanced depth with architecture-level decision quality.</li><li>Optimize Testing Playbooks with Molecule, Linting, and Validation in a guided scenario using realistic tools, constraints, and quality gates.</li><li>Architect trade-offs, risks, and decision points for Testing Playbooks with Molecule, Linting, and Validation, then record rationale for stakeholder review.</li><li>Defend a portfolio-ready pipeline reliability report for Testing Playbooks with Molecule, Linting, and Validation with measurable success criteria and next actions.</li><li>Track measurable progress using rubric scores, defect/risk trends, and evidence completeness each week.</li><li>Run a short retrospective focused on what to retain, improve, and scale into the following week.</li><li>Incorporate peer or mentor feedback and revise the week deliverable to professional publication quality.</li><li>Publish the week output into your cumulative portfolio with concise outcome narrative and proof artifacts.</li></ul>
-</div>
-</div>
-<div class="week-block">
-<div class="week-header">
-<span class="week-number">Week 15</span>
-<span class="week-duration">6 hours/week + labs</span>
-</div>
-<div class="week-topic">Patch Management, Compliance Checks, and Drift Control</div>
-<div class="week-content">
-<ul><li>Design the principles of Patch Management, Compliance Checks, and Drift Control and link them to course outcomes at advanced depth with architecture-level decision quality.</li><li>Optimize Patch Management, Compliance Checks, and Drift Control in a guided scenario using realistic tools, constraints, and quality gates.</li><li>Architect trade-offs, risks, and decision points for Patch Management, Compliance Checks, and Drift Control, then record rationale for stakeholder review.</li><li>Defend a portfolio-ready pipeline reliability report for Patch Management, Compliance Checks, and Drift Control with measurable success criteria and next actions.</li><li>Track measurable progress using rubric scores, defect/risk trends, and evidence completeness each week.</li><li>Run a short retrospective focused on what to retain, improve, and scale into the following week.</li><li>Incorporate peer or mentor feedback and revise the week deliverable to professional publication quality.</li><li>Publish the week output into your cumulative portfolio with concise outcome narrative and proof artifacts.</li></ul>
-</div>
-</div>
-<div class="week-block">
-<div class="week-header">
-<span class="week-number">Week 16</span>
-<span class="week-duration">6 hours/week + labs</span>
-</div>
-<div class="week-topic">Network Automation with Vendor Modules and APIs</div>
-<div class="week-content">
-<ul><li>Design the principles of Network Automation with Vendor Modules and APIs and link them to course outcomes at advanced depth with architecture-level decision quality.</li><li>Optimize Network Automation with Vendor Modules and APIs in a guided scenario using realistic tools, constraints, and quality gates.</li><li>Architect trade-offs, risks, and decision points for Network Automation with Vendor Modules and APIs, then record rationale for stakeholder review.</li><li>Defend a portfolio-ready pipeline reliability report for Network Automation with Vendor Modules and APIs with measurable success criteria and next actions.</li><li>Track measurable progress using rubric scores, defect/risk trends, and evidence completeness each week.</li><li>Run a short retrospective focused on what to retain, improve, and scale into the following week.</li><li>Incorporate peer or mentor feedback and revise the week deliverable to professional publication quality.</li><li>Publish the week output into your cumulative portfolio with concise outcome narrative and proof artifacts.</li></ul>
-</div>
-</div>
-<div class="week-block">
-<div class="week-header">
-<span class="week-number">Week 17</span>
-<span class="week-duration">6 hours/week + labs</span>
-</div>
-<div class="week-topic">Windows Automation with WinRM and PowerShell Patterns</div>
-<div class="week-content">
-<ul><li>Design the principles of Windows Automation with WinRM and PowerShell Patterns and link them to course outcomes at advanced depth with architecture-level decision quality.</li><li>Optimize Windows Automation with WinRM and PowerShell Patterns in a guided scenario using realistic tools, constraints, and quality gates.</li><li>Architect trade-offs, risks, and decision points for Windows Automation with WinRM and PowerShell Patterns, then record rationale for stakeholder review.</li><li>Defend a portfolio-ready pipeline reliability report for Windows Automation with WinRM and PowerShell Patterns with measurable success criteria and next actions.</li><li>Track measurable progress using rubric scores, defect/risk trends, and evidence completeness each week.</li><li>Run a short retrospective focused on what to retain, improve, and scale into the following week.</li><li>Incorporate peer or mentor feedback and revise the week deliverable to professional publication quality.</li><li>Publish the week output into your cumulative portfolio with concise outcome narrative and proof artifacts.</li></ul>
-</div>
-</div>
-<div class="week-block">
-<div class="week-header">
-<span class="week-number">Week 18</span>
-<span class="week-duration">6 hours/week + labs</span>
-</div>
-<div class="week-topic">Container and Kubernetes Automation Use Cases</div>
-<div class="week-content">
-<ul><li>Design the principles of Container and Kubernetes Automation Use Cases and link them to course outcomes at advanced depth with architecture-level decision quality.</li><li>Optimize Container and Kubernetes Automation Use Cases in a guided scenario using realistic tools, constraints, and quality gates.</li><li>Architect trade-offs, risks, and decision points for Container and Kubernetes Automation Use Cases, then record rationale for stakeholder review.</li><li>Defend a portfolio-ready pipeline reliability report for Container and Kubernetes Automation Use Cases with measurable success criteria and next actions.</li><li>Track measurable progress using rubric scores, defect/risk trends, and evidence completeness each week.</li><li>Run a short retrospective focused on what to retain, improve, and scale into the following week.</li><li>Incorporate peer or mentor feedback and revise the week deliverable to professional publication quality.</li><li>Publish the week output into your cumulative portfolio with concise outcome narrative and proof artifacts.</li></ul>
-</div>
-</div>
-<div class="week-block">
-<div class="week-header">
-<span class="week-number">Week 19</span>
-<span class="week-duration">6 hours/week + labs</span>
-</div>
-<div class="week-topic">Operational Reporting, Logging, and Governance Standards</div>
-<div class="week-content">
-<ul><li>Design the principles of Operational Reporting, Logging, and Governance Standards and link them to course outcomes at advanced depth with architecture-level decision quality.</li><li>Optimize Operational Reporting, Logging, and Governance Standards in a guided scenario using realistic tools, constraints, and quality gates.</li><li>Architect trade-offs, risks, and decision points for Operational Reporting, Logging, and Governance Standards, then record rationale for stakeholder review.</li><li>Defend a portfolio-ready pipeline reliability report for Operational Reporting, Logging, and Governance Standards with measurable success criteria and next actions.</li><li>Track measurable progress using rubric scores, defect/risk trends, and evidence completeness each week.</li><li>Run a short retrospective focused on what to retain, improve, and scale into the following week.</li><li>Incorporate peer or mentor feedback and revise the week deliverable to professional publication quality.</li><li>Publish the week output into your cumulative portfolio with concise outcome narrative and proof artifacts.</li></ul>
-</div>
-</div>
-<div class="week-block">
-<div class="week-header">
-<span class="week-number">Week 20</span>
-<span class="week-duration">6 hours/week + labs</span>
-</div>
-<div class="week-topic">Capstone: Enterprise Automation Pipeline and Operations Handover</div>
-<div class="week-content">
-<ul><li>Design the principles of Capstone: Enterprise Automation Pipeline and Operations Handover and link them to course outcomes at advanced depth with architecture-level decision quality.</li><li>Optimize Capstone: Enterprise Automation Pipeline and Operations Handover in a guided scenario using realistic tools, constraints, and quality gates.</li><li>Architect trade-offs, risks, and decision points for Capstone: Enterprise Automation Pipeline and Operations Handover, then record rationale for stakeholder review.</li><li>Defend a portfolio-ready pipeline reliability report for Capstone: Enterprise Automation Pipeline and Operations Handover with measurable success criteria and next actions.</li><li>Track measurable progress using rubric scores, defect/risk trends, and evidence completeness each week.</li><li>Run a short retrospective focused on what to retain, improve, and scale into the following week.</li><li>Incorporate peer or mentor feedback and revise the week deliverable to professional publication quality.</li><li>Publish the week output into your cumulative portfolio with concise outcome narrative and proof artifacts.</li></ul>
-</div>
-</div>
-</div>
-<div class="section">
-<h2 class="section-title">Capstone Projects</h2>
-<div class="project-card"><h4>Project 1: Reusable Role and Playbook Framework</h4><p>Develop a modular automation framework with tested roles and environment-aware variables.</p><ul><li>Role library with linting, test runs, and idempotency verification</li><li>Inventory and variable hierarchy design with documentation</li><li>Decision summary for structure, maintainability, and reuse patterns</li></ul></div><div class="project-card"><h4>Project 2: Secure Automation Control Plane</h4><p>Implement enterprise controls for credentials, approvals, execution visibility, and change safety.</p><ul><li>RBAC and secret management integration with workflow templates</li><li>Audit-ready execution reporting and operational health checks</li><li>Risk and mitigation log for production rollout scenarios</li></ul></div><div class="project-card"><h4>Project 3: Enterprise Automation Handover Package</h4><p>Deliver a complete automation operations package for team handover and governance review.</p><ul><li>End-to-end pipeline demonstration with validation evidence</li><li>Runbooks, escalation paths, and rollback procedures</li><li>90-day roadmap for scale, reliability, and policy maturity</li></ul></div>
-</div>
-<div class="section">
-<h2 class="section-title">Study Tips</h2>
-<div class="card">
-<ul><li>Block two weekly hours for hands-on pipeline testing, failure scenario walkthroughs, and deployment automation refinement.</li><li>Maintain a reliability ledger tracking deployment frequency, failure rates, and mean-time-to-recovery metrics.</li><li>Conduct weekly automation reviews, identifying bottlenecks and opportunities for further pipeline optimization.</li></ul>
-</div>
-</div>
-        <!-- Study Tips -->
-        <section class="section">
-            <h2 class="section-title">Study Tips for Success</h2>
-            <div class="card">
-                <ul>
-                    <li>Protect consistent weekly practice time and complete hands-on work before moving to the next topic.</li>
-                    <li>Document implementation decisions, trade-offs, and lessons learned after each weekly deliverable.</li>
-                    <li>Review feedback quickly and ship an improved revision within the same week to reinforce retention.</li>
-                    <li>Track measurable progress with checklists, test evidence, and milestone outcomes.</li>
-                </ul>
+        </div>
+        <div class="roadmap-node">
+            <div class="roadmap-marker"></div>
+            <div class="roadmap-content">
+                <div class="roadmap-phase">Phase 2 — Weeks 6 to 10</div>
+                <div class="roadmap-title">Programmatic Extensions &amp; Execution Optimization</div>
+                <div class="roadmap-desc">Authoring custom filter and lookup modules in Python, designing execution environmental boundaries, and tuning high-throughput configuration forks.</div>
             </div>
-        </section>
-
-        <!-- About Course -->
-        <section class="section">
-            <h2 class="section-title">About Advanced Ansible Automation & IaC</h2>
-            <div class="card">
-                <p>This curriculum is structured to build practical capability, consistent delivery discipline, and portfolio-ready outcomes in Advanced Ansible Automation & IaC. It combines conceptual understanding with applied execution so learners can perform confidently in real project environments.</p>
+        </div>
+        <div class="roadmap-node">
+            <div class="roadmap-marker"></div>
+            <div class="roadmap-content">
+                <div class="roadmap-phase">Phase 3 — Weeks 11 to 15</div>
+                <div class="roadmap-title">Enterprise Infrastructure Mesh Scale</div>
+                <div class="roadmap-desc">Orchestrating multi-node central automation controllers, mapping complex mesh network paths, and handling dynamic API ingestion conduits.</div>
             </div>
-        </section>
-
-<div class="footer">
-<p>© 2026 Hexadigitall Academy (Hexadigitall Technologies). Curriculum authored for Advanced Ansible Automation &amp; IaC.</p>
+        </div>
+        <div class="roadmap-node">
+            <div class="roadmap-marker"></div>
+            <div class="roadmap-content">
+                <div class="roadmap-phase">Phase 4 — Weeks 16 to 20</div>
+                <div class="roadmap-title">GitOps Delivery &amp; Self-Healing Compliant Pipelines</div>
+                <div class="roadmap-desc">Building zero-tolerance code checking verifications, structuring immutable state runbooks, and launching total enterprise capstone syntheses.</div>
+            </div>
+        </div>
+    </div>
 </div>
+
+<div class="section"><h2 class="section-title">Detailed Weekly Curriculum</h2>
+
+<div class="week-block"><div class="week-header"><div class="week-number">Week 1</div><div class="week-duration">4 Hours / Week PACE</div></div><div class="week-topic">Variable Lifecycle Scoping Matrices &amp; Complex Overrides</div><div class="week-content"><ul><li>Deconstruct the 22 distinct variable precedence layers within the configuration runtime matrix to map override actions.</li><li>Analyze scoping differences between host, group, role, and dynamic inventory data structures across heterogeneous execution nodes.</li><li>Design resilient data injection strategies utilizing extra variables flags while preserving clean fallback settings.</li></ul><div class="lab-section"><h4>Laboratory 1.1</h4><ul><li>Build an enterprise configuration matrix testing variable overrides across multiple connected inventory layers.</li></ul><h4>Laboratory 1.2</h4><ul><li>Debug an opaque variable shadowing conflict blocking deployment lines and document the root remediation logic.</li></ul></div></div></div>
+
+<div class="week-block"><div class="week-header"><div class="week-number">Week 2</div><div class="week-duration">4 Hours / Week PACE</div></div><div class="week-topic">Encrypted Storage Foundations &amp; Multi-Key Management</div><div class="week-content"><ul><li>Structure multi-layered encryption patterns protecting sensitive system credentials using configuration vault sub-systems.</li><li>Configure isolated key management structures separating product environment tokens across multi-tenant spaces.</li><li>Evaluate programmatic secret parsing workflows to safely pass parameters to continuous deployment workers.</li></ul><div class="lab-section"><h4>Laboratory 2.1</h4><ul><li>Deploy an encrypted parameter registry utilizing distinct vault IDs to separate development keys from production credentials.</li></ul></div></div></div>
+
+<div class="week-block"><div class="week-header"><div class="week-number">Week 3</div><div class="week-duration">4 Hours / Week PACE</div></div><div class="week-topic">Advanced Task Control Flow, Loops, &amp; Failure Strategies</div><div class="week-content"><ul><li>Formulate intricate task looping patterns manipulating complex multi-dimensional dictionary datasets.</li><li>Design conditional block execution logic maps containing fail-fast and block recovery fallback routes.</li><li>Optimize failure recognition parameters by authoring custom check strings to evaluate execution error statuses.</li></ul><div class="lab-section"><h4>Laboratory 3.1</h4><ul><li>Construct a looping configuration block that reads complex system descriptors and accurately provisions nested structures.</li></ul></div></div></div>
+
+<div class="week-block"><div class="week-header"><div class="week-number">Week 4</div><div class="week-duration">4 Hours / Week PACE</div></div><div class="week-topic">Enterprise Role Decoupling &amp; Collection Architectures</div><div class="week-content"><ul><li>Deconstruct monolithic configuration manifests into modular, isolated role layers following structural engineering guidelines.</li><li>Design self-contained collection configurations bundling independent plugins, modules, and role assets uniformly.</li><li>Formulate dependency resolution policies leveraging automated definition matrices to handle platform scaling.</li></ul><div class="lab-section"><h4>Laboratory 4.1</h4><ul><li>Refactor a large configuration block into standalone, decoupled sub-roles validated by strict acceptance criteria.</li></ul></div></div></div>
+
+<div class="week-block"><div class="week-header"><div class="week-number">Week 5</div><div class="week-duration">4 Hours / Week PACE</div></div><div class="week-topic">Phase 1 Strategic Engineering Synthesis Review</div><div class="week-content"><ul><li>Synthesize complex override matrices, multi-key encryption boundaries, and modular sub-roles into a single unified topology layout.</li><li>Evaluate compiled configuration blueprints against architectural failure exercises under high-stress conditions.</li><li>Defend infrastructure structural patterns before peer validation teams, validating total deployment isolation.</li></ul><div class="lab-section"><h4>Laboratory 5.1 (Phase 1 Capstone)</h4><ul><li>Execute a complete infrastructure layout migration, upgrading a legacy unvetted deployment setup into a decoupled modular asset pack.</li></ul></div></div></div>
+
+<div class="week-block"><div class="week-header"><div class="week-number">Week 6</div><div class="week-duration">4 Hours / Week PACE</div></div><div class="week-topic">Custom Plugin Engineering: Filters &amp; Lookups</div><div class="week-content"><ul><li>Analyze execution extension hooks to design customized string modification filters using Python script libraries.</li><li>Deconstruct data streaming formats to construct specialized lookup modules extracting metadata from external engines.</li><li>Formulate structural plugin testing frames to track payload compliance metrics natively prior to platform ingestion.</li></ul><div class="lab-section"><h4>Laboratory 6.1</h4><ul><li>Author a custom string manipulation filter in Python that intercepts configuration data streams and updates target variables.</li></ul></div></div></div>
+
+<div class="week-block"><div class="week-header"><div class="week-number">Week 7</div><div class="week-duration">4 Hours / Week PACE</div></div><div class="week-topic">Custom Plugin Engineering: Action &amp; Callback Modules</div><div class="week-content"><ul><li>Deconstruct internal task execution mechanics to build specialized custom action plugins bypassing standard module overheads.</li><li>Design automated callback handlers capturing runtime execution milestones to output structured telemetry strings.</li><li>Optimize analytics collection structures by formatting logging metrics into standard JSON event vectors.</li></ul><div class="lab-section"><h4>Laboratory 7.1</h4><ul><li>Build an enterprise callback plugin that catches deployment completion markers and transforms performance indicators into structured telemetry streams.</li></ul></div></div></div>
+
+<div class="week-block"><div class="week-header"><div class="week-number">Week 8</div><div class="week-duration">4 Hours / Week PACE</div></div><div class="week-topic">Containerized Execution Environments &amp; Builder Strategies</div><div class="week-content"><ul><li>Design immutable configuration runtime containers combining explicit software dependency trees into localized execution packages.</li><li>Evaluate builder parameters to compress execution layer sizes while avoiding dependency fragmentation loops.</li><li>Formulate deployment rules mapping isolated tracking containers directly into container registries.</li></ul><div class="lab-section"><h4>Laboratory 8.1</h4><ul><li>Construct a customized execution package combining system dependencies into an immutable verification image using automated building software.</li></ul></div></div></div>
+
+<div class="week-block"><div class="week-header"><div class="week-number">Week 9</div><div class="week-duration">4 Hours / Week PACE</div></div><div class="week-topic">High-Throughput Performance Tuning &amp; Fork Optimization</div><div class="week-content"><ul><li>Evaluate target processing constraints by adjusting execution fork values across large target networks.</li><li>Configure low-friction SSH connection pooling patterns and persistent multiplexing streams to reduce latency vectors.</li><li>Optimize production speeds by implementing selective task execution strategies across multi-tiered cloud backbones.</li></ul><div class="lab-section"><h4>Laboratory 9.1</h4><ul><li>Tune execution engine connection structures to optimize configuration deployment operations across dozens of simulated nodes.</li></ul></div></div></div>
+
+<div class="week-block"><div class="week-header"><div class="week-number">Week 10</div><div class="week-duration">4 Hours / Week PACE</div></div><div class="week-topic">Phase 2 Custom Extension Strategic Defense Review</div><div class="week-content"><ul><li>Synthesize custom Python extensions, action modules, built execution containers, and tuned connection protocols into an execution engine layout.</li><li>Validate running system configurations against performance target bars under auditor observation.</li><li>Defend operational choices before engineering boards, validating programmatic control line optimization.</li></ul><div class="lab-section"><h4>Laboratory 10.1 (Phase 2 Capstone)</h4><ul><li>Deploy a custom-compiled configuration environment that ingests multi-tiered external payloads and optimizes delivery loops natively.</li></ul></div></div></div>
+
+<div class="week-block"><div class="week-header"><div class="week-number">Week 11</div><div class="week-duration">4 Hours / Week PACE</div></div><div class="week-topic">Enterprise Automation Controller Topology &amp; Scaling</div><div class="week-content"><ul><li>Architect multi-node central automation controller clusters to distribute workload executions across global corporate divisions.</li><li>Design high-availability data backplanes managing uniform status registers across separated controller nodes.</li><li>Evaluate security access profiles managing role-based isolation borders inside multi-tenant management consoles.</li></ul><div class="lab-section"><h4>Laboratory 11.1</h4><ul><li>Configure a resilient central controller engine cluster model mapping organizational teams to separate administrative controls.</li></ul></div></div></div>
+
+<div class="week-block"><div class="week-header"><div class="week-number">Week 12</div><div class="week-duration">4 Hours / Week PACE</div></div><div class="week-topic">Automation Mesh Network Architecture &amp; Execution Hop Routing</div><div class="week-content"><ul><li>Design scalable automation mesh structures utilizing dedicated execution nodes and receptor hop routing logic.</li><li>Enforce geographic processing constraints by routing deployment packets through specific regional mesh conduits.</li><li>Configure fault-tolerant communication links that safely jump firewall parameters without exposing private ports.</li></ul><div class="lab-section"><h4>Laboratory 12.1</h4><ul><li>Model a multi-region automation mesh topology routing system configuration requests across isolated networks.</li></ul></div></div></div>
+
+<div class="week-block"><div class="week-header"><div class="week-number">Week 13</div><div class="week-duration">4 Hours / Week PACE</div></div><div class="week-topic">Dynamic Multi-Cloud Inventory Ingestion &amp; Event Sourcing</div><div class="week-content"><ul><li>Formulate smart inventory sourcing configurations that automatically discover changing multi-account cloud assets.</li><li>Design conditional parsing profiles that filter target resource metadata into real-time management tracks.</li><li>Enforce strict boundary tagging strategies as programmatic verification variables across microservice pools.</li></ul><div class="lab-section"><h4>Laboratory 13.1</h4><ul><li>Build an automated dynamic inventory pipeline that aggregates changing node maps from multiple enterprise provider accounts.</li></ul></div></div></div>
+
+<div class="week-block"><div class="week-header"><div class="week-number">Week 14</div><div class="week-duration">4 Hours / Week PACE</div></div><div class="week-topic">Centralized API Management &amp; Enterprise Job Auditing</div><div class="week-content"><ul><li>Construct programmatic REST API interactions to launch system deployment routines from external software.</li><li>Design write-once audit trailing pipelines capturing complete configuration history records uniformly.</li><li>Enforce structured output schemas to feed central analytical data lakes for event verification.</li></ul><div class="lab-section"><h4>Laboratory 14.1</h4><ul><li>Deploy a programmatic API ingestion script that triggers structured execution jobs and passes metadata records cleanly.</li></ul></div></div></div>
+
+<div class="week-block"><div class="week-header"><div class="week-number">Week 15</div><div class="week-duration">4 Hours / Week PACE</div></div><div class="week-topic">Phase 3 Mesh Scale Strategic Compliance Review</div><div class="week-content"><ul><li>Compile multi-node controller topologies, mesh network routes, dynamic inventories, and auditing channels into a single architecture document.</li><li>Evaluate compiled mesh network performance against institutional capacity constraints under high congestion factors.</li><li>Defend large-scale scaling choices to enterprise boards, confirming absolute runtime stability.</li></ul><div class="lab-section"><h4>Laboratory 15.1 (Phase 3 Capstone)</h4><ul><li>Orchestrate a comprehensive multi-region automation backbone connecting separated satellite networks under uniform centralized controller boundaries.</li></ul></div></div></div>
+
+<div class="week-block"><div class="week-header"><div class="week-number">Week 16</div><div class="week-duration">4 Hours / Week PACE</div></div><div class="week-topic">Static Code Inspection, Linting, &amp; AST Analysis Gates</div><div class="week-content"><ul><li>Evaluate configuration text structures using abstract syntax tree (AST) code checking software prior to repository merge events.</li><li>Design customized corporate syntax rule checkers mapping compliance demands directly into automated validation lines.</li><li>Structure pre-production quality check gates to block non-compliant execution statements completely.</li></ul><div class="lab-section"><h4>Laboratory 16.1</h4><ul><li>Integrate structural linting and syntax check gates across multi-repository environments to enforce uniform code shapes.</li></ul></div></div></div>
+
+<div class="week-block"><div class="week-header"><div class="week-number">Week 17</div><div class="week-duration">4 Hours / Week PACE</div></div><div class="week-topic">Continuous Integration Testing Frameworks &amp; Molecule Diagnostics</div><div class="week-content"><ul><li>Design automated ephemeral instance testing configurations using modular verification suites (Molecule/Testinfra).</li><li>Formulate mock scenario execution runs testing system state modifications inside target container layers.</li><li>Optimize validation assertion processes tracking code output parameters across separate platform releases.</li></ul><div class="lab-section"><h4>Laboratory 17.1</h4><ul><li>Build an automated execution unit testing grid running localized system assertions against ephemeral target containers.</li></ul></div></div></div>
+
+<div class="week-block"><div class="week-header"><div class="week-number">Week 18</div><div class="week-duration">4 Hours / Week PACE</div></div><div class="week-topic">GitOps Pipeline Engineering &amp; Strict Deployment Hardening</div><div class="week-content"><ul><li>Integrate automated orchestration workflows directly within containerized cloud code repository conduits.</li><li>Configure non-blocking alert tracking conduits vs zero-tolerance hard pipeline compilation barriers across development tracks.</li><li>Optimize token processing safety by embedding vault key distribution networks inside secured worker engines.</li></ul><div class="lab-section"><h4>Laboratory 18.1</h4><ul><li>Construct a comprehensive GitOps code delivery validation track that screens incoming merge queries and drops non-compliant scripts.</li></ul></div></div></div>
+
+<div class="week-block"><div class="week-header"><div class="week-number">Week 19</div><div class="week-duration">4 Hours / Week PACE</div></div><div class="week-topic">Self-Healing Event-Driven Configuration Automation</div><div class="week-content"><ul><li>Architect reactive automated event processing loops intercepting external security telemetry indicator events.</li><li>Build zero-friction auto-remediation playbooks resolving configuration drift parameters instantly without operator steps.</li><li>Structure immutable state check matrices that continuously sweep host configurations against target golden baselines.</li></ul><div class="lab-section"><h4>Laboratory 19.1</h4><ul><li>Deploy an event-driven automation framework that catches system modification alerts and swings host settings back to compliance profiles automatically.</li></ul></div></div></div>
+
+<div class="week-block"><div class="week-header"><div class="week-number">Week 20</div><div class="week-duration">4 Hours / Week PACE</div></div><div class="week-topic">Phase 4 Grand Program Defense &amp; Total System Synthesis</div><div class="week-content"><ul><li>Synthesize advanced modular role hierarchies, custom extensions, globally distributed mesh architectures, and automated self-healing lines into an enterprise architecture portfolio.</li><li>Evaluate complete system structural stability inside a fast-paced live fire drill simulation modeling host drift attacks and network disconnects.</li><li>Defend complete technical platform decisions before an auditing panel of peer experts for master certification sign-off.</li></ul><div class="lab-section"><h4>Laboratory 20.1 (Grand Capstone Mastery)</h4><ul><li>Complete total architecture presentation defense and board validation of an automated, self-healing multi-region corporate orchestration ecosystem.</li></ul></div></div></div>
+
+</div><div class="section"><h2 class="section-title">Strategic Executive Milestones</h2>
+
+<div class="project-card"><h4>Project 1: Advanced Modular Framework &amp; Extension Delivery</h4><p>Deliver an isolated, encrypted collection bundle running custom processing components.</p><ul><li>Map clear variable lifecycles across multi-layered environment inheritance tiers without configuration collisions.</li><li>Author customized string filters and action lookups in Python to process external data sources smoothly.</li><li>Publish a reusable collection asset container passing multi-key vault verification tests cleanly.</li></ul></div>
+
+<div class="project-card"><h4>Project 2: Distributed Automation Mesh Architecture</h4><p>Orchestrate an enterprise-wide scaling infrastructure network routing operations safely across network boundaries.</p><ul><li>Deploy multi-node management controller clusters tracking administrative tasks across separated corporate units.</li><li>Construct a fault-tolerant automation mesh running regional execution hop routers across firewall borders.</li><li>Establish dynamic discovery profiles that ingest and catalog multi-account cloud elements automatically.</li></ul></div>
+
+<div class="project-card"><h4>Project 3: Self-Healing GitOps Pipeline Mastery</h4><p>Ship a fully automated, event-driven orchestration landscape featuring zero-tolerance compliance validation gates.</p><ul><li>Embed strict pre-production abstract syntax tree check rules blocking insecure scripts before compilation lines.</li><li>Configure ephemeral testing infrastructures running system state validations natively inside active repository lines.</li><li>Deliver an event-driven self-healing runbook loop that tracks infrastructure status changes and fixes drift errors automatically.</li></ul></div>
+
+</div>
+<footer class="footer"><p><strong>Hexadigitall</strong> • Empowering Digital Futures</p><p style="margin-top: 0.5rem; font-size: 0.9rem;">Visit <a href="https://hexadigitall.com">hexadigitall.com</a> to enroll</p></footer>
 </div>
 </body>
 </html>

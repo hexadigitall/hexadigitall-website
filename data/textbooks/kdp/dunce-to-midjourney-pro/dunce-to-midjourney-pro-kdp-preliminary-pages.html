@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Dunce to Midjourney Pro — Preliminary Pages</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --blue: #3498db;
+      --navy: #2c3e50;
+      --slate: #475569;
+      --border: #d8e1ea;
+    }
+    @page {
+      size: 6in 9in;
+      margin: 0.65in 0.48in;
+      @bottom-center { content: counter(page, lower-roman); font-family: 'Inter', sans-serif; font-size: 9pt; color: #64748b; }
+    }
+    @page :left { margin: 0.65in 0.78in 0.65in 0.44in; }
+    @page :right { margin: 0.65in 0.44in 0.65in 0.78in; }
+    @page titlepage { @bottom-center { content: ''; } }
+    * { box-sizing: border-box; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    body { margin: 0; font-family: 'Inter', sans-serif; color: var(--navy); }
+    .page { min-height: 7.7in; break-after: page; page-break-after: always; display: flex; flex-direction: column; }
+    .page:last-child { break-after: auto; page-break-after: auto; }
+    .titlepage { page: titlepage; justify-content: center; text-align: center; }
+    .series { color: var(--blue); font-size: 8pt; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; }
+    h1 { font-family: 'Space Grotesk', sans-serif; font-size: 25pt; line-height: 1.1; margin: 0.18in 0 0.1in; }
+    .subtitle { font-size: 11pt; color: var(--slate); }
+    .rule { width: 0.55in; height: 2px; background: var(--blue); margin: 0.3in auto; }
+    .meta { display: flex; justify-content: center; gap: 0.24in; flex-wrap: wrap; margin-top: 0.12in; }
+    .meta div { border: 1px solid var(--border); border-radius: 999px; padding: 6px 12px; font-size: 8pt; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; }
+    .publisher { margin-top: 0.45in; font-size: 10pt; color: var(--slate); }
+    .publisher strong { display: block; font-family: 'Space Grotesk', sans-serif; color: var(--navy); font-size: 12pt; }
+    h2 { font-family: 'Space Grotesk', sans-serif; font-size: 18pt; margin-bottom: 0.18in; }
+    p { font-size: 10pt; line-height: 1.7; margin: 0 0 0.14in; }
+    ul { margin: 0.1in 0 0 0.18in; padding: 0; }
+    li { margin-bottom: 0.08in; font-size: 10pt; line-height: 1.6; }
+    .small { font-size: 8.7pt; color: var(--slate); }
+    .callout { border-left: 3px solid var(--blue); background: #f8fafc; padding: 0.16in 0.18in; margin-top: 0.18in; }
+  </style>
+</head>
+<body>
+  <section class="page titlepage">
+    <div class="series">AI Image Generation Mastery</div>
+    <h1>Dunce to<br>Midjourney Pro</h1>
+    <p class="subtitle">From Zero to Commercial-Grade AI Imagery</p>
+    <div class="rule"></div>
+    <div class="meta">
+      <div>4 phases</div>
+      <div>11 chapters</div>
+      <div>+ Bonus Suite</div>
+    </div>
+    <div class="publisher">
+      <strong>Hexadigitall Technologies</strong>
+      hexadigitall.com
+    </div>
+  </section>
+
+  <section class="page">
+    <h2>Copyright</h2>
+    <p><strong>© 2026 Hexadigitall Technologies.</strong> All rights reserved.</p>
+    <p>No part of this publication may be reproduced or transmitted without prior written permission of the publisher, except for brief quotations permitted by copyright law.</p>
+    <p>Midjourney is a registered trademark of Midjourney, Inc. This book is an independent educational guide and is not affiliated with, authorized, or endorsed by Midjourney, Inc. Adobe Photoshop and Adobe Illustrator are registered trademarks of Adobe Inc. All other product names and trademarks remain the property of their respective owners.</p>
+    <p class="small">First Edition: 2026</p>
+    <p class="small">Publisher: Hexadigitall Technologies</p>
+    <p class="small">Imprint: Hexadigitall Learning Press</p>
+    <p class="small">ISBN: 978-0-0000000-0-0 (Paperback Placeholder)</p>
+    <p class="small">ISBN: 978-0-0000000-0-0 (Hardcover Placeholder)</p>
+    <p class="small">ISBN: 978-0-0000000-0-0 (eBook Placeholder)</p>
+  </section>
+
+  <section class="page">
+    <h2>How To Use This Book</h2>
+    <ul>
+      <li>Work through each phase in order — each one builds on the last.</li>
+      <li>Complete the phase milestone projects before moving to the next phase.</li>
+      <li>Use the Comprehensive Final Exam at the end to validate commercial readiness.</li>
+      <li>Refer to the Technical Appendices (Parameter Manifest, Glossary, Style Reference) while working through advanced chapters.</li>
+    </ul>
+    <div class="callout">
+      <p><strong>Tool note:</strong> This book covers Midjourney accessed via Discord and the Midjourney web interface. Features and parameter availability may evolve with new model versions. Principles of prompting, style architecture, and workflow design remain applicable across versions.</p>
+    </div>
+  </section>
+
+  <section class="page">
+    <h2>Publishing Note</h2>
+    <p>This preliminary-pages file is separate from the KDP interior manuscript so it can be revised independently during sales preparation, ISBN assignment, and final marketplace packaging.</p>
+    <p>Update ISBN, imprint, and barcode metadata here once final publication values are assigned by your ISBN registrar (e.g. Bowker in the US, Nielsen in the UK).</p>
+    <p>For KDP upload: combine this file's PDF output with the interior manuscript PDF before uploading to KDP Manuscript Review.</p>
+  </section>
+</body>
+</html>

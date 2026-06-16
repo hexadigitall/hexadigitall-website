@@ -37,7 +37,9 @@ export async function GET(request: NextRequest) {
       // Check if ledger exists
       query = `*[_type == "publicationAccessLedger" && customerIdentityHash == $email && purchasedPublicationReference._ref == $pubId][0] {
         _id,
+        "customerEmail": customerIdentityHash,
         "publication": purchasedPublicationReference-> {
+          _id,
           title,
           "studentFileUrl": studentFile.asset->url,
           "teacherFileUrl": teacherFile.asset->url,

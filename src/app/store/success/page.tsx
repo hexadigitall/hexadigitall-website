@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
-import { CheckCircleIcon, ArrowDownTrayIcon, ArrowRightIcon, BookOpenIcon } from '@heroicons/react/24/outline';
+import { CheckCircleIcon, ArrowDownTrayIcon, ArrowRightIcon, BookOpenIcon, ClockIcon } from '@heroicons/react/24/outline';
 import Link from 'next/link';
 
 function SuccessContent() {
@@ -10,6 +10,7 @@ function SuccessContent() {
   const reference = searchParams.get('reference');
   const [status, setStatus] = useState<'loading' | 'success' | 'error'>('loading');
   const [accessData, setAccessData] = useState<any>(null);
+  const [downloading, setDownloading] = useState<string | null>(null);
 
   useEffect(() => {
     if (reference) {
@@ -31,6 +32,27 @@ function SuccessContent() {
       }
     } catch (err) {
       setStatus('error');
+    }
+  };
+
+  const handleDownload = async (fileUrl: string, label: string) => {
+    setDownloading(label);
+    try {
+      const res = await fetch('/api/publications/generate-download-token', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ fileUrl, email: accessData?.customerEmail || '', publicationId: accessData?.publication?._id || '' }),
+      });
+      const data = await res.json();
+      if (data.success && data.downloadUrl) {
+        window.open(data.downloadUrl, '_blank');
+      } else {
+        window.open(fileUrl, '_blank');
+      }
+    } catch {
+      window.open(fileUrl, '_blank');
+    } finally {
+      setDownloading(null);
     }
   };
 
@@ -82,26 +104,15 @@ function SuccessContent() {
 
           <div className="space-y-3">
             {accessData.publication.studentFileUrl && (
-              <a 
-                href={accessData.publication.studentFileUrl} 
-                target="_blank"
-                className="w-full inline-flex items-center justify-center space-x-3 bg-slate-950 text-white font-bold py-4 rounded-xl hover:bg-slate-800 transition-all shadow-lg"
+              <button
+                onClick={() => handleDownload(accessData.publication.studentFileUrl, 'textbook')}
+                disabled={downloading === 'textbook'}
+                className="w-full inline-flex items-center justify-center space-x-3 bg-slate-950 text-white font-bold py-4 rounded-xl hover:bg-slate-800 transition-all shadow-lg disabled:opacity-50"
               >
                 <ArrowDownTrayIcon className="h-5 w-5" />
-                <span>Download Student Edition (PDF)</span>
-              </a>
+                <span>{downloading === 'textbook' ? 'Preparing...' : 'Download Textbook (PDF)'}</span>
+              </button>
             )}
-            {accessData.publication.teacherFileUrl && (
-              <a 
-                href={accessData.publication.teacherFileUrl} 
-                target="_blank"
-                className="w-full inline-flex items-center justify-center space-x-3 bg-slate-950 text-white font-bold py-4 rounded-xl hover:bg-slate-800 transition-all shadow-lg mt-3"
-              >
-                <ArrowDownTrayIcon className="h-5 w-5" />
-                <span>Download Teacher Edition (PDF)</span>
-              </a>
-            )}
-
             {accessData.publication.resources && accessData.publication.resources.length > 0 && (
               <div className="mt-8">
                 <p className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-4">Companion Matrix Assets</p>
@@ -112,9 +123,9 @@ function SuccessContent() {
                         <span className="font-mono text-xs font-bold bg-slate-100 text-slate-600 px-2 py-0.5 rounded">{resource.matrixId}</span>
                         <span className="font-serif text-sm font-bold text-slate-800">{resource.title}</span>
                       </div>
-                      <a href={resource.secureAssetUrl} target="_blank" className="text-blue-600 hover:text-blue-700 transition-colors">
+                      <button onClick={() => handleDownload(resource.secureAssetUrl, `resource-${i}`)} className="text-blue-600 hover:text-blue-700 transition-colors">
                         <ArrowDownTrayIcon className="h-5 w-5" />
-                      </a>
+                      </button>
                     </div>
                   ))}
                 </div>
@@ -124,7 +135,11 @@ function SuccessContent() {
         </div>
 
         <div className="text-center">
-          <p className="text-sm text-slate-400 font-serif italic mb-6">A copy of these download links has been sent to your email.</p>
+          <p className="text-sm text-slate-400 font-serif italic mb-2">A copy of these download links has been sent to your email.</p>
+          <div className="flex items-center justify-center gap-2 text-xs text-amber-600 bg-amber-50 rounded-xl py-3 px-4 mb-6 max-w-md mx-auto">
+            <ClockIcon className="h-4 w-4 shrink-0" />
+            <span>Download links expire in 48 hours for security.</span>
+          </div>
           <Link href="/store" className="inline-flex items-center space-x-2 text-slate-900 font-bold hover:text-blue-600 transition-colors">
             <span>Explore more in the Library</span>
             <ArrowRightIcon className="h-4 w-4" />

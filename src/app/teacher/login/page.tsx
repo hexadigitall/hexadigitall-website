@@ -62,7 +62,7 @@ export default function TeacherLoginPage() {
           userId: data.userId,
         }))
         // Cookie is also set by the server response. Keep client set as a fallback.
-        document.cookie = `admin_token=${encodeURIComponent(data.token)}; Path=/; Max-Age=86400; SameSite=Lax`
+        document.cookie = `admin_token=${data.token}; Path=/; Max-Age=86400; SameSite=Lax`
         window.location.assign('/teacher/dashboard')
       } else {
         setError(data.message || 'Invalid credentials')

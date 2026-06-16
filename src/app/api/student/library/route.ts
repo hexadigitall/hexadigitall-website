@@ -17,10 +17,17 @@ export async function GET(request: Request) {
         "slug": purchasedPublicationReference->slug.current,
         "audience": audience,
         "acquiredAt": grantedSystemTimestamp,
-        "files": purchasedPublicationReference->salesLinks[audience == ^.audience || (!defined(audience) && audience == 'student')] {
-           "url": file.asset->url,
-           "label": label
-        }
+        "hasTeacherFile": purchasedPublicationReference->teacherFile.asset->url != null,
+        "files": [
+          {
+            "url": purchasedPublicationReference->studentFile.asset->url,
+            "label": "Download Student Edition"
+          },
+          {
+            "url": purchasedPublicationReference->teacherFile.asset->url,
+            "label": "Download Teacher Edition"
+          }
+        ]
       }
     `;
     
@@ -31,10 +38,13 @@ export async function GET(request: Request) {
         "type": publication->_type,
         "slug": publication->slug.current,
         "acquiredAt": registeredAt,
-        "files": publication->salesLinks[audience == 'student'] {
-           "url": file.asset->url,
-           "label": label
-        }
+        "hasTeacherFile": false,
+        "files": [
+          {
+            "url": publication->studentFile.asset->url,
+            "label": "Download Student Edition"
+          }
+        ]
       }
     `;
 
@@ -46,9 +56,8 @@ export async function GET(request: Request) {
     // Format output
     const formattedLedger = ledgerItems.map((item: any) => ({
       ...item,
-      type: item.type === 'book' 
-        ? (item.audience === 'teacher' ? 'Teacher Edition' : 'Student Edition')
-        : 'Digital Imprint'
+      type: item.type === 'book' ? 'Textbook' : 'Digital Imprint',
+      files: (item.files || []).filter((f: any) => f?.url)
     }));
 
     const formattedRegistrations = registrationItems.map((item: any) => ({

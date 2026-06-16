@@ -148,10 +148,6 @@ const nextConfig: NextConfig = {
           value: 'nosniff',
         },
         {
-          key: 'X-Frame-Options',
-          value: 'DENY',
-        },
-        {
           key: 'X-XSS-Protection',
           value: '1; mode=block',
         },
@@ -162,6 +158,15 @@ const nextConfig: NextConfig = {
         {
           key: 'Permissions-Policy',
           value: 'camera=(), microphone=(), geolocation=()',
+        },
+      ],
+    },
+    {
+      source: '/((?!api).*)',
+      headers: [
+        {
+          key: 'X-Frame-Options',
+          value: 'DENY',
         },
       ],
     },

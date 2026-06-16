@@ -20,7 +20,7 @@ export default function DashboardLibraryView({ user, userCourses = [] }: Dashboa
   const [libraryItems, setLibraryItems] = useState<any[]>([]);
   const [catalogItems, setCatalogItems] = useState<BookSummary[]>([]);
   const [loading, setLoading] = useState(true);
-  const [activeTab, setActiveTab] = useState<'collection' | 'catalog'>('collection');
+  const [showCatalog, setShowCatalog] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [levelFilter, setLevelFilter] = useState('all');
 
@@ -145,56 +145,24 @@ export default function DashboardLibraryView({ user, userCourses = [] }: Dashboa
 
   return (
     <div className="space-y-10 animate-in fade-in duration-500">
-      {/* Header & Sub-tabs */}
+      {/* Header */}
       <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6">
         <div>
           <h2 className="text-3xl font-bold text-slate-900 dark:text-white font-serif">Library & Resources</h2>
           <p className="text-sm text-slate-500 mt-1">Manage your collection and explore official Hexadigitall textbooks.</p>
         </div>
-        
-        <div className="flex bg-slate-100 dark:bg-slate-900 p-1 rounded-xl shrink-0">
-          <button
-            onClick={() => setActiveTab('collection')}
-            className={`px-6 py-2 text-xs font-black uppercase tracking-widest rounded-lg transition-all ${
-              activeTab === 'collection' 
-                ? 'bg-white dark:bg-slate-800 text-blue-600 shadow-sm' 
-                : 'text-slate-500 hover:text-slate-700 dark:hover:text-slate-300'
-            }`}
-          >
-            My Collection ({libraryItems.length})
-          </button>
-          <button
-            onClick={() => setActiveTab('catalog')}
-            className={`px-6 py-2 text-xs font-black uppercase tracking-widest rounded-lg transition-all ${
-              activeTab === 'catalog' 
-                ? 'bg-white dark:bg-slate-800 text-blue-600 shadow-sm' 
-                : 'text-slate-500 hover:text-slate-700 dark:hover:text-slate-300'
-            }`}
-          >
-            Official Catalog
-          </button>
-        </div>
       </div>
 
-      {activeTab === 'collection' ? (
-        <>
-          {libraryItems.length === 0 ? (
-            <div className="bg-white dark:bg-slate-900 rounded-[2.5rem] p-16 text-center border border-slate-100 dark:border-slate-800 shadow-sm">
-              <div className="w-24 h-24 bg-slate-50 dark:bg-slate-800 rounded-full flex items-center justify-center mx-auto mb-8">
-                <BookmarkIcon className="h-12 w-12 text-slate-300" />
-              </div>
-              <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-3 font-serif">Your library is currently empty</h3>
-              <p className="text-slate-500 max-w-md mx-auto mb-10 text-lg">
-                You haven't acquired any textbooks or companion assets yet. Explore the catalog to get started.
-              </p>
-              <button 
-                onClick={() => setActiveTab('catalog')}
-                className="inline-flex items-center justify-center bg-blue-600 text-white px-10 py-4 rounded-2xl font-black uppercase tracking-widest text-xs hover:bg-blue-700 transition-all shadow-xl shadow-blue-500/20"
-              >
-                Browse Catalog
-              </button>
-            </div>
-          ) : (
+      {/* Library section wrapped with catalog toggle */}
+      <div>
+        <div className="flex items-center justify-between mb-8">
+          <h3 className="text-lg font-bold text-slate-900 dark:text-white">
+            My Collection ({libraryItems.length})
+          </h3>
+        </div>
+
+        {libraryItems.length > 0 ? (
+          <>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {libraryItems.map((item, index) => (
                 <div key={index} className="bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-[2rem] p-8 shadow-sm hover:shadow-xl transition-all group flex flex-col h-full border-b-4 border-b-blue-600/10 hover:border-b-blue-600">
@@ -223,9 +191,9 @@ export default function DashboardLibraryView({ user, userCourses = [] }: Dashboa
                       </a>
                     ))}
 
-                    {item.type === 'Teacher Edition' && (
+                    {item.audience === 'teacher' && item.hasTeacherFile && (
                       <Link 
-                        href={`/store/${item.slug}/reader`}
+                        href={`/reader/${item.slug}`}
                         className="flex items-center justify-between p-4 rounded-2xl bg-slate-950 dark:bg-blue-600 text-white hover:scale-[1.02] transition-all shadow-lg"
                       >
                         <span className="text-sm font-black uppercase tracking-widest">Open Reader</span>
@@ -236,72 +204,109 @@ export default function DashboardLibraryView({ user, userCourses = [] }: Dashboa
                 </div>
               ))}
             </div>
-          )}
-        </>
-      ) : (
-        <div className="space-y-16">
-          {/* Catalog Filters */}
-          <div className="flex flex-col md:flex-row gap-4 bg-white dark:bg-slate-900 p-6 rounded-[2rem] border border-slate-100 dark:border-slate-800 shadow-sm">
-             <div className="relative flex-1">
-                <MagnifyingGlassIcon className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-slate-400" />
-                <input 
-                    type="text"
-                    placeholder="Search catalog..."
-                    value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
-                    className="w-full pl-12 pr-4 py-3 bg-slate-50 dark:bg-slate-950 border-none rounded-2xl focus:ring-2 focus:ring-blue-600 transition-all text-sm font-medium"
-                />
-             </div>
-             <div className="flex items-center gap-4 shrink-0">
-                <div className="flex items-center gap-2 text-xs font-black uppercase tracking-widest text-slate-400">
-                    <FunnelIcon className="h-4 w-4" />
-                    <span>Level</span>
-                </div>
-                <select 
-                    value={levelFilter}
-                    onChange={(e) => setLevelFilter(e.target.value)}
-                    className="bg-slate-50 dark:bg-slate-950 border-none rounded-2xl py-3 pl-4 pr-10 text-sm font-bold focus:ring-2 focus:ring-blue-600 transition-all"
-                >
-                    <option value="all">All Levels</option>
-                    <option value="beginner">Beginner</option>
-                    <option value="intermediate">Intermediate</option>
-                    <option value="advanced">Advanced</option>
-                </select>
-             </div>
-          </div>
-
-          {/* Suggested Section */}
-          {catalogSections.suggested.length > 0 && (
-            <section>
-                <div className="flex items-center gap-4 mb-8">
-                    <h3 className="text-xs font-black uppercase tracking-[0.3em] text-blue-600 whitespace-nowrap">Suggested for You</h3>
-                    <div className="h-px w-full bg-blue-600/10"></div>
-                </div>
-                {renderBookGrid(catalogSections.suggested)}
-            </section>
-          )}
-
-          {/* Available Section */}
-          <section>
-             <div className="flex items-center gap-4 mb-8">
-                <h3 className="text-xs font-black uppercase tracking-[0.3em] text-slate-400 whitespace-nowrap">Available Now</h3>
-                <div className="h-px w-full bg-slate-100 dark:bg-slate-800"></div>
+            <div className="flex justify-center mt-10">
+              <button
+                onClick={() => setShowCatalog(v => !v)}
+                className={`text-xs font-black uppercase tracking-widest px-6 py-2.5 rounded-xl transition-all ${
+                  showCatalog
+                    ? 'bg-slate-100 dark:bg-slate-800 text-slate-500 hover:text-slate-700 dark:hover:text-slate-300'
+                    : 'bg-blue-600 text-white hover:bg-blue-700 shadow-lg shadow-blue-500/20'
+                }`}
+              >
+                {showCatalog ? 'Close Catalog' : 'Browse Catalog'}
+              </button>
             </div>
-            {renderBookGrid(catalogSections.available, searchQuery || levelFilter !== 'all' ? "No books match your filters." : "No additional textbooks available at this time.")}
-          </section>
+          </>
+        ) : (
+          <div className="bg-white dark:bg-slate-900 rounded-[2.5rem] p-16 text-center border border-slate-100 dark:border-slate-800 shadow-sm">
+            <div className="w-24 h-24 bg-slate-50 dark:bg-slate-800 rounded-full flex items-center justify-center mx-auto mb-8">
+              <BookmarkIcon className="h-12 w-12 text-slate-300" />
+            </div>
+            <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-3 font-serif">Your library is currently empty</h3>
+            <p className="text-slate-500 max-w-md mx-auto mb-10 text-lg">
+              You haven't acquired any textbooks or companion assets yet. Explore the catalog to get started.
+            </p>
+            <div className="flex justify-center">
+              <button
+                onClick={() => setShowCatalog(v => !v)}
+                className={`text-xs font-black uppercase tracking-widest px-6 py-2.5 rounded-xl transition-all ${
+                  showCatalog
+                    ? 'bg-slate-100 dark:bg-slate-800 text-slate-500 hover:text-slate-700 dark:hover:text-slate-300'
+                    : 'bg-blue-600 text-white hover:bg-blue-700 shadow-lg shadow-blue-500/20'
+                }`}
+              >
+                {showCatalog ? 'Close Catalog' : 'Browse Catalog'}
+              </button>
+            </div>
+          </div>
+        )}
 
-          {/* Pipeline Section */}
-          {catalogSections.pipeline.length > 0 && (
+        {/* Catalog content appears below, never replacing */}
+        {showCatalog && (
+          <div className="space-y-16 mt-16 pt-16 border-t border-slate-100 dark:border-slate-800">
+            {/* Catalog Filters */}
+            <div className="flex flex-col md:flex-row gap-4 bg-white dark:bg-slate-900 p-6 rounded-[2rem] border border-slate-100 dark:border-slate-800 shadow-sm">
+               <div className="relative flex-1">
+                  <MagnifyingGlassIcon className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-slate-400" />
+                  <input 
+                      type="text"
+                      placeholder="Search catalog..."
+                      value={searchQuery}
+                      onChange={(e) => setSearchQuery(e.target.value)}
+                      className="w-full pl-12 pr-4 py-3 bg-slate-50 dark:bg-slate-950 border-none rounded-2xl focus:ring-2 focus:ring-blue-600 transition-all text-sm font-medium"
+                  />
+               </div>
+               <div className="flex items-center gap-4 shrink-0">
+                  <div className="flex items-center gap-2 text-xs font-black uppercase tracking-widest text-slate-400">
+                      <FunnelIcon className="h-4 w-4" />
+                      <span>Level</span>
+                  </div>
+                  <select 
+                      value={levelFilter}
+                      onChange={(e) => setLevelFilter(e.target.value)}
+                      className="bg-slate-50 dark:bg-slate-950 border-none rounded-2xl py-3 pl-4 pr-10 text-sm font-bold focus:ring-2 focus:ring-blue-600 transition-all"
+                  >
+                      <option value="all">All Levels</option>
+                      <option value="beginner">Beginner</option>
+                      <option value="intermediate">Intermediate</option>
+                      <option value="advanced">Advanced</option>
+                  </select>
+               </div>
+            </div>
+
+            {/* Suggested Section */}
+            {catalogSections.suggested.length > 0 && (
+              <section>
+                  <div className="flex items-center gap-4 mb-8">
+                      <h3 className="text-xs font-black uppercase tracking-[0.3em] text-blue-600 whitespace-nowrap">Suggested for You</h3>
+                      <div className="h-px w-full bg-blue-600/10"></div>
+                  </div>
+                  {renderBookGrid(catalogSections.suggested)}
+              </section>
+            )}
+
+            {/* Available Section */}
             <section>
-                <div className="flex items-center gap-4 mb-8">
-                    <h3 className="text-xs font-black uppercase tracking-[0.3em] text-amber-500 whitespace-nowrap">In the Pipeline</h3>
-                    <div className="h-px w-full bg-amber-500/10"></div>
-                </div>
-                {renderBookGrid(catalogSections.pipeline, "No upcoming textbooks in the pipeline.")}
+               <div className="flex items-center gap-4 mb-8">
+                  <h3 className="text-xs font-black uppercase tracking-[0.3em] text-slate-400 whitespace-nowrap">Available Now</h3>
+                  <div className="h-px w-full bg-slate-100 dark:bg-slate-800"></div>
+              </div>
+              {renderBookGrid(catalogSections.available, searchQuery || levelFilter !== 'all' ? "No books match your filters." : "No additional textbooks available at this time.")}
             </section>
-          )}
-        </div>
-      )}
+
+            {/* Pipeline Section */}
+            {catalogSections.pipeline.length > 0 && (
+              <section>
+                  <div className="flex items-center gap-4 mb-8">
+                      <h3 className="text-xs font-black uppercase tracking-[0.3em] text-amber-500 whitespace-nowrap">In the Pipeline</h3>
+                      <div className="h-px w-full bg-amber-500/10"></div>
+                  </div>
+                  {renderBookGrid(catalogSections.pipeline, "No upcoming textbooks in the pipeline.")}
+              </section>
+            )}
+          </div>
+        )}
+      </div>
     </div>
   );
 }

@@ -3,6 +3,7 @@ import crypto from 'crypto';
 import { client } from '@/sanity/client';
 import { emailService } from '@/lib/email';
 import { createPublicationDeliveryTemplate } from '@/lib/email-templates';
+import { createDownloadToken } from '@/lib/download-token';
 
 export async function POST(request: NextRequest) {
   try {
@@ -37,10 +38,15 @@ export async function POST(request: NextRequest) {
         operationalLedgerState: 'active',
       });
 
-      // Fetch the publication title
-      const publication = await client.fetch(`*[_id == $id || _id == "drafts." + $id][0] { title }`, { id: targetPublicationReferenceId });
+      // Fetch the publication with file URLs
+      const publication = await client.fetch(`*[_id == $id || _id == "drafts." + $id][0] { title, "studentFileUrl": studentFile.asset->url }`, { id: targetPublicationReferenceId });
       
-      const accessUrl = `${process.env.NEXT_PUBLIC_BASE_URL || 'https://hexadigitall.com'}/publications/success?reference=${dataNode.reference}`;
+      // Generate an expiring download token
+      let downloadUrl = `${process.env.NEXT_PUBLIC_BASE_URL || 'https://hexadigitall.com'}/store/success?reference=${dataNode.reference}`;
+      if (publication?.studentFileUrl) {
+        const token = createDownloadToken(publication.studentFileUrl, verifiedUserEmailToken, targetPublicationReferenceId);
+        downloadUrl = `${process.env.NEXT_PUBLIC_BASE_URL || 'https://hexadigitall.com'}/api/publications/download?token=${encodeURIComponent(token)}`;
+      }
 
       // Dispatch Email
       await emailService.sendEmail({
@@ -48,8 +54,10 @@ export async function POST(request: NextRequest) {
         subject: `Your Digital Asset is Ready! 📚 - ${publication?.title || 'Hexadigitall'}`,
         html: createPublicationDeliveryTemplate({
           publicationTitle: publication?.title || 'Your Digital Asset',
-          accessUrl,
-          reference: dataNode.reference
+          accessUrl: downloadUrl,
+          reference: dataNode.reference,
+          isDownloadLink: !!publication?.studentFileUrl,
+          expiryHours: process.env.DOWNLOAD_TOKEN_EXPIRY_HOURS || '48'
         })
       });
     }

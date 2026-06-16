@@ -16,11 +16,6 @@ interface TwoStepCheckoutModalProps {
   onSuccess: (checkoutUrl: string) => void;
 }
 
-const ROLES = [
-  { id: 'student', label: 'Student' },
-  { id: 'instructor', label: 'Instructor / Mentor / Parent' },
-];
-
 export default function TwoStepCheckoutModal({
   isOpen,
   onClose,
@@ -35,8 +30,7 @@ export default function TwoStepCheckoutModal({
   const [step, setStep] = useState(1);
   const [formData, setFormData] = useState({ 
     fullName: userContext?.name || '', 
-    email: userContext?.email || userContext?.username || '', 
-    role: userContext?.role === 'teacher' ? 'instructor' : (userContext?.role || 'student')
+    email: userContext?.email || userContext?.username || ''
   });
   const [isSubmitting, setIsPending] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -47,15 +41,14 @@ export default function TwoStepCheckoutModal({
       setFormData(prev => ({
         ...prev,
         fullName: prev.fullName || userContext.name || '',
-        email: prev.email || userContext.email || userContext.username || '',
-        role: userContext.role === 'teacher' ? 'instructor' : (userContext.role || prev.role)
+        email: prev.email || userContext.email || userContext.username || ''
       }));
     }
   }, [userContext]);
 
   const handleNext = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!formData.fullName || !formData.email || (itemType === 'book' && !formData.role)) {
+    if (!formData.fullName || !formData.email) {
       setError('Please fill out all fields.');
       return;
     }
@@ -84,7 +77,7 @@ export default function TwoStepCheckoutModal({
             itemType,
             publicationId: itemId,
             itemTitle: title,
-            userRole: formData.role
+            userRole: 'student'
           }
         }),
       });
@@ -102,8 +95,6 @@ export default function TwoStepCheckoutModal({
       setIsPending(false);
     }
   };
-
-  const showRoleField = itemType === 'book' && !userContext?.role;
 
   return (
     <Dialog open={isOpen} onClose={onClose} className="relative z-[100]">
@@ -156,21 +147,7 @@ export default function TwoStepCheckoutModal({
                       />
                     </div>
 
-                    {showRoleField && (
-                      <div>
-                        <label className="block text-[10px] font-black uppercase tracking-widest text-slate-400 mb-2 ml-1">Role</label>
-                        <select
-                          required
-                          className="w-full px-5 py-4 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-2xl focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 outline-none transition-all text-slate-900 dark:text-white font-sans"
-                          value={formData.role}
-                          onChange={(e) => setFormData({ ...formData, role: e.target.value })}
-                        >
-                          {ROLES.map(r => (
-                            <option key={r.id} value={r.id}>{r.label}</option>
-                          ))}
-                        </select>
-                      </div>
-                    )}
+
                   </div>
 
                   {error && <p className="text-xs text-red-500 mt-4 ml-1">{error}</p>}

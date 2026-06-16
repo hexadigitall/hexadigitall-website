@@ -536,7 +536,7 @@ export default function TeacherDashboardPage() {
                               </a>
                               {course.textbook.hasTeacherWebcopy && (
                                 <Link
-                                  href={`/store/${course.textbook.slug.current}/reader`}
+                                  href={`/reader/${course.textbook.slug.current}`}
                                   className="flex items-center justify-center gap-2 px-3 py-2.5 bg-slate-900 text-white rounded-xl hover:bg-slate-800 transition-colors text-[10px] font-bold shadow-md"
                                 >
                                   <BookOpenIcon className="h-3.5 w-3.5" />

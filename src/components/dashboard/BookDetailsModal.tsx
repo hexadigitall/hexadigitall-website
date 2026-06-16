@@ -35,12 +35,7 @@ export default function BookDetailsModal({
   const { currentCurrency, formatPrice, convertPrice } = useCurrency();
   
   const isInstructor = user?.role === 'teacher' || user?.role === 'instructor' || user?.role === 'admin';
-  const hasBothEditions = book.hasStudentVersion && book.hasTeacherVersion;
-  
-  // Teachers can switch between editions if both exist
-  const [activeEdition, setActiveEdition] = useState<'student' | 'teacher'>(
-    propVariant === 'teacher' ? 'teacher' : 'student'
-  );
+  const isTeacherEdition = isInstructor;
 
   if (!book) return null;
 
@@ -51,11 +46,11 @@ export default function BookDetailsModal({
     return resolveBookPrice({
         slug: book.slug.current,
         _type: book._type,
-        variant: activeEdition,
+        variant: isTeacherEdition ? 'teacher' : 'student',
         relatedCourse: book.relatedCourse as any,
         pricing: book.pricing
     });
-  }, [book.slug.current, book._type, book.relatedCourse, book.pricing, activeEdition]);
+  }, [book.slug.current, book._type, book.relatedCourse, book.pricing, isTeacherEdition]);
 
   const rawPrice = React.useMemo(() => {
     if (currentCurrency.code === 'NGN') return resolvedPrice.ngn;
@@ -72,8 +67,7 @@ export default function BookDetailsModal({
     setCheckoutOpen(true);
   };
 
-  // Determine current display context based on active tab
-  const displayVariant = isInstructor ? activeEdition : 'student';
+  const displayVariant = isTeacherEdition ? 'teacher' : 'student';
 
   return (
     <>
@@ -113,15 +107,17 @@ export default function BookDetailsModal({
                             className="w-full flex items-center justify-center gap-3 bg-white dark:bg-slate-800 text-slate-900 dark:text-white py-4 rounded-2xl font-black uppercase tracking-widest text-xs border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-700 transition-all disabled:opacity-50 shadow-sm"
                           >
                             {isSaved ? <CheckCircleIcon className="h-5 w-5 text-green-500" /> : <BookmarkIcon className="h-5 w-5" />}
-                            {isSaved ? 'Saved to Dashboard' : 'Save to Dashboard'}
+                            {isSaved ? 'Saved' : 'Save'}
                           </button>
-                          <Link
-                            href={`/store/${book.slug.current}/reader`}
-                            className="w-full flex items-center justify-center gap-3 bg-slate-950 dark:bg-blue-600 text-white py-4 rounded-2xl font-black uppercase tracking-widest text-xs hover:scale-[1.02] transition-all shadow-xl"
-                          >
-                            <BookOpenIcon className="h-5 w-5" />
-                            View Reader
-                          </Link>
+                          {(book.hasTeacherWebcopy || book.hasTeacherVersion || book.teacherFile?.asset?.url) && (
+                            <Link
+                              href={`/reader/${book.slug.current}`}
+                              className="w-full flex items-center justify-center gap-3 bg-slate-950 dark:bg-blue-600 text-white py-4 rounded-2xl font-black uppercase tracking-widest text-xs hover:scale-[1.02] transition-all shadow-xl"
+                            >
+                              <BookOpenIcon className="h-5 w-5" />
+                              Open Web Reader
+                            </Link>
+                          )}
                       </>
                     ) : (
                       <button
@@ -142,24 +138,9 @@ export default function BookDetailsModal({
                 <div className="p-10 md:p-12 overflow-y-auto">
                   <div className="mb-10">
                     <div className="flex flex-wrap items-center gap-3 mb-6">
-                      {isInstructor && hasBothEditions ? (
-                        <div className="flex bg-slate-100 dark:bg-slate-800 p-1 rounded-xl">
-                           <button 
-                            onClick={() => setActiveEdition('student')}
-                            className={`px-4 py-1.5 text-[10px] font-black uppercase tracking-widest rounded-lg transition-all ${activeEdition === 'student' ? 'bg-white dark:bg-slate-700 text-blue-600 shadow-sm' : 'text-slate-500'}`}
-                           >
-                            Student Ed.
-                           </button>
-                           <button 
-                            onClick={() => setActiveEdition('teacher')}
-                            className={`px-4 py-1.5 text-[10px] font-black uppercase tracking-widest rounded-lg transition-all ${activeEdition === 'teacher' ? 'bg-white dark:bg-slate-700 text-amber-600 shadow-sm' : 'text-slate-500'}`}
-                           >
-                            Teacher Ed.
-                           </button>
-                        </div>
-                      ) : (
-                        <span className={`text-[10px] font-black uppercase tracking-widest px-3 py-1 rounded-full ${displayVariant === 'teacher' ? 'bg-amber-100 text-amber-700 dark:bg-amber-900/30' : 'bg-blue-600 text-white'}`}>
-                            {displayVariant === 'teacher' ? 'Instructor Edition' : 'Student Edition'}
+                      {isTeacherEdition && (
+                        <span className="text-[10px] font-black uppercase tracking-widest px-3 py-1 rounded-full bg-amber-100 text-amber-700 dark:bg-amber-900/30">
+                          Instructor Edition
                         </span>
                       )}
                       
@@ -223,7 +204,7 @@ export default function BookDetailsModal({
       <TwoStepCheckoutModal
         isOpen={checkoutOpen}
         onClose={() => setCheckoutOpen(false)}
-        title={`${book.title} (${activeEdition === 'teacher' ? 'Instructor' : 'Student'} Edition)`}
+        title={book.title}
         price={rawPrice}
         currency={currentCurrency.code}
         itemId={book._id}

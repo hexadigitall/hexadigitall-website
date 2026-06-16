@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Ansible Automation &amp; IaC Fundamentals - Course Curriculum | Hexadigitall Technologies</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Ubuntu, sans-serif; line-height: 1.6; color: #111827; background: #f9fafb; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 2rem; }
+        .brand-bar { display: flex; align-items: center; justify-content: space-between; gap: 20px; background: linear-gradient(135deg, #1d4ed8 0%, #0891b2 100%); padding: 1rem 1.5rem; border-radius: 12px; margin: 1rem 0 1.5rem; }
+        .brand-meta { display: flex; align-items: center; gap: 12px; }
+        .brand-meta img { width: 52px; height: auto; }
+        .brand-text { display: flex; flex-direction: column; gap: 2px; }
+        .brand-name { color: #fff; font-size: 1.05rem; font-weight: 700; }
+        .brand-link { color: #e5e7eb; font-size: 0.9rem; text-decoration: none; }
+        .brand-link:hover { text-decoration: underline; }
+        .qr-block { display: flex; align-items: center; gap: 10px; background: rgba(255,255,255,0.15); padding: 0.5rem 0.75rem; border-radius: 10px; border: 1px solid rgba(255,255,255,0.25); }
+        .qr-block img { width: 72px; height: 72px; border-radius: 6px; background: #fff; padding: 4px; }
+        .qr-text { color: #f3f4f6; font-size: 0.8rem; max-width: 190px; line-height: 1.35; }
+        .course-hero { background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 100%); color: #fff; padding: 2rem; border-radius: 16px; margin-bottom: 2rem; }
+        .hero-grid { display: grid; grid-template-columns: 1fr auto; gap: 1.5rem; align-items: center; }
+        .hero-meta { display: flex; gap: 1rem; margin-top: 1rem; flex-wrap: wrap; }
+        .meta-item { background: rgba(255,255,255,0.15); padding: 0.45rem 0.8rem; border-radius: 8px; }
+        .qr-box { background: #fff; padding: 0.75rem; border-radius: 12px; }
+        .qr-box img { width: 130px; height: 130px; }
+        .header { background: #fff; padding: 2rem; border-radius: 16px; margin-bottom: 1.5rem; border: 1px solid #e5e7eb; }
+        .subtitle { color: #4b5563; margin: 0.75rem 0; }
+        .course-meta { display: flex; flex-wrap: wrap; gap: 0.75rem; }
+        .header .meta-item { background: #f3f4f6; color: #111827; }
+        .welcome-section { background: linear-gradient(180deg, #eff6ff 0%, #fff 100%); border: 1px solid #bfdbfe; border-radius: 16px; padding: 1.5rem; margin-bottom: 1.5rem; }
+        .section { background: #fff; padding: 2rem; border-radius: 16px; margin-bottom: 2rem; border: 1px solid #e5e7eb; }
+        .section-title { font-size: 1.75rem; margin-bottom: 1.5rem; text-align: left; font-weight: 700; color: #0f172a; border-bottom: 2px solid #e2e8f0; padding-bottom: 0.5rem; }
+        .week-block { border: 1px solid #e5e7eb; border-left: 6px solid #0284c7; border-radius: 12px; padding: 1.25rem; margin-bottom: 1.25rem; }
+        .week-header { display: flex; justify-content: space-between; margin-bottom: 0.5rem; }
+        .week-topic { color: #0369a1; font-size: 1.15rem; font-weight: 700; margin-bottom: 0.5rem; }
+        .week-content ul { margin-left: 1.2rem; }
+        .lab-section { margin-top: 0.8rem; padding: 0.8rem; border-radius: 10px; background: #f0f9ff; border: 1px solid #bae6fd; }
+        .project-objectives { margin-top: 1rem; }
+        .project-objectives ul { margin-left: 1.2rem; }
+        .footer { text-align: center; padding: 2rem; color: #6b7280; border-top: 1px solid #e5e7eb; margin-top: 2rem; }
+        @media (max-width:768px) { .hero-grid { grid-template-columns: 1fr; } .qr-box { margin: 0 auto; } }
+    </style>
+
+<style id="curriculum-ui-normalization">
+:root { --primary-color:#0284c7; --secondary-color:#38bdf8; --dark-blue:#0c4a6e; --text-dark:#0f172a; --text-light:#475569; --bg-white:#ffffff; --bg-light:#f0f9ff; --border-color:#bae6fd; }
+body { font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif; color:var(--text-dark); background:radial-gradient(circle at top right,#f0f9ff 0%,#ffffff 45%); }
+h1,h2,h3,h4,.section-title,.week-topic,.week-number,.brand-name { font-family:'Space Grotesk','Inter',sans-serif; letter-spacing:-0.01em; }
+.section { margin-bottom:44px; }
+.card,.week-block,.project-card { border-radius:12px; border:1px solid var(--border-color); box-shadow:0 4px 16px rgba(12,74,110,0.06); }
+.welcome-section { background:linear-gradient(135deg,#e0f2fe 0%,#fafafa 100%); border-left:5px solid var(--primary-color); padding:28px; border-radius:12px; margin-bottom:36px; }
+.project-card { background:linear-gradient(135deg,#bae6fd 0%,#ffffff 60%); padding:20px; margin-bottom:14px; }
+.project-card h4 { color:var(--dark-blue); margin-bottom:8px; }
+.project-card p { color:var(--text-light); margin-bottom:10px; }
+.project-card ul { margin-left:18px; }
+.project-card li { margin:6px 0; }
+</style>
+
+<style id="curriculum-enhanced-ui-ux">
+        .grid-dashboard {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 1.25rem;
+        }
+        .metric-card {
+            background: #ffffff;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 1.5rem;
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .metric-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(2, 132, 199, 0.08);
+        }
+        .metric-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: var(--secondary-color);
+        }
+        .metric-card h4 {
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+        .metric-card p {
+            font-size: 0.95rem;
+            color: var(--text-dark);
+            line-height: 1.5;
+        }
+
+        .grid-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 1.5rem;
+        }
+        .feature-card {
+            background: linear-gradient(180deg, #ffffff 0%, var(--bg-light) 100%);
+            border: 1px solid var(--border-color);
+            border-radius: 14px;
+            padding: 1.75rem;
+            transition: all 0.2s ease;
+        }
+        .feature-card:hover {
+            border-color: var(--secondary-color);
+            box-shadow: 0 4px 18px rgba(56, 189, 248, 0.08);
+        }
+        .feature-card h3 {
+            font-size: 1.2rem;
+            color: var(--dark-blue);
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .feature-card p {
+            color: var(--text-light);
+            font-size: 0.95rem;
+        }
+
+        .toolkit-container {
+            background: #ffffff;
+            border: 1px solid var(--border-color);
+            border-radius: 14px;
+            padding: 1.5rem;
+        }
+        .toolkit-ribbon {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        .toolkit-tag {
+            background: var(--bg-light);
+            border: 1px solid var(--border-color);
+            color: var(--primary-color);
+            padding: 0.75rem 1.25rem;
+            border-radius: 30px;
+            font-size: 0.95rem;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            transition: all 0.15s ease;
+        }
+        .toolkit-tag:hover {
+            background: var(--primary-color);
+            color: #ffffff;
+            border-color: var(--primary-color);
+        }
+
+        .roadmap-timeline {
+            position: relative;
+            padding-left: 2rem;
+            margin: 1rem 0;
+        }
+        .roadmap-timeline::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 7px;
+            width: 2px;
+            height: 100%;
+            background: var(--border-color);
+        }
+        .roadmap-node {
+            position: relative;
+            margin-bottom: 2rem;
+        }
+        .roadmap-node:last-child {
+            margin-bottom: 0;
+        }
+        .roadmap-marker {
+            position: absolute;
+            left: -2rem;
+            top: 4px;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: #ffffff;
+            border: 4px solid var(--secondary-color);
+            z-index: 2;
+            transition: background 0.2s ease;
+        }
+        .roadmap-node:hover .roadmap-marker {
+            background: var(--secondary-color);
+        }
+        .roadmap-content {
+            background: #ffffff;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 1.25rem 1.5rem;
+            transition: box-shadow 0.2s ease;
+        }
+        .roadmap-node:hover .roadmap-content {
+            box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+        }
+        .roadmap-phase {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            font-weight: 700;
+            color: var(--secondary-color);
+            letter-spacing: 0.05em;
+            margin-bottom: 0.25rem;
+        }
+        .roadmap-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--dark-blue);
+            margin-bottom: 0.5rem;
+        }
+        .roadmap-desc {
+            font-size: 0.95rem;
+            color: var(--text-light);
+            line-height: 1.5;
+        }
+</style>
+
+<style id="curriculum-theme-override">
+:root { --primary-color:hsl(199 89% 38%); --secondary-color:hsl(199 95% 60%); --dark-blue:hsl(199 85% 15%); --text-dark:hsl(199 40% 10%); --text-light:hsl(199 12% 38%); --border-color:hsl(199 45% 85%); --bg-light:hsl(199 60% 97%); --theme-hero-a:hsl(199 50% 94%); --theme-hero-b:hsl(185 55% 96%); }
+body { background:radial-gradient(circle at 8% 0%, color-mix(in srgb, var(--theme-hero-a) 72%, white), #ffffff 46%); }
+.course-hero { background:linear-gradient(135deg,var(--theme-hero-a) 0%,var(--theme-hero-b) 100%); }
+.header { background:linear-gradient(135deg,color-mix(in srgb, var(--dark-blue) 90%, black), var(--primary-color)); }
+.section-title::before { background:linear-gradient(180deg,var(--primary-color),var(--secondary-color)); }
+.week-block { border-left:6px solid var(--primary-color); }
+</style>
+
+<style id="curriculum-contrast-fix">
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif !important;
+  color: var(--text-dark) !important;
+  background-color: #ffffff;
+}
+h1, h2, h3, h4, .section-title, .week-topic, .week-number, .brand-name {
+  font-family: 'Space Grotesk', 'Inter', sans-serif !important;
+}
+.container,
+.section,
+.card,
+.week-block,
+.week-column,
+.project-card,
+.welcome-section,
+.resource-item,
+.roadmap-card,
+.info-box {
+  color: var(--text-dark);
+}
+.course-hero,
+.course-hero h1,
+.course-hero h2,
+.course-hero h3,
+.course-hero h4,
+.course-hero p,
+.course-hero li,
+.course-hero a {
+  color: var(--text-dark) !important;
+}
+.brand-bar,
+.header,
+.footer {
+  background: linear-gradient(135deg, color-mix(in srgb, var(--dark-blue) 92%, black), var(--primary-color)) !important;
+}
+.header,
+.header h1,
+.header h2,
+.header h3,
+.header h4,
+.header p,
+.header li,
+.header strong,
+.header a,
+.brand-bar,
+.brand-bar h1,
+.brand-bar h2,
+.brand-bar h3,
+.brand-bar h4,
+.brand-bar p,
+.brand-bar li,
+.brand-bar strong,
+.brand-bar a,
+.footer,
+.footer h1,
+.footer h2,
+.footer h3,
+.footer h4,
+.footer p,
+.footer li,
+.footer strong,
+.footer a {
+  color: #ffffff !important;
+}
+.brand-bar .brand-link,
+.brand-bar .qr-text,
+.footer p {
+  color: rgba(255, 255, 255, 0.92) !important;
+}
+.meta-item {
+  color: var(--text-dark);
+}
+.header .meta-item {
+  color: #ffffff !important;
+  background: rgba(255,255,255,0.16) !important;
+}
+a { color: var(--primary-color); }
+a:hover { opacity: 0.9; }
+li { color: inherit; }
+.section-title,
+.week-topic,
+.project-card h4,
+.card h3,
+.welcome-section h2 {
+  opacity: 1 !important;
+}
+</style>
+
+<style id="curriculum-brandbar-contrast-fix">
+.brand-bar {
+  background: linear-gradient(135deg, color-mix(in srgb, var(--dark-blue) 88%, black), var(--primary-color)) !important;
+  border-color: color-mix(in srgb, var(--primary-color) 35%, white) !important;
+}
+.brand-bar .brand-name,
+.brand-bar .brand-link,
+.brand-bar .qr-text,
+.brand-bar .brand-text,
+.brand-bar .brand-meta,
+.brand-bar a,
+.brand-bar p,
+.brand-bar strong {
+  color: #ffffff !important;
+}
+.brand-bar .brand-link {
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.brand-bar .qr-block {
+  background: rgba(255,255,255,0.16) !important;
+  border-color: rgba(255,255,255,0.35) !important;
+}
+.brand-bar .qr-text {
+  opacity: 0.95;
+}
+</style>
+</head>
+<body>
+<div class="container">
+<div class="brand-bar">
+<div class="brand-meta">
+<img alt="Hexadigitall Technologies logo" src="../hexadigitall-logo-transparent.png"/>
+<div class="brand-text">
+<div class="brand-name">Hexadigitall Technologies</div>
+<a class="brand-link" href="https://hexadigitall.com" rel="noopener" target="_blank">https://hexadigitall.com</a>
+</div>
+</div>
+<div class="qr-block">
+<img alt="QR code to the course page" src="https://api.qrserver.com/v1/create-qr-code/?size=240x240&amp;data=https%3A%2F%2Fhexadigitall.com%2Fcourses%2Fansible-automation-and-iac-fundamentals"/>
+<div class="qr-text">Scan to open the course page and view enrollment options.</div>
+</div>
+</div>
+<div class="course-hero">
+<div class="hero-grid">
+<div>
+<h2>Course Snapshot</h2>
+<p style="font-size: 1.05rem; opacity: 0.95;">The ultimate zero-to-one engineering path to mastering multi-node network orchestration, automated environment compilation, and declarative software delivery systems from the ground up.</p>
+<div class="hero-meta">
+<div class="meta-item"><strong>20 Weeks</strong></div>
+<div class="meta-item"><strong>Foundational to Core Professional</strong></div>
+<div class="meta-item"><strong>Project-Based</strong></div>
+</div>
+</div>
+<div class="qr-box">
+<img alt="Course QR Code" src="../og-images/course-ansible-automation-and-iac-fundamentals.jpg"/>
+</div>
+</div>
+</div>
+<div class="header">
+<h1>Ansible Automation &amp; IaC Fundamentals</h1>
+<p class="subtitle">Building atomic multi-node connection blueprints, structural playbooks, declarative roles, and continuous local delivery configurations completely from scratch.</p>
+<div class="course-meta">
+<div class="meta-item"><strong>Duration:</strong> 20 Weeks (4 Progressive Phases)</div>
+<div class="meta-item"><strong>Level:</strong> Foundational to Core Professional</div>
+<div class="meta-item"><strong>Study Time:</strong> 2 hours/session, 2 sessions/week required</div>
+<div class="meta-item"><strong>School:</strong> Hexadigitall Academy</div>
+</div>
+</div>
+<div class="welcome-section">
+<h2>Welcome to Ansible Automation &amp; IaC Fundamentals! 🎓</h2>
+<p>This entry-level 20-week professional engineering program is meticulously architected to take you from a true configuration novice to a capable Infrastructure Automation Engineer. We start directly from absolute scratch—establishing safe terminal environments, compiling atomic playbooks, configuring inventory networks, and parsing structured YAML abstraction schemas safely before moving on to multi-tier deployment suites.</p>
+<p>This program acts as the mandatory prerequisite stepping stone before proceeding to our specialized <em>Advanced Ansible Automation &amp; IaC</em> masterclass.</p>
+<p><strong>Your engineering development is our mission.</strong> You will progress across 4 strategic technical phases, completing at least two dedicated laboratory exercises every single week to build reproducible, production-grade automation skills.</p>
+</div>
+
+<div class="section">
+    <h2 class="section-title">Prerequisites &amp; Entry Criteria</h2>
+    <div class="grid-dashboard">
+        <div class="metric-card">
+            <h4>Terminal Familiarity</h4>
+            <p>Basic comfort operating inside a Linux terminal shell environment (navigating pathways, reading files, executing scripts).</p>
+        </div>
+        <div class="metric-card">
+            <h4>Text Abstractions</h4>
+            <p>Elementary exposure to common data structuring formats or descriptive text markup layouts (JSON, XML, or basic properties layouts).</p>
+        </div>
+        <div class="metric-card">
+            <h4>System Access Baselines</h4>
+            <p>Awareness of remote machine connectivity parameters, including general key-pair verification mechanics and target host ports.</p>
+        </div>
+        <div class="metric-card">
+            <h4>Professional Target</h4>
+            <p>A firm commitment to discard manual server-by-server clicking habits in favor of deterministic, declarative configuration tracking models.</p>
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <h2 class="section-title">Recommended Complementary Curriculums</h2>
+    <div class="grid-features">
+        <div class="feature-card">
+            <h3>🌐 Advanced Ansible Automation &amp; IaC</h3>
+            <p>Our follow-up masterclass covering variable lifecycles, customized Python extensions, and multi-node controller mesh routers.</p>
+        </div>
+        <div class="feature-card">
+            <h3>🛡️ Identity &amp; Access Governance</h3>
+            <p>Integrate context-driven cryptographically verified identity planes, deploy identity-aware proxies, and lock container networks.</p>
+        </div>
+        <div class="feature-card">
+            <h3>📊 Infrastructure Protection</h3>
+            <p>Master native Open Policy Agent engines, write declarative code checking parameters, and structure validation gates.</p>
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <h2 class="section-title">Essential Learning Tools</h2>
+    <div class="toolkit-container">
+        <div class="toolkit-ribbon">
+            <div class="toolkit-tag">📋 Atomic Ad-Hoc Command Manifests</div>
+            <div class="toolkit-tag">📊 Multi-Node Vagrant Virtual Target Grids</div>
+            <div class="toolkit-tag">🗺️ Declarative YAML Schema Linting Engines</div>
+            <div class="toolkit-tag">🔀 Centralized Vault Credential Stores</div>
+            <div class="toolkit-tag">🤖 Continuous Local Execution Sandboxes</div>
+            <div class="toolkit-tag">💾 Modular System Task Templates</div>
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <h2 class="section-title">Your Learning Roadmap</h2>
+    <div class="roadmap-timeline">
+        <div class="roadmap-node">
+            <div class="roadmap-marker"></div>
+            <div class="roadmap-content">
+                <div class="roadmap-phase">Phase 1 — Weeks 1 to 5</div>
+                <div class="roadmap-title">Control Plane Foundations &amp; Ad-Hoc Automation</div>
+                <div class="roadmap-desc">Establish local runtime environments, configure multi-node test sandboxes, manage target inventories, and execute atomic ad-hoc operational commands natively.</div>
+            </div>
+        </div>
+        <div class="roadmap-node">
+            <div class="roadmap-marker"></div>
+            <div class="roadmap-content">
+                <div class="roadmap-phase">Phase 2 — Weeks 6 to 10</div>
+                <div class="roadmap-title">Declarative Playbook Architecture &amp; Task Design</div>
+                <div class="roadmap-desc">Mastering standard YAML syntax definitions, handling fundamental configuration variables, tracking platform execution states, and managing simple error loops.</div>
+            </div>
+        </div>
+        <div class="roadmap-node">
+            <div class="roadmap-marker"></div>
+            <div class="roadmap-content">
+                <div class="roadmap-phase">Phase 3 — Weeks 11 to 15</div>
+                <div class="roadmap-title">Modular Structure Architecture (Roles &amp; Handlers)</div>
+                <div class="roadmap-desc">Decoupling monolithic text manifests into reusable atomic sub-roles, structuring condition-triggered configuration events, and embedding local secrets vaults safely.</div>
+            </div>
+        </div>
+        <div class="roadmap-node">
+            <div class="roadmap-marker"></div>
+            <div class="roadmap-content">
+                <div class="roadmap-phase">Phase 4 — Weeks 16 to 20</div>
+                <div class="roadmap-title">Production Delivery Patterns &amp; Multi-Tier Systems</div>
+                <div class="roadmap-desc">Orchestrating multi-tier enterprise web stacks, tracking configuration modifications across real target networks, and delivering the final core capstone engineering builds.</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="section"><h2 class="section-title">Detailed Weekly Curriculum</h2>
+
+<div class="week-block"><div class="week-header"><div class="week-number">Week 1</div><div class="week-duration">4 Hours / Week PACE</div></div><div class="week-topic">Control Plane Bootstrapping &amp; Architecture Mechanics</div><div class="week-content"><ul><li>Analyze the architectural divergence between agentless configuration engines and agent-dependent orchestration frameworks.</li><li>Deconstruct the internal operational control layers of an automation engine running inside a local UNIX environment.</li><li>Identify Python package runtime paths to establish a clean, predictable orchestration launchpad.</li></ul><div class="lab-section"><h4>Laboratory 1.1</h4><ul><li>Bootstrap a native control plane instance inside a localized terminal container layer without runtime conflicts.</li></ul><h4>Laboratory 1.2</h4><ul><li>Execute software version mapping checks to track engine environment variables and isolate core binary paths.</li></ul></div></div></div>
+
+<div class="week-block"><div class="week-header"><div class="week-number">Week 2</div><div class="week-duration">4 Hours / Week PACE</div></div><div class="week-topic">Target Instance Provisioning &amp; Key-Pair Exchange Strategy</div><div class="week-content"><ul><li>Deconstruct secure shell authentication mechanisms used to access distributed remote system backplanes.</li><li>Formulate non-interactive identity keys to bypass traditional manual password prompt roadblocks securely.</li><li>Evaluate target node connection properties, ensuring proper terminal configurations exist across remote testing endpoints.</li></ul><div class="lab-section"><h4>Laboratory 2.1</h4><ul><li>Provision a private virtual target environment utilizing infrastructure automation tools to spin up isolated endpoints.</li></ul><h4>Laboratory 2.2</h4><ul><li>Orchestrate a non-interactive token exchange matrix, verifying clear paths from your local machine to the target boxes.</li></ul></div></div></div>
+
+<div class="week-block"><div class="week-header"><div class="week-number">Week 3</div><div class="week-duration">4 Hours / Week PACE</div></div><div class="week-topic">Static Inventory Structure &amp; Grouping Patterns</div><div class="week-content"><ul><li>Structure clear static configuration records mapping remote endpoints into predictable administrative boundaries.</li><li>Formulate logical target classifications separating corporate testing scopes from simulation zones.</li><li>Analyze parent-child layout relationships inside text-based configuration manifests to map nested host nodes.</li></ul><div class="lab-section"><h4>Laboratory 3.1</h4><ul><li>Build an enterprise static inventory manifest grouping separate remote hosts by functional data roles.</li></ul><h4>Laboratory 3.2</h4><ul><li>Map nested infrastructure classifications inside a single configuration file to prove complex node group routing.</li></ul></div></div></div>
+
+<div class="week-block"><div class="week-header"><div class="week-number">Week 4</div><div class="week-duration">4 Hours / Week PACE</div></div><div class="week-topic">Atomic Ad-Hoc Management Modules (Ping, Command, &amp; Shell)</div><div class="week-content"><ul><li>Analyze execution capabilities by running ad-hoc operations directly against massive target connection clusters.</li><li>Distinguish structural performance variations between running raw unmanaged shell strings versus using deterministic system modules.</li><li>Enforce system status evaluations, checking network packet paths without compiling long-lived script assets.</li></ul><div class="lab-section"><h4>Laboratory 4.1</h4><ul><li>Execute system verification commands across multi-node host groups using native ad-hoc connectivity sweeps.</li></ul><h4>Laboratory 4.2</h4><ul><li>Compare the outputs of unmanaged command scripts against deterministic state modules to isolate configuration risks.</li></ul></div></div></div>
+
+<div class="week-block"><div class="week-header"><div class="week-number">Week 5</div><div class="week-duration">4 Hours / Week PACE</div></div><div class="week-topic">Phase 1 Foundations Ad-Hoc Milestone Build</div><div class="week-content"><ul><li>Synthesize local control plane setups, public token authentications, and group configuration profiles into an automation baseline.</li><li>Evaluate compiled target configuration registers against unexpected communication breaks.</li><li>Justify orchestration pathways by defending structural group layouts before peer verification groups.</li></ul><div class="lab-section"><h4>Laboratory 5.1</h4><ul><li>Assemble a complete static automation network managing multiple target endpoints from a single control point.</li></ul><h4>Laboratory 5.2</h4><ul><li>Execute an enterprise-wide ad-hoc compliance patch across all connected environments, confirming state values.</li></ul></div></div></div>
+
+<div class="week-block"><div class="week-header"><div class="week-number">Week 6</div><div class="week-duration">4 Hours / Week PACE</div></div><div class="week-topic">Declarative Playbook Architecture &amp; YAML Schema Validation</div><div class="week-content"><ul><li>Deconstruct structural schema hierarchies inside declarative configuration playbooks following strict text alignment formatting rules.</li><li>Analyze the formatting rules of YAML data fields, capturing indent specifications, dictionary declarations, and array blocks.</li><li>Validate syntax patterns using automated linting instruments to catch loose characters before runtime execution loops.</li></ul><div class="lab-section"><h4>Laboratory 6.1</h4><ul><li>Draft a multi-play orchestration file applying state updates across separate target infrastructure pools.</li></ul><h4>Laboratory 6.2</h4><ul><li>Deploy automated schema check engines to isolate and remediate formatting errors inside structural configuration scripts.</li></ul></div></div></div>
+
+<div class="week-block"><div class="week-header"><div class="week-number">Week 7</div><div class="week-duration">4 Hours / Week PACE</div></div><div class="week-topic">Core State Management Modules (File, Copy, &amp; Lineinfile)</div><div class="week-content"><ul><li>Analyze file system state targets by writing declarative tasks that manage file creation, permission bits, and group owners.</li><li>Formulate content distribution tracks pushing text payloads safely across separate remote destinations.</li><li>Optimize target file updating procedures by targeting individual text parameters safely without rewriting source documents.</li></ul><div class="lab-section"><h4>Laboratory 7.1</h4><ul><li>Build an automation playbook managing file structures, directories, and permission matrices across multi-node zones.</li></ul><h4>Laboratory 7.2</h4><ul><li>Deploy target text alterations inside configuration assets utilizing line-matching modules without altering surrounding context blocks.</li></ul></div></div></div>
+
+<div class="week-block"><div class="week-header"><div class="week-number">Week 8</div><div class="week-duration">4 Hours / Week PACE</div></div><div class="week-topic">Package Registry Orchestration &amp; Service State Controls</div><div class="week-content"><ul><li>Enforce systemic application compliance by managing host binary states uniformly across independent operating variations.</li><li>Design lifecycle tracking tasks ensuring continuous running states for target background engine daemons.</li><li>Formulate step-by-step update workflows combining dependency gathering checks directly with active service reloads.</li></ul><div class="lab-section"><h4>Laboratory 8.1</h4><ul><li>Construct a deployment playbook that updates software components on remote nodes using native engine calls.</li></ul><h4>Laboratory 8.2</h4><ul><li>Orchestrate task blocks that verify background service statuses, forcing restarts on broken server processes automatically.</li></ul></div></div></div>
+
+<div class="week-block"><div class="week-header"><div class="week-number">Week 9</div><div class="week-duration">4 Hours / Week PACE</div></div><div class="week-topic">Foundational Variable Integration &amp; Dynamic Fact Ingestion</div><div class="week-content"><ul><li>Analyze parameter integration lanes by creating custom configuration definitions inside execution playbooks.</li><li>Deconstruct dynamic hardware metadata parameters parsed directly by the engine during initial target discovery routines.</li><li>Formulate variable substitution templates to generate dynamic host files tailored to target platform dimensions.</li></ul><div class="lab-section"><h4>Laboratory 9.1</h4><ul><li>Deploy variable definition blocks across an automation runbook to customize task outcomes across host setups.</li></ul><h4>Laboratory 9.2</h4><ul><li>Build an automated script that extracts running processor counts and memory configurations from target host metadata maps.</li></ul></div></div></div>
+
+<div class="week-block"><div class="week-header"><div class="week-number">Week 10</div><div class="week-duration">4 Hours / Week PACE</div></div><div class="week-topic">Phase 2 Playbook Architecture Strategic Defense Review</div><div class="week-content"><ul><li>Synthesize schema-validated playbooks, file manipulation modules, package state checkers, and captured facts into an automation folder.</li><li>Validate running orchestration blocks against unexpected server configuration drops under monitor views.</li><li>Defend task structure layout strategies before evaluation teams, confirming clear separation between variable keys and module actions.</li></ul><div class="lab-section"><h4>Laboratory 10.1</h4><ul><li>Assemble an integrated service baseline template provisioning basic environment assets on multi-tenant targets.</li></ul><h4>Laboratory 10.2</h4><ul><li>Audit your entire Phase 2 script workspace using automated compliance testing matrices to secure core baseline clearance.</li></ul></div></div></div>
+
+<div class="week-block"><div class="week-header"><div class="week-number">Week 11</div><div class="week-duration">4 Hours / Week PACE</div></div><div class="week-topic">Task Conditional Mechanics &amp; Execution Branch Triggers</div><div class="week-content"><ul><li>Formulate task routing logic based on exact fact parameters evaluated at configuration runtimes.</li><li>Design conditional task gates that skip irrelevant configuration blocks when target environments mismatch definitions.</li><li>Evaluate complex evaluation statements stringing multiple property checks together inside single execution rules.</li></ul><div class="lab-section"><h4>Laboratory 11.1</h4><ul><li>Build a conditional configuration playbook that applies distinct configuration tasks based on remote target system family names.</li></ul><h4>Laboratory 11.2</h4><ul><li>Deploy complex multi-variable checking gates to prevent task execution on non-compliant node configurations.</li></ul></div></div></div>
+
+<div class="week-block"><div class="week-header"><div class="week-number">Week 12</div><div class="week-duration">4 Hours / Week PACE</div></div><div class="week-topic">Condition-Triggered Event Handlers &amp; Optimization Blocks</div><div class="week-content"><ul><li>Analyze condition-triggered event systems designed to drop background service updates only upon explicit file modifications.</li><li>Evaluate task notification boundaries to prevent runaway redundant daemon restarts during massive deployment waves.</li><li>Structure logical task groupings wrapping shared dependency parameters inside uniform error boundary lines.</li></ul><div class="lab-section"><h4>Laboratory 12.1</h4><ul><li>Construct a script path utilizing event listeners to trigger a web processor reload only when configuration files update.</li></ul><h4>Laboratory 12.2</h4><ul><li>Deploy task block configurations separating file verification setups cleanly from secondary error recovery lines.</li></ul></div></div></div>
+
+<div class="week-block"><div class="week-header"><div class="week-number">Week 13</div><div class="week-duration">4 Hours / Week PACE</div></div><div class="week-topic">Atomic Role Separation &amp; Directory Matrix Standards</div><div class="week-content"><ul><li>Deconstruct complex single-file script layouts into modular directory networks matching standard layout structures.</li><li>Map data pathways ensuring clean separation between role tasks, default variable values, configuration templates, and metadata files.</li><li>Structure reusable role units that execute independent infrastructure configurations without relying on parent script variables.</li></ul><div class="lab-section"><h4>Laboratory 13.1</h4><ul><li>Refactor a large monolithic orchestration playbook into an organized, role-separated directory infrastructure matrix.</li></ul><h4>Laboratory 13.2</h4><ul><li>Build isolated sub-roles containing uniform default variables that run cleanly across distinct server configurations.</li></ul></div></div></div>
+
+<div class="week-block"><div class="week-header"><div class="week-number">Week 14</div><div class="week-duration">4 Hours / Week PACE</div></div><div class="week-topic">Local Secrets Vault Encapsulation &amp; Task Hardening</div><div class="week-content"><ul><li>Isolate high-value system tokens from cleartext script repositories using localized encryption vaults.</li><li>Configure runtime key integration paths to inject protected parameters safely into target execution tasks.</li><li>Enforce secure output parameters to completely prevent sensitive credential keys from bleeding into open pipeline log archives.</li></ul><div class="lab-section"><h4>Laboratory 14.1</h4><ul><li>Build an encrypted role asset storage layout locking host database root passwords behind strong vault hashes.</li></ul><h4>Laboratory 14.2</h4><ul><li>Execute an automated configuration run that uses encrypted variables while keeping pipeline logging streams free of exposed keys.</li></ul></div></div></div>
+
+<div class="week-block"><div class="week-header"><div class="week-number">Week 15</div><div class="week-duration">4 Hours / Week PACE</div></div><div class="week-topic">Phase 3 Role Modularization Milestone Strategic Review</div><div class="week-content"><ul><li>Compile condition-triggered event tasks, clean role directory nets, and encrypted secret data buckets into a single portfolio collection.</li><li>Validate role decoupling strategies under rigorous parameter mutation testing passes.</li><li>Defend variable management rules to validation teams, proving how role default setups can be safely overridden.</li></ul><div class="lab-section"><h4>Laboratory 15.1</h4><ul><li>Assemble a secure, role-based infrastructure provisioning package capable of standing up standardized runtime services.</li></ul><h4>Laboratory 15.2</h4><ul><li>Run end-to-end integration audits over your entire role portfolio collection to verify compliance bounds before phase completion.</li></ul></div></div></div>
+
+<div class="week-block"><div class="week-header"><div class="week-number">Week 16</div><div class="week-duration">4 Hours / Week PACE</div></div><div class="week-topic">Dynamic Template Orchestration &amp; Jinja2 Abstractions</div><div class="week-content"><ul><li>Analyze dynamic text file generation frameworks using Jinja2 abstraction engines to compile configuration files programmatically.</li><li>Formulate advanced logic checks and loop statements inside configuration files to process host specific values.</li><li>Optimize infrastructure mapping arrays to accurately generate custom service definitions based on dynamic inventory arrays.</li></ul><div class="lab-section"><h4>Laboratory 16.1</h4><ul><li>Build a dynamic template layout that auto-generates custom gateway properties files for remote nodes based on server specifications.</li></ul><h4>Laboratory 16.2</h4><ul><li>Deploy loop logic blocks inside configuration templates to compile real-time host tracking lists automatically.</li></ul></div></div></div>
+
+<div class="week-block"><div class="week-header"><div class="week-number">Week 17</div><div class="week-duration">4 Hours / Week PACE</div></div><div class="week-topic">Multi-Tier Stack Architecture: Database Provisioning Lines</div><div class="week-content"><ul><li>Design declarative playbooks to deploy relational database engine backplanes cleanly on isolated server nodes.</li><li>Configure secure runtime authentication frameworks, custom database instances, and dedicated service management access boundaries.</li><li>Formulate state verification rules ensuring database configurations are hardened before connection lines open.</li></ul><div class="lab-section"><h4>Laboratory 17.1</h4><ul><li>Build an automated playbook that provisions a structured SQL database engine, establishes schemas, and locks down root privileges.</li></ul><h4>Laboratory 17.2</h4><ul><li>Deploy automated validation checks confirming that application databases drop unencrypted communication requests natively.</li></ul></div></div></div>
+
+<div class="week-block"><div class="week-header"><div class="week-number">Week 18</div><div class="week-duration">4 Hours / Week PACE</div></div><div class="week-topic">Multi-Tier Stack Architecture: Web Processing Tiers</div><div class="week-content"><ul><li>Design automation layers to configure and optimize frontend web processing proxies across target endpoints.</li><li>Integrate dynamic upstream routing profiles linking frontend proxy systems safely with backend database engines.</li><li>Formulate automated host configuration tasks that inject application asset bundles into active processing directories.</li></ul><div class="lab-section"><h4>Laboratory 18.1</h4><ul><li>Orchestrate a web tier playbook provisioning an Nginx or Apache server proxy and mapping routing configurations via code.</li></ul><h4>Laboratory 18.2</h4><ul><li>Deploy a code delivery playbook that updates frontend application assets and reloads tracking services with zero user interruption.</li></ul></div></div></div>
+
+<div class="week-block"><div class="week-header"><div class="week-number">Week 19</div><div class="week-duration">4 Hours / Week PACE</div></div><div class="week-topic">Continuous Error Optimization &amp; Configuration Drift Triage</div><div class="week-content"><ul><li>Analyze execution block monitoring paradigms to isolate, intercept, and process unexpected connection drops or missing resources.</li><li>Evaluate runtime failure parameters to execute cleanup runbooks automatically upon encountering validation defects.</li><li>Structure state tracking metrics to quickly report host alignment issues against defined golden state configurations.</li></ul><div class="lab-section"><h4>Laboratory 19.1</h4><ul><li>Build an enterprise playbook running block-rescue modules to intercept task execution issues and execute clean rollbacks automatically.</li></ul><h4>Laboratory 19.2</h4><ul><li>Deploy a drift assessment suite that sweeps target server nodes and highlights unvetted configuration variances natively.</li></ul></div></div></div>
+
+<div class="week-block"><div class="week-header"><div class="week-number">Week 20</div><div class="week-duration">4 Hours / Week PACE</div></div><div class="week-topic">Phase 4 Grand Fundamental Capstone Board Validation</div><div class="week-content"><ul><li>Synthesize local control plane configs, lint-checked playbooks, decoupled roles, dynamic template maps, and multi-tier stack profiles into a complete project portfolio.</li><li>Validate complete structural system configuration control during an active simulated infrastructure drop drill.</li><li>Defend your infrastructure-as-code repository architecture choices before peer validation groups for official graduation sign-off.</li></ul><div class="lab-section"><h4>Laboratory 20.1</h4><ul><li>Assemble an entire multi-tier enterprise web application infrastructure stack (Frontend Web + Backend DB) entirely via decoupled automation roles.</li></ul><h4>Laboratory 20.2</h4><ul><li>Complete strategic defense mapping, project repository presentation, and peer assessment board validation to achieve core professional certification status.</li></ul></div></div></div>
+
+</div><div class="section"><h2 class="section-title">Strategic Executive Milestones</h2>
+
+<div class="project-card"><h4>Project 1: Control Plane &amp; Ad-Hoc Infrastructure Bootstrap</h4><p>Deliver an operational local control plane managing an inventory grid of authenticated endpoints without passwords.</p><ul><li>Configure clean, reproducible terminal execution platforms using dedicated dependency paths.</li><li>Establish non-interactive cryptographic key associations across multiple isolated simulation target nodes.</li><li>Execute complex ad-hoc operational scripts globally across separated host groups to prove system inventory control.</li></ul></div>
+
+<div class="project-card"><h4>Project 2: Verified Declarative Application Baseline Build</h4><p>Construct a multi-play validation playbook that manages files, packages, and system daemons cleanly.</p><ul><li>Enforce strict text alignment verification standards using automated schema checks to eliminate syntax errors.</li><li>Deploy state management tasks that handle software installations and background tracking services uniformly.</li><li>Ingest remote target server hardware metadata variables to dynamically configure remote node settings.</li></ul></div>
+
+<div class="project-card"><h4>Project 3: Hardened Role-Separated Architecture Portfolio</h4><p>Refactor monolithic operational playbooks into a professional directory structure running event-driven handlers.</p><ul><li>Decouple multi-tier deployment scripts into atomic standalone sub-roles passing strict validation boundaries.</li><li>Embed condition-triggered notification triggers ensuring background engines only reload upon explicit template modifications.</li><li>Lock sensitive system registration parameters inside encrypted vault buckets separating administrative scopes securely.</li></ul></div>
+
+</div>
+<footer class="footer"><p><strong>Hexadigitall</strong> • Empowering Digital Futures</p><p style="margin-top: 0.5rem; font-size: 0.9rem;">Visit <a href="https://hexadigitall.com">hexadigitall.com</a> to enroll</p></footer>
+</div>
+</body>
+</html>

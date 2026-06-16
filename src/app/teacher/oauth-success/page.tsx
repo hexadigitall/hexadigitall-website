@@ -123,7 +123,7 @@ export default function TeacherOAuthSuccessPage() {
           role: data.role,
           userId: data.userId,
         }))
-        document.cookie = `admin_token=${encodeURIComponent(data.token)}; Path=/; Max-Age=86400; SameSite=Lax`
+        document.cookie = `admin_token=${data.token}; Path=/; Max-Age=86400; SameSite=Lax`
         window.location.assign('/teacher/dashboard')
       } catch {
         if (mounted) {

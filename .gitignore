@@ -54,3 +54,15 @@ __pycache__/
 
 # Temp working files
 tmp/
+
+# Old node modules
+node_modules_old/
+
+# WS proxy build
+ws-proxy/ws-proxy/node_modules/
+
+# Windows zone identifier files
+*:Zone.Identifier
+
+# Temp docs files
+~$*.docs
