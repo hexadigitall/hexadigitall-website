@@ -73,7 +73,9 @@ export async function GET(
     return new NextResponse('OK', { status: 200 });
   }
 
-  const content = readFileSync(filePath, 'utf-8');
+  let content = readFileSync(filePath, 'utf-8');
+  // Rewrite relative asset paths from textbooks (e.g. ../../../assets/) to the API route
+  content = content.replace(/(src|href)=["'](\.\.\/)+(assets\/)/g, '$1="/api/reader/$3');
   return new NextResponse(content, {
     status: 200,
     headers: {
