@@ -69,13 +69,10 @@ export default function StoreCatalog({ books: initialBooks, authors, user }: Sto
 
       if (isDashboardContext) {
         if (isTeacher) {
-          // Teacher sees all textbooks (available and pending)
-          // If there are two versions, show both
-          if (book.hasTeacherVersion && book.hasStudentVersion) {
+          // Teacher only sees teacher edition (or single edition if no teacher version)
+          if (book.hasTeacherVersion) {
             list.push({ ...book, _displayVariant: 'teacher' });
-            list.push({ ...book, _displayVariant: 'student' });
           } else {
-            // Single edition (could be just teacher or just student, treat as the 'single' complimentary for teacher)
             list.push({ ...book, _displayVariant: 'single' });
           }
         } else if (isStudent) {

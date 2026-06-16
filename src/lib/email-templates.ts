@@ -306,7 +306,7 @@ export const createNewsletterWelcomeTemplate = () => {
   return createEmailWrapper(content);
 };
 
-export const createPublicationDeliveryTemplate = (data: { publicationTitle: string; accessUrl: string; reference: string }) => {
+export const createPublicationDeliveryTemplate = (data: { publicationTitle: string; accessUrl: string; reference: string; isDownloadLink?: boolean; expiryHours?: string }) => {
   const content = `
     ${createEmailHeader('Your Digital Asset is Ready! 📚', `Access ${data.publicationTitle}`, '#0A4D68')}
     
@@ -320,8 +320,23 @@ export const createPublicationDeliveryTemplate = (data: { publicationTitle: stri
         <h3 style="color: #0A4D68; margin: 0 0 15px 0;">${data.publicationTitle}</h3>
         <p style="color: #495057; margin-bottom: 25px;">Click the button below to access your digital assets and download your files.</p>
         
-        <a href="${data.accessUrl}" style="display: inline-block; background: #0A4D68; color: white; padding: 15px 30px; text-decoration: none; border-radius: 8px; font-weight: 600; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">Access My Library</a>
+        <a href="${data.accessUrl}" style="display: inline-block; background: #0A4D68; color: white; padding: 15px 30px; text-decoration: none; border-radius: 8px; font-weight: 600; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">${data.isDownloadLink ? 'Download Textbook (PDF)' : 'Access My Library'}</a>
       </div>
+      
+      ${data.isDownloadLink ? `
+      <div style="background: #fff8e1; border: 1px solid #ffe082; padding: 15px; border-radius: 8px; margin-bottom: 25px; text-align: center;">
+        <p style="margin: 0; color: #e65100; font-size: 14px;">
+          <strong>⚠️ This download link will expire in ${data.expiryHours || '48'} hours.</strong>
+        </p>
+        <p style="margin: 5px 0 0 0; color: #bf360c; font-size: 13px;">Please download your files before then. Do not share this link.</p>
+      </div>
+      ` : `
+      <div style="background: #e8f5e9; border: 1px solid #a5d6a7; padding: 15px; border-radius: 8px; margin-bottom: 25px; text-align: center;">
+        <p style="margin: 0; color: #2e7d32; font-size: 14px;">
+          <strong>Your purchase has been recorded in your account library.</strong>
+        </p>
+      </div>
+      `}
       
       <div style="font-size: 14px; color: #6c757d; text-align: center; border-top: 1px solid #e9ecef; padding-top: 20px;">
         <p style="margin: 0 0 5px 0;">Reference: <strong style="font-family: monospace;">${data.reference}</strong></p>

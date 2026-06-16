@@ -64,27 +64,28 @@ export default function BookCard({ book, highlightTerm = '', user, isDashboardCo
   // @ts-ignore - added in StoreCatalog expansion
   const variant = book._displayVariant as 'teacher' | 'student' | 'single' | undefined;
   const isTeacher = user?.role === 'teacher' || user?.role === 'instructor' || user?.role === 'admin'
+  // Teachers always see teacher edition; students always see student edition
+  const effectiveVariant = variant || (isTeacher ? 'teacher' : 'student')
 
   const resolvedPrice = useMemo(() => {
     return resolveBookPrice({
         slug: book.slug.current,
         _type: book._type,
-        // Ensure variant is passed so teacher markup is applied in utility
-        variant: variant || (isTeacher ? 'teacher' : 'student'),
+        variant: effectiveVariant || 'student',
         relatedCourse: book.relatedCourse as any,
         pricing: book.pricing
     });
-  }, [book, isTeacher, variant]);
+  }, [book, effectiveVariant]);
 
   const rawPrice = useMemo(() => {
     return convertPrice(resolvedPrice.usd);
   }, [resolvedPrice, convertPrice]);
 
   const formattedPrice = useMemo(() => {
-    if (!isDashboardContext || variant === 'teacher') return undefined;
+    if (!isDashboardContext || effectiveVariant === 'teacher') return undefined;
     
     return formatPrice(resolvedPrice.usd);
-  }, [resolvedPrice, formatPrice, isDashboardContext, variant]);
+  }, [resolvedPrice, formatPrice, isDashboardContext, effectiveVariant]);
 
   const handleSaveToDashboard = async () => {
     if (!user?.email) {
@@ -100,7 +101,7 @@ export default function BookCard({ book, highlightTerm = '', user, isDashboardCo
         body: JSON.stringify({
           email: user.email,
           bookId: book._id,
-          audience: variant === 'single' ? 'student' : 'teacher' // Saving the appropriate version
+          audience: effectiveVariant === 'single' ? 'student' : 'teacher'
         })
       })
       
@@ -145,12 +146,10 @@ export default function BookCard({ book, highlightTerm = '', user, isDashboardCo
 
   const displayTitle = () => {
     const base = highlightText(book.title, highlightTerm);
-    if (isDashboardContext && variant === 'teacher') {
+    if (isDashboardContext && effectiveVariant === 'teacher') {
       return <span>{base} <span className="text-amber-500 text-sm block mt-1">(Instructor Edition)</span></span>
     }
-    if (isDashboardContext && variant === 'student' && isTeacher) {
-      return <span>{base} <span className="text-blue-500 text-sm block mt-1">(Student Edition)</span></span>
-    }
+
     return base;
   }
 
@@ -177,7 +176,7 @@ export default function BookCard({ book, highlightTerm = '', user, isDashboardCo
           {/* Floating Category Tag */}
           <div className="absolute top-4 right-4">
             <span className="text-[10px] font-black uppercase tracking-widest bg-black/80 text-white px-3 py-1.5 rounded-full backdrop-blur-md border border-white/10 shadow-lg">
-              {variant === 'teacher' ? 'Instructor Edition' : (variant === 'student' ? 'Student Edition' : (isTextbook ? 'Textbook' : 'Digital Imprint'))}
+              {effectiveVariant === 'teacher' ? 'Instructor Edition' : (isTextbook ? 'Textbook' : 'Digital Imprint')}
             </span>
           </div>
         </div>
@@ -206,7 +205,7 @@ export default function BookCard({ book, highlightTerm = '', user, isDashboardCo
         onClose={() => setDetailsModalOpen(false)}
         book={book}
         user={user}
-        variant={variant}
+        variant={effectiveVariant}
         onSave={handleSaveToDashboard}
         isSaving={isSaving}
         isSaved={isSaved}

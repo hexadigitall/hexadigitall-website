@@ -83,9 +83,9 @@ export default function LibraryView({ userEmail }: { userEmail: string }) {
                   </a>
                 ))}
 
-                {item.type === 'Teacher Edition' && (
+                {item.audience === 'teacher' && (
                   <Link 
-                    href={`/store/${item.slug}/reader`}
+                    href={`/reader/${item.slug}`}
                     className="flex items-center justify-between p-3 rounded-xl bg-amber-50 dark:bg-amber-900/10 text-amber-700 dark:text-amber-500 hover:bg-amber-100 transition-colors border border-amber-200/50"
                   >
                     <span className="text-sm font-bold">Open Webcopy Reader</span>
