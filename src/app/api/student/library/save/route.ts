@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { client } from '@/sanity/client';
+import { writeClient } from '@/sanity/client';
 
 export async function POST(request: Request) {
   try {
@@ -10,7 +10,7 @@ export async function POST(request: Request) {
     }
 
     // Check if access already exists to avoid duplicates
-    const existing = await client.fetch(
+    const existing = await writeClient.fetch(
       `*[_type == "publicationAccessLedger" && customerIdentityHash == $email && purchasedPublicationReference._ref == $bookId && audience == $audience][0]`,
       { email, bookId, audience }
     );
@@ -34,7 +34,7 @@ export async function POST(request: Request) {
       currencySnapshot: 'USD'
     };
 
-    await client.create(doc);
+    await writeClient.create(doc);
 
     return NextResponse.json({ success: true, message: 'Saved to library' });
   } catch (error: any) {
