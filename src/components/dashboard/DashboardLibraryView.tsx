@@ -207,19 +207,7 @@ export default function DashboardLibraryView({ user, userCourses = [] }: Dashboa
                   <div className="mb-4" />
                   
                   <div className="mt-8 pt-6 border-t border-slate-50 dark:border-slate-800 space-y-4">
-                    {item.files?.map((file: any, i: number) => (
-                      <a 
-                        key={i}
-                        href={file.url}
-                        target="_blank"
-                        className="flex items-center justify-between p-4 rounded-2xl hover:bg-slate-50 dark:hover:bg-slate-800 transition-all border border-slate-100 dark:border-slate-800 hover:border-blue-200 dark:hover:border-blue-900/30"
-                      >
-                        <span className="text-sm font-bold text-slate-700 dark:text-slate-300 truncate pr-4">{file.label || 'Download File'}</span>
-                        <ArrowDownTrayIcon className="h-5 w-5 text-slate-400 group-hover:text-blue-600 transition-colors shrink-0" />
-                      </a>
-                    ))}
-
-                    {item.audience === 'teacher' && item.hasTeacherFile && (() => {
+                    {item.audience === 'teacher' && item.hasTeacherFile ? (() => {
                       const progress = item.slug ? getReadingProgress(item.slug) : null;
                       return (
                         <Link 
@@ -232,7 +220,19 @@ export default function DashboardLibraryView({ user, userCourses = [] }: Dashboa
                           <BookOpenIcon className="h-5 w-5 shrink-0" />
                         </Link>
                       );
-                    })()}
+                    })() : (
+                      item.files?.map((file: any, i: number) => (
+                        <a 
+                          key={i}
+                          href={file.url}
+                          target="_blank"
+                          className="flex items-center justify-between p-4 rounded-2xl hover:bg-slate-50 dark:hover:bg-slate-800 transition-all border border-slate-100 dark:border-slate-800 hover:border-blue-200 dark:hover:border-blue-900/30"
+                        >
+                          <span className="text-sm font-bold text-slate-700 dark:text-slate-300 truncate pr-4">{file.label || 'Download File'}</span>
+                          <ArrowDownTrayIcon className="h-5 w-5 text-slate-400 group-hover:text-blue-600 transition-colors shrink-0" />
+                        </a>
+                      ))
+                    )}
                   </div>
                 </div>
               ))}
