@@ -60,8 +60,22 @@ export default function StudentDashboardPage() {
   const [curriculumLoading, setCurriculumLoading] = useState<string | null>(null)
   const [photoUrl, setPhotoUrl] = useState<string | null>(null)
   const [photoUploading, setPhotoUploading] = useState(false)
-  const [activeTab, setActiveTab] = useState<'courses' | 'library'>('courses')
+  const [activeTab, setActiveTab] = useState<'courses' | 'library'>(() => {
+    if (typeof window !== 'undefined') {
+      const saved = sessionStorage.getItem('student_dashboard_tab');
+      if (saved === 'courses' || saved === 'library') return saved;
+    }
+    return 'courses';
+  })
   const photoInputRef = useRef<HTMLInputElement>(null)
+
+  useEffect(() => {
+    sessionStorage.setItem('student_dashboard_tab', activeTab);
+  }, [activeTab]);
+
+  useEffect(() => {
+    if (!loading) window.scrollTo(0, 0);
+  }, [loading]);
 
   useEffect(() => {
     const checkAuth = async () => {

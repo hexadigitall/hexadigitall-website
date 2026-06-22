@@ -97,8 +97,22 @@ export default function TeacherDashboardPage() {
   const [copyMessage, setCopyMessage] = useState<string | null>(null)
   const [photoUrl, setPhotoUrl] = useState<string | null>(null)
   const [photoUploading, setPhotoUploading] = useState(false)
-  const [activeTab, setActiveTab] = useState<'overview' | 'library'>('overview')
+  const [activeTab, setActiveTab] = useState<'overview' | 'library'>(() => {
+    if (typeof window !== 'undefined') {
+      const saved = sessionStorage.getItem('teacher_dashboard_tab');
+      if (saved === 'overview' || saved === 'library') return saved;
+    }
+    return 'overview';
+  })
   const photoInputRef = useRef<HTMLInputElement>(null)
+
+  useEffect(() => {
+    sessionStorage.setItem('teacher_dashboard_tab', activeTab);
+  }, [activeTab]);
+
+  useEffect(() => {
+    if (!loading) window.scrollTo(0, 0);
+  }, [loading]);
 
   useEffect(() => {
     const checkAuth = async () => {

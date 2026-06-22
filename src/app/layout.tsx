@@ -16,6 +16,7 @@ import SEOStructuredData from '@/components/SEOStructuredData';
 import { QuickContactFAB } from '@/components/ui/FloatingCTA';
 import StartupFunnelClient from '@/components/marketing/StartupFunnelClient';
 import { ThemeProvider } from '@/contexts/ThemeContext'
+import ScrollRestore from '@/components/ui/ScrollRestore'
 import NextAuthProvider from '@/providers/NextAuthProvider';
 
 // ✅ Enhanced metadata for SEO and accessibility
@@ -208,6 +209,8 @@ export default function RootLayout({
                 {children}
               </main>
               <Footer />
+              {/* Global scroll restoration (prevents refresh jumping to footer) */}
+              <ScrollRestore />
               {/* Global funnel tracker (client-only) */}
               <StartupFunnelClient />
               {/* Floating CTA for conversion optimization */}
