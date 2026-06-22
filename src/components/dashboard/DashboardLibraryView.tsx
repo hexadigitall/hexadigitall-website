@@ -1,10 +1,31 @@
 'use client';
 
 import React, { useEffect, useState, useMemo } from 'react';
-import { BookmarkIcon, ArrowDownTrayIcon, BookOpenIcon, MagnifyingGlassIcon, FunnelIcon } from '@heroicons/react/24/outline';
+import { BookmarkIcon, ArrowDownTrayIcon, BookOpenIcon, MagnifyingGlassIcon, FunnelIcon, ClockIcon } from '@heroicons/react/24/outline';
 import Link from 'next/link';
 import BookCard from '@/app/store/BookCard';
 import { type BookSummary } from '@/lib/book-queries';
+
+const PROGRESS_KEY_PREFIX = 'reader_progress_';
+
+function getReadingProgress(slug: string): { scrollY: number; timestamp: number; title: string } | null {
+  try {
+    const raw = localStorage.getItem(PROGRESS_KEY_PREFIX + slug);
+    if (raw) return JSON.parse(raw);
+  } catch { /* ignore */ }
+  return null;
+}
+
+function formatTimeAgo(ts: number): string {
+  const diff = Date.now() - ts;
+  const mins = Math.floor(diff / 60000);
+  if (mins < 1) return 'Just now';
+  if (mins < 60) return `${mins}m ago`;
+  const hrs = Math.floor(mins / 60);
+  if (hrs < 24) return `${hrs}h ago`;
+  const days = Math.floor(hrs / 24);
+  return `${days}d ago`;
+}
 
 interface DashboardLibraryViewProps {
   user: {
@@ -174,9 +195,16 @@ export default function DashboardLibraryView({ user, userCourses = [] }: Dashboa
                       {new Date(item.acquiredAt).toLocaleDateString()}
                     </span>
                   </div>
-                  <h3 className="text-xl font-bold text-slate-900 dark:text-white leading-tight mb-4 flex-grow font-serif">
+                  <h3 className="text-xl font-bold text-slate-900 dark:text-white leading-tight font-serif">
                     {item.title}
                   </h3>
+                  {item.slug && getReadingProgress(item.slug) && (
+                    <p className="text-[10px] text-amber-500 font-mono font-bold uppercase tracking-widest mt-1.5 flex items-center gap-1.5">
+                      <ClockIcon className="h-3 w-3" />
+                      Last read {formatTimeAgo(getReadingProgress(item.slug)!.timestamp)}
+                    </p>
+                  )}
+                  <div className="mb-4" />
                   
                   <div className="mt-8 pt-6 border-t border-slate-50 dark:border-slate-800 space-y-4">
                     {item.files?.map((file: any, i: number) => (
@@ -191,15 +219,20 @@ export default function DashboardLibraryView({ user, userCourses = [] }: Dashboa
                       </a>
                     ))}
 
-                    {item.audience === 'teacher' && item.hasTeacherFile && (
-                      <Link 
-                        href={`/reader/${item.slug}`}
-                        className="flex items-center justify-between p-4 rounded-2xl bg-slate-950 dark:bg-blue-600 text-white hover:scale-[1.02] transition-all shadow-lg"
-                      >
-                        <span className="text-sm font-black uppercase tracking-widest">Open Reader</span>
-                        <BookOpenIcon className="h-5 w-5 shrink-0" />
-                      </Link>
-                    )}
+                    {item.audience === 'teacher' && item.hasTeacherFile && (() => {
+                      const progress = item.slug ? getReadingProgress(item.slug) : null;
+                      return (
+                        <Link 
+                          href={`/reader/${item.slug}`}
+                          className="flex items-center justify-between p-4 rounded-2xl bg-slate-950 dark:bg-blue-600 text-white hover:scale-[1.02] transition-all shadow-lg"
+                        >
+                          <span className="flex items-center gap-2 text-sm font-black uppercase tracking-widest">
+                            {progress ? <><ClockIcon className="h-4 w-4" /> Continue Reading</> : 'Open Reader'}
+                          </span>
+                          <BookOpenIcon className="h-5 w-5 shrink-0" />
+                        </Link>
+                      );
+                    })()}
                   </div>
                 </div>
               ))}

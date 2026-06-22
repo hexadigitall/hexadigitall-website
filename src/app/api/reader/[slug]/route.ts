@@ -76,6 +76,11 @@ export async function GET(
   let content = readFileSync(filePath, 'utf-8');
   // Rewrite relative asset paths from textbooks (e.g. ../../../assets/) to the API route
   content = content.replace(/(src|href)=["'](\.\.\/)+(assets\/)/g, '$1="/api/reader/$3');
+  // Inject reading-progress script
+  const progressScript = `<script>
+(function(){var lastY=0,a=!1;function b(){var c=window.scrollY||window.pageYOffset;c!==lastY&&(lastY=c,window.parent.postMessage({type:"reader-scroll",scrollY:c,slug:"${slug}"},"*")),a=!1}window.addEventListener("scroll",function(){a||(window.requestAnimationFrame(b),a=!0)}),window.addEventListener("message",function(c){c.data&&"restore-scroll"===c.data.type&&window.scrollTo(0,c.data.scrollY)}),window.parent.postMessage({type:"reader-ready",slug:"${slug}"},"*")})();
+<\/script>`;
+  content = content.replace('</body>', progressScript + '</body>');
   return new NextResponse(content, {
     status: 200,
     headers: {

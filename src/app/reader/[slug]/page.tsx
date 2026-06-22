@@ -1,11 +1,13 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef, useCallback } from 'react';
 import { ArrowLeftIcon } from '@heroicons/react/24/outline';
 import Link from 'next/link';
 import { useParams } from 'next/navigation';
 
 type AuthState = 'loading' | 'authorized' | 'unauthorized' | 'unavailable';
+
+const PROGRESS_KEY_PREFIX = 'reader_progress_';
 
 function getAdminTokenClaim(): { role?: string } | null {
   try {
@@ -26,7 +28,13 @@ export default function SecureWebReaderPage() {
   const slug = params?.slug as string;
 
   const [state, setState] = useState<AuthState>('loading');
-  const [title, setTitle] = useState(slug || '');
+  const iframeRef = useRef<HTMLIFrameElement>(null);
+  const savedRef = useRef(false);
+
+  const formatTitle = (s: string) =>
+    s.replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
+
+  const [title, setTitle] = useState(formatTitle(slug || ''));
 
   useEffect(() => {
     if (!slug) return;
@@ -54,6 +62,41 @@ export default function SecureWebReaderPage() {
       setState('authorized');
     })();
   }, [slug]);
+
+  const handleMessage = useCallback((e: MessageEvent) => {
+    if (e.data?.slug !== slug) return;
+
+    if (e.data.type === 'reader-scroll') {
+      try {
+        localStorage.setItem(PROGRESS_KEY_PREFIX + slug, JSON.stringify({
+          scrollY: e.data.scrollY,
+          timestamp: Date.now(),
+          title,
+        }));
+      } catch { /* quota exceeded, ignore */ }
+    }
+
+    if (e.data.type === 'reader-ready') {
+      try {
+        const saved = localStorage.getItem(PROGRESS_KEY_PREFIX + slug);
+        if (saved) {
+          const parsed = JSON.parse(saved);
+          if (typeof parsed.scrollY === 'number' && !savedRef.current) {
+            savedRef.current = true;
+            iframeRef.current?.contentWindow?.postMessage(
+              { type: 'restore-scroll', scrollY: parsed.scrollY },
+              '*'
+            );
+          }
+        }
+      } catch { /* ignore */ }
+    }
+  }, [slug, title]);
+
+  useEffect(() => {
+    window.addEventListener('message', handleMessage);
+    return () => window.removeEventListener('message', handleMessage);
+  }, [handleMessage]);
 
   if (state === 'loading') {
     return (
@@ -103,7 +146,7 @@ export default function SecureWebReaderPage() {
             <ArrowLeftIcon className="h-5 w-5" />
           </Link>
           <div>
-            <h1 className="font-bold text-lg text-slate-100">{title || slug}</h1>
+            <h1 className="font-bold text-lg text-slate-100">{title}</h1>
             <p className="text-[10px] text-blue-400 font-mono tracking-widest uppercase mt-0.5">Instructor Secure Webcopy</p>
           </div>
         </div>
@@ -111,9 +154,10 @@ export default function SecureWebReaderPage() {
       </div>
       <div className="flex-1 w-full bg-slate-950 overflow-hidden relative">
         <iframe 
+          ref={iframeRef}
           src={`/api/reader/${slug}`}
           className="absolute inset-0 w-full h-full border-none"
-          title={`${title || slug} Webcopy`}
+          title={`${title} Webcopy`}
         />
       </div>
     </div>

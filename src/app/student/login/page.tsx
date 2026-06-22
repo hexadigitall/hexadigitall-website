@@ -78,6 +78,7 @@ export default function StudentLoginPage() {
           name: data.name,
           role: data.role,
           userId: data.userId,
+          email: data.email,
         }))
         // Cookie is also set by the server response. Keep client set as a fallback.
         document.cookie = `admin_token=${data.token}; Path=/; Max-Age=86400; SameSite=Lax`

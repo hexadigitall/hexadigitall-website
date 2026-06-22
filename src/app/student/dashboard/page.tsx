@@ -53,7 +53,7 @@ interface Enrollment {
 export default function StudentDashboardPage() {
   const router = useRouter()
   const [loading, setLoading] = useState(true)
-  const [student, setStudent] = useState<{ username: string; name?: string } | null>(null)
+  const [student, setStudent] = useState<{ username: string; email?: string; name?: string } | null>(null)
   const [sessionRole, setSessionRole] = useState<string | null>(null)
   const [enrollments, setEnrollments] = useState<Enrollment[]>([])
   const [paymentLoading, setPaymentLoading] = useState<string | null>(null)
@@ -82,7 +82,7 @@ export default function StudentDashboardPage() {
         setSessionRole(data.role)
 
         const sessionData = JSON.parse(session)
-        setStudent({ username: sessionData.username, name: data.name || sessionData.name })
+        setStudent({ username: sessionData.username, name: data.name || sessionData.name, email: data.email || sessionData.email })
         setPhotoUrl(data.profilePhotoUrl || null)
 
         await fetchEnrollments(token)
@@ -483,7 +483,7 @@ export default function StudentDashboardPage() {
                       <BookCard 
                         book={book} 
                         isDashboardContext={true} 
-                        user={student ? { role: 'student', email: student.username } : undefined} 
+                        user={student ? { role: 'student', email: student.email || student.username } : undefined} 
                       />
                     </div>
                   ))}
@@ -690,7 +690,7 @@ export default function StudentDashboardPage() {
           </>
         ) : activeTab === 'library' ? (
           <DashboardLibraryView 
-            user={{ role: sessionRole || 'student', email: student?.username || '', username: student?.username, name: student?.name }} 
+            user={{ role: sessionRole || 'student', email: student?.email || student?.username || '', username: student?.username, name: student?.name }} 
             userCourses={enrollments}
           />
         ) : (

@@ -62,6 +62,7 @@ export async function POST() {
     name: user.name,
     role: user.role,
     profilePhotoUrl: user.profilePhotoUrl,
+    email: user.email,
   })
 
   response.cookies.set('admin_token', sessionToken, {

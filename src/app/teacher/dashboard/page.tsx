@@ -88,7 +88,7 @@ interface AssessmentAttemptSnapshot {
 export default function TeacherDashboardPage() {
   const router = useRouter()
   const [loading, setLoading] = useState(true)
-  const [teacher, setTeacher] = useState<{ username: string; name?: string } | null>(null)
+  const [teacher, setTeacher] = useState<{ username: string; email?: string; name?: string } | null>(null)
   const [sessionRole, setSessionRole] = useState<string | null>(null)
   const [courses, setCourses] = useState<Course[]>([])
   const [students, setStudents] = useState<Student[]>([])
@@ -119,7 +119,7 @@ export default function TeacherDashboardPage() {
         setSessionRole(data.role)
 
         const sessionData = JSON.parse(session)
-        setTeacher({ username: sessionData.username, name: data.name || sessionData.name })
+        setTeacher({ username: sessionData.username, name: data.name || sessionData.name, email: data.email || sessionData.email })
         setPhotoUrl(data.profilePhotoUrl || null)
 
         // Fetch courses and students
@@ -443,7 +443,7 @@ export default function TeacherDashboardPage() {
                       <BookCard 
                         book={book} 
                         isDashboardContext={true} 
-                        user={teacher ? { role: 'teacher', email: teacher.username } : undefined} 
+                        user={teacher ? { role: 'teacher', email: teacher.email || teacher.username } : undefined} 
                       />
                     </div>
                   ))}
@@ -738,7 +738,7 @@ export default function TeacherDashboardPage() {
           </>
         ) : activeTab === 'library' ? (
           <DashboardLibraryView 
-            user={{ role: sessionRole || 'teacher', email: teacher?.username || '', username: teacher?.username, name: teacher?.name }} 
+            user={{ role: sessionRole || 'teacher', email: teacher?.email || teacher?.username || '', username: teacher?.username, name: teacher?.name }} 
             userCourses={courses}
           />
         ) : (
