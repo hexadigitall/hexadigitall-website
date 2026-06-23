@@ -4,6 +4,7 @@ import { createContext, useContext, useState, useCallback, useEffect, useRef } f
 import { TEMPLATES, getDefaultWidgetsForTemplate } from '@/data/homepageTemplates'
 
 const LS_CONFIG_KEY = 'hexadigitall_homepage_config'
+const LS_CLASSIC_KEY = 'hexadigitall_classic_view'
 
 let widgetCounter = 0
 function generateWidgetId(): string {
@@ -38,6 +39,7 @@ interface HomepageContextValue {
   userRole: UserRole
   showOnboarding: boolean
   isDeciding: boolean
+  showClassicHomepage: boolean
 
   setTemplate: (templateId: string) => void
   setIsDeciding: (deciding: boolean) => void
@@ -47,6 +49,7 @@ interface HomepageContextValue {
   moveWidget: (widgetId: string, direction: 'up' | 'down') => void
   setIsEditing: (editing: boolean) => void
   setShowOnboarding: (show: boolean) => void
+  toggleClassicHomepage: () => void
   save: () => Promise<void>
   resetToTemplate: (templateId?: string) => void
   clearConfig: () => void
@@ -169,6 +172,10 @@ export function HomepageProvider({ children }: { children: React.ReactNode }) {
   })
   const [userRole, setUserRole] = useState<UserRole>(() => detectUserRole())
   const [isDeciding, setIsDeciding] = useState(false)
+  const [showClassicHomepage, setShowClassicHomepage] = useState(() => {
+    if (typeof window === 'undefined') return false
+    return localStorage.getItem(LS_CLASSIC_KEY) === 'true'
+  })
   const initialized = useRef(false)
 
   const template = config?.template ?? null
@@ -349,6 +356,14 @@ export function HomepageProvider({ children }: { children: React.ReactNode }) {
     [config, updateAndPersist]
   )
 
+  const toggleClassicHomepage = useCallback(() => {
+    setShowClassicHomepage((prev) => {
+      const next = !prev
+      localStorage.setItem(LS_CLASSIC_KEY, next ? 'true' : 'false')
+      return next
+    })
+  }, [])
+
   const clearConfig = useCallback(async () => {
     setConfig(null)
     if (typeof window !== 'undefined') {
@@ -380,6 +395,7 @@ export function HomepageProvider({ children }: { children: React.ReactNode }) {
         userRole,
         showOnboarding,
         isDeciding,
+        showClassicHomepage,
         setTemplate,
         setIsDeciding,
         addWidget,
@@ -388,6 +404,7 @@ export function HomepageProvider({ children }: { children: React.ReactNode }) {
         moveWidget,
         setIsEditing,
         setShowOnboarding,
+        toggleClassicHomepage,
         save,
         resetToTemplate,
         clearConfig,

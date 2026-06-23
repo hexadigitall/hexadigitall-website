@@ -8,7 +8,7 @@ import { HeroBanner } from './HeroBanner'
 import { DecidingView } from './DecidingView'
 
 export function PersonalHomepage() {
-  const { isLoading, showOnboarding, isDeciding, template, config } = useHomepage()
+  const { isLoading, showOnboarding, isDeciding, template, config, toggleClassicHomepage } = useHomepage()
 
   if (isLoading) {
     return (
@@ -29,14 +29,30 @@ export function PersonalHomepage() {
       ) : (
         <>
       <div className="mb-6 sm:mb-8">
-        <h1 className="text-xl sm:text-2xl md:text-3xl font-bold text-gray-900 dark:text-slate-100">
-          {template
-            ? TemplatesLabel[template] || 'My Homepage'
-            : 'My Homepage'}
-        </h1>
-        <p className="text-xs sm:text-sm text-gray-500 dark:text-slate-400 mt-1">
-          Your personalized dashboard. Edit to add or remove widgets.
-        </p>
+        <div className="flex items-start justify-between gap-4">
+          <div>
+            <h1 className="text-xl sm:text-2xl md:text-3xl font-bold text-gray-900 dark:text-slate-100">
+              {template
+                ? TemplatesLabel[template] || 'My Homepage'
+                : 'My Homepage'}
+            </h1>
+            <p className="text-xs sm:text-sm text-gray-500 dark:text-slate-400 mt-1">
+              Your personalized dashboard. Edit to add or remove widgets.
+            </p>
+          </div>
+          <button
+            onClick={toggleClassicHomepage}
+            className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-gray-500 dark:text-slate-400 bg-gray-50 dark:bg-slate-800 border border-gray-200 dark:border-slate-700 rounded-xl hover:text-gray-700 dark:hover:text-slate-200 hover:bg-gray-100 dark:hover:bg-slate-700 transition-colors shrink-0"
+          >
+            Visit Storefront →
+          </button>
+        </div>
+        <button
+          onClick={toggleClassicHomepage}
+          className="sm:hidden mt-2 inline-flex items-center gap-1.5 text-xs font-medium text-gray-500 dark:text-slate-400 hover:text-gray-700 dark:hover:text-slate-200 transition-colors"
+        >
+          Visit Storefront →
+        </button>
       </div>
 
       <EditToolbar />
