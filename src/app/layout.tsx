@@ -10,10 +10,13 @@ import Footer from '@/components/layout/Footer';
 import { CustomBuildResumeBar } from '@/components/services/CustomBuildResumeBar';
 import { CurrencyProvider } from '@/contexts/CurrencyContext';
 import { CustomBuildProvider } from '@/contexts/CustomBuildContext';
+import { HomepageProvider } from '@/contexts/HomepageContext';
 import GoogleAnalytics from '@/components/GoogleAnalytics';
 import AnalyticsTracker from '@/components/AnalyticsTracker';
+import { ActivityTracker } from '@/components/homepage/ActivityTracker';
 import SEOStructuredData from '@/components/SEOStructuredData';
 import { QuickContactFAB } from '@/components/ui/FloatingCTA';
+import { CookieConsentBanner } from '@/components/ui/CookieConsentBanner';
 import StartupFunnelClient from '@/components/marketing/StartupFunnelClient';
 import { ThemeProvider } from '@/contexts/ThemeContext'
 import ScrollRestore from '@/components/ui/ScrollRestore'
@@ -194,8 +197,10 @@ export default function RootLayout({
           <CustomBuildProvider>
             {/* Google Analytics */}
             <GoogleAnalytics />
-            {/* Analytics tracking for admin dashboard */}
-            <AnalyticsTracker />
+              {/* Analytics tracking for admin dashboard */}
+              <AnalyticsTracker />
+              {/* Activity tracker for homepage recent activity widget */}
+              <ActivityTracker />
               
               {/* SEO Structured Data */}
               <SEOStructuredData />
@@ -206,7 +211,9 @@ export default function RootLayout({
               <Header />
               <CustomBuildResumeBar />
               <main id="main-content" role="main" tabIndex={-1}>
-                {children}
+                <HomepageProvider>
+                  {children}
+                </HomepageProvider>
               </main>
               <Footer />
               {/* Global scroll restoration (prevents refresh jumping to footer) */}
@@ -215,6 +222,7 @@ export default function RootLayout({
               <StartupFunnelClient />
               {/* Floating CTA for conversion optimization */}
               <QuickContactFAB />
+              <CookieConsentBanner />
             
             {/* Toast notifications with better accessibility */}
             <Toaster 

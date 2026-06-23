@@ -31,6 +31,7 @@ import imprint from './imprint'
 import simLabDefinition from './simLabDefinition'
 import simScenario from './simScenario'
 import simGradingHint from './simGradingHint'
+import homepageConfig from './homepageConfig'
 
 export const schema: { types: SchemaTypeDefinition[] } = {
   types: [
@@ -64,5 +65,6 @@ export const schema: { types: SchemaTypeDefinition[] } = {
     simLabDefinition,
     simScenario,
     simGradingHint,
+    homepageConfig,
   ],
 }

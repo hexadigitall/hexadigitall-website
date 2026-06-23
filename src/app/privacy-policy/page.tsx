@@ -28,7 +28,7 @@ export default function PrivacyPolicyPage() {
     { name: 'Privacy Policy', url: 'https://hexadigitall.com/privacy-policy' }
   ];
 
-  const lastUpdated = new Date('2025-01-14');
+  const lastUpdated = new Date('2025-06-22');
 
   return (
     <>
@@ -187,9 +187,35 @@ export default function PrivacyPolicyPage() {
                 <li><strong>Marketing Cookies:</strong> Used for targeted advertising (with your consent)</li>
               </ul>
 
-              <h3 className="text-xl font-semibold text-gray-800 mb-3">6.2 Managing Cookies</h3>
+              <h3 className="text-xl font-semibold text-gray-800 mb-3">6.2 Local Storage & Activity Tracking</h3>
               <p className="text-gray-700 leading-relaxed mb-4">
-                You can control cookies through your browser settings. However, disabling certain cookies may limit website functionality.
+                We use browser local storage to power your personalized homepage experience. This includes:
+              </p>
+              <ul className="list-disc list-inside text-gray-700 mb-4 space-y-2">
+                <li><strong>Homepage Configuration:</strong> Your widget layout, selected courses, and preferences are stored to remember your setup across visits.</li>
+                <li><strong>Activity History:</strong> With your consent, we track pages you visit and actions you take (e.g., starting an enrollment, initiating a payment) to provide resume functionality and recently viewed suggestions.</li>
+                <li><strong>Template Preferences:</strong> Your selected homepage template is saved so you see your personalized board on return visits.</li>
+              </ul>
+              <p className="text-gray-700 leading-relaxed mb-4">
+                Activity tracking is optional and only enabled with your explicit consent. You can control this via the cookie consent banner or your account settings.
+              </p>
+
+              <h3 className="text-xl font-semibold text-gray-800 mb-3">6.3 Consent Management</h3>
+              <p className="text-gray-700 leading-relaxed mb-4">
+                Upon your first visit, we display a consent banner allowing you to choose your preferences:
+              </p>
+              <ul className="list-disc list-inside text-gray-700 mb-4 space-y-2">
+                <li><strong>Essential:</strong> Required for basic functionality including authentication, homepage layout, and session management. Always active.</li>
+                <li><strong>Analytics:</strong> Helps us understand how you use our site to improve our services (Google Analytics).</li>
+                <li><strong>Personalization:</strong> Enables activity tracking, resume features, and recently viewed suggestions.</li>
+              </ul>
+              <p className="text-gray-700 leading-relaxed mb-4">
+                You can change your preferences at any time by clearing your browser storage or contacting us.
+              </p>
+
+              <h3 className="text-xl font-semibold text-gray-800 mb-3">6.4 Managing Cookies & Storage</h3>
+              <p className="text-gray-700 leading-relaxed mb-4">
+                You can control cookies and local storage through your browser settings. To delete your saved homepage configuration and activity history, you can clear your account homepage data from your settings or contact us. Disabling certain storage may limit personalized features but will not affect core website functionality.
               </p>
             </section>
 
@@ -229,6 +255,9 @@ export default function PrivacyPolicyPage() {
                 <li>Maintain business records as required by law</li>
               </ul>
               <p className="text-gray-700 leading-relaxed">
+                Homepage configuration data is retained for the duration of your account. If you delete your account, your homepage configuration and associated data are automatically removed.
+              </p>
+              <p className="text-gray-700 leading-relaxed mt-2">
                 When data is no longer needed, we securely delete or anonymize it.
               </p>
             </section>

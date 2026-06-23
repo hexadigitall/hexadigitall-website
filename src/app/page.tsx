@@ -1,13 +1,12 @@
-// src/app/page.tsx
-
 import type { Metadata } from 'next';
 import Script from 'next/script';
 import Hero from '@/components/sections/Hero';
 import FeaturedCourses from '@/components/sections/FeaturedCourses';
-import RecentTextbooks from '@/components/sections/RecentTextbooks';
+import { AvailableInStore } from '@/components/sections/AvailableInStore';
 import WhyChooseUs from '@/components/sections/WhyChooseUs';
 import Testimonials from '@/components/sections/Testimonials';
 import FinalCTA from '@/components/sections/FinalCTA';
+import { AuthDashboardGate } from '@/components/homepage/AuthDashboardGate';
 import { organizationStructuredData, websiteStructuredData, generateStructuredData } from '@/lib/structured-data';
 
 export const metadata: Metadata = {
@@ -41,7 +40,6 @@ export const metadata: Metadata = {
 export default function HomePage() {
   return (
     <>
-      {/* Structured Data for SEO */}
       <Script
         id="org-structured-data"
         type="application/ld+json"
@@ -56,13 +54,15 @@ export default function HomePage() {
           __html: generateStructuredData(websiteStructuredData),
         }}
       />
-      
-      <Hero />
-      <FeaturedCourses id="courses-preview" />
-      <RecentTextbooks />
-      <WhyChooseUs />
-      <Testimonials />
-      <FinalCTA />
+
+      <AuthDashboardGate>
+        <Hero />
+        <FeaturedCourses id="courses-preview" />
+        <AvailableInStore />
+        <WhyChooseUs />
+        <Testimonials />
+        <FinalCTA />
+      </AuthDashboardGate>
     </>
   );
 }
